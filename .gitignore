@@ -575,13 +575,13 @@ fabric.properties
 # This .gitignore file should be placed at the root of your Unity project directory
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
-/[Ll]ibrary/
-/[Tt]emp/
-/[Oo]bj/
-/[Bb]uild/
-/[Bb]uilds/
-/[Ll]ogs/
-/[Uu]ser[Ss]ettings/
+Code/[Ll]ibrary/
+Code/[Tt]emp/
+Code/[Oo]bj/
+Code/[Bb]uild/
+Code/[Bb]uilds/
+Code/[Ll]ogs/
+Code/[Uu]ser[Ss]ettings/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
@@ -855,24 +855,20 @@ $RECYCLE.BIN/
 # Debug files
 *.dSYM/
 
-/Temp
-/Library
-/.idea
-/obj
-/Logs
-/*.csproj
-/.vs
-/.vscode/settings.json
-/ProjectSettings/ProjectVersion.txt
-/*.sln
-.vscode/*
-/Assets/ShaderlabVSCode
-Assets/ShaderlabVSCode.meta
-/Assets/~Test
-/Assets/~Test.meta
-/*.vsconfig
+Code/Temp
+Code/Library
+Code/.idea
+Code/obj
+Code/Logs
+Code/*.csproj
+Code/.vs
+Code/.vscode/settings.json
+Code/ProjectSettings/ProjectVersion.txt
+Code/*.sln
+Code.vscode/*
+Code/*.vsconfig
 .history/*
-/Assets/StreamingAssets/*
-/Assets/StreamingAssets.meta
+Code/Assets/StreamingAssets/*
+Code/Assets/StreamingAssets.meta
 
 StreamingAssets
