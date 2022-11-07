@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Monster : APlayer
+namespace Game
 {
-    public override void Load()
+    public class Monster : APlayer
     {
-        var prefab = Resources.Load<GameObject>("Prefab/Char/Enemy").transform;
-        this.Transform = GameObject.Instantiate(prefab).transform;
-        
-        this.Camp = PlayerType.Enemy;
+        public override void Load()
+        {
+            base.Load();
+            
+            this.Camp = PlayerType.Enemy;
+        }
     }
 }

@@ -1,16 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System;
-using DG.Tweening;
-using Unity.VisualScripting;
 
-public class Hero : APlayer
+namespace Game
 {
-    public override void Load()
+    public class Hero : APlayer
     {
-        var prefab = Resources.Load<GameObject>("Prefab/Char/Player");
-        this.Transform = GameObject.Instantiate(prefab).transform;
-        this.Camp = PlayerType.Hero;
+        public override void Load()
+        {
+            base.Load();
+            this.Camp = PlayerType.Hero;
+        }
     }
+    
 }

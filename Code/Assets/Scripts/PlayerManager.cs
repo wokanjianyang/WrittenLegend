@@ -5,34 +5,33 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour
+namespace Game
 {
-    public static PlayerManager Inst { get; private set; } = null;
-
-    private List<APlayer> allPlayers = null;
-
-    private void Awake()
+    public class PlayerManager : MonoBehaviour
     {
-        DontDestroyOnLoad(this);
-        allPlayers = new List<APlayer>();
-        Inst = this;
-    }
 
+        private List<APlayer> AllPlayers =  new List<APlayer>();
 
-    public void AddPlayer(APlayer player)
-    {
-        player.ID = this.allPlayers.Count;
-        this.allPlayers.Add(player);
-    }
+        public void AddPlayer(APlayer player)
+        {
+            player.ID = this.AllPlayers.Count;
+            this.AllPlayers.Add(player);
+        }
 
-    public List<APlayer> GetPlayersByCamp(PlayerType camp)
-    {
-        return this.allPlayers.FindAll(p => p.Camp == camp && p.IsSurvice);
-    }
+        public List<APlayer> GetAllPlayers()
+        {
+            return this.AllPlayers.FindAll(p => p.IsSurvice);
+        }
 
-    public bool IsCellCanMove(Vector3Int cell)
-    {
-        var allCells = this.allPlayers.Where(p => p.IsSurvice).Select(p => p.Cell).ToList();
-        return !allCells.Contains(cell);
+        public List<APlayer> GetPlayersByCamp(PlayerType camp)
+        {
+            return this.AllPlayers.FindAll(p => p.Camp == camp && p.IsSurvice);
+        }
+
+        public bool IsCellCanMove(Vector3Int cell)
+        {
+            var allCells = this.AllPlayers.Where(p => p.IsSurvice).Select(p => p.Cell).ToList();
+            return !allCells.Contains(cell);
+        }
     }
 }
