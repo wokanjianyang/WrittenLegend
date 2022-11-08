@@ -27,7 +27,7 @@ public class Init : MonoBehaviour
         var homePrefab = Resources.Load<GameObject>("Prefab/Window/Home");
         var home = GameObject.Instantiate(homePrefab);
         home.transform.SetParent(GameObject.Find("Canvas").transform,false);
-        StartCoroutine(IE_DelayAction(1f, () =>
+        StartCoroutine(IE_DelayAction(5f, () =>
         {
             home.gameObject.SetActive(false);
             var game = new GameObject("Game");

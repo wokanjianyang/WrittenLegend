@@ -77,7 +77,8 @@ AP蓝量: mana
 锁定友军施放的: ally-targeted
 锁定敌军施放的: enemy-targeted
 自动寻找目标的: auto-targeted
-定位：近战: melee
+定位：
+近战: melee
 远战: ranged
 战士: bruiser/fighter/off-tank
 重装战士: juggernaut
