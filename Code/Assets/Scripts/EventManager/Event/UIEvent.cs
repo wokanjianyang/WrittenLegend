@@ -1,0 +1,31 @@
+using UnityEngine;
+
+namespace Game
+{
+    public class SetBackgroundColorEvent : SDD.Events.Event
+    {
+        public Color Color { get; set; }
+    }
+    
+    public class SetPlayerNameEvent : SDD.Events.Event
+    {
+        public string Name { get; set; }
+    }
+    
+    public class SetPlayerLevelEvent : SDD.Events.Event
+    {
+        public string Level { get; set; }
+    }
+    
+    
+    public class SetPlayerHPEvent : SDD.Events.Event
+    {
+        public string HP { get; set; }
+    }
+    
+    public class ShowSkillEvent : SDD.Events.Event
+    {
+        public string Name { get; set; }
+    }
+
+}

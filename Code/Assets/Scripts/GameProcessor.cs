@@ -56,6 +56,20 @@ namespace Game
         private void CreateHero()
         {
             this.Hero = new Hero();
+            var coms = this.Hero.Transform.GetComponents<MonoBehaviour>();
+            foreach (var com in coms)
+            {
+                if (com is IPlayer _com)
+                {
+                    _com.SetParent(this.Hero);
+                }
+            }
+            this.Hero.GetComponent<SkillProcessor>().AddSkill(this.Hero,new SkillData()
+            {
+                ID = 10001,
+                Name = "基础剑术",
+                CD = 1
+            });
             this.Hero.SetPosition(new Vector3(0,0),true);
             PlayerManager.AddPlayer(this.Hero);
             
@@ -75,6 +89,7 @@ namespace Game
                 switch (this.roundNum%2)
                 {
                     case 0:
+                        
                         this.Hero.DoEvent();
                         break;
                     case 1:
@@ -123,6 +138,20 @@ namespace Game
                                 bornCell = tempCells[0];
                             }
                             var enemy = new Monster();
+                            var coms = enemy.Transform.GetComponents<MonoBehaviour>();
+                            foreach (var com in coms)
+                            {
+                                if (com is IPlayer _com)
+                                {
+                                    _com.SetParent(enemy);
+                                }
+                            }
+                            enemy.GetComponent<SkillProcessor>().AddSkill(this.Hero,new SkillData()
+                            {
+                                ID = 10001,
+                                Name = "火球术",
+                                CD = 3
+                            });
                             enemy.SetPosition(bornCell,true);
                             PlayerManager.AddPlayer(enemy);
                             

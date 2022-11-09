@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using SDD.Events;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Game
 {
-    public class Logic : MonoBehaviour
+    public class Logic : MonoBehaviour,IPlayer
     {
         /// <summary>
         /// 角色属性
@@ -15,17 +16,10 @@ namespace Game
 
         public bool IsSurvice { get; private set; } = true;
 
-        private Image image_Background;
-        private TextMeshProUGUI tmp_Info_Name;
-        private TextMeshProUGUI tmp_Info_Level;
-        private TextMeshProUGUI tmp_Info_HP;
 
         private void Awake()
         {
-            this.image_Background = this.transform.Find("Background").GetComponent<Image>();
-            this.tmp_Info_Name = this.transform.Find("Info_Name").GetComponent<TextMeshProUGUI>();
-            this.tmp_Info_Level = this.transform.Find("Info_Level").GetComponent<TextMeshProUGUI>();
-            this.tmp_Info_HP = this.transform.Find("Info_HP").GetComponent<TextMeshProUGUI>();
+
         }
 
         // Start is called before the first frame update
@@ -55,20 +49,29 @@ namespace Game
             {
                 if (color is Color _color)
                 {
-                    this.image_Background.color = _color;
+                    this.SelfPlayer.EventCenter.Raise(new SetBackgroundColorEvent()
+                    {
+                        Color = _color
+                    });
                 }
             }
             
             //设置名称
             if (this.AttributeMap.TryGetValue(AttributeEnum.Name, out var name))
             {
-                this.tmp_Info_Name.text = "名称:"+name.ToString();
+                this.SelfPlayer.EventCenter.Raise(new SetPlayerNameEvent()
+                {
+                    Name = name.ToString()
+                });
             }
             
             //设置等级
             if (this.AttributeMap.TryGetValue(AttributeEnum.Level, out var level))
             {
-                this.tmp_Info_Level.text = "等级:"+level.ToString();
+                this.SelfPlayer.EventCenter.Raise(new SetPlayerLevelEvent()
+                {
+                    Level = level.ToString()
+                });
             }
             
             //设置血量
@@ -108,7 +111,16 @@ namespace Game
 
         private void SetHP(string hp)
         {
-            this.tmp_Info_HP.text = "血量:"+hp.ToString();
+            this.SelfPlayer.EventCenter.Raise(new SetPlayerHPEvent()
+            {
+                HP = hp.ToString()
+            });
+        }
+
+        public APlayer SelfPlayer { get; set; }
+        public void SetParent(APlayer player)
+        {
+            this.SelfPlayer = player;
         }
     }
 }

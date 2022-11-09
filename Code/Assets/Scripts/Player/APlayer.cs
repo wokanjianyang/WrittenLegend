@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using DG.Tweening;
+using SDD.Events;
 using TMPro;
 
 namespace Game
@@ -20,10 +21,14 @@ namespace Game
         
         public Vector3Int Cell { get; set; }
         
-        private Transform Transform { get; set; }
+        public Transform Transform { get; private set; }
         
         public Logic Logic { get; private set; }
+        
+        public int RoundCounter { get; set; }
 
+        public EventManager EventCenter { get; private set; }
+        
         public bool IsSurvice
         {
             get
@@ -34,6 +39,7 @@ namespace Game
         
         public APlayer()
         {
+            this.EventCenter = new EventManager();
             this.Load();
         }
 
@@ -47,6 +53,7 @@ namespace Game
 
         public void DoEvent()
         {
+            this.RoundCounter++;
             var up = this.Cell + Vector3Int.up;
             var down = this.Cell + Vector3Int.down;
             var right = this.Cell + Vector3Int.right;
@@ -80,6 +87,8 @@ namespace Game
 
         IEnumerator IE_Attack(APlayer enemy)
         {
+            this.GetComponent<SkillProcessor>().UseSkill();
+
             var distance = enemy.Cell - this.Cell;
             Vector3 offset = new Vector3(distance.x * 0.5f, distance.y * 0.5f)*120;
             var targetPos = GameProcessor.Inst.MapProcessor.GetWorldPosition(this.Cell);
@@ -154,6 +163,11 @@ namespace Game
             {
                 this.Transform.gameObject.SetActive(false);
             }
+        }
+        
+        public T GetComponent<T>()
+        {
+            return this.Transform.GetComponent<T>();
         }
     }
 }
