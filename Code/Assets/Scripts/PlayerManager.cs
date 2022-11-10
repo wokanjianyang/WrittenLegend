@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Game
 {
-    public class PlayerManager : MonoBehaviour
+    public class PlayerManager : MonoBehaviour,IBattleLife
     {
 
         private List<APlayer> AllPlayers =  new List<APlayer>();
@@ -32,6 +32,96 @@ namespace Game
         {
             var allCells = this.AllPlayers.Where(p => p.IsSurvice).Select(p => p.Cell).ToList();
             return !allCells.Contains(cell);
+        }
+
+        public void OnBattleStart()
+        {
+            this.LoadHero();
+        }
+
+        private void LoadHero(Dictionary<AttributeEnum, object> data = null)
+        {
+            if (data == null)
+            {
+                data  = new Dictionary<AttributeEnum, object>();
+                data[AttributeEnum.Color] = Color.white;
+                data[AttributeEnum.Name] = "传奇";
+                data[AttributeEnum.Level] = 1;
+                data[AttributeEnum.HP] = 100;
+                data[AttributeEnum.Atk] = 2;
+            }
+            
+            var hero = new Hero();
+            hero.Logic.SetData(data);
+
+            var coms = hero.Transform.GetComponents<MonoBehaviour>();
+            foreach (var com in coms)
+            {
+                if (com is IPlayer _com)
+                {
+                    _com.SetParent(hero);
+                }
+            }
+            hero.GetComponent<SkillProcessor>().AddSkill(hero,new SkillData()
+            {
+                ID = 10001,
+                Name = "基础剑术",
+                CD = 1
+            });
+            hero.SetPosition(new Vector3(0,0),true);
+            GameProcessor.Inst.PlayerManager.AddPlayer(hero);
+            
+        }
+
+        public void LoadMonster(Dictionary<AttributeEnum, object> data = null)
+        {
+            if (data == null)
+            {
+                data  = new Dictionary<AttributeEnum, object>();
+                data[AttributeEnum.Color] = Color.red;
+                data[AttributeEnum.Name] = "小怪";
+                data[AttributeEnum.Level] = 1;
+                data[AttributeEnum.HP] = 100f;
+                data[AttributeEnum.Atk] = 1f;
+            }
+            
+            var tempCells = GameProcessor.Inst.MapProcessor.allCells.ToList();
+            var allPlayerCells = GameProcessor.Inst.PlayerManager.GetAllPlayers().Select(p => p.Cell).ToList();
+            tempCells.RemoveAll(p => allPlayerCells.Contains(p));
+            
+            if (tempCells.Count>0)
+            {
+                var bornCell = Vector3Int.zero;
+                if (tempCells.Count > 1)
+                {
+                    var index = UnityEngine.Random.Range(0, tempCells.Count);
+                    bornCell = tempCells[index];
+                }
+                else
+                {
+                    bornCell = tempCells[0];
+                }
+                
+                var enemy = new Monster();
+                enemy.Logic.SetData(data);
+
+                var coms = enemy.Transform.GetComponents<MonoBehaviour>();
+                foreach (var com in coms)
+                {
+                    if (com is IPlayer _com)
+                    {
+                        _com.SetParent(enemy);
+                    }
+                }
+                enemy.GetComponent<SkillProcessor>().AddSkill(enemy,new SkillData()
+                {
+                    ID = 10001,
+                    Name = "火球术",
+                    CD = 3
+                });
+                enemy.SetPosition(bornCell,true);
+                GameProcessor.Inst.PlayerManager.AddPlayer(enemy);
+            }
         }
     }
 }

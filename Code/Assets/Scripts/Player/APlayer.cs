@@ -8,9 +8,6 @@ using TMPro;
 
 namespace Game
 {
-    
-   
-
     abstract public class APlayer
     {
         public int ID { get; set; }
@@ -49,6 +46,14 @@ namespace Game
             this.Transform = GameObject.Instantiate(prefab).transform;
             this.Transform.SetParent(GameProcessor.Inst.MapRoot);
             this.Logic = this.Transform.GetComponent<Logic>();
+            var coms = this.Transform.GetComponents<MonoBehaviour>();
+            foreach (var com in coms)
+            {
+                if (com is IPlayer _com)
+                {
+                    _com.SetParent(this);
+                }
+            }
         }
 
         public void DoEvent()

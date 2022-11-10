@@ -79,6 +79,7 @@ public class PlayerUI : MonoBehaviour,IPlayer
         this.tran_Info.gameObject.SetActive(false);
         this.tran_Skill.gameObject.SetActive(true);
         this.tmp_Skill_Name.text = e.Name;
+        this.tmp_Skill_Name.autoSizeTextContainer = true;
         StartCoroutine(IE_Delay(1f, () =>
         {
             this.tran_Info.gameObject.SetActive(true);
