@@ -44,9 +44,9 @@ public class SkillProcessor : MonoBehaviour,IPlayer
         skill?.Do();
         if (skill != null)
         {
-            this.SelfPlayer.EventCenter.Raise(new ShowSkillEvent()
+            this.SelfPlayer.EventCenter.Raise(new ShowMsgEvent()
             {
-                Name = skill.Data.Name
+                Content = skill.Data.Name
             });
         }
     }

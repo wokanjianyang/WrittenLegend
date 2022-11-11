@@ -23,9 +23,9 @@ namespace Game
         public string HP { get; set; }
     }
     
-    public class ShowSkillEvent : SDD.Events.Event
+    public class ShowMsgEvent : SDD.Events.Event
     {
-        public string Name { get; set; }
+        public string Content { get; set; }
     }
 
     public class PlayerDeadEvent : SDD.Events.Event

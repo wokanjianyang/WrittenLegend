@@ -118,9 +118,9 @@ namespace Game
                                     this.actionType = PlayerActionType.WaitingInput;
                                     var heros = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Hero);
                                     var hero = heros[0];
-                                    hero.EventCenter.Raise(new ShowSkillEvent()
+                                    hero.EventCenter.Raise(new ShowMsgEvent()
                                     {
-                                        Name = "等待操作"
+                                        Content = "等待操作"
                                     });
                                 }
                                     break;

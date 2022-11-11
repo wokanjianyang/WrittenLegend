@@ -98,14 +98,20 @@ namespace Game
             if (currentHP <= 0)
             {
                 currentHP = 0;
+            }
+
+            AddBattleAttribute(AttributeEnum.HP,damage*-1);
+            SetHP(currentHP.ToString());
+            if (currentHP == 0)
+            {
                 IsSurvice = false;
                 SelfPlayer.EventCenter.Raise(new PlayerDeadEvent
                 {
                     RoundNum = SelfPlayer.RoundCounter
                 });
-                SelfPlayer.EventCenter.Raise(new ShowSkillEvent
+                SelfPlayer.EventCenter.Raise(new ShowMsgEvent
                 {
-                    Name = "死亡"
+                    Content = "死亡"
                 });
             }
             AddBattleAttribute(AttributeEnum.HP,damage*-1);

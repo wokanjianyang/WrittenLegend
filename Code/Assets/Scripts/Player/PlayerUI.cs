@@ -26,18 +26,18 @@ public class PlayerUI : MonoBehaviour,IPlayer
     [LabelText("血量")]
     public TextMeshProUGUI tmp_Info_HP;
 
-    [Title("技能")]
-    [LabelText("技能")]
-    public Transform tran_Skill;
+    [Title("提示")]
+    [LabelText("提示")]
+    public Transform tran_Msg;
     
-    [LabelText("名称")]
-    public TextMeshProUGUI tmp_Skill_Name;
+    [LabelText("提示内容")]
+    public TextMeshProUGUI tmp_Msg_Content;
 
     // Start is called before the first frame update
     void Start()
     {
         this.tran_Info.gameObject.SetActive(true);
-        this.tran_Skill.gameObject.SetActive(false);
+        this.tran_Msg.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -51,7 +51,7 @@ public class PlayerUI : MonoBehaviour,IPlayer
         this.SelfPlayer.EventCenter.RemoveListener<SetPlayerNameEvent>(OnSetNameEvent);
         this.SelfPlayer.EventCenter.RemoveListener<SetPlayerLevelEvent>(OnSetPlayerLevelEvent);
         this.SelfPlayer.EventCenter.RemoveListener<SetPlayerHPEvent>(OnSetPlayerHPEvent);
-        this.SelfPlayer.EventCenter.RemoveListener<ShowSkillEvent>(OnShowSkillEvent);
+        this.SelfPlayer.EventCenter.RemoveListener<ShowMsgEvent>(OnShowMsgEvent);
     }
     
     private void OnSetBackgroundColorEvent(SetBackgroundColorEvent e)
@@ -62,29 +62,25 @@ public class PlayerUI : MonoBehaviour,IPlayer
     private void OnSetNameEvent(SetPlayerNameEvent e)
     {
         this.tmp_Info_Name.text = "名称:" + e.Name;
+        this.tran_Msg.gameObject.SetActive(false);
     }
     
     private void OnSetPlayerLevelEvent(SetPlayerLevelEvent e)
     {
         this.tmp_Info_Level.text = "等级:" + e.Level;
+        this.tran_Msg.gameObject.SetActive(false);
     }
     
     private void OnSetPlayerHPEvent(SetPlayerHPEvent e)
     {
         this.tmp_Info_HP.text = "血量:" + e.HP;
+        this.tran_Msg.gameObject.SetActive(false);
     }
     
-    private void OnShowSkillEvent(ShowSkillEvent e)
+    private void OnShowMsgEvent(ShowMsgEvent e)
     {
-        this.tran_Info.gameObject.SetActive(false);
-        this.tran_Skill.gameObject.SetActive(true);
-        this.tmp_Skill_Name.text = e.Name;
-        this.tmp_Skill_Name.autoSizeTextContainer = true;
-        StartCoroutine(IE_Delay(1f, () =>
-        {
-            this.tran_Info.gameObject.SetActive(true);
-            this.tran_Skill.gameObject.SetActive(false);
-        }));
+        this.tran_Msg.gameObject.SetActive(true);
+        this.tmp_Msg_Content.text = e.Content;
     }
 
     IEnumerator IE_Delay(float delay,Action callback)
@@ -101,6 +97,6 @@ public class PlayerUI : MonoBehaviour,IPlayer
         this.SelfPlayer.EventCenter.AddListener<SetPlayerNameEvent>(OnSetNameEvent);
         this.SelfPlayer.EventCenter.AddListener<SetPlayerLevelEvent>(OnSetPlayerLevelEvent);
         this.SelfPlayer.EventCenter.AddListener<SetPlayerHPEvent>(OnSetPlayerHPEvent);
-        this.SelfPlayer.EventCenter.AddListener<ShowSkillEvent>(OnShowSkillEvent);
+        this.SelfPlayer.EventCenter.AddListener<ShowMsgEvent>(OnShowMsgEvent);
     }
 }

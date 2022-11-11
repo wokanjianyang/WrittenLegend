@@ -88,6 +88,10 @@ namespace Game
 
         public void Move(Vector3Int cell)
         {
+            this.EventCenter.Raise(new ShowMsgEvent
+            {
+                Content = "移动"
+            });
             this.SetPosition(cell);
             var targetPos = GameProcessor.Inst.MapProcessor.GetWorldPosition(cell);
             this.Transform.DOLocalMove(targetPos, 1f);
