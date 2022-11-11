@@ -62,24 +62,21 @@ public class PlayerUI : MonoBehaviour,IPlayer
     private void OnSetNameEvent(SetPlayerNameEvent e)
     {
         this.tmp_Info_Name.text = "名称:" + e.Name;
-        this.tran_Msg.gameObject.SetActive(false);
     }
     
     private void OnSetPlayerLevelEvent(SetPlayerLevelEvent e)
     {
         this.tmp_Info_Level.text = "等级:" + e.Level;
-        this.tran_Msg.gameObject.SetActive(false);
     }
     
     private void OnSetPlayerHPEvent(SetPlayerHPEvent e)
     {
         this.tmp_Info_HP.text = "血量:" + e.HP;
-        this.tran_Msg.gameObject.SetActive(false);
     }
     
     private void OnShowMsgEvent(ShowMsgEvent e)
     {
-        this.tran_Msg.gameObject.SetActive(true);
+        this.tran_Msg.gameObject.SetActive(e.NeedShow);
         this.tmp_Msg_Content.text = e.Content;
     }
 

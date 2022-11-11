@@ -22,6 +22,14 @@ namespace Game
             this.isBattleStart = true;
         }
 
+        public int Order
+        {
+            get
+            {
+                return (int) ComponentOrder.BattleRule;
+            }
+        }
+
         abstract public void DoHeroLogic();
         abstract public void DoMonsterLogic();
 

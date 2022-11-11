@@ -552,8 +552,8 @@ MonoBehaviour:
   tmp_Info_Name: {fileID: 5824242940305612841}
   tmp_Info_Level: {fileID: 914182271512169274}
   tmp_Info_HP: {fileID: 176658969174853132}
-  tran_Skill: {fileID: 6232731186803351046}
-  tmp_Skill_Name: {fileID: 1416909901628809377}
+  tran_Msg: {fileID: 6232731186803351046}
+  tmp_Msg_Content: {fileID: 1416909901628809377}
 --- !u!114 &347743800196469975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -583,7 +583,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8625009598840514562
 RectTransform:
   m_ObjectHideFlags: 0

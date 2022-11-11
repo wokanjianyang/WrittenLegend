@@ -25,6 +25,7 @@ namespace Game
     
     public class ShowMsgEvent : SDD.Events.Event
     {
+        public bool NeedShow { get; set; } = true;
         public string Content { get; set; }
     }
 

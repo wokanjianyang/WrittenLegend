@@ -37,18 +37,11 @@ public class SkillProcessor : MonoBehaviour,IPlayer
         this.allSkills.Add(new SkillState(player,data));
     }
 
-    public void UseSkill()
+    public void UseSkill(int tid)
     {
         var skills = this.allSkills.FindAll(s => s.IsCanUse());
         var skill = skills?.LastOrDefault();
-        skill?.Do();
-        if (skill != null)
-        {
-            this.SelfPlayer.EventCenter.Raise(new ShowMsgEvent()
-            {
-                Content = skill.Data.Name
-            });
-        }
+        skill?.Do(tid);
     }
 
     public APlayer SelfPlayer { get; set; }

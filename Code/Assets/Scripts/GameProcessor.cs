@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using UnityEngine;
 
 namespace Game
@@ -33,12 +34,25 @@ namespace Game
         {
 
             var coms = Canvas.FindObjectsOfType<MonoBehaviour>();
-            foreach (var com in coms)
+            var battleComs = coms.Where(com => com is IBattleLife).Select(com=>com as IBattleLife).ToArray();
+            battleComs.Sort((a, b) =>
             {
-                if (com is IBattleLife _com)
+                if (a.Order < b.Order)
                 {
-                    _com.OnBattleStart();
+                    return -1;
                 }
+                else if(a.Order > b.Order)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            });
+            foreach (var com in battleComs)
+            {
+                com.OnBattleStart();
             }
         }
 

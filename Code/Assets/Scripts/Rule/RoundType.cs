@@ -23,4 +23,10 @@ namespace Game
         [LabelText("幸存者")]
         Survivors
     }
+
+    public enum ComponentOrder
+    {
+        PlayerManager = 0,
+        BattleRule,
+    }
 }

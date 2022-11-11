@@ -74,7 +74,7 @@ namespace Game
             var nearestEnemy = this.FindNearestEnemy();
             if (fourSide.Contains(nearestEnemy.Cell))
             {
-                GameProcessor.Inst.PlayerManager.StartCoroutine(IE_Attack(nearestEnemy));
+                this.GetComponent<SkillProcessor>().UseSkill(nearestEnemy.ID);
             }
             else
             {
@@ -97,18 +97,7 @@ namespace Game
             this.Transform.DOLocalMove(targetPos, 1f);
         }
 
-        IEnumerator IE_Attack(APlayer enemy)
-        {
-            this.GetComponent<SkillProcessor>().UseSkill();
 
-            var distance = enemy.Cell - this.Cell;
-            Vector3 offset = new Vector3(distance.x * 0.5f, distance.y * 0.5f)*120;
-            var targetPos = GameProcessor.Inst.MapProcessor.GetWorldPosition(this.Cell);
-            this.Transform.DOLocalMove(targetPos+offset, 0.5f);
-            yield return new WaitForSeconds(0.5f);
-            this.Transform.DOLocalMove(targetPos, 0.5f);
-            enemy.OnHit(new List<float>(){this.Logic.GetAttributeFloat(AttributeEnum.Atk)});
-        }
 
         public void SetPosition(Vector3 pos,bool isGraphic = false)
         {
@@ -148,20 +137,10 @@ namespace Game
             return enemys[0];
         }
 
-        public void OnHit(List<float> damages)
+        public void OnHit(params float[] damages)
         {
             foreach (var d in damages)
             {
-                var prefab = Resources.Load<GameObject>("Prefab/Effect/Damage");
-                var damage = GameObject.Instantiate(prefab);
-                damage.transform.SetParent(GameObject.Find("Canvas").transform,false);
-                var text = damage.GetComponent<TextMeshProUGUI>();
-                text.text = d.ToString();
-                damage.transform.position = this.Transform.position;
-                damage.transform.DOMoveY(this.Transform.position.y + 80f,1f).OnComplete(() =>
-                {
-                    GameObject.Destroy(damage);
-                });
                 this.Logic.OnDamage(d);
             }
         }

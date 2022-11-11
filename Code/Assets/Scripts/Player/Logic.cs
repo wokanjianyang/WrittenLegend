@@ -114,6 +114,13 @@ namespace Game
                     Content = "死亡"
                 });
             }
+            else
+            {
+                SelfPlayer.EventCenter.Raise(new ShowMsgEvent
+                {
+                    Content = (damage*-1).ToString()
+                });
+            }
             AddBattleAttribute(AttributeEnum.HP,damage*-1);
             SetHP(currentHP.ToString());
         }

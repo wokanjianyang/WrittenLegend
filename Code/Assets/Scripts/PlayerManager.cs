@@ -18,6 +18,11 @@ namespace Game
             this.AllPlayers.Add(player);
         }
 
+        public APlayer GetPlayer(int id)
+        {
+            return this.AllPlayers.FirstOrDefault(p => p.ID == id);
+        }
+
         public List<APlayer> GetAllPlayers(bool includDeath = false)
         {
             var playerList = new List<APlayer>();
@@ -51,6 +56,14 @@ namespace Game
             this.LoadHero();
         }
 
+        public int Order
+        {
+            get
+            {
+                return (int)ComponentOrder.PlayerManager;
+            }
+        }
+
         private void LoadHero(Dictionary<AttributeEnum, object> data = null)
         {
             if (data == null)
@@ -60,7 +73,7 @@ namespace Game
                 data[AttributeEnum.Name] = "传奇";
                 data[AttributeEnum.Level] = 1;
                 data[AttributeEnum.HP] = 100;
-                data[AttributeEnum.Atk] = 40;
+                data[AttributeEnum.Atk] = 2;
             }
             
             var hero = new Hero();

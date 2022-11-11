@@ -8,6 +8,8 @@ namespace Game
     {
         public SkillData Data { get; set; }
         public APlayer SelfPlayer { get; set; }
+
+        private ASkill skillLogic;
         
         private int lastUseRound = 0;
 
@@ -15,6 +17,8 @@ namespace Game
         {
             this.SelfPlayer = player;
             this.Data = data;
+            this.skillLogic = new BaseAttackSkill();
+            this.skillLogic.SetParent(player);
         }
 
         public bool IsCanUse()
@@ -22,9 +26,16 @@ namespace Game
             return this.lastUseRound == 0 || this.SelfPlayer.RoundCounter - lastUseRound > this.Data.CD;
         }
 
-        public void Do()
+        public void Do(params int[] tids)
         {
             this.lastUseRound = this.SelfPlayer.RoundCounter;
+            
+            this.SelfPlayer.EventCenter.Raise(new ShowMsgEvent()
+            {
+                Content = this.Data.Name
+            });
+            
+            this.skillLogic.Do(tids);
         }
     }
 }
