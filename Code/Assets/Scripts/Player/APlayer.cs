@@ -45,6 +45,8 @@ namespace Game
             var prefab = Resources.Load<GameObject>("Prefab/Char/Model");
             this.Transform = GameObject.Instantiate(prefab).transform;
             this.Transform.SetParent(GameProcessor.Inst.MapRoot);
+            var rect = this.Transform.GetComponent<RectTransform>();
+            rect.sizeDelta = GameProcessor.Inst.MapProcessor.CellSize;
             this.Logic = this.Transform.GetComponent<Logic>();
             var coms = this.Transform.GetComponents<MonoBehaviour>();
             foreach (var com in coms)
@@ -59,6 +61,7 @@ namespace Game
         public void DoEvent()
         {
             this.RoundCounter++;
+            if (!this.IsSurvice) return;
             var up = this.Cell + Vector3Int.up;
             var down = this.Cell + Vector3Int.down;
             var right = this.Cell + Vector3Int.right;
@@ -157,19 +160,8 @@ namespace Game
                 });
                 this.Logic.OnDamage(d);
             }
-
-            GameProcessor.Inst.StartCoroutine(CheckPlayerDead());
         }
 
-        private IEnumerator CheckPlayerDead()
-        {
-            yield return new WaitForSeconds(1f);
-            if (!this.IsSurvice)
-            {
-                this.Transform.gameObject.SetActive(false);
-            }
-        }
-        
         public T GetComponent<T>()
         {
             return this.Transform.GetComponent<T>();

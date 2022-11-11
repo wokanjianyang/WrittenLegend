@@ -18,14 +18,26 @@ namespace Game
             this.AllPlayers.Add(player);
         }
 
-        public List<APlayer> GetAllPlayers()
+        public List<APlayer> GetAllPlayers(bool includDeath = false)
         {
-            return this.AllPlayers.FindAll(p => p.IsSurvice);
+            var playerList = new List<APlayer>();
+            foreach (var player in this.AllPlayers)
+            {
+                if (includDeath)
+                {
+                    playerList.Add(player);
+                }
+                else if (player.IsSurvice)
+                {
+                    playerList.Add(player);
+                }
+            }
+            return playerList;
         }
 
-        public List<APlayer> GetPlayersByCamp(PlayerType camp)
+        public List<APlayer> GetPlayersByCamp(PlayerType camp,bool isSurvice = true)
         {
-            return this.AllPlayers.FindAll(p => p.Camp == camp && p.IsSurvice);
+            return this.AllPlayers.FindAll(p => p.Camp == camp && p.IsSurvice == isSurvice);
         }
 
         public bool IsCellCanMove(Vector3Int cell)
@@ -48,7 +60,7 @@ namespace Game
                 data[AttributeEnum.Name] = "传奇";
                 data[AttributeEnum.Level] = 1;
                 data[AttributeEnum.HP] = 100;
-                data[AttributeEnum.Atk] = 2;
+                data[AttributeEnum.Atk] = 40;
             }
             
             var hero = new Hero();
@@ -73,8 +85,9 @@ namespace Game
             
         }
 
-        public void LoadMonster(Dictionary<AttributeEnum, object> data = null)
+        public APlayer LoadMonster(Dictionary<AttributeEnum, object> data = null)
         {
+            APlayer enemy = null;
             if (data == null)
             {
                 data  = new Dictionary<AttributeEnum, object>();
@@ -102,7 +115,7 @@ namespace Game
                     bornCell = tempCells[0];
                 }
                 
-                var enemy = new Monster();
+                enemy = new Monster();
                 enemy.Logic.SetData(data);
 
                 var coms = enemy.Transform.GetComponents<MonoBehaviour>();
@@ -121,6 +134,21 @@ namespace Game
                 });
                 enemy.SetPosition(bornCell,true);
                 GameProcessor.Inst.PlayerManager.AddPlayer(enemy);
+            }
+
+            return enemy;
+        }
+
+        public void RemoveAllDeadPlayers()
+        {
+            for (var i = this.AllPlayers.Count - 1; i >= 0; i--)
+            {
+                var player = this.AllPlayers[i];
+                if (!player.IsSurvice)
+                {
+                    player.Transform.gameObject.SetActive(false);
+                    this.AllPlayers.RemoveAt(i);
+                }
             }
         }
     }

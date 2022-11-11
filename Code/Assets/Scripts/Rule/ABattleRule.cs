@@ -6,19 +6,18 @@ namespace Game
 {
     abstract public class ABattleRule : MonoBehaviour,IBattleLife
     {
-        private bool isGameOver = false;
+        protected bool isGameOver = false;
 
-        private int roundNum = 1;
+        protected int roundNum = 1;
 
-        private PlayerType winCamp;
+        protected PlayerType winCamp;
 
-        private const float roundTime = 1f;
-        private float currentRoundTime = 0f;
+        protected const float roundTime = 1f;
+        protected float currentRoundTime = 0f;
 
-        private bool isBattleStart = false;
+        protected bool isBattleStart = false;
 
-        
-        public void OnBattleStart()
+        virtual public void OnBattleStart()
         {
             this.isBattleStart = true;
         }
@@ -26,7 +25,7 @@ namespace Game
         abstract public void DoHeroLogic();
         abstract public void DoMonsterLogic();
 
-        private void Update()
+        virtual public void Update()
         {
             if (!this.isGameOver && this.isBattleStart)
             {
@@ -34,13 +33,13 @@ namespace Game
                 if (this.currentRoundTime >= roundTime * Time.timeScale)
                 {
                     this.currentRoundTime = 0;
-                
+                    GameProcessor.Inst.PlayerManager.RemoveAllDeadPlayers();
                     switch (this.roundNum%2)
                     {
-                        case 0:
+                        case (int)RoundType.Hero:
                             this.DoHeroLogic();
                             break;
-                        case 1:
+                        case (int)RoundType.Monster:
                             this.DoMonsterLogic();
                             break;
                     }
@@ -55,7 +54,7 @@ namespace Game
             }
         }
         
-        private bool CheckGameResult()
+        protected bool CheckGameResult()
         {
             var heroCamp = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Hero);
             if (heroCamp.Count == 0)

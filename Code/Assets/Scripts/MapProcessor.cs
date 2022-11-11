@@ -22,9 +22,9 @@ namespace Game
         public float LineWidth = 1f;
 
         public Vector3 MapStartPos { get; private set; } = Vector3.zero;
-
-        public Action MapDrawEnd = null;
         
+        public Vector3 CellSize { get; private set; } = Vector3.zero;
+
         public List<Vector3Int> allCells { get; private set; }
 
         /// <summary>
@@ -55,6 +55,8 @@ namespace Game
             var startX = mapWidth * -0.5f;
             var startY = mapHeight * -0.5f;
             MapStartPos = new Vector3(startX, startY);
+            this.CellSize = new Vector3(gridWidth, gridHeight);
+
             //先画水平方向上的线，从左到右绘制垂直线段
             for (float i = 0; i <= mapWidth; i += gridWidth)
             {
@@ -75,8 +77,6 @@ namespace Game
                 var vertical_D = new Vector2((startX - LineWidth * 0.5f) * -1, i + startY - LineWidth * 0.5f);
                 vh.AddUIVertexQuad(GetRectangleQuad(color, vertical_A, vertical_B, vertical_C, vertical_D));
             }
-
-            this.MapDrawEnd?.Invoke();
         }
 
         //得到一个矩形面片
@@ -105,13 +105,21 @@ namespace Game
 
         public Vector3 GetWorldPosition(Vector3Int cell)
         {
-            return cell * 120 + MapStartPos + new Vector3(60, 60);
+            return new Vector3(cell.x*this.CellSize.x,cell.y*this.CellSize.y) + MapStartPos + this.CellSize*0.5f;
+        }
+
+        public Vector3Int GetLocalCell(Vector3 pos)
+        {
+            var cell = (pos - this.CellSize*0.5f);
+            cell = new Vector3(cell.x / this.CellSize.x, cell.y / this.CellSize.y);
+            Vector3Int local = new Vector3Int(Mathf.RoundToInt(cell.x), Mathf.RoundToInt(cell.y));
+            return local;
         }
 
 
         private void CreateAStar()
         {
-            AStarBattleGrid = new Grid(9, 16, 1f);
+            AStarBattleGrid = new Grid(this.ColCount, this.RowCount, 1f);
             allCells = new List<Vector3Int>();
             for (var i = 0; i < 9; i++)
             {
@@ -157,7 +165,7 @@ namespace Game
 
         public Vector3Int GetPath(Vector3Int startPos, Vector3Int endPos)
         {
-            var allPlayersCells = GameProcessor.Inst.PlayerManager.GetAllPlayers().Select(p => p.Cell).ToList();
+            var allPlayersCells = GameProcessor.Inst.PlayerManager.GetAllPlayers(true).Select(p => p.Cell).ToList();
             var costDict = new Dictionary<Position, float>();
 
             float highCost = 9999;

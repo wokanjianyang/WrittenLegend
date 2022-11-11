@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Game
@@ -9,8 +10,6 @@ namespace Game
     public class GameProcessor : MonoBehaviour
     {
         public static GameProcessor Inst { get; private set; } = null;
-        
-        public APlayer Hero;
         
         public MapProcessor MapProcessor { get; private set; }
         public PlayerManager PlayerManager { get; private set; }
@@ -24,16 +23,16 @@ namespace Game
             DontDestroyOnLoad(this);
             Inst = this;
             //加载地图
-            this.LoadMap();
+            // this.LoadMap();
             //            
-            this.PlayerManager = this.gameObject.AddComponent<PlayerManager>();
-            this.BattleRule = this.gameObject.AddComponent<BattleRule_Normal>();
+            
         }
 
         // Start is called before the first frame update
         void Start()
         {
-            var coms = this.transform.GetComponents<MonoBehaviour>();
+
+            var coms = Canvas.FindObjectsOfType<MonoBehaviour>();
             foreach (var com in coms)
             {
                 if (com is IBattleLife _com)
@@ -43,10 +42,20 @@ namespace Game
             }
         }
 
-        private void LoadMap()
+        public void LoadMap(RuleType ruleType)
         {
+            this.PlayerManager = this.gameObject.AddComponent<PlayerManager>();
+
             MapProcessor = GameObject.Find("Canvas").GetComponentInChildren<MapProcessor>();
-            
+            switch (ruleType)
+            {
+                case RuleType.Normal:
+                    this.BattleRule = MapProcessor.gameObject.AddComponent<BattleRule_Normal>();
+                    break;
+                case RuleType.Survivors:
+                    this.BattleRule = MapProcessor.gameObject.AddComponent<BattleRule_Survivors>();
+                    break;
+            }
             this.MapRoot = new GameObject().transform;
             this.MapRoot.SetParent(GameObject.Find("Canvas").transform,false);
         }

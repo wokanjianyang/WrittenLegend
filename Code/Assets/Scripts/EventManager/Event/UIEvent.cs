@@ -28,4 +28,8 @@ namespace Game
         public string Name { get; set; }
     }
 
+    public class PlayerDeadEvent : SDD.Events.Event
+    {
+        public int RoundNum { get; set; }
+    }
 }

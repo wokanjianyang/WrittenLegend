@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
-using SDD.Events;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Game
 {
@@ -12,7 +9,8 @@ namespace Game
         /// <summary>
         /// 角色属性
         /// </summary>
-        private Dictionary<AttributeEnum, object> AttributeMap = new Dictionary<AttributeEnum, object>();
+        private Dictionary<AttributeEnum, object> BaseAttributeMap = new Dictionary<AttributeEnum, object>();
+        private Dictionary<AttributeEnum, object> BattleAttributeMap = new Dictionary<AttributeEnum, object>();
 
         public bool IsSurvice { get; private set; } = true;
 
@@ -40,16 +38,16 @@ namespace Game
             {
                 foreach (var kvp in dict)
                 {
-                    this.AttributeMap[kvp.Key] = kvp.Value;
+                    BaseAttributeMap[kvp.Key] = kvp.Value;
                 }
             }
             
-            //设置背景
-            if(this.AttributeMap.TryGetValue(AttributeEnum.Color,out var color))
+            //设置背景  
+            if(BaseAttributeMap.TryGetValue(AttributeEnum.Color,out var color))
             {
                 if (color is Color _color)
                 {
-                    this.SelfPlayer.EventCenter.Raise(new SetBackgroundColorEvent()
+                    SelfPlayer.EventCenter.Raise(new SetBackgroundColorEvent
                     {
                         Color = _color
                     });
@@ -57,70 +55,98 @@ namespace Game
             }
             
             //设置名称
-            if (this.AttributeMap.TryGetValue(AttributeEnum.Name, out var name))
+            if (BaseAttributeMap.TryGetValue(AttributeEnum.Name, out var name))
             {
-                this.SelfPlayer.EventCenter.Raise(new SetPlayerNameEvent()
+                SelfPlayer.EventCenter.Raise(new SetPlayerNameEvent
                 {
                     Name = name.ToString()
                 });
             }
             
             //设置等级
-            if (this.AttributeMap.TryGetValue(AttributeEnum.Level, out var level))
+            if (BaseAttributeMap.TryGetValue(AttributeEnum.Level, out var level))
             {
-                this.SelfPlayer.EventCenter.Raise(new SetPlayerLevelEvent()
+                SelfPlayer.EventCenter.Raise(new SetPlayerLevelEvent
                 {
                     Level = level.ToString()
                 });
             }
             
             //设置血量
-            if (this.AttributeMap.TryGetValue(AttributeEnum.HP, out var hp))
+            if (BaseAttributeMap.TryGetValue(AttributeEnum.HP, out var hp))
             {
-                this.SetHP(hp.ToString());
+                SetHP(hp.ToString());
             }
+        }
+
+        public void ResetData()
+        {
+            var dict = new Dictionary<AttributeEnum, object>();
+            foreach (var kvp in BaseAttributeMap)
+            {
+                dict[kvp.Key] = kvp.Value;
+            }
+            SetData(dict);
+            IsSurvice = true;
+            BattleAttributeMap.Clear();
         }
 
         public void OnDamage(float damage)
         {
-            var currentHP = this.GetAttributeFloat(AttributeEnum.HP);
+            var currentHP = GetAttributeFloat(AttributeEnum.HP);
             currentHP -= damage;
-            if (currentHP < 0)
+            if (currentHP <= 0)
             {
                 currentHP = 0;
-                this.IsSurvice = false;
+                IsSurvice = false;
+                SelfPlayer.EventCenter.Raise(new PlayerDeadEvent
+                {
+                    RoundNum = SelfPlayer.RoundCounter
+                });
+                SelfPlayer.EventCenter.Raise(new ShowSkillEvent
+                {
+                    Name = "死亡"
+                });
             }
-            this.AddBattleAttribute(AttributeEnum.HP,currentHP);
-            this.SetHP(currentHP.ToString());
+            AddBattleAttribute(AttributeEnum.HP,damage*-1);
+            SetHP(currentHP.ToString());
         }
 
         public float GetAttributeFloat(AttributeEnum attr)
         {
-            if (this.AttributeMap.TryGetValue(attr, out var value))
+            var baseValue = 0f;
+            if (BaseAttributeMap.TryGetValue(attr, out var value))
             {
-                return (float)Convert.ToDouble(value);
+                baseValue =  (float)Convert.ToDouble(value);
+            }
+            
+            var battleValue = 0f;
+            if (BattleAttributeMap.TryGetValue(attr, out var value2))
+            {
+                battleValue =  (float)Convert.ToDouble(value2);
             }
 
-            return 0;
+            return baseValue+battleValue;
         }
 
         public void AddBattleAttribute(AttributeEnum attr, float value)
         {
-            this.AttributeMap[attr] = value;
+            BattleAttributeMap.TryGetValue(attr, out var value2);
+            BattleAttributeMap[attr] = (float)Convert.ToDouble(value2) + value;
         }
 
         private void SetHP(string hp)
         {
-            this.SelfPlayer.EventCenter.Raise(new SetPlayerHPEvent()
+            SelfPlayer.EventCenter.Raise(new SetPlayerHPEvent
             {
-                HP = hp.ToString()
+                HP = hp
             });
         }
 
         public APlayer SelfPlayer { get; set; }
         public void SetParent(APlayer player)
         {
-            this.SelfPlayer = player;
+            SelfPlayer = player;
         }
     }
 }

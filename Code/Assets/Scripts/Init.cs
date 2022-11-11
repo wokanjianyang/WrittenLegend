@@ -1,10 +1,13 @@
 using System;
 using System.Collections;
 using Game;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class Init : MonoBehaviour
 {
+    [LabelText("战斗模式")]
+    public RuleType RuleType = RuleType.Normal;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +34,8 @@ public class Init : MonoBehaviour
         {
             home.gameObject.SetActive(false);
             var game = new GameObject("Game");
-            game.AddComponent<GameProcessor>();
+            var com = game.AddComponent<GameProcessor>();
+            com.LoadMap(this.RuleType);
         }));
     }
 
