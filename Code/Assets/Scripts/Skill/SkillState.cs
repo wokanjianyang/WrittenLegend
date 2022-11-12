@@ -17,7 +17,14 @@ namespace Game
         {
             this.SelfPlayer = player;
             this.Data = data;
-            this.skillLogic = new BaseAttackSkill();
+            if (data.ID == 10001)
+            {
+                this.skillLogic = new Skill_Sweep();
+            }
+            else
+            {
+                this.skillLogic = new BaseAttackSkill();
+            }
             this.skillLogic.SetParent(player);
         }
 
@@ -26,7 +33,7 @@ namespace Game
             return this.lastUseRound == 0 || this.SelfPlayer.RoundCounter - lastUseRound > this.Data.CD;
         }
 
-        public void Do(params int[] tids)
+        public void Do(int tid)
         {
             this.lastUseRound = this.SelfPlayer.RoundCounter;
             
@@ -35,7 +42,7 @@ namespace Game
                 Content = this.Data.Name
             });
             
-            this.skillLogic.Do(tids);
+            this.skillLogic.Do(tid);
         }
     }
 }

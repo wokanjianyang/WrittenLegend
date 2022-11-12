@@ -1,4 +1,5 @@
 using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace Game
 {
@@ -28,5 +29,14 @@ namespace Game
     {
         PlayerManager = 0,
         BattleRule,
+    }
+
+    public enum AttackGeometryType
+    {
+        FrontRow = 0,
+        Cross,
+        Square,
+        Diamond,
+        FullBox
     }
 }

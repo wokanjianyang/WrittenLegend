@@ -7,33 +7,36 @@ namespace Game
 {
     public class BaseAttackSkill : ASkill
     {
-        public override void PlayAnimation(params int[] tids)
+        public override void PlayAnimation(int tid)
         {
-            base.PlayAnimation();
+            base.PlayAnimation(tid);
 
-            GameProcessor.Inst.StartCoroutine(IE_Attack(tids));
+            GameProcessor.Inst.StartCoroutine(IE_Attack(tid));
         }
         
-        IEnumerator IE_Attack(params int[] tids)
+        IEnumerator IE_Attack(int tid)
         {
-            var mainTarget = GameProcessor.Inst.PlayerManager.GetPlayer(tids[0]);
+            var mainTarget = GameProcessor.Inst.PlayerManager.GetPlayer(tid);
             var distance = mainTarget.Cell - this.SelfPlayer.Cell;
             Vector3 offset = new Vector3(distance.x * 0.5f, distance.y * 0.5f)*120;
             var targetPos = GameProcessor.Inst.MapProcessor.GetWorldPosition(this.SelfPlayer.Cell);
             this.SelfPlayer.Transform.DOLocalMove(targetPos+offset, 0.5f);
             yield return new WaitForSeconds(0.5f);
             this.SelfPlayer.Transform.DOLocalMove(targetPos, 0.5f);
-            foreach (var tid in tids)
+
+            var allEnemy = this.GetAllTargets(tid);
+            foreach (var attackData in allEnemy)
             {
-                var enemy = GameProcessor.Inst.PlayerManager.GetPlayer(tid);
-                var damage = this.CalcFormula(enemy, 1f);
+                var enemy = GameProcessor.Inst.PlayerManager.GetPlayer(attackData.Tid);
+                var damage = (int)this.CalcFormula(enemy, attackData.Ratio);
                 enemy.OnHit(damage);
             }
         }
 
         public override float CalcFormula(APlayer player, float ratio)
         {
-            return this.SelfPlayer.Logic.GetAttributeFloat(AttributeEnum.Atk) * 10 * ratio;
+            return this.SelfPlayer.Logic.GetAttributeFloat(AttributeEnum.Atk) * ratio;
         }
+
     }
 }

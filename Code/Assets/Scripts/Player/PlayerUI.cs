@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Game;
+using Game.Dialog;
 using SDD.Events;
 using Sirenix.OdinInspector;
 using TMPro;
@@ -27,17 +29,19 @@ public class PlayerUI : MonoBehaviour,IPlayer
     public TextMeshProUGUI tmp_Info_HP;
 
     [Title("提示")]
-    [LabelText("提示")]
-    public Transform tran_Msg;
-    
-    [LabelText("提示内容")]
-    public TextMeshProUGUI tmp_Msg_Content;
+    [LabelText("弹幕")]
+    public Transform tran_Barrage;
+
+    private GameObject barragePrefab;
+
+    private Vector2 size;
 
     // Start is called before the first frame update
     void Start()
     {
         this.tran_Info.gameObject.SetActive(true);
-        this.tran_Msg.gameObject.SetActive(false);
+        this.barragePrefab = Resources.Load<GameObject>("Prefab/Dialog/Msg");
+        this.size = this.transform.GetComponent<RectTransform>().sizeDelta;
     }
 
     // Update is called once per frame
@@ -76,8 +80,18 @@ public class PlayerUI : MonoBehaviour,IPlayer
     
     private void OnShowMsgEvent(ShowMsgEvent e)
     {
-        this.tran_Msg.gameObject.SetActive(e.NeedShow);
-        this.tmp_Msg_Content.text = e.Content;
+        var msg = GameObject.Instantiate(barragePrefab);
+        msg.transform.SetParent(this.tran_Barrage);
+        var msgSize = msg.GetComponent<RectTransform>().sizeDelta;
+        var msgMaxY = (this.size.y - msgSize.y * 0.5f) * 0.5f;
+        var msgY = UnityEngine.Random.Range(msgMaxY * -1, msgMaxY);
+        msg.transform.localPosition = new Vector3(this.size.x + msgSize.x * 0.5f, msgY);
+        var com = msg.GetComponent<Dialog_Msg>();
+        com.tmp_Msg_Content.text = e.Content;
+        msg.transform.DOLocalMoveX(msgSize.x * 0.5f * -1, 1f).OnComplete(() =>
+        {
+            GameObject.Destroy(msg);
+        });
     }
 
     IEnumerator IE_Delay(float delay,Action callback)

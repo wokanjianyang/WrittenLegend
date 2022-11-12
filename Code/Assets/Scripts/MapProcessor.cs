@@ -25,7 +25,7 @@ namespace Game
         
         public Vector3 CellSize { get; private set; } = Vector3.zero;
 
-        public List<Vector3Int> allCells { get; private set; }
+        public List<Vector3Int> AllCells { get; private set; }
 
         /// <summary>
         /// 寻路网格
@@ -35,11 +35,12 @@ namespace Game
         protected override void Awake()
         {
             base.Awake();
-            
-            
+
             //创建AStar
             this.CreateAStar();
         }
+
+        #region Draw Map
 
         //可以自定义网格线颜色、如渐变色等，这里我是直接使用基类的颜色
         protected override void OnPopulateMesh(VertexHelper vh)
@@ -103,6 +104,10 @@ namespace Game
             return vertex;
         }
 
+        #endregion
+
+        #region pos <--> cell
+
         public Vector3 GetWorldPosition(Vector3Int cell)
         {
             return new Vector3(cell.x*this.CellSize.x,cell.y*this.CellSize.y) + MapStartPos + this.CellSize*0.5f;
@@ -116,16 +121,19 @@ namespace Game
             return local;
         }
 
+        #endregion
+
+        #region AStar
 
         private void CreateAStar()
         {
             AStarBattleGrid = new Grid(this.ColCount, this.RowCount, 1f);
-            allCells = new List<Vector3Int>();
-            for (var i = 0; i < 9; i++)
+            AllCells = new List<Vector3Int>();
+            for (var i = 0; i < this.ColCount; i++)
             {
-                for (var j = 0; j < 16; j++)
+                for (var j = 0; j < this.RowCount; j++)
                 {
-                    allCells.Add(new Vector3Int(i, j));
+                    AllCells.Add(new Vector3Int(i, j));
                 }
             }
         }
@@ -323,6 +331,75 @@ namespace Game
 
             return startPos;
         }
+
+        #endregion
+
+        #region AOE Range
+
+        public List<Vector3Int> GetAttackRangeCell(Vector3Int selfCell, Vector3Int dir, int attackRange, AttackGeometryType geometryType)
+        {
+            var rangeCells = new List<Vector3Int>();
+            Vector3Int targetCell = Vector3Int.zero;
+            switch (geometryType)
+            {
+                case AttackGeometryType.FrontRow:
+                {
+                    for (var i = 1; i <= attackRange; i++)
+                    {
+                        targetCell = selfCell + dir * i;
+
+                        rangeCells.Add(targetCell);
+                    }
+                }
+                    break;
+                case AttackGeometryType.Cross:
+                {
+                    for (var i = 1; i <= attackRange; i++)
+                    {
+                        targetCell = selfCell + Vector3Int.up * i;
+                        rangeCells.Add(targetCell);
+                        targetCell = selfCell + Vector3Int.down * i;
+                        rangeCells.Add(targetCell);
+                        targetCell = selfCell + Vector3Int.left * i;
+                        rangeCells.Add(targetCell);
+                        targetCell = selfCell + Vector3Int.right * i;
+                        rangeCells.Add(targetCell);
+                    }
+                }
+                    break;
+                case AttackGeometryType.Square:
+                {
+                    for (var i = attackRange*-1; i <= attackRange; i++)
+                    {
+                        for (var j = attackRange * -1; j <= attackRange; j++)
+                        {
+                            targetCell = selfCell + new Vector3Int(j, i);
+                            rangeCells.Add(targetCell);
+                        }
+                    }
+                }
+                    break;
+                case AttackGeometryType.Diamond:
+                    for (var i = attackRange*-1; i <= attackRange; i++)
+                    {
+                        var rowCount = attackRange - Mathf.Abs(i);
+                        for (var j = rowCount * -1; j <= rowCount; j++)
+                        {
+                            targetCell = selfCell + new Vector3Int(j, i);
+                            rangeCells.Add(targetCell);
+                        }
+                    }
+                    break;
+                case AttackGeometryType.FullBox:
+                    rangeCells.AddRange(this.AllCells);
+                    break;
+            }
+
+            rangeCells = rangeCells.Distinct().ToList();
+            return rangeCells;
+        }
+
+        #endregion
     }
 }
 

@@ -23,6 +23,11 @@ namespace Game
             return this.AllPlayers.FirstOrDefault(p => p.ID == id);
         }
 
+        public APlayer GetPlayer(Vector3Int cell)
+        {
+            return this.AllPlayers.FirstOrDefault(p => p.Cell == cell);
+        }
+
         public List<APlayer> GetAllPlayers(bool includDeath = false)
         {
             var playerList = new List<APlayer>();
@@ -111,7 +116,7 @@ namespace Game
                 data[AttributeEnum.Atk] = 1f;
             }
             
-            var tempCells = GameProcessor.Inst.MapProcessor.allCells.ToList();
+            var tempCells = GameProcessor.Inst.MapProcessor.AllCells.ToList();
             var allPlayerCells = GameProcessor.Inst.PlayerManager.GetAllPlayers().Select(p => p.Cell).ToList();
             tempCells.RemoveAll(p => allPlayerCells.Contains(p));
             
@@ -141,7 +146,7 @@ namespace Game
                 }
                 enemy.GetComponent<SkillProcessor>().AddSkill(enemy,new SkillData()
                 {
-                    ID = 10001,
+                    ID = 10002,
                     Name = "火球术",
                     CD = 3
                 });

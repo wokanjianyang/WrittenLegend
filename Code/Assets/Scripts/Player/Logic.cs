@@ -120,6 +120,7 @@ namespace Game
                 {
                     Content = (damage*-1).ToString()
                 });
+                
             }
             AddBattleAttribute(AttributeEnum.HP,damage*-1);
             SetHP(currentHP.ToString());

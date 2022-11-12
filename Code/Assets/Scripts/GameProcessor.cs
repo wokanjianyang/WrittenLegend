@@ -73,5 +73,15 @@ namespace Game
             this.MapRoot = new GameObject().transform;
             this.MapRoot.SetParent(GameObject.Find("Canvas").transform,false);
         }
+
+        public void DelayAction(float delay, Action callback)
+        {
+            StartCoroutine(IE_DelayAction(delay, callback));
+        }
+        private IEnumerator IE_DelayAction(float delay, Action callback)
+        {
+            yield return new WaitForSeconds(delay);
+            callback?.Invoke();
+        }
     }
 }
