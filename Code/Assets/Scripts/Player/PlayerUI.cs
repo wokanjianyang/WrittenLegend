@@ -66,6 +66,8 @@ public class PlayerUI : MonoBehaviour,IPlayer
     private void OnSetNameEvent(SetPlayerNameEvent e)
     {
         this.tmp_Info_Name.text = "名称:" + e.Name;
+        this.tmp_Info_Name.enableAutoSizing = true;
+        this.tmp_Info_Name.maxVisibleLines = 1;
     }
     
     private void OnSetPlayerLevelEvent(SetPlayerLevelEvent e)
