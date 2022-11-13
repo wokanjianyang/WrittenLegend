@@ -53,22 +53,22 @@ public class ProGifRecorderComponent : MonoBehaviour
 	[SerializeField]
 	bool m_AutoAspect = true;
 
-	[SerializeField, Min(8)]
+	[SerializeField, ProGifMin(8)]
 	int m_Width = 320;
 
-	[SerializeField, Min(8)]
+	[SerializeField, ProGifMin(8)]
 	int m_Height = 200;
 
 	[SerializeField, Range(1, 30)]
 	int m_FramePerSecond = 15;
 
-	[SerializeField, Min(-1)]
+	[SerializeField, ProGifMin(-1)]
 	int m_Repeat = 0;		//Repeat times, 0: infinte
 
 	[SerializeField, Range(1, 100)]
 	int m_Quality = 15;		//1: best quality, 100: fastest
 
-	[SerializeField, Min(0.1f)]
+	[SerializeField, ProGifMin(0.1f)]
 	float m_RecordTime = 3f;
 
     [SerializeField]

@@ -26,11 +26,11 @@ using System;
 using System.Linq.Expressions;
 using System.Reflection;
 
-internal class MinAttribute : PropertyAttribute
+internal class ProGifMinAttribute : PropertyAttribute
 {
 	public readonly float min;
 
-	public MinAttribute(float min)
+	public ProGifMinAttribute(float min)
 	{
 		this.min = min;
 	}
@@ -69,13 +69,13 @@ internal class ProGifReflectionUtils<T> where T : class, new()
 	public void ConstrainMin<U>(Expression<Func<T, U>> fieldAccess, float value)
 	{
 		FieldInfo fieldInfo = GetField(GetFieldName(fieldAccess));
-		fieldInfo.SetValue(_Instance, Mathf.Max(value, GetAttribute<MinAttribute>(fieldInfo).min));
+		fieldInfo.SetValue(_Instance, Mathf.Max(value, GetAttribute<ProGifMinAttribute>(fieldInfo).min));
 	}
 
 	public void ConstrainMin<U>(Expression<Func<T, U>> fieldAccess, int value)
 	{
 		FieldInfo fieldInfo = GetField(GetFieldName(fieldAccess));
-		fieldInfo.SetValue(_Instance, (int)Mathf.Max(value, GetAttribute<MinAttribute>(fieldInfo).min));
+		fieldInfo.SetValue(_Instance, (int)Mathf.Max(value, GetAttribute<ProGifMinAttribute>(fieldInfo).min));
 	}
 
 	// RangeAttribute
