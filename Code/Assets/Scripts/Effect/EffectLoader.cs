@@ -12,7 +12,6 @@ namespace Game
             if (prefab)
             {
                 com = GameObject.Instantiate(prefab).GetComponent<EffectProcessor>();
-                com.SetData(effectPath,loop);
             }
             return com;
         }

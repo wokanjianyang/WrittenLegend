@@ -56,6 +56,7 @@ namespace Game
                     _com.SetParent(this);
                 }
             }
+
         }
 
         public void DoEvent()

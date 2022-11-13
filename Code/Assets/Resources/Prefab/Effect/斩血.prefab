@@ -126,6 +126,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c146ead82574646866d0b63059c6be4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EffectPath: "UI/Buff\u65A9\u6740\u7D20\u6750/\u51B0\u51BB"
-  Loop: 1
+  EffectPath: "UI/Buff\u65A9\u6740\u7D20\u6750/\u65A9\u8840"
+  Loop: 0
   img_Effect: {fileID: 2346607968788309467}

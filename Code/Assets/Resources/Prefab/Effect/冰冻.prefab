@@ -127,5 +127,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EffectPath: "UI/Buff\u65A9\u6740\u7D20\u6750/\u51B0\u51BB"
-  Loop: 1
+  Loop: 0
   img_Effect: {fileID: 2346607968788309467}
