@@ -16,7 +16,7 @@ public class Init : MonoBehaviour
         //初始化时间戳
         //加载存档
         //加载首页
-        this.LoadHome();
+        this.LoadHome2();
     }
 
     // Update is called once per frame
@@ -33,6 +33,16 @@ public class Init : MonoBehaviour
         StartCoroutine(IE_DelayAction(5f, () =>
         {
             home.gameObject.SetActive(false);
+            var game = new GameObject("Game");
+            var com = game.AddComponent<GameProcessor>();
+            com.LoadMap(this.RuleType);
+        }));
+    }
+
+    private void LoadHome2()
+    {
+        StartCoroutine(IE_DelayAction(0.1f, () =>
+        {
             var game = new GameObject("Game");
             var com = game.AddComponent<GameProcessor>();
             com.LoadMap(this.RuleType);

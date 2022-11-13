@@ -39,6 +39,7 @@ namespace Game
             
             this.SelfPlayer.EventCenter.Raise(new ShowMsgEvent()
             {
+                TargetId = tid,
                 Content = this.Data.Name
             });
             

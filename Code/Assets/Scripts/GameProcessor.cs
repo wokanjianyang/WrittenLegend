@@ -1,9 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using Sirenix.OdinInspector;
-using Sirenix.Utilities;
 using UnityEngine;
 
 namespace Game
@@ -16,8 +13,9 @@ namespace Game
         public PlayerManager PlayerManager { get; private set; }
 
         private ABattleRule BattleRule;
-        public Transform MapRoot { get; private set; }
+        public Transform PlayerRoot { get; private set; }
 
+        public Transform EffectRoot { get; private set; }
         
         private void Awake()
         {
@@ -34,7 +32,7 @@ namespace Game
         {
 
             var coms = Canvas.FindObjectsOfType<MonoBehaviour>();
-            var battleComs = coms.Where(com => com is IBattleLife).Select(com=>com as IBattleLife).ToArray();
+            var battleComs = coms.Where(com => com is IBattleLife).Select(com=>com as IBattleLife).ToList();
             battleComs.Sort((a, b) =>
             {
                 if (a.Order < b.Order)
@@ -70,8 +68,11 @@ namespace Game
                     this.BattleRule = MapProcessor.gameObject.AddComponent<BattleRule_Survivors>();
                     break;
             }
-            this.MapRoot = new GameObject().transform;
-            this.MapRoot.SetParent(GameObject.Find("Canvas").transform,false);
+            this.PlayerRoot = new GameObject("[MapRoot]").transform;
+            this.PlayerRoot.SetParent(GameObject.Find("Canvas").transform,false);
+            
+            this.EffectRoot = new GameObject("[EffectRoot]").transform;
+            this.EffectRoot.SetParent(GameObject.Find("Canvas").transform,false);
         }
 
         public void DelayAction(float delay, Action callback)

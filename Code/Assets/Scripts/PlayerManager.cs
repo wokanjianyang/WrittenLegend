@@ -95,7 +95,7 @@ namespace Game
             hero.GetComponent<SkillProcessor>().AddSkill(hero,new SkillData()
             {
                 ID = 10001,
-                Name = "基础剑术",
+                Name = "斩血",
                 CD = 1
             });
             hero.SetPosition(new Vector3(0,0),true);
@@ -147,7 +147,7 @@ namespace Game
                 enemy.GetComponent<SkillProcessor>().AddSkill(enemy,new SkillData()
                 {
                     ID = 10002,
-                    Name = "火球术",
+                    Name = "冰冻",
                     CD = 3
                 });
                 enemy.SetPosition(bornCell,true);

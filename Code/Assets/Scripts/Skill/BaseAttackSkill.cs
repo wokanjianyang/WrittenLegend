@@ -10,7 +10,7 @@ namespace Game
         public override void PlayAnimation(int tid)
         {
             base.PlayAnimation(tid);
-
+            
             GameProcessor.Inst.StartCoroutine(IE_Attack(tid));
         }
         

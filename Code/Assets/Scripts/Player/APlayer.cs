@@ -44,7 +44,7 @@ namespace Game
         {
             var prefab = Resources.Load<GameObject>("Prefab/Char/Model");
             this.Transform = GameObject.Instantiate(prefab).transform;
-            this.Transform.SetParent(GameProcessor.Inst.MapRoot);
+            this.Transform.SetParent(GameProcessor.Inst.PlayerRoot);
             var rect = this.Transform.GetComponent<RectTransform>();
             rect.sizeDelta = GameProcessor.Inst.MapProcessor.CellSize;
             this.Logic = this.Transform.GetComponent<Logic>();

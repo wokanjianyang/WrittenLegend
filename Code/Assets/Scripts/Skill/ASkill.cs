@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 
 namespace Game
 {
@@ -10,7 +9,6 @@ namespace Game
     }
     abstract public class ASkill : IPlayer
     {
-        protected float Value { get; private set; } = 0;
         public void Do(int tid)
         {
             this.PlayAnimation(tid);
