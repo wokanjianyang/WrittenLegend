@@ -3,6 +3,7 @@ using System.Collections;
 using Game;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using ET;
 
 public class Init : MonoBehaviour
 {
@@ -11,12 +12,39 @@ public class Init : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        LoadConfig();
         //初始化广告模块
         //初始化Bugly
         //初始化时间戳
         //加载存档
         //加载首页
         this.LoadHome2();
+    }
+
+    private void LoadConfig()
+    {
+        //获取配置数据
+        Options.Instance = new Options();
+        Options.Instance.Develop = 1;
+        Options.Instance.LogLevel = 0;
+
+        Log.ILog = new UnityLogger();
+
+        ET.Game.EventSystem.Add(typeof(LevelConfigCategory).Assembly);
+
+        ResourcesComponent.Instance = new ResourcesComponent();
+        ET.Game.Scene.AddComponent<ResourcesComponent>();
+        ResourcesComponent.Instance.LoadBundle("config.unity3d");
+
+        ConfigComponent.Instance = new ConfigComponent();
+        ET.Game.Scene.AddComponent<ConfigComponent>();
+        ConfigComponent.Instance.ConfigLoader = new ConfigLoader();
+        ConfigComponent.Instance.Load();
+        ResourcesComponent.Instance.UnloadBundle("config.unity3d");
+
+        LevelConfigCategory category = LevelConfigCategory.Instance;
+        LevelConfig level1 = category.Get(1);
+        Log.Info($"level 1 . PhyAtt:{level1.PhyAtt}");
     }
 
     // Update is called once per frame
