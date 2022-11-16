@@ -7,32 +7,32 @@ namespace ET
 {
     [ProtoContract]
     [Config]
-    public partial class LevelConfigCategory : ProtoObject, IMerge
+    public partial class MonsterBaseCategory : ProtoObject, IMerge
     {
-        public static LevelConfigCategory Instance;
+        public static MonsterBaseCategory Instance;
 		
         [ProtoIgnore]
         [BsonIgnore]
-        private Dictionary<int, LevelConfig> dict = new Dictionary<int, LevelConfig>();
+        private Dictionary<int, MonsterBase> dict = new Dictionary<int, MonsterBase>();
 		
         [BsonElement]
         [ProtoMember(1)]
-        private List<LevelConfig> list = new List<LevelConfig>();
+        private List<MonsterBase> list = new List<MonsterBase>();
 		
-        public LevelConfigCategory()
+        public MonsterBaseCategory()
         {
             Instance = this;
         }
         
         public void Merge(object o)
         {
-            LevelConfigCategory s = o as LevelConfigCategory;
+            MonsterBaseCategory s = o as MonsterBaseCategory;
             this.list.AddRange(s.list);
         }
 		
         public override void EndInit()
         {
-            foreach (LevelConfig config in list)
+            foreach (MonsterBase config in list)
             {
                 config.EndInit();
                 this.dict.Add(config.Id, config);
@@ -40,13 +40,13 @@ namespace ET
             this.AfterEndInit();
         }
 		
-        public LevelConfig Get(int id)
+        public MonsterBase Get(int id)
         {
-            this.dict.TryGetValue(id, out LevelConfig item);
+            this.dict.TryGetValue(id, out MonsterBase item);
 
             if (item == null)
             {
-                throw new Exception($"配置找不到，配置表名: {nameof (LevelConfig)}，配置id: {id}");
+                throw new Exception($"配置找不到，配置表名: {nameof (MonsterBase)}，配置id: {id}");
             }
 
             return item;
@@ -57,12 +57,12 @@ namespace ET
             return this.dict.ContainsKey(id);
         }
 
-        public Dictionary<int, LevelConfig> GetAll()
+        public Dictionary<int, MonsterBase> GetAll()
         {
             return this.dict;
         }
 
-        public LevelConfig GetOne()
+        public MonsterBase GetOne()
         {
             if (this.dict == null || this.dict.Count <= 0)
             {
@@ -73,26 +73,23 @@ namespace ET
     }
 
     [ProtoContract]
-	public partial class LevelConfig: ProtoObject, IConfig
+	public partial class MonsterBase: ProtoObject, IConfig
 	{
-		/// <summary>Id</summary>
+		/// <summary>ID</summary>
 		[ProtoMember(1)]
 		public int Id { get; set; }
-		/// <summary>Level</summary>
+		/// <summary>等级</summary>
 		[ProtoMember(2)]
 		public int Level { get; set; }
-		/// <summary>PhyAtt</summary>
+		/// <summary>名称</summary>
 		[ProtoMember(3)]
-		public long PhyAtt { get; set; }
-		/// <summary>Def</summary>
+		public string Name { get; set; }
+		/// <summary>等级</summary>
 		[ProtoMember(4)]
-		public long Def { get; set; }
-		/// <summary>Hp</summary>
+		public int Exp { get; set; }
+		/// <summary>掉落金币</summary>
 		[ProtoMember(5)]
-		public long Hp { get; set; }
-		/// <summary>Exp</summary>
-		[ProtoMember(6)]
-		public long Exp { get; set; }
+		public int Gold { get; set; }
 
 	}
 }

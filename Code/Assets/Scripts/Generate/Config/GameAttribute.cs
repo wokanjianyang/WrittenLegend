@@ -7,32 +7,32 @@ namespace ET
 {
     [ProtoContract]
     [Config]
-    public partial class LevelConfigCategory : ProtoObject, IMerge
+    public partial class GameAttributeCategory : ProtoObject, IMerge
     {
-        public static LevelConfigCategory Instance;
+        public static GameAttributeCategory Instance;
 		
         [ProtoIgnore]
         [BsonIgnore]
-        private Dictionary<int, LevelConfig> dict = new Dictionary<int, LevelConfig>();
+        private Dictionary<int, GameAttribute> dict = new Dictionary<int, GameAttribute>();
 		
         [BsonElement]
         [ProtoMember(1)]
-        private List<LevelConfig> list = new List<LevelConfig>();
+        private List<GameAttribute> list = new List<GameAttribute>();
 		
-        public LevelConfigCategory()
+        public GameAttributeCategory()
         {
             Instance = this;
         }
         
         public void Merge(object o)
         {
-            LevelConfigCategory s = o as LevelConfigCategory;
+            GameAttributeCategory s = o as GameAttributeCategory;
             this.list.AddRange(s.list);
         }
 		
         public override void EndInit()
         {
-            foreach (LevelConfig config in list)
+            foreach (GameAttribute config in list)
             {
                 config.EndInit();
                 this.dict.Add(config.Id, config);
@@ -40,13 +40,13 @@ namespace ET
             this.AfterEndInit();
         }
 		
-        public LevelConfig Get(int id)
+        public GameAttribute Get(int id)
         {
-            this.dict.TryGetValue(id, out LevelConfig item);
+            this.dict.TryGetValue(id, out GameAttribute item);
 
             if (item == null)
             {
-                throw new Exception($"配置找不到，配置表名: {nameof (LevelConfig)}，配置id: {id}");
+                throw new Exception($"配置找不到，配置表名: {nameof (GameAttribute)}，配置id: {id}");
             }
 
             return item;
@@ -57,12 +57,12 @@ namespace ET
             return this.dict.ContainsKey(id);
         }
 
-        public Dictionary<int, LevelConfig> GetAll()
+        public Dictionary<int, GameAttribute> GetAll()
         {
             return this.dict;
         }
 
-        public LevelConfig GetOne()
+        public GameAttribute GetOne()
         {
             if (this.dict == null || this.dict.Count <= 0)
             {
@@ -73,26 +73,20 @@ namespace ET
     }
 
     [ProtoContract]
-	public partial class LevelConfig: ProtoObject, IConfig
+	public partial class GameAttribute: ProtoObject, IConfig
 	{
-		/// <summary>Id</summary>
+		/// <summary>_id</summary>
 		[ProtoMember(1)]
 		public int Id { get; set; }
-		/// <summary>Level</summary>
+		/// <summary>类型</summary>
 		[ProtoMember(2)]
-		public int Level { get; set; }
-		/// <summary>PhyAtt</summary>
+		public int Type { get; set; }
+		/// <summary>战斗力系数</summary>
 		[ProtoMember(3)]
-		public long PhyAtt { get; set; }
-		/// <summary>Def</summary>
+		public float PowerCoef { get; set; }
+		/// <summary>说明</summary>
 		[ProtoMember(4)]
-		public long Def { get; set; }
-		/// <summary>Hp</summary>
-		[ProtoMember(5)]
-		public long Hp { get; set; }
-		/// <summary>Exp</summary>
-		[ProtoMember(6)]
-		public long Exp { get; set; }
+		public string Name { get; set; }
 
 	}
 }

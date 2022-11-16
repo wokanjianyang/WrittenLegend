@@ -78,7 +78,7 @@ namespace Game
                 data[AttributeEnum.Name] = "传奇";
                 data[AttributeEnum.Level] = 1;
                 data[AttributeEnum.HP] = 100;
-                data[AttributeEnum.Atk] = 2;
+                data[AttributeEnum.PhyAtt] = 2;
             }
             
             var hero = new Hero();
@@ -113,7 +113,7 @@ namespace Game
                 data[AttributeEnum.Name] = "小怪";
                 data[AttributeEnum.Level] = 1;
                 data[AttributeEnum.HP] = 100f;
-                data[AttributeEnum.Atk] = 1f;
+                data[AttributeEnum.PhyAtt] = 1f;
             }
             
             var tempCells = GameProcessor.Inst.MapProcessor.AllCells.ToList();
