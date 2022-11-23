@@ -12,18 +12,18 @@ namespace Game
 		private Dictionary<int, long> PhyAttrDict = new Dictionary<int, long>();
 		private Dictionary<int, long> PhyAttrPercent = new Dictionary<int, long>();
 
-		public void SetAttr(AttributeEnum attrType,int attrKey, long attrValue)
+		public void SetAttr(AttributeEnum attrType, AttributeFrom attrKey, long attrValue)
 		{
 			switch (attrType)
 			{
 				case AttributeEnum.HP:
-					HpDict[attrKey] = attrValue;
+					HpDict[((int)attrKey)] = attrValue;
 					break;
 				case AttributeEnum.PhyAtt:
-					PhyAttrDict[attrKey] = attrValue;
+					PhyAttrDict[((int)attrKey)] = attrValue;
                     break;
 				case AttributeEnum.AttIncrea:
-					PhyAttrPercent[attrKey] = attrValue;
+					PhyAttrPercent[((int)attrKey)] = attrValue;
 					break;
 			}
 

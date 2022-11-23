@@ -87,9 +87,9 @@ namespace ET
 		/// <summary>Def</summary>
 		[ProtoMember(4)]
 		public long Def { get; set; }
-		/// <summary>Hp</summary>
+		/// <summary>HP</summary>
 		[ProtoMember(5)]
-		public long Hp { get; set; }
+		public long HP { get; set; }
 		/// <summary>Exp</summary>
 		[ProtoMember(6)]
 		public long Exp { get; set; }

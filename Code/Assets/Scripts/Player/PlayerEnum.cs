@@ -27,7 +27,21 @@ namespace Game
         BurstIncrea = 18, //爆率加成
 
     }
-    
+
+    /// <summary>
+    /// 属性来源
+    /// </summary>
+    public enum AttributeFrom
+    {
+        HeroBase =1, //人物升级属性
+        EquipBase =2 , //装备基础属性
+        EquiStrong =3, //装备强化属性
+        /// <summary>
+        /// 测试属性
+        /// </summary>
+        Test=99,
+    }
+
     public enum PlayerType
     {
         Hero = 0,

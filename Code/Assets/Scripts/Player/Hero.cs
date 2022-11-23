@@ -4,8 +4,6 @@ namespace Game
 {
     public class Hero : APlayer
     {
-        public int Level { get; set; }
-
         public long Exp { get; set; }
 
         public long UpExp { get; set; }
@@ -24,67 +22,67 @@ namespace Game
         public override void Load()
         {
             base.Load();
-            
+
             var boxPrefab = Resources.Load<GameObject>("Prefab/Effect/HeroBox");
             var box = GameObject.Instantiate(boxPrefab).transform;
             box.SetParent(this.GetComponent<PlayerUI>().image_Background.transform);
-            
+
+            //jia
+
             this.Camp = PlayerType.Hero;
             this.Level = 1;
             this.Exp = 0;
 
             //设置各种属性值
             this.AttributeBonus = new AttributeBonus();
+            SetLevelConfigAttr(1);
+            AttributeBonus.SetAttr(AttributeEnum.AttIncrea, AttributeFrom.Test, 400);
 
-            AttributeBonus.SetAttr(AttributeEnum.HP, 1, 1000);
-            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, 1, 40);
-            AttributeBonus.SetAttr(AttributeEnum.AttIncrea, 1, 400);
-            AttributeBonus.SetAttr(AttributeEnum.Def, 1, 5);
+            //回满当前血量
+            SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
 
             this.EventCenter.AddListener<HeroChangeEvent>(HeroChange);
-
-            SetHp(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
         }
 
-        private void HeroChange(HeroChangeEvent e) {
-            switch (e.Type){
+        private void HeroChange(HeroChangeEvent e)
+        {
+            switch (e.Type)
+            {
                 case HeroChangeType.LevelUp:
                     LevelUp();
                     break;
-
-
             }
-
         }
 
-        private void LevelUp() {
-            if (this.Exp >= this.UpExp) {
-                Exp =  Exp - UpExp;
+        private void SetLevelConfigAttr(int level)
+        {
+            LevelConfig config = LevelConfigCategory.Instance.Get(Level);
+            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, config.HP);
+            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, config.PhyAtt);
+            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, config.Def);
+            UpExp = config.Exp;
+        }
+
+        private void LevelUp()
+        {
+            if (this.Exp >= this.UpExp)
+            {
+                Exp -= UpExp;
                 Level++;
 
                 //Add Base Attr
-                LevelConfig config = LevelConfigCategory.Instance.Get(Level);
-                AttributeBonus.SetAttr(AttributeEnum.HP, 1, config.Hp);
-                AttributeBonus.SetAttr(AttributeEnum.PhyAtt, 1, config.PhyAtt);
-                AttributeBonus.SetAttr(AttributeEnum.Def, 1, config.Def);
-
-                SetHp(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
-
-                UpExp = config.Exp;
-
-                EventCenter.Raise(new SetPlayerLevelEvent
-                {
-                    Level = Level.ToString()
-                });
+                SetLevelConfigAttr(Level);
+                //升级恢复满血量
+                SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
+                EventCenter.Raise(new SetPlayerLevelEvent { Level = Level.ToString() });
             }
         }
 
- 
         public enum HeroChangeType
         {
             LevelUp = 0,
             AttrChange = 1
         }
     }
-    
+
 }

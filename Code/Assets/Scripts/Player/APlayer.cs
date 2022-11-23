@@ -14,11 +14,11 @@ namespace Game
 
         public string Name { get; set; }
 
+        public int Level { get; set; }
+        public long HP { get; set; }
         public PlayerType Camp { get; set; }
 
         public Vector3Int Cell { get; set; }
-
-        public long HP { get; set; }
 
         public AttributeBonus AttributeBonus { get; set; }
 
@@ -149,7 +149,7 @@ namespace Game
             }
         }
 
-        public void SetHp(long hp) {
+        public void SetHP(long hp) {
             this.HP = hp;
 
             EventCenter.Raise(new SetPlayerHPEvent

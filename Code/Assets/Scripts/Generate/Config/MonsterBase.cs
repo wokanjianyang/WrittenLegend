@@ -87,8 +87,17 @@ namespace ET
 		/// <summary>等级</summary>
 		[ProtoMember(4)]
 		public int Exp { get; set; }
-		/// <summary>掉落金币</summary>
+		/// <summary>生命</summary>
 		[ProtoMember(5)]
+		public int HP { get; set; }
+		/// <summary>防御</summary>
+		[ProtoMember(6)]
+		public int Def { get; set; }
+		/// <summary>攻击</summary>
+		[ProtoMember(7)]
+		public int PhyAttr { get; set; }
+		/// <summary>掉落金币</summary>
+		[ProtoMember(8)]
 		public int Gold { get; set; }
 
 	}

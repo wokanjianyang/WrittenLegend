@@ -55,11 +55,11 @@ namespace Game
             }
 
             //设置名称
-            if (BaseAttributeMap.TryGetValue(AttributeEnum.Name, out var name))
+            if (SelfPlayer.Name!=null)
             {
                 SelfPlayer.EventCenter.Raise(new SetPlayerNameEvent
                 {
-                    Name = name.ToString()
+                    Name = SelfPlayer.Name
                 });
             }
 
@@ -68,15 +68,12 @@ namespace Game
             {
                 SelfPlayer.EventCenter.Raise(new SetPlayerLevelEvent
                 {
-                    Level = level.ToString()
+                    Level = SelfPlayer.Level.ToString()
                 });
             }
 
             //设置血量
-            if (BaseAttributeMap.TryGetValue(AttributeEnum.HP, out var hp))
-            {
-                this.SelfPlayer.SetHp((long)hp);
-            }
+            this.SelfPlayer.SetHP(SelfPlayer.HP);
         }
 
         public void ResetData()
@@ -102,7 +99,7 @@ namespace Game
             }
 
             AddBattleAttribute(AttributeEnum.HP, damage * -1);
-            this.SelfPlayer.SetHp(currentHP);
+            this.SelfPlayer.SetHP(currentHP);
             if (currentHP == 0)
             {
                 IsSurvice = false;
@@ -130,7 +127,7 @@ namespace Game
             }
             AddBattleAttribute(AttributeEnum.HP, damage * -1);
 
-            this.SelfPlayer.SetHp(currentHP);
+            this.SelfPlayer.SetHP(currentHP);
         }
 
 
