@@ -33,4 +33,14 @@ namespace Game
     {
         public int RoundNum { get; set; }
     }
+
+    public class HeroChangeEvent : SDD.Events.Event { 
+        public Hero.HeroChangeType Type { get; set; } 
+    }
+
+    public class DeadRewarddEvent : SDD.Events.Event
+    {
+        public int FromId { get; set; }
+        public int ToId { get; set; }
+    }
 }

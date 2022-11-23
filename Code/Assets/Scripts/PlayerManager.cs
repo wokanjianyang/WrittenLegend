@@ -10,7 +10,12 @@ namespace Game
     public class PlayerManager : MonoBehaviour,IBattleLife
     {
 
+        public Hero hero;
         private List<APlayer> AllPlayers =  new List<APlayer>();
+
+        public Hero GetHero() {
+            return hero;
+        }
 
         public void AddPlayer(APlayer player)
         {
@@ -77,11 +82,12 @@ namespace Game
                 data[AttributeEnum.Color] = Color.white;
                 data[AttributeEnum.Name] = "传奇";
                 data[AttributeEnum.Level] = 1;
-                data[AttributeEnum.HP] = 100;
+                data[AttributeEnum.HP] = 100L;
                 data[AttributeEnum.PhyAtt] = 2;
             }
             
-            var hero = new Hero();
+            this.hero = new Hero();
+            hero.Load();
             hero.Logic.SetData(data);
 
             var coms = hero.Transform.GetComponents<MonoBehaviour>();
@@ -112,7 +118,7 @@ namespace Game
                 data[AttributeEnum.Color] = Color.red;
                 data[AttributeEnum.Name] = "小怪";
                 data[AttributeEnum.Level] = 1;
-                data[AttributeEnum.HP] = 100f;
+                data[AttributeEnum.HP] = 100L;
                 data[AttributeEnum.PhyAtt] = 1f;
             }
             
@@ -134,6 +140,7 @@ namespace Game
                 }
                 
                 enemy = new Monster();
+                enemy.Load();
                 enemy.Logic.SetData(data);
 
                 var coms = enemy.Transform.GetComponents<MonoBehaviour>();

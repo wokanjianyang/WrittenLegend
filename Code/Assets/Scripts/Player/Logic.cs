@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game
 {
-    public class Logic : MonoBehaviour,IPlayer
+    public class Logic : MonoBehaviour, IPlayer
     {
         /// <summary>
         /// 角色属性
@@ -23,13 +23,13 @@ namespace Game
         // Start is called before the first frame update
         void Start()
         {
-           
+
         }
 
         // Update is called once per frame
         void Update()
         {
-            
+
         }
 
         public void SetData(Dictionary<AttributeEnum, object> dict)
@@ -41,9 +41,9 @@ namespace Game
                     BaseAttributeMap[kvp.Key] = kvp.Value;
                 }
             }
-            
+
             //设置背景  
-            if(BaseAttributeMap.TryGetValue(AttributeEnum.Color,out var color))
+            if (BaseAttributeMap.TryGetValue(AttributeEnum.Color, out var color))
             {
                 if (color is Color _color)
                 {
@@ -53,7 +53,7 @@ namespace Game
                     });
                 }
             }
-            
+
             //设置名称
             if (BaseAttributeMap.TryGetValue(AttributeEnum.Name, out var name))
             {
@@ -62,7 +62,7 @@ namespace Game
                     Name = name.ToString()
                 });
             }
-            
+
             //设置等级
             if (BaseAttributeMap.TryGetValue(AttributeEnum.Level, out var level))
             {
@@ -71,11 +71,11 @@ namespace Game
                     Level = level.ToString()
                 });
             }
-            
+
             //设置血量
             if (BaseAttributeMap.TryGetValue(AttributeEnum.HP, out var hp))
             {
-                SetHP(hp.ToString());
+                this.SelfPlayer.SetHp((long)hp);
             }
         }
 
@@ -91,17 +91,18 @@ namespace Game
             BattleAttributeMap.Clear();
         }
 
-        public void OnDamage(float damage)
+        public void OnDamage(int fromId,long damage)
         {
-            var currentHP = GetAttributeFloat(AttributeEnum.HP);
+            long currentHP = this.SelfPlayer.HP;
+
             currentHP -= damage;
             if (currentHP <= 0)
             {
                 currentHP = 0;
             }
 
-            AddBattleAttribute(AttributeEnum.HP,damage*-1);
-            SetHP(currentHP.ToString());
+            AddBattleAttribute(AttributeEnum.HP, damage * -1);
+            this.SelfPlayer.SetHp(currentHP);
             if (currentHP == 0)
             {
                 IsSurvice = false;
@@ -113,34 +114,42 @@ namespace Game
                 {
                     Content = "死亡"
                 });
+                SelfPlayer.EventCenter.Raise(new DeadRewarddEvent
+                {
+                    FromId = fromId,
+                    ToId = SelfPlayer.ID
+                });
             }
             else
             {
                 SelfPlayer.EventCenter.Raise(new ShowMsgEvent
                 {
-                    Content = (damage*-1).ToString()
+                    Content = (damage * -1).ToString()
                 });
-                
+
             }
-            AddBattleAttribute(AttributeEnum.HP,damage*-1);
-            SetHP(currentHP.ToString());
+            AddBattleAttribute(AttributeEnum.HP, damage * -1);
+
+            this.SelfPlayer.SetHp(currentHP);
         }
+
+
 
         public float GetAttributeFloat(AttributeEnum attr)
         {
             var baseValue = 0f;
             if (BaseAttributeMap.TryGetValue(attr, out var value))
             {
-                baseValue =  (float)Convert.ToDouble(value);
+                baseValue = (float)Convert.ToDouble(value);
             }
-            
+
             var battleValue = 0f;
             if (BattleAttributeMap.TryGetValue(attr, out var value2))
             {
-                battleValue =  (float)Convert.ToDouble(value2);
+                battleValue = (float)Convert.ToDouble(value2);
             }
 
-            return baseValue+battleValue;
+            return baseValue + battleValue;
         }
 
         public void AddBattleAttribute(AttributeEnum attr, float value)
@@ -149,13 +158,13 @@ namespace Game
             BattleAttributeMap[attr] = (float)Convert.ToDouble(value2) + value;
         }
 
-        private void SetHP(string hp)
+/*        private void SetHP(string hp)
         {
             SelfPlayer.EventCenter.Raise(new SetPlayerHPEvent
             {
                 HP = hp
             });
-        }
+        }*/
 
         public APlayer SelfPlayer { get; set; }
         public void SetParent(APlayer player)

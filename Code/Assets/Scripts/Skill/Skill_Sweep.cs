@@ -34,7 +34,7 @@ namespace Game
         
         public override float CalcFormula(APlayer player, float ratio)
         {
-            return this.SelfPlayer.Logic.GetAttributeFloat(AttributeEnum.PhyAtt) * ratio * 10;
+            return this.SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.PhyAtt) * ratio;
         }
     }
 }

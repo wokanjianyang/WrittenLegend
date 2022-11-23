@@ -29,13 +29,13 @@ namespace Game
             {
                 var enemy = GameProcessor.Inst.PlayerManager.GetPlayer(attackData.Tid);
                 var damage = (int)this.CalcFormula(enemy, attackData.Ratio);
-                enemy.OnHit(damage);
+                enemy.OnHit(tid, damage);
             }
         }
 
         public override float CalcFormula(APlayer player, float ratio)
         {
-            return this.SelfPlayer.Logic.GetAttributeFloat(AttributeEnum.PhyAtt) * ratio;
+            return this.SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.PhyAtt) * ratio;
         }
 
     }

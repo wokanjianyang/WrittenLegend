@@ -51,7 +51,7 @@ namespace Game
                             this.DoMonsterLogic();
                             break;
                     }
-                
+
                     this.roundNum++;
                     this.isGameOver = this.CheckGameResult();
                     if (this.isGameOver)
@@ -64,8 +64,8 @@ namespace Game
         
         protected bool CheckGameResult()
         {
-            var heroCamp = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Hero);
-            if (heroCamp.Count == 0)
+            var heroCamp = GameProcessor.Inst.PlayerManager.GetHero();
+            if (heroCamp.HP == 0)
             {
                 this.winCamp = PlayerType.Enemy;
                 return true;

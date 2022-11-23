@@ -13,19 +13,23 @@ namespace Game
         public int ID { get; set; }
 
         public string Name { get; set; }
-        
+
         public PlayerType Camp { get; set; }
-        
+
         public Vector3Int Cell { get; set; }
-        
+
+        public long HP { get; set; }
+
+        public AttributeBonus AttributeBonus { get; set; }
+
         public Transform Transform { get; private set; }
-        
+
         public Logic Logic { get; private set; }
-        
+
         public int RoundCounter { get; set; }
 
         public EventManager EventCenter { get; private set; }
-        
+
         public bool IsSurvice
         {
             get
@@ -33,7 +37,7 @@ namespace Game
                 return this.Logic.IsSurvice;
             }
         }
-        
+
         public APlayer()
         {
             this.EventCenter = new EventManager();
@@ -56,7 +60,6 @@ namespace Game
                     _com.SetParent(this);
                 }
             }
-
         }
 
         public void DoEvent()
@@ -100,15 +103,15 @@ namespace Game
 
 
 
-        public void SetPosition(Vector3 pos,bool isGraphic = false)
+        public void SetPosition(Vector3 pos, bool isGraphic = false)
         {
-            this.Cell = new Vector3Int((int)pos.x, (int)pos.y,0);
+            this.Cell = new Vector3Int((int)pos.x, (int)pos.y, 0);
             if (isGraphic)
             {
                 this.Transform.localPosition = GameProcessor.Inst.MapProcessor.GetWorldPosition(this.Cell);
             }
         }
-        
+
         public APlayer FindNearestEnemy()
         {
             var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(this.Camp == PlayerType.Hero ? PlayerType.Enemy : PlayerType.Hero);
@@ -138,12 +141,21 @@ namespace Game
             return enemys[0];
         }
 
-        public void OnHit(params float[] damages)
+        public void OnHit(int tid, params long[] damages)
         {
             foreach (var d in damages)
             {
-                this.Logic.OnDamage(d);
+                this.Logic.OnDamage(tid, d);
             }
+        }
+
+        public void SetHp(long hp) {
+            this.HP = hp;
+
+            EventCenter.Raise(new SetPlayerHPEvent
+            {
+                HP = hp.ToString()
+            });
         }
 
         public T GetComponent<T>()
