@@ -6,6 +6,7 @@ using DG.Tweening;
 using SDD.Events;
 using TMPro;
 using Newtonsoft.Json;
+using ET;
 
 namespace Game
 {
@@ -17,6 +18,8 @@ namespace Game
 
         public int Level { get; set; }
         public long HP { get; set; }
+
+        public IDictionary<int,int> SkillIdList { get; set; }
 
         [JsonIgnore]
         public PlayerType Camp { get; set; }
@@ -51,6 +54,7 @@ namespace Game
         {
             this.EventCenter = new EventManager();
             this.AttributeBonus = new AttributeBonus();
+            this.SkillIdList = new Dictionary<int,int>();
             //this.Load();
         }
 
@@ -100,6 +104,39 @@ namespace Game
             }
         }
 
+        public List<SkillData> GetSkillDatas() {
+            List<SkillData> list = new List<SkillData>();
+
+            foreach (int skillId in SkillIdList.Values) {
+                ParseSkill(skillId,ref list);
+            }
+
+            //默认增加普通攻击
+            ParseSkill(9001,ref list);
+
+            return list;
+        }
+
+        private void ParseSkill(int skillId,ref List<SkillData> list) {
+            SkillConfig config = SkillConfigCategory.Instance.Get(skillId);
+
+            if (config != null) {
+                SkillData data = new SkillData();
+                data.ID = config.Id;
+                data.Name = config.Name;
+                data.CD = config.CD;
+                data.Des = config.Des;
+                data.Dis = config.Dis;
+                data.Center = (SkillCenter)Enum.Parse(typeof(SkillCenter), config.Center);
+                data.Area = (AttackGeometryType)Enum.Parse(typeof(AttackGeometryType), config.Area);
+                data.EnemyMax = config.EnemyMax;
+                data.Percent = config.Percent;
+                data.Damage = config.Damage;
+
+                list.Add(data);
+            }
+        }
+
         public void Move(Vector3Int cell)
         {
             this.EventCenter.Raise(new ShowMsgEvent
@@ -110,8 +147,6 @@ namespace Game
             var targetPos = GameProcessor.Inst.MapProcessor.GetWorldPosition(cell);
             this.Transform.DOLocalMove(targetPos, 1f);
         }
-
-
 
         public void SetPosition(Vector3 pos, bool isGraphic = false)
         {

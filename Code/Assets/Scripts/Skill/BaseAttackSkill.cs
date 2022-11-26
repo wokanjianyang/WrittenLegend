@@ -7,6 +7,10 @@ namespace Game
 {
     public class BaseAttackSkill : ASkill
     {
+        public BaseAttackSkill(APlayer player, SkillData skillData) : base(player, skillData)
+        {
+        }
+
         public override void PlayAnimation(int tid)
         {
             base.PlayAnimation(tid);

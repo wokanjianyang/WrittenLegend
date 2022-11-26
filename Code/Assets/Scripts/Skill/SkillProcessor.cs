@@ -12,7 +12,6 @@ public class SkillProcessor : MonoBehaviour,IPlayer
 
     private void Awake()
     {
-        this.allSkills = new List<SkillState>();
     }
 
     // Start is called before the first frame update
@@ -26,21 +25,19 @@ public class SkillProcessor : MonoBehaviour,IPlayer
         
     }
 
-    public void AddSkill(APlayer player,SkillData data)
+    public void InitSkill(APlayer player)
     {
-        this.allSkills.Add(new SkillState(player,new SkillData()
+        this.allSkills = new List<SkillState>();
+        foreach (var data in player.GetSkillDatas())
         {
-            ID = 0,
-            CD = 0,
-            Name = "普攻"
-        }));
-        this.allSkills.Add(new SkillState(player,data));
+            this.allSkills.Add(new SkillState(player, data));
+        }
     }
 
     public void UseSkill(int tid)
     {
         var skills = this.allSkills.FindAll(s => s.IsCanUse());
-        var skill = skills?.LastOrDefault();
+        var skill = skills?.FirstOrDefault();
         skill?.Do(tid);
     }
 

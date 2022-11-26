@@ -17,15 +17,14 @@ namespace Game
         {
             this.SelfPlayer = player;
             this.Data = data;
-            if (data.ID == 10001)
+            if (data.ID < 9000)
             {
-                this.skillLogic = new Skill_Sweep();
+                this.skillLogic = new Skill_Sweep(player, data);
             }
             else
             {
-                this.skillLogic = new BaseAttackSkill();
+                this.skillLogic = new BaseAttackSkill(player,data);
             }
-            this.skillLogic.SetParent(player);
         }
 
         public bool IsCanUse()

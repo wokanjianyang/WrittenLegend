@@ -337,7 +337,7 @@ namespace Game
 
         public List<Vector3Int> GetAttackRangeCell(Vector3Int selfCell, Vector3Int dir, int attackRange, AttackGeometryType geometryType)
         {
-            var rangeCells = new List<Vector3Int>();
+            List<Vector3Int> rangeCells = new List<Vector3Int>();
             Vector3Int targetCell = Vector3Int.zero;
             switch (geometryType)
             {
@@ -372,7 +372,7 @@ namespace Game
                     {
                         for (var j = attackRange * -1; j <= attackRange; j++)
                         {
-                            targetCell = selfCell + new Vector3Int(j, i);
+                            targetCell = selfCell + new Vector3Int(j, i); 
                             rangeCells.Add(targetCell);
                         }
                     }
