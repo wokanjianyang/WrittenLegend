@@ -27,16 +27,13 @@ namespace Game
             var box = GameObject.Instantiate(boxPrefab).transform;
             box.SetParent(this.GetComponent<PlayerUI>().image_Background.transform);
 
-            //jia
-
             this.Camp = PlayerType.Hero;
-            this.Level = 1;
-            this.Exp = 0;
 
             //设置各种属性值
-            this.AttributeBonus = new AttributeBonus();
-            SetLevelConfigAttr(1);
+    
+            SetLevelConfigAttr();
             AttributeBonus.SetAttr(AttributeEnum.AttIncrea, AttributeFrom.Test, 400);
+            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.Test, 15);
 
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
@@ -54,7 +51,7 @@ namespace Game
             }
         }
 
-        private void SetLevelConfigAttr(int level)
+        private void SetLevelConfigAttr()
         {
             LevelConfig config = LevelConfigCategory.Instance.Get(Level);
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, config.HP);
@@ -71,7 +68,7 @@ namespace Game
                 Level++;
 
                 //Add Base Attr
-                SetLevelConfigAttr(Level);
+                SetLevelConfigAttr();
                 //升级恢复满血量
                 SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
                 EventCenter.Raise(new SetPlayerLevelEvent { Level = Level.ToString() });

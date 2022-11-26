@@ -7,13 +7,14 @@ using UnityEngine;
 
 namespace Game
 {
-    public class PlayerManager : MonoBehaviour,IBattleLife
+    public class PlayerManager : MonoBehaviour, IBattleLife
     {
 
         public Hero hero;
-        private List<APlayer> AllPlayers =  new List<APlayer>();
+        private List<APlayer> AllPlayers = new List<APlayer>();
 
-        public Hero GetHero() {
+        public Hero GetHero()
+        {
             return hero;
         }
 
@@ -50,7 +51,7 @@ namespace Game
             return playerList;
         }
 
-        public List<APlayer> GetPlayersByCamp(PlayerType camp,bool isSurvice = true)
+        public List<APlayer> GetPlayersByCamp(PlayerType camp, bool isSurvice = true)
         {
             return this.AllPlayers.FindAll(p => p.Camp == camp && p.IsSurvice == isSurvice);
         }
@@ -78,15 +79,15 @@ namespace Game
         {
             if (data == null)
             {
-                data  = new Dictionary<AttributeEnum, object>();
+                data = new Dictionary<AttributeEnum, object>();
                 data[AttributeEnum.Color] = Color.white;
                 data[AttributeEnum.Name] = "传奇";
                 data[AttributeEnum.Level] = 1;
                 data[AttributeEnum.HP] = 100L;
                 data[AttributeEnum.PhyAtt] = 2;
             }
-            
-            this.hero = new Hero();
+
+            UserData.Load(out this.hero);
             hero.Load();
             hero.Logic.SetData(data);
 
@@ -98,15 +99,15 @@ namespace Game
                     _com.SetParent(hero);
                 }
             }
-            hero.GetComponent<SkillProcessor>().AddSkill(hero,new SkillData()
+            hero.GetComponent<SkillProcessor>().AddSkill(hero, new SkillData()
             {
                 ID = 10001,
                 Name = "斩血",
                 CD = 1
             });
-            hero.SetPosition(new Vector3(0,0),true);
+            hero.SetPosition(new Vector3(0, 0), true);
             GameProcessor.Inst.PlayerManager.AddPlayer(hero);
-            
+
         }
 
         public APlayer LoadMonster(Dictionary<AttributeEnum, object> data = null)
@@ -114,19 +115,19 @@ namespace Game
             APlayer enemy = null;
             if (data == null)
             {
-                data  = new Dictionary<AttributeEnum, object>();
+                data = new Dictionary<AttributeEnum, object>();
                 data[AttributeEnum.Color] = Color.red;
                 data[AttributeEnum.Name] = "小怪";
                 data[AttributeEnum.Level] = 1;
                 data[AttributeEnum.HP] = 100L;
                 data[AttributeEnum.PhyAtt] = 1f;
             }
-            
+
             var tempCells = GameProcessor.Inst.MapProcessor.AllCells.ToList();
             var allPlayerCells = GameProcessor.Inst.PlayerManager.GetAllPlayers().Select(p => p.Cell).ToList();
             tempCells.RemoveAll(p => allPlayerCells.Contains(p));
-            
-            if (tempCells.Count>0)
+
+            if (tempCells.Count > 0)
             {
                 var bornCell = Vector3Int.zero;
                 if (tempCells.Count > 1)
@@ -138,7 +139,7 @@ namespace Game
                 {
                     bornCell = tempCells[0];
                 }
-                
+
                 enemy = new Monster();
                 enemy.Load();
                 enemy.Logic.SetData(data);
@@ -151,13 +152,13 @@ namespace Game
                         _com.SetParent(enemy);
                     }
                 }
-                enemy.GetComponent<SkillProcessor>().AddSkill(enemy,new SkillData()
+                enemy.GetComponent<SkillProcessor>().AddSkill(enemy, new SkillData()
                 {
                     ID = 10002,
                     Name = "冰冻",
                     CD = 3
                 });
-                enemy.SetPosition(bornCell,true);
+                enemy.SetPosition(bornCell, true);
                 GameProcessor.Inst.PlayerManager.AddPlayer(enemy);
             }
 
@@ -175,6 +176,11 @@ namespace Game
                     this.AllPlayers.RemoveAt(i);
                 }
             }
+        }
+
+        void OnDestroy()
+        {
+            UserData.Save(this.hero);
         }
     }
 }

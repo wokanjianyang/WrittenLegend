@@ -5,6 +5,7 @@ using System;
 using DG.Tweening;
 using SDD.Events;
 using TMPro;
+using Newtonsoft.Json;
 
 namespace Game
 {
@@ -16,18 +17,26 @@ namespace Game
 
         public int Level { get; set; }
         public long HP { get; set; }
+
+        [JsonIgnore]
         public PlayerType Camp { get; set; }
 
+        [JsonIgnore]
         public Vector3Int Cell { get; set; }
 
+        [JsonIgnore]
         public AttributeBonus AttributeBonus { get; set; }
 
+        [JsonIgnore]
         public Transform Transform { get; private set; }
 
+        [JsonIgnore]
         public Logic Logic { get; private set; }
 
+        [JsonIgnore]
         public int RoundCounter { get; set; }
 
+        [JsonIgnore]
         public EventManager EventCenter { get; private set; }
 
         public bool IsSurvice
@@ -41,7 +50,8 @@ namespace Game
         public APlayer()
         {
             this.EventCenter = new EventManager();
-            this.Load();
+            this.AttributeBonus = new AttributeBonus();
+            //this.Load();
         }
 
         virtual public void Load()

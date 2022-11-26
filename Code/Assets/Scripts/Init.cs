@@ -41,10 +41,6 @@ public class Init : MonoBehaviour
         ConfigComponent.Instance.ConfigLoader = new ConfigLoader();
         ConfigComponent.Instance.Load();
         ResourcesComponent.Instance.UnloadBundle("config.unity3d");
-
-        LevelConfigCategory category = LevelConfigCategory.Instance;
-        LevelConfig level1 = category.Get(1);
-        Log.Info($"level 1 . PhyAtt:{level1.PhyAtt}");
     }
 
     // Update is called once per frame
