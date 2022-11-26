@@ -1,5 +1,7 @@
 using UnityEngine;
 using ET;
+using System.Collections.Generic;
+
 namespace Game
 {
     public class Hero : APlayer
@@ -38,6 +40,17 @@ namespace Game
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
 
+            //加载技能
+            if (SkillIdList == null)
+            {
+                SkillIdList = new Dictionary<int, int>();
+            }
+            if (SkillIdList.Count == 0) {
+                SkillIdList.Add(1, 1001);  //基础剑术
+                SkillIdList.Add(2, 2001);  //火球
+                SkillIdList.Add(3, 3001);  //灵魂火符
+            }
+
             this.EventCenter.AddListener<HeroChangeEvent>(HeroChange);
         }
 
@@ -75,6 +88,11 @@ namespace Game
             }
         }
 
+        public List<SkillData> GetSelectSkills() {
+
+
+            return null;
+        }
         public enum HeroChangeType
         {
             LevelUp = 0,

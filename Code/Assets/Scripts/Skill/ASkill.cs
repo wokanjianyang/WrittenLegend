@@ -6,9 +6,18 @@ namespace Game
     {
         public int Tid { get; set; }
         public float Ratio { get; set; }
+
     }
     abstract public class ASkill : IPlayer
     {
+        public APlayer SelfPlayer { get; set; }
+        public SkillData SkillData { get; set; }
+
+        public ASkill(APlayer player, SkillData skillData)
+        {
+            this.SelfPlayer = player;
+            this.SkillData = skillData;
+        }
         public void Do(int tid)
         {
             this.PlayAnimation(tid);
@@ -33,7 +42,7 @@ namespace Game
             }};
         }
         
-        public APlayer SelfPlayer { get; set; }
+ 
         public void SetParent(APlayer player)
         {
             this.SelfPlayer = player;

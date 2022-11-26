@@ -33,10 +33,30 @@ namespace Game
 
     public enum AttackGeometryType
     {
+        /// <summary>
+        /// 直线
+        /// </summary>
         FrontRow = 0,
-        Cross,
-        Square,
-        Diamond,
-        FullBox
+        /// <summary>
+        /// 十字
+        /// </summary>
+        Cross =1,
+        /// <summary>
+        /// 矩形
+        /// </summary>
+        Square =2,
+        /// <summary>
+        /// 菱形
+        /// </summary>
+        Diamond =3,
+        /// <summary>
+        /// 全图
+        /// </summary>
+        FullBox = 4
+    }
+
+    public enum SkillCenter { 
+        Self ,
+        Enemy
     }
 }

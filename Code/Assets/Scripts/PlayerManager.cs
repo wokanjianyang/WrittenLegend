@@ -91,6 +91,7 @@ namespace Game
             hero.Load();
             hero.Logic.SetData(data);
 
+
             var coms = hero.Transform.GetComponents<MonoBehaviour>();
             foreach (var com in coms)
             {
@@ -99,13 +100,9 @@ namespace Game
                     _com.SetParent(hero);
                 }
             }
-            hero.GetComponent<SkillProcessor>().AddSkill(hero, new SkillData()
-            {
-                ID = 10001,
-                Name = "斩血",
-                CD = 1
-            });
-            hero.SetPosition(new Vector3(0, 0), true);
+            hero.GetComponent<SkillProcessor>().InitSkill(hero);
+
+            hero.SetPosition(new Vector3(5, 10), true);
             GameProcessor.Inst.PlayerManager.AddPlayer(hero);
 
         }
@@ -152,12 +149,7 @@ namespace Game
                         _com.SetParent(enemy);
                     }
                 }
-                enemy.GetComponent<SkillProcessor>().AddSkill(enemy, new SkillData()
-                {
-                    ID = 10002,
-                    Name = "冰冻",
-                    CD = 3
-                });
+                enemy.GetComponent<SkillProcessor>().InitSkill(enemy);
                 enemy.SetPosition(bornCell, true);
                 GameProcessor.Inst.PlayerManager.AddPlayer(enemy);
             }

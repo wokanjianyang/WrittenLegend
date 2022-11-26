@@ -7,32 +7,32 @@ namespace ET
 {
     [ProtoContract]
     [Config]
-    public partial class SkillCategory : ProtoObject, IMerge
+    public partial class SkillConfigCategory : ProtoObject, IMerge
     {
-        public static SkillCategory Instance;
+        public static SkillConfigCategory Instance;
 		
         [ProtoIgnore]
         [BsonIgnore]
-        private Dictionary<int, Skill> dict = new Dictionary<int, Skill>();
+        private Dictionary<int, SkillConfig> dict = new Dictionary<int, SkillConfig>();
 		
         [BsonElement]
         [ProtoMember(1)]
-        private List<Skill> list = new List<Skill>();
+        private List<SkillConfig> list = new List<SkillConfig>();
 		
-        public SkillCategory()
+        public SkillConfigCategory()
         {
             Instance = this;
         }
         
         public void Merge(object o)
         {
-            SkillCategory s = o as SkillCategory;
+            SkillConfigCategory s = o as SkillConfigCategory;
             this.list.AddRange(s.list);
         }
 		
         public override void EndInit()
         {
-            foreach (Skill config in list)
+            foreach (SkillConfig config in list)
             {
                 config.EndInit();
                 this.dict.Add(config.Id, config);
@@ -40,13 +40,13 @@ namespace ET
             this.AfterEndInit();
         }
 		
-        public Skill Get(int id)
+        public SkillConfig Get(int id)
         {
-            this.dict.TryGetValue(id, out Skill item);
+            this.dict.TryGetValue(id, out SkillConfig item);
 
             if (item == null)
             {
-                throw new Exception($"配置找不到，配置表名: {nameof (Skill)}，配置id: {id}");
+                throw new Exception($"配置找不到，配置表名: {nameof (SkillConfig)}，配置id: {id}");
             }
 
             return item;
@@ -57,12 +57,12 @@ namespace ET
             return this.dict.ContainsKey(id);
         }
 
-        public Dictionary<int, Skill> GetAll()
+        public Dictionary<int, SkillConfig> GetAll()
         {
             return this.dict;
         }
 
-        public Skill GetOne()
+        public SkillConfig GetOne()
         {
             if (this.dict == null || this.dict.Count <= 0)
             {
@@ -73,7 +73,7 @@ namespace ET
     }
 
     [ProtoContract]
-	public partial class Skill: ProtoObject, IConfig
+	public partial class SkillConfig: ProtoObject, IConfig
 	{
 		/// <summary>_ID</summary>
 		[ProtoMember(1)]
@@ -90,30 +90,33 @@ namespace ET
 		/// <summary>冷却时间</summary>
 		[ProtoMember(5)]
 		public int CD { get; set; }
-		/// <summary>技能类型</summary>
+		/// <summary>施法类型</summary>
 		[ProtoMember(6)]
-		public int SkillType { get; set; }
-		/// <summary>伤害类型</summary>
+		public int CastType { get; set; }
+		/// <summary>职业</summary>
 		[ProtoMember(7)]
-		public int Type { get; set; }
+		public int Role { get; set; }
 		/// <summary>技能等级</summary>
 		[ProtoMember(8)]
 		public int Level { get; set; }
 		/// <summary>攻击距离</summary>
 		[ProtoMember(9)]
 		public int Dis { get; set; }
-		/// <summary>攻击区域</summary>
+		/// <summary>中心目标</summary>
 		[ProtoMember(10)]
-		public string Area { get; set; }
-		/// <summary>#区域类型</summary>
+		public string Center { get; set; }
+		/// <summary>攻击区域</summary>
 		[ProtoMember(11)]
-		public int AreaType { get; set; }
+		public string Area { get; set; }
 		/// <summary>最大敌人数量</summary>
 		[ProtoMember(12)]
-		public int EnemyNum { get; set; }
+		public int EnemyMax { get; set; }
 		/// <summary>伤害比例</summary>
 		[ProtoMember(13)]
-		public string Damage { get; set; }
+		public int Percent { get; set; }
+		/// <summary>固定伤害</summary>
+		[ProtoMember(14)]
+		public int Damage { get; set; }
 
 	}
 }
