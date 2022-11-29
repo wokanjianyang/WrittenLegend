@@ -38,6 +38,11 @@ namespace Game
         public Hero.HeroChangeType Type { get; set; } 
     }
 
+    public class HeroUseEquipEvent : SDD.Events.Event
+    {
+        public int EquipId { get; set; }
+    }
+
     public class DeadRewarddEvent : SDD.Events.Event
     {
         public int FromId { get; set; }

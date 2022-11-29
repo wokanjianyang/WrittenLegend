@@ -20,6 +20,13 @@ namespace Game
 
         public long Power { get; set; }
 
+        public IDictionary<int, Equip> EquipPanel { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<Item> Bags { get; set; }
+
         public long LastOut { get; set; }
         public override void Load()
         {
@@ -51,7 +58,11 @@ namespace Game
                 SkillIdList.Add(3, 3001);  //Áé»ê»ð·û
             }
 
+            this.Bags = new List<Item>();
+            this.EquipPanel = new Dictionary<int, Equip>();
+
             this.EventCenter.AddListener<HeroChangeEvent>(HeroChange);
+            this.EventCenter.AddListener<HeroUseEquipEvent>(HeroUseEquip);
         }
 
         private void HeroChange(HeroChangeEvent e)
@@ -62,6 +73,31 @@ namespace Game
                     LevelUp();
                     break;
             }
+        }
+
+        private void HeroUseEquip(HeroUseEquipEvent e)
+        {
+            Equip equip = Bags.FindLast(m => m.ID == e.EquipId) as Equip;
+
+/*            if (equip.ID == 0)
+                return;*/
+
+            int postion = equip.Position;
+
+            Equip old;
+            if (EquipPanel.TryGetValue(postion, out old))
+            {
+                Bags.Add(old); //old move to bag
+            }
+
+            EquipPanel[postion] = equip; //new use to panel
+
+            //Ìæ»»ÊôÐÔ
+            foreach (var a in equip.AttrList)
+            {
+                AttributeBonus.SetAttr((AttributeEnum)a.Key, postion * 100 + AttributeFrom.EquipBase, a.Value);
+            }
+
         }
 
         private void SetLevelConfigAttr()

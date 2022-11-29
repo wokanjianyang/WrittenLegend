@@ -7,7 +7,7 @@ namespace Game
 {
     public class Monster : APlayer
     {
-        public long Id;
+        public int MonsterId;
         public int GoldRate;
         public long Gold;
         public int AttTyp;
@@ -25,7 +25,7 @@ namespace Game
             box.SetParent(this.Transform);
 
             this.Camp = PlayerType.Enemy;
-            this.Level = Random.Range(1, 3) == 1 ? 1 : 4;
+            this.Level = Random.Range(1, 4) ;
 
             this.AttributeBonus = new AttributeBonus();
 
@@ -40,12 +40,13 @@ namespace Game
 
         private void SetLevelConfigAttr()
         {
-            MonsterBase config = MonsterBaseCategory.Instance.Get(this.Level);
+            MonsterBase config = MonsterBaseCategory.Instance.Get(1000+this.Level);
 
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, config.HP);
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, config.PhyAttr);
             AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, config.Def);
 
+            this.MonsterId = config.Id;
             this.Gold = config.Gold;
             this.Exp = config.Exp;
             this.Name = config.Name;
@@ -69,7 +70,22 @@ namespace Game
             }
 
             //生成装备
+            DropConfig drop = DropConfigCategory.Instance.GetByMonsterId(this.MonsterId);
+            List<Equip> equips = EquipHelper.DropEquip(drop);
 
+            if (equips.Count > 0)
+            {
+                hero.Bags.AddRange(equips);
+
+                foreach (Equip equip in equips) {
+                    Debug.Log("drop equip :" + equip.Name);
+                    //use equip
+                    hero.EventCenter.Raise(new HeroUseEquipEvent
+                    {
+                        EquipId = equip.ID
+                    });
+                }
+            }
         }
     }
 }
