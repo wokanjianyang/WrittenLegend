@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 
 namespace Game
 {
@@ -10,13 +11,7 @@ namespace Game
         {
             get
             {
-                string game = Application.productName;
-                string path = AppResPath;
-                if (Application.isMobilePlatform)
-                {
-                    path = $"{Application.persistentDataPath}/{game}/";
-                }
-                return path;
+                return $"{AppResPath}/android";
             }
         }
 

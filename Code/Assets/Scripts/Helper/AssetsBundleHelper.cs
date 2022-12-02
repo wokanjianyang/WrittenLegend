@@ -12,21 +12,21 @@ namespace Game
             UnityEngine.AssetBundle assetBundle = null;
             
             Dictionary<string, UnityEngine.Object> objects = new Dictionary<string, UnityEngine.Object>();
-            if (!Define.IsAsync)
-            {
-                if (Define.IsEditor)
-                {
-                    string[] realPath = null;
-                    realPath = Define.GetAssetPathsFromAssetBundle(assetBundleName);
-                    foreach (string s in realPath)
-                    {
-                        //string assetName = Path.GetFileNameWithoutExtension(s);
-                        UnityEngine.Object resource = Define.LoadAssetAtPath(s);
-                        objects.Add(resource.name, resource);
-                    }
-                }
-                return (null, objects);
-            }
+            // if (!Define.IsAsync)
+            // {
+            //     if (Define.IsEditor)
+            //     {
+            //         string[] realPath = null;
+            //         realPath = Define.GetAssetPathsFromAssetBundle(assetBundleName);
+            //         foreach (string s in realPath)
+            //         {
+            //             //string assetName = Path.GetFileNameWithoutExtension(s);
+            //             UnityEngine.Object resource = Define.LoadAssetAtPath(s);
+            //             objects.Add(resource.name, resource);
+            //         }
+            //     }
+            //     return (null, objects);
+            // }
 
             string p = Path.Combine(PathHelper.AppHotfixResPath, assetBundleName);
             if (File.Exists(p))
