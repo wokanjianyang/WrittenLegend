@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using ET;
 
 namespace Game
 {
@@ -54,7 +53,7 @@ namespace Game
 
         private void MakeReward(DeadRewarddEvent dead)
         {
-            Log.Info("Monster ID:" + dead.ToId + " dead");
+            Log.Info("Monster :" + this.ToString() + " dead");
 
             //增加经验,金币
             Hero hero = GameProcessor.Inst.PlayerManager.GetHero();

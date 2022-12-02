@@ -4,7 +4,7 @@ using MongoDB.Bson.Serialization.Attributes;
 using ProtoBuf;
 using System.Linq;
 
-namespace ET
+namespace Game
 {
     [ProtoContract]
     [Config]

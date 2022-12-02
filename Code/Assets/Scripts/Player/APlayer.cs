@@ -6,7 +6,6 @@ using DG.Tweening;
 using SDD.Events;
 using TMPro;
 using Newtonsoft.Json;
-using ET;
 
 namespace Game
 {

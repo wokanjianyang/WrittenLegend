@@ -3,7 +3,6 @@ using System.Collections;
 using Game;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using ET;
 
 public class Init : MonoBehaviour
 {
@@ -23,24 +22,8 @@ public class Init : MonoBehaviour
 
     private void LoadConfig()
     {
-        //获取配置数据
-        Options.Instance = new Options();
-        Options.Instance.Develop = 1;
-        Options.Instance.LogLevel = 0;
-
         Log.ILog = new UnityLogger();
-
-        ET.Game.EventSystem.Add(typeof(LevelConfigCategory).Assembly);
-
-        ResourcesComponent.Instance = new ResourcesComponent();
-        ET.Game.Scene.AddComponent<ResourcesComponent>();
-        ResourcesComponent.Instance.LoadBundle("config.unity3d");
-
-        ConfigComponent.Instance = new ConfigComponent();
-        ET.Game.Scene.AddComponent<ConfigComponent>();
-        ConfigComponent.Instance.ConfigLoader = new ConfigLoader();
-        ConfigComponent.Instance.Load();
-        ResourcesComponent.Instance.UnloadBundle("config.unity3d");
+        ConfigComponentNew.Load();
     }
 
     // Update is called once per frame
