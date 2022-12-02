@@ -34,6 +34,8 @@ namespace Game
             }
             else {
                 hero = new Hero();
+                //首次初始化属性
+                hero.Level = 1;
             }
         }
 
