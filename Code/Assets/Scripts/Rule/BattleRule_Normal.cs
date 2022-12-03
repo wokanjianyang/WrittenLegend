@@ -11,9 +11,16 @@ namespace Game
         public override void DoHeroLogic()
         {
             var heros = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Hero);
-            foreach (var hero in heros)
+            if(heros == null || heros.Count == 0)
             {
-                hero.DoEvent();
+                GameProcessor.Inst.PlayerManager.LoadHero();
+            }
+            else
+            {
+                foreach (var hero in heros)
+                {
+                    hero.DoEvent();
+                }
             }
         }
 

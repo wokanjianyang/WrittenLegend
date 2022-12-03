@@ -8,6 +8,12 @@ public class Init : MonoBehaviour
 {
     [LabelText("战斗模式")]
     public RuleType RuleType = RuleType.Normal;
+
+    void Awake()
+    {
+         DontDestroyOnLoad(this);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +24,7 @@ public class Init : MonoBehaviour
         //加载存档
         //加载首页
         this.LoadHome2();
+
     }
 
     private void LoadConfig()
@@ -32,26 +39,25 @@ public class Init : MonoBehaviour
         
     }
 
-    private void LoadHome()
-    {
-        var homePrefab = Resources.Load<GameObject>("Prefab/Window/Home");
-        var home = GameObject.Instantiate(homePrefab);
-        home.transform.SetParent(GameObject.Find("Canvas").transform,false);
-        StartCoroutine(IE_DelayAction(5f, () =>
-        {
-            home.gameObject.SetActive(false);
-            var game = new GameObject("Game");
-            var com = game.AddComponent<GameProcessor>();
-            com.LoadMap(this.RuleType);
-        }));
-    }
+    //private void LoadHome()
+    //{
+    //    var homePrefab = Resources.Load<GameObject>("Prefab/Window/Home");
+    //    var home = GameObject.Instantiate(homePrefab);
+    //    home.transform.SetParent(GameObject.Find("Canvas").transform,false);
+    //    StartCoroutine(IE_DelayAction(5f, () =>
+    //    {
+    //        home.gameObject.SetActive(false);
+    //        var game = new GameObject("Game");
+    //        var com = game.AddComponent<GameProcessor>();
+    //        com.LoadMap(this.RuleType);
+    //    }));
+    //}
 
     private void LoadHome2()
     {
         StartCoroutine(IE_DelayAction(0.1f, () =>
         {
-            var game = new GameObject("Game");
-            var com = game.AddComponent<GameProcessor>();
+            var com = this.gameObject.AddComponent<GameProcessor>();
             com.LoadMap(this.RuleType);
         }));
     }

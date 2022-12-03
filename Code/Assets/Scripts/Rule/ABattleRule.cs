@@ -4,22 +4,19 @@ using UnityEngine;
 
 namespace Game
 {
-    abstract public class ABattleRule : MonoBehaviour,IBattleLife
+    abstract public class ABattleRule : IBattleLife
     {
         protected bool isGameOver = false;
 
-        protected int roundNum = 1;
+        protected int roundNum = 0;
 
         protected PlayerType winCamp;
 
         protected const float roundTime = 1f;
         protected float currentRoundTime = 0f;
 
-        protected bool isBattleStart = false;
-
         virtual public void OnBattleStart()
         {
-            this.isBattleStart = true;
         }
 
         public int Order
@@ -33,9 +30,9 @@ namespace Game
         abstract public void DoHeroLogic();
         abstract public void DoMonsterLogic();
 
-        virtual public void Update()
+        virtual public void OnUpdate()
         {
-            if (!this.isGameOver && this.isBattleStart)
+            if (!this.isGameOver)
             {
                 this.currentRoundTime += Time.deltaTime;
                 if (this.currentRoundTime >= roundTime * Time.timeScale)
@@ -64,20 +61,21 @@ namespace Game
         
         protected bool CheckGameResult()
         {
+            var result = false;
             var heroCamp = GameProcessor.Inst.PlayerManager.GetHero();
             if (heroCamp.HP == 0)
             {
                 this.winCamp = PlayerType.Enemy;
-                return true;
+                result = true;
             }
             var enemyCamp = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
             if (enemyCamp.Count == 0)
             {
                 this.winCamp = PlayerType.Hero;
-                return true;
+                result = true;
             }
 
-            return false;
+            return result && this.roundNum > 1;
         }
     }
 }

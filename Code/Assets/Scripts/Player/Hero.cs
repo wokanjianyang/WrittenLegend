@@ -32,7 +32,7 @@ namespace Game
             base.Load();
 
             var boxPrefab = Resources.Load<GameObject>("Prefab/Effect/HeroBox");
-            var box = GameObject.Instantiate(boxPrefab).transform;
+            var box = GameObject.Instantiate(boxPrefab, this.Transform).transform;
             box.SetParent(this.GetComponent<PlayerUI>().image_Background.transform);
 
             this.Camp = PlayerType.Hero;
@@ -57,8 +57,14 @@ namespace Game
                 SkillIdList.Add(3, 3001);  //Áé»ê»ð·û
             }
 
-            this.Bags = new List<Item>();
-            this.EquipPanel = new Dictionary<int, Equip>();
+            if(this.Bags==null)
+            {
+                this.Bags = new List<Item>();
+            }
+            if(this.EquipPanel==null)
+            {
+                this.EquipPanel = new Dictionary<int, Equip>();
+            }
 
             this.EventCenter.AddListener<HeroChangeEvent>(HeroChange);
             this.EventCenter.AddListener<HeroUseEquipEvent>(HeroUseEquip);
@@ -76,10 +82,16 @@ namespace Game
 
         private void HeroUseEquip(HeroUseEquipEvent e)
         {
-            Equip equip = Bags.FindLast(m => m.ID == e.EquipId) as Equip;
 
-/*            if (equip.ID == 0)
-                return;*/
+            this.Equip(e.EquipId);
+        }
+
+        private void Equip(int id)
+        {
+            Equip equip = Bags.FindLast(m => m.ID == id) as Equip;
+
+            /*            if (equip.ID == 0)
+                            return;*/
 
             int postion = equip.Position;
 
@@ -96,7 +108,6 @@ namespace Game
             {
                 AttributeBonus.SetAttr((AttributeEnum)a.Key, postion * 100 + AttributeFrom.EquipBase, a.Value);
             }
-
         }
 
         private void SetLevelConfigAttr()

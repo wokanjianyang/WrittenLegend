@@ -64,7 +64,6 @@ namespace Game
 
         public void OnBattleStart()
         {
-            this.LoadHero();
         }
 
         public int Order
@@ -75,7 +74,7 @@ namespace Game
             }
         }
 
-        private void LoadHero(Dictionary<AttributeEnum, object> data = null)
+        public void LoadHero(Dictionary<AttributeEnum, object> data = null)
         {
             if (data == null)
             {
@@ -87,7 +86,7 @@ namespace Game
                 data[AttributeEnum.PhyAtt] = 2;
             }
 
-            UserData.Load(out this.hero);
+            this.hero = UserData.Load();
             hero.Load();
             hero.Logic.SetData(data);
 
@@ -170,9 +169,13 @@ namespace Game
             }
         }
 
-        void OnDestroy()
+        public void Save()
         {
             UserData.Save(this.hero);
+        }
+
+        void OnDestroy()
+        {
         }
     }
 }

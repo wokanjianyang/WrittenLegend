@@ -41,6 +41,7 @@ namespace Game
         [JsonIgnore]
         public EventManager EventCenter { get; private set; }
 
+        [JsonIgnore]
         public bool IsSurvice
         {
             get

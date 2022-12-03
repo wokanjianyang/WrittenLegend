@@ -20,7 +20,7 @@ namespace Game
             base.Load();
 
             var boxPrefab = Resources.Load<GameObject>("Prefab/Effect/MonsterBox");
-            var box = GameObject.Instantiate(boxPrefab).transform;
+            var box = GameObject.Instantiate(boxPrefab, this.Transform).transform;
             box.SetParent(this.Transform);
 
             this.Camp = PlayerType.Enemy;
@@ -59,7 +59,7 @@ namespace Game
             Hero hero = GameProcessor.Inst.PlayerManager.GetHero();
             hero.Exp += this.Exp;
             hero.Gold += this.Gold;
-
+            hero.EventCenter.Raise(new HeroInfoUpdateEvent());
             if (hero.Exp >= hero.UpExp)
             {
                 hero.EventCenter.Raise(new HeroChangeEvent
@@ -84,6 +84,7 @@ namespace Game
                         EquipId = equip.ID
                     });
                 }
+                hero.EventCenter.Raise(new HeroBagUpdateEvent());
             }
         }
     }

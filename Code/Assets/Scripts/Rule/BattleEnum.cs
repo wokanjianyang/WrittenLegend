@@ -29,6 +29,9 @@ namespace Game
     {
         PlayerManager = 0,
         BattleRule,
+        ViewPage,
+        Dialog,
+        TopNav
     }
 
     public enum AttackGeometryType
@@ -58,5 +61,24 @@ namespace Game
     public enum SkillCenter { 
         Self ,
         Enemy
+    }
+
+    public enum ViewPageType
+    {
+        View_Bag = 0,
+        View_Battle,
+        View_Map,
+        View_Tower,
+        View_Skill
+    }
+
+    public enum TouchIgnoreType
+    {
+        [LabelText("点击空白处时关闭")]
+        HideWithTouchEmpty = 0,
+        [LabelText("点击按钮关闭")]
+        HideWithCloseBtn,
+        [LabelText("自动关闭")]
+        HideWithAuto
     }
 }

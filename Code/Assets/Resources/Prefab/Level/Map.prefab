@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8132921893681698502}
   - component: {fileID: 3356271655220485516}
   - component: {fileID: 6694983193719219651}
+  - component: {fileID: 2696785460880022261}
   m_Layer: 5
   m_Name: Map
   m_TagString: Untagged
@@ -25,9 +26,9 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8269411564480356495}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -58,8 +59,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  ColCount: 10
-  RowCount: 16
+  ColCount: 9
+  RowCount: 14
   LineWidth: 4
 --- !u!222 &6694983193719219651
 CanvasRenderer:
@@ -69,3 +70,15 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8269411564480356495}
   m_CullTransparentMesh: 1
+--- !u!114 &2696785460880022261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8269411564480356495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3803225e009ce6645879d48f92b5f5d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

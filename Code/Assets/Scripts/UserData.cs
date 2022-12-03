@@ -6,42 +6,50 @@ namespace Game
 {
     public class UserData
     {
-
+        static Hero hero;
         static string savePath = "user";
         static string fileName = "data.json"; //文件名
-        public static void Load(out Hero hero) {
-            string folderPath = System.IO.Path.Combine(Application.dataPath, savePath); //文件夹路径                                        
-            string filePath = System.IO.Path.Combine(folderPath, fileName);             //文件路径
-
-            if (System.IO.File.Exists(filePath))
+        public static Hero Load() {
+            if(hero==null)
             {
-                //读取文件
-                System.IO.StreamReader sr = new System.IO.StreamReader(filePath);
-                string str_json = sr.ReadToEnd();
-                sr.Close();
-                //反序列化
-                hero = JsonConvert.DeserializeObject<Hero>(str_json);
+                string folderPath = System.IO.Path.Combine(Application.persistentDataPath, savePath); //文件夹路径                                        
+                string filePath = System.IO.Path.Combine(folderPath, fileName);             //文件路径
+                Debug.Log($"存档路径：{filePath}");
 
-                if (hero == null) {
+                if (System.IO.File.Exists(filePath))
+                {
+                    //读取文件
+                    System.IO.StreamReader sr = new System.IO.StreamReader(filePath);
+                    string str_json = sr.ReadToEnd();
+                    sr.Close();
+                    //反序列化
+                    hero = JsonConvert.DeserializeObject<Hero>(str_json);
+
+                    if (hero == null) {
+                        hero = new Hero();
+                        //首次初始化
+                        hero.Level = 1;
+                        hero.Exp = 0;
+                        hero.Name = "传奇";
+                    }
+
+                    Debug.Log("成功读取");
+                }
+                else {
                     hero = new Hero();
-                    //首次初始化
+                    //首次初始化属性
                     hero.Level = 1;
                     hero.Exp = 0;
                     hero.Name = "传奇";
+                    Save(hero);
                 }
-
-                Debug.Log("成功读取");
             }
-            else {
-                hero = new Hero();
-                //首次初始化属性
-                hero.Level = 1;
-            }
+            return hero;
         }
 
         public static void Save(Hero hero) {
             //
-            string folderPath = System.IO.Path.Combine(Application.dataPath, savePath); //文件夹路径
+            string folderPath = System.IO.Path.Combine(Application.persistentDataPath, savePath); //文件夹路径
             System.IO.Directory.CreateDirectory(folderPath);
 
             //创建一个空白文件

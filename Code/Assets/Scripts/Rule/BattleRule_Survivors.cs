@@ -15,26 +15,33 @@ namespace Game
             this.actionType = PlayerActionType.None;
 
             var heros = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Hero);
-            var hero = heros[0];
-            if (this.lastClickCell != default && this.lastClickCell != hero.Cell)
+            if (heros == null || heros.Count == 0)
             {
-                var endPos = GameProcessor.Inst.MapProcessor.GetPath(hero.Cell, lastClickCell);
-                if (endPos == hero.Cell)
-                {
-                    this.lastClickCell = hero.Cell;
-                    hero.DoEvent();
-                }
-                else
-                {
-                    if (GameProcessor.Inst.PlayerManager.IsCellCanMove(endPos))
-                    {
-                        hero.Move(endPos);
-                    }
-                }
+                GameProcessor.Inst.PlayerManager.LoadHero();
             }
             else
             {
-                hero.DoEvent();
+                var hero = heros[0];
+                if (this.lastClickCell != default && this.lastClickCell != hero.Cell)
+                {
+                    var endPos = GameProcessor.Inst.MapProcessor.GetPath(hero.Cell, lastClickCell);
+                    if (endPos == hero.Cell)
+                    {
+                        this.lastClickCell = hero.Cell;
+                        hero.DoEvent();
+                    }
+                    else
+                    {
+                        if (GameProcessor.Inst.PlayerManager.IsCellCanMove(endPos))
+                        {
+                            hero.Move(endPos);
+                        }
+                    }
+                }
+                else
+                {
+                    hero.DoEvent();
+                }
             }
         }
 
@@ -101,9 +108,9 @@ namespace Game
             this.lastClickCell = hero.Cell;
         }
 
-        override public void Update()
+        override public void OnUpdate()
         {
-            if (!this.isGameOver && this.isBattleStart)
+            if (!this.isGameOver && GameProcessor.Inst.IsGameRunning())
             {
                 this.currentRoundTime += Time.deltaTime;
                 if (this.currentRoundTime >= roundTime * Time.timeScale)

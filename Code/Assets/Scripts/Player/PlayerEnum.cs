@@ -1,3 +1,5 @@
+using Sirenix.OdinInspector;
+
 namespace Game
 {
     public enum AttributeEnum
@@ -46,5 +48,25 @@ namespace Game
     {
         Hero = 0,
         Enemy
+    }
+
+    public enum SlotType
+    {
+        [LabelText("武器")]
+        武器 = 2,
+        [LabelText("衣服")]
+        衣服 = 1,
+        [LabelText("头盔")]
+        头盔 = 4,
+        [LabelText("项链")]
+        项链 = 3,
+        [LabelText("手镯")]
+        手镯 = 6,
+        [LabelText("戒指")]
+        戒指 = 5,
+        [LabelText("鞋子")]
+        鞋子 = 8,
+        [LabelText("腰带")]
+        腰带 = 7
     }
 }

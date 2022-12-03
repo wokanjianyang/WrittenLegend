@@ -29,5 +29,7 @@ namespace Game
         public IDictionary<int, long> AttrList { get; set; }
 
         public IDictionary<int, SkillRune> skillList { get; set; }
+
+        public int BoxId { get; set; } = -1;
     }
 }
