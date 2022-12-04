@@ -35,14 +35,20 @@ namespace Game
 			return new string[0];
 #endif
 		}
-		
+
 		public static string[] GetAssetBundleDependencies(string assetBundleName, bool v)
 		{
-#if UNITY_EDITOR	
+#if UNITY_EDITOR
 			return UnityEditor.AssetDatabase.GetAssetBundleDependencies(assetBundleName, v);
 #else
 			return new string[0];
 #endif
 		}
+
+#if ENABLE_CODES
+		public static bool EnableCodes = true;
+#else
+		public static bool EnableCodes = false;
+#endif
 	}
 }
