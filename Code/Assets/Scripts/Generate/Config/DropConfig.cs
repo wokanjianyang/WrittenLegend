@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using MongoDB.Bson.Serialization.Attributes;
 using ProtoBuf;
-using System.Linq;
 
 namespace Game
 {
@@ -70,10 +69,6 @@ namespace Game
                 return null;
             }
             return this.dict.Values.GetEnumerator().Current;
-        }
-
-        public DropConfig GetByMonsterId(int monsterId) {
-            return this.dict.Where(m => m.Value.MonsterID == monsterId).First().Value;
         }
     }
 

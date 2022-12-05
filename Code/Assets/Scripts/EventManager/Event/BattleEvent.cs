@@ -13,14 +13,14 @@ namespace Game
     {
         public Vector3 Position { get; set; }
 
-        public int ItemId { get; set; }
+        public Item Item { get; set; }
 
         public int BoxId { get; set; }
     }
 
     public class EquipOneEvent : SDD.Events.Event
     {
-        public int ItemId { get; set; }
+        public Item Item { get; set; }
         public int BoxId { get; set; }
 
     }

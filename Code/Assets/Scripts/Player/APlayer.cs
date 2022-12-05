@@ -90,6 +90,11 @@ namespace Game
                 up, down, right, left
             };
             var nearestEnemy = this.FindNearestEnemy();
+
+            if (nearestEnemy == null) {
+                return;
+            }
+
             if (fourSide.Contains(nearestEnemy.Cell))
             {
                 this.GetComponent<SkillProcessor>().UseSkill(nearestEnemy.ID);
@@ -160,6 +165,11 @@ namespace Game
         public APlayer FindNearestEnemy()
         {
             var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(this.Camp == PlayerType.Hero ? PlayerType.Enemy : PlayerType.Hero);
+
+            if (enemys.Count <= 0) {
+                return null;
+            }
+
             var distLen = 0;
             enemys.Sort((a, b) =>
             {

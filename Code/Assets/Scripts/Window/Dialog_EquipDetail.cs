@@ -19,7 +19,7 @@ namespace Game
 
         private RectTransform rectTransform;
 
-        private int itemId;
+        private Item item;
         private int boxId;
 
         // Start is called before the first frame update
@@ -45,8 +45,8 @@ namespace Game
         {
             this.transform.position = e.Position;
             this.transform.localScale = Vector3.one;
-            this.tmp_Title.text = EquipConfigCategory.Instance.Get(e.ItemId).Name;
-            this.itemId = e.ItemId;
+            this.tmp_Title.text = e.Item.Name;
+            this.item = e.Item;
             this.boxId = e.BoxId;
         }
 
@@ -56,7 +56,7 @@ namespace Game
 
             GameProcessor.Inst.EventCenter.Raise(new EquipOneEvent()
             {
-                ItemId = this.itemId,
+                Item = this.item,
                 BoxId = this.boxId
             });
         }

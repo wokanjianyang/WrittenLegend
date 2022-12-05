@@ -6,7 +6,7 @@ namespace Game
 {
     public class Com_Item : MonoBehaviour
     {
-        private EquipConfig item;
+        private Equip item;
 
         public int boxId { get; private set; }
 
@@ -24,13 +24,13 @@ namespace Game
 
         }
 
-        public void SetItem(EquipConfig equip)
+        public void SetItem(Equip equip)
         {
             this.item = equip;
 
             this.comBox.tmp_Title.text = equip.Name;
 
-            this.comBox.itemId = equip.Id;
+            this.comBox.Item = equip;
         }
 
         public void SetBoxId(int id)

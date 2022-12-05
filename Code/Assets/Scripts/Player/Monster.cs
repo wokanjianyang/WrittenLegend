@@ -74,18 +74,17 @@ namespace Game
 
             if (equips.Count > 0)
             {
-                hero.Bags.AddRange(equips);
+                hero.AddToBags(equips);
 
                 foreach (Equip equip in equips) {
                     Debug.Log("drop equip :" + equip.Name);
-                    //use equip
-                    hero.EventCenter.Raise(new HeroUseEquipEvent
-                    {
-                        EquipId = equip.ID
-                    });
                 }
                 hero.EventCenter.Raise(new HeroBagUpdateEvent());
             }
+
+
+            //´æµµ
+            UserData.Save(hero);
         }
     }
 }

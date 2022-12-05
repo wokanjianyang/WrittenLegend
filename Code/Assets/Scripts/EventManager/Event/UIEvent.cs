@@ -40,7 +40,8 @@ namespace Game
 
     public class HeroUseEquipEvent : SDD.Events.Event
     {
-        public int EquipId { get; set; }
+        public int Position { get; set; } 
+        public Equip Equip { get; set; }
     }
 
     public class DeadRewarddEvent : SDD.Events.Event
