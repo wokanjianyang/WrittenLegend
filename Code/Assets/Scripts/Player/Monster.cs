@@ -85,6 +85,7 @@ namespace Game
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
             {
+                RoundNum = hero.RoundCounter,
                 MonsterId = this.MonsterId,
                 Exp = this.Exp,
                 Gold = this.Gold,

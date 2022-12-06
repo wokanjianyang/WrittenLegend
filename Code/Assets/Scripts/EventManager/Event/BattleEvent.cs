@@ -27,6 +27,7 @@ namespace Game
 
     public class BattleMsgEvent : SDD.Events.Event
     {
+        public int RoundNum { get; set; }
         public int MonsterId { get; set; }
 
         public long Exp { get; set; }

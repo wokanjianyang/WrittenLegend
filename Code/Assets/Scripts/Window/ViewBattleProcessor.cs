@@ -69,7 +69,7 @@ namespace Game
                 }
             }
             msg.GetComponent<TextMeshProUGUI>().text = $"<color=#D800FF>[{config.Name}]<color=white>死亡,经验增加:{e.Exp},金币增加:{e.Gold}{drops}";
-
+            msg.name = $"msg_{e.RoundNum}";
             this.sr_BattleMsg.normalizedPosition = new Vector2(0, 0);
         }
     }

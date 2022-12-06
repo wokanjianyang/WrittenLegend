@@ -97,6 +97,12 @@ namespace Game
 
             if (fourSide.Contains(nearestEnemy.Cell))
             {
+                var offset = nearestEnemy.Cell - this.Cell;
+                if(Mathf.Abs(offset.x)>1||Mathf.Abs(offset.y)>1)
+                {
+                    Debug.LogError("不是邻近目标");
+                }
+                Debug.Log($"{this.Cell} attack {nearestEnemy.Cell}");
                 this.GetComponent<SkillProcessor>().UseSkill(nearestEnemy.ID);
             }
             else
@@ -150,6 +156,7 @@ namespace Game
             });
             this.SetPosition(cell);
             var targetPos = GameProcessor.Inst.MapProcessor.GetWorldPosition(cell);
+            this.Transform.DOKill(true);
             this.Transform.DOLocalMove(targetPos, 1f);
         }
 
@@ -170,7 +177,6 @@ namespace Game
                 return null;
             }
 
-            var distLen = 0;
             enemys.Sort((a, b) =>
             {
                 var distance = a.Cell - this.Cell;

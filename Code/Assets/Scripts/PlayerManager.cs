@@ -12,15 +12,16 @@ namespace Game
 
         public Hero hero;
         private List<APlayer> AllPlayers = new List<APlayer>();
+        private int playerId = 0;
 
         public Hero GetHero()
         {
             return hero;
         }
 
-        public void AddPlayer(APlayer player)
+        private void AddPlayer(APlayer player)
         {
-            player.ID = this.AllPlayers.Count;
+            player.ID = this.playerId++;
             this.AllPlayers.Add(player);
         }
 
@@ -102,7 +103,7 @@ namespace Game
             var x = GameProcessor.Inst.MapProcessor.ColCount / 2;
             var y = GameProcessor.Inst.MapProcessor.RowCount / 2;
             hero.SetPosition(new Vector3(x, y), true);
-            GameProcessor.Inst.PlayerManager.AddPlayer(hero);
+            this.AddPlayer(hero);
 
         }
 
@@ -150,7 +151,7 @@ namespace Game
                 }
                 enemy.GetComponent<SkillProcessor>().InitSkill(enemy);
                 enemy.SetPosition(bornCell, true);
-                GameProcessor.Inst.PlayerManager.AddPlayer(enemy);
+                this.AddPlayer(enemy);
             }
 
             return enemy;
