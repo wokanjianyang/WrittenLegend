@@ -9,14 +9,28 @@ public class Init : MonoBehaviour
     [LabelText("战斗模式")]
     public RuleType RuleType = RuleType.Normal;
 
+    private const string BuglyAppIDForAndroid = "ff5ed4ccb9";
+
+
     void Awake()
     {
          DontDestroyOnLoad(this);
+
+        BuglyAgent.DebugLog("Demo.Awake()", "Screen: {0} x {1}", Screen.width, Screen.height);
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        BuglyAgent.PrintLog(LogSeverity.LogInfo, "Demo Start()");
+
+        InitBuglySDK();
+
+        BuglyAgent.PrintLog(LogSeverity.LogWarning, "Init bugly sdk done");
+
+        BuglyAgent.SetScene(0);
+
         LoadConfig();
         //初始化广告模块
         //初始化Bugly
@@ -24,7 +38,6 @@ public class Init : MonoBehaviour
         //加载存档
         //加载首页
         this.LoadHome2();
-
     }
 
     private void LoadConfig()
@@ -66,5 +79,33 @@ public class Init : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         callback?.Invoke();
+    }
+
+    void InitBuglySDK()
+    {
+
+        // TODO NOT Required. Set the crash reporter type and log to report
+        // BuglyAgent.ConfigCrashReporter (1, 2);
+
+        // TODO NOT Required. Enable debug log print, please set false for release version
+#if DEBUG
+        BuglyAgent.ConfigDebugMode(true);
+#endif
+        BuglyAgent.ConfigDebugMode(true);
+        // TODO NOT Required. Register log callback with 'BuglyAgent.LogCallbackDelegate' to replace the 'Application.RegisterLogCallback(Application.LogCallback)'
+        // BuglyAgent.RegisterLogCallback (CallbackDelegate.Instance.OnApplicationLogCallbackHandler);
+
+        // BuglyAgent.ConfigDefault ("Bugly", null, "ronnie", 0);
+
+        BuglyAgent.InitWithAppId(BuglyAppIDForAndroid);
+
+        // TODO Required. If you do not need call 'InitWithAppId(string)' to initialize the sdk(may be you has initialized the sdk it associated Android or iOS project),
+        // please call this method to enable c# exception handler only.
+        BuglyAgent.EnableExceptionHandler();
+
+        // TODO NOT Required. If you need to report extra data with exception, you can set the extra handler
+        //        BuglyAgent.SetLogCallbackExtrasHandler (MyLogCallbackExtrasHandler);
+
+        BuglyAgent.PrintLog(LogSeverity.LogInfo, "Init the bugly sdk");
     }
 }
