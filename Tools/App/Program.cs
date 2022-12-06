@@ -4,9 +4,8 @@ using System.Threading;
 using CommandLine;
 using NLog;
 using System.Reflection;
-using ET;
 
-namespace ET
+namespace Game
 {
     internal static class Program
     {

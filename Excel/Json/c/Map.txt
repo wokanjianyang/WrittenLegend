@@ -1,0 +1,7 @@
+{"list":[
+{"_t":"Map","_id":10001,"Name":"银杏小村","Level":1,"MapAfter":[0,0,10002,0],"MonterLvl":[1,10],"MonsterId":[],"NPC":[],"DropId":[1000001],"BoosId":101},
+{"_t":"Map","_id":10002,"Name":"银杏村南","Level":1,"MapAfter":[0,0,11001,0],"MonterLvl":[11,20],"MonsterId":[],"NPC":[],"DropId":[1000002],"BoosId":102},
+{"_t":"Map","_id":11001,"Name":"比奇村北","Level":10,"MapAfter":[0,0,11002,0],"MonterLvl":[21,30],"MonsterId":[],"NPC":[],"DropId":[1000003],"BoosId":103},
+{"_t":"Map","_id":11002,"Name":"比奇城","Level":10,"MapAfter":[0,0,11003,0],"MonterLvl":[31,40],"MonsterId":[],"NPC":[],"DropId":[1000004],"BoosId":104},
+{"_t":"Map","_id":11003,"Name":"比奇村南","Level":10,"MapAfter":[0,0,11004,0],"MonterLvl":[41,50],"MonsterId":[],"NPC":[],"DropId":[1000005],"BoosId":105},
+]}

@@ -1,0 +1,4 @@
+{"list":[
+{"_t":"SkillSuitConfig","_id":20011,"SkillId":2001,"Name":"火球·豪火球","Des":"小火球进阶大火球了，这下牛逼了，伤害系数提升100%","CD":0,"CastType":0,"Dis":0,"Area":"","EnemyMax":0,"Percent":100,"Damage":0,"EffectId":0},
+{"_t":"SkillSuitConfig","_id":20012,"SkillId":2001,"Name":"火球·爆裂术","Des":"火球造成伤害的时候，对周围4个单位造成一半的伤害","CD":0,"CastType":0,"Dis":0,"Area":"","EnemyMax":0,"Percent":0,"Damage":0,"EffectId":102},
+]}
