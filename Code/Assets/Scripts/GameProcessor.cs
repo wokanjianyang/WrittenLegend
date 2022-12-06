@@ -85,6 +85,10 @@ namespace Game
                     this.BattleRule = new BattleRule_Survivors();
                     break;
             }
+
+            //加载档案
+            this.PlayerManager.hero = UserData.Load();
+
             this.PlayerRoot = new GameObject("[PlayerRoot]").transform;
             this.PlayerRoot.SetParent(MapProcessor.transform,false);
             
@@ -136,6 +140,7 @@ namespace Game
         void OnApplicationQuit()
         {
             //TODO 存档
+            UserData.Save(PlayerManager.hero);
         }
     }
 }

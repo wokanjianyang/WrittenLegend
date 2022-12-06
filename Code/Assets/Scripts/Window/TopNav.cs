@@ -31,7 +31,7 @@ namespace Game
 
         public void OnBattleStart()
         {
-            this.hero = UserData.Load();
+            this.hero = GameProcessor.Inst.PlayerManager.hero;
             this.tmp_Name.text = hero.Name;
             this.tmp_Level.text = $"{hero.Level}¼¶";
             this.OnHeroInfoUpdateEvent(null);

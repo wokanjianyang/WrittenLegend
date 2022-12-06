@@ -55,7 +55,7 @@ namespace Game
             }
 
             //设置名称
-            if (SelfPlayer.Name!=null)
+            if (SelfPlayer.Name != null)
             {
                 SelfPlayer.EventCenter.Raise(new SetPlayerNameEvent
                 {
@@ -64,13 +64,11 @@ namespace Game
             }
 
             //设置等级
-            if (BaseAttributeMap.TryGetValue(AttributeEnum.Level, out var level))
+
+            SelfPlayer.EventCenter.Raise(new SetPlayerLevelEvent
             {
-                SelfPlayer.EventCenter.Raise(new SetPlayerLevelEvent
-                {
-                    Level = SelfPlayer.Level.ToString()
-                });
-            }
+                Level = SelfPlayer.Level.ToString()
+            });
 
             //设置血量
             this.SelfPlayer.SetHP(SelfPlayer.HP);

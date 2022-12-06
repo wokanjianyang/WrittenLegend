@@ -17,7 +17,7 @@ namespace Game
         [LabelText("道具数量")]
         public TextMeshProUGUI tmp_Count;
 
-        public int itemId;
+        public Item Item;
 
         // Start is called before the first frame update
         void Start()
@@ -36,7 +36,7 @@ namespace Game
             GameProcessor.Inst.EventCenter.Raise(new ShowEquipDetailEvent()
             {
                 Position = this.transform.position,
-                ItemId = this.itemId,
+                Item = this.Item,
                 BoxId = this.transform.GetComponent<Com_Item>().boxId
             });
         }

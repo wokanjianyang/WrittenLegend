@@ -85,8 +85,6 @@ namespace Game
                 data[AttributeEnum.HP] = 100L;
                 data[AttributeEnum.PhyAtt] = 2;
             }
-
-            this.hero = UserData.Load();
             hero.Load();
             hero.Logic.SetData(data);
 

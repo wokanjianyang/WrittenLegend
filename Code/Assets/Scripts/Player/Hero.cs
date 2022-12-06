@@ -24,9 +24,15 @@ namespace Game
         /// <summary>
         /// 
         /// </summary>
-        public List<Item> Bags { get; set; }
+        public List<Equip> Bags { get; set; }
 
         public long LastOut { get; set; }
+
+        public Hero():base()  {
+            this.EventCenter.AddListener<HeroChangeEvent>(HeroChange);
+            this.EventCenter.AddListener<HeroUseEquipEvent>(HeroUseEquip);
+        }
+
         public override void Load()
         {
             base.Load();
@@ -59,15 +65,12 @@ namespace Game
 
             if(this.Bags==null)
             {
-                this.Bags = new List<Item>();
+                this.Bags = new List<Equip>();
             }
             if(this.EquipPanel==null)
             {
                 this.EquipPanel = new Dictionary<int, Equip>();
             }
-
-            this.EventCenter.AddListener<HeroChangeEvent>(HeroChange);
-            this.EventCenter.AddListener<HeroUseEquipEvent>(HeroUseEquip);
         }
 
         private void HeroChange(HeroChangeEvent e)
@@ -83,30 +86,27 @@ namespace Game
         private void HeroUseEquip(HeroUseEquipEvent e)
         {
 
-            this.Equip(e.EquipId);
+            this.Equip(e.Position, e.Equip);
         }
 
-        private void Equip(int id)
+        private void Equip(int pos, Equip equip)
         {
-            Equip equip = Bags.FindLast(m => m.ID == id) as Equip;
-
-            /*            if (equip.ID == 0)
-                            return;*/
-
-            int postion = equip.Position;
-
+            //×°Åä°ü¹üµÄ
             Equip old;
-            if (EquipPanel.TryGetValue(postion, out old))
+            if (EquipPanel.TryGetValue(equip.Position, out old))
             {
-                Bags.Add(old); //old move to bag
+                Bags.Add(old);
             }
 
-            EquipPanel[postion] = equip; //new use to panel
+
+            Bags.Remove(equip); //old move to bag
+
+            EquipPanel[equip.Position] = equip; //new use to panel
 
             //Ìæ»»ÊôÐÔ
             foreach (var a in equip.AttrList)
             {
-                AttributeBonus.SetAttr((AttributeEnum)a.Key, postion * 100 + AttributeFrom.EquipBase, a.Value);
+                AttributeBonus.SetAttr((AttributeEnum)a.Key, equip.Position * 100 + AttributeFrom.EquipBase, a.Value);
             }
         }
 
@@ -131,6 +131,15 @@ namespace Game
                 //Éý¼¶»Ö¸´ÂúÑªÁ¿
                 SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
                 EventCenter.Raise(new SetPlayerLevelEvent { Level = Level.ToString() });
+            }
+        }
+
+        public void AddToBags(List<Equip> items)
+        {
+            int num = Mathf.Min( 50 - Bags.Count,items.Count);
+            if (num > 0)
+            {
+                Bags.AddRange(items.GetRange(0, num));
             }
         }
 

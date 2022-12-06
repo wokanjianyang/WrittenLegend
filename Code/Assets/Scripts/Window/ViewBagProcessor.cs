@@ -52,7 +52,7 @@ namespace Game
             base.OnBattleStart();
 
             GameProcessor.Inst.EventCenter.AddListener<EquipOneEvent>(this.OnEquipOneEvent);
-            var hero = UserData.Load();
+            var hero = GameProcessor.Inst.PlayerManager.hero;
             hero.EventCenter.AddListener<HeroBagUpdateEvent>(this.OnHeroBagUpdateEvent);
 
             this.items = new List<Com_Item>();
@@ -69,7 +69,7 @@ namespace Game
             {
                 foreach (var item in hero.Bags)
                 {
-                    var box = this.CreateBox(item.ID, item.BoxId);
+                    var box = this.CreateBox(item as Equip, item.BoxId);
                     box.transform.SetParent(this.sr_Bag.content.GetChild(item.BoxId));
                     box.transform.localPosition = Vector3.zero;
                     box.transform.localScale = Vector3.one;
@@ -82,13 +82,14 @@ namespace Game
             {
                 foreach(var kvp in hero.EquipPanel)
                 {
-                    this.EquipOne(kvp.Value.ID);
+                    this.EquipOne(kvp.Key, kvp.Value);
                 }
             }
         }
-        private Com_Item CreateBox(int equitId,int boxId=-1)
+        private Com_Item CreateBox(Equip equip,int boxId=-1)
         {
-            var item = EquipConfigCategory.Instance.Get(equitId);
+
+            var item = EquipConfigCategory.Instance.Get(equip.ConfigId);
             GameObject yellow = null;
             switch (item.LevelRequired / 10 % 4)
             {
@@ -119,19 +120,19 @@ namespace Game
             }
             var comItem = yellow.GetComponent<Com_Item>();
             comItem.SetBoxId(boxId);
-            comItem.SetItem(item);
+            comItem.SetItem(equip);
             return comItem;
         }
         private void OnEquipOneEvent(EquipOneEvent e)
         {
-            this.EquipOne(e.ItemId);
+            this.EquipOne(0, e.Item);
         }
-        private void EquipOne(int id,int boxId = -1)
+        private void EquipOne(int position, Item item, int boxId = -1)
         {
-            var item = EquipConfigCategory.Instance.Get(id);
-            var slots = this.transform.GetComponentsInChildren<SlotBox>().Where(s=> (int)s.SlotType == item.Position).ToList();
+            Equip equip = item as Equip;
+            var slots = this.transform.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == equip.Position).ToList();
             int emptySlotIndex = -1;
-            if (slots.Count==1)
+            if (slots.Count == 1)
             {
                 emptySlotIndex = 0;
             }
@@ -139,13 +140,13 @@ namespace Game
             {
                 for (var i = 0; i < slots.Count; i++)
                 {
-                    if (slots[i].GetEquip()==null)
+                    if (slots[i].GetEquip() == null)
                     {
                         emptySlotIndex = -1;
                         break;
                     }
                 }
-                if(emptySlotIndex==-1)
+                if (emptySlotIndex == -1)
                 {
                     emptySlotIndex = 0;
                 }
@@ -167,9 +168,9 @@ namespace Game
                 }
             }
             var comItem = this.items.FirstOrDefault(i => i.boxId == boxId);
-            if(comItem==null)
+            if (comItem == null)
             {
-                comItem = this.CreateBox(id);
+                comItem = this.CreateBox(equip);
             }
             else
             {
@@ -181,15 +182,19 @@ namespace Game
             comItem.transform.localScale = Vector3.one;
             comItem.SetBoxId(-1);
 
-            var hero = UserData.Load();
-            hero.EventCenter.Raise(new HeroUseEquipEvent
-            {
-                EquipId = id
-            });
+            if (position == 0)
+            {  //原本就装备了，只是显示
+                var hero = GameProcessor.Inst.PlayerManager.hero;
+                hero.EventCenter.Raise(new HeroUseEquipEvent
+                {
+                    Position = position,
+                    Equip = equip
+                });
+            }
         }
         private void OnHeroBagUpdateEvent(HeroBagUpdateEvent e)
         {
-            var hero = UserData.Load();
+            Hero hero = GameProcessor.Inst.PlayerManager.hero;
             if (hero.Bags != null)
             {
                 var newItems = hero.Bags.Where(b => b.BoxId == -1).ToList();
@@ -202,7 +207,7 @@ namespace Game
                         var com = this.items.FirstOrDefault(c => c.boxId == i);
                         if (com == null)
                         {
-                            var item = this.CreateBox(newItem.ID, i);
+                            var item = this.CreateBox(newItem as Equip, i);
                             item.transform.SetParent(this.sr_Bag.content.GetChild(i));
                             item.transform.localPosition = Vector3.zero;
                             item.transform.localScale = Vector3.one;

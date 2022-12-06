@@ -2,7 +2,7 @@
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
 
-namespace ET
+namespace Game
 {
     public static class MongoRegister
     {

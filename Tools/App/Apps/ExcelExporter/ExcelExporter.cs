@@ -13,7 +13,7 @@ using OfficeOpenXml;
 using ProtoBuf;
 using LicenseContext = OfficeOpenXml.LicenseContext;
 
-namespace ET
+namespace Game
 {
     public enum ConfigType
     {
@@ -60,7 +60,7 @@ namespace ET
 
         private const string jsonDir = "../Excel/Json/{0}/{1}";
 
-        private const string clientProtoDir = "../Code/Assets/Bundles/Config/{0}";
+        private const string clientProtoDir = "../Code/Assets/Resources/Config/{0}";
         private const string serverProtoDir = "../Config/{0}";
         private static Assembly[] configAssemblies = new Assembly[2];
 
@@ -606,8 +606,8 @@ namespace ET
             }
 
             Assembly ass = GetAssembly(configType);
-            Type type = ass.GetType($"ET.{protoName}Category");
-            Type subType = ass.GetType($"ET.{protoName}");
+            Type type = ass.GetType($"Game.{protoName}Category");
+            Type subType = ass.GetType($"Game.{protoName}");
 
             Serializer.NonGeneric.PrepareSerializer(type);
             Serializer.NonGeneric.PrepareSerializer(subType);

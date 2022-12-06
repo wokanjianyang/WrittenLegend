@@ -6,7 +6,9 @@ namespace Game
 {
     public class Item
     {
-        public int ID { get; set; }
+        public long Id { get; set; }
+
+        public int ConfigId { get; set; }
         public string Name { get; set; }
 
         public string Des { get; set; }

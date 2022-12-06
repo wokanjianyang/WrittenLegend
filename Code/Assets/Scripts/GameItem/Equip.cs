@@ -8,6 +8,8 @@ namespace Game
     {
         public int Position { get; set; }
 
+        public int Quality { get; set; }
+
         public SkillRune SkillRune { get; set; }
     }
 
@@ -31,15 +33,16 @@ namespace Game
             return equips;
         }
 
-        public static Equip BuildEquip(int id)
+        public static Equip BuildEquip(int ConfigId)
         {
-            EquipConfig config = EquipConfigCategory.Instance.Get(id);
+            EquipConfig config = EquipConfigCategory.Instance.Get(ConfigId);
 
             Equip equip = new Equip();
 
-            equip.ID = id;
+            equip.Id = IdGenerater.Instance.GenerateId();
+            equip.ConfigId = ConfigId;
             equip.Name = config.Name;
-            equip.Des = "";
+            equip.Des = config.Name;
             equip.Level = config.LevelRequired;
             equip.Position = config.Position;
             equip.Gold = config.Price;
