@@ -14,7 +14,7 @@ namespace Game
         /// <summary>
         ///  ¿‡–Õ
         /// </summary>
-        public SkillRuneType Type { get; set; }
+        public int Max { get; set; }
 
         public int Incre { get; set; }
 

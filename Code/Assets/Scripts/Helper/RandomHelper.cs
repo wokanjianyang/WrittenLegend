@@ -41,6 +41,24 @@ namespace Game
             return random.Next(1, rate + 1)<= 1;
         }
 
+        public static int RandomQuality()
+        {
+            int rd = random.Next(1, 101);
+            if (rd < 10)
+            {
+                return 4;
+            }
+            else if (rd < 30)
+            {
+                return 3;
+            }
+            else if (rd < 60)
+            {
+                return 2;
+            }
+            return 1;
+        }
+
         public static ulong RandUInt64()
         {
             byte[] byte8 = new byte[8];

@@ -108,6 +108,9 @@ namespace Game
             {
                 AttributeBonus.SetAttr((AttributeEnum)a.Key, equip.Position * 100 + AttributeFrom.EquipBase, a.Value);
             }
+
+            //显示最新的血量
+            SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
         }
 
         private void SetLevelConfigAttr()

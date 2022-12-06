@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json;
 
 namespace Game
 {
@@ -77,11 +78,10 @@ namespace Game
                 hero.AddToBags(equips);
 
                 foreach (Equip equip in equips) {
-                    Debug.Log("drop equip :" + equip.Name);
+                    Debug.Log("drop equip :" + JsonConvert.SerializeObject(equip));
                 }
                 hero.EventCenter.Raise(new HeroBagUpdateEvent());
             }
-
 
             //´æµµ
             UserData.Save(hero);

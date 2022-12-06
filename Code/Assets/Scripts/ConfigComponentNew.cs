@@ -54,6 +54,10 @@ namespace Game
 
 		private static void LoadOneInThread(Type configType, Dictionary<string, byte[]> configBytes)
 		{
+			if (!configBytes.ContainsKey(configType.Name)) {
+				Log.Error($"not config {configType.Name}");
+			}
+
 			byte[] oneConfigBytes = configBytes[configType.Name];
 
 			object category = ProtobufHelper.FromBytes(configType, oneConfigBytes, 0, oneConfigBytes.Length);

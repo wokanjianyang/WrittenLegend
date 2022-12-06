@@ -84,35 +84,38 @@ namespace Game
 		/// <summary>词条名字</summary>
 		[ProtoMember(3)]
 		public string Name { get; set; }
-		/// <summary>技能描述</summary>
+		/// <summary>套装ID</summary>
 		[ProtoMember(4)]
+		public int SuitId { get; set; }
+		/// <summary>技能描述</summary>
+		[ProtoMember(5)]
 		public string Des { get; set; }
 		/// <summary>词条叠加数量</summary>
-		[ProtoMember(5)]
+		[ProtoMember(6)]
 		public int Max { get; set; }
 		/// <summary>减少冷却时间</summary>
-		[ProtoMember(6)]
+		[ProtoMember(7)]
 		public int CD { get; set; }
 		/// <summary>修改施法类型</summary>
-		[ProtoMember(7)]
+		[ProtoMember(8)]
 		public int CastType { get; set; }
 		/// <summary>增加攻击距离</summary>
-		[ProtoMember(8)]
+		[ProtoMember(9)]
 		public int Dis { get; set; }
 		/// <summary>修改攻击区域</summary>
-		[ProtoMember(9)]
+		[ProtoMember(10)]
 		public string Area { get; set; }
 		/// <summary>增加最大敌人数量</summary>
-		[ProtoMember(10)]
+		[ProtoMember(11)]
 		public int EnemyMax { get; set; }
 		/// <summary>增加伤害比例</summary>
-		[ProtoMember(11)]
+		[ProtoMember(12)]
 		public int Percent { get; set; }
 		/// <summary>固定伤害</summary>
-		[ProtoMember(12)]
+		[ProtoMember(13)]
 		public int Damage { get; set; }
 		/// <summary>附带效果</summary>
-		[ProtoMember(13)]
+		[ProtoMember(14)]
 		public int EffectId { get; set; }
 
 	}

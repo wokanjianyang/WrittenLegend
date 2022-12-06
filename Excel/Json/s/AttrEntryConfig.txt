@@ -1,0 +1,17 @@
+{"list":[
+{"_t":"AttrEntryConfig","_id":10001,"AttrId":1,"Type":1,"LevelRequired":0,"Desc":"0级装备固定生命","Val":5},
+{"_t":"AttrEntryConfig","_id":10002,"AttrId":2,"Type":1,"LevelRequired":0,"Desc":"0级装备固定物理攻击","Val":2},
+{"_t":"AttrEntryConfig","_id":10003,"AttrId":3,"Type":1,"LevelRequired":0,"Desc":"0级装备固定魔法攻击","Val":2},
+{"_t":"AttrEntryConfig","_id":10004,"AttrId":4,"Type":1,"LevelRequired":0,"Desc":"0级装备固定道术攻击","Val":2},
+{"_t":"AttrEntryConfig","_id":10005,"AttrId":5,"Type":1,"LevelRequired":0,"Desc":"0级装备固定防御","Val":1},
+{"_t":"AttrEntryConfig","_id":10101,"AttrId":1,"Type":1,"LevelRequired":10,"Desc":"10级装备固定生命","Val":100},
+{"_t":"AttrEntryConfig","_id":10102,"AttrId":2,"Type":1,"LevelRequired":10,"Desc":"10级装备固定物理攻击","Val":3},
+{"_t":"AttrEntryConfig","_id":10103,"AttrId":3,"Type":1,"LevelRequired":10,"Desc":"10级装备固定魔法攻击","Val":3},
+{"_t":"AttrEntryConfig","_id":10104,"AttrId":4,"Type":1,"LevelRequired":10,"Desc":"10级装备固定道术攻击","Val":3},
+{"_t":"AttrEntryConfig","_id":10105,"AttrId":5,"Type":1,"LevelRequired":10,"Desc":"10级装备固定防御","Val":2},
+{"_t":"AttrEntryConfig","_id":10201,"AttrId":1,"Type":1,"LevelRequired":20,"Desc":"20级装备固定生命","Val":300},
+{"_t":"AttrEntryConfig","_id":10202,"AttrId":2,"Type":1,"LevelRequired":20,"Desc":"20级装备固定物理攻击","Val":9},
+{"_t":"AttrEntryConfig","_id":10203,"AttrId":3,"Type":1,"LevelRequired":20,"Desc":"20级装备固定魔法攻击","Val":9},
+{"_t":"AttrEntryConfig","_id":10204,"AttrId":4,"Type":1,"LevelRequired":20,"Desc":"20级装备固定道术攻击","Val":9},
+{"_t":"AttrEntryConfig","_id":10205,"AttrId":5,"Type":1,"LevelRequired":20,"Desc":"20级装备固定防御","Val":6},
+]}
