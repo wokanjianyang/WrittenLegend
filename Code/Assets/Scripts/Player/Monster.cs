@@ -82,7 +82,13 @@ namespace Game
                 hero.EventCenter.Raise(new HeroBagUpdateEvent());
             }
 
-
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+            {
+                MonsterId = this.MonsterId,
+                Exp = this.Exp,
+                Gold = this.Gold,
+                Drops = equips
+            });
             //´æµµ
             UserData.Save(hero);
         }

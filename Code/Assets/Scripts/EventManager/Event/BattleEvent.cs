@@ -24,4 +24,14 @@ namespace Game
         public int BoxId { get; set; }
 
     }
+
+    public class BattleMsgEvent : SDD.Events.Event
+    {
+        public int MonsterId { get; set; }
+
+        public long Exp { get; set; }
+        public long Gold { get; set; }
+
+        public List<Equip> Drops { get; set; }
+    }
 }
