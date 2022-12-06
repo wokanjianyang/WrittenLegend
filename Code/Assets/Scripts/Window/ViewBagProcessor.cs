@@ -91,27 +91,28 @@ namespace Game
 
             var item = EquipConfigCategory.Instance.Get(equip.ConfigId);
             GameObject yellow = null;
-            switch (item.LevelRequired / 10 % 4)
+            switch (equip.Quality)
             {
                 case 0:
+                case 1:
                     {
                         var greenPrefab = Resources.Load<GameObject>("Prefab/Window/Box_Green");
                         yellow = GameObject.Instantiate(greenPrefab);
                     }
                     break;
-                case 1:
+                case 2:
                     {
                         var yellowPrefab = Resources.Load<GameObject>("Prefab/Window/Box_Yellow");
                         yellow = GameObject.Instantiate(yellowPrefab);
                     }
                     break;
-                case 2:
+                case 3:
                     {
                          var bluePrefab = Resources.Load<GameObject>("Prefab/Window/Box_Blue");
                         yellow = GameObject.Instantiate(bluePrefab);
                     }
                     break;
-                case 3:
+                case 4:
                     {
                         var pinkPrefab = Resources.Load<GameObject>("Prefab/Window/Box_Pink");
                         yellow = GameObject.Instantiate(pinkPrefab);

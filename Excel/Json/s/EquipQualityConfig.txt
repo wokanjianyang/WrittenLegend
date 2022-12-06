@@ -1,0 +1,6 @@
+{"list":[
+{"_t":"EquipQualityConfig","_id":1,"Num":1,"Rate":40},
+{"_t":"EquipQualityConfig","_id":2,"Num":2,"Rate":30},
+{"_t":"EquipQualityConfig","_id":3,"Num":3,"Rate":20},
+{"_t":"EquipQualityConfig","_id":4,"Num":4,"Rate":10},
+]}

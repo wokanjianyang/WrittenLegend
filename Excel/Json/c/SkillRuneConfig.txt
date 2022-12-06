@@ -1,7 +1,12 @@
 {"list":[
-{"_t":"SkillRuneConfig","_id":20011,"SkillId":2001,"Name":"火球·狂暴","Des":"增加火球20%伤害系数，无上限","Max":99,"CD":0,"CastType":0,"Dis":0,"Area":"","EnemyMax":0,"Percent":20,"Damage":0,"EffectId":0},
-{"_t":"SkillRuneConfig","_id":20012,"SkillId":2001,"Name":"火球·多重","Des":"增加火球术一个攻击目标，最多生效3个","Max":3,"CD":0,"CastType":0,"Dis":0,"Area":"","EnemyMax":1,"Percent":0,"Damage":0,"EffectId":0},
-{"_t":"SkillRuneConfig","_id":20013,"SkillId":2001,"Name":"火球·急速","Des":"增加火球术1秒CD时间，最多生效1个","Max":1,"CD":1,"CastType":0,"Dis":0,"Area":"","EnemyMax":0,"Percent":0,"Damage":0,"EffectId":0},
-{"_t":"SkillRuneConfig","_id":20014,"SkillId":2001,"Name":"火球·灼烧","Des":"火球术增加烧伤伤害，灼烧系数为80%,最多叠加3重","Max":3,"CD":0,"CastType":0,"Dis":0,"Area":"","EnemyMax":0,"Percent":0,"Damage":0,"EffectId":101},
-{"_t":"SkillRuneConfig","_id":20015,"SkillId":2001,"Name":"火球·固伤","Des":"增加火球术100点固定伤害，无上限","Max":99,"CD":0,"CastType":0,"Dis":0,"Area":"","EnemyMax":0,"Percent":0,"Damage":100,"EffectId":0},
+{"_t":"SkillRuneConfig","_id":20011,"SkillId":2001,"Name":"火球·狂暴","SuitId":20011,"Des":"增加火球20%伤害系数，无上限","Max":99,"CD":0,"CastType":0,"Dis":0,"Area":"","EnemyMax":0,"Percent":20,"Damage":0,"EffectId":0},
+{"_t":"SkillRuneConfig","_id":20012,"SkillId":2001,"Name":"火球·多重","SuitId":20011,"Des":"增加火球术一个攻击目标，最多生效3个","Max":3,"CD":0,"CastType":0,"Dis":0,"Area":"","EnemyMax":1,"Percent":0,"Damage":0,"EffectId":0},
+{"_t":"SkillRuneConfig","_id":20013,"SkillId":2001,"Name":"火球·急速","SuitId":20011,"Des":"增加火球术1秒CD时间，最多生效1个","Max":1,"CD":1,"CastType":0,"Dis":0,"Area":"","EnemyMax":0,"Percent":0,"Damage":0,"EffectId":0},
+{"_t":"SkillRuneConfig","_id":20014,"SkillId":2001,"Name":"火球·灼烧","SuitId":20011,"Des":"火球术增加烧伤伤害，灼烧系数为80%,最多叠加3重","Max":3,"CD":0,"CastType":0,"Dis":0,"Area":"","EnemyMax":0,"Percent":0,"Damage":0,"EffectId":101},
+{"_t":"SkillRuneConfig","_id":20015,"SkillId":2001,"Name":"火球·固伤","SuitId":20011,"Des":"增加火球术100点固定伤害，无上限","Max":99,"CD":0,"CastType":0,"Dis":0,"Area":"","EnemyMax":0,"Percent":0,"Damage":100,"EffectId":0},
+{"_t":"SkillRuneConfig","_id":20021,"SkillId":2001,"Name":"火球·狂暴","SuitId":20012,"Des":"增加火球20%伤害系数，无上限","Max":99,"CD":0,"CastType":0,"Dis":0,"Area":"","EnemyMax":0,"Percent":20,"Damage":0,"EffectId":0},
+{"_t":"SkillRuneConfig","_id":20022,"SkillId":2001,"Name":"火球·多重","SuitId":20012,"Des":"增加火球术一个攻击目标，最多生效3个","Max":3,"CD":0,"CastType":0,"Dis":0,"Area":"","EnemyMax":1,"Percent":0,"Damage":0,"EffectId":0},
+{"_t":"SkillRuneConfig","_id":20023,"SkillId":2001,"Name":"火球·急速","SuitId":20012,"Des":"增加火球术1秒CD时间，最多生效1个","Max":1,"CD":1,"CastType":0,"Dis":0,"Area":"","EnemyMax":0,"Percent":0,"Damage":0,"EffectId":0},
+{"_t":"SkillRuneConfig","_id":20024,"SkillId":2001,"Name":"火球·灼烧","SuitId":20012,"Des":"火球术增加烧伤伤害，灼烧系数为80%,最多叠加3重","Max":3,"CD":0,"CastType":0,"Dis":0,"Area":"","EnemyMax":0,"Percent":0,"Damage":0,"EffectId":101},
+{"_t":"SkillRuneConfig","_id":20025,"SkillId":2001,"Name":"火球·固伤","SuitId":20012,"Des":"增加火球术100点固定伤害，无上限","Max":99,"CD":0,"CastType":0,"Dis":0,"Area":"","EnemyMax":0,"Percent":0,"Damage":100,"EffectId":0},
 ]}

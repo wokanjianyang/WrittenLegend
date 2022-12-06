@@ -10,6 +10,16 @@ namespace Game
 
         public int Quality { get; set; }
 
+        /// <summary>
+        /// 词条属性列表
+        /// </summary>
+        public List<KeyValuePair<int, long>> AttrEntryList { get; set; }
+
+        /// <summary>
+        /// 基础属性
+        /// </summary>
+        public IDictionary<int, long> BaseAttrList { get; set; }
+
         public SkillRune SkillRune { get; set; }
     }
 
@@ -46,22 +56,40 @@ namespace Game
             equip.Level = config.LevelRequired;
             equip.Position = config.Position;
             equip.Gold = config.Price;
-            equip.AttrList = new Dictionary<int,long>();
+            equip.BaseAttrList = new Dictionary<int,long>();
             for (int i = 0; i < config.AttributeBase.Length; i++)
             {
-                equip.AttrList.Add(config.BaseArray[i], config.AttributeBase[i]);
+                equip.BaseAttrList.Add(config.BaseArray[i], config.AttributeBase[i]);
             }
 
-            //build Skill Runne
-            SkillRune rune = new SkillRune();
-            rune.SkillId = 2001;
-            rune.Name = "火球术-多重";
-            rune.Des = "增加火球的一个攻击目标";
-            rune.Incre = 1;
-            rune.Type = SkillRuneType.MaxNum;
-            rune.SuitId = 0;
+            //生成品质
+            equip.Quality = RandomHelper.RandomQuality();
 
-            equip.SkillRune = rune;
+            //根据品质,生成随机属性
+            for (int i = 0; i < equip.Quality; i++)
+            {
+                AttrEntryConfigCategory.Instance.Build(ref equip);
+            }
+
+            //根据基础属性和词条属性，计算总属性
+            equip.AttrList = new Dictionary<int, long>();
+            foreach (int attrId in equip.BaseAttrList.Keys) {
+                equip.AttrList[attrId] = equip.BaseAttrList[attrId];
+            }
+
+            for (int i = 0; i < equip.AttrEntryList.Count; i++)
+            {
+                int attrId = equip.AttrEntryList[i].Key;
+                long val = 0;
+                if (equip.AttrList.TryGetValue(attrId, out val))
+                {
+                }
+                equip.AttrList[attrId] = val + equip.AttrEntryList[i].Value;
+            }
+
+
+            //build Skill Runne
+            equip.SkillRune = SkillRuneConfigCategory.Instance.Build();
 
             return equip;
         }
