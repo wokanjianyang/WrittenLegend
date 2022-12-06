@@ -99,7 +99,9 @@ namespace Game
             }
             hero.GetComponent<SkillProcessor>().InitSkill(hero);
 
-            hero.SetPosition(new Vector3(5, 10), true);
+            var x = GameProcessor.Inst.MapProcessor.ColCount / 2;
+            var y = GameProcessor.Inst.MapProcessor.RowCount / 2;
+            hero.SetPosition(new Vector3(x, y), true);
             GameProcessor.Inst.PlayerManager.AddPlayer(hero);
 
         }
