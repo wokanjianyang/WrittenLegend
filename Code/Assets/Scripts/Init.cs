@@ -3,6 +3,7 @@ using System.Collections;
 using Game;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using DG.Tweening;
 
 public class Init : MonoBehaviour
 {
@@ -10,6 +11,18 @@ public class Init : MonoBehaviour
     public RuleType RuleType = RuleType.Normal;
 
     private const string BuglyAppIDForAndroid = "ff5ed4ccb9";
+
+#if UNITY_EDITOR
+
+    [LabelText("加速")]
+    public float TimeScale = 1;
+
+    private void OnValidate()
+    {
+        Time.timeScale = this.TimeScale;
+        DOTween.timeScale = this.TimeScale;
+    }
+#endif
 
 
     void Awake()

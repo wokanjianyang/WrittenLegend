@@ -97,12 +97,6 @@ namespace Game
 
             if (fourSide.Contains(nearestEnemy.Cell))
             {
-                var offset = nearestEnemy.Cell - this.Cell;
-                if(Mathf.Abs(offset.x)>1||Mathf.Abs(offset.y)>1)
-                {
-                    Debug.LogError("不是邻近目标");
-                }
-                Debug.Log($"{this.Cell} attack {nearestEnemy.Cell}");
                 this.GetComponent<SkillProcessor>().UseSkill(nearestEnemy.ID);
             }
             else

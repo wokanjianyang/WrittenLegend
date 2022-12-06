@@ -14,6 +14,8 @@ namespace Game
 
         public bool IsSurvice { get; private set; } = true;
 
+        private List<SDD.Events.Event> playerEvents = new List<SDD.Events.Event>();
+
 
         private void Awake()
         {
@@ -101,15 +103,15 @@ namespace Game
             if (currentHP == 0)
             {
                 IsSurvice = false;
-                SelfPlayer.EventCenter.Raise(new PlayerDeadEvent
+                this.playerEvents.Add(new PlayerDeadEvent
                 {
                     RoundNum = SelfPlayer.RoundCounter
                 });
-                SelfPlayer.EventCenter.Raise(new ShowMsgEvent
+                this.playerEvents.Add(new ShowMsgEvent
                 {
                     Content = "死亡"
                 });
-                SelfPlayer.EventCenter.Raise(new DeadRewarddEvent
+                this.playerEvents.Add(new DeadRewarddEvent
                 {
                     FromId = fromId,
                     ToId = SelfPlayer.ID
@@ -117,17 +119,24 @@ namespace Game
             }
             else
             {
-                SelfPlayer.EventCenter.Raise(new ShowMsgEvent
+                this.playerEvents.Add(new ShowMsgEvent
                 {
                     Content = (damage * -1).ToString()
                 });
-
             }
             AddBattleAttribute(AttributeEnum.HP, damage * -1);
 
             this.SelfPlayer.SetHP(currentHP);
         }
 
+        public void RaiseEvents()
+        {
+            foreach(var e in this.playerEvents)
+            {
+                this.SelfPlayer.EventCenter.Raise(e);
+            }
+            this.playerEvents.Clear();
+        }
 
 
         public float GetAttributeFloat(AttributeEnum attr)

@@ -14,7 +14,7 @@ namespace Game
 
         protected const float roundTime = 1f;
         protected float currentRoundTime = 0f;
-
+        protected bool needRefreshGraphic = false;
         virtual public void OnBattleStart()
         {
         }
@@ -34,10 +34,12 @@ namespace Game
         {
             if (!this.isGameOver)
             {
-                this.currentRoundTime += Time.deltaTime;
-                if (this.currentRoundTime >= roundTime * Time.timeScale)
+                this.currentRoundTime += Time.deltaTime * Time.timeScale;
+                
+                if (this.currentRoundTime >= roundTime)
                 {
                     this.currentRoundTime = 0;
+                    this.needRefreshGraphic = true;
                     GameProcessor.Inst.PlayerManager.RemoveAllDeadPlayers();
                     switch (this.roundNum%2)
                     {
@@ -54,6 +56,15 @@ namespace Game
                     if (this.isGameOver)
                     {
                         Debug.Log($"{(this.winCamp == PlayerType.Hero?"玩家":"怪物")}获胜！！");
+                    }
+                }
+                else if (this.needRefreshGraphic && this.currentRoundTime >= roundTime * 0.5f)
+                {
+                    this.needRefreshGraphic = false;
+                    var allPlayers = GameProcessor.Inst.PlayerManager.GetAllPlayers(true);
+                    foreach (var player in allPlayers)
+                    {
+                        player.Logic.RaiseEvents();
                     }
                 }
             }

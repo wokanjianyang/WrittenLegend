@@ -13,20 +13,29 @@ namespace Game
         public APlayer SelfPlayer { get; set; }
         public SkillData SkillData { get; set; }
 
+        protected List<AttackData> attackDataCache { get; set; }
+
+        private SkillGraphic skillGraphic;
+
         public ASkill(APlayer player, SkillData skillData)
         {
             this.SelfPlayer = player;
             this.SkillData = skillData;
+            this.skillGraphic = new SkillGraphic(player);
         }
         public void Do(int tid)
         {
-            this.PlayAnimation(tid);
+            attackDataCache = this.GetAllTargets(tid);
+            foreach (var attackData in attackDataCache)
+            {
+                var enemy = GameProcessor.Inst.PlayerManager.GetPlayer(attackData.Tid);
+                var damage = (int)this.CalcFormula(enemy, attackData.Ratio);
+                enemy.OnHit(tid, damage);
+            }
+
+            this.skillGraphic?.PlayAnimation(tid);
         }
 
-        virtual public void PlayAnimation(int tid)
-        {
-            
-        }
 
         virtual public float CalcFormula(APlayer player,float ratio)
         {
