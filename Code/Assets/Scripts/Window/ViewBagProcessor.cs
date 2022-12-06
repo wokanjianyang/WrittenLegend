@@ -89,7 +89,6 @@ namespace Game
         private Com_Item CreateBox(Equip equip,int boxId=-1)
         {
 
-            var item = EquipConfigCategory.Instance.Get(equip.ConfigId);
             GameObject yellow = null;
             switch (equip.Quality)
             {

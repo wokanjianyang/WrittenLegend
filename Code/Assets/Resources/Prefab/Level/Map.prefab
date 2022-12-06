@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Content: {fileID: 2247350377620711015}
-  m_Horizontal: 1
+  m_Horizontal: 0
   m_Vertical: 1
   m_MovementType: 1
   m_Elasticity: 0.1
@@ -947,7 +947,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -19534.445, y: -14030.996}
+  m_AnchoredPosition: {x: -96569.86, y: -75557.29}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &7971700420437026847
@@ -1117,7 +1117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3803225e009ce6645879d48f92b5f5d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sr_BattleMsg: {fileID: 0}
+  sr_BattleMsg: {fileID: 4152851075607381564}
 --- !u!1 &8678515488430367084
 GameObject:
   m_ObjectHideFlags: 0
@@ -1392,7 +1392,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1824760953128423286}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.49177155
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

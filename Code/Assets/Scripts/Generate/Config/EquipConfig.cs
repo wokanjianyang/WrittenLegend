@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using MongoDB.Bson.Serialization.Attributes;
 using ProtoBuf;
+using UnityEngine;
 
 namespace Game
 {
@@ -47,6 +48,7 @@ namespace Game
             if (item == null)
             {
                 throw new Exception($"配置找不到，配置表名: {nameof (EquipConfig)}，配置id: {id}");
+                //Debug.Log($"配置找不到，配置表名: {nameof(EquipConfig)}，配置id: {id}");
             }
 
             return item;

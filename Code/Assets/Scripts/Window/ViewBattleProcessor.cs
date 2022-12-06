@@ -49,7 +49,7 @@ namespace Game
         {
             base.OnBattleStart();
 
-            this.msgPrefab = Resources.Load<GameObject>("Prefab/Window/Item-DropMsg");
+            this.msgPrefab = Resources.Load<GameObject>("Prefab/Window/Item_DropMsg");
 
             GameProcessor.Inst.EventCenter.AddListener<BattleMsgEvent>(this.OnBattleMsgEvent);
         }
@@ -59,12 +59,18 @@ namespace Game
             var msg = GameObject.Instantiate(this.msgPrefab);
             msg.transform.SetParent(this.sr_BattleMsg.content);
             MonsterBase config = MonsterBaseCategory.Instance.Get(e.MonsterId);
-            string drops = ",掉落";
-            foreach(var drop in e.Drops)
+            string drops = "";
+            if (e.Drops!=null&&e.Drops.Count>0)
             {
-                drops += $"<color=#D800FF>[{drop.Name}]";
+                drops = ",掉落";
+                foreach(var drop in e.Drops)
+                {
+                    drops += $"<color=#D800FF>[{drop.Name}]";
+                }
             }
             msg.GetComponent<TextMeshProUGUI>().text = $"<color=#D800FF>[{config.Name}]<color=white>死亡,经验增加:{e.Exp},金币增加:{e.Gold}{drops}";
+
+            this.sr_BattleMsg.normalizedPosition = new Vector2(0, 0);
         }
     }
 }
