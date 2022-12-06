@@ -109,10 +109,20 @@ namespace ET
             AssetDatabase.SaveAssets();
         }
 
+        public static void BuildDebug()
+        {
+            BuildHelper.Build(PlatformType.Android, BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, BuildOptions.None, true, true, true);
+        }
+
+        public static void BuildRelease()
+        {
+            BuildHelper.Build(PlatformType.Android, BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, BuildOptions.None, true, true, true);
+        }
+
         public static void Build(PlatformType type, BuildAssetBundleOptions buildAssetBundleOptions, BuildOptions buildOptions, bool isBuildExe, bool isContainAB, bool clearFolder)
         {
             BuildTarget buildTarget = BuildTarget.StandaloneWindows;
-            string programName = "ET";
+            string programName = "Legend";
             string exeName = programName;
             switch (type)
             {
