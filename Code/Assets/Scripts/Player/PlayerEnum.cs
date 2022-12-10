@@ -4,11 +4,11 @@ namespace Game
 {
     public enum AttributeEnum
     {
-        Color,
-        Name,
-        Level,
-        Exp, //经验值
-        Power, //战力
+        Color = -5,
+        Name = -4,
+        Level = -3,
+        Exp = -2, //经验值
+        Power = -1, //战力
         HP =1, //生命值
         PhyAtt =2, //物理攻击
         MagicAtt =3,//魔法攻击
