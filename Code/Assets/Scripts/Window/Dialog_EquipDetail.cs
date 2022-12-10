@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace Game
 {
-    public class Dialog_EquipDetail : MonoBehaviour,IBattleLife
+    public class Dialog_EquipDetail : MonoBehaviour, IBattleLife
     {
 
         [Title("道具数据")]
@@ -41,9 +41,12 @@ namespace Game
         private Item item;
         private int boxId;
 
+        private RectTransform rectTransform;
+
         // Start is called before the first frame update
         void Start()
         {
+            this.rectTransform = this.transform.GetComponent<RectTransform>();
             this.btn_Equip.onClick.AddListener(this.OnEquip);
             this.btn_UnEquip.onClick.AddListener(this.OnUnEquip);
         }
@@ -51,7 +54,7 @@ namespace Game
         // Update is called once per frame
         void Update()
         {
-        
+
         }
         public int Order => (int)ComponentOrder.Dialog;
 
@@ -62,17 +65,17 @@ namespace Game
 
         private void OnShowEquipDetailEvent(ShowEquipDetailEvent e)
         {
-            this.transform.position = e.Position;
+            this.transform.position = this.GetBetterPosition(e.Position);
             this.transform.localScale = Vector3.one;
             this.tmp_Title.text = e.Item.Name;
             this.item = e.Item;
             this.boxId = e.BoxId;
 
-            this.btn_Equip.gameObject.SetActive(this.boxId!=-1);
-            this.btn_UnEquip.gameObject.SetActive(this.boxId==-1);
+            this.btn_Equip.gameObject.SetActive(this.boxId != -1);
+            this.btn_UnEquip.gameObject.SetActive(this.boxId == -1);
             var equip = e.Item as Equip;
             var titleColor = "FFFFFF";
-            switch(equip.Quality)
+            switch (equip.Quality)
             {
                 case 1:
                     titleColor = "CBFFC2";
@@ -87,13 +90,13 @@ namespace Game
                     titleColor = "D800FF";
                     break;
             }
-            tmp_Title.text = string.Format("<color=#{0}>{1}</color>",titleColor,equip.Name);
+            tmp_Title.text = string.Format("<color=#{0}>{1}</color>", titleColor, equip.Name);
 
             int index = 0;
             foreach (var a in equip.AttrList)
             {
                 var child = tran_BaseAttribute.Find(string.Format("Attribute_{0}", index));
-                child.GetComponent<TextMeshProUGUI>().text = string.Format(" •+{0}点{1}",a.Value, PlayerHelper.PlayerAttributeMap[((AttributeEnum)a.Key).ToString()]);
+                child.GetComponent<TextMeshProUGUI>().text = string.Format(" •+{0}点{1}", a.Value, PlayerHelper.PlayerAttributeMap[((AttributeEnum)a.Key).ToString()]);
                 child.gameObject.SetActive(true);
                 index++;
             }
@@ -102,7 +105,7 @@ namespace Game
             {
                 color = "red";
             }
-            tran_BaseAttribute.Find("NeedLevel").GetComponent<TextMeshProUGUI>().text = string.Format("<color={0}>需要等级{1}</color>",color,equip.Level);
+            tran_BaseAttribute.Find("NeedLevel").GetComponent<TextMeshProUGUI>().text = string.Format("<color={0}>需要等级{1}</color>", color, equip.Level);
         }
 
         private void OnEquip()
@@ -126,6 +129,27 @@ namespace Game
                 Item = this.item,
                 BoxId = this.boxId
             });
+        }
+
+        private Vector3 GetBetterPosition(Vector3 position)
+        {
+
+            var maxRight = position.x + this.rectTransform.sizeDelta.x;
+            var maxDown = position.y - this.rectTransform.sizeDelta.y;
+            Vector3 offset = Vector3.zero;
+            if (maxDown < 0)
+            {
+                offset.y = 0 - maxDown;
+            }
+            if (maxRight > 1017)
+            {
+                offset.x = 1017 - maxRight;
+            }
+
+            Vector3 betterPosition = position + offset;
+
+
+            return betterPosition;
         }
     }
 }
