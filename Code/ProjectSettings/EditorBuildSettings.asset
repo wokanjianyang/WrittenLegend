@@ -12,10 +12,13 @@ EditorBuildSettings:
     path: Assets/SWAN Dev/ProGIF/Templates/Features/GifSplashScreen/SplashScreen
       Demo.unity
     guid: 5652882a52d1eb941aae54806b9d9d90
-  - enabled: 1
+  - enabled: 0
+    path: Assets/EasyMobile/Demo/Scenes/Modules/NativeUIDemo.unity
+    guid: d40b791e59e7f4b5ba8ece277cb58a98
+  - enabled: 0
     path: Assets/Scenes/Init.unity
     guid: bb192a15623b140148599c585143be18
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Map.unity
     guid: 3c68b52dfff2643c7add20d54f752529
   - enabled: 0
