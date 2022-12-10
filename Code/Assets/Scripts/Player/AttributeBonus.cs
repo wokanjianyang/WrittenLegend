@@ -14,16 +14,26 @@ namespace Game
 
 		public void SetAttr(AttributeEnum attrType, AttributeFrom attrKey, long attrValue)
 		{
+			var key = (int)attrKey;
 			switch (attrType)
 			{
 				case AttributeEnum.HP:
-					HpDict[((int)attrKey)] = attrValue;
+                    {
+						HpDict.TryGetValue(key, out var value);
+						HpDict[key] = value + attrValue;
+                    }
 					break;
 				case AttributeEnum.PhyAtt:
-					PhyAttrDict[((int)attrKey)] = attrValue;
+                    {
+						PhyAttrDict.TryGetValue(key, out var value);
+						PhyAttrDict[key] = value + attrValue;
+                    }
                     break;
 				case AttributeEnum.AttIncrea:
-					PhyAttrPercent[((int)attrKey)] = attrValue;
+					{
+						PhyAttrPercent.TryGetValue(key, out var value);
+						PhyAttrPercent[key] = value + attrValue;
+					}
 					break;
 			}
 

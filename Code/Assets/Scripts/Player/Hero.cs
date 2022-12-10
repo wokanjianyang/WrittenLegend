@@ -99,7 +99,7 @@ namespace Game
         private void HeroUnUseEquip(HeroUnUseEquipEvent e)
         {
             Bags.Add(e.Equip);
-            EquipPanel.Remove(e.Equip.Position);
+            EquipPanel.Remove(e.Equip.Position % PlayerHelper.MAX_EQUIP_COUNT);
 
             //替换属性
             foreach (var a in e.Equip.AttrList)
@@ -119,7 +119,7 @@ namespace Game
         {
             //装配包裹的
             Equip old;
-            if (EquipPanel.TryGetValue(equip.Position, out old))
+            if (EquipPanel.TryGetValue(equip.Position % PlayerHelper.MAX_EQUIP_COUNT, out old))
             {
                 Bags.Add(old);
             }
@@ -127,7 +127,7 @@ namespace Game
 
             Bags.Remove(equip); //old move to bag
 
-            EquipPanel[equip.Position] = equip; //new use to panel
+            EquipPanel[equip.Position % PlayerHelper.MAX_EQUIP_COUNT] = equip; //new use to panel
 
             //替换属性
             foreach (var a in equip.AttrList)
