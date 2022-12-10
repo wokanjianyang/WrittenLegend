@@ -79,12 +79,6 @@ namespace Game
                 this.winCamp = PlayerType.Enemy;
                 result = true;
             }
-            var enemyCamp = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
-            if (enemyCamp.Count == 0)
-            {
-                this.winCamp = PlayerType.Hero;
-                result = true;
-            }
 
             return result && this.roundNum > 1;
         }
