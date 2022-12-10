@@ -651,7 +651,8 @@ namespace CodeStage.AntiCheat.Detectors
 					var success = TryGetDate(dateHeader, out serverTime);
 					if (success)
 					{
-						var onlineTimeUtc = serverTime.ToUniversalTime();
+						DateTime startTime = new DateTime(1970, 1, 1); // 当地时区
+						var onlineTimeUtc = new DateTime((serverTime - startTime).Ticks, DateTimeKind.Utc);
 						var onlineSecondsUtc = onlineTimeUtc.Ticks / (double)TimeSpan.TicksPerSecond;
 						result.SetTime(onlineSecondsUtc);
 					}

@@ -4,6 +4,10 @@ using Game;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using DG.Tweening;
+using CodeStage.AntiCheat.Detectors;
+using System.Threading.Tasks;
+using SA.Android.Utilities;
+using SA.Android.App;
 
 public class Init : MonoBehaviour
 {
@@ -44,7 +48,22 @@ public class Init : MonoBehaviour
 
         BuglyAgent.SetScene(0);
 
-        LoadConfig();
+
+        AsyncStartAsync();
+    }
+
+    private async Task AsyncStartAsync()
+    {
+        AN_Preloader.LockScreen("正在获取时间...");
+
+        var timeTaks = TimeCheatingDetector.GetOnlineTimeTask("https://www.baidu.com/");
+        await timeTaks;
+        var time = timeTaks.Result.onlineSecondsUtc;
+        AN_Logger.Log("time:" + time);
+
+        AN_Preloader.UnlockScreen();
+
+        this.LoadConfig();
         //初始化广告模块
         //初始化Bugly
         //初始化时间戳

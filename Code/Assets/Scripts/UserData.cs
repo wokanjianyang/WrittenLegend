@@ -41,13 +41,13 @@ namespace Game
                     hero.Level = 1;
                     hero.Exp = 0;
                     hero.Name = "传奇";
-                    Save(hero);
+                    Save();
                 }
             }
             return hero;
         }
 
-        public static void Save(Hero hero) {
+        public static void Save() {
             //
             string folderPath = System.IO.Path.Combine(Application.persistentDataPath, savePath); //文件夹路径
             System.IO.Directory.CreateDirectory(folderPath);

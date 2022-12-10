@@ -144,7 +144,7 @@ namespace Game
         void OnApplicationQuit()
         {
             //TODO 存档
-            UserData.Save(PlayerManager.hero);
+            UserData.Save();
         }
     }
 }

@@ -171,7 +171,7 @@ namespace Game
 
         public void Save()
         {
-            UserData.Save(this.hero);
+            UserData.Save();
         }
 
         void OnDestroy()

@@ -92,7 +92,7 @@ namespace Game
                 Drops = equips
             });
             //´æµµ
-            UserData.Save(hero);
+            UserData.Save();
         }
     }
 }

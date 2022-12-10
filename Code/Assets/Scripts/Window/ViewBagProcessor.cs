@@ -38,7 +38,6 @@ namespace Game
 
         private List<Com_Item> items;
 
-        private int bagMaxCount = 50;
 
         // Start is called before the first frame update
         void Start()
@@ -69,7 +68,7 @@ namespace Game
 
             var emptyPrefab = Resources.Load<GameObject>("Prefab/Window/Box_Empty");
 
-            for (var i = 0; i < bagMaxCount; i++)
+            for (var i = 0; i < PlayerHelper.bagMaxCount; i++)
             {
                 var empty = GameObject.Instantiate(emptyPrefab, (this.sr_Bag.content));
                 empty.name = "Box_" + i;
@@ -92,7 +91,7 @@ namespace Game
             {
                 foreach(var kvp in hero.EquipPanel)
                 {
-                    this.EquipOne(kvp.Key, kvp.Value);
+                    this.WearEquipment(kvp.Key,kvp.Value);
                 }
             }
         }
@@ -135,12 +134,21 @@ namespace Game
         }
         private void OnEquipOneEvent(EquipOneEvent e)
         {
-            this.EquipOne(0, e.Item);
+            var equip = e.Item as Equip;
+
+            if (e.IsWear)
+            {
+                this.WearEquipment(0,equip, e.BoxId);
+            }
+            else
+            {
+                this.RmoveEquipment(equip);
+            }
+            UserData.Save();
         }
-        private void EquipOne(int position, Item item, int boxId = -1)
+        private void WearEquipment(int position,Equip equip, int boxId = -1)
         {
-            Equip equip = item as Equip;
-            var slots = this.transform.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == equip.Position).ToList();
+            var slots = this.transform.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == equip.Position% PlayerHelper.MAX_EQUIP_COUNT).ToList();
             int emptySlotIndex = -1;
             if (slots.Count == 1)
             {
@@ -164,7 +172,7 @@ namespace Game
             var equiped = slots[emptySlotIndex].GetEquip();
             if (equiped != null)
             {
-                for (var i = 0; i < bagMaxCount; i++)
+                for (var i = 0; i < PlayerHelper.bagMaxCount; i++)
                 {
                     var com = this.items.FirstOrDefault(c => c.boxId == i);
                     if (com == null)
@@ -184,7 +192,7 @@ namespace Game
             }
             else
             {
-                this.items.RemoveAt(boxId);
+                this.items.Remove(comItem);
             }
             slots[emptySlotIndex].Equip(comItem);
             comItem.transform.SetParent(slots[emptySlotIndex].transform);
@@ -193,14 +201,50 @@ namespace Game
             comItem.SetBoxId(-1);
 
             if (position == 0)
-            {  //原本就装备了，只是显示
+            {  
                 var hero = GameProcessor.Inst.PlayerManager.hero;
                 hero.EventCenter.Raise(new HeroUseEquipEvent
                 {
-                    Position = position,
+                    Position = equip.Position + emptySlotIndex * PlayerHelper.MAX_EQUIP_COUNT,
                     Equip = equip
                 });
             }
+            else
+            {
+                //原本就装备了，只是显示
+            }
+        }
+
+        private void RmoveEquipment(Equip equip)
+        {
+            var slots = this.transform.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == equip.Position % PlayerHelper.MAX_EQUIP_COUNT).ToList();
+            var slotInex = 0;
+            if (slots.Count==2)
+            {
+                slotInex = equip.Position / PlayerHelper.MAX_EQUIP_COUNT;
+            }
+            var comItem = slots[slotInex].GetEquip();
+            slots[slotInex].UnEquip();
+
+            for(var i=0;i< PlayerHelper.bagMaxCount;i++)
+            {
+                var box = this.items.FirstOrDefault(item => item.boxId == i);
+                if (box == null)
+                {
+                    comItem.transform.SetParent(this.sr_Bag.content.GetChild(i));
+                    comItem.transform.localPosition = Vector3.zero;
+                    comItem.transform.localScale = Vector3.one;
+                    comItem.SetBoxId(i);
+                    this.items.Add(comItem);
+                    break;
+                }
+            }
+            var hero = UserData.Load();
+            hero.EventCenter.Raise(new HeroUnUseEquipEvent() { 
+                Equip = equip
+            });
+
+            UserData.Save();
         }
         private void OnHeroBagUpdateEvent(HeroBagUpdateEvent e)
         {
@@ -212,7 +256,7 @@ namespace Game
                 int lastBoxId = 0;
                 foreach (var newItem in newItems)
                 {
-                    for (var i = lastBoxId; i < bagMaxCount; i++)
+                    for (var i = lastBoxId; i < PlayerHelper.bagMaxCount; i++)
                     {
                         var com = this.items.FirstOrDefault(c => c.boxId == i);
                         if (com == null)

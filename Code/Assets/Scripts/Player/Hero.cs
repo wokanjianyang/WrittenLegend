@@ -31,6 +31,7 @@ namespace Game
         public Hero():base()  {
             this.EventCenter.AddListener<HeroChangeEvent>(HeroChange);
             this.EventCenter.AddListener<HeroUseEquipEvent>(HeroUseEquip);
+            this.EventCenter.AddListener<HeroUnUseEquipEvent>(HeroUnUseEquip);
         }
 
         public override void Load()
@@ -94,6 +95,25 @@ namespace Game
 
             this.Equip(e.Position, e.Equip);
         }
+
+        private void HeroUnUseEquip(HeroUnUseEquipEvent e)
+        {
+            Bags.Add(e.Equip);
+            EquipPanel.Remove(e.Equip.Position);
+
+            //替换属性
+            foreach (var a in e.Equip.AttrList)
+            {
+                AttributeBonus.SetAttr((AttributeEnum)a.Key, e.Equip.Position% PlayerHelper.MAX_EQUIP_COUNT * 100 + AttributeFrom.EquipBase, a.Value*-1);
+            }
+
+            //显示最新的血量
+            SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
+
+            //更新属性面板
+            UpdatePlayerInfo();
+        }
+
 
         private void Equip(int pos, Equip equip)
         {

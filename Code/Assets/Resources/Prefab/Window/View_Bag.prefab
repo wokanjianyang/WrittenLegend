@@ -908,7 +908,7 @@ GameObject:
   - component: {fileID: 7214805302857056092}
   - component: {fileID: 7214805302857056093}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: CritDamage_V
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1381,7 +1381,7 @@ GameObject:
   - component: {fileID: 7214805303035422521}
   - component: {fileID: 7214805303035422522}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Def_V
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1656,7 +1656,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7214805303041165945
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1786,7 +1786,7 @@ GameObject:
   - component: {fileID: 7214805303052619643}
   - component: {fileID: 7214805303052619620}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: DamageIncrea_V
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2573,7 +2573,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7214805303357358665}
   m_Layer: 5
-  m_Name: MagicDef
+  m_Name: LevelExp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2599,7 +2599,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -47, y: -282.2}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 150, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &7214805303372238213
 GameObject:
@@ -2613,7 +2613,7 @@ GameObject:
   - component: {fileID: 7214805303372238234}
   - component: {fileID: 7214805303372238235}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: HP_V
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2798,7 +2798,7 @@ GameObject:
   - component: {fileID: 7214805303471244422}
   - component: {fileID: 7214805303471244423}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: CritRate_V
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3169,7 +3169,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -9.9, y: 0}
-  m_SizeDelta: {x: 160, y: 20}
+  m_SizeDelta: {x: 109, y: 43}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7214805303492240438
 MonoBehaviour:
@@ -3486,7 +3486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fafe2cfe61f6974895a912c3755e8f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AllowSwitchOff: 1
+  m_AllowSwitchOff: 0
 --- !u!222 &899071776
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4162,7 +4162,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7214805303789010805
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4789,6 +4789,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7214805303950078020}
+  - component: {fileID: 420080527}
   m_Layer: 5
   m_Name: PlayerAttribute
   m_TagString: Untagged
@@ -4833,6 +4834,30 @@ RectTransform:
   m_AnchoredPosition: {x: -137, y: 445}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &420080527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7214805303950078021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a04a24ed6df1eb2438cde13ff4acf63e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HP: {fileID: 7214805303372238235}
+  PhyAtt: {fileID: 7214805304648603286}
+  SpiritAtt: {fileID: 7214805304279475354}
+  MagicAtt: {fileID: 7214805304318279892}
+  Lucky: {fileID: 7214805304554957418}
+  Def: {fileID: 7214805303035422522}
+  LevelExp: {fileID: 7214805304096856521}
+  DamageIncrea: {fileID: 7214805303052619620}
+  DamageResist: {fileID: 7214805304501253765}
+  CritRate: {fileID: 7214805303471244423}
+  CritRateResist: {fileID: 7214805304874592585}
+  CritDamage: {fileID: 7214805302857056093}
 --- !u!1 &7214805303960974485
 GameObject:
   m_ObjectHideFlags: 0
@@ -4850,7 +4875,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7214805303960974484
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5068,7 +5093,7 @@ GameObject:
   - component: {fileID: 7214805304096856520}
   - component: {fileID: 7214805304096856521}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: LevelExp_V
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5527,7 +5552,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u9B54\u5FA1:"
+  m_text: "\u7ECF\u9A8C:"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef907ecec708e4d0bb6dd7ac6364f122, type: 2}
   m_sharedMaterial: {fileID: -2901868830893144123, guid: ef907ecec708e4d0bb6dd7ac6364f122, type: 2}
@@ -5916,7 +5941,7 @@ GameObject:
   - component: {fileID: 7214805304279475353}
   - component: {fileID: 7214805304279475354}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: SpiritAtt_V
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6186,7 +6211,7 @@ GameObject:
   - component: {fileID: 7214805304318279723}
   - component: {fileID: 7214805304318279892}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: MagicAtt_V
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6498,7 +6523,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7214805304380447477
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7139,7 +7164,7 @@ GameObject:
   - component: {fileID: 7214805304501253764}
   - component: {fileID: 7214805304501253765}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: DamageResist_V
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7544,7 +7569,7 @@ GameObject:
   - component: {fileID: 7214805304554957417}
   - component: {fileID: 7214805304554957418}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Lucky_V
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8018,7 +8043,7 @@ GameObject:
   - component: {fileID: 7214805304648603285}
   - component: {fileID: 7214805304648603286}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: PhyAtt_V
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8562,7 +8587,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -124.6, y: 0}
-  m_SizeDelta: {x: 160, y: 20}
+  m_SizeDelta: {x: 109, y: 43}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7214805304795079124
 MonoBehaviour:
@@ -8834,7 +8859,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -238.2, y: 0}
-  m_SizeDelta: {x: 160, y: 20}
+  m_SizeDelta: {x: 109, y: 43}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7214805304861889020
 MonoBehaviour:
@@ -8896,7 +8921,7 @@ GameObject:
   - component: {fileID: 7214805304874592584}
   - component: {fileID: 7214805304874592585}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: CritRateResist_V
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9056,7 +9081,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -381.3, y: 0}
-  m_SizeDelta: {x: 160, y: 20}
+  m_SizeDelta: {x: 165, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7214805304926863372
 MonoBehaviour:

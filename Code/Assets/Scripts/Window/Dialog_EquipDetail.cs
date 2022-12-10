@@ -14,8 +14,11 @@ namespace Game
         [LabelText("装备名称")]
         public TextMeshProUGUI tmp_Title;
 
-        [LabelText("装备名称")]
+        [LabelText("穿戴")]
         public Button btn_Equip;
+
+        [LabelText("卸下")]
+        public Button btn_UnEquip;
 
         private RectTransform rectTransform;
 
@@ -27,6 +30,7 @@ namespace Game
         {
             this.rectTransform = this.transform.GetComponent<RectTransform>();
             this.btn_Equip.onClick.AddListener(this.OnEquip);
+            this.btn_UnEquip.onClick.AddListener(this.OnUnEquip);
         }
 
         // Update is called once per frame
@@ -48,6 +52,9 @@ namespace Game
             this.tmp_Title.text = e.Item.Name;
             this.item = e.Item;
             this.boxId = e.BoxId;
+
+            this.btn_Equip.gameObject.SetActive(this.boxId!=-1);
+            this.btn_UnEquip.gameObject.SetActive(this.boxId==-1);
         }
 
         private void OnEquip()
@@ -56,6 +63,18 @@ namespace Game
 
             GameProcessor.Inst.EventCenter.Raise(new EquipOneEvent()
             {
+                Item = this.item,
+                BoxId = this.boxId
+            });
+        }
+
+        private void OnUnEquip()
+        {
+            this.transform.localScale = Vector3.zero;
+
+            GameProcessor.Inst.EventCenter.Raise(new EquipOneEvent()
+            {
+                IsWear = false,
                 Item = this.item,
                 BoxId = this.boxId
             });

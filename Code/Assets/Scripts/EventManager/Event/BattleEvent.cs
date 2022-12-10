@@ -20,10 +20,11 @@ namespace Game
 
     public class EquipOneEvent : SDD.Events.Event
     {
+        public bool IsWear { get; set; } = true;
         public Item Item { get; set; }
         public int BoxId { get; set; }
-
     }
+
 
     public class BattleMsgEvent : SDD.Events.Event
     {
