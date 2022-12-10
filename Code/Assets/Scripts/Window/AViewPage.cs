@@ -8,7 +8,7 @@ namespace Game
     {
 
         // Start is called before the first frame update
-        virtual public void Start()
+        void Start()
         {
 
         }

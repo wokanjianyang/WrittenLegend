@@ -20,6 +20,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.pocket.topbrowser.R;
+import com.unity3d.player.MainActivity;
 import com.zh.pocket.ads.splash.SplashAD;
 import com.zh.pocket.ads.splash.SplashADListener;
 import com.zh.pocket.error.ADError;

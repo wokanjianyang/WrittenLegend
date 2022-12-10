@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace SA.Android.Utilities
 {
-    static class AN_Logger
+    public static class AN_Logger
     {
         static AndroidJavaClass s_nativeLogger;
 

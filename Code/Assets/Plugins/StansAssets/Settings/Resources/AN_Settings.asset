@@ -19,7 +19,7 @@ MonoBehaviour:
     Info: 1
     Warning: 1
     Error: 1
-  WtfLogging: 0
+  WtfLogging: 1
   PreferredImagesStorage: 1
   Vending: 0
   Contacts: 0

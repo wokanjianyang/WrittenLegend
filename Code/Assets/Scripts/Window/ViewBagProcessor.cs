@@ -1,9 +1,12 @@
+using SA.Android.Utilities;
+using SA.CrossPlatform.UI;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using static Game.PocketAD;
 
 namespace Game
 {
@@ -26,6 +29,13 @@ namespace Game
         [LabelText("包裹")]
         public ScrollRect sr_Bag;
 
+        [Title("个人信息")]
+        [LabelText("属性")]
+        public Button btn_PlayerAttribute;
+
+        [LabelText("称号")]
+        public Button btn_PlayerTitle;
+
         private List<Com_Item> items;
 
         private int bagMaxCount = 50;
@@ -33,7 +43,7 @@ namespace Game
         // Start is called before the first frame update
         void Start()
         {
-
+            this.btn_PlayerTitle.onClick.AddListener(this.OnClick_PlayerTitle);
         }
 
         // Update is called once per frame
@@ -221,6 +231,31 @@ namespace Game
                 }
 
             }
+        }
+
+
+        private AdStateCallBack adStateCallBack;
+        public void OnClick_PlayerTitle()
+        {
+            adStateCallBack += OnAdStateCallBack;
+            string title = "显示广告";
+            string message = "激励视频广告测试";
+            var builder = new UM_NativeDialogBuilder(title, message);
+            builder.SetPositiveButton("打开", () => {
+                AN_Logger.Log("Okay button pressed");
+
+                PocketAD.Inst.ShowAD("称号", adStateCallBack);
+            });
+
+            var dialog = builder.Build();
+            dialog.Show();
+
+
+        }
+
+        public void OnAdStateCallBack(int rv, AdStateEnum state, AdTypeEnum adType)
+        {
+
         }
     }
 }

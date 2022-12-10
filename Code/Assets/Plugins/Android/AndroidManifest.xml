@@ -1,16 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.unity3d.player" xmlns:tools="http://schemas.android.com/tools">
-  <application
-      android:extractNativeLibs="true"
-      android:usesCleartextTraffic="true">
-    <activity android:name="com.unity3d.player.UnityPlayerActivity" android:theme="@style/UnityThemeSelector" android:screenOrientation="fullUser" android:launchMode="singleTask" android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale|layoutDirection|density" android:resizeableActivity="false" android:hardwareAccelerated="false">
+  <application android:allowBackup="true" android:usesCleartextTraffic="true" android:name="com.pocket.zxpa.MyApplication" tools:replace="android:allowBackup" android:extractNativeLibs="true">
+    <activity android:name="com.unity3d.player.MainActivity" android:theme="@style/UnityThemeSelector" android:screenOrientation="fullUser" android:launchMode="singleTask" android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale|layoutDirection|density" android:resizeableActivity="false" android:hardwareAccelerated="false" android:exported="true">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
-      <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
+      <meta-data android:name="com.unity3d.player.MainActivity" android:value="true" />
       <meta-data android:name="android.notch_support" android:value="true" />
     </activity>
+    <activity android:name="com.qq.e.ads.PortraitADActivity" android:screenOrientation="portrait" android:configChanges="keyboard|keyboardHidden|orientation|screenSize" tools:replace="android:screenOrientation" />
+    <activity android:name="com.qq.e.ads.LandscapeADActivity" android:screenOrientation="sensorLandscape" android:configChanges="keyboard|keyboardHidden|orientation|screenSize" tools:replace="android:screenOrientation" />
+    <provider android:name="com.qq.e.comm.GDTFileProvider" android:authorities="com.pocket.topbrowser.gdt.fileprovider" android:exported="false" android:grantUriPermissions="true">
+      <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/gdt_file_path" />
+    </provider>
+    <provider android:name="com.bytedance.sdk.openadsdk.TTFileProvider" android:authorities="com.pocket.topbrowser.TTFileProvider" android:exported="false" android:grantUriPermissions="true">
+      <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/csj_file_paths" />
+    </provider>
+    <provider android:name="com.bytedance.sdk.openadsdk.multipro.TTMultiProvider" android:authorities="com.pocket.topbrowser.TTMultiProvider" android:exported="false" />
     <meta-data android:name="unity.splash-mode" android:value="0" />
     <meta-data android:name="unity.splash-enable" android:value="True" />
     <meta-data android:name="unity.launch-fullscreen" android:value="True" />
@@ -18,7 +25,21 @@
     <meta-data android:name="notch.config" android:value="portrait|landscape" />
   </application>
   <uses-feature android:glEsVersion="0x00020000" />
+  <!--必要权限-->
   <uses-permission android:name="android.permission.INTERNET" />
+  <!--可选权限-->
+  <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+  <uses-permission android:name="android.permission.GET_TASKS" />
+  <!--可选，穿山甲提供“获取地理位置权限”和“不给予地理位置权限，开发者传入地理位置参数”两种方式上报用户位置，两种方式均可不选，添加位置权限或参数将帮助投放定位广告-->
+  <!--请注意：无论通过何种方式提供给穿山甲用户地理位置，均需向用户声明地理位置权限将应用于穿山甲广告投放，穿山甲不强制获取地理位置信息-->
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+  <!-- 如果视频广告使用textureView播放，请务必添加，否则黑屏 -->
+  <uses-permission android:name="android.permission.WAKE_LOCK" />
   <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
   <uses-feature android:name="android.hardware.touchscreen.multitouch" android:required="false" />
   <uses-feature android:name="android.hardware.touchscreen.multitouch.distinct" android:required="false" />
