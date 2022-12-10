@@ -24,6 +24,8 @@ namespace Game
 
         public PlayerInfo PlayerInfo { get; set; }
 
+        public long CurrentTimeSecond { get; private set; }
+
         void Awake()
         {
             if (Inst != null)
@@ -62,6 +64,7 @@ namespace Game
             {
                 com.OnBattleStart();
             }
+
         }
 
         void Update()
@@ -72,7 +75,7 @@ namespace Game
             }
         }
 
-        public void LoadMap(RuleType ruleType)
+        public void LoadMap(RuleType ruleType,long currentTimeSecond)
         {
             this.PlayerManager = this.gameObject.AddComponent<PlayerManager>();
             PlayerInfo = Canvas.FindObjectOfType<PlayerInfo>();
@@ -100,6 +103,9 @@ namespace Game
             this.EffectRoot.SetParent(MapProcessor.transform,false);
 
             this.EventCenter = new EventManager();
+
+            this.CurrentTimeSecond = currentTimeSecond;
+
         }
 
         public void DelayAction(float delay, Action callback)

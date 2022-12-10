@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace Game
 {
@@ -27,6 +28,8 @@ namespace Game
         public List<Equip> Bags { get; set; }
 
         public long LastOut { get; set; }
+
+        private bool isInLevelUp;
 
         public Hero():base()  {
             this.EventCenter.AddListener<HeroChangeEvent>(HeroChange);
@@ -85,7 +88,11 @@ namespace Game
             switch (e.Type)
             {
                 case HeroChangeType.LevelUp:
-                    LevelUp();
+                    if(!this.isInLevelUp)
+                    {
+                        this.isInLevelUp = true;
+                        GameProcessor.Inst.StartCoroutine(LevelUp());
+                    }
                     break;
             }
         }
@@ -151,9 +158,9 @@ namespace Game
             UpExp = config.Exp;
         }
 
-        private void LevelUp()
+        IEnumerator LevelUp()
         {
-            if (this.Exp >= this.UpExp)
+            while (this.Exp >= this.UpExp)
             {
                 Exp -= UpExp;
                 Level++;
@@ -163,7 +170,11 @@ namespace Game
                 //Éý¼¶»Ö¸´ÂúÑªÁ¿
                 SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
                 EventCenter.Raise(new SetPlayerLevelEvent { Level = Level.ToString() });
+
+                yield return new WaitForSeconds(0.2f);
             }
+            yield return null;
+            this.isInLevelUp = false;
         }
 
         public void AddToBags(List<Equip> items)

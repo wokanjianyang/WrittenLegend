@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 namespace Game
 {
-    public class TouchIgnore : MonoBehaviour, IPointerClickHandler
+    public class TouchIgnore : MonoBehaviour, IPointerClickHandler, ICanvasRaycastFilter
     {
         public Transform Top;
         void Start()
@@ -36,5 +36,22 @@ namespace Game
             }
         }
 
+        public bool IsRaycastLocationValid(Vector2 sp, Camera eventCamera)
+        {
+            var coms = Top.GetComponentsInChildren<MonoBehaviour>();
+            var ignores = coms.Where(com => com is ItouchIgnore).ToList();
+            if (ignores != null && ignores.Count > 0)
+            {
+                foreach (var ignore in ignores)
+                {
+                    if (ignore.transform.localScale == Vector3.zero) continue;
+                    if (ignore is ItouchIgnore _ignore)
+                    {
+                        return _ignore.RaycastFilter(sp);
+                    }
+                }
+            }
+            return true;
+        }
     }
 }

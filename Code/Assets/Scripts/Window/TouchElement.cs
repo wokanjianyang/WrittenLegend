@@ -31,16 +31,55 @@ namespace Game
 
         public void CheckPoint(Vector2 point)
         {
-            foreach(var rect in this.rectTransforms)
+            if (this.transform.localScale != Vector3.zero)
             {
-                var ret = RectTransformUtility.RectangleContainsScreenPoint(rect, point);
-                if (ret)
+                foreach (var rect in this.rectTransforms)
                 {
-                    return;
+                    var ret = RectTransformUtility.RectangleContainsScreenPoint(rect, point);
+                    if (ret)
+                    {
+                        return;
+                    }
                 }
-            }
 
-            this.transform.localScale = Vector3.zero;
+                this.transform.localScale = Vector3.zero;
+            }
+        }
+
+        public bool RaycastFilter(Vector2 point)
+        {
+            bool block = false;
+            switch (this.TouchIgnore)
+            {
+                case TouchIgnoreType.HideWithTouchEmpty:
+                    block = true;
+                    foreach (var rect in this.rectTransforms)
+                    {
+                        var ret = RectTransformUtility.RectangleContainsScreenPoint(rect, point);
+                        if (ret)
+                        {
+                            block = false;
+                            break;
+                        }
+                    }
+                    break;
+                case TouchIgnoreType.HideWithCloseBtn:
+                    block = false;
+                    foreach (var rect in this.rectTransforms)
+                    {
+                        var ret = RectTransformUtility.RectangleContainsScreenPoint(rect, point);
+                        if (ret)
+                        {
+                            block = true;
+                            break;
+                        }
+                    }
+                    break;
+                default:
+                    
+                    break;
+            }
+            return block;
         }
     }
 }

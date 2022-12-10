@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
+using System;
+using SA.Android.Utilities;
 
 namespace Game
 {
@@ -56,6 +58,11 @@ namespace Game
             string filePath = System.IO.Path.Combine(folderPath, fileName);             //文件路径
             System.IO.File.Create(filePath).Dispose();
 
+            System.TimeSpan st = System.DateTime.UtcNow - new System.DateTime(1970, 1, 1, 0, 0, 0);//获取时间戳
+            AN_Logger.Log($"离线时间:{DateTime.UtcNow.ToString("F")}");
+
+            hero.LastOut = Convert.ToInt64(st.TotalSeconds);
+
             //序列化
             string str_json = JsonConvert.SerializeObject(hero);
 
@@ -66,9 +73,9 @@ namespace Game
 
             //确认保存
             if (System.IO.File.Exists(filePath))
-                Debug.Log("保存成功");
+                AN_Logger.Log("保存成功");
             else
-                Debug.Log("保存失败");
+                AN_Logger.Log("保存失败");
         }
     }
 }

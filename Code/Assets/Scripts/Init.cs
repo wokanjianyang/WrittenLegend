@@ -16,6 +16,8 @@ public class Init : MonoBehaviour
 
     private const string BuglyAppIDForAndroid = "ff5ed4ccb9";
 
+    private long currentTimeSecond = -1;
+
 #if UNITY_EDITOR
 
     [LabelText("加速")]
@@ -58,9 +60,9 @@ public class Init : MonoBehaviour
 
         var timeTaks = TimeCheatingDetector.GetOnlineTimeTask("https://www.baidu.com/");
         await timeTaks;
-        var time = timeTaks.Result.onlineSecondsUtc;
-        AN_Logger.Log("time:" + time);
-
+        this.currentTimeSecond = (long)timeTaks.Result.onlineSecondsUtc;
+        AN_Logger.Log("time:" + this.currentTimeSecond);
+        
         AN_Preloader.UnlockScreen();
 
         this.LoadConfig();
@@ -70,6 +72,8 @@ public class Init : MonoBehaviour
         //加载存档
         //加载首页
         this.LoadHome2();
+
+
     }
 
     private void LoadConfig()
@@ -103,7 +107,8 @@ public class Init : MonoBehaviour
         StartCoroutine(IE_DelayAction(0.1f, () =>
         {
             var com = this.gameObject.AddComponent<GameProcessor>();
-            com.LoadMap(this.RuleType);
+
+            com.LoadMap(this.RuleType,this.currentTimeSecond);
         }));
     }
 

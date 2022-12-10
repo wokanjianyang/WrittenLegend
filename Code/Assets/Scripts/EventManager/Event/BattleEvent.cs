@@ -36,4 +36,5 @@ namespace Game
 
         public List<Equip> Drops { get; set; }
     }
+
 }

@@ -9,5 +9,7 @@ namespace Game
         public TouchIgnoreType TouchType { get; }
 
         public void CheckPoint(Vector2 point);
+
+        public bool RaycastFilter(Vector2 point);
     }
 }
