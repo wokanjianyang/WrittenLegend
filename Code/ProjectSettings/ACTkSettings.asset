@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &1
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 61
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22111be9689046e1bd7b8b1fae4d0b3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  injectionDetectorEnabled: 0
+  injectionDetectorEnabled: 1
   preGenerateBuildHash: 0
   disableInjectionDetectorValidation: 0
-  disableWallhackDetectorValidation: 0
+  disableWallhackDetectorValidation: 1
   injectionDetectorWhiteList: []
   version: 2.2.4
