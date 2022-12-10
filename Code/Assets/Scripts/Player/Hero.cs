@@ -39,12 +39,13 @@ namespace Game
 
             var boxPrefab = Resources.Load<GameObject>("Prefab/Effect/HeroBox");
             var box = GameObject.Instantiate(boxPrefab, this.Transform).transform;
-            box.SetParent(this.GetComponent<PlayerUI>().image_Background.transform);
+            box.SetParent(this.GetComponent<PlayerUI>().image_Background.transform); 
+        }
 
+        public void Init() {
             this.Camp = PlayerType.Hero;
 
             //设置各种属性值
-    
             SetLevelConfigAttr();
             AttributeBonus.SetAttr(AttributeEnum.AttIncrea, AttributeFrom.Test, 400);
             AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.Test, 15);
@@ -57,20 +58,25 @@ namespace Game
             {
                 SkillIdList = new Dictionary<int, int>();
             }
-            if (SkillIdList.Count == 0) {
+            if (SkillIdList.Count == 0)
+            {
                 SkillIdList.Add(1, 1001);  //基础剑术
                 SkillIdList.Add(2, 2001);  //火球
                 SkillIdList.Add(3, 3001);  //灵魂火符
             }
 
-            if(this.Bags==null)
+            if (this.Bags == null)
             {
                 this.Bags = new List<Equip>();
             }
-            if(this.EquipPanel==null)
+            if (this.EquipPanel == null)
             {
                 this.EquipPanel = new Dictionary<int, Equip>();
             }
+        }
+
+        public void UpdatePlayerInfo() {
+            GameProcessor.Inst.PlayerInfo.UpdateAttrInfo(this);
         }
 
         private void HeroChange(HeroChangeEvent e)
@@ -111,6 +117,9 @@ namespace Game
 
             //显示最新的血量
             SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
+
+            //更新属性面板
+            UpdatePlayerInfo();
         }
 
         private void SetLevelConfigAttr()

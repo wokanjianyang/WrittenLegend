@@ -89,7 +89,6 @@ namespace Game
             hero.Load();
             hero.Logic.SetData(data);
 
-
             var coms = hero.Transform.GetComponents<MonoBehaviour>();
             foreach (var com in coms)
             {

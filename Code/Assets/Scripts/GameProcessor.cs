@@ -22,6 +22,7 @@ namespace Game
 
         private int PauseCounter = -1;
 
+        public PlayerInfo PlayerInfo { get; set; }
 
         void Awake()
         {
@@ -74,6 +75,7 @@ namespace Game
         public void LoadMap(RuleType ruleType)
         {
             this.PlayerManager = this.gameObject.AddComponent<PlayerManager>();
+            PlayerInfo = Canvas.FindObjectOfType<PlayerInfo>();
 
             MapProcessor = GameObject.Find("Canvas").GetComponentInChildren<MapDrawHelper>();
             switch (ruleType)
@@ -88,6 +90,8 @@ namespace Game
 
             //加载档案
             this.PlayerManager.hero = UserData.Load();
+            this.PlayerManager.hero.Init();
+            this.PlayerManager.hero.UpdatePlayerInfo();
 
             this.PlayerRoot = new GameObject("[PlayerRoot]").transform;
             this.PlayerRoot.SetParent(MapProcessor.transform,false);
