@@ -5516,6 +5516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16e85b4b6c1c48841840a80aa6638701, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rect_Content: {fileID: 8245287126871913677}
   tmp_Title: {fileID: 1130642080010360361}
   tran_BaseAttribute: {fileID: 5984404731906082281}
   tran_HideAttribute: {fileID: 5851290130677578911}
@@ -5538,7 +5539,7 @@ GameObject:
   - component: {fileID: 635850693194138310}
   - component: {fileID: 8570629709295372102}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
