@@ -33,6 +33,7 @@ namespace Game
 
         public void OnPointerClick(PointerEventData eventData)
         {
+            if (this.Item == null) return;
             GameProcessor.Inst.EventCenter.Raise(new ShowEquipDetailEvent()
             {
                 Position = this.transform.position,
