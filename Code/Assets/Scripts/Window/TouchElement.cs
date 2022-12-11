@@ -19,7 +19,7 @@ namespace Game
         {
             this.rectTransforms = new List<RectTransform>();
             this.rectTransforms.Add(this.transform.GetComponent<RectTransform>());
-            this.rectTransforms.AddRange(this.transform.GetComponentsInChildren<RectTransform>());
+            //this.rectTransforms.AddRange(this.transform.GetComponentsInChildren<RectTransform>());
             
         }
 

@@ -10,6 +10,8 @@ namespace Game
 {
     public class Dialog_EquipDetail : MonoBehaviour, IBattleLife
     {
+        [LabelText("容器")]
+        public RectTransform rect_Content;
 
         [Title("道具数据")]
         [LabelText("名称")]
@@ -106,6 +108,10 @@ namespace Game
                 color = "red";
             }
             tran_BaseAttribute.Find("NeedLevel").GetComponent<TextMeshProUGUI>().text = string.Format("<color={0}>需要等级{1}</color>", color, equip.Level);
+
+            var size = this.rect_Content.sizeDelta;
+            size.x = 289;
+            this.rectTransform.sizeDelta = size;
         }
 
         private void OnEquip()
