@@ -126,7 +126,7 @@ namespace Game
         {
             //装配包裹的
             Equip old;
-            if (EquipPanel.TryGetValue(equip.Position % PlayerHelper.MAX_EQUIP_COUNT, out old))
+            if (EquipPanel.TryGetValue(equip.Position, out old))
             {
                 Bags.Add(old);
             }
@@ -134,12 +134,12 @@ namespace Game
 
             Bags.Remove(equip); //old move to bag
 
-            EquipPanel[equip.Position % PlayerHelper.MAX_EQUIP_COUNT] = equip; //new use to panel
+            EquipPanel[equip.Position] = equip; //new use to panel
 
             //替换属性
             foreach (var a in equip.AttrList)
             {
-                AttributeBonus.SetAttr((AttributeEnum)a.Key, equip.Position * 100 + AttributeFrom.EquipBase, a.Value);
+                AttributeBonus.SetAttr((AttributeEnum)a.Key, equip.Position % PlayerHelper.MAX_EQUIP_COUNT * 100 + AttributeFrom.EquipBase, a.Value);
             }
 
             //显示最新的血量

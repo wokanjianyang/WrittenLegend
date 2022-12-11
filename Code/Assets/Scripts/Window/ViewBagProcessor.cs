@@ -160,7 +160,7 @@ namespace Game
                 {
                     if (slots[i].GetEquip() == null)
                     {
-                        emptySlotIndex = -1;
+                        emptySlotIndex = i;
                         break;
                     }
                 }
@@ -203,6 +203,7 @@ namespace Game
             if (position == 0)
             {  
                 var hero = GameProcessor.Inst.PlayerManager.hero;
+                equip.Position = equip.Position + emptySlotIndex * PlayerHelper.MAX_EQUIP_COUNT;
                 hero.EventCenter.Raise(new HeroUseEquipEvent
                 {
                     Position = equip.Position + emptySlotIndex * PlayerHelper.MAX_EQUIP_COUNT,
