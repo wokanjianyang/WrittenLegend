@@ -25,7 +25,10 @@ namespace Game
                     string str_json = sr.ReadToEnd();
                     sr.Close();
                     //反序列化
-                    hero = JsonConvert.DeserializeObject<Hero>(str_json);
+                    hero = JsonConvert.DeserializeObject<Hero>(str_json, new JsonSerializerSettings
+                    {
+                        TypeNameHandling = TypeNameHandling.Auto
+                    });
 
                     if (hero == null) {
                         hero = new Hero();
@@ -64,7 +67,10 @@ namespace Game
             hero.LastOut = Convert.ToInt64(st.TotalSeconds);
 
             //序列化
-            string str_json = JsonConvert.SerializeObject(hero);
+            string str_json = JsonConvert.SerializeObject(hero,new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
 
             //写入文件
             System.IO.StreamWriter sw = new System.IO.StreamWriter(filePath);
