@@ -24,9 +24,10 @@ namespace Game
         DamageResist = 13, //伤害减少
         AttIncrea = 14, //攻击加成
         HpIncrea = 15, //生命加成
-        InheritIncrea = 16, //继承加成
-        ExpIncrea = 17, //经验加成
-        BurstIncrea = 18, //爆率加成
+        DefIncrea = 16,
+        InheritIncrea = 17, //继承加成
+        ExpIncrea = 18, //经验加成
+        BurstIncrea = 19, //爆率加成
 
     }
 

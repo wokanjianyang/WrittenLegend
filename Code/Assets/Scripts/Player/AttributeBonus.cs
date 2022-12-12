@@ -7,36 +7,19 @@ namespace Game
 {
 	public class AttributeBonus
 	{
-		private Dictionary<int, long> HpDict = new Dictionary<int, long>();
-		private Dictionary<int, long> HpDictPercent = new Dictionary<int, long>();
-		private Dictionary<int, long> PhyAttrDict = new Dictionary<int, long>();
-		private Dictionary<int, long> PhyAttrPercent = new Dictionary<int, long>();
+		private Dictionary<AttributeEnum, Dictionary<AttributeFrom, long>> AllAttrDict = new Dictionary<AttributeEnum, Dictionary<AttributeFrom, long>>();
+
+		public AttributeBonus(){
+			foreach (AttributeEnum item in Enum.GetValues(typeof(AttributeEnum)))
+			{
+				AllAttrDict.Add(item, new Dictionary<AttributeFrom, long>());
+			}
+
+		}
 
 		public void SetAttr(AttributeEnum attrType, AttributeFrom attrKey, long attrValue)
 		{
-			var key = (int)attrKey;
-			switch (attrType)
-			{
-				case AttributeEnum.HP:
-                    {
-						HpDict.TryGetValue(key, out var value);
-						HpDict[key] = value + attrValue;
-                    }
-					break;
-				case AttributeEnum.PhyAtt:
-                    {
-						PhyAttrDict.TryGetValue(key, out var value);
-						PhyAttrDict[key] = value + attrValue;
-                    }
-                    break;
-				case AttributeEnum.AttIncrea:
-					{
-						PhyAttrPercent.TryGetValue(key, out var value);
-						PhyAttrPercent[key] = value + attrValue;
-					}
-					break;
-			}
-
+			AllAttrDict[attrType][attrKey] = attrValue;
 		}
 
 		public long GetTotalAttr(AttributeEnum attrType)
@@ -44,44 +27,45 @@ namespace Game
 			switch (attrType)
 			{
 				case AttributeEnum.HP:
-					return GetHpTotal();
+					return CalTotal(AttributeEnum.HP, AttributeEnum.HpIncrea);
 				case AttributeEnum.PhyAtt:
-					return GetPhyAttrTotal();
+					return CalTotal(AttributeEnum.PhyAtt, AttributeEnum.AttIncrea);
+				case AttributeEnum.MagicAtt:
+					return CalTotal(AttributeEnum.MagicAtt, AttributeEnum.AttIncrea);
+				case AttributeEnum.SpiritAtt:
+					return CalTotal(AttributeEnum.SpiritAtt, AttributeEnum.AttIncrea);
+				case AttributeEnum.Def:
+					return CalTotal(AttributeEnum.Def, AttributeEnum.DefIncrea);
+				default:
+					return CalTotal(attrType);
 			}
-			return 0;
 		}
 
-		private long GetHpTotal() {
+		private long CalTotal(AttributeEnum type, AttributeEnum typeIncrea) {
 			long total = 0;
 
-			foreach (long hp in HpDict.Values) {
+			foreach (long hp in AllAttrDict[type].Values) {
 				total += hp;
 			}
 
 			long percent = 0;
-			foreach (long pc in HpDictPercent.Values) {
+			foreach (long pc in AllAttrDict[typeIncrea].Values) {
 				percent += pc;
 			}
 
             return total * (100+ percent) /100;
 		}
 
-		private long GetPhyAttrTotal()
+		private long CalTotal(AttributeEnum type)
 		{
 			long total = 0;
 
-			foreach (long attr in PhyAttrDict.Values)
+			foreach (long attr in AllAttrDict[type].Values)
 			{
 				total += attr;
 			}
 
-			long percent = 0;
-			foreach (long pc in PhyAttrPercent.Values)
-			{
-				percent += pc;
-			}
-
-			return total * (100 + percent) / 100;
+			return total;
 		}
 	}
 }
