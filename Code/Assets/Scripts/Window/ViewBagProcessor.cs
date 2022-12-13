@@ -95,11 +95,11 @@ namespace Game
                 }
             }
         }
-        private Com_Item CreateBox(Equip equip,int boxId=-1)
+        private Com_Item CreateBox(Item item,int boxId=-1)
         {
 
             GameObject yellow = null;
-            switch (equip.Quality)
+            switch (item.Quality)
             {
                 case 0:
                 case 1:
@@ -129,7 +129,7 @@ namespace Game
             }
             var comItem = yellow.GetComponent<Com_Item>();
             comItem.SetBoxId(boxId);
-            comItem.SetItem(equip);
+            comItem.SetItem(item);
             return comItem;
         }
         private void OnEquipOneEvent(EquipOneEvent e)
@@ -262,7 +262,7 @@ namespace Game
                         var com = this.items.FirstOrDefault(c => c.boxId == i);
                         if (com == null)
                         {
-                            var item = this.CreateBox(newItem as Equip, i);
+                            var item = this.CreateBox(newItem, i);
                             item.transform.SetParent(this.sr_Bag.content.GetChild(i));
                             item.transform.localPosition = Vector3.zero;
                             item.transform.localScale = Vector3.one;

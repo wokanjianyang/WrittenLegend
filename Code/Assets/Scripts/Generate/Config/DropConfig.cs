@@ -93,11 +93,14 @@ namespace Game
 		/// <summary>随机类型</summary>
 		[ProtoMember(6)]
 		public int RandomType { get; set; }
-		/// <summary>掉落物</summary>
+		/// <summary>道具类型</summary>
 		[ProtoMember(7)]
+		public int ItemType { get; set; }
+		/// <summary>掉落物</summary>
+		[ProtoMember(8)]
 		public int[] ItemList { get; set; }
 		/// <summary>概率</summary>
-		[ProtoMember(8)]
+		[ProtoMember(9)]
 		public int[] Rate { get; set; }
 
 	}

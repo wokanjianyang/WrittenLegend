@@ -34,7 +34,7 @@ namespace Game
         public long Exp { get; set; }
         public long Gold { get; set; }
 
-        public List<Equip> Drops { get; set; }
+        public List<Item> Drops { get; set; }
     }
 
 }

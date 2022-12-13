@@ -7,32 +7,32 @@ namespace Game
 {
     [ProtoContract]
     [Config]
-    public partial class EquipConfigCategory : ProtoObject, IMerge
+    public partial class ItemConfigCategory : ProtoObject, IMerge
     {
-        public static EquipConfigCategory Instance;
+        public static ItemConfigCategory Instance;
 		
         [ProtoIgnore]
         [BsonIgnore]
-        private Dictionary<int, EquipConfig> dict = new Dictionary<int, EquipConfig>();
+        private Dictionary<int, ItemConfig> dict = new Dictionary<int, ItemConfig>();
 		
         [BsonElement]
         [ProtoMember(1)]
-        private List<EquipConfig> list = new List<EquipConfig>();
+        private List<ItemConfig> list = new List<ItemConfig>();
 		
-        public EquipConfigCategory()
+        public ItemConfigCategory()
         {
             Instance = this;
         }
         
         public void Merge(object o)
         {
-            EquipConfigCategory s = o as EquipConfigCategory;
+            ItemConfigCategory s = o as ItemConfigCategory;
             this.list.AddRange(s.list);
         }
 		
         public override void EndInit()
         {
-            foreach (EquipConfig config in list)
+            foreach (ItemConfig config in list)
             {
                 config.EndInit();
                 this.dict.Add(config.Id, config);
@@ -40,13 +40,13 @@ namespace Game
             this.AfterEndInit();
         }
 		
-        public EquipConfig Get(int id)
+        public ItemConfig Get(int id)
         {
-            this.dict.TryGetValue(id, out EquipConfig item);
+            this.dict.TryGetValue(id, out ItemConfig item);
 
             if (item == null)
             {
-                throw new Exception($"配置找不到，配置表名: {nameof (EquipConfig)}，配置id: {id}");
+                throw new Exception($"配置找不到，配置表名: {nameof (ItemConfig)}，配置id: {id}");
             }
 
             return item;
@@ -57,12 +57,12 @@ namespace Game
             return this.dict.ContainsKey(id);
         }
 
-        public Dictionary<int, EquipConfig> GetAll()
+        public Dictionary<int, ItemConfig> GetAll()
         {
             return this.dict;
         }
 
-        public EquipConfig GetOne()
+        public ItemConfig GetOne()
         {
             if (this.dict == null || this.dict.Count <= 0)
             {
@@ -73,29 +73,32 @@ namespace Game
     }
 
     [ProtoContract]
-	public partial class EquipConfig: ProtoObject, IConfig
+	public partial class ItemConfig: ProtoObject, IConfig
 	{
-		/// <summary>_id</summary>
+		/// <summary>_Id</summary>
 		[ProtoMember(1)]
 		public int Id { get; set; }
-		/// <summary>LevelRequired</summary>
+		/// <summary>道具名字</summary>
 		[ProtoMember(2)]
-		public int LevelRequired { get; set; }
-		/// <summary>Name</summary>
-		[ProtoMember(3)]
 		public string Name { get; set; }
-		/// <summary>Position</summary>
+		/// <summary>道具类型</summary>
+		[ProtoMember(3)]
+		public int Type { get; set; }
+		/// <summary>道具描述</summary>
 		[ProtoMember(4)]
-		public int Position { get; set; }
-		/// <summary>基础属性列表</summary>
+		public string Des { get; set; }
+		/// <summary>售价</summary>
 		[ProtoMember(5)]
-		public int[] BaseArray { get; set; }
-		/// <summary>基础属性值</summary>
-		[ProtoMember(6)]
-		public int[] AttributeBase { get; set; }
-		/// <summary>Price</summary>
-		[ProtoMember(7)]
 		public int Price { get; set; }
+		/// <summary>堆叠数量</summary>
+		[ProtoMember(6)]
+		public int MaxNum { get; set; }
+		/// <summary>道具使用等级</summary>
+		[ProtoMember(7)]
+		public int LevelRequired { get; set; }
+		/// <summary>品质</summary>
+		[ProtoMember(8)]
+		public int Quality { get; set; }
 
 	}
 }

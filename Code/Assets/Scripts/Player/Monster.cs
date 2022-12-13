@@ -69,17 +69,14 @@ namespace Game
                 });
             }
 
-            //生成装备
-            DropConfig drop = DropConfigCategory.Instance.GetByMonsterId(this.MonsterId);
-            List<Equip> equips = EquipHelper.DropEquip(drop);
+            //生成道具奖励
+            List<DropConfig> dropList = DropConfigCategory.Instance.GetByMonsterId(this.MonsterId);
+            List<Item> items = DropHelper.BuildDropItem(dropList);
 
-            if (equips.Count > 0)
+            if (items.Count > 0)
             {
-                hero.AddToBags(equips);
+                hero.AddToBags(items);
 
-                foreach (Equip equip in equips) {
-                    Debug.Log("drop equip :" + JsonConvert.SerializeObject(equip));
-                }
                 hero.EventCenter.Raise(new HeroBagUpdateEvent());
             }
 
@@ -89,7 +86,7 @@ namespace Game
                 MonsterId = this.MonsterId,
                 Exp = this.Exp,
                 Gold = this.Gold,
-                Drops = equips
+                Drops = items
             });
             //存档
             UserData.Save();

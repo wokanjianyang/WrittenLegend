@@ -26,6 +26,16 @@ namespace Game
         public int Gold { get; set; }
 
         /// <summary>
+        /// 道具品质，用做显示或者其他
+        /// </summary>
+        public int Quality { get; set; }
+
+        /// <summary>
+        /// 堆叠数量
+        /// </summary>
+        public int MaxNum { get; set; }
+
+        /// <summary>
         /// 属性列表
         /// </summary>
         public IDictionary<int, long> AttrList { get; set; }

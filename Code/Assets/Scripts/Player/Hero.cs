@@ -25,7 +25,7 @@ namespace Game
         /// <summary>
         /// 
         /// </summary>
-        public List<Equip> Bags { get; set; }
+        public List<Item> Bags { get; set; }
 
         public long LastOut { get; set; }
 
@@ -71,7 +71,7 @@ namespace Game
 
             if (this.Bags == null)
             {
-                this.Bags = new List<Equip>();
+                this.Bags = new List<Item>();
             }
             if (this.EquipPanel == null)
             {
@@ -177,7 +177,7 @@ namespace Game
             this.isInLevelUp = false;
         }
 
-        public void AddToBags(List<Equip> items)
+        public void AddToBags(List<Item> items)
         {
             int num = Mathf.Min( 50 - Bags.Count,items.Count);
             if (num > 0)
