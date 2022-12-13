@@ -78,7 +78,7 @@ namespace Game
             {
                 foreach (var item in hero.Bags)
                 {
-                    var box = this.CreateBox(item as Equip, item.BoxId);
+                    var box = this.CreateBox(item, item.BoxId);
                     box.transform.SetParent(this.sr_Bag.content.GetChild(item.BoxId));
                     box.transform.localPosition = Vector3.zero;
                     box.transform.localScale = Vector3.one;
