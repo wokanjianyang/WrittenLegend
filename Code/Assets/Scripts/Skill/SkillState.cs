@@ -9,27 +9,40 @@ namespace Game
         public SkillData Data { get; set; }
         public APlayer SelfPlayer { get; set; }
 
+        public int Priority { get; set; }
+
         private ASkill skillLogic;
-        
+
         private int lastUseRound = 0;
 
-        public SkillState(APlayer player, SkillData data)
+        public SkillState(APlayer player, SkillData data, int position)
         {
             this.SelfPlayer = player;
             this.Data = data;
-            if (data.ID < 9000)
+            this.Priority = position - data.Priority;
+            if (data.Type == (int)SkillType.Attack)
             {
                 this.skillLogic = new Skill_Sweep(player, data);
             }
+            else if (data.Type == (int)SkillType.Valet)
+            {
+                this.skillLogic = new Skill_Valet(player, data);
+            }
             else
             {
-                this.skillLogic = new BaseAttackSkill(player,data);
+                this.skillLogic = new BaseAttackSkill(player, data);
             }
+
         }
 
         public bool IsCanUse()
         {
-            return this.lastUseRound == 0 || this.SelfPlayer.RoundCounter - lastUseRound > this.Data.CD;
+            return (this.lastUseRound == 0 || this.SelfPlayer.RoundCounter - lastUseRound > this.Data.CD) && this.skillLogic.IsCanUse();
+        }
+
+        public List<AttackData> GetAllTarget(int tid)
+        {
+            return skillLogic.GetAllTargets(tid);
         }
 
         public void Do(int tid)

@@ -6,6 +6,7 @@ using DG.Tweening;
 using SDD.Events;
 using TMPro;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace Game
 {
@@ -49,6 +50,11 @@ namespace Game
                 return this.Logic.IsSurvice;
             }
         }
+        [JsonIgnore]
+        public List<SkillState> SelectSkillList { get; set; }
+
+        [JsonIgnore]
+        public int MasterId { get; set; }
 
         public APlayer()
         {
@@ -57,6 +63,7 @@ namespace Game
             this.SkillIdList = new Dictionary<int,int>();
             //this.Load();
         }
+
 
         virtual public void Load()
         {
@@ -74,6 +81,56 @@ namespace Game
                     _com.SetParent(this);
                 }
             }
+
+            //加载技能
+            LoadSkill();
+        }
+
+        public void LoadSkill()
+        {
+            SelectSkillList = new List<SkillState>();
+            //加载已选择的技能
+            foreach (int position in SkillIdList.Keys)
+            {
+                LoadSkill(position, SkillIdList[position]);
+            }
+            //默认增加普通攻击
+            LoadSkill(9, 9001);
+        }
+
+        private void LoadSkill(int position, int skillId)
+        {
+            SkillConfig config = SkillConfigCategory.Instance.Get(skillId);
+
+            SkillData data = new SkillData();
+            data.ID = config.Id;
+            data.Name = config.Name;
+            data.CD = config.CD;
+            data.Des = config.Des;
+            data.Dis = config.Dis;
+            data.Center = (SkillCenter)Enum.Parse(typeof(SkillCenter), config.Center);
+            data.Area = (AttackGeometryType)Enum.Parse(typeof(AttackGeometryType), config.Area);
+            data.EnemyMax = config.EnemyMax;
+            data.Percent = config.Percent;
+            data.Damage = config.Damage;
+            data.Type = config.Type;
+            data.Priority = config.Priority;
+
+            SkillState skill = new SkillState(this, data, position);
+            SelectSkillList.Add(skill);
+        }
+
+        public SkillState GetSkill()
+        {
+            List<SkillState> list = SelectSkillList.OrderBy(m => m.Priority).ToList();
+            foreach (SkillState state in list)
+            {
+                if (state.IsCanUse())
+                {
+                    return state;
+                }
+            }
+            return null;
         }
 
         public void DoEvent()
@@ -89,56 +146,30 @@ namespace Game
             {
                 up, down, right, left
             };
+
             var nearestEnemy = this.FindNearestEnemy();
 
-            if (nearestEnemy == null) {
-                return;
-            }
+            //先判断是否有需要释放的技能
+            //SkillProcessor skillProcessor = this.GetComponent<SkillProcessor>();
 
-            if (fourSide.Contains(nearestEnemy.Cell))
-            {
-                this.GetComponent<SkillProcessor>().UseSkill(nearestEnemy.ID);
+            SkillState skill = this.GetSkill();
+            List<AttackData> targets = skill.GetAllTarget(nearestEnemy==null?0:nearestEnemy.ID);
+
+            if (targets.Count > 0)
+            {  //使用技能
+                skill.Do(nearestEnemy == null ? 0 : nearestEnemy.ID);
             }
             else
-            {
+            {  //移动
+                if (nearestEnemy == null)
+                {
+                    return;
+                }
                 var endPos = GameProcessor.Inst.MapProcessor.GetPath(this.Cell, nearestEnemy.Cell);
                 if (GameProcessor.Inst.PlayerManager.IsCellCanMove(endPos))
                 {
                     this.Move(endPos);
                 }
-            }
-        }
-
-        public List<SkillData> GetSkillDatas() {
-            List<SkillData> list = new List<SkillData>();
-
-            foreach (int skillId in SkillIdList.Values) {
-                ParseSkill(skillId,ref list);
-            }
-
-            //默认增加普通攻击
-            ParseSkill(9001,ref list);
-
-            return list;
-        }
-
-        private void ParseSkill(int skillId,ref List<SkillData> list) {
-            SkillConfig config = SkillConfigCategory.Instance.Get(skillId);
-
-            if (config != null) {
-                SkillData data = new SkillData();
-                data.ID = config.Id;
-                data.Name = config.Name;
-                data.CD = config.CD;
-                data.Des = config.Des;
-                data.Dis = config.Dis;
-                data.Center = (SkillCenter)Enum.Parse(typeof(SkillCenter), config.Center);
-                data.Area = (AttackGeometryType)Enum.Parse(typeof(AttackGeometryType), config.Area);
-                data.EnemyMax = config.EnemyMax;
-                data.Percent = config.Percent;
-                data.Damage = config.Damage;
-
-                list.Add(data);
             }
         }
 
@@ -165,9 +196,11 @@ namespace Game
 
         public APlayer FindNearestEnemy()
         {
-            var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(this.Camp == PlayerType.Hero ? PlayerType.Enemy : PlayerType.Hero);
+            //查找和自己不同类的,并且不是自己的主人/仆人
+            var enemys = GameProcessor.Inst.PlayerManager.GetAllPlayers().FindAll(p => p.Camp != this.Camp  && p.IsSurvice && p.ID != this.MasterId && this.ID!=p.MasterId);
 
-            if (enemys.Count <= 0) {
+            if (enemys.Count <= 0)
+            {
                 return null;
             }
 

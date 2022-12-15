@@ -6,7 +6,8 @@ namespace Game
     public enum RoundType
     {
         Hero = 0,
-        Monster 
+        Monster ,
+        Valet
     }
 
     public enum PlayerActionType

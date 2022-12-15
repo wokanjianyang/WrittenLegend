@@ -30,6 +30,8 @@ namespace Game
         abstract public void DoHeroLogic();
         abstract public void DoMonsterLogic();
 
+        abstract public void DoValetLogic();
+
         virtual public void OnUpdate()
         {
             if (!this.isGameOver)
@@ -41,10 +43,13 @@ namespace Game
                     this.currentRoundTime = 0;
                     this.needRefreshGraphic = true;
                     GameProcessor.Inst.PlayerManager.RemoveAllDeadPlayers();
-                    switch (this.roundNum%2)
+                    switch (this.roundNum%3)
                     {
                         case (int)RoundType.Hero:
                             this.DoHeroLogic();
+                            break;
+                        case (int)RoundType.Valet:
+                            this.DoValetLogic();
                             break;
                         case (int)RoundType.Monster:
                             this.DoMonsterLogic();

@@ -24,6 +24,21 @@ namespace Game
             }
         }
 
+        public override void DoValetLogic()
+        {
+            var heros = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Hero);
+            if (heros != null && heros.Count > 0)
+            {
+                var hero = heros[0];
+                var valets = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Valet);
+
+                foreach (var valet in valets)
+                {
+                    valet.DoEvent();
+                }
+            }
+        }
+
         public override void DoMonsterLogic()
         {
             var heros = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Hero);
@@ -61,5 +76,7 @@ namespace Game
                 GameProcessor.Inst.PlayerManager.LoadMonster();
             }
         }
+
+
     }
 }

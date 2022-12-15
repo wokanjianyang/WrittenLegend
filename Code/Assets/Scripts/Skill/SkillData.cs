@@ -13,6 +13,10 @@ namespace Game
 
         public int CD { get; set; }
 
+        public int Type { get; set; }
+
+        public int Priority { get; set; }
+
         /// <summary>
         /// 施法类型 1 主动 2被动
         /// </summary>
@@ -38,7 +42,7 @@ namespace Game
         /// <summary>
         /// 攻击区域类型
         /// </summary>
-        public AttackGeometryType Area { get; set; } 
+        public AttackGeometryType Area { get; set; }
 
         /// <summary>
         /// 最大攻击敌人数量
@@ -54,5 +58,11 @@ namespace Game
         /// 固定伤害
         /// </summary>
         public int Damage { get; set; }
+    }
+
+    public enum SkillType
+    {
+        Attack = 1,
+        Valet = 2,
     }
 }

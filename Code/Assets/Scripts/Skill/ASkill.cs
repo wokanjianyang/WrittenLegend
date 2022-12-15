@@ -23,7 +23,7 @@ namespace Game
             this.SkillData = skillData;
             this.skillGraphic = new SkillGraphic(player);
         }
-        public void Do(int tid)
+        virtual public void Do(int tid)
         {
             attackDataCache = this.GetAllTargets(tid);
             foreach (var attackData in attackDataCache)
@@ -36,6 +36,9 @@ namespace Game
             this.skillGraphic?.PlayAnimation(tid);
         }
 
+        virtual public bool IsCanUse() {
+            return true;
+        }
 
         virtual public float CalcFormula(APlayer player,float ratio)
         {
@@ -44,11 +47,15 @@ namespace Game
 
         virtual public List<AttackData> GetAllTargets(int tid)
         {
-            return new List<AttackData>() {new AttackData()
-            {
-                Tid = tid,
-                Ratio = 1
-            }};
+            List<AttackData> list = new List<AttackData>();
+            if (tid > 0)
+                list.Add(
+                new AttackData()
+                {
+                    Tid = tid,
+                    Ratio = 1
+                });
+            return list;
         }
         
  

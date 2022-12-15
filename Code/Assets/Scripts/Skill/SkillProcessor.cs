@@ -28,17 +28,17 @@ public class SkillProcessor : MonoBehaviour,IPlayer
     public void InitSkill(APlayer player)
     {
         this.allSkills = new List<SkillState>();
-        foreach (var data in player.GetSkillDatas())
+        foreach (var data in player.SelectSkillList)
         {
-            this.allSkills.Add(new SkillState(player, data));
+            this.allSkills.Add(data);
         }
     }
 
-    public void UseSkill(int tid)
+    public void UseSkill(int targetId)
     {
         var skills = this.allSkills.FindAll(s => s.IsCanUse());
         var skill = skills?.FirstOrDefault();
-        skill?.Do(tid);
+        skill?.Do(targetId);
     }
 
     public APlayer SelfPlayer { get; set; }

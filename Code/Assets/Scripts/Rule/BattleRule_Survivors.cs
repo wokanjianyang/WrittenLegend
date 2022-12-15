@@ -45,7 +45,9 @@ namespace Game
             }
         }
 
-
+        public override void DoValetLogic()
+        {
+        }
         public override void DoMonsterLogic()
         {
             var heros = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Hero);

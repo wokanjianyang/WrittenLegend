@@ -12,6 +12,11 @@ namespace Game
 
         public override List<AttackData> GetAllTargets(int tid)
         {
+            List<AttackData> attackDatas = new List<AttackData>();
+
+            if (tid <= 0)
+                return attackDatas;
+
             Debug.Log($"使用技能:{(this.SkillData.Name)}");
 
             APlayer mainEnemy = GameProcessor.Inst.PlayerManager.GetPlayer(tid);
@@ -30,15 +35,16 @@ namespace Game
 
             int EnemyNum = 0;
 
-            List<AttackData> attackDatas = new List<AttackData>();
+
             foreach (var cell in allAttackCells)
             {
-                if (EnemyNum >= SkillData.EnemyMax) {
+                if (EnemyNum >= SkillData.EnemyMax)
+                {
                     break;
                 }
 
                 var enemy = GameProcessor.Inst.PlayerManager.GetPlayer(cell);
-                if (enemy != null && enemy.ID != SelfPlayer.ID )
+                if (enemy != null && enemy.ID != SelfPlayer.ID && enemy.MasterId != SelfPlayer.ID)
                 {
                     attackDatas.Add(new AttackData()
                     {

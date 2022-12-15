@@ -67,6 +67,7 @@ namespace Game
                 SkillIdList.Add(1, 1001);  //»ù´¡½£Êõ
                 SkillIdList.Add(2, 2001);  //»ðÇò
                 SkillIdList.Add(3, 3001);  //Áé»ê»ð·û
+                SkillIdList.Add(4, 3002);  //ÕÙ»½÷¼÷Ã
             }
 
             if (this.Bags == null)
@@ -154,6 +155,8 @@ namespace Game
             LevelConfig config = LevelConfigCategory.Instance.Get(Level);
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, config.HP);
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, config.PhyAtt);
+            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, config.PhyAtt);
+            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, config.PhyAtt);
             AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, config.Def);
             UpExp = config.Exp;
         }

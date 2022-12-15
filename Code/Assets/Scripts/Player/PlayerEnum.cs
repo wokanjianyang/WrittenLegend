@@ -48,7 +48,8 @@ namespace Game
     public enum PlayerType
     {
         Hero = 0,
-        Enemy
+        Enemy,
+        Valet, 
     }
 
     public enum SlotType

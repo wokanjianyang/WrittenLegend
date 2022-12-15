@@ -84,38 +84,44 @@ namespace Game
 		/// <summary>技能名字</summary>
 		[ProtoMember(3)]
 		public string Name { get; set; }
-		/// <summary>技能描述</summary>
+		/// <summary>类型</summary>
 		[ProtoMember(4)]
+		public int Type { get; set; }
+		/// <summary>优先度</summary>
+		[ProtoMember(5)]
+		public int Priority { get; set; }
+		/// <summary>技能描述</summary>
+		[ProtoMember(6)]
 		public string Des { get; set; }
 		/// <summary>冷却时间</summary>
-		[ProtoMember(5)]
+		[ProtoMember(7)]
 		public int CD { get; set; }
 		/// <summary>施法类型</summary>
-		[ProtoMember(6)]
+		[ProtoMember(8)]
 		public int CastType { get; set; }
 		/// <summary>职业</summary>
-		[ProtoMember(7)]
+		[ProtoMember(9)]
 		public int Role { get; set; }
 		/// <summary>技能等级</summary>
-		[ProtoMember(8)]
+		[ProtoMember(10)]
 		public int Level { get; set; }
 		/// <summary>攻击距离</summary>
-		[ProtoMember(9)]
+		[ProtoMember(11)]
 		public int Dis { get; set; }
 		/// <summary>中心目标</summary>
-		[ProtoMember(10)]
+		[ProtoMember(12)]
 		public string Center { get; set; }
 		/// <summary>攻击区域</summary>
-		[ProtoMember(11)]
+		[ProtoMember(13)]
 		public string Area { get; set; }
 		/// <summary>最大敌人数量</summary>
-		[ProtoMember(12)]
+		[ProtoMember(14)]
 		public int EnemyMax { get; set; }
 		/// <summary>伤害比例</summary>
-		[ProtoMember(13)]
+		[ProtoMember(15)]
 		public int Percent { get; set; }
 		/// <summary>固定伤害</summary>
-		[ProtoMember(14)]
+		[ProtoMember(16)]
 		public int Damage { get; set; }
 
 	}

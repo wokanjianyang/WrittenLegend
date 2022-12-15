@@ -21,7 +21,7 @@ namespace Game
 
         private void AddPlayer(APlayer player)
         {
-            player.ID = this.playerId++;
+            player.ID = ++this.playerId;
             this.AllPlayers.Add(player);
         }
 
@@ -154,6 +154,42 @@ namespace Game
             }
 
             return enemy;
+        }
+
+        public Valet LoadValet(int masterId,Dictionary<AttributeEnum, object> data = null)
+        {
+            Valet valet = null;
+
+            var centerCell = hero.Cell;
+
+            var tempCells = GameProcessor.Inst.MapProcessor.AllCells.ToList();
+            var allPlayerCells = GameProcessor.Inst.PlayerManager.GetAllPlayers().Select(p => p.Cell).ToList();
+            tempCells.RemoveAll(p => allPlayerCells.Contains(p));
+
+            tempCells = tempCells.OrderBy(m => Mathf.Abs(m.x - centerCell.x) + Mathf.Abs(m.y - centerCell.y) + Mathf.Abs(m.z - centerCell.z)).ToList();
+
+            if (tempCells.Count > 0)
+            {
+                var bornCell = tempCells[0];
+                valet = new Valet();
+                valet.Load();
+                valet.MasterId = masterId;
+                valet.Logic.SetData(data);
+
+                var coms = valet.Transform.GetComponents<MonoBehaviour>();
+                foreach (var com in coms)
+                {
+                    if (com is IPlayer _com)
+                    {
+                        _com.SetParent(valet);
+                    }
+                }
+
+                valet.SetPosition(bornCell, true);
+                this.AddPlayer(valet);
+            }
+
+            return valet;
         }
 
         public void RemoveAllDeadPlayers()

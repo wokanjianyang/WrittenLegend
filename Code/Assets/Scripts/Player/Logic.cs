@@ -12,6 +12,8 @@ namespace Game
         private Dictionary<AttributeEnum, object> BaseAttributeMap = new Dictionary<AttributeEnum, object>();
         private Dictionary<AttributeEnum, object> BattleAttributeMap = new Dictionary<AttributeEnum, object>();
 
+        private Dictionary<int, Effect> EffectMap = new Dictionary<int, Effect>();
+
         public bool IsSurvice { get; private set; } = true;
 
         private List<SDD.Events.Event> playerEvents = new List<SDD.Events.Event>();
@@ -41,8 +43,14 @@ namespace Game
                 foreach (var kvp in dict)
                 {
                     BaseAttributeMap[kvp.Key] = kvp.Value;
+                    if (kvp.Key > 0)
+                    {
+                        SelfPlayer.AttributeBonus.SetAttr(kvp.Key, AttributeFrom.HeroBase, Convert.ToInt64(kvp.Value));
+                    }
                 }
             }
+
+            SelfPlayer.HP = SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.HP);
 
             //设置背景  
             if (BaseAttributeMap.TryGetValue(AttributeEnum.Color, out var color))
