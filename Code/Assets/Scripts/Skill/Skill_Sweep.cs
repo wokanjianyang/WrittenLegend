@@ -24,7 +24,7 @@ namespace Game
 
             APlayer target = SkillData.Center == SkillCenter.Self ? SelfPlayer : mainEnemy;
 
-            List<Vector3Int> allAttackCells = GameProcessor.Inst.MapProcessor.GetAttackRangeCell(target.Cell, dir, SkillData.Dis, SkillData.Area);
+            List<Vector3Int> allAttackCells = GameProcessor.Inst.MapData.GetAttackRangeCell(target.Cell, dir, SkillData.Dis, SkillData.Area);
             float ratio = allAttackCells.Count;
 
             //ÅÅÐò£¬´Ó½øµ½Ô¶

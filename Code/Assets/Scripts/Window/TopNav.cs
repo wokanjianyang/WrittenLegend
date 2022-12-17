@@ -22,9 +22,6 @@ namespace Game
         [LabelText("金币")]
         public TextMeshProUGUI tmp_Gold;
 
-        [LabelText("经验条")]
-        public Image img_Exp;
-
         private Hero hero;
 
         public int Order => (int)ComponentOrder.TopNav;
@@ -59,7 +56,6 @@ namespace Game
         private void OnHeroInfoUpdateEvent(HeroInfoUpdateEvent e)
         {
             this.tmp_Gold.text = $"金币:{this.hero.Gold}";
-            this.img_Exp.fillAmount = this.hero.Exp * 1f / this.hero.UpExp;
         }
     }
 }

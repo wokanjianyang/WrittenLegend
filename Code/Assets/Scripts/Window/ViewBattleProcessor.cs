@@ -45,6 +45,7 @@ namespace Game
         {
             var msg = GameObject.Instantiate(this.msgPrefab);
             msg.transform.SetParent(this.sr_BattleMsg.content);
+            msg.transform.localScale = Vector3.one;
             MonsterBase config = MonsterBaseCategory.Instance.Get(e.MonsterId);
             string drops = "";
             if (e.Drops!=null&&e.Drops.Count>0)

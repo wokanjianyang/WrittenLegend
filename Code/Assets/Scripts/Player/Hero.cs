@@ -41,9 +41,9 @@ namespace Game
         {
             base.Load();
 
-            var boxPrefab = Resources.Load<GameObject>("Prefab/Effect/HeroBox");
-            var box = GameObject.Instantiate(boxPrefab, this.Transform).transform;
-            box.SetParent(this.GetComponent<PlayerUI>().image_Background.transform); 
+            //var boxPrefab = Resources.Load<GameObject>("Prefab/Effect/HeroBox");
+            //var box = GameObject.Instantiate(boxPrefab, this.Transform).transform;
+            //box.SetParent(this.GetComponent<PlayerUI>().image_Background.transform); 
         }
 
         public void Init() {
