@@ -39,7 +39,7 @@ namespace ET
             EnableCodes(false);
         }
 #else
-        [MenuItem("ET/ChangeDefine/Add ENABLE_CODES")]
+        //[MenuItem("ET/ChangeDefine/Add ENABLE_CODES")]
         public static void AddEnableCodes()
         {
             EnableCodes(true);
@@ -77,7 +77,7 @@ namespace ET
             EnableView(false);
         }
 #else
-        [MenuItem("ET/ChangeDefine/Add ENABLE_VIEW")]
+        //[MenuItem("ET/ChangeDefine/Add ENABLE_VIEW")]
         public static void AddEnableView()
         {
             EnableView(true);
@@ -109,6 +109,7 @@ namespace ET
             AssetDatabase.SaveAssets();
         }
 
+        [MenuItem("开发工具/Build Debug APK")]
         public static void BuildDebug()
         {
             BuildHelper.Build(PlatformType.Android, BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, BuildOptions.None, true, true, true);
