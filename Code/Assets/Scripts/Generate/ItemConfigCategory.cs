@@ -19,6 +19,7 @@ namespace Game
 
             item.Id = IdGenerater.Instance.GenerateId();
             item.ConfigId = ConfigId;
+            item.Type = (ItemType)config.Type;
             item.Name = config.Name;
             item.Des = config.Name;
             item.Level = config.LevelRequired;

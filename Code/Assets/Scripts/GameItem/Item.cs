@@ -6,6 +6,9 @@ namespace Game
 {
     public class Item
     {
+        public Item() { 
+
+        }
         public long Id { get; set; }
 
         public int ConfigId { get; set; }
@@ -16,7 +19,7 @@ namespace Game
         /// <summary>
         ///  道具类型
         /// </summary>
-        public int Type { get; set; }
+        public ItemType Type { get; set; }
 
         /// <summary>
         /// 装备所需等级
@@ -43,5 +46,12 @@ namespace Game
         public IDictionary<int, SkillRune> skillList { get; set; }
 
         public int BoxId { get; set; } = -1;
+    }
+
+    public enum ItemType { 
+        Normal = 0,
+        Gold = 1,
+        Equip = 2,
+        SkillBox =3
     }
 }

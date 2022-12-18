@@ -53,6 +53,8 @@ namespace Game
         [JsonIgnore]
         public List<SkillState> SelectSkillList { get; set; }
 
+        private Dictionary<int, List<Effect>> EffectMap = new Dictionary<int, List<Effect>>();
+
         [JsonIgnore]
         public int MasterId { get; set; }
 
@@ -171,6 +173,43 @@ namespace Game
                     this.Move(endPos);
                 }
             }
+
+            //行动后计算buff
+            foreach (List<Effect> list in EffectMap.Values) {
+                foreach (Effect effect in list) {
+                    //DO Effect
+                    effect.Do();
+                }
+                list.RemoveAll(m => m.Duration <= 0);//移除已结束的
+            }
+        }
+
+        public void AddEffect(int EffectId)
+        {
+            this.AddEffect(EffectId, 1);
+        }
+        public void AddEffect(int EffectId, int level)
+        {
+
+            if (!EffectMap.TryGetValue(EffectId, out List<Effect> list))
+            {
+                list = new List<Effect>();
+            }
+
+            EffectConfig config = EffectConfigCategory.Instance.Get(EffectId);
+
+            if (list.Count >= config.Max)
+            {  //移除旧的
+                list.RemoveRange(0, list.Count - config.Max + 1);
+            }
+
+            Effect effect = new Effect(this);
+            effect.Level = level;
+            effect.CreateTime = DateTime.Now.Ticks;
+            effect.Duration = config.Duration;
+            effect.Config = config;
+
+            list.Add(effect);
         }
 
         public void Move(Vector3Int cell)

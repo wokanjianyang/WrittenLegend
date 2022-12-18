@@ -9,6 +9,7 @@ namespace Game
         Level = -3,
         Exp = -2, //经验值
         Power = -1, //战力
+        CurrentHp =0, //当前生命
         HP =1, //生命值
         PhyAtt =2, //物理攻击
         MagicAtt =3,//魔法攻击
@@ -36,13 +37,14 @@ namespace Game
     /// </summary>
     public enum AttributeFrom
     {
-        HeroBase =1, //人物升级属性
-        EquipBase =2 , //装备基础属性
-        EquiStrong =3, //装备强化属性
+        HeroBase = 1, //人物升级属性
+        EquipBase = 2, //装备基础属性
+        EquiStrong = 3, //装备强化属性
+        Skill = 4,//技能增幅
         /// <summary>
         /// 测试属性
         /// </summary>
-        Test=99,
+        Test = 99,
     }
 
     public enum PlayerType

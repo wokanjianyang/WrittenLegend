@@ -6,6 +6,9 @@ namespace Game
 {
     public class Equip : Item
     {
+        public Equip() {
+            this.Type = ItemType.Equip;
+        }
         public int Position { get; set; }
 
         /// <summary>
