@@ -17,7 +17,10 @@ namespace Game
         [LabelText("道具数量")]
         public TextMeshProUGUI tmp_Count;
 
-        public Item Item;
+        public Item Item { get; private set; }
+        public int boxId { get; private set; }
+
+        public int Count { get; private set; }
 
         // Start is called before the first frame update
         void Start()
@@ -38,7 +41,7 @@ namespace Game
             {
                 Position = this.transform.position,
                 Item = this.Item,
-                BoxId = this.transform.GetComponent<Com_Item>().boxId
+                BoxId = this.boxId
             });
         }
 
@@ -50,6 +53,31 @@ namespace Game
         public void OnPointerDown(PointerEventData eventData)
         {
         }
+        public void SetItem(Item item)
+        {
+            this.tmp_Title.text = item.Name;
 
+            this.Item = item;
+
+            this.Count = 1;
+        }
+
+        public void SetBoxId(int id)
+        {
+            this.boxId = id;
+        }
+        public void AddStack()
+        {
+            this.Count++;
+            this.tmp_Count.transform.gameObject.SetActive(this.Count > 1);
+            this.tmp_Count.text = this.Count.ToString();
+        }
+
+        public void RemoveStack()
+        {
+            this.Count--;
+            this.tmp_Count.transform.gameObject.SetActive(this.Count > 1);
+            this.tmp_Count.text = this.Count.ToString();
+        }
     }
 }

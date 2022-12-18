@@ -12,7 +12,7 @@ namespace Game
         [LabelText("Œª÷√")]
         public SlotType SlotType;
 
-        private Com_Item equip;
+        private Com_Box equip;
 
         // Start is called before the first frame update
         void Start()
@@ -28,7 +28,7 @@ namespace Game
 
         }
 
-        public void Equip(Com_Item equip)
+        public void Equip(Com_Box equip)
         {
             this.equip = equip;
         }
@@ -36,7 +36,7 @@ namespace Game
         {
             this.equip = null;
         }
-        public Com_Item GetEquip()
+        public Com_Box GetEquip()
         {
             return this.equip;
         }

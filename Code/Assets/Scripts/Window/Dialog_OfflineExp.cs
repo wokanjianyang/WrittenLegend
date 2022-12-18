@@ -21,7 +21,8 @@ namespace Game
         // Start is called before the first frame update
         void Start()
         {
-            this.transform.localScale = Vector3.zero;
+            this.gameObject.SetActive(false);
+
             this.btn_GetOfflineExp.onClick.AddListener(this.OnClick_GetOfflineExp);
         }
 
@@ -47,12 +48,12 @@ namespace Game
 
         private void OnClick_GetOfflineExp()
         {
-            this.transform.localScale = Vector3.zero;
+            this.gameObject.SetActive(false);
         }
         private void OnShowOfflineExpEvent(long os)
         {
             this.offlineSecond = os;
-            this.transform.localScale = Vector3.one;
+            this.gameObject.SetActive(true);
             var ticks = os * TimeSpan.TicksPerSecond;
             var dateTime = new DateTime(ticks);
             var t = dateTime.ToString("F");

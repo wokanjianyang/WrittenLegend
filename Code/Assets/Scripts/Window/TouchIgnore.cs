@@ -44,7 +44,7 @@ namespace Game
             {
                 foreach (var ignore in ignores)
                 {
-                    if (ignore.transform.localScale == Vector3.zero) continue;
+                    if (!ignore.gameObject.activeSelf) continue;
                     if (ignore is ItouchIgnore _ignore)
                     {
                         return _ignore.RaycastFilter(sp);

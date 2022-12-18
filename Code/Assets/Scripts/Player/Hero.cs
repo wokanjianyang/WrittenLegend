@@ -22,6 +22,8 @@ namespace Game
 
         public IDictionary<int, Equip> EquipPanel { get; set; }
 
+        public List<SkillBook> SkillPanel { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
@@ -35,6 +37,7 @@ namespace Game
             this.EventCenter.AddListener<HeroChangeEvent>(HeroChange);
             this.EventCenter.AddListener<HeroUseEquipEvent>(HeroUseEquip);
             this.EventCenter.AddListener<HeroUnUseEquipEvent>(HeroUnUseEquip);
+            this.EventCenter.AddListener<HeroUseSkillBookEvent>(HeroUseSkillBook);
         }
 
         public override void Load()
@@ -74,9 +77,39 @@ namespace Game
             {
                 this.Bags = new List<Item>();
             }
+            else
+            {
+                foreach(var item in this.Bags)
+                {
+                    if(item.Type == ItemType.SkillBox)
+                    {
+                        var book = item as SkillBook;
+                        var bookconfig = SkillConfigCategory.Instance.Get(book.ConfigId);
+                        book.BookConfig = bookconfig;
+                        var config = ItemConfigCategory.Instance.Get(book.ConfigId);
+                        book.Config = config;
+                    }
+                    
+                }
+            }
             if (this.EquipPanel == null)
             {
                 this.EquipPanel = new Dictionary<int, Equip>();
+            }
+            if(this.SkillPanel == null)
+            {
+                this.SkillPanel = new List<SkillBook>();
+            }
+            else
+            {
+                foreach (var book in this.SkillPanel)
+                {
+                    var bookconfig = SkillConfigCategory.Instance.Get(book.ConfigId);
+                    book.BookConfig = bookconfig;
+                    var config = ItemConfigCategory.Instance.Get(book.ConfigId);
+                    book.Config = config;
+
+                }
             }
         }
 
@@ -120,6 +153,29 @@ namespace Game
 
             //更新属性面板
             UpdatePlayerInfo();
+        }
+
+        private void HeroUseSkillBook(HeroUseSkillBookEvent e)
+        {
+
+            Bags.Remove(e.Book);
+            if (e.IsLearn)
+            {
+                this.SkillPanel.Add(e.Book);
+                e.Book.SkillType = SkillBookType.Learn;
+                this.EventCenter.Raise(new HeroUpdateSkillEvent()
+                {
+                    Book = e.Book
+                });
+            }
+            else
+            {
+                var book = this.SkillPanel.Find(b => b.ConfigId == e.Book.ConfigId);
+                book.AddExp(10);
+                this.EventCenter.Raise(new HeroUpdateSkillEvent() { 
+                    Book = book
+                });
+            }
         }
 
 

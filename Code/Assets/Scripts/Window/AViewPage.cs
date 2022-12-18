@@ -21,7 +21,7 @@ namespace Game
 
         private void OnChangePageEnvent(ChangePageEvent e)
         {
-            this.transform.localScale = this.CheckPageType(e.Page) ? Vector3.one : Vector3.zero;
+            this.gameObject.SetActive(this.CheckPageType(e.Page));
         }
 
         protected abstract bool CheckPageType(ViewPageType page);
@@ -29,6 +29,10 @@ namespace Game
         virtual public void OnBattleStart()
         {
             GameProcessor.Inst.EventCenter.AddListener<ChangePageEvent>(this.OnChangePageEnvent);
+            this.OnChangePageEnvent(new ChangePageEvent
+            {
+                Page = ViewPageType.View_Bag
+            });
         }
 
         public int Order

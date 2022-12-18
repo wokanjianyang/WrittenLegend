@@ -64,4 +64,15 @@ namespace Game
     {
         public bool NeedShow { get; set; }
     }
+    public class HeroUseSkillBookEvent : SDD.Events.Event
+    {
+        public bool IsLearn { get; set; }
+
+        public SkillBook Book { get; set; }
+    }
+
+    public class HeroUpdateSkillEvent : SDD.Events.Event
+    {
+        public SkillBook Book { get; set; }
+    }
 }

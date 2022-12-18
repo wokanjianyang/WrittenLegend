@@ -31,7 +31,7 @@ namespace Game
 
         public void CheckPoint(Vector2 point)
         {
-            if (this.transform.localScale != Vector3.zero)
+            if (this.gameObject.activeSelf)
             {
                 foreach (var rect in this.rectTransforms)
                 {
@@ -42,7 +42,7 @@ namespace Game
                     }
                 }
 
-                this.transform.localScale = Vector3.zero;
+                this.gameObject.SetActive(false);
             }
         }
 

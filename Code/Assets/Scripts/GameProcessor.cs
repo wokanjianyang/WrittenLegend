@@ -43,7 +43,7 @@ namespace Game
         // Start is called before the first frame update
         void Start()
         {
-            var coms = Canvas.FindObjectsOfType<MonoBehaviour>();
+            var coms = Canvas.FindObjectsOfType<MonoBehaviour>(true);
             var battleComs = coms.Where(com => com is IBattleLife).Select(com=>com as IBattleLife).ToList();
             battleComs.Sort((a, b) =>
             {

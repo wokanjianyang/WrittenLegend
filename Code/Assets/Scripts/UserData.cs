@@ -83,5 +83,12 @@ namespace Game
             else
                 AN_Logger.Log("保存失败");
         }
+
+        public static void Delete()
+        {
+            string folderPath = System.IO.Path.Combine(Application.persistentDataPath, savePath); //文件夹路径
+            string filePath = System.IO.Path.Combine(folderPath, fileName);             //文件路径
+            System.IO.File.Delete(filePath);
+        }
     }
 }

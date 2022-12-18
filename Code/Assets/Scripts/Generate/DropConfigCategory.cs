@@ -39,7 +39,7 @@ namespace Game
                             item = EquipHelper.BuildEquip(config.ItemList[i]);
                         }
                         else {
-                            item = ItemHelper.BuildItem(config.ItemList[i]);
+                            item = SkillHelper.BuildItem(config.ItemList[i]);
                         }                      
                         list.Add(item);
                         count++;

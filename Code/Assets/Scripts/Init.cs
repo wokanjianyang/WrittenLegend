@@ -14,6 +14,9 @@ public class Init : MonoBehaviour
     [LabelText("战斗模式")]
     public RuleType RuleType = RuleType.Normal;
 
+    [LabelText("加载界面")]
+    public Transform LoadingPage;
+
     private const string BuglyAppIDForAndroid = "ff5ed4ccb9";
 
     private long currentTimeSecond = -1;
@@ -109,6 +112,8 @@ public class Init : MonoBehaviour
             var com = this.gameObject.AddComponent<GameProcessor>();
 
             com.LoadMap(this.RuleType,this.currentTimeSecond);
+
+            this.LoadingPage.gameObject.SetActive(false);
         }));
     }
 

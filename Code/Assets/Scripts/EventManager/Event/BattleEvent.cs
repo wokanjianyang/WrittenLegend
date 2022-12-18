@@ -37,4 +37,14 @@ namespace Game
         public List<Item> Drops { get; set; }
     }
 
+    public class SkillBookEvent : SDD.Events.Event
+    {
+        /// <summary>
+        /// 不是学习就是升级
+        /// </summary>
+        public bool IsLearn { get; set; }
+
+        public int BoxId { get; set; }
+    }
+
 }

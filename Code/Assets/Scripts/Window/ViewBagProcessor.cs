@@ -36,7 +36,7 @@ namespace Game
         [LabelText("³ÆºÅ")]
         public Button btn_PlayerTitle;
 
-        private List<Com_Item> items;
+        private List<Com_Box> items;
 
 
         // Start is called before the first frame update
@@ -61,10 +61,11 @@ namespace Game
             base.OnBattleStart();
 
             GameProcessor.Inst.EventCenter.AddListener<EquipOneEvent>(this.OnEquipOneEvent);
+            GameProcessor.Inst.EventCenter.AddListener<SkillBookEvent>(this.OnSkillBookEvent);
             var hero = GameProcessor.Inst.PlayerManager.hero;
             hero.EventCenter.AddListener<HeroBagUpdateEvent>(this.OnHeroBagUpdateEvent);
 
-            this.items = new List<Com_Item>();
+            this.items = new List<Com_Box>();
 
             var emptyPrefab = Resources.Load<GameObject>("Prefab/Window/Box_Empty");
 
@@ -78,12 +79,20 @@ namespace Game
             {
                 foreach (var item in hero.Bags)
                 {
-                    var box = this.CreateBox(item, item.BoxId);
-                    box.transform.SetParent(this.sr_Bag.content.GetChild(item.BoxId));
-                    box.transform.localPosition = Vector3.zero;
-                    box.transform.localScale = Vector3.one;
-                    box.SetBoxId(item.BoxId);
-                    this.items.Add(box);
+                    Com_Box box = this.items.Find(b => b.boxId == item.BoxId); 
+                    if(box==null)
+                    {
+                        box = this.CreateBox(item, item.BoxId);
+                        box.transform.SetParent(this.sr_Bag.content.GetChild(item.BoxId));
+                        box.transform.localPosition = Vector3.zero;
+                        box.transform.localScale = Vector3.one;
+                        box.SetBoxId(item.BoxId);
+                        this.items.Add(box);
+                    }
+                    else
+                    {
+                        box.AddStack();
+                    }
                 }
             }
 
@@ -95,7 +104,7 @@ namespace Game
                 }
             }
         }
-        private Com_Item CreateBox(Item item,int boxId=-1)
+        private Com_Box CreateBox(Item item,int boxId=-1)
         {
 
             GameObject prefab = null;
@@ -125,7 +134,7 @@ namespace Game
                     break;
             }
             go = GameObject.Instantiate(prefab);
-            var comItem = go.GetComponent<Com_Item>();
+            var comItem = go.GetComponent<Com_Box>();
             comItem.SetBoxId(boxId);
             comItem.SetItem(item);
             return comItem;
@@ -141,6 +150,25 @@ namespace Game
             else
             {
                 this.RmoveEquipment(equip);
+            }
+            UserData.Save();
+        }
+        private void OnSkillBookEvent(SkillBookEvent e)
+        {
+            var box = this.items[e.BoxId];
+
+            var hero = GameProcessor.Inst.PlayerManager.hero;
+            hero.EventCenter.Raise(new HeroUseSkillBookEvent
+            {
+                IsLearn = e.IsLearn,
+                Book = box.Item as SkillBook
+            });
+
+            box.RemoveStack();
+            if(box.Count==0)
+            {
+                this.items.RemoveAt(e.BoxId);
+                GameObject.Destroy(box.gameObject);
             }
             UserData.Save();
         }
@@ -255,6 +283,16 @@ namespace Game
                 int lastBoxId = 0;
                 foreach (var newItem in newItems)
                 {
+                    if(newItem.Type == ItemType.SkillBox)
+                    {
+                        var box = this.items.Find(b => b.Item.ConfigId == newItem.ConfigId);
+                        if(box!=null)
+                        {
+                            box.AddStack();
+                            newItem.BoxId = box.boxId;
+                            continue;
+                        }
+                    }
                     for (var i = lastBoxId; i < PlayerHelper.bagMaxCount; i++)
                     {
                         var com = this.items.FirstOrDefault(c => c.boxId == i);
