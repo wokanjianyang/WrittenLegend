@@ -59,4 +59,9 @@ namespace Game
     public class HeroBagUpdateEvent : SDD.Events.Event
     {
     }
+
+    public class ShowAttackIcon : SDD.Events.Event
+    {
+        public bool NeedShow { get; set; }
+    }
 }

@@ -24,7 +24,7 @@ namespace Game
                 var hero = heros[0];
                 if (this.lastClickCell != default && this.lastClickCell != hero.Cell)
                 {
-                    var endPos = GameProcessor.Inst.MapProcessor.GetPath(hero.Cell, lastClickCell);
+                    var endPos = GameProcessor.Inst.MapData.GetPath(hero.Cell, lastClickCell);
                     if (endPos == hero.Cell)
                     {
                         this.lastClickCell = hero.Cell;
@@ -169,7 +169,7 @@ namespace Game
             if (this.actionType == PlayerActionType.WaitingInput)
             {
                 var pressPos = eventData.position;
-                this.lastClickCell = GameProcessor.Inst.MapProcessor.GetLocalCell(pressPos);
+                this.lastClickCell = GameProcessor.Inst.MapData.GetLocalCell(pressPos);
                 this.actionType = PlayerActionType.InputEnd;
             }
         }

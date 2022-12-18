@@ -98,36 +98,34 @@ namespace Game
         private Com_Item CreateBox(Item item,int boxId=-1)
         {
 
-            GameObject yellow = null;
+            GameObject prefab = null;
+            GameObject go = null;
             switch (item.Quality)
             {
                 case 0:
                 case 1:
                     {
-                        var greenPrefab = Resources.Load<GameObject>("Prefab/Window/Box_Green");
-                        yellow = GameObject.Instantiate(greenPrefab);
+                        prefab = Resources.Load<GameObject>("Prefab/Window/Box_White");
                     }
                     break;
                 case 2:
                     {
-                        var yellowPrefab = Resources.Load<GameObject>("Prefab/Window/Box_Yellow");
-                        yellow = GameObject.Instantiate(yellowPrefab);
+                        prefab = Resources.Load<GameObject>("Prefab/Window/Box_Green");
                     }
                     break;
                 case 3:
                     {
-                         var bluePrefab = Resources.Load<GameObject>("Prefab/Window/Box_Blue");
-                        yellow = GameObject.Instantiate(bluePrefab);
+                        prefab = Resources.Load<GameObject>("Prefab/Window/Box_Blue");
                     }
                     break;
                 case 4:
                     {
-                        var pinkPrefab = Resources.Load<GameObject>("Prefab/Window/Box_Pink");
-                        yellow = GameObject.Instantiate(pinkPrefab);
+                        prefab = Resources.Load<GameObject>("Prefab/Window/Box_Pink");
                     }
                     break;
             }
-            var comItem = yellow.GetComponent<Com_Item>();
+            go = GameObject.Instantiate(prefab);
+            var comItem = go.GetComponent<Com_Item>();
             comItem.SetBoxId(boxId);
             comItem.SetItem(item);
             return comItem;

@@ -10,7 +10,7 @@ namespace Game
     {
         public static GameProcessor Inst { get; private set; } = null;
         
-        public MapDrawHelper MapProcessor { get; private set; }
+        public MapData MapData { get; private set; }
         public PlayerManager PlayerManager { get; private set; }
 
         private ABattleRule BattleRule;
@@ -80,7 +80,7 @@ namespace Game
             this.PlayerManager = this.gameObject.AddComponent<PlayerManager>();
             PlayerInfo = Canvas.FindObjectOfType<PlayerInfo>();
 
-            MapProcessor = GameObject.Find("Canvas").GetComponentInChildren<MapDrawHelper>();
+            MapData = GameObject.Find("Canvas").GetComponentInChildren<MapData>();
             switch (ruleType)
             {
                 case RuleType.Normal:
@@ -96,11 +96,11 @@ namespace Game
             this.PlayerManager.hero.Init();
             this.PlayerManager.hero.UpdatePlayerInfo();
 
-            this.PlayerRoot = new GameObject("[PlayerRoot]").transform;
-            this.PlayerRoot.SetParent(MapProcessor.transform,false);
+            this.PlayerRoot = MapData.transform.parent.Find("[PlayerRoot]").transform;
+            this.PlayerRoot.SetParent(MapData.transform.parent,false);
             
-            this.EffectRoot = new GameObject("[EffectRoot]").transform;
-            this.EffectRoot.SetParent(MapProcessor.transform,false);
+            this.EffectRoot = MapData.transform.parent.Find("[EffectRoot]").transform;
+            this.EffectRoot.SetParent(MapData.transform.parent, false);
 
             this.EventCenter = new EventManager();
 

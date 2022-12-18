@@ -32,7 +32,8 @@ namespace Game
         BattleRule,
         ViewPage,
         Dialog,
-        TopNav
+        TopNav,
+        Progress
     }
 
     public enum AttackGeometryType

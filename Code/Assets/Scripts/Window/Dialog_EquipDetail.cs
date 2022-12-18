@@ -14,6 +14,12 @@ namespace Game
         public RectTransform rect_Content;
 
         [Title("道具数据")]
+        [LabelText("背景")]
+        public Image img_Background;
+
+        [LabelText("背景图片")]
+        public Sprite[] list_BackgroundImgs;
+
         [LabelText("名称")]
         public TextMeshProUGUI tmp_Title;
 
@@ -75,7 +81,7 @@ namespace Game
 
             this.btn_Equip.gameObject.SetActive(this.boxId != -1);
             this.btn_UnEquip.gameObject.SetActive(this.boxId == -1);
-            var equip = e.Item as Equip;
+            var equip = e.Item;
             var titleColor = "FFFFFF";
             switch (equip.Quality)
             {
@@ -92,15 +98,19 @@ namespace Game
                     titleColor = "D800FF";
                     break;
             }
+            this.img_Background.sprite = this.list_BackgroundImgs[equip.Quality - 1];
             tmp_Title.text = string.Format("<color=#{0}>{1}</color>", titleColor, equip.Name);
 
             int index = 0;
-            foreach (var a in equip.AttrList)
+            if(equip.AttrList!=null)
             {
-                var child = tran_BaseAttribute.Find(string.Format("Attribute_{0}", index));
-                child.GetComponent<TextMeshProUGUI>().text = string.Format(" •+{0}点{1}", a.Value, PlayerHelper.PlayerAttributeMap[((AttributeEnum)a.Key).ToString()]);
-                child.gameObject.SetActive(true);
-                index++;
+                foreach (var a in equip.AttrList)
+                {
+                    var child = tran_BaseAttribute.Find(string.Format("Attribute_{0}", index));
+                    child.GetComponent<TextMeshProUGUI>().text = string.Format(" •+{0}点{1}", a.Value, PlayerHelper.PlayerAttributeMap[((AttributeEnum)a.Key).ToString()]);
+                    child.gameObject.SetActive(true);
+                    index++;
+                }
             }
             string color = "green";
             if (equip.Level > UserData.Load().Level)

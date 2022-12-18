@@ -31,8 +31,8 @@ namespace Game
         {
             var mainTarget = GameProcessor.Inst.PlayerManager.GetPlayer(tid);
             var distance = mainTarget.Cell - this.SelfPlayer.Cell;
-            Vector3 offset = new Vector3(distance.x * 0.5f, distance.y * 0.5f) * GameProcessor.Inst.MapProcessor.CellSize.x;
-            var targetPos = GameProcessor.Inst.MapProcessor.GetWorldPosition(this.SelfPlayer.Cell);
+            Vector3 offset = new Vector3(distance.x * 0.5f, distance.y * 0.5f) * GameProcessor.Inst.MapData.CellSize.x;
+            var targetPos = GameProcessor.Inst.MapData.GetWorldPosition(this.SelfPlayer.Cell);
             this.SelfPlayer.Transform.DOLocalMove(targetPos + offset, 0.5f);
             yield return new WaitForSeconds(0.5f);
             this.SelfPlayer.Transform.DOLocalMove(targetPos, 0.5f);

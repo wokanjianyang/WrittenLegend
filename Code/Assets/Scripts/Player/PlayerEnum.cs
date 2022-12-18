@@ -73,4 +73,15 @@ namespace Game
         [LabelText("腰带")]
         腰带 = 7
     }
+    public enum ProgressType
+    {
+        [LabelText("角色经验")]
+        PlayerExp = 0,
+
+        [LabelText("技能经验")]
+        SkillExp = 1,
+
+        [LabelText("角色经验")]
+        PlayerHP = 2,
+    }
 }

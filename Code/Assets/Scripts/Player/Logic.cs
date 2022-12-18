@@ -146,6 +146,16 @@ namespace Game
             this.playerEvents.Clear();
         }
 
+        public int GetMaxHP()
+        {
+            var baseValue = 0f;
+            if (BaseAttributeMap.TryGetValue(AttributeEnum.HP, out var value))
+            {
+                baseValue = (float)Convert.ToDouble(value);
+            }
+            return (int)baseValue;
+        }
+
 
         public float GetAttributeFloat(AttributeEnum attr)
         {

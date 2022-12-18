@@ -15,6 +15,8 @@ public class PlayerUI : MonoBehaviour,IPlayer
     [LabelText("背景图片")]
     public Image image_Background;
 
+    public Sprite[] list_Backgrounds;
+
     [Title("信息")]
     [LabelText("信息")]
     public Transform tran_Info;
@@ -24,17 +26,21 @@ public class PlayerUI : MonoBehaviour,IPlayer
     
     [LabelText("等级")]
     public TextMeshProUGUI tmp_Info_Level;
-    
-    [LabelText("血量")]
-    public TextMeshProUGUI tmp_Info_HP;
 
     [Title("提示")]
     [LabelText("弹幕")]
     public Transform tran_Barrage;
 
+    [LabelText("攻击标识")]
+    public Transform tran_Attack;
+
     private GameObject barragePrefab;
 
     private Vector2 size;
+
+    public Vector3Int Cell;
+
+    private Com_Progress com_Progress;
 
     // Start is called before the first frame update
     void Start()
@@ -42,11 +48,16 @@ public class PlayerUI : MonoBehaviour,IPlayer
         this.tran_Info.gameObject.SetActive(true);
         this.barragePrefab = Resources.Load<GameObject>("Prefab/Dialog/Msg");
         this.size = this.transform.GetComponent<RectTransform>().sizeDelta;
+        this.com_Progress = this.GetComponentInChildren<Com_Progress>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(this.SelfPlayer!=null)
+        {
+            this.Cell = this.SelfPlayer.Cell;
+        }
     }
 
     private void OnDestroy()
@@ -65,35 +76,54 @@ public class PlayerUI : MonoBehaviour,IPlayer
 
     private void OnSetNameEvent(SetPlayerNameEvent e)
     {
-        this.tmp_Info_Name.text = "名称:" + e.Name;
+        this.tmp_Info_Name.text = e.Name;
         this.tmp_Info_Name.enableAutoSizing = true;
         this.tmp_Info_Name.maxVisibleLines = 1;
+        switch (SelfPlayer.Camp)
+        {
+            case PlayerType.Hero:
+                this.image_Background.sprite = list_Backgrounds[0];
+                break;
+            case PlayerType.Valet:
+                this.image_Background.sprite = list_Backgrounds[1];
+                break;
+            case PlayerType.Enemy:
+                if (this.SelfPlayer.Level % 10 == 0)
+                {
+                    this.image_Background.sprite = list_Backgrounds[3];
+                }
+                else
+                {
+                    this.image_Background.sprite = list_Backgrounds[2];
+                }
+                break;
+        }
     }
     
     private void OnSetPlayerLevelEvent(SetPlayerLevelEvent e)
     {
-        this.tmp_Info_Level.text = "等级:" + e.Level;
+        this.tmp_Info_Level.text = "Lv." + e.Level;
     }
     
     private void OnSetPlayerHPEvent(SetPlayerHPEvent e)
     {
-        this.tmp_Info_HP.text = "血量:" + e.HP;
+        this.com_Progress?.SetProgress(this.SelfPlayer.HP, this.SelfPlayer.Logic.GetMaxHP());
     }
     
     private void OnShowMsgEvent(ShowMsgEvent e)
     {
-        var msg = GameObject.Instantiate(barragePrefab);
-        msg.transform.SetParent(this.tran_Barrage);
-        var msgSize = msg.GetComponent<RectTransform>().sizeDelta;
-        var msgMaxY = (this.size.y - msgSize.y * 0.5f) * 0.5f;
-        var msgY = UnityEngine.Random.Range(msgMaxY * -1, msgMaxY);
-        msg.transform.localPosition = new Vector3(this.size.x + msgSize.x * 0.5f, msgY);
-        var com = msg.GetComponent<Dialog_Msg>();
-        com.tmp_Msg_Content.text = e.Content;
-        msg.transform.DOLocalMoveX(msgSize.x * 0.5f * -1, 1f).OnComplete(() =>
-        {
-            GameObject.Destroy(msg);
-        });
+        //var msg = GameObject.Instantiate(barragePrefab);
+        //msg.transform.SetParent(this.tran_Barrage);
+        //var msgSize = msg.GetComponent<RectTransform>().sizeDelta;
+        //var msgMaxY = (this.size.y - msgSize.y * 0.5f) * 0.5f;
+        //var msgY = UnityEngine.Random.Range(msgMaxY * -1, msgMaxY);
+        //msg.transform.localPosition = new Vector3(this.size.x + msgSize.x * 0.5f, msgY);
+        //var com = msg.GetComponent<Dialog_Msg>();
+        //com.tmp_Msg_Content.text = e.Content;
+        //msg.transform.DOLocalMoveX(msgSize.x * 0.5f * -1, 1f).OnComplete(() =>
+        //{
+        //    GameObject.Destroy(msg);
+        //});
         
         var effectCom = EffectLoader.CreateEffect(e.Content, false);
         if (effectCom != null)
@@ -102,6 +132,11 @@ public class PlayerUI : MonoBehaviour,IPlayer
             effectCom.transform.SetParent(GameProcessor.Inst.EffectRoot);
             effectCom.transform.position = enemy.Transform.position;
         }
+    }
+
+    private void OnShowAttackIcon(ShowAttackIcon e)
+    {
+        this.tran_Attack.localScale = e.NeedShow ? Vector3.one : Vector3.zero;
     }
 
     IEnumerator IE_Delay(float delay,Action callback)
@@ -118,6 +153,7 @@ public class PlayerUI : MonoBehaviour,IPlayer
         this.SelfPlayer.EventCenter.AddListener<SetPlayerNameEvent>(OnSetNameEvent);
         this.SelfPlayer.EventCenter.AddListener<SetPlayerLevelEvent>(OnSetPlayerLevelEvent);
         this.SelfPlayer.EventCenter.AddListener<SetPlayerHPEvent>(OnSetPlayerHPEvent);
-        this.SelfPlayer.EventCenter.AddListener<ShowMsgEvent>(OnShowMsgEvent);
+        this.SelfPlayer.EventCenter.AddListener<ShowMsgEvent>(OnShowMsgEvent); 
+        this.SelfPlayer.EventCenter.AddListener<ShowAttackIcon>(OnShowAttackIcon); 
     }
 }

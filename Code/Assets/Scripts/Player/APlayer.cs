@@ -73,7 +73,8 @@ namespace Game
             this.Transform = GameObject.Instantiate(prefab).transform;
             this.Transform.SetParent(GameProcessor.Inst.PlayerRoot);
             var rect = this.Transform.GetComponent<RectTransform>();
-            rect.sizeDelta = GameProcessor.Inst.MapProcessor.CellSize;
+            rect.sizeDelta = GameProcessor.Inst.MapData.CellSize;
+            rect.localScale = Vector3.one;
             this.Logic = this.Transform.GetComponent<Logic>();
             var coms = this.Transform.GetComponents<MonoBehaviour>();
             foreach (var com in coms)
@@ -160,14 +161,18 @@ namespace Game
             if (targets.Count > 0)
             {  //使用技能
                 skill.Do(nearestEnemy == null ? 0 : nearestEnemy.ID);
+                this.EventCenter.Raise(new ShowAttackIcon { NeedShow = true });
             }
             else
-            {  //移动
+            {
+                this.EventCenter.Raise(new ShowAttackIcon { NeedShow = false });
+
+                //移动
                 if (nearestEnemy == null)
                 {
                     return;
                 }
-                var endPos = GameProcessor.Inst.MapProcessor.GetPath(this.Cell, nearestEnemy.Cell);
+                var endPos = GameProcessor.Inst.MapData.GetPath(this.Cell, nearestEnemy.Cell);
                 if (GameProcessor.Inst.PlayerManager.IsCellCanMove(endPos))
                 {
                     this.Move(endPos);
@@ -219,7 +224,7 @@ namespace Game
                 Content = "移动"
             });
             this.SetPosition(cell);
-            var targetPos = GameProcessor.Inst.MapProcessor.GetWorldPosition(cell);
+            var targetPos = GameProcessor.Inst.MapData.GetWorldPosition(cell);
             this.Transform.DOKill(true);
             this.Transform.DOLocalMove(targetPos, 1f);
         }
@@ -229,7 +234,7 @@ namespace Game
             this.Cell = new Vector3Int((int)pos.x, (int)pos.y, 0);
             if (isGraphic)
             {
-                this.Transform.localPosition = GameProcessor.Inst.MapProcessor.GetWorldPosition(this.Cell);
+                this.Transform.localPosition = GameProcessor.Inst.MapData.GetWorldPosition(this.Cell);
             }
         }
 

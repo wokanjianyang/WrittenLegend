@@ -9,7 +9,7 @@ using System.Linq;
 namespace Game
 {
     
-    public class MapDrawHelper : MaskableGraphic
+    public class MapDrawHelper2 : MaskableGraphic
     {
         [LabelText("列数")]
         public int ColCount = 1;

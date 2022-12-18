@@ -99,8 +99,8 @@ namespace Game
             }
             hero.GetComponent<SkillProcessor>().InitSkill(hero);
 
-            var x = GameProcessor.Inst.MapProcessor.ColCount / 2;
-            var y = GameProcessor.Inst.MapProcessor.RowCount / 2;
+            var x = GameProcessor.Inst.MapData.ColCount / 2;
+            var y = GameProcessor.Inst.MapData.RowCount / 2;
             hero.SetPosition(new Vector3(x, y), true);
             this.AddPlayer(hero);
 
@@ -119,7 +119,7 @@ namespace Game
                 data[AttributeEnum.PhyAtt] = 1f;
             }
 
-            var tempCells = GameProcessor.Inst.MapProcessor.AllCells.ToList();
+            var tempCells = GameProcessor.Inst.MapData.AllCells.ToList();
             var allPlayerCells = GameProcessor.Inst.PlayerManager.GetAllPlayers().Select(p => p.Cell).ToList();
             tempCells.RemoveAll(p => allPlayerCells.Contains(p));
 
@@ -162,7 +162,7 @@ namespace Game
 
             var centerCell = hero.Cell;
 
-            var tempCells = GameProcessor.Inst.MapProcessor.AllCells.ToList();
+            var tempCells = GameProcessor.Inst.MapData.AllCells.ToList();
             var allPlayerCells = GameProcessor.Inst.PlayerManager.GetAllPlayers().Select(p => p.Cell).ToList();
             tempCells.RemoveAll(p => allPlayerCells.Contains(p));
 
