@@ -10,25 +10,20 @@ namespace Game
         {
         }
 
-        public override List<AttackData> GetAllTargets(int tid)
+        public override List<AttackData> GetAllTargets()
         {
             List<AttackData> attackDatas = new List<AttackData>();
 
-            if (tid <= 0)
-                return attackDatas;
+            Debug.Log($"获取技能:{(this.SkillData.Name)}施法目标");
 
-            Debug.Log($"使用技能:{(this.SkillData.Name)}");
+            //施法中心为自己
+            APlayer target = SelfPlayer;
 
-            APlayer mainEnemy = GameProcessor.Inst.PlayerManager.GetPlayer(tid);
-            var dir = mainEnemy.Cell - this.SelfPlayer.Cell;
-
-            APlayer target = SkillData.Center == SkillCenter.Self ? SelfPlayer : mainEnemy;
-
-            List<Vector3Int> allAttackCells = GameProcessor.Inst.MapData.GetAttackRangeCell(target.Cell, dir, SkillData.Dis, SkillData.Area);
+            List<Vector3Int> allAttackCells = GameProcessor.Inst.MapData.GetAttackRangeCell(target.Cell,  SkillData.Dis, SkillData.Area);
             float ratio = allAttackCells.Count;
 
             //排序，从进到远
-            Vector3Int mainCell = mainEnemy.Cell;
+            Vector3Int mainCell = SelfPlayer.Cell;
             Vector3Int selfCell = SelfPlayer.Cell;
             allAttackCells = allAttackCells.OrderBy(m => Mathf.Abs(m.x - mainCell.x) + Mathf.Abs(m.y - mainCell.y) + Mathf.Abs(m.z - mainCell.z)
             + Mathf.Abs(m.x - selfCell.x) + Mathf.Abs(m.y - selfCell.y) + Mathf.Abs(m.z - selfCell.z)).ToList();
@@ -44,7 +39,7 @@ namespace Game
                 }
 
                 var enemy = GameProcessor.Inst.PlayerManager.GetPlayer(cell);
-                if (enemy != null && enemy.ID != SelfPlayer.ID && enemy.MasterId != SelfPlayer.ID)
+                if (enemy != null && enemy.GroupId != SelfPlayer.GroupId) //不会攻击同组成员
                 {
                     attackDatas.Add(new AttackData()
                     {

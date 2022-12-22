@@ -40,22 +40,25 @@ namespace Game
             return (this.lastUseRound == 0 || this.SelfPlayer.RoundCounter - lastUseRound > this.Data.CD) && this.skillLogic.IsCanUse();
         }
 
-        public List<AttackData> GetAllTarget(int tid)
+        public List<AttackData> GetAllTarget()
         {
-            return skillLogic.GetAllTargets(tid);
+            return skillLogic.GetAllTargets();
         }
 
-        public void Do(int tid)
+        public void Do(List<AttackData> targets)
         {
             this.lastUseRound = this.SelfPlayer.RoundCounter;
-            
-            this.SelfPlayer.EventCenter.Raise(new ShowMsgEvent()
+
+            foreach (AttackData attack in targets)
             {
-                TargetId = tid,
-                Content = this.Data.Name
-            });
-            
-            this.skillLogic.Do(tid);
+                this.SelfPlayer.EventCenter.Raise(new ShowMsgEvent()
+                {
+                    TargetId = attack.Tid,
+                    Content = this.Data.Name
+                });
+            }
+
+            this.skillLogic.Do();
         }
     }
 }

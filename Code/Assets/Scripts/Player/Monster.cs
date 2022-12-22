@@ -16,6 +16,11 @@ namespace Game
         public long Exp;
         public int range;
 
+        public Monster() : base()
+        {
+            this.GroupId = 2;
+        }
+
         public override void Load()
         {
             base.Load();

@@ -56,7 +56,7 @@ namespace Game
         private Dictionary<int, List<Effect>> EffectMap = new Dictionary<int, List<Effect>>();
 
         [JsonIgnore]
-        public int MasterId { get; set; }
+        public int GroupId { get; set; }
 
         public APlayer()
         {
@@ -156,11 +156,11 @@ namespace Game
             //SkillProcessor skillProcessor = this.GetComponent<SkillProcessor>();
 
             SkillState skill = this.GetSkill();
-            List<AttackData> targets = skill.GetAllTarget(nearestEnemy==null?0:nearestEnemy.ID);
+            List<AttackData> targets = skill.GetAllTarget();
 
             if (targets.Count > 0)
             {  //使用技能
-                skill.Do(nearestEnemy == null ? 0 : nearestEnemy.ID);
+                skill.Do(targets);
                 this.EventCenter.Raise(new ShowAttackIcon { NeedShow = true });
             }
             else
@@ -241,7 +241,7 @@ namespace Game
         public APlayer FindNearestEnemy()
         {
             //查找和自己不同类的,并且不是自己的主人/仆人
-            var enemys = GameProcessor.Inst.PlayerManager.GetAllPlayers().FindAll(p => p.Camp != this.Camp  && p.IsSurvice && p.ID != this.MasterId && this.ID!=p.MasterId);
+            var enemys = GameProcessor.Inst.PlayerManager.GetAllPlayers().FindAll(p => p.Camp != this.Camp  && p.IsSurvice && p.GroupId != this.GroupId);
 
             if (enemys.Count <= 0)
             {

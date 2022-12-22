@@ -174,7 +174,7 @@ namespace Game
         }
         private void WearEquipment(int position,Equip equip, int boxId = -1)
         {
-            var slots = this.transform.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == equip.Position% PlayerHelper.MAX_EQUIP_COUNT).ToList();
+            var slots = this.transform.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == equip.Position).ToList();
             int emptySlotIndex = -1;
             if (slots.Count == 1)
             {

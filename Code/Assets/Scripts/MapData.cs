@@ -280,22 +280,23 @@ namespace Game
 
         #region AOE Range
 
-        public List<Vector3Int> GetAttackRangeCell(Vector3Int selfCell, Vector3Int dir, int attackRange, AttackGeometryType geometryType)
+        public List<Vector3Int> GetAttackRangeCell(Vector3Int selfCell, int attackRange, AttackGeometryType geometryType)
         {
             List<Vector3Int> rangeCells = new List<Vector3Int>();
             Vector3Int targetCell = Vector3Int.zero;
             switch (geometryType)
             {
-                case AttackGeometryType.FrontRow:
-                {
-                    for (var i = 1; i <= attackRange; i++)
-                    {
-                        targetCell = selfCell + dir * i;
+                //case AttackGeometryType.FrontRow:
+                //{
+                //    for (var i = 1; i <= attackRange; i++)
+                //    {
+                //        targetCell = selfCell + dir * i;
 
-                        rangeCells.Add(targetCell);
-                    }
-                }
-                    break;
+                //        rangeCells.Add(targetCell);
+                //    }
+                //}
+                //    break;
+                case AttackGeometryType.FrontRow:
                 case AttackGeometryType.Cross:
                 {
                     for (var i = 1; i <= attackRange; i++)

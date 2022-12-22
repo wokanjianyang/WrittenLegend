@@ -38,6 +38,7 @@ namespace Game
             this.EventCenter.AddListener<HeroUseEquipEvent>(HeroUseEquip);
             this.EventCenter.AddListener<HeroUnUseEquipEvent>(HeroUnUseEquip);
             this.EventCenter.AddListener<HeroUseSkillBookEvent>(HeroUseSkillBook);
+            this.GroupId = 1;
         }
 
         public override void Load()
@@ -67,10 +68,10 @@ namespace Game
             }
             if (SkillIdList.Count == 0)
             {
-                SkillIdList.Add(1, 1001);  //»ù´¡½£Êõ
-                SkillIdList.Add(2, 2001);  //»ðÇò
-                SkillIdList.Add(3, 3001);  //Áé»ê»ð·û
-                SkillIdList.Add(4, 3002);  //ÕÙ»½÷¼÷Ã
+                //SkillIdList.Add(1, 1001);  //»ù´¡½£Êõ
+                //SkillIdList.Add(2, 2001);  //»ðÇò
+                //SkillIdList.Add(3, 3001);  //Áé»ê»ð·û
+                //SkillIdList.Add(4, 3002);  //ÕÙ»½÷¼÷Ã
             }
 
             if (this.Bags == null)

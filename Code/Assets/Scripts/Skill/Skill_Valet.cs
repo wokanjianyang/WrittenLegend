@@ -14,7 +14,7 @@ namespace Game
             MaxValet = skillData.EnemyMax;
         }
 
-        public override List<AttackData> GetAllTargets(int tid)
+        public override List<AttackData> GetAllTargets()
         {
             Debug.Log($"使用技能:{(this.SkillData.Name)},施法目标为自己");
 
@@ -36,7 +36,7 @@ namespace Game
             return false;
         }
 
-        public override void Do(int tid)
+        public override void Do()
         {
             //销毁之前的
             foreach (Valet valet in ValetList)
