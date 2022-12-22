@@ -61,19 +61,6 @@ namespace Game
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
 
-            //加载技能
-            if (SkillIdList == null)
-            {
-                SkillIdList = new Dictionary<int, int>();
-            }
-            if (SkillIdList.Count == 0)
-            {
-                //SkillIdList.Add(1, 1001);  //基础剑术
-                //SkillIdList.Add(2, 2001);  //火球
-                //SkillIdList.Add(3, 3001);  //灵魂火符
-                //SkillIdList.Add(4, 3002);  //召唤骷髅
-            }
-
             if (this.Bags == null)
             {
                 this.Bags = new List<Item>();
@@ -112,6 +99,23 @@ namespace Game
 
                 }
             }
+        }
+
+        /// <summary>
+        /// 加载面板已选择技能放到SkillIdList
+        /// </summary>
+        public void InitPanelSkill()
+        {
+            SkillIdList = new Dictionary<int, int>();
+
+            List<SkillBook> list = SkillPanel.FindAll(m => m.SkillType == SkillBookType.Equip);
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                SkillIdList.Add(i, list[i].ConfigId);
+            }
+
+            base.LoadSkill();
         }
 
         public void UpdatePlayerInfo() {

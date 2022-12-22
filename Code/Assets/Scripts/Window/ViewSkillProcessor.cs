@@ -31,13 +31,11 @@ namespace Game
             hero.EventCenter.AddListener<HeroUpdateSkillEvent>(OnHeroUpdateSkillEvent);
             bookPrefab = Resources.Load<GameObject>("Prefab/Window/Item_Skill");
 
-            foreach(var book in hero.SkillPanel)
+            foreach (var book in hero.SkillPanel)
             {
-                if(book.SkillType == SkillBookType.Learn)
-                {
-                    this.CreateBook(book);
-                }
+                UpdateBook(book);
             }
+            GameProcessor.Inst.PlayerManager.hero.InitPanelSkill();
         }
 
         protected override bool CheckPageType(ViewPageType page)
@@ -47,33 +45,42 @@ namespace Game
 
         private void OnHeroUpdateSkillEvent(HeroUpdateSkillEvent e)
         {
-            if(e.Book.SkillType == SkillBookType.Learn)
+            UpdateBook(e.Book);
+
+            //英雄重新加载已选择技能
+            GameProcessor.Inst.PlayerManager.hero.InitPanelSkill();
+
+            UserData.Save(); //修改技能后，存档
+        }
+
+        private void UpdateBook(SkillBook book) {
+            if (book.SkillType == SkillBookType.Learn)
             {
-                this.equipSkills.RemoveAll(b=>b.Book.ConfigId == e.Book.ConfigId);
-                var learn = this.learnSkills.Find(s => s.Book.ConfigId == e.Book.ConfigId);
+                this.equipSkills.RemoveAll(b => b.Book.ConfigId == book.ConfigId);
+                var learn = this.learnSkills.Find(s => s.Book.ConfigId == book.ConfigId);
                 if (learn != null)
                 {
-                    learn.SetItem(e.Book);
+                    learn.SetItem(book);
                 }
                 else
                 {
-                    this.CreateBook(e.Book);
+                    this.CreateBook(book);
                 }
             }
             else
             {
-                var learn = this.learnSkills.Find(s => s.Book.ConfigId == e.Book.ConfigId);
+                var learn = this.learnSkills.Find(s => s.Book.ConfigId == book.ConfigId);
                 if (learn != null)
                 {
                     this.learnSkills.Remove(learn);
                     GameObject.Destroy(learn.gameObject);
                 }
 
-                var equip = this.equipSkills.Find(s => s.Book.ConfigId == e.Book.ConfigId);
+                var equip = this.equipSkills.Find(s => s.Book.ConfigId == book.ConfigId);
                 if (equip == null)
                 {
                     var com = this.tran_EquipSkills.GetChild(this.equipSkills.Count).GetComponent<Com_Skill>();
-                    com.SetItem(e.Book);
+                    com.SetItem(book);
                     this.equipSkills.Add(com);
                 }
             }

@@ -160,6 +160,7 @@ namespace Game
 
             if (targets.Count > 0)
             {  //使用技能
+                Debug.Log($"使用技能:{(skill.Data.Name)}");
                 skill.Do(targets);
                 this.EventCenter.Raise(new ShowAttackIcon { NeedShow = true });
             }
