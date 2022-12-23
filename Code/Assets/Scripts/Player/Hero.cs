@@ -92,6 +92,10 @@ namespace Game
             {
                 foreach (var book in this.SkillPanel)
                 {
+                    if (book == null)
+                    {
+                        continue;
+                    }
                     var bookconfig = SkillConfigCategory.Instance.Get(book.ConfigId);
                     book.BookConfig = bookconfig;
                     var config = ItemConfigCategory.Instance.Get(book.ConfigId);
@@ -148,7 +152,7 @@ namespace Game
             EquipPanel.Remove(e.Equip.Position % PlayerHelper.MAX_EQUIP_COUNT);
 
             //ÃÊªª Ù–‘
-            foreach (var a in e.Equip.AttrList)
+            foreach (var a in e.Equip.GetTotalAttrList)
             {
                 AttributeBonus.SetAttr((AttributeEnum)a.Key, e.Equip.Position% PlayerHelper.MAX_EQUIP_COUNT * 100 + AttributeFrom.EquipBase, a.Value*-1);
             }
@@ -199,7 +203,7 @@ namespace Game
             EquipPanel[equip.Position] = equip; //new use to panel
 
             //ÃÊªª Ù–‘
-            foreach (var a in equip.AttrList)
+            foreach (var a in equip.GetTotalAttrList)
             {
                 AttributeBonus.SetAttr((AttributeEnum)a.Key, equip.Position % PlayerHelper.MAX_EQUIP_COUNT * 100 + AttributeFrom.EquipBase, a.Value);
             }

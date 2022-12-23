@@ -7,7 +7,7 @@ namespace Game
 
     public partial class SkillRuneConfigCategory
     {
-        public SkillRune Build()
+        public int Build()
         {
             int index = RandomHelper.RandomNumber(0, list.Count);
             SkillRuneConfig config = list[index];
@@ -20,7 +20,7 @@ namespace Game
             rune.Max = config.Max;
             rune.SuitId = config.SuitId;
 
-            return rune;
+            return config.Id;
         }
     }
 }

@@ -10,7 +10,6 @@ namespace Game
         public SkillBook() {
             this.Type = ItemType.SkillBox;
         }
-        public int Position { get; set; }
 
         public long Exp { get; set; }
 
