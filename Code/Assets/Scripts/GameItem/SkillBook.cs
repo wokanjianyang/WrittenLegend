@@ -7,8 +7,11 @@ namespace Game
 {
     public class SkillBook : Item
     {
-        public SkillBook() {
+        public SkillBook(int configId) : base(configId)
+        {
             this.Type = ItemType.SkillBox;
+
+            BookConfig = SkillConfigCategory.Instance.Get(ConfigId);
         }
 
         public long Exp { get; set; }

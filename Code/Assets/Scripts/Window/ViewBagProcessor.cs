@@ -75,7 +75,7 @@ namespace Game
                 empty.name = "Box_" + i;
             }
 
-            if(hero.Bags!=null)
+            if (hero.Bags!=null)
             {
                 foreach (var item in hero.Bags)
                 {
