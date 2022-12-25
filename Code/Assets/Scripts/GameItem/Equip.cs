@@ -43,6 +43,8 @@ namespace Game
 
         public int RuneConfigId { get; set; }
 
+        public int Quanlity { get; set; }
+
         [JsonIgnore]
         public SkillRuneConfig SkillRuneConfig { get; set; }
 

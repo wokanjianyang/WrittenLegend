@@ -13,6 +13,7 @@ namespace Game
         public Item(int configId) {
             this.ConfigId = configId;
             ItemConfig = ItemConfigCategory.Instance.Get(this.ConfigId);
+            this.Quality = ItemConfig.Quality;
 
             this.Name = ItemConfig.Name;
             this.Des = ItemConfig.Des;
@@ -28,6 +29,7 @@ namespace Game
             set;
         }
 
+        [JsonIgnore]
         /// <summary>
         /// 道具品质，用做显示或者其他
         /// </summary>
@@ -57,11 +59,13 @@ namespace Game
         [JsonIgnore]
         public int Gold { get; set; }
 
+        [JsonIgnore]
         /// <summary>
         /// 堆叠数量
         /// </summary>
         public int MaxNum { get; set; }
 
+        [JsonIgnore]
         public int BoxId { get; set; } = -1;
     }
 

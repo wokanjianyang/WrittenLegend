@@ -77,22 +77,18 @@ namespace Game
 
             if (hero.Bags!=null)
             {
-                foreach (var item in hero.Bags)
+                //
+                hero.Bags.Sort((x,y)=> x.Type.CompareTo(y.Type));
+                for (int BoxId = 0; BoxId < hero.Bags.Count; BoxId++)
                 {
-                    Com_Box box = this.items.Find(b => b.boxId == item.BoxId); 
-                    if(box==null)
-                    {
-                        box = this.CreateBox(item, item.BoxId);
-                        box.transform.SetParent(this.sr_Bag.content.GetChild(item.BoxId));
-                        box.transform.localPosition = Vector3.zero;
-                        box.transform.localScale = Vector3.one;
-                        box.SetBoxId(item.BoxId);
-                        this.items.Add(box);
-                    }
-                    else
-                    {
-                        box.AddStack();
-                    }
+                    Item item = hero.Bags[BoxId];
+
+                    Com_Box box = this.CreateBox(item, BoxId);
+                    box.transform.SetParent(this.sr_Bag.content.GetChild(BoxId));
+                    box.transform.localPosition = Vector3.zero;
+                    box.transform.localScale = Vector3.one;
+                    box.SetBoxId(BoxId);
+                    this.items.Add(box);
                 }
             }
 

@@ -20,14 +20,14 @@ namespace Game
 
         public long Power { get; set; }
 
-        public IDictionary<int, Equip> EquipPanel { get; set; }
+        public IDictionary<int, Equip> EquipPanel { get; set; } = new Dictionary<int, Equip>();
 
-        public List<SkillBook> SkillPanel { get; set; }
+        public List<SkillData> SkillPanel { get; set; } = new List<SkillData>();
 
         /// <summary>
-        /// 
+        /// 包裹
         /// </summary>
-        public List<Item> Bags { get; set; }
+        public List<Item> Bags { get; set; } = new List<Item>();
 
         public long LastOut { get; set; }
 
@@ -60,49 +60,6 @@ namespace Game
 
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
-
-            if (this.Bags == null)
-            {
-                this.Bags = new List<Item>();
-            }
-            else
-            {
-                foreach(var item in this.Bags)
-                {
-                    if(item.Type == ItemType.SkillBox)
-                    {
-                        var book = item as SkillBook;
-                        var bookconfig = SkillConfigCategory.Instance.Get(book.ConfigId);
-                        book.BookConfig = bookconfig;
-                        var config = ItemConfigCategory.Instance.Get(book.ConfigId);
-                        book.Config = config;
-                    }
-                    
-                }
-            }
-            if (this.EquipPanel == null)
-            {
-                this.EquipPanel = new Dictionary<int, Equip>();
-            }
-            if(this.SkillPanel == null)
-            {
-                this.SkillPanel = new List<SkillBook>();
-            }
-            else
-            {
-                foreach (var book in this.SkillPanel)
-                {
-                    if (book == null)
-                    {
-                        continue;
-                    }
-                    var bookconfig = SkillConfigCategory.Instance.Get(book.ConfigId);
-                    book.BookConfig = bookconfig;
-                    var config = ItemConfigCategory.Instance.Get(book.ConfigId);
-                    book.Config = config;
-
-                }
-            }
         }
 
         /// <summary>
@@ -112,11 +69,11 @@ namespace Game
         {
             SkillIdList = new Dictionary<int, int>();
 
-            List<SkillBook> list = SkillPanel.FindAll(m => m.SkillType == SkillBookType.Equip);
+            List<SkillData> list = SkillPanel.FindAll(m => m.Status == SkillStatus.Equip);
 
             for (int i = 0; i < list.Count; i++)
             {
-                SkillIdList.Add(i, list[i].ConfigId);
+                SkillIdList.Add(i, list[i].SkillId);
             }
 
             base.LoadSkill();
@@ -166,23 +123,28 @@ namespace Game
 
         private void HeroUseSkillBook(HeroUseSkillBookEvent e)
         {
-
             Bags.Remove(e.Book);
+
             if (e.IsLearn)
             {
-                this.SkillPanel.Add(e.Book);
-                e.Book.SkillType = SkillBookType.Learn;
+                //第一次学习，创建技能数据
+                SkillData skillData = new SkillData(e.Book.ConfigId);
+                skillData.Status = SkillStatus.Learn;
+                skillData.Exp = 0;
+                skillData.UpExp = 100;
+
+                this.SkillPanel.Add(skillData);
                 this.EventCenter.Raise(new HeroUpdateSkillEvent()
                 {
-                    Book = e.Book
+                    SkillData = skillData
                 });
             }
             else
             {
-                var book = this.SkillPanel.Find(b => b.ConfigId == e.Book.ConfigId);
-                book.AddExp(10);
+                var skill = this.SkillPanel.Find(b => b.SkillId == e.Book.ConfigId);
+                skill.AddExp(10);
                 this.EventCenter.Raise(new HeroUpdateSkillEvent() { 
-                    Book = book
+                    SkillData = skill
                 });
             }
         }

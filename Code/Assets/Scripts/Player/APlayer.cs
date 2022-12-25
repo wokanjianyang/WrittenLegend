@@ -105,8 +105,8 @@ namespace Game
         {
             SkillConfig config = SkillConfigCategory.Instance.Get(skillId);
 
-            SkillData data = new SkillData();
-            data.ID = config.Id;
+            SkillData data = new SkillData(skillId);
+            data.SkillId = config.Id;
             data.Name = config.Name;
             data.CD = config.CD;
             data.Des = config.Des;

@@ -71,8 +71,9 @@ namespace Game
         public SkillBook Book { get; set; }
     }
 
+    //选择出战技能
     public class HeroUpdateSkillEvent : SDD.Events.Event
     {
-        public SkillBook Book { get; set; }
+        public SkillData SkillData { get; set; }
     }
 }
