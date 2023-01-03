@@ -80,9 +80,7 @@ namespace Game
 
             if (items.Count > 0)
             {
-                hero.AddToBags(items);
-
-                hero.EventCenter.Raise(new HeroBagUpdateEvent());
+                hero.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
             }
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()

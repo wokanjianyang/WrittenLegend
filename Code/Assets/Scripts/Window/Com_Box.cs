@@ -20,6 +20,7 @@ namespace Game
         public Item Item { get; private set; }
         public int boxId { get; private set; }
 
+        public int EquipPosition { get; private set; }
         public int Count { get; private set; }
 
         // Start is called before the first frame update
@@ -41,7 +42,8 @@ namespace Game
             {
                 Position = this.transform.position,
                 Item = this.Item,
-                BoxId = this.boxId
+                BoxId = this.boxId,
+                EquipPosition = this.EquipPosition
             });
         }
 
@@ -66,6 +68,12 @@ namespace Game
         {
             this.boxId = id;
         }
+
+        public void SetEquipPosition(int position)
+        {
+            this.EquipPosition = position;
+        }
+
         public void AddStack()
         {
             this.Count++;

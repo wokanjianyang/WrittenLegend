@@ -18,6 +18,7 @@ namespace Game
             Name = EquipConfig.Name;
             Des = EquipConfig.Name;
             Level = EquipConfig.LevelRequired;
+            Part = EquipConfig.Part;
             Position = EquipConfig.Position;
             Gold = EquipConfig.Price;
 
@@ -43,7 +44,11 @@ namespace Game
 
         public int RuneConfigId { get; set; }
 
-        public int Quanlity { get; set; }
+        public int Quality { get; set; }
+
+        public override int GetQuality() {
+            return Quality;
+        }
 
         [JsonIgnore]
         public SkillRuneConfig SkillRuneConfig { get; set; }
@@ -55,7 +60,10 @@ namespace Game
         public EquipConfig EquipConfig { get; set; }
 
         [JsonIgnore]
-        public int Position { get; set; }
+        public int[] Position { get; set; }
+
+        [JsonIgnore]
+        public int Part { get; set; }
 
         [JsonIgnore]
         /// <summary>

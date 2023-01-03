@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using Newtonsoft.Json;
+using System.Linq;
 
 namespace Game
 {
@@ -22,12 +24,17 @@ namespace Game
 
         public IDictionary<int, Equip> EquipPanel { get; set; } = new Dictionary<int, Equip>();
 
+        [JsonIgnore]
+        public IDictionary<int, int> equipRecord { get; set; } = new Dictionary<int, int>();
+
         public List<SkillData> SkillPanel { get; set; } = new List<SkillData>();
+
+
 
         /// <summary>
         /// 包裹
         /// </summary>
-        public List<Item> Bags { get; set; } = new List<Item>();
+        public List<BoxItem> Bags { get; set; } = new List<BoxItem>();
 
         public long LastOut { get; set; }
 
@@ -99,19 +106,32 @@ namespace Game
 
         private void HeroUseEquip(HeroUseEquipEvent e)
         {
+            int PanelPosition = e.Position;
+            Equip equip = e.Equip;
 
-            this.Equip(e.Position, e.Equip);
+            EquipPanel[PanelPosition] = equip;
+
+            //替换属性
+            foreach (var a in equip.GetTotalAttrList)
+            {
+                AttributeBonus.SetAttr((AttributeEnum)a.Key, AttributeFrom.EquipBase,PanelPosition, a.Value);
+            }
+
+            //显示最新的血量
+            SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
+
+            //更新属性面板
+            UpdatePlayerInfo();
         }
 
         private void HeroUnUseEquip(HeroUnUseEquipEvent e)
         {
-            Bags.Add(e.Equip);
-            EquipPanel.Remove(e.Equip.Position % PlayerHelper.MAX_EQUIP_COUNT);
+            EquipPanel.Remove(e.Position);
 
             //替换属性
             foreach (var a in e.Equip.GetTotalAttrList)
             {
-                AttributeBonus.SetAttr((AttributeEnum)a.Key, e.Equip.Position% PlayerHelper.MAX_EQUIP_COUNT * 100 + AttributeFrom.EquipBase, a.Value*-1);
+                AttributeBonus.SetAttr((AttributeEnum)a.Key, AttributeFrom.EquipBase, e.Position, 0);
             }
 
             //显示最新的血量
@@ -123,15 +143,16 @@ namespace Game
 
         private void HeroUseSkillBook(HeroUseSkillBookEvent e)
         {
-            Bags.Remove(e.Book);
+            SkillBook Book = e.Item as SkillBook;
 
             if (e.IsLearn)
             {
                 //第一次学习，创建技能数据
-                SkillData skillData = new SkillData(e.Book.ConfigId);
+                SkillData skillData = new SkillData(Book.ConfigId);
                 skillData.Status = SkillStatus.Learn;
+                skillData.Level = 1;
                 skillData.Exp = 0;
-                skillData.UpExp = 100;
+                skillData.UpExp = Book.SkillConfig.Exp;
 
                 this.SkillPanel.Add(skillData);
                 this.EventCenter.Raise(new HeroUpdateSkillEvent()
@@ -141,42 +162,55 @@ namespace Game
             }
             else
             {
-                var skill = this.SkillPanel.Find(b => b.SkillId == e.Book.ConfigId);
-                skill.AddExp(10);
-                this.EventCenter.Raise(new HeroUpdateSkillEvent() { 
-                    SkillData = skill
+                SkillData skillData = this.SkillPanel.Find(b => b.SkillId == Book.ConfigId);
+                skillData.AddExp(Book.ItemConfig.UseParam);
+                this.EventCenter.Raise(new HeroUpdateSkillEvent()
+                {
+                    SkillData = skillData
                 });
             }
         }
 
-
-        private void Equip(int pos, Equip equip)
+        private void RebuildSkill(ref SkillData skill)
         {
-            //装配包裹的
-            Equip old;
-            if (EquipPanel.TryGetValue(equip.Position, out old))
+            int skillId = skill.SkillId;
+
+            List<Equip> skillList = this.EquipPanel.Where(m => m.Value.SkillRuneConfig.SkillId == skillId).Select(m => m.Value).ToList();
+
+            //按单件分组
+            var runeGroup = skillList.GroupBy(m => m.RuneConfigId);
+            foreach (var runeList in runeGroup)
             {
-                Bags.Add(old);
+                SkillRuneConfig SkillRuneConfig = runeList.ElementAt(0).SkillRuneConfig;
+
+                int RuneCount = Mathf.Min(SkillRuneConfig.Max, runeList.Count());
+
+                skill.CD += SkillRuneConfig.CD * RuneCount;
+                skill.Dis += SkillRuneConfig.Dis * RuneCount;
+                skill.Damage += SkillRuneConfig.Damage * RuneCount;
+                skill.Percent += SkillRuneConfig.Percent * RuneCount;
+                skill.EnemyMax += SkillRuneConfig.EnemyMax * RuneCount;
             }
 
+            //按套装分组
+            var suitGroup = skillList.GroupBy(m => m.SkillRuneConfig.SuitId);
 
-            Bags.Remove(equip); //old move to bag
-
-            EquipPanel[equip.Position] = equip; //new use to panel
-
-            //替换属性
-            foreach (var a in equip.GetTotalAttrList)
+            foreach (var suitList in suitGroup)
             {
-                AttributeBonus.SetAttr((AttributeEnum)a.Key, equip.Position % PlayerHelper.MAX_EQUIP_COUNT * 100 + AttributeFrom.EquipBase, a.Value);
+                if (suitList.Count() >= 4)
+                {  //4件才成套,并且只能有一套能生效
+                    SkillSuitConfig SkillSuitConfig = suitList.ElementAt(0).SkillSuitConfig;
+
+                    skill.CD += SkillSuitConfig.CD;
+                    skill.Dis += SkillSuitConfig.Dis;
+                    skill.Damage += SkillSuitConfig.Damage;
+                    skill.Percent += SkillSuitConfig.Percent;
+                    skill.EnemyMax += SkillSuitConfig.EnemyMax;
+                }
             }
-
-            //显示最新的血量
-            SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
-
-            //更新属性面板
-            UpdatePlayerInfo();
         }
 
+       
         private void SetLevelConfigAttr()
         {
             LevelConfig config = LevelConfigCategory.Instance.Get(Level);
@@ -207,20 +241,6 @@ namespace Game
             this.isInLevelUp = false;
         }
 
-        public void AddToBags(List<Item> items)
-        {
-            int num = Mathf.Min( 50 - Bags.Count,items.Count);
-            if (num > 0)
-            {
-                Bags.AddRange(items.GetRange(0, num));
-            }
-        }
-
-        public List<SkillData> GetSelectSkills() {
-
-
-            return null;
-        }
         public enum HeroChangeType
         {
             LevelUp = 0,

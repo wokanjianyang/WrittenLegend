@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game
@@ -45,6 +46,7 @@ namespace Game
     }
     public class HeroUnUseEquipEvent : SDD.Events.Event
     {
+        public int Position { get; set; }
         public Equip Equip { get; set; }
     }
     public class DeadRewarddEvent : SDD.Events.Event
@@ -58,6 +60,7 @@ namespace Game
     }
     public class HeroBagUpdateEvent : SDD.Events.Event
     {
+        public List<Item> ItemList { get; set; }
     }
 
     public class ShowAttackIcon : SDD.Events.Event
@@ -68,7 +71,7 @@ namespace Game
     {
         public bool IsLearn { get; set; }
 
-        public SkillBook Book { get; set; }
+        public Item Item { get; set; }
     }
 
     //选择出战技能

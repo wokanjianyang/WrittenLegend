@@ -194,6 +194,19 @@ namespace Game
         {
             this.AddEffect(EffectId, 1);
         }
+
+        public void RunEffect(int EffectId) {
+            EffectConfig config = EffectConfigCategory.Instance.Get(EffectId);
+
+            Effect effect = new Effect(this);
+
+            effect.Level = config.Level;
+            effect.CreateTime = DateTime.Now.Ticks;
+            effect.Duration = config.Duration;
+            effect.Config = config;
+
+            effect.Do();
+        }
         public void AddEffect(int EffectId, int level)
         {
 

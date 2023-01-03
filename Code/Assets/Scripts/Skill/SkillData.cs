@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,16 +21,24 @@ namespace Game
         public SkillStatus Status { get; set; } 
 
         public int SkillId { get; set; }
-        public string Name { get; set; }
-
-        public string Des { get; set; }
-
-        public int CD { get; set; }
 
         public long Exp { get; set; }
 
+        public int Level { get; set; }
+
+        [JsonIgnore]
+        public string Name { get; set; }
+
+        [JsonIgnore]
+        public string Des { get; set; }
+
+        [JsonIgnore]
+        public int CD { get; set; }
+
+        [JsonIgnore]
         public long UpExp { get; set; }
 
+        [JsonIgnore]
         public SkillConfig SkillConfig { get; set; }
 
         public void AddExp(long exp)
@@ -64,7 +73,7 @@ namespace Game
         /// </summary>
         public int Role { get; set; }
 
-        public int Level { get; set; }
+
 
         /// <summary>
         /// ¹¥»÷¾àÀë

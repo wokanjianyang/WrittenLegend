@@ -32,6 +32,23 @@ namespace Game
                 var damage = (int)this.CalcFormula(enemy, attackData.Ratio);
                 enemy.OnHit(attackData.Tid, damage);
 
+                if (SkillData.SkillConfig.EffectIdList!=null && SkillData.SkillConfig.EffectIdList.Length > 0)
+                {
+                    foreach (int EffectId in SkillData.SkillConfig.EffectIdList)
+                    {
+                        EffectConfig config = EffectConfigCategory.Instance.Get(EffectId);
+
+                        if (config.Duration > 0)
+                        {  //³ÖÐøBuff
+                            enemy.AddEffect(EffectId);
+                        }
+                        else
+                        {
+                            enemy.RunEffect(EffectId);
+                        }
+                    }
+                }
+
                 this.skillGraphic?.PlayAnimation(attackData.Tid);
             }
         }

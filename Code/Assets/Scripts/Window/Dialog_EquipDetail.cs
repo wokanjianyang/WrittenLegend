@@ -56,6 +56,7 @@ namespace Game
 
         private Item item;
         private int boxId;
+        private int equipPositioin;
 
         private RectTransform rectTransform;
 
@@ -96,9 +97,11 @@ namespace Game
             this.tmp_Title.text = e.Item.Name;
             this.item = e.Item;
             this.boxId = e.BoxId;
+            this.equipPositioin = e.EquipPosition;
 
             var titleColor = "FFFFFF";
-            switch (this.item.Quality)
+
+            switch (this.item.GetQuality())
             {
                 case 1:
                     titleColor = "CBFFC2";
@@ -113,7 +116,7 @@ namespace Game
                     titleColor = "D800FF";
                     break;
             }
-            this.img_Background.sprite = this.list_BackgroundImgs[this.item.Quality - 1];
+            this.img_Background.sprite = this.list_BackgroundImgs[this.item.GetQuality() - 1];
             tmp_Title.text = string.Format("<color=#{0}>{1}</color>", titleColor, this.item.Name);
 
             string color = "green";
@@ -225,7 +228,8 @@ namespace Game
             {
                 IsWear = false,
                 Item = this.item,
-                BoxId = this.boxId
+                BoxId = this.boxId,
+                Position = this.equipPositioin,
             });
         }
 
@@ -236,6 +240,7 @@ namespace Game
             GameProcessor.Inst.EventCenter.Raise(new SkillBookEvent()
             {
                 IsLearn = true,
+                Item = this.item,
                 BoxId = this.boxId
             });
         }
@@ -247,8 +252,9 @@ namespace Game
             GameProcessor.Inst.EventCenter.Raise(new SkillBookEvent()
             {
                 IsLearn = false,
+                Item = this.item,
                 BoxId = this.boxId
-            });
+            }); ;
         }
 
         private Vector3 GetBetterPosition(Vector3 position)

@@ -16,11 +16,15 @@ namespace Game
         public Item Item { get; set; }
 
         public int BoxId { get; set; }
+
+        public int EquipPosition { get; set; }
     }
 
     public class EquipOneEvent : SDD.Events.Event
     {
         public bool IsWear { get; set; } = true;
+
+        public int Position { get; set; }
         public Item Item { get; set; }
         public int BoxId { get; set; }
     }
@@ -44,6 +48,7 @@ namespace Game
         /// </summary>
         public bool IsLearn { get; set; }
 
+        public Item Item { get; set; }
         public int BoxId { get; set; }
     }
 

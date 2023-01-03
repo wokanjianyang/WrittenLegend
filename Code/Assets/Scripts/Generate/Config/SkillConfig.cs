@@ -104,7 +104,7 @@ namespace Game
 		public int Role { get; set; }
 		/// <summary>技能等级</summary>
 		[ProtoMember(10)]
-		public int Level { get; set; }
+		public int MaxLevel { get; set; }
 		/// <summary>攻击距离</summary>
 		[ProtoMember(11)]
 		public int Dis { get; set; }
@@ -123,6 +123,12 @@ namespace Game
 		/// <summary>固定伤害</summary>
 		[ProtoMember(16)]
 		public int Damage { get; set; }
+		/// <summary>附带效果</summary>
+		[ProtoMember(17)]
+		public int[] EffectIdList { get; set; }
+		/// <summary>升级经验</summary>
+		[ProtoMember(18)]
+		public int Exp { get; set; }
 
 	}
 }

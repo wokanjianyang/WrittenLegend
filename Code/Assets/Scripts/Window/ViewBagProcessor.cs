@@ -77,13 +77,14 @@ namespace Game
 
             if (hero.Bags!=null)
             {
-                //
-                hero.Bags.Sort((x,y)=> x.Type.CompareTo(y.Type));
+                //初始渲染包裹,重新排序
+                hero.Bags.Sort((x,y)=> x.Item.Type.CompareTo(y.Item.Type));
                 for (int BoxId = 0; BoxId < hero.Bags.Count; BoxId++)
                 {
-                    Item item = hero.Bags[BoxId];
+                    BoxItem item = hero.Bags[BoxId];
+                    item.BoxId = BoxId;
 
-                    Com_Box box = this.CreateBox(item, BoxId);
+                    Com_Box box = this.CreateBox(item);
                     box.transform.SetParent(this.sr_Bag.content.GetChild(BoxId));
                     box.transform.localPosition = Vector3.zero;
                     box.transform.localScale = Vector3.one;
@@ -94,18 +95,19 @@ namespace Game
 
             if(hero.EquipPanel!=null)
             {
+                //初始渲染人物装备
                 foreach(var kvp in hero.EquipPanel)
                 {
-                    this.WearEquipment(kvp.Key,kvp.Value);
+                    this.CreateEquipPanelItem(kvp.Key,kvp.Value);
                 }
             }
         }
-        private Com_Box CreateBox(Item item,int boxId=-1)
+        private Com_Box CreateBox(BoxItem item)
         {
 
             GameObject prefab = null;
             GameObject go = null;
-            switch (item.Quality)
+            switch (item.Item.GetQuality())
             {
                 case 0:
                 case 1:
@@ -131,8 +133,8 @@ namespace Game
             }
             go = GameObject.Instantiate(prefab);
             var comItem = go.GetComponent<Com_Box>();
-            comItem.SetBoxId(boxId);
-            comItem.SetItem(item);
+            comItem.SetBoxId(item.BoxId);
+            comItem.SetItem(item.Item);
             return comItem;
         }
         private void OnEquipOneEvent(EquipOneEvent e)
@@ -141,129 +143,221 @@ namespace Game
 
             if (e.IsWear)
             {
-                this.WearEquipment(0,equip, e.BoxId);
+                this.WearEquipment(equip, e.BoxId);
             }
             else
             {
-                this.RmoveEquipment(equip);
+                this.RmoveEquipment(e.Position, equip);
             }
             UserData.Save();
         }
         private void OnSkillBookEvent(SkillBookEvent e)
         {
-            var box = this.items[e.BoxId];
-
             var hero = GameProcessor.Inst.PlayerManager.hero;
+
+            UseBoxItem(e.BoxId);
+
             hero.EventCenter.Raise(new HeroUseSkillBookEvent
             {
                 IsLearn = e.IsLearn,
-                Book = box.Item as SkillBook
+                Item = e.Item
+            });
+        }
+
+        private void UseBoxItem(int boxId)
+        {
+            var hero = GameProcessor.Inst.PlayerManager.hero;
+
+            //逻辑处理
+            BoxItem boxItem = hero.Bags.Find(m => m.BoxId == boxId);
+            Com_Box boxUI = this.items.Find(m => m.boxId == boxId);
+
+            if (boxItem == null)
+            {
+                Log.Debug("此物品已经被使用了");
+                return;
+            }
+            boxItem.RemoveStack();
+            boxUI.RemoveStack();
+
+            //用光了，移除队列
+            if (boxItem.Number <= 0)
+            {
+                hero.Bags.Remove(boxItem);
+
+                this.items.Remove(boxUI);
+                GameObject.Destroy(boxUI.gameObject);
+
+            }
+        }
+
+        private void AddBoxItem(Item newItem)
+        {
+            var hero = GameProcessor.Inst.PlayerManager.hero;
+
+            BoxItem boxItem = hero.Bags.Find(m => !m.IsFull() && m.Item.ConfigId == newItem.ConfigId);  //同种物品，并且没有满堆叠的格子
+
+            if (boxItem != null)
+            {  //堆叠UI
+                var item = this.items.Find(b => b.boxId == boxItem.BoxId);
+                item.AddStack();
+
+                boxItem.AddStack();
+            }
+            else
+            {
+                int lastBoxId = GetNextBoxId();
+
+                if (lastBoxId < 0) { //包裹已经满了
+                    return;
+                }
+
+                boxItem = new BoxItem();
+                boxItem.Item = newItem;
+                boxItem.Number = 1;
+                boxItem.BoxId = lastBoxId;
+
+                var item = this.CreateBox(boxItem);
+                item.transform.SetParent(this.sr_Bag.content.GetChild(lastBoxId));
+                item.transform.localPosition = Vector3.zero;
+                item.transform.localScale = Vector3.one;
+                item.SetBoxId(lastBoxId);
+                this.items.Add(item);
+
+                hero.Bags.Add(boxItem);
+            }
+        }
+
+        private void WearEquipment(Equip equip,int BoxId)
+        {
+            var hero = GameProcessor.Inst.PlayerManager.hero;
+
+            int Part = equip.Part;
+            //增加一次穿戴记录，用做轮流穿戴左右
+            if (!hero.equipRecord.ContainsKey(Part))
+            {
+                hero.equipRecord[Part] = 0;
+            }
+            hero.equipRecord[Part]++;
+            int PartIndex = hero.equipRecord[Part] % equip.Position.Length;
+            int Position = equip.Position[PartIndex];
+
+            //从包袱移除
+            UseBoxItem(BoxId);
+
+            //如果存在旧装备，增加到包裹
+            if (hero.EquipPanel.ContainsKey(Position))
+            {
+                AddBoxItem(hero.EquipPanel[Position]);
+            }
+
+            //穿戴到格子上
+            this.CreateEquipPanelItem(Position, equip);
+
+            //通知英雄更新属性
+            hero.EventCenter.Raise(new HeroUseEquipEvent
+            {
+                Position = Position,
+                Equip = equip
             });
 
-            box.RemoveStack();
-            if(box.Count==0)
-            {
-                this.items.RemoveAt(e.BoxId);
-                GameObject.Destroy(box.gameObject);
-            }
-            UserData.Save();
+            //if (equiped != null)
+            //{
+            //    for (var i = 0; i < PlayerHelper.bagMaxCount; i++)
+            //    {
+            //        var com = this.items.FirstOrDefault(c => c.boxId == i);
+            //        if (com == null)
+            //        {
+            //            equiped.transform.SetParent(this.sr_Bag.content.GetChild(i));
+            //            equiped.transform.localPosition = Vector3.zero;
+            //            equiped.SetBoxId(i);
+            //            this.items.Add(equiped);
+            //            break;
+            //        }
+            //    }
+            //}
+
+            //var comItem = this.items.FirstOrDefault(i => i.boxId == boxId);
+            //if (comItem == null)
+            //{
+            //    BoxItem boxItem = new BoxItem();
+            //    boxItem.Item = equip;
+            //    boxItem.Number = 1;
+            //    boxItem.BoxId = boxId;
+
+            //    comItem = this.CreateBox(boxItem);
+            //}
+            //else
+            //{
+            //    this.items.Remove(comItem);
+            //}
+            //slots[emptySlotIndex].Equip(comItem);
+            //comItem.transform.SetParent(slots[emptySlotIndex].transform);
+            //comItem.transform.localPosition = Vector3.zero;
+            //comItem.transform.localScale = Vector3.one;
+            //comItem.SetBoxId(-1);
+
+            //if (position == 0)
+            //{  
+            //    var hero = GameProcessor.Inst.PlayerManager.hero;
+            //    equip.Position = equip.Position + emptySlotIndex * PlayerHelper.MAX_EQUIP_COUNT;
+            //    hero.EventCenter.Raise(new HeroUseEquipEvent
+            //    {
+            //        Position = equip.Position + emptySlotIndex * PlayerHelper.MAX_EQUIP_COUNT,
+            //        Equip = equip
+            //    });
+            //}
+            //else
+            //{
+            //    //原本就装备了，只是显示
+            //}
         }
-        private void WearEquipment(int position,Equip equip, int boxId = -1)
+
+        private void CreateEquipPanelItem(int Position, Equip equip)
         {
-            var slots = this.transform.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == equip.Position).ToList();
-            int emptySlotIndex = -1;
-            if (slots.Count == 1)
-            {
-                emptySlotIndex = 0;
-            }
-            else
-            {
-                for (var i = 0; i < slots.Count; i++)
-                {
-                    if (slots[i].GetEquip() == null)
-                    {
-                        emptySlotIndex = i;
-                        break;
-                    }
-                }
-                if (emptySlotIndex == -1)
-                {
-                    emptySlotIndex = 0;
-                }
-            }
-            var equiped = slots[emptySlotIndex].GetEquip();
-            if (equiped != null)
-            {
-                for (var i = 0; i < PlayerHelper.bagMaxCount; i++)
-                {
-                    var com = this.items.FirstOrDefault(c => c.boxId == i);
-                    if (com == null)
-                    {
-                        equiped.transform.SetParent(this.sr_Bag.content.GetChild(i));
-                        equiped.transform.localPosition = Vector3.zero;
-                        equiped.SetBoxId(i);
-                        this.items.Add(equiped);
-                        break;
-                    }
-                }
-            }
-            var comItem = this.items.FirstOrDefault(i => i.boxId == boxId);
-            if (comItem == null)
-            {
-                comItem = this.CreateBox(equip);
-            }
-            else
-            {
-                this.items.Remove(comItem);
-            }
-            slots[emptySlotIndex].Equip(comItem);
-            comItem.transform.SetParent(slots[emptySlotIndex].transform);
+            var hero = GameProcessor.Inst.PlayerManager.hero;
+
+            var slot = this.transform.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == Position).First();
+
+            //生成格子
+            BoxItem boxItem = new BoxItem();
+            boxItem.Item = equip;
+            boxItem.Number = 1;
+            boxItem.BoxId = -1;
+
+            Com_Box comItem = this.CreateBox(boxItem);
+            comItem.transform.SetParent(slot.transform);
             comItem.transform.localPosition = Vector3.zero;
             comItem.transform.localScale = Vector3.one;
             comItem.SetBoxId(-1);
+            comItem.SetEquipPosition(Position);
 
-            if (position == 0)
-            {  
-                var hero = GameProcessor.Inst.PlayerManager.hero;
-                equip.Position = equip.Position + emptySlotIndex * PlayerHelper.MAX_EQUIP_COUNT;
-                hero.EventCenter.Raise(new HeroUseEquipEvent
-                {
-                    Position = equip.Position + emptySlotIndex * PlayerHelper.MAX_EQUIP_COUNT,
-                    Equip = equip
-                });
-            }
-            else
-            {
-                //原本就装备了，只是显示
-            }
+            //穿戴
+            slot.Equip(comItem);
         }
 
-        private void RmoveEquipment(Equip equip)
+        private void RmoveEquipment(int position, Equip equip)
         {
-            var slots = this.transform.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == equip.Position % PlayerHelper.MAX_EQUIP_COUNT).ToList();
-            var slotInex = 0;
-            if (slots.Count==2)
-            {
-                slotInex = equip.Position / PlayerHelper.MAX_EQUIP_COUNT;
-            }
-            var comItem = slots[slotInex].GetEquip();
-            slots[slotInex].UnEquip();
+            //装备栏卸载
+            var slot = this.transform.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+            Com_Box comItem = slot.GetEquip();
+            slot.UnEquip();
+            GameObject.Destroy(comItem.gameObject);
 
-            for(var i=0;i< PlayerHelper.bagMaxCount;i++)
+            //comItem.transform.SetParent(this.sr_Bag.content.GetChild(10));
+            //comItem.transform.localPosition = Vector3.zero;
+            //comItem.transform.localScale = Vector3.one;
+            //comItem.SetBoxId(i);
+
+
+            //装备移动到包裹里面
+            AddBoxItem(equip);
+
+            //通知英雄更新属性
+            var hero = GameProcessor.Inst.PlayerManager.hero;
+            hero.EventCenter.Raise(new HeroUnUseEquipEvent()
             {
-                var box = this.items.FirstOrDefault(item => item.boxId == i);
-                if (box == null)
-                {
-                    comItem.transform.SetParent(this.sr_Bag.content.GetChild(i));
-                    comItem.transform.localPosition = Vector3.zero;
-                    comItem.transform.localScale = Vector3.one;
-                    comItem.SetBoxId(i);
-                    this.items.Add(comItem);
-                    break;
-                }
-            }
-            var hero = UserData.Load();
-            hero.EventCenter.Raise(new HeroUnUseEquipEvent() { 
+                Position = position,
                 Equip = equip
             });
 
@@ -274,42 +368,26 @@ namespace Game
             Hero hero = GameProcessor.Inst.PlayerManager.hero;
             if (hero.Bags != null)
             {
-                var newItems = hero.Bags.Where(b => b.BoxId == -1).ToList();
+                var newItems = e.ItemList;
 
-                int lastBoxId = 0;
                 foreach (var newItem in newItems)
                 {
-                    if(newItem.Type == ItemType.SkillBox)
-                    {
-                        var box = this.items.Find(b => b.Item.ConfigId == newItem.ConfigId);
-                        if(box!=null)
-                        {
-                            box.AddStack();
-                            newItem.BoxId = box.boxId;
-                            continue;
-                        }
-                    }
-                    for (var i = lastBoxId; i < PlayerHelper.bagMaxCount; i++)
-                    {
-                        var com = this.items.FirstOrDefault(c => c.boxId == i);
-                        if (com == null)
-                        {
-                            var item = this.CreateBox(newItem, i);
-                            item.transform.SetParent(this.sr_Bag.content.GetChild(i));
-                            item.transform.localPosition = Vector3.zero;
-                            item.transform.localScale = Vector3.one;
-                            item.SetBoxId(i);
-                            this.items.Add(item);
-                            lastBoxId = i;
-                            newItem.BoxId = i;
-                            break;
-                        }
-                    }
+                    AddBoxItem(newItem);
                 }
-
             }
         }
 
+        public int GetNextBoxId()
+        {
+            for (int boxId = 0; boxId < 50; boxId++)
+            {
+                if (this.items.Find(m => m.boxId == boxId) == null)
+                {
+                    return boxId;
+                }
+            }
+            return -1;
+        }
 
         private AdStateCallBack adStateCallBack;
         public void OnClick_PlayerTitle()
