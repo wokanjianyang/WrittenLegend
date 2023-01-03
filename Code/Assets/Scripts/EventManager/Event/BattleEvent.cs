@@ -52,4 +52,9 @@ namespace Game
         public int BoxId { get; set; }
     }
 
+    public class RecoveryEvent : SDD.Events.Event
+    {
+        public Item Item { get; set; }
+        public int BoxId { get; set; }
+    }
 }

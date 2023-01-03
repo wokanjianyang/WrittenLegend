@@ -62,6 +62,7 @@ namespace Game
 
             GameProcessor.Inst.EventCenter.AddListener<EquipOneEvent>(this.OnEquipOneEvent);
             GameProcessor.Inst.EventCenter.AddListener<SkillBookEvent>(this.OnSkillBookEvent);
+            GameProcessor.Inst.EventCenter.AddListener<RecoveryEvent>(this.OnRecoveryEvent);
             var hero = GameProcessor.Inst.PlayerManager.hero;
             hero.EventCenter.AddListener<HeroBagUpdateEvent>(this.OnHeroBagUpdateEvent);
 
@@ -162,6 +163,15 @@ namespace Game
                 IsLearn = e.IsLearn,
                 Item = e.Item
             });
+        }
+
+        private void OnRecoveryEvent(RecoveryEvent e) {
+            var hero = GameProcessor.Inst.PlayerManager.hero;
+
+            UseBoxItem(e.BoxId);
+
+            hero.Gold += e.Item.Gold;
+            hero.EventCenter.Raise(new HeroInfoUpdateEvent());
         }
 
         private void UseBoxItem(int boxId)

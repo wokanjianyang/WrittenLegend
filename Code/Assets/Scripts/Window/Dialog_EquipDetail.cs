@@ -54,6 +54,9 @@ namespace Game
         [LabelText("升级")]
         public Button btn_Upgrade;
 
+        [LabelText("回收")]
+        public Button btn_Recovery;
+
         private Item item;
         private int boxId;
         private int equipPositioin;
@@ -68,6 +71,7 @@ namespace Game
             this.btn_UnEquip.onClick.AddListener(this.OnUnEquip);
             this.btn_Learn.onClick.AddListener(this.OnLearnSkill);
             this.btn_Upgrade.onClick.AddListener(this.OnUpgradeSkill);
+            this.btn_Recovery.onClick.AddListener(this.OnRecovery);
             this.gameObject.SetActive(false);
         }
 
@@ -92,6 +96,7 @@ namespace Game
             this.btn_UnEquip.gameObject.SetActive(false);
             this.btn_Learn.gameObject.SetActive(false);
             this.btn_Upgrade.gameObject.SetActive(!false);
+            this.btn_Recovery.gameObject.SetActive(false);
 
             this.transform.position = this.GetBetterPosition(e.Position);
             this.tmp_Title.text = e.Item.Name;
@@ -180,6 +185,7 @@ namespace Game
 
                         this.btn_Equip.gameObject.SetActive(this.boxId != -1);
                         this.btn_UnEquip.gameObject.SetActive(this.boxId == -1);
+                        this.btn_Recovery.gameObject.SetActive(this.boxId != -1);
                         tran_BaseAttribute.Find("NeedLevel").GetComponent<TextMeshProUGUI>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.item.Level);
 
                     }
@@ -252,6 +258,17 @@ namespace Game
             GameProcessor.Inst.EventCenter.Raise(new SkillBookEvent()
             {
                 IsLearn = false,
+                Item = this.item,
+                BoxId = this.boxId
+            }); ;
+        }
+
+        private void OnRecovery()
+        {
+            this.gameObject.SetActive(false);
+
+            GameProcessor.Inst.EventCenter.Raise(new RecoveryEvent()
+            {
                 Item = this.item,
                 BoxId = this.boxId
             }); ;
