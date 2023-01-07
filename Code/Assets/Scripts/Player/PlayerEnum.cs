@@ -57,21 +57,21 @@ namespace Game
     public enum SlotType
     {
         [LabelText("武器")]
-        武器 = 2,
+        武器 = 1,
         [LabelText("衣服")]
-        衣服 = 1,
+        衣服 = 2,
         [LabelText("头盔")]
-        头盔 = 4,
+        头盔 = 3,
         [LabelText("项链")]
-        项链 = 3,
+        项链 = 4,
         [LabelText("手镯")]
-        手镯 = 6,
+        手镯 = 5,
         [LabelText("戒指")]
-        戒指 = 5,
+        戒指 = 6,
         [LabelText("鞋子")]
-        鞋子 = 8,
+        鞋子 = 7,
         [LabelText("腰带")]
-        腰带 = 7
+        腰带 = 8
     }
     public enum ProgressType
     {
