@@ -31,7 +31,7 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<ChangePageEvent>(this.OnChangePageEnvent);
             this.OnChangePageEnvent(new ChangePageEvent
             {
-                Page = ViewPageType.View_Bag
+                Page = ViewPageType.View_Battle
             });
         }
 

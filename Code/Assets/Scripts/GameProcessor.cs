@@ -131,7 +131,8 @@ namespace Game
 
         public bool IsGameRunning()
         {
-            return this.PauseCounter == 0;
+            //return this.PauseCounter == 0;
+            return true;
         }
 
 

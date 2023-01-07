@@ -108,7 +108,6 @@ namespace Game
         {
 
             GameObject prefab = null;
-            GameObject go = null;
             switch (item.Quality)
             {
                 case 0:
@@ -133,7 +132,7 @@ namespace Game
                     }
                     break;
             }
-            go = GameObject.Instantiate(prefab);
+            var go = GameObject.Instantiate(prefab);
             var comItem = go.GetComponent<Com_Box>();
             comItem.SetBoxId(boxId);
             comItem.SetItem(item);
