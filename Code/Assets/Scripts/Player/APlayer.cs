@@ -56,7 +56,7 @@ namespace Game
         private Dictionary<int, List<Effect>> EffectMap = new Dictionary<int, List<Effect>>();
 
         [JsonIgnore]
-        public int MasterId { get; set; }
+        public int GroupId { get; set; }
 
         public APlayer()
         {
@@ -105,8 +105,8 @@ namespace Game
         {
             SkillConfig config = SkillConfigCategory.Instance.Get(skillId);
 
-            SkillData data = new SkillData();
-            data.ID = config.Id;
+            SkillData data = new SkillData(skillId);
+            data.SkillId = config.Id;
             data.Name = config.Name;
             data.CD = config.CD;
             data.Des = config.Des;
@@ -156,11 +156,12 @@ namespace Game
             //SkillProcessor skillProcessor = this.GetComponent<SkillProcessor>();
 
             SkillState skill = this.GetSkill();
-            List<AttackData> targets = skill.GetAllTarget(nearestEnemy==null?0:nearestEnemy.ID);
+            List<AttackData> targets = skill.GetAllTarget();
 
             if (targets.Count > 0)
             {  //使用技能
-                skill.Do(nearestEnemy == null ? 0 : nearestEnemy.ID);
+                Debug.Log($"使用技能:{(skill.Data.Name)}");
+                skill.Do(targets);
                 this.EventCenter.Raise(new ShowAttackIcon { NeedShow = true });
             }
             else
@@ -192,6 +193,19 @@ namespace Game
         public void AddEffect(int EffectId)
         {
             this.AddEffect(EffectId, 1);
+        }
+
+        public void RunEffect(int EffectId) {
+            EffectConfig config = EffectConfigCategory.Instance.Get(EffectId);
+
+            Effect effect = new Effect(this);
+
+            effect.Level = config.Level;
+            effect.CreateTime = DateTime.Now.Ticks;
+            effect.Duration = config.Duration;
+            effect.Config = config;
+
+            effect.Do();
         }
         public void AddEffect(int EffectId, int level)
         {
@@ -241,7 +255,7 @@ namespace Game
         public APlayer FindNearestEnemy()
         {
             //查找和自己不同类的,并且不是自己的主人/仆人
-            var enemys = GameProcessor.Inst.PlayerManager.GetAllPlayers().FindAll(p => p.Camp != this.Camp  && p.IsSurvice && p.ID != this.MasterId && this.ID!=p.MasterId);
+            var enemys = GameProcessor.Inst.PlayerManager.GetAllPlayers().FindAll(p => p.Camp != this.Camp  && p.IsSurvice && p.GroupId != this.GroupId);
 
             if (enemys.Count <= 0)
             {

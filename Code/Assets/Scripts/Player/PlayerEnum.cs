@@ -60,18 +60,23 @@ namespace Game
         武器 = 1,
         [LabelText("衣服")]
         衣服 = 2,
-        [LabelText("头盔")]
-        头盔 = 3,
         [LabelText("项链")]
-        项链 = 4,
-        [LabelText("手镯")]
-        手镯 = 5,
-        [LabelText("戒指")]
-        戒指 = 6,
-        [LabelText("鞋子")]
-        鞋子 = 7,
+        项链 = 3,
+        [LabelText("头盔")]
+        头盔 = 4,
+        [LabelText("左手镯")]
+        左手镯 = 5,
+        [LabelText("右手镯")]
+        右手镯 = 6,
+        [LabelText("左戒指")]
+        左戒指 = 7,
+        [LabelText("右戒指")]
+        右戒指 = 8,
         [LabelText("腰带")]
-        腰带 = 8
+        腰带 = 9,
+        [LabelText("鞋子")]
+        鞋子 = 10,
+
     }
     public enum ProgressType
     {

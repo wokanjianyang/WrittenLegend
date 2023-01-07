@@ -7,19 +7,26 @@ namespace Game
 {
 	public class AttributeBonus
 	{
-		private Dictionary<AttributeEnum, Dictionary<AttributeFrom, long>> AllAttrDict = new Dictionary<AttributeEnum, Dictionary<AttributeFrom, long>>();
+		private Dictionary<AttributeEnum, Dictionary<int, long>> AllAttrDict = new Dictionary<AttributeEnum, Dictionary<int, long>>();
 
 		public AttributeBonus(){
 			foreach (AttributeEnum item in Enum.GetValues(typeof(AttributeEnum)))
 			{
-				AllAttrDict.Add(item, new Dictionary<AttributeFrom, long>());
+				AllAttrDict.Add(item, new Dictionary<int, long>());
 			}
 
 		}
 
 		public void SetAttr(AttributeEnum attrType, AttributeFrom attrKey, long attrValue)
 		{
-			AllAttrDict[attrType][attrKey] = attrValue;
+			int key = (int)attrKey;
+			AllAttrDict[attrType][key] = attrValue;
+		}
+
+		public void SetAttr(AttributeEnum attrType, AttributeFrom attrKey, int Position, long attrValue)
+		{
+			int key = ((int)attrKey) * 100 + Position;
+			AllAttrDict[attrType][key] = attrValue;
 		}
 
 		public long GetTotalAttr(AttributeEnum attrType)

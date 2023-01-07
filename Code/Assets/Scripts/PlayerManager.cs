@@ -156,7 +156,7 @@ namespace Game
             return enemy;
         }
 
-        public Valet LoadValet(int masterId,Dictionary<AttributeEnum, object> data = null)
+        public Valet LoadValet(int masterId, Dictionary<AttributeEnum, object> data = null)
         {
             Valet valet = null;
 
@@ -173,7 +173,7 @@ namespace Game
                 var bornCell = tempCells[0];
                 valet = new Valet();
                 valet.Load();
-                valet.MasterId = masterId;
+                valet.GroupId = GetPlayer(masterId).GroupId;
                 valet.Logic.SetData(data);
 
                 var coms = valet.Transform.GetComponents<MonoBehaviour>();

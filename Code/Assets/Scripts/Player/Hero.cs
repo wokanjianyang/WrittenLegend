@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using Newtonsoft.Json;
+using System.Linq;
 
 namespace Game
 {
@@ -20,14 +22,19 @@ namespace Game
 
         public long Power { get; set; }
 
-        public IDictionary<int, Equip> EquipPanel { get; set; }
+        public IDictionary<int, Equip> EquipPanel { get; set; } = new Dictionary<int, Equip>();
 
-        public List<SkillBook> SkillPanel { get; set; }
+        [JsonIgnore]
+        public IDictionary<int, int> equipRecord { get; set; } = new Dictionary<int, int>();
+
+        public List<SkillData> SkillPanel { get; set; } = new List<SkillData>();
+
+
 
         /// <summary>
-        /// 
+        /// 包裹
         /// </summary>
-        public List<Item> Bags { get; set; }
+        public List<BoxItem> Bags { get; set; } = new List<BoxItem>();
 
         public long LastOut { get; set; }
 
@@ -38,6 +45,7 @@ namespace Game
             this.EventCenter.AddListener<HeroUseEquipEvent>(HeroUseEquip);
             this.EventCenter.AddListener<HeroUnUseEquipEvent>(HeroUnUseEquip);
             this.EventCenter.AddListener<HeroUseSkillBookEvent>(HeroUseSkillBook);
+            this.GroupId = 1;
         }
 
         public override void Load()
@@ -59,58 +67,23 @@ namespace Game
 
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
+        }
 
-            //加载技能
-            if (SkillIdList == null)
+        /// <summary>
+        /// 加载面板已选择技能放到SkillIdList
+        /// </summary>
+        public void InitPanelSkill()
+        {
+            SkillIdList = new Dictionary<int, int>();
+
+            List<SkillData> list = SkillPanel.FindAll(m => m.Status == SkillStatus.Equip);
+
+            for (int i = 0; i < list.Count; i++)
             {
-                SkillIdList = new Dictionary<int, int>();
-            }
-            if (SkillIdList.Count == 0)
-            {
-                SkillIdList.Add(1, 1001);  //基础剑术
-                SkillIdList.Add(2, 2001);  //火球
-                SkillIdList.Add(3, 3001);  //灵魂火符
-                SkillIdList.Add(4, 3002);  //召唤骷髅
+                SkillIdList.Add(i, list[i].SkillId);
             }
 
-            if (this.Bags == null)
-            {
-                this.Bags = new List<Item>();
-            }
-            else
-            {
-                foreach(var item in this.Bags)
-                {
-                    if(item.Type == ItemType.SkillBox)
-                    {
-                        var book = item as SkillBook;
-                        var bookconfig = SkillConfigCategory.Instance.Get(book.ConfigId);
-                        book.BookConfig = bookconfig;
-                        var config = ItemConfigCategory.Instance.Get(book.ConfigId);
-                        book.Config = config;
-                    }
-                    
-                }
-            }
-            if (this.EquipPanel == null)
-            {
-                this.EquipPanel = new Dictionary<int, Equip>();
-            }
-            if(this.SkillPanel == null)
-            {
-                this.SkillPanel = new List<SkillBook>();
-            }
-            else
-            {
-                foreach (var book in this.SkillPanel)
-                {
-                    var bookconfig = SkillConfigCategory.Instance.Get(book.ConfigId);
-                    book.BookConfig = bookconfig;
-                    var config = ItemConfigCategory.Instance.Get(book.ConfigId);
-                    book.Config = config;
-
-                }
-            }
+            base.LoadSkill();
         }
 
         public void UpdatePlayerInfo() {
@@ -133,19 +106,32 @@ namespace Game
 
         private void HeroUseEquip(HeroUseEquipEvent e)
         {
+            int PanelPosition = e.Position;
+            Equip equip = e.Equip;
 
-            this.Equip(e.Position, e.Equip);
+            EquipPanel[PanelPosition] = equip;
+
+            //替换属性
+            foreach (var a in equip.GetTotalAttrList)
+            {
+                AttributeBonus.SetAttr((AttributeEnum)a.Key, AttributeFrom.EquipBase,PanelPosition, a.Value);
+            }
+
+            //显示最新的血量
+            SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
+
+            //更新属性面板
+            UpdatePlayerInfo();
         }
 
         private void HeroUnUseEquip(HeroUnUseEquipEvent e)
         {
-            Bags.Add(e.Equip);
-            EquipPanel.Remove(e.Equip.Position % PlayerHelper.MAX_EQUIP_COUNT);
+            EquipPanel.Remove(e.Position);
 
             //替换属性
-            foreach (var a in e.Equip.AttrList)
+            foreach (var a in e.Equip.GetTotalAttrList)
             {
-                AttributeBonus.SetAttr((AttributeEnum)a.Key, e.Equip.Position% PlayerHelper.MAX_EQUIP_COUNT * 100 + AttributeFrom.EquipBase, a.Value*-1);
+                AttributeBonus.SetAttr((AttributeEnum)a.Key, AttributeFrom.EquipBase, e.Position, 0);
             }
 
             //显示最新的血量
@@ -157,55 +143,74 @@ namespace Game
 
         private void HeroUseSkillBook(HeroUseSkillBookEvent e)
         {
+            SkillBook Book = e.Item as SkillBook;
 
-            Bags.Remove(e.Book);
             if (e.IsLearn)
             {
-                this.SkillPanel.Add(e.Book);
-                e.Book.SkillType = SkillBookType.Learn;
+                //第一次学习，创建技能数据
+                SkillData skillData = new SkillData(Book.ConfigId);
+                skillData.Status = SkillStatus.Learn;
+                skillData.Level = 1;
+                skillData.Exp = 0;
+                skillData.UpExp = Book.SkillConfig.Exp;
+
+                this.SkillPanel.Add(skillData);
                 this.EventCenter.Raise(new HeroUpdateSkillEvent()
                 {
-                    Book = e.Book
+                    SkillData = skillData
                 });
             }
             else
             {
-                var book = this.SkillPanel.Find(b => b.ConfigId == e.Book.ConfigId);
-                book.AddExp(10);
-                this.EventCenter.Raise(new HeroUpdateSkillEvent() { 
-                    Book = book
+                SkillData skillData = this.SkillPanel.Find(b => b.SkillId == Book.ConfigId);
+                skillData.AddExp(Book.ItemConfig.UseParam);
+                this.EventCenter.Raise(new HeroUpdateSkillEvent()
+                {
+                    SkillData = skillData
                 });
             }
         }
 
-
-        private void Equip(int pos, Equip equip)
+        private void RebuildSkill(ref SkillData skill)
         {
-            //装配包裹的
-            Equip old;
-            if (EquipPanel.TryGetValue(equip.Position, out old))
+            int skillId = skill.SkillId;
+
+            List<Equip> skillList = this.EquipPanel.Where(m => m.Value.SkillRuneConfig.SkillId == skillId).Select(m => m.Value).ToList();
+
+            //按单件分组
+            var runeGroup = skillList.GroupBy(m => m.RuneConfigId);
+            foreach (var runeList in runeGroup)
             {
-                Bags.Add(old);
+                SkillRuneConfig SkillRuneConfig = runeList.ElementAt(0).SkillRuneConfig;
+
+                int RuneCount = Mathf.Min(SkillRuneConfig.Max, runeList.Count());
+
+                skill.CD += SkillRuneConfig.CD * RuneCount;
+                skill.Dis += SkillRuneConfig.Dis * RuneCount;
+                skill.Damage += SkillRuneConfig.Damage * RuneCount;
+                skill.Percent += SkillRuneConfig.Percent * RuneCount;
+                skill.EnemyMax += SkillRuneConfig.EnemyMax * RuneCount;
             }
 
+            //按套装分组
+            var suitGroup = skillList.GroupBy(m => m.SkillRuneConfig.SuitId);
 
-            Bags.Remove(equip); //old move to bag
-
-            EquipPanel[equip.Position] = equip; //new use to panel
-
-            //替换属性
-            foreach (var a in equip.AttrList)
+            foreach (var suitList in suitGroup)
             {
-                AttributeBonus.SetAttr((AttributeEnum)a.Key, equip.Position % PlayerHelper.MAX_EQUIP_COUNT * 100 + AttributeFrom.EquipBase, a.Value);
+                if (suitList.Count() >= 4)
+                {  //4件才成套,并且只能有一套能生效
+                    SkillSuitConfig SkillSuitConfig = suitList.ElementAt(0).SkillSuitConfig;
+
+                    skill.CD += SkillSuitConfig.CD;
+                    skill.Dis += SkillSuitConfig.Dis;
+                    skill.Damage += SkillSuitConfig.Damage;
+                    skill.Percent += SkillSuitConfig.Percent;
+                    skill.EnemyMax += SkillSuitConfig.EnemyMax;
+                }
             }
-
-            //显示最新的血量
-            SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
-
-            //更新属性面板
-            UpdatePlayerInfo();
         }
 
+       
         private void SetLevelConfigAttr()
         {
             LevelConfig config = LevelConfigCategory.Instance.Get(Level);
@@ -236,20 +241,6 @@ namespace Game
             this.isInLevelUp = false;
         }
 
-        public void AddToBags(List<Item> items)
-        {
-            int num = Mathf.Min( 50 - Bags.Count,items.Count);
-            if (num > 0)
-            {
-                Bags.AddRange(items.GetRange(0, num));
-            }
-        }
-
-        public List<SkillData> GetSelectSkills() {
-
-
-            return null;
-        }
         public enum HeroChangeType
         {
             LevelUp = 0,

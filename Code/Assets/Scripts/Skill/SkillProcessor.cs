@@ -34,12 +34,12 @@ public class SkillProcessor : MonoBehaviour,IPlayer
         }
     }
 
-    public void UseSkill(int targetId)
-    {
-        var skills = this.allSkills.FindAll(s => s.IsCanUse());
-        var skill = skills?.FirstOrDefault();
-        skill?.Do(targetId);
-    }
+    //public void UseSkill(int targetId)
+    //{
+    //    var skills = this.allSkills.FindAll(s => s.IsCanUse());
+    //    var skill = skills?.FirstOrDefault();
+    //    skill?.Do(targetId);
+    //}
 
     public APlayer SelfPlayer { get; set; }
     public void SetParent(APlayer player)

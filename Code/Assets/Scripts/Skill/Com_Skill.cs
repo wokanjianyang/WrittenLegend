@@ -19,7 +19,7 @@ namespace Game
         [LabelText("¼¼ÄÜ")]
         public Button btn_Skill;
 
-        public SkillBook Book { get; private set; }
+        public SkillData SkillData { get; private set; }
 
         // Start is called before the first frame update
         void Start()
@@ -36,18 +36,18 @@ namespace Game
         private void OnClick_RemoveSkill()
         {
             this.tran_Skill.gameObject.SetActive(false);
-            this.Book.SkillType = SkillBookType.Learn;
+            this.SkillData.Status = SkillStatus.Learn;
             GameProcessor.Inst.PlayerManager.hero.EventCenter.Raise(new HeroUpdateSkillEvent
             {
-                Book = this.Book
+                SkillData = this.SkillData
             });
         }
 
-        public void SetItem(SkillBook book)
+        public void SetItem(SkillData skill)
         {
-            this.tmp_Name.text = book.Name;
+            this.tmp_Name.text = skill.Name;
 
-            this.Book = book;
+            this.SkillData = skill;
 
             this.tran_Skill.gameObject.SetActive(true);
         }

@@ -54,8 +54,12 @@ namespace Game
         [LabelText("升级")]
         public Button btn_Upgrade;
 
+        [LabelText("回收")]
+        public Button btn_Recovery;
+
         private Item item;
         private int boxId;
+        private int equipPositioin;
 
         private RectTransform rectTransform;
 
@@ -67,6 +71,7 @@ namespace Game
             this.btn_UnEquip.onClick.AddListener(this.OnUnEquip);
             this.btn_Learn.onClick.AddListener(this.OnLearnSkill);
             this.btn_Upgrade.onClick.AddListener(this.OnUpgradeSkill);
+            this.btn_Recovery.onClick.AddListener(this.OnRecovery);
             this.gameObject.SetActive(false);
         }
 
@@ -91,14 +96,17 @@ namespace Game
             this.btn_UnEquip.gameObject.SetActive(false);
             this.btn_Learn.gameObject.SetActive(false);
             this.btn_Upgrade.gameObject.SetActive(!false);
+            this.btn_Recovery.gameObject.SetActive(false);
 
             this.transform.position = this.GetBetterPosition(e.Position);
             this.tmp_Title.text = e.Item.Name;
             this.item = e.Item;
             this.boxId = e.BoxId;
+            this.equipPositioin = e.EquipPosition;
 
             var titleColor = "FFFFFF";
-            switch (this.item.Quality)
+
+            switch (this.item.GetQuality())
             {
                 case 1:
                     titleColor = "CBFFC2";
@@ -113,7 +121,7 @@ namespace Game
                     titleColor = "D800FF";
                     break;
             }
-            this.img_Background.sprite = this.list_BackgroundImgs[this.item.Quality - 1];
+            this.img_Background.sprite = this.list_BackgroundImgs[this.item.GetQuality() - 1];
             tmp_Title.text = string.Format("<color=#{0}>{1}</color>", titleColor, this.item.Name);
 
             string color = "green";
@@ -126,12 +134,13 @@ namespace Game
             {
                 case ItemType.Equip://装备
                     {
-                        int index = 0;
-                        if (this.item.AttrList != null)
+                        Equip equip = this.item as Equip;
+                        if (equip.BaseAttrList != null)
                         {
+                            int index = 0;
                             tran_BaseAttribute.gameObject.SetActive(true);
                             tran_BaseAttribute.Find("Title").GetComponent<TextMeshProUGUI>().text = "[基础属性]";
-                            foreach (var a in this.item.AttrList)
+                            foreach (var a in equip.BaseAttrList)
                             {
                                 var child = tran_BaseAttribute.Find(string.Format("Attribute_{0}", index));
                                 child.GetComponent<TextMeshProUGUI>().text = string.Format(" •+{0}点{1}", a.Value, PlayerHelper.PlayerAttributeMap[((AttributeEnum)a.Key).ToString()]);
@@ -139,9 +148,44 @@ namespace Game
                                 index++;
                             }
                         }
+                        if (equip.AttrEntryList != null) {
+                            int index = 0;
+                            tran_QualityAttribute.gameObject.SetActive(true);
+                            tran_QualityAttribute.Find("Title").GetComponent<TextMeshProUGUI>().text = "[品质属性]";
+                            foreach (var a in equip.AttrEntryList)
+                            {
+                                var child = tran_QualityAttribute.Find(string.Format("Attribute_{0}", index));
+                                child.GetComponent<TextMeshProUGUI>().text = string.Format(" •+{0}点{1}", a.Value, PlayerHelper.PlayerAttributeMap[((AttributeEnum)a.Key).ToString()]);
+                                child.gameObject.SetActive(true);
+                                index++;
+                            }
+                        }
+
+                        if (equip.SkillRuneConfig != null) {
+                            int index = 0;
+                            tran_SkillAttribute.gameObject.SetActive(true);
+                            tran_SkillAttribute.Find("Title").GetComponent<TextMeshProUGUI>().text = equip.SkillRuneConfig.Name;
+
+                            var child = tran_SkillAttribute.Find(string.Format("Attribute_{0}", index));
+                            child.GetComponent<TextMeshProUGUI>().text = string.Format(" {0}", equip.SkillRuneConfig.Des);
+                            child.gameObject.SetActive(true);
+                        }
+
+                        if (equip.SkillSuitConfig != null) {
+                            int index = 0;
+                            tran_SuitAttribute.gameObject.SetActive(true);
+                            tran_SuitAttribute.Find("Title").GetComponent<TextMeshProUGUI>().text = equip.SkillSuitConfig.Name;
+
+                            var child = tran_SuitAttribute.Find(string.Format("Attribute_{0}", index));
+                            child.GetComponent<TextMeshProUGUI>().text = string.Format(" {0}", equip.SkillSuitConfig.Des);
+                            child.gameObject.SetActive(true);
+                        }
+
+                        
 
                         this.btn_Equip.gameObject.SetActive(this.boxId != -1);
                         this.btn_UnEquip.gameObject.SetActive(this.boxId == -1);
+                        this.btn_Recovery.gameObject.SetActive(this.boxId != -1);
                         tran_BaseAttribute.Find("NeedLevel").GetComponent<TextMeshProUGUI>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.item.Level);
 
                     }
@@ -150,10 +194,10 @@ namespace Game
                     {
                         var skillBox = this.item as SkillBook;
                         tran_NormalAttribute.gameObject.SetActive(true);
-                        tran_NormalAttribute.Find("Title").GetComponent<TextMeshProUGUI>().text = skillBox.Config.Des;
+                        tran_NormalAttribute.Find("Title").GetComponent<TextMeshProUGUI>().text = skillBox.ItemConfig.Des;
                         tran_NormalAttribute.Find("NeedLevel").GetComponent<TextMeshProUGUI>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.item.Level);
                         var hero = GameProcessor.Inst.PlayerManager.hero;
-                        var isLearn = hero.SkillPanel.Find(b=>b.ConfigId == this.item.ConfigId) == null;
+                        var isLearn = hero.SkillPanel.Find(b => b.SkillId == this.item.ConfigId) == null;
                         this.btn_Learn.gameObject.SetActive(isLearn);
                         this.btn_Upgrade.gameObject.SetActive(!isLearn);
 
@@ -190,7 +234,8 @@ namespace Game
             {
                 IsWear = false,
                 Item = this.item,
-                BoxId = this.boxId
+                BoxId = this.boxId,
+                Position = this.equipPositioin,
             });
         }
 
@@ -201,6 +246,7 @@ namespace Game
             GameProcessor.Inst.EventCenter.Raise(new SkillBookEvent()
             {
                 IsLearn = true,
+                Item = this.item,
                 BoxId = this.boxId
             });
         }
@@ -212,8 +258,20 @@ namespace Game
             GameProcessor.Inst.EventCenter.Raise(new SkillBookEvent()
             {
                 IsLearn = false,
+                Item = this.item,
                 BoxId = this.boxId
-            });
+            }); ;
+        }
+
+        private void OnRecovery()
+        {
+            this.gameObject.SetActive(false);
+
+            GameProcessor.Inst.EventCenter.Raise(new RecoveryEvent()
+            {
+                Item = this.item,
+                BoxId = this.boxId
+            }); ;
         }
 
         private Vector3 GetBetterPosition(Vector3 position)

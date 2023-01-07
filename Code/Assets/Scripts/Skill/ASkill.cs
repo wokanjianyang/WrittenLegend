@@ -23,17 +23,34 @@ namespace Game
             this.SkillData = skillData;
             this.skillGraphic = new SkillGraphic(player);
         }
-        virtual public void Do(int tid)
+        virtual public void Do()
         {
-            attackDataCache = this.GetAllTargets(tid);
+            List<AttackData> attackDataCache = GetAllTargets();
             foreach (var attackData in attackDataCache)
             {
                 var enemy = GameProcessor.Inst.PlayerManager.GetPlayer(attackData.Tid);
                 var damage = (int)this.CalcFormula(enemy, attackData.Ratio);
-                enemy.OnHit(tid, damage);
-            }
+                enemy.OnHit(attackData.Tid, damage);
 
-            this.skillGraphic?.PlayAnimation(tid);
+                if (SkillData.SkillConfig.EffectIdList!=null && SkillData.SkillConfig.EffectIdList.Length > 0)
+                {
+                    foreach (int EffectId in SkillData.SkillConfig.EffectIdList)
+                    {
+                        EffectConfig config = EffectConfigCategory.Instance.Get(EffectId);
+
+                        if (config.Duration > 0)
+                        {  //³ÖÐøBuff
+                            enemy.AddEffect(EffectId);
+                        }
+                        else
+                        {
+                            enemy.RunEffect(EffectId);
+                        }
+                    }
+                }
+
+                this.skillGraphic?.PlayAnimation(attackData.Tid);
+            }
         }
 
         virtual public bool IsCanUse() {
@@ -45,17 +62,9 @@ namespace Game
             return 0;
         }
 
-        virtual public List<AttackData> GetAllTargets(int tid)
+        virtual public List<AttackData> GetAllTargets()
         {
-            List<AttackData> list = new List<AttackData>();
-            if (tid > 0)
-                list.Add(
-                new AttackData()
-                {
-                    Tid = tid,
-                    Ratio = 1
-                });
-            return list;
+            return new List<AttackData>();
         }
         
  

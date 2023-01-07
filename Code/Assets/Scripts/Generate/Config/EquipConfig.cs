@@ -84,17 +84,20 @@ namespace Game
 		/// <summary>Name</summary>
 		[ProtoMember(3)]
 		public string Name { get; set; }
-		/// <summary>Position</summary>
+		/// <summary>Part</summary>
 		[ProtoMember(4)]
-		public int Position { get; set; }
-		/// <summary>基础属性列表</summary>
+		public int Part { get; set; }
+		/// <summary>Position</summary>
 		[ProtoMember(5)]
+		public int[] Position { get; set; }
+		/// <summary>基础属性列表</summary>
+		[ProtoMember(6)]
 		public int[] BaseArray { get; set; }
 		/// <summary>基础属性值</summary>
-		[ProtoMember(6)]
+		[ProtoMember(7)]
 		public int[] AttributeBase { get; set; }
 		/// <summary>Price</summary>
-		[ProtoMember(7)]
+		[ProtoMember(8)]
 		public int Price { get; set; }
 
 	}

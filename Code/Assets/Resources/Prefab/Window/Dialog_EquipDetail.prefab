@@ -7081,6 +7081,7 @@ MonoBehaviour:
   btn_UnEquip: {fileID: 3975090518739507058}
   btn_Learn: {fileID: 5629921880363172254}
   btn_Upgrade: {fileID: 367502928662731399}
+  btn_Recovery: {fileID: 1756267557951157044}
 --- !u!1 &8245287126871913676
 GameObject:
   m_ObjectHideFlags: 0

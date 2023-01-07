@@ -99,6 +99,9 @@ namespace Game
 		/// <summary>品质</summary>
 		[ProtoMember(8)]
 		public int Quality { get; set; }
+		/// <summary>使用效果值</summary>
+		[ProtoMember(9)]
+		public int UseParam { get; set; }
 
 	}
 }

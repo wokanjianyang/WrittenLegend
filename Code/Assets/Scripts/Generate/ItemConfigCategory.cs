@@ -15,17 +15,7 @@ namespace Game
         {
             ItemConfig config = ItemConfigCategory.Instance.Get(ConfigId);
 
-            Item item = new Item();
-
-            item.Id = IdGenerater.Instance.GenerateId();
-            item.ConfigId = ConfigId;
-            item.Type = (ItemType)config.Type;
-            item.Name = config.Name;
-            item.Des = config.Name;
-            item.Level = config.LevelRequired;
-            item.Gold = config.Price;
-            item.Quality = config.Quality;
-            item.MaxNum = config.MaxNum;
+            Item item = new Item(ConfigId);
 
             return item;
         }

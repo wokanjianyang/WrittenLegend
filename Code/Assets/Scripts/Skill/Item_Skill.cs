@@ -22,7 +22,7 @@ namespace Game
         [LabelText("描述")]
         public TextMeshProUGUI tmp_Des;
 
-        public SkillBook Book { get; private set; }
+        public SkillData SkillData { get; private set; }
 
         // Start is called before the first frame update
         void Start()
@@ -36,26 +36,25 @@ namespace Game
         
         }
 
-        public void SetItem(SkillBook item)
+        public void SetItem(SkillData skillData)
         {
-            this.Book = item;
+            this.SkillData = skillData;
 
-            this.tmp_Name.text = item.Name;
-            this.tmp_Level.text = string.Format("LV:{0}", item.Level);
-            this.tmp_CD.text = string.Format("冷却时间{0}回合", item.BookConfig.CD);
-            this.tmp_Des.text = item.Config.Des;
+            this.tmp_Name.text = SkillData.Name;
+            this.tmp_Level.text = string.Format("LV:{0}", SkillData.Level);
+            this.tmp_CD.text = string.Format("冷却时间{0}回合", SkillData.CD);
+            this.tmp_Des.text = SkillData.Des;
 
             var expProgress = this.GetComponentInChildren<Com_Progress>();
-            expProgress.SetProgress(item.Exp, item.GetUpExp());
+            expProgress.SetProgress(SkillData.Exp, SkillData.UpExp);
         }
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (this.Book == null) return;
-
-            this.Book.SkillType = SkillBookType.Equip;
+            if (this.SkillData == null) return;
+            this.SkillData.Status = SkillStatus.Equip;
             GameProcessor.Inst.PlayerManager.hero.EventCenter.Raise(new HeroUpdateSkillEvent
             {
-                Book = this.Book
+                SkillData = this.SkillData
             });
         }
 
