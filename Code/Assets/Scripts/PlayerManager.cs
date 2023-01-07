@@ -23,7 +23,7 @@ namespace Game
             hero = player;
             hero.Init();
             hero.UpdatePlayerInfo();
-            this.AddPlayer(hero);
+            this.LoadHero();
         }
 
         private void AddPlayer(APlayer player)
@@ -82,18 +82,15 @@ namespace Game
             }
         }
 
-        public void LoadHero(Dictionary<AttributeEnum, object> data = null)
+        public void LoadHero()
         {
-            if (data == null)
-            {
-                data = new Dictionary<AttributeEnum, object>();
-                data[AttributeEnum.Color] = Color.white;
-                data[AttributeEnum.Name] = "传奇";
-                data[AttributeEnum.Level] = 1;
-                data[AttributeEnum.HP] = 100L;
-                data[AttributeEnum.PhyAtt] = 2;
-            }
+            hero = UserData.Load();
             hero.Load();
+            var data = new Dictionary<AttributeEnum, object>();
+            data[AttributeEnum.Color] = Color.white;
+            data[AttributeEnum.Name] = hero.Name;
+            data[AttributeEnum.Level] = hero.Level;
+            data[AttributeEnum.HP] = hero.HP;
             hero.Logic.SetData(data);
 
             var coms = hero.Transform.GetComponents<MonoBehaviour>();

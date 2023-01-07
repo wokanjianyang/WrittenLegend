@@ -90,11 +90,6 @@ namespace Game
                     this.BattleRule = new BattleRule_Survivors();
                     break;
             }
-
-            //加载档案
-            this.PlayerManager.SetHero(UserData.Load());
-            
-
             this.PlayerRoot = MapData.transform.parent.Find("[PlayerRoot]").transform;
             this.PlayerRoot.SetParent(MapData.transform.parent,false);
             
@@ -105,6 +100,8 @@ namespace Game
 
             this.CurrentTimeSecond = currentTimeSecond;
 
+            //加载档案
+            this.PlayerManager.LoadHero();
         }
 
         public void DelayAction(float delay, Action callback)

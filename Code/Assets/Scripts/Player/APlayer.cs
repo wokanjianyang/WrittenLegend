@@ -52,9 +52,11 @@ namespace Game
         }
         [JsonIgnore]
         public List<SkillState> SelectSkillList { get; set; }
-        
+
+        [JsonIgnore]
         private Dictionary<int, List<Effect>> EffectMap = new Dictionary<int, List<Effect>>();
 
+        [JsonIgnore]
         private Dictionary<int, int> SkillUseRoundCache = new Dictionary<int, int>();
 
         [JsonIgnore]
