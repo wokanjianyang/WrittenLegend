@@ -43,12 +43,10 @@ namespace Game
                     this.currentRoundTime = 0;
                     this.needRefreshGraphic = true;
                     GameProcessor.Inst.PlayerManager.RemoveAllDeadPlayers();
-                    switch (this.roundNum%3)
+                    switch (this.roundNum%2)
                     {
                         case (int)RoundType.Hero:
                             this.DoHeroLogic();
-                            break;
-                        case (int)RoundType.Valet:
                             this.DoValetLogic();
                             break;
                         case (int)RoundType.Monster:

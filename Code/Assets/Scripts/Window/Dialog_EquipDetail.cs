@@ -125,7 +125,7 @@ namespace Game
             tmp_Title.text = string.Format("<color=#{0}>{1}</color>", titleColor, this.item.Name);
 
             string color = "green";
-            if (this.item.Level > UserData.Load().Level)
+            if (this.item.Level > GameProcessor.Inst.PlayerManager.GetHero().Level)
             {
                 color = "red";
             }
@@ -196,7 +196,7 @@ namespace Game
                         tran_NormalAttribute.gameObject.SetActive(true);
                         tran_NormalAttribute.Find("Title").GetComponent<TextMeshProUGUI>().text = skillBox.ItemConfig.Des;
                         tran_NormalAttribute.Find("NeedLevel").GetComponent<TextMeshProUGUI>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.item.Level);
-                        var hero = GameProcessor.Inst.PlayerManager.hero;
+                        var hero = GameProcessor.Inst.PlayerManager.GetHero();
                         var isLearn = hero.SkillPanel.Find(b => b.SkillId == this.item.ConfigId) == null;
                         this.btn_Learn.gameObject.SetActive(isLearn);
                         this.btn_Upgrade.gameObject.SetActive(!isLearn);

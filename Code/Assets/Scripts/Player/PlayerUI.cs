@@ -137,13 +137,14 @@ public class PlayerUI : MonoBehaviour,IPlayer
     private void OnShowAttackIcon(ShowAttackIcon e)
     {
         this.tran_Attack.localScale = e.NeedShow ? Vector3.one : Vector3.zero;
+        if(e.NeedShow)
+        {
+            GameProcessor.Inst.DelayAction(1f, () => { 
+                this.tran_Attack.localScale = Vector3.zero;
+            });
+        }
     }
 
-    IEnumerator IE_Delay(float delay,Action callback)
-    {
-        yield return new WaitForSeconds(delay);
-        callback?.Invoke();
-    }
 
     public APlayer SelfPlayer { get; set; }
     public void SetParent(APlayer player)

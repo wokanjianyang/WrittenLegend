@@ -19,9 +19,9 @@ namespace Game
         {
             base.Load();
 
-            var boxPrefab = Resources.Load<GameObject>("Prefab/Effect/MonsterBox");
-            var box = GameObject.Instantiate(boxPrefab, this.Transform).transform;
-            box.SetParent(this.Transform);
+            //var boxPrefab = Resources.Load<GameObject>("Prefab/Effect/MonsterBox");
+            //var box = GameObject.Instantiate(boxPrefab, this.Transform).transform;
+            //box.SetParent(this.Transform);
 
             this.Camp = PlayerType.Valet;
             this.Level = Random.Range(1, 4) ;

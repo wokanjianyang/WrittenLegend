@@ -37,7 +37,7 @@ namespace Game
 
         public void OnBattleStart()
         {
-            this.hero = GameProcessor.Inst.PlayerManager.hero;
+            this.hero = GameProcessor.Inst.PlayerManager.GetHero();
             switch (this.ProgressType)
             {
                 case ProgressType.PlayerExp:
@@ -51,6 +51,11 @@ namespace Game
         public void SetProgress(long current, long total)
         {
             var value = current * 1f / total;
+            if(value>1)
+            {
+                value = 1;
+                current = total;
+            }
             this.img_Progress.fillAmount = value;
             switch(this.ProgressType)
             {

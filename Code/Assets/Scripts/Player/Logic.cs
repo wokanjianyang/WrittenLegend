@@ -65,13 +65,10 @@ namespace Game
             }
 
             //设置名称
-            if (SelfPlayer.Name != null)
+            SelfPlayer.EventCenter.Raise(new SetPlayerNameEvent
             {
-                SelfPlayer.EventCenter.Raise(new SetPlayerNameEvent
-                {
-                    Name = SelfPlayer.Name
-                });
-            }
+                Name = SelfPlayer.Name
+            });
 
             //设置等级
 

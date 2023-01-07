@@ -10,13 +10,20 @@ namespace Game
     public class PlayerManager : MonoBehaviour, IBattleLife
     {
 
-        public Hero hero;
+        private Hero hero;
         private List<APlayer> AllPlayers = new List<APlayer>();
         private int playerId = 0;
 
         public Hero GetHero()
         {
             return hero;
+        }
+        public void SetHero(Hero player)
+        {
+            hero = player;
+            hero.Init();
+            hero.UpdatePlayerInfo();
+            this.AddPlayer(hero);
         }
 
         private void AddPlayer(APlayer player)
@@ -174,6 +181,8 @@ namespace Game
                 valet = new Valet();
                 valet.Load();
                 valet.GroupId = GetPlayer(masterId).GroupId;
+                data.TryGetValue(AttributeEnum.Name, out var name);
+                valet.Name = name.ToString();
                 valet.Logic.SetData(data);
 
                 var coms = valet.Transform.GetComponents<MonoBehaviour>();

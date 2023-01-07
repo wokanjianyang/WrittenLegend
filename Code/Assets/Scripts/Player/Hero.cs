@@ -234,6 +234,7 @@ namespace Game
                 //Éý¼¶»Ö¸´ÂúÑªÁ¿
                 SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
                 EventCenter.Raise(new SetPlayerLevelEvent { Level = Level.ToString() });
+                EventCenter.Raise(new HeroInfoUpdateEvent());
 
                 yield return new WaitForSeconds(0.2f);
             }

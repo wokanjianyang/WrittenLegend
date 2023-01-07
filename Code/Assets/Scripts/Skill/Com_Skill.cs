@@ -37,17 +37,23 @@ namespace Game
         {
             this.tran_Skill.gameObject.SetActive(false);
             this.SkillData.Status = SkillStatus.Learn;
-            GameProcessor.Inst.PlayerManager.hero.EventCenter.Raise(new HeroUpdateSkillEvent
+            GameProcessor.Inst.PlayerManager.GetHero().EventCenter.Raise(new HeroUpdateSkillEvent
             {
                 SkillData = this.SkillData
             });
         }
 
-        public void SetItem(SkillData skill)
+        public void SetItem(SkillData skillData)
         {
-            this.tmp_Name.text = skill.Name;
-
-            this.SkillData = skill;
+            if (skillData.Name.Length > 2)
+            {
+                this.tmp_Name.text = skillData.Name.Insert(2, "\n");
+            }
+            else
+            {
+                this.tmp_Name.text = SkillData.Name;
+            }
+            this.SkillData = skillData;
 
             this.tran_Skill.gameObject.SetActive(true);
         }

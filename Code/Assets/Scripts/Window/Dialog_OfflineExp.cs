@@ -36,9 +36,9 @@ namespace Game
         public void OnBattleStart()
         {
 
-            if (UserData.Load().LastOut > 0)
+            if (GameProcessor.Inst.PlayerManager.GetHero().LastOut > 0)
             {
-                long offlineSecond = GameProcessor.Inst.CurrentTimeSecond - UserData.Load().LastOut;
+                long offlineSecond = GameProcessor.Inst.CurrentTimeSecond - GameProcessor.Inst.PlayerManager.GetHero().LastOut;
                 if (offlineSecond > 0)
                 {
                     this.OnShowOfflineExpEvent(offlineSecond);
@@ -59,7 +59,7 @@ namespace Game
             var t = dateTime.ToString("F");
             this.tmp_Msg.text = string.Format("本次离线时间:{0}\n奖励离线经验: {1}",t, os);
 
-            var hero = UserData.Load();
+            var hero = GameProcessor.Inst.PlayerManager.GetHero();
             hero.Exp += this.offlineSecond;
             hero.EventCenter.Raise(new HeroChangeEvent
             {

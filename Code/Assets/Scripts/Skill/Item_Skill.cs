@@ -39,8 +39,14 @@ namespace Game
         public void SetItem(SkillData skillData)
         {
             this.SkillData = skillData;
-
-            this.tmp_Name.text = SkillData.Name;
+            if (skillData.Name.Length > 2)
+            {
+                this.tmp_Name.text = skillData.Name.Insert(2, "\n");
+            }
+            else
+            {
+                this.tmp_Name.text = SkillData.Name;
+            }
             this.tmp_Level.text = string.Format("LV:{0}", SkillData.Level);
             this.tmp_CD.text = string.Format("冷却时间{0}回合", SkillData.CD);
             this.tmp_Des.text = SkillData.Des;
@@ -52,7 +58,7 @@ namespace Game
         {
             if (this.SkillData == null) return;
             this.SkillData.Status = SkillStatus.Equip;
-            GameProcessor.Inst.PlayerManager.hero.EventCenter.Raise(new HeroUpdateSkillEvent
+            GameProcessor.Inst.PlayerManager.GetHero().EventCenter.Raise(new HeroUpdateSkillEvent
             {
                 SkillData = this.SkillData
             });

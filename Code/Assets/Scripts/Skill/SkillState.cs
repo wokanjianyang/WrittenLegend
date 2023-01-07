@@ -15,11 +15,12 @@ namespace Game
 
         private int lastUseRound = 0;
 
-        public SkillState(APlayer player, SkillData data, int position)
+        public SkillState(APlayer player, SkillData data, int position,int useRound)
         {
             this.SelfPlayer = player;
             this.Data = data;
             this.Priority = position - data.Priority;
+            this.lastUseRound = useRound;
             if (data.Type == (int)SkillType.Attack)
             {
                 this.skillLogic = new Skill_Sweep(player, data);

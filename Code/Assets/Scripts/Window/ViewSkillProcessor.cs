@@ -27,7 +27,7 @@ namespace Game
             this.learnSkills = new List<Item_Skill>();
             this.equipSkills = new List<Com_Skill>();
 
-            var hero = GameProcessor.Inst.PlayerManager.hero;
+            var hero = GameProcessor.Inst.PlayerManager.GetHero();
             hero.EventCenter.AddListener<HeroUpdateSkillEvent>(OnHeroUpdateSkillEvent);
             bookPrefab = Resources.Load<GameObject>("Prefab/Window/Item_Skill");
 
@@ -35,7 +35,7 @@ namespace Game
             {
                 SkillToBattle(skill);
             }
-            GameProcessor.Inst.PlayerManager.hero.InitPanelSkill();
+            GameProcessor.Inst.PlayerManager.GetHero().InitPanelSkill();
         }
 
         protected override bool CheckPageType(ViewPageType page)
@@ -46,9 +46,6 @@ namespace Game
         private void OnHeroUpdateSkillEvent(HeroUpdateSkillEvent e)
         {
             SkillToBattle(e.SkillData);
-
-            //英雄重新加载已选择技能
-            GameProcessor.Inst.PlayerManager.hero.InitPanelSkill();
 
             UserData.Save(); //修改技能后，存档
         }
@@ -80,7 +77,6 @@ namespace Game
                     this.learnSkills.Remove(learn);
                     GameObject.Destroy(learn.gameObject);
                 }
-
                 var equip = this.equipSkills.Find(s => s.SkillData.SkillId == skill.SkillId);
                 if (equip == null)
                 {
@@ -89,6 +85,8 @@ namespace Game
                     this.equipSkills.Add(com);
                 }
             }
+            //英雄重新加载已选择技能
+            GameProcessor.Inst.PlayerManager.GetHero().InitPanelSkill();
         }
 
         private void CreateBook(SkillData skill)

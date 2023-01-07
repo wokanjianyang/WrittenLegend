@@ -92,9 +92,8 @@ namespace Game
             }
 
             //加载档案
-            this.PlayerManager.hero = UserData.Load();
-            this.PlayerManager.hero.Init();
-            this.PlayerManager.hero.UpdatePlayerInfo();
+            this.PlayerManager.SetHero(UserData.Load());
+            
 
             this.PlayerRoot = MapData.transform.parent.Find("[PlayerRoot]").transform;
             this.PlayerRoot.SetParent(MapData.transform.parent,false);

@@ -52,8 +52,10 @@ namespace Game
         }
         [JsonIgnore]
         public List<SkillState> SelectSkillList { get; set; }
-
+        
         private Dictionary<int, List<Effect>> EffectMap = new Dictionary<int, List<Effect>>();
+
+        private Dictionary<int, int> SkillUseRoundCache = new Dictionary<int, int>();
 
         [JsonIgnore]
         public int GroupId { get; set; }
@@ -63,6 +65,9 @@ namespace Game
             this.EventCenter = new EventManager();
             this.AttributeBonus = new AttributeBonus();
             this.SkillIdList = new Dictionary<int,int>();
+            this.SkillUseRoundCache = new Dictionary<int, int>(); 
+            this.SelectSkillList = new List<SkillState>();
+
             //this.Load();
         }
 
@@ -91,17 +96,25 @@ namespace Game
 
         public void LoadSkill()
         {
+            foreach(var skill in SelectSkillList)
+            {
+                if(!SkillUseRoundCache.TryGetValue(skill.Data.SkillId,out var useRound))
+                {
+                    useRound = 0;
+                }
+                SkillUseRoundCache[skill.Data.SkillId] = useRound;
+            }
             SelectSkillList = new List<SkillState>();
             //加载已选择的技能
             foreach (int position in SkillIdList.Keys)
             {
-                LoadSkill(position, SkillIdList[position]);
+                EquipSkill(position, SkillIdList[position]);
             }
             //默认增加普通攻击
-            LoadSkill(9, 9001);
+            EquipSkill(9, 9001);
         }
 
-        private void LoadSkill(int position, int skillId)
+        public void EquipSkill(int position, int skillId)
         {
             SkillConfig config = SkillConfigCategory.Instance.Get(skillId);
 
@@ -118,8 +131,8 @@ namespace Game
             data.Damage = config.Damage;
             data.Type = config.Type;
             data.Priority = config.Priority;
-
-            SkillState skill = new SkillState(this, data, position);
+            SkillUseRoundCache.TryGetValue(data.SkillId, out var lastUseRound);
+            SkillState skill = new SkillState(this, data, position,lastUseRound);
             SelectSkillList.Add(skill);
         }
 

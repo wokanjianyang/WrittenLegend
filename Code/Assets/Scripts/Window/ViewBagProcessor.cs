@@ -63,7 +63,7 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<EquipOneEvent>(this.OnEquipOneEvent);
             GameProcessor.Inst.EventCenter.AddListener<SkillBookEvent>(this.OnSkillBookEvent);
             GameProcessor.Inst.EventCenter.AddListener<RecoveryEvent>(this.OnRecoveryEvent);
-            var hero = GameProcessor.Inst.PlayerManager.hero;
+            var hero = GameProcessor.Inst.PlayerManager.GetHero();
             hero.EventCenter.AddListener<HeroBagUpdateEvent>(this.OnHeroBagUpdateEvent);
 
             this.items = new List<Com_Box>();
@@ -153,7 +153,7 @@ namespace Game
         }
         private void OnSkillBookEvent(SkillBookEvent e)
         {
-            var hero = GameProcessor.Inst.PlayerManager.hero;
+            var hero = GameProcessor.Inst.PlayerManager.GetHero();
 
             UseBoxItem(e.BoxId);
 
@@ -165,7 +165,7 @@ namespace Game
         }
 
         private void OnRecoveryEvent(RecoveryEvent e) {
-            var hero = GameProcessor.Inst.PlayerManager.hero;
+            var hero = GameProcessor.Inst.PlayerManager.GetHero();
 
             UseBoxItem(e.BoxId);
 
@@ -175,7 +175,7 @@ namespace Game
 
         private void UseBoxItem(int boxId)
         {
-            var hero = GameProcessor.Inst.PlayerManager.hero;
+            var hero = GameProcessor.Inst.PlayerManager.GetHero();
 
             //逻辑处理
             BoxItem boxItem = hero.Bags.Find(m => m.BoxId == boxId);
@@ -202,7 +202,7 @@ namespace Game
 
         private void AddBoxItem(Item newItem)
         {
-            var hero = GameProcessor.Inst.PlayerManager.hero;
+            var hero = GameProcessor.Inst.PlayerManager.GetHero();
 
             BoxItem boxItem = hero.Bags.Find(m => !m.IsFull() && m.Item.ConfigId == newItem.ConfigId);  //同种物品，并且没有满堆叠的格子
 
@@ -239,7 +239,7 @@ namespace Game
 
         private void WearEquipment(Equip equip,int BoxId)
         {
-            var hero = GameProcessor.Inst.PlayerManager.hero;
+            var hero = GameProcessor.Inst.PlayerManager.GetHero();
 
             int Part = equip.Part;
             //增加一次穿戴记录，用做轮流穿戴左右
@@ -324,7 +324,7 @@ namespace Game
 
         private void CreateEquipPanelItem(int Position, Equip equip)
         {
-            var hero = GameProcessor.Inst.PlayerManager.hero;
+            var hero = GameProcessor.Inst.PlayerManager.GetHero();
 
             var slot = this.transform.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == Position).First();
 
@@ -363,7 +363,7 @@ namespace Game
             AddBoxItem(equip);
 
             //通知英雄更新属性
-            var hero = GameProcessor.Inst.PlayerManager.hero;
+            var hero = GameProcessor.Inst.PlayerManager.GetHero();
             hero.EventCenter.Raise(new HeroUnUseEquipEvent()
             {
                 Position = position,
@@ -374,7 +374,7 @@ namespace Game
         }
         private void OnHeroBagUpdateEvent(HeroBagUpdateEvent e)
         {
-            Hero hero = GameProcessor.Inst.PlayerManager.hero;
+            Hero hero = GameProcessor.Inst.PlayerManager.GetHero();
             if (hero.Bags != null)
             {
                 var newItems = e.ItemList;
