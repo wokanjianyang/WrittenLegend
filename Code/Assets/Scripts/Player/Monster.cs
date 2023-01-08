@@ -34,19 +34,14 @@ namespace Game
 
             this.AttributeBonus = new AttributeBonus();
 
-            int rd = Random.Range(1, 4);
-            SetLevelConfigAttr();
-
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
 
             this.EventCenter.AddListener<DeadRewarddEvent>(MakeReward);
         }
 
-        private void SetLevelConfigAttr()
+        public void SetLevelConfigAttr(MonsterBase config)
         {
-            MonsterBase config = MonsterBaseCategory.Instance.Get(1000+this.Level);
-
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, config.HP);
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, config.PhyAttr);
             AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, config.Def);

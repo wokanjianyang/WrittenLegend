@@ -113,15 +113,6 @@ namespace Game
         public APlayer LoadMonster(Dictionary<AttributeEnum, object> data = null)
         {
             APlayer enemy = null;
-            if (data == null)
-            {
-                data = new Dictionary<AttributeEnum, object>();
-                data[AttributeEnum.Color] = Color.red;
-                data[AttributeEnum.Name] = "小怪";
-                data[AttributeEnum.Level] = 1;
-                data[AttributeEnum.HP] = 100L;
-                data[AttributeEnum.PhyAtt] = 1f;
-            }
 
             var tempCells = GameProcessor.Inst.MapData.AllCells.ToList();
             var allPlayerCells = GameProcessor.Inst.PlayerManager.GetAllPlayers().Select(p => p.Cell).ToList();
@@ -140,9 +131,7 @@ namespace Game
                     bornCell = tempCells[0];
                 }
 
-                enemy = new Monster();
-                enemy.Load();
-                enemy.Logic.SetData(data);
+                enemy = MonsterHelper.BuildMonster(hero.Level);
 
                 var coms = enemy.Transform.GetComponents<MonoBehaviour>();
                 foreach (var com in coms)
