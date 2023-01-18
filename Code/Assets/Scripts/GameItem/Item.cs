@@ -55,7 +55,7 @@ namespace Game
         public int Level { get; set; }
 
         [JsonIgnore]
-        public int Gold { get; set; }
+        public long Gold { get; set; }
 
         [JsonIgnore]
         /// <summary>

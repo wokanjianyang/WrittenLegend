@@ -86,6 +86,8 @@ namespace Game
         {
             hero = UserData.Load();
             hero.Load();
+            hero.Init();
+            hero.UpdatePlayerInfo();
             var data = new Dictionary<AttributeEnum, object>();
             data[AttributeEnum.Color] = Color.white;
             data[AttributeEnum.Name] = hero.Name;

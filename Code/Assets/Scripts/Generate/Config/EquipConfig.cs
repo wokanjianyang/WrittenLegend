@@ -95,10 +95,10 @@ namespace Game
 		public int[] BaseArray { get; set; }
 		/// <summary>基础属性值</summary>
 		[ProtoMember(7)]
-		public int[] AttributeBase { get; set; }
+		public long[] AttributeBase { get; set; }
 		/// <summary>Price</summary>
 		[ProtoMember(8)]
-		public int Price { get; set; }
+		public long Price { get; set; }
 
 	}
 }

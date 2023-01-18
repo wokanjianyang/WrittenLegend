@@ -57,10 +57,10 @@ namespace Game
 
             return attackDatas;
         }
-        
+
         public override float CalcFormula(APlayer player, float ratio)
         {
-            return this.SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.PhyAtt) * ratio;
+            return this.SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.PhyAtt)  - player.AttributeBonus.GetTotalAttr(AttributeEnum.Def);
         }
     }
 }

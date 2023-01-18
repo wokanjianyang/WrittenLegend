@@ -63,7 +63,8 @@ namespace Game
             //设置各种属性值
             SetLevelConfigAttr();
             AttributeBonus.SetAttr(AttributeEnum.AttIncrea, AttributeFrom.Test, 400);
-            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.Test, 15);
+            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.Test, 1000);
+            AttributeBonus.SetAttr(AttributeEnum.ExpIncrea, AttributeFrom.Test, 1000);
 
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));

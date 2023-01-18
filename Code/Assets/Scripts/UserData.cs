@@ -72,6 +72,10 @@ namespace Game
                 TypeNameHandling = TypeNameHandling.Auto
             });
 
+            if (str_json.Length <= 0) {
+                return;
+            }
+
             //Ð´ÈëÎÄ¼þ
             System.IO.StreamWriter sw = new System.IO.StreamWriter(filePath);
             sw.Write(str_json);

@@ -78,30 +78,21 @@ namespace Game
 		/// <summary>_id</summary>
 		[ProtoMember(1)]
 		public int Id { get; set; }
-		/// <summary>掉落ID</summary>
+		/// <summary>等级</summary>
 		[ProtoMember(2)]
-		public int DropID { get; set; }
-		/// <summary>怪物ID</summary>
+		public int Level { get; set; }
+		/// <summary>掉落名称</summary>
 		[ProtoMember(3)]
-		public int MonsterID { get; set; }
-		/// <summary>地图ID</summary>
+		public string Name { get; set; }
+		/// <summary>掉落数量</summary>
 		[ProtoMember(4)]
-		public int MapID { get; set; }
-		/// <summary>掉落信息</summary>
-		[ProtoMember(5)]
-		public string Info { get; set; }
-		/// <summary>随机类型</summary>
-		[ProtoMember(6)]
-		public int RandomType { get; set; }
+		public int Quantity { get; set; }
 		/// <summary>道具类型</summary>
-		[ProtoMember(7)]
+		[ProtoMember(5)]
 		public int ItemType { get; set; }
-		/// <summary>掉落物</summary>
-		[ProtoMember(8)]
-		public int[] ItemList { get; set; }
-		/// <summary>概率</summary>
-		[ProtoMember(9)]
-		public int[] Rate { get; set; }
+		/// <summary>掉落Id列表</summary>
+		[ProtoMember(6)]
+		public int[] ItemIdList { get; set; }
 
 	}
 }

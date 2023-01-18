@@ -93,6 +93,9 @@ namespace Game
 		/// <summary>Exp</summary>
 		[ProtoMember(6)]
 		public long Exp { get; set; }
+		/// <summary>OfflineExp</summary>
+		[ProtoMember(7)]
+		public long OfflineExp { get; set; }
 
 	}
 }

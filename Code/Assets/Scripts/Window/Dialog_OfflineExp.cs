@@ -52,15 +52,22 @@ namespace Game
         }
         private void OnShowOfflineExpEvent(long os)
         {
+            var hero = GameProcessor.Inst.PlayerManager.GetHero();
+
+            LevelConfig levelConfig = LevelConfigCategory.Instance.Get(hero.Level);
+
             this.offlineSecond = os;
             this.gameObject.SetActive(true);
             var ticks = os * TimeSpan.TicksPerSecond;
             var dateTime = new DateTime(ticks);
             var t = dateTime.ToString("F");
-            this.tmp_Msg.text = string.Format("本次离线时间:{0}\n奖励离线经验: {1}",t, os);
 
-            var hero = GameProcessor.Inst.PlayerManager.GetHero();
-            hero.Exp += this.offlineSecond;
+            var offlineExp = levelConfig.OfflineExp * os;
+
+            this.tmp_Msg.text = string.Format("本次离线时间:{0}\n奖励离线经验: {1}", t, offlineExp);
+
+
+            hero.Exp += offlineExp;
             hero.EventCenter.Raise(new HeroChangeEvent
             {
                 Type = Hero.HeroChangeType.LevelUp

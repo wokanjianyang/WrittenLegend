@@ -7,9 +7,22 @@ namespace Game
 
     public partial class DropConfigCategory
     {
-        public List<DropConfig> GetByMonsterId(int monsterId)
+        public List<KeyValuePair<int, DropConfig>> GetByMapLevel(int mapLevel)
         {
-            return this.dict.Where(m => m.Value.MonsterID == monsterId || m.Value.MonsterID==0).Select(m=>m.Value).ToList();
+            List<KeyValuePair<int, DropConfig>> list = new List<KeyValuePair<int, DropConfig>>();
+
+            MapConfig map = MapConfigCategory.Instance.GetAll().Where(m => m.Value.MonsterLevelMin <= mapLevel && m.Value.MonsterLevelMax > mapLevel).First().Value;
+
+            if (map != null)
+            {
+                for (int i = 0; i < map.DropIdList.Length; i++)
+                {
+                    DropConfig dropConfig = this.Get(map.DropIdList[i]);
+                    list.Add(new KeyValuePair<int, DropConfig>(map.DropRateList[i], dropConfig));
+                }
+            }
+
+            return list;
         }
     }
 
@@ -20,35 +33,30 @@ namespace Game
 
     public class DropHelper
     {
-        public static List<Item> BuildDropItem(List<DropConfig> configs)
+        public static List<Item> BuildDropItem(List<KeyValuePair<int, DropConfig>> dropList)
         {
             List<Item> list = new List<Item>();
 
-            foreach (DropConfig config in configs)
+            for (int i = 0; i < dropList.Count; i++)
             {
-                for (int i = 0; i < config.ItemList.Length; i++)
+                int rate = dropList[i].Key;
+                DropConfig config = dropList[i].Value;
+
+                if (RandomHelper.RandomResult(rate))
                 {
-                    int count =0;
+                    int index = RandomHelper.RandomNumber(0, config.ItemIdList.Length);
 
-                    if (RandomHelper.RandomResult(config.Rate[i]))
+                    Item item;
+
+                    if (config.ItemType == (int)DropItemType.equip)
                     {
-                        Item item;
-
-                        if (config.ItemType == (int)DropItemType.equip)
-                        {
-                            item = EquipHelper.BuildEquip(config.ItemList[i]);
-                        }
-                        else {
-                            item = SkillHelper.BuildItem(config.ItemList[i]);
-                        }                      
-                        list.Add(item);
-                        count++;
+                        item = EquipHelper.BuildEquip(config.ItemIdList[index]);
                     }
-
-                    if (count >= config.RandomType)
+                    else
                     {
-                        break;
+                        item = SkillHelper.BuildItem(config.ItemIdList[index]);
                     }
+                    list.Add(item);
                 }
             }
             return list;

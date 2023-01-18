@@ -30,7 +30,7 @@ namespace Game
             //box.SetParent(this.Transform);
 
             this.Camp = PlayerType.Enemy;
-            this.Level = Random.Range(1, 4) ;
+            this.Level = Random.Range(1, 4);
 
             this.AttributeBonus = new AttributeBonus();
 
@@ -56,9 +56,13 @@ namespace Game
         {
             Log.Info("Monster :" + this.ToString() + " dead");
 
-            //增加经验,金币
             Hero hero = GameProcessor.Inst.PlayerManager.GetHero();
-            hero.Exp += this.Exp;
+
+            long exp = this.Exp * (100 + hero.AttributeBonus.GetTotalAttr(AttributeEnum.ExpIncrea)) / 100;
+
+            //增加经验,金币
+
+            hero.Exp += exp;
             hero.Gold += this.Gold;
             hero.EventCenter.Raise(new HeroInfoUpdateEvent());
             if (hero.Exp >= hero.UpExp)
@@ -70,7 +74,8 @@ namespace Game
             }
 
             //生成道具奖励
-            List<DropConfig> dropList = DropConfigCategory.Instance.GetByMonsterId(this.MonsterId);
+            int mapLevel = hero.Level / 10 * 10;
+            List<KeyValuePair<int, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(mapLevel);
             List<Item> items = DropHelper.BuildDropItem(dropList);
 
             if (items.Count > 0)
@@ -82,7 +87,7 @@ namespace Game
             {
                 RoundNum = hero.RoundCounter,
                 MonsterId = this.MonsterId,
-                Exp = this.Exp,
+                Exp = exp,
                 Gold = this.Gold,
                 Drops = items
             });
