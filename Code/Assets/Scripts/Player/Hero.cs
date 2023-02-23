@@ -29,6 +29,7 @@ namespace Game
 
         public List<SkillData> SkillPanel { get; set; } = new List<SkillData>();
 
+        public RecoverySetting RecoverySetting { get; set; } = new RecoverySetting();
 
 
         /// <summary>
@@ -68,6 +69,13 @@ namespace Game
 
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
+
+            //设置回收选项
+            RecoverySetting.SetType(2, true);
+            RecoverySetting.SetQuanlity(1, true);
+            RecoverySetting.SetQuanlity(2, true);
+            RecoverySetting.SetQuanlity(3, true);
+            RecoverySetting.SetLevel(10);
         }
 
         /// <summary>

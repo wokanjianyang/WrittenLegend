@@ -91,6 +91,13 @@ namespace Game
                 Gold = this.Gold,
                 Drops = items
             });
+
+            //自动回收
+            if (items.Count > 0)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new AutoRecoveryEvent() {});
+            }
+
             //存档
             UserData.Save();
         }

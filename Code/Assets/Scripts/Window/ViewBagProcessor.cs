@@ -63,6 +63,8 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<EquipOneEvent>(this.OnEquipOneEvent);
             GameProcessor.Inst.EventCenter.AddListener<SkillBookEvent>(this.OnSkillBookEvent);
             GameProcessor.Inst.EventCenter.AddListener<RecoveryEvent>(this.OnRecoveryEvent);
+            GameProcessor.Inst.EventCenter.AddListener<AutoRecoveryEvent>(this.OnAutoRecoveryEvent);
+
             var hero = GameProcessor.Inst.PlayerManager.GetHero();
             hero.EventCenter.AddListener<HeroBagUpdateEvent>(this.OnHeroBagUpdateEvent);
 
@@ -173,6 +175,24 @@ namespace Game
             hero.EventCenter.Raise(new HeroInfoUpdateEvent());
         }
 
+        private void OnAutoRecoveryEvent(AutoRecoveryEvent e)
+        {
+            Hero hero = GameProcessor.Inst.PlayerManager.GetHero();
+
+            List<BoxItem> recoveryList = hero.Bags.Where(m => hero.RecoverySetting.CheckRecovery(m.Item)).ToList();
+
+            foreach (BoxItem box in recoveryList)
+            {
+                hero.Gold += box.Item.Gold * box.Number;
+
+                Log.Debug("自动回收:" + box.Item.Name + " " + box.Number + "个");
+
+                box.Number = 0;
+                UseBoxItem(box.BoxId);
+
+                hero.EventCenter.Raise(new HeroInfoUpdateEvent());
+            }
+        }
         private void UseBoxItem(int boxId)
         {
             var hero = GameProcessor.Inst.PlayerManager.GetHero();
