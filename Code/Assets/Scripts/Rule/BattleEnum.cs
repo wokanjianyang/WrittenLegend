@@ -33,7 +33,7 @@ namespace Game
         ViewPage,
         Dialog,
         TopNav,
-        Progress
+        Progress,
     }
 
     public enum AttackGeometryType

@@ -824,6 +824,7 @@ MonoBehaviour:
   tmp_Info_Level: {fileID: 914182271512169274}
   tran_Barrage: {fileID: 4680396866725006832}
   tran_Attack: {fileID: 7079487226024100141}
+  com_Progress: {fileID: 3945995315777843734}
   Cell: {x: 0, y: 0, z: 0}
 --- !u!114 &347743800196469975
 MonoBehaviour:

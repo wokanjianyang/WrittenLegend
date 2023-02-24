@@ -34,13 +34,14 @@ public class PlayerUI : MonoBehaviour,IPlayer
     [LabelText("攻击标识")]
     public Transform tran_Attack;
 
+    [LabelText("血条")]
+    public Com_Progress com_Progress;
+
     private GameObject barragePrefab;
 
     private Vector2 size;
 
     public Vector3Int Cell;
-
-    private Com_Progress com_Progress;
 
     // Start is called before the first frame update
     void Start()
@@ -48,7 +49,6 @@ public class PlayerUI : MonoBehaviour,IPlayer
         this.tran_Info.gameObject.SetActive(true);
         this.barragePrefab = Resources.Load<GameObject>("Prefab/Dialog/Msg");
         this.size = this.transform.GetComponent<RectTransform>().sizeDelta;
-        this.com_Progress = this.GetComponentInChildren<Com_Progress>();
     }
 
     // Update is called once per frame
@@ -108,7 +108,7 @@ public class PlayerUI : MonoBehaviour,IPlayer
     private void OnSetPlayerHPEvent(SetPlayerHPEvent e)
     {
         //this.com_Progress?.SetProgress(this.SelfPlayer.HP, this.SelfPlayer.Logic.GetMaxHP()); TODO
-        this.com_Progress?.SetProgress(this.SelfPlayer.HP, SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.HP));
+        this.com_Progress.SetProgress(this.SelfPlayer.HP, SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.HP));
     }
     
     private void OnShowMsgEvent(ShowMsgEvent e)
@@ -148,6 +148,8 @@ public class PlayerUI : MonoBehaviour,IPlayer
 
 
     public APlayer SelfPlayer { get; set; }
+
+
     public void SetParent(APlayer player)
     {
         this.SelfPlayer = player;
