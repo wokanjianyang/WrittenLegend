@@ -75,7 +75,7 @@ namespace Game
     [ProtoContract]
 	public partial class EffectConfig: ProtoObject, IConfig
 	{
-		/// <summary>_ID</summary>
+		/// <summary>_Id</summary>
 		[ProtoMember(1)]
 		public int Id { get; set; }
 		/// <summary>技能名字</summary>
@@ -87,32 +87,29 @@ namespace Game
 		/// <summary>优先度</summary>
 		[ProtoMember(4)]
 		public int Priority { get; set; }
-		/// <summary>冷却时间</summary>
-		[ProtoMember(5)]
-		public int CD { get; set; }
 		/// <summary>施法类型</summary>
-		[ProtoMember(6)]
-		public int CastType { get; set; }
+		[ProtoMember(5)]
+		public int TargetType { get; set; }
 		/// <summary>最大叠加层数</summary>
-		[ProtoMember(7)]
+		[ProtoMember(6)]
 		public int Max { get; set; }
 		/// <summary>效果等级</summary>
-		[ProtoMember(8)]
+		[ProtoMember(7)]
 		public int Level { get; set; }
 		/// <summary>伤害比例</summary>
-		[ProtoMember(9)]
+		[ProtoMember(8)]
 		public int Percent { get; set; }
 		/// <summary>固定伤害</summary>
-		[ProtoMember(10)]
+		[ProtoMember(9)]
 		public int Damage { get; set; }
 		/// <summary>持续时间</summary>
-		[ProtoMember(11)]
+		[ProtoMember(10)]
 		public int Duration { get; set; }
 		/// <summary>目标属性</summary>
-		[ProtoMember(12)]
+		[ProtoMember(11)]
 		public int TargetAttr { get; set; }
 		/// <summary>来源属性</summary>
-		[ProtoMember(13)]
+		[ProtoMember(12)]
 		public int SourceAttr { get; set; }
 
 	}

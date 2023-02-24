@@ -78,7 +78,7 @@ namespace Game
             });
 
             //设置血量
-            this.SelfPlayer.SetHP(SelfPlayer.HP);
+            this.SelfPlayer.SetHP(SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.HP));
         }
 
         public void ResetData()
@@ -102,6 +102,8 @@ namespace Game
             {
                 currentHP = 0;
             }
+
+            Debug.Log($"{(this.SelfPlayer.Name)} 受到伤害:{(damage)} ,剩余血量:{(currentHP)}");
 
             AddBattleAttribute(AttributeEnum.HP, damage * -1);
             this.SelfPlayer.SetHP(currentHP);
@@ -132,6 +134,39 @@ namespace Game
             AddBattleAttribute(AttributeEnum.HP, damage * -1);
 
             this.SelfPlayer.SetHP(currentHP);
+        }
+
+        public void OnReply(long hp)
+        {
+            long currentHP = this.SelfPlayer.HP;
+
+            if (currentHP <= 0)
+            {
+                //?是否先判断死亡，再判断回复
+            }
+
+            long maxHp = this.SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.HP);
+
+            if (maxHp <= currentHP)
+            {
+                //满血不回复
+                return;
+            }
+
+            currentHP += hp;
+            if (maxHp <= currentHP)
+            {
+                currentHP = maxHp; //最多只能回复满血
+            }
+
+            Debug.Log($"{(this.SelfPlayer.Name)} 恢复生命:{(hp)} ,剩余血量:{(currentHP)}");
+
+            this.SelfPlayer.SetHP(currentHP);
+
+            this.playerEvents.Add(new ShowMsgEvent
+            {
+                Content = (hp).ToString()
+            });
         }
 
         public void RaiseEvents()

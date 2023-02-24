@@ -38,13 +38,15 @@ namespace Game
                     {
                         EffectConfig config = EffectConfigCategory.Instance.Get(EffectId);
 
+                        var effectTarget = config.TargetType == 1 ? this.SelfPlayer : enemy; //1 为作用自己 2 为作用敌人
+
                         if (config.Duration > 0)
                         {  //持续Buff
-                            enemy.AddEffect(EffectId);
+                            effectTarget.AddEffect(EffectId,this.SelfPlayer);
                         }
                         else
                         {
-                            enemy.RunEffect(EffectId);
+                            effectTarget.RunEffect(EffectId,this.SelfPlayer);
                         }
                     }
                 }

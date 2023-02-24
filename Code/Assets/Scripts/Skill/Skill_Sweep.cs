@@ -19,7 +19,7 @@ namespace Game
             //施法中心为自己
             APlayer target = SelfPlayer;
 
-            List<Vector3Int> allAttackCells = GameProcessor.Inst.MapData.GetAttackRangeCell(target.Cell,  SkillData.Dis, SkillData.Area);
+            List<Vector3Int> allAttackCells = GameProcessor.Inst.MapData.GetAttackRangeCell(target.Cell, SkillData.Dis, SkillData.Area);
             float ratio = allAttackCells.Count;
 
             //排序，从进到远
@@ -60,7 +60,8 @@ namespace Game
 
         public override float CalcFormula(APlayer player, float ratio)
         {
-            return this.SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.PhyAtt)  - player.AttributeBonus.GetTotalAttr(AttributeEnum.Def);
+            long damage = this.SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.PhyAtt) - player.AttributeBonus.GetTotalAttr(AttributeEnum.Def);
+            return damage > 1 ? damage : 1;
         }
     }
 }

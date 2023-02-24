@@ -75,7 +75,7 @@ namespace Game
             RecoverySetting.SetQuanlity(1, true);
             RecoverySetting.SetQuanlity(2, true);
             RecoverySetting.SetQuanlity(3, true);
-            RecoverySetting.SetLevel(10);
+            RecoverySetting.SetLevel(100);
         }
 
         /// <summary>

@@ -107,31 +107,32 @@ public class PlayerUI : MonoBehaviour,IPlayer
     
     private void OnSetPlayerHPEvent(SetPlayerHPEvent e)
     {
-        this.com_Progress?.SetProgress(this.SelfPlayer.HP, this.SelfPlayer.Logic.GetMaxHP());
+        //this.com_Progress?.SetProgress(this.SelfPlayer.HP, this.SelfPlayer.Logic.GetMaxHP()); TODO
+        this.com_Progress?.SetProgress(this.SelfPlayer.HP, SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.HP));
     }
     
     private void OnShowMsgEvent(ShowMsgEvent e)
     {
-        //var msg = GameObject.Instantiate(barragePrefab);
-        //msg.transform.SetParent(this.tran_Barrage);
-        //var msgSize = msg.GetComponent<RectTransform>().sizeDelta;
-        //var msgMaxY = (this.size.y - msgSize.y * 0.5f) * 0.5f;
-        //var msgY = UnityEngine.Random.Range(msgMaxY * -1, msgMaxY);
-        //msg.transform.localPosition = new Vector3(this.size.x + msgSize.x * 0.5f, msgY);
-        //var com = msg.GetComponent<Dialog_Msg>();
-        //com.tmp_Msg_Content.text = e.Content;
-        //msg.transform.DOLocalMoveX(msgSize.x * 0.5f * -1, 1f).OnComplete(() =>
-        //{
-        //    GameObject.Destroy(msg);
-        //});
-        
-        var effectCom = EffectLoader.CreateEffect(e.Content, false);
-        if (effectCom != null)
+        var msg = GameObject.Instantiate(barragePrefab);
+        msg.transform.SetParent(this.tran_Barrage);
+        var msgSize = msg.GetComponent<RectTransform>().sizeDelta;
+        var msgMaxY = (this.size.y - msgSize.y * 0.5f) * 0.5f;
+        var msgY = UnityEngine.Random.Range(msgMaxY * -1, msgMaxY);
+        msg.transform.localPosition = new Vector3(this.size.x + msgSize.x * 0.5f, msgY);
+        var com = msg.GetComponent<Dialog_Msg>();
+        com.tmp_Msg_Content.text = e.Content;
+        msg.transform.DOLocalMoveX(msgSize.x * 0.5f * -1, 1f).OnComplete(() =>
         {
-            var enemy = GameProcessor.Inst.PlayerManager.GetPlayer(e.TargetId);
-            effectCom.transform.SetParent(GameProcessor.Inst.EffectRoot);
-            effectCom.transform.position = enemy.Transform.position;
-        }
+            GameObject.Destroy(msg);
+        });
+
+        //var effectCom = EffectLoader.CreateEffect(e.Content, false);
+        //if (effectCom != null)
+        //{
+        //    var enemy = GameProcessor.Inst.PlayerManager.GetPlayer(e.TargetId);
+        //    effectCom.transform.SetParent(GameProcessor.Inst.EffectRoot);
+        //    effectCom.transform.position = enemy.Transform.position;
+        //}
     }
 
     private void OnShowAttackIcon(ShowAttackIcon e)

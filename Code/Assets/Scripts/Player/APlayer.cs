@@ -123,7 +123,7 @@ namespace Game
             SkillData data = new SkillData(skillId);
             data.SkillId = config.Id;
             data.Name = config.Name;
-            data.CD = config.CD;
+            data.CD = 0;//TODO
             data.Des = config.Des;
             data.Dis = config.Dis;
             data.Center = (SkillCenter)Enum.Parse(typeof(SkillCenter), config.Center);
@@ -201,33 +201,22 @@ namespace Game
                     //DO Effect
                     effect.Do();
                 }
-                list.RemoveAll(m => m.Duration <= 0);//移除已结束的
+                list.RemoveAll(m => m.Duration <= m.DoCount);//移除已结束的
             }
         }
 
-        public void AddEffect(int EffectId)
+        public void RunEffect(int effectId, APlayer attchPlayer)
         {
-            this.AddEffect(EffectId, 1);
-        }
-
-        public void RunEffect(int EffectId) {
-            EffectConfig config = EffectConfigCategory.Instance.Get(EffectId);
-
-            Effect effect = new Effect(this);
-
-            effect.Level = config.Level;
-            effect.CreateTime = DateTime.Now.Ticks;
-            effect.Duration = config.Duration;
-            effect.Config = config;
-
+            EffectConfig config = EffectConfigCategory.Instance.Get(effectId);
+            Effect effect = CreateEffect(config, attchPlayer);
             effect.Do();
         }
-        public void AddEffect(int EffectId, int level)
+        public void AddEffect(int EffectId, APlayer AttchPlayer)
         {
-
             if (!EffectMap.TryGetValue(EffectId, out List<Effect> list))
             {
                 list = new List<Effect>();
+                EffectMap[EffectId] = list;
             }
 
             EffectConfig config = EffectConfigCategory.Instance.Get(EffectId);
@@ -237,13 +226,23 @@ namespace Game
                 list.RemoveRange(0, list.Count - config.Max + 1);
             }
 
-            Effect effect = new Effect(this);
-            effect.Level = level;
-            effect.CreateTime = DateTime.Now.Ticks;
-            effect.Duration = config.Duration;
-            effect.Config = config;
-
+            Effect effect = CreateEffect(config,AttchPlayer);
             list.Add(effect);
+        }
+
+        private Effect CreateEffect(EffectConfig config, APlayer AttchPlayer)
+        {
+            long total = AttchPlayer.AttributeBonus.GetTotalAttr((AttributeEnum)config.SourceAttr);
+            total = (config.Percent + 0) * total / 100 + (config.Damage + 0);
+
+            Effect effect = new Effect(this, config, total);
+
+            //加上词条,套装,天赋等
+            effect.Level = config.Level + 0;
+            effect.CreateTime = DateTime.Now.Ticks;
+            effect.Duration = config.Duration + 0;
+
+            return effect;
         }
 
         public void Move(Vector3Int cell)
