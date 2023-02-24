@@ -205,7 +205,7 @@ namespace Game
                     }
                     break;
                 default:
-                    AN_Logger.Log("未知的类型");
+                    Log.Debug("未知的类型");
                     break;
             }
 

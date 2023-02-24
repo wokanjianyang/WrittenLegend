@@ -32,7 +32,7 @@ namespace Game
                 string ad_name = (string)args[3];//广告位名称
                 string sdkName = (string)args[4];//sdk名称
 
-                AN_Logger.Log(string.Format("state:{0} adType:{1} adCodeID:{2} ad_name:{3} sdkName:{4}", state, adType, adCodeID, ad_name, sdkName));
+                Log.Debug(string.Format("state:{0} adType:{1} adCodeID:{2} ad_name:{3} sdkName:{4}", state, adType, adCodeID, ad_name, sdkName));
                 bool hasReward = false;
 
                 if (state == AdStateEnum.Show)

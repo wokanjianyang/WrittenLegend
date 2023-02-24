@@ -426,7 +426,7 @@ namespace Game
             string message = "激励视频广告测试";
             var builder = new UM_NativeDialogBuilder(title, message);
             builder.SetPositiveButton("打开", () => {
-                AN_Logger.Log("Okay button pressed");
+                Log.Debug("Okay button pressed");
 
                 PocketAD.Inst.ShowAD("称号", adStateCallBack);
             });

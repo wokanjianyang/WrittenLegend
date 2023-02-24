@@ -62,7 +62,7 @@ namespace Game
             System.IO.File.Create(filePath).Dispose();
 
             System.TimeSpan st = System.DateTime.UtcNow - new System.DateTime(1970, 1, 1, 0, 0, 0);//获取时间戳
-            AN_Logger.Log($"离线时间:{DateTime.UtcNow.ToString("F")}");
+            Log.Debug($"离线时间:{DateTime.UtcNow.ToString("F")}");
 
             hero.LastOut = Convert.ToInt64(st.TotalSeconds);
 
@@ -83,9 +83,9 @@ namespace Game
 
             //确认保存
             if (System.IO.File.Exists(filePath))
-                AN_Logger.Log("保存成功");
+                Log.Debug("保存成功");
             else
-                AN_Logger.Log("保存失败");
+                Log.Debug("保存失败");
         }
 
         public static void Delete()

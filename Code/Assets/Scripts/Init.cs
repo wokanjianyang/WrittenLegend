@@ -36,7 +36,8 @@ public class Init : MonoBehaviour
 
     void Awake()
     {
-         DontDestroyOnLoad(this);
+        DontDestroyOnLoad(this);
+        Log.ILog = new ANLogger();
 
         BuglyAgent.DebugLog("Demo.Awake()", "Screen: {0} x {1}", Screen.width, Screen.height);
 
@@ -64,7 +65,7 @@ public class Init : MonoBehaviour
         var timeTaks = TimeCheatingDetector.GetOnlineTimeTask("https://www.baidu.com/");
         await timeTaks;
         this.currentTimeSecond = (long)timeTaks.Result.onlineSecondsUtc;
-        AN_Logger.Log("time:" + this.currentTimeSecond);
+        Log.Debug("time:" + this.currentTimeSecond);
         
         AN_Preloader.UnlockScreen();
 
@@ -81,7 +82,6 @@ public class Init : MonoBehaviour
 
     private void LoadConfig()
     {
-        Log.ILog = new UnityLogger();
         ConfigComponentNew.Load();
     }
 

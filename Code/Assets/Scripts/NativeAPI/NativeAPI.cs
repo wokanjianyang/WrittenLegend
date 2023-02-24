@@ -25,7 +25,7 @@ namespace Game
             public void OnShowAD(string param)
             {
                 //param参数格式: "xxx(0, 0, \"string1\", \"string2\", \"string3\");"
-                AN_Logger.Log("get message from android:" + param);
+                Log.Debug("get message from android:" + param);
 
                 param = Regex.Replace(param, @"\s", "");//去除所有空格
                 List<string> tmp = new List<string>(param.Split(new char[] { '(' }));
@@ -43,14 +43,14 @@ namespace Game
         private static Dictionary<string, object> callBacks;
         public void Awake()
         {
-            AN_Logger.Log("Awake");
+            Log.Debug("Awake");
             DontDestroyOnLoad(this);
             callBacks = new Dictionary<string, object>();
         }
 
         void Start()
         {
-            AN_Logger.Log("start:NativeAPI");
+            Log.Debug("start:NativeAPI");
 
             if (Application.platform == RuntimePlatform.Android)
             {
