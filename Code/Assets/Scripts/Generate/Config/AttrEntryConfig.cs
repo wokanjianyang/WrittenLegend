@@ -84,15 +84,18 @@ namespace Game
 		/// <summary>类型</summary>
 		[ProtoMember(3)]
 		public int Type { get; set; }
-		/// <summary>LevelRequired</summary>
-		[ProtoMember(4)]
-		public int LevelRequired { get; set; }
 		/// <summary>描述</summary>
-		[ProtoMember(5)]
+		[ProtoMember(4)]
 		public string Desc { get; set; }
-		/// <summary>属性值</summary>
+		/// <summary>最小值</summary>
+		[ProtoMember(5)]
+		public int Min { get; set; }
+		/// <summary>最大值</summary>
 		[ProtoMember(6)]
-		public long Val { get; set; }
+		public int Max { get; set; }
+		/// <summary>所属装备位置</summary>
+		[ProtoMember(7)]
+		public int[] PartList { get; set; }
 
 	}
 }

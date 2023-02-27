@@ -9,21 +9,39 @@ namespace Game
     {
         public void Build(ref Equip equip)
         {
-            int level = equip.Level;
+            int part = equip.Part;
 
-            List<AttrEntryConfig> configs = list.FindAll(m => m.LevelRequired == level);
+            List<AttrEntryConfig> configs = list.FindAll(m => m.PartList.Contains(part));
 
-            if (configs.Count <= 0) {
+            if (configs.Count <= 0)
+            {
                 return;
             }
 
             int rd = RandomHelper.RandomNumber(0, configs.Count);
 
-            if (equip.AttrEntryList == null) {
+            if (equip.AttrEntryList == null)
+            {
                 equip.AttrEntryList = new List<KeyValuePair<int, long>>();
             }
 
-            equip.AttrEntryList.Add(new KeyValuePair<int, long>(configs[rd].AttrId, configs[rd].Val));
+            AttrEntryConfig config = configs[rd];
+
+            long attrValue = 0;
+
+            if (config.Type == 1)
+            {  //按基础属性计算
+                int level = equip.Level;
+                long baseValue = EquipConfigCategory.Instance.GetAll().Where(m => m.Value.LevelRequired == level && m.Value.Part == 1).First().Value.AttributeBase[0];
+                attrValue = baseValue * config.Min / 100;
+            }
+            else if (config.Type == 2)
+            {
+                attrValue = RandomHelper.RandomNumber(config.Min, config.Max + 1);
+            }
+
+
+            equip.AttrEntryList.Add(new KeyValuePair<int, long>(config.AttrId, attrValue));
         }
     }
 }
