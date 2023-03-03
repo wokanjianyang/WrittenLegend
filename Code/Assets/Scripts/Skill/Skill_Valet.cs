@@ -64,5 +64,14 @@ namespace Game
                 ValetList.Add(valet);
             }
         }
+
+        public void ClearValet() {
+            //销毁之前的
+            foreach (Valet valet in ValetList)
+            {
+                valet.OnHit(SelfPlayer.ID, valet.HP);
+            }
+            ValetList.Clear();
+        }
     }
 }

@@ -105,6 +105,9 @@ namespace Game
                     useRound = 0;
                 }
                 SkillUseRoundCache[skill.Data.SkillId] = useRound;
+
+                //销毁技能
+                skill.Destory();
             }
             SelectSkillList = new List<SkillState>();
             //加载已选择的技能

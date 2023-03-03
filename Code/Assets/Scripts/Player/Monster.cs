@@ -42,9 +42,10 @@ namespace Game
 
         public void SetLevelConfigAttr(MonsterBase config)
         {
+            //TODO
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, config.HP);
-            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, config.PhyAttr);
-            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, config.Def);
+            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, 1);
+            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, 0);
 
             this.MonsterId = config.Id;
             this.Gold = config.Gold;

@@ -113,6 +113,9 @@ public class PlayerUI : MonoBehaviour,IPlayer
     
     private void OnShowMsgEvent(ShowMsgEvent e)
     {
+        if (barragePrefab == null) {
+            return;
+        }
         var msg = GameObject.Instantiate(barragePrefab);
         msg.transform.SetParent(this.tran_Barrage);
         var msgSize = msg.GetComponent<RectTransform>().sizeDelta;

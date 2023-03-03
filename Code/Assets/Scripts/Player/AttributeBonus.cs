@@ -48,6 +48,24 @@ namespace Game
 			}
 		}
 
+		public string GetPower()
+		{
+			long power = 0;
+
+			Dictionary<int, GameAttribute> list = GameAttributeCategory.Instance.GetAll();
+
+
+			foreach (int type in list.Keys)
+			{
+				long attrTotal = GetTotalAttr((AttributeEnum)type);
+				float rate = list[type].PowerCoef;
+
+				power += (long)(attrTotal * rate);
+			}
+
+			return power + "";
+		}
+
 		private long CalTotal(AttributeEnum type, AttributeEnum typeIncrea) {
 			long total = 0;
 
