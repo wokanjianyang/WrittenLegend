@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -72,11 +73,12 @@ namespace Game
                 {
                     enemy.DoEvent();
                 }
-                
-                GameProcessor.Inst.PlayerManager.LoadMonster();
+
+                if (enemys.Count <= 30) //TODO
+                {
+                    GameProcessor.Inst.PlayerManager.LoadMonster();
+                }
             }
         }
-
-
     }
 }

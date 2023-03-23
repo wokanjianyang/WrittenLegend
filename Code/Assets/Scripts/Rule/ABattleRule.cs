@@ -1,5 +1,7 @@
+using Assets.Scripts;
 using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 namespace Game
@@ -32,6 +34,24 @@ namespace Game
 
         abstract public void DoValetLogic();
 
+        public void DoMapCellLogic()
+        {
+            var cells = GameProcessor.Inst.MapData.MapCells.ToList();
+
+            foreach (MapCell cell in cells)
+            {
+                if (cell.skills.Count > 0)
+                {
+                    APlayer player = GameProcessor.Inst.PlayerManager.GetPlayer(cell.cell);
+
+                    foreach (Skill_Map skill in cell.skills)
+                    {
+                        skill.Run(player);
+                    }
+                }
+            }
+        }
+
         virtual public void OnUpdate()
         {
             if (!this.isGameOver)
@@ -51,6 +71,7 @@ namespace Game
                             break;
                         case (int)RoundType.Monster:
                             this.DoMonsterLogic();
+                            this.DoMapCellLogic();
                             break;
                     }
 

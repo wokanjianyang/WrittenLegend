@@ -108,8 +108,9 @@ namespace Game
 
     public enum SkillType
     {
-        Attack = 1,
-        Valet = 2,
+        Attack = 1, //直接攻击技能
+        Valet = 2, //召唤技能
+        Map =3, //场景技能（比如火墙）
     }
 
     public enum SkillStatus

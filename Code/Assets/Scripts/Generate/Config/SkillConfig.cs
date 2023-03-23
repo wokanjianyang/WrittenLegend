@@ -114,20 +114,23 @@ namespace Game
 		/// <summary>攻击区域</summary>
 		[ProtoMember(13)]
 		public string Area { get; set; }
-		/// <summary>最大敌人数量</summary>
+		/// <summary>持续时间</summary>
 		[ProtoMember(14)]
+		public int Duration { get; set; }
+		/// <summary>最大敌人数量</summary>
+		[ProtoMember(15)]
 		public int EnemyMax { get; set; }
 		/// <summary>伤害比例</summary>
-		[ProtoMember(15)]
+		[ProtoMember(16)]
 		public int Percent { get; set; }
 		/// <summary>固定伤害</summary>
-		[ProtoMember(16)]
+		[ProtoMember(17)]
 		public int Damage { get; set; }
 		/// <summary>附带效果</summary>
-		[ProtoMember(17)]
+		[ProtoMember(18)]
 		public int[] EffectIdList { get; set; }
 		/// <summary>升级经验</summary>
-		[ProtoMember(18)]
+		[ProtoMember(19)]
 		public int Exp { get; set; }
 
 	}

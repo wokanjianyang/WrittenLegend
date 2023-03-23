@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts;
 
 namespace Game
 {
@@ -23,6 +24,8 @@ namespace Game
         public Vector3 CellSize = Vector3.zero;
 
         public List<Vector3Int> AllCells { get; private set; }
+
+        public List<MapCell> MapCells { get; private set; }
 
         /// <summary>
         /// 寻路网格
@@ -73,11 +76,14 @@ namespace Game
         {
             AStarBattleGrid = new Grid(this.ColCount, this.RowCount, 1f);
             AllCells = new List<Vector3Int>();
+            MapCells = new List<MapCell>();
             for (var i = 0; i < this.ColCount; i++)
             {
                 for (var j = 0; j < this.RowCount; j++)
                 {
-                    AllCells.Add(new Vector3Int(i, j));
+                    Vector3Int cell = new Vector3Int(i, j);
+                    AllCells.Add(cell);
+                    MapCells.Add(new MapCell(cell));
                 }
             }
         }
@@ -342,6 +348,10 @@ namespace Game
 
             rangeCells = rangeCells.Distinct().ToList();
             return rangeCells;
+        }
+
+        public MapCell GetMapCell(Vector3Int cell) {
+            return MapCells.Find(m => m.cell == cell);
         }
 
         #endregion

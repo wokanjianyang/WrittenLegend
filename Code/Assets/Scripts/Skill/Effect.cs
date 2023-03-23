@@ -60,6 +60,16 @@ namespace Game
             DoCount++;
         }
 
+        public void DoCell(APlayer player)
+        {
+            if (player.GroupId == SelfPlayer.GroupId)
+            { //不对队友产生伤害
+                return;
+            }
+
+            player.Logic.OnDamage(SelfPlayer.ID, Total);
+        }
+
         public enum EffectTypeEnum { 
             Sub = -1,  //增加属性
             Add = 1  //减少属性

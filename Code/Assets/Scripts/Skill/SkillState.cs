@@ -29,6 +29,10 @@ namespace Game
             {
                 this.skillLogic = new Skill_Valet(player, data);
             }
+            else if (data.Type == (int)SkillType.Map)
+            {
+                this.skillLogic = new Skill_Map(player, data);
+            }
             else
             {
                 this.skillLogic = new BaseAttackSkill(player, data);
