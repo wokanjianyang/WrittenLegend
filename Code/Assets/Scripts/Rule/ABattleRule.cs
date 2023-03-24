@@ -37,17 +37,12 @@ namespace Game
         public void DoMapCellLogic()
         {
             var cells = GameProcessor.Inst.MapData.MapCells.ToList();
-
+            var skillCells = cells.FindAll(m => m.skills.Count > 0);
             foreach (MapCell cell in cells)
             {
                 if (cell.skills.Count > 0)
                 {
-                    APlayer player = GameProcessor.Inst.PlayerManager.GetPlayer(cell.cell);
-
-                    foreach (Skill_Map skill in cell.skills)
-                    {
-                        skill.Run(player);
-                    }
+                    cell.DoEvent();
                 }
             }
         }

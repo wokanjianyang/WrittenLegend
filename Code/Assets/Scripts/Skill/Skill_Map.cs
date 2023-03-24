@@ -7,8 +7,6 @@ namespace Game
 {
     public class Skill_Map : BaseAttackSkill
     {
-        public int Duration { get; set; }
-
         public Skill_Map(APlayer player, SkillData skillData) : base(player, skillData)
         {
 
@@ -25,16 +23,28 @@ namespace Game
 
             List<Vector3Int> allAttackCells = GameProcessor.Inst.MapData.GetAttackRangeCell(target.Cell, SkillData.Dis, SkillData.Area);
 
+            foreach (var cell in allAttackCells)
+            {
+                attackDatas.Add(new AttackData()
+                {
+                    Tid = 0,
+                    Ratio = 0
+                });
+            }
+
             return attackDatas;
         }
 
         public void Run(APlayer enemy)
         {
-            Duration++;
-
-            if (Duration >= SkillData.SkillConfig.Duration) {  //持续时间到了,销毁
-                
+            if (enemy.GroupId == this.SelfPlayer.GroupId)
+            {  //不对队友造成伤害
+                return;
             }
+            long damage = this.SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.PhyAtt) - enemy.AttributeBonus.GetTotalAttr(AttributeEnum.Def);
+            damage = damage > 1 ? damage : 1;
+
+            enemy.OnHit(SelfPlayer.ID, damage);
         }
 
         public override void Do()
@@ -44,7 +54,10 @@ namespace Game
             foreach (var cell in allAttackCells)
             {
                 MapCell mapCell = GameProcessor.Inst.MapData.GetMapCell(cell);
-                mapCell.AddSkill(this);
+                if (mapCell != null) //处于地图边缘的时候
+                {
+                    mapCell.AddSkill(this);
+                }
             }
         }
     }

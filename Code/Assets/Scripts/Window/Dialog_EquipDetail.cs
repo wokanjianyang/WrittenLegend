@@ -92,6 +92,7 @@ namespace Game
             this.gameObject.SetActive(true);
             tran_BaseAttribute.gameObject.SetActive(false);
             tran_NormalAttribute.gameObject.SetActive(false);
+            tran_QualityAttribute.gameObject.SetActive(false);
             this.btn_Equip.gameObject.SetActive(false);
             this.btn_UnEquip.gameObject.SetActive(false);
             this.btn_Learn.gameObject.SetActive(false);

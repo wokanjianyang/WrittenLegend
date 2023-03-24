@@ -121,12 +121,14 @@ namespace Game
 
         public void EquipSkill(int position, int skillId)
         {
+            int calCd = 0;//TODO 计算装备天赋等技能加成
+
             SkillConfig config = SkillConfigCategory.Instance.Get(skillId);
 
             SkillData data = new SkillData(skillId);
             data.SkillId = config.Id;
             data.Name = config.Name;
-            data.CD = 0;//TODO
+            data.CD = config.CD - calCd;
             data.Des = config.Des;
             data.Dis = config.Dis;
             data.Center = (SkillCenter)Enum.Parse(typeof(SkillCenter), config.Center);
@@ -137,7 +139,7 @@ namespace Game
             data.Type = config.Type;
             data.Priority = config.Priority;
             SkillUseRoundCache.TryGetValue(data.SkillId, out var lastUseRound);
-            SkillState skill = new SkillState(this, data, position,lastUseRound);
+            SkillState skill = new SkillState(this, data, position, lastUseRound);
             SelectSkillList.Add(skill);
         }
 
@@ -174,11 +176,11 @@ namespace Game
             //SkillProcessor skillProcessor = this.GetComponent<SkillProcessor>();
 
             SkillState skill = this.GetSkill();
-            List<AttackData> targets = skill.GetAllTarget();
+            List<AttackData> targets = skill?.GetAllTarget();
 
-            if (targets.Count > 0)
+            if (targets != null && targets.Count > 0)
             {  //使用技能
-                Debug.Log($"使用技能:{(skill.Data.Name)}");
+                Debug.Log($"{(this.Name)}使用技能:{(skill.Data.Name)}");
                 skill.Do(targets);
                 this.EventCenter.Raise(new ShowAttackIcon { NeedShow = true });
             }
@@ -304,11 +306,11 @@ namespace Game
             return enemys[0];
         }
 
-        public void OnHit(int tid, params long[] damages)
+        public void OnHit(int fromId, params long[] damages)
         {
             foreach (var d in damages)
             {
-                this.Logic.OnDamage(tid, d);
+                this.Logic.OnDamage(fromId, d);
             }
         }
 

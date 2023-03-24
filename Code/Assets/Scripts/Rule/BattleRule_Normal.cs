@@ -74,7 +74,7 @@ namespace Game
                     enemy.DoEvent();
                 }
 
-                if (enemys.Count <= 30) //TODO
+                if (enemys.Count >= 0) //TODO 测试减少刷新数量
                 {
                     GameProcessor.Inst.PlayerManager.LoadMonster();
                 }

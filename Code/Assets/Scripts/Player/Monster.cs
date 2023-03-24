@@ -42,7 +42,7 @@ namespace Game
 
         public void SetLevelConfigAttr(MonsterBase config)
         {
-            //TODO
+            //TODO 测试增加被动属性
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, config.HP);
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, 1);
             AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, 0);
