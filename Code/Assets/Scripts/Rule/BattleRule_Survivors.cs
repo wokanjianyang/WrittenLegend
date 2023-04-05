@@ -14,34 +14,27 @@ namespace Game
         {
             this.actionType = PlayerActionType.None;
 
-            var heros = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Hero);
-            if (heros == null || heros.Count == 0)
+            var hero = GameProcessor.Inst.PlayerManager.GetHero();
+            
+            if (this.lastClickCell != default && this.lastClickCell != hero.Cell)
             {
-                GameProcessor.Inst.PlayerManager.LoadHero();
-            }
-            else
-            {
-                var hero = heros[0];
-                if (this.lastClickCell != default && this.lastClickCell != hero.Cell)
+                var endPos = GameProcessor.Inst.MapData.GetPath(hero.Cell, lastClickCell);
+                if (endPos == hero.Cell)
                 {
-                    var endPos = GameProcessor.Inst.MapData.GetPath(hero.Cell, lastClickCell);
-                    if (endPos == hero.Cell)
-                    {
-                        this.lastClickCell = hero.Cell;
-                        hero.DoEvent();
-                    }
-                    else
-                    {
-                        if (GameProcessor.Inst.PlayerManager.IsCellCanMove(endPos))
-                        {
-                            hero.Move(endPos);
-                        }
-                    }
+                    this.lastClickCell = hero.Cell;
+                    hero.DoEvent();
                 }
                 else
                 {
-                    hero.DoEvent();
+                    if (GameProcessor.Inst.PlayerManager.IsCellCanMove(endPos))
+                    {
+                        hero.Move(endPos);
+                    }
                 }
+            }
+            else
+            {
+                hero.DoEvent();
             }
         }
 
@@ -91,8 +84,9 @@ namespace Game
                 {
                     enemy.DoEvent();
                 }
+                var monster = MonsterHelper.BuildMonster(hero.Level);
 
-                var player = GameProcessor.Inst.PlayerManager.LoadMonster();
+                var player = GameProcessor.Inst.PlayerManager.LoadMonster(monster);
                 if (player != null)
                 {
                     var halfLife = player.Transform.gameObject.AddComponent<HalfLife>();
@@ -105,8 +99,7 @@ namespace Game
         {
             base.OnBattleStart();
 
-            var heros = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Hero);
-            var hero = heros[0];
+            var hero = GameProcessor.Inst.PlayerManager.GetHero();
             this.lastClickCell = hero.Cell;
         }
 

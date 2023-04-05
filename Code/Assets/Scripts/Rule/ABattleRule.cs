@@ -67,11 +67,11 @@ namespace Game
                         case (int)RoundType.Monster:
                             this.DoMonsterLogic();
                             this.DoMapCellLogic();
+                            this.isGameOver = this.CheckGameResult();
                             break;
                     }
 
                     this.roundNum++;
-                    this.isGameOver = this.CheckGameResult();
                     if (this.isGameOver)
                     {
                         Debug.Log($"{(this.winCamp == PlayerType.Hero?"玩家":"怪物")}获胜！！");
@@ -88,8 +88,8 @@ namespace Game
                 }
             }
         }
-        
-        protected bool CheckGameResult()
+
+        virtual protected bool CheckGameResult()
         {
             var result = false;
             var heroCamp = GameProcessor.Inst.PlayerManager.GetHero();

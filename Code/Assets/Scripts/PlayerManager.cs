@@ -18,13 +18,6 @@ namespace Game
         {
             return hero;
         }
-        public void SetHero(Hero player)
-        {
-            hero = player;
-            hero.Init();
-            hero.UpdatePlayerInfo();
-            this.LoadHero();
-        }
 
         private void AddPlayer(APlayer player)
         {
@@ -112,10 +105,8 @@ namespace Game
 
         }
 
-        public APlayer LoadMonster(Dictionary<AttributeEnum, object> data = null)
+        public APlayer LoadMonster(APlayer enemy)
         {
-            APlayer enemy = null;
-
             var tempCells = GameProcessor.Inst.MapData.AllCells.ToList();
             var allPlayerCells = GameProcessor.Inst.PlayerManager.GetAllPlayers().Select(p => p.Cell).ToList();
             tempCells.RemoveAll(p => allPlayerCells.Contains(p));
@@ -133,7 +124,6 @@ namespace Game
                     bornCell = tempCells[0];
                 }
 
-                enemy = MonsterHelper.BuildMonster(hero.Level);
 
                 var coms = enemy.Transform.GetComponents<MonoBehaviour>();
                 foreach (var com in coms)
@@ -207,8 +197,13 @@ namespace Game
             UserData.Save();
         }
 
-        void OnDestroy()
+        public void OnDestroy()
         {
+            foreach (var player in this.AllPlayers)
+            {
+                player.OnDestroy();
+            }
+            this.AllPlayers.Clear();
         }
     }
 }

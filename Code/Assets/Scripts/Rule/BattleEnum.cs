@@ -23,7 +23,10 @@ namespace Game
         Normal = 0,
         
         [LabelText("幸存者")]
-        Survivors
+        Survivors,
+
+        [LabelText("无尽塔")]
+        Tower
     }
 
     public enum ComponentOrder
@@ -34,6 +37,7 @@ namespace Game
         Dialog,
         TopNav,
         Progress,
+        Window
     }
 
     public enum AttackGeometryType
@@ -70,8 +74,8 @@ namespace Game
         View_Bag = 0,
         View_Battle,
         View_Map,
+        View_Skill,
         View_Tower,
-        View_Skill
     }
 
     public enum TouchIgnoreType
@@ -82,5 +86,11 @@ namespace Game
         HideWithCloseBtn,
         [LabelText("自动关闭")]
         HideWithAuto
+    }
+
+    public enum BattleType
+    {
+        Normal = 0,
+        Tower
     }
 }

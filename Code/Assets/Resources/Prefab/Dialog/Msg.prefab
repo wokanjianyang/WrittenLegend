@@ -195,10 +195,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u57FA\u7840\u5251\u672F"
+  m_text: "\u666E\u653B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ef907ecec708e4d0bb6dd7ac6364f122, type: 2}
-  m_sharedMaterial: {fileID: -2901868830893144123, guid: ef907ecec708e4d0bb6dd7ac6364f122, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d19a6b9291a180f468d1280a1c3ad4ab, type: 2}
+  m_sharedMaterial: {fileID: 2013380225625608513, guid: d19a6b9291a180f468d1280a1c3ad4ab, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -222,10 +222,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25
-  m_fontSizeBase: 36
+  m_fontSize: 15
+  m_fontSizeBase: 15
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0

@@ -53,7 +53,7 @@ namespace Game
             this.Name = config.Name;
         }
 
-        private void MakeReward(DeadRewarddEvent dead)
+        virtual protected void MakeReward(DeadRewarddEvent dead)
         {
             Log.Info("Monster :" + this.ToString() + " dead");
 

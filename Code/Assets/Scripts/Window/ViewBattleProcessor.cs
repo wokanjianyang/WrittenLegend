@@ -10,7 +10,7 @@ namespace Game
     public class ViewBattleProcessor : AViewPage
     {
         [Title("战斗信息")]
-        [LabelText("所有物品")]
+        [LabelText("掉落")]
         public ScrollRect sr_BattleMsg;
 
         private bool isViewMapShowing = false;
@@ -43,22 +43,25 @@ namespace Game
 
         private void OnBattleMsgEvent(BattleMsgEvent e)
         {
-            var msg = GameObject.Instantiate(this.msgPrefab);
-            msg.transform.SetParent(this.sr_BattleMsg.content);
-            msg.transform.localScale = Vector3.one;
-            MonsterBase config = MonsterBaseCategory.Instance.Get(e.MonsterId);
-            string drops = "";
-            if (e.Drops!=null&&e.Drops.Count>0)
+            if(e.BattleType == BattleType.Normal)
             {
-                drops = ",掉落";
-                foreach(var drop in e.Drops)
+                var msg = GameObject.Instantiate(this.msgPrefab);
+                msg.transform.SetParent(this.sr_BattleMsg.content);
+                msg.transform.localScale = Vector3.one;
+                MonsterBase config = MonsterBaseCategory.Instance.Get(e.MonsterId);
+                string drops = "";
+                if (e.Drops!=null&&e.Drops.Count>0)
                 {
-                    drops += $"<color=#D800FF>[{drop.Name}]";
+                    drops = ",掉落";
+                    foreach(var drop in e.Drops)
+                    {
+                        drops += $"<color=#D800FF>[{drop.Name}]";
+                    }
                 }
+                msg.GetComponent<TextMeshProUGUI>().text = $"<color=#D800FF>[{config.Name}]<color=white>死亡,经验增加:{e.Exp},金币增加:{e.Gold}{drops}";
+                msg.name = $"msg_{e.RoundNum}";
+                this.sr_BattleMsg.normalizedPosition = new Vector2(0, 0);
             }
-            msg.GetComponent<TextMeshProUGUI>().text = $"<color=#D800FF>[{config.Name}]<color=white>死亡,经验增加:{e.Exp},金币增加:{e.Gold}{drops}";
-            msg.name = $"msg_{e.RoundNum}";
-            this.sr_BattleMsg.normalizedPosition = new Vector2(0, 0);
         }
     }
 }
