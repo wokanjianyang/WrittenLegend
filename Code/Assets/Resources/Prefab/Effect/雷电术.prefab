@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b56f405902e91ff4088fa5586c18e79f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 554e91f41f93f4646ab84cf942818033, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 2346607969130359185}
   - component: {fileID: 2346607969130359190}
   m_Layer: 5
-  m_Name: "\u51B0\u51BB"
+  m_Name: "\u96F7\u7535\u672F"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -126,8 +126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c146ead82574646866d0b63059c6be4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EffectPath: "UI/Buff\u65A9\u6740\u7D20\u6750/\u51B0\u51BB"
+  EffectPath: "UI/Buff\u65A9\u6740\u7D20\u6750/\u96F7\u7535\u672F"
   Loop: 0
   img_Effect: {fileID: 2346607968788309467}
-  frameTime: 20
+  frameTime: 12
   NeedReSize: 1
