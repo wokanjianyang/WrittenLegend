@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 554e91f41f93f4646ab84cf942818033, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b56f405902e91ff4088fa5586c18e79f, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -129,3 +129,5 @@ MonoBehaviour:
   EffectPath: "UI/Buff\u65A9\u6740\u7D20\u6750/\u51B0\u51BB"
   Loop: 0
   img_Effect: {fileID: 2346607968788309467}
+  frameTime: 20
+  NeedReSize: 1

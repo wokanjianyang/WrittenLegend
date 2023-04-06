@@ -11,73 +11,56 @@ namespace Game
     {
         public override void DoHeroLogic()
         {
-            var heros = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Hero);
-            if(heros == null || heros.Count == 0)
-            {
-                GameProcessor.Inst.PlayerManager.LoadHero();
-            }
-            else
-            {
-                foreach (var hero in heros)
-                {
-                    hero.DoEvent();
-                }
-            }
+            var hero = GameProcessor.Inst.PlayerManager.GetHero();
+            hero.DoEvent();
         }
 
         public override void DoValetLogic()
         {
-            var heros = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Hero);
-            if (heros != null && heros.Count > 0)
-            {
-                var hero = heros[0];
-                var valets = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Valet);
+            var valets = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Valet);
 
-                foreach (var valet in valets)
-                {
-                    valet.DoEvent();
-                }
+            foreach (var valet in valets)
+            {
+                valet.DoEvent();
             }
         }
 
         public override void DoMonsterLogic()
         {
-            var heros = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Hero);
-            if (heros != null && heros.Count > 0)
+            var hero = GameProcessor.Inst.PlayerManager.GetHero();
+
+            var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
+            enemys.Sort((a, b) =>
             {
-                var hero = heros[0];
-                var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
-                enemys.Sort((a, b) =>
-                {
-                    var distance = a.Cell - hero.Cell;
-                    var l0 = Math.Abs(distance.x) + Math.Abs(distance.y);
-    
-                    distance = b.Cell - hero.Cell;
-                    var l1 = Math.Abs(distance.x) + Math.Abs(distance.y);
+                var distance = a.Cell - hero.Cell;
+                var l0 = Math.Abs(distance.x) + Math.Abs(distance.y);
 
-                    if (l0 < l1)
-                    {
-                        return -1;
-                    }
-                    else if (l0 > l1)
-                    {
-                        return 1;
-                    }
-                    else
-                    {
-                        return 0;
-                    }
-                });
+                distance = b.Cell - hero.Cell;
+                var l1 = Math.Abs(distance.x) + Math.Abs(distance.y);
 
-                foreach (var enemy in enemys)
+                if (l0 < l1)
                 {
-                    enemy.DoEvent();
+                    return -1;
                 }
-
-                if (enemys.Count >= 0) //TODO 测试减少刷新数量
+                else if (l0 > l1)
                 {
-                    GameProcessor.Inst.PlayerManager.LoadMonster();
+                    return 1;
                 }
+                else
+                {
+                    return 0;
+                }
+            });
+
+            foreach (var enemy in enemys)
+            {
+                enemy.DoEvent();
+            }
+
+            if (enemys.Count >= 0) //TODO 测试减少刷新数量
+            {
+                var enemy = MonsterHelper.BuildMonster(hero.Level);
+                GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
             }
         }
     }

@@ -39,6 +39,8 @@ namespace Game
         public long Gold { get; set; }
 
         public List<Item> Drops { get; set; }
+
+        public BattleType BattleType { get; set; } = BattleType.Normal;
     }
 
     public class SkillBookEvent : SDD.Events.Event
@@ -60,5 +62,15 @@ namespace Game
 
     public class AutoRecoveryEvent : SDD.Events.Event
     { 
+    }
+
+    public class ShowTowerWindowEvent : SDD.Events.Event
+    {
+
+    }
+
+    public class UpdateTowerWindowEvent : SDD.Events.Event
+    {
+
     }
 }

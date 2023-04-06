@@ -110,8 +110,8 @@ public class Init : MonoBehaviour
         StartCoroutine(IE_DelayAction(0.1f, () =>
         {
             var com = this.gameObject.AddComponent<GameProcessor>();
-
-            com.LoadMap(this.RuleType,this.currentTimeSecond);
+            var map = GameObject.Find("Canvas").GetComponentInChildren<ViewBattleProcessor>().transform;
+            com.LoadMap(this.RuleType,this.currentTimeSecond, map);
 
             this.LoadingPage.gameObject.SetActive(false);
         }));

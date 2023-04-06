@@ -39,6 +39,11 @@ namespace Game
 
         private bool isInLevelUp;
 
+        /// <summary>
+        /// ÎÞ¾¡Ëþ²ãÊý
+        /// </summary>
+        public int TowerFloor = 1;
+
         public Hero():base()  {
             this.EventCenter.AddListener<HeroChangeEvent>(HeroChange);
             this.EventCenter.AddListener<HeroUseEquipEvent>(HeroUseEquip);

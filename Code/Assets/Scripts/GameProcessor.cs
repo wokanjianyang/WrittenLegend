@@ -1,6 +1,7 @@
 using SDD.Events;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -26,6 +27,8 @@ namespace Game
 
         public long CurrentTimeSecond { get; private set; }
 
+        private List<Coroutine> delayActionIEs = new List<Coroutine>();
+
         void Awake()
         {
             if (Inst != null)
@@ -34,15 +37,21 @@ namespace Game
                 Inst = this;
         }
 
-        void OnDestroy()
+        public void OnDestroy()
         {
-            if (Inst == this)
-                Inst = null;
+            PlayerManager.OnDestroy();
+            foreach(var ie in delayActionIEs)
+            {
+                StopCoroutine(ie);
+            }
+            delayActionIEs.Clear();
         }
 
         // Start is called before the first frame update
         void Start()
         {
+            this.EventCenter = new EventManager();
+
             var coms = Canvas.FindObjectsOfType<MonoBehaviour>(true);
             var battleComs = coms.Where(com => com is IBattleLife).Select(com=>com as IBattleLife).ToList();
             battleComs.Sort((a, b) =>
@@ -75,12 +84,12 @@ namespace Game
             }
         }
 
-        public void LoadMap(RuleType ruleType,long currentTimeSecond)
+        public void LoadMap(RuleType ruleType,long currentTimeSecond,Transform map)
         {
             this.PlayerManager = this.gameObject.AddComponent<PlayerManager>();
-            PlayerInfo = Canvas.FindObjectOfType<PlayerInfo>();
+            PlayerInfo = Canvas.FindObjectOfType<PlayerInfo>(true);
 
-            MapData = GameObject.Find("Canvas").GetComponentInChildren<MapData>();
+            MapData = map.GetComponentInChildren<MapData>();
             switch (ruleType)
             {
                 case RuleType.Normal:
@@ -89,14 +98,14 @@ namespace Game
                 case RuleType.Survivors:
                     this.BattleRule = new BattleRule_Survivors();
                     break;
+                case RuleType.Tower:
+                    this.BattleRule = new BattleRule_Tower();
+                    break;
             }
             this.PlayerRoot = MapData.transform.parent.Find("[PlayerRoot]").transform;
-            this.PlayerRoot.SetParent(MapData.transform.parent,false);
             
             this.EffectRoot = MapData.transform.parent.Find("[EffectRoot]").transform;
-            this.EffectRoot.SetParent(MapData.transform.parent, false);
 
-            this.EventCenter = new EventManager();
 
             this.CurrentTimeSecond = currentTimeSecond;
 
@@ -106,7 +115,8 @@ namespace Game
 
         public void DelayAction(float delay, Action callback)
         {
-            StartCoroutine(IE_DelayAction(delay, callback));
+            var ie = StartCoroutine(IE_DelayAction(delay, callback));
+            delayActionIEs.Add(ie);
         }
         private IEnumerator IE_DelayAction(float delay, Action callback)
         {

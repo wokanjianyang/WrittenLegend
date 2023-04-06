@@ -60,7 +60,7 @@ public class PlayerUI : MonoBehaviour,IPlayer
         }
     }
 
-    private void OnDestroy()
+    public void OnDestroy()
     {
         this.SelfPlayer.EventCenter.RemoveListener<SetBackgroundColorEvent>(OnSetBackgroundColorEvent);
         this.SelfPlayer.EventCenter.RemoveListener<SetPlayerNameEvent>(OnSetNameEvent);

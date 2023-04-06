@@ -21,7 +21,7 @@ namespace Game
 
         public List<SkillData> SkillList { get; set; } = new List<SkillData>();
 
-        //public IDictionary<int,int> SkillIdList { get; set; }
+        public IDictionary<int, int> SkillIdList { get; set; }
 
         [JsonIgnore]
         public PlayerType Camp { get; set; }
@@ -64,8 +64,13 @@ namespace Game
         [JsonIgnore]
         public int GroupId { get; set; }
 
+
+        [JsonIgnore]
+        public string UUID { get; set; }
+
         public APlayer()
         {
+            this.UUID = System.Guid.NewGuid().ToString("N");
             this.EventCenter = new EventManager();
             this.AttributeBonus = new AttributeBonus();
             this.SkillUseRoundCache = new Dictionary<int, int>(); 
@@ -336,6 +341,12 @@ namespace Game
         public T GetComponent<T>()
         {
             return this.Transform.GetComponent<T>();
+        }
+
+        public void OnDestroy()
+        {
+            this.EventCenter.RemoveAllListeners();
+            GameObject.Destroy(this.Transform.gameObject);
         }
     }
 }

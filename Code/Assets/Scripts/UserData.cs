@@ -8,46 +8,43 @@ namespace Game
 {
     public class UserData
     {
-        static Hero hero;
         static string savePath = "user";
         static string fileName = "data.json"; //文件名
         public static Hero Load() {
-            if(hero==null)
+            Hero hero = null;
+            string folderPath = System.IO.Path.Combine(Application.persistentDataPath, savePath); //文件夹路径                                        
+            string filePath = System.IO.Path.Combine(folderPath, fileName);             //文件路径
+            Debug.Log($"存档路径：{filePath}");
+
+            if (System.IO.File.Exists(filePath))
             {
-                string folderPath = System.IO.Path.Combine(Application.persistentDataPath, savePath); //文件夹路径                                        
-                string filePath = System.IO.Path.Combine(folderPath, fileName);             //文件路径
-                Debug.Log($"存档路径：{filePath}");
-
-                if (System.IO.File.Exists(filePath))
+                //读取文件
+                System.IO.StreamReader sr = new System.IO.StreamReader(filePath);
+                string str_json = sr.ReadToEnd();
+                sr.Close();
+                //反序列化
+                hero = JsonConvert.DeserializeObject<Hero>(str_json, new JsonSerializerSettings
                 {
-                    //读取文件
-                    System.IO.StreamReader sr = new System.IO.StreamReader(filePath);
-                    string str_json = sr.ReadToEnd();
-                    sr.Close();
-                    //反序列化
-                    hero = JsonConvert.DeserializeObject<Hero>(str_json, new JsonSerializerSettings
-                    {
-                        TypeNameHandling = TypeNameHandling.Auto
-                    });
+                    TypeNameHandling = TypeNameHandling.Auto
+                });
 
-                    if (hero == null) {
-                        hero = new Hero();
-                        //首次初始化
-                        hero.Level = 1;
-                        hero.Exp = 0;
-                        hero.Name = "传奇";
-                    }
-
-                    Debug.Log("成功读取");
-                }
-                else {
+                if (hero == null) {
                     hero = new Hero();
-                    //首次初始化属性
+                    //首次初始化
                     hero.Level = 1;
                     hero.Exp = 0;
                     hero.Name = "传奇";
-                    Save();
                 }
+
+                Debug.Log("成功读取");
+            }
+            else {
+                hero = new Hero();
+                //首次初始化属性
+                hero.Level = 1;
+                hero.Exp = 0;
+                hero.Name = "传奇";
+                Save();
             }
             return hero;
         }
@@ -65,6 +62,7 @@ namespace Game
             System.TimeSpan st = System.DateTime.UtcNow - new System.DateTime(1970, 1, 1, 0, 0, 0);//获取时间戳
             //Log.Debug($"离线时间:{DateTime.UtcNow.ToString("F")}");
 
+            var hero = GameProcessor.Inst.PlayerManager.GetHero();
             hero.LastOut = Convert.ToInt64(st.TotalSeconds);
 
             //序列化
