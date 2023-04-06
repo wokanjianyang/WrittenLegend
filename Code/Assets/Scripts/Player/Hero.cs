@@ -22,6 +22,8 @@ namespace Game
 
         public long Power { get; set; }
 
+        public long SecondExpTick { get; set; }
+
         public IDictionary<int, Equip> EquipPanel { get; set; } = new Dictionary<int, Equip>();
 
         [JsonIgnore]
@@ -78,7 +80,7 @@ namespace Game
             RecoverySetting.SetQuanlity(1, true);
             RecoverySetting.SetQuanlity(2, true);
             RecoverySetting.SetQuanlity(3, true);
-            RecoverySetting.SetQuanlity(4, true);
+            //RecoverySetting.SetQuanlity(4, true);
             RecoverySetting.SetLevel(100);
         }
 
@@ -225,6 +227,10 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, config.PhyAtt);
             AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, config.PhyAtt);
             AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, config.Def);
+
+            TowerConfig towerConfig = TowerConfigCategory.Instance.Get(this.TowerFloor - 1);
+            AttributeBonus.SetAttr(AttributeEnum.SecondExp, AttributeFrom.Tower, towerConfig.OfflineExp);
+
             UpExp = config.Exp;
         }
 

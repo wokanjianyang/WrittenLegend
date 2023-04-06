@@ -49,11 +49,18 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
 
     private void OnBattleMsgEvent(BattleMsgEvent e)
     {
-        if(e.BattleType == BattleType.Tower)
+        var msg = GameObject.Instantiate(this.msgPrefab);
+        msg.transform.SetParent(this.sr_BattleMsg.content);
+        msg.transform.localScale = Vector3.one;
+
+        if (e.MsgType == MsgType.SecondExp)
         {
-            var msg = GameObject.Instantiate(this.msgPrefab);
-            msg.transform.SetParent(this.sr_BattleMsg.content);
-            msg.transform.localScale = Vector3.one;
+            msg.GetComponent<TextMeshProUGUI>().text = $"增加泡点经验{e.Exp}";
+            this.sr_BattleMsg.normalizedPosition = new Vector2(0, 0);
+            GameProcessor.Inst.EventCenter.Raise(new UpdateTowerWindowEvent());
+        }
+        else if (e.BattleType == BattleType.Tower)
+        {
             string drops = "";
             if (e.Drops != null && e.Drops.Count > 0)
             {
@@ -64,10 +71,10 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
                 }
             }
             var hero = GameProcessor.Inst.PlayerManager.GetHero();
-            msg.GetComponent<TextMeshProUGUI>().text = $"<color=white>经验增加:{e.Exp},进入第{hero.TowerFloor}层";
+            msg.GetComponent<TextMeshProUGUI>().text = $"<color=white>泡点经验提升至:{e.Exp},进入第{hero.TowerFloor}层";
             msg.name = $"msg_{e.RoundNum}";
-            this.sr_BattleMsg.normalizedPosition = new Vector2(0, 0);
 
+            this.sr_BattleMsg.normalizedPosition = new Vector2(0, 0);
             GameProcessor.Inst.EventCenter.Raise(new UpdateTowerWindowEvent());
         }
     }

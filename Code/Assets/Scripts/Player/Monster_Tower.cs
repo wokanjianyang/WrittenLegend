@@ -26,22 +26,11 @@ public class Monster_Tower : Monster
 
         long exp = this.Exp;
 
-        //增加经验,金币
-
-        hero.Exp += exp;
-        hero.Gold += this.Gold;
+        //增加泡点经验，爬塔层数
+        hero.AttributeBonus.SetAttr(AttributeEnum.SecondExp, AttributeFrom.Tower, this.Exp);
         hero.TowerFloor++;
-        hero.EventCenter.Raise(new HeroInfoUpdateEvent());
-        if (hero.Exp >= hero.UpExp)
-        {
-            hero.EventCenter.Raise(new HeroChangeEvent
-            {
-                Type = Hero.HeroChangeType.LevelUp
-            });
-        }
 
         //生成道具奖励
-
         GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
         {
             RoundNum = hero.RoundCounter,

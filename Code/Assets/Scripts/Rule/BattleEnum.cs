@@ -93,4 +93,10 @@ namespace Game
         Normal = 0,
         Tower
     }
+
+    public enum MsgType
+    {
+        Drop = 0,
+        SecondExp =1
+    }
 }

@@ -9,19 +9,19 @@ namespace Game
         Level = -3,
         Exp = -2, //经验值
         Power = -1, //战力
-        CurrentHp =0, //当前生命
-        HP =1, //生命值
-        PhyAtt =2, //物理攻击
-        MagicAtt =3,//魔法攻击
-        SpiritAtt =4, //道术攻击
-        Def =5, //防御
-        Speed =6, //攻速
-        Lucky =7, //幸运
+        CurrentHp = 0, //当前生命
+        HP = 1, //生命值
+        PhyAtt = 2, //物理攻击
+        MagicAtt = 3,//魔法攻击
+        SpiritAtt = 4, //道术攻击
+        Def = 5, //防御
+        Speed = 6, //攻速
+        Lucky = 7, //幸运
         CritRate = 8, //暴击率
         CritDamage = 9, //暴害增加
-        CritRateResist =10, //抗暴
+        CritRateResist = 10, //抗暴
         CritDamageResist = 11, //爆伤减免
-        DamageIncrea =12, //伤害增加
+        DamageIncrea = 12, //伤害增加
         DamageResist = 13, //伤害减少
         AttIncrea = 14, //攻击加成
         HpIncrea = 15, //生命加成
@@ -29,6 +29,7 @@ namespace Game
         InheritIncrea = 17, //继承加成
         ExpIncrea = 18, //经验加成
         BurstIncrea = 19, //爆率加成
+        SecondExp = 20, //泡点经验
 
     }
 
@@ -41,6 +42,7 @@ namespace Game
         EquipBase = 2, //装备基础属性
         EquiStrong = 3, //装备强化属性
         Skill = 4,//技能增幅
+        Tower = 5,
         /// <summary>
         /// 测试属性
         /// </summary>
