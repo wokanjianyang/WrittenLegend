@@ -1,6 +1,7 @@
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -22,47 +23,49 @@ namespace Game
         [LabelText("描述")]
         public TextMeshProUGUI tmp_Des;
 
-        public SkillData SkillData { get; private set; }
+        public SkillPanel SkillPanel { get; private set; }
 
         // Start is called before the first frame update
         void Start()
         {
-        
+
         }
 
         // Update is called once per frame
         void Update()
         {
-        
+
         }
 
-        public void SetItem(SkillData skillData)
+        public void SetItem(SkillPanel skillPanel)
         {
-            this.SkillData = skillData;
-            if (skillData.Name.Length > 2)
+            this.SkillPanel = skillPanel;
+
+            if (SkillPanel.SkillData.SkillConfig.Name.Length > 2)
             {
-                this.tmp_Name.text = skillData.Name.Insert(2, "\n");
+                this.tmp_Name.text = SkillPanel.SkillData.SkillConfig.Name.Insert(2, "\n");
             }
             else
             {
-                this.tmp_Name.text = SkillData.Name;
+                this.tmp_Name.text = SkillPanel.SkillData.SkillConfig.Name;
             }
-            this.tmp_Level.text = string.Format("LV:{0}", SkillData.Level);
-            this.tmp_CD.text = string.Format("冷却时间{0}回合", SkillData.CD);
-            this.tmp_Des.text = SkillData.Des;
+            this.tmp_Level.text = string.Format("LV:{0}", SkillPanel.SkillData.Level);
+            this.tmp_CD.text = string.Format("冷却时间{0}回合", SkillPanel.CD);
+
+            this.tmp_Des.text = string.Format(SkillPanel.SkillData.SkillConfig.Des, SkillPanel.Dis, SkillPanel.EnemyMax, SkillPanel.Percent, SkillPanel.EnemyMax);
 
             var expProgress = this.GetComponentInChildren<Com_Progress>();
-            expProgress.SetProgress(SkillData.Exp, SkillData.UpExp);
+            expProgress.SetProgress(SkillPanel.SkillData.Exp, SkillPanel.SkillData.SkillConfig.Exp);
         }
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (this.SkillData == null) return;
-            this.SkillData.Status = SkillStatus.Equip;
+            if (this.SkillPanel == null || this.SkillPanel.SkillData == null) return;
+            this.SkillPanel.SkillData.Status = SkillStatus.Equip;
+            this.SkillPanel.SkillData.Position = (int)SkillPosition.Last; //
             GameProcessor.Inst.PlayerManager.GetHero().EventCenter.Raise(new HeroUpdateSkillEvent
             {
-                SkillData = this.SkillData
+                SkillPanel = this.SkillPanel
             });
         }
-
     }
 }

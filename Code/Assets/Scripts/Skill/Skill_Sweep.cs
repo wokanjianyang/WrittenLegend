@@ -6,7 +6,7 @@ namespace Game
 {
     public class Skill_Sweep : BaseAttackSkill
     {
-        public Skill_Sweep(APlayer player, SkillData skillData) : base(player, skillData)
+        public Skill_Sweep(APlayer player, SkillPanel skill) : base(player, skill)
         {
         }
 
@@ -19,7 +19,7 @@ namespace Game
             //施法中心为自己
             APlayer target = SelfPlayer;
 
-            List<Vector3Int> allAttackCells = GameProcessor.Inst.MapData.GetAttackRangeCell(target.Cell, SkillData.Dis, SkillData.Area);
+            List<Vector3Int> allAttackCells = GameProcessor.Inst.MapData.GetAttackRangeCell(target.Cell, SkillPanel.Dis, SkillPanel.Area);
             float ratio = allAttackCells.Count;
 
             //排序，从进到远
@@ -33,7 +33,7 @@ namespace Game
 
             foreach (var cell in allAttackCells)
             {
-                if (EnemyNum >= SkillData.EnemyMax)
+                if (EnemyNum >= SkillPanel.EnemyMax)
                 {
                     break;
                 }
@@ -60,6 +60,8 @@ namespace Game
 
         public override float CalcFormula(APlayer player, float ratio)
         {
+            //伤害公式 (攻击-防御)*(增伤-减伤)*（暴击?(暴击加成-暴击减伤)）*幸运
+
             long damage = this.SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.PhyAtt) - player.AttributeBonus.GetTotalAttr(AttributeEnum.Def);
             return damage > 1 ? damage : 1;
         }

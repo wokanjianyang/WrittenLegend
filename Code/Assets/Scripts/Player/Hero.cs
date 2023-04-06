@@ -27,8 +27,6 @@ namespace Game
         [JsonIgnore]
         public IDictionary<int, int> equipRecord { get; set; } = new Dictionary<int, int>();
 
-        public List<SkillData> SkillPanel { get; set; } = new List<SkillData>();
-
         public RecoverySetting RecoverySetting { get; set; } = new RecoverySetting();
 
 
@@ -75,6 +73,7 @@ namespace Game
             RecoverySetting.SetQuanlity(1, true);
             RecoverySetting.SetQuanlity(2, true);
             RecoverySetting.SetQuanlity(3, true);
+            RecoverySetting.SetQuanlity(4, true);
             RecoverySetting.SetLevel(100);
         }
 
@@ -83,15 +82,6 @@ namespace Game
         /// </summary>
         public void InitPanelSkill()
         {
-            SkillIdList = new Dictionary<int, int>();
-
-            List<SkillData> list = SkillPanel.FindAll(m => m.Status == SkillStatus.Equip);
-
-            for (int i = 0; i < list.Count; i++)
-            {
-                SkillIdList.Add(i, list[i].SkillId);
-            }
-
             base.LoadSkill();
         }
 
@@ -157,69 +147,71 @@ namespace Game
             if (e.IsLearn)
             {
                 //第一次学习，创建技能数据
-                SkillData skillData = new SkillData(Book.ConfigId);
+                SkillData skillData = new SkillData(Book.ConfigId,0);
                 skillData.Status = SkillStatus.Learn;
                 skillData.Level = 1;
                 skillData.Exp = 0;
-                skillData.UpExp = Book.SkillConfig.Exp;
 
-                this.SkillPanel.Add(skillData);
+                this.SkillList.Add(skillData);
+
+                SkillPanel skillPanel = new SkillPanel(skillData, GetRuneList(skillData.SkillId), GetSuitList(skillData.SkillId));
                 this.EventCenter.Raise(new HeroUpdateSkillEvent()
                 {
-                    SkillData = skillData
+                    SkillPanel = skillPanel
                 });
             }
             else
             {
-                SkillData skillData = this.SkillPanel.Find(b => b.SkillId == Book.ConfigId);
+                SkillData skillData = this.SkillList.Find(b => b.SkillId == Book.ConfigId);
                 skillData.AddExp(Book.ItemConfig.UseParam);
+
+                SkillPanel skillPanel = new SkillPanel(skillData, GetRuneList(skillData.SkillId), GetSuitList(skillData.SkillId));
                 this.EventCenter.Raise(new HeroUpdateSkillEvent()
                 {
-                    SkillData = skillData
+                    SkillPanel = skillPanel
                 });
             }
         }
 
-        private void RebuildSkill(ref SkillData skill)
+        public override List<SkillRune> GetRuneList(int skillId)
         {
-            int skillId = skill.SkillId;
+            List<SkillRune> list = new List<SkillRune>();
 
+            //计算装备的词条加成
             List<Equip> skillList = this.EquipPanel.Where(m => m.Value.SkillRuneConfig.SkillId == skillId).Select(m => m.Value).ToList();
 
-            //按单件分组
+            //按单件分组,词条有堆叠上限
             var runeGroup = skillList.GroupBy(m => m.RuneConfigId);
-            foreach (var runeList in runeGroup)
+            foreach (IGrouping<int, Equip> runeItem in runeGroup)
             {
-                SkillRuneConfig SkillRuneConfig = runeList.ElementAt(0).SkillRuneConfig;
-
-                int RuneCount = Mathf.Min(SkillRuneConfig.Max, runeList.Count());
-
-                skill.CD += SkillRuneConfig.CD * RuneCount;
-                skill.Dis += SkillRuneConfig.Dis * RuneCount;
-                skill.Damage += SkillRuneConfig.Damage * RuneCount;
-                skill.Percent += SkillRuneConfig.Percent * RuneCount;
-                skill.EnemyMax += SkillRuneConfig.EnemyMax * RuneCount;
+                SkillRune skillRune = new SkillRune(runeItem.Key, runeItem.Count());
+                list.Add(skillRune);
             }
 
-            //按套装分组
-            var suitGroup = skillList.GroupBy(m => m.SkillRuneConfig.SuitId);
-
-            foreach (var suitList in suitGroup)
-            {
-                if (suitList.Count() >= 4)
-                {  //4件才成套,并且只能有一套能生效
-                    SkillSuitConfig SkillSuitConfig = suitList.ElementAt(0).SkillSuitConfig;
-
-                    skill.CD += SkillSuitConfig.CD;
-                    skill.Dis += SkillSuitConfig.Dis;
-                    skill.Damage += SkillSuitConfig.Damage;
-                    skill.Percent += SkillSuitConfig.Percent;
-                    skill.EnemyMax += SkillSuitConfig.EnemyMax;
-                }
-            }
+            return list;
         }
 
-       
+        public override List<SkillSuit> GetSuitList(int skillId)
+        {
+            List<SkillSuit> list = new List<SkillSuit>();
+
+            //计算装备的套装加成
+            List<Equip> skillList = this.EquipPanel.Where(m => m.Value.SkillSuitConfig.SkillId == skillId).Select(m => m.Value).ToList();
+            var suitGroup = skillList.GroupBy(m => m.SkillRuneConfig.SuitId);
+
+            foreach (var suitItem in suitGroup)
+            {
+                if (suitItem.Count() >= 4)
+                {  //4件才成套,并且只能有一套能生效
+                    SkillSuit suit = new SkillSuit(suitItem.Key);
+                    list.Add(suit);
+                }
+            }
+
+            return list;
+        }
+
+
         private void SetLevelConfigAttr()
         {
             LevelConfig config = LevelConfigCategory.Instance.Get(Level);

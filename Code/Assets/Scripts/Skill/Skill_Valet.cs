@@ -9,14 +9,14 @@ namespace Game
         public List<Valet> ValetList = new List<Valet>();
         public int MaxValet = 0;
 
-        public Skill_Valet(APlayer player, SkillData skillData) : base(player, skillData)
+        public Skill_Valet(APlayer player, SkillPanel skillPanel) : base(player, skillPanel)
         {
-            MaxValet = skillData.EnemyMax;
+            MaxValet = skillPanel.EnemyMax;
         }
 
         public override List<AttackData> GetAllTargets()
         {
-            Debug.Log($"使用技能:{(this.SkillData.Name)},施法目标为自己");
+            Debug.Log($"使用技能:{(this.SkillPanel.SkillData.SkillConfig.Name)},施法目标为自己");
 
             List<AttackData> attackDatas = new List<AttackData>();
             attackDatas.Add(new AttackData()
@@ -47,7 +47,7 @@ namespace Game
 
 
             Hero hero = SelfPlayer as Hero;
-            long baseAttr = hero.AttributeBonus.GetTotalAttr(AttributeEnum.SpiritAtt) * SkillData.Percent / 100 + SkillData.Damage;
+            long baseAttr = hero.AttributeBonus.GetTotalAttr(AttributeEnum.SpiritAtt) * SkillPanel.Percent / 100 + SkillPanel.Damage;
 
             Dictionary<AttributeEnum, object> data = new Dictionary<AttributeEnum, object>();
             data[AttributeEnum.Color] = Color.white;

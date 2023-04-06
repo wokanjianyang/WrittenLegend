@@ -77,6 +77,6 @@ namespace Game
     //选择出战技能
     public class HeroUpdateSkillEvent : SDD.Events.Event
     {
-        public SkillData SkillData { get; set; }
+        public SkillPanel SkillPanel { get; set; }
     }
 }

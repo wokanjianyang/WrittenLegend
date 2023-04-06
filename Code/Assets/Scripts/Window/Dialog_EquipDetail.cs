@@ -198,7 +198,7 @@ namespace Game
                         tran_NormalAttribute.Find("Title").GetComponent<TextMeshProUGUI>().text = skillBox.ItemConfig.Des;
                         tran_NormalAttribute.Find("NeedLevel").GetComponent<TextMeshProUGUI>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.item.Level);
                         var hero = GameProcessor.Inst.PlayerManager.GetHero();
-                        var isLearn = hero.SkillPanel.Find(b => b.SkillId == this.item.ConfigId) == null;
+                        var isLearn = hero.SkillList.Find(b => b.SkillId == this.item.ConfigId) == null;
                         this.btn_Learn.gameObject.SetActive(isLearn);
                         this.btn_Upgrade.gameObject.SetActive(!isLearn);
 

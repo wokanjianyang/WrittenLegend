@@ -7,7 +7,7 @@ namespace Game
 {
     public class BaseAttackSkill : ASkill
     {
-        public BaseAttackSkill(APlayer player, SkillData skillData) : base(player, skillData)
+        public BaseAttackSkill(APlayer player, SkillPanel skillPanel) : base(player, skillPanel)
         {
         }
 

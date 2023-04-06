@@ -19,7 +19,7 @@ namespace Game
         [LabelText("¼¼ÄÜ")]
         public Button btn_Skill;
 
-        public SkillData SkillData { get; private set; }
+        public SkillPanel SkillPanel { get; private set; }
 
         // Start is called before the first frame update
         void Start()
@@ -30,30 +30,32 @@ namespace Game
         // Update is called once per frame
         void Update()
         {
-        
+
         }
 
         private void OnClick_RemoveSkill()
         {
             this.tran_Skill.gameObject.SetActive(false);
-            this.SkillData.Status = SkillStatus.Learn;
+            this.SkillPanel.SkillData.Status = SkillStatus.Learn;
+            this.SkillPanel.SkillData.Position = 0;
             GameProcessor.Inst.PlayerManager.GetHero().EventCenter.Raise(new HeroUpdateSkillEvent
             {
-                SkillData = this.SkillData
+                SkillPanel = this.SkillPanel
             });
         }
 
-        public void SetItem(SkillData skillData)
+        public void SetItem(SkillPanel skillPanel)
         {
-            if (skillData.Name.Length > 2)
+            this.SkillPanel = skillPanel;
+
+            if (SkillPanel.SkillData.SkillConfig.Name.Length > 2)
             {
-                this.tmp_Name.text = skillData.Name.Insert(2, "\n");
+                this.tmp_Name.text = SkillPanel.SkillData.SkillConfig.Name.Insert(2, "\n");
             }
             else
             {
-                this.tmp_Name.text = SkillData.Name;
+                this.tmp_Name.text = SkillPanel.SkillData.SkillConfig.Name;
             }
-            this.SkillData = skillData;
 
             this.tran_Skill.gameObject.SetActive(true);
         }

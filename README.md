@@ -17,6 +17,16 @@
 - [x] 技能
 - [ ] 装备
 
+###代码结构
+技能模块
+SkillBox 技能书
+SkillData 技能存档数据
+SkillPanel 面板数据(显示CD，是否可用等)
+SkillState 技能状态数据（释放之后，临时存在的数据）
+ASkill 技能基础逻辑（继承类有 Skill_Sweep,Skill_Map,Skill_Valet）
+
+
+
 ### 项目配置
 1. 代码管理：git  
 2. unity版本：2021.3.12f1c1  

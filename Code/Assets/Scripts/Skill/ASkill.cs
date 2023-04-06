@@ -11,16 +11,16 @@ namespace Game
     abstract public class ASkill : IPlayer
     {
         public APlayer SelfPlayer { get; set; }
-        public SkillData SkillData { get; set; }
+        public SkillPanel SkillPanel{ get; set; }
 
         protected List<AttackData> attackDataCache { get; set; }
 
         private SkillGraphic skillGraphic;
 
-        public ASkill(APlayer player, SkillData skillData)
+        public ASkill(APlayer player, SkillPanel skill)
         {
             this.SelfPlayer = player;
-            this.SkillData = skillData;
+            this.SkillPanel = skill;
             this.skillGraphic = new SkillGraphic(player);
         }
         virtual public void Do()
@@ -32,9 +32,10 @@ namespace Game
                 var damage = (int)this.CalcFormula(enemy, attackData.Ratio);
                 enemy.OnHit(attackData.Tid, damage);
 
-                if (SkillData.SkillConfig.EffectIdList!=null && SkillData.SkillConfig.EffectIdList.Length > 0)
+                SkillConfig skillConfig = SkillPanel.SkillData.SkillConfig;
+                if (skillConfig.EffectIdList!=null && skillConfig.EffectIdList.Length > 0)
                 {
-                    foreach (int EffectId in SkillData.SkillConfig.EffectIdList)
+                    foreach (int EffectId in skillConfig.EffectIdList)
                     {
                         EffectConfig config = EffectConfigCategory.Instance.Get(EffectId);
 

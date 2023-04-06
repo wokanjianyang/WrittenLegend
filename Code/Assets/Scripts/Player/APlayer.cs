@@ -19,7 +19,9 @@ namespace Game
         public int Level { get; set; }
         public long HP { get; set; }
 
-        public IDictionary<int,int> SkillIdList { get; set; }
+        public List<SkillData> SkillList { get; set; } = new List<SkillData>();
+
+        //public IDictionary<int,int> SkillIdList { get; set; }
 
         [JsonIgnore]
         public PlayerType Camp { get; set; }
@@ -66,7 +68,6 @@ namespace Game
         {
             this.EventCenter = new EventManager();
             this.AttributeBonus = new AttributeBonus();
-            this.SkillIdList = new Dictionary<int,int>();
             this.SkillUseRoundCache = new Dictionary<int, int>(); 
             this.SelectSkillList = new List<SkillState>();
 
@@ -98,48 +99,57 @@ namespace Game
 
         public void LoadSkill()
         {
-            foreach(var skill in SelectSkillList)
+            foreach (var skill in SelectSkillList)
             {
-                if(!SkillUseRoundCache.TryGetValue(skill.Data.SkillId,out var useRound))
+                if (!SkillUseRoundCache.TryGetValue(skill.SkillPanel.SkillId, out var useRound))
                 {
                     useRound = 0;
                 }
-                SkillUseRoundCache[skill.Data.SkillId] = useRound;
+                SkillUseRoundCache[skill.SkillPanel.SkillId] = useRound;
 
                 //销毁技能
                 skill.Destory();
             }
+
             SelectSkillList = new List<SkillState>();
+
+            List<SkillData> list = SkillList.FindAll(m => m.Status == SkillStatus.Equip).OrderBy(m => m.Position).ToList();
             //加载已选择的技能
-            foreach (int position in SkillIdList.Keys)
+            for (int p = 0; p < list.Count; p++)
             {
-                EquipSkill(position, SkillIdList[position]);
+                SkillData skillData = list[p];
+                skillData.Position = p + 1; //按顺序从1开始重新排位
+                EquipSkill(skillData);
             }
             //默认增加普通攻击
-            EquipSkill(9, 9001);
+            SkillData defaulSkill = new SkillData(9001, (int)SkillPosition.Default);
+            EquipSkill(defaulSkill);
         }
 
-        public void EquipSkill(int position, int skillId)
+        public virtual List<SkillRune> GetRuneList(int skillId)
         {
-            int calCd = 0;//TODO 计算装备天赋等技能加成
+            List<SkillRune> list = new List<SkillRune>();
 
-            SkillConfig config = SkillConfigCategory.Instance.Get(skillId);
+            return list;
+        }
 
-            SkillData data = new SkillData(skillId);
-            data.SkillId = config.Id;
-            data.Name = config.Name;
-            data.CD = config.CD - calCd;
-            data.Des = config.Des;
-            data.Dis = config.Dis;
-            data.Center = (SkillCenter)Enum.Parse(typeof(SkillCenter), config.Center);
-            data.Area = (AttackGeometryType)Enum.Parse(typeof(AttackGeometryType), config.Area);
-            data.EnemyMax = config.EnemyMax;
-            data.Percent = config.Percent;
-            data.Damage = config.Damage;
-            data.Type = config.Type;
-            data.Priority = config.Priority;
-            SkillUseRoundCache.TryGetValue(data.SkillId, out var lastUseRound);
-            SkillState skill = new SkillState(this, data, position, lastUseRound);
+        public virtual List<SkillSuit> GetSuitList(int skillId) {
+            List<SkillSuit> list = new List<SkillSuit>();
+
+            return list;
+        }
+
+        public void EquipSkill(SkillData skillData)
+        {
+            //TODO 计算装备天赋等技能加成
+            List<SkillRune> runeList = GetRuneList(skillData.SkillId);
+            List<SkillSuit> suitList = GetSuitList(skillData.SkillId);
+
+            SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList);
+
+            SkillUseRoundCache.TryGetValue(skillData.SkillId, out var lastUseRound);
+
+            SkillState skill = new SkillState(this, skillPanel, skillData.Position, lastUseRound);
             SelectSkillList.Add(skill);
         }
 
@@ -180,7 +190,7 @@ namespace Game
 
             if (targets != null && targets.Count > 0)
             {  //使用技能
-                Debug.Log($"{(this.Name)}使用技能:{(skill.Data.Name)}");
+                Debug.Log($"{(this.Name)}使用技能:{(skill.SkillPanel.SkillData.SkillConfig.Name)},攻击:"+targets.Count+"个");
                 skill.Do(targets);
                 this.EventCenter.Raise(new ShowAttackIcon { NeedShow = true });
             }

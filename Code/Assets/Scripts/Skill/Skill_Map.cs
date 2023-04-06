@@ -7,7 +7,7 @@ namespace Game
 {
     public class Skill_Map : BaseAttackSkill
     {
-        public Skill_Map(APlayer player, SkillData skillData) : base(player, skillData)
+        public Skill_Map(APlayer player, SkillPanel skillPanel) : base(player, skillPanel)
         {
 
         }
@@ -21,7 +21,7 @@ namespace Game
             //施法中心为自己
             APlayer target = SelfPlayer;
 
-            List<Vector3Int> allAttackCells = GameProcessor.Inst.MapData.GetAttackRangeCell(target.Cell, SkillData.Dis, SkillData.Area);
+            List<Vector3Int> allAttackCells = GameProcessor.Inst.MapData.GetAttackRangeCell(target.Cell, SkillPanel.Dis, SkillPanel.Area);
 
             foreach (var cell in allAttackCells)
             {
@@ -49,7 +49,7 @@ namespace Game
 
         public override void Do()
         {
-            List<Vector3Int> allAttackCells = GameProcessor.Inst.MapData.GetAttackRangeCell(SelfPlayer.Cell, SkillData.Dis, SkillData.Area);
+            List<Vector3Int> allAttackCells = GameProcessor.Inst.MapData.GetAttackRangeCell(SelfPlayer.Cell, SkillPanel.Dis, SkillPanel.Area);
 
             foreach (var cell in allAttackCells)
             {
