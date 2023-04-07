@@ -87,7 +87,7 @@ namespace Game
 		/// <summary>优先度</summary>
 		[ProtoMember(4)]
 		public int Priority { get; set; }
-		/// <summary>施法类型</summary>
+		/// <summary>施法目标</summary>
 		[ProtoMember(5)]
 		public int TargetType { get; set; }
 		/// <summary>最大叠加层数</summary>

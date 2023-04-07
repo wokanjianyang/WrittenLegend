@@ -8,4 +8,8 @@
 {"_t":"EffectConfig","_id":301,"Name":"魔法攻击增强","Type":1,"Priority":50,"TargetType":1,"Max":1,"Level":1,"Percent":10,"Damage":100,"Duration":15,"TargetAttr":3,"SourceAttr":3},
 {"_t":"EffectConfig","_id":401,"Name":"道术攻击增强","Type":1,"Priority":50,"TargetType":1,"Max":1,"Level":1,"Percent":10,"Damage":100,"Duration":15,"TargetAttr":4,"SourceAttr":4},
 {"_t":"EffectConfig","_id":501,"Name":"防御增强","Type":1,"Priority":10,"TargetType":1,"Max":1,"Level":1,"Percent":10,"Damage":20,"Duration":15,"TargetAttr":5,"SourceAttr":5},
+{"_t":"EffectConfig","_id":1201,"Name":"增伤强化","Type":1,"Priority":10,"TargetType":1,"Max":1,"Level":1,"Percent":50,"Damage":0,"Duration":5,"TargetAttr":12,"SourceAttr":0},
+{"_t":"EffectConfig","_id":1202,"Name":"增伤弱化","Type":-1,"Priority":10,"TargetType":2,"Max":1,"Level":1,"Percent":50,"Damage":0,"Duration":3,"TargetAttr":12,"SourceAttr":0},
+{"_t":"EffectConfig","_id":1301,"Name":"减伤强化","Type":1,"Priority":10,"TargetType":1,"Max":1,"Level":1,"Percent":50,"Damage":0,"Duration":5,"TargetAttr":13,"SourceAttr":0},
+{"_t":"EffectConfig","_id":1302,"Name":"减伤弱化","Type":-1,"Priority":10,"TargetType":2,"Max":1,"Level":1,"Percent":50,"Damage":0,"Duration":3,"TargetAttr":13,"SourceAttr":0},
 ]}

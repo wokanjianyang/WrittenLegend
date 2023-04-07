@@ -25,7 +25,11 @@ SkillPanel 面板数据(显示CD，是否可用等)
 SkillState 技能状态数据（释放之后，临时存在的数据）
 ASkill 技能基础逻辑（继承类有 Skill_Sweep,Skill_Map,Skill_Valet）
 
-
+#需求 or BUG
+1.战斗会卡，不流畅
+2.运行太久会卡
+3.物品弹框太小看不清,建议：改为全屏模态框
+4.字体库大，并且经常有乱码
 
 ### 项目配置
 1. 代码管理：git  

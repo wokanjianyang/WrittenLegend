@@ -66,7 +66,6 @@ namespace Game
         // Start is called before the first frame update
         void Start()
         {
-            this.rectTransform = this.transform.GetComponent<RectTransform>();
             this.btn_Equip.onClick.AddListener(this.OnEquip);
             this.btn_UnEquip.onClick.AddListener(this.OnUnEquip);
             this.btn_Learn.onClick.AddListener(this.OnLearnSkill);
@@ -85,6 +84,7 @@ namespace Game
         public void OnBattleStart()
         {
             GameProcessor.Inst.EventCenter.AddListener<ShowEquipDetailEvent>(this.OnShowEquipDetailEvent);
+            this.rectTransform = this.transform.GetComponent<RectTransform>();
         }
 
         private void OnShowEquipDetailEvent(ShowEquipDetailEvent e)
