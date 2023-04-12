@@ -29,7 +29,7 @@ namespace Game
             foreach (var attackData in attackDataCache)
             {
                 var enemy = GameProcessor.Inst.PlayerManager.GetPlayer(attackData.Tid);
-                var damage = (int)this.CalcFormula(enemy, attackData.Ratio);
+                var damage = this.CalcFormula(enemy, attackData.Ratio);
                 enemy.OnHit(attackData.Tid, damage);
 
                 SkillConfig skillConfig = SkillPanel.SkillData.SkillConfig;
@@ -60,9 +60,34 @@ namespace Game
             return true;
         }
 
-        virtual public float CalcFormula(APlayer player,float ratio)
+        virtual public long CalcFormula(APlayer player,float ratio)
         {
             return 0;
+        }
+
+        public long GetRoleAttack()
+        {
+            long attack = 0;
+            switch (SkillPanel.SkillData.SkillConfig.Role)
+            {
+                case (int)RoleType.Warrior:
+                    {
+                        attack = SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.PhyAtt);
+                        break;
+                    }
+                case (int)RoleType.Mage:
+                    {
+                        attack = SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.MagicAtt);
+                        break;
+                    }
+                case (int)RoleType.Warlock:
+                    {
+                        attack = SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.SpiritAtt);
+                        break;
+                    }
+            }
+
+            return attack;
         }
 
         virtual public List<AttackData> GetAllTargets()

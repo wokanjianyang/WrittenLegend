@@ -111,6 +111,13 @@ namespace Game
             return random.Next(2) == 0;
         }
 
+        public static bool RandomCritRate(int rate)
+        {
+            if (rate >= 100) return true;
+            if (rate <= 0) return false;
+            return random.Next(1, 100) <= rate;
+        }
+
         public static T RandomArray<T>(this T[] array)
         {
             return array[RandomNumber(0, array.Length)];

@@ -127,8 +127,8 @@ namespace Game
                 EquipSkill(skillData);
             }
             //默认增加普通攻击
-            SkillData defaulSkill = new SkillData(9001, (int)SkillPosition.Default);
-            EquipSkill(defaulSkill);
+            //SkillData defaulSkill = new SkillData(9001, (int)SkillPosition.Default);
+            //EquipSkill(defaulSkill);
         }
 
         public virtual List<SkillRune> GetRuneList(int skillId)

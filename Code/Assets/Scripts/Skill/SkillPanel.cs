@@ -25,6 +25,8 @@ namespace Game
 
         public int Duration { get; }
 
+        public int CritRate { get; } //±©»÷±¶ÂÊ
+
         public AttackGeometryType Area { get; }
 
         public SkillPanel(SkillData skillData, List<SkillRune> runeList, List<SkillSuit> suitList)
@@ -58,6 +60,8 @@ namespace Game
             this.EnemyMax += skillData.SkillConfig.EnemyMax + runeEnemyMax + suitEnemyMax;
             this.CD += Mathf.Max(skillData.SkillConfig.CD - runeCD - suitCD, 0);
             this.Duration = skillData.SkillConfig.Duration + runeDuration + suitDuration;
+
+            this.CritRate = 0;
 
             //Ê©·¨·¶Î§
             this.Area = EnumHelper.FromString<AttackGeometryType>(skillData.SkillConfig.Area);

@@ -57,13 +57,5 @@ namespace Game
 
             return attackDatas;
         }
-
-        public override float CalcFormula(APlayer player, float ratio)
-        {
-            //ÉËº¦¹«Ê½ (¹¥»÷-·ÀÓù)*(ÔöÉË-¼õÉË)*£¨±©»÷?(±©»÷¼Ó³É-±©»÷¼õÉË)£©*ÐÒÔË
-
-            long damage = this.SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.PhyAtt) - player.AttributeBonus.GetTotalAttr(AttributeEnum.Def);
-            return damage > 1 ? damage : 1;
-        }
     }
 }

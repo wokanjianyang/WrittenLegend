@@ -91,4 +91,10 @@ namespace Game
         [LabelText("角色经验")]
         PlayerHP = 2,
     }
+
+    public enum RoleType {
+        Warrior =1, //战士
+        Mage = 2, //法师
+        Warlock = 3, //道士
+    }
 }
