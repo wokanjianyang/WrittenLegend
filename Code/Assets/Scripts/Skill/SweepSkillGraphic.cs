@@ -30,7 +30,8 @@ namespace Game
                 effectCom.transform.DOLocalMove(targetPos, 0.5f);
 
                 yield return new WaitForSeconds(1f);
-                effectCom.gameObject.SetActive(false);
+                //effectCom.gameObject.SetActive(false);
+                GameObject.Destroy(effectCom.gameObject);
             }
         }
     }

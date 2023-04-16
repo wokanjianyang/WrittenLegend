@@ -28,7 +28,8 @@ namespace Game
                 effectCom.transform.localPosition = targetPos;
 
                 yield return new WaitForSeconds(0.5f);
-                effectCom.gameObject.SetActive(false);
+                //effectCom.gameObject.SetActive(false);
+                GameObject.Destroy(effectCom.gameObject);
 
             }
             yield return null;

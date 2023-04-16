@@ -186,7 +186,8 @@ namespace Game
                 var player = this.AllPlayers[i];
                 if (!player.IsSurvice)
                 {
-                    player.Transform.gameObject.SetActive(false);
+                    //player.Transform.gameObject.SetActive(false);
+                    player.OnDestroy();
                     this.AllPlayers.RemoveAt(i);
                 }
             }
