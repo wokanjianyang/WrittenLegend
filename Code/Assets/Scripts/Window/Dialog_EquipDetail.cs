@@ -21,7 +21,7 @@ namespace Game
         public Sprite[] list_BackgroundImgs;
 
         [LabelText("名称")]
-        public TextMeshProUGUI tmp_Title;
+        public Text tmp_Title;
 
         [LabelText("基础属性")]
         public Transform tran_BaseAttribute;

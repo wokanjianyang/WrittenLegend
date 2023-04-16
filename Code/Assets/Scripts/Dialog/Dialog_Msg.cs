@@ -1,6 +1,7 @@
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Game.Dialog
 {
@@ -11,6 +12,6 @@ namespace Game.Dialog
         public Transform tran_Msg;
     
         [LabelText("提示内容")]
-        public TextMeshProUGUI tmp_Msg_Content;
+        public Text tmp_Msg_Content;
     }
 }
