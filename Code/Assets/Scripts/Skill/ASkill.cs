@@ -11,16 +11,16 @@ namespace Game
     abstract public class ASkill : IPlayer
     {
         public APlayer SelfPlayer { get; set; }
-        public SkillData SkillData { get; set; }
+        public SkillPanel SkillPanel{ get; set; }
 
         protected List<AttackData> attackDataCache { get; set; }
 
         private SkillGraphic skillGraphic;
 
-        public ASkill(APlayer player, SkillData skillData)
+        public ASkill(APlayer player, SkillPanel skill)
         {
             this.SelfPlayer = player;
-            this.SkillData = skillData;
+            this.SkillPanel = skill;
             this.skillGraphic = new SkillGraphic(player);
         }
         virtual public void Do()
@@ -29,12 +29,13 @@ namespace Game
             foreach (var attackData in attackDataCache)
             {
                 var enemy = GameProcessor.Inst.PlayerManager.GetPlayer(attackData.Tid);
-                var damage = (int)this.CalcFormula(enemy, attackData.Ratio);
+                var damage = this.CalcFormula(enemy, attackData.Ratio);
                 enemy.OnHit(attackData.Tid, damage);
 
-                if (SkillData.SkillConfig.EffectIdList!=null && SkillData.SkillConfig.EffectIdList.Length > 0)
+                SkillConfig skillConfig = SkillPanel.SkillData.SkillConfig;
+                if (skillConfig.EffectIdList!=null && skillConfig.EffectIdList.Length > 0)
                 {
-                    foreach (int EffectId in SkillData.SkillConfig.EffectIdList)
+                    foreach (int EffectId in skillConfig.EffectIdList)
                     {
                         EffectConfig config = EffectConfigCategory.Instance.Get(EffectId);
 
@@ -59,9 +60,34 @@ namespace Game
             return true;
         }
 
-        virtual public float CalcFormula(APlayer player,float ratio)
+        virtual public long CalcFormula(APlayer player,float ratio)
         {
             return 0;
+        }
+
+        public long GetRoleAttack()
+        {
+            long attack = 0;
+            switch (SkillPanel.SkillData.SkillConfig.Role)
+            {
+                case (int)RoleType.Warrior:
+                    {
+                        attack = SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.PhyAtt);
+                        break;
+                    }
+                case (int)RoleType.Mage:
+                    {
+                        attack = SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.MagicAtt);
+                        break;
+                    }
+                case (int)RoleType.Warlock:
+                    {
+                        attack = SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.SpiritAtt);
+                        break;
+                    }
+            }
+
+            return attack;
         }
 
         virtual public List<AttackData> GetAllTargets()

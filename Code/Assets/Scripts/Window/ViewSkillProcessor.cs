@@ -31,9 +31,10 @@ namespace Game
             hero.EventCenter.AddListener<HeroUpdateSkillEvent>(OnHeroUpdateSkillEvent);
             bookPrefab = Resources.Load<GameObject>("Prefab/Window/Item_Skill");
 
-            foreach (var skill in hero.SkillPanel)
+            foreach (var skill in hero.SkillList)
             {
-                SkillToBattle(skill);
+                SkillPanel skillPanel = new SkillPanel(skill, hero.GetRuneList(skill.SkillId), hero.GetSuitList(skill.SkillId));
+                SkillToBattle(skillPanel);
             }
             GameProcessor.Inst.PlayerManager.GetHero().InitPanelSkill();
         }
@@ -45,21 +46,21 @@ namespace Game
 
         private void OnHeroUpdateSkillEvent(HeroUpdateSkillEvent e)
         {
-            SkillToBattle(e.SkillData);
+            SkillToBattle(e.SkillPanel);
 
             UserData.Save(); //修改技能后，存档
         }
 
-        private void SkillToBattle(SkillData skill) {
+        private void SkillToBattle(SkillPanel skill) {
             if (skill == null)
             {
                 return;
             }
 
-            if (skill.Status == SkillStatus.Learn)
+            if (skill.SkillData.Status == SkillStatus.Learn)
             {
-                this.equipSkills.RemoveAll(b => b.SkillData.SkillId == skill.SkillId);
-                var learn = this.learnSkills.Find(s => s.SkillData.SkillId == skill.SkillId);
+                this.equipSkills.RemoveAll(b => b.SkillPanel.SkillId == skill.SkillId);
+                var learn = this.learnSkills.Find(s => s.SkillPanel.SkillId == skill.SkillId);
                 if (learn != null)
                 {
                     learn.SetItem(skill);
@@ -71,13 +72,13 @@ namespace Game
             }
             else
             {
-                var learn = this.learnSkills.Find(s => s.SkillData.SkillId == skill.SkillId);
+                var learn = this.learnSkills.Find(s => s.SkillPanel.SkillId == skill.SkillId);
                 if (learn != null)
                 {
                     this.learnSkills.Remove(learn);
                     GameObject.Destroy(learn.gameObject);
                 }
-                var equip = this.equipSkills.Find(s => s.SkillData.SkillId == skill.SkillId);
+                var equip = this.equipSkills.Find(s => s.SkillPanel.SkillId == skill.SkillId);
                 if (equip == null)
                 {
                     var com = this.tran_EquipSkills.GetChild(this.equipSkills.Count).GetComponent<Com_Skill>();
@@ -89,7 +90,7 @@ namespace Game
             GameProcessor.Inst.PlayerManager.GetHero().InitPanelSkill();
         }
 
-        private void CreateBook(SkillData skill)
+        private void CreateBook(SkillPanel skill)
         {
             var emptyBook = GameObject.Instantiate(bookPrefab);
             var com = emptyBook.GetComponent<Item_Skill>();

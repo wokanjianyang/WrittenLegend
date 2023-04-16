@@ -20,7 +20,7 @@ namespace Game
         protected override bool CheckPageType(ViewPageType page)
         {
             var ret = page == ViewPageType.View_Battle;
-            if(ret)
+            if (ret)
             {
                 GameProcessor.Inst.Resume();
             }
@@ -43,23 +43,30 @@ namespace Game
 
         private void OnBattleMsgEvent(BattleMsgEvent e)
         {
-            if(e.BattleType == BattleType.Normal)
+            var msg = GameObject.Instantiate(this.msgPrefab);
+            msg.transform.SetParent(this.sr_BattleMsg.content);
+            msg.transform.localScale = Vector3.one;
+
+            if (e.MsgType == MsgType.SecondExp)
             {
-                var msg = GameObject.Instantiate(this.msgPrefab);
-                msg.transform.SetParent(this.sr_BattleMsg.content);
-                msg.transform.localScale = Vector3.one;
+                msg.GetComponent<TextMeshProUGUI>().text = $"增加泡点经验{e.Exp}";
+                this.sr_BattleMsg.normalizedPosition = new Vector2(0, 0);
+            }
+            else if (e.BattleType == BattleType.Normal)
+            {
                 MonsterBase config = MonsterBaseCategory.Instance.Get(e.MonsterId);
                 string drops = "";
-                if (e.Drops!=null&&e.Drops.Count>0)
+                if (e.Drops != null && e.Drops.Count > 0)
                 {
                     drops = ",掉落";
-                    foreach(var drop in e.Drops)
+                    foreach (var drop in e.Drops)
                     {
                         drops += $"<color=#D800FF>[{drop.Name}]";
                     }
                 }
                 msg.GetComponent<TextMeshProUGUI>().text = $"<color=#D800FF>[{config.Name}]<color=white>死亡,经验增加:{e.Exp},金币增加:{e.Gold}{drops}";
                 msg.name = $"msg_{e.RoundNum}";
+
                 this.sr_BattleMsg.normalizedPosition = new Vector2(0, 0);
             }
         }

@@ -49,7 +49,8 @@ namespace Game
             return hero;
         }
 
-        public static void Save() {
+        public static void Save()
+        {
             //
             string folderPath = System.IO.Path.Combine(Application.persistentDataPath, savePath); //文件夹路径
             System.IO.Directory.CreateDirectory(folderPath);
@@ -59,18 +60,19 @@ namespace Game
             System.IO.File.Create(filePath).Dispose();
 
             System.TimeSpan st = System.DateTime.UtcNow - new System.DateTime(1970, 1, 1, 0, 0, 0);//获取时间戳
-            Log.Debug($"离线时间:{DateTime.UtcNow.ToString("F")}");
+            //Log.Debug($"离线时间:{DateTime.UtcNow.ToString("F")}");
 
             var hero = GameProcessor.Inst.PlayerManager.GetHero();
             hero.LastOut = Convert.ToInt64(st.TotalSeconds);
 
             //序列化
-            string str_json = JsonConvert.SerializeObject(hero,new JsonSerializerSettings
+            string str_json = JsonConvert.SerializeObject(hero, new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.Auto
             });
 
-            if (str_json.Length <= 0) {
+            if (str_json.Length <= 0)
+            {
                 return;
             }
 
@@ -81,7 +83,9 @@ namespace Game
 
             //确认保存
             if (System.IO.File.Exists(filePath))
-                Log.Debug("保存成功");
+            {
+                //Log.Debug("保存成功");
+            }
             else
                 Log.Debug("保存失败");
         }

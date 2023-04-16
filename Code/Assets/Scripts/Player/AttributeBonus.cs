@@ -43,6 +43,8 @@ namespace Game
 					return CalTotal(AttributeEnum.SpiritAtt, AttributeEnum.AttIncrea);
 				case AttributeEnum.Def:
 					return CalTotal(AttributeEnum.Def, AttributeEnum.DefIncrea);
+				case AttributeEnum.SecondExp:
+					return CalTotal(AttributeEnum.SecondExp, AttributeEnum.ExpIncrea);
 				default:
 					return CalTotal(attrType);
 			}

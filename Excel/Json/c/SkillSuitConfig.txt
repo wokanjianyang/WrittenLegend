@@ -1,4 +1,8 @@
 {"list":[
-{"_t":"SkillSuitConfig","_id":20011,"SkillId":2001,"Name":"火球·豪火球","Des":"小火球进阶大火球了，这下牛逼了，伤害系数提升100%","CD":0,"CastType":0,"Dis":0,"Area":"","EnemyMax":0,"Percent":100,"Damage":0,"EffectId":0},
-{"_t":"SkillSuitConfig","_id":20012,"SkillId":2001,"Name":"火球·爆裂术","Des":"火球造成伤害的时候，对周围4个单位造成一半的伤害","CD":0,"CastType":0,"Dis":0,"Area":"","EnemyMax":0,"Percent":0,"Damage":0,"EffectId":102},
+{"_t":"SkillSuitConfig","_id":20011,"SkillId":2001,"Name":"火球·豪火球","Des":"小火球进阶大火球了，这下牛逼了，伤害系数提升100%","CD":0,"CastType":0,"Dis":0,"Area":"","EnemyMax":0,"Percent":100,"Damage":0,"CritRate":0,"CritDamage":0,"DamageIncrea":0,"EffectId":0},
+{"_t":"SkillSuitConfig","_id":20012,"SkillId":2001,"Name":"火球·爆裂术","Des":"火球造成伤害的时候，对周围4个单位造成一半的伤害","CD":0,"CastType":0,"Dis":0,"Area":"","EnemyMax":0,"Percent":0,"Damage":0,"CritRate":0,"CritDamage":0,"DamageIncrea":0,"EffectId":0},
+{"_t":"SkillSuitConfig","_id":10011,"SkillId":1001,"Name":"基础剑术·吸血","Des":"附带10%吸血效果","CD":0,"CastType":0,"Dis":0,"Area":"","EnemyMax":0,"Percent":10,"Damage":0,"CritRate":0,"CritDamage":0,"DamageIncrea":0,"EffectId":101},
+{"_t":"SkillSuitConfig","_id":10012,"SkillId":1001,"Name":"基础剑术·重击","Des":"攻击额外造成1.5倍伤害","CD":0,"CastType":0,"Dis":0,"Area":"","EnemyMax":0,"Percent":50,"Damage":0,"CritRate":0,"CritDamage":0,"DamageIncrea":0,"EffectId":2201},
+{"_t":"SkillSuitConfig","_id":30011,"SkillId":3001,"Name":"火符·连环","Des":"火符连续额外施法一次","CD":0,"CastType":0,"Dis":0,"Area":"","EnemyMax":0,"Percent":0,"Damage":0,"CritRate":0,"CritDamage":0,"DamageIncrea":0,"EffectId":0},
+{"_t":"SkillSuitConfig","_id":30012,"SkillId":3001,"Name":"火符·弹射","Des":"火符攻击目标的时候，弹射周围随机目标，造成80%伤害","CD":0,"CastType":0,"Dis":0,"Area":"0","EnemyMax":1,"Percent":80,"Damage":0,"CritRate":0,"CritDamage":0,"DamageIncrea":0,"EffectId":0},
 ]}

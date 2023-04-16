@@ -78,9 +78,45 @@ namespace Game
 
         void Update()
         {
-            if(this.IsGameRunning())
+            if (this.IsGameRunning())
             {
                 this.BattleRule?.OnUpdate();
+            }
+
+            //计算泡点经验
+            Hero hero = GameProcessor.Inst.PlayerManager.GetHero();
+            if (hero != null)
+            {
+                int interval = 5;
+                if (hero.SecondExpTick == 0)
+                {
+                    hero.SecondExpTick = TimeHelper.ClientNowSeconds();
+                }
+                else
+                {
+                    long calTk = (TimeHelper.ClientNowSeconds() - hero.SecondExpTick) / interval;
+                    if (calTk >= 1)
+                    {  //5秒计算一次经验
+                        hero.SecondExpTick += interval * calTk;
+                        long exp = hero.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp);
+                        hero.Exp += exp * calTk;
+
+                        GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+                        {
+                            Exp = exp,
+                            MsgType = MsgType.SecondExp
+                        });
+                        hero.EventCenter.Raise(new HeroInfoUpdateEvent());
+
+                        if (hero.Exp >= hero.UpExp)
+                        {
+                            hero.EventCenter.Raise(new HeroChangeEvent
+                            {
+                                Type = Hero.HeroChangeType.LevelUp
+                            });
+                        }
+                    }
+                }
             }
         }
 

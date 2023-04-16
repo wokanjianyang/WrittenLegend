@@ -40,6 +40,7 @@ namespace Game
 
         public List<Item> Drops { get; set; }
 
+        public MsgType MsgType { get; set; } = MsgType.Drop;
         public BattleType BattleType { get; set; } = BattleType.Normal;
     }
 

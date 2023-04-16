@@ -66,7 +66,6 @@ namespace Game
         // Start is called before the first frame update
         void Start()
         {
-            this.rectTransform = this.transform.GetComponent<RectTransform>();
             this.btn_Equip.onClick.AddListener(this.OnEquip);
             this.btn_UnEquip.onClick.AddListener(this.OnUnEquip);
             this.btn_Learn.onClick.AddListener(this.OnLearnSkill);
@@ -85,6 +84,7 @@ namespace Game
         public void OnBattleStart()
         {
             GameProcessor.Inst.EventCenter.AddListener<ShowEquipDetailEvent>(this.OnShowEquipDetailEvent);
+            this.rectTransform = this.transform.GetComponent<RectTransform>();
         }
 
         private void OnShowEquipDetailEvent(ShowEquipDetailEvent e)
@@ -198,7 +198,7 @@ namespace Game
                         tran_NormalAttribute.Find("Title").GetComponent<TextMeshProUGUI>().text = skillBox.ItemConfig.Des;
                         tran_NormalAttribute.Find("NeedLevel").GetComponent<TextMeshProUGUI>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.item.Level);
                         var hero = GameProcessor.Inst.PlayerManager.GetHero();
-                        var isLearn = hero.SkillPanel.Find(b => b.SkillId == this.item.ConfigId) == null;
+                        var isLearn = hero.SkillList.Find(b => b.SkillId == this.item.ConfigId) == null;
                         this.btn_Learn.gameObject.SetActive(isLearn);
                         this.btn_Upgrade.gameObject.SetActive(!isLearn);
 

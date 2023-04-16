@@ -12,14 +12,15 @@ namespace Game
 
         private int Duration = 0;
 
-        public SkillMapState( Skill_Map skill)
+        public SkillMapState(Skill_Map skill)
         {
             //this.SelfPlayer = player;
             this.skill = skill;
             this.Duration = 0;
         }
 
-        public void Run(APlayer enemy) {
+        public void Run(APlayer enemy)
+        {
             this.Duration++;
 
             if (enemy == null)
@@ -32,7 +33,7 @@ namespace Game
 
         public bool IsOver()
         {
-            return Duration >= skill.SkillData.SkillConfig.Duration;
+            return Duration >= skill.SkillPanel.Duration;
         }
     }
 }
