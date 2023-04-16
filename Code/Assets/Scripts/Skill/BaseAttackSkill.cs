@@ -10,6 +10,7 @@ namespace Game
     {
         public BaseAttackSkill(APlayer player, SkillPanel skillPanel) : base(player, skillPanel)
         {
+            this.skillGraphic = new SweepSkillGraphic(player,skillPanel.SkillData.SkillConfig.Name);
         }
 
 
@@ -39,6 +40,35 @@ namespace Game
 
             //强制最少1点伤害
             return Math.Max(1, attack);
+        }
+
+        public override List<AttackData> GetAllTargets()
+        {
+            List<Vector3Int> allAttackCells = GameProcessor.Inst.MapData.GetAttackRangeCell(SelfPlayer.Cell, SkillPanel.Dis, SkillPanel.Area);
+            int EnemyNum = 0;
+
+            List<AttackData> attackDatas = new List<AttackData>();
+
+            foreach (var cell in allAttackCells)
+            {
+                if (EnemyNum >= SkillPanel.EnemyMax)
+                {
+                    break;
+                }
+
+                var enemy = GameProcessor.Inst.PlayerManager.GetPlayer(cell);
+                if (enemy != null && enemy.GroupId != SelfPlayer.GroupId) //不会攻击同组成员
+                {
+                    attackDatas.Add(new AttackData()
+                    {
+                        Tid = enemy.ID,
+                        Ratio = 1
+                    });
+                    EnemyNum++;
+                }
+            }
+
+            return attackDatas;
         }
 
     }

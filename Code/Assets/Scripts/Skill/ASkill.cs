@@ -15,13 +15,12 @@ namespace Game
 
         protected List<AttackData> attackDataCache { get; set; }
 
-        private SkillGraphic skillGraphic;
+        protected SkillGraphic skillGraphic { get; set; }
 
         public ASkill(APlayer player, SkillPanel skill)
         {
             this.SelfPlayer = player;
             this.SkillPanel = skill;
-            this.skillGraphic = new SkillGraphic(player);
         }
         virtual public void Do()
         {
@@ -52,7 +51,7 @@ namespace Game
                     }
                 }
 
-                this.skillGraphic?.PlayAnimation(attackData.Tid);
+                this.skillGraphic?.PlayAnimation(enemy.Cell);
             }
         }
 
@@ -90,10 +89,7 @@ namespace Game
             return attack;
         }
 
-        virtual public List<AttackData> GetAllTargets()
-        {
-            return new List<AttackData>();
-        }
+        abstract public List<AttackData> GetAllTargets();
         
  
         public void SetParent(APlayer player)

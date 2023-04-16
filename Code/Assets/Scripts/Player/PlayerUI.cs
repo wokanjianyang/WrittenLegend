@@ -127,13 +127,6 @@ public class PlayerUI : MonoBehaviour,IPlayer
             GameObject.Destroy(msg);
         });
 
-        //var effectCom = EffectLoader.CreateEffect(e.Content, false);
-        //if (effectCom != null)
-        //{
-        //    var enemy = GameProcessor.Inst.PlayerManager.GetPlayer(e.TargetId);
-        //    effectCom.transform.SetParent(GameProcessor.Inst.EffectRoot);
-        //    effectCom.transform.position = enemy.Transform.position;
-        //}
     }
 
     private void OnShowAttackIcon(ShowAttackIcon e)
