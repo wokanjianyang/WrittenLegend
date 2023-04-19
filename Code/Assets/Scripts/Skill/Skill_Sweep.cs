@@ -8,6 +8,7 @@ namespace Game
     {
         public Skill_Sweep(APlayer player, SkillPanel skill) : base(player, skill)
         {
+            this.skillGraphic = new SweepSkillGraphic(player, skill.SkillData.SkillConfig.Name);
         }
 
         public override List<AttackData> GetAllTargets()

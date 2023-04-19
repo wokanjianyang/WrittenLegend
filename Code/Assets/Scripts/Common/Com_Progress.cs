@@ -14,7 +14,7 @@ namespace Game
         public Image img_Progress;
 
         [LabelText("进度数字")]
-        public TextMeshProUGUI tmp_Progress;
+        public Text tmp_Progress;
 
         [LabelText("进度条类型")]
         public ProgressType ProgressType;

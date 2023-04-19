@@ -22,10 +22,10 @@ public class PlayerUI : MonoBehaviour,IPlayer
     public Transform tran_Info;
     
     [LabelText("名称")]
-    public TextMeshProUGUI tmp_Info_Name;
+    public Text tmp_Info_Name;
     
     [LabelText("等级")]
-    public TextMeshProUGUI tmp_Info_Level;
+    public Text tmp_Info_Level;
 
     [Title("提示")]
     [LabelText("弹幕")]
@@ -77,8 +77,6 @@ public class PlayerUI : MonoBehaviour,IPlayer
     private void OnSetNameEvent(SetPlayerNameEvent e)
     {
         this.tmp_Info_Name.text = e.Name;
-        this.tmp_Info_Name.enableAutoSizing = true;
-        this.tmp_Info_Name.maxVisibleLines = 1;
         switch (SelfPlayer.Camp)
         {
             case PlayerType.Hero:
@@ -129,13 +127,6 @@ public class PlayerUI : MonoBehaviour,IPlayer
             GameObject.Destroy(msg);
         });
 
-        //var effectCom = EffectLoader.CreateEffect(e.Content, false);
-        //if (effectCom != null)
-        //{
-        //    var enemy = GameProcessor.Inst.PlayerManager.GetPlayer(e.TargetId);
-        //    effectCom.transform.SetParent(GameProcessor.Inst.EffectRoot);
-        //    effectCom.transform.position = enemy.Transform.position;
-        //}
     }
 
     private void OnShowAttackIcon(ShowAttackIcon e)

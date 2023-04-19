@@ -5,38 +5,18 @@ using UnityEngine;
 
 namespace Game
 {
-    public class SkillGraphic
+    abstract public class SkillGraphic
     {
-        public APlayer SelfPlayer { get; set; }
+        public APlayer SelfPlayer { get; private set; }
 
-        private IEnumerator lastIE = null;
-        private bool isIEEnd = false;
+        public string SkillName { get; private set; }
 
-        public SkillGraphic(APlayer player)
+        public SkillGraphic(APlayer player,string skillName)
         {
             this.SelfPlayer = player;
+            this.SkillName = skillName;
         }
 
-        public void PlayAnimation(int tid)
-        {
-            if(lastIE!=null && !this.isIEEnd)
-            {
-                GameProcessor.Inst.StopCoroutine(lastIE);
-            }
-            this.isIEEnd = false;
-            GameProcessor.Inst.StartCoroutine(IE_Attack(tid));
-        }
-
-        IEnumerator IE_Attack(int tid)
-        {
-            var mainTarget = GameProcessor.Inst.PlayerManager.GetPlayer(tid);
-            var distance = mainTarget.Cell - this.SelfPlayer.Cell;
-            Vector3 offset = new Vector3(distance.x * 0.5f, distance.y * 0.5f) * GameProcessor.Inst.MapData.CellSize.x;
-            var targetPos = GameProcessor.Inst.MapData.GetWorldPosition(this.SelfPlayer.Cell);
-            this.SelfPlayer.Transform.DOLocalMove(targetPos + offset, 0.5f);
-            yield return new WaitForSeconds(0.5f);
-            this.SelfPlayer.Transform.DOLocalMove(targetPos, 0.5f);
-            this.isIEEnd = true;
-        }
+        abstract public void PlayAnimation(Vector3Int cell);
     }
 }

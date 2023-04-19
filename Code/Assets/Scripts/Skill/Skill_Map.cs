@@ -7,9 +7,9 @@ namespace Game
 {
     public class Skill_Map : BaseAttackSkill
     {
-        public Skill_Map(APlayer player, SkillPanel skillPanel) : base(player, skillPanel)
+        public Skill_Map(APlayer player, SkillPanel skill) : base(player, skill)
         {
-
+            this.skillGraphic = new AttackSkillGraphic(player, skill.SkillData.SkillConfig.Name);
         }
 
         public override List<AttackData> GetAllTargets()
@@ -58,7 +58,9 @@ namespace Game
                 {
                     mapCell.AddSkill(this);
                 }
+                this.skillGraphic.PlayAnimation(cell);
             }
+
         }
     }
 }

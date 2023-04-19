@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Game
 {
@@ -12,10 +13,10 @@ namespace Game
 
         [Title("格子信息")]
         [LabelText("道具名称")]
-        public TextMeshProUGUI tmp_Title;
+        public Text tmp_Title;
 
         [LabelText("道具数量")]
-        public TextMeshProUGUI tmp_Count;
+        public Text tmp_Count;
 
         public Item Item { get; private set; }
         public int boxId { get; private set; }
