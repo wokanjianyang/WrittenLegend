@@ -126,11 +126,20 @@ namespace Game
 		/// <summary>固定伤害</summary>
 		[ProtoMember(17)]
 		public int Damage { get; set; }
-		/// <summary>附带效果</summary>
+		/// <summary>暴击率</summary>
 		[ProtoMember(18)]
+		public int CritRate { get; set; }
+		/// <summary>暴击倍率</summary>
+		[ProtoMember(19)]
+		public int CritDamage { get; set; }
+		/// <summary>伤害加成</summary>
+		[ProtoMember(20)]
+		public int DamageIncrea { get; set; }
+		/// <summary>附带效果</summary>
+		[ProtoMember(21)]
 		public int[] EffectIdList { get; set; }
 		/// <summary>升级经验</summary>
-		[ProtoMember(19)]
+		[ProtoMember(22)]
 		public int Exp { get; set; }
 
 	}

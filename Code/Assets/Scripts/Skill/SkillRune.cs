@@ -17,6 +17,10 @@ namespace Game
         public int EnemyMax { get; }
         public int CD { get; }
 
+        public int CritRate { get; } //±©»÷ÂÊ
+        public int CritDamage { get; } //±©»÷±¶ÂÊ
+        public int DamageIncrea { get; } //ÉËº¦¼Ó³É
+
         public SkillRune(int runeId, int quantity)
         {
             this.SkillRuneConfig = SkillRuneConfigCategory.Instance.Get(runeId);
@@ -27,6 +31,10 @@ namespace Game
             this.Dis = SkillRuneConfig.Dis * AvailableQuantity;
             this.EnemyMax = SkillRuneConfig.EnemyMax * AvailableQuantity;
             this.CD = SkillRuneConfig.CD * AvailableQuantity;
+
+            this.CritRate = SkillRuneConfig.CritRate * AvailableQuantity;
+            this.CritDamage = SkillRuneConfig.CritDamage * AvailableQuantity;
+            this.DamageIncrea = SkillRuneConfig.DamageIncrea * AvailableQuantity;
         }
     }
 }

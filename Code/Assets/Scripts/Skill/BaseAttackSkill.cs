@@ -24,13 +24,13 @@ namespace Game
             long CritRate = SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.CritRate) + SkillPanel.CritRate - enemy.AttributeBonus.GetTotalAttr(AttributeEnum.CritRateResist);
             if (RandomHelper.RandomCritRate((int)CritRate))
             {
-                //暴击倍率（ 不低于0 ） = 50基础爆伤 + 攻击者爆伤 - 被攻击者爆伤减免
-                long CritDamage = Math.Max(0, 50 + SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.CritDamage) - enemy.AttributeBonus.GetTotalAttr(AttributeEnum.CritDamageResist));
+                //暴击倍率（ 不低于0 ） = 50基础爆伤+技能爆伤 + 攻击者爆伤 - 被攻击者爆伤减免
+                long CritDamage = Math.Max(0, 50 + SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.CritDamage) + SkillPanel.CritDamage - enemy.AttributeBonus.GetTotalAttr(AttributeEnum.CritDamageResist));
                 attack = attack * (CritDamage + 100) / 100;
             }
 
-            //伤害加成（不低于0） = 100基础伤害 + 攻击者伤害加成 — 被攻击者伤害减免 
-            long DamageIncrea = Math.Max(0, 100 + SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.DamageIncrea) - enemy.AttributeBonus.GetTotalAttr(AttributeEnum.DamageResist));
+            //伤害加成（不低于0） = 100基础伤害+技能伤害加成 + 攻击者伤害加成 — 被攻击者伤害减免 
+            long DamageIncrea = Math.Max(0, 100 + SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.DamageIncrea) + SkillPanel.DamageIncrea - enemy.AttributeBonus.GetTotalAttr(AttributeEnum.DamageResist));
             attack = attack * DamageIncrea / 100;
 
             //幸运，每点造成10%最终伤害

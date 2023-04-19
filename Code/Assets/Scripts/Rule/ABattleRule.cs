@@ -32,7 +32,14 @@ namespace Game
         abstract public void DoHeroLogic();
         abstract public void DoMonsterLogic();
 
-        abstract public void DoValetLogic();
+        virtual public void DoValetLogic() {
+            var valets = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Valet);
+
+            foreach (var valet in valets)
+            {
+                valet.DoEvent();
+            }
+        }
 
         public void DoMapCellLogic()
         {

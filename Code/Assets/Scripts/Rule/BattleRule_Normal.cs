@@ -15,16 +15,6 @@ namespace Game
             hero.DoEvent();
         }
 
-        public override void DoValetLogic()
-        {
-            var valets = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Valet);
-
-            foreach (var valet in valets)
-            {
-                valet.DoEvent();
-            }
-        }
-
         public override void DoMonsterLogic()
         {
             var hero = GameProcessor.Inst.PlayerManager.GetHero();

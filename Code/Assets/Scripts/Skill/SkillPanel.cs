@@ -25,7 +25,9 @@ namespace Game
 
         public int Duration { get; }
 
-        public int CritRate { get; } //±©»÷±¶ÂÊ
+        public int CritRate { get; } //±©»÷ÂÊ
+        public int CritDamage { get; } //±©»÷±¶ÂÊ
+        public int DamageIncrea { get; } //ÉËº¦¼Ó³É
 
         public AttackGeometryType Area { get; }
 
@@ -54,6 +56,15 @@ namespace Game
             int runeDuration = runeList.Select(m => m.CD).Sum();
             int suitDuration = suitList.Select(m => m.CD).Sum();
 
+            int runeCritRate = runeList.Select(m => m.CritRate).Sum();
+            int suitCritRate = suitList.Select(m => m.CritRate).Sum();
+
+            int runeCritDamage = runeList.Select(m => m.CritDamage).Sum();
+            int suitCritDamage = suitList.Select(m => m.CritDamage).Sum();
+
+            int runeDamageIncrea = runeList.Select(m => m.DamageIncrea).Sum();
+            int suitDamageIncrea = suitList.Select(m => m.DamageIncrea).Sum();
+
             this.Damage += skillData.SkillConfig.Damage + runeDamage + suitDamage;
             this.Percent += skillData.SkillConfig.Percent + runePercent + suitPercent;
             this.Dis += skillData.SkillConfig.Dis + runeDis + suitDis;
@@ -61,7 +72,9 @@ namespace Game
             this.CD += Mathf.Max(skillData.SkillConfig.CD - runeCD - suitCD, 0);
             this.Duration = skillData.SkillConfig.Duration + runeDuration + suitDuration;
 
-            this.CritRate = 0;
+            this.CritRate = skillData.SkillConfig.CritRate + runeCritRate+suitCritRate;
+            this.CritDamage = skillData.SkillConfig.CritRate + runeCritDamage + suitCritDamage;
+            this.DamageIncrea = skillData.SkillConfig.CritRate + runeDamageIncrea + suitDamageIncrea;
 
             //Ê©·¨·¶Î§
             this.Area = EnumHelper.FromString<AttackGeometryType>(skillData.SkillConfig.Area);

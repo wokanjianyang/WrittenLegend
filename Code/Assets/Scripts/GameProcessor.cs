@@ -98,8 +98,9 @@ namespace Game
                     if (calTk >= 1)
                     {  //5秒计算一次经验
                         hero.SecondExpTick += interval * calTk;
-                        long exp = hero.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp);
-                        hero.Exp += exp * calTk;
+                        long exp = hero.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp) * calTk;
+                        hero.Exp += exp;
+                        Debug.Log("经验:" + hero.Exp);
 
                         GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
                         {

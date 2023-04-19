@@ -52,11 +52,6 @@ public class BattleRule_Tower : ABattleRule
             }
         }
     }
-
-    public override void DoValetLogic()
-    {
-    }
-
     protected override bool CheckGameResult()
     {
         var result = false;
