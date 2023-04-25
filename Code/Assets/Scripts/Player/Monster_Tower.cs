@@ -3,45 +3,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Monster_Tower : Monster
+public class Monster_Tower : APlayer
 {
-    public void SetLevelConfigAttr(TowerConfig config)
-    {
-        //TODO 测试增加被动属性
-        AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, config.HP);
-        AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, 1);
-        AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, 0);
+    public int TowerId { get; }
 
-        this.MonsterId = config.Id;
-        this.Gold = 0;
-        this.Exp = config.OfflineExp;
+    public TowerConfig config { get; set; }
+
+    public Monster_Tower(int floor) {
+        this.TowerId = floor;
+        this.GroupId = 2;
+
+        Load();
+    }
+
+    public override void Load()
+    {
+        base.Load();
+
+        this.Camp = PlayerType.Enemy;
+
+        TowerConfig config = TowerConfigCategory.Instance.Get(TowerId);
+
+        this.config = config;
         this.Name = config.Name;
+
+        AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, config.HP);
+        AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, config.PhyAtt);
+        AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, config.PhyAtt);
+        AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, config.PhyAtt);
+        AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, config.Def);
+
+        Logic.SetData(null);
     }
 
-    protected override void MakeReward(DeadRewarddEvent dead)
-    {
-        Log.Info("Monster :" + this.ToString() + " dead");
 
-        Hero hero = GameProcessor.Inst.PlayerManager.GetHero();
-
-        long exp = this.Exp;
-
-        //增加泡点经验，爬塔层数
-        hero.AttributeBonus.SetAttr(AttributeEnum.SecondExp, AttributeFrom.Tower, this.Exp);
-        hero.TowerFloor++;
-
-        //生成道具奖励
-        GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
-        {
-            RoundNum = hero.RoundCounter,
-            MonsterId = this.MonsterId,
-            Exp = exp,
-            Gold = this.Gold,
-            Drops = new List<Item>(),
-            BattleType = BattleType.Tower
-        });
-
-        //存档
-        UserData.Save();
-    }
 }

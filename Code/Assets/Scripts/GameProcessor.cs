@@ -104,9 +104,8 @@ namespace Game
 
                         GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
                         {
-                            Exp = exp,
-                            MsgType = MsgType.SecondExp
-                        });
+                            Message = BattleMsgHelper.BuildSecondExpMessage(exp)
+                        }); 
                         hero.EventCenter.Raise(new HeroInfoUpdateEvent());
 
                         if (hero.Exp >= hero.UpExp)

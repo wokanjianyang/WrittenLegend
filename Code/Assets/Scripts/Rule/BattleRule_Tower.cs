@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class BattleRule_Tower : ABattleRule
 {
+    private bool start = false;
+
     public override void DoHeroLogic()
     {
         var hero = GameProcessor.Inst.PlayerManager.GetHero();
@@ -45,10 +47,18 @@ public class BattleRule_Tower : ABattleRule
 
         if (enemys.Count == 0) //TODO 测试减少刷新数量
         {
-            var enemy = MonsterTowerHelper.BuildMonster(hero.TowerFloor - 1);
-            if (enemy != null)
+            if (start == true) { //爬塔成功
+                MakeReward();
+            }
+
+            var monsters = MonsterTowerHelper.BuildMonster(hero.TowerFloor);
+            if (monsters != null && monsters.Count > 0)
             {
-                GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
+                start = true;
+                monsters.ForEach(enemy =>
+                {
+                    GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
+                });
             }
         }
     }
@@ -63,5 +73,28 @@ public class BattleRule_Tower : ABattleRule
         }
 
         return result && this.roundNum > 1;
+    }
+
+    protected void MakeReward()
+    {
+        Log.Info("Tower Success");
+
+        start = false;
+        Hero hero = GameProcessor.Inst.PlayerManager.GetHero();
+        var config = TowerConfigCategory.Instance.Get(hero.TowerFloor);
+
+        //增加泡点经验，爬塔层数
+        hero.AttributeBonus.SetAttr(AttributeEnum.SecondExp, AttributeFrom.Tower, config.TotalExp);
+        hero.TowerFloor++;
+
+        //生成道具奖励
+        GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+        {
+            Message = BattleMsgHelper.BuildTowerSuccessMessage(config.RiseExp, hero.TowerFloor),
+            BattleType = BattleType.Tower
+        });
+
+        //存档
+        UserData.Save();
     }
 }

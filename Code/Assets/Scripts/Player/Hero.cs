@@ -68,8 +68,9 @@ namespace Game
 
             //设置各种属性值
             SetLevelConfigAttr();
+            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.Test, 10000);
             AttributeBonus.SetAttr(AttributeEnum.AttIncrea, AttributeFrom.Test, 400);
-            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.Test, 1000);
+            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.Test, 10000);
             AttributeBonus.SetAttr(AttributeEnum.ExpIncrea, AttributeFrom.Test, 1000);
 
             //回满当前血量
@@ -229,7 +230,7 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, config.Def);
 
             TowerConfig towerConfig = TowerConfigCategory.Instance.Get(this.TowerFloor - 1);
-            AttributeBonus.SetAttr(AttributeEnum.SecondExp, AttributeFrom.Tower, towerConfig.OfflineExp);
+            AttributeBonus.SetAttr(AttributeEnum.SecondExp, AttributeFrom.Tower, towerConfig.TotalExp);
 
             UpExp = config.Exp;
         }

@@ -10,7 +10,7 @@ namespace Game
     {
         public BaseAttackSkill(APlayer player, SkillPanel skillPanel) : base(player, skillPanel)
         {
-            this.skillGraphic = new SweepSkillGraphic(player,skillPanel.SkillData.SkillConfig.Name);
+            this.skillGraphic = new BaseSkillGraphic(player,skillPanel.SkillData.SkillConfig.Name);
         }
 
 

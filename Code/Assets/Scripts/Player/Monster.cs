@@ -8,6 +8,9 @@ namespace Game
     public class Monster : APlayer
     {
         public int MonsterId;
+
+        public int Quality { get; set; }
+
         public int GoldRate;
         public long Gold;
         public int AttTyp;
@@ -16,9 +19,15 @@ namespace Game
         public long Exp;
         public int range;
 
-        public Monster() : base()
+        public Monster(int monsterId,int quality) : base()
         {
+            this.MonsterId = monsterId;
             this.GroupId = 2;
+            this.Quality = quality;
+
+            this.Load();
+            this.SetLevelConfigAttr();
+            this.Logic.SetData(null);
         }
 
         public override void Load()
@@ -30,9 +39,24 @@ namespace Game
             //box.SetParent(this.Transform);
 
             this.Camp = PlayerType.Enemy;
-            this.Level = Random.Range(1, 4);
+
+
+            MonsterBase config = MonsterBaseCategory.Instance.Get(MonsterId);
+
+            QualityConfig qualityConfig = QualityConfigCategory.Instance.Get(Quality);
+
+            this.Name = config.Name + qualityConfig.MonsterTitle;
+            this.Level = config.Level;
+            this.Exp = config.Exp * qualityConfig.ExpRate;
+            this.Gold = config.Gold * qualityConfig.GoldRate;
+
 
             this.AttributeBonus = new AttributeBonus();
+            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, config.HP* qualityConfig.HpRate);
+            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, config.PhyAttr* qualityConfig.AttrRate);
+            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, config.PhyAttr * qualityConfig.AttrRate);
+            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, config.PhyAttr * qualityConfig.AttrRate);
+            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, config.Def * qualityConfig.DefRate);
 
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
@@ -40,18 +64,11 @@ namespace Game
             this.EventCenter.AddListener<DeadRewarddEvent>(MakeReward);
         }
 
-        public void SetLevelConfigAttr(MonsterBase config)
+        public void SetLevelConfigAttr()
         {
-            //TODO 测试增加被动属性
-            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, config.HP);
-            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, 1);
-            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, 0);
-
-            this.MonsterId = config.Id;
-            this.Gold = config.Gold;
-            this.Exp = config.Exp;
-            this.Name = config.Name;
         }
+
+
 
         virtual protected void MakeReward(DeadRewarddEvent dead)
         {
@@ -77,7 +94,7 @@ namespace Game
             //生成道具奖励
             int mapLevel = hero.Level / 10 * 10;
             List<KeyValuePair<int, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(mapLevel);
-            List<Item> items = DropHelper.BuildDropItem(dropList);
+            List<Item> items = DropHelper.BuildDropItem(dropList,Quality);
 
             if (items.Count > 0)
             {
@@ -86,11 +103,7 @@ namespace Game
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
             {
-                RoundNum = hero.RoundCounter,
-                MonsterId = this.MonsterId,
-                Exp = exp,
-                Gold = this.Gold,
-                Drops = items
+                Message = BattleMsgHelper.BuildMonsterDeadMessage(this, items)
             });
 
             //自动回收

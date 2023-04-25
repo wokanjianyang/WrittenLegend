@@ -27,6 +27,9 @@ namespace Game
         public PlayerType Camp { get; set; }
 
         [JsonIgnore]
+        public MondelType ModelType { get; set; } = MondelType.Nomal;
+
+        [JsonIgnore]
         public Vector3Int Cell { get; set; }
 
         [JsonIgnore]
