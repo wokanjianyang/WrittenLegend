@@ -34,6 +34,10 @@ namespace Game
             {
                 this.skillLogic = new Skill_Map(player, skillPanel);
             }
+            else if (skillPanel.SkillData.SkillConfig.Type == (int)SkillType.Restore)
+            {
+                this.skillLogic = new Skill_Restore(player, skillPanel);
+            }
             else
             {
                 this.skillLogic = new BaseAttackSkill(player, skillPanel);

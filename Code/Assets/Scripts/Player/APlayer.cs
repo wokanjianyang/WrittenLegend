@@ -21,8 +21,6 @@ namespace Game
 
         public List<SkillData> SkillList { get; set; } = new List<SkillData>();
 
-        public IDictionary<int, int> SkillIdList { get; set; }
-
         [JsonIgnore]
         public PlayerType Camp { get; set; }
 
@@ -330,6 +328,10 @@ namespace Game
             {
                 this.Logic.OnDamage(fromId, d);
             }
+        }
+
+        public void OnRestore(int fromId, long hp) {
+            this.Logic.OnRestore(hp);
         }
 
         public void SetHP(long hp) {

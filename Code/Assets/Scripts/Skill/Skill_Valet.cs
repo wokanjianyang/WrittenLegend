@@ -45,9 +45,7 @@ namespace Game
             }
             ValetList.Clear();
 
-
-            Hero hero = SelfPlayer as Hero;
-            long baseAttr = hero.AttributeBonus.GetTotalAttr(AttributeEnum.SpiritAtt) * SkillPanel.Percent / 100 + SkillPanel.Damage;
+            long baseAttr = SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.SpiritAtt) * (SkillPanel.Percent + SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.InheritIncrea)) / 100 + SkillPanel.Damage;
 
             Dictionary<AttributeEnum, object> data = new Dictionary<AttributeEnum, object>();
             data[AttributeEnum.Color] = Color.white;

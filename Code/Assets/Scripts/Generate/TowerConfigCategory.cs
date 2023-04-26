@@ -20,7 +20,7 @@ namespace Game
                 List<Monster_Tower> monsters = new List<Monster_Tower>();
                 for (int i = 0; i < config.Quantity; i++)
                 {
-                    var enemy = new Monster_Tower(floor);
+                    var enemy = new Monster_Tower(floor, i);
                     monsters.Add(enemy);
                 }
 
