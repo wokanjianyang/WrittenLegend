@@ -1,6 +1,5 @@
 using Game;
 using Sirenix.OdinInspector;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -53,7 +52,7 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
         msg.transform.SetParent(this.sr_BattleMsg.content);
         msg.transform.localScale = Vector3.one;
 
-        msg.GetComponent<TextMeshProUGUI>().text =e.Message;
+        msg.GetComponent<Text>().text =e.Message;
         this.sr_BattleMsg.normalizedPosition = new Vector2(0, 0);
         GameProcessor.Inst.EventCenter.Raise(new UpdateTowerWindowEvent());
 

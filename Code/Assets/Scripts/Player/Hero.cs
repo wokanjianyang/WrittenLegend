@@ -229,7 +229,7 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, config.PhyAtt);
             AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, config.Def);
 
-            TowerConfig towerConfig = TowerConfigCategory.Instance.Get(this.TowerFloor - 1);
+            TowerConfig towerConfig = TowerConfigCategory.Instance.Get(this.TowerFloor);
             AttributeBonus.SetAttr(AttributeEnum.SecondExp, AttributeFrom.Tower, towerConfig.TotalExp);
 
             UpExp = config.Exp;

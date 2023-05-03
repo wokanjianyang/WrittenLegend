@@ -1,27 +1,24 @@
 using Sirenix.OdinInspector;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Game
 {
     public class Item_Skill : MonoBehaviour, IPointerClickHandler
     {
-        [Title("技能")]
-        [LabelText("名称")]
-        public TextMeshProUGUI tmp_Name;
+        [Title("鐗╁搧")]
+        [LabelText("鍚嶇О")]
+        public Text tmp_Name;
 
-        [LabelText("等级")]
-        public TextMeshProUGUI tmp_Level;
+        [LabelText("绛夌骇")]
+        public Text tmp_Level;
 
-        [LabelText("冷却")]
-        public TextMeshProUGUI tmp_CD;
+        [LabelText("鍐峰嵈")]
+        public Text tmp_CD;
 
-        [LabelText("描述")]
-        public TextMeshProUGUI tmp_Des;
+        [LabelText("鎻忚堪")]
+        public Text tmp_Des;
 
         public SkillPanel SkillPanel { get; private set; }
 
@@ -50,7 +47,7 @@ namespace Game
                 this.tmp_Name.text = SkillPanel.SkillData.SkillConfig.Name;
             }
             this.tmp_Level.text = string.Format("LV:{0}", SkillPanel.SkillData.Level);
-            this.tmp_CD.text = string.Format("冷却时间{0}回合", SkillPanel.CD);
+            this.tmp_CD.text = string.Format("??????{0}???", SkillPanel.CD);
 
             this.tmp_Des.text = string.Format(SkillPanel.SkillData.SkillConfig.Des, SkillPanel.Dis, SkillPanel.EnemyMax, SkillPanel.Percent, SkillPanel.EnemyMax);
 

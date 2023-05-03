@@ -1,15 +1,14 @@
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 namespace Game
 {
     public class SlotBox : MonoBehaviour
     {
-        [Title("≤Â≤€")]
-        [LabelText("Œª÷√")]
+        [Title("ÊèíÊßΩ")]
+        [LabelText("Á±ªÂûã")]
         public SlotType SlotType;
 
         private Com_Box equip;

@@ -20,7 +20,7 @@ namespace Game
         {
             yield return new WaitForSeconds(0.5f);
 
-            var effectCom = EffectLoader.CreateEffect(this.SkillName, false);
+            var effectCom = EffectLoader.CreateEffect(this.SkillName);
             if (effectCom != null)
             {
                 var targetPos = GameProcessor.Inst.MapData.GetWorldPosition(cell);

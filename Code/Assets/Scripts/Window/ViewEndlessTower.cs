@@ -1,5 +1,4 @@
 using Sirenix.OdinInspector;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,29 +6,29 @@ namespace Game
 {
     public class ViewEndlessTower : AViewPage
     {
-        [Title("ÎŞ¾¡Ëş")]
-        [LabelText("ÏÂÏÂ²ã")]
+        [Title("æ— å°½å¡”")]
+        [LabelText("ä¸‹ä¸‹å±‚")]
         public Text tmp_Floor_2;
 
-        [LabelText("ÏÂ²ã")]
+        [LabelText("ä¸‹å±‚")]
         public Text tmp_Floor_1;
 
-        [LabelText("µ±Ç°²ã")]
+        [LabelText("å½“å‰å±‚")]
         public Text tmp_Floor_0;
 
-        [LabelText("µ±Ç°²ã")]
+        [LabelText("å½“å‰å±‚")]
         public Text tmp_CurrentFloor;
 
-        [LabelText("¾­Ñé¼Ó³É")]
+        [LabelText("ç»éªŒåŠ æˆ")]
         public Text tmp_ExpAdd;
 
-        [LabelText("Í¨¹Ø½±Àø")]
+        [LabelText("Í¨å¥–åŠ±")]
         public Text tmp_Reward;
 
-        [LabelText("±©»÷µÖ¿¹")]
+        [LabelText("æš´å‡»æŠµæŠ—ï¿½")]
         public Text tmp_Cri;
 
-        [LabelText("¿ªÊ¼")]
+        [LabelText("å¼€å§‹")]
         public Button btn_Start;
 
         void Start()
@@ -83,11 +82,11 @@ namespace Game
             this.tmp_Floor_1.text = $"{(minFloor + 1)}";
             this.tmp_Floor_2.text = $"{(minFloor + 2)}";
 
-            var config = TowerConfigCategory.Instance.Get(hero.TowerFloor - 1);
+            var config = TowerConfigCategory.Instance.Get(hero.TowerFloor);
             this.tmp_CurrentFloor.text = $"{(hero.TowerFloor)}";
             this.tmp_ExpAdd.text = $"{config.RiseExp}";
-            this.tmp_Reward.text = "ÔİÎŞ";
-            this.tmp_Cri.text = "ÔİÎŞ";
+            this.tmp_Reward.text = "ï¿½ï¿½ï¿½ï¿½";
+            this.tmp_Cri.text = "ï¿½ï¿½ï¿½ï¿½";
         }
 
         private void OnUpdateTowerWindowEvent(UpdateTowerWindowEvent msg)

@@ -6,7 +6,6 @@ using Game;
 using Game.Dialog;
 using SDD.Events;
 using Sirenix.OdinInspector;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 

@@ -1,7 +1,6 @@
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,8 +8,8 @@ namespace Game
 {
     public class ViewBattleProcessor : AViewPage
     {
-        [Title("Õ½¶·ĞÅÏ¢")]
-        [LabelText("µôÂä")]
+        [Title("æ‰è½")]
+        [LabelText("æ‰è½ä¿¡æ¯")]
         public ScrollRect sr_BattleMsg;
 
         private bool isViewMapShowing = false;
@@ -47,12 +46,12 @@ namespace Game
             msg.transform.SetParent(this.sr_BattleMsg.content);
             msg.transform.localScale = Vector3.one;
 
-            msg.GetComponent<TextMeshProUGUI>().text = e.Message;
+            msg.GetComponent<Text>().text = e.Message;
             this.sr_BattleMsg.normalizedPosition = new Vector2(0, 0);
 
             //if (e.MsgType == MsgType.SecondExp)
             //{
-            //    msg.GetComponent<TextMeshProUGUI>().text = $"Ôö¼ÓÅİµã¾­Ñé{e.Exp}";
+            //    msg.GetComponent<TextMeshProUGUI>().text = $"ï¿½ï¿½ï¿½ï¿½ï¿½İµã¾­ï¿½ï¿½{e.Exp}";
                 
             //}
             //else if (e.BattleType == BattleType.Normal)
@@ -61,13 +60,13 @@ namespace Game
             //    string drops = "";
             //    if (e.Drops != null && e.Drops.Count > 0)
             //    {
-            //        drops = ",µôÂä";
+            //        drops = ",ï¿½ï¿½ï¿½ï¿½";
             //        foreach (var drop in e.Drops)
             //        {
             //            drops += $"<color=#{ItemHelper.GetColor(drop.GetQuality())}>[{drop.Name}]";
             //        }
             //    }
-            //    msg.GetComponent<TextMeshProUGUI>().text = $"<color=#{ItemHelper.GetColor(4)}>[{config.Name}]<color=white>ËÀÍö,¾­ÑéÔö¼Ó:{e.Exp},½ğ±ÒÔö¼Ó:{e.Gold}{drops}";
+            //    msg.GetComponent<TextMeshProUGUI>().text = $"<color=#{ItemHelper.GetColor(4)}>[{config.Name}]<color=white>ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:{e.Exp},ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:{e.Gold}{drops}";
             //    msg.name = $"msg_{e.RoundNum}";
 
             //    this.sr_BattleMsg.normalizedPosition = new Vector2(0, 0);

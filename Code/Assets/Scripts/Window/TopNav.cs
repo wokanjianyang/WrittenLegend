@@ -6,17 +6,17 @@ namespace Game
 {
     public class TopNav : MonoBehaviour,IBattleLife
     {
-        [Title("¶¥²¿µ¼º½")]
-        [LabelText("ÓÃ»§Ãû")]
+        [Title("é¡¶éƒ¨å¯¼èˆª")]
+        [LabelText("åç§°")]
         public Text tmp_Name;
 
-        [LabelText("µÈ¼¶")]
+        [LabelText("ç­‰çº§")]
         public Text tmp_Level;
 
-        [LabelText("Õ½Á¦")]
+        [LabelText("æˆ˜åŠ›")]
         public Text tmp_BattlePower;
 
-        [LabelText("½ğ±Ò")]
+        [LabelText("é‡‘å¸")]
         public Text tmp_Gold;
 
         private Hero hero;
@@ -27,9 +27,9 @@ namespace Game
         {
             this.hero = GameProcessor.Inst.PlayerManager.GetHero();
             this.tmp_Name.text = hero.Name;
-            this.tmp_Level.text = $"{hero.Level}¼¶";
+            this.tmp_Level.text = $"{hero.Level}ï¿½ï¿½";
             this.OnHeroInfoUpdateEvent(null);
-            this.tmp_BattlePower.text = $"Õ½Á¦£º{hero.AttributeBonus.GetPower()}"; 
+            this.tmp_BattlePower.text = $"Õ½ï¿½ï¿½ï¿½ï¿½{hero.AttributeBonus.GetPower()}"; 
             hero.EventCenter.AddListener<SetPlayerLevelEvent>(this.OnSetPlayerLevelEvent);
             hero.EventCenter.AddListener<HeroInfoUpdateEvent>(this.OnHeroInfoUpdateEvent);
         }
@@ -48,13 +48,13 @@ namespace Game
 
         private void OnSetPlayerLevelEvent(SetPlayerLevelEvent e)
         {
-            this.tmp_Level.text = $"{e.Level}¼¶";
+            this.tmp_Level.text = $"{e.Level}ï¿½ï¿½";
         }
 
         private void OnHeroInfoUpdateEvent(HeroInfoUpdateEvent e)
         {
-            this.tmp_Gold.text = $"½ğ±Ò:{this.hero.Gold}";
-            this.tmp_BattlePower.text = $"Õ½Á¦£º{hero.AttributeBonus.GetPower()}";
+            this.tmp_Gold.text = $"ï¿½ï¿½ï¿½:{this.hero.Gold}";
+            this.tmp_BattlePower.text = $"Õ½ï¿½ï¿½ï¿½ï¿½{hero.AttributeBonus.GetPower()}";
         }
     }
 }
