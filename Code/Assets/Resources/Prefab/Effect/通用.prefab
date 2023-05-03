@@ -35,7 +35,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -10, y: 50}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2346607968788309464
@@ -126,8 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c146ead82574646866d0b63059c6be4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EffectPath: "UI/Buff\u65A9\u6740\u7D20\u6750/\u96F7\u7535\u672F"
+  EffectPath: "UI/Buff\u65A9\u6740\u7D20\u6750/"
   Loop: 0
   img_Effect: {fileID: 2346607968788309467}
-  frameTime: 12
   NeedReSize: 1
