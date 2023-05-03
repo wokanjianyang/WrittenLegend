@@ -85,8 +85,8 @@ namespace Game
             var config = TowerConfigCategory.Instance.Get(hero.TowerFloor);
             this.tmp_CurrentFloor.text = $"{(hero.TowerFloor)}";
             this.tmp_ExpAdd.text = $"{config.RiseExp}";
-            this.tmp_Reward.text = "����";
-            this.tmp_Cri.text = "����";
+            this.tmp_Reward.text = "暂无";
+            this.tmp_Cri.text = "暂无";
         }
 
         private void OnUpdateTowerWindowEvent(UpdateTowerWindowEvent msg)

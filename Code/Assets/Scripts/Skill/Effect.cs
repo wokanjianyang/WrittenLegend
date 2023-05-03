@@ -7,11 +7,11 @@ namespace Game
     public class Effect
     {
         /// <summary>
-        /// ÅäÖÃId
+        /// é…ç½®Id
         /// </summary>
         public int CongigId { get; set; }
         /// <summary>
-        /// ´´½¨Ê±¼ä´Á
+        /// åˆ›å»ºæ—¶é—´æˆ³
         /// </summary>
         public long CreateTime { get; set; }
 
@@ -23,10 +23,10 @@ namespace Game
 
         public EffectConfig Config { get; set; }
 
-        public long BaseValue { get; set; }  //ÌØĞ§µÄ»ù×¼Öµ,±ÈÈç°´¹¥»÷¼ÆËãµÄ¹¥»÷£¬°´ÑªÁ¿¼ÆËãµÄÑªÁ¿
+        public long BaseValue { get; set; }  //ç‰¹æ•ˆçš„åŸºå‡†å€¼,æ¯”å¦‚æŒ‰æ”»å‡»è®¡ç®—çš„æ”»å‡»ï¼ŒæŒ‰è¡€é‡è®¡ç®—çš„è¡€é‡
 
         /// <summary>
-        /// ÒÑÉúĞ§´ÎÊı
+        /// å·²ç”Ÿæ•ˆæ¬¡æ•°
         /// </summary>
         public int DoCount { get; set; }
 
@@ -43,7 +43,7 @@ namespace Game
         {
             if (Config.TargetAttr == ((int)AttributeEnum.CurrentHp))
             {
-                //Ğ§¹û¿ÛÑª,ĞèÒª¸øAPlayer·â×°Ò»¸ö·½·¨£¬´«ÈëÉËº¦ÊıÖµ£¬Player¿ÛÑªÒÔ¼°¼ÆËãºóĞøËÀÍöÒÔ¼°UI
+                //æ•ˆæœæ‰£è¡€,éœ€è¦ç»™APlayerå°è£…ä¸€ä¸ªæ–¹æ³•ï¼Œä¼ å…¥ä¼¤å®³æ•°å€¼ï¼ŒPlayeræ‰£è¡€ä»¥åŠè®¡ç®—åç»­æ­»äº¡ä»¥åŠUI
                 if (Config.Type == (int)EffectTypeEnum.Sub)
                 {
                     SelfPlayer.Logic.OnDamage(SelfPlayer.ID, Total);
@@ -63,7 +63,7 @@ namespace Game
         public void DoCell(APlayer player)
         {
             if (player.GroupId == SelfPlayer.GroupId)
-            { //²»¶Ô¶ÓÓÑ²úÉúÉËº¦
+            { //ä¸å¯¹é˜Ÿå‹äº§ç”Ÿä¼¤å®³
                 return;
             }
 
@@ -71,8 +71,8 @@ namespace Game
         }
 
         public enum EffectTypeEnum { 
-            Sub = -1,  //Ôö¼ÓÊôĞÔ
-            Add = 1  //¼õÉÙÊôĞÔ
+            Sub = -1,  //å¢åŠ å±æ€§
+            Add = 1  //å‡å°‘å±æ€§
         }
     }
 }

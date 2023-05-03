@@ -8,20 +8,20 @@ namespace Game
 {
     public class BottomNav : MonoBehaviour
     {
-        [Title("µ×²¿µ¼º½")]
-        [LabelText("°ü¹ü")]
+        [Title("åº•éƒ¨å¯¼èˆª")]
+        [LabelText("åŒ…è£¹")]
         public Button btn_Bag;
 
-        [LabelText("Õ½¶·")]
+        [LabelText("æˆ˜æ–—")]
         public Button btn_Battle;
 
-        [LabelText("ÊÀ½çµØÍ¼")]
+        [LabelText("ä¸–ç•Œåœ°å›¾")]
         public Button btn_Map;
 
-        [LabelText("ÎÞ¾¡Ëþ")]
+        [LabelText("æ— å°½å¡”")]
         public Button btn_Tower;
 
-        [LabelText("¼¼ÄÜ")]
+        [LabelText("æŠ€èƒ½")]
         public Button btn_Skill;
 
         // Start is called before the first frame update

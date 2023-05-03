@@ -25,17 +25,17 @@ namespace Game
 
         public int Duration { get; }
 
-        public int CritRate { get; } //±©»÷ÂÊ
-        public int CritDamage { get; } //±©»÷±¶ÂÊ
-        public int DamageIncrea { get; } //ÉËº¦¼Ó³É
+        public int CritRate { get; } //æš´å‡»ç‡
+        public int CritDamage { get; } //æš´å‡»å€ç‡
+        public int DamageIncrea { get; } //ä¼¤å®³åŠ æˆ
 
         public AttackGeometryType Area { get; }
 
         public SkillPanel(SkillData skillData, List<SkillRune> runeList, List<SkillSuit> suitList)
         {
-            this.SkillData = skillData; //¼¼ÄÜ±¾Éí
-            this.RuneList = runeList;  //´ÊÌõ
-            this.SuitList = suitList; //Ì××°
+            this.SkillData = skillData; //æŠ€èƒ½æœ¬èº«
+            this.RuneList = runeList;  //è¯æ¡
+            this.SuitList = suitList; //å¥—è£…
             this.SkillId = skillData.SkillId;
 
             long runeDamage = runeList.Select(m => m.Damage).Sum();
@@ -76,7 +76,7 @@ namespace Game
             this.CritDamage = skillData.SkillConfig.CritRate + runeCritDamage + suitCritDamage;
             this.DamageIncrea = skillData.SkillConfig.CritRate + runeDamageIncrea + suitDamageIncrea;
 
-            //Ê©·¨·¶Î§
+            //æ–½æ³•èŒƒå›´
             this.Area = EnumHelper.FromString<AttackGeometryType>(skillData.SkillConfig.Area);
         }
     }

@@ -11,10 +11,10 @@ namespace Game
         public long Exp { get; set; }
         public int Level { get; set; }
 
-        //¼¼ÄÜ×´Ì¬
+        //æŠ€èƒ½çŠ¶æ€
         public SkillStatus Status { get; set; }
 
-        //×°ÅäÎ»ÖÃ
+        //è£…é…ä½ç½®
         public int Position { get; set; }
 
         [JsonIgnore]
@@ -41,24 +41,24 @@ namespace Game
 
     public enum SkillType
     {
-        Attack = 1, //Ö±½Ó¹¥»÷¼¼ÄÜ
-        Valet = 2, //ÕÙ»½¼¼ÄÜ
-        Map = 3, //³¡¾°¼¼ÄÜ£¨±ÈÈç»ğÇ½£©
-        Restore = 4,//»Ö¸´¼¼ÄÜ
+        Attack = 1,  //ç›´æ¥æ”»å‡»æŠ€èƒ½
+        Valet = 2, //å¬å”¤æŠ€èƒ½
+        Map = 3,  //åœºæ™¯æŠ€èƒ½ï¼ˆæ¯”å¦‚ç«å¢™ï¼‰
+        Restore = 4,//æ¢å¤æŠ€èƒ½
     }
 
     public enum SkillStatus
     {
         /// <summary>
-        /// Î´Ñ§Ï°
+        /// æœªå­¦ä¹ 
         /// </summary>
         Normal = 0,
         /// <summary>
-        /// ÒÑÑ§Ï°
+        /// å·²å­¦ä¹ 
         /// </summary>
         Learn = 1,
         /// <summary>
-        /// ÒÑ×°Åä
+        /// å·²è£…é…
         /// </summary>
         Equip = 2,
     }

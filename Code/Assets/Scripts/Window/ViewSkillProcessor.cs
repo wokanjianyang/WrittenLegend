@@ -47,7 +47,7 @@ namespace Game
         {
             SkillToBattle(e.SkillPanel);
 
-            UserData.Save(); //�޸ļ��ܺ󣬴浵
+            UserData.Save(); //修改技能后，存档
         }
 
         private void SkillToBattle(SkillPanel skill) {
@@ -85,7 +85,7 @@ namespace Game
                     this.equipSkills.Add(com);
                 }
             }
-            //Ӣ�����¼�����ѡ����
+            //英雄重新加载已选择技能
             GameProcessor.Inst.PlayerManager.GetHero().InitPanelSkill();
         }
 

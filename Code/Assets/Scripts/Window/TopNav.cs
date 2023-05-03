@@ -27,9 +27,9 @@ namespace Game
         {
             this.hero = GameProcessor.Inst.PlayerManager.GetHero();
             this.tmp_Name.text = hero.Name;
-            this.tmp_Level.text = $"{hero.Level}��";
+            this.tmp_Level.text = $"{hero.Level}级";
             this.OnHeroInfoUpdateEvent(null);
-            this.tmp_BattlePower.text = $"ս����{hero.AttributeBonus.GetPower()}"; 
+            this.tmp_BattlePower.text = $"战力：{hero.AttributeBonus.GetPower()}"; 
             hero.EventCenter.AddListener<SetPlayerLevelEvent>(this.OnSetPlayerLevelEvent);
             hero.EventCenter.AddListener<HeroInfoUpdateEvent>(this.OnHeroInfoUpdateEvent);
         }
@@ -48,13 +48,13 @@ namespace Game
 
         private void OnSetPlayerLevelEvent(SetPlayerLevelEvent e)
         {
-            this.tmp_Level.text = $"{e.Level}��";
+            this.tmp_Level.text = $"{e.Level}级";
         }
 
         private void OnHeroInfoUpdateEvent(HeroInfoUpdateEvent e)
         {
-            this.tmp_Gold.text = $"���:{this.hero.Gold}";
-            this.tmp_BattlePower.text = $"ս����{hero.AttributeBonus.GetPower()}";
+            this.tmp_Gold.text = $"金币:{this.hero.Gold}";
+            this.tmp_BattlePower.text = $"战力：{hero.AttributeBonus.GetPower()}";
         }
     }
 }

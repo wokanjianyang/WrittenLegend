@@ -16,9 +16,9 @@ namespace Game
         {
             List<AttackData> attackDatas = new List<AttackData>();
 
-            //Debug.Log($"��ȡ����:{(this.SkillData.Name)}ʩ��Ŀ��");
+            //Debug.Log($"获取技能:{(this.SkillData.Name)}施法目标");
 
-            //ʩ������Ϊ�Լ�
+            //施法中心为自己
             APlayer target = SelfPlayer;
 
             List<Vector3Int> allAttackCells = GameProcessor.Inst.MapData.GetAttackRangeCell(target.Cell, SkillPanel.Dis, SkillPanel.Area);
@@ -38,7 +38,7 @@ namespace Game
         public void Run(APlayer enemy)
         {
             if (enemy.GroupId == this.SelfPlayer.GroupId)
-            {  //���Զ�������˺�
+            {  //不对队友造成伤害
                 return;
             }
             long damage = this.SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.PhyAtt) - enemy.AttributeBonus.GetTotalAttr(AttributeEnum.Def);
@@ -54,7 +54,7 @@ namespace Game
             foreach (var cell in allAttackCells)
             {
                 MapCell mapCell = GameProcessor.Inst.MapData.GetMapCell(cell);
-                if (mapCell != null) //���ڵ�ͼ��Ե��ʱ��
+                if (mapCell != null) //处于地图边缘的时候
                 {
                     mapCell.AddSkill(this);
                 }

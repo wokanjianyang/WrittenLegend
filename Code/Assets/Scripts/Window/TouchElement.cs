@@ -7,7 +7,7 @@ namespace Game
 {
     public class TouchElement : MonoBehaviour,ItouchIgnore
     {
-        [LabelText("µã»÷ºöÂÔÀàÐÍ")]
+        [LabelText("è§¦æ‘¸å¿½ç•¥ç±»åž‹")]
         public TouchIgnoreType TouchIgnore;
 
         TouchIgnoreType ItouchIgnore.TouchType { get => this.TouchIgnore; }

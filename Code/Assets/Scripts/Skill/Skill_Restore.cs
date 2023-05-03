@@ -13,7 +13,7 @@ namespace Game
 
         public override List<AttackData> GetAllTargets()
         {
-            //Debug.Log($"ʹ�ü���:{(this.SkillPanel.SkillData.SkillConfig.Name)},ʩ��Ŀ��Ϊ�Լ�");
+            //Debug.Log($"使用技能:{(this.SkillPanel.SkillData.SkillConfig.Name)},施法目标为自己");
 
             List<AttackData> attackDatas = new List<AttackData>();
 
@@ -26,13 +26,13 @@ namespace Game
             foreach (var cell in allAttackCells)
             {
                 var enemy = GameProcessor.Inst.PlayerManager.GetPlayer(cell);
-                if (enemy != null && enemy.GroupId == SelfPlayer.GroupId && enemy.ID != SelfPlayer.ID) //ֻ�ظ�ͬ���Ա,�Լ��Ѿ��ӽ�ȥ��
+                if (enemy != null && enemy.GroupId == SelfPlayer.GroupId && enemy.ID != SelfPlayer.ID) //只回复同组成员,自己已经加进去了
                 {
                     teamList.Add(enemy);
                 }
             }
 
-            //����ʧѪ������
+            //按损失血量排序
             teamList = teamList.OrderBy(m => m.AttributeBonus.GetTotalAttr(AttributeEnum.HP) - m.HP).ToList();
 
             foreach (var teamer in teamList)
@@ -79,10 +79,10 @@ namespace Game
                     {
                         EffectConfig config = EffectConfigCategory.Instance.Get(EffectId);
 
-                        var effectTarget = config.TargetType == 1 ? this.SelfPlayer : teamer; //1 Ϊ�����Լ� 2 Ϊ���õ���
+                        var effectTarget = config.TargetType == 1 ? this.SelfPlayer : teamer; //1 为作用自己 2 为作用敌人
 
                         if (config.Duration > 0)
-                        {  //����Buff
+                        {  //持续Buff
                             effectTarget.AddEffect(EffectId, this.SelfPlayer);
                         }
                         else
@@ -98,7 +98,7 @@ namespace Game
 
         public long CalcFormula()
         {
-            //�ָ����Ʊ����������˵�
+            //恢复不计暴击增伤幸运等
             long attack = GetRoleAttack();  
             attack = attack * SkillPanel.Percent / 100 + SkillPanel.Damage;
             return attack;

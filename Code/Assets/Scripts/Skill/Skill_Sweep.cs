@@ -15,15 +15,15 @@ namespace Game
         {
             List<AttackData> attackDatas = new List<AttackData>();
 
-            //Debug.Log($"��ȡ����:{(this.SkillPanel.SkillData.SkillConfig.Name)}ʩ��Ŀ��");
+            //Debug.Log($"获取技能:{(this.SkillPanel.SkillData.SkillConfig.Name)}施法目标");
 
-            //ʩ������Ϊ�Լ�
+            //施法中心为自己
             APlayer target = SelfPlayer;
 
             List<Vector3Int> allAttackCells = GameProcessor.Inst.MapData.GetAttackRangeCell(target.Cell, SkillPanel.Dis, SkillPanel.Area);
             float ratio = allAttackCells.Count;
 
-            //���򣬴ӽ���Զ
+            //排序，从进到远
             Vector3Int mainCell = SelfPlayer.Cell;
             Vector3Int selfCell = SelfPlayer.Cell;
             allAttackCells = allAttackCells.OrderBy(m => Mathf.Abs(m.x - mainCell.x) + Mathf.Abs(m.y - mainCell.y) + Mathf.Abs(m.z - mainCell.z)
@@ -40,7 +40,7 @@ namespace Game
                 }
 
                 var enemy = GameProcessor.Inst.PlayerManager.GetPlayer(cell);
-                if (enemy != null && enemy.GroupId != SelfPlayer.GroupId) //���ṥ��ͬ���Ա
+                if (enemy != null && enemy.GroupId != SelfPlayer.GroupId) //不会攻击同组成员
                 {
                     attackDatas.Add(new AttackData()
                     {
