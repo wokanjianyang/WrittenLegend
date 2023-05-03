@@ -1,8 +1,5 @@
 using Sirenix.OdinInspector;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +8,7 @@ namespace Game
     public class Dialog_OfflineExp : MonoBehaviour, IBattleLife
     {
         [LabelText("离线奖励提示")]
-        public TextMeshProUGUI tmp_Msg;
+        public Text tmp_Msg;
 
         [LabelText("领取按钮")]
         public Button btn_GetOfflineExp;

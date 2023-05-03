@@ -9,25 +9,25 @@ namespace Game
     {
         [Title("无尽塔")]
         [LabelText("下下层")]
-        public TextMeshProUGUI tmp_Floor_2;
+        public Text tmp_Floor_2;
 
         [LabelText("下层")]
-        public TextMeshProUGUI tmp_Floor_1;
+        public Text tmp_Floor_1;
 
         [LabelText("当前层")]
-        public TextMeshProUGUI tmp_Floor_0;
+        public Text tmp_Floor_0;
 
         [LabelText("当前层")]
-        public TextMeshProUGUI tmp_CurrentFloor;
+        public Text tmp_CurrentFloor;
 
         [LabelText("经验加成")]
-        public TextMeshProUGUI tmp_ExpAdd;
+        public Text tmp_ExpAdd;
 
         [LabelText("通关奖励")]
-        public TextMeshProUGUI tmp_Reward;
+        public Text tmp_Reward;
 
         [LabelText("暴击抵抗")]
-        public TextMeshProUGUI tmp_Cri;
+        public Text tmp_Cri;
 
         [LabelText("开始")]
         public Button btn_Start;

@@ -1,7 +1,4 @@
 using Sirenix.OdinInspector;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,29 +7,29 @@ namespace Game
     public class PlayerInfo : MonoBehaviour
     {
         [LabelText("HP")]
-        public TextMeshProUGUI HP;
+        public Text HP;
         [LabelText("PhyAtt")]
-        public TextMeshProUGUI PhyAtt;
+        public Text PhyAtt;
         [LabelText("SpiritAtt")]
-        public TextMeshProUGUI SpiritAtt;
+        public Text SpiritAtt;
         [LabelText("MagicAtt")]
-        public TextMeshProUGUI MagicAtt;
+        public Text MagicAtt;
         [LabelText("Lucky")]
-        public TextMeshProUGUI Lucky;
+        public Text Lucky;
         [LabelText("Def")]
-        public TextMeshProUGUI Def;
+        public Text Def;
         [LabelText("LevelExp")]
-        public TextMeshProUGUI LevelExp;
+        public Text LevelExp;
         [LabelText("DamageIncrea")]
-        public TextMeshProUGUI DamageIncrea;
+        public Text DamageIncrea;
         [LabelText("DamageResist")]
-        public TextMeshProUGUI DamageResist;
+        public Text DamageResist;
         [LabelText("CritRate")]
-        public TextMeshProUGUI CritRate;
+        public Text CritRate;
         [LabelText("CritRateResist")]
-        public TextMeshProUGUI CritRateResist;
+        public Text CritRateResist;
         [LabelText("CritDamage")]
-        public TextMeshProUGUI CritDamage;
+        public Text CritDamage;
 
     
 

@@ -1,7 +1,4 @@
 using Sirenix.OdinInspector;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,16 +8,16 @@ namespace Game
     {
         [Title("顶部导航")]
         [LabelText("用户名")]
-        public TextMeshProUGUI tmp_Name;
+        public Text tmp_Name;
 
         [LabelText("等级")]
-        public TextMeshProUGUI tmp_Level;
+        public Text tmp_Level;
 
         [LabelText("战力")]
-        public TextMeshProUGUI tmp_BattlePower;
+        public Text tmp_BattlePower;
 
         [LabelText("金币")]
-        public TextMeshProUGUI tmp_Gold;
+        public Text tmp_Gold;
 
         private Hero hero;
 
