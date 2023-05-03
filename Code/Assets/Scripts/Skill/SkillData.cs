@@ -43,7 +43,8 @@ namespace Game
     {
         Attack = 1, //直接攻击技能
         Valet = 2, //召唤技能
-        Map =3, //场景技能（比如火墙）
+        Map = 3, //场景技能（比如火墙）
+        Restore = 4,//恢复技能
     }
 
     public enum SkillStatus

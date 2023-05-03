@@ -96,12 +96,18 @@ namespace Game
 		/// <summary>HP</summary>
 		[ProtoMember(7)]
 		public long HP { get; set; }
-		/// <summary>Exp</summary>
+		/// <summary>TotalExp</summary>
 		[ProtoMember(8)]
-		public long Exp { get; set; }
-		/// <summary>OfflineExp</summary>
+		public long TotalExp { get; set; }
+		/// <summary>RiseExp</summary>
 		[ProtoMember(9)]
-		public long OfflineExp { get; set; }
+		public long RiseExp { get; set; }
+		/// <summary>Quantity</summary>
+		[ProtoMember(10)]
+		public long Quantity { get; set; }
+		/// <summary>SkillIdList</summary>
+		[ProtoMember(11)]
+		public int[] SkillIdList { get; set; }
 
 	}
 }

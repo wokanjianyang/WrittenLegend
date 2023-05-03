@@ -10,7 +10,7 @@ namespace Game
     {
         public BaseAttackSkill(APlayer player, SkillPanel skillPanel) : base(player, skillPanel)
         {
-            this.skillGraphic = new SweepSkillGraphic(player,skillPanel.SkillData.SkillConfig.Name);
+            this.skillGraphic = new BaseSkillGraphic(player,skillPanel.SkillData.SkillConfig.Name);
         }
 
 
@@ -19,19 +19,19 @@ namespace Game
             //计算公式  ((攻击 - 防御) * 百分比系数 + 固定数值) * 暴击?.暴击倍率 * (伤害加成-伤害减免) * (幸运)
 
             long attack = GetRoleAttack() - SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.Def); //攻击 - 防御
-            attack = attack * (SkillPanel.Percent + 100) / 100 + SkillPanel.Damage;  // *百分比系数 + 固定数值
+            attack = attack * SkillPanel.Percent / 100 + SkillPanel.Damage;  // *百分比系数 + 固定数值
 
             //暴击率 = 攻击者暴击率+技能暴击倍率-被攻击者暴击抵抗率
             long CritRate = SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.CritRate) + SkillPanel.CritRate - enemy.AttributeBonus.GetTotalAttr(AttributeEnum.CritRateResist);
             if (RandomHelper.RandomCritRate((int)CritRate))
             {
-                //暴击倍率（ 不低于0 ） = 50基础爆伤 + 攻击者爆伤 - 被攻击者爆伤减免
-                long CritDamage = Math.Max(0, 50 + SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.CritDamage) - enemy.AttributeBonus.GetTotalAttr(AttributeEnum.CritDamageResist));
+                //暴击倍率（ 不低于0 ） = 50基础爆伤+技能爆伤 + 攻击者爆伤 - 被攻击者爆伤减免
+                long CritDamage = Math.Max(0, 50 + SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.CritDamage) + SkillPanel.CritDamage - enemy.AttributeBonus.GetTotalAttr(AttributeEnum.CritDamageResist));
                 attack = attack * (CritDamage + 100) / 100;
             }
 
-            //伤害加成（不低于0） = 100基础伤害 + 攻击者伤害加成 — 被攻击者伤害减免 
-            long DamageIncrea = Math.Max(0, 100 + SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.DamageIncrea) - enemy.AttributeBonus.GetTotalAttr(AttributeEnum.DamageResist));
+            //伤害加成（不低于0） = 100基础伤害+技能伤害加成 + 攻击者伤害加成 — 被攻击者伤害减免 
+            long DamageIncrea = Math.Max(0, 100 + SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.DamageIncrea) + SkillPanel.DamageIncrea - enemy.AttributeBonus.GetTotalAttr(AttributeEnum.DamageResist));
             attack = attack * DamageIncrea / 100;
 
             //幸运，每点造成10%最终伤害

@@ -49,7 +49,7 @@ namespace Game
                     SelfPlayer.Logic.OnDamage(SelfPlayer.ID, Total);
                 }
                 else {
-                    SelfPlayer.Logic.OnReply(Total);
+                    SelfPlayer.Logic.OnRestore(Total);
                 }
             }
             else

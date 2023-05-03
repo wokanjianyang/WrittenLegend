@@ -47,28 +47,31 @@ namespace Game
             msg.transform.SetParent(this.sr_BattleMsg.content);
             msg.transform.localScale = Vector3.one;
 
-            if (e.MsgType == MsgType.SecondExp)
-            {
-                msg.GetComponent<TextMeshProUGUI>().text = $"增加泡点经验{e.Exp}";
-                this.sr_BattleMsg.normalizedPosition = new Vector2(0, 0);
-            }
-            else if (e.BattleType == BattleType.Normal)
-            {
-                MonsterBase config = MonsterBaseCategory.Instance.Get(e.MonsterId);
-                string drops = "";
-                if (e.Drops != null && e.Drops.Count > 0)
-                {
-                    drops = ",掉落";
-                    foreach (var drop in e.Drops)
-                    {
-                        drops += $"<color=#D800FF>[{drop.Name}]";
-                    }
-                }
-                msg.GetComponent<TextMeshProUGUI>().text = $"<color=#D800FF>[{config.Name}]<color=white>死亡,经验增加:{e.Exp},金币增加:{e.Gold}{drops}";
-                msg.name = $"msg_{e.RoundNum}";
+            msg.GetComponent<TextMeshProUGUI>().text = e.Message;
+            this.sr_BattleMsg.normalizedPosition = new Vector2(0, 0);
 
-                this.sr_BattleMsg.normalizedPosition = new Vector2(0, 0);
-            }
+            //if (e.MsgType == MsgType.SecondExp)
+            //{
+            //    msg.GetComponent<TextMeshProUGUI>().text = $"增加泡点经验{e.Exp}";
+                
+            //}
+            //else if (e.BattleType == BattleType.Normal)
+            //{
+            //    MonsterBase config = MonsterBaseCategory.Instance.Get(e.MonsterId);
+            //    string drops = "";
+            //    if (e.Drops != null && e.Drops.Count > 0)
+            //    {
+            //        drops = ",掉落";
+            //        foreach (var drop in e.Drops)
+            //        {
+            //            drops += $"<color=#{ItemHelper.GetColor(drop.GetQuality())}>[{drop.Name}]";
+            //        }
+            //    }
+            //    msg.GetComponent<TextMeshProUGUI>().text = $"<color=#{ItemHelper.GetColor(4)}>[{config.Name}]<color=white>死亡,经验增加:{e.Exp},金币增加:{e.Gold}{drops}";
+            //    msg.name = $"msg_{e.RoundNum}";
+
+            //    this.sr_BattleMsg.normalizedPosition = new Vector2(0, 0);
+            //}
         }
     }
 }

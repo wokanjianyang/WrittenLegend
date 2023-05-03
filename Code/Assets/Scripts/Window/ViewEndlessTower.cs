@@ -85,7 +85,7 @@ namespace Game
 
             var config = TowerConfigCategory.Instance.Get(hero.TowerFloor - 1);
             this.tmp_CurrentFloor.text = $"{(hero.TowerFloor)}";
-            this.tmp_ExpAdd.text = $"{config.OfflineExp}";
+            this.tmp_ExpAdd.text = $"{config.RiseExp}";
             this.tmp_Reward.text = "ÔÝÎÞ";
             this.tmp_Cri.text = "ÔÝÎÞ";
         }

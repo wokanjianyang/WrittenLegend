@@ -8,14 +8,14 @@ namespace Game
     {
         public Skill_Sweep(APlayer player, SkillPanel skill) : base(player, skill)
         {
-            this.skillGraphic = new SweepSkillGraphic(player, skill.SkillData.SkillConfig.Name);
+            this.skillGraphic = new SweepSkillGraphic(player, skill.SkillData.SkillConfig.ModelName);
         }
 
         public override List<AttackData> GetAllTargets()
         {
             List<AttackData> attackDatas = new List<AttackData>();
 
-            //Debug.Log($"获取技能:{(this.SkillData.Name)}施法目标");
+            //Debug.Log($"获取技能:{(this.SkillPanel.SkillData.SkillConfig.Name)}施法目标");
 
             //施法中心为自己
             APlayer target = SelfPlayer;

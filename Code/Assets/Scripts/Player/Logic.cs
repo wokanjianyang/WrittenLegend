@@ -136,7 +136,7 @@ namespace Game
             this.SelfPlayer.SetHP(currentHP);
         }
 
-        public void OnReply(long hp)
+        public void OnRestore(long hp)
         {
             long currentHP = this.SelfPlayer.HP;
 

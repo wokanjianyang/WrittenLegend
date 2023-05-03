@@ -12,19 +12,20 @@ namespace Game
 
     public class MonsterTowerHelper
     {
-        public static Monster_Tower BuildMonster(int floor)
+        public static List<Monster_Tower> BuildMonster(int floor)
         {
             var config = TowerConfigCategory.Instance.Get(floor);
-            if(config!=null)
+            if (config != null)
             {
-                var enemy = new Monster_Tower();
-                enemy.Load();
-                enemy.SetLevelConfigAttr(config);
-                enemy.Logic.SetData(null);
+                List<Monster_Tower> monsters = new List<Monster_Tower>();
+                for (int i = 0; i < config.Quantity; i++)
+                {
+                    var enemy = new Monster_Tower(floor, i);
+                    monsters.Add(enemy);
+                }
 
-                return enemy;
+                return monsters;
             }
-
             return null;
         }
     }

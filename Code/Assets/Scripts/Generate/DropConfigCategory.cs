@@ -33,7 +33,7 @@ namespace Game
 
     public class DropHelper
     {
-        public static List<Item> BuildDropItem(List<KeyValuePair<int, DropConfig>> dropList)
+        public static List<Item> BuildDropItem(List<KeyValuePair<int, DropConfig>> dropList,int minQuanlity)
         {
             List<Item> list = new List<Item>();
 
@@ -50,7 +50,7 @@ namespace Game
 
                     if (config.ItemType == (int)DropItemType.equip)
                     {
-                        item = EquipHelper.BuildEquip(config.ItemIdList[index]);
+                        item = EquipHelper.BuildEquip(config.ItemIdList[index],minQuanlity);
                     }
                     else
                     {

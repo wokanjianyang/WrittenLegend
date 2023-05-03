@@ -32,15 +32,16 @@ namespace Game
 
     public class BattleMsgEvent : SDD.Events.Event
     {
-        public int RoundNum { get; set; }
-        public int MonsterId { get; set; }
+        public string Message { get; set; }
+        //public int RoundNum { get; set; }
+        //public int MonsterId { get; set; }
 
-        public long Exp { get; set; }
-        public long Gold { get; set; }
+        //public long Exp { get; set; }
+        //public long Gold { get; set; }
 
-        public List<Item> Drops { get; set; }
+        //public List<Item> Drops { get; set; }
 
-        public MsgType MsgType { get; set; } = MsgType.Drop;
+        //public MsgType MsgType { get; set; } = MsgType.Drop;
         public BattleType BattleType { get; set; } = BattleType.Normal;
     }
 

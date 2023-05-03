@@ -86,7 +86,7 @@ public class PlayerUI : MonoBehaviour,IPlayer
                 this.image_Background.sprite = list_Backgrounds[1];
                 break;
             case PlayerType.Enemy:
-                if (this.SelfPlayer.Level % 10 == 0)
+                if (this.SelfPlayer.ModelType == MondelType.Boss)
                 {
                     this.image_Background.sprite = list_Backgrounds[3];
                 }
@@ -134,8 +134,11 @@ public class PlayerUI : MonoBehaviour,IPlayer
         this.tran_Attack.localScale = e.NeedShow ? Vector3.one : Vector3.zero;
         if(e.NeedShow)
         {
-            GameProcessor.Inst.DelayAction(1f, () => { 
-                this.tran_Attack.localScale = Vector3.zero;
+            GameProcessor.Inst.DelayAction(1f, () => {
+                if (this.tran_Attack != null)
+                {
+                    this.tran_Attack.localScale = Vector3.zero;
+                }
             });
         }
     }

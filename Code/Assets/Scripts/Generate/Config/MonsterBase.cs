@@ -84,21 +84,21 @@ namespace Game
 		/// <summary>名称</summary>
 		[ProtoMember(3)]
 		public string Name { get; set; }
-		/// <summary>等级</summary>
-		[ProtoMember(4)]
-		public int Exp { get; set; }
-		/// <summary>生命</summary>
-		[ProtoMember(5)]
-		public int HP { get; set; }
-		/// <summary>防御</summary>
-		[ProtoMember(6)]
-		public int Def { get; set; }
 		/// <summary>攻击</summary>
+		[ProtoMember(4)]
+		public long PhyAttr { get; set; }
+		/// <summary>防御</summary>
+		[ProtoMember(5)]
+		public long Def { get; set; }
+		/// <summary>生命</summary>
+		[ProtoMember(6)]
+		public long HP { get; set; }
+		/// <summary>经验</summary>
 		[ProtoMember(7)]
-		public int PhyAttr { get; set; }
+		public long Exp { get; set; }
 		/// <summary>掉落金币</summary>
 		[ProtoMember(8)]
-		public int Gold { get; set; }
+		public long Gold { get; set; }
 
 	}
 }

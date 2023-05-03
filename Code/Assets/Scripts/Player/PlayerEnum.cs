@@ -56,6 +56,11 @@ namespace Game
         Valet, 
     }
 
+    public enum MondelType { 
+        Nomal = 1,
+        Boss = 2,
+    }
+
     public enum SlotType
     {
         [LabelText("ÎäÆ÷")]

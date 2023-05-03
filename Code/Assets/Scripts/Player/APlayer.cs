@@ -21,10 +21,11 @@ namespace Game
 
         public List<SkillData> SkillList { get; set; } = new List<SkillData>();
 
-        public IDictionary<int, int> SkillIdList { get; set; }
-
         [JsonIgnore]
         public PlayerType Camp { get; set; }
+
+        [JsonIgnore]
+        public MondelType ModelType { get; set; } = MondelType.Nomal;
 
         [JsonIgnore]
         public Vector3Int Cell { get; set; }
@@ -327,6 +328,10 @@ namespace Game
             {
                 this.Logic.OnDamage(fromId, d);
             }
+        }
+
+        public void OnRestore(int fromId, long hp) {
+            this.Logic.OnRestore(hp);
         }
 
         public void SetHP(long hp) {

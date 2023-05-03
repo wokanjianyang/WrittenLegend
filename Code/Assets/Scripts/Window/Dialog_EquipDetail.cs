@@ -104,23 +104,7 @@ namespace Game
             this.boxId = e.BoxId;
             this.equipPositioin = e.EquipPosition;
 
-            var titleColor = "FFFFFF";
-
-            switch (this.item.GetQuality())
-            {
-                case 1:
-                    titleColor = "CBFFC2";
-                    break;
-                case 2:
-                    titleColor = "CCCCCC";
-                    break;
-                case 3:
-                    titleColor = "76B0FF";
-                    break;
-                case 4:
-                    titleColor = "D800FF";
-                    break;
-            }
+            var titleColor = QualityConfigHelper.GetColor(this.item.GetQuality());
             this.img_Background.sprite = this.list_BackgroundImgs[this.item.GetQuality() - 1];
             tmp_Title.text = string.Format("<color=#{0}>{1}</color>", titleColor, this.item.Name);
 

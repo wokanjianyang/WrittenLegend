@@ -24,7 +24,7 @@ namespace Game
 
             if (skillPanel.SkillData.SkillConfig.Type == (int)SkillType.Attack)
             {
-                this.skillLogic = new BaseAttackSkill(player, skillPanel);
+                this.skillLogic = new Skill_Sweep(player, skillPanel);
             }
             else if (skillPanel.SkillData.SkillConfig.Type == (int)SkillType.Valet)
             {
@@ -34,9 +34,13 @@ namespace Game
             {
                 this.skillLogic = new Skill_Map(player, skillPanel);
             }
+            else if (skillPanel.SkillData.SkillConfig.Type == (int)SkillType.Restore)
+            {
+                this.skillLogic = new Skill_Restore(player, skillPanel);
+            }
             else
             {
-                this.skillLogic = new Skill_Sweep(player, skillPanel);
+                this.skillLogic = new BaseAttackSkill(player, skillPanel);
             }
         }
 
