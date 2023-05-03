@@ -10,7 +10,7 @@ namespace Game
         private IEnumerator lastIE = null;
         private bool isIEEnd = false;
 
-        public BaseSkillGraphic(APlayer player, string skillName) : base(player, skillName)
+        public BaseSkillGraphic(APlayer player, SkillConfig skillConfig) : base(player, skillConfig)
         {
         }
 

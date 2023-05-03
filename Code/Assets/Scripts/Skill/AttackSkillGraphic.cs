@@ -7,7 +7,7 @@ namespace Game
 {
     public class AttackSkillGraphic : SkillGraphic
     {
-        public AttackSkillGraphic(APlayer player,string skillName) : base(player,skillName)
+        public AttackSkillGraphic(APlayer player,SkillConfig skillConfig) : base(player,skillConfig)
         {
         }
 
@@ -20,7 +20,7 @@ namespace Game
         {
             yield return new WaitForSeconds(0.5f);
 
-            var effectCom = EffectLoader.CreateEffect(this.SkillName);
+            var effectCom = EffectLoader.CreateEffect(this.SkillConfig.ModelName);
             if (effectCom != null)
             {
                 var targetPos = GameProcessor.Inst.MapData.GetWorldPosition(cell);

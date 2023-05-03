@@ -8,22 +8,22 @@ namespace Game
     {
         public Skill_Sweep(APlayer player, SkillPanel skill) : base(player, skill)
         {
-            this.skillGraphic = new SweepSkillGraphic(player, skill.SkillData.SkillConfig.ModelName);
+            this.skillGraphic = new SweepSkillGraphic(player, skill.SkillData.SkillConfig);
         }
 
         public override List<AttackData> GetAllTargets()
         {
             List<AttackData> attackDatas = new List<AttackData>();
 
-            //Debug.Log($"»ñÈ¡¼¼ÄÜ:{(this.SkillPanel.SkillData.SkillConfig.Name)}Ê©·¨Ä¿±ê");
+            //Debug.Log($"ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½:{(this.SkillPanel.SkillData.SkillConfig.Name)}Ê©ï¿½ï¿½Ä¿ï¿½ï¿½");
 
-            //Ê©·¨ÖÐÐÄÎª×Ô¼º
+            //Ê©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½Ô¼ï¿½
             APlayer target = SelfPlayer;
 
             List<Vector3Int> allAttackCells = GameProcessor.Inst.MapData.GetAttackRangeCell(target.Cell, SkillPanel.Dis, SkillPanel.Area);
             float ratio = allAttackCells.Count;
 
-            //ÅÅÐò£¬´Ó½øµ½Ô¶
+            //ï¿½ï¿½ï¿½ò£¬´Ó½ï¿½ï¿½ï¿½Ô¶
             Vector3Int mainCell = SelfPlayer.Cell;
             Vector3Int selfCell = SelfPlayer.Cell;
             allAttackCells = allAttackCells.OrderBy(m => Mathf.Abs(m.x - mainCell.x) + Mathf.Abs(m.y - mainCell.y) + Mathf.Abs(m.z - mainCell.z)
@@ -40,7 +40,7 @@ namespace Game
                 }
 
                 var enemy = GameProcessor.Inst.PlayerManager.GetPlayer(cell);
-                if (enemy != null && enemy.GroupId != SelfPlayer.GroupId) //²»»á¹¥»÷Í¬×é³ÉÔ±
+                if (enemy != null && enemy.GroupId != SelfPlayer.GroupId) //ï¿½ï¿½ï¿½á¹¥ï¿½ï¿½Í¬ï¿½ï¿½ï¿½Ô±
                 {
                     attackDatas.Add(new AttackData()
                     {

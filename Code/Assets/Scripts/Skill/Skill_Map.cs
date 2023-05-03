@@ -9,16 +9,16 @@ namespace Game
     {
         public Skill_Map(APlayer player, SkillPanel skill) : base(player, skill)
         {
-            this.skillGraphic = new AttackSkillGraphic(player, skill.SkillData.SkillConfig.Name);
+            this.skillGraphic = new AttackSkillGraphic(player, skill.SkillData.SkillConfig);
         }
 
         public override List<AttackData> GetAllTargets()
         {
             List<AttackData> attackDatas = new List<AttackData>();
 
-            //Debug.Log($"»ñÈ¡¼¼ÄÜ:{(this.SkillData.Name)}Ê©·¨Ä¿±ê");
+            //Debug.Log($"ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½:{(this.SkillData.Name)}Ê©ï¿½ï¿½Ä¿ï¿½ï¿½");
 
-            //Ê©·¨ÖÐÐÄÎª×Ô¼º
+            //Ê©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½Ô¼ï¿½
             APlayer target = SelfPlayer;
 
             List<Vector3Int> allAttackCells = GameProcessor.Inst.MapData.GetAttackRangeCell(target.Cell, SkillPanel.Dis, SkillPanel.Area);
@@ -38,7 +38,7 @@ namespace Game
         public void Run(APlayer enemy)
         {
             if (enemy.GroupId == this.SelfPlayer.GroupId)
-            {  //²»¶Ô¶ÓÓÑÔì³ÉÉËº¦
+            {  //ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½
                 return;
             }
             long damage = this.SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.PhyAtt) - enemy.AttributeBonus.GetTotalAttr(AttributeEnum.Def);
@@ -54,7 +54,7 @@ namespace Game
             foreach (var cell in allAttackCells)
             {
                 MapCell mapCell = GameProcessor.Inst.MapData.GetMapCell(cell);
-                if (mapCell != null) //´¦ÓÚµØÍ¼±ßÔµµÄÊ±ºò
+                if (mapCell != null) //ï¿½ï¿½ï¿½Úµï¿½Í¼ï¿½ï¿½Ôµï¿½ï¿½Ê±ï¿½ï¿½
                 {
                     mapCell.AddSkill(this);
                 }

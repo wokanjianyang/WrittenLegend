@@ -7,7 +7,7 @@ namespace Game
 {
     public class SweepSkillGraphic : SkillGraphic
     {
-        public SweepSkillGraphic(APlayer player,string skillName) : base(player,skillName)
+        public SweepSkillGraphic(APlayer player,SkillConfig skillConfig) : base(player,skillConfig)
         {
         }
 
@@ -19,7 +19,7 @@ namespace Game
         private IEnumerator IE_Attack(Vector3Int cell)
         {
 
-            var effectCom = EffectLoader.CreateEffect(this.SkillName);
+            var effectCom = EffectLoader.CreateEffect(this.SkillConfig.ModelName);
             if (effectCom != null)
             {
                 
@@ -29,7 +29,8 @@ namespace Game
                 effectCom.transform.localPosition = selfPos;
                 effectCom.transform.DOLocalMove(targetPos, 0.5f);
 
-                yield return new WaitForSeconds(1f);
+                var duration = Mathf.Max(this.SkillConfig.Duration, 1f);
+                yield return new WaitForSeconds(duration);
                 //effectCom.gameObject.SetActive(false);
                 GameObject.Destroy(effectCom.gameObject);
             }

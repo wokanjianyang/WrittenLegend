@@ -8,12 +8,12 @@ namespace Game
     {
         public Skill_Restore(APlayer player, SkillPanel skillPanel) : base(player, skillPanel)
         {
-            this.skillGraphic = new SweepSkillGraphic(player, skillPanel.SkillData.SkillConfig.ModelName);
+            this.skillGraphic = new SweepSkillGraphic(player, skillPanel.SkillData.SkillConfig);
         }
 
         public override List<AttackData> GetAllTargets()
         {
-            //Debug.Log($"Ê¹ÓÃ¼¼ÄÜ:{(this.SkillPanel.SkillData.SkillConfig.Name)},Ê©·¨Ä¿±êÎª×Ô¼º");
+            //Debug.Log($"Ê¹ï¿½Ã¼ï¿½ï¿½ï¿½:{(this.SkillPanel.SkillData.SkillConfig.Name)},Ê©ï¿½ï¿½Ä¿ï¿½ï¿½Îªï¿½Ô¼ï¿½");
 
             List<AttackData> attackDatas = new List<AttackData>();
 
@@ -26,13 +26,13 @@ namespace Game
             foreach (var cell in allAttackCells)
             {
                 var enemy = GameProcessor.Inst.PlayerManager.GetPlayer(cell);
-                if (enemy != null && enemy.GroupId == SelfPlayer.GroupId && enemy.ID != SelfPlayer.ID) //Ö»»Ø¸´Í¬×é³ÉÔ±,×Ô¼ºÒÑ¾­¼Ó½øÈ¥ÁË
+                if (enemy != null && enemy.GroupId == SelfPlayer.GroupId && enemy.ID != SelfPlayer.ID) //Ö»ï¿½Ø¸ï¿½Í¬ï¿½ï¿½ï¿½Ô±,ï¿½Ô¼ï¿½ï¿½Ñ¾ï¿½ï¿½Ó½ï¿½È¥ï¿½ï¿½
                 {
                     teamList.Add(enemy);
                 }
             }
 
-            //°´ËðÊ§ÑªÁ¿ÅÅÐò
+            //ï¿½ï¿½ï¿½ï¿½Ê§Ñªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             teamList = teamList.OrderBy(m => m.AttributeBonus.GetTotalAttr(AttributeEnum.HP) - m.HP).ToList();
 
             foreach (var teamer in teamList)
@@ -79,10 +79,10 @@ namespace Game
                     {
                         EffectConfig config = EffectConfigCategory.Instance.Get(EffectId);
 
-                        var effectTarget = config.TargetType == 1 ? this.SelfPlayer : teamer; //1 Îª×÷ÓÃ×Ô¼º 2 Îª×÷ÓÃµÐÈË
+                        var effectTarget = config.TargetType == 1 ? this.SelfPlayer : teamer; //1 Îªï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ 2 Îªï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½
 
                         if (config.Duration > 0)
-                        {  //³ÖÐøBuff
+                        {  //ï¿½ï¿½ï¿½ï¿½Buff
                             effectTarget.AddEffect(EffectId, this.SelfPlayer);
                         }
                         else
@@ -98,7 +98,7 @@ namespace Game
 
         public long CalcFormula()
         {
-            //»Ö¸´²»¼Æ±©»÷ÔöÉËÐÒÔËµÈ
+            //ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Æ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½
             long attack = GetRoleAttack();  
             attack = attack * SkillPanel.Percent / 100 + SkillPanel.Damage;
             return attack;
