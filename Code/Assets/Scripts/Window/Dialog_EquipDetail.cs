@@ -189,6 +189,15 @@ namespace Game
                         //this.btn_Learn.interactable = this.item.Level <= UserData.Load().Level;
                     }
                     break;
+                case ItemType.GiftPack: 
+                    {
+                        var giftPack = this.item as GiftPack;
+
+      
+                        this.btn_Learn.gameObject.SetActive(true);
+                        this.btn_Upgrade.gameObject.SetActive(false);
+                    }
+                    break;
                 default:
                     Log.Debug("未知的类型");
                     break;

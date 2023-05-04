@@ -71,6 +71,7 @@ namespace Game
         Normal = 0,
         Gold = 1,
         Equip = 2,
-        SkillBox =3
+        SkillBox =3,
+        GiftPack = 4,
     }
 }

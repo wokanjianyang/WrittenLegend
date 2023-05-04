@@ -1,0 +1,3 @@
+{"list":[
+{"_t":"RewardConfig","_id":1,"type":4,"ItemId":1},
+]}

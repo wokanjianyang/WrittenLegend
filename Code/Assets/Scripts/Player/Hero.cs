@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using Newtonsoft.Json;
 using System.Linq;
+using System;
 
 namespace Game
 {
@@ -36,6 +37,8 @@ namespace Game
         /// °ü¹ü
         /// </summary>
         public List<BoxItem> Bags { get; set; } = new List<BoxItem>();
+
+        public IDictionary<int,bool> GiftList { get; set; } = new Dictionary<int, bool>();
 
         public long LastOut { get; set; }
 
@@ -181,6 +184,32 @@ namespace Game
             }
         }
 
+        public void BuildReword()
+        {
+            Dictionary<int, RewardConfig> rewordList = RewardConfigCategory.Instance.GetAll();
+            foreach (int rewordId in rewordList.Keys)
+            {
+                if (!GiftList.Keys.Contains(rewordId))
+                {
+                    RewardConfig config = rewordList[rewordId];
+
+                    BoxItem boxItem = new BoxItem();
+
+                    if (config.type == 4) //Àñ°ü
+                    {
+                        GiftPack gift = new GiftPack(config.ItemId);
+                        boxItem.Item = gift;
+                        boxItem.Number = 1;
+                        boxItem.BoxId = -1;
+                    }
+
+                    this.Bags.Add(boxItem);
+
+                    GiftList.Add(rewordId, true);
+                }
+            }
+        }
+
         public override List<SkillRune> GetRuneList(int skillId)
         {
             List<SkillRune> list = new List<SkillRune>();
@@ -229,8 +258,11 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, config.PhyAtt);
             AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, config.Def);
 
-            TowerConfig towerConfig = TowerConfigCategory.Instance.Get(this.TowerFloor - 1);
-            AttributeBonus.SetAttr(AttributeEnum.SecondExp, AttributeFrom.Tower, towerConfig.TotalExp);
+            if (this.TowerFloor > 1)
+            {
+                TowerConfig towerConfig = TowerConfigCategory.Instance.Get(this.TowerFloor - 1);
+                AttributeBonus.SetAttr(AttributeEnum.SecondExp, AttributeFrom.Tower, towerConfig.TotalExp);
+            }
 
             UpExp = config.Exp;
         }

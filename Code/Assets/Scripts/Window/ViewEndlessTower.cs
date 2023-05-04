@@ -83,7 +83,7 @@ namespace Game
             this.tmp_Floor_1.text = $"{(minFloor + 1)}";
             this.tmp_Floor_2.text = $"{(minFloor + 2)}";
 
-            var config = TowerConfigCategory.Instance.Get(hero.TowerFloor - 1);
+            var config = TowerConfigCategory.Instance.Get(hero.TowerFloor);
             this.tmp_CurrentFloor.text = $"{(hero.TowerFloor)}";
             this.tmp_ExpAdd.text = $"{config.RiseExp}";
             this.tmp_Reward.text = "ÔÝÎÞ";

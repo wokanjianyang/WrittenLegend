@@ -99,21 +99,24 @@ namespace Game
                     {  //5秒计算一次经验
                         hero.SecondExpTick += interval * calTk;
                         long exp = hero.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp) * calTk;
-                        hero.Exp += exp;
-                        Debug.Log("经验:" + hero.Exp);
-
-                        GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+                        if (exp > 0)
                         {
-                            Message = BattleMsgHelper.BuildSecondExpMessage(exp)
-                        }); 
-                        hero.EventCenter.Raise(new HeroInfoUpdateEvent());
+                            hero.Exp += exp;
+                            Debug.Log("经验:" + hero.Exp);
 
-                        if (hero.Exp >= hero.UpExp)
-                        {
-                            hero.EventCenter.Raise(new HeroChangeEvent
+                            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
                             {
-                                Type = Hero.HeroChangeType.LevelUp
+                                Message = BattleMsgHelper.BuildSecondExpMessage(exp)
                             });
+                            hero.EventCenter.Raise(new HeroInfoUpdateEvent());
+
+                            if (hero.Exp >= hero.UpExp)
+                            {
+                                hero.EventCenter.Raise(new HeroChangeEvent
+                                {
+                                    Type = Hero.HeroChangeType.LevelUp
+                                });
+                            }
                         }
                     }
                 }
@@ -147,6 +150,9 @@ namespace Game
 
             //加载档案
             this.PlayerManager.LoadHero();
+
+            //加载礼包奖励
+            GameProcessor.Inst.PlayerManager.GetHero().BuildReword();
         }
 
         public void DelayAction(float delay, Action callback)

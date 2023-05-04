@@ -1,0 +1,10 @@
+{"list":[
+{"_t":"EquipCustomConfig","_id":1,"LevelRequired":0,"Name":"无名屠龙","Part":1,"Position":[1],"BaseArray":[2],"AttributeBase":[100],"RuneId":0,"SuitId":0,"Price":1},
+{"_t":"EquipCustomConfig","_id":2,"LevelRequired":0,"Name":"无名战甲","Part":2,"Position":[2],"BaseArray":[1,5],"AttributeBase":[1000,100],"RuneId":0,"SuitId":0,"Price":1},
+{"_t":"EquipCustomConfig","_id":3,"LevelRequired":0,"Name":"无名战链","Part":3,"Position":[3],"BaseArray":[2],"AttributeBase":[50],"RuneId":0,"SuitId":0,"Price":1},
+{"_t":"EquipCustomConfig","_id":4,"LevelRequired":0,"Name":"无名战盔","Part":4,"Position":[4],"BaseArray":[1,5],"AttributeBase":[300,30],"RuneId":0,"SuitId":0,"Price":1},
+{"_t":"EquipCustomConfig","_id":5,"LevelRequired":0,"Name":"无名战镯","Part":5,"Position":[5,6],"BaseArray":[2],"AttributeBase":[50],"RuneId":0,"SuitId":0,"Price":1},
+{"_t":"EquipCustomConfig","_id":6,"LevelRequired":0,"Name":"无名战戒","Part":7,"Position":[7,8],"BaseArray":[1,5],"AttributeBase":[300,30],"RuneId":0,"SuitId":0,"Price":1},
+{"_t":"EquipCustomConfig","_id":7,"LevelRequired":0,"Name":"无名战带","Part":9,"Position":[9],"BaseArray":[2],"AttributeBase":[50],"RuneId":0,"SuitId":0,"Price":1},
+{"_t":"EquipCustomConfig","_id":8,"LevelRequired":0,"Name":"无名战靴","Part":10,"Position":[10],"BaseArray":[1,5],"AttributeBase":[300,30],"RuneId":0,"SuitId":0,"Price":1},
+]}

@@ -109,48 +109,55 @@ namespace Game
 
                 foreach (string path in Directory.GetFiles(excelDir))
                 {
-                    string fileName = Path.GetFileName(path);
-                    if (!fileName.EndsWith(".xlsx") || fileName.StartsWith("~$") || fileName.Contains("#"))
+                    try
                     {
-                        continue;
+                        string fileName = Path.GetFileName(path);
+                        if (!fileName.EndsWith(".xlsx") || fileName.StartsWith("~$") || fileName.Contains("#"))
+                        {
+                            continue;
+                        }
+
+                        string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+                        string fileNameWithoutCS = fileNameWithoutExtension;
+                        string cs = "cs";
+                        if (fileNameWithoutExtension.Contains("@"))
+                        {
+                            string[] ss = fileNameWithoutExtension.Split("@");
+                            fileNameWithoutCS = ss[0];
+                            cs = ss[1];
+                        }
+
+                        if (cs == "")
+                        {
+                            cs = "cs";
+                        }
+
+                        ExcelPackage p = GetPackage(Path.GetFullPath(path));
+
+                        string protoName = fileNameWithoutCS;
+                        if (fileNameWithoutCS.Contains('_'))
+                        {
+                            protoName = fileNameWithoutCS.Substring(0, fileNameWithoutCS.LastIndexOf('_'));
+                        }
+
+                        Table table = GetTable(protoName);
+
+                        if (cs.Contains("c"))
+                        {
+                            table.C = true;
+                        }
+
+                        if (cs.Contains("s"))
+                        {
+                            table.S = true;
+                        }
+
+                        ExportExcelClass(p, protoName, table);
                     }
-
-                    string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-                    string fileNameWithoutCS = fileNameWithoutExtension;
-                    string cs = "cs";
-                    if (fileNameWithoutExtension.Contains("@"))
-                    {
-                        string[] ss = fileNameWithoutExtension.Split("@");
-                        fileNameWithoutCS = ss[0];
-                        cs = ss[1];
+                    catch (Exception ex) {
+                        Log.Console(path +"Error,"+ex.Message);
+                        throw;
                     }
-
-                    if (cs == "")
-                    {
-                        cs = "cs";
-                    }
-
-                    ExcelPackage p = GetPackage(Path.GetFullPath(path));
-
-                    string protoName = fileNameWithoutCS;
-                    if (fileNameWithoutCS.Contains('_'))
-                    {
-                        protoName = fileNameWithoutCS.Substring(0, fileNameWithoutCS.LastIndexOf('_'));
-                    }
-
-                    Table table = GetTable(protoName);
-
-                    if (cs.Contains("c"))
-                    {
-                        table.C = true;
-                    }
-
-                    if (cs.Contains("s"))
-                    {
-                        table.S = true;
-                    }
-
-                    ExportExcelClass(p, protoName, table);
                 }
 
                 foreach (var kv in tables)
