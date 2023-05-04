@@ -38,10 +38,10 @@ namespace Game
                     {
                         EffectConfig config = EffectConfigCategory.Instance.Get(EffectId);
 
-                        var effectTarget = config.TargetType == 1 ? this.SelfPlayer : enemy; //1 Îª×÷ÓÃ×Ô¼º 2 Îª×÷ÓÃµĞÈË
+                        var effectTarget = config.TargetType == 1 ? this.SelfPlayer : enemy; //1 ä¸ºä½œç”¨è‡ªå·± 2 ä¸ºä½œç”¨æ•Œäºº
 
                         if (config.Duration > 0)
-                        {  //³ÖĞøBuff
+                        {  //æŒç»­Buff
                             effectTarget.AddEffect(EffectId,this.SelfPlayer);
                         }
                         else

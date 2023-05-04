@@ -1,7 +1,6 @@
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,14 +8,14 @@ namespace Game
 {
     public class Com_Skill : MonoBehaviour
     {
-        [Title("¼¼ÄÜ")]
-        [LabelText("¼¼ÄÜ")]
+        [Title("æŠ€èƒ½")]
+        [LabelText("æŠ€èƒ½")]
         public Transform tran_Skill;
 
-        [LabelText("Ãû³Æ")]
-        public TextMeshProUGUI tmp_Name;
+        [LabelText("åç§°")]
+        public Text tmp_Name;
 
-        [LabelText("¼¼ÄÜ")]
+        [LabelText("ç§»é™¤")]
         public Button btn_Skill;
 
         public SkillPanel SkillPanel { get; private set; }

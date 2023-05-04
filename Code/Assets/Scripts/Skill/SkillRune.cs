@@ -6,7 +6,7 @@ namespace Game
 {
     public class SkillRune
     {
-        //ÉúĞ§ÊıÁ¿
+        //ç”Ÿæ•ˆæ•°é‡
         public int AvailableQuantity { get; }
 
         public SkillRuneConfig SkillRuneConfig { get; }
@@ -17,9 +17,9 @@ namespace Game
         public int EnemyMax { get; }
         public int CD { get; }
 
-        public int CritRate { get; } //±©»÷ÂÊ
-        public int CritDamage { get; } //±©»÷±¶ÂÊ
-        public int DamageIncrea { get; } //ÉËº¦¼Ó³É
+        public int CritRate { get; } //æš´å‡»ç‡
+        public int CritDamage { get; } //æš´å‡»å€ç‡
+        public int DamageIncrea { get; } //ä¼¤å®³åŠ æˆ
 
         public SkillRune(int runeId, int quantity)
         {

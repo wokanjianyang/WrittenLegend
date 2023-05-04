@@ -1,7 +1,4 @@
 using Sirenix.OdinInspector;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,18 +6,18 @@ namespace Game
 {
     public class TopNav : MonoBehaviour,IBattleLife
     {
-        [Title("¶¥²¿µ¼º½")]
-        [LabelText("ÓÃ»§Ãû")]
-        public TextMeshProUGUI tmp_Name;
+        [Title("é¡¶éƒ¨å¯¼èˆª")]
+        [LabelText("åç§°")]
+        public Text tmp_Name;
 
-        [LabelText("µÈ¼¶")]
-        public TextMeshProUGUI tmp_Level;
+        [LabelText("ç­‰çº§")]
+        public Text tmp_Level;
 
-        [LabelText("Õ½Á¦")]
-        public TextMeshProUGUI tmp_BattlePower;
+        [LabelText("æˆ˜åŠ›")]
+        public Text tmp_BattlePower;
 
-        [LabelText("½ğ±Ò")]
-        public TextMeshProUGUI tmp_Gold;
+        [LabelText("é‡‘å¸")]
+        public Text tmp_Gold;
 
         private Hero hero;
 
@@ -30,9 +27,9 @@ namespace Game
         {
             this.hero = GameProcessor.Inst.PlayerManager.GetHero();
             this.tmp_Name.text = hero.Name;
-            this.tmp_Level.text = $"{hero.Level}¼¶";
+            this.tmp_Level.text = $"{hero.Level}çº§";
             this.OnHeroInfoUpdateEvent(null);
-            this.tmp_BattlePower.text = $"Õ½Á¦£º{hero.AttributeBonus.GetPower()}"; 
+            this.tmp_BattlePower.text = $"æˆ˜åŠ›ï¼š{hero.AttributeBonus.GetPower()}"; 
             hero.EventCenter.AddListener<SetPlayerLevelEvent>(this.OnSetPlayerLevelEvent);
             hero.EventCenter.AddListener<HeroInfoUpdateEvent>(this.OnHeroInfoUpdateEvent);
         }
@@ -51,13 +48,13 @@ namespace Game
 
         private void OnSetPlayerLevelEvent(SetPlayerLevelEvent e)
         {
-            this.tmp_Level.text = $"{e.Level}¼¶";
+            this.tmp_Level.text = $"{e.Level}çº§";
         }
 
         private void OnHeroInfoUpdateEvent(HeroInfoUpdateEvent e)
         {
-            this.tmp_Gold.text = $"½ğ±Ò:{this.hero.Gold}";
-            this.tmp_BattlePower.text = $"Õ½Á¦£º{hero.AttributeBonus.GetPower()}";
+            this.tmp_Gold.text = $"é‡‘å¸:{this.hero.Gold}";
+            this.tmp_BattlePower.text = $"æˆ˜åŠ›ï¼š{hero.AttributeBonus.GetPower()}";
         }
     }
 }

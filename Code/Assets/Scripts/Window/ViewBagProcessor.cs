@@ -12,28 +12,28 @@ namespace Game
 {
     public class ViewBagProcessor : AViewPage
     {
-        [Title("°ü¹üµ¼º½")]
-        [LabelText("ËùÓĞÎïÆ·")]
+        [Title("åŒ…è£¹å¯¼èˆª")]
+        [LabelText("æ‰€æœ‰ç‰©å“")]
         public Toggle toggle_All;
 
-        [LabelText("×°±¸")]
+        [LabelText("è£…å¤‡")]
         public Toggle toggle_Equip;
 
-        [LabelText("µÀ¾ß")]
+        [LabelText("é“å…·")]
         public Toggle toggle_Prop;
 
-        [LabelText("¶ÍÔì")]
+        [LabelText("é”»é€ ")]
         public Toggle toggle_Forging;
 
-        [Title("°ü¹ü¸ñ×Ó")]
-        [LabelText("°ü¹ü")]
+        [Title("åŒ…è£¹æ ¼å­")]
+        [LabelText("åŒ…è£¹")]
         public ScrollRect sr_Bag;
 
-        [Title("¸öÈËĞÅÏ¢")]
-        [LabelText("ÊôĞÔ")]
+        [Title("ä¸ªäººä¿¡æ¯")]
+        [LabelText("å±æ€§")]
         public Button btn_PlayerAttribute;
 
-        [LabelText("³ÆºÅ")]
+        [LabelText("ç§°å·")]
         public Button btn_PlayerTitle;
 
         private List<Com_Box> items;
@@ -80,7 +80,7 @@ namespace Game
 
             if (hero.Bags!=null)
             {
-                //³õÊ¼äÖÈ¾°ü¹ü,ÖØĞÂÅÅĞò
+                //ï¿½ï¿½Ê¼ï¿½ï¿½È¾ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 hero.Bags.Sort((x,y)=> x.Item.Type.CompareTo(y.Item.Type));
                 for (int BoxId = 0; BoxId < hero.Bags.Count; BoxId++)
                 {
@@ -98,7 +98,7 @@ namespace Game
 
             if(hero.EquipPanel!=null)
             {
-                //³õÊ¼äÖÈ¾ÈËÎï×°±¸
+                //ï¿½ï¿½Ê¼ï¿½ï¿½È¾ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½
                 foreach(var kvp in hero.EquipPanel)
                 {
                     this.CreateEquipPanelItem(kvp.Key,kvp.Value);
@@ -185,7 +185,7 @@ namespace Game
             {
                 hero.Gold += box.Item.Gold * box.Number;
 
-                Log.Debug("×Ô¶¯»ØÊÕ:" + box.Item.Name + " " + box.Number + "¸ö");
+                Log.Debug("è‡ªåŠ¨å›æ”¶:" + box.Item.Name + " " + box.Number + "ä¸ª");
 
                 box.Number = 0;
                 UseBoxItem(box.BoxId);
@@ -197,19 +197,19 @@ namespace Game
         {
             var hero = GameProcessor.Inst.PlayerManager.GetHero();
 
-            //Âß¼­´¦Àí
+            //é€»è¾‘å¤„ç†
             BoxItem boxItem = hero.Bags.Find(m => m.BoxId == boxId);
             Com_Box boxUI = this.items.Find(m => m.boxId == boxId);
 
             if (boxItem == null)
             {
-                Log.Debug("´ËÎïÆ·ÒÑ¾­±»Ê¹ÓÃÁË");
+                Log.Debug("æ­¤ç‰©å“å·²ç»è¢«ä½¿ç”¨äº†");
                 return;
             }
             boxItem.RemoveStack();
             boxUI.RemoveStack();
 
-            //ÓÃ¹âÁË£¬ÒÆ³ı¶ÓÁĞ
+            //ç”¨å…‰äº†ï¼Œç§»é™¤é˜Ÿåˆ—
             if (boxItem.Number <= 0)
             {
                 hero.Bags.Remove(boxItem);
@@ -224,10 +224,10 @@ namespace Game
         {
             var hero = GameProcessor.Inst.PlayerManager.GetHero();
 
-            BoxItem boxItem = hero.Bags.Find(m => !m.IsFull() && m.Item.ConfigId == newItem.ConfigId);  //Í¬ÖÖÎïÆ·£¬²¢ÇÒÃ»ÓĞÂú¶ÑµşµÄ¸ñ×Ó
+            BoxItem boxItem = hero.Bags.Find(m => !m.IsFull() && m.Item.ConfigId == newItem.ConfigId);  //Í¬ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Ñµï¿½ï¿½Ä¸ï¿½ï¿½ï¿½
 
             if (boxItem != null)
-            {  //¶ÑµşUI
+            {  //å †å UI
                 var item = this.items.Find(b => b.boxId == boxItem.BoxId);
                 item.AddStack();
 
@@ -237,7 +237,7 @@ namespace Game
             {
                 int lastBoxId = GetNextBoxId();
 
-                if (lastBoxId < 0) { //°ü¹üÒÑ¾­ÂúÁË
+                if (lastBoxId < 0) { //åŒ…è£¹å·²ç»æ»¡äº†
                     return;
                 }
 
@@ -262,7 +262,7 @@ namespace Game
             var hero = GameProcessor.Inst.PlayerManager.GetHero();
 
             int Part = equip.Part;
-            //Ôö¼ÓÒ»´Î´©´÷¼ÇÂ¼£¬ÓÃ×öÂÖÁ÷´©´÷×óÓÒ
+            //å¢åŠ ä¸€æ¬¡ç©¿æˆ´è®°å½•ï¼Œç”¨åšè½®æµç©¿æˆ´å·¦å³
             if (!hero.equipRecord.ContainsKey(Part))
             {
                 hero.equipRecord[Part] = 0;
@@ -271,19 +271,19 @@ namespace Game
             int PartIndex = hero.equipRecord[Part] % equip.Position.Length;
             int Position = equip.Position[PartIndex];
 
-            //´Ó°ü¸¤ÒÆ³ı
+            //ä»åŒ…è¢±ç§»é™¤
             UseBoxItem(BoxId);
 
-            //Èç¹û´æÔÚ¾É×°±¸£¬Ôö¼Óµ½°ü¹ü
+            //å¦‚æœå­˜åœ¨æ—§è£…å¤‡ï¼Œå¢åŠ åˆ°åŒ…è£¹
             if (hero.EquipPanel.ContainsKey(Position))
             {
                 AddBoxItem(hero.EquipPanel[Position]);
             }
 
-            //´©´÷µ½¸ñ×ÓÉÏ
+            //ç©¿æˆ´åˆ°æ ¼å­ä¸Š
             this.CreateEquipPanelItem(Position, equip);
 
-            //Í¨ÖªÓ¢ĞÛ¸üĞÂÊôĞÔ
+            //é€šçŸ¥è‹±é›„æ›´æ–°å±æ€§
             hero.EventCenter.Raise(new HeroUseEquipEvent
             {
                 Position = Position,
@@ -338,7 +338,7 @@ namespace Game
             //}
             //else
             //{
-            //    //Ô­±¾¾Í×°±¸ÁË£¬Ö»ÊÇÏÔÊ¾
+            //    //åŸæœ¬å°±è£…å¤‡äº†ï¼Œåªæ˜¯æ˜¾ç¤º
             //}
         }
 
@@ -348,7 +348,7 @@ namespace Game
 
             var slot = this.transform.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == Position).First();
 
-            //Éú³É¸ñ×Ó
+            //ç”Ÿæˆæ ¼å­
             BoxItem boxItem = new BoxItem();
             boxItem.Item = equip;
             boxItem.Number = 1;
@@ -361,13 +361,13 @@ namespace Game
             comItem.SetBoxId(-1);
             comItem.SetEquipPosition(Position);
 
-            //´©´÷
+            //ç©¿æˆ´
             slot.Equip(comItem);
         }
 
         private void RmoveEquipment(int position, Equip equip)
         {
-            //×°±¸À¸Ğ¶ÔØ
+            //è£…å¤‡æ å¸è½½
             var slot = this.transform.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             Com_Box comItem = slot.GetEquip();
             slot.UnEquip();
@@ -379,10 +379,10 @@ namespace Game
             //comItem.SetBoxId(i);
 
 
-            //×°±¸ÒÆ¶¯µ½°ü¹üÀïÃæ
+            //è£…å¤‡ç§»åŠ¨åˆ°åŒ…è£¹é‡Œé¢
             AddBoxItem(equip);
 
-            //Í¨ÖªÓ¢ĞÛ¸üĞÂÊôĞÔ
+            //é€šçŸ¥è‹±é›„æ›´æ–°å±æ€§
             var hero = GameProcessor.Inst.PlayerManager.GetHero();
             hero.EventCenter.Raise(new HeroUnUseEquipEvent()
             {
@@ -422,13 +422,12 @@ namespace Game
         public void OnClick_PlayerTitle()
         {
             adStateCallBack += OnAdStateCallBack;
-            string title = "ÏÔÊ¾¹ã¸æ";
-            string message = "¼¤ÀøÊÓÆµ¹ã¸æ²âÊÔ";
+            string title = "æ˜¾ç¤ºå¹¿å‘Š";
+            string message = "æ¿€åŠ±è§†é¢‘å¹¿å‘Šæµ‹è¯•";
             var builder = new UM_NativeDialogBuilder(title, message);
-            builder.SetPositiveButton("´ò¿ª", () => {
+            builder.SetPositiveButton("æ‰“å¼€", () => {
                 Log.Debug("Okay button pressed");
-
-                PocketAD.Inst.ShowAD("³ÆºÅ", adStateCallBack);
+                PocketAD.Inst.ShowAD("ç§°å·", adStateCallBack);
             });
 
             var dialog = builder.Build();

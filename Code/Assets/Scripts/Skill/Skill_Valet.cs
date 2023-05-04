@@ -16,7 +16,7 @@ namespace Game
 
         public override List<AttackData> GetAllTargets()
         {
-            Debug.Log($"Ê¹ÓÃ¼¼ÄÜ:{(this.SkillPanel.SkillData.SkillConfig.Name)},Ê©·¨Ä¿±êÎª×Ô¼º");
+            Debug.Log($"ä½¿ç”¨æŠ€èƒ½:{(this.SkillPanel.SkillData.SkillConfig.Name)},æ–½æ³•ç›®æ ‡ä¸ºè‡ªå·±");
 
             List<AttackData> attackDatas = new List<AttackData>();
             attackDatas.Add(new AttackData()
@@ -38,7 +38,7 @@ namespace Game
 
         public override void Do()
         {
-            //Ïú»ÙÖ®Ç°µÄ
+            //é”€æ¯ä¹‹å‰çš„
             foreach (Valet valet in ValetList)
             {
                 valet.OnHit(SelfPlayer.ID, valet.HP);
@@ -49,13 +49,13 @@ namespace Game
 
             Dictionary<AttributeEnum, object> data = new Dictionary<AttributeEnum, object>();
             data[AttributeEnum.Color] = Color.white;
-            data[AttributeEnum.Name] = "÷¼÷Ã(" + SelfPlayer.Name + ")";
+            data[AttributeEnum.Name] = "éª·é«…(" + SelfPlayer.Name + ")";
             data[AttributeEnum.Level] = 1;
             data[AttributeEnum.HP] = baseAttr * 10;
             data[AttributeEnum.PhyAtt] = baseAttr;
             data[AttributeEnum.Def] = baseAttr / 2;
 
-            //´´ÔìĞÂµÄ
+            //åˆ›é€ æ–°çš„
             for (int i = 0; i < MaxValet; i++)
             {
                 Valet valet = GameProcessor.Inst.PlayerManager.LoadValet(SelfPlayer.ID, data);
@@ -64,7 +64,7 @@ namespace Game
         }
 
         public void ClearValet() {
-            //Ïú»ÙÖ®Ç°µÄ
+            //é”€æ¯ä¹‹å‰çš„
             foreach (Valet valet in ValetList)
             {
                 valet.OnHit(SelfPlayer.ID, valet.HP);

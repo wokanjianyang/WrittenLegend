@@ -10,35 +10,35 @@ namespace Game
     {
         public BaseAttackSkill(APlayer player, SkillPanel skillPanel) : base(player, skillPanel)
         {
-            this.skillGraphic = new BaseSkillGraphic(player,skillPanel.SkillData.SkillConfig.Name);
+            this.skillGraphic = new BaseSkillGraphic(player,skillPanel.SkillData.SkillConfig);
         }
 
 
         public override long CalcFormula(APlayer enemy, float ratio)
         {
-            //¼ÆËã¹«Ê½  ((¹¥»÷ - ·ÀÓù) * °Ù·Ö±ÈÏµÊı + ¹Ì¶¨ÊıÖµ) * ±©»÷?.±©»÷±¶ÂÊ * (ÉËº¦¼Ó³É-ÉËº¦¼õÃâ) * (ĞÒÔË)
+            //è®¡ç®—å…¬å¼  ((æ”»å‡» - é˜²å¾¡) * ç™¾åˆ†æ¯”ç³»æ•° + å›ºå®šæ•°å€¼) * æš´å‡»?.æš´å‡»å€ç‡ * (ä¼¤å®³åŠ æˆ-ä¼¤å®³å‡å…) * (å¹¸è¿)
+            
+            long attack = GetRoleAttack() - SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.Def); //æ”»å‡» - é˜²å¾¡
+            attack = attack * SkillPanel.Percent / 100 + SkillPanel.Damage;  // *ç™¾åˆ†æ¯”ç³»æ•° + å›ºå®šæ•°å€¼
 
-            long attack = GetRoleAttack() - SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.Def); //¹¥»÷ - ·ÀÓù
-            attack = attack * SkillPanel.Percent / 100 + SkillPanel.Damage;  // *°Ù·Ö±ÈÏµÊı + ¹Ì¶¨ÊıÖµ
-
-            //±©»÷ÂÊ = ¹¥»÷Õß±©»÷ÂÊ+¼¼ÄÜ±©»÷±¶ÂÊ-±»¹¥»÷Õß±©»÷µÖ¿¹ÂÊ
+            //æš´å‡»ç‡ = æ”»å‡»è€…æš´å‡»ç‡+æŠ€èƒ½æš´å‡»å€ç‡-è¢«æ”»å‡»è€…æš´å‡»æŠµæŠ—ç‡
             long CritRate = SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.CritRate) + SkillPanel.CritRate - enemy.AttributeBonus.GetTotalAttr(AttributeEnum.CritRateResist);
             if (RandomHelper.RandomCritRate((int)CritRate))
             {
-                //±©»÷±¶ÂÊ£¨ ²»µÍÓÚ0 £© = 50»ù´¡±¬ÉË+¼¼ÄÜ±¬ÉË + ¹¥»÷Õß±¬ÉË - ±»¹¥»÷Õß±¬ÉË¼õÃâ
+                //æš´å‡»å€ç‡ï¼ˆ ä¸ä½äº0 ï¼‰ = 50åŸºç¡€çˆ†ä¼¤+æŠ€èƒ½çˆ†ä¼¤ + æ”»å‡»è€…çˆ†ä¼¤ - è¢«æ”»å‡»è€…çˆ†ä¼¤å‡å…
                 long CritDamage = Math.Max(0, 50 + SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.CritDamage) + SkillPanel.CritDamage - enemy.AttributeBonus.GetTotalAttr(AttributeEnum.CritDamageResist));
                 attack = attack * (CritDamage + 100) / 100;
             }
 
-            //ÉËº¦¼Ó³É£¨²»µÍÓÚ0£© = 100»ù´¡ÉËº¦+¼¼ÄÜÉËº¦¼Ó³É + ¹¥»÷ÕßÉËº¦¼Ó³É ¡ª ±»¹¥»÷ÕßÉËº¦¼õÃâ 
+            //ä¼¤å®³åŠ æˆï¼ˆä¸ä½äº0ï¼‰ = 100åŸºç¡€ä¼¤å®³+æŠ€èƒ½ä¼¤å®³åŠ æˆ + æ”»å‡»è€…ä¼¤å®³åŠ æˆ â€” è¢«æ”»å‡»è€…ä¼¤å®³å‡å… 
             long DamageIncrea = Math.Max(0, 100 + SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.DamageIncrea) + SkillPanel.DamageIncrea - enemy.AttributeBonus.GetTotalAttr(AttributeEnum.DamageResist));
             attack = attack * DamageIncrea / 100;
 
-            //ĞÒÔË£¬Ã¿µãÔì³É10%×îÖÕÉËº¦
+            //å¹¸è¿ï¼Œæ¯ç‚¹é€ æˆ10%æœ€ç»ˆä¼¤å®³
             long lucky = SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.Lucky);
             attack = attack * (lucky * 10 + 100) / 100;
 
-            //Ç¿ÖÆ×îÉÙ1µãÉËº¦
+            //å¼ºåˆ¶æœ€å°‘1ç‚¹ä¼¤å®³
             return Math.Max(1, attack);
         }
 
@@ -57,7 +57,7 @@ namespace Game
                 }
 
                 var enemy = GameProcessor.Inst.PlayerManager.GetPlayer(cell);
-                if (enemy != null && enemy.GroupId != SelfPlayer.GroupId) //²»»á¹¥»÷Í¬×é³ÉÔ±
+                if (enemy != null && enemy.GroupId != SelfPlayer.GroupId) //ä¸ä¼šæ”»å‡»åŒç»„æˆå‘˜
                 {
                     attackDatas.Add(new AttackData()
                     {

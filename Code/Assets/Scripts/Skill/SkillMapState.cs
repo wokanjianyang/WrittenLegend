@@ -24,7 +24,7 @@ namespace Game
             this.Duration++;
 
             if (enemy == null)
-            { //û�е�λ
+            { //空格子
                 return;
             }
 

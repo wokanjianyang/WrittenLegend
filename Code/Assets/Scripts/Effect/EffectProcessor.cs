@@ -18,9 +18,6 @@ namespace Game
         [LabelText("特效显示")]
         public Image img_Effect;
 
-        [LabelText("每秒帧数")]
-        public int frameTime = 20;
-
         [LabelText("重设图片大小")]
         public bool NeedReSize = true;
         
@@ -32,11 +29,10 @@ namespace Game
 
         private float currentTime = 0f;
 
-        
         private void Start()
         {
             this.imgs = Resources.LoadAll<Sprite>(this.EffectPath);
-            if (imgs != null)
+            if (imgs != null && imgs.Length>0)
             {
                 this.hasEffect = this.imgs.Length > 0;
                 this.totalCount = this.imgs.Length;
@@ -48,7 +44,7 @@ namespace Game
             if (this.hasEffect)
             {
                 this.currentTime += Time.deltaTime;
-                if (this.currentTime > 1f/frameTime)
+                if (this.currentTime > 1f/this.totalCount)
                 {
                     this.currentTime = 0;
                     var sprite = this.imgs[this.currentIndex++ % this.totalCount];

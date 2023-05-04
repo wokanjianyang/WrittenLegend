@@ -8,12 +8,12 @@ namespace Game
     {
         public Skill_Restore(APlayer player, SkillPanel skillPanel) : base(player, skillPanel)
         {
-            this.skillGraphic = new SweepSkillGraphic(player, skillPanel.SkillData.SkillConfig.ModelName);
+            this.skillGraphic = new SweepSkillGraphic(player, skillPanel.SkillData.SkillConfig);
         }
 
         public override List<AttackData> GetAllTargets()
         {
-            //Debug.Log($"Ê¹ÓÃ¼¼ÄÜ:{(this.SkillPanel.SkillData.SkillConfig.Name)},Ê©·¨Ä¿±êÎª×Ô¼º");
+            //Debug.Log($"ä½¿ç”¨æŠ€èƒ½:{(this.SkillPanel.SkillData.SkillConfig.Name)},æ–½æ³•ç›®æ ‡ä¸ºè‡ªå·±");
 
             List<AttackData> attackDatas = new List<AttackData>();
 
@@ -26,13 +26,13 @@ namespace Game
             foreach (var cell in allAttackCells)
             {
                 var enemy = GameProcessor.Inst.PlayerManager.GetPlayer(cell);
-                if (enemy != null && enemy.GroupId == SelfPlayer.GroupId && enemy.ID != SelfPlayer.ID) //Ö»»Ø¸´Í¬×é³ÉÔ±,×Ô¼ºÒÑ¾­¼Ó½øÈ¥ÁË
+                if (enemy != null && enemy.GroupId == SelfPlayer.GroupId && enemy.ID != SelfPlayer.ID) //åªå›å¤åŒç»„æˆå‘˜,è‡ªå·±å·²ç»åŠ è¿›å»äº†
                 {
                     teamList.Add(enemy);
                 }
             }
 
-            //°´ËğÊ§ÑªÁ¿ÅÅĞò
+            //æŒ‰æŸå¤±è¡€é‡æ’åº
             teamList = teamList.OrderBy(m => m.AttributeBonus.GetTotalAttr(AttributeEnum.HP) - m.HP).ToList();
 
             foreach (var teamer in teamList)
@@ -79,10 +79,10 @@ namespace Game
                     {
                         EffectConfig config = EffectConfigCategory.Instance.Get(EffectId);
 
-                        var effectTarget = config.TargetType == 1 ? this.SelfPlayer : teamer; //1 Îª×÷ÓÃ×Ô¼º 2 Îª×÷ÓÃµĞÈË
+                        var effectTarget = config.TargetType == 1 ? this.SelfPlayer : teamer; //1 ä¸ºä½œç”¨è‡ªå·± 2 ä¸ºä½œç”¨æ•Œäºº
 
                         if (config.Duration > 0)
-                        {  //³ÖĞøBuff
+                        {  //æŒç»­Buff
                             effectTarget.AddEffect(EffectId, this.SelfPlayer);
                         }
                         else
@@ -98,7 +98,7 @@ namespace Game
 
         public long CalcFormula()
         {
-            //»Ö¸´²»¼Æ±©»÷ÔöÉËĞÒÔËµÈ
+            //æ¢å¤ä¸è®¡æš´å‡»å¢ä¼¤å¹¸è¿ç­‰
             long attack = GetRoleAttack();  
             attack = attack * SkillPanel.Percent / 100 + SkillPanel.Damage;
             return attack;

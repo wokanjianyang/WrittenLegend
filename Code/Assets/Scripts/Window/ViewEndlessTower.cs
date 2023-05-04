@@ -1,5 +1,4 @@
 using Sirenix.OdinInspector;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,29 +6,29 @@ namespace Game
 {
     public class ViewEndlessTower : AViewPage
     {
-        [Title("ÎŞ¾¡Ëş")]
-        [LabelText("ÏÂÏÂ²ã")]
-        public TextMeshProUGUI tmp_Floor_2;
+        [Title("æ— å°½å¡”")]
+        [LabelText("ä¸‹ä¸‹å±‚")]
+        public Text tmp_Floor_2;
 
-        [LabelText("ÏÂ²ã")]
-        public TextMeshProUGUI tmp_Floor_1;
+        [LabelText("ä¸‹å±‚")]
+        public Text tmp_Floor_1;
 
-        [LabelText("µ±Ç°²ã")]
-        public TextMeshProUGUI tmp_Floor_0;
+        [LabelText("å½“å‰å±‚")]
+        public Text tmp_Floor_0;
 
-        [LabelText("µ±Ç°²ã")]
-        public TextMeshProUGUI tmp_CurrentFloor;
+        [LabelText("å½“å‰å±‚")]
+        public Text tmp_CurrentFloor;
 
-        [LabelText("¾­Ñé¼Ó³É")]
-        public TextMeshProUGUI tmp_ExpAdd;
+        [LabelText("ç»éªŒåŠ æˆ")]
+        public Text tmp_ExpAdd;
 
-        [LabelText("Í¨¹Ø½±Àø")]
-        public TextMeshProUGUI tmp_Reward;
+        [LabelText("Í¨å¥–åŠ±")]
+        public Text tmp_Reward;
 
-        [LabelText("±©»÷µÖ¿¹")]
-        public TextMeshProUGUI tmp_Cri;
+        [LabelText("æš´å‡»æŠµæŠ—ï¿½")]
+        public Text tmp_Cri;
 
-        [LabelText("¿ªÊ¼")]
+        [LabelText("å¼€å§‹")]
         public Button btn_Start;
 
         void Start()
@@ -86,8 +85,8 @@ namespace Game
             var config = TowerConfigCategory.Instance.Get(hero.TowerFloor);
             this.tmp_CurrentFloor.text = $"{(hero.TowerFloor)}";
             this.tmp_ExpAdd.text = $"{config.RiseExp}";
-            this.tmp_Reward.text = "ÔİÎŞ";
-            this.tmp_Cri.text = "ÔİÎŞ";
+            this.tmp_Reward.text = "æš‚æ— ";
+            this.tmp_Cri.text = "æš‚æ— ";
         }
 
         private void OnUpdateTowerWindowEvent(UpdateTowerWindowEvent msg)

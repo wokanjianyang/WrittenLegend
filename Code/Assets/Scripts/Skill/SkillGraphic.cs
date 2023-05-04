@@ -9,12 +9,12 @@ namespace Game
     {
         public APlayer SelfPlayer { get; private set; }
 
-        public string SkillName { get; private set; }
+        public SkillConfig SkillConfig { get; private set; }
 
-        public SkillGraphic(APlayer player,string skillName)
+        public SkillGraphic(APlayer player,SkillConfig skillConfig)
         {
             this.SelfPlayer = player;
-            this.SkillName = skillName;
+            this.SkillConfig = skillConfig;
         }
 
         abstract public void PlayAnimation(Vector3Int cell);

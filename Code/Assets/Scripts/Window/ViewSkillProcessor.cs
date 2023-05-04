@@ -1,7 +1,6 @@
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,11 +8,11 @@ namespace Game
 {
     public class ViewSkillProcessor : AViewPage
     {
-        [Title("¼¼ÄÜĞÅÏ¢")]
-        [LabelText("ÒÑÑ§Ï°¼¼ÄÜ")]
+        [Title("æŠ€èƒ½é¢æ¿")]
+        [LabelText("æ‰€æœ‰æŠ€èƒ½")]
         public ScrollRect sr_AllSkill;
 
-        [LabelText("ÒÑ×°Åä¼¼ÄÜ")]
+        [LabelText("è£…è½½æŠ€èƒ½")]
         public Transform tran_EquipSkills;
 
         private List<Item_Skill> learnSkills;
@@ -48,7 +47,7 @@ namespace Game
         {
             SkillToBattle(e.SkillPanel);
 
-            UserData.Save(); //ĞŞ¸Ä¼¼ÄÜºó£¬´æµµ
+            UserData.Save(); //ä¿®æ”¹æŠ€èƒ½åï¼Œå­˜æ¡£
         }
 
         private void SkillToBattle(SkillPanel skill) {
@@ -86,7 +85,7 @@ namespace Game
                     this.equipSkills.Add(com);
                 }
             }
-            //Ó¢ĞÛÖØĞÂ¼ÓÔØÒÑÑ¡Ôñ¼¼ÄÜ
+            //è‹±é›„é‡æ–°åŠ è½½å·²é€‰æ‹©æŠ€èƒ½
             GameProcessor.Inst.PlayerManager.GetHero().InitPanelSkill();
         }
 

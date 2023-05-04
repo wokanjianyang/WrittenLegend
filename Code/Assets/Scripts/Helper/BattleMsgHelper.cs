@@ -13,11 +13,11 @@ namespace Game
                 drops = ",掉落";
                 foreach (var drop in Drops)
                 {
-                    drops += $"<color=#{QualityConfigHelper.GetColor(drop.GetQuality())}>[{drop.Name}]";
+                    drops += $"<color=#{QualityConfigHelper.GetColor(drop.GetQuality())}>[{drop.Name}]</color>";
                 }
             }
 
-            string message = $"<color=#{QualityConfigHelper.GetColor(monster.Quality)}>[{monster.Name}]<color=white>死亡,经验增加:{monster.Exp},金币增加:{monster.Gold}{drops}";
+            string message = $"<color=#{QualityConfigHelper.GetColor(monster.Quality)}>[{monster.Name}]</color><color=white>死亡,经验增加:{monster.Exp},金币增加:{monster.Gold}{drops}</color>";
 
             return message;
         }
@@ -29,7 +29,7 @@ namespace Game
 
         public static string BuildTowerSuccessMessage(long exp, int floor)
         {
-            return $"<color=white>提升泡点经验:{exp},进入第{floor}层";
+            return $"<color=white>提升泡点经验:{exp},进入第{floor}层</color>";
         }
 
 

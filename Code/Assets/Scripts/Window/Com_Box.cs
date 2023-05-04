@@ -1,7 +1,6 @@
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -11,11 +10,11 @@ namespace Game
     public class Com_Box : MonoBehaviour,IPointerClickHandler,IPointerDownHandler,IPointerUpHandler
     {
 
-        [Title("¸ñ×ÓĞÅÏ¢")]
-        [LabelText("µÀ¾ßÃû³Æ")]
+        [Title("ç‰©å“æ ¼")]
+        [LabelText("é“å…·å")]
         public Text tmp_Title;
 
-        [LabelText("µÀ¾ßÊıÁ¿")]
+        [LabelText("æ•°é‡")]
         public Text tmp_Count;
 
         public Item Item { get; private set; }

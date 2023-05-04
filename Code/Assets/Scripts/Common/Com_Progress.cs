@@ -1,7 +1,6 @@
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,14 +8,14 @@ namespace Game
 {
     public class Com_Progress : MonoBehaviour, IBattleLife
     {
-        [Title("½ø¶ÈÌõ")]
-        [LabelText("½ø¶ÈÍ¼Æ¬")]
+        [Title("è¿›åº¦æ¡")]
+        [LabelText("è¿›åº¦èƒŒæ™¯")]
         public Image img_Progress;
 
-        [LabelText("½ø¶ÈÊı×Ö")]
+        [LabelText("è¿›åº¦æ–‡æœ¬")]
         public Text tmp_Progress;
 
-        [LabelText("½ø¶ÈÌõÀàĞÍ")]
+        [LabelText("è¿›åº¦æ¡ç±»å‹")]
         public ProgressType ProgressType;
 
         private Hero hero;

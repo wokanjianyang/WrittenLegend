@@ -1,7 +1,6 @@
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,8 +8,8 @@ namespace Game
 {
     public class ViewBattleProcessor : AViewPage
     {
-        [Title("战斗信息")]
-        [LabelText("掉落")]
+        [Title("鎺夎惤")]
+        [LabelText("鎺夎惤淇℃伅")]
         public ScrollRect sr_BattleMsg;
 
         private bool isViewMapShowing = false;
@@ -47,12 +46,12 @@ namespace Game
             msg.transform.SetParent(this.sr_BattleMsg.content);
             msg.transform.localScale = Vector3.one;
 
-            msg.GetComponent<TextMeshProUGUI>().text = e.Message;
+            msg.GetComponent<Text>().text = e.Message;
             this.sr_BattleMsg.normalizedPosition = new Vector2(0, 0);
 
             //if (e.MsgType == MsgType.SecondExp)
             //{
-            //    msg.GetComponent<TextMeshProUGUI>().text = $"增加泡点经验{e.Exp}";
+            //    msg.GetComponent<TextMeshProUGUI>().text = $"澧炲姞娉＄偣缁忛獙{e.Exp}";
                 
             //}
             //else if (e.BattleType == BattleType.Normal)
@@ -61,13 +60,13 @@ namespace Game
             //    string drops = "";
             //    if (e.Drops != null && e.Drops.Count > 0)
             //    {
-            //        drops = ",掉落";
+            //        drops = ",锟斤拷锟斤拷";
             //        foreach (var drop in e.Drops)
             //        {
             //            drops += $"<color=#{ItemHelper.GetColor(drop.GetQuality())}>[{drop.Name}]";
             //        }
             //    }
-            //    msg.GetComponent<TextMeshProUGUI>().text = $"<color=#{ItemHelper.GetColor(4)}>[{config.Name}]<color=white>死亡,经验增加:{e.Exp},金币增加:{e.Gold}{drops}";
+            //    msg.GetComponent<TextMeshProUGUI>().text = $"<color=#{ItemHelper.GetColor(4)}>[{config.Name}]<color=white>姝讳骸,缁忛獙澧炲姞:{e.Exp},閲戝竵澧炲姞:{e.Gold}{drops}";
             //    msg.name = $"msg_{e.RoundNum}";
 
             //    this.sr_BattleMsg.normalizedPosition = new Vector2(0, 0);
