@@ -44,7 +44,7 @@ namespace Game
                 hero.Level = 1;
                 hero.Exp = 0;
                 hero.Name = "´«Ææ";
-                Save();
+                //Save();
             }
             return hero;
         }

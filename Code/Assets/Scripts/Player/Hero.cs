@@ -238,8 +238,8 @@ namespace Game
 
             foreach (var suitItem in suitGroup)
             {
-                if (suitItem.Count() >= 4)
-                {  //4件才成套,并且只能有一套能生效
+                if (suitItem.Count() >= SkillSuitHelper.SuitMax)
+                {  //SkillSuitHelper.SuitMax 件才成套,并且只能有一套能生效
                     SkillSuit suit = new SkillSuit(suitItem.Key);
                     list.Add(suit);
                 }
@@ -248,6 +248,10 @@ namespace Game
             return list;
         }
 
+        public int GetSuitCount(int suitId) {
+            int count = this.EquipPanel.Where(m => m.Value.SkillSuitConfig != null && m.Value.SuitConfigId == suitId).Count();
+            return Math.Min(count, SkillSuitHelper.SuitMax);
+        }
 
         private void SetLevelConfigAttr()
         {

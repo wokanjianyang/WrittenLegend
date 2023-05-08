@@ -98,7 +98,7 @@ namespace Game
             this.btn_Equip.gameObject.SetActive(false);
             this.btn_UnEquip.gameObject.SetActive(false);
             this.btn_Learn.gameObject.SetActive(false);
-            this.btn_Upgrade.gameObject.SetActive(!false);
+            this.btn_Upgrade.gameObject.SetActive(false);
             this.btn_Recovery.gameObject.SetActive(false);
 
             this.transform.position = this.GetBetterPosition(e.Position);
@@ -118,6 +118,7 @@ namespace Game
                 color = "red";
             }
 
+            var hero = GameProcessor.Inst.PlayerManager.GetHero();
             switch ((ItemType)this.item.Type)
             {
                 case ItemType.Equip://装备
@@ -159,10 +160,13 @@ namespace Game
                             child.gameObject.SetActive(true);
                         }
 
-                        if (equip.SkillSuitConfig != null) {
+                        if (equip.SkillSuitConfig != null)
+                        {
+                            int suitCount = hero.GetSuitCount(equip.SkillSuitConfig.Id);
+
                             int index = 0;
                             tran_SuitAttribute.gameObject.SetActive(true);
-                            tran_SuitAttribute.Find("Title").GetComponent<Text>().text = equip.SkillSuitConfig.Name;
+                            tran_SuitAttribute.Find("Title").GetComponent<Text>().text = equip.SkillSuitConfig.Name + string.Format("({0}/{1})", suitCount, SkillSuitHelper.SuitMax);
 
                             var child = tran_SuitAttribute.Find(string.Format("Attribute_{0}", index));
                             child.GetComponent<Text>().text = string.Format(" {0}", equip.SkillSuitConfig.Des);
@@ -182,7 +186,6 @@ namespace Game
                         tran_NormalAttribute.gameObject.SetActive(true);
                         tran_NormalAttribute.Find("Title").GetComponent<Text>().text = skillBox.ItemConfig.Des;
                         tran_NormalAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.item.Level);
-                        var hero = GameProcessor.Inst.PlayerManager.GetHero();
                         var isLearn = hero.SkillList.Find(b => b.SkillId == this.item.ConfigId) == null;
                         this.btn_Learn.gameObject.SetActive(isLearn && !levelLess);
                         if (isLearn) {

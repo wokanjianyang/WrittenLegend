@@ -3257,6 +3257,14 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2169005795746754246, guid: 6ca7ab50392d48c478e5418dabb16d1f, type: 3}
+      propertyPath: m_FontData.m_VerticalOverflow
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2293043473004676775, guid: 6ca7ab50392d48c478e5418dabb16d1f, type: 3}
+      propertyPath: m_FontData.m_VerticalOverflow
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3092928759440454832, guid: 6ca7ab50392d48c478e5418dabb16d1f, type: 3}
       propertyPath: m_Name
       value: Dialog_EquipDetail
@@ -3360,6 +3368,14 @@ PrefabInstance:
     - target: {fileID: 7103713330004383517, guid: 6ca7ab50392d48c478e5418dabb16d1f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7170548636126730577, guid: 6ca7ab50392d48c478e5418dabb16d1f, type: 3}
+      propertyPath: m_FontData.m_VerticalOverflow
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775245429951501729, guid: 6ca7ab50392d48c478e5418dabb16d1f, type: 3}
+      propertyPath: m_FontData.m_HorizontalOverflow
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ca7ab50392d48c478e5418dabb16d1f, type: 3}
