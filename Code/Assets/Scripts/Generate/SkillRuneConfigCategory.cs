@@ -7,11 +7,15 @@ namespace Game
 
     public partial class SkillRuneConfigCategory
     {
-        public int Build()
+
+    }
+
+    public class SkillRuneHelper {
+        public static SkillRuneConfig RandomRune()
         {
+            List<SkillRuneConfig> list = SkillRuneConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
             int index = RandomHelper.RandomNumber(0, list.Count);
-            SkillRuneConfig config = list[index];
-            return config.Id;
+            return list[index];
         }
     }
 }

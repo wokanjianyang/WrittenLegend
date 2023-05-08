@@ -12,12 +12,25 @@ namespace Game
 
     public class EquipHelper
     {
-        public static Equip BuildEquip(int ConfigId, int minQuality)
+        public static Equip BuildEquip(int configId, int minQuality)
         {
-            int RuneConfigId = SkillRuneConfigCategory.Instance.Build();
+            EquipConfig config = EquipConfigCategory.Instance.Get(configId);
 
-            Equip equip = new Equip(ConfigId, RuneConfigId);
-            equip.ConfigId = ConfigId;
+            int runeId = config.RuneId;
+            int suitId = config.SuitId;
+
+            if (runeId == 0) //随机生成词条
+            {
+                SkillRuneConfig runeConfig = SkillRuneHelper.RandomRune();
+                runeId = runeConfig.Id;
+
+                if (suitId == 0)  //随机生成词条
+                {
+                    suitId = SkillSuitHelper.RandomSuit(runeConfig.SkillId).Id;
+                }
+            }
+
+            Equip equip = new Equip(configId, runeId, suitId);
 
             //生成品质
             equip.Quality = Math.Max(minQuality, RandomHelper.RandomQuality());
@@ -27,6 +40,30 @@ namespace Game
             {
                 AttrEntryConfigCategory.Instance.Build(ref equip);
             }
+
+            return equip;
+        }
+
+        public static Equip BuildCustomEquip(int configId)
+        {
+            EquipConfig config = EquipConfigCategory.Instance.Get(configId);
+
+            int runeId = config.RuneId;
+            int suitId = config.SuitId;
+
+            if (runeId == 0) //随机生成词条
+            {
+                SkillRuneConfig runeConfig = SkillRuneHelper.RandomRune();
+                runeId = runeConfig.Id;
+
+                if (suitId == 0)  //随机生成词条
+                {
+                    suitId = SkillSuitHelper.RandomSuit(runeConfig.SkillId).Id;
+                }
+            }
+
+            Equip equip = new Equip(configId, runeId, suitId);
+            equip.Quality = 4;
 
             return equip;
         }

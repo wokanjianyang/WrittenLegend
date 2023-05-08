@@ -32,6 +32,16 @@ namespace Game
             return $"<color=white>提升泡点经验:{exp},进入第{floor}层</color>";
         }
 
+        public static string BuildGiftPackMessage(List<Item> items)
+        {
+            string message = "礼包获取:";
+            foreach (var drop in items)
+            {
+                message += $"<color=#{QualityConfigHelper.GetColor(drop.GetQuality())}>[{drop.Name}]</color>";
+            }
+
+            return message;
+        }
 
     }
 }

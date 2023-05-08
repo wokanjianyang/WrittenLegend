@@ -18,7 +18,7 @@ namespace Game
 
             Name = Config.Name;
             Des = Config.Name;
-            Level = 0;
+            Level = Config.LevelRequired;
             Gold = 0;
         }
 

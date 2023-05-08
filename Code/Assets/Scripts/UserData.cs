@@ -51,14 +51,6 @@ namespace Game
 
         public static void Save()
         {
-            //
-            string folderPath = System.IO.Path.Combine(Application.persistentDataPath, savePath); //文件夹路径
-            System.IO.Directory.CreateDirectory(folderPath);
-
-            //创建一个空白文件
-            string filePath = System.IO.Path.Combine(folderPath, fileName);             //文件路径
-            System.IO.File.Create(filePath).Dispose();
-
             System.TimeSpan st = System.DateTime.UtcNow - new System.DateTime(1970, 1, 1, 0, 0, 0);//获取时间戳
             //Log.Debug($"离线时间:{DateTime.UtcNow.ToString("F")}");
 
@@ -75,6 +67,14 @@ namespace Game
             {
                 return;
             }
+
+            //
+            string folderPath = System.IO.Path.Combine(Application.persistentDataPath, savePath); //文件夹路径
+            System.IO.Directory.CreateDirectory(folderPath);
+
+            //创建一个空白文件
+            string filePath = System.IO.Path.Combine(folderPath, fileName);             //文件路径
+            System.IO.File.Create(filePath).Dispose();
 
             //写入文件
             System.IO.StreamWriter sw = new System.IO.StreamWriter(filePath);

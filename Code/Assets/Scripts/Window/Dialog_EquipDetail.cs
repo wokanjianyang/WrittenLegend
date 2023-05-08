@@ -2,6 +2,7 @@
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -70,7 +71,7 @@ namespace Game
             this.btn_Learn.onClick.AddListener(this.OnLearnSkill);
             this.btn_Upgrade.onClick.AddListener(this.OnUpgradeSkill);
             this.btn_Recovery.onClick.AddListener(this.OnRecovery);
-            this.gameObject.SetActive(false);
+            this.gameObject.SetActive(false); 
         }
 
         // Update is called once per frame
@@ -92,6 +93,8 @@ namespace Game
             tran_BaseAttribute.gameObject.SetActive(false);
             tran_NormalAttribute.gameObject.SetActive(false);
             tran_QualityAttribute.gameObject.SetActive(false);
+            tran_SkillAttribute.gameObject.SetActive(false);
+            tran_SuitAttribute.gameObject.SetActive(false);
             this.btn_Equip.gameObject.SetActive(false);
             this.btn_UnEquip.gameObject.SetActive(false);
             this.btn_Learn.gameObject.SetActive(false);
@@ -109,7 +112,8 @@ namespace Game
             tmp_Title.text = string.Format("<color=#{0}>{1}</color>", titleColor, this.item.Name);
 
             string color = "green";
-            if (this.item.Level > GameProcessor.Inst.PlayerManager.GetHero().Level)
+            bool levelLess = this.item.Level >= GameProcessor.Inst.PlayerManager.GetHero().Level;
+            if (levelLess)
             {
                 color = "red";
             }
@@ -127,7 +131,7 @@ namespace Game
                             foreach (var a in equip.BaseAttrList)
                             {
                                 var child = tran_BaseAttribute.Find(string.Format("Attribute_{0}", index));
-                                child.GetComponent<Text>().text = string.Format(" •+{0}点{1}", a.Value, PlayerHelper.PlayerAttributeMap[((AttributeEnum)a.Key).ToString()]);
+                                child.GetComponent<Text>().text = string.Format(" •{0}点{1}", a.Value, PlayerHelper.PlayerAttributeMap[((AttributeEnum)a.Key).ToString()]);
                                 child.gameObject.SetActive(true);
                                 index++;
                             }
@@ -139,7 +143,7 @@ namespace Game
                             foreach (var a in equip.AttrEntryList)
                             {
                                 var child = tran_QualityAttribute.Find(string.Format("Attribute_{0}", index));
-                                child.GetComponent<Text>().text = string.Format(" •+{0}点{1}", a.Value, PlayerHelper.PlayerAttributeMap[((AttributeEnum)a.Key).ToString()]);
+                                child.GetComponent<Text>().text = string.Format(" •{0}点{1}", a.Value, PlayerHelper.PlayerAttributeMap[((AttributeEnum)a.Key).ToString()]);
                                 child.gameObject.SetActive(true);
                                 index++;
                             }
@@ -165,9 +169,7 @@ namespace Game
                             child.gameObject.SetActive(true);
                         }
 
-                        
-
-                        this.btn_Equip.gameObject.SetActive(this.boxId != -1);
+                        this.btn_Equip.gameObject.SetActive(this.boxId != -1 && !levelLess);
                         this.btn_UnEquip.gameObject.SetActive(this.boxId == -1);
                         this.btn_Recovery.gameObject.SetActive(this.boxId != -1);
                         tran_BaseAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.item.Level);
@@ -182,7 +184,11 @@ namespace Game
                         tran_NormalAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.item.Level);
                         var hero = GameProcessor.Inst.PlayerManager.GetHero();
                         var isLearn = hero.SkillList.Find(b => b.SkillId == this.item.ConfigId) == null;
-                        this.btn_Learn.gameObject.SetActive(isLearn);
+                        this.btn_Learn.gameObject.SetActive(isLearn && !levelLess);
+                        if (isLearn) {
+                            var text = btn_Learn.GetComponentInChildren<Text>();
+                            text.text = "学习";
+                        }
                         this.btn_Upgrade.gameObject.SetActive(!isLearn);
 
                         //this.btn_Learn.interactable = this.item.Level <= UserData.Load().Level;
@@ -192,8 +198,14 @@ namespace Game
                     {
                         var giftPack = this.item as GiftPack;
 
-      
-                        this.btn_Learn.gameObject.SetActive(true);
+                        tran_NormalAttribute.gameObject.SetActive(true);
+                        tran_NormalAttribute.Find("Title").GetComponent<Text>().text = giftPack.Config.Des;
+                        tran_NormalAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.item.Level);
+
+                        this.btn_Learn.gameObject.SetActive(true && !levelLess);
+                        var text = btn_Learn.GetComponentInChildren<Text>();
+                        text.text = "使用";
+
                         this.btn_Upgrade.gameObject.SetActive(false);
                     }
                     break;
@@ -236,12 +248,23 @@ namespace Game
         {
             this.gameObject.SetActive(false);
 
-            GameProcessor.Inst.EventCenter.Raise(new SkillBookEvent()
+            if ((ItemType)this.item.Type == ItemType.SkillBox)
             {
-                IsLearn = true,
-                Item = this.item,
-                BoxId = this.boxId
-            });
+                GameProcessor.Inst.EventCenter.Raise(new SkillBookEvent()
+                {
+                    IsLearn = true,
+                    Item = this.item,
+                    BoxId = this.boxId
+                });
+            }
+            else if ((ItemType)this.item.Type == ItemType.GiftPack)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new BagUseEvent()
+                {
+                    Item = this.item,
+                    BoxId = this.boxId
+                });
+            }
         }
 
         private void OnUpgradeSkill()

@@ -215,7 +215,7 @@ namespace Game
             List<SkillRune> list = new List<SkillRune>();
 
             //计算装备的词条加成
-            List<Equip> skillList = this.EquipPanel.Where(m => m.Value.SkillRuneConfig.SkillId == skillId).Select(m => m.Value).ToList();
+            List<Equip> skillList = this.EquipPanel.Where(m =>m.Value.SkillRuneConfig!=null && m.Value.SkillRuneConfig.SkillId == skillId).Select(m => m.Value).ToList();
 
             //按单件分组,词条有堆叠上限
             var runeGroup = skillList.GroupBy(m => m.RuneConfigId);
@@ -233,7 +233,7 @@ namespace Game
             List<SkillSuit> list = new List<SkillSuit>();
 
             //计算装备的套装加成
-            List<Equip> skillList = this.EquipPanel.Where(m => m.Value.SkillSuitConfig.SkillId == skillId).Select(m => m.Value).ToList();
+            List<Equip> skillList = this.EquipPanel.Where(m => m.Value.SkillSuitConfig != null && m.Value.SkillSuitConfig.SkillId == skillId).Select(m => m.Value).ToList();
             var suitGroup = skillList.GroupBy(m => m.SkillRuneConfig.SuitId);
 
             foreach (var suitItem in suitGroup)

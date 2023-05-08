@@ -64,6 +64,7 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<SkillBookEvent>(this.OnSkillBookEvent);
             GameProcessor.Inst.EventCenter.AddListener<RecoveryEvent>(this.OnRecoveryEvent);
             GameProcessor.Inst.EventCenter.AddListener<AutoRecoveryEvent>(this.OnAutoRecoveryEvent);
+            GameProcessor.Inst.EventCenter.AddListener<BagUseEvent>(this.OnBagUseEvent);
 
             var hero = GameProcessor.Inst.PlayerManager.GetHero();
             hero.EventCenter.AddListener<HeroBagUpdateEvent>(this.OnHeroBagUpdateEvent);
@@ -193,6 +194,28 @@ namespace Game
                 hero.EventCenter.Raise(new HeroInfoUpdateEvent());
             }
         }
+
+        private void OnBagUseEvent(BagUseEvent e)
+        {
+            var hero = GameProcessor.Inst.PlayerManager.GetHero();
+            UseBoxItem(e.BoxId);
+
+            int gold = 0;
+            List<Item> items = GiftPackHelper.BuildItems(e.Item.ConfigId, ref gold);
+
+            hero.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+            {
+                Message = BattleMsgHelper.BuildGiftPackMessage(items)
+            });
+
+            if (gold > 0)
+            {
+                hero.Gold += gold;
+                hero.EventCenter.Raise(new HeroInfoUpdateEvent());
+            }
+        }
+            
         private void UseBoxItem(int boxId)
         {
             var hero = GameProcessor.Inst.PlayerManager.GetHero();

@@ -65,6 +65,11 @@ namespace Game
     public class AutoRecoveryEvent : SDD.Events.Event
     { 
     }
+    public class BagUseEvent : SDD.Events.Event
+    {
+        public Item Item { get; set; }
+        public int BoxId { get; set; }
+    }
 
     public class ShowTowerWindowEvent : SDD.Events.Event
     {

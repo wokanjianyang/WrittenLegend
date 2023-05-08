@@ -81,15 +81,21 @@ namespace Game
 		/// <summary>名称</summary>
 		[ProtoMember(2)]
 		public string Name { get; set; }
-		/// <summary>物品类型</summary>
+		/// <summary>LevelRequired</summary>
 		[ProtoMember(3)]
+		public int LevelRequired { get; set; }
+		/// <summary>物品类型</summary>
+		[ProtoMember(4)]
 		public int[] ItemTypeList { get; set; }
 		/// <summary>物品Id</summary>
-		[ProtoMember(4)]
+		[ProtoMember(5)]
 		public int[] ItemIdList { get; set; }
 		/// <summary>物品数量</summary>
-		[ProtoMember(5)]
+		[ProtoMember(6)]
 		public int[] ItemQuanlityList { get; set; }
+		/// <summary>备注</summary>
+		[ProtoMember(7)]
+		public string Des { get; set; }
 
 	}
 }

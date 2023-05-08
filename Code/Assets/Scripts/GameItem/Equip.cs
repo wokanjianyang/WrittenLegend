@@ -7,11 +7,23 @@ namespace Game
 {
     public class Equip : Item
     {
-        public Equip(int configId,int runeConfigId)
+        /// <summary>
+        /// 词条属性列表
+        /// </summary>
+        public List<KeyValuePair<int, long>> AttrEntryList { get; set; } = new List<KeyValuePair<int, long>>();
+
+        public int RuneConfigId { get; set; }
+
+        public int SuitConfigId { get; set; }
+
+        public int Quality { get; set; }
+
+        public Equip(int configId, int runeConfigId, int suitConfigId)
         {
             this.Type = ItemType.Equip;
             this.ConfigId = configId;
             this.RuneConfigId = runeConfigId;
+            this.SuitConfigId = suitConfigId;
 
             EquipConfig = EquipConfigCategory.Instance.Get(configId);
 
@@ -28,23 +40,16 @@ namespace Game
                 BaseAttrList.Add(EquipConfig.BaseArray[i], EquipConfig.AttributeBase[i]);
             }
 
-            if (RuneConfigId > 0) {
+            if (RuneConfigId > 0)
+            {
                 SkillRuneConfig = SkillRuneConfigCategory.Instance.Get(RuneConfigId);
+            }
 
-                if (SkillRuneConfig.SuitId > 0) {
-                    SkillSuitConfig = SkillSuitConfigCategory.Instance.Get(SkillRuneConfig.SuitId);
-                }
+            if (SuitConfigId > 0)
+            {
+                SkillSuitConfig = SkillSuitConfigCategory.Instance.Get(SuitConfigId);
             }
         }
-
-        /// <summary>
-        /// 词条属性列表
-        /// </summary>
-        public List<KeyValuePair<int, long>> AttrEntryList { get; set; }
-
-        public int RuneConfigId { get; set; }
-
-        public int Quality { get; set; }
 
         public override int GetQuality() {
             return Quality;
