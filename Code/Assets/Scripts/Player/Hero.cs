@@ -234,7 +234,7 @@ namespace Game
 
             //计算装备的套装加成
             List<Equip> skillList = this.EquipPanel.Where(m => m.Value.SkillSuitConfig != null && m.Value.SkillSuitConfig.SkillId == skillId).Select(m => m.Value).ToList();
-            var suitGroup = skillList.GroupBy(m => m.SkillRuneConfig.SuitId);
+            var suitGroup = skillList.GroupBy(m => m.SuitConfigId);
 
             foreach (var suitItem in suitGroup)
             {
