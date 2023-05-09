@@ -47,7 +47,7 @@ namespace Game
                 this.tmp_Name.text = SkillPanel.SkillData.SkillConfig.Name;
             }
             this.tmp_Level.text = string.Format("LV:{0}", SkillPanel.SkillData.Level);
-            this.tmp_CD.text = string.Format("??????{0}???", SkillPanel.CD);
+            this.tmp_CD.text = string.Format("冷却时间{0}回合", SkillPanel.CD);
 
             this.tmp_Des.text = string.Format(SkillPanel.SkillData.SkillConfig.Des, SkillPanel.Dis, SkillPanel.EnemyMax, SkillPanel.Percent, SkillPanel.EnemyMax);
 

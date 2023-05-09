@@ -19,7 +19,7 @@ namespace Game
         private IEnumerator IE_Attack(Vector3Int cell)
         {
 
-            var effectCom = EffectLoader.CreateEffect(this.SkillConfig.ModelName);
+            var effectCom = EffectLoader.CreateEffect(this.SkillConfig.ModelName,false);
             if (effectCom != null)
             {
                 

@@ -112,7 +112,7 @@ namespace Game
             tmp_Title.text = string.Format("<color=#{0}>{1}</color>", titleColor, this.item.Name);
 
             string color = "green";
-            bool levelLess = this.item.Level >= GameProcessor.Inst.PlayerManager.GetHero().Level;
+            bool levelLess = this.item.Level > GameProcessor.Inst.PlayerManager.GetHero().Level;
             if (levelLess)
             {
                 color = "red";
