@@ -66,8 +66,8 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<AutoRecoveryEvent>(this.OnAutoRecoveryEvent);
             GameProcessor.Inst.EventCenter.AddListener<BagUseEvent>(this.OnBagUseEvent);
 
-            var hero = GameProcessor.Inst.PlayerManager.GetHero();
-            hero.EventCenter.AddListener<HeroBagUpdateEvent>(this.OnHeroBagUpdateEvent);
+            User user = GameProcessor.Inst.User;
+            user.EventCenter.AddListener<HeroBagUpdateEvent>(this.OnHeroBagUpdateEvent);
 
             this.items = new List<Com_Box>();
 
@@ -79,13 +79,13 @@ namespace Game
                 empty.name = "Box_" + i;
             }
 
-            if (hero.Bags!=null)
+            if (user.Bags!=null)
             {
                 //��ʼ��Ⱦ����,��������
-                hero.Bags.Sort((x,y)=> x.Item.Type.CompareTo(y.Item.Type));
-                for (int BoxId = 0; BoxId < hero.Bags.Count; BoxId++)
+                user.Bags.Sort((x,y)=> x.Item.Type.CompareTo(y.Item.Type));
+                for (int BoxId = 0; BoxId < user.Bags.Count; BoxId++)
                 {
-                    BoxItem item = hero.Bags[BoxId];
+                    BoxItem item = user.Bags[BoxId];
                     item.BoxId = BoxId;
 
                     Com_Box box = this.CreateBox(item);
@@ -97,10 +97,10 @@ namespace Game
                 }
             }
 
-            if(hero.EquipPanel!=null)
+            if(user.EquipPanel!=null)
             {
                 //��ʼ��Ⱦ����װ��
-                foreach(var kvp in hero.EquipPanel)
+                foreach(var kvp in user.EquipPanel)
                 {
                     this.CreateEquipPanelItem(kvp.Key,kvp.Value);
                 }
@@ -156,11 +156,11 @@ namespace Game
         }
         private void OnSkillBookEvent(SkillBookEvent e)
         {
-            var hero = GameProcessor.Inst.PlayerManager.GetHero();
+            User user = GameProcessor.Inst.User;
 
             UseBoxItem(e.BoxId);
 
-            hero.EventCenter.Raise(new HeroUseSkillBookEvent
+            user.EventCenter.Raise(new HeroUseSkillBookEvent
             {
                 IsLearn = e.IsLearn,
                 Item = e.Item
@@ -168,42 +168,42 @@ namespace Game
         }
 
         private void OnRecoveryEvent(RecoveryEvent e) {
-            var hero = GameProcessor.Inst.PlayerManager.GetHero();
+            User user = GameProcessor.Inst.User;
 
             UseBoxItem(e.BoxId);
 
-            hero.Gold += e.Item.Gold;
-            hero.EventCenter.Raise(new HeroInfoUpdateEvent());
+            user.Gold += e.Item.Gold;
+            user.EventCenter.Raise(new HeroInfoUpdateEvent());
         }
 
         private void OnAutoRecoveryEvent(AutoRecoveryEvent e)
         {
-            Hero hero = GameProcessor.Inst.PlayerManager.GetHero();
+            User user = GameProcessor.Inst.User;
 
-            List<BoxItem> recoveryList = hero.Bags.Where(m => hero.RecoverySetting.CheckRecovery(m.Item)).ToList();
+            List<BoxItem> recoveryList = user.Bags.Where(m => user.RecoverySetting.CheckRecovery(m.Item)).ToList();
 
             foreach (BoxItem box in recoveryList)
             {
-                hero.Gold += box.Item.Gold * box.Number;
+                user.Gold += box.Item.Gold * box.Number;
 
                 Log.Debug("自动回收:" + box.Item.Name + " " + box.Number + "个");
 
                 box.Number = 0;
                 UseBoxItem(box.BoxId);
 
-                hero.EventCenter.Raise(new HeroInfoUpdateEvent());
+                user.EventCenter.Raise(new HeroInfoUpdateEvent());
             }
         }
 
         private void OnBagUseEvent(BagUseEvent e)
         {
-            var hero = GameProcessor.Inst.PlayerManager.GetHero();
+            User user = GameProcessor.Inst.User;
             UseBoxItem(e.BoxId);
 
             int gold = 0;
             List<Item> items = GiftPackHelper.BuildItems(e.Item.ConfigId, ref gold);
 
-            hero.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+            user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
             {
                 Message = BattleMsgHelper.BuildGiftPackMessage(items)
@@ -211,17 +211,17 @@ namespace Game
 
             if (gold > 0)
             {
-                hero.Gold += gold;
-                hero.EventCenter.Raise(new HeroInfoUpdateEvent());
+                user.Gold += gold;
+                user.EventCenter.Raise(new HeroInfoUpdateEvent());
             }
         }
             
         private void UseBoxItem(int boxId)
         {
-            var hero = GameProcessor.Inst.PlayerManager.GetHero();
+            User user = GameProcessor.Inst.User;
 
             //逻辑处理
-            BoxItem boxItem = hero.Bags.Find(m => m.BoxId == boxId);
+            BoxItem boxItem = user.Bags.Find(m => m.BoxId == boxId);
             Com_Box boxUI = this.items.Find(m => m.boxId == boxId);
 
             if (boxItem == null)
@@ -235,7 +235,7 @@ namespace Game
             //用光了，移除队列
             if (boxItem.Number <= 0)
             {
-                hero.Bags.Remove(boxItem);
+                user.Bags.Remove(boxItem);
 
                 this.items.Remove(boxUI);
                 GameObject.Destroy(boxUI.gameObject);
@@ -245,9 +245,9 @@ namespace Game
 
         private void AddBoxItem(Item newItem)
         {
-            var hero = GameProcessor.Inst.PlayerManager.GetHero();
+            User user = GameProcessor.Inst.User;
 
-            BoxItem boxItem = hero.Bags.Find(m => !m.IsFull() && m.Item.ConfigId == newItem.ConfigId);  //ͬ����Ʒ������û�����ѵ��ĸ���
+            BoxItem boxItem = user.Bags.Find(m => !m.IsFull() && m.Item.ConfigId == newItem.ConfigId);  //ͬ����Ʒ������û�����ѵ��ĸ���
 
             if (boxItem != null)
             {  //堆叠UI
@@ -276,38 +276,38 @@ namespace Game
                 item.SetBoxId(lastBoxId);
                 this.items.Add(item);
 
-                hero.Bags.Add(boxItem);
+                user.Bags.Add(boxItem);
             }
         }
 
         private void WearEquipment(Equip equip,int BoxId)
         {
-            var hero = GameProcessor.Inst.PlayerManager.GetHero();
+            User user = GameProcessor.Inst.User;
 
             int Part = equip.Part;
             //增加一次穿戴记录，用做轮流穿戴左右
-            if (!hero.equipRecord.ContainsKey(Part))
+            if (!user.EquipRecord.ContainsKey(Part))
             {
-                hero.equipRecord[Part] = 0;
+                user.EquipRecord[Part] = 0;
             }
-            hero.equipRecord[Part]++;
-            int PartIndex = hero.equipRecord[Part] % equip.Position.Length;
+            user.EquipRecord[Part]++;
+            int PartIndex = user.EquipRecord[Part] % equip.Position.Length;
             int Position = equip.Position[PartIndex];
 
             //从包袱移除
             UseBoxItem(BoxId);
 
             //如果存在旧装备，增加到包裹
-            if (hero.EquipPanel.ContainsKey(Position))
+            if (user.EquipPanel.ContainsKey(Position))
             {
-                AddBoxItem(hero.EquipPanel[Position]);
+                AddBoxItem(user.EquipPanel[Position]);
             }
 
             //穿戴到格子上
             this.CreateEquipPanelItem(Position, equip);
 
             //通知英雄更新属性
-            hero.EventCenter.Raise(new HeroUseEquipEvent
+            user.EventCenter.Raise(new HeroUseEquipEvent
             {
                 Position = Position,
                 Equip = equip
@@ -367,7 +367,7 @@ namespace Game
 
         private void CreateEquipPanelItem(int Position, Equip equip)
         {
-            var hero = GameProcessor.Inst.PlayerManager.GetHero();
+            User user = GameProcessor.Inst.User;
 
             var slot = this.transform.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == Position).First();
 
@@ -406,8 +406,8 @@ namespace Game
             AddBoxItem(equip);
 
             //通知英雄更新属性
-            var hero = GameProcessor.Inst.PlayerManager.GetHero();
-            hero.EventCenter.Raise(new HeroUnUseEquipEvent()
+            User user = GameProcessor.Inst.User;
+            user.EventCenter.Raise(new HeroUnUseEquipEvent()
             {
                 Position = position,
                 Equip = equip
@@ -417,8 +417,8 @@ namespace Game
         }
         private void OnHeroBagUpdateEvent(HeroBagUpdateEvent e)
         {
-            Hero hero = GameProcessor.Inst.PlayerManager.GetHero();
-            if (hero.Bags != null)
+            User user = GameProcessor.Inst.User;
+            if (user.Bags != null)
             {
                 var newItems = e.ItemList;
 

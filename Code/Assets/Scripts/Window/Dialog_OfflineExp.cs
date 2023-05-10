@@ -33,9 +33,9 @@ namespace Game
         public void OnBattleStart()
         {
 
-            if (GameProcessor.Inst.PlayerManager.GetHero().LastOut > 0)
+            if (GameProcessor.Inst.User.LastOut > 0)
             {
-                long offlineSecond = GameProcessor.Inst.CurrentTimeSecond - GameProcessor.Inst.PlayerManager.GetHero().LastOut;
+                long offlineSecond = GameProcessor.Inst.CurrentTimeSecond - GameProcessor.Inst.User.LastOut;
                 if (offlineSecond > 0)
                 {
                     this.OnShowOfflineExpEvent(offlineSecond);
@@ -49,9 +49,9 @@ namespace Game
         }
         private void OnShowOfflineExpEvent(long os)
         {
-            var hero = GameProcessor.Inst.PlayerManager.GetHero();
+            User user = GameProcessor.Inst.User;
 
-            LevelConfig levelConfig = LevelConfigCategory.Instance.Get(hero.Level);
+            LevelConfig levelConfig = LevelConfigCategory.Instance.Get(user.Level);
 
             this.offlineSecond = os;
             this.gameObject.SetActive(true);
@@ -64,10 +64,10 @@ namespace Game
             this.tmp_Msg.text = string.Format("本次离线时间:{0}\n奖励离线经验: {1}", t, offlineExp);
 
 
-            hero.Exp += offlineExp;
-            hero.EventCenter.Raise(new HeroChangeEvent
+            user.Exp += offlineExp;
+            user.EventCenter.Raise(new HeroChangeEvent
             {
-                Type = Hero.HeroChangeType.LevelUp
+                Type = User.UserChangeType.LevelUp
             });
         }
     }

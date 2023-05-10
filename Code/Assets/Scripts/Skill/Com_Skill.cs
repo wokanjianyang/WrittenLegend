@@ -38,7 +38,7 @@ namespace Game
             this.tran_Skill.gameObject.SetActive(false);
             this.SkillPanel.SkillData.Status = SkillStatus.Learn;
             this.SkillPanel.SkillData.Position = 0;
-            GameProcessor.Inst.PlayerManager.GetHero().EventCenter.Raise(new HeroUpdateSkillEvent
+            GameProcessor.Inst.User.EventCenter.Raise(new HeroUpdateSkillEvent
             {
                 SkillPanel = this.SkillPanel
             });

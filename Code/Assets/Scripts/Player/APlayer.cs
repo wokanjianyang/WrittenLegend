@@ -99,7 +99,7 @@ namespace Game
             }
 
             //加载技能
-            LoadSkill();
+            //LoadSkill();
         }
 
         public void LoadSkill()

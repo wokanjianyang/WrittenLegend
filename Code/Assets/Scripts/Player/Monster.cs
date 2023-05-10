@@ -8,6 +8,8 @@ namespace Game
     public class Monster : APlayer
     {
         public int MonsterId;
+        MonsterBase Config { get; set; }
+        QualityConfig QualityConfig { get; set; }
 
         public int Quality { get; set; }
 
@@ -19,86 +21,80 @@ namespace Game
         public long Exp;
         public int range;
 
-        public Monster(int monsterId,int quality) : base()
+        public Monster(int monsterId, int quality) : base()
         {
             this.MonsterId = monsterId;
             this.GroupId = 2;
             this.Quality = quality;
 
-            this.Load();
-            this.SetLevelConfigAttr();
-            this.Logic.SetData(null);
-        }
-
-        public override void Load()
-        {
-            base.Load();
-
-            //var boxPrefab = Resources.Load<GameObject>("Prefab/Effect/MonsterBox");
-            //var box = GameObject.Instantiate(boxPrefab, this.Transform).transform;
-            //box.SetParent(this.Transform);
-
-            this.Camp = PlayerType.Enemy;
-
-
-            MonsterBase config = MonsterBaseCategory.Instance.Get(MonsterId);
-
-            QualityConfig qualityConfig = QualityConfigCategory.Instance.Get(Quality);
-
-            this.Name = config.Name + qualityConfig.MonsterTitle;
-            this.Level = config.Level;
-            this.Exp = config.Exp * qualityConfig.ExpRate;
-            this.Gold = config.Gold * qualityConfig.GoldRate;
-
-
-            this.AttributeBonus = new AttributeBonus();
-            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, config.HP* qualityConfig.HpRate);
-            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, config.PhyAttr* qualityConfig.AttrRate);
-            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, config.PhyAttr * qualityConfig.AttrRate);
-            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, config.PhyAttr * qualityConfig.AttrRate);
-            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, config.Def * qualityConfig.DefRate);
-
-            //回满当前血量
-            SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
-
+            this.Init();
             this.EventCenter.AddListener<DeadRewarddEvent>(MakeReward);
         }
 
-        public void SetLevelConfigAttr()
+        private void Init()
         {
+            this.Config = MonsterBaseCategory.Instance.Get(MonsterId);
+            this.QualityConfig = QualityConfigCategory.Instance.Get(Quality);
+
+            this.Camp = PlayerType.Enemy;
+            this.Name = Config.Name + QualityConfig.MonsterTitle;
+            this.Level = Config.Level;
+            this.Exp = Config.Exp * QualityConfig.ExpRate;
+            this.Gold = Config.Gold * QualityConfig.GoldRate;
+
+
+            this.SetAttr();  //设置属性值
+            this.SetSkill(); //设置技能
+
+            base.Load();
+            this.Logic.SetData(null); //设置UI
         }
 
+        private void SetAttr()
+        {
+            this.AttributeBonus = new AttributeBonus();
+            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, Config.HP * QualityConfig.HpRate);
+            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, Config.PhyAttr * QualityConfig.AttrRate);
+            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, Config.PhyAttr * QualityConfig.AttrRate);
+            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, Config.PhyAttr * QualityConfig.AttrRate);
+            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, Config.Def * QualityConfig.DefRate);
 
+            //回满当前血量
+            SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
+        }
 
-        virtual protected void MakeReward(DeadRewarddEvent dead)
+        private void SetSkill() { 
+        }
+
+        private void MakeReward(DeadRewarddEvent dead)
         {
             Log.Info("Monster :" + this.ToString() + " dead");
 
-            Hero hero = GameProcessor.Inst.PlayerManager.GetHero();
+            User user = GameProcessor.Inst.User;
 
-            long exp = this.Exp * (100 + hero.AttributeBonus.GetTotalAttr(AttributeEnum.ExpIncrea)) / 100;
+            long exp = this.Exp * (100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.ExpIncrea)) / 100;
 
             //增加经验,金币
 
-            hero.Exp += exp;
-            hero.Gold += this.Gold;
-            hero.EventCenter.Raise(new HeroInfoUpdateEvent());
-            if (hero.Exp >= hero.UpExp)
+            user.Exp += exp;
+            user.Gold += this.Gold;
+            user.EventCenter.Raise(new HeroInfoUpdateEvent());
+            if (user.Exp >= user.UpExp)
             {
-                hero.EventCenter.Raise(new HeroChangeEvent
+                user.EventCenter.Raise(new HeroChangeEvent
                 {
-                    Type = Hero.HeroChangeType.LevelUp
+                    Type = User.UserChangeType.LevelUp
                 });
             }
 
             //生成道具奖励
-            int mapLevel = hero.Level / 10 * 10;
+            int mapLevel = user.Level / 10 * 10;
             List<KeyValuePair<int, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(mapLevel);
-            List<Item> items = DropHelper.BuildDropItem(dropList,Quality);
+            List<Item> items = DropHelper.BuildDropItem(dropList, Quality);
 
             if (items.Count > 0)
             {
-                hero.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+                user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
             }
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
@@ -109,7 +105,7 @@ namespace Game
             //自动回收
             if (items.Count > 0)
             {
-                GameProcessor.Inst.EventCenter.Raise(new AutoRecoveryEvent() {});
+                GameProcessor.Inst.EventCenter.Raise(new AutoRecoveryEvent() { });
             }
 
             //存档

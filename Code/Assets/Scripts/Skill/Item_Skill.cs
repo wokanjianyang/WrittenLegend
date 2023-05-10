@@ -59,7 +59,7 @@ namespace Game
             if (this.SkillPanel == null || this.SkillPanel.SkillData == null) return;
             this.SkillPanel.SkillData.Status = SkillStatus.Equip;
             this.SkillPanel.SkillData.Position = (int)SkillPosition.Last; //
-            GameProcessor.Inst.PlayerManager.GetHero().EventCenter.Raise(new HeroUpdateSkillEvent
+            GameProcessor.Inst.User.EventCenter.Raise(new HeroUpdateSkillEvent
             {
                 SkillPanel = this.SkillPanel
             });

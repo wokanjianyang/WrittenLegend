@@ -61,29 +61,29 @@ namespace Game
 
         private void UpdateFloorInfo()
         {
-            var hero = GameProcessor.Inst.PlayerManager.GetHero();
+            User user = GameProcessor.Inst.User;
 
             var maxFloor = TowerConfigCategory.Instance.GetAll().Count;
             var minFloor = 0;
-            if (hero.TowerFloor == maxFloor)
+            if (user.TowerFloor == maxFloor)
             {
-                minFloor = hero.TowerFloor - 2;
+                minFloor = user.TowerFloor - 2;
             }
-            else if (hero.TowerFloor == maxFloor - 1)
+            else if (user.TowerFloor == maxFloor - 1)
             {
-                minFloor = hero.TowerFloor - 1;
+                minFloor = user.TowerFloor - 1;
             }
             else
             {
-                minFloor = hero.TowerFloor;
+                minFloor = user.TowerFloor;
             }
 
             this.tmp_Floor_0.text = $"{(minFloor)}";
             this.tmp_Floor_1.text = $"{(minFloor + 1)}";
             this.tmp_Floor_2.text = $"{(minFloor + 2)}";
 
-            var config = TowerConfigCategory.Instance.Get(hero.TowerFloor);
-            this.tmp_CurrentFloor.text = $"{(hero.TowerFloor)}";
+            var config = TowerConfigCategory.Instance.Get(user.TowerFloor);
+            this.tmp_CurrentFloor.text = $"{(user.TowerFloor)}";
             this.tmp_ExpAdd.text = $"{config.RiseExp}";
             this.tmp_Reward.text = "暂无";
             this.tmp_Cri.text = "暂无";

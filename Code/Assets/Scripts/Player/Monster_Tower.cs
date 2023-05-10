@@ -10,14 +10,16 @@ public class Monster_Tower : APlayer
 
     public TowerConfig config { get; set; }
 
-    public Monster_Tower(int floor,int index) {
+    public Monster_Tower(int floor, int index)
+    {
         this.TowerId = floor;
         this.GroupId = 2;
         this.Index = index;
-        Load();
+
+        this.Init();
     }
 
-    public override void Load()
+    private void Init()
     {
         TowerConfig config = TowerConfigCategory.Instance.Get(TowerId);
         this.config = config;
@@ -25,7 +27,17 @@ public class Monster_Tower : APlayer
         this.Camp = PlayerType.Enemy;
         this.Name = config.Name;
 
+        this.SetAttr();  //设置属性值
+        this.SetSkill(); //设置技能
+
+        base.Load();
+        this.Logic.SetData(null); //设置UI
+    }
+
+    private void SetSkill()
+    {
         //加载技能
+        List<SkillData> list = new List<SkillData>();
         if (config.SkillIdList.Length > 0)
         {
             int i = this.Index % config.SkillIdList.Length;
@@ -37,17 +49,26 @@ public class Monster_Tower : APlayer
             skill.Level = 1;
             SkillList.Add(skill);
         }
+        list.Add(new SkillData(9001, (int)SkillPosition.Default)); //增加默认技能
 
-        base.Load();
+        foreach (SkillData skillData in list)
+        {
+            List<SkillRune> runeList = new List<SkillRune>();
+            List<SkillSuit> suitList = new List<SkillSuit>();
 
+            SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList);
+
+            SkillState skill = new SkillState(this, skillPanel, skillData.Position, 0);
+            SelectSkillList.Add(skill);
+        }
+    }
+
+    private void SetAttr()
+    {
         AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, config.HP);
         AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, config.PhyAtt);
         AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, config.PhyAtt);
         AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, config.PhyAtt);
         AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, config.Def);
-
-        Logic.SetData(null);
     }
-
-
 }

@@ -12,6 +12,9 @@ namespace Game
         public static GameProcessor Inst { get; private set; } = null;
         
         public MapData MapData { get; private set; }
+
+        public User User { get; private set; }
+
         public PlayerManager PlayerManager { get; private set; }
 
         private ABattleRule BattleRule;
@@ -52,6 +55,12 @@ namespace Game
         {
             this.EventCenter = new EventManager();
 
+            //启动就加载用户存档
+            this.User = UserData.Load();
+            this.User.Init();
+            //加载礼包奖励
+            GameProcessor.Inst.User.BuildReword();
+
             var coms = Canvas.FindObjectsOfType<MonoBehaviour>(true);
             var battleComs = coms.Where(com => com is IBattleLife).Select(com=>com as IBattleLife).ToList();
             battleComs.Sort((a, b) =>
@@ -84,37 +93,37 @@ namespace Game
             }
 
             //计算泡点经验
-            Hero hero = GameProcessor.Inst.PlayerManager.GetHero();
-            if (hero != null)
+            User user = GameProcessor.Inst.User;
+            if (user != null)
             {
                 int interval = 5;
-                if (hero.SecondExpTick == 0)
+                if (user.SecondExpTick == 0)
                 {
-                    hero.SecondExpTick = TimeHelper.ClientNowSeconds();
+                    user.SecondExpTick = TimeHelper.ClientNowSeconds();
                 }
                 else
                 {
-                    long calTk = (TimeHelper.ClientNowSeconds() - hero.SecondExpTick) / interval;
+                    long calTk = (TimeHelper.ClientNowSeconds() - user.SecondExpTick) / interval;
                     if (calTk >= 1)
                     {  //5秒计算一次经验
-                        hero.SecondExpTick += interval * calTk;
-                        long exp = hero.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp) * calTk;
+                        user.SecondExpTick += interval * calTk;
+                        long exp = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp) * calTk;
                         if (exp > 0)
                         {
-                            hero.Exp += exp;
-                            Debug.Log("经验:" + hero.Exp);
+                            user.Exp += exp;
+                            Debug.Log("经验:" + user.Exp);
 
                             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
                             {
                                 Message = BattleMsgHelper.BuildSecondExpMessage(exp)
                             });
-                            hero.EventCenter.Raise(new HeroInfoUpdateEvent());
+                            user.EventCenter.Raise(new HeroInfoUpdateEvent());
 
-                            if (hero.Exp >= hero.UpExp)
+                            if (user.Exp >= user.UpExp)
                             {
-                                hero.EventCenter.Raise(new HeroChangeEvent
+                                user.EventCenter.Raise(new HeroChangeEvent
                                 {
-                                    Type = Hero.HeroChangeType.LevelUp
+                                    Type = User.UserChangeType.LevelUp
                                 });
                             }
                         }
@@ -148,11 +157,7 @@ namespace Game
 
             this.CurrentTimeSecond = currentTimeSecond;
 
-            //加载档案
             this.PlayerManager.LoadHero();
-
-            //加载礼包奖励
-            GameProcessor.Inst.PlayerManager.GetHero().BuildReword();
         }
 
         public void DelayAction(float delay, Action callback)

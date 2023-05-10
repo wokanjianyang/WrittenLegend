@@ -77,16 +77,7 @@ namespace Game
 
         public void LoadHero()
         {
-            hero = UserData.Load();
-            hero.Load();
-            hero.Init();
-            hero.UpdatePlayerInfo();
-            var data = new Dictionary<AttributeEnum, object>();
-            data[AttributeEnum.Color] = Color.white;
-            data[AttributeEnum.Name] = hero.Name;
-            data[AttributeEnum.Level] = hero.Level;
-            data[AttributeEnum.HP] = hero.HP;
-            hero.Logic.SetData(data);
+            hero = new Hero();
 
             var coms = hero.Transform.GetComponents<MonoBehaviour>();
             foreach (var com in coms)

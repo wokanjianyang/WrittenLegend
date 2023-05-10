@@ -19,19 +19,19 @@ namespace Game
         [LabelText("金币")]
         public Text tmp_Gold;
 
-        private Hero hero;
+        private User user;
 
         public int Order => (int)ComponentOrder.TopNav;
 
         public void OnBattleStart()
         {
-            this.hero = GameProcessor.Inst.PlayerManager.GetHero();
-            this.tmp_Name.text = hero.Name;
-            this.tmp_Level.text = $"{hero.Level}级";
+            this.user = GameProcessor.Inst.User;
+            this.tmp_Name.text = user.Name;
+            this.tmp_Level.text = $"{user.Level}级";
             this.OnHeroInfoUpdateEvent(null);
-            this.tmp_BattlePower.text = $"战力：{hero.AttributeBonus.GetPower()}"; 
-            hero.EventCenter.AddListener<SetPlayerLevelEvent>(this.OnSetPlayerLevelEvent);
-            hero.EventCenter.AddListener<HeroInfoUpdateEvent>(this.OnHeroInfoUpdateEvent);
+            this.tmp_BattlePower.text = $"战力：{user.AttributeBonus.GetPower()}"; 
+            user.EventCenter.AddListener<SetPlayerLevelEvent>(this.OnSetPlayerLevelEvent);
+            user.EventCenter.AddListener<HeroInfoUpdateEvent>(this.OnHeroInfoUpdateEvent);
         }
 
         // Start is called before the first frame update
@@ -53,8 +53,8 @@ namespace Game
 
         private void OnHeroInfoUpdateEvent(HeroInfoUpdateEvent e)
         {
-            this.tmp_Gold.text = $"金币:{this.hero.Gold}";
-            this.tmp_BattlePower.text = $"战力：{hero.AttributeBonus.GetPower()}";
+            this.tmp_Gold.text = $"金币:{this.user.Gold}";
+            this.tmp_BattlePower.text = $"战力：{user.AttributeBonus.GetPower()}";
         }
     }
 }

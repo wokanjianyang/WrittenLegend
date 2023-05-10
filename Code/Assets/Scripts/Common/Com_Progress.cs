@@ -18,7 +18,7 @@ namespace Game
         [LabelText("进度条类型")]
         public ProgressType ProgressType;
 
-        private Hero hero;
+        private User user;
 
         // Start is called before the first frame update
         void Start()
@@ -36,12 +36,12 @@ namespace Game
 
         public void OnBattleStart()
         {
-            this.hero = GameProcessor.Inst.PlayerManager.GetHero();
+            this.user = GameProcessor.Inst.User;
             switch (this.ProgressType)
             {
                 case ProgressType.PlayerExp:
                     this.OnHeroInfoUpdateEvent(null);
-                    hero.EventCenter.AddListener<HeroInfoUpdateEvent>(this.OnHeroInfoUpdateEvent);
+                    user.EventCenter.AddListener<HeroInfoUpdateEvent>(this.OnHeroInfoUpdateEvent);
                     break;
                 case ProgressType.SkillExp:
                     break;
@@ -68,7 +68,7 @@ namespace Game
         }
         private void OnHeroInfoUpdateEvent(HeroInfoUpdateEvent e)
         {
-            this.SetProgress(this.hero.Exp, this.hero.UpExp);
+            this.SetProgress(this.user.Exp, this.user.UpExp);
         }
     }
 }

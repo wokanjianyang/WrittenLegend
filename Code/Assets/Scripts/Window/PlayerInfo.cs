@@ -45,19 +45,19 @@ namespace Game
        
         }
 
-        public void UpdateAttrInfo(Hero hero) {
-            HP.text = hero.AttributeBonus.GetTotalAttr(AttributeEnum.HP).ToString();
-            PhyAtt.text = hero.AttributeBonus.GetTotalAttr(AttributeEnum.PhyAtt).ToString();
-            SpiritAtt.text = hero.AttributeBonus.GetTotalAttr(AttributeEnum.SpiritAtt).ToString();
-            MagicAtt.text = hero.AttributeBonus.GetTotalAttr(AttributeEnum.MagicAtt).ToString();
-            Lucky.text = hero.AttributeBonus.GetTotalAttr(AttributeEnum.Lucky).ToString();
-            Def.text = hero.AttributeBonus.GetTotalAttr(AttributeEnum.Def).ToString();
-            LevelExp.text = hero.AttributeBonus.GetTotalAttr(AttributeEnum.Exp).ToString();
-            DamageIncrea.text = hero.AttributeBonus.GetTotalAttr(AttributeEnum.DamageIncrea).ToString();
-            DamageResist.text = hero.AttributeBonus.GetTotalAttr(AttributeEnum.DamageResist).ToString();
-            CritRate.text = hero.AttributeBonus.GetTotalAttr(AttributeEnum.CritRate).ToString();
-            CritRateResist.text = hero.AttributeBonus.GetTotalAttr(AttributeEnum.CritRateResist).ToString();
-            CritDamage.text = hero.AttributeBonus.GetTotalAttr(AttributeEnum.CritDamage).ToString();
+        public void UpdateAttrInfo(User user) {
+            HP.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.HP).ToString();
+            PhyAtt.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.PhyAtt).ToString();
+            SpiritAtt.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.SpiritAtt).ToString();
+            MagicAtt.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.MagicAtt).ToString();
+            Lucky.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.Lucky).ToString();
+            Def.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.Def).ToString();
+            LevelExp.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.Exp).ToString();
+            DamageIncrea.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.DamageIncrea).ToString();
+            DamageResist.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.DamageResist).ToString();
+            CritRate.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.CritRate).ToString();
+            CritRateResist.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.CritRateResist).ToString();
+            CritDamage.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.CritDamage).ToString();
         }
         
     }

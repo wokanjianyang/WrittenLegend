@@ -107,13 +107,13 @@ public class Init : MonoBehaviour
 
     private void LoadHome2()
     {
-        StartCoroutine(IE_DelayAction(0.1f, () =>
-        {
-            var com = this.gameObject.AddComponent<GameProcessor>();
-            var map = GameObject.Find("Canvas").GetComponentInChildren<ViewBattleProcessor>().transform;
-            com.LoadMap(this.RuleType,this.currentTimeSecond, map);
+        var com = this.gameObject.AddComponent<GameProcessor>();
+        var map = GameObject.Find("Canvas").GetComponentInChildren<ViewBattleProcessor>().transform;
+        this.LoadingPage.gameObject.SetActive(false);
 
-            this.LoadingPage.gameObject.SetActive(false);
+        StartCoroutine(IE_DelayAction(1f, () =>
+        {
+            com.LoadMap(this.RuleType,this.currentTimeSecond, map);
         }));
     }
 

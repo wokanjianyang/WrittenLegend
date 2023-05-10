@@ -10,8 +10,8 @@ namespace Game
     {
         static string savePath = "user";
         static string fileName = "data.json"; //文件名
-        public static Hero Load() {
-            Hero hero = null;
+        public static User Load() {
+            User user = null;
             string folderPath = System.IO.Path.Combine(Application.persistentDataPath, savePath); //文件夹路径                                        
             string filePath = System.IO.Path.Combine(folderPath, fileName);             //文件路径
             Debug.Log($"存档路径：{filePath}");
@@ -23,30 +23,23 @@ namespace Game
                 string str_json = sr.ReadToEnd();
                 sr.Close();
                 //反序列化
-                hero = JsonConvert.DeserializeObject<Hero>(str_json, new JsonSerializerSettings
+                user = JsonConvert.DeserializeObject<User>(str_json, new JsonSerializerSettings
                 {
                     TypeNameHandling = TypeNameHandling.Auto
                 });
-
-                if (hero == null) {
-                    hero = new Hero();
-                    //首次初始化
-                    hero.Level = 1;
-                    hero.Exp = 0;
-                    hero.Name = "传奇";
-                }
-
                 Debug.Log("成功读取");
             }
-            else {
-                hero = new Hero();
-                //首次初始化属性
-                hero.Level = 1;
-                hero.Exp = 0;
-                hero.Name = "传奇";
-                //Save();
+
+            if (user == null)
+            {
+                user = new User();
+                //首次初始化
+                user.Level = 1;
+                user.Exp = 0;
+                user.Name = "传奇";
             }
-            return hero;
+
+            return user;
         }
 
         public static void Save()
@@ -54,11 +47,11 @@ namespace Game
             System.TimeSpan st = System.DateTime.UtcNow - new System.DateTime(1970, 1, 1, 0, 0, 0);//获取时间戳
             //Log.Debug($"离线时间:{DateTime.UtcNow.ToString("F")}");
 
-            var hero = GameProcessor.Inst.PlayerManager.GetHero();
-            hero.LastOut = Convert.ToInt64(st.TotalSeconds);
+            var user = GameProcessor.Inst.User;
+            user.LastOut = Convert.ToInt64(st.TotalSeconds);
 
             //序列化
-            string str_json = JsonConvert.SerializeObject(hero, new JsonSerializerSettings
+            string str_json = JsonConvert.SerializeObject(user, new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.Auto
             });

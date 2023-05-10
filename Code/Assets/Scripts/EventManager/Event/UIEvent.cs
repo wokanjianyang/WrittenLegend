@@ -36,7 +36,7 @@ namespace Game
     }
 
     public class HeroChangeEvent : SDD.Events.Event { 
-        public Hero.HeroChangeType Type { get; set; } 
+        public User.UserChangeType Type { get; set; } 
     }
 
     public class HeroUseEquipEvent : SDD.Events.Event

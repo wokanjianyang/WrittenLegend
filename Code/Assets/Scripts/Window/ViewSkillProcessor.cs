@@ -26,16 +26,15 @@ namespace Game
             this.learnSkills = new List<Item_Skill>();
             this.equipSkills = new List<Com_Skill>();
 
-            var hero = GameProcessor.Inst.PlayerManager.GetHero();
-            hero.EventCenter.AddListener<HeroUpdateSkillEvent>(OnHeroUpdateSkillEvent);
+            var user = GameProcessor.Inst.User;
+            user.EventCenter.AddListener<HeroUpdateSkillEvent>(OnHeroUpdateSkillEvent);
             bookPrefab = Resources.Load<GameObject>("Prefab/Window/Item_Skill");
 
-            foreach (var skill in hero.SkillList)
+            foreach (var skill in user.SkillList)
             {
-                SkillPanel skillPanel = new SkillPanel(skill, hero.GetRuneList(skill.SkillId), hero.GetSuitList(skill.SkillId));
+                SkillPanel skillPanel = new SkillPanel(skill, user.GetRuneList(skill.SkillId), user.GetSuitList(skill.SkillId));
                 SkillToBattle(skillPanel);
             }
-            GameProcessor.Inst.PlayerManager.GetHero().InitPanelSkill();
         }
 
         protected override bool CheckPageType(ViewPageType page)
@@ -86,7 +85,7 @@ namespace Game
                 }
             }
             //英雄重新加载已选择技能
-            GameProcessor.Inst.PlayerManager.GetHero().InitPanelSkill();
+            //GameProcessor.Inst.PlayerManager.GetHero().InitPanelSkill();
         }
 
         private void CreateBook(SkillPanel skill)

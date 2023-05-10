@@ -16,7 +16,9 @@ public class BattleRule_Tower : ABattleRule
 
     public override void DoMonsterLogic()
     {
-        var hero = GameProcessor.Inst.PlayerManager.GetHero();
+        User user = GameProcessor.Inst.User;
+
+        Hero hero = GameProcessor.Inst.PlayerManager.GetHero();
         var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
         enemys.Sort((a, b) =>
         {
@@ -51,7 +53,7 @@ public class BattleRule_Tower : ABattleRule
                 MakeReward();
             }
 
-            var monsters = MonsterTowerHelper.BuildMonster(hero.TowerFloor);
+            var monsters = MonsterTowerHelper.BuildMonster(user.TowerFloor);
             if (monsters != null && monsters.Count > 0)
             {
                 start = true;
@@ -80,17 +82,17 @@ public class BattleRule_Tower : ABattleRule
         Log.Info("Tower Success");
 
         start = false;
-        Hero hero = GameProcessor.Inst.PlayerManager.GetHero();
-        var config = TowerConfigCategory.Instance.Get(hero.TowerFloor);
+        User user = GameProcessor.Inst.User;
+        var config = TowerConfigCategory.Instance.Get(user.TowerFloor);
 
         //增加泡点经验，爬塔层数
-        hero.AttributeBonus.SetAttr(AttributeEnum.SecondExp, AttributeFrom.Tower, config.TotalExp);
-        hero.TowerFloor++;
+        user.AttributeBonus.SetAttr(AttributeEnum.SecondExp, AttributeFrom.Tower, config.TotalExp);
+        user.TowerFloor++;
 
         //生成道具奖励
         GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
         {
-            Message = BattleMsgHelper.BuildTowerSuccessMessage(config.RiseExp, hero.TowerFloor),
+            Message = BattleMsgHelper.BuildTowerSuccessMessage(config.RiseExp, user.TowerFloor),
             BattleType = BattleType.Tower
         });
 
