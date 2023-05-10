@@ -132,7 +132,7 @@ namespace Game
             return enemy;
         }
 
-        public Valet LoadValet(int masterId, Dictionary<AttributeEnum, object> data = null)
+        public Valet LoadValet(APlayer player,SkillPanel skill)
         {
             Valet valet = null;
 
@@ -147,12 +147,8 @@ namespace Game
             if (tempCells.Count > 0)
             {
                 var bornCell = tempCells[0];
-                valet = new Valet();
-                valet.Load();
-                valet.GroupId = GetPlayer(masterId).GroupId;
-                data.TryGetValue(AttributeEnum.Name, out var name);
-                valet.Name = name.ToString();
-                valet.Logic.SetData(data);
+
+                valet = new Valet(player,skill);
 
                 var coms = valet.Transform.GetComponents<MonoBehaviour>();
                 foreach (var com in coms)

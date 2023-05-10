@@ -99,7 +99,7 @@ namespace Game
         public long CalcFormula()
         {
             //恢复不计暴击增伤幸运等
-            long attack = GetRoleAttack();  
+            long attack = SelfPlayer.GetRoleAttack(SkillPanel.SkillData.SkillConfig.Role);
             attack = attack * SkillPanel.Percent / 100 + SkillPanel.Damage;
             return attack;
         }

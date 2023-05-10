@@ -64,31 +64,6 @@ namespace Game
             return 0;
         }
 
-        public long GetRoleAttack()
-        {
-            long attack = 0;
-            switch (SkillPanel.SkillData.SkillConfig.Role)
-            {
-                case (int)RoleType.Warrior:
-                    {
-                        attack = SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.PhyAtt);
-                        break;
-                    }
-                case (int)RoleType.Mage:
-                    {
-                        attack = SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.MagicAtt);
-                        break;
-                    }
-                case (int)RoleType.Warlock:
-                    {
-                        attack = SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.SpiritAtt);
-                        break;
-                    }
-            }
-
-            return attack;
-        }
-
         abstract public List<AttackData> GetAllTargets();
         
  

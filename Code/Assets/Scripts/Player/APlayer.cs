@@ -144,6 +144,31 @@ namespace Game
             return list;
         }
 
+        public virtual long GetRoleAttack(int role)
+        {
+            long attack = 0;
+            switch (role)
+            {
+                case (int)RoleType.Warrior:
+                    {
+                        attack = this.AttributeBonus.GetTotalAttr(AttributeEnum.PhyAtt);
+                        break;
+                    }
+                case (int)RoleType.Mage:
+                    {
+                        attack = this.AttributeBonus.GetTotalAttr(AttributeEnum.MagicAtt);
+                        break;
+                    }
+                case (int)RoleType.Warlock:
+                    {
+                        attack = this.AttributeBonus.GetTotalAttr(AttributeEnum.SpiritAtt);
+                        break;
+                    }
+            }
+
+            return attack;
+        }
+
         //public void EquipSkill(SkillData skillData)
         //{
         //    //TODO 计算装备天赋等技能加成

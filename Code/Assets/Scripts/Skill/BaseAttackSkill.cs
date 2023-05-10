@@ -18,7 +18,7 @@ namespace Game
         {
             //计算公式  ((攻击 - 防御) * 百分比系数 + 固定数值) * 暴击?.暴击倍率 * (伤害加成-伤害减免) * (幸运)
             
-            long attack = GetRoleAttack() - enemy.AttributeBonus.GetTotalAttr(AttributeEnum.Def); //攻击 - 防御
+            long attack = SelfPlayer.GetRoleAttack(SkillPanel.SkillData.SkillConfig.Role)  - enemy.AttributeBonus.GetTotalAttr(AttributeEnum.Def); //攻击 - 防御
             attack = attack * SkillPanel.Percent / 100 + SkillPanel.Damage;  // *百分比系数 + 固定数值
 
             //暴击率 = 攻击者暴击率+技能暴击倍率-被攻击者暴击抵抗率

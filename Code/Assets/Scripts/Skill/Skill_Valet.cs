@@ -45,20 +45,10 @@ namespace Game
             }
             ValetList.Clear();
 
-            long baseAttr = SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.SpiritAtt) * (SkillPanel.Percent + SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.InheritIncrea)) / 100 + SkillPanel.Damage;
-
-            Dictionary<AttributeEnum, object> data = new Dictionary<AttributeEnum, object>();
-            data[AttributeEnum.Color] = Color.white;
-            data[AttributeEnum.Name] = "骷髅(" + SelfPlayer.Name + ")";
-            data[AttributeEnum.Level] = 1;
-            data[AttributeEnum.HP] = baseAttr * 10;
-            data[AttributeEnum.PhyAtt] = baseAttr;
-            data[AttributeEnum.Def] = baseAttr / 2;
-
             //创造新的
             for (int i = 0; i < MaxValet; i++)
             {
-                Valet valet = GameProcessor.Inst.PlayerManager.LoadValet(SelfPlayer.ID, data);
+                Valet valet = GameProcessor.Inst.PlayerManager.LoadValet(SelfPlayer, this.SkillPanel);
                 ValetList.Add(valet);
             }
         }
