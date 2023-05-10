@@ -102,34 +102,34 @@ namespace Game
             //LoadSkill();
         }
 
-        public void LoadSkill()
-        {
-            foreach (var skill in SelectSkillList)
-            {
-                if (!SkillUseRoundCache.TryGetValue(skill.SkillPanel.SkillId, out var useRound))
-                {
-                    useRound = 0;
-                }
-                SkillUseRoundCache[skill.SkillPanel.SkillId] = useRound;
+        //public void LoadSkill()
+        //{
+        //    foreach (var skill in SelectSkillList)
+        //    {
+        //        if (!SkillUseRoundCache.TryGetValue(skill.SkillPanel.SkillId, out var useRound))
+        //        {
+        //            useRound = 0;
+        //        }
+        //        SkillUseRoundCache[skill.SkillPanel.SkillId] = useRound;
 
-                //销毁技能
-                skill.Destory();
-            }
+        //        //销毁技能
+        //        skill.Destory();
+        //    }
 
-            SelectSkillList = new List<SkillState>();
+        //    SelectSkillList = new List<SkillState>();
 
-            List<SkillData> list = SkillList.FindAll(m => m.Status == SkillStatus.Equip).OrderBy(m => m.Position).ToList();
-            //加载已选择的技能
-            for (int p = 0; p < list.Count; p++)
-            {
-                SkillData skillData = list[p];
-                skillData.Position = p + 1; //按顺序从1开始重新排位
-                EquipSkill(skillData);
-            }
-            //默认增加普通攻击
-            SkillData defaulSkill = new SkillData(9001, (int)SkillPosition.Default);
-            EquipSkill(defaulSkill);
-        }
+        //    List<SkillData> list = SkillList.FindAll(m => m.Status == SkillStatus.Equip).OrderBy(m => m.Position).ToList();
+        //    //加载已选择的技能
+        //    for (int p = 0; p < list.Count; p++)
+        //    {
+        //        SkillData skillData = list[p];
+        //        skillData.Position = p + 1; //按顺序从1开始重新排位
+        //        EquipSkill(skillData);
+        //    }
+        //    //默认增加普通攻击
+        //    SkillData defaulSkill = new SkillData(9001, (int)SkillPosition.Default);
+        //    EquipSkill(defaulSkill);
+        //}
 
         public virtual List<SkillRune> GetRuneList(int skillId)
         {
@@ -144,19 +144,19 @@ namespace Game
             return list;
         }
 
-        public void EquipSkill(SkillData skillData)
-        {
-            //TODO 计算装备天赋等技能加成
-            List<SkillRune> runeList = GetRuneList(skillData.SkillId);
-            List<SkillSuit> suitList = GetSuitList(skillData.SkillId);
+        //public void EquipSkill(SkillData skillData)
+        //{
+        //    //TODO 计算装备天赋等技能加成
+        //    List<SkillRune> runeList = GetRuneList(skillData.SkillId);
+        //    List<SkillSuit> suitList = GetSuitList(skillData.SkillId);
 
-            SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList);
+        //    SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList);
 
-            SkillUseRoundCache.TryGetValue(skillData.SkillId, out var lastUseRound);
+        //    SkillUseRoundCache.TryGetValue(skillData.SkillId, out var lastUseRound);
 
-            SkillState skill = new SkillState(this, skillPanel, skillData.Position, lastUseRound);
-            SelectSkillList.Add(skill);
-        }
+        //    SkillState skill = new SkillState(this, skillPanel, skillData.Position, lastUseRound);
+        //    SelectSkillList.Add(skill);
+        //}
 
         public SkillState GetSkill()
         {

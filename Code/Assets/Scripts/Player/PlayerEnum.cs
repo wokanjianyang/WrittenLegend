@@ -38,6 +38,7 @@ namespace Game
     /// </summary>
     public enum AttributeFrom
     {
+        HeroPanel = 0, //人物面板总属性
         HeroBase = 1, //人物升级属性
         EquipBase = 2, //装备基础属性
         EquiStrong = 3, //装备强化属性

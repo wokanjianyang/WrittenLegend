@@ -63,7 +63,21 @@ namespace Game
             SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
         }
 
-        private void SetSkill() { 
+        private void SetSkill() {
+            //加载技能
+            List<SkillData> list = new List<SkillData>();
+            list.Add(new SkillData(9001, (int)SkillPosition.Default)); //增加默认技能
+
+            foreach (SkillData skillData in list)
+            {
+                List<SkillRune> runeList = new List<SkillRune>();
+                List<SkillSuit> suitList = new List<SkillSuit>();
+
+                SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList);
+
+                SkillState skill = new SkillState(this, skillPanel, skillData.Position, 0);
+                SelectSkillList.Add(skill);
+            }
         }
 
         private void MakeReward(DeadRewarddEvent dead)
