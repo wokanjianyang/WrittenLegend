@@ -54,6 +54,7 @@ namespace Game
         void Start()
         {
             this.EventCenter = new EventManager();
+            this.PlayerInfo = Canvas.FindObjectOfType<PlayerInfo>(true);
 
             //启动就加载用户存档
             this.User = UserData.Load();
@@ -135,7 +136,6 @@ namespace Game
         public void LoadMap(RuleType ruleType,long currentTimeSecond,Transform map)
         {
             this.PlayerManager = this.gameObject.AddComponent<PlayerManager>();
-            PlayerInfo = Canvas.FindObjectOfType<PlayerInfo>(true);
 
             MapData = map.GetComponentInChildren<MapData>();
             switch (ruleType)

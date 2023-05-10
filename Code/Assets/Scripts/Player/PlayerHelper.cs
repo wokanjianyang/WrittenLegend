@@ -6,9 +6,6 @@ namespace Game
 {
     public static class PlayerHelper
     {
-
-        public static int bagMaxCount = 50;
-
         public const int MAX_EQUIP_COUNT = 8;
 
         public static Dictionary<string, string> PlayerAttributeMap = new Dictionary<string, string>()

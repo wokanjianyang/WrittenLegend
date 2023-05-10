@@ -32,6 +32,8 @@ namespace Game
 
         public int Level { get; set; }
 
+        public int BagNum { get; set; } = 150;
+
         public IDictionary<int, Equip> EquipPanel { get; set; } = new Dictionary<int, Equip>();
 
         [JsonIgnore]
@@ -76,11 +78,7 @@ namespace Game
             //设置各种属性值
             this.AttributeBonus = new AttributeBonus();
 
-            SetLevelConfigAttr();
-            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.Test, 10000);
-            AttributeBonus.SetAttr(AttributeEnum.AttIncrea, AttributeFrom.Test, 400);
-            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.Test, 10000);
-            AttributeBonus.SetAttr(AttributeEnum.ExpIncrea, AttributeFrom.Test, 1000);
+            SetAttr();
 
             //设置回收选项
             RecoverySetting.SetType(2, true);
@@ -242,15 +240,32 @@ namespace Game
             return Math.Min(count, SkillSuitHelper.SuitMax);
         }
 
-        private void SetLevelConfigAttr()
+        private void SetAttr()
         {
             LevelConfig config = LevelConfigCategory.Instance.Get(Level);
+            //等级属性
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, config.HP);
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, config.PhyAtt);
             AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, config.PhyAtt);
             AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, config.PhyAtt);
             AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, config.Def);
 
+            //测试属性
+            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.Test, 10000);
+            AttributeBonus.SetAttr(AttributeEnum.AttIncrea, AttributeFrom.Test, 400);
+            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.Test, 10000);
+            AttributeBonus.SetAttr(AttributeEnum.ExpIncrea, AttributeFrom.Test, 1000);
+
+            //装备属性
+            foreach (var kvp in EquipPanel)
+            {
+                foreach (var a in kvp.Value.GetTotalAttrList)
+                {
+                    AttributeBonus.SetAttr((AttributeEnum)a.Key, AttributeFrom.EquipBase, kvp.Key, a.Value);
+                }
+            }
+
+            //无尽塔属性
             if (this.TowerFloor > 1)
             {
                 TowerConfig towerConfig = TowerConfigCategory.Instance.Get(this.TowerFloor - 1);
@@ -258,6 +273,9 @@ namespace Game
             }
 
             UpExp = config.Exp;
+
+            //更新面板
+            UpdatePlayerInfo();
         }
 
         IEnumerator LevelUp()
@@ -268,7 +286,7 @@ namespace Game
                 Level++;
 
                 //Add Base Attr
-                SetLevelConfigAttr();
+                SetAttr();
 
                 EventCenter.Raise(new SetPlayerLevelEvent { Level = Level.ToString() });
                 EventCenter.Raise(new HeroInfoUpdateEvent());

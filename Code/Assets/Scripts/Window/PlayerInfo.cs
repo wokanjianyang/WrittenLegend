@@ -30,8 +30,9 @@ namespace Game
         public Text CritRateResist;
         [LabelText("CritDamage")]
         public Text CritDamage;
+        [LabelText("SecondExp")]
+        public Text SecondExp;
 
-    
 
         // Start is called before the first frame update
         void Start()
@@ -58,6 +59,7 @@ namespace Game
             CritRate.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.CritRate).ToString();
             CritRateResist.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.CritRateResist).ToString();
             CritDamage.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.CritDamage).ToString();
+            SecondExp.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp).ToString();
         }
         
     }

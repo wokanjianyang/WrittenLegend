@@ -73,7 +73,7 @@ namespace Game
 
             var emptyPrefab = Resources.Load<GameObject>("Prefab/Window/Box_Empty");
 
-            for (var i = 0; i < PlayerHelper.bagMaxCount; i++)
+            for (var i = 0; i < user.BagNum; i++)
             {
                 var empty = GameObject.Instantiate(emptyPrefab, (this.sr_Bag.content));
                 empty.name = "Box_" + i;
@@ -312,57 +312,6 @@ namespace Game
                 Position = Position,
                 Equip = equip
             });
-
-            //if (equiped != null)
-            //{
-            //    for (var i = 0; i < PlayerHelper.bagMaxCount; i++)
-            //    {
-            //        var com = this.items.FirstOrDefault(c => c.boxId == i);
-            //        if (com == null)
-            //        {
-            //            equiped.transform.SetParent(this.sr_Bag.content.GetChild(i));
-            //            equiped.transform.localPosition = Vector3.zero;
-            //            equiped.SetBoxId(i);
-            //            this.items.Add(equiped);
-            //            break;
-            //        }
-            //    }
-            //}
-
-            //var comItem = this.items.FirstOrDefault(i => i.boxId == boxId);
-            //if (comItem == null)
-            //{
-            //    BoxItem boxItem = new BoxItem();
-            //    boxItem.Item = equip;
-            //    boxItem.Number = 1;
-            //    boxItem.BoxId = boxId;
-
-            //    comItem = this.CreateBox(boxItem);
-            //}
-            //else
-            //{
-            //    this.items.Remove(comItem);
-            //}
-            //slots[emptySlotIndex].Equip(comItem);
-            //comItem.transform.SetParent(slots[emptySlotIndex].transform);
-            //comItem.transform.localPosition = Vector3.zero;
-            //comItem.transform.localScale = Vector3.one;
-            //comItem.SetBoxId(-1);
-
-            //if (position == 0)
-            //{  
-            //    var hero = GameProcessor.Inst.PlayerManager.hero;
-            //    equip.Position = equip.Position + emptySlotIndex * PlayerHelper.MAX_EQUIP_COUNT;
-            //    hero.EventCenter.Raise(new HeroUseEquipEvent
-            //    {
-            //        Position = equip.Position + emptySlotIndex * PlayerHelper.MAX_EQUIP_COUNT,
-            //        Equip = equip
-            //    });
-            //}
-            //else
-            //{
-            //    //原本就装备了，只是显示
-            //}
         }
 
         private void CreateEquipPanelItem(int Position, Equip equip)
@@ -396,12 +345,6 @@ namespace Game
             slot.UnEquip();
             GameObject.Destroy(comItem.gameObject);
 
-            //comItem.transform.SetParent(this.sr_Bag.content.GetChild(10));
-            //comItem.transform.localPosition = Vector3.zero;
-            //comItem.transform.localScale = Vector3.one;
-            //comItem.SetBoxId(i);
-
-
             //装备移动到包裹里面
             AddBoxItem(equip);
 
@@ -431,7 +374,8 @@ namespace Game
 
         public int GetNextBoxId()
         {
-            for (int boxId = 0; boxId < 50; boxId++)
+            int maxNum = GameProcessor.Inst.User.BagNum;
+            for (int boxId = 0; boxId < maxNum; boxId++)
             {
                 if (this.items.Find(m => m.boxId == boxId) == null)
                 {
