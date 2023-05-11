@@ -60,11 +60,11 @@ namespace Game
 
             foreach (AttackData attack in targets)
             {
-                this.SelfPlayer.EventCenter.Raise(new ShowMsgEvent()
-                {
-                    TargetId = attack.Tid,
-                    Content = this.SkillPanel.SkillData.SkillConfig.Name
-                });
+                //this.SelfPlayer.EventCenter.Raise(new ShowMsgEvent()
+                //{
+                //    TargetId = attack.Tid,
+                //    Content = this.SkillPanel.SkillData.SkillConfig.Name
+                //});
             }
 
             this.skillLogic.Do();

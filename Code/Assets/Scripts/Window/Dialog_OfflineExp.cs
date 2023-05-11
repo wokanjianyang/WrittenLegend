@@ -67,7 +67,7 @@ namespace Game
             user.Exp += offlineExp;
             user.EventCenter.Raise(new HeroChangeEvent
             {
-                Type = User.UserChangeType.LevelUp
+                Type = UserChangeType.LevelUp
             });
         }
     }

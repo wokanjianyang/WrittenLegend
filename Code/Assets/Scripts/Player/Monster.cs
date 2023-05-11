@@ -97,7 +97,7 @@ namespace Game
             {
                 user.EventCenter.Raise(new HeroChangeEvent
                 {
-                    Type = User.UserChangeType.LevelUp
+                    Type = UserChangeType.LevelUp
                 });
             }
 

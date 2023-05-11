@@ -107,10 +107,11 @@ public class PlayerUI : MonoBehaviour,IPlayer
         //this.com_Progress?.SetProgress(this.SelfPlayer.HP, this.SelfPlayer.Logic.GetMaxHP()); TODO
         this.com_Progress.SetProgress(this.SelfPlayer.HP, SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.HP));
     }
-    
+
     private void OnShowMsgEvent(ShowMsgEvent e)
     {
-        if (barragePrefab == null) {
+        if (barragePrefab == null)
+        {
             return;
         }
         var msg = GameObject.Instantiate(barragePrefab);
@@ -120,7 +121,10 @@ public class PlayerUI : MonoBehaviour,IPlayer
         var msgY = UnityEngine.Random.Range(msgMaxY * -1, msgMaxY);
         msg.transform.localPosition = new Vector3(this.size.x + msgSize.x * 0.5f, msgY);
         var com = msg.GetComponent<Dialog_Msg>();
-        com.tmp_Msg_Content.text = e.Content;
+
+        var msgColor = QualityConfigHelper.GetMsgColor(e.Type);
+        com.tmp_Msg_Content.text = string.Format("<color=#{0}>{1}</color>", msgColor, e.Content);
+
         msg.transform.DOLocalMoveX(msgSize.x * 0.5f * -1, 1f).OnComplete(() =>
         {
             GameObject.Destroy(msg);

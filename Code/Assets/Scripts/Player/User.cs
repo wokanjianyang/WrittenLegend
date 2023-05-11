@@ -296,12 +296,11 @@ namespace Game
             yield return null;
             this.isInLevelUp = false;
         }
-
-        public enum UserChangeType
-        {
-            LevelUp = 0,
-            AttrChange = 1
-        }
     }
 
+    public enum UserChangeType
+    {
+        LevelUp = 0,
+        AttrChange = 1
+    }
 }

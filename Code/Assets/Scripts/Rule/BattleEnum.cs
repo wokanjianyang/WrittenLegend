@@ -96,7 +96,10 @@ namespace Game
 
     public enum MsgType
     {
-        Drop = 0,
-        SecondExp =1
+        Damage = 1,
+        Restore = 2,
+        Crit = 3,
+        Effect = 4,
+        Other = 5,
     }
 }

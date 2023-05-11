@@ -27,6 +27,7 @@ namespace Game
     public class ShowMsgEvent : SDD.Events.Event
     {
         public int TargetId { get; set; }
+        public MsgType Type { get; set; }
         public string Content { get; set; }
     }
 
@@ -36,7 +37,7 @@ namespace Game
     }
 
     public class HeroChangeEvent : SDD.Events.Event { 
-        public User.UserChangeType Type { get; set; } 
+        public UserChangeType Type { get; set; } 
     }
 
     public class HeroUseEquipEvent : SDD.Events.Event

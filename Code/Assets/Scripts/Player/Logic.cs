@@ -114,10 +114,11 @@ namespace Game
                 {
                     RoundNum = SelfPlayer.RoundCounter
                 });
-                this.playerEvents.Add(new ShowMsgEvent
-                {
-                    Content = "死亡"
-                });
+                //this.playerEvents.Add(new ShowMsgEvent
+                //{
+                //    Type = MsgType.Other,
+                //    Content = "死亡"
+                //});
                 this.playerEvents.Add(new DeadRewarddEvent
                 {
                     FromId = fromId,
@@ -128,6 +129,7 @@ namespace Game
             {
                 this.playerEvents.Add(new ShowMsgEvent
                 {
+                    Type = MsgType.Damage,
                     Content = (damage * -1).ToString()
                 });
             }
@@ -165,6 +167,7 @@ namespace Game
 
             this.playerEvents.Add(new ShowMsgEvent
             {
+                Type = MsgType.Restore,
                 Content = (hp).ToString()
             });
         }
