@@ -17,8 +17,8 @@ namespace Game
         public override long CalcFormula(APlayer enemy, float ratio)
         {
             //计算公式  ((攻击 - 防御) * 百分比系数 + 固定数值) * 暴击?.暴击倍率 * (伤害加成-伤害减免) * (幸运)
-            
-            long attack = SelfPlayer.GetRoleAttack(SkillPanel.SkillData.SkillConfig.Role)  - enemy.AttributeBonus.GetTotalAttr(AttributeEnum.Def); //攻击 - 防御
+            long roleAttr = SelfPlayer.GetRoleAttack(SkillPanel.SkillData.SkillConfig.Role) * (100 + SkillPanel.AttrIncrea) / 100;
+            long attack = roleAttr - enemy.AttributeBonus.GetTotalAttr(AttributeEnum.Def); //攻击 - 防御
             attack = attack * SkillPanel.Percent / 100 + SkillPanel.Damage;  // *百分比系数 + 固定数值
 
             //暴击率 = 攻击者暴击率+技能暴击倍率-被攻击者暴击抵抗率
@@ -33,6 +33,9 @@ namespace Game
             //伤害加成（不低于0） = 100基础伤害+技能伤害加成 + 攻击者伤害加成 — 被攻击者伤害减免 
             long DamageIncrea = Math.Max(0, 100 + SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.DamageIncrea) + SkillPanel.DamageIncrea - enemy.AttributeBonus.GetTotalAttr(AttributeEnum.DamageResist));
             attack = attack * DamageIncrea / 100;
+
+            //最终伤害加成
+            attack = attack * (100 + SkillPanel.FinalIncrea) / 100;
 
             //幸运，每点造成10%最终伤害
             long lucky = SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.Lucky);

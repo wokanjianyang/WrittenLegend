@@ -117,9 +117,18 @@ namespace Game
 		/// <summary>伤害加成</summary>
 		[ProtoMember(14)]
 		public int DamageIncrea { get; set; }
-		/// <summary>附带效果</summary>
+		/// <summary>攻击加成</summary>
 		[ProtoMember(15)]
+		public int AttrIncrea { get; set; }
+		/// <summary>最终加成</summary>
+		[ProtoMember(16)]
+		public int FinalIncrea { get; set; }
+		/// <summary>附带效果</summary>
+		[ProtoMember(17)]
 		public int EffectId { get; set; }
+		/// <summary>效果参数</summary>
+		[ProtoMember(18)]
+		public int EffectParam { get; set; }
 
 	}
 }

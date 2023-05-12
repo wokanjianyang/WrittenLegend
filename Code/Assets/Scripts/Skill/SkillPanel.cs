@@ -28,6 +28,10 @@ namespace Game
         public int CritRate { get; } //暴击率
         public int CritDamage { get; } //暴击倍率
         public int DamageIncrea { get; } //伤害加成
+        public int AttrIncrea { get; } //攻击加成
+
+        public int FinalIncrea { get; } //最终伤害加成
+
 
         public AttackGeometryType Area { get; }
 
@@ -65,6 +69,12 @@ namespace Game
             int runeDamageIncrea = runeList.Select(m => m.DamageIncrea).Sum();
             int suitDamageIncrea = suitList.Select(m => m.DamageIncrea).Sum();
 
+            int runeAttrIncrea = runeList.Select(m => m.AttrIncrea).Sum();
+            int suitAttrIncrea = suitList.Select(m => m.AttrIncrea).Sum();
+
+            int runeFinalIncrea = runeList.Select(m => m.FinalIncrea).Sum();
+            int suitFinalIncrea = suitList.Select(m => m.FinalIncrea).Sum();
+
             this.Damage += skillData.SkillConfig.Damage + runeDamage + suitDamage;
             this.Percent += skillData.SkillConfig.Percent + runePercent + suitPercent;
             this.Dis += skillData.SkillConfig.Dis + runeDis + suitDis;
@@ -75,6 +85,9 @@ namespace Game
             this.CritRate = skillData.SkillConfig.CritRate + runeCritRate+suitCritRate;
             this.CritDamage = skillData.SkillConfig.CritRate + runeCritDamage + suitCritDamage;
             this.DamageIncrea = skillData.SkillConfig.CritRate + runeDamageIncrea + suitDamageIncrea;
+
+            this.AttrIncrea = 0 + runeAttrIncrea + suitAttrIncrea;
+            this.FinalIncrea = 0 + runeFinalIncrea + suitFinalIncrea;
 
             //施法范围
             this.Area = EnumHelper.FromString<AttackGeometryType>(skillData.SkillConfig.Area);

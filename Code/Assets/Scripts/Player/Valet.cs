@@ -8,13 +8,13 @@ namespace Game
     public class Valet : APlayer
     {
         public APlayer Master { get; set; }
-        private SkillPanel CallSkill { get; set; }
+        private SkillPanel SkillPanel { get; set; }
 
         public Valet(APlayer player,SkillPanel skill) : base()
         {
             this.GroupId = player.GroupId;
             this.Master = player;
-            this.CallSkill = skill;
+            this.SkillPanel = skill;
 
             this.Init();
         }
@@ -22,7 +22,7 @@ namespace Game
         private void Init()
         {
             this.Camp = PlayerType.Valet;
-            this.Level = CallSkill.SkillData.Level;
+            this.Level = SkillPanel.SkillData.Level;
             this.Name = "˜º˜√(" + Master.Name + ")";
 
             this.SetAttr();  //…Ë÷√ Ù–‘÷µ
@@ -34,8 +34,8 @@ namespace Game
 
         private void SetAttr()
         {
-            long roleAttr = Master.GetRoleAttack(CallSkill.SkillData.SkillConfig.Role);
-            long baseAttr = roleAttr * (CallSkill.Percent + Master.AttributeBonus.GetTotalAttr(AttributeEnum.InheritIncrea)) / 100 + CallSkill.Damage;
+            long roleAttr = Master.GetRoleAttack(SkillPanel.SkillData.SkillConfig.Role) * (100 + SkillPanel.AttrIncrea) / 100;
+            long baseAttr = roleAttr * (SkillPanel.Percent + Master.AttributeBonus.GetTotalAttr(AttributeEnum.InheritIncrea)) / 100 + SkillPanel.Damage;
 
             this.AttributeBonus = new AttributeBonus();
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, baseAttr * 10);

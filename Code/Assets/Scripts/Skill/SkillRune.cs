@@ -20,6 +20,8 @@ namespace Game
         public int CritRate { get; } //暴击率
         public int CritDamage { get; } //暴击倍率
         public int DamageIncrea { get; } //伤害加成
+        public int AttrIncrea { get; } //攻击加成
+        public int FinalIncrea { get; } //最终伤害加成
 
         public SkillRune(int runeId, int quantity)
         {
@@ -35,6 +37,9 @@ namespace Game
             this.CritRate = SkillRuneConfig.CritRate * AvailableQuantity;
             this.CritDamage = SkillRuneConfig.CritDamage * AvailableQuantity;
             this.DamageIncrea = SkillRuneConfig.DamageIncrea * AvailableQuantity;
+
+            this.AttrIncrea = SkillRuneConfig.AttrIncrea;
+            this.FinalIncrea = SkillRuneConfig.FinalIncrea;
         }
     }
 }

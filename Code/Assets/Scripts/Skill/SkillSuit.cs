@@ -16,6 +16,8 @@ namespace Game
         public int CritRate { get; } //暴击率
         public int CritDamage { get; } //暴击倍率
         public int DamageIncrea { get; } //伤害加成
+        public int AttrIncrea { get; } //攻击加成
+        public int FinalIncrea { get; } //最终伤害加成
 
         public SkillSuit(int suitId)
         {
@@ -30,6 +32,9 @@ namespace Game
             this.CritRate = SkillSuitConfig.CritRate;
             this.CritDamage = SkillSuitConfig.CritDamage;
             this.DamageIncrea = SkillSuitConfig.DamageIncrea;
+
+            this.AttrIncrea = SkillSuitConfig.AttrIncrea;
+            this.FinalIncrea = SkillSuitConfig.FinalIncrea;
         }
     }
 }
