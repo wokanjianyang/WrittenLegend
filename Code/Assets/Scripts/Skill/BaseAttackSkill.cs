@@ -22,7 +22,12 @@ namespace Game
 
             long roleAttr = SelfPlayer.GetRoleAttack(role) * (100 + SkillPanel.AttrIncrea) / 100;  //职业攻击
 
-            long attack = roleAttr - enemy.AttributeBonus.GetTotalAttr(AttributeEnum.Def); //攻击 - 防御
+            //防御 = 目标防御 * (100-无视防御)/100
+            long def = enemy.AttributeBonus.GetTotalAttr(AttributeEnum.Def);
+            int ignoreDef = Math.Min(SkillPanel.IgnoreDef, 100);
+            def = def * (100 - ignoreDef) / 100;
+
+            long attack = roleAttr - def; //攻击 - 防御
 
             //技能系数
             attack = attack * (SkillPanel.Percent + SelfPlayer.GetRolePercent(role)) / 100 + SkillPanel.Damage + SelfPlayer.GetRoleDamage(role);  // *百分比系数 + 固定数值

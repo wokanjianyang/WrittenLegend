@@ -25,6 +25,8 @@ namespace Game
 
         public int Duration { get; }
 
+        public int IgnoreDef { get; }  //无视防御
+
         public int CritRate { get; } //暴击率
         public int CritDamage { get; } //暴击倍率
         public int DamageIncrea { get; } //伤害加成
@@ -50,6 +52,9 @@ namespace Game
 
             int runePercent = runeList.Select(m => m.Percent).Sum();
             int suitPercent = suitList.Select(m => m.Percent).Sum();
+
+            int runeIgnoreDef = runeList.Select(m => m.IgnoreDef).Sum();
+            int suitIgnoreDef = suitList.Select(m => m.Percent).Sum();
 
             int runeDis = runeList.Select(m => m.Dis).Sum();
             int suitDis = suitList.Select(m => m.Dis).Sum();
@@ -81,6 +86,7 @@ namespace Game
             this.Damage += skillData.SkillConfig.Damage + runeDamage + suitDamage + levelDamage;
             this.Percent += skillData.SkillConfig.Percent + runePercent + suitPercent + levelPercent;
 
+            this.IgnoreDef += skillData.SkillConfig.IgnoreDef + runeIgnoreDef + suitIgnoreDef;
             this.Dis += skillData.SkillConfig.Dis + runeDis + suitDis;
             this.EnemyMax += skillData.SkillConfig.EnemyMax + runeEnemyMax + suitEnemyMax;
             this.CD += Mathf.Max(skillData.SkillConfig.CD - runeCD - suitCD, 0);

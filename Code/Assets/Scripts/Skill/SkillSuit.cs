@@ -13,6 +13,8 @@ namespace Game
         public int Dis { get; }
         public int EnemyMax { get; }
         public int CD { get; }
+
+        public int IgnoreDef { get; } //无视防御
         public int CritRate { get; } //暴击率
         public int CritDamage { get; } //暴击倍率
         public int DamageIncrea { get; } //伤害加成
@@ -29,6 +31,7 @@ namespace Game
             this.EnemyMax = SkillSuitConfig.EnemyMax;
             this.CD = SkillSuitConfig.CD;
 
+            this.IgnoreDef = SkillSuitConfig.IgnoreDef;
             this.CritRate = SkillSuitConfig.CritRate;
             this.CritDamage = SkillSuitConfig.CritDamage;
             this.DamageIncrea = SkillSuitConfig.DamageIncrea;

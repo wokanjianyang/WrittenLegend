@@ -1,7 +1,4 @@
 {"list":[
-{"_t":"EffectConfig","_id":1,"Name":"多重施法","Type":0,"Priority":0,"TargetType":0,"Max":0,"Level":0,"Percent":0,"Damage":0,"Duration":0,"TargetAttr":0,"SourceAttr":0},
-{"_t":"EffectConfig","_id":2,"Name":"技能弹射","Type":0,"Priority":0,"TargetType":0,"Max":0,"Level":0,"Percent":0,"Damage":0,"Duration":0,"TargetAttr":0,"SourceAttr":0},
-{"_t":"EffectConfig","_id":3,"Name":"重击","Type":0,"Priority":0,"TargetType":0,"Max":0,"Level":0,"Percent":0,"Damage":0,"Duration":0,"TargetAttr":0,"SourceAttr":0},
 {"_t":"EffectConfig","_id":101,"Name":"吸血","Type":1,"Priority":10,"TargetType":1,"Max":1,"Level":1,"Percent":10,"Damage":0,"Duration":0,"TargetAttr":0,"SourceAttr":2},
 {"_t":"EffectConfig","_id":102,"Name":"回复","Type":1,"Priority":10,"TargetType":1,"Max":1,"Level":1,"Percent":50,"Damage":0,"Duration":0,"TargetAttr":0,"SourceAttr":4},
 {"_t":"EffectConfig","_id":103,"Name":"灼烧","Type":-1,"Priority":10,"TargetType":2,"Max":3,"Level":1,"Percent":20,"Damage":0,"Duration":0,"TargetAttr":0,"SourceAttr":3},

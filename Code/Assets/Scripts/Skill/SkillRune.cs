@@ -17,6 +17,7 @@ namespace Game
         public int EnemyMax { get; }
         public int CD { get; }
 
+        public int IgnoreDef { get; } //无视防御
         public int CritRate { get; } //暴击率
         public int CritDamage { get; } //暴击倍率
         public int DamageIncrea { get; } //伤害加成
@@ -33,6 +34,8 @@ namespace Game
             this.Dis = SkillRuneConfig.Dis * AvailableQuantity;
             this.EnemyMax = SkillRuneConfig.EnemyMax * AvailableQuantity;
             this.CD = SkillRuneConfig.CD * AvailableQuantity;
+
+            this.IgnoreDef = SkillRuneConfig.IgnoreDef * AvailableQuantity;
 
             this.CritRate = SkillRuneConfig.CritRate * AvailableQuantity;
             this.CritDamage = SkillRuneConfig.CritDamage * AvailableQuantity;
