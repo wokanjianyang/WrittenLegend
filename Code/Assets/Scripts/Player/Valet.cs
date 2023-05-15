@@ -23,7 +23,7 @@ namespace Game
         {
             this.Camp = PlayerType.Valet;
             this.Level = SkillPanel.SkillData.Level;
-            this.Name = "骷髅(" + Master.Name + ")";
+            this.Name = SkillPanel.SkillData.SkillConfig.Name.Replace("召唤", "") + "(" + Master.Name + ")";
 
             this.SetAttr();  //设置属性值
             this.SetSkill(); //设置技能

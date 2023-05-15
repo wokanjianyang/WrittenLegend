@@ -36,17 +36,20 @@ namespace Game
                 {
                     foreach (int EffectId in skillConfig.EffectIdList)
                     {
-                        EffectConfig config = EffectConfigCategory.Instance.Get(EffectId);
-
-                        var effectTarget = config.TargetType == 1 ? this.SelfPlayer : enemy; //1 为作用自己 2 为作用敌人
-
-                        if (config.Duration > 0)
-                        {  //持续Buff
-                            effectTarget.AddEffect(EffectId,this.SelfPlayer);
-                        }
-                        else
+                        if (EffectId > 0)
                         {
-                            effectTarget.RunEffect(EffectId,this.SelfPlayer);
+                            EffectConfig config = EffectConfigCategory.Instance.Get(EffectId);
+
+                            var effectTarget = config.TargetType == 1 ? this.SelfPlayer : enemy; //1 为作用自己 2 为作用敌人
+
+                            if (config.Duration > 0)
+                            {  //持续Buff
+                                effectTarget.AddEffect(EffectId, this.SelfPlayer);
+                            }
+                            else
+                            {
+                                effectTarget.RunEffect(EffectId, this.SelfPlayer);
+                            }
                         }
                     }
                 }

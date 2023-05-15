@@ -30,6 +30,9 @@ namespace Game
             user.EventCenter.AddListener<HeroUpdateSkillEvent>(OnHeroUpdateSkillEvent);
             bookPrefab = Resources.Load<GameObject>("Prefab/Window/Item_Skill");
 
+            user.SkillList.Sort((a, b) => {
+                return a.SkillConfig.Id.CompareTo(b.SkillConfig.Id);
+            });
             foreach (var skill in user.SkillList)
             {
                 SkillPanel skillPanel = new SkillPanel(skill, user.GetRuneList(skill.SkillId), user.GetSuitList(skill.SkillId));
