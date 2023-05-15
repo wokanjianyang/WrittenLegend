@@ -38,6 +38,10 @@ namespace Game
             {
                 this.skillLogic = new Skill_Restore(player, skillPanel);
             }
+            else if (skillPanel.SkillData.SkillConfig.Type == (int)SkillType.Expert)
+            {
+                this.skillLogic = new Skill_Expert(player, skillPanel);
+            }
             else
             {
                 this.skillLogic = new BaseAttackSkill(player, skillPanel);

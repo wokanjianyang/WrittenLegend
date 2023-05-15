@@ -34,8 +34,12 @@ namespace Game
 
         private void SetAttr()
         {
-            long roleAttr = Master.GetRoleAttack(SkillPanel.SkillData.SkillConfig.Role) * (100 + SkillPanel.AttrIncrea) / 100;
-            long baseAttr = roleAttr * (SkillPanel.Percent + Master.AttributeBonus.GetTotalAttr(AttributeEnum.InheritIncrea)) / 100 + SkillPanel.Damage;
+            int role = SkillPanel.SkillData.SkillConfig.Role;
+
+            long roleAttr = Master.GetRoleAttack(role) * (100 + SkillPanel.AttrIncrea) / 100; //职业攻击
+
+            //技能系数
+            long baseAttr = roleAttr * (SkillPanel.Percent + Master.GetRolePercent(role)) / 100 + SkillPanel.Damage + Master.GetRoleDamage(role);  // *百分比系数 + 固定数值
 
             this.AttributeBonus = new AttributeBonus();
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, baseAttr * 10);

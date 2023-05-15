@@ -23,6 +23,12 @@ namespace Game
 			AllAttrDict[attrType][key] = attrValue;
 		}
 
+		public void SetAttr(AttributeEnum attrType, int attrKey, long attrValue)
+		{
+			AllAttrDict[attrType][attrKey] = attrValue;
+		}
+
+
 		public void SetAttr(AttributeEnum attrType, AttributeFrom attrKey, int Position, long attrValue)
 		{
 			int key = ((int)attrKey) * 100 + Position;

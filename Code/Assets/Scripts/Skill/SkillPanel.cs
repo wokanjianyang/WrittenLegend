@@ -42,6 +42,9 @@ namespace Game
             this.SuitList = suitList; //套装
             this.SkillId = skillData.SkillId;
 
+            int levelPercent = skillData.Level / 10;
+            long levelDamage = skillData.Level * 100;
+
             long runeDamage = runeList.Select(m => m.Damage).Sum();
             long suitDamage = suitList.Select(m => m.Damage).Sum();
 
@@ -75,14 +78,15 @@ namespace Game
             int runeFinalIncrea = runeList.Select(m => m.FinalIncrea).Sum();
             int suitFinalIncrea = suitList.Select(m => m.FinalIncrea).Sum();
 
-            this.Damage += skillData.SkillConfig.Damage + runeDamage + suitDamage;
-            this.Percent += skillData.SkillConfig.Percent + runePercent + suitPercent;
+            this.Damage += skillData.SkillConfig.Damage + runeDamage + suitDamage + levelDamage;
+            this.Percent += skillData.SkillConfig.Percent + runePercent + suitPercent + levelPercent;
+
             this.Dis += skillData.SkillConfig.Dis + runeDis + suitDis;
             this.EnemyMax += skillData.SkillConfig.EnemyMax + runeEnemyMax + suitEnemyMax;
             this.CD += Mathf.Max(skillData.SkillConfig.CD - runeCD - suitCD, 0);
             this.Duration = skillData.SkillConfig.Duration + runeDuration + suitDuration;
 
-            this.CritRate = skillData.SkillConfig.CritRate + runeCritRate+suitCritRate;
+            this.CritRate = skillData.SkillConfig.CritRate + runeCritRate + suitCritRate;
             this.CritDamage = skillData.SkillConfig.CritRate + runeCritDamage + suitCritDamage;
             this.DamageIncrea = skillData.SkillConfig.CritRate + runeDamageIncrea + suitDamageIncrea;
 

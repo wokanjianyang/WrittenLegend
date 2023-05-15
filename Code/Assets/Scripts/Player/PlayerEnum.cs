@@ -30,7 +30,12 @@ namespace Game
         ExpIncrea = 18, //经验加成
         BurstIncrea = 19, //爆率加成
         SecondExp = 20, //泡点经验
-
+        WarriorSkillPercent = 41, //战士技能百分比系数
+        WarriorSkillDamage = 42, //战士技能固定系数
+        MageSkillPercent = 43, //法师技能百分比系数
+        MageSkillDamage = 44, //法师技能固定系数
+        WarlockSkillPercent = 45, //道士技能百分比系数
+        WarlockSkillDamage = 46, //道士技能固定系数
     }
 
     /// <summary>
@@ -43,7 +48,7 @@ namespace Game
         EquipBase = 2, //装备基础属性
         EquiStrong = 3, //装备强化属性
         Skill = 4,//技能增幅
-        Tower = 5,
+        Tower = 5,//无尽塔
         /// <summary>
         /// 测试属性
         /// </summary>

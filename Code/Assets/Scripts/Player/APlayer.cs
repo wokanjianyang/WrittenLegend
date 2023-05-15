@@ -169,6 +169,57 @@ namespace Game
             return attack;
         }
 
+        public long GetRolePercent(int role)
+        {
+            long attack = 0;
+            switch (role)
+            {
+                case (int)RoleType.Warrior:
+                    {
+                        attack = this.AttributeBonus.GetTotalAttr(AttributeEnum.WarriorSkillPercent);
+                        break;
+                    }
+                case (int)RoleType.Mage:
+                    {
+                        attack = this.AttributeBonus.GetTotalAttr(AttributeEnum.MageSkillPercent);
+                        break;
+                    }
+                case (int)RoleType.Warlock:
+                    {
+                        attack = this.AttributeBonus.GetTotalAttr(AttributeEnum.WarlockSkillPercent);
+                        break;
+                    }
+            }
+
+            return attack;
+        }
+
+        public long GetRoleDamage(int role)
+        {
+            long attack = 0;
+            switch (role)
+            {
+                case (int)RoleType.Warrior:
+                    {
+                        attack = this.AttributeBonus.GetTotalAttr(AttributeEnum.WarriorSkillDamage);
+                        break;
+                    }
+                case (int)RoleType.Mage:
+                    {
+                        attack = this.AttributeBonus.GetTotalAttr(AttributeEnum.MageSkillDamage);
+                        break;
+                    }
+                case (int)RoleType.Warlock:
+                    {
+                        attack = this.AttributeBonus.GetTotalAttr(AttributeEnum.WarlockSkillDamage);
+                        break;
+                    }
+            }
+
+            return attack;
+        }
+
+
         //public void EquipSkill(SkillData skillData)
         //{
         //    //TODO 计算装备天赋等技能加成
