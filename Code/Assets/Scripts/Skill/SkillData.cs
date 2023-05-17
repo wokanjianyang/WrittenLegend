@@ -45,7 +45,7 @@ namespace Game
         Valet = 2, //召唤技能
         Map = 3,  //场景技能（比如火墙）
         Restore = 4,//恢复技能
-        Buff = 5,//状态技能
+        Shield = 5,//状态技能
         Expert = 6,//职业专精技能
     }
 

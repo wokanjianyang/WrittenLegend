@@ -47,7 +47,7 @@ namespace Game
                 enemy.DoEvent();
             }
 
-            if (enemys.Count >= 0) //TODO 测试减少刷新数量
+            if (enemys.Count <= 20) //TODO 测试减少刷新数量
             {
                 var enemy = MonsterHelper.BuildMonster(hero.Level);
                 GameProcessor.Inst.PlayerManager.LoadMonster(enemy);

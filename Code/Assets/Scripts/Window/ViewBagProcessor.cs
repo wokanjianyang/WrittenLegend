@@ -186,7 +186,7 @@ namespace Game
             {
                 user.Gold += box.Item.Gold * box.Number;
 
-                Log.Debug("自动回收:" + box.Item.Name + " " + box.Number + "个");
+                //Log.Debug("自动回收:" + box.Item.Name + " " + box.Number + "个");
 
                 box.Number = 0;
                 UseBoxItem(box.BoxId);

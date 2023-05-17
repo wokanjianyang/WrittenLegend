@@ -25,6 +25,8 @@ namespace Game
 
         public long BaseValue { get; set; }  //特效的基准值,比如按攻击计算的攻击，按血量计算的血量
 
+        public int FromId { get; }
+
         /// <summary>
         /// 已生效次数
         /// </summary>
@@ -32,15 +34,20 @@ namespace Game
 
         public APlayer SelfPlayer { get; set; }
 
-        public Effect(APlayer player,EffectConfig config, long total)
+        public Effect(APlayer player,EffectConfig config,int fromId, long total,int duration)
         {
             this.SelfPlayer = player;
             this.Config = config;
+            this.FromId = fromId;
             this.Total = total;
+            this.Duration = duration;
+            this.DoCount = 0;
         }
 
         public void Do()
         {
+            DoCount++;
+
             if (Config.TargetAttr == ((int)AttributeEnum.CurrentHp))
             {
                 //效果扣血,需要给APlayer封装一个方法，传入伤害数值，Player扣血以及计算后续死亡以及UI
@@ -48,16 +55,22 @@ namespace Game
                 {
                     SelfPlayer.Logic.OnDamage(SelfPlayer.ID, Total);
                 }
-                else {
+                else
+                {
                     SelfPlayer.Logic.OnRestore(Total);
                 }
             }
             else
             {
-                SelfPlayer.AttributeBonus.SetAttr((AttributeEnum)Config.TargetAttr, AttributeFrom.Skill, Total * Config.Type);
+                if (DoCount == 1) //第一次增加属性
+                {
+                    SelfPlayer.AttributeBonus.SetAttr((AttributeEnum)Config.TargetAttr, FromId, Total * Config.Type);
+                }
+                else if (DoCount >= Duration)  //最后一次，移除属性
+                {
+                    SelfPlayer.AttributeBonus.SetAttr((AttributeEnum)Config.TargetAttr, FromId, 0);
+                }
             }
-
-            DoCount++;
         }
 
         public void DoCell(APlayer player)

@@ -103,7 +103,7 @@ namespace Game
                 currentHP = 0;
             }
 
-            Debug.Log($"{(this.SelfPlayer.Name)} 受到伤害:{(damage)} ,剩余血量:{(currentHP)}");
+            //Debug.Log($"{(this.SelfPlayer.Name)} 受到伤害:{(damage)} ,剩余血量:{(currentHP)}");
 
             AddBattleAttribute(AttributeEnum.HP, damage * -1);
             this.SelfPlayer.SetHP(currentHP);
@@ -161,7 +161,7 @@ namespace Game
                 currentHP = maxHp; //最多只能回复满血
             }
 
-            Debug.Log($"{(this.SelfPlayer.Name)} 恢复生命:{(hp)} ,剩余血量:{(currentHP)}");
+            //Debug.Log($"{(this.SelfPlayer.Name)} 恢复生命:{(hp)} ,剩余血量:{(currentHP)}");
 
             this.SelfPlayer.SetHP(currentHP);
 

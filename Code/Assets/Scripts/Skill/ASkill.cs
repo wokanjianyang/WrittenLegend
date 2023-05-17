@@ -32,7 +32,7 @@ namespace Game
                 enemy.OnHit(attackData.Tid, damage);
 
                 SkillConfig skillConfig = SkillPanel.SkillData.SkillConfig;
-                if (skillConfig.EffectIdList!=null && skillConfig.EffectIdList.Length > 0)
+                if (skillConfig.EffectIdList != null && skillConfig.EffectIdList.Length > 0)
                 {
                     foreach (int EffectId in skillConfig.EffectIdList)
                     {
@@ -42,13 +42,16 @@ namespace Game
 
                             var effectTarget = config.TargetType == 1 ? this.SelfPlayer : enemy; //1 为作用自己 2 为作用敌人
 
+                            int fromId = (int)AttributeFrom.Skill * 100000 + SkillPanel.SkillId + EffectId;
+                            long total = 0;
+                            int duration = SkillPanel.Duration;
                             if (config.Duration > 0)
                             {  //持续Buff
-                                effectTarget.AddEffect(EffectId, this.SelfPlayer);
+                                effectTarget.AddEffect(EffectId, this.SelfPlayer, fromId, total, duration);
                             }
                             else
                             {
-                                effectTarget.RunEffect(EffectId, this.SelfPlayer);
+                                effectTarget.RunEffect(EffectId, this.SelfPlayer, fromId, total, duration);
                             }
                         }
                     }

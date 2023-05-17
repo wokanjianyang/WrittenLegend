@@ -112,7 +112,7 @@ namespace Game
                         if (exp > 0)
                         {
                             user.Exp += exp;
-                            Debug.Log("经验:" + user.Exp);
+                            //Debug.Log("经验:" + user.Exp);
 
                             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
                             {

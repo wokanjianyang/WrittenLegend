@@ -271,7 +271,7 @@ namespace Game
 
             if (targets != null && targets.Count > 0)
             {  //使用技能
-                Debug.Log($"{(this.Name)}使用技能:{(skill.SkillPanel.SkillData.SkillConfig.Name)},攻击:"+targets.Count+"个");
+                //Debug.Log($"{(this.Name)}使用技能:{(skill.SkillPanel.SkillData.SkillConfig.Name)},攻击:" + targets.Count + "个");
                 skill.Do(targets);
                 this.EventCenter.Raise(new ShowAttackIcon { NeedShow = true });
             }
@@ -292,8 +292,10 @@ namespace Game
             }
 
             //行动后计算buff
-            foreach (List<Effect> list in EffectMap.Values) {
-                foreach (Effect effect in list) {
+            foreach (List<Effect> list in EffectMap.Values)
+            {
+                foreach (Effect effect in list)
+                {
                     //DO Effect
                     effect.Do();
                 }
@@ -301,18 +303,18 @@ namespace Game
             }
         }
 
-        public void RunEffect(int effectId, APlayer attchPlayer)
+        public void RunEffect(int effectId, APlayer attchPlayer,int fromId,long total,int duration)
         {
             EffectConfig config = EffectConfigCategory.Instance.Get(effectId);
-            Effect effect = CreateEffect(config, attchPlayer);
+            Effect effect = new Effect(this, config, fromId, total, duration);
             effect.Do();
         }
-        public void AddEffect(int EffectId, APlayer AttchPlayer)
+        public void AddEffect(int EffectId, APlayer AttchPlayer, int fromId, long total, int duration)
         {
-            if (!EffectMap.TryGetValue(EffectId, out List<Effect> list))
+            if (!EffectMap.TryGetValue(fromId, out List<Effect> list))
             {
                 list = new List<Effect>();
-                EffectMap[EffectId] = list;
+                EffectMap[fromId] = list;
             }
 
             EffectConfig config = EffectConfigCategory.Instance.Get(EffectId);
@@ -322,23 +324,8 @@ namespace Game
                 list.RemoveRange(0, list.Count - config.Max + 1);
             }
 
-            Effect effect = CreateEffect(config,AttchPlayer);
+            Effect effect = new Effect(this, config, fromId, total,duration);
             list.Add(effect);
-        }
-
-        private Effect CreateEffect(EffectConfig config, APlayer AttchPlayer)
-        {
-            long total = AttchPlayer.AttributeBonus.GetTotalAttr((AttributeEnum)config.SourceAttr);
-            total = (config.Percent + 0) * total / 100 + (config.Damage + 0);
-
-            Effect effect = new Effect(this, config, total);
-
-            //加上词条,套装,天赋等
-            effect.Level = config.Level + 0;
-            effect.CreateTime = DateTime.Now.Ticks;
-            effect.Duration = config.Duration + 0;
-
-            return effect;
         }
 
         public void Move(Vector3Int cell)
