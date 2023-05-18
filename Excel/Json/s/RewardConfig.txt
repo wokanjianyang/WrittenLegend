@@ -1,3 +1,9 @@
 {"list":[
 {"_t":"RewardConfig","_id":1,"type":4,"ItemId":1},
+{"_t":"RewardConfig","_id":12,"type":4,"ItemId":12},
+{"_t":"RewardConfig","_id":13,"type":4,"ItemId":13},
+{"_t":"RewardConfig","_id":14,"type":4,"ItemId":14},
+{"_t":"RewardConfig","_id":15,"type":4,"ItemId":15},
+{"_t":"RewardConfig","_id":16,"type":4,"ItemId":16},
+{"_t":"RewardConfig","_id":17,"type":4,"ItemId":17},
 ]}
