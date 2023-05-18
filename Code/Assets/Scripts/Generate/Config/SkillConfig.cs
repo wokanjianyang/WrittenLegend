@@ -143,7 +143,7 @@ namespace Game
 		public int DamageIncrea { get; set; }
 		/// <summary>附带效果</summary>
 		[ProtoMember(23)]
-		public int[] EffectIdList { get; set; }
+		public string[] EffectList { get; set; }
 		/// <summary>升级经验</summary>
 		[ProtoMember(24)]
 		public int Exp { get; set; }

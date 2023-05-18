@@ -68,8 +68,8 @@ namespace Game
             foreach (SkillData skillData in list)
             {
 
-                List<SkillRune> runeList = GetRuneList(skillData.SkillId);
-                List<SkillSuit> suitList = GetSuitList(skillData.SkillId);
+                List<SkillRune> runeList = user.GetRuneList(skillData.SkillId);
+                List<SkillSuit> suitList = user.GetSuitList(skillData.SkillId);
 
                 SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList);
 

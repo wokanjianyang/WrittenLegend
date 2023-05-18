@@ -31,33 +31,34 @@ namespace Game
                 var damage = this.CalcFormula(enemy, attackData.Ratio);
                 enemy.OnHit(attackData.Tid, damage);
 
-                SkillConfig skillConfig = SkillPanel.SkillData.SkillConfig;
-                if (skillConfig.EffectIdList != null && skillConfig.EffectIdList.Length > 0)
+                foreach (EffectData effect in SkillPanel.EffectIdList.Values)
                 {
-                    foreach (int EffectId in skillConfig.EffectIdList)
-                    {
-                        if (EffectId > 0)
-                        {
-                            EffectConfig config = EffectConfigCategory.Instance.Get(EffectId);
-
-                            var effectTarget = config.TargetType == 1 ? this.SelfPlayer : enemy; //1 为作用自己 2 为作用敌人
-
-                            int fromId = (int)AttributeFrom.Skill * 100000 + SkillPanel.SkillId + EffectId;
-                            long total = 0;
-                            int duration = SkillPanel.Duration;
-                            if (config.Duration > 0)
-                            {  //持续Buff
-                                effectTarget.AddEffect(EffectId, this.SelfPlayer, fromId, total, duration);
-                            }
-                            else
-                            {
-                                effectTarget.RunEffect(EffectId, this.SelfPlayer, fromId, total, duration);
-                            }
-                        }
-                    }
+                    DoEffect(enemy, this.SelfPlayer, damage, effect);
                 }
-
                 this.skillGraphic?.PlayAnimation(enemy.Cell);
+            }
+        }
+
+        public void DoEffect(APlayer enemy, APlayer self, long damage, EffectData data)
+        {
+            EffectConfig config = data.Config;
+
+            var effectTarget = config.TargetType == 1 ? this.SelfPlayer : enemy; //1 为作用自己 2 为作用敌人
+
+            long total = damage;
+            if (config.SourceAttr != (int)AttributeEnum.SkillDamage)
+            {
+                total = self.AttributeBonus.GetTotalAttr((AttributeEnum)config.SourceAttr);
+            }
+            total = total * data.Percent / 100;
+
+            if (data.Duration > 0)
+            {  //持续Buff
+                effectTarget.AddEffect(effectTarget, data, total);
+            }
+            else
+            {
+                effectTarget.RunEffect(effectTarget, data, total);
             }
         }
 

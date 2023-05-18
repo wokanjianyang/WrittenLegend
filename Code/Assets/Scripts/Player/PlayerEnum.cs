@@ -4,6 +4,7 @@ namespace Game
 {
     public enum AttributeEnum
     {
+        SkillDamage = -6,
         Color = -5,
         Name = -4,
         Level = -3,

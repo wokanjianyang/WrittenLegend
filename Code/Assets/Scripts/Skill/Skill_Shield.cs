@@ -30,33 +30,16 @@ namespace Game
         public override void Do()
         {
             //对自己加属性Buff
-            SkillConfig skillConfig = SkillPanel.SkillData.SkillConfig;
-            if (skillConfig.EffectIdList != null && skillConfig.EffectIdList.Length > 0)
+            foreach (EffectData effect in SkillPanel.EffectIdList.Values)
             {
                 long total = CalcFormula();
-                foreach (int EffectId in skillConfig.EffectIdList)
-                {
-                    if (EffectId > 0)
-                    {
-                        EffectConfig config = EffectConfigCategory.Instance.Get(EffectId);
 
-                        var effectTarget = this.SelfPlayer; //1 为作用自己 2 为作用敌人
-                        int fromId = (int)AttributeFrom.Skill * 100000 + SkillPanel.SkillId + EffectId;
-                        int duration = SkillPanel.Duration;
-                        if (config.Duration > 0)
-                        {  //持续Buff
-                            effectTarget.AddEffect(EffectId, this.SelfPlayer, fromId, total, duration);
-                        }
-                        else
-                        {
-                            effectTarget.RunEffect(EffectId, this.SelfPlayer, fromId, total, duration);
-                        }
-                    }
-                }
+                DoEffect(this.SelfPlayer, this.SelfPlayer, total, effect);
             }
 
-            this.skillGraphic?.PlayAnimation(SelfPlayer.Cell);
+            //如果还有附加特效
 
+            this.skillGraphic?.PlayAnimation(SelfPlayer.Cell);
         }
 
         public long CalcFormula()

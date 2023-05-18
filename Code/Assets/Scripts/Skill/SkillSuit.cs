@@ -11,6 +11,8 @@ namespace Game
         public long Damage { get; }
         public int Percent { get; }
         public int Dis { get; }
+
+        public int Duration { get; }
         public int EnemyMax { get; }
         public int CD { get; }
 
@@ -21,6 +23,8 @@ namespace Game
         public int AttrIncrea { get; } //攻击加成
         public int FinalIncrea { get; } //最终伤害加成
 
+        public int EffectId { get; } //
+
         public SkillSuit(int suitId)
         {
             this.SkillSuitConfig = SkillSuitConfigCategory.Instance.Get(suitId);
@@ -28,6 +32,7 @@ namespace Game
             this.Damage = SkillSuitConfig.Damage;
             this.Percent = SkillSuitConfig.Percent;
             this.Dis = SkillSuitConfig.Dis;
+            this.Duration = SkillSuitConfig.Duration;
             this.EnemyMax = SkillSuitConfig.EnemyMax;
             this.CD = SkillSuitConfig.CD;
 
@@ -38,6 +43,8 @@ namespace Game
 
             this.AttrIncrea = SkillSuitConfig.AttrIncrea;
             this.FinalIncrea = SkillSuitConfig.FinalIncrea;
+
+            this.EffectId = SkillSuitConfig.EffectId;
         }
     }
 }

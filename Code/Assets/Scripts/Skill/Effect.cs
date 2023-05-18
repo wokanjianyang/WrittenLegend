@@ -6,41 +6,29 @@ namespace Game
 {
     public class Effect
     {
-        /// <summary>
-        /// 配置Id
-        /// </summary>
-        public int CongigId { get; set; }
-        /// <summary>
-        /// 创建时间戳
-        /// </summary>
-        public long CreateTime { get; set; }
-
-        public int Level { get; set; }
-
-        public int Duration { get; set; }
-
+        public APlayer SelfPlayer { get;  }
+        public EffectData Data { get;  }
+        public int FromId { get; }
         public long Total { get; set; }
 
-        public EffectConfig Config { get; set; }
-
-        public long BaseValue { get; set; }  //特效的基准值,比如按攻击计算的攻击，按血量计算的血量
-
-        public int FromId { get; }
+        public int Duration { get; set; }
+        public int Max { get; }
 
         /// <summary>
         /// 已生效次数
         /// </summary>
         public int DoCount { get; set; }
 
-        public APlayer SelfPlayer { get; set; }
-
-        public Effect(APlayer player,EffectConfig config,int fromId, long total,int duration)
+        public Effect(APlayer player,EffectData effectData, long total)
         {
             this.SelfPlayer = player;
-            this.Config = config;
-            this.FromId = fromId;
+            this.Data = effectData;
             this.Total = total;
-            this.Duration = duration;
+
+            this.FromId = Data.FromId;
+            this.Duration = Data.Duration;
+            this.Max = Data.Max;
+
             this.DoCount = 0;
         }
 
@@ -48,10 +36,14 @@ namespace Game
         {
             DoCount++;
 
-            if (Config.TargetAttr == ((int)AttributeEnum.CurrentHp))
+            if (Data.Config.Type == 2)
+            {  //控制特效,延迟触发
+                //
+            }
+            else if (Data.Config.TargetAttr == ((int)AttributeEnum.CurrentHp))
             {
                 //效果扣血,需要给APlayer封装一个方法，传入伤害数值，Player扣血以及计算后续死亡以及UI
-                if (Config.Type == (int)EffectTypeEnum.Sub)
+                if (Data.Config.Type == (int)EffectTypeEnum.Sub)
                 {
                     SelfPlayer.Logic.OnDamage(SelfPlayer.ID, Total);
                 }
@@ -64,11 +56,11 @@ namespace Game
             {
                 if (DoCount == 1) //第一次增加属性
                 {
-                    SelfPlayer.AttributeBonus.SetAttr((AttributeEnum)Config.TargetAttr, FromId, Total * Config.Type);
+                    SelfPlayer.AttributeBonus.SetAttr((AttributeEnum)Data.Config.TargetAttr, FromId, Total * Data.Config.Type);
                 }
                 else if (DoCount >= Duration)  //最后一次，移除属性
                 {
-                    SelfPlayer.AttributeBonus.SetAttr((AttributeEnum)Config.TargetAttr, FromId, 0);
+                    SelfPlayer.AttributeBonus.SetAttr((AttributeEnum)Data.Config.TargetAttr, FromId, 0);
                 }
             }
         }

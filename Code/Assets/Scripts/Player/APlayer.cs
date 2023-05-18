@@ -131,19 +131,6 @@ namespace Game
         //    EquipSkill(defaulSkill);
         //}
 
-        public virtual List<SkillRune> GetRuneList(int skillId)
-        {
-            List<SkillRune> list = new List<SkillRune>();
-
-            return list;
-        }
-
-        public virtual List<SkillSuit> GetSuitList(int skillId) {
-            List<SkillSuit> list = new List<SkillSuit>();
-
-            return list;
-        }
-
         public virtual long GetRoleAttack(int role)
         {
             long attack = 0;
@@ -251,6 +238,32 @@ namespace Game
         {
             this.RoundCounter++;
             if (!this.IsSurvice) return;
+
+            //行动前计算buff
+            bool pause = false;
+            foreach (List<Effect> list in EffectMap.Values)
+            {
+                foreach (Effect effect in list)
+                {
+                    effect.Do();
+                    if (effect.Data.Config.Type == 2) {
+                        pause = true;
+
+                        this.EventCenter.Raise(new ShowMsgEvent
+                        {
+                            Type = MsgType.Other,
+                            Content = effect.Data.Config.Name
+                        });
+                    }
+                }
+                list.RemoveAll(m => m.Duration <= m.DoCount);//移除已结束的
+            }
+
+            if (pause) {
+                return; //如果有控制技能，不继续后续行动
+            }
+
+
             var up = this.Cell + Vector3Int.up;
             var down = this.Cell + Vector3Int.down;
             var right = this.Cell + Vector3Int.right;
@@ -290,41 +303,28 @@ namespace Game
                     this.Move(endPos);
                 }
             }
-
-            //行动后计算buff
-            foreach (List<Effect> list in EffectMap.Values)
-            {
-                foreach (Effect effect in list)
-                {
-                    //DO Effect
-                    effect.Do();
-                }
-                list.RemoveAll(m => m.Duration <= m.DoCount);//移除已结束的
-            }
         }
 
-        public void RunEffect(int effectId, APlayer attchPlayer,int fromId,long total,int duration)
+        public void RunEffect(APlayer attchPlayer, EffectData effectData, long total)
         {
-            EffectConfig config = EffectConfigCategory.Instance.Get(effectId);
-            Effect effect = new Effect(this, config, fromId, total, duration);
+            Effect effect = new Effect(this, effectData, total);
             effect.Do();
         }
-        public void AddEffect(int EffectId, APlayer AttchPlayer, int fromId, long total, int duration)
+        public void AddEffect(APlayer attchPlayer, EffectData effectData, long total)
         {
-            if (!EffectMap.TryGetValue(fromId, out List<Effect> list))
+            if (!EffectMap.TryGetValue(effectData.FromId, out List<Effect> list))
             {
                 list = new List<Effect>();
-                EffectMap[fromId] = list;
+                EffectMap[effectData.FromId] = list;
             }
 
-            EffectConfig config = EffectConfigCategory.Instance.Get(EffectId);
-
-            if (list.Count >= config.Max)
-            {  //移除旧的
-                list.RemoveRange(0, list.Count - config.Max + 1);
+            if (list.Count >= effectData.Max)
+            {
+                //移除旧的
+                list.RemoveRange(0, list.Count - effectData.Max + 1);
             }
 
-            Effect effect = new Effect(this, config, fromId, total,duration);
+            Effect effect = new Effect(this, effectData, total);
             list.Add(effect);
         }
 

@@ -90,26 +90,11 @@ namespace Game
 		/// <summary>施法目标</summary>
 		[ProtoMember(5)]
 		public int TargetType { get; set; }
-		/// <summary>最大叠加层数</summary>
-		[ProtoMember(6)]
-		public int Max { get; set; }
-		/// <summary>效果等级</summary>
-		[ProtoMember(7)]
-		public int Level { get; set; }
-		/// <summary>伤害比例</summary>
-		[ProtoMember(8)]
-		public int Percent { get; set; }
-		/// <summary>固定伤害</summary>
-		[ProtoMember(9)]
-		public int Damage { get; set; }
-		/// <summary>持续时间</summary>
-		[ProtoMember(10)]
-		public int Duration { get; set; }
 		/// <summary>目标属性</summary>
-		[ProtoMember(11)]
+		[ProtoMember(6)]
 		public int TargetAttr { get; set; }
 		/// <summary>来源属性</summary>
-		[ProtoMember(12)]
+		[ProtoMember(7)]
 		public int SourceAttr { get; set; }
 
 	}

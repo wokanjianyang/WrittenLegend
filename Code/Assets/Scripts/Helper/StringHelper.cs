@@ -100,5 +100,18 @@ namespace Game
 			argStr += "]";
 			return argStr;
 		}
+
+		public static int[] ConvertSkillParams(string param)
+		{
+			string[] list = param.Split(",", StringSplitOptions.RemoveEmptyEntries);
+			int[] result = new int[list.Length];
+
+			for (int i = 0; i < list.Length; i++)
+			{
+				result[i] = Convert.ToInt32(list[i]);
+			}
+
+			return result;
+		}
 	}
 }

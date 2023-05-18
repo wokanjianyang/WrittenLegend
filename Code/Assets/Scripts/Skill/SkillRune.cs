@@ -14,6 +14,7 @@ namespace Game
         public long Damage { get; }
         public int Percent { get; }
         public int Dis { get; }
+        public int Duration { get; }
         public int EnemyMax { get; }
         public int CD { get; }
 
@@ -24,6 +25,8 @@ namespace Game
         public int AttrIncrea { get; } //攻击加成
         public int FinalIncrea { get; } //最终伤害加成
 
+        public int EffectId { get; } //
+
         public SkillRune(int runeId, int quantity)
         {
             this.SkillRuneConfig = SkillRuneConfigCategory.Instance.Get(runeId);
@@ -33,6 +36,7 @@ namespace Game
             this.Percent = SkillRuneConfig.Percent * AvailableQuantity;
             this.Dis = SkillRuneConfig.Dis * AvailableQuantity;
             this.EnemyMax = SkillRuneConfig.EnemyMax * AvailableQuantity;
+            this.Duration = SkillRuneConfig.Duration * AvailableQuantity;
             this.CD = SkillRuneConfig.CD * AvailableQuantity;
 
             this.IgnoreDef = SkillRuneConfig.IgnoreDef * AvailableQuantity;
@@ -43,6 +47,8 @@ namespace Game
 
             this.AttrIncrea = SkillRuneConfig.AttrIncrea;
             this.FinalIncrea = SkillRuneConfig.FinalIncrea;
+
+            this.EffectId = SkillRuneConfig.EffectId;
         }
     }
 }
