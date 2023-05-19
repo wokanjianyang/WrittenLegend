@@ -19,6 +19,12 @@ namespace Game
             return hero;
         }
 
+        public Boss GetBoss()
+        {
+            var list = this.AllPlayers.FindAll(p => p.Camp == PlayerType.Enemy && p.ModelType == MondelType.Boss).ToList(); ;
+            return list.Count > 0 ? list[0] as Boss : null;
+        }
+
         private void AddPlayer(APlayer player)
         {
             player.ID = ++this.playerId;

@@ -65,6 +65,9 @@ namespace Game
         /// </summary>
         public int TowerFloor = 1;
 
+        //主线boss记录
+        public Dictionary<int, long> MapBossTime { get;  } = new Dictionary<int, long>();
+
         public User()  {
             this.EventCenter = new EventManager();
 
@@ -74,7 +77,8 @@ namespace Game
             this.EventCenter.AddListener<HeroUseSkillBookEvent>(HeroUseSkillBook);
         }
 
-        public void Init() {
+        public void Init()
+        {
             //设置各种属性值
             this.AttributeBonus = new AttributeBonus();
 
@@ -87,6 +91,16 @@ namespace Game
             RecoverySetting.SetQuanlity(3, true);
             //RecoverySetting.SetQuanlity(4, true);
             RecoverySetting.SetLevel(100);
+
+            //设置Boss刷新时间
+            Dictionary<int, MapConfig> mapList = MapConfigCategory.Instance.GetAll();
+            foreach (MapConfig mapConfig in mapList.Values)
+            {
+                if (!MapBossTime.ContainsKey(mapConfig.Id))
+                {
+                    MapBossTime[mapConfig.Id] = 0;
+                }
+            }
         }
 
         public void UpdatePlayerInfo() {

@@ -102,6 +102,9 @@ namespace Game
 		/// <summary>BossId</summary>
 		[ProtoMember(9)]
 		public int BoosId { get; set; }
+		/// <summary>刷新间隔分钟</summary>
+		[ProtoMember(10)]
+		public int BossInterval { get; set; }
 
 	}
 }

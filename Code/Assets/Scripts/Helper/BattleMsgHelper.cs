@@ -22,6 +22,24 @@ namespace Game
             return message;
         }
 
+        public static string BuildBossDeadMessage(Boss monster, List<Item> Drops)
+        {
+            string drops = "";
+            if (Drops != null && Drops.Count > 0)
+            {
+                drops = ",掉落";
+                foreach (var drop in Drops)
+                {
+                    drops += $"<color=#{QualityConfigHelper.GetColor(drop.GetQuality())}>[{drop.Name}]</color>";
+                }
+            }
+
+            string message = $"<color=#FFD700>[{monster.Name}]</color><color=white>死亡,经验增加:{monster.Exp},金币增加:{monster.Gold}{drops}</color>";
+
+            return message;
+        }
+
+
         public static string BuildSecondExpMessage(long exp)
         {
             return $"增加泡点经验{exp}";

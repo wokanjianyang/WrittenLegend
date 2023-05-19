@@ -318,7 +318,7 @@ namespace Game
                 EffectMap[effectData.FromId] = list;
             }
 
-            if (list.Count >= effectData.Max)
+            if (list.Count>0 && list.Count >= effectData.Max)
             {
                 //移除旧的
                 list.RemoveRange(0, list.Count - effectData.Max + 1);

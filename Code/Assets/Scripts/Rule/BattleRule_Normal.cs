@@ -47,10 +47,30 @@ namespace Game
                 enemy.DoEvent();
             }
 
+            User user = GameProcessor.Inst.User;
+            int level = user.Level;
+            MapConfig mapConfig = MapConfigCategory.Instance.GetAll().Where(m => m.Value.LevelRequired < level && m.Value.LevelRequired > level - 10).First().Value;
+            int mapId = mapConfig.Id;
+
             if (enemys.Count <= 20) //TODO 测试减少刷新数量
             {
-                var enemy = MonsterHelper.BuildMonster(hero.Level);
+                var enemy = MonsterHelper.BuildMonster(mapConfig.LevelRequired);
                 GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
+            }
+
+            var boss = GameProcessor.Inst.PlayerManager.GetBoss();
+            if (boss == null)
+            {
+                BossConfig bossConfig = BossConfigCategory.Instance.Get(mapConfig.BoosId);
+                long killTime = 1;
+                if (user.MapBossTime.TryGetValue(mapId, out killTime))
+                {
+                    long currentTime = TimeHelper.ClientNowSeconds();
+                    if (killTime == 0 || currentTime - killTime >= mapConfig.BossInterval)
+                    {
+                        GameProcessor.Inst.PlayerManager.LoadMonster(BossHelper.BuildBoss(mapConfig.BoosId, mapConfig.Id));
+                    }
+                }
             }
         }
     }
