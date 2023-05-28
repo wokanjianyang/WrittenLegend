@@ -48,7 +48,7 @@ namespace Game
     public class SkillBookEvent : SDD.Events.Event
     {
         /// <summary>
-        /// ²»ÊÇÑ§Ï°¾ÍÊÇÉý¼¶
+        /// ï¿½ï¿½ï¿½ï¿½Ñ§Ï°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         public bool IsLearn { get; set; }
 
@@ -77,6 +77,11 @@ namespace Game
     }
 
     public class UpdateTowerWindowEvent : SDD.Events.Event
+    {
+
+    }
+    
+    public class EquipRecoveryEvent : SDD.Events.Event
     {
 
     }
