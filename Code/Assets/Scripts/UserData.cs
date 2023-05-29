@@ -9,34 +9,34 @@ namespace Game
     public class UserData
     {
         static string savePath = "user";
-        static string fileName = "data.json"; //ÎÄ¼şÃû
+        static string fileName = "data.json"; //æ–‡ä»¶å
         public static User Load() {
             User user = null;
-            string folderPath = System.IO.Path.Combine(Application.persistentDataPath, savePath); //ÎÄ¼ş¼ĞÂ·¾¶                                        
-            string filePath = System.IO.Path.Combine(folderPath, fileName);             //ÎÄ¼şÂ·¾¶
-            Debug.Log($"´æµµÂ·¾¶£º{filePath}");
+            string folderPath = System.IO.Path.Combine(Application.persistentDataPath, savePath); //æ–‡ä»¶å¤¹è·¯å¾„                                        
+            string filePath = System.IO.Path.Combine(folderPath, fileName);             //æ–‡ä»¶è·¯å¾„
+            Debug.Log($"å­˜æ¡£è·¯å¾„ï¼š{filePath}");
 
             if (System.IO.File.Exists(filePath))
             {
-                //¶ÁÈ¡ÎÄ¼ş
+                //è¯»å–æ–‡ä»¶
                 System.IO.StreamReader sr = new System.IO.StreamReader(filePath);
                 string str_json = sr.ReadToEnd();
                 sr.Close();
-                //·´ĞòÁĞ»¯
+                //ååºåˆ—åŒ–
                 user = JsonConvert.DeserializeObject<User>(str_json, new JsonSerializerSettings
                 {
                     TypeNameHandling = TypeNameHandling.Auto
                 });
-                Debug.Log("³É¹¦¶ÁÈ¡");
+                Debug.Log("æˆåŠŸè¯»å–");
             }
 
             if (user == null)
             {
                 user = new User();
-                //Ê×´Î³õÊ¼»¯
+                //é¦–æ¬¡åˆå§‹åŒ–
                 user.Level = 1;
                 user.Exp = 0;
-                user.Name = "´«Ææ";
+                user.Name = "ä¼ å¥‡";
             }
 
             return user;
@@ -44,13 +44,13 @@ namespace Game
 
         public static void Save()
         {
-            System.TimeSpan st = System.DateTime.UtcNow - new System.DateTime(1970, 1, 1, 0, 0, 0);//»ñÈ¡Ê±¼ä´Á
-            //Log.Debug($"ÀëÏßÊ±¼ä:{DateTime.UtcNow.ToString("F")}");
+            System.TimeSpan st = System.DateTime.UtcNow - new System.DateTime(1970, 1, 1, 0, 0, 0);//è·å–æ—¶é—´æˆ³
+            //Log.Debug($"ç¦»çº¿æ—¶é—´:{DateTime.UtcNow.ToString("F")}");
 
             var user = GameProcessor.Inst.User;
             user.LastOut = Convert.ToInt64(st.TotalSeconds);
 
-            //ĞòÁĞ»¯
+            //åºåˆ—åŒ–
             string str_json = JsonConvert.SerializeObject(user, new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.Auto
@@ -62,31 +62,31 @@ namespace Game
             }
 
             //
-            string folderPath = System.IO.Path.Combine(Application.persistentDataPath, savePath); //ÎÄ¼ş¼ĞÂ·¾¶
+            string folderPath = System.IO.Path.Combine(Application.persistentDataPath, savePath); //æ–‡ä»¶å¤¹è·¯å¾„
             System.IO.Directory.CreateDirectory(folderPath);
 
-            //´´½¨Ò»¸ö¿Õ°×ÎÄ¼ş
-            string filePath = System.IO.Path.Combine(folderPath, fileName);             //ÎÄ¼şÂ·¾¶
+            //åˆ›å»ºä¸€ä¸ªç©ºç™½æ–‡ä»¶
+            string filePath = System.IO.Path.Combine(folderPath, fileName);             //æ–‡ä»¶è·¯å¾„
             System.IO.File.Create(filePath).Dispose();
 
-            //Ğ´ÈëÎÄ¼ş
+            //å†™å…¥æ–‡ä»¶
             System.IO.StreamWriter sw = new System.IO.StreamWriter(filePath);
             sw.Write(str_json);
             sw.Close();
 
-            //È·ÈÏ±£´æ
+            //ç¡®è®¤ä¿å­˜
             if (System.IO.File.Exists(filePath))
             {
-                //Log.Debug("±£´æ³É¹¦");
+                //Log.Debug("ä¿å­˜æˆåŠŸ");
             }
             else
-                Log.Debug("±£´æÊ§°Ü");
+                Log.Debug("ä¿å­˜å¤±è´¥");
         }
 
         public static void Delete()
         {
-            string folderPath = System.IO.Path.Combine(Application.persistentDataPath, savePath); //ÎÄ¼ş¼ĞÂ·¾¶
-            string filePath = System.IO.Path.Combine(folderPath, fileName);             //ÎÄ¼şÂ·¾¶
+            string folderPath = System.IO.Path.Combine(Application.persistentDataPath, savePath); //æ–‡ä»¶å¤¹è·¯å¾„
+            string filePath = System.IO.Path.Combine(folderPath, fileName);             //æ–‡ä»¶è·¯å¾„
             System.IO.File.Delete(filePath);
         }
     }

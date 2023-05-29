@@ -52,7 +52,7 @@ namespace Game
             MapConfig mapConfig = MapConfigCategory.Instance.GetAll().Where(m => m.Value.LevelRequired < level && m.Value.LevelRequired > level - 10).First().Value;
             int mapId = mapConfig.Id;
 
-            if (enemys.Count <= 20) //TODO ²âÊÔ¼õÉÙË¢ÐÂÊýÁ¿
+            if (enemys.Count <= 20) //TODO ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½Ë¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             {
                 var enemy = MonsterHelper.BuildMonster(mapConfig.LevelRequired);
                 GameProcessor.Inst.PlayerManager.LoadMonster(enemy);

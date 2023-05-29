@@ -79,7 +79,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u97E7      \u6027:"
+  m_Text: "\u6CE1\u70B9\u7ECF\u9A8C:"
 --- !u!1 &145599185792195482
 GameObject:
   m_ObjectHideFlags: 0
@@ -3425,6 +3425,7 @@ MonoBehaviour:
   CritRate: {fileID: 1141179622909236811}
   CritRateResist: {fileID: 2698795420854572945}
   CritDamage: {fileID: 7332954741141183751}
+  SecondExp: {fileID: 8546232924621695041}
 --- !u!1 &4967371598204004809
 GameObject:
   m_ObjectHideFlags: 0
@@ -5579,12 +5580,12 @@ GameObject:
   m_Component:
   - component: {fileID: 8818271970753983820}
   m_Layer: 5
-  m_Name: GameObject (25)
+  m_Name: SecondExp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8818271970753983820
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5779,7 +5780,7 @@ GameObject:
   - component: {fileID: 8627049017544093017}
   - component: {fileID: 8546232924621695041}
   m_Layer: 0
-  m_Name: 'Text '
+  m_Name: SecondExp_V
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

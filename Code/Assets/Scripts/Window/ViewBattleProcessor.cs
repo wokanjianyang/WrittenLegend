@@ -1,6 +1,8 @@
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +13,11 @@ namespace Game
         [Title("掉落")]
         [LabelText("掉落信息")]
         public ScrollRect sr_BattleMsg;
-
+        
+        [Title("世界地图")]
+        [LabelText("地图信息")]
+        public ScrollRect sr_WorldMap;
+        
         private bool isViewMapShowing = false;
 
         private GameObject msgPrefab;
@@ -38,6 +44,9 @@ namespace Game
             this.msgPrefab = Resources.Load<GameObject>("Prefab/Window/Item_DropMsg");
 
             GameProcessor.Inst.EventCenter.AddListener<BattleMsgEvent>(this.OnBattleMsgEvent);
+            
+            //加载世界地图
+            this.LoadWroldMap();
         }
 
         private void OnBattleMsgEvent(BattleMsgEvent e)
@@ -71,6 +80,182 @@ namespace Game
 
             //    this.sr_BattleMsg.normalizedPosition = new Vector2(0, 0);
             //}
+        }
+
+        public class MapNameData
+        {
+            public int Id;
+            public string Name;
+            public Vector3 Position = new Vector3(-1, -1, 0);
+            public bool HasRight;
+            public bool HasDown;
+        }
+
+        private Dictionary<int,MapNameData> MapDatas = new Dictionary<int,MapNameData>();
+        private Dictionary<int,MapConfig> MapConfigs = new Dictionary<int,MapConfig>();
+
+        private readonly Vector3 NameSize = new Vector3(150, 44);
+        private readonly Vector3 LeftArrowSize = new Vector3(40, 11);
+        private readonly Vector3 UpArrowSize = new Vector3(12, 25);
+        private readonly float ArrowOffset = 5f;
+
+        private readonly float margin = 20f;
+        //地图名 150x44
+        //左右箭头 40x11
+        //上下箭头 12x25
+        //箭头间距 5
+        /**
+         *      1
+         *   2  0  4
+         *      3
+         * 上左下右
+         */
+        private void LoadWroldMap()
+        {
+            var mapNamePrefab = this.sr_WorldMap.content.GetChild(0);
+            mapNamePrefab.gameObject.SetActive(false);
+
+            var leftArrow = this.sr_WorldMap.content.GetChild(1);
+            leftArrow.gameObject.SetActive(false);
+
+            var upArrow = this.sr_WorldMap.content.GetChild(2);
+            upArrow.gameObject.SetActive(false);
+
+            MapConfigs = MapConfigCategory.Instance.GetAll();
+            foreach (var config in MapConfigs.Values)
+            {
+                MapDatas[config.Id] = new MapNameData()
+                {
+                    Id = config.Id,
+                    Name = config.Name,
+                };
+            }
+            var keys = MapConfigs.Keys.ToList();
+            keys.Sort();
+            MapDatas[keys[0]].Position = Vector3.zero;
+            
+            var minX = 0f;
+            var maxX = 0f;
+            var minY = 0f;
+            var maxY = 0f;
+            
+            foreach (var key in keys)
+            {
+                var config = MapConfigs[key];
+                var area = config.MapAfter;
+                var data = MapDatas[config.Id];
+                MapDatas.TryGetValue(area[0], out var up);
+                MapDatas.TryGetValue(area[1], out var left);
+                MapDatas.TryGetValue(area[2], out var down);
+                MapDatas.TryGetValue(area[3], out var right);
+                if (up != null)
+                {
+                    data.Position.y = up.Position.y - (NameSize.y + UpArrowSize.y + ArrowOffset * 2);
+                    data.Position.x = up.Position.x;
+                }
+                
+                if (left != null)
+                {
+                    if (left.Id < data.Id)
+                    {
+                        data.Position.x = left.Position.x + (NameSize.x + LeftArrowSize.x + ArrowOffset * 2);
+                        
+                        if (up == null)
+                        {
+                            data.Position.y = left.Position.y;
+                        }
+                    }
+                    else
+                    {
+                        left.Position.x = data.Position.x - (NameSize.x + LeftArrowSize.x + ArrowOffset * 2);
+                        left.Position.y = data.Position.y;
+                    }
+
+                }
+                if (down != null)
+                {
+                    if (down.Id < data.Id)
+                    {
+                        data.Position.y = down.Position.y + (NameSize.y + UpArrowSize.y + ArrowOffset * 2);
+                    }
+                    else
+                    {
+                        down.Position.y = data.Position.y - (NameSize.y + UpArrowSize.y + ArrowOffset * 2);
+                    }
+                }
+                
+                if (right != null)
+                {
+                    if (right.Id < data.Id)
+                    {
+                        data.Position.x = right.Position.x - (NameSize.x + LeftArrowSize.x + ArrowOffset * 2);
+                    }
+                    else
+                    {
+                        right.Position.x = data.Position.x + (NameSize.x + LeftArrowSize.x + ArrowOffset * 2);
+                    }
+                }
+                
+                data.HasDown = down != null;
+                data.HasRight = right != null;
+
+                if (minX > data.Position.x)
+                {
+                    minX = data.Position.x;
+                }
+                if (maxX < data.Position.x)
+                {
+                    maxX = data.Position.x;
+                }
+                if (minY > data.Position.y)
+                {
+                    minY = data.Position.y;
+                }
+                if (maxY < data.Position.y)
+                {
+                    maxY = data.Position.y;
+                }
+            }
+
+            var width = margin * 2 + Mathf.Max(Mathf.Abs(minX), Mathf.Abs(maxX)) * 2 + NameSize.x;
+            width = Mathf.Max(960, width);
+            var height = margin * 2 + Mathf.Max(Mathf.Abs(minY), Mathf.Abs(maxX)) + NameSize.y;
+
+            var rect = this.sr_WorldMap.content;
+            rect.sizeDelta = new Vector2(width, height);
+            rect.localPosition = new Vector3((960-width)*0.5f,0);
+            var startY = height * 0.5f - margin - NameSize.y * 0.5f;
+            foreach (var data in MapDatas.Values)
+            {
+                var pos = data.Position;
+                pos.y += startY;
+                var nameGo = GameObject.Instantiate(mapNamePrefab);
+                nameGo.SetParent(this.sr_WorldMap.content);
+                nameGo.GetComponent<RectTransform>().anchoredPosition = pos;
+                nameGo.GetComponentInChildren<Text>().text = data.Name;
+                nameGo.name = data.Name;
+                nameGo.gameObject.SetActive(true);
+                nameGo.GetComponent<Com_MapName>().SetData(data);
+
+                if (data.HasDown)
+                {
+                    var upGo = GameObject.Instantiate(upArrow);
+                    upGo.SetParent(this.sr_WorldMap.content);
+                    pos.y = pos.y - (NameSize.y*0.5f + UpArrowSize.y*0.5f + ArrowOffset);
+                    upGo.GetComponent<RectTransform>().anchoredPosition = pos;
+                    upGo.gameObject.SetActive(true);
+
+                }
+                if (data.HasRight)
+                {
+                    var leftGo = GameObject.Instantiate(leftArrow);
+                    leftGo.SetParent(this.sr_WorldMap.content);
+                    pos.x = pos.x + NameSize.x*0.5f + LeftArrowSize.x*0.5f + ArrowOffset;
+                    leftGo.GetComponent<RectTransform>().anchoredPosition = pos;
+                    leftGo.gameObject.SetActive(true);
+
+                }
+            }
         }
     }
 }
