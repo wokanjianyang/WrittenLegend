@@ -49,7 +49,7 @@ namespace Game
 
             User user = GameProcessor.Inst.User;
             int level = user.Level;
-            MapConfig mapConfig = MapConfigCategory.Instance.GetAll().Where(m => m.Value.LevelRequired < level && m.Value.LevelRequired > level - 10).First().Value;
+            MapConfig mapConfig = MapConfigCategory.Instance.GetAll().Where(m => m.Value.LevelRequired < level && m.Value.LevelRequired > level - 10).FirstOrDefault().Value;
             int mapId = mapConfig.Id;
 
             if (enemys.Count <= 20) //TODO ���Լ���ˢ������
