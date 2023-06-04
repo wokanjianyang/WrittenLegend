@@ -32,6 +32,7 @@ namespace Game
 
         private List<Coroutine> delayActionIEs = new List<Coroutine>();
 
+        private bool isLoadMap = false;
         void Awake()
         {
             if (Inst != null)
@@ -88,7 +89,7 @@ namespace Game
 
         void Update()
         {
-            if (this.IsGameRunning())
+            if (this.IsGameRunning() && isLoadMap)
             {
                 this.BattleRule?.OnUpdate();
             }
@@ -158,6 +159,8 @@ namespace Game
             this.CurrentTimeSecond = currentTimeSecond;
 
             this.PlayerManager.LoadHero();
+
+            isLoadMap = true;
         }
 
         public void DelayAction(float delay, Action callback)

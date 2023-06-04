@@ -14,7 +14,10 @@ namespace Game
         // Start is called before the first frame update
         void Start()
         {
-            this.btn_MapName.onClick.AddListener(this.OnClick_MapName);
+            if (btn_MapName != null)
+            {
+                this.btn_MapName.onClick.AddListener(this.OnClick_MapName);
+            }
         }
 
         public void SetData(ViewBattleProcessor.MapNameData data)
@@ -24,7 +27,7 @@ namespace Game
 
         private void OnClick_MapName()
         {
-            Log.Debug(Data.Name);
+            //Log.Debug(Data.Name);
         }
     }
 }

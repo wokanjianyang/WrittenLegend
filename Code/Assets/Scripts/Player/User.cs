@@ -54,7 +54,7 @@ namespace Game
         /// </summary>
         public List<BoxItem> Bags { get; set; } = new List<BoxItem>();
 
-        public IDictionary<int,bool> GiftList { get; set; } = new Dictionary<int, bool>();
+        public IDictionary<int, bool> GiftList { get; set; } = new Dictionary<int, bool>();
 
         public long LastOut { get; set; }
 
@@ -66,9 +66,10 @@ namespace Game
         public int TowerFloor = 1;
 
         //主线boss记录
-        public Dictionary<int, long> MapBossTime { get;  } = new Dictionary<int, long>();
+        public Dictionary<int, long> MapBossTime { get; } = new Dictionary<int, long>();
 
-        public User()  {
+        public User()
+        {
             this.EventCenter = new EventManager();
 
             this.EventCenter.AddListener<HeroChangeEvent>(HeroChange);
@@ -103,7 +104,8 @@ namespace Game
             }
         }
 
-        public void UpdatePlayerInfo() {
+        public void UpdatePlayerInfo()
+        {
             GameProcessor.Inst.PlayerInfo.UpdateAttrInfo(this);
         }
 
@@ -112,7 +114,7 @@ namespace Game
             switch (e.Type)
             {
                 case UserChangeType.LevelUp:
-                    if(!this.isInLevelUp)
+                    if (!this.isInLevelUp)
                     {
                         this.isInLevelUp = true;
                         GameProcessor.Inst.StartCoroutine(LevelUp());
@@ -131,7 +133,7 @@ namespace Game
             //替换属性
             foreach (var a in equip.GetTotalAttrList)
             {
-                AttributeBonus.SetAttr((AttributeEnum)a.Key, AttributeFrom.EquipBase,PanelPosition, a.Value);
+                AttributeBonus.SetAttr((AttributeEnum)a.Key, AttributeFrom.EquipBase, PanelPosition, a.Value);
             }
 
             //更新属性面板
@@ -159,7 +161,7 @@ namespace Game
             if (e.IsLearn)
             {
                 //第一次学习，创建技能数据
-                SkillData skillData = new SkillData(Book.ConfigId,0);
+                SkillData skillData = new SkillData(Book.ConfigId, 0);
                 skillData.Status = SkillStatus.Learn;
                 skillData.Level = 1;
                 skillData.Exp = 0;
@@ -216,7 +218,7 @@ namespace Game
             List<SkillRune> list = new List<SkillRune>();
 
             //计算装备的词条加成
-            List<Equip> skillList = this.EquipPanel.Where(m =>m.Value.SkillRuneConfig!=null && m.Value.SkillRuneConfig.SkillId == skillId).Select(m => m.Value).ToList();
+            List<Equip> skillList = this.EquipPanel.Where(m => m.Value.SkillRuneConfig != null && m.Value.SkillRuneConfig.SkillId == skillId).Select(m => m.Value).ToList();
 
             //按单件分组,词条有堆叠上限
             var runeGroup = skillList.GroupBy(m => m.RuneConfigId);
@@ -249,7 +251,8 @@ namespace Game
             return list;
         }
 
-        public int GetSuitCount(int suitId) {
+        public int GetSuitCount(int suitId)
+        {
             int count = this.EquipPanel.Where(m => m.Value.SkillSuitConfig != null && m.Value.SuitConfigId == suitId).Count();
             return Math.Min(count, SkillSuitHelper.SuitMax);
         }
@@ -294,7 +297,7 @@ namespace Game
 
         IEnumerator LevelUp()
         {
-            while (this.Exp >= this.UpExp)
+            while (this.Exp >= this.UpExp && this.Level < PlayerHelper.Max_Level)
             {
                 Exp -= UpExp;
                 Level++;

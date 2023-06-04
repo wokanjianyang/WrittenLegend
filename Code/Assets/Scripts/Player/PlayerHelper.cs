@@ -8,6 +8,8 @@ namespace Game
     {
         public const int MAX_EQUIP_COUNT = 8;
 
+        public const int Max_Level = 350;
+
         public static Dictionary<string, string> PlayerAttributeMap = new Dictionary<string, string>()
         {
             {nameof(AttributeEnum.Color),"ÑÕÉ«" },
