@@ -413,7 +413,10 @@ namespace Game
         public void OnDestroy()
         {
             this.EventCenter.RemoveAllListeners();
-            GameObject.Destroy(this.Transform.gameObject);
+            if (this.Transform != null)
+            {
+                GameObject.Destroy(this.Transform.gameObject);
+            }
         }
     }
 }
