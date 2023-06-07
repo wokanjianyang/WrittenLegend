@@ -26,11 +26,14 @@ namespace Game
         DamageResist = 13, //伤害减少
         AttIncrea = 14, //攻击加成
         HpIncrea = 15, //生命加成
-        DefIncrea = 16,
+        DefIncrea = 16,//防御加成
         InheritIncrea = 17, //继承加成
         ExpIncrea = 18, //经验加成
         BurstIncrea = 19, //爆率加成
-        SecondExp = 20, //泡点经验
+        GoldIncrea = 20, //金币加成
+        SecondExp = 21, //泡点经验
+        RestoreHp = 22, //固定回血数值
+        RestoreHpPercent = 23,//百分比回血数值
         WarriorSkillPercent = 41, //战士技能百分比系数
         WarriorSkillDamage = 42, //战士技能固定系数
         MageSkillPercent = 43, //法师技能百分比系数

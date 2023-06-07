@@ -22,6 +22,9 @@ namespace Game
                 System.IO.StreamReader sr = new System.IO.StreamReader(filePath);
                 string str_json = sr.ReadToEnd();
                 sr.Close();
+
+                str_json = EncryptionHelper.AesDecrypt(str_json);
+
                 //反序列化
                 user = JsonConvert.DeserializeObject<User>(str_json, new JsonSerializerSettings
                 {
@@ -61,6 +64,9 @@ namespace Game
                 return;
             }
 
+            //加密
+            str_json = EncryptionHelper.AesEncrypt(str_json);
+
             //
             string folderPath = System.IO.Path.Combine(Application.persistentDataPath, savePath); //文件夹路径
             System.IO.Directory.CreateDirectory(folderPath);
@@ -77,7 +83,7 @@ namespace Game
             //确认保存
             if (System.IO.File.Exists(filePath))
             {
-                //Log.Debug("保存成功");
+                Log.Debug("保存成功");
             }
             else
                 Log.Debug("保存失败");

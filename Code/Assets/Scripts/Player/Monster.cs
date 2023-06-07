@@ -89,17 +89,7 @@ namespace Game
             long exp = this.Exp * (100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.ExpIncrea)) / 100;
 
             //增加经验,金币
-
-            user.Exp += exp;
-            user.Gold += this.Gold;
-            user.EventCenter.Raise(new HeroInfoUpdateEvent());
-            if (user.Exp >= user.UpExp)
-            {
-                user.EventCenter.Raise(new HeroChangeEvent
-                {
-                    Type = UserChangeType.LevelUp
-                });
-            }
+            user.AddExpAndGold(exp, Gold);
 
             //生成道具奖励
             int mapLevel = user.Level / 10 * 10;
@@ -123,7 +113,7 @@ namespace Game
             }
 
             //存档
-            UserData.Save();
+            //UserData.Save();
         }
     }
 }

@@ -31,7 +31,7 @@ namespace Game
             this.OnHeroInfoUpdateEvent(null);
             this.tmp_BattlePower.text = $"战力：{user.AttributeBonus.GetPower()}"; 
             user.EventCenter.AddListener<SetPlayerLevelEvent>(this.OnSetPlayerLevelEvent);
-            user.EventCenter.AddListener<HeroInfoUpdateEvent>(this.OnHeroInfoUpdateEvent);
+            user.EventCenter.AddListener<UserInfoUpdateEvent>(this.OnHeroInfoUpdateEvent);
         }
 
         // Start is called before the first frame update
@@ -51,7 +51,7 @@ namespace Game
             this.tmp_Level.text = $"{e.Level}级";
         }
 
-        private void OnHeroInfoUpdateEvent(HeroInfoUpdateEvent e)
+        private void OnHeroInfoUpdateEvent(UserInfoUpdateEvent e)
         {
             this.tmp_Gold.text = $"金币:{this.user.Gold}";
             this.tmp_BattlePower.text = $"战力：{user.AttributeBonus.GetPower()}";

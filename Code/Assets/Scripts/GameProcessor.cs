@@ -33,6 +33,8 @@ namespace Game
         private List<Coroutine> delayActionIEs = new List<Coroutine>();
 
         private bool isLoadMap = false;
+        private long saveTime = 0;
+
         void Awake()
         {
             if (Inst != null)
@@ -112,25 +114,27 @@ namespace Game
                         long exp = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp) * calTk;
                         if (exp > 0)
                         {
-                            user.Exp += exp;
-                            //Debug.Log("经验:" + user.Exp);
+                            user.AddExpAndGold(exp, 0);
 
                             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
                             {
                                 Message = BattleMsgHelper.BuildSecondExpMessage(exp)
                             });
-                            user.EventCenter.Raise(new HeroInfoUpdateEvent());
-
-                            if (user.Exp >= user.UpExp)
-                            {
-                                user.EventCenter.Raise(new HeroChangeEvent
-                                {
-                                    Type = UserChangeType.LevelUp
-                                });
-                            }
                         }
                     }
                 }
+            }
+
+            //每分钟存档一次
+            long ct = TimeHelper.ClientNowSeconds();
+            if (saveTime == 0)
+            {
+                saveTime = ct;
+            }
+            if (ct - saveTime > 60)
+            {
+                saveTime = ct;
+                UserData.Save();
             }
         }
 

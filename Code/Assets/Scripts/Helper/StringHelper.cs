@@ -113,5 +113,39 @@ namespace Game
 
 			return result;
 		}
+
+		public static string FormatNumber(long val) {
+			return FormatNumber(val.ToString(), "");
+		}
+
+		private static string FormatNumber(string val, string unit)
+		{
+			string src;
+
+			if (val.Length > 9)
+			{
+				unit = "亿" + unit;
+				src = val.Substring(0, val.Length - 8);
+			}
+			else if (val.Length >= 6)
+			{
+				unit = "万" + unit;
+				src = val.Substring(0, val.Length - 4);
+			}
+			else
+			{
+				return val + unit;
+			}
+
+			if (src.Length < 3)
+			{ //加上点
+				src += "." + val.Substring(src.Length, 4);
+				return src + unit;
+			}
+			else
+			{
+				return FormatNumber(src, unit);
+			}
+		}
 	}
 }

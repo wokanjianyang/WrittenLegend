@@ -49,7 +49,7 @@ namespace Game
         {
             SkillToBattle(e.SkillPanel);
 
-            UserData.Save(); //修改技能后，存档
+            //UserData.Save(); //修改技能后，存档
         }
 
         private void SkillToBattle(SkillPanel skill) {

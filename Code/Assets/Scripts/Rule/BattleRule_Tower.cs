@@ -97,6 +97,6 @@ public class BattleRule_Tower : ABattleRule
         });
 
         //´æµµ
-        UserData.Save();
+        //UserData.Save();
     }
 }

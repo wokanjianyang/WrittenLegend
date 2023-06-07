@@ -41,7 +41,7 @@ namespace Game
             {
                 case ProgressType.PlayerExp:
                     this.OnHeroInfoUpdateEvent(null);
-                    user.EventCenter.AddListener<HeroInfoUpdateEvent>(this.OnHeroInfoUpdateEvent);
+                    user.EventCenter.AddListener<UserInfoUpdateEvent>(this.OnHeroInfoUpdateEvent);
                     break;
                 case ProgressType.SkillExp:
                     break;
@@ -50,23 +50,23 @@ namespace Game
         public void SetProgress(long current, long total)
         {
             var value = current * 1f / total;
-            if(value>1)
+            if (value > 1)
             {
                 value = 1;
                 current = total;
             }
             this.img_Progress.fillAmount = value;
-            switch(this.ProgressType)
+            switch (this.ProgressType)
             {
                 case ProgressType.PlayerExp:
-                    this.tmp_Progress.text = string.Format("EXP:{0}/{1}",current,total);
+                    this.tmp_Progress.text = string.Format("EXP:{0}/{1}", StringHelper.FormatNumber(current), StringHelper.FormatNumber(total));
                     break;
                 default:
-                    this.tmp_Progress.text = string.Format("{0}/{1}", current, total);
+                    this.tmp_Progress.text = string.Format("{0}/{1}", StringHelper.FormatNumber(current), StringHelper.FormatNumber(total));
                     break;
             }
         }
-        private void OnHeroInfoUpdateEvent(HeroInfoUpdateEvent e)
+        private void OnHeroInfoUpdateEvent(UserInfoUpdateEvent e)
         {
             this.SetProgress(this.user.Exp, this.user.UpExp);
         }

@@ -16,6 +16,20 @@ namespace Game
             this.GroupId = 1;
 
             this.Init();
+
+            this.EventCenter.AddListener<HeroLevelUp>(LevelUp);
+        }
+
+        private void LevelUp(HeroLevelUp e)
+        {
+            User user = GameProcessor.Inst.User;
+            this.Level = user.Level;
+
+            LevelConfig config = LevelConfigCategory.Instance.Get(Level);
+            this.Config = config;
+
+            this.SetAttr(user);  //设置属性值
+            this.Logic.SetData(null); //设置UI
         }
 
         private void Init()
@@ -99,5 +113,7 @@ namespace Game
                 }
             }
         }
+
+
     }
 }

@@ -295,6 +295,18 @@ namespace Game
             UpdatePlayerInfo();
         }
 
+        public void AddExpAndGold(long exp, long gold)
+        {
+            this.Exp += exp;
+            this.Gold += this.Gold;
+            EventCenter.Raise(new UserInfoUpdateEvent()); //¸üÐÂUI
+
+            if (Exp >= UpExp)
+            {
+                GameProcessor.Inst.StartCoroutine(LevelUp()); //Éý¼¶
+            }
+        }
+
         IEnumerator LevelUp()
         {
             while (this.Exp >= this.UpExp && this.Level < PlayerHelper.Max_Level)
@@ -306,7 +318,8 @@ namespace Game
                 SetAttr();
 
                 EventCenter.Raise(new SetPlayerLevelEvent { Level = Level.ToString() });
-                EventCenter.Raise(new HeroInfoUpdateEvent());
+                EventCenter.Raise(new UserInfoUpdateEvent());
+                EventCenter.Raise(new HeroLevelUp());
 
                 yield return new WaitForSeconds(0.2f);
             }

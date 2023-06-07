@@ -152,7 +152,7 @@ namespace Game
             {
                 this.RmoveEquipment(e.Position, equip);
             }
-            UserData.Save();
+            //UserData.Save();
         }
         private void OnSkillBookEvent(SkillBookEvent e)
         {
@@ -167,13 +167,13 @@ namespace Game
             });
         }
 
-        private void OnRecoveryEvent(RecoveryEvent e) {
+        private void OnRecoveryEvent(RecoveryEvent e)
+        {
             User user = GameProcessor.Inst.User;
 
             UseBoxItem(e.BoxId);
 
-            user.Gold += e.Item.Gold;
-            user.EventCenter.Raise(new HeroInfoUpdateEvent());
+            user.AddExpAndGold(0, e.Item.Gold);
         }
 
         private void OnAutoRecoveryEvent(AutoRecoveryEvent e)
@@ -184,14 +184,12 @@ namespace Game
 
             foreach (BoxItem box in recoveryList)
             {
-                user.Gold += box.Item.Gold * box.Number;
+                user.AddExpAndGold(0, box.Item.Gold * box.Number);
 
                 //Log.Debug("自动回收:" + box.Item.Name + " " + box.Number + "个");
 
                 box.Number = 0;
                 UseBoxItem(box.BoxId);
-
-                user.EventCenter.Raise(new HeroInfoUpdateEvent());
             }
         }
 
@@ -211,8 +209,7 @@ namespace Game
 
             if (gold > 0)
             {
-                user.Gold += gold;
-                user.EventCenter.Raise(new HeroInfoUpdateEvent());
+                user.AddExpAndGold(0,gold);
             }
         }
             
@@ -356,7 +353,7 @@ namespace Game
                 Equip = equip
             });
 
-            UserData.Save();
+            //UserData.Save();
         }
         private void OnHeroBagUpdateEvent(HeroBagUpdateEvent e)
         {
