@@ -137,7 +137,7 @@ namespace Game
             var go = GameObject.Instantiate(prefab);
             var comItem = go.GetComponent<Com_Box>();
             comItem.SetBoxId(item.BoxId);
-            comItem.SetItem(item.Item);
+            comItem.SetItem(item);
             return comItem;
         }
         private void OnEquipOneEvent(EquipOneEvent e)
@@ -249,9 +249,9 @@ namespace Game
             if (boxItem != null)
             {  //堆叠UI
                 var item = this.items.Find(b => b.boxId == boxItem.BoxId);
-                item.AddStack();
+                item.AddStack(newItem.Quantity);
 
-                boxItem.AddStack();
+                boxItem.AddStack(newItem.Quantity);
             }
             else
             {

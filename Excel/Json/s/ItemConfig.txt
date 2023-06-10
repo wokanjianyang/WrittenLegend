@@ -20,4 +20,5 @@
 {"_t":"ItemConfig","_id":3005,"Name":"道力盾","Type":3,"Des":"学习或者升级3技能“道力盾”","Price":2147483647,"MaxNum":99,"LevelRequired":40,"Quality":4,"UseParam":50},
 {"_t":"ItemConfig","_id":3006,"Name":"道力精通","Type":3,"Des":"学习或者升级3技能“道力精通”","Price":2147483647,"MaxNum":99,"LevelRequired":50,"Quality":4,"UseParam":50},
 {"_t":"ItemConfig","_id":3007,"Name":"召唤神兽","Type":3,"Des":"学习或者升级3技能“召唤神兽”","Price":2147483647,"MaxNum":99,"LevelRequired":60,"Quality":4,"UseParam":50},
+{"_t":"ItemConfig","_id":4001,"Name":"魂环碎片","Type":5,"Des":"合成魂环的材料","Price":1,"MaxNum":99999999,"LevelRequired":0,"Quality":4,"UseParam":0},
 ]}

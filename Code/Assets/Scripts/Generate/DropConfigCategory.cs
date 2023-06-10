@@ -7,7 +7,7 @@ namespace Game
 
     public partial class DropConfigCategory
     {
-        public List<KeyValuePair<int, DropConfig>> GetByMapLevel(int mapLevel)
+        public List<KeyValuePair<int, DropConfig>> GetByMapLevel(int mapLevel, int rate)
         {
             List<KeyValuePair<int, DropConfig>> list = new List<KeyValuePair<int, DropConfig>>();
 
@@ -18,7 +18,7 @@ namespace Game
                 for (int i = 0; i < map.DropIdList.Length; i++)
                 {
                     DropConfig dropConfig = this.Get(map.DropIdList[i]);
-                    list.Add(new KeyValuePair<int, DropConfig>(map.DropRateList[i], dropConfig));
+                    list.Add(new KeyValuePair<int, DropConfig>(map.DropRateList[i] * rate, dropConfig));
                 }
             }
 
@@ -26,14 +26,15 @@ namespace Game
         }
     }
 
-    public enum DropItemType {
+    public enum DropItemType
+    {
         normal = 1,
         equip = 2,
     }
 
     public class DropHelper
     {
-        public static List<Item> BuildDropItem(List<KeyValuePair<int, DropConfig>> dropList,int minQuanlity)
+        public static List<Item> BuildDropItem(List<KeyValuePair<int, DropConfig>> dropList, int minQuanlity)
         {
             List<Item> list = new List<Item>();
 
@@ -50,7 +51,7 @@ namespace Game
 
                     if (config.ItemType == (int)DropItemType.equip)
                     {
-                        item = EquipHelper.BuildEquip(config.ItemIdList[index],minQuanlity);
+                        item = EquipHelper.BuildEquip(config.ItemIdList[index], minQuanlity);
                     }
                     else
                     {
@@ -60,6 +61,14 @@ namespace Game
                 }
             }
             return list;
+        }
+
+        public static Item BuildSoulRingShard(int quantity)
+        {
+            Item item = ItemHelper.BuildItem(4001);
+            item.Quantity = Math.Max(1, quantity);
+
+            return item;
         }
     }
 }

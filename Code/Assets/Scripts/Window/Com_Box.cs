@@ -17,7 +17,7 @@ namespace Game
         [LabelText("数量")]
         public Text tmp_Count;
 
-        public Item Item { get; private set; }
+        public BoxItem Item { get; private set; }
         public int boxId { get; private set; }
 
         public int EquipPosition { get; private set; }
@@ -41,7 +41,7 @@ namespace Game
             GameProcessor.Inst.EventCenter.Raise(new ShowEquipDetailEvent()
             {
                 Position = this.transform.position,
-                Item = this.Item,
+                Item = this.Item.Item,
                 BoxId = this.boxId,
                 EquipPosition = this.EquipPosition
             });
@@ -55,13 +55,16 @@ namespace Game
         public void OnPointerDown(PointerEventData eventData)
         {
         }
-        public void SetItem(Item item)
+        public void SetItem(BoxItem item)
         {
-            this.tmp_Title.text = item.Name;
+            this.tmp_Title.text = item.Item.Name;
 
             this.Item = item;
 
-            this.Count = 1;
+            this.Count = item.Number;
+
+            this.tmp_Count.transform.gameObject.SetActive(this.Count > 1);
+            this.tmp_Count.text = this.Count.ToString();
         }
 
         public void SetBoxId(int id)
@@ -74,9 +77,9 @@ namespace Game
             this.EquipPosition = position;
         }
 
-        public void AddStack()
+        public void AddStack(int quantity)
         {
-            this.Count++;
+            this.Count+= quantity;
             this.tmp_Count.transform.gameObject.SetActive(this.Count > 1);
             this.tmp_Count.text = this.Count.ToString();
         }

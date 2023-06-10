@@ -10,7 +10,7 @@ namespace Game
         public int BossId;
         public int MapId;
         BossConfig Config { get; set; }
-        public int Quality { get;  }
+        public int Quality { get; }
 
         public int GoldRate;
         public long Gold;
@@ -18,7 +18,7 @@ namespace Game
         public float Def;
         public long Exp;
 
-        public Boss(int bossId,int mapId) : base()
+        public Boss(int bossId, int mapId) : base()
         {
             this.BossId = bossId;
             this.MapId = mapId;
@@ -61,7 +61,8 @@ namespace Game
             SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
         }
 
-        private void SetSkill() {
+        private void SetSkill()
+        {
             //加载技能
             List<SkillData> list = new List<SkillData>();
             list.Add(new SkillData(9001, (int)SkillPosition.Default)); //增加默认技能
@@ -91,8 +92,10 @@ namespace Game
 
             //生成道具奖励
             int mapLevel = user.Level / 10 * 10;
-            List<KeyValuePair<int, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(mapLevel);
-            List<Item> items = DropHelper.BuildDropItem(dropList,0);
+            List<KeyValuePair<int, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(mapLevel, 10);
+
+            List<Item> items = DropHelper.BuildDropItem(dropList, 0);
+            items.Add(DropHelper.BuildSoulRingShard(mapLevel));
 
             if (items.Count > 0)
             {

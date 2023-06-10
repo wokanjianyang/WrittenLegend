@@ -30,7 +30,13 @@ namespace Game
                 drops = ",掉落";
                 foreach (var drop in Drops)
                 {
-                    drops += $"<color=#{QualityConfigHelper.GetColor(drop.GetQuality())}>[{drop.Name}]</color>";
+                    string qt = "";
+                    if (drop.Quantity > 1)
+                    {
+                        qt = "*" + drop.Quantity;
+                    }
+
+                    drops += $"<color=#{QualityConfigHelper.GetColor(drop.GetQuality())}>[{drop.Name}]</color>" + qt;
                 }
             }
 

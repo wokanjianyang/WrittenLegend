@@ -319,7 +319,12 @@ namespace Game
 
                 EventCenter.Raise(new SetPlayerLevelEvent { Level = Level.ToString() });
                 EventCenter.Raise(new UserInfoUpdateEvent());
-                EventCenter.Raise(new HeroLevelUp());
+
+                var hero = GameProcessor.Inst.PlayerManager.GetHero();
+                if (hero != null)
+                {
+                    hero.EventCenter.Raise(new HeroLevelUp());
+                }
 
                 yield return new WaitForSeconds(0.2f);
             }

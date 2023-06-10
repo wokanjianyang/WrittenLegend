@@ -17,9 +17,9 @@ namespace Game
 
         public int BoxId { get; set; }
 
-        public void AddStack()
+        public void AddStack(int quantity)
         {
-            this.Number++;
+            this.Number+= quantity;
         }
 
         public void RemoveStack() {

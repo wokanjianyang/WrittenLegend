@@ -63,7 +63,8 @@ namespace Game
             SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
         }
 
-        private void SetSkill() {
+        private void SetSkill()
+        {
             //加载技能
             List<SkillData> list = new List<SkillData>();
             list.Add(new SkillData(9001, (int)SkillPosition.Default)); //增加默认技能
@@ -93,8 +94,9 @@ namespace Game
 
             //生成道具奖励
             int mapLevel = user.Level / 10 * 10;
-            List<KeyValuePair<int, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(mapLevel);
+            List<KeyValuePair<int, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(mapLevel, 1);
             List<Item> items = DropHelper.BuildDropItem(dropList, Quality);
+            items.Add(DropHelper.BuildSoulRingShard(mapLevel/10));
 
             if (items.Count > 0)
             {

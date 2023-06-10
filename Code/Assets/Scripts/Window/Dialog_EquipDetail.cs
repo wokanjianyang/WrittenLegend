@@ -212,6 +212,12 @@ namespace Game
                         this.btn_Upgrade.gameObject.SetActive(false);
                     }
                     break;
+                case ItemType.Material: {
+                        tran_NormalAttribute.gameObject.SetActive(true);
+                        tran_NormalAttribute.Find("Title").GetComponent<Text>().text = item.ItemConfig.Des;
+                        tran_NormalAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.item.Level);
+                    }
+                    break;
                 default:
                     Log.Debug("未知的类型");
                     break;

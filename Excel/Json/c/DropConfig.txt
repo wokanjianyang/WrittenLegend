@@ -41,4 +41,5 @@
 {"_t":"DropConfig","_id":300040,"Level":40,"Name":"40级技能书","Quantity":1,"ItemType":3,"ItemIdList":[1005,2005,3005]},
 {"_t":"DropConfig","_id":300050,"Level":50,"Name":"50级技能书","Quantity":1,"ItemType":3,"ItemIdList":[1006,2006,3006]},
 {"_t":"DropConfig","_id":300060,"Level":60,"Name":"60级技能书","Quantity":1,"ItemType":3,"ItemIdList":[1007,2007,3007]},
+{"_t":"DropConfig","_id":101,"Level":0,"Name":"4件套装备","Quantity":1,"ItemType":2,"ItemIdList":[101,201,301,401]},
 ]}

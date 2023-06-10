@@ -7,7 +7,8 @@ namespace Game
 {
     public class Item
     {
-        public Item() { 
+        public int Quantity { get; set; }
+        protected Item() { 
 
         }
         public Item(int configId) {
@@ -20,6 +21,7 @@ namespace Game
             this.Level = ItemConfig.LevelRequired;
             this.Gold = ItemConfig.Price;
             this.MaxNum = ItemConfig.MaxNum;
+            this.Quantity = 1;
         }
 
         public int ConfigId
@@ -73,5 +75,6 @@ namespace Game
         Equip = 2,
         SkillBox =3,
         GiftPack = 4,
+        Material =5
     }
 }
