@@ -35,6 +35,10 @@ namespace Game
             {nameof(AttributeEnum.InheritIncrea), "继承加成" },
             {nameof(AttributeEnum.ExpIncrea), "经验加成" },
             {nameof(AttributeEnum.BurstIncrea), "爆率加成" },
+            {nameof(AttributeEnum.GoldIncrea), "金币加成" },
+            {nameof(AttributeEnum.SecondExp), "泡点经验" },
+            {nameof(AttributeEnum.RestoreHp), "每秒回血" },
+            {nameof(AttributeEnum.RestoreHpPercent), "每秒回血上限" },
         };
     }
 }

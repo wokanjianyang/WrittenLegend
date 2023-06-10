@@ -93,7 +93,14 @@ namespace Game
         腰带 = 9,
         [LabelText("鞋子")]
         鞋子 = 10,
-
+        [LabelText("斗笠")]
+        斗笠 = 11,
+        [LabelText("护盾")]
+        护盾 = 12,
+        [LabelText("神符")]
+        神符 = 13,
+        [LabelText("魔石")]
+        魔石 = 14,
     }
     public enum ProgressType
     {
