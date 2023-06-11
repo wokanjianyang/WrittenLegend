@@ -7,9 +7,11 @@ namespace Game
 {
     public class Com_MapName : MonoBehaviour
     {
-        private Button btn_MapName;
+        public Button btn_MapName;
+        public Image Icon;
 
         private ViewBattleProcessor.MapNameData Data;
+
         
         // Start is called before the first frame update
         void Start()
@@ -27,7 +29,7 @@ namespace Game
 
         private void OnClick_MapName()
         {
-            //Log.Debug(Data.Name);
+            Log.Debug(Data.Name);
         }
     }
 }
