@@ -36,6 +36,9 @@ namespace Game
         [LabelText("称号")]
         public Button btn_PlayerTitle;
 
+        [LabelText("设置")]
+        public Button btn_Setting;
+        
         private List<Com_Box> items;
 
 
@@ -43,6 +46,7 @@ namespace Game
         void Start()
         {
             this.btn_PlayerTitle.onClick.AddListener(this.OnClick_PlayerTitle);
+            this.btn_Setting.onClick.AddListener(this.OnClick_Setting);
         }
 
         // Update is called once per frame
@@ -398,6 +402,11 @@ namespace Game
             dialog.Show();
 
 
+        }
+        
+        public void OnClick_Setting()
+        {
+            GameProcessor.Inst.EventCenter.Raise(new EquipRecoveryEvent());
         }
 
         public void OnAdStateCallBack(int rv, AdStateEnum state, AdTypeEnum adType)
