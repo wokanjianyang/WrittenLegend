@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3671849524
+CRC: 1370688767
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: a642242e6a11b513d6ad242cc23fef7d
+    Hash: bbb1627017c5a06bd16827eb5dacbe7a
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -33,5 +33,6 @@ Assets:
 - Assets/Resources/Config/BossConfigCategory.bytes
 - Assets/Resources/Config/EffectConfigCategory.bytes
 - Assets/Resources/Config/TowerConfigCategory.bytes
+- Assets/Resources/Config/SynthesisConfigCategory.bytes
 - Assets/Resources/Config/RewardConfigCategory.bytes
 Dependencies: []
