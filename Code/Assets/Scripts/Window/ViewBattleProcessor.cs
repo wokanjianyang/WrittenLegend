@@ -17,10 +17,19 @@ namespace Game
         [Title("世界地图")]
         [LabelText("地图信息")]
         public ScrollRect sr_WorldMap;
+
+        [LabelText("BOSS信息")]
+        public Button btn_BossInfo;
         
         private bool isViewMapShowing = false;
 
         private GameObject msgPrefab;
+        
+        void Start()
+        {
+            this.btn_BossInfo.onClick.AddListener(this.OnClick_BossInfo);
+
+        }
 
         protected override bool CheckPageType(ViewPageType page)
         {
@@ -256,6 +265,11 @@ namespace Game
 
                 }
             }
+        }
+        
+        private void OnClick_BossInfo()
+        {
+            GameProcessor.Inst.EventCenter.Raise(new BossInfoEvent());
         }
     }
 }
