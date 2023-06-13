@@ -76,6 +76,7 @@ namespace Game
         View_Map,
         View_Skill,
         View_Tower,
+        View_Forge
     }
 
     public enum TouchIgnoreType

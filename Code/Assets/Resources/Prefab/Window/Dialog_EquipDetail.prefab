@@ -1283,7 +1283,7 @@ MonoBehaviour:
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
+    m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "[\u57FA\u7840\u5C5E\u6027]"
@@ -2334,7 +2334,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: " \u2022(2)\u4EF6\u89E6\u53D1:\u63D0\u5347100%\u96F7\u7535\u672F\u4F24\u5BB3"
 --- !u!1 &3092928759440454832
@@ -3753,7 +3753,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: " \u2022\u96F7\u7535\u4F7F\u8005(2/2)"
 --- !u!1 &7048034016386700396
@@ -4483,7 +4483,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: " \u2022\u4F7F\u96F7\u7535\u672F\u53D8\u4E3A\u7FA4\u96F7\u672F"
 --- !u!1 &7734086531243081192

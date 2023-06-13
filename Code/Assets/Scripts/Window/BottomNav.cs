@@ -24,6 +24,9 @@ namespace Game
         [LabelText("技能")]
         public Button btn_Skill;
 
+        [LabelText("锻造")]
+        public Button btn_Forge;
+        
         // Start is called before the first frame update
         void Start()
         {
@@ -32,6 +35,7 @@ namespace Game
             this.btn_Map.onClick.AddListener(this.OnClick_Map);
             this.btn_Tower.onClick.AddListener(this.OnClick_Tower);
             this.btn_Skill.onClick.AddListener(this.OnClick_Skill);
+            this.btn_Forge.onClick.AddListener(this.OnClick_Forge);
         }
 
         // Update is called once per frame
@@ -59,6 +63,11 @@ namespace Game
         private void OnClick_Skill()
         {
             this.ChangePage(ViewPageType.View_Skill);
+        }
+        
+        private void OnClick_Forge()
+        {
+            this.ChangePage(ViewPageType.View_Forge);
         }
 
         private void ChangePage(ViewPageType page)
