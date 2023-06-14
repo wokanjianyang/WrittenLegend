@@ -23,4 +23,8 @@ public class Com_BossInfoItem : MonoBehaviour
     {
         
     }
+
+    public void SetContent(string name) {
+        txt_BossName.text = name;
+    }
 }

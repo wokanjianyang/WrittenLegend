@@ -19,11 +19,11 @@ namespace Game
 			return byteArray;
 		}
 
-	    public static byte[] ToUtf8(this string str)
-	    {
-            byte[] byteArray = Encoding.UTF8.GetBytes(str);
-            return byteArray;
-        }
+		public static byte[] ToUtf8(this string str)
+		{
+			byte[] byteArray = Encoding.UTF8.GetBytes(str);
+			return byteArray;
+		}
 
 		public static byte[] HexToBytes(this string hexString)
 		{
@@ -58,7 +58,7 @@ namespace Game
 			}
 			return sb.ToString();
 		}
-		
+
 		public static string ArrayToString<T>(this T[] args)
 		{
 			if (args == null)
@@ -79,7 +79,7 @@ namespace Game
 			argStr += "]";
 			return argStr;
 		}
-        
+
 		public static string ArrayToString<T>(this T[] args, int index, int count)
 		{
 			if (args == null)
@@ -114,7 +114,8 @@ namespace Game
 			return result;
 		}
 
-		public static string FormatNumber(long val) {
+		public static string FormatNumber(long val)
+		{
 			return FormatNumber(val.ToString(), "");
 		}
 
@@ -127,7 +128,7 @@ namespace Game
 				unit = "亿" + unit;
 				src = val.Substring(0, val.Length - 8);
 			}
-			else if (val.Length >= 6)
+			else if (val.Length > 5)
 			{
 				unit = "万" + unit;
 				src = val.Substring(0, val.Length - 4);
@@ -137,9 +138,13 @@ namespace Game
 				return val + unit;
 			}
 
-			if (src.Length < 3)
-			{ //加上点
-				src += "." + val.Substring(src.Length, 4);
+			if (src.Length < 4)
+			{   //加上点
+				string scale = val.Substring(src.Length, 4 - src.Length).TrimEnd('0');
+				if (scale.Length > 0) //小数位全是0,不显示
+				{
+					src += "." + scale;
+				}
 				return src + unit;
 			}
 			else
