@@ -85,4 +85,8 @@ namespace Game
     {
 
     }
+    public class BossInfoEvent : SDD.Events.Event
+    {
+
+    }
 }

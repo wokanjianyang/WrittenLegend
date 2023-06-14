@@ -53,15 +53,15 @@ namespace Game
             {
                 case TouchIgnoreType.HideWithTouchEmpty:
                     block = true;
-                    foreach (var rect in this.rectTransforms)
-                    {
-                        var ret = RectTransformUtility.RectangleContainsScreenPoint(rect, point);
-                        if (ret)
-                        {
-                            block = false;
-                            break;
-                        }
-                    }
+                    // foreach (var rect in this.rectTransforms)
+                    // {
+                    //     var ret = RectTransformUtility.RectangleContainsScreenPoint(rect, point);
+                    //     if (ret)
+                    //     {
+                    //         block = false;
+                    //         break;
+                    //     }
+                    // }
                     break;
                 case TouchIgnoreType.HideWithCloseBtn:
                     block = false;
