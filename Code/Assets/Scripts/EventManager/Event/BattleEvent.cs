@@ -94,4 +94,9 @@ namespace Game
     {
         public int MapId { get; set; }
     }
+
+    public class EquipStrengthSelectEvent : SDD.Events.Event
+    {
+        public int Position { get; set; }
+    }
 }

@@ -36,6 +36,8 @@ namespace Game
 
         public IDictionary<int, Equip> EquipPanel { get; set; } = new Dictionary<int, Equip>();
 
+        public IDictionary<int, int> EquipStrength { get; set; } = new Dictionary<int, int>();
+
         [JsonIgnore]
         public IDictionary<int, int> EquipRecord { get; set; } = new Dictionary<int, int>();
 

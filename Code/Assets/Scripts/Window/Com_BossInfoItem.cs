@@ -13,7 +13,7 @@ public class Com_BossInfoItem : MonoBehaviour
     public Text txt_Time;
     public Text txt_Statu;
 
-    private MapConfig mapConfig;
+    public MapConfig mapConfig { get; set; }
     private BossConfig bossConfig;
     private long killTime = 0;
 
@@ -45,6 +45,13 @@ public class Com_BossInfoItem : MonoBehaviour
 
         txt_MapName.text = mapConfig.Name;
         txt_BossName.text = bossConfig.Name;
+
+        RefeshTime();
+    }
+
+    public void SetKillTime(long killTime)
+    {
+        this.killTime = killTime;
 
         RefeshTime();
     }
