@@ -29,6 +29,7 @@ namespace Game
 
         private void OnClick_MapName()
         {
+            GameProcessor.Inst.EventCenter.Raise(new ChangeMapEvent() { MapId = Data.Id });
             Log.Debug(Data.Name);
         }
     }

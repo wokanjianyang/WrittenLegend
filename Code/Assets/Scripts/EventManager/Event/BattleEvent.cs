@@ -63,7 +63,7 @@ namespace Game
     }
 
     public class AutoRecoveryEvent : SDD.Events.Event
-    { 
+    {
     }
     public class BagUseEvent : SDD.Events.Event
     {
@@ -80,7 +80,7 @@ namespace Game
     {
 
     }
-    
+
     public class EquipRecoveryEvent : SDD.Events.Event
     {
 
@@ -88,5 +88,10 @@ namespace Game
     public class BossInfoEvent : SDD.Events.Event
     {
 
+    }
+
+    public class ChangeMapEvent : SDD.Events.Event
+    {
+        public int MapId { get; set; }
     }
 }

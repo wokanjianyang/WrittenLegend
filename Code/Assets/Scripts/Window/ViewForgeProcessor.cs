@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class ViewForgeProcessor : AViewPage
 {
+    public Transform tran_EquiList;
 
     public Text Txt_Fee;
 
@@ -17,6 +18,9 @@ public class ViewForgeProcessor : AViewPage
     {
         Btn_Strengthen.onClick.AddListener(OnClick_Strengthen);
         Btn_Strengthen_Batch.onClick.AddListener(OnClick_Strengthen_Batch);
+
+        var equipList = tran_EquiList.GetComponentsInChildren<SlotBox>();
+
 
         Txt_Fee.text = "100";
     }

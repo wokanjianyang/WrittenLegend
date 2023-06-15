@@ -53,7 +53,8 @@ namespace Game
             this.msgPrefab = Resources.Load<GameObject>("Prefab/Window/Item_DropMsg");
 
             GameProcessor.Inst.EventCenter.AddListener<BattleMsgEvent>(this.OnBattleMsgEvent);
-            
+            GameProcessor.Inst.EventCenter.AddListener<ChangeMapEvent>(this.OnChangeMapEvent);
+
             //加载世界地图
             this.LoadWroldMap();
         }
@@ -89,6 +90,16 @@ namespace Game
 
             //    this.sr_BattleMsg.normalizedPosition = new Vector2(0, 0);
             //}
+        }
+
+        private void OnChangeMapEvent(ChangeMapEvent e)
+        {
+            User user = GameProcessor.Inst.User;
+            user.MapId = e.MapId;
+
+            GameProcessor.Inst.OnDestroy();
+            var map = GameObject.Find("Canvas").GetComponentInChildren<ViewBattleProcessor>(true).transform;
+            GameProcessor.Inst.LoadMap(RuleType.Normal, 0, map);
         }
 
         public class MapNameData

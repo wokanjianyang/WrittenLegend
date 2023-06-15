@@ -48,11 +48,14 @@ namespace Game
             }
 
             User user = GameProcessor.Inst.User;
-            int level = user.Level;
-            MapConfig mapConfig = MapConfigCategory.Instance.GetAll().Where(m => m.Value.LevelRequired <= level && m.Value.LevelRequired > level - 10).FirstOrDefault().Value;
-            int mapId = mapConfig.Id;
+            if (user.MapId == 0)
+            {
+                user.MapId = MapConfigCategory.Instance.GetAll().First().Value.Id;
+            }
+           
+            MapConfig mapConfig = MapConfigCategory.Instance.Get(user.MapId);;
 
-            if (enemys.Count <= 20) //TODO ���Լ���ˢ������
+            if (enemys.Count <= 20) //TODO 
             {
                 var enemy = MonsterHelper.BuildMonster(mapConfig.LevelRequired);
                 GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
@@ -63,7 +66,7 @@ namespace Game
             {
                 BossConfig bossConfig = BossConfigCategory.Instance.Get(mapConfig.BoosId);
                 long killTime = 1;
-                if (user.MapBossTime.TryGetValue(mapId, out killTime))
+                if (user.MapBossTime.TryGetValue(user.MapId, out killTime))
                 {
                     long currentTime = TimeHelper.ClientNowSeconds();
                     if (killTime == 0 || currentTime - killTime >= mapConfig.BossInterval)

@@ -23,24 +23,33 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
     }
 
     public int Order => (int)ComponentOrder.Dialog;
-    
+
     private void OnBossInfoEvent(BossInfoEvent e)
     {
         this.gameObject.SetActive(true);
 
-        //
-        for (int i = 0; i < 10; i++) {
-            AddItem();
-        }
+        User user = GameProcessor.Inst.User;
 
+        Dictionary<int, long> list = user.MapBossTime;
+        foreach (int MapId in list.Keys)
+        {
+            MapConfig mapConfig = MapConfigCategory.Instance.Get(MapId);
+            if (mapConfig.LevelRequired <= user.Level)
+            {
+                BossConfig bossConfig = BossConfigCategory.Instance.Get(mapConfig.BoosId);
+                BuildItem(mapConfig, bossConfig, list[MapId]);
+            }
+        }
     }
 
-    private void AddItem() {
-        var emptyBook = GameObject.Instantiate(ItemPrefab);
-        var com = emptyBook.GetComponent<Com_BossInfoItem>();
-        com.SetContent("TestBoss");
+    private void BuildItem(MapConfig mapConfig, BossConfig bossConfig, long killTime)
+    {
+        var item = GameObject.Instantiate(ItemPrefab);
+        var com = item.GetComponent<Com_BossInfoItem>();
 
-        emptyBook.transform.SetParent(this.sr_Boss.content);
-        emptyBook.transform.localScale = Vector3.one;
+        com.SetContent(mapConfig, bossConfig, killTime);
+
+        item.transform.SetParent(this.sr_Boss.content);
+        item.transform.localScale = Vector3.one;
     }
 }

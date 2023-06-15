@@ -65,6 +65,9 @@ namespace Game
         {
             this.gameObject.SetActive(false);
 
+            User user = GameProcessor.Inst.User;
+
+
             StringBuilder sb = new StringBuilder();
             var equipToggles = tran_EquipQualityList.GetComponentsInChildren<Toggle>();
             sb.Append("装备自动回收 品质：");
@@ -76,6 +79,7 @@ namespace Game
                     switch (i)
                     {
                         case 0:
+                            user.RecoverySetting.SetQuanlity(1, true);
                             sb.Append("白色,");
                             break;
                         case 1:
@@ -93,8 +97,10 @@ namespace Game
 
             if (toggle_EquipLevel.isOn)
             {
+                string level = dd_EquipLevel.options[dd_EquipLevel.value].text;
                 sb.Append("等级：");
-                sb.Append(dd_EquipLevel.options[dd_EquipLevel.value].text);
+                sb.Append(level);
+                user.RecoverySetting.SetLevel(int.Parse(level));
             }
             
             sb.Append("秘籍自动回收 职业：");
@@ -129,6 +135,8 @@ namespace Game
             }
             
             Log.Debug($"回收设置 {sb.ToString()}");
+
+            UserData.Save();
         }
         
         public void OnClick_Cancle()
