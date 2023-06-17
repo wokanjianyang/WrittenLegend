@@ -300,7 +300,7 @@ namespace Game
         public void AddExpAndGold(long exp, long gold)
         {
             this.Exp += exp;
-            this.Gold += this.Gold;
+            this.Gold += gold;
             EventCenter.Raise(new UserInfoUpdateEvent()); //¸üÐÂUI
 
             if (Exp >= UpExp)

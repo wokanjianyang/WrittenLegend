@@ -16,6 +16,9 @@ public class ViewForgeProcessor : AViewPage
     public Button Btn_Strengthen;
     public Button Btn_Strengthen_Batch;
 
+    private StrenthAttrItem[] AttrList;
+    private StrenthBox[] EquiList;
+
     private int SelectPosition = 1;
 
     // Start is called before the first frame update
@@ -26,19 +29,29 @@ public class ViewForgeProcessor : AViewPage
 
         //var equipList = tran_EquiList.GetComponentsInChildren<SlotBox>();
 
-        var attrList = tran_AttrList.GetComponentsInChildren<StrenthAttrItem>();
-        foreach (var attrTxt in attrList)
+        AttrList = tran_AttrList.GetComponentsInChildren<StrenthAttrItem>();
+        foreach (var attrTxt in AttrList)
         {
             attrTxt.gameObject.SetActive(false);
         }
 
-        Txt_Fee.text = "0";
+        EquiList = tran_EquiList.GetComponentsInChildren<StrenthBox>();
 
-        GameProcessor.Inst.EventCenter.AddListener<EquipStrengthSelectEvent>(this.OnEquipStrengthSelectEvent);
+        Txt_Fee.text = "0";
     }
 
     private void OnEquipStrengthSelectEvent(EquipStrengthSelectEvent e)
     {
+        Debug.Log("SelectPosition:" + e.Position);
+
+        if (e.Position == SelectPosition) {
+            return;
+        }
+
+        //把之前的设为普通状态
+        StrenthBox oldBox = EquiList.Where(m => ((int)m.SlotType) == SelectPosition).First();
+        oldBox.SeSelect(false);
+
         this.SelectPosition = e.Position;
         ShowInfo();
     }
@@ -49,26 +62,77 @@ public class ViewForgeProcessor : AViewPage
         int strengthLevel = 0;
         user.EquipStrength.TryGetValue(SelectPosition, out strengthLevel);
 
-        EquipStrengthConfig config = null;
-        if (strengthLevel > 0)
+        EquipStrengthConfig currentConfig = EquipStrengthConfigCategory.Instance.GetByPositioinAndLevel(SelectPosition, strengthLevel);
+
+        EquipStrengthConfig nextConfig = EquipStrengthConfigCategory.Instance.GetByPositioinAndLevel(SelectPosition, strengthLevel + 1);
+
+        if (nextConfig != null)
         {
-            config = EquipStrengthConfigCategory.Instance.GetAll().Where(m => m.Value.Level == strengthLevel && m.Value.Position == SelectPosition).First().Value;
+            Txt_Fee.text = nextConfig.Fee + "";
         }
 
-        EquipStrengthConfig nextConfig = null;
-        if (strengthLevel < PlayerHelper.Max_Level)
+        EquipStrengthConfig showConfig = currentConfig == null ? nextConfig : currentConfig;
+
+        for (int i = 0; i < AttrList.Length; i++)
         {
-            nextConfig = EquipStrengthConfigCategory.Instance.GetAll().Where(m => m.Value.Level == strengthLevel + 1 && m.Value.Position == SelectPosition).First().Value;
+            if (i < showConfig.AttrList.Length)
+            {
+                int attrId = showConfig.AttrList[i];
+                long currentAttrValue = currentConfig == null ? 0 : currentConfig.AttrValueList[i];
+                long nextAttrValue = nextConfig == null ? 0 : nextConfig.AttrValueList[i];
+
+                string attrName = PlayerHelper.PlayerAttributeMap[((AttributeEnum)attrId).ToString()];
+                string attrCurrent = currentAttrValue == 0 ? "" : currentAttrValue + "";
+                string attrAdd = "+" + (nextAttrValue - currentAttrValue) + "";
+
+                AttrList[i].SetContent(attrName, attrCurrent, attrAdd);
+                AttrList[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                AttrList[i].gameObject.SetActive(false);
+            }
         }
 
-        Txt_Fee.text = nextConfig.Fee + "";
 
+        foreach (var box in EquiList)
+        {
+            int position = ((int)box.SlotType);
+            int level = 0;
+            user.EquipStrength.TryGetValue(position, out level);
 
+            box.SetLevel(level);
+        }
     }
 
     private void OnClick_Strengthen()
     {
-        Debug.Log("qianghua");
+        User user = GameProcessor.Inst.User;
+        int strengthLevel = 0;
+        user.EquipStrength.TryGetValue(SelectPosition, out strengthLevel);
+
+        if (strengthLevel >= user.Level)
+        {
+            //
+            Debug.Log("Cant Strengthen Than User Level");
+            return;
+        }
+
+        EquipStrengthConfig config = EquipStrengthConfigCategory.Instance.GetByPositioinAndLevel(SelectPosition, strengthLevel + 1);
+
+        if (user.Gold < config.Fee)
+        {
+            Debug.Log("not enough gold");
+            return;
+        }
+
+        user.EquipStrength[SelectPosition] = strengthLevel + 1;
+
+        user.UpdatePlayerInfo();
+
+        ShowInfo();
+
+        Debug.Log("Strengthen Success");
     }
     private void OnClick_Strengthen_Batch()
     {
@@ -83,5 +147,9 @@ public class ViewForgeProcessor : AViewPage
     public override void OnBattleStart()
     {
         base.OnBattleStart();
+
+        GameProcessor.Inst.EventCenter.AddListener<EquipStrengthSelectEvent>(this.OnEquipStrengthSelectEvent);
+
+        ShowInfo();
     }
 }

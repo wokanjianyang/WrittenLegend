@@ -86,9 +86,10 @@ namespace Game
             User user = GameProcessor.Inst.User;
 
             long exp = this.Exp * (100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.ExpIncrea)) / 100;
+            long gold = this.Gold * (100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.GoldIncrea)) / 100;
 
             //增加经验,金币
-            user.AddExpAndGold(exp, Gold);
+            user.AddExpAndGold(exp, gold);
 
             //生成道具奖励
             int mapLevel = user.Level / 10 * 10;
