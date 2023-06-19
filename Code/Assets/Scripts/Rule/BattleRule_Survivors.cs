@@ -84,7 +84,7 @@ namespace Game
                 {
                     enemy.DoEvent();
                 }
-                var monster = MonsterHelper.BuildMonster(hero.Level);
+                var monster = MonsterHelper.BuildMonster(hero.Level, hero.Level + 10);
 
                 var player = GameProcessor.Inst.PlayerManager.LoadMonster(monster);
                 if (player != null)

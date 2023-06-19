@@ -57,12 +57,12 @@ namespace Game
 
             if (enemys.Count <= 20) //TODO 
             {
-                var enemy = MonsterHelper.BuildMonster(mapConfig.LevelRequired);
+                var enemy = MonsterHelper.BuildMonster(mapConfig.LevelRequired,user.Level);
                 GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
             }
 
             var boss = GameProcessor.Inst.PlayerManager.GetBoss();
-            if (boss == null)
+            if (boss == null && user.Level >= 5)
             {
                 BossConfig bossConfig = BossConfigCategory.Instance.Get(mapConfig.BoosId);
                 long killTime = 1;
