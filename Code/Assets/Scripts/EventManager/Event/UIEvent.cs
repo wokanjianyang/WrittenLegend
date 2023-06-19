@@ -31,6 +31,11 @@ namespace Game
         public string Content { get; set; }
     }
 
+    public class ShowGameMsgEvent : SDD.Events.Event
+    {
+        public string Content { get; set; }
+    }
+
     public class PlayerDeadEvent : SDD.Events.Event
     {
         public int RoundNum { get; set; }
@@ -61,6 +66,11 @@ namespace Game
     }
 
     public class HeroLevelUp : SDD.Events.Event
+    {
+
+    }
+
+    public class HeroAttrChangeEvent : SDD.Events.Event
     {
 
     }

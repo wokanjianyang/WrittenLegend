@@ -18,6 +18,7 @@ namespace Game
             this.Init();
 
             this.EventCenter.AddListener<HeroLevelUp>(LevelUp);
+            this.EventCenter.AddListener<HeroAttrChangeEvent>(HeroAttrChange);
         }
 
         private void LevelUp(HeroLevelUp e)
@@ -30,6 +31,12 @@ namespace Game
 
             this.SetAttr(user);  //设置属性值
             this.Logic.SetData(null); //设置UI
+        }
+
+        public void HeroAttrChange(HeroAttrChangeEvent e)
+        {
+            User user = GameProcessor.Inst.User;
+            this.SetAttr(user);  //设置属性值
         }
 
         private void Init()

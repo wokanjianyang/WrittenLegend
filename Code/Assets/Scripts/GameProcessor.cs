@@ -1,3 +1,5 @@
+using DG.Tweening;
+using Game.Dialog;
 using SDD.Events;
 using System;
 using System.Collections;
@@ -87,6 +89,7 @@ namespace Game
                 com.OnBattleStart();
             }
 
+            this.EventCenter.AddListener<ShowGameMsgEvent>(ShowGameMsg);
         }
 
         void Update()
@@ -195,6 +198,46 @@ namespace Game
             return true;
         }
 
+        public void UpdateInfo()
+        {
+            if (this.User == null)
+            {
+                return;
+            }
+            //update Panel
+
+            this.PlayerInfo.UpdateAttrInfo(this.User);
+
+
+            if (this.PlayerManager != null && this.PlayerManager.GetHero() != null)
+            {
+                this.PlayerManager.GetHero().EventCenter.Raise(new HeroAttrChangeEvent());
+            }
+        }
+
+        private void ShowGameMsg(ShowGameMsgEvent e)
+        {
+            var barragePrefab = Resources.Load<GameObject>("Prefab/Dialog/Msg");
+
+            var msg = GameObject.Instantiate(barragePrefab);
+
+            msg.transform.SetParent(this.gameObject.transform);
+
+            var msgSize = msg.GetComponent<RectTransform>().sizeDelta;
+            var msgMaxY = (Screen.height - msgSize.y * 0.5f) * 0.5f;
+            var msgY = UnityEngine.Random.Range(msgMaxY * -1, msgMaxY);
+
+            msg.transform.localPosition = new Vector3(Screen.width + msgSize.x * 0.5f, msgY);
+            var com = msg.GetComponent<Dialog_Msg>();
+
+
+            com.tmp_Msg_Content.text = string.Format("<color=#{0}>{1}</color>", "#FFFF00", e.Content);
+
+            msg.transform.DOLocalMoveX(msgSize.x * 0.5f * -1, 1f).OnComplete(() =>
+            {
+                GameObject.Destroy(msg);
+            });
+        }
 
         void OnApplicationPause(bool isPaused)
         {

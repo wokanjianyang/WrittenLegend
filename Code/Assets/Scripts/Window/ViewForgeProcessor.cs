@@ -114,6 +114,7 @@ public class ViewForgeProcessor : AViewPage
         if (strengthLevel >= user.Level)
         {
             //
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "强化到满级了" });
             Debug.Log("Cant Strengthen Than User Level");
             return;
         }
@@ -122,13 +123,15 @@ public class ViewForgeProcessor : AViewPage
 
         if (user.Gold < config.Fee)
         {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的金币" });
             Debug.Log("not enough gold");
             return;
         }
 
         user.EquipStrength[SelectPosition] = strengthLevel + 1;
 
-        user.UpdatePlayerInfo();
+        user.EventCenter.Raise(new UserInfoUpdateEvent()); //更新UI
+        GameProcessor.Inst.UpdateInfo();
 
         ShowInfo();
 

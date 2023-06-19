@@ -78,6 +78,7 @@ namespace Game
             this.EventCenter.AddListener<HeroUseEquipEvent>(HeroUseEquip);
             this.EventCenter.AddListener<HeroUnUseEquipEvent>(HeroUnUseEquip);
             this.EventCenter.AddListener<HeroUseSkillBookEvent>(HeroUseSkillBook);
+            this.EventCenter.AddListener<HeroAttrChangeEvent>(HeroAttrChange);
         }
 
         public void Init()
@@ -104,11 +105,6 @@ namespace Game
                     MapBossTime[mapConfig.Id] = 0;
                 }
             }
-        }
-
-        public void UpdatePlayerInfo()
-        {
-            GameProcessor.Inst.PlayerInfo.UpdateAttrInfo(this);
         }
 
         private void HeroChange(HeroChangeEvent e)
@@ -139,7 +135,7 @@ namespace Game
             }
 
             //更新属性面板
-            UpdatePlayerInfo();
+            GameProcessor.Inst.UpdateInfo();
         }
 
         private void HeroUnUseEquip(HeroUnUseEquipEvent e)
@@ -153,7 +149,7 @@ namespace Game
             }
 
             //更新属性面板
-            UpdatePlayerInfo();
+            GameProcessor.Inst.UpdateInfo();
         }
 
         private void HeroUseSkillBook(HeroUseSkillBookEvent e)
@@ -187,6 +183,10 @@ namespace Game
                     SkillPanel = skillPanel
                 });
             }
+        }
+
+        private void HeroAttrChange(HeroAttrChangeEvent e) {
+            this.SetAttr();
         }
 
         public void BuildReword()
@@ -284,6 +284,16 @@ namespace Game
                 }
             }
 
+            //强化属性
+            foreach (var sp in EquipStrength)
+            {
+                EquipStrengthConfig strengthConfig = EquipStrengthConfigCategory.Instance.GetByPositioinAndLevel(sp.Key, sp.Value);
+                for (int i = 0; i < strengthConfig.AttrList.Length; i++)
+                {
+                    AttributeBonus.SetAttr((AttributeEnum)strengthConfig.AttrList[i], AttributeFrom.EquiStrong, strengthConfig.AttrValueList[i]);
+                }
+            }
+
             //无尽塔属性
             if (this.TowerFloor > 1)
             {
@@ -294,7 +304,7 @@ namespace Game
             UpExp = config.Exp;
 
             //更新面板
-            UpdatePlayerInfo();
+            GameProcessor.Inst.UpdateInfo();
         }
 
         public void AddExpAndGold(long exp, long gold)

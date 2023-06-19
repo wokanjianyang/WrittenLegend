@@ -8,6 +8,7 @@ using CodeStage.AntiCheat.Detectors;
 using System.Threading.Tasks;
 using SA.Android.Utilities;
 using SA.Android.App;
+using Newtonsoft.Json;
 
 public class Init : MonoBehaviour
 {
@@ -77,7 +78,7 @@ public class Init : MonoBehaviour
         //加载首页
         this.LoadHome2();
 
-
+        Debug.Log(JsonConvert.SerializeObject(SynthesisConfigCategory.Instance.GetList()));
     }
 
     private void LoadConfig()
