@@ -28,6 +28,8 @@ namespace Game
             foreach (var attackData in attackDataCache)
             {
                 var enemy = GameProcessor.Inst.PlayerManager.GetPlayer(attackData.Tid);
+                this.skillGraphic?.PlayAnimation(enemy.Cell);
+
                 var damage = this.CalcFormula(enemy, attackData.Ratio);
                 enemy.OnHit(attackData.Tid, damage);
 
@@ -35,7 +37,6 @@ namespace Game
                 {
                     DoEffect(enemy, this.SelfPlayer, damage, effect);
                 }
-                this.skillGraphic?.PlayAnimation(enemy.Cell);
             }
         }
 

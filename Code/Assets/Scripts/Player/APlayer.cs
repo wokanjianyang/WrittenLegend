@@ -64,6 +64,8 @@ namespace Game
         [JsonIgnore]
         public int GroupId { get; set; }
 
+        [JsonIgnore]
+        public APlayer Enemy { get; set; }
 
         [JsonIgnore]
         public string UUID { get; set; }

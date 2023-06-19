@@ -29,6 +29,9 @@ namespace Game
 
         public override void Do()
         {
+            //如果还有附加特效
+            this.skillGraphic?.PlayAnimation(SelfPlayer.Cell);
+
             //对自己加属性Buff
             foreach (EffectData effect in SkillPanel.EffectIdList.Values)
             {
@@ -36,10 +39,6 @@ namespace Game
 
                 DoEffect(this.SelfPlayer, this.SelfPlayer, total, effect);
             }
-
-            //如果还有附加特效
-
-            this.skillGraphic?.PlayAnimation(SelfPlayer.Cell);
         }
 
         public long CalcFormula()

@@ -57,10 +57,9 @@ namespace Game
                 if (mapCell != null) //处于地图边缘的时候
                 {
                     mapCell.AddSkill(this);
+                    this.skillGraphic.PlayAnimation(cell);
                 }
-                this.skillGraphic.PlayAnimation(cell);
             }
-
         }
     }
 }

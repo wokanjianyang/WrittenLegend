@@ -67,6 +67,7 @@ namespace Game
             foreach (var attackData in attackDataCache)
             {
                 var teamer = GameProcessor.Inst.PlayerManager.GetPlayer(attackData.Tid);
+                this.skillGraphic?.PlayAnimation(teamer.Cell);
 
                 var hp = CalcFormula();
                 teamer.OnRestore(attackData.Tid, hp);
@@ -76,8 +77,6 @@ namespace Game
                 {
                     DoEffect(this.SelfPlayer, this.SelfPlayer, hp, SkillPanel.EffectIdList[effectId]);
                 }
-
-                this.skillGraphic?.PlayAnimation(teamer.Cell);
             }
         }
 
