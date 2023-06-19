@@ -62,19 +62,9 @@ namespace Game
             return skillLogic.GetAllTargets();
         }
 
-        public void Do(List<AttackData> targets)
+        public void Do()
         {
             this.lastUseRound = this.SelfPlayer.RoundCounter;
-
-            foreach (AttackData attack in targets)
-            {
-                //this.SelfPlayer.EventCenter.Raise(new ShowMsgEvent()
-                //{
-                //    TargetId = attack.Tid,
-                //    Content = this.SkillPanel.SkillData.SkillConfig.Name
-                //});
-            }
-
             this.skillLogic.Do();
         }
 

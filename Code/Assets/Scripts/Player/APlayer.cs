@@ -225,6 +225,9 @@ namespace Game
 
         public SkillState GetSkill()
         {
+            //轮流使用
+
+
             List<SkillState> list = SelectSkillList.OrderBy(m => m.Priority).ToList();
             foreach (SkillState state in list)
             {
@@ -248,7 +251,8 @@ namespace Game
                 foreach (Effect effect in list)
                 {
                     effect.Do();
-                    if (effect.Data.Config.Type == 2) {
+                    if (effect.Data.Config.Type == 2)
+                    {
                         pause = true;
 
                         this.EventCenter.Raise(new ShowMsgEvent
@@ -261,7 +265,8 @@ namespace Game
                 list.RemoveAll(m => m.Duration <= m.DoCount);//移除已结束的
             }
 
-            if (pause) {
+            if (pause)
+            {
                 return; //如果有控制技能，不继续后续行动
             }
 
@@ -276,18 +281,14 @@ namespace Game
                 up, down, right, left
             };
 
-            var nearestEnemy = this.FindNearestEnemy();
-
-            //先判断是否有需要释放的技能
-            //SkillProcessor skillProcessor = this.GetComponent<SkillProcessor>();
+            this.FindNearestEnemy();
 
             SkillState skill = this.GetSkill();
-            List<AttackData> targets = skill?.GetAllTarget();
 
-            if (targets != null && targets.Count > 0)
+            if (skill != null && skill.GetAllTarget().Count>0)
             {  //使用技能
                 //Debug.Log($"{(this.Name)}使用技能:{(skill.SkillPanel.SkillData.SkillConfig.Name)},攻击:" + targets.Count + "个");
-                skill.Do(targets);
+                skill.Do();
                 this.EventCenter.Raise(new ShowAttackIcon { NeedShow = true });
             }
             else
@@ -295,11 +296,11 @@ namespace Game
                 this.EventCenter.Raise(new ShowAttackIcon { NeedShow = false });
 
                 //移动
-                if (nearestEnemy == null)
+                if (Enemy == null)
                 {
                     return;
                 }
-                var endPos = GameProcessor.Inst.MapData.GetPath(this.Cell, nearestEnemy.Cell);
+                var endPos = GameProcessor.Inst.MapData.GetPath(this.Cell, Enemy.Cell);
                 if (GameProcessor.Inst.PlayerManager.IsCellCanMove(endPos))
                 {
                     this.Move(endPos);
@@ -351,14 +352,19 @@ namespace Game
             }
         }
 
-        public APlayer FindNearestEnemy()
+        public bool FindNearestEnemy()
         {
+            if (Enemy != null && Enemy.HP > 0)
+            {
+                return true;
+            }
+
             //查找和自己不同类的,并且不是自己的主人/仆人
-            var enemys = GameProcessor.Inst.PlayerManager.GetAllPlayers().FindAll(p => p.Camp != this.Camp  && p.IsSurvice && p.GroupId != this.GroupId);
+            var enemys = GameProcessor.Inst.PlayerManager.GetAllPlayers().FindAll(p => p.Camp != this.Camp && p.IsSurvice && p.GroupId != this.GroupId);
 
             if (enemys.Count <= 0)
             {
-                return null;
+                return false;
             }
 
             enemys.Sort((a, b) =>
@@ -383,7 +389,9 @@ namespace Game
                 }
             });
 
-            return enemys[0];
+            Enemy = enemys[0];
+
+            return true;
         }
 
         public void OnHit(int fromId, params long[] damages)

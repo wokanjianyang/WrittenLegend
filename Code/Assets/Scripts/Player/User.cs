@@ -270,10 +270,7 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, config.Def);
 
             //测试属性
-            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.Test, 10000);
-            AttributeBonus.SetAttr(AttributeEnum.AttIncrea, AttributeFrom.Test, 400);
-            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.Test, 10000);
-            AttributeBonus.SetAttr(AttributeEnum.ExpIncrea, AttributeFrom.Test, 1000);
+            AttributeBonus.SetAttr(AttributeEnum.ExpIncrea, AttributeFrom.Test, 200);
 
             //装备属性
             foreach (var kvp in EquipPanel)

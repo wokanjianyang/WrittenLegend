@@ -20,7 +20,6 @@ namespace Game
         // Start is called before the first frame update
         void Start()
         {
-            Debug.Log("color" + Txt_Level.color.ToString());
             Txt_Name.text = this.SlotType.ToString();
             Txt_Level.text = "";
 

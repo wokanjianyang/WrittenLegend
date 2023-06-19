@@ -184,7 +184,7 @@ namespace Game
         public void Pause()
         {
             this.PauseCounter--;
-            this.PlayerManager.Save();
+            //this.PlayerManager.Save();
         }
 
         public void Resume()
@@ -221,22 +221,23 @@ namespace Game
 
             var msg = GameObject.Instantiate(barragePrefab);
 
-            msg.transform.SetParent(this.gameObject.transform);
+            msg.transform.SetParent(e.Parent);
 
             var msgSize = msg.GetComponent<RectTransform>().sizeDelta;
-            var msgMaxY = (Screen.height - msgSize.y * 0.5f) * 0.5f;
-            var msgY = UnityEngine.Random.Range(msgMaxY * -1, msgMaxY);
 
-            msg.transform.localPosition = new Vector3(Screen.width + msgSize.x * 0.5f, msgY);
+            var msgX = -e.Parent.position.x / 5;
+            var msgY = e.Parent.position.y / 5;
+
+            msg.transform.localPosition = new Vector3(msgX, msgY);
             var com = msg.GetComponent<Dialog_Msg>();
 
 
-            com.tmp_Msg_Content.text = string.Format("<color=#{0}>{1}</color>", "#FFFF00", e.Content);
+            com.tmp_Msg_Content.text = string.Format("<color=#{0}>{1}</color>", "FF0000", e.Content);
 
-            msg.transform.DOLocalMoveX(msgSize.x * 0.5f * -1, 1f).OnComplete(() =>
-            {
-                GameObject.Destroy(msg);
-            });
+            msg.transform.DOLocalMoveY(msgY * 2, 1f).OnComplete(() =>
+             {
+                 GameObject.Destroy(msg);
+             });
         }
 
         void OnApplicationPause(bool isPaused)

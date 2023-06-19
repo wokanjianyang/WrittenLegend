@@ -68,7 +68,9 @@ public class ViewForgeProcessor : AViewPage
 
         if (nextConfig != null)
         {
-            Txt_Fee.text = nextConfig.Fee + "";
+            string color = user.Gold >= nextConfig.Fee ? "#FFFF00" : "#FF0000";
+
+            Txt_Fee.text = string.Format("<color={0}>{1}</color>", color, nextConfig.Fee);
         }
 
         EquipStrengthConfig showConfig = currentConfig == null ? nextConfig : currentConfig;
@@ -111,11 +113,15 @@ public class ViewForgeProcessor : AViewPage
         int strengthLevel = 0;
         user.EquipStrength.TryGetValue(SelectPosition, out strengthLevel);
 
+        Debug.Log("tran_EquiList:"+ tran_EquiList.position.x + ","+ tran_EquiList.position.y);
+        Debug.Log("tran_AttrList:" + tran_AttrList.position.x + "," + tran_AttrList.position.y);
+        Debug.Log("Txt_Fee:" + Txt_Fee.transform.position.x + "," + Txt_Fee.transform.position.y);
+        Debug.Log("Btn_Strengthen:" + Btn_Strengthen.transform.position.x + "," + Btn_Strengthen.transform.position.y);
+
         if (strengthLevel >= user.Level)
         {
             //
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "强化到满级了" });
-            Debug.Log("Cant Strengthen Than User Level");
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "强化到满级了",Parent= tran_AttrList });
             return;
         }
 
@@ -123,14 +129,14 @@ public class ViewForgeProcessor : AViewPage
 
         if (user.Gold < config.Fee)
         {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的金币" });
-            Debug.Log("not enough gold");
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的金币", Parent = tran_AttrList });
             return;
         }
 
         user.EquipStrength[SelectPosition] = strengthLevel + 1;
 
-        user.EventCenter.Raise(new UserInfoUpdateEvent()); //更新UI
+        user.AddExpAndGold(0, -config.Fee);
+
         GameProcessor.Inst.UpdateInfo();
 
         ShowInfo();

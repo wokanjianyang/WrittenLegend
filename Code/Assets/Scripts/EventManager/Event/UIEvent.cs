@@ -33,6 +33,7 @@ namespace Game
 
     public class ShowGameMsgEvent : SDD.Events.Event
     {
+        public Transform Parent { get; set; }
         public string Content { get; set; }
     }
 
