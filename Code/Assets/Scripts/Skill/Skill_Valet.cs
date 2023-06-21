@@ -4,27 +4,15 @@ using UnityEngine;
 
 namespace Game
 {
-    public class Skill_Valet : BaseAttackSkill
+    public class Skill_Valet : ASkill
     {
         public List<Valet> ValetList = new List<Valet>();
         public int MaxValet = 0;
 
         public Skill_Valet(APlayer player, SkillPanel skillPanel) : base(player, skillPanel)
         {
+            this.skillGraphic = null;
             MaxValet = skillPanel.EnemyMax;
-        }
-
-        public override List<AttackData> GetAllTargets()
-        {
-            Debug.Log($"使用技能:{(this.SkillPanel.SkillData.SkillConfig.Name)},施法目标为自己");
-
-            List<AttackData> attackDatas = new List<AttackData>();
-            attackDatas.Add(new AttackData()
-            {
-                Tid = this.SelfPlayer.ID,
-                Ratio = 1
-            });
-            return attackDatas;
         }
 
         public override bool IsCanUse()
@@ -38,6 +26,9 @@ namespace Game
 
         public override void Do()
         {
+            //如果还有附加特效
+            this.skillGraphic?.PlayAnimation(SelfPlayer.Cell);
+
             //销毁之前的
             foreach (Valet valet in ValetList)
             {

@@ -83,7 +83,7 @@ namespace Game
 
         private void MakeReward(DeadRewarddEvent dead)
         {
-            Log.Info("Monster :" + this.ToString() + " dead");
+            //Log.Info("Monster :" + this.ToString() + " dead");
 
             User user = GameProcessor.Inst.User;
 

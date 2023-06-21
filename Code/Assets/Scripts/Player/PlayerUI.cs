@@ -7,9 +7,10 @@ using Game.Dialog;
 using SDD.Events;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class PlayerUI : MonoBehaviour,IPlayer
+public class PlayerUI : MonoBehaviour,IPlayer, IPointerClickHandler
 {
     [LabelText("背景图片")]
     public Image image_Background;
@@ -135,15 +136,15 @@ public class PlayerUI : MonoBehaviour,IPlayer
     private void OnShowAttackIcon(ShowAttackIcon e)
     {
         this.tran_Attack.localScale = e.NeedShow ? Vector3.one : Vector3.zero;
-        if(e.NeedShow)
-        {
-            GameProcessor.Inst.DelayAction(1f, () => {
-                if (this.tran_Attack != null)
-                {
-                    this.tran_Attack.localScale = Vector3.zero;
-                }
-            });
-        }
+        //if(e.NeedShow)
+        //{
+        //    GameProcessor.Inst.DelayAction(1f, () => {
+        //        if (this.tran_Attack != null)
+        //        {
+        //            this.tran_Attack.localScale = Vector3.zero;
+        //        }
+        //    });
+        //}
     }
 
 
@@ -159,5 +160,19 @@ public class PlayerUI : MonoBehaviour,IPlayer
         this.SelfPlayer.EventCenter.AddListener<SetPlayerHPEvent>(OnSetPlayerHPEvent);
         this.SelfPlayer.EventCenter.AddListener<ShowMsgEvent>(OnShowMsgEvent); 
         this.SelfPlayer.EventCenter.AddListener<ShowAttackIcon>(OnShowAttackIcon); 
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (this.SelfPlayer.Camp == PlayerType.Enemy)
+        {
+            Hero hero = GameProcessor.Inst.PlayerManager.GetHero();
+            if (hero.Enemy != null) {
+                hero.Enemy.EventCenter.Raise(new ShowAttackIcon { NeedShow = false });
+            }
+
+            hero.Enemy = this.SelfPlayer;
+            hero.Enemy.EventCenter.Raise(new ShowAttackIcon { NeedShow = true });
+        }
     }
 }

@@ -49,19 +49,37 @@ namespace Game
         /// <summary>
         /// 十字
         /// </summary>
-        Cross =1,
+        Cross = 1,
         /// <summary>
         /// 矩形
         /// </summary>
-        Square =2,
+        Square = 2,
         /// <summary>
         /// 菱形
         /// </summary>
-        Diamond =3,
+        Diamond = 3,
         /// <summary>
         /// 全图
         /// </summary>
-        FullBox = 4
+        FullBox = 4,
+        /// <summary>
+        /// 弧线
+        /// </summary>
+        Arc = 5,
+
+        Circle = 9,
+    }
+
+    public enum AttackCastType
+    {
+        /// <summary>
+        /// 范围内部分
+        /// </summary>
+        Single = 1,
+        /// <summary>
+        /// 范围内全部
+        /// </summary>
+        Area = 2,
     }
 
     public enum SkillCenter { 

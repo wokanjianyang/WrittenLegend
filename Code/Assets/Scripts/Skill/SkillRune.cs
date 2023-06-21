@@ -17,7 +17,8 @@ namespace Game
         public int Duration { get; }
         public int EnemyMax { get; }
         public int CD { get; }
-
+        public int Row { get; }
+        public int Column { get; }
         public int IgnoreDef { get; } //无视防御
         public int CritRate { get; } //暴击率
         public int CritDamage { get; } //暴击倍率
@@ -38,6 +39,8 @@ namespace Game
             this.EnemyMax = SkillRuneConfig.EnemyMax * AvailableQuantity;
             this.Duration = SkillRuneConfig.Duration * AvailableQuantity;
             this.CD = SkillRuneConfig.CD * AvailableQuantity;
+            this.Row = SkillRuneConfig.Row * AvailableQuantity;
+            this.Column = SkillRuneConfig.Column * AvailableQuantity;
 
             this.IgnoreDef = SkillRuneConfig.IgnoreDef * AvailableQuantity;
 

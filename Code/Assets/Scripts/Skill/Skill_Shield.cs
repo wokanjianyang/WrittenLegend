@@ -4,22 +4,11 @@ using UnityEngine;
 
 namespace Game
 {
-    public class Skill_Shield : BaseAttackSkill
+    public class Skill_Shield : ASkill
     {
         public Skill_Shield(APlayer player, SkillPanel skillPanel) : base(player, skillPanel)
         {
             this.skillGraphic = null;
-        }
-
-        public override List<AttackData> GetAllTargets()
-        {
-            List<AttackData> attackDatas = new List<AttackData>();
-            attackDatas.Add(new AttackData()
-            {
-                Tid = this.SelfPlayer.ID,
-                Ratio = 1
-            });
-            return attackDatas;
         }
 
         public override bool IsCanUse()
@@ -53,5 +42,17 @@ namespace Game
 
             return attack;
         }
+
+        public List<AttackData> GetAllTargets()
+        {
+            List<AttackData> attackDatas = new List<AttackData>();
+            attackDatas.Add(new AttackData()
+            {
+                Tid = this.SelfPlayer.ID,
+                Ratio = 1
+            });
+            return attackDatas;
+        }
+
     }
 }

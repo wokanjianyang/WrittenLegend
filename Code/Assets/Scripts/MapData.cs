@@ -9,7 +9,7 @@ using Assets.Scripts;
 
 namespace Game
 {
-    
+
     public class MapData : MonoBehaviour
     {
         [LabelText("列数")]
@@ -20,7 +20,7 @@ namespace Game
 
 
         public Vector3 MapStartPos { get; private set; } = Vector3.zero;
-        
+
         public Vector3 CellSize = Vector3.zero;
 
         public List<Vector3Int> AllCells { get; private set; }
@@ -57,15 +57,24 @@ namespace Game
 
         public Vector3 GetWorldPosition(Vector3Int cell)
         {
-            return new Vector3(cell.x*this.CellSize.x,cell.y*this.CellSize.y) + MapStartPos + this.CellSize*0.5f;
+            return new Vector3(cell.x * this.CellSize.x, cell.y * this.CellSize.y) + MapStartPos + this.CellSize * 0.5f;
         }
 
         public Vector3Int GetLocalCell(Vector3 pos)
         {
-            var cell = (pos - this.CellSize*0.5f);
+            var cell = (pos - this.CellSize * 0.5f);
             cell = new Vector3(cell.x / this.CellSize.x, cell.y / this.CellSize.y);
             Vector3Int local = new Vector3Int(Mathf.RoundToInt(cell.x), Mathf.RoundToInt(cell.y));
             return local;
+        }
+
+        public Vector3 GetCenterPosition(List<Vector3Int> list)
+        {
+            float x = list.Select(m => m.x).Sum() * 1.0f / list.Count;
+            float y = list.Select(m => m.y).Sum() * 1.0f / list.Count;
+            float z = list.Select(m => m.z).Sum() * 1.0f / list.Count;
+
+            return new Vector3(x * this.CellSize.x, y * this.CellSize.y, z) + MapStartPos + this.CellSize * 0.5f;
         }
 
         #endregion
@@ -285,6 +294,127 @@ namespace Game
         #endregion
 
         #region AOE Range
+
+        public Vector3Int GetDir(Vector3Int selfCell, Vector3Int enemyCell)
+        {
+            var dir = enemyCell - selfCell;
+            int x = dir.x == 0 ? 0 : dir.x / Math.Abs(dir.x);
+            int y = dir.y == 0 ? 0 : dir.y / Math.Abs(dir.y);
+            dir = new Vector3Int(x, y, dir.z);
+            return dir;
+        }
+
+        public List<Vector3Int> GetAttackRangeCell(Vector3Int selfCell, Vector3Int enemyCell, SkillPanel skill)
+        {
+            List<Vector3Int> rangeCells = new List<Vector3Int>();
+            Vector3Int targetCell = Vector3Int.zero;
+            int distance = skill.Dis;
+
+            switch (skill.Area)
+            {
+                case AttackGeometryType.FrontRow: //直线
+                    {
+                        var dir = GetDir(selfCell, enemyCell);
+                        for (var i = 1; i <= distance; i++)
+                        {
+                            targetCell = selfCell + dir * i;
+                            rangeCells.Add(targetCell);
+                        }
+                    }
+                    break;
+                case AttackGeometryType.Cross: //十字
+                    {
+                        for (var i = 1; i <= distance; i++)
+                        {
+                            targetCell = selfCell + Vector3Int.up * i;
+                            rangeCells.Add(targetCell);
+                            targetCell = selfCell + Vector3Int.down * i;
+                            rangeCells.Add(targetCell);
+                            targetCell = selfCell + Vector3Int.left * i;
+                            rangeCells.Add(targetCell);
+                            targetCell = selfCell + Vector3Int.right * i;
+                            rangeCells.Add(targetCell);
+                        }
+                    }
+                    break;
+                case AttackGeometryType.Circle: //圆
+                    {
+                        for (var i = distance * -1; i <= distance; i++)
+                        {
+                            for (var j = distance * -1; j <= distance; j++)
+                            {
+                                targetCell = selfCell + new Vector3Int(j, i);
+                                rangeCells.Add(targetCell);
+                            }
+                        }
+                    }
+                    break;
+                case AttackGeometryType.Square: //矩形
+                    {
+                        var dir = enemyCell - selfCell;
+
+                        int xdir = dir.x > 0 ? -1 : 1;
+                        int ydir = dir.y > 0 ? -1 : 1;
+
+                        for (var i = 0; i < skill.Row; i++)
+                        {
+                            for (var j = 0; j < skill.Column; j++)
+                            {
+                                targetCell = enemyCell + new Vector3Int(i * xdir, j * ydir);
+                                rangeCells.Add(targetCell);
+                            }
+                        }
+                    }
+                    break;
+                case AttackGeometryType.Arc: //逆时针弧线
+                    {
+                        Vector3Int[] clockwise = new Vector3Int[] {
+                            new Vector3Int(0,1,0), //北
+                            new Vector3Int(1,1,0), //东北
+                            new Vector3Int(1,0,0), //东
+                            new Vector3Int(1,-1,0), //东南
+                            new Vector3Int(0,-1,0), //南
+                            new Vector3Int(-1,-1,0), //西南
+                            new Vector3Int(-1,0,0), //西
+                            new Vector3Int(-1,1,0), //西北
+                        };
+                        var dir = enemyCell - selfCell;
+
+                        //得到弧线起点
+                        int startPos = 0;
+                        for (startPos = 0; startPos < clockwise.Length; startPos++){
+                            if (dir == clockwise[startPos]) {
+                                break;
+                            }
+                        }
+
+                        for (var i = 0; i < skill.EnemyMax; i++)
+                        {
+                            int p = (startPos - i + 8) % 8;
+                            targetCell = selfCell + clockwise[p];
+                            rangeCells.Add(targetCell);
+                        }
+                    }
+                    break;
+                case AttackGeometryType.Diamond: //菱形
+                    for (var i = distance * -1; i <= distance; i++)
+                    {
+                        var rowCount = distance - Mathf.Abs(i);
+                        for (var j = rowCount * -1; j <= rowCount; j++)
+                        {
+                            targetCell = enemyCell + new Vector3Int(j, i);
+                            rangeCells.Add(targetCell);
+                        }
+                    }
+                    break;
+                case AttackGeometryType.FullBox: //全图
+                    rangeCells.AddRange(this.AllCells);
+                    break;
+            }
+
+            rangeCells = rangeCells.Distinct().ToList();
+            return rangeCells;
+        }
 
         public List<Vector3Int> GetAttackRangeCell(Vector3Int selfCell, int attackRange, AttackGeometryType geometryType)
         {

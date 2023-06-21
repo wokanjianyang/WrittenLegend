@@ -4,19 +4,22 @@ using UnityEngine;
 
 namespace Game
 {
-    public class Skill_Expert : BaseAttackSkill
+    public class Skill_Expert : ASkill
     {
-
+        //被动专精技能
         public Skill_Expert(APlayer player, SkillPanel skillPanel) : base(player, skillPanel)
         {
             this.skillGraphic = null;
+        }
+
+        public override void Do()
+        {
+
         }
 
         public override bool IsCanUse()
         {
             return false;
         }
-
-
     }
 }

@@ -8,11 +8,11 @@ namespace Game
     {
         //public APlayer SelfPlayer { get; set; }
 
-        private Skill_Map skill;
+        private Skill_Attack_Map skill;
 
         private int Duration = 0;
 
-        public SkillMapState(Skill_Map skill)
+        public SkillMapState(Skill_Attack_Map skill)
         {
             //this.SelfPlayer = player;
             this.skill = skill;

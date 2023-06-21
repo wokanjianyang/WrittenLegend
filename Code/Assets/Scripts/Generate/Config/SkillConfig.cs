@@ -123,29 +123,35 @@ namespace Game
 		/// <summary>最大敌人数量</summary>
 		[ProtoMember(16)]
 		public int EnemyMax { get; set; }
-		/// <summary>伤害比例</summary>
+		/// <summary>行</summary>
 		[ProtoMember(17)]
+		public int Row { get; set; }
+		/// <summary>列</summary>
+		[ProtoMember(18)]
+		public int Column { get; set; }
+		/// <summary>伤害比例</summary>
+		[ProtoMember(19)]
 		public int Percent { get; set; }
 		/// <summary>固定伤害</summary>
-		[ProtoMember(18)]
+		[ProtoMember(20)]
 		public int Damage { get; set; }
 		/// <summary>无视防御</summary>
-		[ProtoMember(19)]
+		[ProtoMember(21)]
 		public int IgnoreDef { get; set; }
 		/// <summary>暴击率</summary>
-		[ProtoMember(20)]
+		[ProtoMember(22)]
 		public int CritRate { get; set; }
 		/// <summary>暴击倍率</summary>
-		[ProtoMember(21)]
+		[ProtoMember(23)]
 		public int CritDamage { get; set; }
 		/// <summary>伤害加成</summary>
-		[ProtoMember(22)]
+		[ProtoMember(24)]
 		public int DamageIncrea { get; set; }
 		/// <summary>附带效果</summary>
-		[ProtoMember(23)]
+		[ProtoMember(25)]
 		public string[] EffectList { get; set; }
 		/// <summary>升级经验</summary>
-		[ProtoMember(24)]
+		[ProtoMember(26)]
 		public int Exp { get; set; }
 
 	}

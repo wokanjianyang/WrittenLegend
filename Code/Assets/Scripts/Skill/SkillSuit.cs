@@ -15,7 +15,8 @@ namespace Game
         public int Duration { get; }
         public int EnemyMax { get; }
         public int CD { get; }
-
+        public int Row { get; }
+        public int Column { get; }
         public int IgnoreDef { get; } //无视防御
         public int CritRate { get; } //暴击率
         public int CritDamage { get; } //暴击倍率
@@ -35,6 +36,8 @@ namespace Game
             this.Duration = SkillSuitConfig.Duration;
             this.EnemyMax = SkillSuitConfig.EnemyMax;
             this.CD = SkillSuitConfig.CD;
+            this.Row = SkillSuitConfig.Row;
+            this.Column = SkillSuitConfig.Column;
 
             this.IgnoreDef = SkillSuitConfig.IgnoreDef;
             this.CritRate = SkillSuitConfig.CritRate;

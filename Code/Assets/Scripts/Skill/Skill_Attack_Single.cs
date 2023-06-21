@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace Game
 {
-    public class Skill_Sweep : BaseAttackSkill
+    public class Skill_Attack_Single : Skill_Attack
     {
-        public Skill_Sweep(APlayer player, SkillPanel skill) : base(player, skill)
+        public Skill_Attack_Single(APlayer player, SkillPanel skill) : base(player, skill)
         {
-            this.skillGraphic = new SweepSkillGraphic(player, skill.SkillData.SkillConfig);
+            this.skillGraphic = new SkillGraphic_Single(player, skill.SkillData.SkillConfig);
         }
 
         public override List<AttackData> GetAllTargets()
@@ -20,7 +20,7 @@ namespace Game
             //施法中心为自己
             APlayer target = SelfPlayer;
 
-            List<Vector3Int> allAttackCells = GameProcessor.Inst.MapData.GetAttackRangeCell(target.Cell, SkillPanel.Dis, SkillPanel.Area);
+            List<Vector3Int> allAttackCells = GameProcessor.Inst.MapData.GetAttackRangeCell(SelfPlayer.Cell, SelfPlayer.Enemy.Cell, SkillPanel);
             float ratio = allAttackCells.Count;
 
             //排序，从进到远
@@ -30,7 +30,6 @@ namespace Game
             + Mathf.Abs(m.x - selfCell.x) + Mathf.Abs(m.y - selfCell.y) + Mathf.Abs(m.z - selfCell.z)).ToList();
 
             int EnemyNum = 0;
-
 
             foreach (var cell in allAttackCells)
             {
@@ -45,6 +44,7 @@ namespace Game
                     attackDatas.Add(new AttackData()
                     {
                         Tid = enemy.ID,
+                        Cell = cell,
                         Ratio = ratio
                     });
                     EnemyNum++;
@@ -57,6 +57,11 @@ namespace Game
             }
 
             return attackDatas;
+        }
+
+        public override List<Vector3Int> GetPlayCells()
+        {
+            return GetAllTargets().Select(m => m.Cell).ToList();
         }
     }
 }

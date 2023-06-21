@@ -5,20 +5,20 @@ using UnityEngine;
 
 namespace Game
 {
-    public class BaseSkillGraphic : SkillGraphic
+    public class SkillGraphic_Normal : SkillGraphic
     {
         private IEnumerator lastIE = null;
         private bool isIEEnd = false;
 
         const float speed = 0.3f;
 
-        public BaseSkillGraphic(APlayer player, SkillConfig skillConfig) : base(player, skillConfig)
+        public SkillGraphic_Normal(APlayer player, SkillConfig skillConfig) : base(player, skillConfig)
         {
         }
 
-        public override void PlayAnimation(Vector3Int cell)
+        public override void PlayAnimation(List<Vector3Int> cells, Vector3Int scale)
         {
-            GameProcessor.Inst.StartCoroutine(IE_Attack(cell));
+            GameProcessor.Inst.StartCoroutine(IE_Attack(cells[0]));
         }
 
         IEnumerator IE_Attack(Vector3Int cell)

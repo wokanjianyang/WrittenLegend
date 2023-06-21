@@ -5,24 +5,26 @@ using UnityEngine;
 
 namespace Game
 {
-    public class SweepSkillGraphic : SkillGraphic
+    public class SkillGraphic_Single : SkillGraphic
     {
-        public SweepSkillGraphic(APlayer player,SkillConfig skillConfig) : base(player,skillConfig)
+        public SkillGraphic_Single(APlayer player, SkillConfig skillConfig) : base(player, skillConfig)
         {
         }
 
-        public override void PlayAnimation(Vector3Int cell)
+        public override void PlayAnimation(List<Vector3Int> cells, Vector3Int scale)
         {
-            GameProcessor.Inst.StartCoroutine(IE_Attack(cell));
+            foreach (Vector3Int cell in cells)
+            {
+                GameProcessor.Inst.StartCoroutine(IE_Attack(cell));
+            }
         }
 
         private IEnumerator IE_Attack(Vector3Int cell)
         {
-
-            var effectCom = EffectLoader.CreateEffect(this.SkillConfig.ModelName,false);
+            var effectCom = EffectLoader.CreateEffect(this.SkillConfig.ModelName, false);
             if (effectCom != null)
             {
-                
+
                 var selfPos = GameProcessor.Inst.MapData.GetWorldPosition(SelfPlayer.Cell);
                 var targetPos = GameProcessor.Inst.MapData.GetWorldPosition(cell);
                 effectCom.transform.SetParent(GameProcessor.Inst.EffectRoot);

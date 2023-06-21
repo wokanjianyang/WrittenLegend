@@ -23,6 +23,9 @@ namespace Game
         public int EnemyMax { get; }
         public int CD { get; }
 
+        public int Row { get; }
+        public int Column { get; }
+
         public int Duration { get; }
 
         public int IgnoreDef { get; }  //无视防御
@@ -38,6 +41,7 @@ namespace Game
 
         public AttackGeometryType Area { get; }
 
+        public AttackCastType CastType { get; }
 
         public SkillPanel(SkillData skillData, List<SkillRune> runeList, List<SkillSuit> suitList)
         {
@@ -95,6 +99,12 @@ namespace Game
             int runeFinalIncrea = runeList.Select(m => m.FinalIncrea).Sum();
             int suitFinalIncrea = suitList.Select(m => m.FinalIncrea).Sum();
 
+            int runeRow = runeList.Select(m => m.Row).Sum();
+            int suitRow = suitList.Select(m => m.Row).Sum();
+
+            int runeColumn = runeList.Select(m => m.Column).Sum();
+            int suitColumn = suitList.Select(m => m.Column).Sum();
+
             this.Damage += skillData.SkillConfig.Damage + runeDamage + suitDamage + levelDamage;
             this.Percent += skillData.SkillConfig.Percent + runePercent + suitPercent + levelPercent;
 
@@ -103,6 +113,9 @@ namespace Game
             this.EnemyMax += skillData.SkillConfig.EnemyMax + runeEnemyMax + suitEnemyMax;
             this.CD += Mathf.Max(skillData.SkillConfig.CD - runeCD - suitCD, 0);
             this.Duration = skillData.SkillConfig.Duration + runeDuration + suitDuration;
+
+            this.Row = skillData.SkillConfig.Row + runeRow + suitRow;
+            this.Column = skillData.SkillConfig.Column + runeColumn + suitColumn;
 
             this.CritRate = skillData.SkillConfig.CritRate + runeCritRate + suitCritRate;
             this.CritDamage = skillData.SkillConfig.CritRate + runeCritDamage + suitCritDamage;
@@ -113,6 +126,7 @@ namespace Game
 
             //施法范围
             this.Area = EnumHelper.FromString<AttackGeometryType>(skillData.SkillConfig.Area);
+            this.CastType = (AttackCastType)skillData.SkillConfig.CastType;
 
             //技能的特效
             string[] skilEffectList = skillData.SkillConfig.EffectList;
@@ -134,6 +148,11 @@ namespace Game
                     }
                 }
             }
+            
+            //TEST
+            //this.CD = 0;
+            //this.Row = 2;
+            //this.Column = 2;
         }
     }
 }

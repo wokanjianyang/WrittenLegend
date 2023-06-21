@@ -225,10 +225,7 @@ namespace Game
 
         public SkillState GetSkill()
         {
-            //轮流使用
-
-
-            List<SkillState> list = SelectSkillList.OrderBy(m => m.Priority).ToList();
+            List<SkillState> list = SelectSkillList.OrderBy(m => -m.Priority).OrderBy(m => m.lastUseRound).OrderBy(m => m.Position).ToList();
             foreach (SkillState state in list)
             {
                 if (state.IsCanUse())
@@ -285,15 +282,15 @@ namespace Game
 
             SkillState skill = this.GetSkill();
 
-            if (skill != null && skill.GetAllTarget().Count>0)
+            if (skill != null)
             {  //使用技能
                 //Debug.Log($"{(this.Name)}使用技能:{(skill.SkillPanel.SkillData.SkillConfig.Name)},攻击:" + targets.Count + "个");
                 skill.Do();
-                this.EventCenter.Raise(new ShowAttackIcon { NeedShow = true });
+                //this.EventCenter.Raise(new ShowAttackIcon { NeedShow = true });
             }
             else
             {
-                this.EventCenter.Raise(new ShowAttackIcon { NeedShow = false });
+                //this.EventCenter.Raise(new ShowAttackIcon { NeedShow = false });
 
                 //移动
                 if (Enemy == null)
@@ -390,6 +387,11 @@ namespace Game
             });
 
             Enemy = enemys[0];
+
+            if (this.Camp == PlayerType.Hero)
+            {
+                Enemy.EventCenter.Raise(new ShowAttackIcon { NeedShow = true });
+            }
 
             return true;
         }

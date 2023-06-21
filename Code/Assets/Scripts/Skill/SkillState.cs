@@ -9,22 +9,32 @@ namespace Game
         public SkillPanel SkillPanel { get; set; }
         public APlayer SelfPlayer { get; set; }
 
-        public int Priority { get; set; }
+        public int Priority {  get; }
+        public int lastUseRound { get; set; } =0;
+        public int Position { get; }
 
         private ASkill skillLogic;
 
-        private int lastUseRound = 0;
 
-        public SkillState(APlayer player, SkillPanel skillPanel, int position,int useRound)
+
+        public SkillState(APlayer player, SkillPanel skillPanel, int position, int useRound)
         {
             this.SelfPlayer = player;
             this.SkillPanel = skillPanel;
-            this.Priority = position - skillPanel.SkillData.SkillConfig.Priority;
+            this.Priority = skillPanel.SkillData.SkillConfig.Priority;
+            this.Position = position;
             this.lastUseRound = useRound;
 
             if (skillPanel.SkillData.SkillConfig.Type == (int)SkillType.Attack)
             {
-                this.skillLogic = new Skill_Sweep(player, skillPanel);
+                if (skillPanel.SkillData.SkillConfig.CastType == ((int)AttackCastType.Single))
+                {
+                    this.skillLogic = new Skill_Attack_Single(player, skillPanel);
+                }
+                else
+                {
+                    this.skillLogic = new Skill_Attack_Area(player, skillPanel);
+                }
             }
             else if (skillPanel.SkillData.SkillConfig.Type == (int)SkillType.Valet)
             {
@@ -32,7 +42,7 @@ namespace Game
             }
             else if (skillPanel.SkillData.SkillConfig.Type == (int)SkillType.Map)
             {
-                this.skillLogic = new Skill_Map(player, skillPanel);
+                this.skillLogic = new Skill_Attack_Map(player, skillPanel);
             }
             else if (skillPanel.SkillData.SkillConfig.Type == (int)SkillType.Restore)
             {
@@ -46,20 +56,14 @@ namespace Game
             {
                 this.skillLogic = new Skill_Expert(player, skillPanel);
             }
-            else
-            {
-                this.skillLogic = new BaseAttackSkill(player, skillPanel);
+            else {
+                this.skillLogic = new Skill_Attack_Normal(player, skillPanel);
             }
         }
 
         public bool IsCanUse()
         {
             return (this.lastUseRound == 0 || this.SelfPlayer.RoundCounter - lastUseRound > this.SkillPanel.CD) && this.skillLogic.IsCanUse();
-        }
-
-        public List<AttackData> GetAllTarget()
-        {
-            return skillLogic.GetAllTargets();
         }
 
         public void Do()

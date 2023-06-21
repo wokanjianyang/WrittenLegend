@@ -62,7 +62,7 @@ namespace Game
             }
 
             var boss = GameProcessor.Inst.PlayerManager.GetBoss();
-            if (boss == null && user.Level >= 5)
+            if (boss == null && user.Level >= 10)
             {
                 BossConfig bossConfig = BossConfigCategory.Instance.Get(mapConfig.BoosId);
                 long killTime = 1;

@@ -1,10 +1,14 @@
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Game
 {
     public class AttackData
     {
         public int Tid { get; set; }
+
+        public Vector3Int Cell { get; set; }
         public float Ratio { get; set; }
 
     }
@@ -22,23 +26,7 @@ namespace Game
             this.SelfPlayer = player;
             this.SkillPanel = skill;
         }
-        virtual public void Do()
-        {
-            List<AttackData> attackDataCache = GetAllTargets();
-            foreach (var attackData in attackDataCache)
-            {
-                var enemy = GameProcessor.Inst.PlayerManager.GetPlayer(attackData.Tid);
-                this.skillGraphic?.PlayAnimation(enemy.Cell);
-
-                var damage = this.CalcFormula(enemy, attackData.Ratio);
-                enemy.OnHit(attackData.Tid, damage);
-
-                foreach (EffectData effect in SkillPanel.EffectIdList.Values)
-                {
-                    DoEffect(enemy, this.SelfPlayer, damage, effect);
-                }
-            }
-        }
+        abstract public void Do();
 
         public void DoEffect(APlayer enemy, APlayer self, long damage, EffectData data)
         {
@@ -62,22 +50,11 @@ namespace Game
                 effectTarget.RunEffect(effectTarget, data, total);
             }
         }
-
-        virtual public bool IsCanUse() {
-            return true;
-        }
-
-        virtual public long CalcFormula(APlayer player,float ratio)
-        {
-            return 0;
-        }
-
-        abstract public List<AttackData> GetAllTargets();
-        
- 
         public void SetParent(APlayer player)
         {
             this.SelfPlayer = player;
         }
+
+        abstract public bool IsCanUse();
     }
 }

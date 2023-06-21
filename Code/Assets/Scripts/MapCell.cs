@@ -19,7 +19,7 @@ namespace Assets.Scripts
             this.skills = new List<SkillMapState>();
         }
 
-        public void AddSkill(Skill_Map skill)
+        public void AddSkill(Skill_Attack_Map skill)
         {
             this.skills.Add(new SkillMapState(skill));
             //TODO 增加特效

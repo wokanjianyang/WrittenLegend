@@ -6,15 +6,18 @@ using UnityEngine;
 
 namespace Game
 {
-    public class AttackSkillGraphic : SkillGraphic
+    public class SkillGraphic_Persistent : SkillGraphic
     {
-        public AttackSkillGraphic(APlayer player,SkillConfig skillConfig) : base(player,skillConfig)
+        public SkillGraphic_Persistent(APlayer player,SkillConfig skillConfig) : base(player,skillConfig)
         {
         }
 
-        public override void PlayAnimation(Vector3Int cell)
+        public override void PlayAnimation(List<Vector3Int> cells, Vector3Int scale)
         {
-            GameProcessor.Inst.StartCoroutine(IE_Attack(cell));
+            foreach (Vector3Int cell in cells)
+            {
+                GameProcessor.Inst.StartCoroutine(IE_Attack(cell));
+            }
         }
 
         private IEnumerator IE_Attack(Vector3Int cell)
