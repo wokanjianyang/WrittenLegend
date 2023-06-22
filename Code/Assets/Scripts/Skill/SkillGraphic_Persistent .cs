@@ -33,7 +33,7 @@ namespace Game
                 effectCom.transform.SetParent(GameProcessor.Inst.EffectRoot);
                 effectCom.transform.localPosition = targetPos;
 
-                yield return new WaitForSeconds(duration * 2); //因为现在2s才是一个回合
+                yield return new WaitForSeconds(duration); //因为现在1s才是一个回合
                 //effectCom.gameObject.SetActive(false);
                 GameObject.Destroy(effectCom.gameObject);
 

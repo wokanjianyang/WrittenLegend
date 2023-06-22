@@ -68,10 +68,11 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
         Dictionary<int, long> list = user.MapBossTime;
         foreach (int MapId in list.Keys)
         {
-            var item = items.Where(m => m.mapConfig.Id == MapId).First();
-
-            item.SetKillTime(list[MapId]);
-
+            var item = items.Where(m => m.mapConfig.Id == MapId).FirstOrDefault();
+            if (item != null)
+            {
+                item.SetKillTime(list[MapId]);
+            }
         }
     }
 }

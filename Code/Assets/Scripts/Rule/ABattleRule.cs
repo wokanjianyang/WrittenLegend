@@ -14,7 +14,7 @@ namespace Game
 
         protected PlayerType winCamp;
 
-        protected const float roundTime = 1f;
+        protected const float roundTime = 0.5f;
         protected float currentRoundTime = 0f;
         protected bool needRefreshGraphic = false;
         virtual public void OnBattleStart()
