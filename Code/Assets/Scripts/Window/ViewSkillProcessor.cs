@@ -52,33 +52,29 @@ namespace Game
             //UserData.Save(); //修改技能后，存档
         }
 
-        private void SkillToBattle(SkillPanel skill) {
+        private void SkillToBattle(SkillPanel skill)
+        {
             if (skill == null)
             {
                 return;
             }
 
-            if (skill.SkillData.Status == SkillStatus.Learn)
+
+            this.equipSkills.RemoveAll(b => b.SkillPanel.SkillId == skill.SkillId);
+            Item_Skill learn = this.learnSkills.Find(s => s.SkillPanel.SkillId == skill.SkillId);
+
+            if (learn != null)
             {
-                this.equipSkills.RemoveAll(b => b.SkillPanel.SkillId == skill.SkillId);
-                var learn = this.learnSkills.Find(s => s.SkillPanel.SkillId == skill.SkillId);
-                if (learn != null)
-                {
-                    learn.SetItem(skill);
-                }
-                else
-                {
-                    this.CreateBook(skill);
-                }
+                learn.SetItem(skill);
             }
             else
             {
-                var learn = this.learnSkills.Find(s => s.SkillPanel.SkillId == skill.SkillId);
-                if (learn != null)
-                {
-                    this.learnSkills.Remove(learn);
-                    GameObject.Destroy(learn.gameObject);
-                }
+                this.CreateBook(skill);
+            }
+
+
+            if (skill.SkillData.Status == SkillStatus.Learn)
+            {
                 var equip = this.equipSkills.Find(s => s.SkillPanel.SkillId == skill.SkillId);
                 if (equip == null)
                 {
@@ -87,8 +83,6 @@ namespace Game
                     this.equipSkills.Add(com);
                 }
             }
-            //英雄重新加载已选择技能
-            //GameProcessor.Inst.PlayerManager.GetHero().InitPanelSkill();
         }
 
         private void CreateBook(SkillPanel skill)

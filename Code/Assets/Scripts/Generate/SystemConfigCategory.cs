@@ -6,19 +6,29 @@ namespace Game
 {
     public partial class SystemConfigCategory
     {
-        public static SystemConfigCategory Instance;
+        private static SystemConfigCategory instance; // 单例实例
 
         public Dictionary<SystemEnum, int> SystemDict = new Dictionary<SystemEnum, int>();
 
-        public SystemConfigCategory()
+        private SystemConfigCategory()
         {
-            Instance = this;
-
             SystemDict.Add(SystemEnum.MonsterQuanlity, 5);
             SystemDict.Add(SystemEnum.SoulRing, 40);
         }
 
+        public static SystemConfigCategory Instance
+        {
+            get
+            {
+                // 如果实例还未创建，则创建一个新实例
+                if (instance == null)
+                {
+                    instance = new SystemConfigCategory();
+                }
 
+                return instance;
+            }
+        }
     }
 
     public static class SystemConfigHelper
