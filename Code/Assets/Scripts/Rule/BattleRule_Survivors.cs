@@ -84,7 +84,9 @@ namespace Game
                 {
                     enemy.DoEvent();
                 }
-                var monster = MonsterHelper.BuildMonster(hero.Level, hero.Level + 10);
+
+                MapConfig mapConfig = MapConfigCategory.Instance.Get(101); ;
+                var monster = MonsterHelper.BuildMonster(mapConfig);
 
                 var player = GameProcessor.Inst.PlayerManager.LoadMonster(monster);
                 if (player != null)

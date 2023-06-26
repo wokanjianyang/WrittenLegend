@@ -44,15 +44,15 @@ namespace Game
         public static int RandomQuality()
         {
             int rd = random.Next(1, 101);
-            if (rd < 10)
+            if (rd < 5)
             {
                 return 4;
             }
-            else if (rd < 30)
+            else if (rd < 15)
             {
                 return 3;
             }
-            else if (rd < 60)
+            else if (rd < 35)
             {
                 return 2;
             }

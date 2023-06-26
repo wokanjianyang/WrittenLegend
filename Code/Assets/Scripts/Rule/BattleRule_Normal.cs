@@ -57,7 +57,7 @@ namespace Game
 
             if (enemys.Count <= 20) //TODO 
             {
-                var enemy = MonsterHelper.BuildMonster(mapConfig.LevelRequired,user.Level);
+                var enemy = MonsterHelper.BuildMonster(mapConfig);
                 GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
             }
 

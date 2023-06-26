@@ -34,13 +34,17 @@ namespace Game
         
         [LabelText("取消")]
         public Button btn_Cancle;
-        
+
+        Toggle[] EquipQuanlity;
+
         // Start is called before the first frame update
         void Start()
         {
             this.btn_Done.onClick.AddListener(this.OnClick_Done);
             this.btn_Cancle.onClick.AddListener(this.OnClick_Cancle);
-            this.gameObject.SetActive(false); 
+            this.gameObject.SetActive(false);
+
+            EquipQuanlity = tran_EquipQualityList.GetComponentsInChildren<Toggle>();
         }
 
         // Update is called once per frame
@@ -53,6 +57,12 @@ namespace Game
         public void OnBattleStart()
         {
             GameProcessor.Inst.EventCenter.AddListener<EquipRecoveryEvent>(this.OnEquipRecoveryEvent);
+
+            //初始化
+            User user = GameProcessor.Inst.User;
+            RecoverySetting setting = user.RecoverySetting;
+
+
         }
 
         private void OnEquipRecoveryEvent(EquipRecoveryEvent e)
@@ -76,10 +86,10 @@ namespace Game
                 var toggle = equipToggles[i];
                 if (toggle.isOn)
                 {
+                    user.RecoverySetting.SetQuanlity(i + 1, true);
                     switch (i)
                     {
                         case 0:
-                            user.RecoverySetting.SetQuanlity(1, true);
                             sb.Append("白色,");
                             break;
                         case 1:

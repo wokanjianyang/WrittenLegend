@@ -97,7 +97,10 @@ namespace Game
             int mapLevel = user.Level / 10 * 10;
             List<KeyValuePair<int, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(mapLevel, 1);
             List<Item> items = DropHelper.BuildDropItem(dropList, Quality);
-            items.Add(DropHelper.BuildSoulRingShard(mapLevel/10));
+            if (SystemConfigHelper.CheckRequireLevel(SystemEnum.SoulRing))
+            {
+                items.Add(DropHelper.BuildSoulRingShard(mapLevel / 10));
+            }
 
             if (items.Count > 0)
             {

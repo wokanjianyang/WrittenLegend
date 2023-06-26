@@ -22,7 +22,7 @@ namespace Game
         [LabelText("道具")]
         public Toggle toggle_Prop;
 
-        [LabelText("锻造")]
+        [LabelText("整理")]
         public Toggle toggle_Forging;
 
         [Title("包裹格子")]
@@ -39,7 +39,7 @@ namespace Game
         [LabelText("设置")]
         public Button btn_Setting;
         
-        private List<Com_Box> items;
+        private List<Com_Box> items = new List<Com_Box>();
 
 
         // Start is called before the first frame update
@@ -47,12 +47,45 @@ namespace Game
         {
             this.btn_PlayerTitle.onClick.AddListener(this.OnClick_PlayerTitle);
             this.btn_Setting.onClick.AddListener(this.OnClick_Setting);
+            this.toggle_Forging.onValueChanged.AddListener(OnRefreshBag);
         }
 
         // Update is called once per frame
         void Update()
         {
 
+        }
+
+        private void OnRefreshBag(bool state) {
+            if (state) {
+                RefreshBag();
+            }
+        }
+
+        private void RefreshBag() {
+            foreach (Com_Box box in items) {
+                GameObject.Destroy(box.gameObject);
+            }
+            items = new List<Com_Box>();
+
+            User user = GameProcessor.Inst.User;
+
+            if (user.Bags != null)
+            {
+                user.Bags.Sort((x, y) => x.Item.Type.CompareTo(y.Item.Type));
+                for (int BoxId = 0; BoxId < user.Bags.Count; BoxId++)
+                {
+                    BoxItem item = user.Bags[BoxId];
+                    item.BoxId = BoxId;
+
+                    Com_Box box = this.CreateBox(item);
+                    box.transform.SetParent(this.sr_Bag.content.GetChild(BoxId));
+                    box.transform.localPosition = Vector3.zero;
+                    box.transform.localScale = Vector3.one;
+                    box.SetBoxId(BoxId);
+                    this.items.Add(box);
+                }
+            }
         }
 
         protected override bool CheckPageType(ViewPageType page)
@@ -83,25 +116,9 @@ namespace Game
                 empty.name = "Box_" + i;
             }
 
-            if (user.Bags!=null)
-            {
-                //��ʼ��Ⱦ����,��������
-                user.Bags.Sort((x,y)=> x.Item.Type.CompareTo(y.Item.Type));
-                for (int BoxId = 0; BoxId < user.Bags.Count; BoxId++)
-                {
-                    BoxItem item = user.Bags[BoxId];
-                    item.BoxId = BoxId;
+            RefreshBag();
 
-                    Com_Box box = this.CreateBox(item);
-                    box.transform.SetParent(this.sr_Bag.content.GetChild(BoxId));
-                    box.transform.localPosition = Vector3.zero;
-                    box.transform.localScale = Vector3.one;
-                    box.SetBoxId(BoxId);
-                    this.items.Add(box);
-                }
-            }
-
-            if(user.EquipPanel!=null)
+            if (user.EquipPanel!=null)
             {
                 //��ʼ��Ⱦ����װ��
                 foreach(var kvp in user.EquipPanel)

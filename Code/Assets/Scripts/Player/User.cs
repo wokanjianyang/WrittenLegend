@@ -287,7 +287,7 @@ namespace Game
                 EquipStrengthConfig strengthConfig = EquipStrengthConfigCategory.Instance.GetByPositioinAndLevel(sp.Key, sp.Value);
                 for (int i = 0; i < strengthConfig.AttrList.Length; i++)
                 {
-                    AttributeBonus.SetAttr((AttributeEnum)strengthConfig.AttrList[i], AttributeFrom.EquiStrong, strengthConfig.AttrValueList[i]);
+                    AttributeBonus.SetAttr((AttributeEnum)strengthConfig.AttrList[i], AttributeFrom.EquiStrong, sp.Key, strengthConfig.AttrValueList[i]);
                 }
             }
 
@@ -329,10 +329,9 @@ namespace Game
                 EventCenter.Raise(new SetPlayerLevelEvent { Level = Level.ToString() });
                 EventCenter.Raise(new UserInfoUpdateEvent());
 
-                var hero = GameProcessor.Inst.PlayerManager.GetHero();
-                if (hero != null)
+                if (GameProcessor.Inst.PlayerManager != null && GameProcessor.Inst.PlayerManager.GetHero()!=null)
                 {
-                    hero.EventCenter.Raise(new HeroLevelUp());
+                    GameProcessor.Inst.PlayerManager.GetHero().EventCenter.Raise(new HeroLevelUp());
                 }
 
                 yield return new WaitForSeconds(0.2f);

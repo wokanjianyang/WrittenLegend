@@ -124,11 +124,14 @@ namespace Game
                 case ItemType.Equip://装备
                     {
                         Equip equip = this.item as Equip;
+
                         if (equip.BaseAttrList != null)
                         {
                             int index = 0;
                             tran_BaseAttribute.gameObject.SetActive(true);
                             tran_BaseAttribute.Find("Title").GetComponent<Text>().text = "[基础属性]";
+                            tran_BaseAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.item.Level);
+
                             foreach (var a in equip.BaseAttrList)
                             {
                                 var child = tran_BaseAttribute.Find(string.Format("Attribute_{0}", index));
@@ -176,8 +179,6 @@ namespace Game
                         this.btn_Equip.gameObject.SetActive(this.boxId != -1 && !levelLess);
                         this.btn_UnEquip.gameObject.SetActive(this.boxId == -1);
                         this.btn_Recovery.gameObject.SetActive(this.boxId != -1);
-                        tran_BaseAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.item.Level);
-
                     }
                     break;
                 case ItemType.SkillBox://技能书
