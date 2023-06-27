@@ -57,13 +57,18 @@ namespace Game
         public void OnPointerClick(PointerEventData eventData)
         {
             int count = GameProcessor.Inst.User.SkillList.FindAll(m => m.Status == SkillStatus.Equip).Count;
-            if (this.SkillPanel == null || this.SkillPanel.SkillData == null || count >= 5) return;
-            this.SkillPanel.SkillData.Status = SkillStatus.Equip;
-            this.SkillPanel.SkillData.Position = (int)SkillPosition.Last; //
-            GameProcessor.Inst.User.EventCenter.Raise(new HeroUpdateSkillEvent
+            if (this.SkillPanel == null || this.SkillPanel.SkillData == null || count >= 5)
             {
-                SkillPanel = this.SkillPanel
-            });
+                return;
+            }
+
+            if (this.SkillPanel.SkillData.Status == SkillStatus.Equip)
+            {
+                return;
+            }
+
+            this.SkillPanel.SkillData.Status = SkillStatus.Equip;
+            GameProcessor.Inst.User.EventCenter.Raise(new HeroUpdateSkillEvent() { SkillPanel = this.SkillPanel });
         }
     }
 }

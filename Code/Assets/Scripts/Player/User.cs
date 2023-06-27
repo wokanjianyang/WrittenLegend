@@ -78,7 +78,7 @@ namespace Game
             this.EventCenter.AddListener<HeroUseEquipEvent>(HeroUseEquip);
             this.EventCenter.AddListener<HeroUnUseEquipEvent>(HeroUnUseEquip);
             this.EventCenter.AddListener<HeroUseSkillBookEvent>(HeroUseSkillBook);
-            this.EventCenter.AddListener<HeroAttrChangeEvent>(HeroAttrChange);
+            this.EventCenter.AddListener<UserAttrChangeEvent>(UserAttrChange);
         }
 
         public void Init()
@@ -156,36 +156,31 @@ namespace Game
         {
             SkillBook Book = e.Item as SkillBook;
 
+            SkillData skillData;
+
             if (e.IsLearn)
             {
                 //第一次学习，创建技能数据
-                SkillData skillData = new SkillData(Book.ConfigId, 0);
+                skillData = new SkillData(Book.ConfigId, 0);
                 skillData.Status = SkillStatus.Learn;
                 skillData.Level = 1;
                 skillData.Exp = 0;
 
                 this.SkillList.Add(skillData);
-
-                SkillPanel skillPanel = new SkillPanel(skillData, GetRuneList(skillData.SkillId), GetSuitList(skillData.SkillId));
-                this.EventCenter.Raise(new HeroUpdateSkillEvent()
-                {
-                    SkillPanel = skillPanel
-                });
             }
             else
             {
-                SkillData skillData = this.SkillList.Find(b => b.SkillId == Book.ConfigId);
+                skillData = this.SkillList.Find(b => b.SkillId == Book.ConfigId);
                 skillData.AddExp(Book.ItemConfig.UseParam);
-
-                SkillPanel skillPanel = new SkillPanel(skillData, GetRuneList(skillData.SkillId), GetSuitList(skillData.SkillId));
-                this.EventCenter.Raise(new HeroUpdateSkillEvent()
-                {
-                    SkillPanel = skillPanel
-                });
             }
+
+            //更新技能面板
+            SkillPanel skillPanel = new SkillPanel(skillData, GetRuneList(skillData.SkillId), GetSuitList(skillData.SkillId));
+            this.EventCenter.Raise(new HeroUpdateSkillEvent() { SkillPanel = skillPanel });
         }
 
-        private void HeroAttrChange(HeroAttrChangeEvent e) {
+        private void UserAttrChange(UserAttrChangeEvent e)
+        {
             this.SetAttr();
         }
 
@@ -301,7 +296,10 @@ namespace Game
             UpExp = config.Exp;
 
             //更新面板
-            GameProcessor.Inst.UpdateInfo();
+            if (GameProcessor.Inst.PlayerInfo != null)
+            {
+                GameProcessor.Inst.PlayerInfo.UpdateAttrInfo(this);
+            }
         }
 
         public void AddExpAndGold(long exp, long gold)
@@ -324,8 +322,7 @@ namespace Game
                 Level++;
 
                 //Add Base Attr
-                SetAttr();
-
+                EventCenter.Raise(new UserAttrChangeEvent());
                 EventCenter.Raise(new SetPlayerLevelEvent { Level = Level.ToString() });
                 EventCenter.Raise(new UserInfoUpdateEvent());
 

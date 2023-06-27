@@ -71,6 +71,10 @@ namespace Game
 
     }
 
+    public class UserAttrChangeEvent : SDD.Events.Event
+    {
+
+    }
     public class HeroAttrChangeEvent : SDD.Events.Event
     {
 

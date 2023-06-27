@@ -1,6 +1,7 @@
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -48,7 +49,6 @@ namespace Game
         private void OnHeroUpdateSkillEvent(HeroUpdateSkillEvent e)
         {
             SkillToBattle(e.SkillPanel);
-
             //UserData.Save(); //修改技能后，存档
         }
 
@@ -59,10 +59,7 @@ namespace Game
                 return;
             }
 
-
-            this.equipSkills.RemoveAll(b => b.SkillPanel.SkillId == skill.SkillId);
             Item_Skill learn = this.learnSkills.Find(s => s.SkillPanel.SkillId == skill.SkillId);
-
             if (learn != null)
             {
                 learn.SetItem(skill);
@@ -72,17 +69,35 @@ namespace Game
                 this.CreateBook(skill);
             }
 
-
             if (skill.SkillData.Status == SkillStatus.Learn)
+            {
+                this.equipSkills.RemoveAll(b => b.SkillPanel.SkillId == skill.SkillId);
+            }
+            else
             {
                 var equip = this.equipSkills.Find(s => s.SkillPanel.SkillId == skill.SkillId);
                 if (equip == null)
                 {
-                    var com = this.tran_EquipSkills.GetChild(this.equipSkills.Count).GetComponent<Com_Skill>();
+                    int position = CalSkillPosition();
+                    skill.SkillData.Position = position;
+                    var com = this.tran_EquipSkills.GetChild(position).GetComponent<Com_Skill>();
                     com.SetItem(skill);
                     this.equipSkills.Add(com);
                 }
             }
+        }
+
+        private int CalSkillPosition()
+        {
+            List<int> alls = new int[] { 0, 1, 2, 3, 4 }.ToList();
+            List<int> ps = this.equipSkills.Select(m => m.SkillPanel.SkillData.Position).ToList();
+
+            foreach (var item in this.equipSkills)
+            {
+                alls.Remove(item.SkillPanel.SkillData.Position);
+            }
+
+            return alls.Count > 0 ? alls[0] : 0;
         }
 
         private void CreateBook(SkillPanel skill)

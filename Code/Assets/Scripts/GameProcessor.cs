@@ -200,14 +200,10 @@ namespace Game
 
         public void UpdateInfo()
         {
-            if (this.User == null)
+            if (this.User != null)
             {
-                return;
+                this.User.EventCenter.Raise(new UserAttrChangeEvent());
             }
-            //update Panel
-
-            this.PlayerInfo.UpdateAttrInfo(this.User);
-
 
             if (this.PlayerManager != null && this.PlayerManager.GetHero() != null)
             {
