@@ -99,4 +99,9 @@ namespace Game
     {
         public int Position { get; set; }
     }
+
+    public class ChangeCompositeTypeEvent : SDD.Events.Event
+    {
+        public string CompositeType { get; set; }
+    }
 }

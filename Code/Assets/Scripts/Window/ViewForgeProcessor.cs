@@ -21,6 +21,14 @@ public class ViewForgeProcessor : AViewPage
 
     private int SelectPosition = 1;
 
+    public Toggle toggle_Strengthen;
+    public Toggle toggle_Compound;
+
+    public ScrollRect sr_Left;
+    public ScrollRect sr_Right;
+
+    private Dictionary<string, List<SynthesisConfig>> allCompositeDatas;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +46,22 @@ public class ViewForgeProcessor : AViewPage
         EquiList = tran_EquiList.GetComponentsInChildren<StrenthBox>();
 
         Txt_Fee.text = "0";
+
+        this.toggle_Strengthen.onValueChanged.AddListener((isOn)=>
+        {
+            if (isOn)
+            {
+                Log.Debug("æ‰“å¼€å¼ºåŒ–ç•Œé¢");
+            }
+        });
+        this.toggle_Compound.onValueChanged.AddListener((isOn)=>
+        {
+            if (isOn)
+            {
+                Log.Debug("æ‰“å¼€åˆæˆç•Œé¢");
+            }
+        });
+        
     }
 
     private void OnEquipStrengthSelectEvent(EquipStrengthSelectEvent e)
@@ -48,7 +72,7 @@ public class ViewForgeProcessor : AViewPage
             return;
         }
 
-        //°ÑÖ®Ç°µÄÉèÎªÆÕÍ¨×´Ì¬
+        //ï¿½ï¿½Ö®Ç°ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Í¨×´Ì¬
         StrenthBox oldBox = EquiList.Where(m => ((int)m.SlotType) == SelectPosition).First();
         oldBox.SeSelect(false);
 
@@ -107,6 +131,92 @@ public class ViewForgeProcessor : AViewPage
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    private void ShowSynthesis()
+    {
+        var allDatas = SynthesisConfigCategory.Instance.GetAll();
+        this.allCompositeDatas = new Dictionary<string, List<SynthesisConfig>>();
+        foreach (var kvp in allDatas)
+        {
+            this.allCompositeDatas.TryGetValue(kvp.Value.Type, out var list);
+            if (list == null)
+            {
+                list = new List<SynthesisConfig>();
+            }
+            
+            list.Add(kvp.Value);
+
+            this.allCompositeDatas[kvp.Value.Type] = list;
+        }
+
+        var menuItemPrefab = sr_Left.content.GetChild(0);
+        menuItemPrefab.gameObject.SetActive(false);
+        foreach (var kvp in this.allCompositeDatas)
+        {
+            var menuItem = GameObject.Instantiate(menuItemPrefab.gameObject);
+            menuItem.transform.SetParent(sr_Left.content);
+            menuItem.gameObject.SetActive(true);
+            
+            var com = menuItem.GetComponent<Com_CompositeMenu>();
+            com.SetData(kvp.Key);
+        }
+
+        var firstCompositeList = this.allCompositeDatas.First().Value;
+
+        var compositeItemPrefab = sr_Right.content.GetChild(0);
+        compositeItemPrefab.gameObject.SetActive(false);
+        foreach (var config in firstCompositeList)
+        {
+            var compositeItem = GameObject.Instantiate(compositeItemPrefab);
+            compositeItem.transform.SetParent(sr_Right.content);
+            compositeItem.gameObject.SetActive(true);
+
+            var com = compositeItem.GetComponent<Com_CompositeItem>();
+            com.SetData(config);
+        }
+    }
+
+    private void OnChangeCompositeTypeEvent(ChangeCompositeTypeEvent e)
+    {
+        var compositeList = this.allCompositeDatas[e.CompositeType];
+        
+        var compositeItemPrefab = sr_Right.content.GetChild(0);
+        compositeItemPrefab.gameObject.SetActive(false);
+
+        var total = sr_Right.content.childCount - 1;
+        var max = Mathf.Max(total, compositeList.Count);
+        for (var i = 0; i < max; i++)
+        {
+            if (i < compositeList.Count)
+            {
+                var config = compositeList[i];
+                Com_CompositeItem com = null;
+                if (i < sr_Right.content.childCount - 1)
+                {
+                    com = sr_Right.content.GetChild(i + 1).GetComponent<Com_CompositeItem>();
+                    com.gameObject.SetActive(true);
+                }
+                else
+                {
+                    var compositeItem = GameObject.Instantiate(compositeItemPrefab);
+                    compositeItem.transform.SetParent(sr_Right.content);
+                    compositeItem.gameObject.SetActive(true);
+
+                    com = compositeItem.GetComponent<Com_CompositeItem>();
+                }
+                com.SetData(config);
+            }
+            else
+            {
+                sr_Right.content.GetChild(i+1).gameObject.SetActive(false);
+            }
+        }
+
+        sr_Right.verticalNormalizedPosition = 0;
+    }
+    
     private void OnClick_Strengthen()
     {
         User user = GameProcessor.Inst.User;
@@ -121,7 +231,7 @@ public class ViewForgeProcessor : AViewPage
         if (strengthLevel >= user.Level)
         {
             //
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "Ç¿»¯µ½Âú¼¶ÁË",Parent= tran_AttrList });
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",Parent= tran_AttrList });
             return;
         }
 
@@ -129,7 +239,7 @@ public class ViewForgeProcessor : AViewPage
 
         if (user.Gold < config.Fee)
         {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "Ã»ÓÐ×ã¹»µÄ½ð±Ò", Parent = tran_AttrList });
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "Ã»ï¿½ï¿½ï¿½ã¹»ï¿½Ä½ï¿½ï¿½", Parent = tran_AttrList });
             return;
         }
 
@@ -158,7 +268,8 @@ public class ViewForgeProcessor : AViewPage
         base.OnBattleStart();
 
         GameProcessor.Inst.EventCenter.AddListener<EquipStrengthSelectEvent>(this.OnEquipStrengthSelectEvent);
-
+        GameProcessor.Inst.EventCenter.AddListener<ChangeCompositeTypeEvent>(this.OnChangeCompositeTypeEvent);
         ShowInfo();
+        this.ShowSynthesis();
     }
 }
