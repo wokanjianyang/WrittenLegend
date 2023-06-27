@@ -1222,7 +1222,7 @@ GameObject:
   - component: {fileID: 4002203676495757698}
   - component: {fileID: 4298786602016997754}
   m_Layer: 5
-  m_Name: Txt_Fee
+  m_Name: Txt_Strengthen_Fee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1863,7 +1863,7 @@ GameObject:
   - component: {fileID: 6536485010521344036}
   - component: {fileID: 2741022672427411916}
   m_Layer: 5
-  m_Name: GameObject_1
+  m_Name: Strength_Fee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1967,7 +1967,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2773216799800149482}
   m_Layer: 5
-  m_Name: Tran_AttrList
+  m_Name: Strength_Attr_List
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6196,11 +6196,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1941252189977151918, guid: ea88cf7e6b890394eb921d09453538f6, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 500
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1941252189977151918, guid: ea88cf7e6b890394eb921d09453538f6, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 500
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1941252189977151918, guid: ea88cf7e6b890394eb921d09453538f6, type: 3}
       propertyPath: m_LocalPosition.x
