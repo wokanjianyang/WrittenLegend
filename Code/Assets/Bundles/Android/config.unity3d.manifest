@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1370688767
+CRC: 2253994140
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: bbb1627017c5a06bd16827eb5dacbe7a
+    Hash: 1786993993d25a7729c7445b32c6f494
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -14,6 +14,7 @@ ClassTypes:
 SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Resources/Config/MapConfigCategory.bytes
+- Assets/Resources/Config/EquipStrengthConfigCategory.bytes
 - Assets/Resources/Config/SkillSuitConfigCategory.bytes
 - Assets/Resources/Config/QualityConfigCategory.bytes
 - Assets/Resources/Config/LevelConfigCategory.bytes
