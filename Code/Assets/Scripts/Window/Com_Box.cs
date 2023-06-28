@@ -80,14 +80,14 @@ namespace Game
         public void AddStack(int quantity)
         {
             this.Count+= quantity;
-            this.tmp_Count.transform.gameObject.SetActive(this.Count > 1);
+            this.tmp_Count.transform.gameObject.SetActive(this.Count != 1);
             this.tmp_Count.text = this.Count.ToString();
         }
 
-        public void RemoveStack()
+        public void RemoveStack(int quantity)
         {
-            this.Count--;
-            this.tmp_Count.transform.gameObject.SetActive(this.Count > 1);
+            this.Count -= quantity;
+            this.tmp_Count.transform.gameObject.SetActive(this.Count != 1);
             this.tmp_Count.text = this.Count.ToString();
         }
     }

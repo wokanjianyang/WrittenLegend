@@ -104,4 +104,13 @@ namespace Game
     {
         public string CompositeType { get; set; }
     }
+
+    public class CompositeEvent : SDD.Events.Event
+    {
+        public SynthesisConfig Config { get; set; }
+    }
+
+    public class CompositeUIFreshEvent : SDD.Events.Event
+    {
+    }
 }

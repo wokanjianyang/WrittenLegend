@@ -140,11 +140,13 @@ namespace Game
                                 index++;
                             }
                         }
-                        if (equip.AttrEntryList != null) {
+
+                        if (equip.AttrEntryList != null && equip.AttrEntryList.Count > 0)
+                        {
                             int index = 0;
                             tran_QualityAttribute.gameObject.SetActive(true);
                             tran_QualityAttribute.Find("Title").GetComponent<Text>().text = "[品质属性]";
-                            foreach (var a in equip.AttrEntryList)
+                            foreach (var a in equip.AttrEntryList) //TODO 有bug，如果之前看的有4条属性，这次看的只有3条，那么最后一条显示的是上次的属性
                             {
                                 var child = tran_QualityAttribute.Find(string.Format("Attribute_{0}", index));
                                 child.GetComponent<Text>().text = string.Format(" •{0}点{1}", a.Value, PlayerHelper.PlayerAttributeMap[((AttributeEnum)a.Key).ToString()]);

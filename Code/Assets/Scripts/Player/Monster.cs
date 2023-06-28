@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
+using System;
 
 namespace Game
 {
@@ -99,7 +100,7 @@ namespace Game
             List<Item> items = DropHelper.BuildDropItem(dropList, Quality);
             if (SystemConfigHelper.CheckRequireLevel(SystemEnum.SoulRing))
             {
-                items.Add(DropHelper.BuildSoulRingShard(mapLevel / 10));
+                items.Add(ItemHelper.BuildSoulRingShard(Math.Max(1, mapLevel / 10)));
             }
 
             if (items.Count > 0)

@@ -12,7 +12,7 @@ namespace Game
 
     public class GiftPackHelper
     {
-        public static List<Item> BuildItems(int configId,ref int gold)
+        public static List<Item> BuildItems(int configId, ref int gold)
         {
             List<Item> items = new List<Item>();
 
@@ -21,27 +21,17 @@ namespace Game
             {
                 int itemId = config.ItemIdList[i];
                 int quanlity = config.ItemQuanlityList[i];
-                int type = config.ItemTypeList[i];
+                ItemType type = (ItemType)config.ItemTypeList[i];
 
                 Item item = null;
 
-                switch (type)
+                if (type == ItemType.Gold)
                 {
-                    case (int)ItemType.Gold:
-                        gold = quanlity;
-                        break;
-                    case (int)ItemType.Equip:
-                        item = EquipHelper.BuildCustomEquip(itemId);
-                        break;
-                    case (int)ItemType.SkillBox:
-                        item = SkillHelper.BuildItem(itemId);
-                        break;
-                    case (int)ItemType.GiftPack:
-                        item = new GiftPack(itemId);
-                        break;
-                    default:
-                        break;
-
+                    gold = quanlity;
+                }
+                else
+                {
+                    item = ItemHelper.BuildItem(type, itemId, 0, quanlity);
                 }
 
                 if (item != null)

@@ -11,6 +11,9 @@ namespace Game
 
         public int Priority {  get; }
         public int lastUseRound { get; set; } =0;
+
+        public int UserCount { get; set; } = 0;
+
         public int Position { get; }
 
         private ASkill skillLogic;
@@ -21,7 +24,7 @@ namespace Game
         {
             this.SelfPlayer = player;
             this.SkillPanel = skillPanel;
-            this.Priority = skillPanel.SkillData.SkillConfig.Priority;
+            this.Priority = skillPanel.SkillData.SkillConfig.Priority - position;
             this.Position = position;
             this.lastUseRound = useRound;
 

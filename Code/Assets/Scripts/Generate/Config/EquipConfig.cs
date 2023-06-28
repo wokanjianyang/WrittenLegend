@@ -96,14 +96,20 @@ namespace Game
 		/// <summary>基础属性值</summary>
 		[ProtoMember(7)]
 		public long[] AttributeBase { get; set; }
-		/// <summary>词条</summary>
+		/// <summary>随机属性</summary>
 		[ProtoMember(8)]
+		public int RandomAttr { get; set; }
+		/// <summary>品质</summary>
+		[ProtoMember(9)]
+		public int Quality { get; set; }
+		/// <summary>词条</summary>
+		[ProtoMember(10)]
 		public int RuneId { get; set; }
 		/// <summary>套装</summary>
-		[ProtoMember(9)]
+		[ProtoMember(11)]
 		public int SuitId { get; set; }
 		/// <summary>Price</summary>
-		[ProtoMember(10)]
+		[ProtoMember(12)]
 		public long Price { get; set; }
 
 	}

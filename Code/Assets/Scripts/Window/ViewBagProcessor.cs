@@ -1,6 +1,7 @@
 using SA.Android.Utilities;
 using SA.CrossPlatform.UI;
 using Sirenix.OdinInspector;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,8 +63,10 @@ namespace Game
             }
         }
 
-        private void RefreshBag() {
-            foreach (Com_Box box in items) {
+        private void RefreshBag()
+        {
+            foreach (Com_Box box in items)
+            {
                 GameObject.Destroy(box.gameObject);
             }
             items = new List<Com_Box>();
@@ -72,7 +75,7 @@ namespace Game
 
             if (user.Bags != null)
             {
-                user.Bags.Sort((x, y) => x.Item.Type.CompareTo(y.Item.Type));
+                user.Bags = user.Bags.OrderBy(m => m.Item.GetQuality()).OrderBy(m => m.Item.Type).OrderBy(m => m.Item.ConfigId).ToList();
                 for (int BoxId = 0; BoxId < user.Bags.Count; BoxId++)
                 {
                     BoxItem item = user.Bags[BoxId];
@@ -102,6 +105,7 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<RecoveryEvent>(this.OnRecoveryEvent);
             GameProcessor.Inst.EventCenter.AddListener<AutoRecoveryEvent>(this.OnAutoRecoveryEvent);
             GameProcessor.Inst.EventCenter.AddListener<BagUseEvent>(this.OnBagUseEvent);
+            GameProcessor.Inst.EventCenter.AddListener<CompositeEvent>(this.OnCompositeEvent);
 
             User user = GameProcessor.Inst.User;
             user.EventCenter.AddListener<HeroBagUpdateEvent>(this.OnHeroBagUpdateEvent);
@@ -118,12 +122,12 @@ namespace Game
 
             RefreshBag();
 
-            if (user.EquipPanel!=null)
+            if (user.EquipPanel != null)
             {
                 //��ʼ��Ⱦ����װ��
-                foreach(var kvp in user.EquipPanel)
+                foreach (var kvp in user.EquipPanel)
                 {
-                    this.CreateEquipPanelItem(kvp.Key,kvp.Value);
+                    this.CreateEquipPanelItem(kvp.Key, kvp.Value);
                 }
             }
         }
@@ -161,6 +165,57 @@ namespace Game
             comItem.SetItem(item);
             return comItem;
         }
+
+        private void OnCompositeEvent(CompositeEvent e)
+        {
+            SynthesisConfig config = e.Config;
+
+            User user = GameProcessor.Inst.User;
+
+            List<BoxItem> list = user.Bags.Where(m => (int)m.Item.Type == config.FromItemType && m.Item.ConfigId == config.FromId).ToList();
+
+            int count = list.Select(m => m.Number).Sum();
+
+            if (count < config.Quantity)
+            {
+                return;
+            }
+
+            int useCount = (int)config.Quantity;
+
+            foreach (BoxItem boxItem in list)
+            {
+                int boxUseCount = Math.Min(boxItem.Number, useCount);
+
+                Com_Box boxUI = this.items.Find(m => m.boxId == boxItem.BoxId);
+                boxItem.RemoveStack(boxUseCount);
+                boxUI.RemoveStack(boxUseCount);
+
+                if (boxItem.Number <= 0)
+                {
+                    user.Bags.Remove(boxItem);
+
+                    this.items.Remove(boxUI);
+                    GameObject.Destroy(boxUI.gameObject);
+
+                }
+
+                useCount = useCount - boxUseCount;
+
+                if (useCount <= 0)
+                {
+                    break;
+                }
+            }
+
+            //
+            Item item = ItemHelper.BuildItem((ItemType)config.TargetType, config.TargetId, 0, 1);
+
+            AddBoxItem(item);
+
+            GameProcessor.Inst.EventCenter.Raise(new CompositeUIFreshEvent());
+        }
+
         private void OnEquipOneEvent(EquipOneEvent e)
         {
             var equip = e.Item as Equip;
@@ -247,8 +302,8 @@ namespace Game
                 Log.Debug("此物品已经被使用了");
                 return;
             }
-            boxItem.RemoveStack();
-            boxUI.RemoveStack();
+            boxItem.RemoveStack(1);
+            boxUI.RemoveStack(1);
 
             //用光了，移除队列
             if (boxItem.Number <= 0)

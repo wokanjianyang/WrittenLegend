@@ -28,7 +28,7 @@ namespace Game
         {
             if (ItemTypeDict.GetValueOrDefault((int)item.Type, false)
                 && ItemQuanlityDict.GetValueOrDefault(item.GetQuality(), false)
-                && item.Level <= Level)
+                && item.Level <= Level && item.Level > 0)
             {
                 return true;
             }
