@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 namespace Game
 {
@@ -135,7 +136,7 @@ namespace Game
                             foreach (var a in equip.BaseAttrList)
                             {
                                 var child = tran_BaseAttribute.Find(string.Format("Attribute_{0}", index));
-                                child.GetComponent<Text>().text = string.Format(" •{0}点{1}", a.Value, PlayerHelper.PlayerAttributeMap[((AttributeEnum)a.Key).ToString()]);
+                                child.GetComponent<Text>().text =  FormatAttrText(a.Key, a.Value);
                                 child.gameObject.SetActive(true);
                                 index++;
                             }
@@ -149,7 +150,7 @@ namespace Game
                             foreach (var a in equip.AttrEntryList) //TODO 有bug，如果之前看的有4条属性，这次看的只有3条，那么最后一条显示的是上次的属性
                             {
                                 var child = tran_QualityAttribute.Find(string.Format("Attribute_{0}", index));
-                                child.GetComponent<Text>().text = string.Format(" •{0}点{1}", a.Value, PlayerHelper.PlayerAttributeMap[((AttributeEnum)a.Key).ToString()]);
+                                child.GetComponent<Text>().text = FormatAttrText(a.Key, a.Value);
                                 child.gameObject.SetActive(true);
                                 index++;
                             }
@@ -230,6 +231,22 @@ namespace Game
             var size = this.rect_Content.sizeDelta;
             size.x = 289;
             this.rectTransform.sizeDelta = size;
+        }
+
+        private string FormatAttrText(int attr, long val)
+        {
+            string unit = "点";
+
+            List<int> percents = (new int[] { 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 23, 41, 43, 45 }).ToList(); ;
+
+            if (percents.Contains(attr))
+            {
+                unit = "%";
+            }
+
+            string text = val + unit + PlayerHelper.PlayerAttributeMap[((AttributeEnum)attr).ToString()];
+
+            return text;
         }
 
         private void OnEquip()

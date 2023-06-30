@@ -227,7 +227,7 @@ namespace Game
 
         public SkillState GetSkill()
         {
-            List<SkillState> list = SelectSkillList.OrderBy(m => -m.UserCount).OrderBy(m => -m.Priority).ToList();
+            List<SkillState> list = SelectSkillList.OrderBy(m => m.UserCount * 1000 + m.Priority).ToList();
 
             foreach (SkillState state in list)
             {

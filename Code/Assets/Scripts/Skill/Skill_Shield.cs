@@ -20,6 +20,12 @@ namespace Game
         {
             //如果还有附加特效
             this.skillGraphic?.PlayAnimation(SelfPlayer.Cell);
+            //
+            SelfPlayer.EventCenter.Raise(new ShowMsgEvent
+            {
+                Type = MsgType.SkillName,
+                Content = SkillPanel.SkillData.SkillConfig.Name
+            });
 
             //对自己加属性Buff
             foreach (EffectData effect in SkillPanel.EffectIdList.Values)

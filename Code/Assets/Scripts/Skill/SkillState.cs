@@ -24,7 +24,7 @@ namespace Game
         {
             this.SelfPlayer = player;
             this.SkillPanel = skillPanel;
-            this.Priority = skillPanel.SkillData.SkillConfig.Priority - position;
+            this.Priority = position - skillPanel.SkillData.SkillConfig.Priority ;
             this.Position = position;
             this.lastUseRound = useRound;
 

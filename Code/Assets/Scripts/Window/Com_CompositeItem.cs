@@ -42,7 +42,7 @@ public class Com_CompositeItem : MonoBehaviour
 
         if (count < config.Quantity)
         {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "材料不足", Parent = CostItemGold.transform });
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "材料不足" });
             return;
         }
 
@@ -54,8 +54,10 @@ public class Com_CompositeItem : MonoBehaviour
         Log.Debug($"合成:{this.config.TargetName}");
     }
 
-    public void Refresh() {
-        if (config == null) {
+    public void Refresh()
+    {
+        if (config == null)
+        {
             return;
         }
         User user = GameProcessor.Inst.User;

@@ -254,7 +254,7 @@ public class ViewForgeProcessor : AViewPage
         if (strengthLevel >= user.Level)
         {
             //
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "强化到满级了", Parent= tran_AttrList });
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "强化等级不能超过人物等级", Parent= tran_AttrList });
             return;
         }
 

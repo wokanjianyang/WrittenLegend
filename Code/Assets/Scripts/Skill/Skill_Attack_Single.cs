@@ -15,25 +15,34 @@ namespace Game
         {
             List<AttackData> attackDatas = new List<AttackData>();
 
+            attackDatas.Add(new AttackData()
+            {
+                Tid = SelfPlayer.Enemy.ID,
+                Cell = SelfPlayer.Enemy.Cell,
+                Ratio = 0
+            });
+
+            if (attackDatas.Count >= SkillPanel.EnemyMax)  //如果只能攻击一个，则优先攻击目标
+            {
+                return attackDatas;
+            }
+
             //Debug.Log($"获取技能:{(this.SkillPanel.SkillData.SkillConfig.Name)}施法目标");
 
             //施法中心为自己
             APlayer target = SelfPlayer;
 
             List<Vector3Int> allAttackCells = GameProcessor.Inst.MapData.GetAttackRangeCell(SelfPlayer.Cell, SelfPlayer.Enemy.Cell, SkillPanel);
-            float ratio = allAttackCells.Count;
+            allAttackCells.Remove(SelfPlayer.Enemy.Cell);
 
             //排序，从进到远
-            Vector3Int mainCell = SelfPlayer.Cell;
             Vector3Int selfCell = SelfPlayer.Cell;
-            allAttackCells = allAttackCells.OrderBy(m => Mathf.Abs(m.x - mainCell.x) + Mathf.Abs(m.y - mainCell.y) + Mathf.Abs(m.z - mainCell.z)
-            + Mathf.Abs(m.x - selfCell.x) + Mathf.Abs(m.y - selfCell.y) + Mathf.Abs(m.z - selfCell.z)).ToList();
+            allAttackCells = allAttackCells.OrderBy(m => Mathf.Abs(m.x - selfCell.x) + Mathf.Abs(m.y - selfCell.y) + Mathf.Abs(m.z - selfCell.z)).ToList();
 
-            int EnemyNum = 0;
 
             foreach (var cell in allAttackCells)
             {
-                if (EnemyNum >= SkillPanel.EnemyMax)
+                if (attackDatas.Count >= SkillPanel.EnemyMax)
                 {
                     break;
                 }
@@ -45,14 +54,8 @@ namespace Game
                     {
                         Tid = enemy.ID,
                         Cell = cell,
-                        Ratio = ratio
+                        Ratio = 0
                     });
-                    EnemyNum++;
-                }
-
-                if (ratio > 0.1f)
-                {
-                    ratio -= 0.1f;
                 }
             }
 

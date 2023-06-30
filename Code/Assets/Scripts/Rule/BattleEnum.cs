@@ -120,5 +120,6 @@ namespace Game
         Crit = 3,
         Effect = 4,
         Other = 5,
+        SkillName = 6,
     }
 }

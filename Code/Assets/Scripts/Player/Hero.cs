@@ -89,7 +89,8 @@ namespace Game
             list.Add(new SkillData(9001, (int)SkillPosition.Default)); //增加默认技能
 
             //TEST
-            //list.Add(new SkillData(2003, (int)SkillPosition.Default)); //增加默认技能
+            //list.Clear();
+            //list.Add(new SkillData(2002, (int)SkillPosition.Default)); //增加默认技能
 
             foreach (SkillData skillData in list)
             {
