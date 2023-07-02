@@ -20,7 +20,11 @@ namespace Game
 
         [LabelText("BOSS信息")]
         public Button btn_BossInfo;
-        
+
+        [LabelText("地图名称")]
+        public Text txt_MapName;
+
+
         private bool isViewMapShowing = false;
 
         private GameObject msgPrefab;
@@ -54,6 +58,8 @@ namespace Game
 
             GameProcessor.Inst.EventCenter.AddListener<BattleMsgEvent>(this.OnBattleMsgEvent);
             GameProcessor.Inst.EventCenter.AddListener<ChangeMapEvent>(this.OnChangeMapEvent);
+
+            ShowMapInfo();
 
             //加载世界地图
             this.LoadWroldMap();
@@ -100,6 +106,18 @@ namespace Game
             GameProcessor.Inst.OnDestroy();
             var map = GameObject.Find("Canvas").GetComponentInChildren<ViewBattleProcessor>(true).transform;
             GameProcessor.Inst.LoadMap(RuleType.Normal, 0, map);
+
+            ShowMapInfo();
+        }
+
+        private void ShowMapInfo()
+        {
+            User user = GameProcessor.Inst.User;
+            if (user != null)
+            {
+                MapConfig config = MapConfigCategory.Instance.Get(user.MapId);
+                txt_MapName.text = config.Name;
+            }
         }
 
         public class MapNameData
