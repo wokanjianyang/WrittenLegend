@@ -18,6 +18,10 @@ namespace Game
         [LabelText("行数")]
         public int RowCount = 1;
 
+        private const int minX = 0;
+        private const int minY = 0;
+        private const int maxX = 6;
+        private const int maxY = 7;
 
         public Vector3 MapStartPos { get; private set; } = Vector3.zero;
 
@@ -362,12 +366,33 @@ namespace Game
                         int xdir = dir.x > 0 ? -1 : 1;
                         int ydir = dir.y > 0 ? -1 : 1;
 
-                        for (var i = 0; i < skill.Row; i++)
+                        for (var x = 0; x < skill.Column; x++)
                         {
-                            for (var j = 0; j < skill.Column; j++)
+                            for (var y = 0; y < skill.Row; y++)
                             {
-                                targetCell = enemyCell + new Vector3Int(i * xdir, j * ydir);
-                                rangeCells.Add(targetCell);
+                                int px = enemyCell.x + x * xdir;
+                                int py = enemyCell.y + y * ydir;
+
+                                if (px > maxX)
+                                {
+                                    px = enemyCell.x - (px - maxX);
+                                }
+                                if (px < minX)
+                                {
+                                    px = enemyCell.x + Math.Abs(px);
+                                }
+
+                                if (py > maxY)
+                                {
+                                    py = enemyCell.y - (py - maxY);
+                                }
+                                if (py < minY)
+                                {
+                                    py = enemyCell.y + Math.Abs(py);
+
+                                }
+
+                                rangeCells.Add(new Vector3Int(px, py));
                             }
                         }
                     }
@@ -419,7 +444,7 @@ namespace Game
             }
 
             //移除范围内的
-            rangeCells.RemoveAll(m => m.x > 6 || m.x < 0 || m.y < 0 || m.y > 7);
+            rangeCells.RemoveAll(m => m.x > maxX || m.x < minX || m.y > maxY || m.y < minY );
             rangeCells = rangeCells.Distinct().ToList();
 
             return rangeCells;
