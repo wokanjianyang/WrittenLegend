@@ -47,8 +47,12 @@ namespace Game
 
         public void OnDestroy()
         {
-            PlayerManager.OnDestroy();
-            foreach(var ie in delayActionIEs)
+            if (PlayerManager != null)
+            {
+                PlayerManager.OnDestroy();
+            }
+
+            foreach (var ie in delayActionIEs)
             {
                 StopCoroutine(ie);
             }

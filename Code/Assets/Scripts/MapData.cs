@@ -306,6 +306,12 @@ namespace Game
 
         public List<Vector3Int> GetAttackRangeCell(Vector3Int selfCell, Vector3Int enemyCell, SkillPanel skill)
         {
+            Log.Debug("cell begin");
+            foreach (var c in this.AllCells) {
+                Log.Debug(c.ToString());
+            }
+            Log.Debug("cell end");
+
             List<Vector3Int> rangeCells = new List<Vector3Int>();
             Vector3Int targetCell = Vector3Int.zero;
             int distance = skill.Dis;
@@ -412,7 +418,10 @@ namespace Game
                     break;
             }
 
+            //移除范围内的
+            rangeCells.RemoveAll(m => m.x > 6 || m.x < 0 || m.y < 0 || m.y > 7);
             rangeCells = rangeCells.Distinct().ToList();
+
             return rangeCells;
         }
 
