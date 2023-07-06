@@ -130,7 +130,7 @@ namespace Game
                     {
                         Equip equip = this.item as Equip;
 
-                        if (equip.BaseAttrList != null)
+                        if (equip.BaseAttrList != null && equip.BaseAttrList.Count > 0)
                         {
                             int index = 0;
                             tran_BaseAttribute.gameObject.SetActive(true);
@@ -160,7 +160,8 @@ namespace Game
                             }
                         }
 
-                        if (equip.SkillRuneConfig != null) {
+                        if (equip.SkillRuneConfig != null) 
+                        {
                             int index = 0;
                             tran_SkillAttribute.gameObject.SetActive(true);
                             tran_SkillAttribute.Find("Title").GetComponent<Text>().text = equip.SkillRuneConfig.Name;
