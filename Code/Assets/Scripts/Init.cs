@@ -47,6 +47,9 @@ public class Init : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //保持屏幕常亮
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        
         BuglyAgent.PrintLog(LogSeverity.LogInfo, "Demo Start()");
 
         InitBuglySDK();
