@@ -90,6 +90,9 @@ namespace Game
 		/// <summary>SkillList</summary>
 		[ProtoMember(5)]
 		public int[] SkillList { get; set; }
+		/// <summary>Desc</summary>
+		[ProtoMember(6)]
+		public string Desc { get; set; }
 
 	}
 }

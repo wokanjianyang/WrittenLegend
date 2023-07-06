@@ -33,11 +33,11 @@ namespace Game
 
             int level = GameProcessor.Inst.User.Level;
 
-            if (level < config.LevelRequired)
-            {
-                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "等级不足" });
-                return;
-            }
+            //if (level < config.LevelRequired)
+            //{
+            //    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "等级不足" });
+            //    return;
+            //}
 
             GameProcessor.Inst.EventCenter.Raise(new ChangeMapEvent() { MapId = Data.Id });
             Log.Debug(Data.Name);

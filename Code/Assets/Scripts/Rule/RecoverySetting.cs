@@ -6,32 +6,50 @@ namespace Game
 
     public class RecoverySetting
     {
-        private Dictionary<int, bool> ItemTypeDict = new Dictionary<int, bool>();  //回收道具类型（0 金币 1 通用道具 2装备,3技能书）
+        public Dictionary<int, bool> EquipQuanlity { get; private set; } = new Dictionary<int, bool>();  //回收道具品质(1白色 2绿色 3蓝色 4紫色)
+        public int EquipLevel { get; set; } = 0;
 
-        private Dictionary<int, bool> ItemQuanlityDict = new Dictionary<int, bool>();  //回收道具品质(1白色 2绿色 3蓝色 4紫色)
+        public Dictionary<int, bool> SkillBookRole { get; private set; } = new Dictionary<int, bool>();
+        public int SkillBookLevel { get; set; } = 0;//
 
-        private int Level = 0; //回收道具等级
+        public int test = 10;
 
-        public void SetType(int type, bool check) {
-            this.ItemTypeDict[type] = check;
+        public RecoverySetting() {
+            this.test = 20;
         }
 
-        public void SetQuanlity(int quanlity, bool check) {
-            this.ItemQuanlityDict[quanlity] = check;
+        public void SetEquipQuanlity(int quanlity, bool check)
+        {
+            this.EquipQuanlity[quanlity] = check;
         }
 
-        public void SetLevel(int level) {
-            this.Level = level;
+        public void SetSkillBookRole(int role, bool check)
+        {
+            this.SkillBookRole[role] = check;
         }
+
 
         public bool CheckRecovery(Item item)
         {
-            if (ItemTypeDict.GetValueOrDefault((int)item.Type, false)
-                && ItemQuanlityDict.GetValueOrDefault(item.GetQuality(), false)
-                && item.Level <= Level && item.Level > 0)
+            if (item.Type == ItemType.Equip)
             {
-                return true;
+                Equip equip = item as Equip;
+                if (EquipQuanlity.GetValueOrDefault(item.GetQuality(), false) && item.Level <= EquipLevel && equip.Part <= 10)
+                {
+                    return true;
+                }
             }
+            else if (item.Type == ItemType.SkillBox)
+            {
+                SkillBook skillBook = item as SkillBook;
+
+                int role = skillBook.SkillConfig.Role;
+                if (SkillBookRole.GetValueOrDefault(role, false) && item.Level <= EquipLevel)
+                {
+                    return true;
+                }
+            }
+
             return false;
         }
     }
