@@ -61,7 +61,11 @@ namespace Game
         public Item Item { get; set; }
         public int BoxId { get; set; }
     }
-
+    public class ForgingEvent : SDD.Events.Event
+    {
+        public Item Item { get; set; }
+        public int BoxId { get; set; }
+    }
     public class AutoRecoveryEvent : SDD.Events.Event
     {
     }

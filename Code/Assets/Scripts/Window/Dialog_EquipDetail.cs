@@ -57,6 +57,9 @@ namespace Game
         [LabelText("回收")]
         public Button btn_Recovery;
 
+        [LabelText("锻造")]
+        public Button btn_Forging;
+        
         private Item item;
         private int boxId;
         private int equipPositioin;
@@ -71,6 +74,7 @@ namespace Game
             this.btn_Learn.onClick.AddListener(this.OnLearnSkill);
             this.btn_Upgrade.onClick.AddListener(this.OnUpgradeSkill);
             this.btn_Recovery.onClick.AddListener(this.OnRecovery);
+            this.btn_Forging.onClick.AddListener(this.OnForging);
             this.gameObject.SetActive(false); 
         }
 
@@ -101,14 +105,14 @@ namespace Game
             this.btn_Upgrade.gameObject.SetActive(false);
             this.btn_Recovery.gameObject.SetActive(false);
 
-            this.transform.position = this.GetBetterPosition(e.Position);
+            // this.transform.position = this.GetBetterPosition(e.Position);
             this.tmp_Title.text = e.Item.Name;
             this.item = e.Item;
             this.boxId = e.BoxId;
             this.equipPositioin = e.EquipPosition;
 
             var titleColor = QualityConfigHelper.GetColor(this.item.GetQuality());
-            this.img_Background.sprite = this.list_BackgroundImgs[this.item.GetQuality() - 1];
+            // this.img_Background.sprite = this.list_BackgroundImgs[this.item.GetQuality() - 1];
             tmp_Title.text = string.Format("<color=#{0}>{1}</color>", titleColor, this.item.Name);
 
             string color = "green";
@@ -225,9 +229,9 @@ namespace Game
             }
 
 
-            var size = this.rect_Content.sizeDelta;
-            size.x = 289;
-            this.rectTransform.sizeDelta = size;
+            // var size = this.rect_Content.sizeDelta;
+            // size.x = 804;
+            // this.rectTransform.sizeDelta = size;
         }
 
         private void OnEquip()
@@ -286,7 +290,7 @@ namespace Game
                 IsLearn = false,
                 Item = this.item,
                 BoxId = this.boxId
-            }); ;
+            });
         }
 
         private void OnRecovery()
@@ -297,7 +301,18 @@ namespace Game
             {
                 Item = this.item,
                 BoxId = this.boxId
-            }); ;
+            });
+        }
+
+        private void OnForging()
+        {
+            this.gameObject.SetActive(false);
+            
+            GameProcessor.Inst.EventCenter.Raise(new ForgingEvent()
+            {
+                Item = this.item,
+                BoxId = this.boxId
+            });
         }
 
         private Vector3 GetBetterPosition(Vector3 position)
@@ -320,6 +335,11 @@ namespace Game
 
 
             return betterPosition;
+        }
+
+        public void OnClick_Close()
+        {
+            this.gameObject.SetActive(false);
         }
     }
 }

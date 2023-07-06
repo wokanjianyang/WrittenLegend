@@ -52,16 +52,15 @@ namespace Game
             switch (this.TouchIgnore)
             {
                 case TouchIgnoreType.HideWithTouchEmpty:
-                    block = true;
-                    // foreach (var rect in this.rectTransforms)
-                    // {
-                    //     var ret = RectTransformUtility.RectangleContainsScreenPoint(rect, point);
-                    //     if (ret)
-                    //     {
-                    //         block = false;
-                    //         break;
-                    //     }
-                    // }
+                    // block = true;
+                    foreach (var rect in this.rectTransforms)
+                    {
+                        var ret = RectTransformUtility.RectangleContainsScreenPoint(rect, point);
+                        
+                        block = ret;
+                        
+                        break;
+                    }
                     break;
                 case TouchIgnoreType.HideWithCloseBtn:
                     block = false;
