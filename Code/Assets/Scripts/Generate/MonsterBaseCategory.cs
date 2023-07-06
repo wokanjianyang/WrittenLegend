@@ -27,7 +27,7 @@ namespace Game
                 maxLevel = GameProcessor.Inst.User.Level; //低于5级，只刷低于自身等级的怪
             }
 
-            List<MonsterBase> list = MonsterBaseCategory.Instance.GetAll().Where(m => m.Value.Level >= minLevel && m.Value.Level < maxLevel).Select(m => m.Value).ToList();
+            List<MonsterBase> list = MonsterBaseCategory.Instance.GetAll().Where(m => m.Value.Level >= minLevel && m.Value.Level <= maxLevel).Select(m => m.Value).ToList();
 
             int rd = RandomHelper.RandomNumber(1, list.Count + 1);
             MonsterBase config = list[rd - 1];

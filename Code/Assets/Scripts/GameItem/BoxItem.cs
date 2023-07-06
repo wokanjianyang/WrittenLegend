@@ -22,8 +22,8 @@ namespace Game
             this.Number+= quantity;
         }
 
-        public void RemoveStack() {
-            this.Number--;
+        public void RemoveStack(int quantity) {
+            this.Number-= quantity;
         }
 
         public bool IsFull() {

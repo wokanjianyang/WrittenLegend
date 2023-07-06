@@ -98,7 +98,7 @@ namespace Game
             List<Item> items = DropHelper.BuildDropItem(dropList, 0);
             if (SystemConfigHelper.CheckRequireLevel(SystemEnum.SoulRing))
             {
-                items.Add(DropHelper.BuildSoulRingShard(mapLevel));
+                items.Add(ItemHelper.BuildSoulRingShard(mapLevel));
             }
 
 

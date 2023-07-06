@@ -41,28 +41,12 @@ namespace Game
         public override List<AttackData> GetAllTargets()
         {
             List<AttackData> attackDatas = new List<AttackData>();
-
-            //Debug.Log($"获取技能:{(this.SkillData.Name)}施法目标");
-
-            //施法中心为自己
-            APlayer target = SelfPlayer.Enemy;
-
-            List<Vector3Int> allAttackCells = GameProcessor.Inst.MapData.GetAttackRangeCell(target.Cell, SkillPanel.Dis, SkillPanel.Area);
-
-            foreach (var cell in allAttackCells)
-            {
-                attackDatas.Add(new AttackData()
-                {
-                    Tid = 0,
-                    Ratio = 0
-                });
-            }
-
             return attackDatas;
         }
+
         public override List<Vector3Int> GetPlayCells()
         {
-            return GameProcessor.Inst.MapData.GetAttackRangeCell(SelfPlayer.Cell, SelfPlayer.Cell, SkillPanel);
+            return GameProcessor.Inst.MapData.GetAttackRangeCell(SelfPlayer.Cell, SelfPlayer.Enemy.Cell, SkillPanel);
         }
     }
 }

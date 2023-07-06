@@ -99,6 +99,11 @@ namespace Game
         public int MapId { get; set; }
     }
 
+    public class ChangeFloorEvent : SDD.Events.Event
+    {
+        public int Floor { get; set; }
+    }
+
     public class EquipStrengthSelectEvent : SDD.Events.Event
     {
         public int Position { get; set; }
@@ -107,5 +112,14 @@ namespace Game
     public class ChangeCompositeTypeEvent : SDD.Events.Event
     {
         public string CompositeType { get; set; }
+    }
+
+    public class CompositeEvent : SDD.Events.Event
+    {
+        public SynthesisConfig Config { get; set; }
+    }
+
+    public class CompositeUIFreshEvent : SDD.Events.Event
+    {
     }
 }

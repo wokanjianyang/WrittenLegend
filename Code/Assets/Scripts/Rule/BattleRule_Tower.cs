@@ -51,6 +51,9 @@ public class BattleRule_Tower : ABattleRule
         {
             if (start == true) { //爬塔成功
                 MakeReward();
+
+                //刷新地图
+                GameProcessor.Inst.EventCenter.Raise(new ChangeFloorEvent() {  });
             }
 
             var monsters = MonsterTowerHelper.BuildMonster(user.TowerFloor);
@@ -95,6 +98,7 @@ public class BattleRule_Tower : ABattleRule
             Message = BattleMsgHelper.BuildTowerSuccessMessage(config.RiseExp, user.TowerFloor),
             BattleType = BattleType.Tower
         });
+
 
         //存档
         //UserData.Save();

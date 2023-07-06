@@ -88,14 +88,6 @@ namespace Game
 
             SetAttr();
 
-            //设置回收选项
-            RecoverySetting.SetType(2, true);
-            RecoverySetting.SetQuanlity(1, true);
-            RecoverySetting.SetQuanlity(2, true);
-            RecoverySetting.SetQuanlity(3, true);
-            //RecoverySetting.SetQuanlity(4, true);
-            RecoverySetting.SetLevel(100);
-
             //设置Boss刷新时间
             Dictionary<int, MapConfig> mapList = MapConfigCategory.Instance.GetAll();
             foreach (MapConfig mapConfig in mapList.Values)

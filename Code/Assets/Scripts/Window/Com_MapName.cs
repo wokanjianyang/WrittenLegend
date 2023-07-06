@@ -12,7 +12,7 @@ namespace Game
 
         private ViewBattleProcessor.MapNameData Data;
 
-        
+
         // Start is called before the first frame update
         void Start()
         {
@@ -29,6 +29,16 @@ namespace Game
 
         private void OnClick_MapName()
         {
+            MapConfig config = MapConfigCategory.Instance.Get(this.Data.Id);
+
+            int level = GameProcessor.Inst.User.Level;
+
+            //if (level < config.LevelRequired)
+            //{
+            //    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "µÈ¼¶²»×ã" });
+            //    return;
+            //}
+
             GameProcessor.Inst.EventCenter.Raise(new ChangeMapEvent() { MapId = Data.Id });
             Log.Debug(Data.Name);
         }

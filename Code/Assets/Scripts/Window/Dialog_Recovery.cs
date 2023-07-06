@@ -6,6 +6,9 @@ using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
+using static UnityEngine.UI.Dropdown;
+using System;
 
 namespace Game
 {
@@ -35,8 +38,8 @@ namespace Game
         [LabelText("取消")]
         public Button btn_Cancle;
 
-        Toggle[] EquipQuanlity;
-
+        Toggle[] equipToggles;
+        Toggle[] bookToggles;
         // Start is called before the first frame update
         void Start()
         {
@@ -44,7 +47,8 @@ namespace Game
             this.btn_Cancle.onClick.AddListener(this.OnClick_Cancle);
             this.gameObject.SetActive(false);
 
-            EquipQuanlity = tran_EquipQualityList.GetComponentsInChildren<Toggle>();
+            equipToggles = tran_EquipQualityList.GetComponentsInChildren<Toggle>();
+            bookToggles = tran_BookJobList.GetComponentsInChildren<Toggle>();
         }
 
         // Update is called once per frame
@@ -59,10 +63,54 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<EquipRecoveryEvent>(this.OnEquipRecoveryEvent);
 
             //初始化
-            User user = GameProcessor.Inst.User;
-            RecoverySetting setting = user.RecoverySetting;
+            try
+            {
+                User user = GameProcessor.Inst.User;
+                RecoverySetting setting = user.RecoverySetting;
 
+                foreach (int equipQuality in setting.EquipQuanlity.Keys)
+                {
+                    if (setting.EquipQuanlity[equipQuality])
+                    {
+                        equipToggles[equipQuality - 1].isOn = true;
+                    }
+                    else
+                    {
+                        equipToggles[equipQuality - 1].isOn = false;
+                    }
+                }
 
+                if (setting.EquipLevel > 0)
+                {
+                    toggle_EquipLevel.isOn = true;
+
+                    string levelText = setting.EquipLevel + "";
+
+                    dd_EquipLevel.value = Math.Max(1, setting.EquipLevel / 10) - 1;
+                }
+
+                foreach (int skillBookRole in setting.SkillBookRole.Keys)
+                {
+                    if (setting.SkillBookRole[skillBookRole])
+                    {
+                        bookToggles[skillBookRole - 1].isOn = true;
+                    }
+                    else
+                    {
+                        bookToggles[skillBookRole - 1].isOn = false;
+                    }
+                }
+
+                if (setting.SkillBookLevel > 0)
+                {
+                    toggle_BookLevel.isOn = true;
+                    dd_BookLevel.value = Math.Max(1, setting.SkillBookLevel / 10) - 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.Log(ex);
+            }
         }
 
         private void OnEquipRecoveryEvent(EquipRecoveryEvent e)
@@ -77,74 +125,58 @@ namespace Game
 
             User user = GameProcessor.Inst.User;
 
-
             StringBuilder sb = new StringBuilder();
-            var equipToggles = tran_EquipQualityList.GetComponentsInChildren<Toggle>();
+
             sb.Append("装备自动回收 品质：");
             for (var i = 0; i < equipToggles.Length; i++)
             {
                 var toggle = equipToggles[i];
                 if (toggle.isOn)
                 {
-                    user.RecoverySetting.SetQuanlity(i + 1, true);
-                    switch (i)
-                    {
-                        case 0:
-                            sb.Append("白色,");
-                            break;
-                        case 1:
-                            sb.Append("绿色,");
-                            break;
-                        case 2:
-                            sb.Append("蓝色,");
-                            break;
-                        case 3:
-                            sb.Append("紫色,");
-                            break;
-                    }
+                    user.RecoverySetting.SetEquipQuanlity(i + 1, true);
+                }
+                else
+                {
+                    user.RecoverySetting.SetEquipQuanlity(i + 1, false);
                 }
             }
 
             if (toggle_EquipLevel.isOn)
             {
-                string level = dd_EquipLevel.options[dd_EquipLevel.value].text;
-                sb.Append("等级：");
-                sb.Append(level);
-                user.RecoverySetting.SetLevel(int.Parse(level));
+                int level = 0;
+                int.TryParse(dd_EquipLevel.options[dd_EquipLevel.value].text, out level);
+
+                user.RecoverySetting.EquipLevel = level;
             }
-            
+
             sb.Append("秘籍自动回收 职业：");
-            var bookToggles = tran_BookJobList.GetComponentsInChildren<Toggle>();
             for (var i = 0; i < bookToggles.Length; i++)
             {
                 var toggle = bookToggles[i];
                 if (toggle.isOn)
                 {
-                    switch (i)
-                    {
-                        case 0:
-                            sb.Append("战士,");
-                            break;
-                        case 1:
-                            sb.Append("法师,");
-                            break;
-                        case 2:
-                            sb.Append("道士,");
-                            break;
-                        case 3:
-                            sb.Append("通用,");
-                            break;
-                    }
+                    user.RecoverySetting.SetSkillBookRole(i + 1, true);
+                }
+                else
+                {
+                    user.RecoverySetting.SetSkillBookRole(i + 1, false);
                 }
             }
-
             if (toggle_BookLevel.isOn)
             {
                 sb.Append("等级：");
                 sb.Append(dd_BookLevel.options[dd_BookLevel.value].text);
+
+                int bookLevel = 0;
+                int.TryParse(dd_BookLevel.options[dd_BookLevel.value].text, out bookLevel);
+
+                user.RecoverySetting.SkillBookLevel = bookLevel;
             }
-            
+
             Log.Debug($"回收设置 {sb.ToString()}");
+
+            //立即执行一次回收
+            GameProcessor.Inst.EventCenter.Raise(new AutoRecoveryEvent() { });
 
             UserData.Save();
         }

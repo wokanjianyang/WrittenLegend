@@ -11,10 +11,5 @@ namespace Game
 
     public class SkillHelper
     {
-        public static SkillBook BuildItem(int ConfigId)
-        {
-            SkillBook item = new SkillBook(ConfigId);
-            return item;
-        }
     }
 }

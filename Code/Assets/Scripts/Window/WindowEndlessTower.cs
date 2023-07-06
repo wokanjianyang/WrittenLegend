@@ -12,6 +12,9 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
     [LabelText("掉落")]
     public ScrollRect sr_BattleMsg;
 
+    [LabelText("地图名称")]
+    public Text txt_FloorName;
+
     private bool isViewMapShowing = false;
 
     private GameObject msgPrefab;
@@ -38,11 +41,30 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
         this.msgPrefab = Resources.Load<GameObject>("Prefab/Window/Item_DropMsg");
 
         GameProcessor.Inst.EventCenter.AddListener<BattleMsgEvent>(this.OnBattleMsgEvent);
+        GameProcessor.Inst.EventCenter.AddListener<ChangeFloorEvent>(this.OnChangeFloorEvent);
+
+        ShowName();
     }
 
     private void OnShowTowerWindowEvent(ShowTowerWindowEvent msg)
     {
         this.gameObject.SetActive(true);
+
+    }
+
+    private void OnChangeFloorEvent(ChangeFloorEvent e) {
+        ShowName();
+    }
+
+    private void ShowName()
+    {
+        User user = GameProcessor.Inst.User;
+
+        if (user != null)
+        {
+            int mapName = user.TowerFloor;
+            txt_FloorName.text = mapName + "层";
+        }
 
     }
 
@@ -55,30 +77,5 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
         msg.GetComponent<Text>().text =e.Message;
         this.sr_BattleMsg.normalizedPosition = new Vector2(0, 0);
         GameProcessor.Inst.EventCenter.Raise(new UpdateTowerWindowEvent());
-
-        //if (e.MsgType == MsgType.SecondExp)
-        //{
-        //    msg.GetComponent<TextMeshProUGUI>().text = $"增加泡点经验{e.Exp}";
-        //    this.sr_BattleMsg.normalizedPosition = new Vector2(0, 0);
-        //    GameProcessor.Inst.EventCenter.Raise(new UpdateTowerWindowEvent());
-        //}
-        //else if (e.BattleType == BattleType.Tower)
-        //{
-        //    string drops = "";
-        //    if (e.Drops != null && e.Drops.Count > 0)
-        //    {
-        //        drops = ",掉落";
-        //        foreach (var drop in e.Drops)
-        //        {
-        //            drops += $"<color=#{ItemHelper.GetColor(drop.GetQuality())}>[{drop.Name}]";
-        //        }
-        //    }
-        //    var hero = GameProcessor.Inst.PlayerManager.GetHero();
-        //    msg.GetComponent<TextMeshProUGUI>().text = $"<color=white>泡点经验提升至:{e.Exp},进入第{hero.TowerFloor}层";
-        //    msg.name = $"msg_{e.RoundNum}";
-
-        //    this.sr_BattleMsg.normalizedPosition = new Vector2(0, 0);
-        //    GameProcessor.Inst.EventCenter.Raise(new UpdateTowerWindowEvent());
-        //}
     }
 }

@@ -64,6 +64,17 @@ public class ViewForgeProcessor : AViewPage
         
     }
 
+    public override void OnBattleStart()
+    {
+        base.OnBattleStart();
+
+        GameProcessor.Inst.EventCenter.AddListener<EquipStrengthSelectEvent>(this.OnEquipStrengthSelectEvent);
+        GameProcessor.Inst.EventCenter.AddListener<ChangeCompositeTypeEvent>(this.OnChangeCompositeTypeEvent);
+        GameProcessor.Inst.EventCenter.AddListener<CompositeUIFreshEvent>(this.OnCompositeUIFreshEvent);
+        ShowInfo();
+        this.ShowSynthesis();
+    }
+
     private void OnEquipStrengthSelectEvent(EquipStrengthSelectEvent e)
     {
         Debug.Log("SelectPosition:" + e.Position);
@@ -216,7 +227,19 @@ public class ViewForgeProcessor : AViewPage
 
         sr_Right.verticalNormalizedPosition = 0;
     }
-    
+
+    private void OnCompositeUIFreshEvent(CompositeUIFreshEvent e)
+    {
+        for (int i = 0; i < sr_Right.content.childCount; i++)
+        {
+            Com_CompositeItem com = sr_Right.content.GetChild(i).GetComponent<Com_CompositeItem>();
+            if (com != null)
+            {
+                com.Refresh();
+            }
+        }
+    }
+
     private void OnClick_Strengthen()
     {
         User user = GameProcessor.Inst.User;
@@ -231,7 +254,7 @@ public class ViewForgeProcessor : AViewPage
         if (strengthLevel >= user.Level)
         {
             //
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "ǿ����������",Parent= tran_AttrList });
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "强化等级不能超过人物等级", Parent= tran_AttrList });
             return;
         }
 
@@ -239,7 +262,7 @@ public class ViewForgeProcessor : AViewPage
 
         if (user.Gold < config.Fee)
         {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "û���㹻�Ľ��", Parent = tran_AttrList });
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的金币", Parent = tran_AttrList });
             return;
         }
 
@@ -263,13 +286,5 @@ public class ViewForgeProcessor : AViewPage
         return page == ViewPageType.View_Forge;
     }
 
-    public override void OnBattleStart()
-    {
-        base.OnBattleStart();
 
-        GameProcessor.Inst.EventCenter.AddListener<EquipStrengthSelectEvent>(this.OnEquipStrengthSelectEvent);
-        GameProcessor.Inst.EventCenter.AddListener<ChangeCompositeTypeEvent>(this.OnChangeCompositeTypeEvent);
-        ShowInfo();
-        this.ShowSynthesis();
-    }
 }

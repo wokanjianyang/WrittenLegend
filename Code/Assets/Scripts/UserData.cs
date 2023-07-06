@@ -10,7 +10,8 @@ namespace Game
     {
         static string savePath = "user";
         static string fileName = "data.json"; //文件名
-        public static User Load() {
+        public static User Load()
+        {
             User user = null;
             string folderPath = System.IO.Path.Combine(Application.persistentDataPath, savePath); //文件夹路径                                        
             string filePath = System.IO.Path.Combine(folderPath, fileName);             //文件路径
@@ -42,6 +43,10 @@ namespace Game
                 user.Name = "传奇";
             }
 
+            if (user.MapId <= 0)
+            {
+                user.MapId = 1000; //第一张地图
+            }
             return user;
         }
 

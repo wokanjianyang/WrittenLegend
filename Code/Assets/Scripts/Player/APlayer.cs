@@ -81,6 +81,8 @@ namespace Game
             //this.Load();
         }
 
+        [JsonIgnore]
+        public int UseSkillPosition { get; set; } = 0;
 
         virtual public void Load()
         {
@@ -225,14 +227,17 @@ namespace Game
 
         public SkillState GetSkill()
         {
-            List<SkillState> list = SelectSkillList.OrderBy(m => -m.Priority).OrderBy(m => m.lastUseRound).OrderBy(m => m.Position).ToList();
+            List<SkillState> list = SelectSkillList.OrderBy(m => m.UserCount * 1000 + m.Priority).ToList();
+
             foreach (SkillState state in list)
             {
                 if (state.IsCanUse())
                 {
+                    state.UserCount = state.UserCount + 1;
                     return state;
                 }
             }
+
             return null;
         }
 

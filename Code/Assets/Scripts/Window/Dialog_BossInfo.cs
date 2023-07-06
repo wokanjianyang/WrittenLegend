@@ -31,11 +31,11 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
         foreach (int MapId in list.Keys)
         {
             MapConfig mapConfig = MapConfigCategory.Instance.Get(MapId);
-            if (mapConfig.LevelRequired <= user.Level)
-            {
+            //if (mapConfig.LevelRequired <= user.Level)
+            //{
                 BossConfig bossConfig = BossConfigCategory.Instance.Get(mapConfig.BoosId);
                 BuildItem(mapConfig, bossConfig, list[MapId]);
-            }
+            //}
         }
     }
 

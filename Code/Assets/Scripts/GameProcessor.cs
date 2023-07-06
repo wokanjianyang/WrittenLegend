@@ -47,8 +47,12 @@ namespace Game
 
         public void OnDestroy()
         {
-            PlayerManager.OnDestroy();
-            foreach(var ie in delayActionIEs)
+            if (PlayerManager != null)
+            {
+                PlayerManager.OnDestroy();
+            }
+
+            foreach (var ie in delayActionIEs)
             {
                 StopCoroutine(ie);
             }
@@ -217,12 +221,13 @@ namespace Game
 
             var msg = GameObject.Instantiate(barragePrefab);
 
-            msg.transform.SetParent(e.Parent);
+            Transform parent = e.Parent == null ? PlayerRoot : e.Parent;
+            msg.transform.SetParent(parent);
 
             var msgSize = msg.GetComponent<RectTransform>().sizeDelta;
 
-            var msgX = -e.Parent.position.x / 5;
-            var msgY = e.Parent.position.y / 5;
+            var msgX = -parent.position.x / 5;
+            var msgY = parent.position.y / 5;
 
             msg.transform.localPosition = new Vector3(msgX, msgY);
             var com = msg.GetComponent<Dialog_Msg>();

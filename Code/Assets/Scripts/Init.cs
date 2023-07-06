@@ -77,8 +77,6 @@ public class Init : MonoBehaviour
         //加载存档
         //加载首页
         this.LoadHome2();
-
-        Debug.Log(JsonConvert.SerializeObject(SynthesisConfigCategory.Instance.GetList()));
     }
 
     private void LoadConfig()

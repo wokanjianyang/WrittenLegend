@@ -67,7 +67,6 @@ namespace Game
 
     public enum SkillPosition
     {
-        Last = 8,
-        Default = 9
+        Default = 999999
     }
 }

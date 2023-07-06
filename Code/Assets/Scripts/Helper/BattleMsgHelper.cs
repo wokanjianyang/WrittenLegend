@@ -53,7 +53,7 @@ namespace Game
 
         public static string BuildTowerSuccessMessage(long exp, int floor)
         {
-            return $"<color=white>提升泡点经验:{exp},进入第{floor}层</color>";
+            return $"<color=white>闯关成功,提升泡点经验:{exp},进入第{floor}层</color>";
         }
 
         public static string BuildGiftPackMessage(List<Item> items)
