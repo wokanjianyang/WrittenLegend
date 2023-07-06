@@ -37,25 +37,26 @@ public class MainActivity extends UnityPlayerActivity implements IUnityPlayerLif
     {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-
+        
         String cmdLine = updateUnityCommandLineArguments(getIntent().getStringExtra("unity"));
         getIntent().putExtra("unity", cmdLine);
 
         mUnityPlayer = new UnityPlayer(this, this);
         setContentView(mUnityPlayer);
+        
         mUnityPlayer.requestFocus();
 
         PackageManager packageManager = this.getPackageManager();
         String[] permissions = new String[]{
                 Manifest.permission.INTERNET,
-                Manifest.permission.READ_PRECISE_PHONE_STATE,
-                Manifest.permission.ACCESS_NETWORK_STATE,
+//                 Manifest.permission.READ_PRECISE_PHONE_STATE,
+//                 Manifest.permission.ACCESS_NETWORK_STATE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.ACCESS_WIFI_STATE,
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.REQUEST_INSTALL_PACKAGES,
-                Manifest.permission.GET_TASKS,
-                Manifest.permission.ACCESS_FINE_LOCATION,
+//                 Manifest.permission.ACCESS_WIFI_STATE,
+//                 Manifest.permission.ACCESS_COARSE_LOCATION,
+//                 Manifest.permission.REQUEST_INSTALL_PACKAGES,
+//                 Manifest.permission.GET_TASKS,
+//                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.WAKE_LOCK
         };
 
@@ -63,9 +64,9 @@ public class MainActivity extends UnityPlayerActivity implements IUnityPlayerLif
         PermissionsUtils.getInstance().activityInit(this,this.getClass());
         PermissionsUtils.getInstance().startRequestSdksPermissions(permissions,true,this);
 
-        adManager = new AdManager();
-
-        adManager.initAd(this);
+//         adManager = new AdManager();
+// 
+//         adManager.initAd(this);
     }
 
     // When Unity player unloaded move task to background
