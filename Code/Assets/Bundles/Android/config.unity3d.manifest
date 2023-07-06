@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2253994140
+CRC: 2707343043
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 1786993993d25a7729c7445b32c6f494
+    Hash: 60eaf2beccd79cbddfc292d86981a4f7
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -24,6 +24,7 @@ Assets:
 - Assets/Resources/Config/AttrEntryConfigCategory.bytes
 - Assets/Resources/Config/EquipConfigCategory.bytes
 - Assets/Resources/Config/ItemConfigCategory.bytes
+- Assets/Resources/Config/PlayerModelCategory.bytes
 - Assets/Resources/Config/EquipQualityConfigCategory.bytes
 - Assets/Resources/Config/SkillCategory.bytes
 - Assets/Resources/Config/GameAttributeCategory.bytes
