@@ -75,4 +75,9 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
             }
         }
     }
+    
+    public void OnClick_Close()
+    {
+        this.gameObject.SetActive(false);
+    }
 }
