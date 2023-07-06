@@ -279,8 +279,9 @@ namespace Game
                 {
                     var upGo = GameObject.Instantiate(upArrow);
                     upGo.SetParent(this.sr_WorldMap.content);
-                    pos.y = pos.y - (NameSize.y*0.5f + UpArrowSize.y*0.5f + ArrowOffset);
-                    upGo.GetComponent<RectTransform>().anchoredPosition = pos;
+                    var p = pos;
+                    p.y = pos.y - (NameSize.y*0.5f + UpArrowSize.y*0.5f + ArrowOffset);
+                    upGo.GetComponent<RectTransform>().anchoredPosition = p;
                     upGo.gameObject.SetActive(true);
 
                 }
@@ -288,10 +289,10 @@ namespace Game
                 {
                     var leftGo = GameObject.Instantiate(leftArrow);
                     leftGo.SetParent(this.sr_WorldMap.content);
-                    pos.x = pos.x + NameSize.x*0.5f + LeftArrowSize.x*0.5f + ArrowOffset;
-                    leftGo.GetComponent<RectTransform>().anchoredPosition = pos;
+                    var p = pos;
+                    p.x = pos.x + NameSize.x*0.5f + LeftArrowSize.x*0.5f + ArrowOffset;
+                    leftGo.GetComponent<RectTransform>().anchoredPosition = p;
                     leftGo.gameObject.SetActive(true);
-
                 }
             }
         }
