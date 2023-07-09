@@ -12,7 +12,7 @@
 		
     public enum BuildType
     {
-        Development,
+        Debug,
         Release,
     }
 }
