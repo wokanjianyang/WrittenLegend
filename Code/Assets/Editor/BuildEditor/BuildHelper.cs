@@ -113,22 +113,24 @@ namespace ET
         public static void BuildDebug()
         {
             var opa = BuildOptions.CompressWithLz4HC | BuildOptions.Development | BuildOptions.AllowDebugging | BuildOptions.ConnectWithProfiler | BuildOptions.EnableDeepProfilingSupport;
-
-            BuildHelper.Build(PlatformType.Android, BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, opa, true, true, true);
+            PlayerSettings.Android.bundleVersionCode++;
+            var name = $"fulljoblegend_debug_{PlayerSettings.Android.bundleVersionCode}";
+            BuildHelper.Build(name,PlatformType.Android, BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, opa, true, true, true);
         }
 
         [MenuItem("开发工具/生成正式包")]
         public static void BuildRelease()
         {
             var opa = BuildOptions.CompressWithLz4HC;
-
-            BuildHelper.Build(PlatformType.Android, BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, opa, true, true, true);
+            PlayerSettings.Android.bundleVersionCode++;
+            var name = $"fulljoblegend_release_{PlayerSettings.Android.bundleVersionCode}";
+            BuildHelper.Build(name,PlatformType.Android, BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, opa, true, true, true);
         }
 
-        public static void Build(PlatformType type, BuildAssetBundleOptions buildAssetBundleOptions, BuildOptions buildOptions, bool isBuildExe, bool isContainAB, bool clearFolder)
+        public static void Build(string name,PlatformType type, BuildAssetBundleOptions buildAssetBundleOptions, BuildOptions buildOptions, bool isBuildExe, bool isContainAB, bool clearFolder)
         {
             BuildTarget buildTarget = BuildTarget.StandaloneWindows;
-            string programName = "Legend";
+            string programName = name;
             string exeName = programName;
             switch (type)
             {
