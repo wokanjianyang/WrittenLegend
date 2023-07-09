@@ -264,7 +264,7 @@ PlayerSettings:
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: '{dedicated}: Documents/mykeystore.jks'
+  AndroidKeystoreName: '{inproject}: mykeystore.jks'
   AndroidKeyaliasName: mykeystore
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
