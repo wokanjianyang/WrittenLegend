@@ -11,13 +11,13 @@
     </activity>
     <activity android:name="com.qq.e.ads.PortraitADActivity" android:screenOrientation="portrait" android:configChanges="keyboard|keyboardHidden|orientation|screenSize" tools:replace="android:screenOrientation" />
     <activity android:name="com.qq.e.ads.LandscapeADActivity" android:screenOrientation="sensorLandscape" android:configChanges="keyboard|keyboardHidden|orientation|screenSize" tools:replace="android:screenOrientation" />
-    <provider android:name="com.qq.e.comm.GDTFileProvider" android:authorities="com.pocket.topbrowser.gdt.fileprovider" android:exported="false" android:grantUriPermissions="true">
+    <provider android:name="com.qq.e.comm.GDTFileProvider" android:authorities="com.fulljoblegend.android.gdt.fileprovider" android:exported="false" android:grantUriPermissions="true">
       <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/gdt_file_path" />
     </provider>
-    <provider android:name="com.bytedance.sdk.openadsdk.TTFileProvider" android:authorities="com.pocket.topbrowser.TTFileProvider" android:exported="false" android:grantUriPermissions="true">
+    <provider android:name="com.bytedance.sdk.openadsdk.TTFileProvider" android:authorities="com.fulljoblegend.android.TTFileProvider" android:exported="false" android:grantUriPermissions="true">
       <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/csj_file_paths" />
     </provider>
-    <provider android:name="com.bytedance.sdk.openadsdk.multipro.TTMultiProvider" android:authorities="com.pocket.topbrowser.TTMultiProvider" android:exported="false" />
+    <provider android:name="com.bytedance.sdk.openadsdk.multipro.TTMultiProvider" android:authorities="com.fulljoblegend.android.TTMultiProvider" android:exported="false" />
     <meta-data android:name="unity.splash-mode" android:value="0" />
     <meta-data android:name="unity.splash-enable" android:value="True" />
     <meta-data android:name="unity.launch-fullscreen" android:value="True" />
