@@ -109,15 +109,20 @@ namespace ET
             AssetDatabase.SaveAssets();
         }
 
-        [MenuItem("开发工具/Build Debug APK")]
+        [MenuItem("开发工具/生成测试包")]
         public static void BuildDebug()
         {
-            BuildHelper.Build(PlatformType.Android, BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, BuildOptions.None, true, true, true);
+            var opa = BuildOptions.CompressWithLz4HC | BuildOptions.Development | BuildOptions.AllowDebugging | BuildOptions.ConnectWithProfiler | BuildOptions.EnableDeepProfilingSupport;
+
+            BuildHelper.Build(PlatformType.Android, BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, opa, true, true, true);
         }
 
+        [MenuItem("开发工具/生成正式包")]
         public static void BuildRelease()
         {
-            BuildHelper.Build(PlatformType.Android, BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, BuildOptions.None, true, true, true);
+            var opa = BuildOptions.CompressWithLz4HC;
+
+            BuildHelper.Build(PlatformType.Android, BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, opa, true, true, true);
         }
 
         public static void Build(PlatformType type, BuildAssetBundleOptions buildAssetBundleOptions, BuildOptions buildOptions, bool isBuildExe, bool isContainAB, bool clearFolder)
