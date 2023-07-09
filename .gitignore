@@ -872,3 +872,4 @@ Code/Assets/StreamingAssets/*
 Code/Assets/StreamingAssets.meta
 
 StreamingAssets
+*.jks
