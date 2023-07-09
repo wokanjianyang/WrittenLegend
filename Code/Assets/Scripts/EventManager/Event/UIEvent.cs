@@ -94,6 +94,8 @@ namespace Game
         public bool IsLearn { get; set; }
 
         public Item Item { get; set; }
+
+        public int Quantity { get; set; }
     }
 
     //选择出战技能

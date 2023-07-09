@@ -71,8 +71,9 @@ namespace Game
     }
     public class BagUseEvent : SDD.Events.Event
     {
-        public Item Item { get; set; }
         public int BoxId { get; set; }
+
+        public int Quantity { get; set; }
     }
 
     public class ShowTowerWindowEvent : SDD.Events.Event

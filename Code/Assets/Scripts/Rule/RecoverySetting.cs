@@ -34,7 +34,7 @@ namespace Game
             if (item.Type == ItemType.Equip)
             {
                 Equip equip = item as Equip;
-                if (EquipQuanlity.GetValueOrDefault(item.GetQuality(), false) && item.Level <= EquipLevel && equip.Part <= 10)
+                if ((EquipQuanlity.GetValueOrDefault(item.GetQuality(), false) || item.Level < EquipLevel) && equip.Part <= 10)
                 {
                     return true;
                 }
@@ -44,7 +44,7 @@ namespace Game
                 SkillBook skillBook = item as SkillBook;
 
                 int role = skillBook.SkillConfig.Role;
-                if (SkillBookRole.GetValueOrDefault(role, false) && item.Level <= EquipLevel)
+                if (SkillBookRole.GetValueOrDefault(role, false) || item.Level < SkillBookLevel)
                 {
                     return true;
                 }

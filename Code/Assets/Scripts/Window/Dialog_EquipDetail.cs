@@ -52,8 +52,11 @@ namespace Game
         [LabelText("学习")]
         public Button btn_Learn;
 
-        [LabelText("升级")]
+        [LabelText("使用")]
         public Button btn_Upgrade;
+
+        [LabelText("全部使用")]
+        public Button btn_UseAll;
 
         [LabelText("回收")]
         public Button btn_Recovery;
@@ -73,7 +76,10 @@ namespace Game
             this.btn_Equip.onClick.AddListener(this.OnEquip);
             this.btn_UnEquip.onClick.AddListener(this.OnUnEquip);
             this.btn_Learn.onClick.AddListener(this.OnLearnSkill);
+
             this.btn_Upgrade.onClick.AddListener(this.OnUpgradeSkill);
+            this.btn_UseAll.onClick.AddListener(this.OnUseAll);
+
             this.btn_Recovery.onClick.AddListener(this.OnRecovery);
             this.btn_Forging.onClick.AddListener(this.OnForging);
             this.gameObject.SetActive(false); 
@@ -104,7 +110,9 @@ namespace Game
             this.btn_UnEquip.gameObject.SetActive(false);
             this.btn_Learn.gameObject.SetActive(false);
             this.btn_Upgrade.gameObject.SetActive(false);
+            this.btn_UseAll.gameObject.SetActive(false);
             this.btn_Recovery.gameObject.SetActive(false);
+            this.btn_Forging.gameObject.SetActive(false);
 
             // this.transform.position = this.GetBetterPosition(e.Position);
             this.tmp_Title.text = e.Item.Name;
@@ -132,35 +140,52 @@ namespace Game
 
                         if (equip.BaseAttrList != null && equip.BaseAttrList.Count > 0)
                         {
-                            int index = 0;
                             tran_BaseAttribute.gameObject.SetActive(true);
                             tran_BaseAttribute.Find("Title").GetComponent<Text>().text = "[基础属性]";
                             tran_BaseAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.item.Level);
 
-                            foreach (var a in equip.BaseAttrList)
+                            var BaseAttrList = equip.BaseAttrList.ToList();
+
+                            for (int index = 0; index < 6; index++)
                             {
                                 var child = tran_BaseAttribute.Find(string.Format("Attribute_{0}", index));
-                                child.GetComponent<Text>().text =  FormatAttrText(a.Key, a.Value);
-                                child.gameObject.SetActive(true);
-                                index++;
+
+                                if (index < BaseAttrList.Count)
+                                {
+                                    child.GetComponent<Text>().text = FormatAttrText(BaseAttrList[index].Key, BaseAttrList[index].Value);
+                                    child.gameObject.SetActive(true);
+                                }
+                                else
+                                {
+                                    child.gameObject.SetActive(false);
+                                }
                             }
                         }
 
                         if (equip.AttrEntryList != null && equip.AttrEntryList.Count > 0)
                         {
-                            int index = 0;
                             tran_QualityAttribute.gameObject.SetActive(true);
                             tran_QualityAttribute.Find("Title").GetComponent<Text>().text = "[品质属性]";
-                            foreach (var a in equip.AttrEntryList) //TODO 有bug，如果之前看的有4条属性，这次看的只有3条，那么最后一条显示的是上次的属性
+
+                            var AttrEntryList = equip.AttrEntryList.ToList();
+
+                            for (int index = 0; index < 4; index++)
                             {
                                 var child = tran_QualityAttribute.Find(string.Format("Attribute_{0}", index));
-                                child.GetComponent<Text>().text = FormatAttrText(a.Key, a.Value);
-                                child.gameObject.SetActive(true);
-                                index++;
+
+                                if (index < AttrEntryList.Count)
+                                {
+                                    child.GetComponent<Text>().text = FormatAttrText(AttrEntryList[index].Key, AttrEntryList[index].Value);
+                                    child.gameObject.SetActive(true);
+                                }
+                                else
+                                {
+                                    child.gameObject.SetActive(false);
+                                }
                             }
                         }
 
-                        if (equip.SkillRuneConfig != null) 
+                        if (equip.SkillRuneConfig != null)
                         {
                             int index = 0;
                             tran_SkillAttribute.gameObject.SetActive(true);
@@ -197,16 +222,13 @@ namespace Game
                         tran_NormalAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.item.Level);
                         var isLearn = user.SkillList.Find(b => b.SkillId == this.item.ConfigId) == null;
                         this.btn_Learn.gameObject.SetActive(isLearn && !levelLess);
-                        if (isLearn) {
-                            var text = btn_Learn.GetComponentInChildren<Text>();
-                            text.text = "学习";
-                        }
-                        this.btn_Upgrade.gameObject.SetActive(!isLearn);
 
+                        this.btn_Upgrade.gameObject.SetActive(!isLearn && !levelLess);
+                        this.btn_UseAll.gameObject.SetActive(!isLearn && !levelLess);
                         //this.btn_Learn.interactable = this.item.Level <= UserData.Load().Level;
                     }
                     break;
-                case ItemType.GiftPack: 
+                case ItemType.GiftPack:
                     {
                         var giftPack = this.item as GiftPack;
 
@@ -214,14 +236,14 @@ namespace Game
                         tran_NormalAttribute.Find("Title").GetComponent<Text>().text = giftPack.Config.Des;
                         tran_NormalAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.item.Level);
 
-                        this.btn_Learn.gameObject.SetActive(true && !levelLess);
-                        var text = btn_Learn.GetComponentInChildren<Text>();
-                        text.text = "使用";
+                        this.btn_Learn.gameObject.SetActive(false);
 
-                        this.btn_Upgrade.gameObject.SetActive(false);
+                        this.btn_Upgrade.gameObject.SetActive(!levelLess);
+                        this.btn_UseAll.gameObject.SetActive(!levelLess);
                     }
                     break;
-                case ItemType.Material: {
+                case ItemType.Material:
+                    {
                         tran_NormalAttribute.gameObject.SetActive(true);
                         tran_NormalAttribute.Find("Title").GetComponent<Text>().text = item.ItemConfig.Des;
                         tran_NormalAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.item.Level);
@@ -282,32 +304,9 @@ namespace Game
         {
             this.gameObject.SetActive(false);
 
-            if ((ItemType)this.item.Type == ItemType.SkillBox)
-            {
-                GameProcessor.Inst.EventCenter.Raise(new SkillBookEvent()
-                {
-                    IsLearn = true,
-                    Item = this.item,
-                    BoxId = this.boxId
-                });
-            }
-            else if ((ItemType)this.item.Type == ItemType.GiftPack)
-            {
-                GameProcessor.Inst.EventCenter.Raise(new BagUseEvent()
-                {
-                    Item = this.item,
-                    BoxId = this.boxId
-                });
-            }
-        }
-
-        private void OnUpgradeSkill()
-        {
-            this.gameObject.SetActive(false);
-
             GameProcessor.Inst.EventCenter.Raise(new SkillBookEvent()
             {
-                IsLearn = false,
+                IsLearn = true,
                 Item = this.item,
                 BoxId = this.boxId
             });
@@ -335,31 +334,30 @@ namespace Game
             });
         }
 
-        private Vector3 GetBetterPosition(Vector3 position)
-        {
-
-            var maxRight = position.x + this.rectTransform.sizeDelta.x;
-            var maxDown = position.y - this.rectTransform.sizeDelta.y;
-            Vector3 offset = Vector3.zero;
-            if (maxDown < 0)
-            {
-                offset.y = 0 - maxDown;
-            }
-            var maxWidth = 960 - 63;
-            if (maxRight > maxWidth)
-            {
-                offset.x = maxWidth - maxRight;
-            }
-
-            Vector3 betterPosition = position + offset;
-
-
-            return betterPosition;
-        }
-
         public void OnClick_Close()
         {
             this.gameObject.SetActive(false);
+        }
+
+        private void OnUpgradeSkill()
+        {
+            this.gameObject.SetActive(false);
+
+            GameProcessor.Inst.EventCenter.Raise(new BagUseEvent()
+            {
+                Quantity = 1,
+                BoxId = this.boxId
+            });
+        }
+        private void OnUseAll()
+        {
+            this.gameObject.SetActive(false);
+
+            GameProcessor.Inst.EventCenter.Raise(new BagUseEvent()
+            {
+                Quantity = -1,
+                BoxId = this.boxId
+            });
         }
     }
 }

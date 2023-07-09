@@ -310,12 +310,6 @@ namespace Game
 
         public List<Vector3Int> GetAttackRangeCell(Vector3Int selfCell, Vector3Int enemyCell, SkillPanel skill)
         {
-            Log.Debug("cell begin");
-            foreach (var c in this.AllCells) {
-                Log.Debug(c.ToString());
-            }
-            Log.Debug("cell end");
-
             List<Vector3Int> rangeCells = new List<Vector3Int>();
             Vector3Int targetCell = Vector3Int.zero;
             int distance = skill.Dis;

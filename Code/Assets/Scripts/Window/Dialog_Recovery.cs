@@ -88,6 +88,9 @@ namespace Game
 
                     dd_EquipLevel.value = Math.Max(1, setting.EquipLevel / 10) - 1;
                 }
+                else {
+                    toggle_EquipLevel.isOn = false;
+                }
 
                 foreach (int skillBookRole in setting.SkillBookRole.Keys)
                 {
@@ -105,6 +108,9 @@ namespace Game
                 {
                     toggle_BookLevel.isOn = true;
                     dd_BookLevel.value = Math.Max(1, setting.SkillBookLevel / 10) - 1;
+                }
+                else {
+                    toggle_BookLevel.isOn = false;
                 }
             }
             catch (Exception ex)
@@ -148,6 +154,9 @@ namespace Game
 
                 user.RecoverySetting.EquipLevel = level;
             }
+            else {
+                user.RecoverySetting.EquipLevel = 0;
+            }
 
             sb.Append("秘籍自动回收 职业：");
             for (var i = 0; i < bookToggles.Length; i++)
@@ -171,6 +180,9 @@ namespace Game
                 int.TryParse(dd_BookLevel.options[dd_BookLevel.value].text, out bookLevel);
 
                 user.RecoverySetting.SkillBookLevel = bookLevel;
+            }
+            else {
+                user.RecoverySetting.SkillBookLevel = 0;
             }
 
             Log.Debug($"回收设置 {sb.ToString()}");

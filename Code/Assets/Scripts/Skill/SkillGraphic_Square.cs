@@ -32,7 +32,7 @@ namespace Game
                 effectCom.transform.SetParent(GameProcessor.Inst.EffectRoot);
                 effectCom.transform.localPosition = selfPos;
                 effectCom.transform.DOLocalMove(targetPos, 0.3f);
-                effectCom.transform.DOScale(scale, 0.5f);
+                effectCom.transform.DOScale(scale, 0.7f);
 
                 var duration = Mathf.Max(this.SkillConfig.Duration, 1f);
                 yield return new WaitForSeconds(duration);

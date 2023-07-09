@@ -361,6 +361,8 @@ namespace Game
                 return true;
             }
 
+            Enemy = null;
+
             //查找和自己不同类的,并且不是自己的主人/仆人
             var enemys = GameProcessor.Inst.PlayerManager.GetAllPlayers().FindAll(p => p.Camp != this.Camp && p.IsSurvice && p.GroupId != this.GroupId);
 
@@ -391,7 +393,14 @@ namespace Game
                 }
             });
 
-            Enemy = enemys[0];
+            foreach (var enemy in enemys)
+            {
+                if (enemy.HP > 0)
+                {
+                    Enemy = enemy;
+                    break;
+                }
+            }
 
             if (this.Camp == PlayerType.Hero)
             {

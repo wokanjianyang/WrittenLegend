@@ -7,11 +7,11 @@ namespace Game
 
     public partial class DropConfigCategory
     {
-        public List<KeyValuePair<int, DropConfig>> GetByMapLevel(int mapLevel, int rate)
+        public List<KeyValuePair<int, DropConfig>> GetByMapLevel(int mapId, int rate)
         {
             List<KeyValuePair<int, DropConfig>> list = new List<KeyValuePair<int, DropConfig>>();
 
-            MapConfig map = MapConfigCategory.Instance.GetAll().Where(m => m.Value.MonsterLevelMin <= mapLevel && m.Value.MonsterLevelMax > mapLevel).First().Value;
+            MapConfig map = MapConfigCategory.Instance.Get(mapId);
 
             if (map != null)
             {

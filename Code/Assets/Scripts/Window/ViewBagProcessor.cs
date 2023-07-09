@@ -234,7 +234,7 @@ namespace Game
         {
             User user = GameProcessor.Inst.User;
 
-            UseBoxItem(e.BoxId);
+            UseBoxItem(e.BoxId,1);
 
             user.EventCenter.Raise(new HeroUseSkillBookEvent
             {
@@ -247,7 +247,7 @@ namespace Game
         {
             User user = GameProcessor.Inst.User;
 
-            UseBoxItem(e.BoxId);
+            UseBoxItem(e.BoxId,1);
 
             user.AddExpAndGold(0, e.Item.Gold);
         }
@@ -265,31 +265,48 @@ namespace Game
                 //Log.Debug("自动回收:" + box.Item.Name + " " + box.Number + "个");
 
                 box.Number = 0;
-                UseBoxItem(box.BoxId);
+                UseBoxItem(box.BoxId,1);
             }
         }
 
         private void OnBagUseEvent(BagUseEvent e)
         {
             User user = GameProcessor.Inst.User;
-            UseBoxItem(e.BoxId);
 
-            int gold = 0;
-            List<Item> items = GiftPackHelper.BuildItems(e.Item.ConfigId, ref gold);
+            BoxItem boxItem = user.Bags.Find(m => m.BoxId == e.BoxId);
+            int quantity = e.Quantity == 1 ? 1 : boxItem.Number;
 
-            user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
-            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+            UseBoxItem(e.BoxId, quantity);
+
+            //use logic
+            if (boxItem.Item.Type == ItemType.SkillBox)
             {
-                Message = BattleMsgHelper.BuildGiftPackMessage(items)
-            });
-
-            if (gold > 0)
+                user.EventCenter.Raise(new HeroUseSkillBookEvent
+                {
+                    IsLearn = false,
+                    Item = boxItem.Item,
+                    Quantity = quantity,
+                });
+            }
+            else if (boxItem.Item.Type == ItemType.GiftPack)
             {
-                user.AddExpAndGold(0,gold);
+                int gold = 0;
+                List<Item> items = GiftPackHelper.BuildItems(boxItem.Item.ConfigId, ref gold);
+
+                user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+                {
+                    Message = BattleMsgHelper.BuildGiftPackMessage(items)
+                });
+
+                if (gold > 0)
+                {
+                    user.AddExpAndGold(0, gold);
+                }
             }
         }
             
-        private void UseBoxItem(int boxId)
+        private void UseBoxItem(int boxId,int quantity)
         {
             User user = GameProcessor.Inst.User;
 
@@ -302,8 +319,8 @@ namespace Game
                 Log.Debug("此物品已经被使用了");
                 return;
             }
-            boxItem.RemoveStack(1);
-            boxUI.RemoveStack(1);
+            boxItem.RemoveStack(quantity);
+            boxUI.RemoveStack(quantity);
 
             //用光了，移除队列
             if (boxItem.Number <= 0)
@@ -312,7 +329,6 @@ namespace Game
 
                 this.items.Remove(boxUI);
                 GameObject.Destroy(boxUI.gameObject);
-
             }
         }
 
@@ -368,7 +384,7 @@ namespace Game
             int Position = equip.Position[PartIndex];
 
             //从包袱移除
-            UseBoxItem(BoxId);
+            UseBoxItem(BoxId,1);
 
             //如果存在旧装备，增加到包裹
             if (user.EquipPanel.ContainsKey(Position))

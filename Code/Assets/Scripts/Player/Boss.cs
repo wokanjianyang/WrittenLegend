@@ -92,13 +92,13 @@ namespace Game
             user.AddExpAndGold(exp, gold);
 
             //生成道具奖励
-            int mapLevel = user.Level / 10 * 10;
-            List<KeyValuePair<int, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(mapLevel, 10);
+
+            List<KeyValuePair<int, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(user.MapId, 10) ;
 
             List<Item> items = DropHelper.BuildDropItem(dropList, 0);
             if (SystemConfigHelper.CheckRequireLevel(SystemEnum.SoulRing))
             {
-                items.Add(ItemHelper.BuildSoulRingShard(mapLevel));
+                items.Add(ItemHelper.BuildSoulRingShard(Level));
             }
 
 

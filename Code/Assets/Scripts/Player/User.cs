@@ -163,7 +163,7 @@ namespace Game
             else
             {
                 skillData = this.SkillList.Find(b => b.SkillId == Book.ConfigId);
-                skillData.AddExp(Book.ItemConfig.UseParam);
+                skillData.AddExp(Book.ItemConfig.UseParam * e.Quantity);
             }
 
             //更新技能面板
@@ -257,7 +257,8 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, config.Def);
 
             //测试属性
-            AttributeBonus.SetAttr(AttributeEnum.ExpIncrea, AttributeFrom.Test, 200);
+            AttributeBonus.SetAttr(AttributeEnum.ExpIncrea, AttributeFrom.Test, 1000);
+            AttributeBonus.SetAttr(AttributeEnum.GoldIncrea, AttributeFrom.Test, 1000);
 
             //装备属性
             foreach (var kvp in EquipPanel)

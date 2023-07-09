@@ -67,6 +67,7 @@ public class PlayerUI : MonoBehaviour,IPlayer, IPointerClickHandler
         this.SelfPlayer.EventCenter.RemoveListener<SetPlayerLevelEvent>(OnSetPlayerLevelEvent);
         this.SelfPlayer.EventCenter.RemoveListener<SetPlayerHPEvent>(OnSetPlayerHPEvent);
         this.SelfPlayer.EventCenter.RemoveListener<ShowMsgEvent>(OnShowMsgEvent);
+        this.com_Progress = null;
     }
     
     private void OnSetBackgroundColorEvent(SetBackgroundColorEvent e)
@@ -102,14 +103,19 @@ public class PlayerUI : MonoBehaviour,IPlayer, IPointerClickHandler
     {
         this.tmp_Info_Level.text = "Lv." + e.Level;
     }
-    
+
     private void OnSetPlayerHPEvent(SetPlayerHPEvent e)
     {
-        //this.com_Progress?.SetProgress(this.SelfPlayer.HP, this.SelfPlayer.Logic.GetMaxHP()); TODO
-        GameProcessor.Inst.DelayAction(0.5f, () =>
+        if (this.com_Progress != null)
         {
             this.com_Progress.SetProgress(this.SelfPlayer.HP, SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.HP));
-        });
+        }
+
+        //this.com_Progress?.SetProgress(this.SelfPlayer.HP, this.SelfPlayer.Logic.GetMaxHP()); TODO
+        //GameProcessor.Inst.DelayAction(0.5f, () =>
+        //{
+  
+        //});
     }
 
     private void OnShowMsgEvent(ShowMsgEvent e)

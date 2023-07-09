@@ -90,7 +90,7 @@ namespace Game
 
             //TEST
             //list.Clear();
-            //list.Add(new SkillData(2002, (int)SkillPosition.Default)); //增加默认技能
+            //list.Add(new SkillData(2004, (int)SkillPosition.Default)); //增加默认技能
 
             foreach (SkillData skillData in list)
             {
