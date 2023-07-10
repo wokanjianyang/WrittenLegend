@@ -91,16 +91,26 @@ namespace Game
             //增加经验,金币
             user.AddExpAndGold(exp, gold);
 
-            //生成道具奖励
-
+            //地图道具奖励
             List<KeyValuePair<int, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(user.MapId, 10) ;
+  
+            //自身掉落
+            if (Config.DropIdList != null && Config.DropIdList.Length > 0)
+            {
+                for (int i = 0; i < Config.DropIdList.Length; i++)
+                {
+                    DropConfig dropConfig = DropConfigCategory.Instance.Get(Config.DropIdList[i]);
 
-            List<Item> items = DropHelper.BuildDropItem(dropList, 0);
+                    dropList.Add(new KeyValuePair<int, DropConfig>(Config.DropRateList[i], dropConfig));
+                }
+            }
+
+            List<Item> items = DropHelper.BuildDropItem(dropList, 4);
+
             if (SystemConfigHelper.CheckRequireLevel(SystemEnum.SoulRing))
             {
                 items.Add(ItemHelper.BuildSoulRingShard(Level));
             }
-
 
             if (items.Count > 0)
             {
@@ -111,6 +121,7 @@ namespace Game
             {
                 Message = BattleMsgHelper.BuildBossDeadMessage(this, items)
             });
+
 
             //自动回收
             if (items.Count > 0)

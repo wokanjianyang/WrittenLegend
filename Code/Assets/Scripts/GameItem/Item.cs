@@ -75,6 +75,7 @@ namespace Game
         Equip = 2,
         SkillBox =3,
         GiftPack = 4,
-        Material =5
+        Material =5,
+        Buff = 6,
     }
 }

@@ -456,7 +456,14 @@ namespace Game
 
                 foreach (var newItem in newItems)
                 {
-                    AddBoxItem(newItem);
+                    if (newItem.Type == ItemType.Buff)
+                    {
+                        //TODO
+                    }
+                    else
+                    {
+                        AddBoxItem(newItem);
+                    }
                 }
             }
         }

@@ -99,6 +99,12 @@ namespace Game
 		/// <summary>掉落金币</summary>
 		[ProtoMember(8)]
 		public long Gold { get; set; }
+		/// <summary>地图Id掉落</summary>
+		[ProtoMember(9)]
+		public int[] DropIdList { get; set; }
+		/// <summary>掉落概率列表</summary>
+		[ProtoMember(10)]
+		public int[] DropRateList { get; set; }
 
 	}
 }
