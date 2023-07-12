@@ -138,6 +138,15 @@ namespace Game
                     {
                         Equip equip = this.item as Equip;
 
+                        int basePercent = 0;
+                        int qualityPercent = 0;
+                        if (user.EquipRefine.TryGetValue(equipPositioin, out int refineLevel))
+                        {
+                            EquipRefineConfig refineConfig = EquipRefineConfigCategory.Instance.GetByLevel(refineLevel);
+                            basePercent = refineConfig.BaseAttrPercent;
+                            qualityPercent = refineConfig.QualityAttrPercent;
+                        }
+
                         if (equip.BaseAttrList != null && equip.BaseAttrList.Count > 0)
                         {
                             tran_BaseAttribute.gameObject.SetActive(true);
@@ -152,7 +161,7 @@ namespace Game
 
                                 if (index < BaseAttrList.Count)
                                 {
-                                    child.GetComponent<Text>().text = FormatAttrText(BaseAttrList[index].Key, BaseAttrList[index].Value);
+                                    child.GetComponent<Text>().text = FormatAttrText(BaseAttrList[index].Key, BaseAttrList[index].Value, basePercent);
                                     child.gameObject.SetActive(true);
                                 }
                                 else
@@ -175,7 +184,7 @@ namespace Game
 
                                 if (index < AttrEntryList.Count)
                                 {
-                                    child.GetComponent<Text>().text = FormatAttrText(AttrEntryList[index].Key, AttrEntryList[index].Value);
+                                    child.GetComponent<Text>().text = FormatAttrText(AttrEntryList[index].Key, AttrEntryList[index].Value, qualityPercent);
                                     child.gameObject.SetActive(true);
                                 }
                                 else
@@ -260,7 +269,7 @@ namespace Game
             // this.rectTransform.sizeDelta = size;
         }
 
-        private string FormatAttrText(int attr, long val)
+        private string FormatAttrText(int attr, long val, int percent)
         {
             string unit = "点";
 
@@ -271,7 +280,15 @@ namespace Game
                 unit = "%";
             }
 
-            string text = val + unit + PlayerHelper.PlayerAttributeMap[((AttributeEnum)attr).ToString()];
+            string refineText = "";
+            long refineAttr = val * percent / 100;
+            if (refineAttr > 0)
+            {
+                refineText = "+" + refineAttr;
+            }
+
+
+            string text = val + refineText + unit + PlayerHelper.PlayerAttributeMap[((AttributeEnum)attr).ToString()];
 
             return text;
         }

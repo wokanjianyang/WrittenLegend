@@ -76,33 +76,36 @@ namespace Game
         /// </summary>
         public IDictionary<int, long> BaseAttrList { get; set; }
 
-        [JsonIgnore]
         /// <summary>
         /// 属性列表
         /// </summary>
-        public IDictionary<int, long> GetTotalAttrList
+        public IDictionary<int, long> GetTotalAttrList(EquipRefineConfig refineConfig)
         {
-            get
-            {
-                //根据基础属性和词条属性，计算总属性
-                IDictionary<int, long> AttrList = new Dictionary<int, long>();
-                foreach (int attrId in BaseAttrList.Keys)
-                {
-                    AttrList[attrId] = BaseAttrList[attrId];
-                }
+            long basePercent = 100;
+            long qualityPercent = 100;
 
-                for (int i = 0; i < AttrEntryList.Count; i++)
-                {
-                    int attrId = AttrEntryList[i].Key;
-                    long val = 0;
-                    if (AttrList.TryGetValue(attrId, out val))
-                    {
-                    }
-                    AttrList[attrId] = val + AttrEntryList[i].Value;
-                }
-
-                return AttrList;
+            if (refineConfig != null) {
+                basePercent += refineConfig.BaseAttrPercent;
+                qualityPercent += refineConfig.QualityAttrPercent;
             }
+
+            //根据基础属性和词条属性，计算总属性
+            IDictionary<int, long> AttrList = new Dictionary<int, long>();
+            foreach (int attrId in BaseAttrList.Keys)
+            {
+                AttrList[attrId] = BaseAttrList[attrId] * basePercent / 100;
+            }
+
+            for (int i = 0; i < AttrEntryList.Count; i++)
+            {
+                int attrId = AttrEntryList[i].Key;
+                long attrValue = AttrEntryList[i].Value * qualityPercent / 100;
+
+                AttrList.TryGetValue(attrId, out long val);
+                AttrList[attrId] = val + attrValue;
+            }
+
+            return AttrList;
         }
     }
 }

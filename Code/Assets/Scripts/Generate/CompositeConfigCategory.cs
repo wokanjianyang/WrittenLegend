@@ -5,12 +5,12 @@ using System.Linq;
 namespace Game
 {
 
-    public partial class SynthesisConfigCategory
+    public partial class CompositeConfigCategory
     {
 
-        public Dictionary<string, List<SynthesisConfig>> GetList()
+        public Dictionary<string, List<CompositeConfig>> GetList()
         {
-            Dictionary<string, List<SynthesisConfig>> list = new Dictionary<string, List<SynthesisConfig>>();
+            Dictionary<string, List<CompositeConfig>> list = new Dictionary<string, List<CompositeConfig>>();
 
             var groupedDictionary = GetAll().Values.GroupBy(kv => kv.Type);
 

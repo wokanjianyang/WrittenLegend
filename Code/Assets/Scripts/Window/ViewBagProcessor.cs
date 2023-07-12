@@ -168,7 +168,7 @@ namespace Game
 
         private void OnCompositeEvent(CompositeEvent e)
         {
-            SynthesisConfig config = e.Config;
+            CompositeConfig config = e.Config;
 
             User user = GameProcessor.Inst.User;
 
@@ -258,14 +258,35 @@ namespace Game
 
             List<BoxItem> recoveryList = user.Bags.Where(m => user.RecoverySetting.CheckRecovery(m.Item)).ToList();
 
+            int refineStone = 0;
+            long gold = 0;
+
             foreach (BoxItem box in recoveryList)
             {
-                user.AddExpAndGold(0, box.Item.Gold * box.Number);
+                gold += box.Item.Gold * box.Number;
 
+                if (box.Item.Type == ItemType.Equip)
+                {
+                    Equip equip = box.Item as Equip;
+                    refineStone += equip.Level / 10 * equip.GetQuality();
+                }
                 //Log.Debug("自动回收:" + box.Item.Name + " " + box.Number + "个");
 
                 box.Number = 0;
-                UseBoxItem(box.BoxId,1);
+                UseBoxItem(box.BoxId, 1);
+            }
+
+            user.AddExpAndGold(0, gold);
+
+            Item item = ItemHelper.BuildRefineStone(Math.Max(1, refineStone));
+            AddBoxItem(item);
+
+            if (recoveryList.Count > 0)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+                {
+                    Message = BattleMsgHelper.BuildAutoRecoveryMessage(recoveryList.Count, refineStone, gold)
+                });
             }
         }
 

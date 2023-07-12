@@ -37,6 +37,10 @@ namespace Game
             return BuildMaterial(SpecialId_SoulRingShard, quantity);
         }
 
+        public static Item BuildRefineStone(int quantity)
+        {
+            return BuildMaterial(SpecialId_EquipRefineStone, quantity);
+        }
 
         public static Item BuildGifPack(int configId)
         {
@@ -51,5 +55,6 @@ namespace Game
         }
 
         public static int SpecialId_SoulRingShard = 4001;
+        public static int SpecialId_EquipRefineStone = 4002;
     }
 }

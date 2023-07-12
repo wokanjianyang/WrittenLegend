@@ -38,6 +38,8 @@ namespace Game
 
         public IDictionary<int, int> EquipStrength { get; set; } = new Dictionary<int, int>();
 
+        public IDictionary<int, int> EquipRefine { get; set; } = new Dictionary<int, int>();
+
         [JsonIgnore]
         public IDictionary<int, int> EquipRecord { get; set; } = new Dictionary<int, int>();
 
@@ -120,12 +122,6 @@ namespace Game
 
             EquipPanel[PanelPosition] = equip;
 
-            //替换属性
-            foreach (var a in equip.GetTotalAttrList)
-            {
-                AttributeBonus.SetAttr((AttributeEnum)a.Key, AttributeFrom.EquipBase, PanelPosition, a.Value);
-            }
-
             //更新属性面板
             GameProcessor.Inst.UpdateInfo();
         }
@@ -133,12 +129,6 @@ namespace Game
         private void HeroUnUseEquip(HeroUnUseEquipEvent e)
         {
             EquipPanel.Remove(e.Position);
-
-            //替换属性
-            foreach (var a in e.Equip.GetTotalAttrList)
-            {
-                AttributeBonus.SetAttr((AttributeEnum)a.Key, AttributeFrom.EquipBase, e.Position, 0);
-            }
 
             //更新属性面板
             GameProcessor.Inst.UpdateInfo();
@@ -257,13 +247,19 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, config.Def);
 
             //测试属性
-            AttributeBonus.SetAttr(AttributeEnum.ExpIncrea, AttributeFrom.Test, 1000);
-            AttributeBonus.SetAttr(AttributeEnum.GoldIncrea, AttributeFrom.Test, 1000);
+            //AttributeBonus.SetAttr(AttributeEnum.ExpIncrea, AttributeFrom.Test, 1000);
+            //AttributeBonus.SetAttr(AttributeEnum.GoldIncrea, AttributeFrom.Test, 1000);
 
             //装备属性
             foreach (var kvp in EquipPanel)
             {
-                foreach (var a in kvp.Value.GetTotalAttrList)
+                EquipRefineConfig refineConfig = null;
+                if (EquipRefine.TryGetValue(kvp.Key, out int refineLevel))
+                {
+                    refineConfig = EquipRefineConfigCategory.Instance.GetByLevel(refineLevel);
+                }
+
+                foreach (var a in kvp.Value.GetTotalAttrList(refineConfig))
                 {
                     AttributeBonus.SetAttr((AttributeEnum)a.Key, AttributeFrom.EquipBase, kvp.Key, a.Value);
                 }
@@ -328,6 +324,12 @@ namespace Game
             }
             yield return null;
             this.isInLevelUp = false;
+        }
+
+        public long GetMaterialCount(int id)
+        {
+            long count = this.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == id).Select(m => m.Number).Sum();
+            return count;
         }
     }
 

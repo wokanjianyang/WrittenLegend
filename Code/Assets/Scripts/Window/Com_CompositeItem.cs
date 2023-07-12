@@ -14,9 +14,9 @@ public class Com_CompositeItem : MonoBehaviour
     public Text CostItemCount;
     public Text CostItemGold;
 
-    private SynthesisConfig config;
+    private CompositeConfig config;
 
-    public void SetData(SynthesisConfig data)
+    public void SetData(CompositeConfig data)
     {
         this.config = data;
 

@@ -109,6 +109,10 @@ namespace Game
     {
         public int Position { get; set; }
     }
+    public class EquipRefineSelectEvent : SDD.Events.Event
+    {
+        public int Position { get; set; }
+    }
 
     public class ChangeCompositeTypeEvent : SDD.Events.Event
     {
@@ -117,7 +121,7 @@ namespace Game
 
     public class CompositeEvent : SDD.Events.Event
     {
-        public SynthesisConfig Config { get; set; }
+        public CompositeConfig Config { get; set; }
     }
 
     public class CompositeUIFreshEvent : SDD.Events.Event

@@ -8,26 +8,35 @@ using UnityEngine.UI;
 
 public class ViewForgeProcessor : AViewPage
 {
+    public Toggle toggle_Strengthen;
     public Transform tran_EquiList;
     public Transform tran_AttrList;
-
     public Text Txt_Fee;
-
     public Button Btn_Strengthen;
     public Button Btn_Strengthen_Batch;
-
     private StrenthAttrItem[] AttrList;
-    private StrenthBox[] EquiList;
-
+    private StrenthBox[] StrengthenEquiList;
     private int SelectPosition = 1;
 
-    public Toggle toggle_Strengthen;
     public Toggle toggle_Compound;
-
     public ScrollRect sr_Left;
     public ScrollRect sr_Right;
 
-    private Dictionary<string, List<SynthesisConfig>> allCompositeDatas;
+    public Transform Refine;
+    public Toggle toggle_Refine;
+    public Transform Refine_Tran_EquiList;
+    public Transform Refine_Tran_AttrList;
+    public Text Refine_Txt_Fee;
+    public Button Btn_Refine;
+
+    public StrenthAttrItem Refine_Attr_Base;
+    public StrenthAttrItem Refine_Attr_Quality;
+   
+    private RefineBox[] Refine_EquiList;
+    private int Refine_Position = 1;
+
+
+    private Dictionary<string, List<CompositeConfig>> allCompositeDatas;
 
     // Start is called before the first frame update
     void Start()
@@ -42,26 +51,38 @@ public class ViewForgeProcessor : AViewPage
         {
             attrTxt.gameObject.SetActive(false);
         }
+        StrengthenEquiList = tran_EquiList.GetComponentsInChildren<StrenthBox>();
 
-        EquiList = tran_EquiList.GetComponentsInChildren<StrenthBox>();
+        Refine_EquiList =  Refine_Tran_EquiList.GetComponentsInChildren<RefineBox>();
 
-        Txt_Fee.text = "0";
-
-        this.toggle_Strengthen.onValueChanged.AddListener((isOn)=>
+        this.toggle_Strengthen.onValueChanged.AddListener((isOn) =>
         {
             if (isOn)
             {
                 Log.Debug("打开强化界面");
+                this.ShowStrengthInfo();
             }
         });
-        this.toggle_Compound.onValueChanged.AddListener((isOn)=>
+        this.toggle_Compound.onValueChanged.AddListener((isOn) =>
         {
             if (isOn)
             {
                 Log.Debug("打开合成界面");
+                this.ShowComposite();
             }
         });
-        
+        this.toggle_Refine.onValueChanged.AddListener((isOn) =>
+        {
+            if (isOn)
+            {
+                Log.Debug("打开精练界面");
+                this.ShowRefine();
+            }
+        });
+
+        Btn_Refine.onClick.AddListener(OnClick_Refine);
+
+        Refine.gameObject.SetActive(false);
     }
 
     public override void OnBattleStart()
@@ -71,8 +92,9 @@ public class ViewForgeProcessor : AViewPage
         GameProcessor.Inst.EventCenter.AddListener<EquipStrengthSelectEvent>(this.OnEquipStrengthSelectEvent);
         GameProcessor.Inst.EventCenter.AddListener<ChangeCompositeTypeEvent>(this.OnChangeCompositeTypeEvent);
         GameProcessor.Inst.EventCenter.AddListener<CompositeUIFreshEvent>(this.OnCompositeUIFreshEvent);
-        ShowInfo();
-        this.ShowSynthesis();
+        GameProcessor.Inst.EventCenter.AddListener<EquipRefineSelectEvent>(this.OnEquipRefineSelectEvent);
+        
+        this.ShowStrengthInfo();
     }
 
     private void OnEquipStrengthSelectEvent(EquipStrengthSelectEvent e)
@@ -83,15 +105,15 @@ public class ViewForgeProcessor : AViewPage
             return;
         }
 
-        //��֮ǰ����Ϊ��ͨ״̬
-        StrenthBox oldBox = EquiList.Where(m => ((int)m.SlotType) == SelectPosition).First();
+        //̬
+        StrenthBox oldBox = StrengthenEquiList.Where(m => ((int)m.SlotType) == SelectPosition).First();
         oldBox.SeSelect(false);
 
         this.SelectPosition = e.Position;
-        ShowInfo();
+        ShowStrengthInfo();
     }
 
-    private void ShowInfo()
+    private void ShowStrengthInfo()
     {
         User user = GameProcessor.Inst.User;
         int strengthLevel = 0;
@@ -132,29 +154,67 @@ public class ViewForgeProcessor : AViewPage
         }
 
 
-        foreach (var box in EquiList)
+        foreach (var box in StrengthenEquiList)
         {
             int position = ((int)box.SlotType);
             int level = 0;
             user.EquipStrength.TryGetValue(position, out level);
 
             box.SetLevel(level);
+
+            if (position == SelectPosition) {
+                box.SeSelect(true);
+            }
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    private void ShowSynthesis()
+    private void OnClick_Strengthen()
     {
-        var allDatas = SynthesisConfigCategory.Instance.GetAll();
-        this.allCompositeDatas = new Dictionary<string, List<SynthesisConfig>>();
+        User user = GameProcessor.Inst.User;
+        int strengthLevel = 0;
+        user.EquipStrength.TryGetValue(SelectPosition, out strengthLevel);
+
+        if (strengthLevel >= user.Level)
+        {
+            //
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "强化等级不能超过人物等级", Parent = tran_AttrList });
+            return;
+        }
+
+        EquipStrengthConfig config = EquipStrengthConfigCategory.Instance.GetByPositioinAndLevel(SelectPosition, strengthLevel + 1);
+
+        if (user.Gold < config.Fee)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的金币", Parent = tran_AttrList });
+            return;
+        }
+
+        user.EquipStrength[SelectPosition] = strengthLevel + 1;
+
+        user.AddExpAndGold(0, -config.Fee);
+
+        GameProcessor.Inst.UpdateInfo();
+
+        ShowStrengthInfo();
+
+        Debug.Log("Strengthen Success");
+    }
+    private void OnClick_Strengthen_Batch()
+    {
+        Debug.Log("piliangqianghua");
+    }
+
+    // Composite
+    private void ShowComposite()
+    {
+        var allDatas = CompositeConfigCategory.Instance.GetAll();
+        this.allCompositeDatas = new Dictionary<string, List<CompositeConfig>>();
         foreach (var kvp in allDatas)
         {
             this.allCompositeDatas.TryGetValue(kvp.Value.Type, out var list);
             if (list == null)
             {
-                list = new List<SynthesisConfig>();
+                list = new List<CompositeConfig>();
             }
             
             list.Add(kvp.Value);
@@ -240,45 +300,116 @@ public class ViewForgeProcessor : AViewPage
         }
     }
 
-    private void OnClick_Strengthen()
+
+    // Refine
+    private void ShowRefine()
     {
         User user = GameProcessor.Inst.User;
-        int strengthLevel = 0;
-        user.EquipStrength.TryGetValue(SelectPosition, out strengthLevel);
+        user.EquipRefine.TryGetValue(Refine_Position, out int refineLevel);
 
-        Debug.Log("tran_EquiList:"+ tran_EquiList.position.x + ","+ tran_EquiList.position.y);
-        Debug.Log("tran_AttrList:" + tran_AttrList.position.x + "," + tran_AttrList.position.y);
-        Debug.Log("Txt_Fee:" + Txt_Fee.transform.position.x + "," + Txt_Fee.transform.position.y);
-        Debug.Log("Btn_Strengthen:" + Btn_Strengthen.transform.position.x + "," + Btn_Strengthen.transform.position.y);
+        foreach (var box in Refine_EquiList)
+        {
+            int position = ((int)box.SlotType);
+            user.EquipRefine.TryGetValue(position, out int level);
+            box.SetLevel(level);
 
-        if (strengthLevel >= user.Level)
+            if (position == Refine_Position)
+            {
+                box.SeSelect(true);
+            }
+        }
+
+        EquipRefineConfig currentConfig = EquipRefineConfigCategory.Instance.GetByLevel(refineLevel);
+
+        EquipRefineConfig nextConfig = EquipRefineConfigCategory.Instance.GetByLevel(refineLevel + 1);
+
+        if (nextConfig != null)
+        {
+            var materialCount = user.GetMaterialCount(ItemHelper.SpecialId_EquipRefineStone);
+
+            string color = materialCount >= nextConfig.Fee ? "#FFFF00" : "#FF0000";
+
+            Refine_Txt_Fee.text = string.Format("<color={0}>{1}</color>", color, nextConfig.Fee);
+        }
+
+        EquipRefineConfig showConfig = currentConfig == null ? nextConfig : currentConfig;
+
+
+        Refine_Attr_Base.gameObject.SetActive(false);
+        Refine_Attr_Quality.gameObject.SetActive(false);
+
+
+        if (nextConfig.BaseAttrPercent > 0)
+        {
+            long currentAttrValue = currentConfig == null ? 0 : currentConfig.BaseAttrPercent;
+            long nextAttrValue = nextConfig == null ? 0 : nextConfig.BaseAttrPercent;
+
+            string attrName = PlayerHelper.PlayerAttributeMap[AttributeEnum.EquipBaseIncrea.ToString()];
+            string attrCurrent = currentAttrValue == 0 ? "" : currentAttrValue + "%";
+            string attrAdd = "+" + (nextAttrValue - currentAttrValue) + "%";
+
+            Refine_Attr_Base.gameObject.SetActive(true);
+            Refine_Attr_Base.SetContent(attrName, attrCurrent, attrAdd);
+        }
+
+        if (nextConfig.QualityAttrPercent > 0)
+        {
+            long currentAttrValue = currentConfig == null ? 0 : currentConfig.QualityAttrPercent;
+            long nextAttrValue = nextConfig == null ? 0 : nextConfig.QualityAttrPercent;
+
+            string attrName = PlayerHelper.PlayerAttributeMap[AttributeEnum.EquipQualityIncrea.ToString()];
+            string attrCurrent = currentAttrValue == 0 ? "" : currentAttrValue + "%";
+            string attrAdd = "+" + (nextAttrValue - currentAttrValue) + "%";
+
+            Refine_Attr_Quality.gameObject.SetActive(true);
+            Refine_Attr_Quality.SetContent(attrName, attrCurrent, attrAdd);
+        }
+    }
+    private void OnEquipRefineSelectEvent(EquipRefineSelectEvent e)
+    {
+        Debug.Log("Refine Position:" + e.Position);
+
+        if (e.Position == Refine_Position)
+        {
+            return;
+        }
+
+        //̬
+        RefineBox oldBox = Refine_EquiList.Where(m => ((int)m.SlotType) == Refine_Position).First();
+        oldBox.SeSelect(false);
+
+        this.Refine_Position = e.Position;
+        ShowRefine();
+    }
+    private void OnClick_Refine()
+    {
+        User user = GameProcessor.Inst.User;
+        user.EquipRefine.TryGetValue(Refine_Position, out int refineLevel);
+
+        if (refineLevel >= user.Level)
         {
             //
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "强化等级不能超过人物等级", Parent= tran_AttrList });
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "精练等级不能超过人物等级", Parent = Refine_Tran_AttrList });
             return;
         }
 
-        EquipStrengthConfig config = EquipStrengthConfigCategory.Instance.GetByPositioinAndLevel(SelectPosition, strengthLevel + 1);
+        EquipRefineConfig config = EquipRefineConfigCategory.Instance.GetByLevel(refineLevel + 1);
 
-        if (user.Gold < config.Fee)
+        var materialCount = user.GetMaterialCount(ItemHelper.SpecialId_EquipRefineStone);
+
+        if (materialCount < config.Fee)
         {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的金币", Parent = tran_AttrList });
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的精炼石", Parent = Refine_Tran_AttrList });
             return;
         }
 
-        user.EquipStrength[SelectPosition] = strengthLevel + 1;
-
-        user.AddExpAndGold(0, -config.Fee);
+        user.EquipRefine[Refine_Position] = refineLevel + 1;
 
         GameProcessor.Inst.UpdateInfo();
 
-        ShowInfo();
+        ShowRefine();
 
-        Debug.Log("Strengthen Success");
-    }
-    private void OnClick_Strengthen_Batch()
-    {
-        Debug.Log("piliangqianghua");
+        Debug.Log("Refine Success");
     }
 
     protected override bool CheckPageType(ViewPageType page)

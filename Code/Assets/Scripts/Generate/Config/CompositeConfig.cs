@@ -7,32 +7,32 @@ namespace Game
 {
     [ProtoContract]
     [Config]
-    public partial class SynthesisConfigCategory : ProtoObject, IMerge
+    public partial class CompositeConfigCategory : ProtoObject, IMerge
     {
-        public static SynthesisConfigCategory Instance;
+        public static CompositeConfigCategory Instance;
 		
         [ProtoIgnore]
         [BsonIgnore]
-        private Dictionary<int, SynthesisConfig> dict = new Dictionary<int, SynthesisConfig>();
+        private Dictionary<int, CompositeConfig> dict = new Dictionary<int, CompositeConfig>();
 		
         [BsonElement]
         [ProtoMember(1)]
-        private List<SynthesisConfig> list = new List<SynthesisConfig>();
+        private List<CompositeConfig> list = new List<CompositeConfig>();
 		
-        public SynthesisConfigCategory()
+        public CompositeConfigCategory()
         {
             Instance = this;
         }
         
         public void Merge(object o)
         {
-            SynthesisConfigCategory s = o as SynthesisConfigCategory;
+            CompositeConfigCategory s = o as CompositeConfigCategory;
             this.list.AddRange(s.list);
         }
 		
         public override void EndInit()
         {
-            foreach (SynthesisConfig config in list)
+            foreach (CompositeConfig config in list)
             {
                 config.EndInit();
                 this.dict.Add(config.Id, config);
@@ -40,13 +40,13 @@ namespace Game
             this.AfterEndInit();
         }
 		
-        public SynthesisConfig Get(int id)
+        public CompositeConfig Get(int id)
         {
-            this.dict.TryGetValue(id, out SynthesisConfig item);
+            this.dict.TryGetValue(id, out CompositeConfig item);
 
             if (item == null)
             {
-                throw new Exception($"配置找不到，配置表名: {nameof (SynthesisConfig)}，配置id: {id}");
+                throw new Exception($"配置找不到，配置表名: {nameof (CompositeConfig)}，配置id: {id}");
             }
 
             return item;
@@ -57,12 +57,12 @@ namespace Game
             return this.dict.ContainsKey(id);
         }
 
-        public Dictionary<int, SynthesisConfig> GetAll()
+        public Dictionary<int, CompositeConfig> GetAll()
         {
             return this.dict;
         }
 
-        public SynthesisConfig GetOne()
+        public CompositeConfig GetOne()
         {
             if (this.dict == null || this.dict.Count <= 0)
             {
@@ -73,7 +73,7 @@ namespace Game
     }
 
     [ProtoContract]
-	public partial class SynthesisConfig: ProtoObject, IConfig
+	public partial class CompositeConfig: ProtoObject, IConfig
 	{
 		/// <summary>Id</summary>
 		[ProtoMember(1)]

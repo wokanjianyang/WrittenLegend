@@ -40,6 +40,9 @@ namespace Game
         MageSkillDamage = 44, //法师技能固定系数
         WarlockSkillPercent = 45, //道士技能百分比系数
         WarlockSkillDamage = 46, //道士技能固定系数
+
+        EquipBaseIncrea = 101, //装备基础属性百分比
+        EquipQualityIncrea = 102, //装备随机属性百分比
     }
 
     /// <summary>
