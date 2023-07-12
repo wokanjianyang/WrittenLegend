@@ -43,8 +43,8 @@ namespace Game
                 user.Name = "传奇";
                 user.TowerFloor = 1;
             }
-            user.Gold = 99999999;
-            user.Level = 223;
+            //user.Gold = 99999999;
+            //user.Level = 223;
 
             if (user.MapId <= 0)
             {
