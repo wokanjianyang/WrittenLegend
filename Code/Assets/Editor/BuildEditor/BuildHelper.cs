@@ -1,4 +1,5 @@
-﻿using Game;
+﻿using System;
+using Game;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -9,11 +10,8 @@ namespace ET
 {
     public static class BuildHelper
     {
-        private const string relativeDirPrefix = "../Release";
 
-        public static string BuildFolder = "../Release/{0}/StreamingAssets/";
-        
-        
+
         [InitializeOnLoadMethod]
         public static void ReGenerateProjectFiles()
         {
@@ -109,90 +107,98 @@ namespace ET
             AssetDatabase.SaveAssets();
         }
 
-        [MenuItem("开发工具/生成测试包")]
+        [MenuItem("开发工具/生成测试包32位")]
         public static void BuildDebug()
         {
+            PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android,ScriptingImplementation.Mono2x);
+            PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARMv7;
+            
             var opa = BuildOptions.CompressWithLz4HC | BuildOptions.Development | BuildOptions.AllowDebugging | BuildOptions.ConnectWithProfiler | BuildOptions.EnableDeepProfilingSupport;
 
             BuildHelper.Build(BuildType.Release,PlatformType.Android, BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, opa, true, true, true);
         }
 
-        [MenuItem("开发工具/生成正式包")]
+        [MenuItem("开发工具/生成正式包64位")]
         public static void BuildRelease()
         {
+            PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android,ScriptingImplementation.IL2CPP);
+            PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64;
+
             var opa = BuildOptions.CompressWithLz4HC;
-            
+
             BuildHelper.Build(BuildType.Release,PlatformType.Android, BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, opa, true, true, true);
         }
 
         public static void Build(BuildType buildType,PlatformType type, BuildAssetBundleOptions buildAssetBundleOptions, BuildOptions buildOptions, bool isBuildExe, bool isContainAB, bool clearFolder)
         {
-            BuildTarget buildTarget = BuildTarget.StandaloneWindows;
-            PlayerSettings.Android.bundleVersionCode++;
-            PlayerSettings.bundleVersion = string.Join(".", PlayerSettings.Android.bundleVersionCode.ToString().PadLeft(3,'0').ToCharArray());
-            string programName = $"全职传奇.{buildType.ToString()}.{PlayerSettings.bundleVersion}";
-            string exeName = programName;
-            switch (type)
+            
+            try
             {
-                case PlatformType.Windows:
-                    buildTarget = BuildTarget.StandaloneWindows64;
-                    exeName += ".exe";
-                    break;
-                case PlatformType.Android:
-                    buildTarget = BuildTarget.Android;
-                    exeName += ".apk";
-                    break;
-                case PlatformType.IOS:
-                    buildTarget = BuildTarget.iOS;
-                    break;
-                case PlatformType.MacOS:
-                    buildTarget = BuildTarget.StandaloneOSX;
-                    break;
-                
-                case PlatformType.Linux:
-                    buildTarget = BuildTarget.StandaloneLinux64;
-                    break;
-            }
-
-            string fold = string.Format(BuildFolder, type);
-
-            if (clearFolder && Directory.Exists(fold))
-            {
-                Directory.Delete(fold, true);
-            }
-            Directory.CreateDirectory(fold);
-
-            UnityEngine.Debug.Log("start build assetbundle");
-            BuildPipeline.BuildAssetBundles(fold, buildAssetBundleOptions, buildTarget);
-
-            UnityEngine.Debug.Log("finish build assetbundle");
-
-            if (isContainAB)
-            {
-                FileHelper.CleanDirectory("Assets/StreamingAssets/");
-                FileHelper.CopyDirectory(fold, "Assets/StreamingAssets/");
-            }
-
-            if (isBuildExe)
-            {
-                AssetDatabase.Refresh();
-                string[] levels = {
-                    "Assets/Scenes/Init.unity",
-                };
-                UnityEngine.Debug.Log("start build exe");
-                BuildPipeline.BuildPlayer(levels, $"{relativeDirPrefix}/{exeName}", buildTarget, buildOptions);
-                UnityEngine.Debug.Log("finish build exe");
-            }
-            else
-            {
-                if (isContainAB && type == PlatformType.Windows)
+                BuildTarget buildTarget = BuildTarget.StandaloneWindows;
+                PlayerSettings.bundleVersion = string.Join(".", PlayerSettings.Android.bundleVersionCode.ToString().PadLeft(3,'0').ToCharArray());
+                string programName = $"全职传奇.{buildType.ToString()}.{PlayerSettings.bundleVersion}";
+                string exeName = programName;
+                switch (type)
                 {
-                    string targetPath = Path.Combine(relativeDirPrefix, $"{programName}_Data/StreamingAssets/");
-                    FileHelper.CleanDirectory(targetPath);
-                    Debug.Log($"src dir: {fold}    target: {targetPath}");
-                    FileHelper.CopyDirectory(fold, targetPath);
+                    case PlatformType.Windows:
+                        buildTarget = BuildTarget.StandaloneWindows64;
+                        exeName += ".exe";
+                        break;
+                    case PlatformType.Android:
+                        buildTarget = BuildTarget.Android;
+                        exeName += ".apk";
+                        break;
+                    case PlatformType.IOS:
+                        buildTarget = BuildTarget.iOS;
+                        break;
+                    case PlatformType.MacOS:
+                        buildTarget = BuildTarget.StandaloneOSX;
+                        break;
+                    
+                    case PlatformType.Linux:
+                        buildTarget = BuildTarget.StandaloneLinux64;
+                        break;
                 }
+
+                string fold = $"../{buildType.ToString()}/{type}/StreamingAssets/";
+
+                if (clearFolder && Directory.Exists(fold))
+                {
+                    Directory.Delete(fold, true);
+                }
+                Directory.CreateDirectory(fold);
+
+                UnityEngine.Debug.Log("start build assetbundle");
+                BuildPipeline.BuildAssetBundles(fold, buildAssetBundleOptions, buildTarget);
+
+                UnityEngine.Debug.Log("finish build assetbundle");
+
+                if (isContainAB)
+                {
+                    FileHelper.CleanDirectory("Assets/StreamingAssets/");
+                    FileHelper.CopyDirectory(fold, "Assets/StreamingAssets/");
+                }
+
+                if (isBuildExe)
+                {
+                    PlayerSettings.Android.bundleVersionCode++;
+
+                    AssetDatabase.Refresh();
+                    string[] levels = {
+                        "Assets/Scenes/Init.unity",
+                    };
+                    UnityEngine.Debug.Log("start build exe");
+                    BuildPipeline.BuildPlayer(levels, $"../{buildType.ToString()}/{exeName}", buildTarget, buildOptions);
+                    UnityEngine.Debug.Log("finish build exe");
+                }
+                
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            
         }
     }
 }
