@@ -123,8 +123,13 @@ namespace Game
     {
         public CompositeConfig Config { get; set; }
     }
-
     public class CompositeUIFreshEvent : SDD.Events.Event
     {
+    }
+
+    public class MaterialUseEvent : SDD.Events.Event
+    {
+        public int MaterialId { get; set; }
+        public long Quantity { get; set; }
     }
 }

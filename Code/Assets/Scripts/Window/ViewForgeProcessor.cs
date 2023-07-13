@@ -405,6 +405,12 @@ public class ViewForgeProcessor : AViewPage
 
         user.EquipRefine[Refine_Position] = refineLevel + 1;
 
+        GameProcessor.Inst.EventCenter.Raise(new MaterialUseEvent()
+        {
+            MaterialId = ItemHelper.SpecialId_EquipRefineStone,
+            Quantity = config.Fee
+        });
+
         GameProcessor.Inst.UpdateInfo();
 
         ShowRefine();

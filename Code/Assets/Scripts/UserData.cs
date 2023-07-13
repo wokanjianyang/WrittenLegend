@@ -42,6 +42,7 @@ namespace Game
                 user.Exp = 0;
                 user.Name = "传奇";
                 user.TowerFloor = 1;
+                user.Gold = 0;
             }
             //user.Gold = 99999999;
             //user.Level = 223;

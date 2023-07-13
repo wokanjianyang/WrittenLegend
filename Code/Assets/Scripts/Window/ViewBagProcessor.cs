@@ -106,6 +106,7 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<AutoRecoveryEvent>(this.OnAutoRecoveryEvent);
             GameProcessor.Inst.EventCenter.AddListener<BagUseEvent>(this.OnBagUseEvent);
             GameProcessor.Inst.EventCenter.AddListener<CompositeEvent>(this.OnCompositeEvent);
+            GameProcessor.Inst.EventCenter.AddListener<MaterialUseEvent>(this.OnMaterialUseEvent);
 
             User user = GameProcessor.Inst.User;
             user.EventCenter.AddListener<HeroBagUpdateEvent>(this.OnHeroBagUpdateEvent);
@@ -216,6 +217,42 @@ namespace Game
             GameProcessor.Inst.EventCenter.Raise(new CompositeUIFreshEvent());
         }
 
+        private void OnMaterialUseEvent(MaterialUseEvent e)
+        {
+            User user = GameProcessor.Inst.User;
+
+            List<BoxItem> list = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == e.MaterialId).ToList();
+
+            int count = list.Select(m => m.Number).Sum();
+
+            int useCount = (int)e.Quantity;
+
+            foreach (BoxItem boxItem in list)
+            {
+                int boxUseCount = Math.Min(boxItem.Number, useCount);
+
+                Com_Box boxUI = this.items.Find(m => m.boxId == boxItem.BoxId);
+                boxItem.RemoveStack(boxUseCount);
+                boxUI.RemoveStack(boxUseCount);
+
+                if (boxItem.Number <= 0)
+                {
+                    user.Bags.Remove(boxItem);
+
+                    this.items.Remove(boxUI);
+                    GameObject.Destroy(boxUI.gameObject);
+
+                }
+
+                useCount = useCount - boxUseCount;
+
+                if (useCount <= 0)
+                {
+                    break;
+                }
+            }
+        }
+        
         private void OnEquipOneEvent(EquipOneEvent e)
         {
             var equip = e.Item as Equip;
