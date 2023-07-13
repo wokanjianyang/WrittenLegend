@@ -24,7 +24,6 @@ namespace Game
         [LabelText("地图名称")]
         public Text txt_MapName;
 
-
         private bool isViewMapShowing = false;
 
         private GameObject msgPrefab;
@@ -65,13 +64,33 @@ namespace Game
             this.LoadWroldMap();
         }
 
+        private List<Text> msgPool = new List<Text>();
+        private int msgId = 0;
         private void OnBattleMsgEvent(BattleMsgEvent e)
         {
-            var msg = GameObject.Instantiate(this.msgPrefab);
-            msg.transform.SetParent(this.sr_BattleMsg.content);
-            msg.transform.localScale = Vector3.one;
+            msgId++;
+            Text txt_msg = null;
+            if (this.sr_BattleMsg.content.childCount > 50)
+            {
+                txt_msg = msgPool[0];
+                msgPool.RemoveAt(0);
+                txt_msg.transform.SetAsLastSibling();
+            }
+            else
+            {
+                var msg = GameObject.Instantiate(this.msgPrefab);
+                msg.transform.SetParent(this.sr_BattleMsg.content);
+                msg.transform.localScale = Vector3.one;
 
-            msg.GetComponent<Text>().text = e.Message;
+                var m = msg.GetComponent<Text>();
+                
+
+                txt_msg = m;
+            }
+            msgPool.Add(txt_msg);
+
+            txt_msg.gameObject.name = $"msg_{msgId}";
+            txt_msg.text = e.Message;
             this.sr_BattleMsg.normalizedPosition = new Vector2(0, 0);
 
             //if (e.MsgType == MsgType.SecondExp)
