@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2707343043
+CRC: 3278174464
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 60eaf2beccd79cbddfc292d86981a4f7
+    Hash: fe08fc4b43d0ee6707e715571882e1c5
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -19,6 +19,7 @@ Assets:
 - Assets/Resources/Config/QualityConfigCategory.bytes
 - Assets/Resources/Config/LevelConfigCategory.bytes
 - Assets/Resources/Config/DropConfigCategory.bytes
+- Assets/Resources/Config/EquipRefineConfigCategory.bytes
 - Assets/Resources/Config/EquipCustomConfigCategory.bytes
 - Assets/Resources/Config/MonsterBaseCategory.bytes
 - Assets/Resources/Config/AttrEntryConfigCategory.bytes
@@ -34,6 +35,7 @@ Assets:
 - Assets/Resources/Config/SkillRuneConfigCategory.bytes
 - Assets/Resources/Config/BossConfigCategory.bytes
 - Assets/Resources/Config/EffectConfigCategory.bytes
+- Assets/Resources/Config/CompositeConfigCategory.bytes
 - Assets/Resources/Config/TowerConfigCategory.bytes
 - Assets/Resources/Config/SynthesisConfigCategory.bytes
 - Assets/Resources/Config/RewardConfigCategory.bytes
