@@ -18,7 +18,7 @@ namespace Game
 
         public int Quality { get; set; }
 
-        public Equip(int configId, int runeConfigId, int suitConfigId)
+        public Equip(int configId, int runeConfigId, int suitConfigId,int quality)
         {
             this.Type = ItemType.Equip;
             this.ConfigId = configId;
@@ -33,11 +33,27 @@ namespace Game
             Part = EquipConfig.Part;
             Position = EquipConfig.Position;
             Gold = EquipConfig.Price;
+            Quality = quality;
 
             BaseAttrList = new Dictionary<int, long>();
             for (int i = 0; i < EquipConfig.AttributeBase.Length; i++)
             {
-                BaseAttrList.Add(EquipConfig.BaseArray[i], EquipConfig.AttributeBase[i]);
+                long AttributeBase = EquipConfig.AttributeBase[i];
+                AttributeBase = AttributeBase * (Quality * 20 + 20) / 100; // 40%,60%,80%,100%
+                BaseAttrList.Add(EquipConfig.BaseArray[i], AttributeBase);
+            }
+
+            //根据品质,生成随机属性
+            if (EquipConfig.RandomAttr == 0)
+            {
+                for (int i = 0; i < Quality; i++)
+                {
+                    var ra = AttrEntryConfigCategory.Instance.Build(this.Part, this.Level);
+                    if (ra.Key > 0)
+                    {
+                        this.AttrEntryList.Add(ra);
+                    }
+                }
             }
 
             if (RuneConfigId > 0)

@@ -12,44 +12,31 @@ namespace Game
 
     public class EquipHelper
     {
-        public static Equip BuildEquip(int configId, int minQuality)
+        public static Equip BuildEquip(int configId, int qualityRate)
         {
             EquipConfig config = EquipConfigCategory.Instance.Get(configId);
 
             int runeId = config.RuneId;
             int suitId = config.SuitId;
+            int quality = config.Quality;
 
+            if (config.Quality == 0)  //随机生成品质
+            {
+                quality = RandomHelper.RandomEquipQuality(qualityRate);
+            }
 
-            if (runeId == 0) //随机生成词条
+            if (runeId == 0 && quality > 2) //随机生成词条
             {
                 SkillRuneConfig runeConfig = SkillRuneHelper.RandomRune();
                 runeId = runeConfig.Id;
 
-                if (suitId == 0)  //随机生成词条
+                if (suitId == 0 && quality > 3)  //随机生成词条
                 {
                     suitId = SkillSuitHelper.RandomSuit(runeConfig.SkillId).Id;
                 }
             }
 
-            Equip equip = new Equip(configId, runeId, suitId);
-
-            if (config.Quality == 0)  //随机生成品质
-            {
-                equip.Quality = Math.Max(minQuality, RandomHelper.RandomQuality());
-            }
-            else
-            {
-                equip.Quality = config.Quality;
-            }
-
-            //根据品质,生成随机属性
-            if (config.RandomAttr == 0)
-            {
-                for (int i = 0; i < equip.Quality; i++)
-                {
-                    AttrEntryConfigCategory.Instance.Build(ref equip);
-                }
-            }
+            Equip equip = new Equip(configId, runeId, suitId, quality);
 
             return equip;
         }

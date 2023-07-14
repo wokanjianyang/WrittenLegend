@@ -28,7 +28,7 @@ namespace Game
 
     public class DropHelper
     {
-        public static List<Item> BuildDropItem(List<KeyValuePair<int, DropConfig>> dropList, int minQuanlity)
+        public static List<Item> BuildDropItem(List<KeyValuePair<int, DropConfig>> dropList, int qualityRate)
         {
             List<Item> list = new List<Item>();
 
@@ -42,7 +42,7 @@ namespace Game
                     int index = RandomHelper.RandomNumber(0, config.ItemIdList.Length);
                     int configId = config.ItemIdList[index];
 
-                    Item item = ItemHelper.BuildItem((ItemType)config.ItemType, configId, minQuanlity, 1);
+                    Item item = ItemHelper.BuildItem((ItemType)config.ItemType, configId, qualityRate, 1);
                     list.Add(item);
                 }
             }

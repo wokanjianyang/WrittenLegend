@@ -8,13 +8,13 @@ namespace Game
 {
     public class ItemHelper
     {
-        public static Item BuildItem(ItemType type, int configId, int quality, int number)
+        public static Item BuildItem(ItemType type, int configId, int qualityRate, int number)
         {
             Item item = null;
 
             if (type == ItemType.Equip)
             {
-                item = EquipHelper.BuildEquip(configId, quality);
+                item = EquipHelper.BuildEquip(configId, qualityRate);
             }
             else if (type == ItemType.SkillBox)
             {

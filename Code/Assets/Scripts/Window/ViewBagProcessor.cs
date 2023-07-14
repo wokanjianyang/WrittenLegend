@@ -57,6 +57,43 @@ namespace Game
 
         }
 
+        public override void OnBattleStart()
+        {
+            base.OnBattleStart();
+
+            GameProcessor.Inst.EventCenter.AddListener<EquipOneEvent>(this.OnEquipOneEvent);
+            GameProcessor.Inst.EventCenter.AddListener<SkillBookEvent>(this.OnSkillBookEvent);
+            GameProcessor.Inst.EventCenter.AddListener<RecoveryEvent>(this.OnRecoveryEvent);
+            GameProcessor.Inst.EventCenter.AddListener<AutoRecoveryEvent>(this.OnAutoRecoveryEvent);
+            GameProcessor.Inst.EventCenter.AddListener<BagUseEvent>(this.OnBagUseEvent);
+            GameProcessor.Inst.EventCenter.AddListener<CompositeEvent>(this.OnCompositeEvent);
+            GameProcessor.Inst.EventCenter.AddListener<MaterialUseEvent>(this.OnMaterialUseEvent);
+
+            User user = GameProcessor.Inst.User;
+            user.EventCenter.AddListener<HeroBagUpdateEvent>(this.OnHeroBagUpdateEvent);
+
+            this.items = new List<Com_Box>();
+
+            var emptyPrefab = Resources.Load<GameObject>("Prefab/Window/Box_Empty");
+
+            for (var i = 0; i < user.BagNum; i++)
+            {
+                var empty = GameObject.Instantiate(emptyPrefab, (this.sr_Bag.content));
+                empty.name = "Box_" + i;
+            }
+
+            RefreshBag();
+
+            if (user.EquipPanel != null)
+            {
+                //��ʼ��Ⱦ����װ��
+                foreach (var kvp in user.EquipPanel)
+                {
+                    this.CreateEquipPanelItem(kvp.Key, kvp.Value);
+                }
+            }
+        }
+
         private void OnRefreshBag(bool state) {
             if (state) {
                 RefreshBag();
@@ -96,42 +133,7 @@ namespace Game
             return page == ViewPageType.View_Bag;
         }
 
-        public override void OnBattleStart()
-        {
-            base.OnBattleStart();
-
-            GameProcessor.Inst.EventCenter.AddListener<EquipOneEvent>(this.OnEquipOneEvent);
-            GameProcessor.Inst.EventCenter.AddListener<SkillBookEvent>(this.OnSkillBookEvent);
-            GameProcessor.Inst.EventCenter.AddListener<RecoveryEvent>(this.OnRecoveryEvent);
-            GameProcessor.Inst.EventCenter.AddListener<AutoRecoveryEvent>(this.OnAutoRecoveryEvent);
-            GameProcessor.Inst.EventCenter.AddListener<BagUseEvent>(this.OnBagUseEvent);
-            GameProcessor.Inst.EventCenter.AddListener<CompositeEvent>(this.OnCompositeEvent);
-            GameProcessor.Inst.EventCenter.AddListener<MaterialUseEvent>(this.OnMaterialUseEvent);
-
-            User user = GameProcessor.Inst.User;
-            user.EventCenter.AddListener<HeroBagUpdateEvent>(this.OnHeroBagUpdateEvent);
-
-            this.items = new List<Com_Box>();
-
-            var emptyPrefab = Resources.Load<GameObject>("Prefab/Window/Box_Empty");
-
-            for (var i = 0; i < user.BagNum; i++)
-            {
-                var empty = GameObject.Instantiate(emptyPrefab, (this.sr_Bag.content));
-                empty.name = "Box_" + i;
-            }
-
-            RefreshBag();
-
-            if (user.EquipPanel != null)
-            {
-                //��ʼ��Ⱦ����װ��
-                foreach (var kvp in user.EquipPanel)
-                {
-                    this.CreateEquipPanelItem(kvp.Key, kvp.Value);
-                }
-            }
-        }
+   
         private Com_Box CreateBox(BoxItem item)
         {
 
@@ -210,7 +212,7 @@ namespace Game
             }
 
             //
-            Item item = ItemHelper.BuildItem((ItemType)config.TargetType, config.TargetId, 0, 1);
+            Item item = ItemHelper.BuildItem((ItemType)config.TargetType, config.TargetId, 1, 1);
 
             AddBoxItem(item);
 
@@ -284,9 +286,27 @@ namespace Game
         {
             User user = GameProcessor.Inst.User;
 
-            UseBoxItem(e.BoxId,1);
+            UseBoxItem(e.BoxId, 1);
 
-            user.AddExpAndGold(0, e.Item.Gold);
+            int refineStone = 0;
+            if (e.Item.Type == ItemType.Equip)
+            {
+                Equip equip = e.Item as Equip;
+                refineStone += equip.Level / 10 * equip.GetQuality();
+            }
+
+            long gold = e.Item.Gold;
+
+            user.AddExpAndGold(0, gold);
+
+            Item item = ItemHelper.BuildRefineStone(Math.Max(1, refineStone));
+            AddBoxItem(item);
+
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+            {
+                Message = BattleMsgHelper.BuildAutoRecoveryMessage(1, refineStone, gold)
+            });
+
         }
 
         private void OnAutoRecoveryEvent(AutoRecoveryEvent e)
