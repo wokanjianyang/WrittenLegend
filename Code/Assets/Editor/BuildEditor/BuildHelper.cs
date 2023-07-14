@@ -135,7 +135,6 @@ namespace ET
             try
             {
                 BuildTarget buildTarget = BuildTarget.StandaloneWindows;
-                PlayerSettings.bundleVersion = string.Join(".", PlayerSettings.Android.bundleVersionCode.ToString().PadLeft(3,'0').ToCharArray());
                 string programName = $"全职传奇.{buildType.ToString()}.{PlayerSettings.bundleVersion}";
                 string exeName = programName;
                 switch (type)
@@ -182,6 +181,7 @@ namespace ET
                 if (isBuildExe)
                 {
                     PlayerSettings.Android.bundleVersionCode++;
+                    PlayerSettings.bundleVersion = string.Join(".", PlayerSettings.Android.bundleVersionCode.ToString().PadLeft(3,'0').ToCharArray());
 
                     AssetDatabase.Refresh();
                     string[] levels = {
