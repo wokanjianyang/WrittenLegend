@@ -11,7 +11,7 @@ import android.widget.FrameLayout;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.fulljoblegend.android.R;
+import com.unity3d.player.R;
 import com.zh.pocket.ads.banner.BannerAD;
 import com.zh.pocket.ads.banner.BannerADListener;
 import com.zh.pocket.ads.fullscreen_video.FullscreenVideoAD;
