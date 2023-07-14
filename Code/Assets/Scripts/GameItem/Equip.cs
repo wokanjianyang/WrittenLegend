@@ -39,7 +39,10 @@ namespace Game
             for (int i = 0; i < EquipConfig.AttributeBase.Length; i++)
             {
                 long AttributeBase = EquipConfig.AttributeBase[i];
-                AttributeBase = AttributeBase * (Quality * 20 + 20) / 100; // 40%,60%,80%,100%
+                if (EquipConfig.Quality == 0)  //随机品质装备 40%,60%,80%,100%
+                {
+                    AttributeBase = AttributeBase * (Quality * 20 + 20) / 100;
+                }
                 BaseAttrList.Add(EquipConfig.BaseArray[i], AttributeBase);
             }
 

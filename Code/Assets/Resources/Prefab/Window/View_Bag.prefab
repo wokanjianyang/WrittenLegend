@@ -926,7 +926,7 @@ GameObject:
   - component: {fileID: 6673907176477982717}
   - component: {fileID: 6935119648932091113}
   m_Layer: 0
-  m_Name: 'Text '
+  m_Name: GoldIncrea_V
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1081,12 +1081,12 @@ GameObject:
   m_Component:
   - component: {fileID: 6968038924569747148}
   m_Layer: 5
-  m_Name: GameObject (26)
+  m_Name: BurstIncrea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6968038924569747148
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1758,7 +1758,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u5B9D\u5B9D\u653B\u51FB:"
+  m_Text: "\u7206\u7387\u52A0\u6210:"
 --- !u!1 &2827315515066528388
 GameObject:
   m_ObjectHideFlags: 0
@@ -1771,7 +1771,7 @@ GameObject:
   - component: {fileID: 2042936747518755000}
   - component: {fileID: 8045780502450361386}
   m_Layer: 0
-  m_Name: 'Text '
+  m_Name: QualityIncrea_V
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2958,7 +2958,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -78, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &734748100712354746
@@ -2996,13 +2996,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 4
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u7ECF\u9A8C:"
+  m_Text: "\u7ECF\u9A8C\u52A0\u6210:"
 --- !u!1 &4431043030861063890
 GameObject:
   m_ObjectHideFlags: 0
@@ -3326,6 +3326,10 @@ MonoBehaviour:
   CritRateResist: {fileID: 2698795420854572945}
   CritDamage: {fileID: 7332954741141183751}
   SecondExp: {fileID: 8546232924621695041}
+  GoldIncrea: {fileID: 6935119648932091113}
+  ExpIncrea: {fileID: 941190544427644271}
+  BurstIncrea: {fileID: 7520963104785801559}
+  QualityIncrea: {fileID: 8045780502450361386}
 --- !u!1 &4967371598204004809
 GameObject:
   m_ObjectHideFlags: 0
@@ -3338,7 +3342,7 @@ GameObject:
   - component: {fileID: 999358466319012201}
   - component: {fileID: 7520963104785801559}
   m_Layer: 0
-  m_Name: 'Text '
+  m_Name: BurstIncrea_V
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3874,7 +3878,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -78, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3836827366074524993
@@ -3907,18 +3911,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 23
+    m_FontSize: 21
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 4
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u7834\u7532:"
+  m_Text: "\u91D1\u5E01\u52A0\u6210:"
 --- !u!1 &5919829405680981915
 GameObject:
   m_ObjectHideFlags: 0
@@ -5032,12 +5036,12 @@ GameObject:
   m_Component:
   - component: {fileID: 7161076005654755873}
   m_Layer: 5
-  m_Name: GameObject (19)
+  m_Name: GoldIncrea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7161076005654755873
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5477,7 +5481,7 @@ GameObject:
   - component: {fileID: 654498537624003228}
   - component: {fileID: 941190544427644271}
   m_Layer: 0
-  m_Name: LevelExp_V
+  m_Name: ExpIncrea_V
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5712,12 +5716,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4841348493077279974}
   m_Layer: 5
-  m_Name: GameObject (27)
+  m_Name: QualityIncrea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4841348493077279974
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6173,7 +6177,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u5B9D\u5B9D\u9632\u5FA1:"
+  m_Text: "\u54C1\u8D28\u52A0\u6210:"
 --- !u!1 &8535390657519471613
 GameObject:
   m_ObjectHideFlags: 0
@@ -6617,7 +6621,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2979479728140873538}
   m_Layer: 5
-  m_Name: LevelExp
+  m_Name: ExpIncrea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6643,7 +6647,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -47, y: -282.2}
-  m_SizeDelta: {x: 150, y: 100}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &9004946390754256636
 GameObject:

@@ -34,6 +34,7 @@ namespace Game
         SecondExp = 21, //泡点经验
         RestoreHp = 22, //固定回血数值
         RestoreHpPercent = 23,//百分比回血数值
+        QualityIncrea = 24,//品质加成
         WarriorSkillPercent = 41, //战士技能百分比系数
         WarriorSkillDamage = 42, //战士技能固定系数
         MageSkillPercent = 43, //法师技能百分比系数

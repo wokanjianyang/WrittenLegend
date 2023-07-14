@@ -5,4 +5,7 @@
 {"_t":"AttrEntryConfig","_id":10004,"AttrId":4,"Type":1,"Desc":"道术攻击","Min":20,"Max":20,"PartList":[1,3,7,9]},
 {"_t":"AttrEntryConfig","_id":10005,"AttrId":5,"Type":1,"Desc":"防御","Min":10,"Max":10,"PartList":[2,4,5,10]},
 {"_t":"AttrEntryConfig","_id":10007,"AttrId":7,"Type":2,"Desc":"幸运","Min":1,"Max":3,"PartList":[1,3]},
+{"_t":"AttrEntryConfig","_id":10008,"AttrId":18,"Type":2,"Desc":"经验加成","Min":5,"Max":20,"PartList":[1,2,3,4,5,7,9,10]},
+{"_t":"AttrEntryConfig","_id":10009,"AttrId":19,"Type":2,"Desc":"爆率加成","Min":5,"Max":10,"PartList":[1,2,3,4,5,7,9,10]},
+{"_t":"AttrEntryConfig","_id":10010,"AttrId":20,"Type":2,"Desc":"金币加成","Min":5,"Max":20,"PartList":[1,2,3,4,5,7,9,10]},
 ]}
