@@ -1,4 +1,4 @@
-package com.fulljoblegend.android;
+package com.unity3d.player;
 
 import android.annotation.SuppressLint;
 import android.app.Application;

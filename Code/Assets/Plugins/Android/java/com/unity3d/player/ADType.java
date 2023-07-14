@@ -1,4 +1,4 @@
-package com.fulljoblegend.android;
+package com.unity3d.player;
 
 public class ADType {
 
