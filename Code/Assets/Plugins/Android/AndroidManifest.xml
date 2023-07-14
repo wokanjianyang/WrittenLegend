@@ -37,7 +37,7 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:hardwareAccelerated="false"
-            android:launchMode="singleTask"
+            android:launchMode="standard"
             android:resizeableActivity="false"
             android:screenOrientation="fullUser"
             android:theme="@style/UnityThemeSelector">
