@@ -20,7 +20,7 @@ namespace Game
 
             if (SystemConfigHelper.CheckRequireLevel(SystemEnum.MonsterQuanlity))
             {
-                quality = RandomHelper.RandomQuality();  //超过5级开始有精英怪
+                quality = RandomHelper.RandomMonsterQuality();  //超过5级开始有精英怪
             }
             else
             {

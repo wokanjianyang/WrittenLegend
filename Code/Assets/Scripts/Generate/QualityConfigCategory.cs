@@ -19,10 +19,10 @@ namespace Game
             switch (quanlity)
             {
                 case 1:
-                    titleColor = "CBFFC2";
+                    titleColor = "CCCCCC";
                     break;
                 case 2:
-                    titleColor = "CCCCCC";
+                    titleColor = "CBFFC2";
                     break;
                 case 3:
                     titleColor = "76B0FF";

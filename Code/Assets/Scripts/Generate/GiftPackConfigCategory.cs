@@ -31,7 +31,7 @@ namespace Game
                 }
                 else
                 {
-                    item = ItemHelper.BuildItem(type, itemId, 0, quanlity);
+                    item = ItemHelper.BuildItem(type, itemId, 1, quanlity);
                 }
 
                 if (item != null)

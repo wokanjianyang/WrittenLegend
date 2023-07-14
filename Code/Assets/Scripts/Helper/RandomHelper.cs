@@ -41,23 +41,43 @@ namespace Game
             return random.Next(1, rate + 1)<= 1;
         }
 
-        public static int RandomQuality()
+        public static int RandomEquipQuality(int qualityRate)
         {
-            int rd = random.Next(1, 101);
-            if (rd < 5)
+            qualityRate = qualityRate <= 0 ? 1 : qualityRate;
+            int rate = Math.Max(1, 500 / qualityRate);
+            int rd = random.Next(1, rate + 1);
+            if (rd < 2)
             {
                 return 4;
             }
-            else if (rd < 15)
+            else if (rd < 20)
             {
                 return 3;
             }
-            else if (rd < 35)
+            else if (rd < 70)
             {
                 return 2;
             }
             return 1;
         }
+
+        public static int RandomMonsterQuality() {
+            int rd = random.Next(1, 201);
+            if (rd < 10)
+            {
+                return 4;
+            }
+            else if (rd < 20)
+            {
+                return 3;
+            }
+            else if (rd < 40)
+            {
+                return 2;
+            }
+            return 1;
+        }
+
 
         public static ulong RandUInt64()
         {

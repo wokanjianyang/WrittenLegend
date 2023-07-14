@@ -1,6 +1,6 @@
 {"list":[
-{"_t":"QualityConfig","_id":1,"MonsterTitle":"","AttrRate":1,"DefRate":1,"HpRate":1,"GoldRate":1,"ExpRate":1,"DropRate":1},
-{"_t":"QualityConfig","_id":2,"MonsterTitle":"-精英","AttrRate":1,"DefRate":1,"HpRate":3,"GoldRate":2,"ExpRate":2,"DropRate":2},
-{"_t":"QualityConfig","_id":3,"MonsterTitle":"-头目","AttrRate":2,"DefRate":2,"HpRate":5,"GoldRate":10,"ExpRate":10,"DropRate":10},
-{"_t":"QualityConfig","_id":4,"MonsterTitle":"-首领","AttrRate":2,"DefRate":2,"HpRate":10,"GoldRate":20,"ExpRate":20,"DropRate":20},
+{"_t":"QualityConfig","_id":1,"MonsterTitle":"","AttrRate":1,"DefRate":1,"HpRate":1,"GoldRate":1,"ExpRate":1,"DropRate":1,"QualityRate":1},
+{"_t":"QualityConfig","_id":2,"MonsterTitle":"-精英","AttrRate":1,"DefRate":1,"HpRate":3,"GoldRate":2,"ExpRate":2,"DropRate":2,"QualityRate":5},
+{"_t":"QualityConfig","_id":3,"MonsterTitle":"-头目","AttrRate":2,"DefRate":2,"HpRate":5,"GoldRate":10,"ExpRate":10,"DropRate":10,"QualityRate":20},
+{"_t":"QualityConfig","_id":4,"MonsterTitle":"-首领","AttrRate":2,"DefRate":2,"HpRate":10,"GoldRate":20,"ExpRate":20,"DropRate":20,"QualityRate":50},
 ]}

@@ -38,7 +38,7 @@ namespace Game
             {
                 user = new User();
                 //首次初始化
-                user.Level = 1;
+                user.Level = 60;
                 user.Exp = 0;
                 user.Name = "传奇";
                 user.TowerFloor = 1;

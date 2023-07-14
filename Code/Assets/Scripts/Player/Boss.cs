@@ -105,7 +105,7 @@ namespace Game
                 }
             }
 
-            List<Item> items = DropHelper.BuildDropItem(dropList, 4);
+            List<Item> items = DropHelper.BuildDropItem(dropList, 250);
 
             if (SystemConfigHelper.CheckRequireLevel(SystemEnum.SoulRing))
             {

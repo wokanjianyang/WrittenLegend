@@ -99,6 +99,9 @@ namespace Game
 		/// <summary>掉率系数</summary>
 		[ProtoMember(8)]
 		public int DropRate { get; set; }
+		/// <summary>品质系数</summary>
+		[ProtoMember(9)]
+		public int QualityRate { get; set; }
 
 	}
 }
