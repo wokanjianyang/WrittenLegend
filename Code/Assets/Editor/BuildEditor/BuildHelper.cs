@@ -112,7 +112,8 @@ namespace ET
         {
             PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android,ScriptingImplementation.Mono2x);
             PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARMv7;
-            
+            PlayerSettings.applicationIdentifier = "com.pocket.topbrowser";
+            PlayerSettings.Android.useCustomKeystore = false;
             var opa = BuildOptions.CompressWithLz4HC | BuildOptions.Development | BuildOptions.AllowDebugging | BuildOptions.ConnectWithProfiler | BuildOptions.EnableDeepProfilingSupport;
 
             BuildHelper.Build(BuildType.Release,PlatformType.Android, BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, opa, true, true, true);
@@ -123,6 +124,8 @@ namespace ET
         {
             PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android,ScriptingImplementation.IL2CPP);
             PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64;
+            PlayerSettings.applicationIdentifier = "com.fulljoblegend.android";
+            PlayerSettings.Android.useCustomKeystore = true;
 
             var opa = BuildOptions.CompressWithLz4HC;
 
@@ -135,7 +138,6 @@ namespace ET
             try
             {
                 BuildTarget buildTarget = BuildTarget.StandaloneWindows;
-                PlayerSettings.bundleVersion = string.Join(".", PlayerSettings.Android.bundleVersionCode.ToString().PadLeft(3,'0').ToCharArray());
                 string programName = $"全职传奇.{buildType.ToString()}.{PlayerSettings.bundleVersion}";
                 string exeName = programName;
                 switch (type)
@@ -181,8 +183,12 @@ namespace ET
 
                 if (isBuildExe)
                 {
-                    PlayerSettings.Android.bundleVersionCode++;
-
+                    if (buildType == BuildType.Release)
+                    {
+                        PlayerSettings.Android.bundleVersionCode++;
+                        PlayerSettings.bundleVersion = string.Join(".", PlayerSettings.Android.bundleVersionCode.ToString().PadLeft(3,'0').ToCharArray());
+                    }
+                    
                     AssetDatabase.Refresh();
                     string[] levels = {
                         "Assets/Scenes/Init.unity",

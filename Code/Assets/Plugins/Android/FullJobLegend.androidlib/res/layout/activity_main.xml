@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical">
+        <TextView
+            android:id="@+id/tvHand" android:layout_width="match_parent" android:layout_height="wrap_content" android:textSize="20dp" android:gravity="center" android:text="隐私政策" android:textColor="#000"/>
+        <LinearLayout
+            android:id="@+id/llBtns" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center" android:layout_alignParentBottom="true" android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="0dp" android:layout_height="wrap_content" android:gravity="center" android:layout_weight="1">
+                <Button
+                    android:id="@+id/imgbtn_start"
+                    android:layout_width="80dp" android:layout_height="40dp" android:textSize="16dp" android:text="同意"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp" android:layout_height="wrap_content" android:gravity="center" android:layout_weight="1">
+                <Button
+                    android:id="@+id/imgbtn_end"
+                    android:layout_width="80dp" android:layout_height="40dp" android:textSize="16dp"
+                    android:text="不同意"/>
+            </LinearLayout>
+        </LinearLayout>
+        <android.webkit.WebView
+            android:id="@+id/web1"
+            android:layout_width="match_parent" android:layout_height="match_parent" android:layout_above="@id/llBtns" android:layout_below="@id/tvHand"/>
+    </RelativeLayout>
+</FrameLayout>
