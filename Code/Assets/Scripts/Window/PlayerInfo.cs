@@ -33,6 +33,14 @@ namespace Game
         [LabelText("SecondExp")]
         public Text SecondExp;
 
+        [LabelText("GoldIncrea")]
+        public Text GoldIncrea;
+        [LabelText("ExpIncrea")]
+        public Text ExpIncrea;
+        [LabelText("BurstIncrea")]
+        public Text BurstIncrea;
+        [LabelText("QualityIncrea")]
+        public Text QualityIncrea;
 
         // Start is called before the first frame update
         void Start()
@@ -60,6 +68,11 @@ namespace Game
             CritRateResist.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.CritRateResist).ToString();
             CritDamage.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.CritDamage).ToString();
             SecondExp.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp).ToString();
+
+            GoldIncrea.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.GoldIncrea).ToString();
+            ExpIncrea.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.ExpIncrea).ToString();
+            BurstIncrea.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstIncrea).ToString();
+            QualityIncrea.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea).ToString();
         }
         
     }
