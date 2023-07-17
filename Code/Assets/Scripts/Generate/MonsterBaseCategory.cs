@@ -22,9 +22,9 @@ namespace Game
             {
                 quality = RandomHelper.RandomMonsterQuality();  //超过5级开始有精英怪
             }
-            else
+            else if (mapConfig.Id == 1000)
             {
-                maxLevel = GameProcessor.Inst.User.Level; //低于5级，只刷低于自身等级的怪
+                maxLevel = GameProcessor.Inst.User.Level; //低于5级，第一张图,只刷鸡
             }
 
             List<MonsterBase> list = MonsterBaseCategory.Instance.GetAll().Where(m => m.Value.Level >= minLevel && m.Value.Level <= maxLevel).Select(m => m.Value).ToList();
