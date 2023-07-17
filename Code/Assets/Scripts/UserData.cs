@@ -41,7 +41,7 @@ namespace Game
                 user.Level = 1;
                 user.Exp = 0;
                 user.Name = "传奇";
-                user.TowerFloor = 0;
+                user.TowerFloor = 1;
                 user.Gold = 0;
             }
             //TEST data
