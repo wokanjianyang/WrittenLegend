@@ -19,6 +19,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 
+import com.zh.pocket.PocketSdk;
+
 public class MainActivity extends Activity implements PermissionsUtils.IPermissionsResult {
 
     WebView webview;
@@ -49,35 +51,6 @@ public class MainActivity extends Activity implements PermissionsUtils.IPermissi
 
 
 
-        boolean isAccept = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED ? true : false;
-        if(!isAccept)
-        {
-            boolean hasRequestSdksPermissions = shared.getBoolean("hasRequestSdksPermissions",false);
-            if(!hasRequestSdksPermissions)
-            {
-                editor = shared.edit();
-                //只弹一次权限申请
-                editor.putBoolean("hasRequestSdksPermissions", true);
-                editor.commit();
-
-                Activity context = this;
-                PermissionsUtils.IPermissionsResult result = this;
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage("游戏存档需要访问”外部存储器“，如果不同意游戏将无法保存用户数据！");
-                builder.setPositiveButton("授权", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                        PermissionsUtils.getInstance().activityInit(context,context.getClass());
-                        PermissionsUtils.getInstance().startRequestSdksPermissions(permissions,false,result);
-
-                    }
-                });
-                builder.setNegativeButton("取消",null);
-                builder.show();
-            }
-        }
-
         webview = findViewById(R.id.web1);
         webview.loadUrl("http://privacy-policy.cn/cxkeuh7z7wticqk8");
 
@@ -88,18 +61,55 @@ public class MainActivity extends Activity implements PermissionsUtils.IPermissi
                 return true;
             }
         });
+
+        Activity context = this;
+        PermissionsUtils.IPermissionsResult result = this;
+
         //点击同意，进入游戏
         findViewById(R.id.imgbtn_start).setOnClickListener(new Button.OnClickListener()
         {
             public void onClick(View v)
             {
-                Intent intent =new Intent();
                 editor = shared.edit();
-        //同意隐私协议，修改 已同意协议变量为 true
+                //同意隐私协议，修改 已同意协议变量为 true
                 editor.putBoolean("hasAcceptPivacy", true);
                 editor.commit();
-                intent.setClass(MainActivity.this, ADUnityPlayerActivity.class);
-                MainActivity.this.startActivity(intent);
+
+                boolean isAccept = ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED ? true : false;
+                if(!isAccept)
+                {
+                    boolean hasRequestSdksPermissions = shared.getBoolean("hasRequestSdksPermissions",false);
+                    if(!hasRequestSdksPermissions)
+                    {
+                        editor = shared.edit();
+                        //只弹一次权限申请
+                        editor.putBoolean("hasRequestSdksPermissions", true);
+                        editor.commit();
+
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                        builder.setMessage("游戏存档需要访问”外部存储器“，如果不同意游戏将无法保存用户数据！");
+                        builder.setPositiveButton("授权", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                                PermissionsUtils.getInstance().activityInit(context,context.getClass());
+                                PermissionsUtils.getInstance().startRequestSdksPermissions(permissions,false,result);
+
+                            }
+                        });
+                        builder.setNegativeButton("取消",new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                                GotoNextActivity();
+
+                            }
+                        });
+                        builder.show();
+                    }
+                }
+
             }
         });
         //点击不同意，直接退出应用
@@ -114,15 +124,26 @@ public class MainActivity extends Activity implements PermissionsUtils.IPermissi
         //如果已经同意过协议，直接进入游戏（一般第二次打开，就不需要再次弹出隐私协议了）
         boolean hasAcceptPivacy = shared.getBoolean("hasAcceptPivacy",false);
         if(hasAcceptPivacy){
-            Intent intent =new Intent();
-            intent.setClass(MainActivity.this, ADUnityPlayerActivity.class);
-            MainActivity.this.startActivity(intent);
+
+            GotoNextActivity();
         }
+    }
+
+    private void GotoNextActivity()
+    {
+        PocketSdk.initSDK(this, "xiaomi", "11723");
+
+        Intent intent =new Intent();
+        intent.setClass(MainActivity.this, ADUnityPlayerActivity.class);
+        MainActivity.this.startActivity(intent);
     }
 
     @Override
     public void permissionsResult(boolean isPass) {
         Log.d(this.getClass().getSimpleName(), "权限申请结果:"+isPass);
+
+        GotoNextActivity();
+
     }
 
     @Override

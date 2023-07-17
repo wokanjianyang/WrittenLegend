@@ -8,11 +8,9 @@ namespace Game
 {
     abstract public class ABattleRule : IBattleLife
     {
-        protected bool isGameOver = false;
 
         protected int roundNum = 0;
 
-        protected PlayerType winCamp;
 
         protected const float roundTime = 0.5f;
         protected float currentRoundTime = 0f;
@@ -56,57 +54,49 @@ namespace Game
 
         virtual public void OnUpdate()
         {
-            if (!this.isGameOver)
-            {
-                this.currentRoundTime += Time.deltaTime * Time.timeScale;
+            this.currentRoundTime += Time.deltaTime * Time.timeScale;
                 
-                if (this.currentRoundTime >= roundTime)
+            if (this.currentRoundTime >= roundTime)
+            {
+                this.currentRoundTime = 0;
+                this.needRefreshGraphic = true;
+                GameProcessor.Inst.PlayerManager.RemoveAllDeadPlayers();
+                switch (this.roundNum%2)
                 {
-                    this.currentRoundTime = 0;
-                    this.needRefreshGraphic = true;
-                    GameProcessor.Inst.PlayerManager.RemoveAllDeadPlayers();
-                    switch (this.roundNum%2)
-                    {
-                        case (int)RoundType.Hero:
-                            this.DoHeroLogic();
-                            this.DoValetLogic();
-                            break;
-                        case (int)RoundType.Monster:
-                            this.DoMonsterLogic();
-                            this.DoMapCellLogic();
-                            this.isGameOver = this.CheckGameResult();
-                            break;
-                    }
-
-                    this.roundNum++;
-                    if (this.isGameOver)
-                    {
-                        Debug.Log($"{(this.winCamp == PlayerType.Hero?"玩家":"怪物")}获胜！！");
-                    }
+                    case (int)RoundType.Hero:
+                        this.DoHeroLogic();
+                        this.DoValetLogic();
+                        break;
+                    case (int)RoundType.Monster:
+                        this.DoMonsterLogic();
+                        this.DoMapCellLogic();
+                        this.CheckGameResult();
+                        break;
                 }
-                else if (this.needRefreshGraphic && this.currentRoundTime >= roundTime * 0.5f)
+
+                this.roundNum++;
+            }
+            else if (this.needRefreshGraphic && this.currentRoundTime >= roundTime * 0.5f)
+            {
+                this.needRefreshGraphic = false;
+                var allPlayers = GameProcessor.Inst.PlayerManager.GetAllPlayers(true);
+                foreach (var player in allPlayers)
                 {
-                    this.needRefreshGraphic = false;
-                    var allPlayers = GameProcessor.Inst.PlayerManager.GetAllPlayers(true);
-                    foreach (var player in allPlayers)
-                    {
-                        player.Logic.RaiseEvents();
-                    }
+                    player.Logic.RaiseEvents();
                 }
             }
         }
 
-        virtual protected bool CheckGameResult()
+        protected void CheckGameResult()
         {
-            var result = false;
             var heroCamp = GameProcessor.Inst.PlayerManager.GetHero();
             if (heroCamp.HP == 0)
             {
-                this.winCamp = PlayerType.Enemy;
-                result = true;
+                GameProcessor.Inst.SetGameOver(PlayerType.Enemy);
+                
+                Log.Debug($"{(GameProcessor.Inst.winCamp == PlayerType.Hero?"玩家":"怪物")}获胜！！");
+                GameProcessor.Inst.HeroDie();
             }
-
-            return result && this.roundNum > 1;
         }
     }
 }

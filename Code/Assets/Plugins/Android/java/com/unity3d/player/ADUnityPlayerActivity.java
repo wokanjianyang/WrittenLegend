@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 public class ADUnityPlayerActivity extends UnityPlayerActivity
 {
-//    private AdManager adManager;
+    private AdManager adManager;
 
     // Setup activity layout
     @Override protected void onCreate(Bundle savedInstanceState)
@@ -12,32 +12,32 @@ public class ADUnityPlayerActivity extends UnityPlayerActivity
         super.onCreate(savedInstanceState);
 
 
-//         adManager = new AdManager();
-//
-//         adManager.initAd(this);
+         adManager = new AdManager();
+
+         adManager.initAd(this);
     }
 
     // Quit Unity
     @Override protected void onDestroy ()
     {
-//        adManager.Destroy();
+        adManager.Destroy();
         super.onDestroy();
     }
 
-//
-//    public int showAD()
-//    {
-//        return adManager.showAD();
-//    }
-//
-//    public int closeAD()
-//    {
-//        return adManager.closeAD();
-//    }
-//
-//    public void SetCallBack(IAndroidToUnity callback)
-//    {
-//        adManager.SetCallBack(callback);
-//    }
+
+    public int showAD()
+    {
+        return adManager.showAD();
+    }
+
+    public int closeAD()
+    {
+        return adManager.closeAD();
+    }
+
+    public void SetCallBack(IAndroidToUnity callback)
+    {
+        adManager.SetCallBack(callback);
+    }
 
 }

@@ -107,9 +107,7 @@ namespace Game
 
         override public void OnUpdate()
         {
-            if (!this.isGameOver && GameProcessor.Inst.IsGameRunning())
-            {
-                this.currentRoundTime += Time.deltaTime;
+            this.currentRoundTime += Time.deltaTime;
                 if (this.currentRoundTime >= roundTime * Time.timeScale)
                 {
                     switch (this.roundNum % 2)
@@ -150,13 +148,8 @@ namespace Game
                             break;
                     }
 
-                    // this.isGameOver = this.CheckGameResult();
-                    if (this.isGameOver)
-                    {
-                        Debug.Log($"{(this.winCamp == PlayerType.Hero ? "玩家" : "怪物")}获胜！！");
-                    }
+                    this.CheckGameResult();
                 }
-            }
         }
 
         public void OnPointerClick(PointerEventData eventData)
