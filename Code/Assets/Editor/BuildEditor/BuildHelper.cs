@@ -138,7 +138,7 @@ namespace ET
             try
             {
                 BuildTarget buildTarget = BuildTarget.StandaloneWindows;
-                string programName = $"全职传奇.{buildType.ToString()}.{PlayerSettings.bundleVersion}";
+                string programName = $"全职龙城.{buildType.ToString()}.{PlayerSettings.bundleVersion}";
                 string exeName = programName;
                 switch (type)
                 {

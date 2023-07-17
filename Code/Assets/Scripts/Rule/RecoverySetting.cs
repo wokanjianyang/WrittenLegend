@@ -12,10 +12,7 @@ namespace Game
         public Dictionary<int, bool> SkillBookRole { get; private set; } = new Dictionary<int, bool>();
         public int SkillBookLevel { get; set; } = 0;//
 
-        public int test = 10;
-
         public RecoverySetting() {
-            this.test = 20;
         }
 
         public void SetEquipQuanlity(int quanlity, bool check)
