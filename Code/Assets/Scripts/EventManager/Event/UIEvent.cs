@@ -87,7 +87,10 @@ namespace Game
 
     public class ShowAttackIcon : SDD.Events.Event
     {
-        public bool NeedShow { get; set; }
+    }
+    public class HideAttackIcon : SDD.Events.Event
+    {
+        public RoundType RoundType { get; set; }
     }
     public class HeroUseSkillBookEvent : SDD.Events.Event
     {

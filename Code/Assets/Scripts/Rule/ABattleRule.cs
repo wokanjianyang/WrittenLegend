@@ -61,13 +61,16 @@ namespace Game
                 this.currentRoundTime = 0;
                 this.needRefreshGraphic = true;
                 GameProcessor.Inst.PlayerManager.RemoveAllDeadPlayers();
-                switch (this.roundNum%2)
+                var roundType = (RoundType)(this.roundNum % 2);
+                GameProcessor.Inst.EventCenter.Raise(new HideAttackIcon (){RoundType = roundType});
+
+                switch (roundType)
                 {
-                    case (int)RoundType.Hero:
+                    case RoundType.Hero:
                         this.DoHeroLogic();
                         this.DoValetLogic();
                         break;
-                    case (int)RoundType.Monster:
+                    case RoundType.Monster:
                         this.DoMonsterLogic();
                         this.DoMapCellLogic();
                         this.CheckGameResult();
