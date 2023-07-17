@@ -19,10 +19,19 @@ public class AdManager{
     public static int AD_STATE_REWARD = 8; /* 激励视频奖励 */
     public static int AD_STATE_LOADSUCCESS = 9; /* 广告加载成功 */
 
+    public static int Interstitial = 1; /* 插屏 */
+    public static int RewardVideo = 2; /* 激励视频 */
+    public static int BannerExpress = 3; /* banner */
+    public static int FullScreenVideo = 4; /* 全屏视频 */
+    public static int NativeExpress = 5; /* 原生 */
+    public static int Splash = 6; /* 开屏 */
+    public static int Draw = 7; /* Draw */
+
     public static boolean mIsOpen = false; /*是否开启广告 */
     private static RewardVideoAD mRewardVideoAD;
     private static int adState = 0;
     private IAndroidToUnity toUnity;
+    private static String adAction = "";
 
     public AdManager()
     {
@@ -53,7 +62,7 @@ public class AdManager{
             public void onADShow() {
                 mIsOpen = true;
                 adState = AD_STATE_SHOW;
-                String call = String.format("%s(%d, \"%s\", \"%s\", \"%s\");", adState, 2, 1, "激励视频", "口袋工厂");
+                String call = String.format("%s(%d, %d, \"%s\", \"%s\", \"%s\");", adAction, adState, RewardVideo, 1, "激励视频", "口袋工厂");
                 toUnity.OnShowAD(call);
             }
 
@@ -65,7 +74,7 @@ public class AdManager{
             @Override
             public void onReward() {
                 adState = AD_STATE_REWARD;
-                String call = String.format("%s(%d, \"%s\", \"%s\", \"%s\");", adState, 2, 1, "激励视频", "口袋工厂");
+                String call = String.format("%s(%d, %d, \"%s\", \"%s\", \"%s\");", adAction, adState, RewardVideo, 1, "激励视频", "口袋工厂");
                 toUnity.OnShowAD(call);
 
             }
@@ -73,7 +82,7 @@ public class AdManager{
             @Override
             public void onADClicked() {
                 adState = AD_STATE_CLICK;
-                String call = String.format("%s(%d, \"%s\", \"%s\", \"%s\");", adState, 2, 1, "激励视频", "口袋工厂");
+                String call = String.format("%s(%d, %d, \"%s\", \"%s\", \"%s\");", adAction, adState, RewardVideo, 1, "激励视频", "口袋工厂");
                 toUnity.OnShowAD(call);
 
             }
@@ -81,7 +90,7 @@ public class AdManager{
             @Override
             public void onVideoComplete() {
                 adState = AD_STATE_VIDEOCOMPLETE;
-                String call = String.format("%s(%d, \"%s\", \"%s\", \"%s\");", adState, 2, 1, "激励视频", "口袋工厂");
+                String call = String.format("%s(%d, %d, \"%s\", \"%s\", \"%s\");", adAction, adState, RewardVideo, 1, "激励视频", "口袋工厂");
                 toUnity.OnShowAD(call);
 
             }
@@ -89,7 +98,7 @@ public class AdManager{
             @Override
             public void onADClosed() {
                 adState = AD_STATE_CLOSE;
-                String call = String.format("%s(%d, \"%s\", \"%s\", \"%s\");", adState, 2, 1, "激励视频", "口袋工厂");
+                String call = String.format("%s(%d, %d, \"%s\", \"%s\", \"%s\");", adAction, adState, RewardVideo, 1, "激励视频", "口袋工厂");
                 toUnity.OnShowAD(call);
 
             }
@@ -97,7 +106,7 @@ public class AdManager{
             @Override
             public void onSuccess() {
                 adState = AD_STATE_LOADSUCCESS;
-                String call = String.format("%s(%d, \"%s\", \"%s\", \"%s\");", adState, 2, 1, "激励视频", "口袋工厂");
+                String call = String.format("%s(%d, %d, \"%s\", \"%s\", \"%s\");", adAction, adState, RewardVideo, 1, "激励视频", "口袋工厂");
                 toUnity.OnShowAD(call);
 
             }
@@ -105,7 +114,7 @@ public class AdManager{
             @Override
             public void onFailed(ADError error) {
                 adState = AD_STATE_LOADFAIL;
-                String call = String.format("%s(%d, \"%s\", \"%s\", \"%s\");", adState, 2, 1, "激励视频", "口袋工厂");
+                String call = String.format("%s(%d, %d, \"%s\", \"%s\", \"%s\");", adAction, adState, RewardVideo, 1, "激励视频", "口袋工厂");
                 toUnity.OnShowAD(call);
 
             }
@@ -113,7 +122,7 @@ public class AdManager{
             @Override
             public void onSkippedVideo() {
                 adState = AD_STATE_SKIPPEDVIDEO;
-                String call = String.format("%s(%d, \"%s\", \"%s\", \"%s\");", adState, 2, 1, "激励视频", "口袋工厂");
+                String call = String.format("%s(%d, %d, \"%s\", \"%s\", \"%s\");", adAction, adState, RewardVideo, 1, "激励视频", "口袋工厂");
                 toUnity.OnShowAD(call);
 
             }
@@ -128,8 +137,9 @@ public class AdManager{
         }
     }
 
-    public int showAD()
+    public int showAD(final String action)
     {
+        adAction = action;
         int ret = 1;
         if(mRewardVideoAD!=null)
         {

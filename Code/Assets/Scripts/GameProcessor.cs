@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SA.CrossPlatform.UI;
 using UnityEngine;
+using zFramework.Internal;
 
 namespace Game
 {
@@ -278,7 +279,7 @@ namespace Game
             var builder = new UM_NativeDialogBuilder(title, message);
             builder.SetPositiveButton("看广告复活", () => {
                 Log.Debug("看广告复活");
-                PocketAD.Inst.ShowAD("看广告复活", adStateCallBack);
+                PocketAD.Inst.ShowAD("ResurrectionHero", adStateCallBack);
             });
             builder.SetNegativeButton("取消", () =>
             {
@@ -289,10 +290,46 @@ namespace Game
         }
         
         
-        public void OnAdStateCallBack(int rv, AdStateEnum state, AdTypeEnum adType)
+        public async void OnAdStateCallBack(int rv, AdStateEnum state, AdTypeEnum adType)
         {
-            PlayerManager.GetHero().Resurrection();
-            this.isGameOver = false;
+            switch (state)
+            {
+                case AdStateEnum.Click:
+                    Log.Debug("点击广告");
+                    break;
+                case AdStateEnum.Close:
+                    Log.Debug("关闭广告");
+                    // 到主线程执行
+                    await Loom.ToMainThread;
+                    PlayerManager.GetHero().Resurrection();
+                    this.isGameOver = false;
+                    break;
+                case AdStateEnum.Reward:
+                    Log.Debug("发放奖励");
+
+                    break;
+                case AdStateEnum.Show:
+                    Log.Debug("广告显示");
+
+                    break;
+                case AdStateEnum.LoadFail:
+                    Log.Debug("广告加载失败");
+
+                    break;
+                case AdStateEnum.NotSupport:
+                    Log.Debug("不支持广告");
+
+                    break;
+                case AdStateEnum.SkippedVideo:
+                    Log.Debug("跳过广告");
+
+                    break;
+                case AdStateEnum.VideoComplete:
+                    Log.Debug("广告播放完毕");
+
+                    break;
+            }
+
         }
 
         public void SetGameOver(PlayerType winCamp)

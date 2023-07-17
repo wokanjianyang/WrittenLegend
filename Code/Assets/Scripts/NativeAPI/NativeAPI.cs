@@ -46,10 +46,9 @@ namespace Game
         void Start()
         {
             Log.Debug("start:NativeAPI");
-
+            
             if (Application.platform == RuntimePlatform.Android)
             {
-
                 AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
                 AndroidJavaObject currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
                 AndroidToUnity androidToUnity = new AndroidToUnity();

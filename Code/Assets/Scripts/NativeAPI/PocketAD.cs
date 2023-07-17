@@ -72,7 +72,7 @@ namespace Game
             });
             if (Application.platform == RuntimePlatform.Android)
             {
-                int r = jsb.reflection.callMethod<int>("showAD");
+                int r = jsb.reflection.callMethod<int>("showAD",callbackName);
                 if (r != 0)
                 {
                     int rv = 548;//广告播放失败，请重试!

@@ -25,9 +25,9 @@ public class ADUnityPlayerActivity extends UnityPlayerActivity
     }
 
 
-    public int showAD()
+    public int showAD(final String action)
     {
-        return adManager.showAD();
+        return adManager.showAD(action);
     }
 
     public int closeAD()
