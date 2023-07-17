@@ -47,12 +47,12 @@ public class BattleRule_Tower : ABattleRule
             enemy.DoEvent();
         }
 
-        if (enemys.Count == 0) //TODO ²âÊÔ¼õÉÙË¢ÐÂÊýÁ¿
+        if (enemys.Count == 0) //TODO ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½Ë¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         {
-            if (start == true) { //ÅÀËþ³É¹¦
+            if (start == true) { //ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½
                 MakeReward();
 
-                //Ë¢ÐÂµØÍ¼
+                //Ë¢ï¿½Âµï¿½Í¼
                 GameProcessor.Inst.EventCenter.Raise(new ChangeFloorEvent() {  });
             }
 
@@ -67,18 +67,6 @@ public class BattleRule_Tower : ABattleRule
             }
         }
     }
-    protected override bool CheckGameResult()
-    {
-        var result = false;
-        var hero = GameProcessor.Inst.PlayerManager.GetHero();
-        if (hero.HP == 0)
-        {
-            this.winCamp = PlayerType.Enemy;
-            result = true;
-        }
-
-        return result && this.roundNum > 1;
-    }
 
     protected void MakeReward()
     {
@@ -88,11 +76,11 @@ public class BattleRule_Tower : ABattleRule
         User user = GameProcessor.Inst.User;
         var config = TowerConfigCategory.Instance.Get(user.TowerFloor);
 
-        //Ôö¼ÓÅÝµã¾­Ñé£¬ÅÀËþ²ãÊý
+        //ï¿½ï¿½ï¿½ï¿½ï¿½Ýµã¾­ï¿½é£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         user.AttributeBonus.SetAttr(AttributeEnum.SecondExp, AttributeFrom.Tower, config.TotalExp);
         user.TowerFloor++;
 
-        //Éú³ÉµÀ¾ß½±Àø
+        //ï¿½ï¿½ï¿½Éµï¿½ï¿½ß½ï¿½ï¿½ï¿½
         GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
         {
             Message = BattleMsgHelper.BuildTowerSuccessMessage(config.RiseExp, user.TowerFloor),
@@ -100,7 +88,7 @@ public class BattleRule_Tower : ABattleRule
         });
 
 
-        //´æµµ
+        //ï¿½æµµ
         //UserData.Save();
     }
 }

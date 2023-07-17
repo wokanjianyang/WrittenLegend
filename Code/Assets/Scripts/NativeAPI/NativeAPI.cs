@@ -8,10 +8,6 @@ using UnityEngine;
 
 namespace Game
 {
-
-
-
-
     public class NativeAPI : MonoBehaviour
     {
         public class AndroidToUnity : AndroidJavaProxy
@@ -43,7 +39,6 @@ namespace Game
         private static Dictionary<string, object> callBacks;
         public void Awake()
         {
-            Log.Debug("Awake");
             DontDestroyOnLoad(this);
             callBacks = new Dictionary<string, object>();
         }

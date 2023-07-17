@@ -127,6 +127,12 @@ namespace Game
             }
         }
 
-
+        /// <summary>
+        /// ¸´»î
+        /// </summary>
+        public void Resurrection()
+        {
+            this.Logic.ResetData();
+        }
     }
 }

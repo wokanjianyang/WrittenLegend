@@ -271,18 +271,7 @@ namespace Game
             {
                 return; //如果有控制技能，不继续后续行动
             }
-
-
-            var up = this.Cell + Vector3Int.up;
-            var down = this.Cell + Vector3Int.down;
-            var right = this.Cell + Vector3Int.right;
-            var left = this.Cell + Vector3Int.left;
-
-            var fourSide = new List<Vector3Int>()
-            {
-                up, down, right, left
-            };
-
+            
             this.FindNearestEnemy();
 
             SkillState skill = this.GetSkill();
@@ -291,7 +280,7 @@ namespace Game
             {  //使用技能
                 //Debug.Log($"{(this.Name)}使用技能:{(skill.SkillPanel.SkillData.SkillConfig.Name)},攻击:" + targets.Count + "个");
                 skill.Do();
-                //this.EventCenter.Raise(new ShowAttackIcon { NeedShow = true });
+                this.EventCenter.Raise(new ShowAttackIcon ());
             }
             else
             {
@@ -400,11 +389,6 @@ namespace Game
                     Enemy = enemy;
                     break;
                 }
-            }
-
-            if (this.Camp == PlayerType.Hero)
-            {
-                Enemy.EventCenter.Raise(new ShowAttackIcon { NeedShow = true });
             }
 
             return true;

@@ -559,21 +559,9 @@ namespace Game
             return -1;
         }
 
-        private AdStateCallBack adStateCallBack;
         public void OnClick_PlayerTitle()
         {
-            adStateCallBack += OnAdStateCallBack;
-            string title = "显示广告";
-            string message = "激励视频广告测试";
-            var builder = new UM_NativeDialogBuilder(title, message);
-            builder.SetPositiveButton("打开", () => {
-                Log.Debug("Okay button pressed");
-                PocketAD.Inst.ShowAD("称号", adStateCallBack);
-            });
-
-            var dialog = builder.Build();
-            dialog.Show();
-
+            
 
         }
         
@@ -582,9 +570,5 @@ namespace Game
             GameProcessor.Inst.EventCenter.Raise(new EquipRecoveryEvent());
         }
 
-        public void OnAdStateCallBack(int rv, AdStateEnum state, AdTypeEnum adType)
-        {
-
-        }
     }
 }

@@ -27,11 +27,14 @@ namespace Game
         private bool isViewMapShowing = false;
 
         private GameObject msgPrefab;
-        
+
+        private Dictionary<int,Com_MapName> mapNameDict = new Dictionary<int,Com_MapName>();
+        private Vector2 scrollHalfSize; //列表尺寸
         void Start()
         {
             this.btn_BossInfo.onClick.AddListener(this.OnClick_BossInfo);
-
+            
+            scrollHalfSize = sr_WorldMap.viewport.rect.size * 0.5f;
         }
 
         protected override bool CheckPageType(ViewPageType page)
@@ -58,10 +61,11 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<BattleMsgEvent>(this.OnBattleMsgEvent);
             GameProcessor.Inst.EventCenter.AddListener<ChangeMapEvent>(this.OnChangeMapEvent);
 
-            ShowMapInfo();
 
             //加载世界地图
             this.LoadWroldMap();
+            
+            ShowMapInfo();
         }
 
         private List<Text> msgPool = new List<Text>();
@@ -136,9 +140,21 @@ namespace Game
             {
                 MapConfig config = MapConfigCategory.Instance.Get(user.MapId);
                 txt_MapName.text = config.Name;
+                this.OnShowMapIcon(config.Id);
             }
         }
 
+        private void OnShowMapIcon (int mapId)
+        {
+            foreach (var kvp in mapNameDict)
+            {
+                kvp.Value.ShowIcon(mapId);
+            }
+            
+            var pos = this.sr_WorldMap.content.anchoredPosition;
+            pos.y -= scrollHalfSize.y + mapNameDict[mapId].transform.localPosition.y;
+            this.sr_WorldMap.content.anchoredPosition = pos;
+        }
         public class MapNameData
         {
             public int Id;
@@ -293,7 +309,8 @@ namespace Game
                 nameGo.name = data.Name;
                 nameGo.gameObject.SetActive(true);
                 nameGo.GetComponent<Com_MapName>().SetData(data);
-
+                mapNameDict[data.Id] = nameGo.GetComponent<Com_MapName>();
+                
                 if (data.HasDown)
                 {
                     var upGo = GameObject.Instantiate(upArrow);

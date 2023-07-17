@@ -10,7 +10,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class PlayerUI : MonoBehaviour,IPlayer, IPointerClickHandler
+public class PlayerUI : MonoBehaviour,IPlayer
 {
     [LabelText("背景图片")]
     public Image image_Background;
@@ -67,6 +67,8 @@ public class PlayerUI : MonoBehaviour,IPlayer, IPointerClickHandler
         this.SelfPlayer.EventCenter.RemoveListener<SetPlayerLevelEvent>(OnSetPlayerLevelEvent);
         this.SelfPlayer.EventCenter.RemoveListener<SetPlayerHPEvent>(OnSetPlayerHPEvent);
         this.SelfPlayer.EventCenter.RemoveListener<ShowMsgEvent>(OnShowMsgEvent);
+        GameProcessor.Inst.EventCenter.RemoveListener<HideAttackIcon>(OnHideAttackIcon); 
+
         this.com_Progress = null;
     }
     
@@ -144,18 +146,27 @@ public class PlayerUI : MonoBehaviour,IPlayer, IPointerClickHandler
 
     private void OnShowAttackIcon(ShowAttackIcon e)
     {
-        this.tran_Attack.localScale = e.NeedShow ? Vector3.one : Vector3.zero;
-        //if(e.NeedShow)
-        //{
-        //    GameProcessor.Inst.DelayAction(1f, () => {
-        //        if (this.tran_Attack != null)
-        //        {
-        //            this.tran_Attack.localScale = Vector3.zero;
-        //        }
-        //    });
-        //}
+        this.tran_Attack.localScale = Vector3.one ;
     }
 
+    private void OnHideAttackIcon(HideAttackIcon e)
+    {
+        switch (e.RoundType)
+        {
+            case RoundType.Hero:
+                if (this.SelfPlayer.Camp == PlayerType.Enemy)
+                {
+                    this.tran_Attack.localScale = Vector3.zero;
+                }
+                break;
+            case RoundType.Monster:
+                if (this.SelfPlayer.Camp != PlayerType.Enemy)
+                {
+                    this.tran_Attack.localScale = Vector3.zero;
+                }
+                break;
+        }
+    }
 
     public APlayer SelfPlayer { get; set; }
 
@@ -169,19 +180,6 @@ public class PlayerUI : MonoBehaviour,IPlayer, IPointerClickHandler
         this.SelfPlayer.EventCenter.AddListener<SetPlayerHPEvent>(OnSetPlayerHPEvent);
         this.SelfPlayer.EventCenter.AddListener<ShowMsgEvent>(OnShowMsgEvent); 
         this.SelfPlayer.EventCenter.AddListener<ShowAttackIcon>(OnShowAttackIcon); 
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (this.SelfPlayer.Camp == PlayerType.Enemy)
-        {
-            Hero hero = GameProcessor.Inst.PlayerManager.GetHero();
-            if (hero.Enemy != null) {
-                hero.Enemy.EventCenter.Raise(new ShowAttackIcon { NeedShow = false });
-            }
-
-            hero.Enemy = this.SelfPlayer;
-            hero.Enemy.EventCenter.Raise(new ShowAttackIcon { NeedShow = true });
-        }
+        GameProcessor.Inst.EventCenter.AddListener<HideAttackIcon>(OnHideAttackIcon); 
     }
 }

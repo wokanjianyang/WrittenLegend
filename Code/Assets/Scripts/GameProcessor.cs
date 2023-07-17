@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using SA.CrossPlatform.UI;
 using UnityEngine;
 
 namespace Game
@@ -36,6 +37,11 @@ namespace Game
 
         private bool isLoadMap = false;
         private long saveTime = 0;
+        
+        private PocketAD.AdStateCallBack adStateCallBack;
+        
+        private bool isGameOver { get; set; } = false;
+        public PlayerType winCamp { get; private set; }
 
         void Awake()
         {
@@ -94,11 +100,17 @@ namespace Game
             }
 
             this.EventCenter.AddListener<ShowGameMsgEvent>(ShowGameMsg);
+            
+            adStateCallBack += OnAdStateCallBack;
         }
 
         void Update()
         {
-            if (this.IsGameRunning() && isLoadMap)
+            if (this.IsGameRunning())
+            {
+                return;
+            }
+            if (isLoadMap)
             {
                 this.BattleRule?.OnUpdate();
             }
@@ -199,7 +211,7 @@ namespace Game
         public bool IsGameRunning()
         {
             //return this.PauseCounter == 0;
-            return true;
+            return this.isGameOver;
         }
 
         public void UpdateInfo()
@@ -257,6 +269,36 @@ namespace Game
         {
             //TODO 存档
             UserData.Save();
+        }
+        
+        public void HeroDie()
+        {
+            string title = "显示广告";
+            string message = "激励视频广告测试";
+            var builder = new UM_NativeDialogBuilder(title, message);
+            builder.SetPositiveButton("看广告复活", () => {
+                Log.Debug("看广告复活");
+                PocketAD.Inst.ShowAD("看广告复活", adStateCallBack);
+            });
+            builder.SetNegativeButton("取消", () =>
+            {
+                Log.Debug("不复活");
+            });
+            var dialog = builder.Build();
+            dialog.Show();
+        }
+        
+        
+        public void OnAdStateCallBack(int rv, AdStateEnum state, AdTypeEnum adType)
+        {
+            PlayerManager.GetHero().Resurrection();
+            this.isGameOver = false;
+        }
+
+        public void SetGameOver(PlayerType winCamp)
+        {
+            this.isGameOver = true;
+            this.winCamp = winCamp;
         }
     }
 }

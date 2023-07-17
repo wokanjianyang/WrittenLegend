@@ -39,9 +39,6 @@ public class Init : MonoBehaviour
     {
         DontDestroyOnLoad(this);
         Log.ILog = new ANLogger();
-
-        BuglyAgent.DebugLog("Demo.Awake()", "Screen: {0} x {1}", Screen.width, Screen.height);
-
     }
 
     // Start is called before the first frame update
@@ -49,15 +46,12 @@ public class Init : MonoBehaviour
     {
         //保持屏幕常亮
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
-        
-        BuglyAgent.PrintLog(LogSeverity.LogInfo, "Demo Start()");
+        Log.Debug("Demo Start()");
 
         InitBuglySDK();
-
-        BuglyAgent.PrintLog(LogSeverity.LogWarning, "Init bugly sdk done");
+        Log.Debug("Init bugly sdk done");
 
         BuglyAgent.SetScene(0);
-
 
         AsyncStartAsync();
     }
