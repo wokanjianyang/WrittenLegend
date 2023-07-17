@@ -12,7 +12,7 @@ namespace Game
     {
         public class AndroidToUnity : AndroidJavaProxy
         {
-            public AndroidToUnity() : base("com.pocket.zxpa.IAndroidToUnity")
+            public AndroidToUnity() : base("com.unity3d.player.IAndroidToUnity")
             {
 
             }
@@ -66,6 +66,7 @@ namespace Game
         public static void AddListener(string key, Action<object[]> action)
         {
             AddCallBack(key, action);
+        
         }
         private static void AddCallBack(string key, object action)
         {
