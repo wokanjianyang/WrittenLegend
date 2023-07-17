@@ -88,7 +88,7 @@ namespace Game
             List<SkillData> list = user.SkillList.FindAll(m => m.Status == SkillStatus.Equip).OrderBy(m => m.Position).ToList();
             list.Add(new SkillData(9001, (int)SkillPosition.Default)); //增加默认技能
 
-            //TEST
+            //TEST skill
             //list.Clear();
             //list.Add(new SkillData(2004, (int)SkillPosition.Default)); //增加默认技能
 

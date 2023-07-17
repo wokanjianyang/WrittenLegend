@@ -38,13 +38,14 @@ namespace Game
             {
                 user = new User();
                 //首次初始化
-                user.Level = 60;
+                user.Level = 1;
                 user.Exp = 0;
                 user.Name = "传奇";
-                user.TowerFloor = 666;
+                user.TowerFloor = 1;
                 user.Gold = 0;
             }
-            //user.Gold = 99999999;
+            //TEST data
+            //user.Gold = 99999999; 
             //user.Level = 223;
 
             if (user.MapId <= 0)

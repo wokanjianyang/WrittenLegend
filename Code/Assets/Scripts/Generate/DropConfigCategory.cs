@@ -46,7 +46,8 @@ namespace Game
                     list.Add(item);
                 }
             }
-            //list.Add(ItemHelper.BuildItem(ItemType.Equip, 401, 1, 1));  //test add equip
+            //TEST add equip
+            //list.Add(ItemHelper.BuildItem(ItemType.Equip, 401, 1, 1)); 
             return list;
         }
     }
