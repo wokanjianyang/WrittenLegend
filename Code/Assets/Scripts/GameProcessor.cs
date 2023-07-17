@@ -106,7 +106,7 @@ namespace Game
 
         void Update()
         {
-            if (!this.IsGameRunning())
+            if (this.IsGameRunning())
             {
                 return;
             }
