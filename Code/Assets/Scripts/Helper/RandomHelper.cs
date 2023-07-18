@@ -44,7 +44,7 @@ namespace Game
         public static int RandomEquipQuality(int qualityRate)
         {
             qualityRate = qualityRate <= 0 ? 1 : qualityRate;
-            int rate = Math.Max(1, 500 / qualityRate);
+            int rate = Math.Max(1, 1000 / qualityRate);
             int rd = random.Next(1, rate + 1);
             if (rd < 2)
             {

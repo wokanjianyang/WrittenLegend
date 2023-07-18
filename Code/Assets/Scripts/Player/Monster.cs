@@ -97,9 +97,11 @@ namespace Game
             MapConfig mapConfig = MapConfigCategory.Instance.Get(user.MapId);
             QualityConfig qualityConfig = QualityConfigCategory.Instance.Get(Quality);
 
+            int qualityRate = qualityConfig.QualityRate * (100 + (int)user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea)) / 100;
+
             //生成道具奖励
             List<KeyValuePair<int, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(user.MapId, 1);
-            List<Item> items = DropHelper.BuildDropItem(dropList, qualityConfig.QualityRate);
+            List<Item> items = DropHelper.BuildDropItem(dropList, qualityRate);
             if (SystemConfigHelper.CheckRequireLevel(SystemEnum.SoulRing))
             {
                 items.Add(ItemHelper.BuildSoulRingShard(Math.Max(1, Level / 10)));

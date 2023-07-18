@@ -20,7 +20,13 @@ namespace Game
         [JsonIgnore]
         public SkillConfig SkillConfig { get; set; }
 
-        public SkillData(int skillId,int position) {
+        public int GetLevelUpExp()
+        {
+            return Level * SkillConfig.Exp;
+        }
+
+        public SkillData(int skillId, int position)
+        {
             this.SkillId = skillId;
             this.Position = position;
             SkillConfig = SkillConfigCategory.Instance.Get(skillId);
@@ -29,9 +35,9 @@ namespace Game
         public void AddExp(long exp)
         {
             this.Exp += exp;
-            while (this.Exp >= this.SkillConfig.Exp)
+            while (this.Exp >= GetLevelUpExp())
             {
-                var upExp = this.SkillConfig.Exp;
+                var upExp = GetLevelUpExp();
                 this.Level++;
                 this.Exp -= upExp;
             }
