@@ -54,7 +54,7 @@ namespace Game
             {
                 return 3;
             }
-            else if (rd < 70)
+            else if (rd < 100)
             {
                 return 2;
             }

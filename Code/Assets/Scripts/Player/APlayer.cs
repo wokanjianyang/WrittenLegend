@@ -267,6 +267,14 @@ namespace Game
                 list.RemoveAll(m => m.Duration <= m.DoCount);//移除已结束的
             }
 
+            //回血
+            long restoreHp = AttributeBonus.GetTotalAttr(AttributeEnum.RestoreHp)+
+                AttributeBonus.GetTotalAttr(AttributeEnum.RestoreHpPercent) * AttributeBonus.GetTotalAttr(AttributeEnum.HP)/100;
+            if (restoreHp > 0)
+            {
+                this.OnRestore(this.ID, restoreHp);
+            }
+
             if (pause)
             {
                 return; //如果有控制技能，不继续后续行动

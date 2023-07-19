@@ -19,7 +19,7 @@ namespace Game
             switch (quanlity)
             {
                 case 1:
-                    titleColor = "CCCCCC";
+                    titleColor = "CCCCCC"; 
                     break;
                 case 2:
                     titleColor = "CBFFC2";
@@ -28,7 +28,7 @@ namespace Game
                     titleColor = "76B0FF";
                     break;
                 case 4:
-                    titleColor = "D800FF";
+                    titleColor = "EE66EE";
                     break;
             }
 
@@ -43,7 +43,7 @@ namespace Game
                     color = "FF0000";
                     break;
                 case MsgType.Restore:
-                    color = "44FF44";
+                    color = "22DD22";
                     break;
                 case MsgType.Crit:
                     color = "E3EA6F";
