@@ -111,6 +111,9 @@ namespace Game
 		/// <summary>Price</summary>
 		[ProtoMember(12)]
 		public long Price { get; set; }
+		/// <summary>Role</summary>
+		[ProtoMember(13)]
+		public int Role { get; set; }
 
 	}
 }

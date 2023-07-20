@@ -12,21 +12,16 @@ namespace Game
 
     public class SkillRuneHelper
     {
-        public static SkillRuneConfig RandomRune()
+        public static SkillRuneConfig RandomRune(int role)
         {
             List<SkillRuneConfig> list = SkillRuneConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
 
-            //User user = GameProcessor.Inst.User;
-            //if (user != null && user.SkillList != null)
-            //{
-            //    List<int> battleSkillList = user.SkillList.Where(m => m.Status == SkillStatus.Equip).Select(m => m.SkillId).ToList();
+            List<int> roleSkillIdList = SkillConfigCategory.Instance.GetAll().Where(m => m.Value.Role == role).Select(m => m.Value.SkillId).ToList();
 
-            //    List<SkillRuneConfig> battleList = list.Where(m => battleSkillList.Contains(m.SkillId)).ToList();
-            //    if (battleSkillList.Count > 0)
-            //    {
-            //        list = battleList;
-            //    }
-            //}
+            if (role > 0)
+            {
+                list = list.Where(m => roleSkillIdList.Contains(m.SkillId)).ToList();
+            }
 
             int index = RandomHelper.RandomNumber(0, list.Count);
             return list[index];

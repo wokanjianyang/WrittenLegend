@@ -27,7 +27,7 @@ namespace Game
 
             if (runeId == 0 && quality > 2) //随机生成词条
             {
-                SkillRuneConfig runeConfig = SkillRuneHelper.RandomRune();
+                SkillRuneConfig runeConfig = SkillRuneHelper.RandomRune(config.Role);
                 runeId = runeConfig.Id;
 
                 if (suitId == 0 && quality > 3)  //随机生成词条

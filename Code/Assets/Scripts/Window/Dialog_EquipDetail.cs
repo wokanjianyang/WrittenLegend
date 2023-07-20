@@ -125,11 +125,6 @@ namespace Game
             tmp_Title.text = string.Format("<color=#{0}>{1}</color>", titleColor, this.item.Name);
 
             string color = "green";
-            bool levelLess = this.item.Level > GameProcessor.Inst.User.Level;
-            if (levelLess)
-            {
-                color = "red";
-            }
 
             User user = GameProcessor.Inst.User;
             switch ((ItemType)this.item.Type)
@@ -218,7 +213,7 @@ namespace Game
                             child.gameObject.SetActive(true);
                         }
 
-                        this.btn_Equip.gameObject.SetActive(this.boxId != -1 && !levelLess);
+                        this.btn_Equip.gameObject.SetActive(this.boxId != -1);
                         this.btn_UnEquip.gameObject.SetActive(this.boxId == -1);
                         this.btn_Recovery.gameObject.SetActive(this.boxId != -1);
                     }
@@ -230,10 +225,10 @@ namespace Game
                         tran_NormalAttribute.Find("Title").GetComponent<Text>().text = skillBox.ItemConfig.Des;
                         tran_NormalAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.item.Level);
                         var isLearn = user.SkillList.Find(b => b.SkillId == this.item.ConfigId) == null;
-                        this.btn_Learn.gameObject.SetActive(isLearn && !levelLess);
+                        this.btn_Learn.gameObject.SetActive(isLearn);
 
-                        this.btn_Upgrade.gameObject.SetActive(!isLearn && !levelLess);
-                        this.btn_UseAll.gameObject.SetActive(!isLearn && !levelLess);
+                        this.btn_Upgrade.gameObject.SetActive(!isLearn);
+                        this.btn_UseAll.gameObject.SetActive(!isLearn);
                         //this.btn_Learn.interactable = this.item.Level <= UserData.Load().Level;
                     }
                     break;
@@ -247,8 +242,8 @@ namespace Game
 
                         this.btn_Learn.gameObject.SetActive(false);
 
-                        this.btn_Upgrade.gameObject.SetActive(!levelLess);
-                        this.btn_UseAll.gameObject.SetActive(!levelLess);
+                        this.btn_Upgrade.gameObject.SetActive(true);
+                        this.btn_UseAll.gameObject.SetActive(!true);
                     }
                     break;
                 case ItemType.Material:

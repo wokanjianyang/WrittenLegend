@@ -467,6 +467,12 @@ namespace Game
             //如果存在旧装备，增加到包裹
             if (user.EquipPanel.ContainsKey(Position))
             {
+                //装备栏卸载
+                var slot = this.transform.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == Position).First();
+                Com_Box comItem = slot.GetEquip();
+                slot.UnEquip();
+                GameObject.Destroy(comItem.gameObject);
+
                 AddBoxItem(user.EquipPanel[Position]);
             }
 
