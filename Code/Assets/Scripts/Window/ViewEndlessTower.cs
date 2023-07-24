@@ -33,7 +33,7 @@ namespace Game
 
         void Start()
         {
-            this.btn_Start.onClick.AddListener(this.OnClick_Start);
+            //this.btn_Start.onClick.AddListener(this.OnClick_Start);
         }
 
         public override void OnBattleStart()
@@ -51,12 +51,13 @@ namespace Game
 
         private void OnClick_Start()
         {
-            GameProcessor.Inst.EventCenter.Raise(new ShowTowerWindowEvent());
-            GameProcessor.Inst.DelayAction(0.1f, ()=> { 
-                GameProcessor.Inst.OnDestroy();
-                var map = GameObject.Find("Canvas").GetComponentInChildren<WindowEndlessTower>().transform;
-                GameProcessor.Inst.LoadMap(RuleType.Tower, 0, map);
-            });
+            //GameProcessor.Inst.EventCenter.Raise(new ShowTowerWindowEvent());
+            //GameProcessor.Inst.DelayAction(0.1f, () =>
+            //{
+            //    GameProcessor.Inst.OnDestroy();
+            //    var map = GameObject.Find("Canvas").GetComponentInChildren<WindowEndlessTower>().transform;
+            //    GameProcessor.Inst.LoadMap(RuleType.Tower, 0, 0, map);
+            //});
         }
 
         private void UpdateFloorInfo()
@@ -82,7 +83,7 @@ namespace Game
             this.tmp_Floor_1.text = $"{(minFloor + 1)}";
             this.tmp_Floor_2.text = $"{(minFloor + 2)}";
 
-            var config = TowerConfigCategory.Instance.Get(user.TowerFloor);
+            var config = TowerConfigCategory.Instance.GetByFloor(user.TowerFloor);
             this.tmp_CurrentFloor.text = $"{(user.TowerFloor)}";
             this.tmp_ExpAdd.text = $"{config.RiseExp}";
             this.tmp_Reward.text = "暂无";

@@ -16,59 +16,72 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
     [LabelText("µÿÕº√˚≥∆")]
     public Text txt_FloorName;
 
+    public Text TxtMc1;
+
+    public Text TxtMc2;
+
+    public Text TxtMc3;
+
+    public Text TxtMc4;
+
+    public Text TxtMc5;
+
     private bool isViewMapShowing = false;
 
     private GameObject msgPrefab;
     private List<Text> msgPool = new List<Text>();
     private int msgId = 0;
+
+    private int CopyMapId = 0;
+
+    public int Order => (int)ComponentOrder.BattleRule;
+
     // Start is called before the first frame update
     void Start()
     {
         this.btn_Exit.onClick.AddListener(this.OnClick_Exit);
     }
 
-
-    private void OnClick_Exit()
-    {
-        this.gameObject.SetActive(false);
-        GameProcessor.Inst.OnDestroy();
-        var map = GameObject.Find("Canvas").GetComponentInChildren<ViewBattleProcessor>(true).transform;
-        GameProcessor.Inst.LoadMap(RuleType.Normal, 0, map);
-    }
-    public int Order => (int)ComponentOrder.Window;
-
     public void OnBattleStart()
     {
-        GameProcessor.Inst.EventCenter.AddListener<ShowTowerWindowEvent>(this.OnShowTowerWindowEvent);
-
         this.msgPrefab = Resources.Load<GameObject>("Prefab/Window/Item_DropMsg");
 
         GameProcessor.Inst.EventCenter.AddListener<BattleMsgEvent>(this.OnBattleMsgEvent);
-        GameProcessor.Inst.EventCenter.AddListener<ChangeFloorEvent>(this.OnChangeFloorEvent);
-
-        ShowName();
+        GameProcessor.Inst.EventCenter.AddListener<StartCopyEvent>(this.OnStartCopy);
+        GameProcessor.Inst.EventCenter.AddListener<ShowCopyInfoEvent>(this.OnShowCopyInfoEvent);
+        //ShowMapInfo();
     }
-
-    private void OnShowTowerWindowEvent(ShowTowerWindowEvent msg)
-    {
-        this.gameObject.SetActive(true);
-
-    }
-
-    private void OnChangeFloorEvent(ChangeFloorEvent e) {
-        ShowName();
-    }
-
-    private void ShowName()
+    private void ShowMapInfo()
     {
         User user = GameProcessor.Inst.User;
-
         if (user != null)
         {
-            int mapName = user.TowerFloor;
-            txt_FloorName.text = mapName + "≤„";
+            MapConfig config = MapConfigCategory.Instance.Get(CopyMapId);
+            txt_FloorName.text = config.Name;
         }
+    }
 
+    public void OnStartCopy(StartCopyEvent e)
+    {
+        this.CopyMapId = e.MapId;
+        this.gameObject.SetActive(true);
+
+        GameProcessor.Inst.DelayAction(1f, () =>
+        {
+            GameProcessor.Inst.OnDestroy();
+            GameProcessor.Inst.LoadMap(RuleType.Tower, 0, CopyMapId, this.transform);
+        });
+
+        ShowMapInfo();
+    }
+
+    public void OnShowCopyInfoEvent(ShowCopyInfoEvent e)
+    {
+        TxtMc1.text = " £”‡–°π÷£∫" + e.Mc1;
+        TxtMc2.text = " £”‡æ´”¢£∫" + e.Mc2;
+        TxtMc3.text = " £”‡Õ∑ƒø£∫" + e.Mc3;
+        TxtMc4.text = " £”‡ ◊¡Ï£∫" + e.Mc4;
+        TxtMc5.text = " £”‡Boss£∫" + e.Mc5;
     }
 
     private void OnBattleMsgEvent(BattleMsgEvent e)
@@ -106,5 +119,19 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
         //msg.GetComponent<Text>().text =e.Message;
         //this.sr_BattleMsg.normalizedPosition = new Vector2(0, 0);
         //GameProcessor.Inst.EventCenter.Raise(new UpdateTowerWindowEvent());
+    }
+
+    private void OnClick_Exit()
+    {
+        this.gameObject.SetActive(false);
+        GameProcessor.Inst.OnDestroy();
+
+        GameProcessor.Inst.EventCenter.Raise(new EndCopyEvent());
+
+        GameProcessor.Inst.DelayAction(1f, () =>
+        {
+            var map = GameObject.Find("Canvas").GetComponentInChildren<ViewBattleProcessor>(true).transform;
+            GameProcessor.Inst.LoadMap(RuleType.Normal, 0, 0, map);
+        });
     }
 }

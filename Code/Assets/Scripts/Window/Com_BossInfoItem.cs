@@ -9,9 +9,10 @@ public class Com_BossInfoItem : MonoBehaviour
 {
     public Text txt_BossName;
     public Text txt_MapName;
-    public Button btn_MapName;
     public Text txt_Time;
-    public Text txt_Statu;
+    //public Text txt_MapName;
+
+    public Button btn_Start;
 
     public MapConfig mapConfig { get; set; }
     private BossConfig bossConfig;
@@ -20,10 +21,10 @@ public class Com_BossInfoItem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        txt_Statu.gameObject.SetActive(false);
+        btn_Start.gameObject.SetActive(false);
         txt_Time.gameObject.SetActive(false);
 
-        btn_MapName.onClick.AddListener(OnClick_NavigateMap);
+        btn_Start.onClick.AddListener(OnClick_NavigateMap);
     }
 
     // Update is called once per frame
@@ -34,7 +35,8 @@ public class Com_BossInfoItem : MonoBehaviour
 
     private void OnClick_NavigateMap()
     {
-        GameProcessor.Inst.EventCenter.Raise(new ChangeMapEvent() { MapId = mapConfig.Id });
+        var vm = this.GetComponentInParent<ViewMore>();
+        vm.SelectMap(mapConfig.Id);
     }
 
     public void SetContent(MapConfig mapConfig, BossConfig bossConfig, long killTime)
@@ -62,7 +64,7 @@ public class Com_BossInfoItem : MonoBehaviour
 
         if (killTime == 0 || refeshTime >= 0)
         {
-            txt_Statu.gameObject.SetActive(true);
+            btn_Start.gameObject.SetActive(true);
             txt_Time.gameObject.SetActive(false);
         }
         else
@@ -70,7 +72,7 @@ public class Com_BossInfoItem : MonoBehaviour
             //œ‘ æµπº∆ ±
             txt_Time.text = TimeSpan.FromSeconds(refeshTime).ToString(@"hh\:mm\:ss");
 
-            txt_Statu.gameObject.SetActive(false);
+            btn_Start.gameObject.SetActive(false);
             txt_Time.gameObject.SetActive(true);
         }
     }

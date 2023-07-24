@@ -78,9 +78,9 @@ namespace Game
 		/// <summary>ID</summary>
 		[ProtoMember(1)]
 		public int Id { get; set; }
-		/// <summary>等级</summary>
+		/// <summary>所属地图</summary>
 		[ProtoMember(2)]
-		public int Level { get; set; }
+		public int MapId { get; set; }
 		/// <summary>名称</summary>
 		[ProtoMember(3)]
 		public string Name { get; set; }

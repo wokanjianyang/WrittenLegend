@@ -12,8 +12,6 @@ namespace Game
         MonsterBase Config { get; set; }
         QualityConfig QualityConfig { get; set; }
 
-        public int Quality { get; set; }
-
         public int GoldRate;
         public long Gold;
         public int AttTyp;
@@ -39,7 +37,7 @@ namespace Game
 
             this.Camp = PlayerType.Enemy;
             this.Name = Config.Name + QualityConfig.MonsterTitle;
-            this.Level = Config.Level;
+            this.Level = (Config.MapId - 999) * 100;
             this.Exp = Config.Exp * QualityConfig.ExpRate;
             this.Gold = Config.Gold * QualityConfig.GoldRate;
 
@@ -102,10 +100,10 @@ namespace Game
             //生成道具奖励
             List<KeyValuePair<int, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(user.MapId, 1);
             List<Item> items = DropHelper.BuildDropItem(dropList, qualityRate);
-            if (SystemConfigHelper.CheckRequireLevel(SystemEnum.SoulRing))
-            {
-                items.Add(ItemHelper.BuildSoulRingShard(Math.Max(1, Level / 10)));
-            }
+            //if (SystemConfigHelper.CheckRequireLevel(SystemEnum.SoulRing))
+            //{
+            //    items.Add(ItemHelper.BuildSoulRingShard(Math.Max(1, Level / 10)));
+            //}
 
             if (items.Count > 0)
             {

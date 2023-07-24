@@ -116,33 +116,29 @@ public class ViewForgeProcessor : AViewPage
     private void ShowStrengthInfo()
     {
         User user = GameProcessor.Inst.User;
-        int strengthLevel = 0;
-        user.EquipStrength.TryGetValue(SelectPosition, out strengthLevel);
 
-        EquipStrengthConfig currentConfig = EquipStrengthConfigCategory.Instance.GetByPositioinAndLevel(SelectPosition, strengthLevel);
+        user.EquipStrength.TryGetValue(SelectPosition, out long strengthLevel);
 
-        EquipStrengthConfig nextConfig = EquipStrengthConfigCategory.Instance.GetByPositioinAndLevel(SelectPosition, strengthLevel + 1);
+        EquipStrengthConfig config = EquipStrengthConfigCategory.Instance.GetByPositioin(SelectPosition);
 
-        if (nextConfig != null)
-        {
-            string color = user.Gold >= nextConfig.Fee ? "#FFFF00" : "#FF0000";
+        EquipStrengthFeeConfig feeConfig = EquipStrengthFeeConfigCategory.Instance.GetByLevel(strengthLevel + 1);
 
-            Txt_Fee.text = string.Format("<color={0}>{1}</color>", color, nextConfig.Fee);
-        }
+        long fee = feeConfig.Fee;
 
-        EquipStrengthConfig showConfig = currentConfig == null ? nextConfig : currentConfig;
+        string color = user.Gold >= fee ? "#FFFF00" : "#FF0000";
+
+        Txt_Fee.text = string.Format("<color={0}>{1}</color>", color, fee);
+
 
         for (int i = 0; i < AttrList.Length; i++)
         {
-            if (i < showConfig.AttrList.Length)
+            if (i < config.AttrList.Length)
             {
-                int attrId = showConfig.AttrList[i];
-                long currentAttrValue = currentConfig == null ? 0 : currentConfig.AttrValueList[i];
-                long nextAttrValue = nextConfig == null ? 0 : nextConfig.AttrValueList[i];
+                int attrId = config.AttrList[i];
 
+                string attrAdd = config.AttrValueList[i] + "";
+                string attrCurrent = config.AttrValueList[i] * strengthLevel + "";
                 string attrName = PlayerHelper.PlayerAttributeMap[((AttributeEnum)attrId).ToString()];
-                string attrCurrent = currentAttrValue == 0 ? "" : currentAttrValue + "";
-                string attrAdd = "+" + (nextAttrValue - currentAttrValue) + "";
 
                 AttrList[i].SetContent(attrName, attrCurrent, attrAdd);
                 AttrList[i].gameObject.SetActive(true);
@@ -157,12 +153,12 @@ public class ViewForgeProcessor : AViewPage
         foreach (var box in StrengthenEquiList)
         {
             int position = ((int)box.SlotType);
-            int level = 0;
-            user.EquipStrength.TryGetValue(position, out level);
+            user.EquipStrength.TryGetValue(position, out long level);
 
             box.SetLevel(level);
 
-            if (position == SelectPosition) {
+            if (position == SelectPosition)
+            {
                 box.SeSelect(true);
             }
         }
@@ -171,19 +167,20 @@ public class ViewForgeProcessor : AViewPage
     private void OnClick_Strengthen()
     {
         User user = GameProcessor.Inst.User;
-        int strengthLevel = 0;
-        user.EquipStrength.TryGetValue(SelectPosition, out strengthLevel);
+        user.EquipStrength.TryGetValue(SelectPosition, out long strengthLevel);
 
         if (strengthLevel >= user.Level)
         {
-            //
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "强化等级不能超过人物等级", Parent = tran_AttrList });
-            return;
+            // 改为无限强化
+            //GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "强化等级不能超过人物等级", Parent = tran_AttrList });
+            //return;
         }
 
-        EquipStrengthConfig config = EquipStrengthConfigCategory.Instance.GetByPositioinAndLevel(SelectPosition, strengthLevel + 1);
+        EquipStrengthFeeConfig config = EquipStrengthFeeConfigCategory.Instance.GetByLevel(strengthLevel + 1);
 
-        if (user.Gold < config.Fee)
+        long fee = config.Fee;
+
+        if (user.Gold < fee)
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的金币", Parent = tran_AttrList });
             return;
@@ -191,17 +188,38 @@ public class ViewForgeProcessor : AViewPage
 
         user.EquipStrength[SelectPosition] = strengthLevel + 1;
 
-        user.AddExpAndGold(0, -config.Fee);
+        user.AddExpAndGold(0, -fee);
 
         GameProcessor.Inst.UpdateInfo();
 
         ShowStrengthInfo();
 
-        Debug.Log("Strengthen Success");
+        //Debug.Log("Strengthen Success");
     }
     private void OnClick_Strengthen_Batch()
     {
-        Debug.Log("piliangqianghua");
+        User user = GameProcessor.Inst.User;
+        user.EquipStrength.TryGetValue(SelectPosition, out long strengthLevel);
+
+        //
+        EquipStrengthFeeConfig config = EquipStrengthFeeConfigCategory.Instance.GetByLevel(strengthLevel + 1);
+
+        long maxLevel = config.EndLevel - strengthLevel;
+        long realLevel = user.Gold / config.Fee;
+
+        long sl = Math.Min(maxLevel, realLevel);
+
+        if (sl > 0)
+        {
+            user.EquipStrength[SelectPosition] = strengthLevel + sl;
+
+            user.AddExpAndGold(0, -config.Fee * sl);
+
+            GameProcessor.Inst.UpdateInfo();
+
+            ShowStrengthInfo();
+            Debug.Log("batch strenthen " + sl + " level");
+        }
     }
 
     // Composite

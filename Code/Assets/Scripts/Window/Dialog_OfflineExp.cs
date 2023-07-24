@@ -59,7 +59,7 @@ namespace Game
             var dateTime = new DateTime(ticks);
             var t = dateTime.ToString("F");
 
-            var offlineExp = levelConfig.OfflineExp * os;
+            var offlineExp = 1 * os;
 
             this.tmp_Msg.text = string.Format("本次离线时间:{0}\n奖励离线经验: {1}", t, offlineExp);
 

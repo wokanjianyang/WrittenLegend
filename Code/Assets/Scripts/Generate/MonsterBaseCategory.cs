@@ -12,25 +12,9 @@ namespace Game
 
     public class MonsterHelper
     {
-        public static Monster BuildMonster(MapConfig mapConfig)
+        public static Monster BuildMonster(MapConfig mapConfig, int quality)
         {
-            int minLevel = mapConfig.MonsterLevelMin;
-            int maxLevel = mapConfig.MonsterLevelMax;
-            int quality = 1;
-
-            if (SystemConfigHelper.CheckRequireLevel(SystemEnum.MonsterQuanlity))
-            {
-                quality = RandomHelper.RandomMonsterQuality();  //超过5级开始有精英怪
-            }
-            else if (mapConfig.Id == 1000)
-            {
-                maxLevel = GameProcessor.Inst.User.Level; //低于5级，第一张图,只刷鸡
-            }
-
-            List<MonsterBase> list = MonsterBaseCategory.Instance.GetAll().Where(m => m.Value.Level >= minLevel && m.Value.Level <= maxLevel).Select(m => m.Value).ToList();
-
-            int rd = RandomHelper.RandomNumber(1, list.Count + 1);
-            MonsterBase config = list[rd - 1];
+            MonsterBase config = MonsterBaseCategory.Instance.GetAll().Where(m => m.Value.MapId == mapConfig.Id).First().Value;
 
             Monster enemy = new Monster(config.Id, quality);
             return enemy;

@@ -18,7 +18,7 @@ namespace Game
 
         public long Essence { get; set; }
 
-        public int MapId { get; set; }
+
 
         public int LastCityId { get; set; }
 
@@ -36,7 +36,7 @@ namespace Game
 
         public IDictionary<int, Equip> EquipPanel { get; set; } = new Dictionary<int, Equip>();
 
-        public IDictionary<int, int> EquipStrength { get; set; } = new Dictionary<int, int>();
+        public IDictionary<int, long> EquipStrength { get; set; } = new Dictionary<int, long>();
 
         public IDictionary<int, int> EquipRefine { get; set; } = new Dictionary<int, int>();
 
@@ -67,7 +67,9 @@ namespace Game
         /// <summary>
         /// 无尽塔层数
         /// </summary>
-        public int TowerFloor = 1;
+        public int TowerFloor { get; set; } = 1;
+
+        public int MapId { get; set; } = 1000;
 
         //主线boss记录
         public Dictionary<int, long> MapBossTime { get; } = new Dictionary<int, long>();
@@ -238,13 +240,21 @@ namespace Game
 
         private void SetAttr()
         {
-            LevelConfig config = LevelConfigCategory.Instance.Get(Level);
+            LevelConfig config = LevelConfigCategory.Instance.GetAll().Where(m => m.Value.StartLevel <= Level && m.Value.EndLevel >= Level).First().Value;
+
             //等级属性
-            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, config.HP);
-            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, config.PhyAtt);
-            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, config.PhyAtt);
-            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, config.PhyAtt);
-            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, config.Def);
+            long rise = Level - config.StartLevel;
+            long attr = config.StartAttr + (long)(rise * config.RiseAttr);
+            long hp = config.StartHp + (long)(rise * config.RiseHp);
+            long def = config.StartDef + (long)(rise * config.RiseDef);
+            long upExp = config.StartExp + rise * config.RiseExp;
+
+            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp);
+            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr);
+            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr);
+            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr);
+            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, def);
+
 
             //测试属性
             //AttributeBonus.SetAttr(AttributeEnum.ExpIncrea, AttributeFrom.Test, 1000);
@@ -268,21 +278,26 @@ namespace Game
             //强化属性
             foreach (var sp in EquipStrength)
             {
-                EquipStrengthConfig strengthConfig = EquipStrengthConfigCategory.Instance.GetByPositioinAndLevel(sp.Key, sp.Value);
+                EquipStrengthConfig strengthConfig = EquipStrengthConfigCategory.Instance.GetByPositioin(sp.Key);
                 for (int i = 0; i < strengthConfig.AttrList.Length; i++)
                 {
-                    AttributeBonus.SetAttr((AttributeEnum)strengthConfig.AttrList[i], AttributeFrom.EquiStrong, sp.Key, strengthConfig.AttrValueList[i]);
+                    AttributeBonus.SetAttr((AttributeEnum)strengthConfig.AttrList[i], AttributeFrom.EquiStrong, sp.Key, strengthConfig.AttrValueList[i] * sp.Value);
                 }
             }
 
             //无尽塔属性
             if (this.TowerFloor > 1)
             {
-                TowerConfig towerConfig = TowerConfigCategory.Instance.Get(this.TowerFloor - 1);
-                AttributeBonus.SetAttr(AttributeEnum.SecondExp, AttributeFrom.Tower, towerConfig.TotalExp);
+                long secondExp = 0;
+                long secondGold = 0;
+                MonsterTowerHelper.GetTowerSecond(TowerFloor - 1, out secondExp, out secondGold);
+
+                AttributeBonus.SetAttr(AttributeEnum.SecondExp, AttributeFrom.Tower, secondExp);
+                AttributeBonus.SetAttr(AttributeEnum.SecondGold, AttributeFrom.Tower, secondGold);
             }
 
-            UpExp = config.Exp;
+            //UpExp = config.Exp;
+            UpExp = upExp;
 
             //更新面板
             if (GameProcessor.Inst.PlayerInfo != null)
@@ -305,7 +320,7 @@ namespace Game
 
         IEnumerator LevelUp()
         {
-            while (this.Exp >= this.UpExp && this.Level < PlayerHelper.Max_Level)
+            while (this.Exp >= this.UpExp && this.Level < ConfigHelper.Max_Level)
             {
                 Exp -= UpExp;
                 Level++;
@@ -317,7 +332,7 @@ namespace Game
 
                 if (GameProcessor.Inst.PlayerManager != null && GameProcessor.Inst.PlayerManager.GetHero()!=null)
                 {
-                    GameProcessor.Inst.PlayerManager.GetHero().EventCenter.Raise(new HeroLevelUp());
+                    //GameProcessor.Inst.PlayerManager.GetHero().EventCenter.Raise(new HeroLevelUp());
                 }
 
                 yield return new WaitForSeconds(0.2f);

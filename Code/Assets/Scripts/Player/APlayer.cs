@@ -15,8 +15,9 @@ namespace Game
 
         public string Name { get; set; }
 
-        public int Level { get; set; }
+        public long Level { get; set; }
         public long HP { get; set; }
+        public int Quality { get; set; }
 
         public List<SkillData> SkillList { get; set; } = new List<SkillData>();
 

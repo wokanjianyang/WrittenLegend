@@ -24,6 +24,9 @@ namespace Game
         [LabelText("地图名称")]
         public Text txt_MapName;
 
+        [LabelText("新手指引")]
+        public Button PlayerGuide;
+
         private bool isViewMapShowing = false;
 
         private GameObject msgPrefab;
@@ -59,13 +62,13 @@ namespace Game
             this.msgPrefab = Resources.Load<GameObject>("Prefab/Window/Item_DropMsg");
 
             GameProcessor.Inst.EventCenter.AddListener<BattleMsgEvent>(this.OnBattleMsgEvent);
-            GameProcessor.Inst.EventCenter.AddListener<ChangeMapEvent>(this.OnChangeMapEvent);
-
+ 
+            GameProcessor.Inst.EventCenter.AddListener<ChangeFloorEvent>(this.OnChangeFloorEvent);
 
             //加载世界地图
             this.LoadWroldMap();
-            
-            ShowMapInfo();
+
+            ShowName();
         }
 
         private List<Text> msgPool = new List<Text>();
@@ -121,27 +124,20 @@ namespace Game
             //}
         }
 
-        private void OnChangeMapEvent(ChangeMapEvent e)
+        private void OnChangeFloorEvent(ChangeFloorEvent e)
         {
-            User user = GameProcessor.Inst.User;
-            user.MapId = e.MapId;
-
-            GameProcessor.Inst.OnDestroy();
-            var map = GameObject.Find("Canvas").GetComponentInChildren<ViewBattleProcessor>(true).transform;
-            GameProcessor.Inst.LoadMap(RuleType.Normal, 0, map);
-
-            ShowMapInfo();
+            ShowName();
         }
-
-        private void ShowMapInfo()
+        private void ShowName()
         {
             User user = GameProcessor.Inst.User;
+
             if (user != null)
             {
-                MapConfig config = MapConfigCategory.Instance.Get(user.MapId);
-                txt_MapName.text = config.Name;
-                this.OnShowMapIcon(config.Id);
+                int mapName = user.TowerFloor;
+                txt_MapName.text = mapName + "层";
             }
+
         }
 
         private void OnShowMapIcon (int mapId)

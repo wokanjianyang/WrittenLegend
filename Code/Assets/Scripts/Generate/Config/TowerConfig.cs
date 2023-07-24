@@ -78,36 +78,48 @@ namespace Game
 		/// <summary>Id</summary>
 		[ProtoMember(1)]
 		public int Id { get; set; }
-		/// <summary>No</summary>
+		/// <summary>StartLevel</summary>
 		[ProtoMember(2)]
-		public int No { get; set; }
-		/// <summary>Name</summary>
+		public long StartLevel { get; set; }
+		/// <summary>EndLevel</summary>
 		[ProtoMember(3)]
-		public string Name { get; set; }
-		/// <summary>Level</summary>
+		public long EndLevel { get; set; }
+		/// <summary>StartAttr</summary>
 		[ProtoMember(4)]
-		public int Level { get; set; }
-		/// <summary>PhyAtt</summary>
+		public long StartAttr { get; set; }
+		/// <summary>RiseAttr</summary>
 		[ProtoMember(5)]
-		public long PhyAtt { get; set; }
-		/// <summary>Def</summary>
+		public double RiseAttr { get; set; }
+		/// <summary>StartDef</summary>
 		[ProtoMember(6)]
-		public long Def { get; set; }
-		/// <summary>HP</summary>
+		public long StartDef { get; set; }
+		/// <summary>RiseDef</summary>
 		[ProtoMember(7)]
-		public long HP { get; set; }
-		/// <summary>TotalExp</summary>
+		public double RiseDef { get; set; }
+		/// <summary>StartHp</summary>
 		[ProtoMember(8)]
-		public long TotalExp { get; set; }
-		/// <summary>RiseExp</summary>
+		public long StartHp { get; set; }
+		/// <summary>RiseHp</summary>
 		[ProtoMember(9)]
-		public long RiseExp { get; set; }
-		/// <summary>Quantity</summary>
+		public long RiseHp { get; set; }
+		/// <summary>StartExp</summary>
 		[ProtoMember(10)]
-		public long Quantity { get; set; }
-		/// <summary>SkillIdList</summary>
+		public long StartExp { get; set; }
+		/// <summary>RiseExp</summary>
 		[ProtoMember(11)]
-		public int[] SkillIdList { get; set; }
+		public long RiseExp { get; set; }
+		/// <summary>StartGold</summary>
+		[ProtoMember(12)]
+		public long StartGold { get; set; }
+		/// <summary>RiseGold</summary>
+		[ProtoMember(13)]
+		public long RiseGold { get; set; }
+		/// <summary>Exp</summary>
+		[ProtoMember(14)]
+		public long Exp { get; set; }
+		/// <summary>Gold</summary>
+		[ProtoMember(15)]
+		public long Gold { get; set; }
 
 	}
 }

@@ -78,15 +78,15 @@ namespace Game
 		/// <summary>ID</summary>
 		[ProtoMember(1)]
 		public int Id { get; set; }
-		/// <summary>等级</summary>
+		/// <summary>所属地图</summary>
 		[ProtoMember(2)]
-		public int Level { get; set; }
+		public int MapId { get; set; }
 		/// <summary>名称</summary>
 		[ProtoMember(3)]
 		public string Name { get; set; }
 		/// <summary>攻击</summary>
 		[ProtoMember(4)]
-		public long PhyAttr { get; set; }
+		public long Attr { get; set; }
 		/// <summary>防御</summary>
 		[ProtoMember(5)]
 		public long Def { get; set; }
@@ -99,6 +99,9 @@ namespace Game
 		/// <summary>掉落金币</summary>
 		[ProtoMember(8)]
 		public long Gold { get; set; }
+		/// <summary>攻击</summary>
+		[ProtoMember(9)]
+		public long PhyAttr { get; set; }
 
 	}
 }

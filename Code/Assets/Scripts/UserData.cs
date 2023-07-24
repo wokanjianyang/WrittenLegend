@@ -42,16 +42,12 @@ namespace Game
                 user.Exp = 0;
                 user.Name = "传奇";
                 user.TowerFloor = 1;
+                user.MapId = 1000;
                 user.Gold = 0;
             }
             //TEST data
             //user.Gold = 99999999; 
             //user.Level = 223;
-
-            if (user.MapId <= 0)
-            {
-                user.MapId = 1000; //第一张地图
-            }
             return user;
         }
 

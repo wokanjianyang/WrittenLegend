@@ -132,4 +132,22 @@ namespace Game
         public int MaterialId { get; set; }
         public long Quantity { get; set; }
     }
+
+    public class StartCopyEvent : SDD.Events.Event
+    {
+        public int MapId { get; set; }
+    }
+    public class EndCopyEvent : SDD.Events.Event
+    {
+        public int MapId { get; set; }
+    }
+
+    public class ShowCopyInfoEvent : SDD.Events.Event
+    {
+        public int Mc1 { get; set; }
+        public int Mc2 { get; set; }
+        public int Mc3 { get; set; }
+        public int Mc4 { get; set; }
+        public int Mc5 { get; set; }
+    }
 }

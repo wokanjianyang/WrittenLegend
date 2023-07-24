@@ -129,16 +129,17 @@ namespace Game
                 {
                     long calTk = (TimeHelper.ClientNowSeconds() - user.SecondExpTick) / interval;
                     if (calTk >= 1)
-                    {  //5秒计算一次经验
+                    {  //5秒计算一次经验,金币
                         user.SecondExpTick += interval * calTk;
                         long exp = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp) * calTk;
-                        if (exp > 0)
+                        long gold = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondGold) * calTk;
+                        if (exp > 0 || gold > 0)
                         {
-                            user.AddExpAndGold(exp, 0);
+                            user.AddExpAndGold(exp, gold);
 
                             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
                             {
-                                Message = BattleMsgHelper.BuildSecondExpMessage(exp)
+                                Message = BattleMsgHelper.BuildSecondExpMessage(exp, gold)
                             });
                         }
                     }
@@ -158,7 +159,7 @@ namespace Game
             }
         }
 
-        public void LoadMap(RuleType ruleType,long currentTimeSecond,Transform map)
+        public void LoadMap(RuleType ruleType, long currentTimeSecond, int mapId, Transform map)
         {
             this.PlayerManager = this.gameObject.AddComponent<PlayerManager>();
 
@@ -172,15 +173,17 @@ namespace Game
                     this.BattleRule = new BattleRule_Survivors();
                     break;
                 case RuleType.Tower:
-                    this.BattleRule = new BattleRule_Tower();
+                    this.BattleRule = new BattleRule_Tower(mapId);
                     break;
             }
             this.PlayerRoot = MapData.transform.parent.Find("[PlayerRoot]").transform;
-            
+
             this.EffectRoot = MapData.transform.parent.Find("[EffectRoot]").transform;
 
-
-            this.CurrentTimeSecond = currentTimeSecond;
+            if (currentTimeSecond > 0)
+            {
+                this.CurrentTimeSecond = currentTimeSecond;
+            }
 
             this.PlayerManager.LoadHero();
 

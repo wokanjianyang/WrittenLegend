@@ -86,7 +86,7 @@ namespace Game
                 }
 
                 MapConfig mapConfig = MapConfigCategory.Instance.Get(1000); ;
-                var monster = MonsterHelper.BuildMonster(mapConfig);
+                var monster = MonsterHelper.BuildMonster(mapConfig,1);
 
                 var player = GameProcessor.Inst.PlayerManager.LoadMonster(monster);
                 if (player != null)

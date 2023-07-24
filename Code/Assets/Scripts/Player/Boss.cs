@@ -10,7 +10,6 @@ namespace Game
         public int BossId;
         public int MapId;
         BossConfig Config { get; set; }
-        public int Quality { get; }
 
         public int GoldRate;
         public long Gold;
@@ -23,7 +22,7 @@ namespace Game
             this.BossId = bossId;
             this.MapId = mapId;
             this.GroupId = 2;
-            this.Quality = 4;
+            this.Quality = 5;
 
             this.Init();
             this.EventCenter.AddListener<DeadRewarddEvent>(MakeReward);
@@ -36,7 +35,7 @@ namespace Game
             this.Camp = PlayerType.Enemy;
             this.ModelType = MondelType.Boss;
             this.Name = Config.Name;
-            this.Level = Config.Level;
+            this.Level = (Config.MapId - 999) * 100;
             this.Exp = Config.Exp;
             this.Gold = Config.Gold;
 
@@ -111,7 +110,7 @@ namespace Game
 
             if (SystemConfigHelper.CheckRequireLevel(SystemEnum.SoulRing))
             {
-                items.Add(ItemHelper.BuildSoulRingShard(Level));
+                items.Add(ItemHelper.BuildSoulRingShard(1));
             }
 
             if (items.Count > 0)

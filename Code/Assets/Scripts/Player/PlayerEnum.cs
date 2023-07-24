@@ -31,7 +31,8 @@ namespace Game
         ExpIncrea = 18, //经验加成
         BurstIncrea = 19, //爆率加成
         GoldIncrea = 20, //金币加成
-        SecondExp = 21, //泡点经验
+        SecondExp = 21, //每秒经验收益
+        SecondGold = 25, //每秒金币收益
         RestoreHp = 22, //固定回血数值
         RestoreHpPercent = 23,//百分比回血数值
         QualityIncrea = 24,//品质加成

@@ -9,8 +9,6 @@ namespace Game
 {
     public class Hero : APlayer
     {
-        LevelConfig Config { get; set; }
-
         public Hero() : base()
         {
             this.GroupId = 1;
@@ -25,9 +23,6 @@ namespace Game
         {
             User user = GameProcessor.Inst.User;
             this.Level = user.Level;
-
-            LevelConfig config = LevelConfigCategory.Instance.Get(Level);
-            this.Config = config;
 
             this.SetAttr(user);  //设置属性值
             this.Logic.SetData(null); //设置UI
@@ -45,9 +40,6 @@ namespace Game
             this.Camp = PlayerType.Hero;
             this.Name = user.Name;
             this.Level = user.Level;
-
-            LevelConfig config = LevelConfigCategory.Instance.Get(Level);
-            this.Config = config;
 
             this.SetAttr(user);  //设置属性值
             this.SetSkill(user); //设置技能

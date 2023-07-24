@@ -52,15 +52,21 @@ namespace Game
         }
 
 
-        public static string BuildSecondExpMessage(long exp)
+        public static string BuildSecondExpMessage(long exp, long gold)
         {
-            return $"增加泡点经验{exp}";
+            return $"获得经验收益{exp}，金币收益{gold}";
         }
 
-        public static string BuildTowerSuccessMessage(long exp, int floor)
+        public static string BuildTowerSuccessMessage(long riseExp, long riseGold, long exp, long gold, int floor)
         {
-            return $"<color=white>闯关成功,提升泡点经验:{exp},进入第{floor}层</color>";
+            return $"<color=white>闯关成功,获得经验奖励:{exp},金币奖励:{gold} ,提升经验收益:{riseExp},金币收益:{riseGold},进入第{floor}层</color>";
         }
+
+        public static string BuildCopySuccessMessage()
+        {
+            return $"<color=white>挑战副本成功,已自动解锁下一个副本</color>";
+        }
+
 
         public static string BuildGiftPackMessage(List<Item> items)
         {

@@ -109,7 +109,7 @@ public class Init : MonoBehaviour
 
         StartCoroutine(IE_DelayAction(1f, () =>
         {
-            com.LoadMap(this.RuleType,this.currentTimeSecond, map);
+            com.LoadMap(this.RuleType, this.currentTimeSecond, 0, map);
         }));
     }
 

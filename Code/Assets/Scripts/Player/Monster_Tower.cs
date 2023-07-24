@@ -2,17 +2,18 @@ using Game;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Monster_Tower : APlayer
 {
-    public int TowerId { get; }
+    public long Floor { get; }
     public int Index { get; }
 
     public TowerConfig config { get; set; }
 
-    public Monster_Tower(int floor, int index)
+    public Monster_Tower(long floor, int index)
     {
-        this.TowerId = floor;
+        this.Floor = floor;
         this.GroupId = 2;
         this.Index = index;
 
@@ -21,11 +22,12 @@ public class Monster_Tower : APlayer
 
     private void Init()
     {
-        TowerConfig config = TowerConfigCategory.Instance.Get(TowerId);
+        TowerConfig config = TowerConfigCategory.Instance.GetByFloor(Floor);
         this.config = config;
 
         this.Camp = PlayerType.Enemy;
-        this.Name = config.Name;
+        this.Name = Floor + "层守将";
+        this.Level = Floor;
 
         this.SetAttr();  //设置属性值
         this.SetSkill(); //设置技能
@@ -38,17 +40,17 @@ public class Monster_Tower : APlayer
     {
         //加载技能
         List<SkillData> list = new List<SkillData>();
-        if (config.SkillIdList.Length > 0)
-        {
-            int i = this.Index % config.SkillIdList.Length;
-            SkillData skill = new SkillData(config.SkillIdList[i], 1);
-            //SkillData skill = new SkillData(10004, i); //测试技能代码
-            skill.SkillConfig.CD = 2;
-            skill.Status = SkillStatus.Equip;
-            skill.Position = 1;
-            skill.Level = 1;
-            SkillList.Add(skill);
-        }
+        //if (config.SkillIdList.Length > 0)
+        //{
+        //    int i = this.Index % config.SkillIdList.Length;
+        //    SkillData skill = new SkillData(config.SkillIdList[i], 1);
+        //    SkillData skill = new SkillData(10004, i); //测试技能代码
+        //    skill.SkillConfig.CD = 2;
+        //    skill.Status = SkillStatus.Equip;
+        //    skill.Position = 1;
+        //    skill.Level = 1;
+        //    SkillList.Add(skill);
+        //}
         list.Add(new SkillData(9001, (int)SkillPosition.Default)); //增加默认技能
 
         foreach (SkillData skillData in list)
@@ -65,10 +67,16 @@ public class Monster_Tower : APlayer
 
     private void SetAttr()
     {
-        AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, config.HP);
-        AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, config.PhyAtt);
-        AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, config.PhyAtt);
-        AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, config.PhyAtt);
-        AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, config.Def);
+        long rise = Floor - config.StartLevel;
+
+        long attr = config.StartAttr + (long)(rise * config.RiseAttr);
+        long hp = config.StartHp + (long)(rise * config.RiseHp);
+        long def = config.StartDef + (long)(rise * config.RiseDef);
+
+        AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp);
+        AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr);
+        AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr);
+        AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr);
+        AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, def);
     }
 }

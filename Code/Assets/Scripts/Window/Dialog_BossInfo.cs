@@ -30,12 +30,10 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
         Dictionary<int, long> list = user.MapBossTime;
         foreach (int MapId in list.Keys)
         {
-            MapConfig mapConfig = MapConfigCategory.Instance.Get(MapId);
-            //if (mapConfig.LevelRequired <= user.Level)
-            //{
-                BossConfig bossConfig = BossConfigCategory.Instance.Get(mapConfig.BoosId);
-                BuildItem(mapConfig, bossConfig, list[MapId]);
-            //}
+            if (MapId <= user.MapId)
+            {
+                BuildItem(MapId, list[MapId]);
+            }
         }
     }
 
@@ -48,8 +46,11 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
         this.UpadateItem();
     }
 
-    private void BuildItem(MapConfig mapConfig, BossConfig bossConfig, long killTime)
+    private void BuildItem(int MapId, long killTime)
     {
+        MapConfig mapConfig = MapConfigCategory.Instance.Get(MapId);
+        BossConfig bossConfig = BossConfigCategory.Instance.Get(mapConfig.BoosId);
+
         var item = GameObject.Instantiate(ItemPrefab);
         var com = item.GetComponent<Com_BossInfoItem>();
 
@@ -68,10 +69,17 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
         Dictionary<int, long> list = user.MapBossTime;
         foreach (int MapId in list.Keys)
         {
-            var item = items.Where(m => m.mapConfig.Id == MapId).FirstOrDefault();
-            if (item != null)
+            if (MapId <= user.MapId)
             {
-                item.SetKillTime(list[MapId]);
+                var item = items.Where(m => m.mapConfig.Id == MapId).FirstOrDefault();
+                if (item != null)
+                {
+                    item.SetKillTime(list[MapId]);
+                }
+                else
+                {
+                    BuildItem(MapId, list[MapId]);
+                }
             }
         }
     }

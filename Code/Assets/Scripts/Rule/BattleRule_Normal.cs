@@ -1,4 +1,4 @@
-using Assets.Scripts;
+﻿using Assets.Scripts;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,6 +9,8 @@ namespace Game
 {
     public class BattleRule_Normal : ABattleRule
     {
+        private bool start = false;
+
         public override void DoHeroLogic()
         {
             var hero = GameProcessor.Inst.PlayerManager.GetHero();
@@ -17,8 +19,9 @@ namespace Game
 
         public override void DoMonsterLogic()
         {
-            var hero = GameProcessor.Inst.PlayerManager.GetHero();
+            User user = GameProcessor.Inst.User;
 
+            Hero hero = GameProcessor.Inst.PlayerManager.GetHero();
             var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
             enemys.Sort((a, b) =>
             {
@@ -47,34 +50,58 @@ namespace Game
                 enemy.DoEvent();
             }
 
-            User user = GameProcessor.Inst.User;
-            if (user.MapId == 0)
+            if (enemys.Count == 0) //TODO 闯关条件
             {
-                user.MapId = MapConfigCategory.Instance.GetAll().First().Value.Id;
-            }
+                if (start == true)
+                { //闯关奖励
+                    MakeReward();
 
-            MapConfig mapConfig = MapConfigCategory.Instance.Get(user.MapId); ;
+                    //刷新英雄属性
+                    hero.EventCenter.Raise(new HeroLevelUp());
 
-            if (enemys.Count <= 20) //TODO 
-            {
-                var enemy = MonsterHelper.BuildMonster(mapConfig);
-                GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
-            }
+                    //自动跳转
+                    GameProcessor.Inst.EventCenter.Raise(new ChangeFloorEvent() { });
+                }
 
-            var boss = GameProcessor.Inst.PlayerManager.GetBoss();
-            if (boss == null && user.Level >= 10)
-            {
-                BossConfig bossConfig = BossConfigCategory.Instance.Get(mapConfig.BoosId);
-                long killTime = 1;
-                if (user.MapBossTime.TryGetValue(user.MapId, out killTime))
+                var monsters = MonsterTowerHelper.BuildMonster(user.TowerFloor);
+                if (monsters != null && monsters.Count > 0)
                 {
-                    long currentTime = TimeHelper.ClientNowSeconds();
-                    if (killTime == 0 || currentTime - killTime >= mapConfig.BossInterval * 60)
+                    start = true;
+                    monsters.ForEach(enemy =>
                     {
-                        GameProcessor.Inst.PlayerManager.LoadMonster(BossHelper.BuildBoss(mapConfig.BoosId, mapConfig.Id));
-                    }
+                        GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
+                    });
                 }
             }
+        }
+
+        protected void MakeReward()
+        {
+            Log.Info("Tower Success");
+
+            start = false;
+            User user = GameProcessor.Inst.User;
+
+            TowerConfig config = TowerConfigCategory.Instance.GetByFloor(user.TowerFloor);
+
+            long secondExp = 0;
+            long secondGold = 0;
+            MonsterTowerHelper.GetTowerSecond(user.TowerFloor, out secondExp, out secondGold);
+
+            user.AttributeBonus.SetAttr(AttributeEnum.SecondExp, AttributeFrom.Tower, secondExp);
+            user.AttributeBonus.SetAttr(AttributeEnum.SecondGold, AttributeFrom.Tower, secondGold);
+
+            user.TowerFloor++;
+
+            long exp = config.Exp;
+            long gold = config.Gold;
+            user.AddExpAndGold(exp, gold);
+
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+            {
+                Message = BattleMsgHelper.BuildTowerSuccessMessage(config.RiseExp, config.RiseGold, exp, gold, user.TowerFloor),
+                BattleType = BattleType.Tower
+            });
         }
     }
 }

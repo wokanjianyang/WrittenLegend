@@ -58,7 +58,7 @@ namespace Game
         }
         private void OnClick_Tower()
         {
-            this.ChangePage(ViewPageType.View_Tower);
+            this.ChangePage(ViewPageType.View_More);
         }
         private void OnClick_Skill()
         {

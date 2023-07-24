@@ -7,26 +7,41 @@ namespace Game
 
     public partial class TowerConfigCategory
     {
-
+        public TowerConfig GetByFloor(long floor)
+        {
+            TowerConfig config = TowerConfigCategory.Instance.GetAll().Where(m => m.Value.StartLevel <= floor && m.Value.EndLevel >= floor).First().Value;
+            return config;
+        }
     }
 
     public class MonsterTowerHelper
     {
         public static List<Monster_Tower> BuildMonster(int floor)
         {
-            var config = TowerConfigCategory.Instance.Get(floor);
-            if (config != null)
-            {
-                List<Monster_Tower> monsters = new List<Monster_Tower>();
-                for (int i = 0; i < config.Quantity; i++)
-                {
-                    var enemy = new Monster_Tower(floor, i);
-                    monsters.Add(enemy);
-                }
+            List<Monster_Tower> monsters = new List<Monster_Tower>();
 
-                return monsters;
+            int monsterQuantity = 1;
+            if (floor > 10000)
+            {
+                monsterQuantity = (floor % 10) + 1;
             }
-            return null;
+
+            for (int i = 0; i < monsterQuantity; i++)
+            {
+                var enemy = new Monster_Tower(floor, i);
+                monsters.Add(enemy);
+            }
+
+            return monsters;
+        }
+
+        public static void GetTowerSecond(long floor, out long secondExp, out long secondGold)
+        {
+            TowerConfig config = TowerConfigCategory.Instance.GetByFloor(floor);
+            long rise = floor - config.StartLevel;
+
+            secondExp = config.StartExp + (long)(rise * config.RiseExp);
+            secondGold = config.StartGold + (long)(rise * config.RiseGold);
         }
     }
 }
