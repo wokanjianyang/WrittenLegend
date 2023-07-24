@@ -23,7 +23,8 @@ public class BattleRule_Tower : ABattleRule
 
         QualityList = new List<int>();
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 100; i++)
+        {
             QualityList.Add(1);
         }
         for (int i = 0; i < 20; i++)
@@ -44,7 +45,7 @@ public class BattleRule_Tower : ABattleRule
         }
 
         User user = GameProcessor.Inst.User;
-        user.MapBossTime[user.MapId] = TimeHelper.ClientNowSeconds();
+        user.MapBossTime[mapId] = TimeHelper.ClientNowSeconds();
     }
 
     public override void DoHeroLogic()
@@ -118,7 +119,7 @@ public class BattleRule_Tower : ABattleRule
             }
         }
 
-        if (Start)
+        if (Start && mc5 <= 0)
         {
             Start = false;
 
@@ -130,7 +131,10 @@ public class BattleRule_Tower : ABattleRule
             });
 
             User user = GameProcessor.Inst.User;
-            user.MapId = mapConfig.Id + 1;
+            if (user.MapId == mapConfig.Id)
+            {
+                user.MapId = mapConfig.Id + 1;
+            }
         }
     }
 }

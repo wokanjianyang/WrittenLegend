@@ -36,7 +36,7 @@ public class ViewForgeProcessor : AViewPage
     private int Refine_Position = 1;
 
 
-    private Dictionary<string, List<CompositeConfig>> allCompositeDatas;
+    private Dictionary<string, List<CompositeConfig>> allCompositeDatas= new Dictionary<string, List<CompositeConfig>>();
 
     // Start is called before the first frame update
     void Start()
@@ -95,6 +95,7 @@ public class ViewForgeProcessor : AViewPage
         GameProcessor.Inst.EventCenter.AddListener<EquipRefineSelectEvent>(this.OnEquipRefineSelectEvent);
         
         this.ShowStrengthInfo();
+        this.InitComposite();
     }
 
     private void OnEquipStrengthSelectEvent(EquipStrengthSelectEvent e)
@@ -223,10 +224,9 @@ public class ViewForgeProcessor : AViewPage
     }
 
     // Composite
-    private void ShowComposite()
+    private void InitComposite()
     {
         var allDatas = CompositeConfigCategory.Instance.GetAll();
-        this.allCompositeDatas = new Dictionary<string, List<CompositeConfig>>();
         foreach (var kvp in allDatas)
         {
             this.allCompositeDatas.TryGetValue(kvp.Value.Type, out var list);
@@ -264,6 +264,17 @@ public class ViewForgeProcessor : AViewPage
 
             var com = compositeItem.GetComponent<Com_CompositeItem>();
             com.SetData(config);
+        }
+    }
+
+    private void ShowComposite() {
+        for (int i = 0; i < sr_Right.content.childCount; i++)
+        {
+            Com_CompositeItem com = sr_Right.content.GetChild(i).GetComponent<Com_CompositeItem>();
+            if (com != null)
+            {
+                com.Refresh();
+            }
         }
     }
 
@@ -308,14 +319,7 @@ public class ViewForgeProcessor : AViewPage
 
     private void OnCompositeUIFreshEvent(CompositeUIFreshEvent e)
     {
-        for (int i = 0; i < sr_Right.content.childCount; i++)
-        {
-            Com_CompositeItem com = sr_Right.content.GetChild(i).GetComponent<Com_CompositeItem>();
-            if (com != null)
-            {
-                com.Refresh();
-            }
-        }
+        ShowComposite();
     }
 
 
