@@ -289,7 +289,7 @@ namespace Game
             {  //使用技能
                 //Debug.Log($"{(this.Name)}使用技能:{(skill.SkillPanel.SkillData.SkillConfig.Name)},攻击:" + targets.Count + "个");
                 skill.Do();
-                this.EventCenter.Raise(new ShowAttackIcon ());
+                //this.EventCenter.Raise(new ShowAttackIcon ());
             }
             else
             {
@@ -398,6 +398,11 @@ namespace Game
                     Enemy = enemy;
                     break;
                 }
+            }
+
+            if (this.Camp == PlayerType.Hero)
+            {
+                Enemy.EventCenter.Raise(new ShowAttackIcon { NeedShow = true });
             }
 
             return true;

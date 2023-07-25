@@ -53,9 +53,9 @@ namespace Game
         {
             this.AttributeBonus = new AttributeBonus();
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, Config.HP * QualityConfig.HpRate);
-            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, Config.PhyAttr * QualityConfig.AttrRate);
-            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, Config.PhyAttr * QualityConfig.AttrRate);
-            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, Config.PhyAttr * QualityConfig.AttrRate);
+            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, Config.Attr * QualityConfig.AttrRate);
+            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, Config.Attr * QualityConfig.AttrRate);
+            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, Config.Attr * QualityConfig.AttrRate);
             AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, Config.Def * QualityConfig.DefRate);
 
             //回满当前血量
@@ -92,13 +92,13 @@ namespace Game
             //增加经验,金币
             user.AddExpAndGold(exp, gold);
 
-            MapConfig mapConfig = MapConfigCategory.Instance.Get(user.MapId);
+            MapConfig mapConfig = MapConfigCategory.Instance.Get(Config.MapId);
             QualityConfig qualityConfig = QualityConfigCategory.Instance.Get(Quality);
 
             int qualityRate = qualityConfig.QualityRate * (100 + (int)user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea)) / 100;
 
             //生成道具奖励
-            List<KeyValuePair<int, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(user.MapId, 1);
+            List<KeyValuePair<int, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(Config.MapId, 1);
             List<Item> items = DropHelper.BuildDropItem(dropList, qualityRate);
             //if (SystemConfigHelper.CheckRequireLevel(SystemEnum.SoulRing))
             //{

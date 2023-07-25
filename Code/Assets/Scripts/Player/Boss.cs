@@ -91,7 +91,7 @@ namespace Game
             user.AddExpAndGold(exp, gold);
 
             //地图道具奖励
-            List<KeyValuePair<int, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(user.MapId, 10);
+            List<KeyValuePair<int, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(Config.MapId, 10);
 
             //自身掉落
             if (Config.DropIdList != null && Config.DropIdList.Length > 0)

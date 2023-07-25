@@ -62,7 +62,7 @@ namespace Game
                 this.needRefreshGraphic = true;
                 GameProcessor.Inst.PlayerManager.RemoveAllDeadPlayers();
                 var roundType = (RoundType)(this.roundNum % 2);
-                GameProcessor.Inst.EventCenter.Raise(new HideAttackIcon (){RoundType = roundType});
+                //GameProcessor.Inst.EventCenter.Raise(new HideAttackIcon (){RoundType = roundType});
 
                 switch (roundType)
                 {

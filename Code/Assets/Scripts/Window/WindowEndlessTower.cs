@@ -66,7 +66,7 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
         this.CopyMapId = e.MapId;
         this.gameObject.SetActive(true);
 
-        GameProcessor.Inst.DelayAction(1f, () =>
+        GameProcessor.Inst.DelayAction(0.1f, () =>
         {
             GameProcessor.Inst.OnDestroy();
             GameProcessor.Inst.LoadMap(RuleType.Tower, 0, CopyMapId, this.transform);
@@ -123,12 +123,11 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
 
     private void OnClick_Exit()
     {
-        this.gameObject.SetActive(false);
         GameProcessor.Inst.OnDestroy();
-
+        this.gameObject.SetActive(false);
         GameProcessor.Inst.EventCenter.Raise(new EndCopyEvent());
 
-        GameProcessor.Inst.DelayAction(1f, () =>
+        GameProcessor.Inst.DelayAction(0.1f, () =>
         {
             var map = GameObject.Find("Canvas").GetComponentInChildren<ViewBattleProcessor>(true).transform;
             GameProcessor.Inst.LoadMap(RuleType.Normal, 0, 0, map);

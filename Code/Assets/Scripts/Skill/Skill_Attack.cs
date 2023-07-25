@@ -85,7 +85,9 @@ namespace Game
             int ignoreDef = Math.Min(SkillPanel.IgnoreDef, 100);
             def = def * (100 - ignoreDef) / 100;
 
-            long attack = roleAttr - def; //攻击 - 防御
+            double defRate = def * ConfigHelper.Def_Rate / (def * ConfigHelper.Def_Rate + roleAttr);
+
+            long attack = (long)(roleAttr * (1 - defRate)); //攻击 - 防御
 
             //技能系数
             attack = attack * (SkillPanel.Percent + SelfPlayer.GetRolePercent(role)) / 100 + SkillPanel.Damage + SelfPlayer.GetRoleDamage(role);  // *百分比系数 + 固定数值
@@ -111,7 +113,7 @@ namespace Game
             attack = attack * (lucky * 10 + 100) / 100;
 
             //强制最少1点伤害
-            return Math.Max(1, attack);
+            return Math.Max(1, attack); //
         }
 
         abstract public List<AttackData> GetAllTargets();

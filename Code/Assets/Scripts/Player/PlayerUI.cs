@@ -10,7 +10,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class PlayerUI : MonoBehaviour,IPlayer
+public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
 {
     [LabelText("背景图片")]
     public Image image_Background;
@@ -20,10 +20,10 @@ public class PlayerUI : MonoBehaviour,IPlayer
     [Title("信息")]
     [LabelText("信息")]
     public Transform tran_Info;
-    
+
     [LabelText("名称")]
     public Text tmp_Info_Name;
-    
+
     [LabelText("等级")]
     public Text tmp_Info_Level;
 
@@ -54,7 +54,7 @@ public class PlayerUI : MonoBehaviour,IPlayer
     // Update is called once per frame
     void Update()
     {
-        if(this.SelfPlayer!=null)
+        if (this.SelfPlayer != null)
         {
             this.Cell = this.SelfPlayer.Cell;
         }
@@ -67,11 +67,9 @@ public class PlayerUI : MonoBehaviour,IPlayer
         this.SelfPlayer.EventCenter.RemoveListener<SetPlayerLevelEvent>(OnSetPlayerLevelEvent);
         this.SelfPlayer.EventCenter.RemoveListener<SetPlayerHPEvent>(OnSetPlayerHPEvent);
         this.SelfPlayer.EventCenter.RemoveListener<ShowMsgEvent>(OnShowMsgEvent);
-        GameProcessor.Inst.EventCenter.RemoveListener<HideAttackIcon>(OnHideAttackIcon); 
-
         this.com_Progress = null;
     }
-    
+
     private void OnSetBackgroundColorEvent(SetBackgroundColorEvent e)
     {
         this.image_Background.color = e.Color;
@@ -100,7 +98,7 @@ public class PlayerUI : MonoBehaviour,IPlayer
                 break;
         }
     }
-    
+
     private void OnSetPlayerLevelEvent(SetPlayerLevelEvent e)
     {
         this.tmp_Info_Level.text = "Lv." + e.Level;
@@ -116,7 +114,7 @@ public class PlayerUI : MonoBehaviour,IPlayer
         //this.com_Progress?.SetProgress(this.SelfPlayer.HP, this.SelfPlayer.Logic.GetMaxHP()); TODO
         //GameProcessor.Inst.DelayAction(0.5f, () =>
         //{
-  
+
         //});
     }
 
@@ -146,27 +144,22 @@ public class PlayerUI : MonoBehaviour,IPlayer
 
     private void OnShowAttackIcon(ShowAttackIcon e)
     {
-        this.tran_Attack.localScale = Vector3.one ;
+        if (this.tran_Attack != null)
+        {
+            this.tran_Attack.localScale = e.NeedShow ? Vector3.one : Vector3.zero;
+        }
+
+        //if(e.NeedShow)
+        //{
+        //    GameProcessor.Inst.DelayAction(1f, () => {
+        //        if (this.tran_Attack != null)
+        //        {
+        //            this.tran_Attack.localScale = Vector3.zero;
+        //        }
+        //    });
+        //}
     }
 
-    private void OnHideAttackIcon(HideAttackIcon e)
-    {
-        switch (e.RoundType)
-        {
-            case RoundType.Hero:
-                if (this.SelfPlayer.Camp == PlayerType.Enemy)
-                {
-                    this.tran_Attack.localScale = Vector3.zero;
-                }
-                break;
-            case RoundType.Monster:
-                if (this.SelfPlayer.Camp != PlayerType.Enemy)
-                {
-                    this.tran_Attack.localScale = Vector3.zero;
-                }
-                break;
-        }
-    }
 
     public APlayer SelfPlayer { get; set; }
 
@@ -178,8 +171,22 @@ public class PlayerUI : MonoBehaviour,IPlayer
         this.SelfPlayer.EventCenter.AddListener<SetPlayerNameEvent>(OnSetNameEvent);
         this.SelfPlayer.EventCenter.AddListener<SetPlayerLevelEvent>(OnSetPlayerLevelEvent);
         this.SelfPlayer.EventCenter.AddListener<SetPlayerHPEvent>(OnSetPlayerHPEvent);
-        this.SelfPlayer.EventCenter.AddListener<ShowMsgEvent>(OnShowMsgEvent); 
-        this.SelfPlayer.EventCenter.AddListener<ShowAttackIcon>(OnShowAttackIcon); 
-        GameProcessor.Inst.EventCenter.AddListener<HideAttackIcon>(OnHideAttackIcon); 
+        this.SelfPlayer.EventCenter.AddListener<ShowMsgEvent>(OnShowMsgEvent);
+        this.SelfPlayer.EventCenter.AddListener<ShowAttackIcon>(OnShowAttackIcon);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (this.SelfPlayer.Camp == PlayerType.Enemy)
+        {
+            Hero hero = GameProcessor.Inst.PlayerManager.GetHero();
+            if (hero.Enemy != null)
+            {
+                hero.Enemy.EventCenter.Raise(new ShowAttackIcon { NeedShow = false });
+            }
+
+            hero.Enemy = this.SelfPlayer;
+            hero.Enemy.EventCenter.Raise(new ShowAttackIcon { NeedShow = true });
+        }
     }
 }
