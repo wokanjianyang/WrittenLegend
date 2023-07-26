@@ -41,7 +41,7 @@ namespace Game
         
         private PocketAD.AdStateCallBack adStateCallBack;
         
-        private bool isGameOver { get; set; } = false;
+        private bool isGameOver { get; set; } = true;
         public PlayerType winCamp { get; private set; }
 
         void Awake()
@@ -188,6 +188,8 @@ namespace Game
             this.PlayerManager.LoadHero();
 
             isLoadMap = true;
+            
+            this.StartGame();
         }
 
         public void DelayAction(float delay, Action callback)
@@ -305,7 +307,7 @@ namespace Game
                     // 到主线程执行
                     await Loom.ToMainThread;
                     PlayerManager.GetHero().Resurrection();
-                    this.isGameOver = false;
+                    this.StartGame();
                     break;
                 case AdStateEnum.Reward:
                     Log.Debug("发放奖励");
@@ -339,6 +341,11 @@ namespace Game
         {
             this.isGameOver = true;
             this.winCamp = winCamp;
+        }
+
+        public void StartGame()
+        {
+            this.isGameOver = false;
         }
     }
 }

@@ -126,7 +126,7 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
         GameProcessor.Inst.OnDestroy();
         this.gameObject.SetActive(false);
         GameProcessor.Inst.EventCenter.Raise(new EndCopyEvent());
-
+        GameProcessor.Inst.SetGameOver(PlayerType.Hero);
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {
             var map = GameObject.Find("Canvas").GetComponentInChildren<ViewBattleProcessor>(true).transform;

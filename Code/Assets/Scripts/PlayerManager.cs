@@ -28,6 +28,7 @@ namespace Game
         private void AddPlayer(APlayer player)
         {
             player.ID = ++this.playerId;
+            player.Transform.name = $"{player.Camp.ToString()}_{player.ID}";
             this.AllPlayers.Add(player);
         }
 
