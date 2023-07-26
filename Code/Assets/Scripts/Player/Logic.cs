@@ -106,24 +106,26 @@ namespace Game
             //Debug.Log($"{(this.SelfPlayer.Name)} 受到伤害:{(damage)} ,剩余血量:{(currentHP)}");
 
             AddBattleAttribute(AttributeEnum.HP, damage * -1);
-            this.SelfPlayer.SetHP(currentHP);
+            GameProcessor.Inst.DelayAction(0.5f, () =>
+            {
+                this.SelfPlayer.SetHP(currentHP);
+            });
             if (currentHP == 0)
             {
-                IsSurvice = false;
-                this.playerEvents.Add(new PlayerDeadEvent
+                GameProcessor.Inst.DelayAction(0.5f, () =>
                 {
-                    RoundNum = SelfPlayer.RoundCounter
+                    IsSurvice = false;
+                    this.playerEvents.Add(new PlayerDeadEvent
+                    {
+                        RoundNum = SelfPlayer.RoundCounter
+                    });
+                    this.playerEvents.Add(new DeadRewarddEvent
+                    {
+                        FromId = fromId,
+                        ToId = SelfPlayer.ID
+                    });
                 });
-                //this.playerEvents.Add(new ShowMsgEvent
-                //{
-                //    Type = MsgType.Other,
-                //    Content = "死亡"
-                //});
-                this.playerEvents.Add(new DeadRewarddEvent
-                {
-                    FromId = fromId,
-                    ToId = SelfPlayer.ID
-                });
+                
             }
             else
             {
@@ -134,8 +136,6 @@ namespace Game
                 });
             }
             AddBattleAttribute(AttributeEnum.HP, damage * -1);
-
-            this.SelfPlayer.SetHP(currentHP);
         }
 
         public void OnRestore(long hp)
