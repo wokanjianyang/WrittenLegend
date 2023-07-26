@@ -268,6 +268,8 @@ namespace Game
                 this.RmoveEquipment(e.Position, equip);
             }
             //UserData.Save();
+
+            TaskHelper.CheckTask(TaskType.Equip, 1);
         }
         private void OnSkillBookEvent(SkillBookEvent e)
         {

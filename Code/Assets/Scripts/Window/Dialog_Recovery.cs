@@ -190,6 +190,8 @@ namespace Game
             //立即执行一次回收
             GameProcessor.Inst.EventCenter.Raise(new AutoRecoveryEvent() { });
 
+            TaskHelper.CheckTask(TaskType.Recovery, 1);
+
             UserData.Save();
         }
         

@@ -195,6 +195,7 @@ public class ViewForgeProcessor : AViewPage
 
         ShowStrengthInfo();
 
+        TaskHelper.CheckTask(TaskType.Strength, 1);
         //Debug.Log("Strengthen Success");
     }
     private void OnClick_Strengthen_Batch()
@@ -220,6 +221,8 @@ public class ViewForgeProcessor : AViewPage
 
             ShowStrengthInfo();
             Debug.Log("batch strenthen " + sl + " level");
+
+            TaskHelper.CheckTask(TaskType.Strength, 1);
         }
     }
 

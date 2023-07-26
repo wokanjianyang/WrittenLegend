@@ -46,6 +46,8 @@ public class BattleRule_Tower : ABattleRule
 
         User user = GameProcessor.Inst.User;
         user.MapBossTime[mapId] = TimeHelper.ClientNowSeconds();
+
+        TaskHelper.CheckTask(TaskType.ToCopy, 1);
     }
 
     public override void DoHeroLogic()

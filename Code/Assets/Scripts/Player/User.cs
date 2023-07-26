@@ -71,6 +71,9 @@ namespace Game
 
         public int MapId { get; set; } = 1000;
 
+        public int TaskId { get; set; } = 1;
+        public Dictionary<int ,bool> TaskLog = new Dictionary<int, bool>();
+
         //Ö÷Ïßboss¼ÇÂ¼
         public Dictionary<int, long> MapBossTime { get; } = new Dictionary<int, long>();
 

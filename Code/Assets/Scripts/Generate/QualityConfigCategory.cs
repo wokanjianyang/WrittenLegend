@@ -57,5 +57,17 @@ namespace Game
 
             return color;
         }
+
+        public static string GetTaskColor(bool over)
+        {
+            if (over)
+            {
+                return "00FF00"; 
+            }
+            else {
+                return "FFFFFF";
+            }
+            
+        }
     }
 }

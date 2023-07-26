@@ -150,4 +150,9 @@ namespace Game
         public int Mc4 { get; set; }
         public int Mc5 { get; set; }
     }
+
+    public class TaskChangeEvent : SDD.Events.Event
+    {
+      
+    }
 }

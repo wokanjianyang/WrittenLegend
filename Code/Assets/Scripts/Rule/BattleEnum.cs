@@ -123,4 +123,13 @@ namespace Game
         Other = 5,
         SkillName = 6,
     }
+
+    public enum TaskType
+    {
+        Tower = 1, //闯关层数
+        Equip = 2, //穿戴装备
+        Strength = 3, //强化装备
+        ToCopy = 4, //挑战副本
+        Recovery = 5, //设置回收
+    }
 }

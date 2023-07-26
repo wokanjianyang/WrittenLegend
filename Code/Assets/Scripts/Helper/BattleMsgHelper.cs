@@ -79,5 +79,15 @@ namespace Game
             return message;
         }
 
+        public static string BuildTaskRewardMessage(long exp,long gold, List<Item> items)
+        {
+            string message = $"获得任务奖励:经验 {exp},金币 {gold} ";
+            foreach (var drop in items)
+            {
+                message += $"<color=#{QualityConfigHelper.GetColor(drop.GetQuality())}>[{drop.Name}]</color>";
+            }
+
+            return message;
+        }
     }
 }

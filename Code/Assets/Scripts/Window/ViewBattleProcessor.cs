@@ -25,7 +25,7 @@ namespace Game
         public Text txt_MapName;
 
         [LabelText("新手指引")]
-        public Button PlayerGuide;
+        public TaskNav PlayerGuide;
 
         private bool isViewMapShowing = false;
 
@@ -65,8 +65,12 @@ namespace Game
  
             GameProcessor.Inst.EventCenter.AddListener<ChangeFloorEvent>(this.OnChangeFloorEvent);
 
+            GameProcessor.Inst.EventCenter.AddListener<TaskChangeEvent>(this.OnTaskChangeEvent);
+
             //加载世界地图
-            this.LoadWroldMap();
+            //this.LoadWroldMap();
+
+            this.PlayerGuide.Init();
 
             ShowName();
         }
@@ -128,6 +132,12 @@ namespace Game
         {
             ShowName();
         }
+
+        private void OnTaskChangeEvent(TaskChangeEvent e)
+        {
+            PlayerGuide.Init();
+        }
+
         private void ShowName()
         {
             User user = GameProcessor.Inst.User;

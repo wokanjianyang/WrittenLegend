@@ -99,6 +99,9 @@ namespace Game
 		/// <summary>掉落金币</summary>
 		[ProtoMember(8)]
 		public long Gold { get; set; }
+		/// <summary>攻击</summary>
+		[ProtoMember(9)]
+		public long PhyAttr { get; set; }
 
 	}
 }

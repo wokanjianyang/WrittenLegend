@@ -102,6 +102,9 @@ namespace Game
                 Message = BattleMsgHelper.BuildTowerSuccessMessage(config.RiseExp, config.RiseGold, exp, gold, user.TowerFloor),
                 BattleType = BattleType.Tower
             });
+
+            //判断任务
+            TaskHelper.CheckTask(TaskType.Tower, user.TowerFloor);
         }
     }
 }

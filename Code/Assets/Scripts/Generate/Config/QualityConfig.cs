@@ -83,13 +83,13 @@ namespace Game
 		public string MonsterTitle { get; set; }
 		/// <summary>攻击系数</summary>
 		[ProtoMember(3)]
-		public int AttrRate { get; set; }
+		public double AttrRate { get; set; }
 		/// <summary>防御系数</summary>
 		[ProtoMember(4)]
-		public int DefRate { get; set; }
+		public double DefRate { get; set; }
 		/// <summary>血量系数</summary>
 		[ProtoMember(5)]
-		public int HpRate { get; set; }
+		public double HpRate { get; set; }
 		/// <summary>金币系数</summary>
 		[ProtoMember(6)]
 		public int GoldRate { get; set; }

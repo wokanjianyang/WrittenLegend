@@ -1,0 +1,8 @@
+{"list":[
+{"_t":"TaskConfig","_id":1,"Type":1,"Condition":10,"RewardGold":10000,"RewardExp":10000,"RewardIdList":[1],"RewardTypeList":[2],"Memo":"闯过第10关"},
+{"_t":"TaskConfig","_id":2,"Type":2,"Condition":1,"RewardGold":10000,"RewardExp":10000,"RewardIdList":[],"RewardTypeList":[],"Memo":"穿戴一件装备"},
+{"_t":"TaskConfig","_id":3,"Type":1,"Condition":100,"RewardGold":10000,"RewardExp":10000,"RewardIdList":[401],"RewardTypeList":[2],"Memo":"闯过第100关"},
+{"_t":"TaskConfig","_id":4,"Type":3,"Condition":1,"RewardGold":10000,"RewardExp":10000,"RewardIdList":[],"RewardTypeList":[],"Memo":"强化一次"},
+{"_t":"TaskConfig","_id":5,"Type":4,"Condition":1,"RewardGold":10000,"RewardExp":10000,"RewardIdList":[],"RewardTypeList":[],"Memo":"挑战一次副本"},
+{"_t":"TaskConfig","_id":6,"Type":5,"Condition":1,"RewardGold":10000,"RewardExp":10000,"RewardIdList":[],"RewardTypeList":[],"Memo":"包裹界面设置回收"},
+]}
