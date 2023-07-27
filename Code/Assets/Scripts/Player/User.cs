@@ -67,7 +67,7 @@ namespace Game
         /// <summary>
         /// ÎÞ¾¡Ëþ²ãÊý
         /// </summary>
-        public int TowerFloor { get; set; } = 1;
+        public long TowerFloor { get; set; } = 1;
 
         public int MapId { get; set; } = 1000;
 

@@ -6,6 +6,6 @@ namespace Game
 	{
 		public const long Max_Level = 999999999;
 
-		public const double Def_Rate = 13.0; 
+		public const double Def_Rate = 3.0; 
 	}
 }

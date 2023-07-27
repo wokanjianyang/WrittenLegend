@@ -83,7 +83,7 @@ namespace Game
 		public int Type { get; set; }
 		/// <summary>Condition</summary>
 		[ProtoMember(3)]
-		public int Condition { get; set; }
+		public long Condition { get; set; }
 		/// <summary>RewardGold</summary>
 		[ProtoMember(4)]
 		public long RewardGold { get; set; }

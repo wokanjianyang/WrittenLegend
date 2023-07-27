@@ -16,11 +16,11 @@ namespace Game
 
     public class MonsterTowerHelper
     {
-        public static List<Monster_Tower> BuildMonster(int floor)
+        public static List<Monster_Tower> BuildMonster(long floor)
         {
             List<Monster_Tower> monsters = new List<Monster_Tower>();
 
-            int monsterQuantity = 1;
+            long monsterQuantity = 1;
             if (floor > 10000)
             {
                 monsterQuantity = (floor % 10) + 1;
@@ -33,6 +33,27 @@ namespace Game
             }
 
             return monsters;
+        }
+
+        public static AttributeBonus BuildOffline(long Floor)
+        {
+            TowerConfig config = TowerConfigCategory.Instance.GetByFloor(Floor);
+
+            long rise = Floor - config.StartLevel;
+
+            long attr = config.StartAttr + (long)(rise * config.RiseAttr);
+            long hp = config.StartHp + (long)(rise * config.RiseHp);
+            long def = config.StartDef + (long)(rise * config.RiseDef);
+
+            AttributeBonus attributeBonus = new AttributeBonus();
+
+            attributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp);
+            attributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr);
+            attributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr);
+            attributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr);
+            attributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, def);
+
+            return attributeBonus;
         }
 
         public static void GetTowerSecond(long floor, out long secondExp, out long secondGold)

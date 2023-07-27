@@ -107,6 +107,12 @@ namespace Game
             //LoadSkill();
         }
 
+        internal SkillPanel GetOfflineSkill()
+        {
+            List<SkillPanel> list = SelectSkillList.Where(m => m.SkillPanel.CD == 0).Select(m => m.SkillPanel).OrderBy(m => m.Percent).ToList();
+            return list.Count > 0 ? list[list.Count - 1] : new SkillPanel(new SkillData(9001, (int)SkillPosition.Default), new List<SkillRune>(), new List<SkillSuit>());
+        }
+
         //public void LoadSkill()
         //{
         //    foreach (var skill in SelectSkillList)
@@ -138,77 +144,17 @@ namespace Game
 
         public virtual long GetRoleAttack(int role)
         {
-            long attack = 0;
-            switch (role)
-            {
-                case (int)RoleType.Warrior:
-                    {
-                        attack = this.AttributeBonus.GetTotalAttr(AttributeEnum.PhyAtt);
-                        break;
-                    }
-                case (int)RoleType.Mage:
-                    {
-                        attack = this.AttributeBonus.GetTotalAttr(AttributeEnum.MagicAtt);
-                        break;
-                    }
-                case (int)RoleType.Warlock:
-                    {
-                        attack = this.AttributeBonus.GetTotalAttr(AttributeEnum.SpiritAtt);
-                        break;
-                    }
-            }
-
-            return attack;
+            return DamageHelper.GetRoleAttack(this.AttributeBonus, role);
         }
 
         public long GetRolePercent(int role)
         {
-            long attack = 0;
-            switch (role)
-            {
-                case (int)RoleType.Warrior:
-                    {
-                        attack = this.AttributeBonus.GetTotalAttr(AttributeEnum.WarriorSkillPercent);
-                        break;
-                    }
-                case (int)RoleType.Mage:
-                    {
-                        attack = this.AttributeBonus.GetTotalAttr(AttributeEnum.MageSkillPercent);
-                        break;
-                    }
-                case (int)RoleType.Warlock:
-                    {
-                        attack = this.AttributeBonus.GetTotalAttr(AttributeEnum.WarlockSkillPercent);
-                        break;
-                    }
-            }
-
-            return attack;
+            return DamageHelper.GetRolePercent(this.AttributeBonus, role);
         }
 
         public long GetRoleDamage(int role)
         {
-            long attack = 0;
-            switch (role)
-            {
-                case (int)RoleType.Warrior:
-                    {
-                        attack = this.AttributeBonus.GetTotalAttr(AttributeEnum.WarriorSkillDamage);
-                        break;
-                    }
-                case (int)RoleType.Mage:
-                    {
-                        attack = this.AttributeBonus.GetTotalAttr(AttributeEnum.MageSkillDamage);
-                        break;
-                    }
-                case (int)RoleType.Warlock:
-                    {
-                        attack = this.AttributeBonus.GetTotalAttr(AttributeEnum.WarlockSkillDamage);
-                        break;
-                    }
-            }
-
-            return attack;
+            return DamageHelper.GetRoleDamage(this.AttributeBonus, role);
         }
 
 
