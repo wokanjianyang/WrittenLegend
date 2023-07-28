@@ -1,7 +1,10 @@
 {"list":[
 {"_t":"TowerConfig","_id":1,"StartLevel":1,"EndLevel":100,"StartAttr":5,"RiseAttr":1,"StartDef":0,"RiseDef":0.1,"StartHp":50,"RiseHp":10,"StartExp":1,"RiseExp":1,"StartGold":1,"RiseGold":1,"Exp":100,"Gold":100},
 {"_t":"TowerConfig","_id":2,"StartLevel":101,"EndLevel":1000,"StartAttr":100,"RiseAttr":2,"StartDef":10,"RiseDef":0.2,"StartHp":1000,"RiseHp":20,"StartExp":101,"RiseExp":1,"StartGold":101,"RiseGold":1,"Exp":200,"Gold":200},
-{"_t":"TowerConfig","_id":3,"StartLevel":1001,"EndLevel":10000,"StartAttr":2000,"RiseAttr":3,"StartDef":200,"RiseDef":0.3,"StartHp":20000,"RiseHp":30,"StartExp":1001,"RiseExp":1,"StartGold":1001,"RiseGold":1,"Exp":300,"Gold":300},
-{"_t":"TowerConfig","_id":4,"StartLevel":10001,"EndLevel":100000,"StartAttr":30000,"RiseAttr":4,"StartDef":3000,"RiseDef":0.4,"StartHp":300000,"RiseHp":40,"StartExp":10001,"RiseExp":1,"StartGold":10001,"RiseGold":1,"Exp":400,"Gold":400},
-{"_t":"TowerConfig","_id":5,"StartLevel":100001,"EndLevel":1000000,"StartAttr":40000,"RiseAttr":5,"StartDef":40000,"RiseDef":0.5,"StartHp":4000000,"RiseHp":50,"StartExp":100001,"RiseExp":1,"StartGold":100001,"RiseGold":1,"Exp":500,"Gold":500},
+{"_t":"TowerConfig","_id":3,"StartLevel":1001,"EndLevel":5000,"StartAttr":2000,"RiseAttr":3,"StartDef":200,"RiseDef":0.3,"StartHp":20000,"RiseHp":30,"StartExp":1001,"RiseExp":1,"StartGold":1001,"RiseGold":1,"Exp":300,"Gold":300},
+{"_t":"TowerConfig","_id":4,"StartLevel":5001,"EndLevel":10000,"StartAttr":15000,"RiseAttr":4,"StartDef":1500,"RiseDef":0.4,"StartHp":150000,"RiseHp":40,"StartExp":5001,"RiseExp":1,"StartGold":5001,"RiseGold":1,"Exp":400,"Gold":400},
+{"_t":"TowerConfig","_id":5,"StartLevel":10001,"EndLevel":20000,"StartAttr":40000,"RiseAttr":5,"StartDef":4000,"RiseDef":0.5,"StartHp":400000,"RiseHp":50,"StartExp":10001,"RiseExp":1,"StartGold":10001,"RiseGold":1,"Exp":500,"Gold":500},
+{"_t":"TowerConfig","_id":6,"StartLevel":20001,"EndLevel":50000,"StartAttr":100000,"RiseAttr":7,"StartDef":10000,"RiseDef":0.7,"StartHp":1000000,"RiseHp":70,"StartExp":20001,"RiseExp":1,"StartGold":20001,"RiseGold":1,"Exp":700,"Gold":700},
+{"_t":"TowerConfig","_id":7,"StartLevel":50001,"EndLevel":100000,"StartAttr":350000,"RiseAttr":10,"StartDef":35000,"RiseDef":1,"StartHp":3500000,"RiseHp":100,"StartExp":50001,"RiseExp":1,"StartGold":50001,"RiseGold":1,"Exp":1000,"Gold":1000},
+{"_t":"TowerConfig","_id":8,"StartLevel":100001,"EndLevel":200000,"StartAttr":1000000,"RiseAttr":20,"StartDef":100000,"RiseDef":2,"StartHp":10000000,"RiseHp":200,"StartExp":100001,"RiseExp":1,"StartGold":100001,"RiseGold":1,"Exp":2000,"Gold":2000},
 ]}

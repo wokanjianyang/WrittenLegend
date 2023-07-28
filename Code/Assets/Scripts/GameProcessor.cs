@@ -121,10 +121,11 @@ namespace Game
             long tempTime = Math.Min(offlineTime, 12 * 3600);
             while (tempTime > 0)
             {
-                TowerConfig config = TowerConfigCategory.Instance.GetByFloor(User.TowerFloor + offlineFloor + 100); //quick
+                long tmepFloor = User.TowerFloor + offlineFloor + 100;
+                TowerConfig config = TowerConfigCategory.Instance.GetByFloor(tmepFloor); //quick
 
                 AttributeBonus offlineHero = User.AttributeBonus;
-                AttributeBonus offlineTower = MonsterTowerHelper.BuildOffline(User.TowerFloor + 100);
+                AttributeBonus offlineTower = MonsterTowerHelper.BuildOffline(tmepFloor);
 
                 SkillPanel sp = new SkillPanel(new SkillData(9001, (int)SkillPosition.Default), new List<SkillRune>(), new List<SkillSuit>());
 

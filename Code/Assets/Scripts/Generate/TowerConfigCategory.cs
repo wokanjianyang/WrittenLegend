@@ -21,10 +21,10 @@ namespace Game
             List<Monster_Tower> monsters = new List<Monster_Tower>();
 
             long monsterQuantity = 1;
-            if (floor > 10000)
-            {
-                monsterQuantity = (floor % 10) + 1;
-            }
+            //if (floor > 10000)
+            //{
+            //    monsterQuantity = (floor % 10) + 1;
+            //}
 
             for (int i = 0; i < monsterQuantity; i++)
             {
