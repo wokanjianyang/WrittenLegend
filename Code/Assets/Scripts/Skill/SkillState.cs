@@ -76,7 +76,8 @@ namespace Game
         }
 
         public void Destory() {
-            if (skillLogic is Skill_Valet) {
+            if (skillLogic is Skill_Valet)
+            {
                 Skill_Valet sv = skillLogic as Skill_Valet;
                 sv.ClearValet();
             }

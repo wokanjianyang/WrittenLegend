@@ -76,7 +76,7 @@ namespace Game
             this.UUID = System.Guid.NewGuid().ToString("N");
             this.EventCenter = new EventManager();
             this.AttributeBonus = new AttributeBonus();
-            this.SkillUseRoundCache = new Dictionary<int, int>(); 
+            this.SkillUseRoundCache = new Dictionary<int, int>();
             this.SelectSkillList = new List<SkillState>();
 
             //this.Load();
@@ -215,8 +215,8 @@ namespace Game
             }
 
             //回血
-            long restoreHp = AttributeBonus.GetTotalAttr(AttributeEnum.RestoreHp)+
-                AttributeBonus.GetTotalAttr(AttributeEnum.RestoreHpPercent) * AttributeBonus.GetTotalAttr(AttributeEnum.HP)/100;
+            long restoreHp = AttributeBonus.GetTotalAttr(AttributeEnum.RestoreHp) +
+                AttributeBonus.GetTotalAttr(AttributeEnum.RestoreHpPercent) * AttributeBonus.GetTotalAttr(AttributeEnum.HP) / 100;
             if (restoreHp > 0)
             {
                 this.OnRestore(this.ID, restoreHp);
@@ -226,7 +226,7 @@ namespace Game
             {
                 return; //如果有控制技能，不继续后续行动
             }
-            
+
             this.FindNearestEnemy();
 
             SkillState skill = this.GetSkill();
@@ -267,7 +267,7 @@ namespace Game
                 EffectMap[effectData.FromId] = list;
             }
 
-            if (list.Count>0 && list.Count >= effectData.Max)
+            if (list.Count > 0 && list.Count >= effectData.Max)
             {
                 //移除旧的
                 list.RemoveRange(0, list.Count - effectData.Max + 1);
@@ -362,11 +362,13 @@ namespace Game
             }
         }
 
-        public void OnRestore(int fromId, long hp) {
+        public void OnRestore(int fromId, long hp)
+        {
             this.Logic.OnRestore(hp);
         }
 
-        public void SetHP(long hp) {
+        public void SetHP(long hp)
+        {
             this.HP = hp;
 
             EventCenter.Raise(new SetPlayerHPEvent
@@ -382,6 +384,12 @@ namespace Game
 
         public void OnDestroy()
         {
+            //foreach (var skill in this.SelectSkillList)
+            //{
+            //    skill.Destory();
+            //}
+            //SelectSkillList.Clear();
+
             this.EventCenter.RemoveAllListeners();
             if (this.Transform != null)
             {

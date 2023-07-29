@@ -14,7 +14,10 @@ namespace Game
         public override void DoHeroLogic()
         {
             var hero = GameProcessor.Inst.PlayerManager.GetHero();
-            hero.DoEvent();
+            if (hero != null)
+            {
+                hero.DoEvent();
+            }
         }
 
         public override void DoMonsterLogic()
@@ -56,9 +59,18 @@ namespace Game
                 { //闯关奖励
                     MakeReward();
 
-                    //刷新英雄属性
-                    hero.EventCenter.Raise(new HeroLevelUp());
-
+                    if (GameProcessor.Inst.RefreshSkill)
+                    {
+                        GameProcessor.Inst.RefreshSkill = false;
+                        hero.OnDestroy();
+                        GameProcessor.Inst.PlayerManager.LoadHero();
+                    }
+                    else
+                    {
+                        //刷新英雄属性
+                        hero.EventCenter.Raise(new HeroLevelUp());
+                    }
+  
                     //自动跳转
                     GameProcessor.Inst.EventCenter.Raise(new ChangeFloorEvent() { });
                 }
@@ -77,7 +89,7 @@ namespace Game
 
         protected void MakeReward()
         {
-            Log.Info("Tower Success");
+            //Log.Info("Tower Success");
 
             start = false;
             User user = GameProcessor.Inst.User;

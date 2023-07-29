@@ -40,6 +40,8 @@ namespace Game
         private long saveTime = 0;
         private string OfflineMessage = "";
 
+        public bool RefreshSkill = false; //是否要刷新技能
+
         private PocketAD.AdStateCallBack adStateCallBack;
         
         private bool isGameOver { get; set; } = true;

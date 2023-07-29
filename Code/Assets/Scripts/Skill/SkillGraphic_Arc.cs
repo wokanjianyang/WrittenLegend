@@ -23,7 +23,7 @@ namespace Game
             {
                 var selfPos = GameProcessor.Inst.MapData.GetWorldPosition(SelfPlayer.Cell);
 
-                Log.Info("arc self :" + SelfPlayer.Cell.ToString());
+                //Log.Info("arc self :" + SelfPlayer.Cell.ToString());
                 effectCom.transform.SetParent(GameProcessor.Inst.EffectRoot);
                 effectCom.transform.localPosition = selfPos;
 
@@ -31,7 +31,7 @@ namespace Game
 
                 foreach (Vector3Int cell in cells)
                 {
-                    Log.Info("arc cell :" + cell.ToString());
+                    //Log.Info("arc cell :" + cell.ToString());
 
                     var targetPos = GameProcessor.Inst.MapData.GetWorldPosition(cell);
                     Log.Info("arc targetPos :" + targetPos.ToString());

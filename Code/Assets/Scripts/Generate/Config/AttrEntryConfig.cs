@@ -89,13 +89,19 @@ namespace Game
 		public string Desc { get; set; }
 		/// <summary>最小值</summary>
 		[ProtoMember(5)]
-		public int Min { get; set; }
+		public int MinValue { get; set; }
 		/// <summary>最大值</summary>
 		[ProtoMember(6)]
-		public int Max { get; set; }
+		public int MaxValue { get; set; }
 		/// <summary>所属装备位置</summary>
 		[ProtoMember(7)]
 		public int[] PartList { get; set; }
+		/// <summary>等级</summary>
+		[ProtoMember(8)]
+		public int MinLevel { get; set; }
+		/// <summary>等级</summary>
+		[ProtoMember(9)]
+		public int MaxLevel { get; set; }
 
 	}
 }
