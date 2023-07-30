@@ -131,5 +131,6 @@ namespace Game
         Strength = 3, //强化装备
         ToCopy = 4, //挑战副本
         Recovery = 5, //设置回收
+        SkillBook = 6, //设置回收
     }
 }

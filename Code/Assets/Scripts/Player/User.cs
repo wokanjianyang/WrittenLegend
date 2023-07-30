@@ -145,6 +145,8 @@ namespace Game
 
             SkillData skillData;
 
+            TaskHelper.CheckTask(TaskType.SkillBook, 1);
+
             if (e.IsLearn)
             {
                 //第一次学习，创建技能数据

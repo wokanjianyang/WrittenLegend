@@ -82,7 +82,10 @@ namespace Game
             GameProcessor.Inst.User.BuildReword();
 
             //计算离线
-            OfflineReward();
+            if (User.SecondExpTick > 0)
+            {
+                OfflineReward();
+            }
 
             var coms = Canvas.FindObjectsOfType<MonoBehaviour>(true);
             var battleComs = coms.Where(com => com is IBattleLife).Select(com=>com as IBattleLife).ToList();
