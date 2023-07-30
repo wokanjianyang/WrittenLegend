@@ -121,20 +121,20 @@ public class BattleRule_Tower : ABattleRule
             }
         }
 
-        if (Start && mc5 <= 0)
+        if (Start && mc5 <= 0 && mc4 <= 0 && mc3 <= 0 && mc2 <= 0 && mc1 <= 0)
         {
             Start = false;
-
-            //闯关成功
-            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
-            {
-                Message = BattleMsgHelper.BuildCopySuccessMessage(),
-                BattleType = BattleType.Tower
-            });
 
             User user = GameProcessor.Inst.User;
             if (user.MapId == mapConfig.Id)
             {
+                //闯关成功
+                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+                {
+                    Message = BattleMsgHelper.BuildCopySuccessMessage(),
+                    BattleType = BattleType.Tower
+                });
+
                 user.MapId = mapConfig.Id + 1;
             }
         }

@@ -35,6 +35,7 @@ namespace Game
             {nameof(AttributeEnum.SecondExp), "泡点经验" },
             {nameof(AttributeEnum.RestoreHp), "每秒回血" },
             {nameof(AttributeEnum.RestoreHpPercent), "每秒回血上限" },
+            {nameof(AttributeEnum.QualityIncrea), "品质加成" },
             {nameof(AttributeEnum.EquipBaseIncrea), "装备基础属性提升" },
             {nameof(AttributeEnum.EquipQualityIncrea), "装备品质属性提升" },
         };

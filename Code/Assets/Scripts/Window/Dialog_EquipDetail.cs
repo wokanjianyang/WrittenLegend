@@ -268,7 +268,7 @@ namespace Game
         {
             string unit = "点";
 
-            List<int> percents = (new int[] { 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 23, 41, 43, 45 }).ToList(); ;
+            List<int> percents = (new int[] { 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 23, 24, 41, 43, 45 }).ToList(); ;
 
             if (percents.Contains(attr))
             {
