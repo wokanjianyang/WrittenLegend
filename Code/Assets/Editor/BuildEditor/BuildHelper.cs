@@ -119,11 +119,12 @@ namespace ET
             BuildHelper.Build(BuildType.Release,PlatformType.Android, BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, opa, true, true, true);
         }
 
-        [MenuItem("开发工具/生成正式包64位")]
+        [MenuItem("开发工具/生成正式包64位安卓8.0")]
         public static void BuildRelease()
         {
             PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android,ScriptingImplementation.IL2CPP);
             PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64;
+            PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel26;
             PlayerSettings.applicationIdentifier = "com.fulljoblegend.android";
             PlayerSettings.Android.useCustomKeystore = true;
 
@@ -132,6 +133,19 @@ namespace ET
             BuildHelper.Build(BuildType.Release,PlatformType.Android, BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, opa, true, true, true);
         }
 
+        [MenuItem("开发工具/生成正式包全CPU安卓7.1")]
+        public static void BuildReleaseAll()
+        {
+            PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android,ScriptingImplementation.IL2CPP);
+            PlayerSettings.Android.targetArchitectures = AndroidArchitecture.All;
+            PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel25;
+            PlayerSettings.applicationIdentifier = "com.fulljoblegend.android";
+            PlayerSettings.Android.useCustomKeystore = true;
+
+            var opa = BuildOptions.CompressWithLz4HC;
+
+            BuildHelper.Build(BuildType.Release,PlatformType.Android, BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, opa, true, true, true);
+        }
         public static void Build(BuildType buildType,PlatformType type, BuildAssetBundleOptions buildAssetBundleOptions, BuildOptions buildOptions, bool isBuildExe, bool isContainAB, bool clearFolder)
         {
             
