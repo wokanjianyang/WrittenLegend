@@ -198,6 +198,11 @@ namespace Game
                             var child = tran_SkillAttribute.Find(string.Format("Attribute_{0}", index));
                             child.GetComponent<Text>().text = string.Format(" {0}", equip.SkillRuneConfig.Des);
                             child.gameObject.SetActive(true);
+
+                            index = 1;
+                            child = tran_SkillAttribute.Find(string.Format("Attribute_{0}", index));
+                            child.GetComponent<Text>().text = string.Format(" 最大生效数量{0}", equip.SkillRuneConfig.Max);
+                            child.gameObject.SetActive(true);
                         }
 
                         if (equip.SkillSuitConfig != null)

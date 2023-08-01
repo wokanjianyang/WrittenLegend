@@ -48,7 +48,7 @@ namespace Game
             //TEST data
             //user.Gold = 99999999; 
             //user.Level = 4435;
-            //user.TaskId = 6;
+            //user.MapId = 1026;
             return user;
         }
 
