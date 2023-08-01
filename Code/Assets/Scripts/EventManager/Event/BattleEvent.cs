@@ -155,4 +155,9 @@ namespace Game
     {
       
     }
+
+    public class BattleLoseEvent : SDD.Events.Event
+    {
+        
+    }
 }

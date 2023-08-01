@@ -26,32 +26,32 @@ public class Monster_Tower : APlayer
         this.config = config;
 
         this.Camp = PlayerType.Enemy;
-        this.Name = Floor + "²ãÊØ½«";
+        this.Name = Floor + "å±‚å®ˆå°†";
         this.Level = Floor;
 
-        this.SetAttr();  //ÉèÖÃÊôĞÔÖµ
-        this.SetSkill(); //ÉèÖÃ¼¼ÄÜ
+        this.SetAttr();  //è®¾ç½®å±æ€§å€¼
+        this.SetSkill(); //è®¾ç½®æŠ€èƒ½
 
         base.Load();
-        this.Logic.SetData(null); //ÉèÖÃUI
+        this.Logic.SetData(null); //è®¾ç½®UI
     }
 
     private void SetSkill()
     {
-        //¼ÓÔØ¼¼ÄÜ
+        //åŠ è½½æŠ€èƒ½
         List<SkillData> list = new List<SkillData>();
         //if (config.SkillIdList.Length > 0)
         //{
         //    int i = this.Index % config.SkillIdList.Length;
         //    SkillData skill = new SkillData(config.SkillIdList[i], 1);
-        //    SkillData skill = new SkillData(10004, i); //²âÊÔ¼¼ÄÜ´úÂë
+        //    SkillData skill = new SkillData(10004, i); //æµ‹è¯•æŠ€èƒ½ä»£ç 
         //    skill.SkillConfig.CD = 2;
         //    skill.Status = SkillStatus.Equip;
         //    skill.Position = 1;
         //    skill.Level = 1;
         //    SkillList.Add(skill);
         //}
-        list.Add(new SkillData(9001, (int)SkillPosition.Default)); //Ôö¼ÓÄ¬ÈÏ¼¼ÄÜ
+        list.Add(new SkillData(9001, (int)SkillPosition.Default)); //å¢åŠ é»˜è®¤æŠ€èƒ½
 
         foreach (SkillData skillData in list)
         {

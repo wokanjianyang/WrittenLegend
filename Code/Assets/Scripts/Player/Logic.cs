@@ -79,6 +79,12 @@ namespace Game
 
             //设置血量
             this.SelfPlayer.SetHP(SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.HP));
+            
+                        
+            this.SelfPlayer.EventCenter.Raise(new SetPlayerHPEvent
+            {
+                HP = SelfPlayer.HP.ToString()
+            });
         }
 
         public void ResetData()
@@ -91,6 +97,12 @@ namespace Game
             SetData(dict);
             IsSurvice = true;
             BattleAttributeMap.Clear();
+            
+            this.SelfPlayer.EventCenter.Raise(new SetPlayerHPEvent
+            {
+                HP = SelfPlayer.HP.ToString()
+            });
+            this.SelfPlayer.SetPosition(GameProcessor.Inst.PlayerManager.RandomCell(this.SelfPlayer.Cell));
         }
 
         public void OnDamage(int fromId,long damage)
@@ -106,26 +118,25 @@ namespace Game
             //Debug.Log($"{(this.SelfPlayer.Name)} 受到伤害:{(damage)} ,剩余血量:{(currentHP)}");
 
             AddBattleAttribute(AttributeEnum.HP, damage * -1);
-            GameProcessor.Inst.DelayAction(0.5f, () =>
+
+            this.SelfPlayer.SetHP(currentHP);
+
+            this.playerEvents.Add(new SetPlayerHPEvent
             {
-                this.SelfPlayer.SetHP(currentHP);
+                HP = currentHP.ToString()
             });
             if (currentHP == 0)
             {
-                GameProcessor.Inst.DelayAction(0.5f, () =>
+                IsSurvice = false;
+                this.playerEvents.Add(new PlayerDeadEvent
                 {
-                    IsSurvice = false;
-                    this.playerEvents.Add(new PlayerDeadEvent
-                    {
-                        RoundNum = SelfPlayer.RoundCounter
-                    });
-                    this.playerEvents.Add(new DeadRewarddEvent
-                    {
-                        FromId = fromId,
-                        ToId = SelfPlayer.ID
-                    });
+                    RoundNum = SelfPlayer.RoundCounter
                 });
-                
+                this.playerEvents.Add(new DeadRewarddEvent
+                {
+                    FromId = fromId,
+                    ToId = SelfPlayer.ID
+                });
             }
             else
             {

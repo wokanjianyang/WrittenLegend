@@ -9,6 +9,7 @@ namespace Game
         private PlayerActionType actionType = PlayerActionType.None;
         private Vector3Int lastClickCell = default;
         private float defaultWaitInputTime = 5f;
+        protected override RuleType ruleType => RuleType.Survivors;
 
         public override void DoHeroLogic()
         {

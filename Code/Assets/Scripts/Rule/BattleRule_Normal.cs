@@ -11,6 +11,8 @@ namespace Game
     {
         private bool start = false;
 
+        protected override RuleType ruleType => RuleType.Normal;
+
         public override void DoHeroLogic()
         {
             var hero = GameProcessor.Inst.PlayerManager.GetHero();

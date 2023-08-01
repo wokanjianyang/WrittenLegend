@@ -15,6 +15,7 @@ public class BattleRule_Tower : ABattleRule
 
     private const int MaxQuanlity = 20; //最多数量
     private const int MaxFreshQuanlity = 5; //最多刷新数量
+    protected override RuleType ruleType => RuleType.Tower;
 
     public BattleRule_Tower(int mapId)
     {
