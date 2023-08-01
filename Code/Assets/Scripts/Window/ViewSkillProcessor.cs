@@ -48,7 +48,7 @@ namespace Game
 
         private void OnHeroUpdateSkillEvent(HeroUpdateSkillEvent e)
         {
-            GameProcessor.Inst.RefreshSkill = true;
+            // GameProcessor.Inst.RefreshSkill = true;
             SkillToBattle(e.SkillPanel);
             //UserData.Save(); //修改技能后，存档
         }
@@ -69,10 +69,12 @@ namespace Game
             {
                 this.CreateBook(skill);
             }
+            var hero = GameProcessor.Inst.PlayerManager.GetHero();
 
             if (skill.SkillData.Status == SkillStatus.Learn)
             {
                 this.equipSkills.RemoveAll(b => b.SkillPanel.SkillId == skill.SkillId);
+                hero.SelectSkillList.RemoveAll(b => b.SkillPanel.SkillId == skill.SkillId);
             }
             else
             {
@@ -84,6 +86,9 @@ namespace Game
                     var com = this.tran_EquipSkills.GetChild(position).GetComponent<Com_Skill>();
                     com.SetItem(skill);
                     this.equipSkills.Add(com);
+
+                    SkillState ss = new SkillState(hero, skill, skill.SkillData.Position, 0);
+                    hero.SelectSkillList.Add(ss);
                 }
             }
         }

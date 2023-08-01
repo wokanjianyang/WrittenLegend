@@ -61,13 +61,13 @@ namespace Game
                 { //闯关奖励
                     MakeReward();
 
-                    if (GameProcessor.Inst.RefreshSkill)
-                    {
-                        GameProcessor.Inst.RefreshSkill = false;
-                        hero.OnDestroy();
-                        GameProcessor.Inst.PlayerManager.LoadHero();
-                    }
-                    else
+                    // if (GameProcessor.Inst.RefreshSkill)
+                    // {
+                    //     GameProcessor.Inst.RefreshSkill = false;
+                    //     hero.OnDestroy();
+                    //     GameProcessor.Inst.PlayerManager.LoadHero();
+                    // }
+                    // else
                     {
                         //刷新英雄属性
                         hero.EventCenter.Raise(new HeroLevelUp());

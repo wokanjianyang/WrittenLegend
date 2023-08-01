@@ -6,9 +6,8 @@ using Game;
 using SDD.Events;
 using UnityEngine;
 
-public class SkillProcessor : MonoBehaviour,IPlayer
+public class SkillProcessor : MonoBehaviour
 {
-    private List<SkillState> allSkills;
 
     private void Awake()
     {
@@ -23,27 +22,5 @@ public class SkillProcessor : MonoBehaviour,IPlayer
     void Update()
     {
         
-    }
-
-    public void InitSkill(APlayer player)
-    {
-        this.allSkills = new List<SkillState>();
-        foreach (var data in player.SelectSkillList)
-        {
-            this.allSkills.Add(data);
-        }
-    }
-
-    //public void UseSkill(int targetId)
-    //{
-    //    var skills = this.allSkills.FindAll(s => s.IsCanUse());
-    //    var skill = skills?.FirstOrDefault();
-    //    skill?.Do(targetId);
-    //}
-
-    public APlayer SelfPlayer { get; set; }
-    public void SetParent(APlayer player)
-    {
-        this.SelfPlayer = player;
     }
 }

@@ -95,7 +95,6 @@ namespace Game
                     _com.SetParent(hero);
                 }
             }
-            hero.GetComponent<SkillProcessor>().InitSkill(hero);
 
             var x = GameProcessor.Inst.MapData.ColCount / 2;
             var y = GameProcessor.Inst.MapData.RowCount / 2;
@@ -132,7 +131,6 @@ namespace Game
                         _com.SetParent(enemy);
                     }
                 }
-                enemy.GetComponent<SkillProcessor>().InitSkill(enemy);
                 enemy.SetPosition(bornCell, true);
                 this.AddPlayer(enemy);
             }
