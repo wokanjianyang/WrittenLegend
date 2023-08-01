@@ -48,6 +48,7 @@ namespace Game
 
         private void OnHeroUpdateSkillEvent(HeroUpdateSkillEvent e)
         {
+            GameProcessor.Inst.RefreshSkill = true;
             SkillToBattle(e.SkillPanel);
             //UserData.Save(); //修改技能后，存档
         }

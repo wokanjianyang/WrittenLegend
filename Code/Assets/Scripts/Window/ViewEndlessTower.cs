@@ -65,7 +65,7 @@ namespace Game
             User user = GameProcessor.Inst.User;
 
             var maxFloor = TowerConfigCategory.Instance.GetAll().Count;
-            var minFloor = 0;
+            long minFloor = 0;
             if (user.TowerFloor == maxFloor)
             {
                 minFloor = user.TowerFloor - 2;

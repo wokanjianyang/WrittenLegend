@@ -53,7 +53,7 @@ namespace Game
             if (value > 1)
             {
                 value = 1;
-                current = total;
+                //current = total;
             }
             this.img_Progress.fillAmount = value;
             switch (this.ProgressType)

@@ -43,7 +43,7 @@ namespace Game
                     color = "FF0000";
                     break;
                 case MsgType.Restore:
-                    color = "22DD22";
+                    color = "00A86B";
                     break;
                 case MsgType.Crit:
                     color = "E3EA6F";

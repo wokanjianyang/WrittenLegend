@@ -23,8 +23,11 @@ namespace Game
         [LabelText("道具")]
         public Toggle toggle_Prop;
 
+        //[LabelText("整理")]
+        //public Toggle toggle_Forging;
+
         [LabelText("整理")]
-        public Toggle toggle_Forging;
+        public Button btn_Reset;
 
         [Title("包裹格子")]
         [LabelText("包裹")]
@@ -48,7 +51,7 @@ namespace Game
         {
             this.btn_PlayerTitle.onClick.AddListener(this.OnClick_PlayerTitle);
             this.btn_Setting.onClick.AddListener(this.OnClick_Setting);
-            this.toggle_Forging.onValueChanged.AddListener(OnRefreshBag);
+            this.btn_Reset.onClick.AddListener(OnRefreshBag);
         }
 
         // Update is called once per frame
@@ -94,10 +97,9 @@ namespace Game
             }
         }
 
-        private void OnRefreshBag(bool state) {
-            if (state) {
-                RefreshBag();
-            }
+        private void OnRefreshBag()
+        {
+            RefreshBag();
         }
 
         private void RefreshBag()

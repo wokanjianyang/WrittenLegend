@@ -14,16 +14,21 @@ namespace Game
     {
         public static SkillRuneConfig RandomRune(int role)
         {
-            List<SkillRuneConfig> list = SkillRuneConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
-
-            List<int> roleSkillIdList = SkillConfigCategory.Instance.GetAll().Where(m => m.Value.Role == role).Select(m => m.Value.SkillId).ToList();
-
-            if (role > 0)
+            int skillId = role * 1000;
+            int index = RandomHelper.RandomNumber(0, ConfigHelper.RuneRate[ConfigHelper.RuneRate.Length - 1]);
+            for (int i = 0; i < ConfigHelper.RuneRate.Length; i++)
             {
-                list = list.Where(m => roleSkillIdList.Contains(m.SkillId)).ToList();
+                if (index < ConfigHelper.RuneRate[i])
+                {
+                    skillId = skillId + (7 - i);
+                    break;
+                }
             }
 
-            int index = RandomHelper.RandomNumber(0, list.Count);
+            List<SkillRuneConfig> list = SkillRuneConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.SkillId == skillId).ToList();
+
+            index = RandomHelper.RandomNumber(0, list.Count);
+
             return list[index];
         }
     }

@@ -23,7 +23,7 @@ namespace Game
             {
                 var selfPos = GameProcessor.Inst.MapData.GetWorldPosition(SelfPlayer.Cell);
 
-                Log.Info("self :" + SelfPlayer.Cell.ToString());
+                //Log.Info("self :" + SelfPlayer.Cell.ToString());
                 effectCom.transform.SetParent(GameProcessor.Inst.EffectRoot);
                 effectCom.transform.localPosition = selfPos;
 

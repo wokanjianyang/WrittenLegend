@@ -317,7 +317,7 @@ public class ViewForgeProcessor : AViewPage
             }
         }
 
-        sr_Right.verticalNormalizedPosition = 0;
+        //sr_Right.horizontalNormalizedPosition = 0;
     }
 
     private void OnCompositeUIFreshEvent(CompositeUIFreshEvent e)

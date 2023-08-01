@@ -76,7 +76,7 @@ namespace Game
             this.UUID = System.Guid.NewGuid().ToString("N");
             this.EventCenter = new EventManager();
             this.AttributeBonus = new AttributeBonus();
-            this.SkillUseRoundCache = new Dictionary<int, int>(); 
+            this.SkillUseRoundCache = new Dictionary<int, int>();
             this.SelectSkillList = new List<SkillState>();
 
             //this.Load();
@@ -105,6 +105,12 @@ namespace Game
 
             //加载技能
             //LoadSkill();
+        }
+
+        internal SkillPanel GetOfflineSkill()
+        {
+            List<SkillPanel> list = SelectSkillList.Where(m => m.SkillPanel.CD == 0).Select(m => m.SkillPanel).OrderBy(m => m.Percent).ToList();
+            return list.Count > 0 ? list[list.Count - 1] : new SkillPanel(new SkillData(9001, (int)SkillPosition.Default), new List<SkillRune>(), new List<SkillSuit>());
         }
 
         //public void LoadSkill()
@@ -138,77 +144,17 @@ namespace Game
 
         public virtual long GetRoleAttack(int role)
         {
-            long attack = 0;
-            switch (role)
-            {
-                case (int)RoleType.Warrior:
-                    {
-                        attack = this.AttributeBonus.GetTotalAttr(AttributeEnum.PhyAtt);
-                        break;
-                    }
-                case (int)RoleType.Mage:
-                    {
-                        attack = this.AttributeBonus.GetTotalAttr(AttributeEnum.MagicAtt);
-                        break;
-                    }
-                case (int)RoleType.Warlock:
-                    {
-                        attack = this.AttributeBonus.GetTotalAttr(AttributeEnum.SpiritAtt);
-                        break;
-                    }
-            }
-
-            return attack;
+            return DamageHelper.GetRoleAttack(this.AttributeBonus, role);
         }
 
         public long GetRolePercent(int role)
         {
-            long attack = 0;
-            switch (role)
-            {
-                case (int)RoleType.Warrior:
-                    {
-                        attack = this.AttributeBonus.GetTotalAttr(AttributeEnum.WarriorSkillPercent);
-                        break;
-                    }
-                case (int)RoleType.Mage:
-                    {
-                        attack = this.AttributeBonus.GetTotalAttr(AttributeEnum.MageSkillPercent);
-                        break;
-                    }
-                case (int)RoleType.Warlock:
-                    {
-                        attack = this.AttributeBonus.GetTotalAttr(AttributeEnum.WarlockSkillPercent);
-                        break;
-                    }
-            }
-
-            return attack;
+            return DamageHelper.GetRolePercent(this.AttributeBonus, role);
         }
 
         public long GetRoleDamage(int role)
         {
-            long attack = 0;
-            switch (role)
-            {
-                case (int)RoleType.Warrior:
-                    {
-                        attack = this.AttributeBonus.GetTotalAttr(AttributeEnum.WarriorSkillDamage);
-                        break;
-                    }
-                case (int)RoleType.Mage:
-                    {
-                        attack = this.AttributeBonus.GetTotalAttr(AttributeEnum.MageSkillDamage);
-                        break;
-                    }
-                case (int)RoleType.Warlock:
-                    {
-                        attack = this.AttributeBonus.GetTotalAttr(AttributeEnum.WarlockSkillDamage);
-                        break;
-                    }
-            }
-
-            return attack;
+            return DamageHelper.GetRoleDamage(this.AttributeBonus, role);
         }
 
 
@@ -269,8 +215,8 @@ namespace Game
             }
 
             //回血
-            long restoreHp = AttributeBonus.GetTotalAttr(AttributeEnum.RestoreHp)+
-                AttributeBonus.GetTotalAttr(AttributeEnum.RestoreHpPercent) * AttributeBonus.GetTotalAttr(AttributeEnum.HP)/100;
+            long restoreHp = AttributeBonus.GetTotalAttr(AttributeEnum.RestoreHp) +
+                AttributeBonus.GetTotalAttr(AttributeEnum.RestoreHpPercent) * AttributeBonus.GetTotalAttr(AttributeEnum.HP) / 100;
             if (restoreHp > 0)
             {
                 this.OnRestore(this.ID, restoreHp);
@@ -280,7 +226,7 @@ namespace Game
             {
                 return; //如果有控制技能，不继续后续行动
             }
-            
+
             this.FindNearestEnemy();
 
             SkillState skill = this.GetSkill();
@@ -321,7 +267,7 @@ namespace Game
                 EffectMap[effectData.FromId] = list;
             }
 
-            if (list.Count>0 && list.Count >= effectData.Max)
+            if (list.Count > 0 && list.Count >= effectData.Max)
             {
                 //移除旧的
                 list.RemoveRange(0, list.Count - effectData.Max + 1);
@@ -416,11 +362,13 @@ namespace Game
             }
         }
 
-        public void OnRestore(int fromId, long hp) {
+        public void OnRestore(int fromId, long hp)
+        {
             this.Logic.OnRestore(hp);
         }
 
-        public void SetHP(long hp) {
+        public void SetHP(long hp)
+        {
             this.HP = hp;
 
             EventCenter.Raise(new SetPlayerHPEvent
@@ -436,6 +384,12 @@ namespace Game
 
         public void OnDestroy()
         {
+            //foreach (var skill in this.SelectSkillList)
+            //{
+            //    skill.Destory();
+            //}
+            //SelectSkillList.Clear();
+
             this.EventCenter.RemoveAllListeners();
             if (this.Transform != null)
             {

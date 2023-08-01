@@ -38,7 +38,10 @@ namespace Game
 
         private bool isLoadMap = false;
         private long saveTime = 0;
-        
+        private string OfflineMessage = "";
+
+        public bool RefreshSkill = false; //是否要刷新技能
+
         private PocketAD.AdStateCallBack adStateCallBack;
         
         private bool isGameOver { get; set; } = true;
@@ -78,6 +81,12 @@ namespace Game
             //加载礼包奖励
             GameProcessor.Inst.User.BuildReword();
 
+            //计算离线
+            if (User.SecondExpTick > 0)
+            {
+                OfflineReward();
+            }
+
             var coms = Canvas.FindObjectsOfType<MonoBehaviour>(true);
             var battleComs = coms.Where(com => com is IBattleLife).Select(com=>com as IBattleLife).ToList();
             battleComs.Sort((a, b) =>
@@ -105,6 +114,60 @@ namespace Game
             adStateCallBack += OnAdStateCallBack;
         }
 
+        private void OfflineReward()
+        {
+            long currentTick = TimeHelper.ClientNowSeconds();
+            long offlineTime = currentTick - User.SecondExpTick;
+
+            long offlineFloor = 0;
+            long rewardExp = 0;
+            long rewardGold = 0;
+
+            long tempTime = Math.Min(offlineTime, 12 * 3600);
+            while (tempTime > 0)
+            {
+                long tmepFloor = User.TowerFloor + offlineFloor + 100;
+                TowerConfig config = TowerConfigCategory.Instance.GetByFloor(tmepFloor); //quick
+
+                AttributeBonus offlineHero = User.AttributeBonus;
+                AttributeBonus offlineTower = MonsterTowerHelper.BuildOffline(tmepFloor);
+
+                SkillPanel sp = new SkillPanel(new SkillData(9001, (int)SkillPosition.Default), new List<SkillRune>(), new List<SkillSuit>());
+
+                int roundHeroToTower = DamageHelper.CalcAttackRound(offlineHero, offlineTower, sp);
+                int roundTowerToHero = DamageHelper.CalcAttackRound(offlineTower, offlineHero, sp);
+
+                if (roundHeroToTower > roundTowerToHero)
+                {
+                    //fail
+                    tempTime = 0;
+                }
+                else
+                {
+                    long floorTime = roundHeroToTower + 5; //5s find monster
+                    long maxFloor = Math.Min(tempTime / floorTime, 100);
+
+                    offlineFloor += maxFloor;
+                    rewardExp += maxFloor * config.Exp;
+                    rewardGold += maxFloor * config.Gold;
+                    tempTime -= Math.Max(maxFloor, 1) * floorTime;
+                }
+            }
+
+            User.TowerFloor += offlineFloor;
+
+            long exp = User.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp) * (offlineTime / 5);
+            long gold = User.AttributeBonus.GetTotalAttr(AttributeEnum.SecondGold) * (offlineTime / 5);
+
+            User.AddExpAndGold(rewardExp + exp, rewardGold + gold);
+            User.SecondExpTick = currentTick;
+
+            OfflineMessage = BattleMsgHelper.BuildOfflineMessage(offlineTime, offlineFloor, rewardExp, rewardGold, exp, gold);
+            Debug.Log(OfflineMessage);
+
+            UserData.Save();
+        }
+
         void Update()
         {
             if (this.IsGameRunning())
@@ -116,26 +179,34 @@ namespace Game
                 this.BattleRule?.OnUpdate();
             }
 
+            if (OfflineMessage != "")
+            {
+                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+                {
+                    Message = OfflineMessage
+                });
+                OfflineMessage = "";
+            }
+
             //计算泡点经验
-            User user = GameProcessor.Inst.User;
-            if (user != null)
+            if (User != null)
             {
                 int interval = 5;
-                if (user.SecondExpTick == 0)
+                if (User.SecondExpTick == 0)
                 {
-                    user.SecondExpTick = TimeHelper.ClientNowSeconds();
+                    User.SecondExpTick = TimeHelper.ClientNowSeconds();
                 }
                 else
                 {
-                    long calTk = (TimeHelper.ClientNowSeconds() - user.SecondExpTick) / interval;
+                    long calTk = (TimeHelper.ClientNowSeconds() - User.SecondExpTick) / interval;
                     if (calTk >= 1)
                     {  //5秒计算一次经验,金币
-                        user.SecondExpTick += interval * calTk;
-                        long exp = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp) * calTk;
-                        long gold = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondGold) * calTk;
+                        User.SecondExpTick += interval * calTk;
+                        long exp = User.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp) * calTk;
+                        long gold = User.AttributeBonus.GetTotalAttr(AttributeEnum.SecondGold) * calTk;
                         if (exp > 0 || gold > 0)
                         {
-                            user.AddExpAndGold(exp, gold);
+                            User.AddExpAndGold(exp, gold);
 
                             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
                             {

@@ -22,7 +22,9 @@ namespace Game
 
         public int GetLevelUpExp()
         {
-            return Level * SkillConfig.Exp;
+            int rate = Mathf.Min(10, Level + 5);
+
+            return rate * SkillConfig.Exp;
         }
 
         public SkillData(int skillId, int position)

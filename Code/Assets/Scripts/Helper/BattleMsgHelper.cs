@@ -57,7 +57,12 @@ namespace Game
             return $"获得经验收益{exp}，金币收益{gold}";
         }
 
-        public static string BuildTowerSuccessMessage(long riseExp, long riseGold, long exp, long gold, int floor)
+        public static string BuildOfflineMessage(long time,long floor, long exp, long gold, long secondExp, long secondGold)
+        {
+            return $"离线时间{time}S,闯关{floor}层,获得闯关经验{exp}，闯关金币{gold},经验收益{secondExp}，金币收益{secondGold}";
+        }
+
+        public static string BuildTowerSuccessMessage(long riseExp, long riseGold, long exp, long gold, long floor)
         {
             return $"<color=white>闯关成功,获得经验奖励:{exp},金币奖励:{gold} ,提升经验收益:{riseExp},金币收益:{riseGold},进入第{floor}层</color>";
         }

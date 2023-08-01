@@ -1,7 +1,9 @@
 {"list":[
-{"_t":"LevelConfig","_id":1,"StartLevel":1,"EndLevel":1000,"StartAttr":10,"RiseAttr":1,"StartDef":1,"RiseDef":1,"StartHp":50,"RiseHp":10,"StartExp":100,"RiseExp":10},
-{"_t":"LevelConfig","_id":2,"StartLevel":1001,"EndLevel":2000,"StartAttr":110,"RiseAttr":1,"StartDef":101,"RiseDef":1,"StartHp":1000,"RiseHp":10,"StartExp":10100,"RiseExp":20},
-{"_t":"LevelConfig","_id":3,"StartLevel":2001,"EndLevel":3000,"StartAttr":1010,"RiseAttr":1,"StartDef":1001,"RiseDef":1,"StartHp":20000,"RiseHp":10,"StartExp":30100,"RiseExp":30},
-{"_t":"LevelConfig","_id":4,"StartLevel":3001,"EndLevel":3998,"StartAttr":10010,"RiseAttr":1,"StartDef":10001,"RiseDef":1,"StartHp":300000,"RiseHp":10,"StartExp":60100,"RiseExp":40},
-{"_t":"LevelConfig","_id":5,"StartLevel":3099,"EndLevel":1000000,"StartAttr":100010,"RiseAttr":1,"StartDef":100001,"RiseDef":1,"StartHp":4000000,"RiseHp":10,"StartExp":100000,"RiseExp":0},
+{"_t":"LevelConfig","_id":1,"StartLevel":1,"EndLevel":1000,"StartAttr":10,"RiseAttr":1,"StartDef":1,"RiseDef":0.2,"StartHp":50,"RiseHp":10,"StartExp":100,"RiseExp":10},
+{"_t":"LevelConfig","_id":2,"StartLevel":1001,"EndLevel":3000,"StartAttr":1010,"RiseAttr":1,"StartDef":201,"RiseDef":0.2,"StartHp":10050,"RiseHp":10,"StartExp":10100,"RiseExp":20},
+{"_t":"LevelConfig","_id":3,"StartLevel":3001,"EndLevel":6000,"StartAttr":3010,"RiseAttr":1,"StartDef":601,"RiseDef":0.2,"StartHp":30050,"RiseHp":10,"StartExp":50100,"RiseExp":30},
+{"_t":"LevelConfig","_id":4,"StartLevel":6001,"EndLevel":10000,"StartAttr":6010,"RiseAttr":1,"StartDef":1201,"RiseDef":0.2,"StartHp":60050,"RiseHp":10,"StartExp":140100,"RiseExp":40},
+{"_t":"LevelConfig","_id":5,"StartLevel":10001,"EndLevel":20000,"StartAttr":10010,"RiseAttr":1,"StartDef":2001,"RiseDef":0.2,"StartHp":100050,"RiseHp":10,"StartExp":300100,"RiseExp":50},
+{"_t":"LevelConfig","_id":6,"StartLevel":20001,"EndLevel":23330,"StartAttr":20010,"RiseAttr":1,"StartDef":4001,"RiseDef":0.2,"StartHp":200050,"RiseHp":10,"StartExp":800100,"RiseExp":60},
+{"_t":"LevelConfig","_id":7,"StartLevel":23331,"EndLevel":21000,"StartAttr":23340,"RiseAttr":1,"StartDef":4667,"RiseDef":0.2,"StartHp":233350,"RiseHp":10,"StartExp":1000000,"RiseExp":0},
 ]}

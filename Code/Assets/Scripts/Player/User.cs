@@ -67,7 +67,7 @@ namespace Game
         /// <summary>
         /// ÎÞ¾¡Ëþ²ãÊý
         /// </summary>
-        public int TowerFloor { get; set; } = 1;
+        public long TowerFloor { get; set; } = 1;
 
         public int MapId { get; set; } = 1000;
 
@@ -144,6 +144,8 @@ namespace Game
             SkillBook Book = e.Item as SkillBook;
 
             SkillData skillData;
+
+            TaskHelper.CheckTask(TaskType.SkillBook, 1);
 
             if (e.IsLearn)
             {

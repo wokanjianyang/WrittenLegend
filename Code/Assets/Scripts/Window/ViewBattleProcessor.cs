@@ -144,8 +144,7 @@ namespace Game
 
             if (user != null)
             {
-                int mapName = user.TowerFloor;
-                txt_MapName.text = mapName + "层";
+                txt_MapName.text = user.TowerFloor + "层";
             }
 
         }

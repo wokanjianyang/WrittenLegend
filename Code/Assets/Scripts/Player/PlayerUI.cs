@@ -135,7 +135,7 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
         var msgColor = QualityConfigHelper.GetMsgColor(e.Type);
         com.tmp_Msg_Content.text = string.Format("<color=#{0}>{1}</color>", msgColor, e.Content);
 
-        msg.transform.DOLocalMoveX(msgSize.x * 0.5f * -1, 1f).OnComplete(() =>
+        msg.transform.DOLocalMoveX(msgSize.x * 0.5f * -1, 2f).OnComplete(() =>
         {
             GameObject.Destroy(msg);
         });
