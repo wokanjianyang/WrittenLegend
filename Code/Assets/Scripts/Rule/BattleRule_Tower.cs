@@ -137,6 +137,8 @@ public class BattleRule_Tower : ABattleRule
                 });
 
                 user.MapId = mapConfig.Id + 1;
+                
+                GameProcessor.Inst.HeroDie(RuleType.Tower);
             }
         }
     }
