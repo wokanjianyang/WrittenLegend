@@ -12,7 +12,7 @@ using System;
 
 namespace Game
 {
-    public class Dialog_Recovery : MonoBehaviour, IBattleLife
+    public class Com_Recovery : MonoBehaviour, IBattleLife
     {
         [LabelText("装备回收设置")]
         public Transform tran_EquipQualityList;
@@ -45,7 +45,6 @@ namespace Game
         {
             this.btn_Done.onClick.AddListener(this.OnClick_Done);
             this.btn_Cancle.onClick.AddListener(this.OnClick_Cancle);
-            this.gameObject.SetActive(false);
 
             equipToggles = tran_EquipQualityList.GetComponentsInChildren<Toggle>();
             bookToggles = tran_BookJobList.GetComponentsInChildren<Toggle>();
@@ -60,7 +59,6 @@ namespace Game
 
         public void OnBattleStart()
         {
-            GameProcessor.Inst.EventCenter.AddListener<EquipRecoveryEvent>(this.OnEquipRecoveryEvent);
 
             //初始化
             try
@@ -119,16 +117,8 @@ namespace Game
             }
         }
 
-        private void OnEquipRecoveryEvent(EquipRecoveryEvent e)
-        {
-            this.gameObject.SetActive(true);
-
-        }
-
         public void OnClick_Done()
         {
-            this.gameObject.SetActive(false);
-
             User user = GameProcessor.Inst.User;
 
             StringBuilder sb = new StringBuilder();
@@ -193,11 +183,13 @@ namespace Game
             TaskHelper.CheckTask(TaskType.Recovery, 1);
 
             UserData.Save();
+            
+            GameProcessor.Inst.EventCenter.Raise(new DialogSettingEvent());
         }
         
         public void OnClick_Cancle()
         {
-            this.gameObject.SetActive(false); 
+            GameProcessor.Inst.EventCenter.Raise(new DialogSettingEvent());
         }
     }
 }

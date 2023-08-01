@@ -86,9 +86,9 @@ namespace Game
 
     }
 
-    public class EquipRecoveryEvent : SDD.Events.Event
+    public class DialogSettingEvent : SDD.Events.Event
     {
-
+        public bool IsOpen { get; set; }
     }
     public class BossInfoEvent : SDD.Events.Event
     {

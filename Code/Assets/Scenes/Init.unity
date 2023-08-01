@@ -1419,19 +1419,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4646332593768399965, guid: d2047e2fa46a2904f84f6489815064eb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4646332593768399965, guid: d2047e2fa46a2904f84f6489815064eb, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4646332593768399965, guid: d2047e2fa46a2904f84f6489815064eb, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 480
       objectReference: {fileID: 0}
     - target: {fileID: 4646332593768399965, guid: d2047e2fa46a2904f84f6489815064eb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -11
       objectReference: {fileID: 0}
     - target: {fileID: 4661678112483673679, guid: d2047e2fa46a2904f84f6489815064eb, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3877,6 +3877,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1308732843}
     m_Modifications:
+    - target: {fileID: 159417056380180801, guid: 104bdd38cbb6bd24788513a05727c765, type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3437557105015971551, guid: 104bdd38cbb6bd24788513a05727c765, type: 3}
       propertyPath: m_Name
       value: View_TopStatu
@@ -3964,6 +3968,14 @@ PrefabInstance:
     - target: {fileID: 3568045100260069736, guid: 104bdd38cbb6bd24788513a05727c765, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8243234312843977780, guid: 104bdd38cbb6bd24788513a05727c765, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 232
+      objectReference: {fileID: 0}
+    - target: {fileID: 8243234312843977780, guid: 104bdd38cbb6bd24788513a05727c765, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -363
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 104bdd38cbb6bd24788513a05727c765, type: 3}
@@ -5846,6 +5858,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dialog_Power
       objectReference: {fileID: 0}
+    - target: {fileID: 7232794268317082322, guid: c975bb3a9a0ffa64380838fed25c0f99, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7232794268317082325, guid: c975bb3a9a0ffa64380838fed25c0f99, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -6169,7 +6185,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8998937256192559597, guid: c00d2aa8a9c58f34b96020a2f95e0674, type: 3}
       propertyPath: m_Name
-      value: Dialog_Recovery
+      value: Dialog_Settings
       objectReference: {fileID: 0}
     - target: {fileID: 9025749899095605483, guid: c00d2aa8a9c58f34b96020a2f95e0674, type: 3}
       propertyPath: m_AnchorMax.y

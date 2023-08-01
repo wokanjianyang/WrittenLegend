@@ -577,7 +577,7 @@ namespace Game
         
         public void OnClick_Setting()
         {
-            GameProcessor.Inst.EventCenter.Raise(new EquipRecoveryEvent());
+            GameProcessor.Inst.EventCenter.Raise(new DialogSettingEvent(){IsOpen = true});
         }
 
     }
