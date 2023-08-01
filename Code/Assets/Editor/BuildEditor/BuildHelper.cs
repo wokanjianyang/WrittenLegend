@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEditor;
+using UnityEditor.Android;
+using UnityEditor.Build.Content;
 using UnityEngine;
 
 namespace ET
@@ -115,7 +117,7 @@ namespace ET
             PlayerSettings.applicationIdentifier = "com.pocket.topbrowser";
             PlayerSettings.Android.useCustomKeystore = false;
             var opa = BuildOptions.CompressWithLz4HC | BuildOptions.Development | BuildOptions.AllowDebugging | BuildOptions.ConnectWithProfiler | BuildOptions.EnableDeepProfilingSupport;
-
+            EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
             BuildHelper.Build(BuildType.Release,PlatformType.Android, BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, opa, true, true, true);
         }
 
@@ -127,7 +129,7 @@ namespace ET
             PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel26;
             PlayerSettings.applicationIdentifier = "com.fulljoblegend.android";
             PlayerSettings.Android.useCustomKeystore = true;
-
+            EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
             var opa = BuildOptions.CompressWithLz4HC;
 
             BuildHelper.Build(BuildType.Release,PlatformType.Android, BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, opa, true, true, true);
@@ -141,7 +143,7 @@ namespace ET
             PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel25;
             PlayerSettings.applicationIdentifier = "com.fulljoblegend.android";
             PlayerSettings.Android.useCustomKeystore = true;
-
+            EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
             var opa = BuildOptions.CompressWithLz4HC;
 
             BuildHelper.Build(BuildType.Release,PlatformType.Android, BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, opa, true, true, true);
