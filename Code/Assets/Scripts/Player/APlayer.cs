@@ -371,10 +371,6 @@ namespace Game
         {
             this.HP = hp;
 
-            EventCenter.Raise(new SetPlayerHPEvent
-            {
-                HP = hp.ToString()
-            });
         }
 
         public T GetComponent<T>()

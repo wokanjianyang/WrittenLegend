@@ -49,6 +49,7 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
         GameProcessor.Inst.EventCenter.AddListener<BattleMsgEvent>(this.OnBattleMsgEvent);
         GameProcessor.Inst.EventCenter.AddListener<StartCopyEvent>(this.OnStartCopy);
         GameProcessor.Inst.EventCenter.AddListener<ShowCopyInfoEvent>(this.OnShowCopyInfoEvent);
+        GameProcessor.Inst.EventCenter.AddListener<BattleLoseEvent>(this.OnBattleLoseEvent);
         //ShowMapInfo();
     }
     private void ShowMapInfo()
@@ -119,6 +120,11 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
         //msg.GetComponent<Text>().text =e.Message;
         //this.sr_BattleMsg.normalizedPosition = new Vector2(0, 0);
         //GameProcessor.Inst.EventCenter.Raise(new UpdateTowerWindowEvent());
+    }
+    
+    private void OnBattleLoseEvent(BattleLoseEvent msg)
+    {
+        this.OnClick_Exit();
     }
 
     private void OnClick_Exit()

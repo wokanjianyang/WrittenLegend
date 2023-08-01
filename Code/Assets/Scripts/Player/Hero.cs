@@ -127,6 +127,7 @@ namespace Game
         public void Resurrection()
         {
             this.Logic.ResetData();
+            this.Enemy = null;
         }
     }
 }

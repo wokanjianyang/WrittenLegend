@@ -79,6 +79,12 @@ namespace Game
 
             //设置血量
             this.SelfPlayer.SetHP(SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.HP));
+            
+                        
+            this.SelfPlayer.EventCenter.Raise(new SetPlayerHPEvent
+            {
+                HP = SelfPlayer.HP.ToString()
+            });
         }
 
         public void ResetData()
@@ -91,6 +97,12 @@ namespace Game
             SetData(dict);
             IsSurvice = true;
             BattleAttributeMap.Clear();
+            
+            this.SelfPlayer.EventCenter.Raise(new SetPlayerHPEvent
+            {
+                HP = SelfPlayer.HP.ToString()
+            });
+            this.SelfPlayer.SetPosition(GameProcessor.Inst.PlayerManager.RandomCell(this.SelfPlayer.Cell));
         }
 
         public void OnDamage(int fromId, long damage)
@@ -103,22 +115,23 @@ namespace Game
                 currentHP = 0;
             }
 
+
             if (SelfPlayer.Camp == PlayerType.Hero)
             {
                 Debug.Log($"{(this.SelfPlayer.Name)} 受到伤害:{(damage)} ,剩余血量:{(currentHP)}");
             }
 
+            AddBattleAttribute(AttributeEnum.HP, damage * -1);
+
             this.SelfPlayer.SetHP(currentHP);
 
-            //AddBattleAttribute(AttributeEnum.HP, damage * -1);
-            //GameProcessor.Inst.DelayAction(0.5f, () =>
-            //{
-
-            //});
+            this.playerEvents.Add(new SetPlayerHPEvent
+            {
+                HP = currentHP.ToString()
+            });
             if (currentHP == 0)
             {
-                //GameProcessor.Inst.DelayAction(0.5f, () =>
-                //{
+
                 IsSurvice = false;
                 this.playerEvents.Add(new PlayerDeadEvent
                 {
@@ -129,8 +142,11 @@ namespace Game
                     FromId = fromId,
                     ToId = SelfPlayer.ID
                 });
-                //});
-
+                this.playerEvents.Add(new DeadRewarddEvent
+                {
+                    FromId = fromId,
+                    ToId = SelfPlayer.ID
+                });
             }
             else
             {
@@ -140,7 +156,6 @@ namespace Game
                     Content = (damage * -1).ToString()
                 });
             }
-            //AddBattleAttribute(AttributeEnum.HP, damage * -1);
         }
 
         public void OnRestore(long hp)

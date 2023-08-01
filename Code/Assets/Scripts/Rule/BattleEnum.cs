@@ -116,6 +116,7 @@ namespace Game
 
     public enum MsgType
     {
+        Normal = 0,
         Damage = 1,
         Restore = 2,
         Crit = 3,

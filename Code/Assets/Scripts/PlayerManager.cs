@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Game
 {
@@ -171,6 +172,21 @@ namespace Game
             }
 
             return valet;
+        }
+
+        public Vector3Int RandomCell(Vector3Int currentCell)
+        {
+            var tempCells = GameProcessor.Inst.MapData.AllCells.ToList();
+            var allPlayerCells = GameProcessor.Inst.PlayerManager.GetAllPlayers().Select(p => p.Cell).ToList();
+            tempCells.RemoveAll(p => allPlayerCells.Contains(p));
+
+            if (tempCells.Count > 0)
+            {
+                var index = Random.Range(0, tempCells.Count);
+                currentCell = tempCells[index];
+            }
+
+            return currentCell;
         }
 
         public void RemoveAllDeadPlayers()

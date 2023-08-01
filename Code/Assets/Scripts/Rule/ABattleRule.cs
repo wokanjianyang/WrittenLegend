@@ -15,6 +15,8 @@ namespace Game
         protected const float roundTime = 0.5f;
         protected float currentRoundTime = 0f;
         protected bool needRefreshGraphic = false;
+
+        virtual protected RuleType ruleType => RuleType.Normal;
         virtual public void OnBattleStart()
         {
         }
@@ -73,7 +75,6 @@ namespace Game
                     case RoundType.Monster:
                         this.DoMonsterLogic();
                         this.DoMapCellLogic();
-                        this.CheckGameResult();
                         break;
                 }
 
@@ -87,6 +88,7 @@ namespace Game
                 {
                     player.Logic.RaiseEvents();
                 }
+                this.CheckGameResult();
             }
         }
 
@@ -95,10 +97,12 @@ namespace Game
             var heroCamp = GameProcessor.Inst.PlayerManager.GetHero();
             if (heroCamp.HP == 0)
             {
+                this.currentRoundTime = 0;
+
                 GameProcessor.Inst.SetGameOver(PlayerType.Enemy);
                 
                 Log.Debug($"{(GameProcessor.Inst.winCamp == PlayerType.Hero?"玩家":"怪物")}获胜！！");
-                GameProcessor.Inst.HeroDie();
+                GameProcessor.Inst.HeroDie(this.ruleType);
             }
         }
     }

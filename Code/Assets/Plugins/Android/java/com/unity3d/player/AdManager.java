@@ -45,7 +45,7 @@ public class AdManager{
 
     public void initAd(Activity context) {
 
-        mRewardVideoAD = new RewardVideoAD(context, "55339");
+        mRewardVideoAD = new RewardVideoAD(context, "57202");
 
         mRewardVideoAD.setRewardVideoADListener(new RewardVideoADListener() {
             @Override

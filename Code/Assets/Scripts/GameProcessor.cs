@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using SA.CrossPlatform.UI;
 using UnityEngine;
 using zFramework.Internal;
@@ -170,7 +171,7 @@ namespace Game
 
         void Update()
         {
-            if (this.IsGameRunning())
+            if (this.IsGameOver())
             {
                 return;
             }
@@ -285,7 +286,7 @@ namespace Game
             this.PauseCounter++;
         }
 
-        public bool IsGameRunning()
+        public bool IsGameOver()
         {
             //return this.PauseCounter == 0;
             return this.isGameOver;
@@ -348,21 +349,32 @@ namespace Game
             UserData.Save();
         }
         
-        public void HeroDie()
+        public void HeroDie(RuleType ruleType)
         {
-            string title = "显示广告";
-            string message = "激励视频广告测试";
-            var builder = new UM_NativeDialogBuilder(title, message);
-            builder.SetPositiveButton("看广告复活", () => {
-                Log.Debug("看广告复活");
-                PocketAD.Inst.ShowAD("ResurrectionHero", adStateCallBack);
-            });
-            builder.SetNegativeButton("取消", () =>
+            // string title = "显示广告";
+            // string message = "激励视频广告测试";
+            // var builder = new UM_NativeDialogBuilder(title, message);
+            // builder.SetPositiveButton("看广告复活", () => {
+            //     Log.Debug("看广告复活");
+            //     PocketAD.Inst.ShowAD("ResurrectionHero", adStateCallBack);
+            // });
+            // builder.SetNegativeButton("取消", () =>
+            // {
+            //     Log.Debug("不复活");
+            // });
+            // var dialog = builder.Build();
+            // dialog.Show();
+
+            switch (ruleType)
             {
-                Log.Debug("不复活");
-            });
-            var dialog = builder.Build();
-            dialog.Show();
+                case RuleType.Tower:
+                    //退出副本
+                    StartCoroutine(this.AutoExit());
+                    break;
+                default:
+                    StartCoroutine(this.AutoResurrection());
+                    break;
+            }
         }
         
         
@@ -417,6 +429,35 @@ namespace Game
         public void StartGame()
         {
             this.isGameOver = false;
+        }
+
+        private IEnumerator AutoResurrection()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                PlayerManager.GetHero().EventCenter.Raise(new ShowMsgEvent()
+                {
+                    Type = MsgType.Normal,
+                    Content = $"{(10-i)}秒后复活"
+                });
+                yield return new WaitForSeconds(1f);
+            }
+            PlayerManager.GetHero().Resurrection();
+            this.StartGame();
+        }
+
+        private IEnumerator AutoExit()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                PlayerManager.GetHero().EventCenter.Raise(new ShowMsgEvent()
+                {
+                    Type = MsgType.Normal,
+                    Content = $"{(5-i)}秒后退出副本"
+                });
+                yield return new WaitForSeconds(1f);
+            }
+            this.EventCenter.Raise(new BattleLoseEvent());
         }
     }
 }
