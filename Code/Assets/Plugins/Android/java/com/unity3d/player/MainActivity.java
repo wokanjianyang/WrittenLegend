@@ -131,7 +131,7 @@ public class MainActivity extends Activity implements PermissionsUtils.IPermissi
 
     private void GotoNextActivity()
     {
-        PocketSdk.initSDK(this, "xiaomi", "11723");
+        PocketSdk.initSDK(this, "taptap", "12600");
 
         Intent intent =new Intent();
         intent.setClass(MainActivity.this, ADUnityPlayerActivity.class);
