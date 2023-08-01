@@ -185,6 +185,12 @@ namespace Game
                 }
             }
 
+            var flag = this.IsEnemyClosest();
+            //当敌人在邻格时，强制使用普攻
+            if (flag)
+            {
+                return SelectSkillList.FirstOrDefault(s => s.SkillPanel.SkillData.SkillId == 9001);
+            }
             return null;
         }
 
@@ -246,6 +252,11 @@ namespace Game
                 {
                     return;
                 }
+
+                if (IsEnemyClosest())
+                {
+                    return;
+                }
                 var endPos = GameProcessor.Inst.MapData.GetPath(this.Cell, Enemy.Cell);
                 if (GameProcessor.Inst.PlayerManager.IsCellCanMove(endPos))
                 {
@@ -254,6 +265,34 @@ namespace Game
             }
         }
 
+        private bool IsEnemyClosest()
+        {
+            var up = this.Cell + Vector3Int.up;
+            if (up == Enemy.Cell)
+            {
+                return true;
+            }
+            var left = this.Cell + Vector3Int.left;
+            if (left == Enemy.Cell)
+            {
+                return true;
+
+            }
+            var right = this.Cell + Vector3Int.right;
+            if (right == Enemy.Cell)
+            {
+                return true;
+
+            }
+            var down = this.Cell + Vector3Int.down;
+            if (down == Enemy.Cell)
+            {
+                return true;
+
+            }
+
+            return false;
+        }
         public void RunEffect(APlayer attchPlayer, EffectData effectData, long total)
         {
             Effect effect = new Effect(this, effectData, total);

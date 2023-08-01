@@ -32,5 +32,10 @@ namespace Game
         {
             return GetAllTargets().Select(m => m.Cell).ToList();
         }
+
+        public override bool IsCanUse()
+        {
+            return true;
+        }
     }
 }
