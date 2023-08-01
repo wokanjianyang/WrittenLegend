@@ -369,7 +369,7 @@ namespace Game
             {
                 case RuleType.Tower:
                     //退出副本
-                    this.EventCenter.Raise(new BattleLoseEvent());
+                    StartCoroutine(this.AutoExit());
                     break;
                 default:
                     StartCoroutine(this.AutoResurrection());
@@ -444,6 +444,20 @@ namespace Game
             }
             PlayerManager.GetHero().Resurrection();
             this.StartGame();
+        }
+
+        private IEnumerator AutoExit()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                PlayerManager.GetHero().EventCenter.Raise(new ShowMsgEvent()
+                {
+                    Type = MsgType.Normal,
+                    Content = $"{(5-i)}秒后退出副本"
+                });
+                yield return new WaitForSeconds(1f);
+            }
+            this.EventCenter.Raise(new BattleLoseEvent());
         }
     }
 }
