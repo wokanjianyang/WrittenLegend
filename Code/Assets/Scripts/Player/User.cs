@@ -91,8 +91,6 @@ namespace Game
         public void Init()
         {
             //设置各种属性值
-            this.AttributeBonus = new AttributeBonus();
-
             SetAttr();
 
             //设置Boss刷新时间
@@ -245,6 +243,8 @@ namespace Game
 
         private void SetAttr()
         {
+            this.AttributeBonus = new AttributeBonus();
+
             LevelConfig config = LevelConfigCategory.Instance.GetAll().Where(m => m.Value.StartLevel <= Level && m.Value.EndLevel >= Level).First().Value;
 
             //等级属性

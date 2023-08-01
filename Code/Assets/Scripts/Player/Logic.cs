@@ -105,7 +105,7 @@ namespace Game
             this.SelfPlayer.SetPosition(GameProcessor.Inst.PlayerManager.RandomCell(this.SelfPlayer.Cell));
         }
 
-        public void OnDamage(int fromId,long damage)
+        public void OnDamage(int fromId, long damage)
         {
             long currentHP = this.SelfPlayer.HP;
 
@@ -115,7 +115,11 @@ namespace Game
                 currentHP = 0;
             }
 
-            //Debug.Log($"{(this.SelfPlayer.Name)} 受到伤害:{(damage)} ,剩余血量:{(currentHP)}");
+
+            if (SelfPlayer.Camp == PlayerType.Hero)
+            {
+                Debug.Log($"{(this.SelfPlayer.Name)} 受到伤害:{(damage)} ,剩余血量:{(currentHP)}");
+            }
 
             AddBattleAttribute(AttributeEnum.HP, damage * -1);
 
@@ -127,10 +131,16 @@ namespace Game
             });
             if (currentHP == 0)
             {
+
                 IsSurvice = false;
                 this.playerEvents.Add(new PlayerDeadEvent
                 {
                     RoundNum = SelfPlayer.RoundCounter
+                });
+                this.playerEvents.Add(new DeadRewarddEvent
+                {
+                    FromId = fromId,
+                    ToId = SelfPlayer.ID
                 });
                 this.playerEvents.Add(new DeadRewarddEvent
                 {
@@ -146,7 +156,6 @@ namespace Game
                     Content = (damage * -1).ToString()
                 });
             }
-            AddBattleAttribute(AttributeEnum.HP, damage * -1);
         }
 
         public void OnRestore(long hp)
@@ -156,6 +165,7 @@ namespace Game
             if (currentHP <= 0)
             {
                 //?是否先判断死亡，再判断回复
+                return;
             }
 
             long maxHp = this.SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.HP);
@@ -172,7 +182,10 @@ namespace Game
                 currentHP = maxHp; //最多只能回复满血
             }
 
-            //Debug.Log($"{(this.SelfPlayer.Name)} 恢复生命:{(hp)} ,剩余血量:{(currentHP)}");
+            if (SelfPlayer.Camp == PlayerType.Hero)
+            {
+                Debug.Log($"{(this.SelfPlayer.Name)} 恢复生命:{(hp)} ,剩余血量:{(currentHP)}");
+            }
 
             this.SelfPlayer.SetHP(currentHP);
 
