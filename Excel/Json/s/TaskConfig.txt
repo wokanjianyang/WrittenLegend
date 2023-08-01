@@ -7,4 +7,7 @@
 {"_t":"TaskConfig","_id":6,"Type":4,"Condition":1,"RewardGold":10000,"RewardExp":10000,"RewardIdList":[],"RewardTypeList":[],"Memo":"挑战一次副本"},
 {"_t":"TaskConfig","_id":7,"Type":5,"Condition":1,"RewardGold":10000,"RewardExp":10000,"RewardIdList":[2001],"RewardTypeList":[3],"Memo":"包裹界面设置回收"},
 {"_t":"TaskConfig","_id":8,"Type":6,"Condition":1,"RewardGold":10000,"RewardExp":10000,"RewardIdList":[],"RewardTypeList":[],"Memo":"学习技能"},
+{"_t":"TaskConfig","_id":9,"Type":1,"Condition":1000,"RewardGold":10000,"RewardExp":10000,"RewardIdList":[2002],"RewardTypeList":[3],"Memo":"闯过第1000关"},
+{"_t":"TaskConfig","_id":10,"Type":1,"Condition":2000,"RewardGold":10000,"RewardExp":10000,"RewardIdList":[2003],"RewardTypeList":[3],"Memo":"闯过第2000关"},
+{"_t":"TaskConfig","_id":11,"Type":1,"Condition":5000,"RewardGold":10000,"RewardExp":10000,"RewardIdList":[3003],"RewardTypeList":[3],"Memo":"闯过第5000关"},
 ]}
