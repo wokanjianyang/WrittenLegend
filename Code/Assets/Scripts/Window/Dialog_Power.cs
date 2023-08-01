@@ -1,9 +1,10 @@
 using System;
 using Game;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Dialog_Power : MonoBehaviour, IBattleLife
+public class Dialog_Power : MonoBehaviour, IBattleLife,IPointerDownHandler,IPointerMoveHandler,IPointerUpHandler,IPointerClickHandler
 {
     public Transform Content;
 
@@ -15,8 +16,20 @@ public class Dialog_Power : MonoBehaviour, IBattleLife
 
     public Text Map;
 
+    public Transform Button;
+
     private int minute;
     private int day;
+
+    private DragEnum dragType;
+    
+    public enum DragEnum
+    {
+        None,
+        Down,
+        Drag,
+        Up
+    }
     
     // Start is called before the first frame update
     void Start()
@@ -107,6 +120,48 @@ public class Dialog_Power : MonoBehaviour, IBattleLife
         {
             MapConfig config = MapConfigCategory.Instance.Get(user.MapId);
             Map.text = config.Name;
+        }
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (RectTransformUtility.RectangleContainsScreenPoint(this.Button.GetComponent<RectTransform>(), eventData.position))
+        {
+            this.dragType = DragEnum.Down;
+        }
+        else
+        {
+            this.dragType = DragEnum.None;
+        }
+    }
+
+    public void OnPointerMove(PointerEventData eventData)
+    {
+        if (this.dragType == DragEnum.Down || this.dragType == DragEnum.Drag)
+        {
+            this.dragType = DragEnum.Drag;
+            this.Button.position = eventData.position;
+        }
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        if (this.dragType == DragEnum.Drag)
+        {
+            this.dragType = DragEnum.Up;
+        }
+        else
+        {
+            this.dragType = DragEnum.None;
+        }
+    }
+
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (this.dragType == DragEnum.None && RectTransformUtility.RectangleContainsScreenPoint(this.Button.GetComponent<RectTransform>(), eventData.position))
+        {
+            this.OnClick_Open();
         }
     }
 }
