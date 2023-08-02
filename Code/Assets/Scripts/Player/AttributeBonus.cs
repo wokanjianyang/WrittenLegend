@@ -73,7 +73,9 @@ namespace Game
 				power += (long)(attrTotal * rate);
 			}
 
-			return power + "";
+			
+
+			return StringHelper.FormatNumber(power);
 		}
 
 		private long CalTotal(AttributeEnum type, AttributeEnum typeIncrea) {

@@ -54,7 +54,10 @@ namespace Game
 
         private void OnHeroInfoUpdateEvent(UserInfoUpdateEvent e)
         {
-            this.tmp_Gold.text = $"金币:{this.user.Gold}";
+            string goldText = this.user.Gold > 100000000 ? StringHelper.FormatNumber(this.user.Gold) : this.user.Gold + "";
+
+            this.tmp_Gold.text = $"金币:{goldText}";
+
             this.tmp_BattlePower.text = $"战力：{user.AttributeBonus.GetPower()}";
         }
         

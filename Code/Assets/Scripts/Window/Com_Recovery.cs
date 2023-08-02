@@ -21,7 +21,7 @@ namespace Game
         public Toggle toggle_EquipLevel;
 
         [LabelText("装备等级")]
-        public Dropdown dd_EquipLevel;
+        public InputField if_EquipLevel;
         
         [LabelText("秘籍回收设置")]
         public Transform tran_BookJobList;
@@ -84,9 +84,10 @@ namespace Game
 
                     string levelText = setting.EquipLevel + "";
 
-                    dd_EquipLevel.value = Math.Max(1, setting.EquipLevel / 10) - 1;
+                    if_EquipLevel.text = setting.EquipLevel + "";
                 }
-                else {
+                else
+                {
                     toggle_EquipLevel.isOn = false;
                 }
 
@@ -140,7 +141,7 @@ namespace Game
             if (toggle_EquipLevel.isOn)
             {
                 int level = 0;
-                int.TryParse(dd_EquipLevel.options[dd_EquipLevel.value].text, out level);
+                int.TryParse(if_EquipLevel.text, out level);
 
                 user.RecoverySetting.EquipLevel = level;
             }
