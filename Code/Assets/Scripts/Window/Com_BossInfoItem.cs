@@ -69,9 +69,9 @@ public class Com_BossInfoItem : MonoBehaviour
             return;
         }
 
-        long refeshTime = TimeHelper.ClientNowSeconds() - killTime;
+        long dieTime = TimeHelper.ClientNowSeconds() - killTime;
 
-        long count = Math.Min(refeshTime / (mapConfig.BossInterval * 60), 5);
+        long count = Math.Min(dieTime / (mapConfig.BossInterval * 60), 5);
 
         txt_Start.text = "挑战(" + count + "次)";
 
@@ -83,6 +83,7 @@ public class Com_BossInfoItem : MonoBehaviour
         else
         {
             //显示倒计时
+            long refeshTime = mapConfig.BossInterval * 60 - dieTime;
             txt_Time.text = TimeSpan.FromSeconds(refeshTime).ToString(@"hh\:mm\:ss");
 
             btn_Start.gameObject.SetActive(false);

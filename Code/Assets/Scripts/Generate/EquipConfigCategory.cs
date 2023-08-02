@@ -38,6 +38,8 @@ namespace Game
 
             Equip equip = new Equip(configId, runeId, suitId, quality);
 
+            //Equip equip = new Equip(configId, 10029, suitId, 4); //Test
+
             return equip;
         }
     }
