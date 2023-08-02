@@ -50,6 +50,9 @@ namespace Game
         private bool isGameOver { get; set; } = true;
         public PlayerType winCamp { get; private set; }
 
+        public Action OnSecondaryConfirmationDoneAction = null;
+        public Action OnSecondaryConfirmationCancleAction = null;
+
         void Awake()
         {
             if (Inst != null)

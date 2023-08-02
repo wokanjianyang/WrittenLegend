@@ -160,4 +160,9 @@ namespace Game
     {
         
     }
+
+    public class SecondaryConfirmationEvent : SDD.Events.Event
+    {
+        
+    }
 }

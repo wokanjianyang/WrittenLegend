@@ -35,8 +35,8 @@ namespace Game
     {
         public Transform Parent { get; set; }
         public string Content { get; set; }
-        
-        public ToastTypeEnum ToastType { get; set; }
+
+        public ToastTypeEnum ToastType { get; set; } = ToastTypeEnum.Normal;
     }
 
     public class PlayerDeadEvent : SDD.Events.Event
