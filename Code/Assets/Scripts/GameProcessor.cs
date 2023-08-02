@@ -59,6 +59,8 @@ namespace Game
         private float currentToastShowTime = 0f;
         private List<ShowGameMsgEvent> toastTaskList = new List<ShowGameMsgEvent>();
         private GameObject barragePrefab;
+
+        private Coroutine ie_autoExitKey = null;
         
         void Awake()
         {
@@ -143,7 +145,8 @@ namespace Game
             }
 
             this.EventCenter.AddListener<ShowGameMsgEvent>(ShowGameMsg);
-            
+            this.EventCenter.AddListener<EndCopyEvent>(this.OnEndCopy);
+
             ShowVideoAd += OnShowVideoAd;
         }
 
@@ -375,6 +378,14 @@ namespace Game
             this.ShowNextToast();
         }
 
+        private void OnEndCopy(EndCopyEvent e)
+        {
+            if (ie_autoExitKey != null)
+            {
+                StopCoroutine(ie_autoExitKey);
+            }
+            ie_autoExitKey = null;
+        }
         private void ShowNextToast()
         {
             if (Time.realtimeSinceStartup - currentToastShowTime > 0.5f)
@@ -456,13 +467,11 @@ namespace Game
         
         public void HeroDie(RuleType ruleType)
         {
-            
-
             switch (ruleType)
             {
                 case RuleType.Tower:
                     //退出副本
-                    StartCoroutine(this.AutoExit());
+                    ie_autoExitKey = StartCoroutine(this.AutoExit());
                     break;
                 default:
                     StartCoroutine(this.AutoResurrection());
