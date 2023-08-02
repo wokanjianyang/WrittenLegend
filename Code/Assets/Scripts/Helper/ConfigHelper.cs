@@ -4,7 +4,7 @@ namespace Game
 {
 	public class ConfigHelper
 	{
-		public const long Max_Level = 9999999; //最大等级
+		public const long Max_Level = 500000; //最大等级
 
 		public const double Def_Rate = 3.0; //防御系数
 
