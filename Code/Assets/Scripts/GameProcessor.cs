@@ -385,8 +385,24 @@ namespace Game
                     msg.transform.localPosition = new Vector3(msgX, msgY);
                     var com = msg.GetComponent<Dialog_Msg>();
 
+                    var color = "FFFFFF";
+                    switch (toast.ToastType)
+                    {
+                        case ToastTypeEnum.Normal:
+                            color = "FFFFFF";
+                            break;
+                        case ToastTypeEnum.Failure:
+                            color = "FF0000";
+                            break;
+                        case ToastTypeEnum.Success:
+                            color = "CBFFC1";
+                            break;
+                        default:
+                            color = "FFFFFF";
+                            break;
+                    }
 
-                    com.tmp_Msg_Content.text = string.Format("<color=#{0}>{1}</color>", "FF0000", toast.Content);
+                    com.tmp_Msg_Content.text = string.Format("<color=#{0}>{1}</color>", color, toast.Content);
                 
                     //首先要创建一个DOTween队列
                     Sequence seq = DOTween.Sequence();

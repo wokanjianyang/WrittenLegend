@@ -83,7 +83,7 @@ namespace Game
                 if (user.GiftList.ContainsKey(code))
                 {
                     Debug.Log("您已经使用了兑换码");
-                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "您已经使用了兑换码" });
+                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "您已经使用了兑换码",ToastType = ToastTypeEnum.Failure});
                     return;
                 }
 
@@ -94,9 +94,11 @@ namespace Game
                 if (configs.Count != 1)
                 {
                     Debug.Log("没有这个兑换码");
-                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有这个兑换码" });
+                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有这个兑换码",ToastType = ToastTypeEnum.Failure });
                     return;
                 }
+                
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "兑换成功",ToastType = ToastTypeEnum.Success });
 
                 user.GiftList[code] = true;
 
