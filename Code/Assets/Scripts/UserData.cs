@@ -10,6 +10,8 @@ namespace Game
     {
         static string savePath = "user";
         static string fileName = "data.json"; //文件名
+
+        public static long StartTime = 0;
         public static User Load()
         {
             User user = null;

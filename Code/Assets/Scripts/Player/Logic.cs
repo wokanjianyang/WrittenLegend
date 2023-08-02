@@ -118,7 +118,7 @@ namespace Game
 
             if (SelfPlayer.Camp == PlayerType.Hero)
             {
-                Debug.Log($"{(this.SelfPlayer.Name)} 受到伤害:{(damage)} ,剩余血量:{(currentHP)}");
+               //Debug.Log($"{(this.SelfPlayer.Name)} 受到伤害:{(damage)} ,剩余血量:{(currentHP)}");
             }
 
             AddBattleAttribute(AttributeEnum.HP, damage * -1);
@@ -184,7 +184,7 @@ namespace Game
 
             if (SelfPlayer.Camp == PlayerType.Hero)
             {
-                Debug.Log($"{(this.SelfPlayer.Name)} 恢复生命:{(hp)} ,剩余血量:{(currentHP)}");
+                //Debug.Log($"{(this.SelfPlayer.Name)} 恢复生命:{(hp)} ,剩余血量:{(currentHP)}");
             }
 
             this.SelfPlayer.SetHP(currentHP);

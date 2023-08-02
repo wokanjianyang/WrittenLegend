@@ -42,6 +42,7 @@ namespace Game
         private string OfflineMessage = "";
 
         // public bool RefreshSkill = false; //是否要刷新技能
+        public bool isTimeError = false;
 
         private PocketAD.AdStateCallBack adStateCallBack;
         
@@ -82,6 +83,28 @@ namespace Game
             //加载礼包奖励
             GameProcessor.Inst.User.BuildReword();
 
+            //判断是否非法时间
+            if (UserData.StartTime < ConfigHelper.PackTime)
+            {
+                //load时间小于打包时间,必定是往前修改了时间
+                isTimeError = true;
+            }
+
+            if (this.User.SecondExpTick > UserData.StartTime)
+            {
+                //收益时间已经大于启动时间了，必然是往后改了
+                isTimeError = true;
+            }
+
+            long currentTick = TimeHelper.ClientNowSeconds();
+
+            if (Math.Abs(UserData.StartTime - currentTick) > 60 * 2)
+            {
+                //终端时间和网络时间差2分钟
+                isTimeError = true;
+            }
+
+
             //计算离线
             if (User.SecondExpTick > 0)
             {
@@ -117,6 +140,11 @@ namespace Game
 
         private void OfflineReward()
         {
+            if (isTimeError) {
+                OfflineMessage = BattleMsgHelper.BuildTimeErrorMessage();
+                return;
+            }
+
             long currentTick = TimeHelper.ClientNowSeconds();
             long offlineTime = currentTick - User.SecondExpTick;
 
@@ -164,9 +192,49 @@ namespace Game
             User.SecondExpTick = currentTick;
 
             OfflineMessage = BattleMsgHelper.BuildOfflineMessage(offlineTime, offlineFloor, rewardExp, rewardGold, exp, gold);
-            Debug.Log(OfflineMessage);
+            //Debug.Log(OfflineMessage);
 
             UserData.Save();
+        }
+
+        private void SecondRewarod()
+        {
+            if (User == null)
+            {
+                return;
+            }
+
+            int interval = 5;
+            if (User.SecondExpTick == 0)
+            {
+                User.SecondExpTick = UserData.StartTime;
+            }
+            else
+            {
+                long calTk = (TimeHelper.ClientNowSeconds() - User.SecondExpTick) / interval;
+                if (calTk >= 1)
+                {
+                    if (isTimeError)
+                    {
+                        return;
+                    }
+
+                    //5秒计算一次经验,金币
+                    User.SecondExpTick += interval * calTk;
+                    long exp = User.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp) * calTk;
+                    long gold = User.AttributeBonus.GetTotalAttr(AttributeEnum.SecondGold) * calTk;
+                    if (exp > 0 || gold > 0)
+                    {
+                        User.AddExpAndGold(exp, gold);
+
+                        GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+                        {
+                            Message = BattleMsgHelper.BuildSecondExpMessage(exp, gold)
+                        });
+                    }
+                }
+            }
+
         }
 
         void Update()
@@ -190,33 +258,7 @@ namespace Game
             }
 
             //计算泡点经验
-            if (User != null)
-            {
-                int interval = 5;
-                if (User.SecondExpTick == 0)
-                {
-                    User.SecondExpTick = TimeHelper.ClientNowSeconds();
-                }
-                else
-                {
-                    long calTk = (TimeHelper.ClientNowSeconds() - User.SecondExpTick) / interval;
-                    if (calTk >= 1)
-                    {  //5秒计算一次经验,金币
-                        User.SecondExpTick += interval * calTk;
-                        long exp = User.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp) * calTk;
-                        long gold = User.AttributeBonus.GetTotalAttr(AttributeEnum.SecondGold) * calTk;
-                        if (exp > 0 || gold > 0)
-                        {
-                            User.AddExpAndGold(exp, gold);
-
-                            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
-                            {
-                                Message = BattleMsgHelper.BuildSecondExpMessage(exp, gold)
-                            });
-                        }
-                    }
-                }
-            }
+            SecondRewarod();
 
             //每分钟存档一次
             long ct = TimeHelper.ClientNowSeconds();

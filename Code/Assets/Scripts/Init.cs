@@ -64,7 +64,9 @@ public class Init : MonoBehaviour
         await timeTaks;
         this.currentTimeSecond = (long)timeTaks.Result.onlineSecondsUtc;
         Log.Debug("time:" + this.currentTimeSecond);
-        
+
+        UserData.StartTime = this.currentTimeSecond;
+
         AN_Preloader.UnlockScreen();
 
         this.LoadConfig();

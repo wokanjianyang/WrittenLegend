@@ -94,5 +94,11 @@ namespace Game
 
             return message;
         }
+
+        public static string BuildTimeErrorMessage()
+        {
+            string message = $"时间不正确,没有收益，请校准自己的时间 ";
+            return message;
+        }
     }
 }

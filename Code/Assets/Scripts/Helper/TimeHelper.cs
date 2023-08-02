@@ -23,5 +23,10 @@ namespace Game
 		{
 			return ClientNow();
 		}
-    }
+
+		public static DateTime SecondsToDate(long second)
+		{
+			return new DateTime(epoch).AddSeconds(second);
+		}
+	}
 }

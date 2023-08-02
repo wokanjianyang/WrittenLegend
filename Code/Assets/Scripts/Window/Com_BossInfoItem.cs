@@ -60,6 +60,14 @@ public class Com_BossInfoItem : MonoBehaviour
 
     private void RefeshTime()
     {
+        if (GameProcessor.Inst.isTimeError)
+        {
+            txt_Time.text = "99:99:99";
+            btn_Start.gameObject.SetActive(false);
+            txt_Time.gameObject.SetActive(true);
+            return;
+        }
+
         long refeshTime = TimeHelper.ClientNowSeconds() - killTime - mapConfig.BossInterval * 60;
 
         if (killTime == 0 || refeshTime >= 0)
