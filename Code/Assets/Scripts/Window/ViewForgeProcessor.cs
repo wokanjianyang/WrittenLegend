@@ -183,7 +183,7 @@ public class ViewForgeProcessor : AViewPage
 
         if (user.Gold < fee)
         {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的金币", Parent = tran_AttrList });
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的金币", ToastType = ToastTypeEnum.Failure});
             return;
         }
 
@@ -197,6 +197,8 @@ public class ViewForgeProcessor : AViewPage
 
         TaskHelper.CheckTask(TaskType.Strength, 1);
         //Debug.Log("Strengthen Success");
+        
+        GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "强化成功", ToastType = ToastTypeEnum.Success});
     }
     private void OnClick_Strengthen_Batch()
     {
