@@ -10,7 +10,7 @@ namespace Game
         public APlayer SelfPlayer { get; set; }
 
         public int Priority {  get; }
-        public int lastUseRound { get; set; } =0;
+        public int lastUseRound { get; private set; } =0;
 
         public int UserCount { get; set; } = 0;
 
@@ -81,6 +81,11 @@ namespace Game
                 Skill_Valet sv = skillLogic as Skill_Valet;
                 sv.ClearValet();
             }
+        }
+
+        public void SetLastUseRound(int round)
+        {
+            this.lastUseRound = round;
         }
     }
 }

@@ -9,6 +9,7 @@ namespace Game
 {
     public class Hero : APlayer
     {
+        private Dictionary<int, int> skillUseCache = new Dictionary<int, int>();
         public Hero() : base()
         {
             this.GroupId = 1;
@@ -119,6 +120,33 @@ namespace Game
                     }
                 }
             }
+        }
+
+        private void UpdateSkills()
+        {
+            foreach (var skillState in SelectSkillList)
+            {
+                skillUseCache[skillState.SkillPanel.SkillId] = skillState.lastUseRound;
+            }
+
+            var user = GameProcessor.Inst.User;
+            
+            this.SetSkill(user);
+            
+            foreach (var skillState in SelectSkillList)
+            {
+                skillUseCache.TryGetValue(skillState.SkillPanel.SkillId, out int lastUseRound);
+                if (lastUseRound > 0)
+                {
+                    skillState.SetLastUseRound(lastUseRound);
+                }
+            }
+        }
+
+        public override SkillState GetSkill()
+        {
+            this.UpdateSkills();
+            return base.GetSkill();
         }
 
         /// <summary>

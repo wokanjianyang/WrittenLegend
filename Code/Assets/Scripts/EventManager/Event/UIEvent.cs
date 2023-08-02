@@ -109,4 +109,7 @@ namespace Game
     {
         public SkillPanel SkillPanel { get; set; }
     }
+    public class HeroUpdateAllSkillEvent : SDD.Events.Event
+    {
+    }
 }

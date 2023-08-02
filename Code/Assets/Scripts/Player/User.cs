@@ -127,6 +127,9 @@ namespace Game
 
             //更新属性面板
             GameProcessor.Inst.UpdateInfo();
+            
+            //更新技能描述
+            this.EventCenter.Raise(new HeroUpdateAllSkillEvent());
         }
 
         private void HeroUnUseEquip(HeroUnUseEquipEvent e)
@@ -135,6 +138,9 @@ namespace Game
 
             //更新属性面板
             GameProcessor.Inst.UpdateInfo();
+            
+            //更新技能描述
+            this.EventCenter.Raise(new HeroUpdateAllSkillEvent());
         }
 
         private void HeroUseSkillBook(HeroUseSkillBookEvent e)

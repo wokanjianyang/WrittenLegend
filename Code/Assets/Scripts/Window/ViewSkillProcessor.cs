@@ -29,6 +29,7 @@ namespace Game
 
             var user = GameProcessor.Inst.User;
             user.EventCenter.AddListener<HeroUpdateSkillEvent>(OnHeroUpdateSkillEvent);
+            user.EventCenter.AddListener<HeroUpdateAllSkillEvent>(OnHeroUpdateAllSkillEvent);
             bookPrefab = Resources.Load<GameObject>("Prefab/Window/Item_Skill");
 
             user.SkillList.Sort((a, b) => {
@@ -51,20 +52,34 @@ namespace Game
             // GameProcessor.Inst.RefreshSkill = true;
             SkillToBattle(e.SkillPanel);
             //UserData.Save(); //修改技能后，存档
-            var hero = GameProcessor.Inst.PlayerManager.GetHero();
-
-            if (e.SkillPanel != null && hero!=null)
+            // var hero = GameProcessor.Inst.PlayerManager.GetHero();
+            //
+            // if (e.SkillPanel != null && hero!=null)
+            // {
+            //     if (e.SkillPanel.SkillData.Status == SkillStatus.Learn)
+            //     {
+            //         hero?.SelectSkillList.RemoveAll(b => b.SkillPanel.SkillId == e.SkillPanel.SkillId);
+            //
+            //     }
+            //     else
+            //     {
+            //         
+            //         SkillState ss = new SkillState(hero, e.SkillPanel, e.SkillPanel.SkillData.Position, 0);
+            //         hero.SelectSkillList.Add(ss);
+            //     }
+            // }
+        }
+        
+        private void OnHeroUpdateAllSkillEvent(HeroUpdateAllSkillEvent e)
+        {
+            var user = GameProcessor.Inst.User;
+            foreach (var skill in user.SkillList)
             {
-                if (e.SkillPanel.SkillData.Status == SkillStatus.Learn)
+                Item_Skill learn = this.learnSkills.Find(s => s.SkillPanel.SkillId == skill.SkillId);
+                if (learn != null)
                 {
-                    hero?.SelectSkillList.RemoveAll(b => b.SkillPanel.SkillId == e.SkillPanel.SkillId);
-
-                }
-                else
-                {
-                    
-                    SkillState ss = new SkillState(hero, e.SkillPanel, e.SkillPanel.SkillData.Position, 0);
-                    hero.SelectSkillList.Add(ss);
+                    SkillPanel skillPanel = new SkillPanel(skill, user.GetRuneList(skill.SkillId), user.GetSuitList(skill.SkillId));
+                    learn.SetItem(skillPanel);
                 }
             }
         }

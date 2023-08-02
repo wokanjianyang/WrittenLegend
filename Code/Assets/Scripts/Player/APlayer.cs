@@ -172,7 +172,7 @@ namespace Game
         //    SelectSkillList.Add(skill);
         //}
 
-        public SkillState GetSkill()
+        virtual public SkillState GetSkill()
         {
             List<SkillState> list = SelectSkillList.OrderBy(m => m.UserCount * 1000 + m.Priority).ToList();
 

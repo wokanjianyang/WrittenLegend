@@ -244,8 +244,8 @@ namespace Game
                         tran_NormalAttribute.Find("Title").GetComponent<Text>().text = skillBox.ItemConfig.Des;
                         tran_NormalAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.item.Level);
                         var isLearn = user.SkillList.Find(b => b.SkillId == this.item.ConfigId) == null;
+                        
                         this.btn_Learn.gameObject.SetActive(isLearn);
-
                         this.btn_Upgrade.gameObject.SetActive(!isLearn);
                         this.btn_UseAll.gameObject.SetActive(!isLearn);
                         this.btn_Lock.gameObject.SetActive(this.boxId!=-1 && !this.item.IsLock);
