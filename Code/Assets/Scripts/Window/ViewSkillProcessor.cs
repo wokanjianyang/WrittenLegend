@@ -51,6 +51,22 @@ namespace Game
             // GameProcessor.Inst.RefreshSkill = true;
             SkillToBattle(e.SkillPanel);
             //UserData.Save(); //修改技能后，存档
+            var hero = GameProcessor.Inst.PlayerManager.GetHero();
+
+            if (e.SkillPanel != null && hero!=null)
+            {
+                if (e.SkillPanel.SkillData.Status == SkillStatus.Learn)
+                {
+                    hero?.SelectSkillList.RemoveAll(b => b.SkillPanel.SkillId == e.SkillPanel.SkillId);
+
+                }
+                else
+                {
+                    
+                    SkillState ss = new SkillState(hero, e.SkillPanel, e.SkillPanel.SkillData.Position, 0);
+                    hero.SelectSkillList.Add(ss);
+                }
+            }
         }
 
         private void SkillToBattle(SkillPanel skill)
@@ -69,12 +85,10 @@ namespace Game
             {
                 this.CreateBook(skill);
             }
-            var hero = GameProcessor.Inst.PlayerManager.GetHero();
 
             if (skill.SkillData.Status == SkillStatus.Learn)
             {
                 this.equipSkills.RemoveAll(b => b.SkillPanel.SkillId == skill.SkillId);
-                hero.SelectSkillList.RemoveAll(b => b.SkillPanel.SkillId == skill.SkillId);
             }
             else
             {
@@ -86,9 +100,6 @@ namespace Game
                     var com = this.tran_EquipSkills.GetChild(position).GetComponent<Com_Skill>();
                     com.SetItem(skill);
                     this.equipSkills.Add(com);
-
-                    SkillState ss = new SkillState(hero, skill, skill.SkillData.Position, 0);
-                    hero.SelectSkillList.Add(ss);
                 }
             }
         }
