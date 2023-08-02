@@ -105,6 +105,9 @@ namespace Game
 		/// <summary>掉落概率列表</summary>
 		[ProtoMember(10)]
 		public int[] DropRateList { get; set; }
+		/// <summary>模型</summary>
+		[ProtoMember(11)]
+		public int ModelType { get; set; }
 
 	}
 }
