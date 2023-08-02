@@ -90,9 +90,9 @@ namespace Game
                     toggle_EquipLevel.isOn = false;
                 }
 
-                foreach (int skillBookRole in setting.SkillBookRole.Keys)
+                foreach (int skillBookRole in setting.EquipRole.Keys)
                 {
-                    if (setting.SkillBookRole[skillBookRole])
+                    if (setting.EquipRole[skillBookRole])
                     {
                         bookToggles[skillBookRole - 1].isOn = true;
                     }
@@ -148,17 +148,17 @@ namespace Game
                 user.RecoverySetting.EquipLevel = 0;
             }
 
-            sb.Append("秘籍自动回收 职业：");
+            sb.Append("装备自动回收 职业：");
             for (var i = 0; i < bookToggles.Length; i++)
             {
                 var toggle = bookToggles[i];
                 if (toggle.isOn)
                 {
-                    user.RecoverySetting.SetSkillBookRole(i + 1, true);
+                    user.RecoverySetting.SetEquipRole(i + 1, true);
                 }
                 else
                 {
-                    user.RecoverySetting.SetSkillBookRole(i + 1, false);
+                    user.RecoverySetting.SetEquipRole(i + 1, false);
                 }
             }
             if (toggle_BookLevel.isOn)

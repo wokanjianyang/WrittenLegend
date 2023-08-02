@@ -9,7 +9,7 @@ namespace Game
         public Dictionary<int, bool> EquipQuanlity { get; private set; } = new Dictionary<int, bool>();  //回收道具品质(1白色 2绿色 3蓝色 4紫色)
         public int EquipLevel { get; set; } = 0;
 
-        public Dictionary<int, bool> SkillBookRole { get; private set; } = new Dictionary<int, bool>();
+        public Dictionary<int, bool> EquipRole { get; private set; } = new Dictionary<int, bool>();
         public int SkillBookLevel { get; set; } = 0;//
 
         public RecoverySetting() {
@@ -20,9 +20,9 @@ namespace Game
             this.EquipQuanlity[quanlity] = check;
         }
 
-        public void SetSkillBookRole(int role, bool check)
+        public void SetEquipRole(int role, bool check)
         {
-            this.SkillBookRole[role] = check;
+            this.EquipRole[role] = check;
         }
 
 
@@ -31,21 +31,24 @@ namespace Game
             if (item.Type == ItemType.Equip)
             {
                 Equip equip = item as Equip;
-                if ((EquipQuanlity.GetValueOrDefault(item.GetQuality(), false) || item.Level < EquipLevel) && equip.Part <= 10)
-                {
-                    return true;
-                }
-            }
-            else if (item.Type == ItemType.SkillBox)
-            {
-                SkillBook skillBook = item as SkillBook;
+                int role = equip.EquipConfig.Role;
 
-                int role = skillBook.SkillConfig.Role;
-                if (SkillBookRole.GetValueOrDefault(role, false) || item.Level < SkillBookLevel)
+                if ((EquipQuanlity.GetValueOrDefault(item.GetQuality(), false) || item.Level < EquipLevel)
+                    && equip.Part <= 10 && EquipRole.GetValueOrDefault(role, false))
                 {
                     return true;
                 }
             }
+            //else if (item.Type == ItemType.SkillBox)
+            //{
+            //    SkillBook skillBook = item as SkillBook;
+
+            //    int role = skillBook.SkillConfig.Role;
+            //    if (SkillBookRole.GetValueOrDefault(role, false) || item.Level < SkillBookLevel)
+            //    {
+            //        return true;
+            //    }
+            //}
 
             return false;
         }
