@@ -17,6 +17,8 @@ namespace Game
         [LabelText("数量")]
         public Text tmp_Count;
 
+        public GameObject go_Lock;
+
         public BoxItem Item { get; private set; }
         public int boxId { get; private set; }
 
@@ -62,6 +64,8 @@ namespace Game
             this.Item = item;
 
             this.Count = item.Number;
+            
+            this.go_Lock.gameObject.SetActive(item.Item.IsLock);
 
             this.tmp_Count.transform.gameObject.SetActive(this.Count > 1);
             this.tmp_Count.text = this.Count.ToString();
@@ -89,6 +93,11 @@ namespace Game
             this.Count -= quantity;
             this.tmp_Count.transform.gameObject.SetActive(this.Count != 1);
             this.tmp_Count.text = this.Count.ToString();
+        }
+
+        public void SetLock(bool isLock)
+        {
+            this.go_Lock.gameObject.SetActive(isLock);
         }
     }
 }

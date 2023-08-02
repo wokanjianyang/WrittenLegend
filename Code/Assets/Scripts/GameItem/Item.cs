@@ -8,6 +8,8 @@ namespace Game
     public class Item
     {
         public int Quantity { get; set; }
+        
+        public bool IsLock { get; set; }
         protected Item() { 
 
         }
@@ -46,13 +48,13 @@ namespace Game
 
         [JsonIgnore]
         /// <summary>
-        ///  道具类型
+        ///  閬撳叿绫诲瀷
         /// </summary>
         public ItemType Type { get; set; }
 
         [JsonIgnore]
         /// <summary>
-        /// 装备所需等级
+        /// 瑁呭鎵�闇�绛夌骇
         /// </summary>
         public int Level { get; set; }
 
@@ -61,7 +63,7 @@ namespace Game
 
         [JsonIgnore]
         /// <summary>
-        /// 堆叠数量
+        /// 鍫嗗彔鏁伴噺
         /// </summary>
         public int MaxNum { get; set; }
 

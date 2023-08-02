@@ -8,7 +8,7 @@ namespace Game
     public class Equip : Item
     {
         /// <summary>
-        /// ´ÊÌõÊôĞÔÁĞ±í
+        /// è¯æ¡å±æ€§åˆ—è¡¨
         /// </summary>
         public List<KeyValuePair<int, long>> AttrEntryList { get; set; } = new List<KeyValuePair<int, long>>();
 
@@ -17,6 +17,7 @@ namespace Game
         public int SuitConfigId { get; set; }
 
         public int Quality { get; set; }
+        
 
         public Equip(int configId, int runeConfigId, int suitConfigId,int quality)
         {
@@ -39,14 +40,14 @@ namespace Game
             for (int i = 0; i < EquipConfig.AttributeBase.Length; i++)
             {
                 long AttributeBase = EquipConfig.AttributeBase[i];
-                if (EquipConfig.Quality == 0)  //Ëæ»úÆ·ÖÊ×°±¸ 40%,60%,80%,100%
+                if (EquipConfig.Quality == 0)  //éšæœºå“è´¨è£…å¤‡ 40%,60%,80%,100%
                 {
                     AttributeBase = AttributeBase * (Quality * 20 + 20) / 100;
                 }
                 BaseAttrList.Add(EquipConfig.BaseArray[i], AttributeBase);
             }
 
-            //¸ù¾İÆ·ÖÊ,Éú³ÉËæ»úÊôĞÔ
+            //æ ¹æ®å“è´¨,ç”Ÿæˆéšæœºå±æ€§
             if (EquipConfig.RandomAttr == 0)
             {
                 for (int i = 0; i < Quality; i++)
@@ -91,12 +92,12 @@ namespace Game
 
         [JsonIgnore]
         /// <summary>
-        /// »ù´¡ÊôĞÔ
+        /// åŸºç¡€å±æ€§
         /// </summary>
         public IDictionary<int, long> BaseAttrList { get; set; }
 
         /// <summary>
-        /// ÊôĞÔÁĞ±í
+        /// å±æ€§åˆ—è¡¨
         /// </summary>
         public IDictionary<int, long> GetTotalAttrList(EquipRefineConfig refineConfig)
         {
@@ -108,7 +109,7 @@ namespace Game
                 qualityPercent += refineConfig.QualityAttrPercent;
             }
 
-            //¸ù¾İ»ù´¡ÊôĞÔºÍ´ÊÌõÊôĞÔ£¬¼ÆËã×ÜÊôĞÔ
+            //æ ¹æ®åŸºç¡€å±æ€§å’Œè¯æ¡å±æ€§ï¼Œè®¡ç®—æ€»å±æ€§
             IDictionary<int, long> AttrList = new Dictionary<int, long>();
             foreach (int attrId in BaseAttrList.Keys)
             {

@@ -71,6 +71,7 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<BagUseEvent>(this.OnBagUseEvent);
             GameProcessor.Inst.EventCenter.AddListener<CompositeEvent>(this.OnCompositeEvent);
             GameProcessor.Inst.EventCenter.AddListener<MaterialUseEvent>(this.OnMaterialUseEvent);
+            GameProcessor.Inst.EventCenter.AddListener<EquipLockEvent>(this.OnEquipLockEvent);
 
             User user = GameProcessor.Inst.User;
             user.EventCenter.AddListener<HeroBagUpdateEvent>(this.OnHeroBagUpdateEvent);
@@ -317,7 +318,7 @@ namespace Game
         {
             User user = GameProcessor.Inst.User;
 
-            List<BoxItem> recoveryList = user.Bags.Where(m => user.RecoverySetting.CheckRecovery(m.Item)).ToList();
+            List<BoxItem> recoveryList = user.Bags.Where(m => !m.Item.IsLock && user.RecoverySetting.CheckRecovery(m.Item)).ToList();
 
             int refineStone = 0;
             long gold = 0;
@@ -420,6 +421,13 @@ namespace Game
                     user.AddExpAndGold(0, gold);
                 }
             }
+        }
+        
+        private void OnEquipLockEvent(EquipLockEvent e)
+        {
+            e.Item.IsLock = e.IsLock;
+            Com_Box boxUI = this.items.Find(m => m.boxId == e.BoxId);
+            boxUI.SetLock(e.IsLock);
         }
             
         private void UseBoxItem(int boxId,int quantity)

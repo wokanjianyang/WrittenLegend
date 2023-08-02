@@ -64,6 +64,12 @@ namespace Game
         [LabelText("锻造")]
         public Button btn_Forging;
         
+        [LabelText("锁定装备")]
+        public Button btn_Lock;
+                
+        [LabelText("解除锁定装备")]
+        public Button btn_Unlock;
+        
         private Item item;
         private int boxId;
         private int equipPositioin;
@@ -82,6 +88,10 @@ namespace Game
 
             this.btn_Recovery.onClick.AddListener(this.OnRecovery);
             this.btn_Forging.onClick.AddListener(this.OnForging);
+            
+            this.btn_Lock.onClick.AddListener(this.OnClick_Lock);
+            this.btn_Unlock.onClick.AddListener(this.OnClick_Unlock);
+            
             this.gameObject.SetActive(false); 
         }
 
@@ -113,6 +123,8 @@ namespace Game
             this.btn_UseAll.gameObject.SetActive(false);
             this.btn_Recovery.gameObject.SetActive(false);
             this.btn_Forging.gameObject.SetActive(false);
+            this.btn_Lock.gameObject.SetActive(false);
+            this.btn_Unlock.gameObject.SetActive(false);
 
             // this.transform.position = this.GetBetterPosition(e.Position);
             this.tmp_Title.text = e.Item.Name;
@@ -209,7 +221,7 @@ namespace Game
                         {
                             int suitCount = user.GetSuitCount(equip.SkillSuitConfig.Id);
 
-                            int index = 0;
+                            int index = 0; 
                             tran_SuitAttribute.gameObject.SetActive(true);
                             tran_SuitAttribute.Find("Title").GetComponent<Text>().text = equip.SkillSuitConfig.Name + string.Format("({0}/{1})", suitCount, SkillSuitHelper.SuitMax);
 
@@ -221,6 +233,8 @@ namespace Game
                         this.btn_Equip.gameObject.SetActive(this.boxId != -1);
                         this.btn_UnEquip.gameObject.SetActive(this.boxId == -1);
                         this.btn_Recovery.gameObject.SetActive(this.boxId != -1);
+                        this.btn_Lock.gameObject.SetActive(this.boxId!=-1 && !this.item.IsLock);
+                        this.btn_Unlock.gameObject.SetActive(this.boxId!=-1 && this.item.IsLock);
                     }
                     break;
                 case ItemType.SkillBox://技能书
@@ -234,6 +248,8 @@ namespace Game
 
                         this.btn_Upgrade.gameObject.SetActive(!isLearn);
                         this.btn_UseAll.gameObject.SetActive(!isLearn);
+                        this.btn_Lock.gameObject.SetActive(this.boxId!=-1 && !this.item.IsLock);
+                        this.btn_Unlock.gameObject.SetActive(this.boxId!=-1 && this.item.IsLock);
                         //this.btn_Learn.interactable = this.item.Level <= UserData.Load().Level;
                     }
                     break;
@@ -358,6 +374,29 @@ namespace Game
             this.gameObject.SetActive(false);
         }
 
+        public void OnClick_Lock()
+        {
+            this.gameObject.SetActive(false);
+            
+            GameProcessor.Inst.EventCenter.Raise(new EquipLockEvent()
+            {
+                Item = this.item,
+                BoxId = this.boxId,
+                IsLock = true
+            });
+        }
+
+        private void OnClick_Unlock()
+        {
+            this.gameObject.SetActive(false);
+            
+            GameProcessor.Inst.EventCenter.Raise(new EquipLockEvent()
+            {
+                Item = this.item,
+                BoxId = this.boxId,
+                IsLock = false
+            });
+        }
         private void OnUpgradeSkill()
         {
             this.gameObject.SetActive(false);

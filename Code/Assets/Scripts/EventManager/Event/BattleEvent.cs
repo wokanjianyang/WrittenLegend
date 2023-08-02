@@ -66,6 +66,12 @@ namespace Game
         public Item Item { get; set; }
         public int BoxId { get; set; }
     }
+    public class EquipLockEvent : SDD.Events.Event
+    {
+        public Item Item { get; set; }
+        public int BoxId { get; set; }
+        public bool IsLock { get; set; }
+    }
     public class AutoRecoveryEvent : SDD.Events.Event
     {
     }
