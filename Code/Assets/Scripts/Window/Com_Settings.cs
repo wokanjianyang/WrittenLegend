@@ -25,9 +25,6 @@ namespace Game
 
         [LabelText("确认")]
         public Button btn_Done;
-        
-        [LabelText("取消")]
-        public Button btn_Cancle;
 
         private const int CHARACTER_LIMIT = 10;
 
@@ -35,7 +32,6 @@ namespace Game
         void Start()
         {
             this.btn_Done.onClick.AddListener(this.OnClick_Done);
-            this.btn_Cancle.onClick.AddListener(this.OnClick_Cancle);
 
             this.btn_ChangeName.onClick.AddListener(this.OnClick_ChangeName);
             this.btn_Code.onClick.AddListener(this.OnClick_Code);
@@ -56,11 +52,6 @@ namespace Game
         public void OnClick_Done()
         {
             
-            GameProcessor.Inst.EventCenter.Raise(new DialogSettingEvent());
-        }
-        
-        public void OnClick_Cancle()
-        {
             GameProcessor.Inst.EventCenter.Raise(new DialogSettingEvent());
         }
 
