@@ -66,6 +66,7 @@ MonoBehaviour:
   txt_MapName: {fileID: 8367902628021178698}
   txt_Time: {fileID: 4444624518261795019}
   btn_Start: {fileID: 3438472839797907775}
+  txt_Start: {fileID: 524811787433417595}
 --- !u!1 &3248332195511695003
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,7 +362,7 @@ GameObject:
   - component: {fileID: 524811787433417595}
   - component: {fileID: 2592137428332613550}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: txt_start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

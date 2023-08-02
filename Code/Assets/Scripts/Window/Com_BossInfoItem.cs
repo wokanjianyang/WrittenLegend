@@ -13,6 +13,7 @@ public class Com_BossInfoItem : MonoBehaviour
     //public Text txt_MapName;
 
     public Button btn_Start;
+    public Text txt_Start;
 
     public MapConfig mapConfig { get; set; }
     private BossConfig bossConfig;
@@ -68,9 +69,13 @@ public class Com_BossInfoItem : MonoBehaviour
             return;
         }
 
-        long refeshTime = TimeHelper.ClientNowSeconds() - killTime - mapConfig.BossInterval * 60;
+        long refeshTime = TimeHelper.ClientNowSeconds() - killTime;
 
-        if (killTime == 0 || refeshTime >= 0)
+        long count = Math.Min(refeshTime / (mapConfig.BossInterval * 60), 5);
+
+        txt_Start.text = "ÌôÕ½(" + count + "´Î)";
+
+        if (count > 0)
         {
             btn_Start.gameObject.SetActive(true);
             txt_Time.gameObject.SetActive(false);

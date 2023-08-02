@@ -45,9 +45,9 @@ namespace Game
             if (config.Condition <= condition)
             {
                 user.TaskLog[user.TaskId] = true;
-
-                GameProcessor.Inst.EventCenter.Raise(new TaskChangeEvent() { });
             }
+
+            GameProcessor.Inst.EventCenter.Raise(new TaskChangeEvent() { });
 
             return;
         }

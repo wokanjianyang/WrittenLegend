@@ -131,7 +131,7 @@ namespace Game
             }
 
             //¼ÇÂ¼»÷É±Ê±¼ä
-            user.MapBossTime[MapId] = TimeHelper.ClientNowSeconds();
+            //user.MapBossTime[MapId] = TimeHelper.ClientNowSeconds();
 
             //´æµµ
             //UserData.Save();

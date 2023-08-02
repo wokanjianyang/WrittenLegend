@@ -211,6 +211,12 @@ namespace Game
             }
             else
             {
+                if (TimeHelper.ClientNowSeconds() < (User.SecondExpTick - 60 * 2))
+                {
+                    isTimeError = true;
+                    return;
+                }
+
                 long calTk = (TimeHelper.ClientNowSeconds() - User.SecondExpTick) / interval;
                 if (calTk >= 1)
                 {
