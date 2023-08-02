@@ -337,17 +337,23 @@ namespace Game
                 UseBoxItem(box.BoxId, 1);
             }
 
-            user.AddExpAndGold(0, gold);
-
-            Item item = ItemHelper.BuildRefineStone(Math.Max(1, refineStone));
-            AddBoxItem(item);
-
-            if (recoveryList.Count > 0)
+            if (gold > 0)
             {
-                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+                user.AddExpAndGold(0, gold);
+            }
+
+            if (refineStone > 0)
+            {
+                Item item = ItemHelper.BuildRefineStone(refineStone);
+                AddBoxItem(item);
+
+                if (recoveryList.Count > 0)
                 {
-                    Message = BattleMsgHelper.BuildAutoRecoveryMessage(recoveryList.Count, refineStone, gold)
-                });
+                    GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+                    {
+                        Message = BattleMsgHelper.BuildAutoRecoveryMessage(recoveryList.Count, refineStone, gold)
+                    });
+                }
             }
         }
 
