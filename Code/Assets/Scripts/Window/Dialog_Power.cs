@@ -2,6 +2,7 @@ using System;
 using Game;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class Dialog_Power : MonoBehaviour, IBattleLife,IPointerDownHandler,IPointerMoveHandler,IPointerUpHandler,IPointerClickHandler
@@ -16,7 +17,10 @@ public class Dialog_Power : MonoBehaviour, IBattleLife,IPointerDownHandler,IPoin
 
     public Text Map;
 
-    public Transform Button;
+    public Transform Menu;
+
+    public Image btn_Power;
+    public Image btn_Exit;
 
     private int minute;
     private int day;
@@ -110,7 +114,7 @@ public class Dialog_Power : MonoBehaviour, IBattleLife,IPointerDownHandler,IPoin
         Map.text = config.Name;
     }
 
-    public void OnClick_Open()
+    private void OnClick_Open()
     {
         this.Content.gameObject.SetActive(true);
         this.Slider.value = 0;
@@ -123,11 +127,25 @@ public class Dialog_Power : MonoBehaviour, IBattleLife,IPointerDownHandler,IPoin
         }
     }
 
+    private void OnClick_Exit()
+    {
+        GameProcessor.Inst.ShowSecondaryConfirmationDialog.Invoke(() =>
+        {
+            UserData.Save();
+            Application.Quit();
+        }, () =>
+        {
+            UserData.Save();
+        });
+    }
+
+    private Vector2 dragStartPosition = Vector2.zero;
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (RectTransformUtility.RectangleContainsScreenPoint(this.Button.GetComponent<RectTransform>(), eventData.position))
+        if (RectTransformUtility.RectangleContainsScreenPoint(this.Menu.GetComponent<RectTransform>(), eventData.position))
         {
             this.dragType = DragEnum.Down;
+            this.dragStartPosition = eventData.position;
         }
         else
         {
@@ -140,7 +158,10 @@ public class Dialog_Power : MonoBehaviour, IBattleLife,IPointerDownHandler,IPoin
         if (this.dragType == DragEnum.Down || this.dragType == DragEnum.Drag)
         {
             this.dragType = DragEnum.Drag;
-            this.Button.position = eventData.position;
+            var pos = this.Menu.position;
+            var offset = eventData.position - this.dragStartPosition;
+            this.dragStartPosition = eventData.position;
+            this.Menu.position = pos +new Vector3(offset.x,offset.y);
         }
     }
 
@@ -159,9 +180,16 @@ public class Dialog_Power : MonoBehaviour, IBattleLife,IPointerDownHandler,IPoin
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (this.dragType == DragEnum.None && RectTransformUtility.RectangleContainsScreenPoint(this.Button.GetComponent<RectTransform>(), eventData.position))
+        if (this.dragType == DragEnum.None)
         {
-            this.OnClick_Open();
+            if (RectTransformUtility.RectangleContainsScreenPoint(this.btn_Power.rectTransform, eventData.position))
+            {
+                this.OnClick_Open();
+            }
+            else if (RectTransformUtility.RectangleContainsScreenPoint(this.btn_Exit.rectTransform, eventData.position))
+            {
+                this.OnClick_Exit();
+            }
         }
     }
 }
