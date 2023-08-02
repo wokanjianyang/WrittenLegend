@@ -124,22 +124,27 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
     
     private void OnBattleLoseEvent(BattleLoseEvent msg)
     {
-        this.OnClick_Exit();
+        this.Exit();
     }
 
     private void OnClick_Exit()
     {
         GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke(() =>
         {
-            GameProcessor.Inst.OnDestroy();
-            this.gameObject.SetActive(false);
-            GameProcessor.Inst.EventCenter.Raise(new EndCopyEvent());
-            GameProcessor.Inst.SetGameOver(PlayerType.Hero);
-            GameProcessor.Inst.DelayAction(0.1f, () =>
-            {
-                var map = GameObject.Find("Canvas").GetComponentInChildren<ViewBattleProcessor>(true).transform;
-                GameProcessor.Inst.LoadMap(RuleType.Normal, 0, 0, map);
-            });
+            this.Exit();
         },null);
+    }
+    
+    private void Exit()
+    {
+        GameProcessor.Inst.OnDestroy();
+        this.gameObject.SetActive(false);
+        GameProcessor.Inst.EventCenter.Raise(new EndCopyEvent());
+        GameProcessor.Inst.SetGameOver(PlayerType.Hero);
+        GameProcessor.Inst.DelayAction(0.1f, () =>
+        {
+            var map = GameObject.Find("Canvas").GetComponentInChildren<ViewBattleProcessor>(true).transform;
+            GameProcessor.Inst.LoadMap(RuleType.Normal, 0, 0, map);
+        });
     }
 }
