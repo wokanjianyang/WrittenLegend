@@ -56,6 +56,10 @@ namespace Game
 
         public ShowAd ShowVideoAd;
 
+        private float currentToastShowTime = 0f;
+        private List<ShowGameMsgEvent> toastTaskList = new List<ShowGameMsgEvent>();
+        private GameObject barragePrefab;
+        
         void Awake()
         {
             if (Inst != null)
@@ -200,6 +204,8 @@ namespace Game
             //Debug.Log(OfflineMessage);
 
             UserData.Save();
+            
+            barragePrefab = Resources.Load<GameObject>("Prefab/Dialog/Toast");
         }
 
         private void SecondRewarod()
@@ -361,12 +367,14 @@ namespace Game
 
         private void ShowGameMsg(ShowGameMsgEvent e)
         {
+            if (barragePrefab == null)
+            {
+                return;
+            }
             toastTaskList.Add(e);
             this.ShowNextToast();
         }
 
-        private float currentToastShowTime = 0f;
-        private List<ShowGameMsgEvent> toastTaskList = new List<ShowGameMsgEvent>();
         private void ShowNextToast()
         {
             if (Time.realtimeSinceStartup - currentToastShowTime > 0.5f)
@@ -377,8 +385,6 @@ namespace Game
                     toastTaskList.RemoveAt(0);
                     
                     currentToastShowTime = Time.realtimeSinceStartup;
-                
-                    var barragePrefab = Resources.Load<GameObject>("Prefab/Dialog/Toast");
 
                     var msg = GameObject.Instantiate(barragePrefab);
 
@@ -558,7 +564,7 @@ namespace Game
                 PlayerManager.GetHero().EventCenter.Raise(new ShowMsgEvent()
                 {
                     Type = MsgType.Normal,
-                    Content = $"{(5-i)}秒后退出副本"
+                    Content = $"{(5-i)}秒后退出"
                 });
                 yield return new WaitForSeconds(1f);
             }
