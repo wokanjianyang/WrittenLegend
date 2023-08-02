@@ -50,8 +50,9 @@ namespace Game
         private bool isGameOver { get; set; } = true;
         public PlayerType winCamp { get; private set; }
 
-        public Action OnSecondaryConfirmationDoneAction = null;
-        public Action OnSecondaryConfirmationCancleAction = null;
+        public delegate void ShowDialog(Action doneAction,Action cancleAction);
+
+        public ShowDialog ShowSecondaryConfirmationDialog;
 
         void Awake()
         {
