@@ -17,8 +17,8 @@ namespace Game
         [LabelText("装备回收设置")]
         public Transform tran_EquipQualityList;
 
-        [LabelText("装备等级")]
-        public Toggle toggle_EquipLevel;
+        // [LabelText("装备等级")]
+        // public Toggle toggle_EquipLevel;
 
         [LabelText("装备等级")]
         public InputField if_EquipLevel;
@@ -78,18 +78,8 @@ namespace Game
                     }
                 }
 
-                if (setting.EquipLevel > 0)
-                {
-                    toggle_EquipLevel.isOn = true;
+                if_EquipLevel.text = setting.EquipLevel.ToString();
 
-                    string levelText = setting.EquipLevel + "";
-
-                    if_EquipLevel.text = setting.EquipLevel + "";
-                }
-                else
-                {
-                    toggle_EquipLevel.isOn = false;
-                }
 
                 foreach (int skillBookRole in setting.EquipRole.Keys)
                 {
@@ -138,16 +128,16 @@ namespace Game
                 }
             }
 
-            if (toggle_EquipLevel.isOn)
+            // if (toggle_EquipLevel.isOn)
             {
                 int level = 0;
                 int.TryParse(if_EquipLevel.text, out level);
 
                 user.RecoverySetting.EquipLevel = level;
             }
-            else {
-                user.RecoverySetting.EquipLevel = 0;
-            }
+            // else {
+                // user.RecoverySetting.EquipLevel = 0;
+            // }
 
             sb.Append("装备自动回收 职业：");
             for (var i = 0; i < bookToggles.Length; i++)

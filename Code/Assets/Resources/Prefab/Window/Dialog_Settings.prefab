@@ -1798,7 +1798,6 @@ MonoBehaviour:
   if_Code: {fileID: 5836752069315745076}
   btn_Code: {fileID: 7109991384037990494}
   btn_Done: {fileID: 3659055438042137718}
-  btn_Cancle: {fileID: 0}
 --- !u!1 &1734253256955997139
 GameObject:
   m_ObjectHideFlags: 0
@@ -8058,13 +8057,13 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2235374957928758466}
   m_TextComponent: {fileID: 4799310048095046148}
   m_Placeholder: {fileID: 3412529571373287361}
-  m_ContentType: 0
+  m_ContentType: 2
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 0
+  m_KeyboardType: 4
   m_LineType: 0
   m_HideMobileInput: 0
-  m_CharacterValidation: 0
+  m_CharacterValidation: 1
   m_CharacterLimit: 10
   m_OnSubmit:
     m_PersistentCalls:
@@ -8149,7 +8148,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tran_EquipQualityList: {fileID: 3323965147733303745}
-  toggle_EquipLevel: {fileID: 2171378651216691274}
   if_EquipLevel: {fileID: 8578421385960087523}
   tran_BookJobList: {fileID: 852738462851875230}
   toggle_BookLevel: {fileID: 1780366183973995176}
