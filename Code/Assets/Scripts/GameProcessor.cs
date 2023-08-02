@@ -26,6 +26,7 @@ namespace Game
         public Transform PlayerRoot { get; private set; }
 
         public Transform EffectRoot { get; private set; }
+        public Transform UIRoot_Top { get; private set; }
 
         public EventManager EventCenter { get; private set; }
 
@@ -298,6 +299,7 @@ namespace Game
 
             this.EffectRoot = MapData.transform.parent.Find("[EffectRoot]").transform;
 
+            this.UIRoot_Top = GameObject.Find("Canvas/UIRoot/Top").transform;
             if (currentTimeSecond > 0)
             {
                 this.CurrentTimeSecond = currentTimeSecond;
@@ -353,28 +355,57 @@ namespace Game
 
         private void ShowGameMsg(ShowGameMsgEvent e)
         {
-            var barragePrefab = Resources.Load<GameObject>("Prefab/Dialog/Msg");
+            toastTaskList.Add(e);
+            this.ShowNextToast();
+        }
 
-            var msg = GameObject.Instantiate(barragePrefab);
+        private float currentToastShowTime = 0f;
+        private List<ShowGameMsgEvent> toastTaskList = new List<ShowGameMsgEvent>();
+        private void ShowNextToast()
+        {
+            if (Time.realtimeSinceStartup - currentToastShowTime > 0.5f)
+            {
+                if (toastTaskList.Count > 0)
+                {
+                    var toast = toastTaskList[0];
+                    toastTaskList.RemoveAt(0);
+                    
+                    currentToastShowTime = Time.realtimeSinceStartup;
+                
+                    var barragePrefab = Resources.Load<GameObject>("Prefab/Dialog/Toast");
 
-            Transform parent = e.Parent == null ? PlayerRoot : e.Parent;
-            msg.transform.SetParent(parent);
+                    var msg = GameObject.Instantiate(barragePrefab);
 
-            var msgSize = msg.GetComponent<RectTransform>().sizeDelta;
-
-            var msgX = -parent.position.x / 5;
-            var msgY = parent.position.y / 5;
-
-            msg.transform.localPosition = new Vector3(msgX, msgY);
-            var com = msg.GetComponent<Dialog_Msg>();
+                    msg.transform.SetParent(this.UIRoot_Top);
 
 
-            com.tmp_Msg_Content.text = string.Format("<color=#{0}>{1}</color>", "FF0000", e.Content);
+                    var msgX = 0;
+                    var msgY = 200;
 
-            msg.transform.DOLocalMoveY(msgY * 2, 1f).OnComplete(() =>
-             {
-                 GameObject.Destroy(msg);
-             });
+                    msg.transform.localPosition = new Vector3(msgX, msgY);
+                    var com = msg.GetComponent<Dialog_Msg>();
+
+
+                    com.tmp_Msg_Content.text = string.Format("<color=#{0}>{1}</color>", "FF0000", toast.Content);
+                
+                    //首先要创建一个DOTween队列
+                    Sequence seq = DOTween.Sequence();
+
+                    //seq.Append  里面是让主相机振动的临时试验代码
+                    seq.Append(msg.transform.DOLocalMoveY(msgY + 100, 1f));
+
+                    //seq.AppendInterval 传入的是一个时间数值，是在队列上一句代码执行完毕隔多长时间执行下一句代码
+                    float delayedTimer = 0.5f;
+                    seq.AppendInterval(delayedTimer);
+
+                    seq.AppendCallback(() =>
+                    {
+                        GameObject.Destroy(msg);
+                        this.ShowNextToast();
+                    });
+                }
+                
+            }
         }
 
         void OnApplicationPause(bool isPaused)
