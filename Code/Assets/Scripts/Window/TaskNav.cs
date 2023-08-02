@@ -12,6 +12,8 @@ namespace Game
 
         public Text text;
 
+        public Text Txt_Time;
+
         private bool over;
 
         // Start is called before the first frame update
@@ -23,6 +25,14 @@ namespace Game
         public void Init()
         {
             User user = GameProcessor.Inst.User;
+
+            if (GameProcessor.Inst.isTimeError)
+            {
+                PlayerGuide.gameObject.SetActive(false);
+                Txt_Time.gameObject.SetActive(true);
+                Txt_Time.text = "您的收益时间：" + TimeHelper.SecondsToDate(user.SecondExpTick).AddHours(8).ToString()+",时间正常且过了这个时间才有收益";
+                return;
+            }
 
             TaskConfig config = TaskConfigCategory.Instance.GetById(user.TaskId);
 
