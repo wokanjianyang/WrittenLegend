@@ -267,6 +267,10 @@ namespace Game
 
         private bool IsEnemyClosest()
         {
+            if (Enemy == null)
+            {
+                return false;
+            }
             var up = this.Cell + Vector3Int.up;
             if (up == Enemy.Cell)
             {
