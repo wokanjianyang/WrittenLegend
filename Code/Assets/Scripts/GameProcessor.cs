@@ -45,14 +45,16 @@ namespace Game
         // public bool RefreshSkill = false; //是否要刷新技能
         public bool isTimeError = false;
 
-        private PocketAD.AdStateCallBack adStateCallBack;
-        
         private bool isGameOver { get; set; } = true;
         public PlayerType winCamp { get; private set; }
 
         public delegate void ShowDialog(Action doneAction,Action cancleAction);
 
         public ShowDialog ShowSecondaryConfirmationDialog;
+
+        public delegate void ShowAd(string des, string action, Action<bool> adResult);
+
+        public ShowAd ShowVideoAd;
 
         void Awake()
         {
@@ -138,7 +140,7 @@ namespace Game
 
             this.EventCenter.AddListener<ShowGameMsgEvent>(ShowGameMsg);
             
-            adStateCallBack += OnAdStateCallBack;
+            ShowVideoAd += OnShowVideoAd;
         }
 
         private void OfflineReward()
@@ -448,19 +450,7 @@ namespace Game
         
         public void HeroDie(RuleType ruleType)
         {
-            // string title = "显示广告";
-            // string message = "激励视频广告测试";
-            // var builder = new UM_NativeDialogBuilder(title, message);
-            // builder.SetPositiveButton("看广告复活", () => {
-            //     Log.Debug("看广告复活");
-            //     PocketAD.Inst.ShowAD("ResurrectionHero", adStateCallBack);
-            // });
-            // builder.SetNegativeButton("取消", () =>
-            // {
-            //     Log.Debug("不复活");
-            // });
-            // var dialog = builder.Build();
-            // dialog.Show();
+            
 
             switch (ruleType)
             {
@@ -474,47 +464,65 @@ namespace Game
             }
         }
         
-        
-        public async void OnAdStateCallBack(int rv, AdStateEnum state, AdTypeEnum adType)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="des"></param>
+        /// <param name="action"></param>
+        /// <param name="adResult"></param>
+        public void OnShowVideoAd(string des, string action, Action<bool> adResult)
         {
-            switch (state)
-            {
-                case AdStateEnum.Click:
-                    Log.Debug("点击广告");
-                    break;
-                case AdStateEnum.Close:
-                    Log.Debug("关闭广告");
+            string title = "友情支持";
+            string message = des;
+            var builder = new UM_NativeDialogBuilder(title, message);
+            builder.SetPositiveButton(des, () => {
+                Log.Debug(des);
+                PocketAD.Inst.ShowAD(action, async delegate(int rv, AdStateEnum state, AdTypeEnum type)
+                {
+                    var ret = false;
+                    switch (state)
+                    {
+                        case AdStateEnum.Click:
+                            Log.Debug("点击广告");
+                            break;
+                        case AdStateEnum.Close:
+                            Log.Debug("关闭广告");
+                            break;
+                        case AdStateEnum.Reward:
+                            Log.Debug("发放奖励");
+                            ret = true;
+                            break;
+                        case AdStateEnum.Show:
+                            Log.Debug("广告显示");
+                            break;
+                        case AdStateEnum.LoadFail:
+                            Log.Debug("广告加载失败");
+                            break;
+                        case AdStateEnum.NotSupport:
+                            Log.Debug("不支持广告");
+                            break;
+                        case AdStateEnum.SkippedVideo:
+                            Log.Debug("跳过广告");
+                            break;
+                        case AdStateEnum.VideoComplete:
+                            Log.Debug("广告播放完毕");
+                            ret = true;
+                            break;
+                    }
                     // 到主线程执行
                     await Loom.ToMainThread;
-                    PlayerManager.GetHero().Resurrection();
-                    this.StartGame();
-                    break;
-                case AdStateEnum.Reward:
-                    Log.Debug("发放奖励");
-
-                    break;
-                case AdStateEnum.Show:
-                    Log.Debug("广告显示");
-
-                    break;
-                case AdStateEnum.LoadFail:
-                    Log.Debug("广告加载失败");
-
-                    break;
-                case AdStateEnum.NotSupport:
-                    Log.Debug("不支持广告");
-
-                    break;
-                case AdStateEnum.SkippedVideo:
-                    Log.Debug("跳过广告");
-
-                    break;
-                case AdStateEnum.VideoComplete:
-                    Log.Debug("广告播放完毕");
-
-                    break;
-            }
-
+                    adResult?.Invoke(ret);
+                });
+            });
+            builder.SetNegativeButton("取消", async () =>
+            {
+                // 到主线程执行
+                await Loom.ToMainThread;
+                adResult?.Invoke(false);
+            });
+            var dialog = builder.Build();
+            dialog.Show();
         }
 
         public void SetGameOver(PlayerType winCamp)
