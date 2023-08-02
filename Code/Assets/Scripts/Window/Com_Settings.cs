@@ -82,8 +82,47 @@ namespace Game
 
         public void OnClick_Code()
         {
-            
+            string code = if_Code.text;
+            if (code != null)
+            {
+                code = code.Trim();
+
+                User user = GameProcessor.Inst.User;
+
+                if (user.GiftList.ContainsKey(code))
+                {
+                    Debug.Log("您已经使用了兑换码");
+                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "您已经使用了兑换码" });
+                    return;
+                }
+
+                List<CodeConfig> list = CodeConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
+
+                List<CodeConfig> configs = list.Where(m => m.code == code).ToList();
+
+                if (configs.Count != 1)
+                {
+                    Debug.Log("没有这个兑换码");
+                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有这个兑换码" });
+                    return;
+                }
+
+                user.GiftList[code] = true;
+
+                CodeConfig config = configs[0];
+
+                List<Item> items = new List<Item>();
+
+                for (int i = 0; i < config.ItemTypeList.Count(); i++)
+                {
+                    Item item = ItemHelper.BuildItem((ItemType)config.ItemTypeList[i], config.ItemIdList[i], 0, 1);
+                    items.Add(item);
+                }
+
+                user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+            }
         }
+
         //4、UTF8编码格式（汉字3byte，英文1byte）,//UTF8编码格式,目前是最常用的 
         private string SplitNameByUTF8(string temp)
         {

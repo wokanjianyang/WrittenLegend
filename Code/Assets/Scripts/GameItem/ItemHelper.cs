@@ -28,6 +28,13 @@ namespace Game
             {
                 item = BuildMaterial(configId, number);
             }
+            else if (type == ItemType.GoldPack || type == ItemType.ExpPack)
+            {
+                item = new Item(configId);
+                item.Quantity = 1;
+                item.Type = type;
+                return item;
+            }
 
             return item;
         }

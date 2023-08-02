@@ -51,6 +51,20 @@ namespace Game
             return message;
         }
 
+        public static string BuildGiftPackMessage(long exp, long gold)
+        {
+            string message = $"<color=#{QualityConfigHelper.GetColor(4)}> 使用道具获得";
+            if (exp > 0)
+            {
+                message += $"经验奖励{exp}";
+            }
+            if (gold > 0)
+            {
+                message += $"金币奖励{gold}";
+            }
+            return message+ "</color>";
+        }
+
 
         public static string BuildSecondExpMessage(long exp, long gold)
         {

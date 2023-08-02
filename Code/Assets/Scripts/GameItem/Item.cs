@@ -69,13 +69,16 @@ namespace Game
         //public int BoxId { get; set; } = -1;
     }
 
-    public enum ItemType { 
+    public enum ItemType
+    {
         Normal = 0,
         Gold = 1,
         Equip = 2,
-        SkillBox =3,
+        SkillBox = 3,
         GiftPack = 4,
-        Material =5,
+        Material = 5,
         Buff = 6,
+        GoldPack = 7,
+        ExpPack = 8,
     }
 }

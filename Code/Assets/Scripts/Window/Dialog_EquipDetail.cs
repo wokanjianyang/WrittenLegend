@@ -238,12 +238,14 @@ namespace Game
                     }
                     break;
                 case ItemType.GiftPack:
+                case ItemType.ExpPack:
+                case ItemType.GoldPack:
                     {
-                        var giftPack = this.item as GiftPack;
+                        //var giftPack = this.item as GiftPack;
 
                         tran_NormalAttribute.gameObject.SetActive(true);
-                        tran_NormalAttribute.Find("Title").GetComponent<Text>().text = giftPack.Config.Des;
-                        tran_NormalAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.item.Level);
+                        tran_NormalAttribute.Find("Title").GetComponent<Text>().text = item.ItemConfig.Des;
+                        //tran_NormalAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.item.Level);
 
                         this.btn_Learn.gameObject.SetActive(false);
 

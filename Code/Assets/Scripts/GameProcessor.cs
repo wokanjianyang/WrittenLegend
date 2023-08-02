@@ -80,8 +80,6 @@ namespace Game
             //启动就加载用户存档
             this.User = UserData.Load();
             this.User.Init();
-            //加载礼包奖励
-            GameProcessor.Inst.User.BuildReword();
 
             //判断是否非法时间
             if (UserData.StartTime < ConfigHelper.PackTime)

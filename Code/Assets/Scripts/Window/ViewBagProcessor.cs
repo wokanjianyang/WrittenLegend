@@ -376,6 +376,34 @@ namespace Game
                     Quantity = quantity,
                 });
             }
+            else if (boxItem.Item.Type == ItemType.ExpPack)
+            {
+                long exp = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondGold);
+
+                ItemConfig config = ItemConfigCategory.Instance.Get(boxItem.Item.ConfigId);
+
+                exp = exp * config.UseParam * 720; //3600/5 = 720,配置的是小时
+
+                user.AddExpAndGold(exp, 0);
+                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+                {
+                    Message = BattleMsgHelper.BuildGiftPackMessage(exp, 0)
+                });
+            }
+            else if (boxItem.Item.Type == ItemType.GoldPack)
+            {
+                long gold = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp);
+
+                ItemConfig config = ItemConfigCategory.Instance.Get(boxItem.Item.ConfigId);
+
+                gold = gold * config.UseParam * 720; //3600/5 = 720,配置的是小时
+
+                user.AddExpAndGold(gold, 0);
+                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+                {
+                    Message = BattleMsgHelper.BuildGiftPackMessage(gold, 0)
+                });
+            }
             else if (boxItem.Item.Type == ItemType.GiftPack)
             {
                 int gold = 0;

@@ -58,7 +58,7 @@ namespace Game
         /// </summary>
         public List<BoxItem> Bags { get; set; } = new List<BoxItem>();
 
-        public IDictionary<int, bool> GiftList { get; set; } = new Dictionary<int, bool>();
+        public IDictionary<string, bool> GiftList { get; set; } = new Dictionary<string, bool>();
 
         public long LastOut { get; set; }
 
@@ -169,32 +169,6 @@ namespace Game
         private void UserAttrChange(UserAttrChangeEvent e)
         {
             this.SetAttr();
-        }
-
-        public void BuildReword()
-        {
-            Dictionary<int, RewardConfig> rewordList = RewardConfigCategory.Instance.GetAll();
-            foreach (int rewordId in rewordList.Keys)
-            {
-                if (!GiftList.Keys.Contains(rewordId))
-                {
-                    RewardConfig config = rewordList[rewordId];
-
-                    BoxItem boxItem = new BoxItem();
-
-                    if (config.type == 4) //Àñ°ü
-                    {
-                        GiftPack gift = new GiftPack(config.ItemId);
-                        boxItem.Item = gift;
-                        boxItem.Number = 1;
-                        boxItem.BoxId = -1;
-                    }
-
-                    this.Bags.Add(boxItem);
-
-                    GiftList.Add(rewordId, true);
-                }
-            }
         }
 
         public List<SkillRune> GetRuneList(int skillId)
