@@ -55,7 +55,7 @@ namespace Game
         public AttributeBonus AttributeBonus { get; set; }
 
         /// <summary>
-        /// °ü¹ü
+        /// åŒ…è£¹
         /// </summary>
         public List<BoxItem> Bags { get; set; } = new List<BoxItem>();
 
@@ -66,7 +66,7 @@ namespace Game
         private bool isInLevelUp;
 
         /// <summary>
-        /// ÎŞ¾¡Ëş²ãÊı
+        /// æ— å°½å¡”å±‚æ•°
         /// </summary>
         public long TowerFloor { get; set; } = 1;
 
@@ -75,7 +75,7 @@ namespace Game
         public int TaskId { get; set; } = 1;
         public Dictionary<int ,bool> TaskLog = new Dictionary<int, bool>();
 
-        //Ö÷Ïßboss¼ÇÂ¼
+        //ä¸»çº¿bossè®°å½•
         public Dictionary<int, long> MapBossTime { get; } = new Dictionary<int, long>();
 
         public ADShowData ADShowData { get; set; } = new ADShowData();
@@ -93,10 +93,10 @@ namespace Game
 
         public void Init()
         {
-            //ÉèÖÃ¸÷ÖÖÊôĞÔÖµ
+            //è®¾ç½®å„ç§å±æ€§å€¼
             SetAttr();
 
-            //ÉèÖÃBossË¢ĞÂÊ±¼ä
+            //è®¾ç½®Bossåˆ·æ–°æ—¶é—´
             Dictionary<int, MapConfig> mapList = MapConfigCategory.Instance.GetAll();
             foreach (MapConfig mapConfig in mapList.Values)
             {
@@ -128,10 +128,10 @@ namespace Game
 
             EquipPanel[PanelPosition] = equip;
 
-            //¸üĞÂÊôĞÔÃæ°å
+            //æ›´æ–°å±æ€§é¢æ¿
             GameProcessor.Inst.UpdateInfo();
             
-            //¸üĞÂ¼¼ÄÜÃèÊö
+            //æ›´æ–°æŠ€èƒ½æè¿°
             this.EventCenter.Raise(new HeroUpdateAllSkillEvent());
         }
 
@@ -139,10 +139,10 @@ namespace Game
         {
             EquipPanel.Remove(e.Position);
 
-            //¸üĞÂÊôĞÔÃæ°å
+            //æ›´æ–°å±æ€§é¢æ¿
             GameProcessor.Inst.UpdateInfo();
             
-            //¸üĞÂ¼¼ÄÜÃèÊö
+            //æ›´æ–°æŠ€èƒ½æè¿°
             this.EventCenter.Raise(new HeroUpdateAllSkillEvent());
         }
 
@@ -156,7 +156,7 @@ namespace Game
 
             if (e.IsLearn)
             {
-                //µÚÒ»´ÎÑ§Ï°£¬´´½¨¼¼ÄÜÊı¾İ
+                //ç¬¬ä¸€æ¬¡å­¦ä¹ ï¼Œåˆ›å»ºæŠ€èƒ½æ•°æ®
                 skillData = new SkillData(Book.ConfigId, 0);
                 skillData.Status = SkillStatus.Learn;
                 skillData.Level = 1;
@@ -184,10 +184,10 @@ namespace Game
         {
             List<SkillRune> list = new List<SkillRune>();
 
-            //¼ÆËã×°±¸µÄ´ÊÌõ¼Ó³É
+            //è®¡ç®—è£…å¤‡çš„è¯æ¡åŠ æˆ
             List<Equip> skillList = this.EquipPanel.Where(m => m.Value.SkillRuneConfig != null && m.Value.SkillRuneConfig.SkillId == skillId).Select(m => m.Value).ToList();
 
-            //°´µ¥¼ş·Ö×é,´ÊÌõÓĞ¶ÑµşÉÏÏŞ
+            //æŒ‰å•ä»¶åˆ†ç»„,è¯æ¡æœ‰å †å ä¸Šé™
             var runeGroup = skillList.GroupBy(m => m.RuneConfigId);
             foreach (IGrouping<int, Equip> runeItem in runeGroup)
             {
@@ -202,14 +202,14 @@ namespace Game
         {
             List<SkillSuit> list = new List<SkillSuit>();
 
-            //¼ÆËã×°±¸µÄÌ××°¼Ó³É
+            //è®¡ç®—è£…å¤‡çš„å¥—è£…åŠ æˆ
             List<Equip> skillList = this.EquipPanel.Where(m => m.Value.SkillSuitConfig != null && m.Value.SkillSuitConfig.SkillId == skillId).Select(m => m.Value).ToList();
             var suitGroup = skillList.GroupBy(m => m.SuitConfigId);
 
             foreach (var suitItem in suitGroup)
             {
                 if (suitItem.Count() >= SkillSuitHelper.SuitMax)
-                {  //SkillSuitHelper.SuitMax ¼ş²Å³ÉÌ×,²¢ÇÒÖ»ÄÜÓĞÒ»Ì×ÄÜÉúĞ§
+                {  //SkillSuitHelper.SuitMax ä»¶æ‰æˆå¥—,å¹¶ä¸”åªèƒ½æœ‰ä¸€å¥—èƒ½ç”Ÿæ•ˆ
                     SkillSuit suit = new SkillSuit(suitItem.Key);
                     list.Add(suit);
                 }
@@ -230,7 +230,7 @@ namespace Game
 
             LevelConfig config = LevelConfigCategory.Instance.GetAll().Where(m => m.Value.StartLevel <= Level && m.Value.EndLevel >= Level).First().Value;
 
-            //µÈ¼¶ÊôĞÔ
+            //ç­‰çº§å±æ€§
             long rise = Level - config.StartLevel;
             long attr = config.StartAttr + (long)(rise * config.RiseAttr);
             long hp = config.StartHp + (long)(rise * config.RiseHp);
@@ -244,11 +244,11 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, def);
 
 
-            //²âÊÔÊôĞÔ
+            //æµ‹è¯•å±æ€§
             //AttributeBonus.SetAttr(AttributeEnum.ExpIncrea, AttributeFrom.Test, 1000);
             //AttributeBonus.SetAttr(AttributeEnum.GoldIncrea, AttributeFrom.Test, 1000);
 
-            //×°±¸ÊôĞÔ
+            //è£…å¤‡å±æ€§
             foreach (var kvp in EquipPanel)
             {
                 EquipRefineConfig refineConfig = null;
@@ -263,7 +263,7 @@ namespace Game
                 }
             }
 
-            //Ç¿»¯ÊôĞÔ
+            //å¼ºåŒ–å±æ€§
             foreach (var sp in EquipStrength)
             {
                 EquipStrengthConfig strengthConfig = EquipStrengthConfigCategory.Instance.GetByPositioin(sp.Key);
@@ -273,7 +273,7 @@ namespace Game
                 }
             }
 
-            //ÎŞ¾¡ËşÊôĞÔ
+            //æ— å°½å¡”å±æ€§
             if (this.TowerFloor > 1)
             {
                 long secondExp = 0;
@@ -287,7 +287,7 @@ namespace Game
             //UpExp = config.Exp;
             UpExp = upExp;
 
-            //¸üĞÂÃæ°å
+            //æ›´æ–°é¢æ¿
             if (GameProcessor.Inst.PlayerInfo != null)
             {
                 GameProcessor.Inst.PlayerInfo.UpdateAttrInfo(this);
@@ -298,11 +298,11 @@ namespace Game
         {
             this.Exp += exp;
             this.Gold += gold;
-            EventCenter.Raise(new UserInfoUpdateEvent()); //¸üĞÂUI
+            EventCenter.Raise(new UserInfoUpdateEvent()); //æ›´æ–°UI
 
             if (Exp >= UpExp)
             {
-                GameProcessor.Inst.StartCoroutine(LevelUp()); //Éı¼¶
+                GameProcessor.Inst.StartCoroutine(LevelUp()); //å‡çº§
             }
         }
 
