@@ -544,6 +544,7 @@ namespace CodeStage.AntiCheat.Detectors
 					await Task.Delay(100);
 				}
 
+				wr.timeout = 5;
 				FillRequestResult(wr, ref result);
 			}
 
