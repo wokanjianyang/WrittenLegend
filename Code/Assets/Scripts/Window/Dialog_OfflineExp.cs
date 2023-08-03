@@ -51,8 +51,6 @@ namespace Game
         {
             User user = GameProcessor.Inst.User;
 
-            LevelConfig levelConfig = LevelConfigCategory.Instance.Get(user.Level);
-
             this.offlineSecond = os;
             this.gameObject.SetActive(true);
             var ticks = os * TimeSpan.TicksPerSecond;

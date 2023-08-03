@@ -44,8 +44,7 @@ public class Dialog_FloatButtons : MonoBehaviour, IBattleLife,IPointerDownHandle
 
     public void OnBattleStart()
     {
-
-        
+        this.gameObject.SetActive(true);
     }
 
     public int Order => (int)ComponentOrder.Dialog;

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Game
 {
-    public class BottomNav : MonoBehaviour
+    public class BottomNav : MonoBehaviour,IBattleLife
     {
         [Title("底部导航")]
         [LabelText("包裹")]
@@ -42,6 +42,13 @@ namespace Game
         void Update()
         {
 
+        }
+
+        public int Order => (int)ComponentOrder.TopNav;
+
+        public void OnBattleStart()
+        {
+            this.gameObject.SetActive(true);
         }
 
         private void OnClick_Bag()

@@ -44,17 +44,6 @@ public class ViewForgeProcessor : AViewPage
         Btn_Strengthen.onClick.AddListener(OnClick_Strengthen);
         Btn_Strengthen_Batch.onClick.AddListener(OnClick_Strengthen_Batch);
 
-        //var equipList = tran_EquiList.GetComponentsInChildren<SlotBox>();
-
-        AttrList = tran_AttrList.GetComponentsInChildren<StrenthAttrItem>();
-        foreach (var attrTxt in AttrList)
-        {
-            attrTxt.gameObject.SetActive(false);
-        }
-        StrengthenEquiList = tran_EquiList.GetComponentsInChildren<StrenthBox>();
-
-        Refine_EquiList =  Refine_Tran_EquiList.GetComponentsInChildren<RefineBox>();
-
         this.toggle_Strengthen.onValueChanged.AddListener((isOn) =>
         {
             if (isOn)
@@ -94,8 +83,6 @@ public class ViewForgeProcessor : AViewPage
         GameProcessor.Inst.EventCenter.AddListener<CompositeUIFreshEvent>(this.OnCompositeUIFreshEvent);
         GameProcessor.Inst.EventCenter.AddListener<EquipRefineSelectEvent>(this.OnEquipRefineSelectEvent);
         
-        this.ShowStrengthInfo();
-        this.InitComposite();
     }
 
     private void OnEquipStrengthSelectEvent(EquipStrengthSelectEvent e)
@@ -450,10 +437,28 @@ public class ViewForgeProcessor : AViewPage
         return page == ViewPageType.View_Forge;
     }
 
+    public override void OnInit()
+    {
+        base.OnInit();
+        
+        //var equipList = tran_EquiList.GetComponentsInChildren<SlotBox>();
+
+        AttrList = tran_AttrList.GetComponentsInChildren<StrenthAttrItem>();
+        foreach (var attrTxt in AttrList)
+        {
+            attrTxt.gameObject.SetActive(false);
+        }
+        StrengthenEquiList = tran_EquiList.GetComponentsInChildren<StrenthBox>();
+
+        Refine_EquiList =  Refine_Tran_EquiList.GetComponentsInChildren<RefineBox>();
+
+    }
+
     public override void OnOpen()
     {
         base.OnOpen();
         
         this.ShowStrengthInfo();
+        this.InitComposite();
     }
 }

@@ -90,8 +90,14 @@ namespace Game
             
         }
         
-        public void Init()
+        public void Init(long currentTimeSecond)
         {
+            
+            if (currentTimeSecond > 0)
+            {
+                this.CurrentTimeSecond = currentTimeSecond;
+            }
+
             this.EventCenter = new EventManager();
             this.PlayerInfo = Canvas.FindObjectOfType<PlayerInfo>(true);
 
@@ -300,7 +306,7 @@ namespace Game
             }
         }
 
-        public void LoadMap(RuleType ruleType, long currentTimeSecond, int mapId, Transform map)
+        public void LoadMap(RuleType ruleType, int mapId, Transform map)
         {
             MapData = map.GetComponentInChildren<MapData>();
             switch (ruleType)
@@ -318,11 +324,6 @@ namespace Game
             this.PlayerRoot = MapData.transform.parent.Find("[PlayerRoot]").transform;
 
             this.EffectRoot = MapData.transform.parent.Find("[EffectRoot]").transform;
-
-            if (currentTimeSecond > 0)
-            {
-                this.CurrentTimeSecond = currentTimeSecond;
-            }
 
             this.PlayerManager.LoadHero();
 
