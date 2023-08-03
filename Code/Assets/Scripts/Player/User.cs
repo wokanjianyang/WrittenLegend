@@ -4,6 +4,7 @@ using System.Collections;
 using Newtonsoft.Json;
 using System.Linq;
 using System;
+using Game.Data;
 using SDD.Events;
 
 namespace Game
@@ -76,6 +77,8 @@ namespace Game
 
         //Ö÷Ïßboss¼ÇÂ¼
         public Dictionary<int, long> MapBossTime { get; } = new Dictionary<int, long>();
+
+        public ADShowData ADShowData { get; set; } = new ADShowData();
 
         public User()
         {

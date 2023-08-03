@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Game;
+using Game.Data;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -53,14 +54,63 @@ public class Com_AD : MonoBehaviour, IBattleLife
     public void OnBattleStart()
     {
 
-        
+
     }
 
     public int Order => (int)ComponentOrder.Dialog;
 
     public void Open()
     {
+        this.UpdateAdData();
+
         this.gameObject.SetActive(true);
+    }
+
+    public void UpdateAdData()
+    {
+        var @enums = Enum.GetValues(typeof(ADTypeEnum));
+        foreach (ADTypeEnum @enum in @enums)
+        {
+            var data = GameProcessor.Inst.User.ADShowData?.GetADShowStatus(@enum);
+            if (data == null)
+            {
+                continue;
+            }
+            switch (@enum)
+            {
+                case ADTypeEnum.GoldCount:
+                    this.txt_Reward_Gold_Count.text = $"{data.CurrentShowCount}/{data.MaxShowCount}";
+                    break;
+                case ADTypeEnum.ExpCount:
+                    this.txt_Reward_Exp_Count.text = $"{data.CurrentShowCount}/{data.MaxShowCount}";
+
+                    break;
+                case ADTypeEnum.CopyTicketCount:
+                    this.txt_Reward_Copy_Ticket_Count.text = $"{data.CurrentShowCount}/{data.MaxShowCount}";
+
+                    break;
+                case ADTypeEnum.StoneCount:
+                    this.txt_Reward_Stone_Count.text = $"{data.CurrentShowCount}/{data.MaxShowCount}";
+
+                    break;
+                case ADTypeEnum.ExpAdd:
+                    this.txt_Reward_Exp_Add.text = $"{data.CurrentShowCount}/{data.MaxShowCount}";
+
+                    break;
+                case ADTypeEnum.ExpTime:
+                    this.txt_Reward_Exp_Time.text = $"{data.CurrentShowCount}/{data.MaxShowCount}";
+
+                    break;
+                case ADTypeEnum.GoldAdd:
+                    this.txt_Reward_Gold_Add.text = $"{data.CurrentShowCount}/{data.MaxShowCount}";
+
+                    break;
+                case ADTypeEnum.GoldTime:
+                    this.txt_Reward_Gold_Time.text = $"{data.CurrentShowCount}/{data.MaxShowCount}";
+
+                    break;
+            }
+        }
     }
 
     public void OnClick_Close()
@@ -70,6 +120,12 @@ public class Com_AD : MonoBehaviour, IBattleLife
 
     public void OnClick_GoldCount()
     {
+        var data = GameProcessor.Inst.User.ADShowData?.GetADShowStatus(ADTypeEnum.GoldCount);
+        if (data == null)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "广告次数已用尽，请观看其它广告或明日再来",ToastType = ToastTypeEnum.Failure});
+            return;
+        }
         GameProcessor.Inst.OnShowVideoAd("金币收益2小时","gold_count_2_hour", (giveReward) =>
         {
             
@@ -86,6 +142,9 @@ public class Com_AD : MonoBehaviour, IBattleLife
                 {
                     Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励",exp, 0)
                 });
+
+                data.CurrentShowCount++;
+                this.UpdateAdData();
             }
             else
             {
@@ -103,6 +162,10 @@ public class Com_AD : MonoBehaviour, IBattleLife
                     {
                         Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励",exp, 0)
                     });
+                    
+                    data.CurrentShowCount++;
+                    this.UpdateAdData();
+
                 }));
             }
         });
@@ -110,6 +173,12 @@ public class Com_AD : MonoBehaviour, IBattleLife
 
     public void OnClick_ExpCount()
     {
+        var data = GameProcessor.Inst.User.ADShowData?.GetADShowStatus(ADTypeEnum.ExpCount);
+        if (data == null)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "广告次数已用尽，请观看其它广告或明日再来",ToastType = ToastTypeEnum.Failure});
+            return;
+        }
         GameProcessor.Inst.OnShowVideoAd("经验收益2小时", "exp_count_2_hour", (giveReward) =>
          {
              if (giveReward)
@@ -125,6 +194,10 @@ public class Com_AD : MonoBehaviour, IBattleLife
                  {
                      Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励",gold, 0)
                  });
+                 
+                 data.CurrentShowCount++;
+                 this.UpdateAdData();
+
              }
              else
              {
@@ -142,6 +215,10 @@ public class Com_AD : MonoBehaviour, IBattleLife
                     {
                         Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励",gold, 0)
                     });
+                    
+                    data.CurrentShowCount++;
+                    this.UpdateAdData();
+
                 }));
             }
          });
