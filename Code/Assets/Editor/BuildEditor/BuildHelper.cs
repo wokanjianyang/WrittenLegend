@@ -199,12 +199,7 @@ namespace ET
 
                 if (isBuildExe)
                 {
-                    if (buildType == BuildType.Release)
-                    {
-                        PlayerSettings.Android.bundleVersionCode++;
-                        PlayerSettings.bundleVersion = string.Join(".", PlayerSettings.Android.bundleVersionCode.ToString().PadLeft(3,'0').ToCharArray());
-                    }
-                    
+
                     AssetDatabase.Refresh();
                     string[] levels = {
                         "Assets/Scenes/Init.unity",
@@ -212,6 +207,13 @@ namespace ET
                     UnityEngine.Debug.Log("start build exe");
                     BuildPipeline.BuildPlayer(levels, $"../{buildType.ToString()}/{exeName}", buildTarget, buildOptions);
                     UnityEngine.Debug.Log("finish build exe");
+                    
+                    if (buildType == BuildType.Release)
+                    {
+                        PlayerSettings.Android.bundleVersionCode++;
+                        PlayerSettings.bundleVersion = string.Join(".", PlayerSettings.Android.bundleVersionCode.ToString().PadLeft(3,'0').ToCharArray());
+                    }
+
                 }
                 
             }
