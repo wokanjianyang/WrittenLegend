@@ -22,6 +22,10 @@ public class Init : MonoBehaviour
 
     private long currentTimeSecond = -1;
 
+    public GameProcessor Game;
+
+    public Transform MapRoot;
+
 #if UNITY_EDITOR
 
     [LabelText("加速")]
@@ -105,13 +109,13 @@ public class Init : MonoBehaviour
 
     private void LoadHome2()
     {
-        var com = this.gameObject.AddComponent<GameProcessor>();
-        var map = GameObject.Find("Canvas").GetComponentInChildren<ViewBattleProcessor>().transform;
-        this.LoadingPage.gameObject.SetActive(false);
+        Game.Init();
 
         StartCoroutine(IE_DelayAction(1f, () =>
         {
-            com.LoadMap(this.RuleType, this.currentTimeSecond, 0, map);
+            this.LoadingPage.gameObject.SetActive(false);
+
+            Game.LoadMap(this.RuleType, this.currentTimeSecond, 0, this.MapRoot);
         }));
     }
 
