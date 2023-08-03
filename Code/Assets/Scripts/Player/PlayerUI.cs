@@ -214,9 +214,8 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
             {
                 hero.Enemy.EventCenter.Raise(new ShowAttackIcon { NeedShow = false });
             }
-
-            hero.Enemy = this.SelfPlayer;
-            hero.Enemy.EventCenter.Raise(new ShowAttackIcon { NeedShow = true });
+            hero.UpdateEnemy(this.SelfPlayer);
+            this.SelfPlayer.EventCenter.Raise(new ShowAttackIcon { NeedShow = true });
         }
     }
 }

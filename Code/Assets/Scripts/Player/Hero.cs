@@ -169,7 +169,12 @@ namespace Game
         public void Resurrection()
         {
             this.Logic.ResetData();
-            this.Enemy = null;
+            this._enemy = null;
+        }
+
+        public void UpdateEnemy(APlayer player)
+        {
+            this._enemy = player;
         }
     }
 }
