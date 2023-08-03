@@ -317,7 +317,7 @@ namespace Game
             if (list.Count > 0 && list.Count >= effectData.Max)
             {
                 //移除旧的
-                list.RemoveRange(0, list.Count - effectData.Max + 1);
+                list.RemoveRange(0, list.Count - Math.Max(0, effectData.Max - 1));
             }
 
             Effect effect = new Effect(this, effectData, total);

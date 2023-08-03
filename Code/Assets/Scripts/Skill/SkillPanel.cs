@@ -56,7 +56,7 @@ namespace Game
                 if (suit.EffectId > 0 && !EffectIdList.ContainsKey(suit.EffectId))
                 {
                     int fromId = (int)AttributeFrom.Skill * 100000 + SkillId + suit.EffectId;
-                    EffectIdList[suit.EffectId] = new EffectData(suit.EffectId, fromId, suit.Percent, suit.Damage, suit.Duration, suit.EnemyMax);
+                    EffectIdList[suit.EffectId] = new EffectData(suit.EffectId, fromId, suit.Percent, suit.Damage, suit.Duration, 1); //暂且设置只能叠加一层
                 }
             }
 
