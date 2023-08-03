@@ -25,6 +25,7 @@ public class Init : MonoBehaviour
     public GameProcessor Game;
 
     public Transform MapRoot;
+    
 
 #if UNITY_EDITOR
 
@@ -34,7 +35,7 @@ public class Init : MonoBehaviour
     private void OnValidate()
     {
         Time.timeScale = this.TimeScale;
-        DOTween.timeScale = this.TimeScale;
+        DOTween.timeScale = 1f/this.TimeScale;
     }
 #endif
 
