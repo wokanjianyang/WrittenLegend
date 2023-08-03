@@ -133,7 +133,7 @@ public class Init : MonoBehaviour
         AN_Preloader.LockScreen("正在获取时间...");
 
         var milliseconds = GetNetworkTime();
-        var networkDateTime = (new DateTime(1900, 1, 1)).AddMilliseconds((long) milliseconds); // 根据毫秒数计算网络时间（从 1900 年 1 月 1 日开始计算）
+        var networkDateTime = (new DateTime(1900, 1, 1)).AddMilliseconds((long) milliseconds).AddHours(8); // 根据毫秒数计算网络时间（从 1900 年 1 月 1 日开始计算）
 
         Log.Debug("当前时间：" + networkDateTime);
         var currentTimeSecond = (long) (milliseconds/1000);
@@ -165,8 +165,6 @@ public class Init : MonoBehaviour
             var addresses = Dns.GetHostEntry(ntpServer).AddressList; // 获取 NTP 服务器的 IP 地址列表
             var ipEndPoint = new IPEndPoint(addresses[0], 123); // 创建用于连接的 IP 端点，使用第一个 IP 地址和 NTP 服务器的端口 123
             var socket = new System.Net.Sockets.Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp); // 创建套接字，使用 IPv4 地址族、数据报套接字类型和 UDP 协议类型
-            socket.SendTimeout = 5000;
-            socket.ReceiveTimeout = 5000;
             socket.Connect(ipEndPoint); // 连接到 NTP 服务器
             socket.Send(ntpData); // 发送 NTP 数据
             socket.Receive(ntpData); // 接收 NTP 响应数据
