@@ -139,32 +139,39 @@ namespace Game
    
         private Com_Box CreateBox(BoxItem item)
         {
-
             GameObject prefab = null;
-            switch (item.Item.GetQuality())
+            if (item.Item.Type == ItemType.Material || item.Item.Type == ItemType.SkillBox)
             {
-                case 0:
-                case 1:
+                prefab = Resources.Load<GameObject>("Prefab/Window/Box_SkillOrMat");
+            }
+            else
+            {
+                switch (item.Item.GetQuality())
+                {
+                    case 0:
+                    case 1:
                     {
                         prefab = Resources.Load<GameObject>("Prefab/Window/Box_White");
                     }
-                    break;
-                case 2:
+                        break;
+                    case 2:
                     {
                         prefab = Resources.Load<GameObject>("Prefab/Window/Box_Green");
                     }
-                    break;
-                case 3:
+                        break;
+                    case 3:
                     {
                         prefab = Resources.Load<GameObject>("Prefab/Window/Box_Blue");
                     }
-                    break;
-                case 4:
+                        break;
+                    case 4:
                     {
                         prefab = Resources.Load<GameObject>("Prefab/Window/Box_Pink");
                     }
-                    break;
+                        break;
+                }
             }
+            
             var go = GameObject.Instantiate(prefab);
             var comItem = go.GetComponent<Com_Box>();
             comItem.SetBoxId(item.BoxId);
