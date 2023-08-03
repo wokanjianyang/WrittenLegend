@@ -75,14 +75,6 @@ namespace Game
             this.skillLogic.Do();
         }
 
-        public void Destory() {
-            if (skillLogic is Skill_Valet)
-            {
-                Skill_Valet sv = skillLogic as Skill_Valet;
-                sv.ClearValet();
-            }
-        }
-
         public void SetLastUseRound(int round)
         {
             this.lastUseRound = round;

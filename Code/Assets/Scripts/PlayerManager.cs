@@ -11,9 +11,16 @@ namespace Game
     public class PlayerManager : MonoBehaviour, IBattleLife
     {
 
+        public class ValetData
+        {
+            public int OwnerId { get; set; }
+            public int SkillId { get; set; }
+            public List<Valet> Valets { get; set; } = new List<Valet>();
+        }
         private Hero hero;
         private List<APlayer> AllPlayers = new List<APlayer>();
         private int playerId = 0;
+        private List<ValetData> valetCache = new List<ValetData>();
 
         public Hero GetHero()
         {
@@ -167,9 +174,59 @@ namespace Game
 
                 valet.SetPosition(bornCell, true);
                 this.AddPlayer(valet);
+
+                var cache = valetCache.FirstOrDefault(c => c.OwnerId == player.ID && c.SkillId == skill.SkillId);
+                if (cache == null)
+                {
+                    valetCache.Add(new ValetData()
+                    {
+                        OwnerId = player.ID,
+                        SkillId = skill.SkillId,
+                        Valets = new List<Valet>(){valet}
+                    });
+                }
+                else
+                {
+                    cache.Valets.Add(valet);
+                }
+                
+            }
+            
+            return valet;
+        }
+
+        public void UnloadValet(APlayer player, SkillPanel skill)
+        {
+            var cache = valetCache.FirstOrDefault(c => c.OwnerId == player.ID && c.SkillId == skill.SkillId);
+            if (cache != null)
+            {
+                foreach (var valet in cache.Valets)
+                {
+                    if (valet.IsSurvice)
+                    {
+                        valet.OnHit(player.ID, valet.HP);
+                    }
+                }
+                cache.Valets.Clear();
+            }
+        }
+
+        public List<Valet> GetValets(APlayer player, SkillPanel skill)
+        {
+            List<Valet> valets = new List<Valet>();
+            var cache = valetCache.FirstOrDefault(c => c.OwnerId == player.ID && c.SkillId == skill.SkillId);
+            if (cache != null)
+            {
+                foreach (var valet in cache.Valets)
+                {
+                    if (valet.IsSurvice)
+                    {
+                        valets.Add(valet);
+                    }
+                }
             }
 
-            return valet;
+            return valets;
         }
 
         public Vector3Int RandomCell(Vector3Int currentCell)

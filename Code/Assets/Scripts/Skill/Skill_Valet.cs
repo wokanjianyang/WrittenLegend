@@ -6,7 +6,6 @@ namespace Game
 {
     public class Skill_Valet : ASkill
     {
-        public List<Valet> ValetList = new List<Valet>();
         public int MaxValet = 0;
 
         public Skill_Valet(APlayer player, SkillPanel skillPanel) : base(player, skillPanel)
@@ -17,7 +16,8 @@ namespace Game
 
         public override bool IsCanUse()
         {
-            if (MaxValet > 0 && MaxValet > ValetList.Count)
+            var valets = GameProcessor.Inst.PlayerManager.GetValets(SelfPlayer, this.SkillPanel);
+            if (MaxValet > 0 && MaxValet > valets.Count)
             {
                 return true;
             }
@@ -30,27 +30,19 @@ namespace Game
             this.skillGraphic?.PlayAnimation(SelfPlayer.Cell);
 
             //销毁之前的
-            foreach (Valet valet in ValetList)
-            {
-                valet.OnHit(SelfPlayer.ID, valet.HP);
-            }
-            ValetList.Clear();
+            // foreach (Valet valet in ValetList)
+            // {
+            //     valet.OnHit(SelfPlayer.ID, valet.HP);
+            // }
+            // ValetList.Clear();
 
+            var valets = GameProcessor.Inst.PlayerManager.GetValets(SelfPlayer, this.SkillPanel);
+            
             //创造新的
-            for (int i = 0; i < MaxValet; i++)
+            for (int i = valets.Count; i < MaxValet; i++)
             {
                 Valet valet = GameProcessor.Inst.PlayerManager.LoadValet(SelfPlayer, this.SkillPanel);
-                ValetList.Add(valet);
             }
-        }
-
-        public void ClearValet() {
-            //销毁之前的
-            foreach (Valet valet in ValetList)
-            {
-                valet.OnHit(SelfPlayer.ID, valet.HP);
-            }
-            ValetList.Clear();
         }
     }
 }
