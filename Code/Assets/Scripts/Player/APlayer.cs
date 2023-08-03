@@ -197,6 +197,10 @@ namespace Game
         public void DoEvent()
         {
             this.RoundCounter++;
+            if (this.Camp == PlayerType.Hero)
+            {
+                Log.Debug($"角色回合数：{this.RoundCounter}");
+            }
             if (!this.IsSurvice) return;
 
             //行动前计算buff

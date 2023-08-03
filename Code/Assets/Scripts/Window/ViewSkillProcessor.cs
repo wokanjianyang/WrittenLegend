@@ -75,12 +75,8 @@ namespace Game
             var user = GameProcessor.Inst.User;
             foreach (var skill in user.SkillList)
             {
-                Item_Skill learn = this.learnSkills.Find(s => s.SkillPanel.SkillId == skill.SkillId);
-                if (learn != null)
-                {
-                    SkillPanel skillPanel = new SkillPanel(skill, user.GetRuneList(skill.SkillId), user.GetSuitList(skill.SkillId));
-                    learn.SetItem(skillPanel);
-                }
+                SkillPanel skillPanel = new SkillPanel(skill, user.GetRuneList(skill.SkillId), user.GetSuitList(skill.SkillId));
+                SkillToBattle(skillPanel);
             }
         }
 
