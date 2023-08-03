@@ -13,5 +13,7 @@ namespace Game
 		public const long PackTime = 1690954379; //打包时间，防止作弊
 
 		public const int CopyMax = 5; //副本最大累计次数
+
+		public const int CopyMaxView = 6; //副本最大显示数量
 	}
 }

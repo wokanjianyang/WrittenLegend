@@ -30,7 +30,7 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
         Dictionary<int, long> list = user.MapBossTime;
         foreach (int MapId in list.Keys)
         {
-            if (MapId <= user.MapId)
+            if (MapId <= user.MapId && MapId >= user.MapId - ConfigHelper.CopyMaxView)
             {
                 BuildItem(MapId, list[MapId]);
             }
@@ -69,7 +69,7 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
         Dictionary<int, long> list = user.MapBossTime;
         foreach (int MapId in list.Keys)
         {
-            if (MapId <= user.MapId)
+            if (MapId <= user.MapId && MapId >= user.MapId - ConfigHelper.CopyMaxView)
             {
                 var item = items.Where(m => m.mapConfig.Id == MapId).FirstOrDefault();
                 if (item != null)
