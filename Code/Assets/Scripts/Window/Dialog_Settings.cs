@@ -14,6 +14,8 @@ namespace Game
 {
     public class Dialog_Settings : MonoBehaviour, IBattleLife
     {
+        public Com_Recovery com_Recovery;
+        public Toggle tog_Recovery;
         
         // Start is called before the first frame update
         void Start()
@@ -37,7 +39,12 @@ namespace Game
         private void OnEquipRecoveryEvent(DialogSettingEvent e)
         {
             this.gameObject.SetActive(e.IsOpen);
+            if (e.IsOpen)
+            {
+                this.tog_Recovery.isOn = true;
+                com_Recovery.Open();
 
+            }
         }
     }
 }

@@ -12,7 +12,7 @@ using System;
 
 namespace Game
 {
-    public class Com_Recovery : MonoBehaviour, IBattleLife
+    public class Com_Recovery : MonoBehaviour
     {
         [LabelText("装备回收设置")]
         public Transform tran_EquipQualityList;
@@ -55,11 +55,9 @@ namespace Game
         {
 
         }
-        public int Order => (int)ComponentOrder.Dialog;
 
-        public void OnBattleStart()
+        public void Open()
         {
-
             //初始化
             try
             {

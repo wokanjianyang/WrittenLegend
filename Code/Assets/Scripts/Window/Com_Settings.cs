@@ -12,7 +12,7 @@ using System;
 
 namespace Game
 {
-    public class Com_Settings : MonoBehaviour, IBattleLife
+    public class Com_Settings : MonoBehaviour
     {
         [LabelText("名字输入框")]
         public InputField if_Name;
@@ -39,12 +39,6 @@ namespace Game
 
         // Update is called once per frame
         void Update()
-        {
-
-        }
-        public int Order => (int)ComponentOrder.Dialog;
-
-        public void OnBattleStart()
         {
 
         }
