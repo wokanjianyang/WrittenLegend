@@ -18,6 +18,9 @@ namespace Game
 
             this.EventCenter.AddListener<HeroLevelUp>(LevelUp);
             this.EventCenter.AddListener<HeroAttrChangeEvent>(HeroAttrChange);
+            User user = GameProcessor.Inst.User;
+            user.EventCenter.AddListener<HeroUpdateAllSkillEvent>(OnHeroUpdateAllSkillEvent);
+
         }
 
         private void LevelUp(HeroLevelUp e)
@@ -35,6 +38,10 @@ namespace Game
             this.SetAttr(user);  //…Ë÷√ Ù–‘÷µ
         }
 
+        private void OnHeroUpdateAllSkillEvent(HeroUpdateAllSkillEvent e)
+        {
+            this.UpdateSkills();
+        }
         private void Init()
         {
             User user = GameProcessor.Inst.User;
@@ -141,12 +148,6 @@ namespace Game
                     skillState.SetLastUseRound(lastUseRound);
                 }
             }
-        }
-
-        public override SkillState GetSkill()
-        {
-            this.UpdateSkills();
-            return base.GetSkill();
         }
 
         /// <summary>

@@ -167,14 +167,14 @@ namespace Game
                 skillData.AddExp(Book.ItemConfig.UseParam * e.Quantity);
             }
 
-            //更新技能面板
-            SkillPanel skillPanel = new SkillPanel(skillData, GetRuneList(skillData.SkillId), GetSuitList(skillData.SkillId));
-            this.EventCenter.Raise(new HeroUpdateSkillEvent() { SkillPanel = skillPanel });
+            this.EventCenter.Raise(new HeroUpdateAllSkillEvent());
         }
 
         private void UserAttrChange(UserAttrChangeEvent e)
         {
             this.SetAttr();
+            
+            this.EventCenter.Raise(new HeroUpdateAllSkillEvent());
         }
 
         public List<SkillRune> GetRuneList(int skillId)
