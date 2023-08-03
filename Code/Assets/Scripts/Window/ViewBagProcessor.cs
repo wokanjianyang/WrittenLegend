@@ -399,10 +399,10 @@ namespace Game
 
                 gold = gold * config.UseParam * 720; //3600/5 = 720,配置的是小时
 
-                user.AddExpAndGold(gold, 0);
+                user.AddExpAndGold(0, gold);
                 GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
                 {
-                    Message = BattleMsgHelper.BuildGiftPackMessage("道具奖励", gold, 0)
+                    Message = BattleMsgHelper.BuildGiftPackMessage("道具奖励", 0, gold)
                 });
             }
             else if (boxItem.Item.Type == ItemType.GiftPack)
