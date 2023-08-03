@@ -388,7 +388,7 @@ namespace Game
                 user.AddExpAndGold(exp, 0);
                 GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
                 {
-                    Message = BattleMsgHelper.BuildGiftPackMessage(exp, 0)
+                    Message = BattleMsgHelper.BuildGiftPackMessage("道具奖励", exp, 0)
                 });
             }
             else if (boxItem.Item.Type == ItemType.GoldPack)
@@ -402,7 +402,7 @@ namespace Game
                 user.AddExpAndGold(gold, 0);
                 GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
                 {
-                    Message = BattleMsgHelper.BuildGiftPackMessage(gold, 0)
+                    Message = BattleMsgHelper.BuildGiftPackMessage("道具奖励", gold, 0)
                 });
             }
             else if (boxItem.Item.Type == ItemType.GiftPack)
