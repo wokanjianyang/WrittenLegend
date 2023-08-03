@@ -41,8 +41,6 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
 
     private Vector2 size;
 
-    public Vector3Int Cell;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -54,10 +52,7 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
     // Update is called once per frame
     void Update()
     {
-        if (this.SelfPlayer != null)
-        {
-            this.Cell = this.SelfPlayer.Cell;
-        }
+        this.ShowNextToast();
     }
 
     public void OnDestroy()
@@ -166,7 +161,6 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
                     seq.AppendCallback(() =>
                     {
                         GameObject.Destroy(msg);
-                        this.ShowNextToast();
                     });
                 }
             }

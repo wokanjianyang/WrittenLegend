@@ -272,6 +272,8 @@ namespace Game
 
         void Update()
         {
+            this.ShowNextToast();
+
             if (this.IsGameOver())
             {
                 return;
@@ -445,7 +447,6 @@ namespace Game
                     seq.AppendCallback(() =>
                     {
                         GameObject.Destroy(msg);
-                        this.ShowNextToast();
                     });
                 }
                 
