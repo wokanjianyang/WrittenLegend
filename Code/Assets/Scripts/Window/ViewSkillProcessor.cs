@@ -32,14 +32,7 @@ namespace Game
             user.EventCenter.AddListener<HeroUpdateAllSkillEvent>(OnHeroUpdateAllSkillEvent);
             bookPrefab = Resources.Load<GameObject>("Prefab/Window/Item_Skill");
 
-            user.SkillList.Sort((a, b) => {
-                return a.SkillConfig.Id.CompareTo(b.SkillConfig.Id);
-            });
-            foreach (var skill in user.SkillList)
-            {
-                SkillPanel skillPanel = new SkillPanel(skill, user.GetRuneList(skill.SkillId), user.GetSuitList(skill.SkillId));
-                SkillToBattle(skillPanel);
-            }
+            this.UpdateAllSkillInfo();
         }
 
         protected override bool CheckPageType(ViewPageType page)
@@ -72,7 +65,17 @@ namespace Game
         
         private void OnHeroUpdateAllSkillEvent(HeroUpdateAllSkillEvent e)
         {
+            this.UpdateAllSkillInfo();
+        }
+
+        private void UpdateAllSkillInfo()
+        {
             var user = GameProcessor.Inst.User;
+            
+            user.SkillList.Sort((a, b) => {
+                return a.SkillConfig.Id.CompareTo(b.SkillConfig.Id);
+            });
+
             foreach (var skill in user.SkillList)
             {
                 SkillPanel skillPanel = new SkillPanel(skill, user.GetRuneList(skill.SkillId), user.GetSuitList(skill.SkillId));
@@ -136,6 +139,13 @@ namespace Game
             emptyBook.transform.SetParent(this.sr_AllSkill.content);
             emptyBook.transform.localScale = Vector3.one;
             this.learnSkills.Add(com);
+        }
+        
+        public override void OnOpen()
+        {
+            base.OnOpen();
+        
+            this.UpdateAllSkillInfo();
         }
     }
 }
