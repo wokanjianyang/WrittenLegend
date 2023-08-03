@@ -22,6 +22,10 @@ namespace Game
         private void OnChangePageEnvent(ChangePageEvent e)
         {
             this.gameObject.SetActive(this.CheckPageType(e.Page));
+            if (this.CheckPageType(e.Page))
+            {
+                this.OnOpen();
+            }
         }
 
         protected abstract bool CheckPageType(ViewPageType page);
@@ -41,6 +45,11 @@ namespace Game
             {
                 return (int)ComponentOrder.ViewPage;
             }
+        }
+
+        virtual public void OnOpen()
+        {
+            
         }
     }
 }

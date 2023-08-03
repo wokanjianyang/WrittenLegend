@@ -450,5 +450,10 @@ public class ViewForgeProcessor : AViewPage
         return page == ViewPageType.View_Forge;
     }
 
-
+    public override void OnOpen()
+    {
+        base.OnOpen();
+        
+        this.ShowStrengthInfo();
+    }
 }
