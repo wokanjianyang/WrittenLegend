@@ -69,7 +69,17 @@ public class Com_AD : MonoBehaviour, IBattleLife
         {
             if (giveReward)
             {
+                User user = GameProcessor.Inst.User;
                 //发放奖励
+                long exp = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondGold);
+
+                exp = exp * 1440; //2小时/5 = 1440
+
+                user.AddExpAndGold(exp, 0);
+                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+                {
+                    Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励",exp, 0)
+                });
             }
             else
             {
@@ -80,17 +90,27 @@ public class Com_AD : MonoBehaviour, IBattleLife
 
     public void OnClick_ExpCount()
     {
-        GameProcessor.Inst.OnShowVideoAd("经验收益2小时","exp_count_2_hour", (giveReward) =>
-        {
-            if (giveReward)
-            {
+        GameProcessor.Inst.OnShowVideoAd("经验收益2小时", "exp_count_2_hour", (giveReward) =>
+         {
+             if (giveReward)
+             {
+                 User user = GameProcessor.Inst.User;
                 //发放奖励
-            }
-            else
-            {
+                long gold = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp); ;
+
+                 gold = gold * 1440; //2小时/5 = 1440
+
+                user.AddExpAndGold(gold, 0);
+                 GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+                 {
+                     Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励",gold, 0)
+                 });
+             }
+             else
+             {
                 //不发奖励
             }
-        });
+         });
     }
     
     public void OnClick_CopyTicketCount()
