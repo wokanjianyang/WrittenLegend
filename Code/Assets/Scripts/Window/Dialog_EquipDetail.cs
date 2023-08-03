@@ -132,7 +132,7 @@ namespace Game
             this.boxId = e.BoxId;
             this.equipPositioin = e.EquipPosition;
 
-            var titleColor = QualityConfigHelper.GetColor(this.item.GetQuality());
+            var titleColor = QualityConfigHelper.GetColor(this.item);
             // this.img_Background.sprite = this.list_BackgroundImgs[this.item.GetQuality() - 1];
             tmp_Title.text = string.Format("<color=#{0}>{1}</color>", titleColor, this.item.Name);
 

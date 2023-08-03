@@ -13,11 +13,11 @@ namespace Game
                 drops = ",掉落";
                 foreach (var drop in Drops)
                 {
-                    drops += $"<color=#{QualityConfigHelper.GetColor(drop.GetQuality())}>[{drop.Name}]</color>";
+                    drops += $"<color=#{QualityConfigHelper.GetColor(drop)}>[{drop.Name}]</color>";
                 }
             }
 
-            string message = $"<color=#{QualityConfigHelper.GetColor(monster.Quality)}>[{monster.Name}]</color><color=white>死亡,经验增加:{monster.Exp},金币增加:{monster.Gold}{drops}</color>";
+            string message = $"<color=#{QualityConfigHelper.GetQualityColor(monster.Quality)}>[{monster.Name}]</color><color=white>死亡,经验增加:{monster.Exp},金币增加:{monster.Gold}{drops}</color>";
 
             return message;
         }
@@ -36,7 +36,7 @@ namespace Game
                         qt = "*" + drop.Quantity;
                     }
 
-                    drops += $"<color=#{QualityConfigHelper.GetColor(drop.GetQuality())}>[{drop.Name}]</color>" + qt;
+                    drops += $"<color=#{QualityConfigHelper.GetColor(drop)}>[{drop.Name}]</color>" + qt;
                 }
             }
 
@@ -53,7 +53,7 @@ namespace Game
 
         public static string BuildGiftPackMessage(string src,long exp, long gold)
         {
-            string message = $"<color=#{QualityConfigHelper.GetColor(4)}> {src}";
+            string message = $"<color=#{QualityConfigHelper.GetQualityColor(4)}> {src}";
             if (exp > 0)
             {
                 message += $"经验奖励{exp}";
@@ -92,7 +92,7 @@ namespace Game
             string message = "礼包获取:";
             foreach (var drop in items)
             {
-                message += $"<color=#{QualityConfigHelper.GetColor(drop.GetQuality())}>[{drop.Name}]</color>";
+                message += $"<color=#{QualityConfigHelper.GetColor(drop)}>[{drop.Name}]</color>";
             }
 
             return message;
@@ -103,7 +103,7 @@ namespace Game
             string message = $"获得任务奖励:经验 {exp},金币 {gold} ";
             foreach (var drop in items)
             {
-                message += $"<color=#{QualityConfigHelper.GetColor(drop.GetQuality())}>[{drop.Name}]</color>";
+                message += $"<color=#{QualityConfigHelper.GetColor(drop)}>[{drop.Name}]</color>";
             }
 
             return message;
