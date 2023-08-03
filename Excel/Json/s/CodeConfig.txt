@@ -1,4 +1,5 @@
 {"list":[
 {"_t":"CodeConfig","_id":1,"code":"qz666","ItemTypeList":[7],"ItemIdList":[6102]},
 {"_t":"CodeConfig","_id":2,"code":"pl666","ItemTypeList":[3,7],"ItemIdList":[3004,6104]},
+{"_t":"CodeConfig","_id":3,"code":"bc666no","ItemTypeList":[7],"ItemIdList":[6106]},
 ]}

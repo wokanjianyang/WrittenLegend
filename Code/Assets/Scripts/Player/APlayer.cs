@@ -199,7 +199,7 @@ namespace Game
             this.RoundCounter++;
             if (this.Camp == PlayerType.Hero)
             {
-                Log.Debug($"角色回合数：{this.RoundCounter}");
+                //Log.Debug($"角色回合数：{this.RoundCounter}");
             }
             if (!this.IsSurvice) return;
 
