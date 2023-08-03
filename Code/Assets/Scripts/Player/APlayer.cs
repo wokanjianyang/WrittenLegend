@@ -252,6 +252,8 @@ namespace Game
             //2.尝试攻击周围目标
             if (Enemy != null)
             {
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "无法攻击指定目标，尝试攻击最近目标",ToastType = ToastTypeEnum.Normal});
+
                 //如果有锁定目标，需要在攻击后恢复
                 var oldEnemy = Enemy;
 
