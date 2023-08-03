@@ -42,7 +42,7 @@ namespace Game
 
         public APlayer GetPlayer(int id)
         {
-            return this.AllPlayers.FirstOrDefault(p => p.ID == id);
+            return this.AllPlayers.FirstOrDefault(p => p.IsSurvice && p.ID == id);
         }
 
         public APlayer GetPlayer(Vector3Int cell)

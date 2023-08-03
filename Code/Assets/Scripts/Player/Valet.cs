@@ -70,5 +70,11 @@ namespace Game
                 SelectSkillList.Add(skill);
             }
         }
+
+        public override APlayer CalcEnemy()
+        {
+            //攻击主人的目标
+            return this.Master.CalcEnemy();
+        }
     }
 }
