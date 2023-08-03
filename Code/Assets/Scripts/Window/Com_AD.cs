@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Game;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -31,6 +32,10 @@ public class Com_AD : MonoBehaviour, IBattleLife
     
     [LabelText("金币加成持续时间")]
     public Text txt_Reward_Gold_Time;
+    
+    public Transform tran_FakeAD;
+
+    public Text txt_FakeAD;
 
     // Start is called before the first frame update
     void Start()
@@ -67,6 +72,7 @@ public class Com_AD : MonoBehaviour, IBattleLife
     {
         GameProcessor.Inst.OnShowVideoAd("金币收益2小时","gold_count_2_hour", (giveReward) =>
         {
+            
             if (giveReward)
             {
                 User user = GameProcessor.Inst.User;
@@ -84,6 +90,20 @@ public class Com_AD : MonoBehaviour, IBattleLife
             else
             {
                 //不发奖励
+                StartCoroutine(ShowFakeAD(() =>
+                {
+                    User user = GameProcessor.Inst.User;
+                    //发放奖励
+                    long exp = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondGold);
+
+                    exp = exp * 1440; //2小时/5 = 1440
+
+                    user.AddExpAndGold(exp, 0);
+                    GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+                    {
+                        Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励",exp, 0)
+                    });
+                }));
             }
         });
     }
@@ -109,6 +129,20 @@ public class Com_AD : MonoBehaviour, IBattleLife
              else
              {
                 //不发奖励
+                StartCoroutine(ShowFakeAD(() =>
+                {
+                    User user = GameProcessor.Inst.User;
+                    //发放奖励
+                    long gold = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp); ;
+
+                    gold = gold * 1440; //2小时/5 = 1440
+
+                    user.AddExpAndGold(gold, 0);
+                    GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+                    {
+                        Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励",gold, 0)
+                    });
+                }));
             }
          });
     }
@@ -168,5 +202,19 @@ public class Com_AD : MonoBehaviour, IBattleLife
                 //不发奖励
             }
         });
+    }
+
+    private IEnumerator ShowFakeAD(Action endCallback)
+    {
+        this.tran_FakeAD.gameObject.SetActive(true);
+        var duration = 15;
+        for (int i = duration; i > 0; i--)
+        {
+            this.txt_FakeAD.text = $"再看{i}秒广告就发奖励";
+            yield return new WaitForSeconds(1f);
+        }
+        this.tran_FakeAD.gameObject.SetActive(false);
+
+        endCallback?.Invoke();
     }
 }

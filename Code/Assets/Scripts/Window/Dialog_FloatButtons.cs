@@ -18,7 +18,7 @@ public class Dialog_FloatButtons : MonoBehaviour, IBattleLife,IPointerDownHandle
     public Image btn_Exit;
 
     public Image btn_AD;
-    
+
     private DragEnum dragType;
     
     public enum DragEnum
