@@ -233,7 +233,7 @@ namespace Game
                         this.btn_Equip.gameObject.SetActive(this.boxId != -1);
                         this.btn_UnEquip.gameObject.SetActive(this.boxId == -1);
 
-                        if (equip.Part <= 10)
+                        if (equip.Part <= 10 && !this.item.IsLock)
                         {
                             this.btn_Recovery.gameObject.SetActive(this.boxId != -1);
                         }

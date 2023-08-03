@@ -133,13 +133,20 @@ namespace Game
         {
             foreach (var skillState in SelectSkillList)
             {
-                skillUseCache[skillState.SkillPanel.SkillId] = skillState.lastUseRound;
+                if (skillState.SkillPanel.SkillData.SkillConfig.Type == (int)SkillType.Valet)
+                {
+                    skillState.Destory();
+                }
+                else
+                {
+                    skillUseCache[skillState.SkillPanel.SkillId] = skillState.lastUseRound;
+                }
             }
 
             var user = GameProcessor.Inst.User;
-            
+
             this.SetSkill(user);
-            
+
             foreach (var skillState in SelectSkillList)
             {
                 skillUseCache.TryGetValue(skillState.SkillPanel.SkillId, out int lastUseRound);
