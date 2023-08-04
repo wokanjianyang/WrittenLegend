@@ -7,19 +7,22 @@ using System.Linq;
 
 public class BattleRule_Phantom : ABattleRule
 {
-    private bool Start = false;
+    private bool PhanStart = false;
 
-    private int MapId = 0;
+    private int PhanId = 0;
+    private int Layer = 0;
 
     private List<int> QualityList;
 
-    private int MaxTime = 180; 
+    private int MaxTime = 180;
 
-    protected override RuleType ruleType => RuleType.Tower;
+    protected override RuleType ruleType => RuleType.Phantom;
 
-    public BattleRule_Phantom(int mapId)
+
+    public BattleRule_Phantom(int pid, int layer)
     {
-      
+        PhanId = pid;
+        Layer = layer;
     }
 
     public override void DoHeroLogic()
@@ -38,7 +41,13 @@ public class BattleRule_Phantom : ABattleRule
             return;
         MaxTime--;
 
-        var hero = GameProcessor.Inst.PlayerManager.GetHero();
+        if (!PhanStart)
+        {
+            var enemy = new Monster_Phantom(PhanId, Layer, true, 10);  //刷新本体,10代表满血
+            GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
+            PhanStart = true;
+        }
+
         var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
         foreach (var enemy in enemys)
         {

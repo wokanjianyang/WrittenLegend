@@ -26,7 +26,9 @@ namespace Game
         Survivors,
 
         [LabelText("无尽塔")]
-        Tower
+        Tower,
+
+        Phantom,
     }
 
     public enum ComponentOrder

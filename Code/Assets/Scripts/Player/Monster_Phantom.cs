@@ -6,19 +6,28 @@ using System.Linq;
 
 public class Monster_Phantom : APlayer
 {
-    bool isSelf = true;
+    bool Real = true;
 
-    public Monster_Phantom(long configId)
+    PhantomConfig config;
+    int Layer = 0;
+    int Percent = 10;
+
+    public Monster_Phantom(int id, int layer, bool real, int percent)
     {
         this.Init();
+
+        config = PhantomConfigCategory.Instance.Get(id);
+        Real = real;
+        this.Layer = layer;
+        this.Percent = percent;
     }
 
     private void Init()
     {
 
         this.Camp = PlayerType.Enemy;
-        this.Name = "name";
-        //this.Level = "一转";
+        this.Name = config.Name;
+        this.Level = Layer;
 
         this.SetAttr();  //设置属性值
         this.SetSkill(); //设置技能
@@ -58,17 +67,21 @@ public class Monster_Phantom : APlayer
 
     private void SetAttr()
     {
-        //long rise = Floor - config.StartLevel;
 
-        //long attr = config.StartAttr + (long)(rise * config.RiseAttr);
-        //long hp = config.StartHp + (long)(rise * config.RiseHp);
-        //long def = config.StartDef + (long)(rise * config.RiseDef);
+        long attr = config.Attr * (Level * config.Increa);
+        long hp = config.Hp * (Level * config.Increa);
+        long def = config.Def * (Level * config.Increa);
 
-        //AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp);
-        //AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr);
-        //AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr);
-        //AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr);
-        //AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, def);
+        AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp);
+        AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr);
+        AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr);
+        AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr);
+        AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, def);
+
+        long MaxHP = AttributeBonus.GetTotalAttr(AttributeEnum.HP);
+        long CurrentHp = Percent * MaxHP / 10;
+
+        SetHP(CurrentHp);
     }
 
     public override void DoEvent()
@@ -83,13 +96,13 @@ public class Monster_Phantom : APlayer
 
         base.OnHit(fromId, damages);
 
-        long np = this.HP * 10 / maxHp;
+        int nowPercent = (int)(this.HP * 10 / maxHp);
 
-        if (HP > 0 && pp > np && isSelf)  //过了每10%的界限
+        if (HP > 0 && pp < 10 && pp > nowPercent && Real)  //只有本体，从90%开始,过了每10%的界限
         {
             //sepcial logic
-            //var enemy = MonsterHelper.BuildMonster(mapConfig, QualityList[0]);
-            //GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
+            var enemy = new Monster_Phantom(config.Id, Layer, false, nowPercent);
+            GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
         }
     }
 }

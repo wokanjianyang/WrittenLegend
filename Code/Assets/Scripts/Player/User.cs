@@ -71,10 +71,13 @@ namespace Game
         public int MapId { get; set; } = 1000;
 
         public int TaskId { get; set; } = 1;
-        public Dictionary<int ,bool> TaskLog = new Dictionary<int, bool>();
+        public Dictionary<int, bool> TaskLog = new Dictionary<int, bool>();
 
         //主线boss记录
         public Dictionary<int, long> MapBossTime { get; } = new Dictionary<int, long>();
+
+        //幻神记录
+        public Dictionary<int, int> PhantomRecord { get; } = new Dictionary<int, int>();
 
         public ADShowData ADShowData { get; set; } = new ADShowData();
 

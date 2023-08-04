@@ -108,27 +108,6 @@ namespace Game
 		/// <summary>PhanSkillIdList</summary>
 		[ProtoMember(11)]
 		public int[] PhanSkillIdList { get; set; }
-		/// <summary>所属地图</summary>
-		[ProtoMember(12)]
-		public int MapId { get; set; }
-		/// <summary>攻击</summary>
-		[ProtoMember(13)]
-		public long PhyAttr { get; set; }
-		/// <summary>生命</summary>
-		[ProtoMember(14)]
-		public long HP { get; set; }
-		/// <summary>经验</summary>
-		[ProtoMember(15)]
-		public long Exp { get; set; }
-		/// <summary>掉落金币</summary>
-		[ProtoMember(16)]
-		public long Gold { get; set; }
-		/// <summary>地图Id掉落</summary>
-		[ProtoMember(17)]
-		public int[] DropIdList { get; set; }
-		/// <summary>掉落概率列表</summary>
-		[ProtoMember(18)]
-		public int[] DropRateList { get; set; }
 
 	}
 }

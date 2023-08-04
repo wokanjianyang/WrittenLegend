@@ -101,6 +101,11 @@ namespace Game
 
     }
 
+    public class PhantomEvent : SDD.Events.Event
+    {
+
+
+    }
     public class ChangeMapEvent : SDD.Events.Event
     {
         public int MapId { get; set; }
