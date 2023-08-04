@@ -128,41 +128,38 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
         private List<ShowMsgEvent> msgTaskList = new List<ShowMsgEvent>();
         private void ShowNextToast()
         {
-            if (Time.realtimeSinceStartup - currentMsgShowTime > 0.5f)
+            if (msgTaskList.Count > 0)
             {
-                if (msgTaskList.Count > 0)
-                {
-                    var e = msgTaskList[0];
-                    msgTaskList.RemoveAt(0);
+                var e = msgTaskList[0];
+                msgTaskList.RemoveAt(0);
                     
-                    currentMsgShowTime = Time.realtimeSinceStartup;
+                currentMsgShowTime = Time.realtimeSinceStartup;
                 
-                    var msg = GameObject.Instantiate(barragePrefab);
-                    msg.transform.SetParent(this.tran_Barrage);
+                var msg = GameObject.Instantiate(barragePrefab);
+                msg.transform.SetParent(this.tran_Barrage);
 
-                    var msgSize = msg.GetComponent<RectTransform>().sizeDelta;
-                    var msgMaxY = this.size.y + msgSize.y;
-                    var msgMinY = 0 - msgSize.y;
+                var msgSize = msg.GetComponent<RectTransform>().sizeDelta;
+                var msgMaxY = this.size.y + msgSize.y;
+                var msgMinY = 0 - msgSize.y;
                     
-                    var msgX = 0;
+                var msgX = 0;
 
-                    msg.transform.localPosition = new Vector3(msgX, msgMinY);
-                    var com = msg.GetComponent<Dialog_Msg>();
+                msg.transform.localPosition = new Vector3(msgX, msgMinY);
+                var com = msg.GetComponent<Dialog_Msg>();
 
-                    var msgColor = QualityConfigHelper.GetMsgColor(e.Type);
-                    com.tmp_Msg_Content.text = string.Format("<color=#{0}>{1}</color>", msgColor, e.Content);
+                var msgColor = QualityConfigHelper.GetMsgColor(e.Type);
+                com.tmp_Msg_Content.text = string.Format("<color=#{0}>{1}</color>", msgColor, e.Content);
 
-                    //首先要创建一个DOTween队列
-                    Sequence seq = DOTween.Sequence();
+                //首先要创建一个DOTween队列
+                Sequence seq = DOTween.Sequence();
 
-                    //seq.Append  里面是让主相机振动的临时试验代码
-                    seq.Append(msg.transform.DOLocalMoveY(msgMaxY, 2.5f));
+                //seq.Append  里面是让主相机振动的临时试验代码
+                seq.Append(msg.transform.DOLocalMoveY(msgMaxY, 2.5f));
 
-                    seq.AppendCallback(() =>
-                    {
-                        GameObject.Destroy(msg);
-                    });
-                }
+                seq.AppendCallback(() =>
+                {
+                    GameObject.Destroy(msg);
+                });
             }
         }
 
