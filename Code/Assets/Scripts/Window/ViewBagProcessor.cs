@@ -629,7 +629,7 @@ namespace Game
 
         public int GetNextBoxId()
         {
-            int maxNum = GameProcessor.Inst.User.BagNum;
+            int maxNum = ConfigHelper.MaxBagCount;
             for (int boxId = 0; boxId < maxNum; boxId++)
             {
                 if (this.items.Find(m => m.boxId == boxId) == null)

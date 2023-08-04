@@ -33,8 +33,6 @@ namespace Game
 
         public int Level { get; set; }
 
-        public int BagNum { get; set; } = 150;
-
         public IDictionary<int, Equip> EquipPanel { get; set; } = new Dictionary<int, Equip>();
 
         public IDictionary<int, long> EquipStrength { get; set; } = new Dictionary<int, long>();
