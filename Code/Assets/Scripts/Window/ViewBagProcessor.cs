@@ -107,7 +107,7 @@ namespace Game
             }
             var emptyPrefab = Resources.Load<GameObject>("Prefab/Window/Box_Empty");
             yield return null;
-            for (var i = 0; i < user.BagNum; i++)
+            for (var i = 0; i < ConfigHelper.MaxBagCount; i++)
             {
                 var empty = GameObject.Instantiate(emptyPrefab, (this.sr_Bag.content));
                 empty.name = "Box_" + i;
