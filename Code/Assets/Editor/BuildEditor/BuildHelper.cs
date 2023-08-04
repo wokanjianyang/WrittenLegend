@@ -114,14 +114,14 @@ namespace ET
         {
             PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android,ScriptingImplementation.Mono2x);
             PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARMv7;
-            PlayerSettings.applicationIdentifier = "com.pocket.topbrowser";
+            PlayerSettings.applicationIdentifier = "com.fulljoblegend.android";
             PlayerSettings.Android.useCustomKeystore = false;
             var opa = BuildOptions.CompressWithLz4HC | BuildOptions.Development | BuildOptions.AllowDebugging | BuildOptions.ConnectWithProfiler | BuildOptions.EnableDeepProfilingSupport;
             EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
-            BuildHelper.Build(BuildType.Release,PlatformType.Android, BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, opa, true, true, true);
+            BuildHelper.Build(BuildType.Release,PlatformType.Android, BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, opa, true, true, true,"测试版");
         }
 
-        [MenuItem("开发工具/生成正式包64位安卓8.0")]
+        [MenuItem("开发工具/生成正式包Taptap版")]
         public static void BuildRelease()
         {
             PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android,ScriptingImplementation.IL2CPP);
@@ -132,29 +132,46 @@ namespace ET
             EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
             var opa = BuildOptions.CompressWithLz4HC;
 
-            BuildHelper.Build(BuildType.Release,PlatformType.Android, BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, opa, true, true, true);
+            BuildHelper.Build(BuildType.Release,PlatformType.Android, BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, opa, true, true, true,"Taptap版");
         }
 
-        [MenuItem("开发工具/生成正式包全CPU安卓7.1")]
+        [MenuItem("开发工具/生成正式包Taptap版和兼容版")]
         public static void BuildReleaseAll()
         {
             PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android,ScriptingImplementation.IL2CPP);
-            PlayerSettings.Android.targetArchitectures = AndroidArchitecture.All;
-            PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel25;
+            PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64;
+            PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel26;
             PlayerSettings.applicationIdentifier = "com.fulljoblegend.android";
             PlayerSettings.Android.useCustomKeystore = true;
             EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
             var opa = BuildOptions.CompressWithLz4HC;
 
-            BuildHelper.Build(BuildType.Release,PlatformType.Android, BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, opa, true, true, true);
+            var buildSuccess = BuildHelper.Build(BuildType.Release,PlatformType.Android, BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, opa, true, true, true,"Taptap版",false);
+
+            if (buildSuccess)
+            {
+                PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android,ScriptingImplementation.IL2CPP);
+                PlayerSettings.Android.targetArchitectures = AndroidArchitecture.All;
+                PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel25;
+                PlayerSettings.applicationIdentifier = "com.fulljoblegend.android";
+                PlayerSettings.Android.useCustomKeystore = true;
+                EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
+                opa = BuildOptions.CompressWithLz4HC;
+
+                BuildHelper.Build(BuildType.Release,PlatformType.Android, BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, opa, true, true, true,"兼容版");
+            }
         }
-        public static void Build(BuildType buildType,PlatformType type, BuildAssetBundleOptions buildAssetBundleOptions, BuildOptions buildOptions, bool isBuildExe, bool isContainAB, bool clearFolder)
+        public static bool Build(BuildType buildType,PlatformType type, BuildAssetBundleOptions buildAssetBundleOptions, BuildOptions buildOptions, bool isBuildExe, bool isContainAB, bool clearFolder,string ext = "",bool isAddVersionNum = true)
         {
-            
+            var ret = false;
             try
             {
                 BuildTarget buildTarget = BuildTarget.StandaloneWindows;
-                string programName = $"全职龙城.{buildType.ToString()}.{PlayerSettings.bundleVersion}";
+                string programName = $"全职龙城.{PlayerSettings.bundleVersion}";
+                if (!string.IsNullOrEmpty(ext))
+                {
+                    programName += $".{ext}";
+                }
                 string exeName = programName;
                 switch (type)
                 {
@@ -207,8 +224,8 @@ namespace ET
                     UnityEngine.Debug.Log("start build exe");
                     BuildPipeline.BuildPlayer(levels, $"../{buildType.ToString()}/{exeName}", buildTarget, buildOptions);
                     UnityEngine.Debug.Log("finish build exe");
-                    
-                    if (buildType == BuildType.Release)
+                    ret = true;
+                    if (buildType == BuildType.Release && isAddVersionNum)
                     {
                         PlayerSettings.Android.bundleVersionCode++;
                         PlayerSettings.bundleVersion = string.Join(".", PlayerSettings.Android.bundleVersionCode.ToString().PadLeft(3,'0').ToCharArray());
@@ -219,10 +236,11 @@ namespace ET
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                ret = false;
+                UnityEngine.Debug.LogError(e);
             }
-            
+
+            return ret;
         }
     }
 }
