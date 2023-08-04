@@ -13,10 +13,11 @@ namespace Game
 
         void Start()
         {
-            this.gameObject.SetActive(false);
         }
         public void OnBattleStart()
         {
+            this.gameObject.SetActive(false);
+
             GameProcessor.Inst.EventCenter.AddListener<SecondaryConfirmationEvent>(this.OnSecondaryConfirmationEvent);
             GameProcessor.Inst.ShowSecondaryConfirmationDialog += this.OnShow;
         }

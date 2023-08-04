@@ -51,6 +51,7 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
         GameProcessor.Inst.EventCenter.AddListener<ShowCopyInfoEvent>(this.OnShowCopyInfoEvent);
         GameProcessor.Inst.EventCenter.AddListener<BattleLoseEvent>(this.OnBattleLoseEvent);
         //ShowMapInfo();
+        this.gameObject.SetActive(false);
     }
     private void ShowMapInfo()
     {

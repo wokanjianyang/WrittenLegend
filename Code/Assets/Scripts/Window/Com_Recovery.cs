@@ -102,6 +102,26 @@ namespace Game
 
         public void OnClick_Done()
         {
+            if (equipToggles[3].isOn)
+            {
+                GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("是否确认回收紫色品质？", () =>
+                {
+                    this.SaveSetting();
+                }, null);
+            }
+            else
+            {
+                this.SaveSetting();
+            }
+        }
+        
+        public void OnClick_Cancle()
+        {
+            GameProcessor.Inst.EventCenter.Raise(new DialogSettingEvent());
+        }
+        
+        private void SaveSetting()
+        {
             User user = GameProcessor.Inst.User;
 
             StringBuilder sb = new StringBuilder();
@@ -159,38 +179,16 @@ namespace Game
             }
 
             Log.Debug($"回收设置 {sb.ToString()}");
-
-            if (user.RecoverySetting.IsPurpleRecovery())
-            {
-                GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("是否确认回收紫色品质？", () =>
-                {
-                    //立即执行一次回收
-                    GameProcessor.Inst.EventCenter.Raise(new AutoRecoveryEvent() { });
-
-                    TaskHelper.CheckTask(TaskType.Recovery, 1);
-
-                    UserData.Save();
-            
-                    GameProcessor.Inst.EventCenter.Raise(new DialogSettingEvent());
-                }, null);
-            }
-            else
-            {
                 
-                //立即执行一次回收
-                GameProcessor.Inst.EventCenter.Raise(new AutoRecoveryEvent() { });
+            //立即执行一次回收
+            GameProcessor.Inst.EventCenter.Raise(new AutoRecoveryEvent() { });
 
-                TaskHelper.CheckTask(TaskType.Recovery, 1);
+            TaskHelper.CheckTask(TaskType.Recovery, 1);
 
-                UserData.Save();
+            UserData.Save();
             
-                GameProcessor.Inst.EventCenter.Raise(new DialogSettingEvent());
-            }
-        }
-        
-        public void OnClick_Cancle()
-        {
             GameProcessor.Inst.EventCenter.Raise(new DialogSettingEvent());
+            
         }
     }
 }

@@ -20,12 +20,6 @@ namespace Game
             this.EquipQuanlity[quanlity] = check;
         }
 
-        public bool IsPurpleRecovery()
-        {
-            this.EquipQuanlity.TryGetValue(4, out var ret);
-            return ret;
-        }
-
         public void SetEquipRole(int role, bool check)
         {
             this.EquipRole[role] = check;

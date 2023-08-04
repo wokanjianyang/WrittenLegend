@@ -92,7 +92,6 @@ namespace Game
             this.btn_Lock.onClick.AddListener(this.OnClick_Lock);
             this.btn_Unlock.onClick.AddListener(this.OnClick_Unlock);
             
-            this.gameObject.SetActive(false); 
         }
 
         // Update is called once per frame
@@ -104,6 +103,8 @@ namespace Game
 
         public void OnBattleStart()
         {
+            this.gameObject.SetActive(false); 
+
             GameProcessor.Inst.EventCenter.AddListener<ShowEquipDetailEvent>(this.OnShowEquipDetailEvent);
             this.rectTransform = this.transform.GetComponent<RectTransform>();
         }

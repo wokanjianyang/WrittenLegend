@@ -20,7 +20,6 @@ namespace Game
         // Start is called before the first frame update
         void Start()
         {
-            this.gameObject.SetActive(false);
         }
 
         // Update is called once per frame
@@ -32,8 +31,9 @@ namespace Game
 
         public void OnBattleStart()
         {
-            GameProcessor.Inst.EventCenter.AddListener<DialogSettingEvent>(this.OnEquipRecoveryEvent);
+            this.gameObject.SetActive(false);
 
+            GameProcessor.Inst.EventCenter.AddListener<DialogSettingEvent>(this.OnEquipRecoveryEvent);
         }
 
         private void OnEquipRecoveryEvent(DialogSettingEvent e)

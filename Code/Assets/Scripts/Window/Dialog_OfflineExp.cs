@@ -18,7 +18,6 @@ namespace Game
         // Start is called before the first frame update
         void Start()
         {
-            this.gameObject.SetActive(false);
 
             this.btn_GetOfflineExp.onClick.AddListener(this.OnClick_GetOfflineExp);
         }
@@ -32,6 +31,7 @@ namespace Game
 
         public void OnBattleStart()
         {
+            this.gameObject.SetActive(false);
 
             if (GameProcessor.Inst.User.LastOut > 0)
             {
