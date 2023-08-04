@@ -142,11 +142,6 @@ namespace Game
                     FromId = fromId,
                     ToId = SelfPlayer.ID
                 });
-                this.playerEvents.Add(new DeadRewarddEvent
-                {
-                    FromId = fromId,
-                    ToId = SelfPlayer.ID
-                });
             }
             else
             {
