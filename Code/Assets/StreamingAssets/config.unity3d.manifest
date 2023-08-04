@@ -1,0 +1,45 @@
+ManifestFileVersion: 0
+CRC: 1687853480
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 0a316e43310ca481be64b066a706e459
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5ad585dd02dfb5016c0dad519eab8f49
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Resources/Config/MapConfigCategory.bytes
+- Assets/Resources/Config/EquipStrengthConfigCategory.bytes
+- Assets/Resources/Config/SkillSuitConfigCategory.bytes
+- Assets/Resources/Config/QualityConfigCategory.bytes
+- Assets/Resources/Config/TaskConfigCategory.bytes
+- Assets/Resources/Config/LevelConfigCategory.bytes
+- Assets/Resources/Config/DropConfigCategory.bytes
+- Assets/Resources/Config/EquipRefineConfigCategory.bytes
+- Assets/Resources/Config/EquipCustomConfigCategory.bytes
+- Assets/Resources/Config/MonsterBaseCategory.bytes
+- Assets/Resources/Config/AttrEntryConfigCategory.bytes
+- Assets/Resources/Config/EquipConfigCategory.bytes
+- Assets/Resources/Config/ItemConfigCategory.bytes
+- Assets/Resources/Config/PlayerModelCategory.bytes
+- Assets/Resources/Config/EquipQualityConfigCategory.bytes
+- Assets/Resources/Config/SkillCategory.bytes
+- Assets/Resources/Config/GameAttributeCategory.bytes
+- Assets/Resources/Config/GiftPackConfigCategory.bytes
+- Assets/Resources/Config/SkillConfigCategory.bytes
+- Assets/Resources/Config/ItemCategory.bytes
+- Assets/Resources/Config/SkillRuneConfigCategory.bytes
+- Assets/Resources/Config/BossConfigCategory.bytes
+- Assets/Resources/Config/EffectConfigCategory.bytes
+- Assets/Resources/Config/CompositeConfigCategory.bytes
+- Assets/Resources/Config/TowerConfigCategory.bytes
+- Assets/Resources/Config/SynthesisConfigCategory.bytes
+- Assets/Resources/Config/EquipStrengthFeeConfigCategory.bytes
+- Assets/Resources/Config/CodeConfigCategory.bytes
+- Assets/Resources/Config/RewardConfigCategory.bytes
+Dependencies: []
