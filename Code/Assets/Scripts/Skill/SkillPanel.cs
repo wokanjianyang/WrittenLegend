@@ -63,8 +63,8 @@ namespace Game
             int levelPercent = skillData.Level ;
             long levelDamage = skillData.Level * 1000;
 
-            long runeDamage = runeList.Select(m => m.Damage).Sum();
-            long suitDamage = suitList.Select(m => m.Damage).Sum();
+            long runeDamage = runeList.Select(m => m.Damage).Sum() * skillData.Level;
+            long suitDamage = suitList.Select(m => m.Damage).Sum() * skillData.Level;
 
             int runePercent = runeList.Select(m => m.Percent).Sum();
             int suitPercent = suitList.Select(m => m.Percent).Sum();

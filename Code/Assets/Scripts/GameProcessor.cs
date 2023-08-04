@@ -164,7 +164,7 @@ namespace Game
             long rewardExp = 0;
             long rewardGold = 0;
 
-            long tempTime = Math.Min(offlineTime, 12 * 3600);
+            long tempTime = Math.Min(offlineTime, ConfigHelper.MaxOfflineTime);
             while (tempTime > 0)
             {
                 long tmepFloor = User.TowerFloor + offlineFloor + 100;
@@ -231,7 +231,8 @@ namespace Game
                     return;
                 }
 
-                long calTk = (TimeHelper.ClientNowSeconds() - User.SecondExpTick) / interval;
+                long tempTime = Math.Min(TimeHelper.ClientNowSeconds() - User.SecondExpTick, ConfigHelper.MaxOfflineTime);
+                long calTk = (tempTime) / interval;
                 if (calTk >= 1)
                 {
                     if (isTimeError)
