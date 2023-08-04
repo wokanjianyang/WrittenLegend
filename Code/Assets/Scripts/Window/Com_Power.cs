@@ -44,7 +44,7 @@ public class Com_Power : MonoBehaviour, IBattleLife
         {
             minute = DateTime.Now.Minute;
             
-            Time.text = $"{DateTime.Now.Hour}:{DateTime.Now.Minute}";
+            Time.text = $"{DateTime.Now.Hour.ToString().PadLeft(2,'0')}:{DateTime.Now.Minute.ToString().PadLeft(2,'0')}";
         }
 
         if (d != day)
