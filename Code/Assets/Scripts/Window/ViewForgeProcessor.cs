@@ -452,6 +452,7 @@ public class ViewForgeProcessor : AViewPage
 
         Refine_EquiList =  Refine_Tran_EquiList.GetComponentsInChildren<RefineBox>();
 
+        this.InitComposite();
     }
 
     public override void OnOpen()
@@ -459,6 +460,5 @@ public class ViewForgeProcessor : AViewPage
         base.OnOpen();
         
         this.ShowStrengthInfo();
-        this.InitComposite();
     }
 }
