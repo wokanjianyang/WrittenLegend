@@ -57,7 +57,7 @@ namespace Game
         public List<SkillState> SelectSkillList { get; set; }
 
         [JsonIgnore]
-        private Dictionary<int, List<Effect>> EffectMap = new Dictionary<int, List<Effect>>();
+        protected Dictionary<int, List<Effect>> EffectMap = new Dictionary<int, List<Effect>>();
 
         [JsonIgnore]
         private Dictionary<int, int> SkillUseRoundCache = new Dictionary<int, int>();
@@ -205,7 +205,7 @@ namespace Game
             return null;
         }
 
-        public void DoEvent()
+        public virtual void DoEvent()
         {
             this.RoundCounter++;
             if (this.Camp == PlayerType.Hero)
@@ -316,7 +316,7 @@ namespace Game
             }
         }
 
-        private bool IsEnemyClosest(APlayer enemy)
+        protected bool IsEnemyClosest(APlayer enemy)
         {
             if (enemy == null)
             {
@@ -435,7 +435,7 @@ namespace Game
             return ret;
         }
 
-        public void OnHit(int fromId, params long[] damages)
+        public virtual void OnHit(int fromId, params long[] damages)
         {
             foreach (var d in damages)
             {

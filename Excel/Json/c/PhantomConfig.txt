@@ -1,0 +1,3 @@
+{"list":[
+{"_t":"PhantomConfig","_id":1,"Name":"幻神鸡王","Attr":500,"Def":500,"Hp":500000,"Increa":10,"RewardId":15,"RewardBase":10,"RewardIncrea":5,"SkillIdList":[],"PhanSkillIdList":[12001,13001]},
+]}

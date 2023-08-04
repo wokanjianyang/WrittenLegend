@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1687853480
+CRC: 1498301806
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 0a316e43310ca481be64b066a706e459
+    Hash: 37698f48e8ab96ddbf46491a12418dc4
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -19,6 +19,7 @@ Assets:
 - Assets/Resources/Config/QualityConfigCategory.bytes
 - Assets/Resources/Config/TaskConfigCategory.bytes
 - Assets/Resources/Config/LevelConfigCategory.bytes
+- Assets/Resources/Config/PhantomConfigCategory.bytes
 - Assets/Resources/Config/DropConfigCategory.bytes
 - Assets/Resources/Config/EquipRefineConfigCategory.bytes
 - Assets/Resources/Config/EquipCustomConfigCategory.bytes
