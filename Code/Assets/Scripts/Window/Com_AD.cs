@@ -284,7 +284,7 @@ public class Com_AD : MonoBehaviour, IBattleLife
     private IEnumerator ShowFakeAD(Action endCallback)
     {
         this.tran_FakeAD.gameObject.SetActive(true);
-        var duration = 15;
+        var duration = 5;
         for (int i = duration; i > 0; i--)
         {
             this.txt_FakeAD.text = $"再看{i}秒广告就发奖励";
