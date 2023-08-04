@@ -6,7 +6,7 @@ namespace Game
 
     public class RecoverySetting
     {
-        public Dictionary<int, bool> EquipQuanlity { get; private set; } = new Dictionary<int, bool>();  //回收道具品质(1白色 2绿色 3蓝色 4紫色)
+        public Dictionary<int, bool> EquipQuanlity { get; private set; } = new Dictionary<int, bool>();  //??????????(1??? 2??? 3??? 4???)
         public int EquipLevel { get; set; } = 0;
 
         public Dictionary<int, bool> EquipRole { get; private set; } = new Dictionary<int, bool>();
@@ -18,6 +18,12 @@ namespace Game
         public void SetEquipQuanlity(int quanlity, bool check)
         {
             this.EquipQuanlity[quanlity] = check;
+        }
+
+        public bool IsPurpleRecovery()
+        {
+            this.EquipQuanlity.TryGetValue(4, out var ret);
+            return ret;
         }
 
         public void SetEquipRole(int role, bool check)

@@ -1,10 +1,13 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Game
 {
     public class Dialog_SecondaryConfirmation : MonoBehaviour, IBattleLife
     {
+        public Text txt_Msg;
+        
         private Action doneAction;
         private Action cancleAction;
 
@@ -20,9 +23,10 @@ namespace Game
 
         public int Order => (int)ComponentOrder.Dialog;
 
-        private void OnShow(Action done, Action cancle)
+        private void OnShow(string msg,Action done, Action cancle)
         {
             this.gameObject.SetActive(true);
+            this.txt_Msg.text = msg;
             this.doneAction = done;
             this.cancleAction = cancle;
         }

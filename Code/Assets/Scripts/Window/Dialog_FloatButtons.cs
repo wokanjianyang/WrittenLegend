@@ -57,7 +57,7 @@ public class Dialog_FloatButtons : MonoBehaviour, IBattleLife,IPointerDownHandle
 
     private void OnClick_Exit()
     {
-        GameProcessor.Inst.ShowSecondaryConfirmationDialog.Invoke(() =>
+        GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("是否确认退出？",() =>
         {
             UserData.Save();
             Application.Quit();

@@ -160,14 +160,32 @@ namespace Game
 
             Log.Debug($"回收设置 {sb.ToString()}");
 
-            //立即执行一次回收
-            GameProcessor.Inst.EventCenter.Raise(new AutoRecoveryEvent() { });
+            if (user.RecoverySetting.IsPurpleRecovery())
+            {
+                GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("是否确认回收紫色品质？", () =>
+                {
+                    //立即执行一次回收
+                    GameProcessor.Inst.EventCenter.Raise(new AutoRecoveryEvent() { });
 
-            TaskHelper.CheckTask(TaskType.Recovery, 1);
+                    TaskHelper.CheckTask(TaskType.Recovery, 1);
 
-            UserData.Save();
+                    UserData.Save();
             
-            GameProcessor.Inst.EventCenter.Raise(new DialogSettingEvent());
+                    GameProcessor.Inst.EventCenter.Raise(new DialogSettingEvent());
+                }, null);
+            }
+            else
+            {
+                
+                //立即执行一次回收
+                GameProcessor.Inst.EventCenter.Raise(new AutoRecoveryEvent() { });
+
+                TaskHelper.CheckTask(TaskType.Recovery, 1);
+
+                UserData.Save();
+            
+                GameProcessor.Inst.EventCenter.Raise(new DialogSettingEvent());
+            }
         }
         
         public void OnClick_Cancle()

@@ -48,7 +48,7 @@ namespace Game
         private bool isGameOver { get; set; } = true;
         public PlayerType winCamp { get; private set; }
 
-        public delegate void ShowDialog(Action doneAction,Action cancleAction);
+        public delegate void ShowDialog(string msg,Action doneAction,Action cancleAction);
 
         public ShowDialog ShowSecondaryConfirmationDialog;
 

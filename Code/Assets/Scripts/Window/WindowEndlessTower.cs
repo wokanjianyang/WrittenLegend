@@ -129,7 +129,7 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
 
     private void OnClick_Exit()
     {
-        GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke(() =>
+        GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("是否确认退出？",() =>
         {
             this.Exit();
         },null);
