@@ -16,6 +16,8 @@ namespace Game
 
 		public const int CopyMaxView = 6; //副本最大显示数量
 
-		public const long MaxOfflineTime = 3600 * 12;
+		public const long MaxOfflineTime = 3600 * 12;  //最长离线时间
+
+		public const int MaxBagCount = 300;  // 包裹数量
 	}
 }
