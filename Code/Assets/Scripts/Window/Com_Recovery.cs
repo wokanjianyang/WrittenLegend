@@ -46,8 +46,6 @@ namespace Game
             this.btn_Done.onClick.AddListener(this.OnClick_Done);
             this.btn_Cancle.onClick.AddListener(this.OnClick_Cancle);
 
-            equipToggles = tran_EquipQualityList.GetComponentsInChildren<Toggle>();
-            bookToggles = tran_BookJobList.GetComponentsInChildren<Toggle>();
         }
 
         // Update is called once per frame
@@ -59,50 +57,46 @@ namespace Game
         public void Open()
         {
             //初始化
-            try
+            equipToggles = tran_EquipQualityList.GetComponentsInChildren<Toggle>();
+            bookToggles = tran_BookJobList.GetComponentsInChildren<Toggle>();
+                
+            User user = GameProcessor.Inst.User;
+            RecoverySetting setting = user.RecoverySetting;
+
+            foreach (int equipQuality in setting.EquipQuanlity.Keys)
             {
-                User user = GameProcessor.Inst.User;
-                RecoverySetting setting = user.RecoverySetting;
-
-                foreach (int equipQuality in setting.EquipQuanlity.Keys)
+                if (setting.EquipQuanlity[equipQuality])
                 {
-                    if (setting.EquipQuanlity[equipQuality])
-                    {
-                        equipToggles[equipQuality - 1].isOn = true;
-                    }
-                    else
-                    {
-                        equipToggles[equipQuality - 1].isOn = false;
-                    }
+                    equipToggles[equipQuality - 1].isOn = true;
                 }
-
-                if_EquipLevel.text = setting.EquipLevel.ToString();
-
-
-                foreach (int skillBookRole in setting.EquipRole.Keys)
+                else
                 {
-                    if (setting.EquipRole[skillBookRole])
-                    {
-                        bookToggles[skillBookRole - 1].isOn = true;
-                    }
-                    else
-                    {
-                        bookToggles[skillBookRole - 1].isOn = false;
-                    }
-                }
-
-                if (setting.SkillBookLevel > 0)
-                {
-                    toggle_BookLevel.isOn = true;
-                    dd_BookLevel.value = Math.Max(1, setting.SkillBookLevel / 10) - 1;
-                }
-                else {
-                    toggle_BookLevel.isOn = false;
+                    equipToggles[equipQuality - 1].isOn = false;
                 }
             }
-            catch (Exception ex)
+
+            if_EquipLevel.text = setting.EquipLevel.ToString();
+
+
+            foreach (int skillBookRole in setting.EquipRole.Keys)
             {
-                Debug.Log(ex);
+                if (setting.EquipRole[skillBookRole])
+                {
+                    bookToggles[skillBookRole - 1].isOn = true;
+                }
+                else
+                {
+                    bookToggles[skillBookRole - 1].isOn = false;
+                }
+            }
+
+            if (setting.SkillBookLevel > 0)
+            {
+                toggle_BookLevel.isOn = true;
+                dd_BookLevel.value = Math.Max(1, setting.SkillBookLevel / 10) - 1;
+            }
+            else {
+                toggle_BookLevel.isOn = false;
             }
         }
 
