@@ -8,18 +8,28 @@ namespace Game
     {
 
         private bool isInit = false;
+        private bool isOpen = false;
 
         private void OnChangePageEnvent(ChangePageEvent e)
         {
             this.gameObject.SetActive(this.CheckPageType(e.Page));
-            if (!isInit)
-            {
-                isInit = true;
-                this.OnInit();
-            }
+
             if (this.CheckPageType(e.Page))
             {
-                this.OnOpen();
+                if (!isInit)
+                {
+                    isInit = true;
+                    this.OnInit();
+                }
+                if (!this.isOpen)
+                {
+                    this.isOpen = true;
+                    this.OnOpen();
+                }
+            }
+            else
+            {
+                this.isOpen = false;
             }
         }
 

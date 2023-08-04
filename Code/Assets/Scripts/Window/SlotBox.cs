@@ -16,15 +16,19 @@ namespace Game
         // Start is called before the first frame update
         void Start()
         {
-            var prefab = Resources.Load<GameObject>("Prefab/Window/Box_Info");
-            var box = GameObject.Instantiate(prefab, this.transform);
-            box.GetComponent<Com_Box>().tmp_Title.text = this.SlotType.ToString();
+
         }
 
         // Update is called once per frame
         void Update()
         {
 
+        }
+
+        public void Init(GameObject prefab)
+        {
+            var box = GameObject.Instantiate(prefab, this.transform);
+            box.GetComponent<Com_Box>().tmp_Title.text = this.SlotType.ToString();
         }
 
         public void Equip(Com_Box equip)

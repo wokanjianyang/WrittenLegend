@@ -73,20 +73,27 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<MaterialUseEvent>(this.OnMaterialUseEvent);
             GameProcessor.Inst.EventCenter.AddListener<EquipLockEvent>(this.OnEquipLockEvent);
 
+            GameProcessor.Inst.StartCoroutine(LoadBox());
+        }
+
+
+        private IEnumerator LoadBox()
+        {
+            
             User user = GameProcessor.Inst.User;
             user.EventCenter.AddListener<HeroBagUpdateEvent>(this.OnHeroBagUpdateEvent);
 
             this.items = new List<Com_Box>();
 
-            var emptyPrefab = Resources.Load<GameObject>("Prefab/Window/Box_Empty");
+            var prefab = Resources.Load<GameObject>("Prefab/Window/Box_Info");
+            yield return null;
 
-            for (var i = 0; i < user.BagNum; i++)
+            foreach (var slotBox in this.transform.GetComponentsInChildren<SlotBox>())
             {
-                var empty = GameObject.Instantiate(emptyPrefab, (this.sr_Bag.content));
-                empty.name = "Box_" + i;
-            }
+                slotBox.Init(prefab);
+                yield return null;
 
-            RefreshBag();
+            }
 
             if (user.EquipPanel != null)
             {
@@ -94,8 +101,24 @@ namespace Game
                 foreach (var kvp in user.EquipPanel)
                 {
                     this.CreateEquipPanelItem(kvp.Key, kvp.Value);
+                    yield return null;
+
                 }
             }
+            var emptyPrefab = Resources.Load<GameObject>("Prefab/Window/Box_Empty");
+            yield return null;
+            for (var i = 0; i < user.BagNum; i++)
+            {
+                var empty = GameObject.Instantiate(emptyPrefab, (this.sr_Bag.content));
+                empty.name = "Box_" + i;
+                
+                yield return null;
+
+            }
+
+            RefreshBag();
+            yield return null;
+
         }
 
         private void OnRefreshBag()
@@ -531,7 +554,6 @@ namespace Game
 
             //穿戴到格子上
             this.CreateEquipPanelItem(Position, equip);
-
             //通知英雄更新属性
             user.EventCenter.Raise(new HeroUseEquipEvent
             {
