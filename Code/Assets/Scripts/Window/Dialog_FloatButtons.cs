@@ -18,7 +18,7 @@ public class Dialog_FloatButtons : MonoBehaviour, IBattleLife,IPointerDownHandle
     public Image btn_Exit;
 
     public Image btn_AD;
-    
+
     private DragEnum dragType;
     
     public enum DragEnum
@@ -44,8 +44,7 @@ public class Dialog_FloatButtons : MonoBehaviour, IBattleLife,IPointerDownHandle
 
     public void OnBattleStart()
     {
-
-        
+        this.gameObject.SetActive(true);
     }
 
     public int Order => (int)ComponentOrder.Dialog;
@@ -58,7 +57,7 @@ public class Dialog_FloatButtons : MonoBehaviour, IBattleLife,IPointerDownHandle
 
     private void OnClick_Exit()
     {
-        GameProcessor.Inst.ShowSecondaryConfirmationDialog.Invoke(() =>
+        GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("是否确认退出？",() =>
         {
             UserData.Save();
             Application.Quit();

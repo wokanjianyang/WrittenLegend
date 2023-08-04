@@ -50,7 +50,7 @@ namespace Game
         {
             get
             {
-                return this.Logic.IsSurvice;
+                return this.Logic.IsSurvice && this.HP > 0;
             }
         }
         [JsonIgnore]
@@ -66,7 +66,18 @@ namespace Game
         public int GroupId { get; set; }
 
         [JsonIgnore]
-        public APlayer Enemy { get; set; }
+        public APlayer Enemy {
+            get
+            {
+                if (_enemy != null && _enemy.IsSurvice)
+                {
+                    return _enemy;
+                }
+
+                return null;
+            }
+        }
+        protected APlayer _enemy { get; set; }
 
         [JsonIgnore]
         public string UUID { get; set; }
@@ -185,7 +196,7 @@ namespace Game
                 }
             }
 
-            var flag = this.IsEnemyClosest();
+            var flag = this.IsEnemyClosest(Enemy);
             //当敌人在邻格时，强制使用普攻
             if (flag)
             {
@@ -237,8 +248,8 @@ namespace Game
                 return; //如果有控制技能，不继续后续行动
             }
 
-            this.FindNearestEnemy();
-
+            //1.尝试攻击手选目标或上回合目标
+            _enemy = this.CalcEnemy();
             SkillState skill = this.GetSkill();
 
             if (skill != null)
@@ -246,54 +257,90 @@ namespace Game
                 //Debug.Log($"{(this.Name)}使用技能:{(skill.SkillPanel.SkillData.SkillConfig.Name)},攻击:" + targets.Count + "个");
                 skill.Do();
                 //this.EventCenter.Raise(new ShowAttackIcon ());
+                return;
+            }
+
+            //2.尝试攻击周围目标
+            if (_enemy != null)
+            {
+
+                //如果有锁定目标，需要在攻击后恢复
+                var oldEnemy = Enemy;
+
+                _enemy = this.FindNearestEnemy();
+                if (Enemy.ID != oldEnemy.ID)
+                {
+
+                    skill = this.GetSkill();
+
+                    if (skill != null)
+                    {
+                        skill.Do();
+                        _enemy = oldEnemy;
+                        GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "无法攻击指定目标，尝试攻击其它目标",ToastType = ToastTypeEnum.Normal});
+                        return;
+                    }
+                }
             }
             else
             {
-                //this.EventCenter.Raise(new ShowAttackIcon { NeedShow = false });
+                _enemy = this.FindNearestEnemy();
+                skill = this.GetSkill();
 
-                //移动
-                if (Enemy == null)
+                if (skill != null)
                 {
+                    skill.Do();
                     return;
                 }
+            }
 
-                if (IsEnemyClosest())
-                {
-                    return;
-                }
-                var endPos = GameProcessor.Inst.MapData.GetPath(this.Cell, Enemy.Cell);
-                if (GameProcessor.Inst.PlayerManager.IsCellCanMove(endPos))
-                {
-                    this.Move(endPos);
-                }
+            
+            //this.EventCenter.Raise(new ShowAttackIcon { NeedShow = false });
+            //3.没有目标时什么都不做
+            //移动
+            if (_enemy == null)
+            {
+                return;
+            }
+
+            //4.如果周围有目标，但没有可攻击的技能，也什么都不做
+            if (IsEnemyClosest(_enemy))
+            {
+                return;
+            }
+            //5.朝目标移动
+            var endPos = GameProcessor.Inst.MapData.GetPath(this.Cell, _enemy.Cell);
+            if (GameProcessor.Inst.PlayerManager.IsCellCanMove(endPos))
+            {
+                this.Move(endPos);
             }
         }
 
-        private bool IsEnemyClosest()
+        private bool IsEnemyClosest(APlayer enemy)
         {
-            if (Enemy == null)
+            if (enemy == null)
             {
                 return false;
             }
             var up = this.Cell + Vector3Int.up;
-            if (up == Enemy.Cell)
+            if (up == enemy.Cell)
             {
                 return true;
             }
             var left = this.Cell + Vector3Int.left;
-            if (left == Enemy.Cell)
+            if (left == enemy.Cell)
             {
                 return true;
 
             }
             var right = this.Cell + Vector3Int.right;
-            if (right == Enemy.Cell)
+            if (right == enemy.Cell)
             {
                 return true;
 
             }
             var down = this.Cell + Vector3Int.down;
-            if (down == Enemy.Cell)
+            if (down == enemy.Cell)
             {
                 return true;
 
@@ -345,60 +392,47 @@ namespace Game
             }
         }
 
-        public bool FindNearestEnemy()
+        virtual public APlayer CalcEnemy()
         {
-            if (Enemy != null && Enemy.HP > 0)
-            {
-                return true;
-            }
+            return Enemy;
+        }
 
-            Enemy = null;
+        public APlayer FindNearestEnemy()
+        {
+
+            APlayer ret = null;
 
             //查找和自己不同类的,并且不是自己的主人/仆人
             var enemys = GameProcessor.Inst.PlayerManager.GetAllPlayers().FindAll(p => p.Camp != this.Camp && p.IsSurvice && p.GroupId != this.GroupId);
 
-            if (enemys.Count <= 0)
+            if (enemys.Count > 0)
             {
-                return false;
+                enemys.Sort((a, b) =>
+                {
+                    var distance = a.Cell - this.Cell;
+                    var l0 = Math.Abs(distance.x) + Math.Abs(distance.y);
+
+                    distance = b.Cell - this.Cell;
+                    var l1 = Math.Abs(distance.x) + Math.Abs(distance.y);
+
+                    if (l0 < l1)
+                    {
+                        return -1;
+                    }
+                    else if (l0 > l1)
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                });
+
+                ret = enemys[0];
             }
 
-            enemys.Sort((a, b) =>
-            {
-                var distance = a.Cell - this.Cell;
-                var l0 = Math.Abs(distance.x) + Math.Abs(distance.y);
-
-                distance = b.Cell - this.Cell;
-                var l1 = Math.Abs(distance.x) + Math.Abs(distance.y);
-
-                if (l0 < l1)
-                {
-                    return -1;
-                }
-                else if (l0 > l1)
-                {
-                    return 1;
-                }
-                else
-                {
-                    return 0;
-                }
-            });
-
-            foreach (var enemy in enemys)
-            {
-                if (enemy.HP > 0)
-                {
-                    Enemy = enemy;
-                    break;
-                }
-            }
-
-            if (this.Camp == PlayerType.Hero)
-            {
-                Enemy.EventCenter.Raise(new ShowAttackIcon { NeedShow = true });
-            }
-
-            return true;
+            return ret;
         }
 
         public void OnHit(int fromId, params long[] damages)

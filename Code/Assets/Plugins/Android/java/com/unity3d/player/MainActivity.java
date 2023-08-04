@@ -109,7 +109,9 @@ public class MainActivity extends Activity implements PermissionsUtils.IPermissi
                         builder.show();
                     }
                 }
-
+                else {
+                    GotoNextActivity();
+                }
             }
         });
         //点击不同意，直接退出应用
@@ -133,9 +135,8 @@ public class MainActivity extends Activity implements PermissionsUtils.IPermissi
     {
         PocketSdk.initSDK(this, "taptap", "12600");
 
-        Intent intent =new Intent();
-        intent.setClass(MainActivity.this, ADUnityPlayerActivity.class);
-        MainActivity.this.startActivity(intent);
+        Intent i =  new  Intent (MainActivity.this  ,  ADUnityPlayerActivity.class  ).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity( i);
     }
 
     @Override

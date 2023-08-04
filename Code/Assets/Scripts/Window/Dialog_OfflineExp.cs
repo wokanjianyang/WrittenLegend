@@ -18,7 +18,6 @@ namespace Game
         // Start is called before the first frame update
         void Start()
         {
-            this.gameObject.SetActive(false);
 
             this.btn_GetOfflineExp.onClick.AddListener(this.OnClick_GetOfflineExp);
         }
@@ -32,6 +31,7 @@ namespace Game
 
         public void OnBattleStart()
         {
+            this.gameObject.SetActive(false);
 
             if (GameProcessor.Inst.User.LastOut > 0)
             {
@@ -50,8 +50,6 @@ namespace Game
         private void OnShowOfflineExpEvent(long os)
         {
             User user = GameProcessor.Inst.User;
-
-            LevelConfig levelConfig = LevelConfigCategory.Instance.Get(user.Level);
 
             this.offlineSecond = os;
             this.gameObject.SetActive(true);

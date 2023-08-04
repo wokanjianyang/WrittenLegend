@@ -868,8 +868,8 @@ Code/*.sln
 Code.vscode/*
 Code/*.vsconfig
 .history/*
-Code/Assets/StreamingAssets/*
-Code/Assets/StreamingAssets.meta
+#Code/Assets/StreamingAssets/*
+#Code/Assets/StreamingAssets.meta
 
-StreamingAssets
+#StreamingAssets
 *.jks

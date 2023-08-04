@@ -1,26 +1,98 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Sockets;
 using Game;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using DG.Tweening;
-using CodeStage.AntiCheat.Detectors;
 using System.Threading.Tasks;
-using SA.Android.Utilities;
 using SA.Android.App;
-using Newtonsoft.Json;
 
 public class Init : MonoBehaviour
 {
+    public enum UILayer
+    {
+        Top = 0,
+        Center,
+        Bottom,
+    }
+
+    public enum WindowTypeEnum
+    {
+        //Top
+        Loading = -1,
+
+        //Bottom
+        View_Bag = 0,
+        View_Map,
+        View_Skill,
+        View_EndlessTower,
+        View_Forge,
+        View_More,
+
+        //Center
+        View_TopStatu,
+        View_BottomNavBar,
+        Window_EndlessTower,
+
+        Dialog_EquipDetail,
+        Dialog_OfflineExp,
+        Dialog_Settings,
+        Dialog_FloatButtons,
+        Dialog_SecondaryConfirmation,
+    }
+
     [LabelText("战斗模式")]
     public RuleType RuleType = RuleType.Normal;
 
     [LabelText("加载界面")]
-    public Transform LoadingPage;
-
+    // public Transform LoadingPage;
     private const string BuglyAppIDForAndroid = "ff5ed4ccb9";
 
-    private long currentTimeSecond = -1;
+    public GameProcessor Game;
+
+    // public Transform MapRoot;
+
+    public Transform Bottom;
+    public Transform Center;
+    public Transform Top;
+
+    private Dictionary<UILayer, List<WindowTypeEnum>> allWindows = new Dictionary<UILayer, List<WindowTypeEnum>>()
+    {
+        {
+            UILayer.Bottom, new List<WindowTypeEnum>()
+            {
+                WindowTypeEnum.View_Bag,
+                WindowTypeEnum.View_Map,
+                WindowTypeEnum.View_Skill,
+                WindowTypeEnum.View_EndlessTower,
+                WindowTypeEnum.View_Forge,
+                WindowTypeEnum.View_More
+            }
+        },
+        {
+            UILayer.Center, new List<WindowTypeEnum>()
+            {
+                WindowTypeEnum.View_TopStatu,
+                WindowTypeEnum.View_BottomNavBar,
+                WindowTypeEnum.Window_EndlessTower,
+                WindowTypeEnum.Dialog_EquipDetail,
+                WindowTypeEnum.Dialog_OfflineExp,
+                WindowTypeEnum.Dialog_Settings,
+                WindowTypeEnum.Dialog_FloatButtons,
+                WindowTypeEnum.Dialog_SecondaryConfirmation,
+            }
+        },
+        {
+            UILayer.Top, new List<WindowTypeEnum>()
+            {
+
+                WindowTypeEnum.Loading
+            }
+        }
+    };
 
 #if UNITY_EDITOR
 
@@ -30,7 +102,7 @@ public class Init : MonoBehaviour
     private void OnValidate()
     {
         Time.timeScale = this.TimeScale;
-        DOTween.timeScale = this.TimeScale;
+        DOTween.timeScale = 1f / this.TimeScale;
     }
 #endif
 
@@ -60,12 +132,24 @@ public class Init : MonoBehaviour
     {
         AN_Preloader.LockScreen("正在获取时间...");
 
-        var timeTaks = TimeCheatingDetector.GetOnlineTimeTask("https://www.baidu.com/");
-        await timeTaks;
-        this.currentTimeSecond = (long)timeTaks.Result.onlineSecondsUtc;
-        Log.Debug("time:" + this.currentTimeSecond);
+        var milliseconds = TimeHelper.GetNetworkTime();
+        
+        var networkDateTime = (new DateTime(1900, 1, 1)).AddMilliseconds((long) milliseconds).AddHours(8); // 根据毫秒数计算网络时间（从 1900 年 1 月 1 日开始计算）
 
-        UserData.StartTime = this.currentTimeSecond;
+        long currentTimeSecond = 0;
+        if (milliseconds>0)
+        {
+            var startDate = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddHours(8);
+            currentTimeSecond = (long) networkDateTime.Subtract(startDate).TotalSeconds;
+            Log.Debug($"当前时间：{networkDateTime} 当前秒数：{currentTimeSecond}");
+        }
+        else
+        {
+            currentTimeSecond = (long) Mathf.Max(ConfigHelper.PackTime, TimeHelper.ClientNowSeconds());
+            Log.Error($"获取网络时间失败，比较本地时间和打包时间：{currentTimeSecond}");
+        }
+
+        UserData.StartTime = currentTimeSecond;
 
         AN_Preloader.UnlockScreen();
 
@@ -75,7 +159,9 @@ public class Init : MonoBehaviour
         //初始化时间戳
         //加载存档
         //加载首页
-        this.LoadHome2();
+        // this.LoadHome2();
+
+        StartCoroutine(AsyncLoadWindows(currentTimeSecond));
     }
 
     private void LoadConfig()
@@ -86,7 +172,6 @@ public class Init : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     //private void LoadHome()
@@ -105,14 +190,64 @@ public class Init : MonoBehaviour
 
     private void LoadHome2()
     {
-        var com = this.gameObject.AddComponent<GameProcessor>();
-        var map = GameObject.Find("Canvas").GetComponentInChildren<ViewBattleProcessor>().transform;
-        this.LoadingPage.gameObject.SetActive(false);
+        // Game.Init();
+        //
+        // StartCoroutine(IE_DelayAction(1f, () =>
+        // {
+        //     this.LoadingPage.gameObject.SetActive(false);
+        //
+        //     Game.LoadMap(this.RuleType, this.currentTimeSecond, 0, this.MapRoot);
+        // }));
+    }
 
-        StartCoroutine(IE_DelayAction(1f, () =>
+    private IEnumerator AsyncLoadWindows(long currentTimeSecond)
+    {
+        GameObject loadingPage = null;
+        var layers = Enum.GetValues(typeof(UILayer));
+        foreach (UILayer layer in layers)
         {
-            com.LoadMap(this.RuleType, this.currentTimeSecond, 0, map);
-        }));
+            allWindows.TryGetValue(layer, out var windowTypes);
+            foreach (var winType in windowTypes)
+            {
+                var request = Resources.LoadAsync<GameObject>($"Prefab/Window/{winType.ToString()}");
+                yield return request;
+                if (request.asset != null)
+                {
+                    GameObject win = GameObject.Instantiate(request.asset as GameObject);
+                    switch (layer)
+                    {
+                        case UILayer.Bottom:
+                            win.transform.SetParent(Bottom,false);
+                            break;
+                        case UILayer.Center:
+                            win.transform.SetParent(Center,false);
+                            break;
+                        case UILayer.Top:
+                            win.transform.SetParent(Top,false);
+                            break;
+                    }
+                    win.transform.localPosition = Vector3.zero;
+                    var isLoading = winType == WindowTypeEnum.Loading;
+                    if (isLoading)
+                    {
+                        loadingPage = win;
+                    }
+                    win.gameObject.SetActive(isLoading);
+                }
+                else
+                {
+                    Log.Error($"窗口：{winType.ToString()}不存在");
+                }
+            }
+        }
+
+        yield return null;
+        loadingPage.gameObject.SetActive(false);
+        Game.Init(currentTimeSecond);
+
+        yield return null;
+        var mapRoot = GameObject.FindObjectOfType<ViewBattleProcessor>();
+        Game.LoadMap(this.RuleType, 0, mapRoot.transform);
     }
 
     private IEnumerator IE_DelayAction(float delay, Action callback)
@@ -123,7 +258,6 @@ public class Init : MonoBehaviour
 
     void InitBuglySDK()
     {
-
         // TODO NOT Required. Set the crash reporter type and log to report
         // BuglyAgent.ConfigCrashReporter (1, 2);
 

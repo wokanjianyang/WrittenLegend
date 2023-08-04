@@ -20,7 +20,7 @@ namespace Game
 
         public User User { get; private set; }
 
-        public PlayerManager PlayerManager { get; private set; }
+        public PlayerManager PlayerManager;
 
         private ABattleRule BattleRule;
         public Transform PlayerRoot { get; private set; }
@@ -48,7 +48,7 @@ namespace Game
         private bool isGameOver { get; set; } = true;
         public PlayerType winCamp { get; private set; }
 
-        public delegate void ShowDialog(Action doneAction,Action cancleAction);
+        public delegate void ShowDialog(string msg,Action doneAction,Action cancleAction);
 
         public ShowDialog ShowSecondaryConfirmationDialog;
 
@@ -87,6 +87,17 @@ namespace Game
         // Start is called before the first frame update
         void Start()
         {
+            
+        }
+        
+        public void Init(long currentTimeSecond)
+        {
+            
+            if (currentTimeSecond > 0)
+            {
+                this.CurrentTimeSecond = currentTimeSecond;
+            }
+
             this.EventCenter = new EventManager();
             this.PlayerInfo = Canvas.FindObjectOfType<PlayerInfo>(true);
 
@@ -148,6 +159,8 @@ namespace Game
             this.EventCenter.AddListener<EndCopyEvent>(this.OnEndCopy);
 
             ShowVideoAd += OnShowVideoAd;
+            
+            this.UIRoot_Top = GameObject.Find("Canvas/UIRoot/Top").transform;
         }
 
         private void OfflineReward()
@@ -260,6 +273,8 @@ namespace Game
 
         void Update()
         {
+            this.ShowNextToast();
+
             if (this.IsGameOver())
             {
                 return;
@@ -294,10 +309,8 @@ namespace Game
             }
         }
 
-        public void LoadMap(RuleType ruleType, long currentTimeSecond, int mapId, Transform map)
+        public void LoadMap(RuleType ruleType, int mapId, Transform map)
         {
-            this.PlayerManager = this.gameObject.AddComponent<PlayerManager>();
-
             MapData = map.GetComponentInChildren<MapData>();
             switch (ruleType)
             {
@@ -314,12 +327,6 @@ namespace Game
             this.PlayerRoot = MapData.transform.parent.Find("[PlayerRoot]").transform;
 
             this.EffectRoot = MapData.transform.parent.Find("[EffectRoot]").transform;
-
-            this.UIRoot_Top = GameObject.Find("Canvas/UIRoot/Top").transform;
-            if (currentTimeSecond > 0)
-            {
-                this.CurrentTimeSecond = currentTimeSecond;
-            }
 
             this.PlayerManager.LoadHero();
 
@@ -441,7 +448,6 @@ namespace Game
                     seq.AppendCallback(() =>
                     {
                         GameObject.Destroy(msg);
-                        this.ShowNextToast();
                     });
                 }
                 

@@ -51,6 +51,7 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
         GameProcessor.Inst.EventCenter.AddListener<ShowCopyInfoEvent>(this.OnShowCopyInfoEvent);
         GameProcessor.Inst.EventCenter.AddListener<BattleLoseEvent>(this.OnBattleLoseEvent);
         //ShowMapInfo();
+        this.gameObject.SetActive(false);
     }
     private void ShowMapInfo()
     {
@@ -70,7 +71,7 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {
             GameProcessor.Inst.OnDestroy();
-            GameProcessor.Inst.LoadMap(RuleType.Tower, 0, CopyMapId, this.transform);
+            GameProcessor.Inst.LoadMap(RuleType.Tower, CopyMapId, this.transform);
         });
 
         ShowMapInfo();
@@ -129,7 +130,7 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
 
     private void OnClick_Exit()
     {
-        GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke(() =>
+        GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("是否确认退出？",() =>
         {
             this.Exit();
         },null);
@@ -144,7 +145,7 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {
             var map = GameObject.Find("Canvas").GetComponentInChildren<ViewBattleProcessor>(true).transform;
-            GameProcessor.Inst.LoadMap(RuleType.Normal, 0, 0, map);
+            GameProcessor.Inst.LoadMap(RuleType.Normal, 0, map);
         });
     }
 }

@@ -25,6 +25,7 @@ namespace Game
 
         public void OnBattleStart()
         {
+            this.gameObject.SetActive(true);
             this.user = GameProcessor.Inst.User;
             this.tmp_Name.text = user.Name;
             this.tmp_Level.text = $"{user.Level}级";

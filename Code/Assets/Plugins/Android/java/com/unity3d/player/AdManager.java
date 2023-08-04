@@ -1,6 +1,7 @@
 package com.unity3d.player;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.zh.pocket.ads.reward_video.RewardVideoAD;
 import com.zh.pocket.ads.reward_video.RewardVideoADListener;

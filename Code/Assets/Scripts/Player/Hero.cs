@@ -154,13 +154,27 @@ namespace Game
             }
         }
 
+        public override APlayer CalcEnemy()
+        {
+            var ret = base.CalcEnemy();
+
+            ret?.EventCenter.Raise(new ShowAttackIcon { NeedShow = true });
+
+            return ret;
+        }
+
         /// <summary>
         /// ¸´»î
         /// </summary>
         public void Resurrection()
         {
             this.Logic.ResetData();
-            this.Enemy = null;
+            this._enemy = null;
+        }
+
+        public void UpdateEnemy(APlayer player)
+        {
+            this._enemy = player;
         }
     }
 }

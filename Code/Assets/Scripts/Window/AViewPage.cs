@@ -7,21 +7,30 @@ namespace Game
     abstract public class AViewPage : MonoBehaviour, IBattleLife
     {
 
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
+        private bool isInit = false;
+        private bool isOpen = false;
 
         private void OnChangePageEnvent(ChangePageEvent e)
         {
             this.gameObject.SetActive(this.CheckPageType(e.Page));
+
+            if (this.CheckPageType(e.Page))
+            {
+                if (!isInit)
+                {
+                    isInit = true;
+                    this.OnInit();
+                }
+                if (!this.isOpen)
+                {
+                    this.isOpen = true;
+                    this.OnOpen();
+                }
+            }
+            else
+            {
+                this.isOpen = false;
+            }
         }
 
         protected abstract bool CheckPageType(ViewPageType page);
@@ -41,6 +50,16 @@ namespace Game
             {
                 return (int)ComponentOrder.ViewPage;
             }
+        }
+        
+        virtual public void OnInit()
+        {
+            
+        }
+
+        virtual public void OnOpen()
+        {
+            
         }
     }
 }

@@ -25,16 +25,6 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
     {
         GameProcessor.Inst.EventCenter.AddListener<BossInfoEvent>(this.OnBossInfoEvent);
 
-        User user = GameProcessor.Inst.User;
-
-        Dictionary<int, long> list = user.MapBossTime;
-        foreach (int MapId in list.Keys)
-        {
-            if (MapId <= user.MapId && MapId >= user.MapId - ConfigHelper.CopyMaxView)
-            {
-                BuildItem(MapId, list[MapId]);
-            }
-        }
     }
 
     public int Order => (int)ComponentOrder.Dialog;

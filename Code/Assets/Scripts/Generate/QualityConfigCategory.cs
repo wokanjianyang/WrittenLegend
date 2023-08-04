@@ -12,11 +12,27 @@ namespace Game
 
     public class QualityConfigHelper
     {
-        public static string GetColor(int quanlity)
+        public static string GetColor(Item item)
         {
             var titleColor = "FFFFFF";
 
-            switch (quanlity)
+            if (item.Type == ItemType.Material || item.Type == ItemType.SkillBox)
+            {
+                titleColor = "FF6600";
+            }
+            else
+            {
+                titleColor = GetQualityColor(item.GetQuality());
+            }
+            
+            return titleColor;
+        }
+
+        public static string GetQualityColor(int quality)
+        {
+            var titleColor = "FFFFFF";
+
+            switch (quality)
             {
                 case 1:
                     titleColor = "CCCCCC"; 
