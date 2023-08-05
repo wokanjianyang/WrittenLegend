@@ -14,7 +14,7 @@ namespace Game
 
 		public const int CopyMax = 5; //副本最大累计次数
 
-		public const int CopyMaxView = 6; //副本最大显示数量
+		public const int CopyMaxView = 10; //副本最大显示数量
 
 		public const long MaxOfflineTime = 3600 * 12;  //最长离线时间
 
