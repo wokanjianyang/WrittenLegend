@@ -246,8 +246,8 @@ namespace Game
 
 
             //测试属性
-            //AttributeBonus.SetAttr(AttributeEnum.ExpIncrea, AttributeFrom.Test, 1000);
-            //AttributeBonus.SetAttr(AttributeEnum.GoldIncrea, AttributeFrom.Test, 1000);
+            AttributeBonus.SetAttr(AttributeEnum.DamageIncrea, AttributeFrom.Test, 1000000);
+            AttributeBonus.SetAttr(AttributeEnum.DamageResist, AttributeFrom.Test, 1000);
 
             //装备属性
             foreach (var kvp in EquipPanel)

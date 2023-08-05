@@ -34,4 +34,9 @@
 {"_t":"MonsterBase","_id":10033,"MapId":1032,"Name":"祖玛弓箭手","Attr":140652724,"Def":28130544,"HP":1406527240,"DamageIncrea":90,"Exp":4760000,"Gold":4760000},
 {"_t":"MonsterBase","_id":10034,"MapId":1033,"Name":"祖玛卫士","Attr":197831888,"Def":39566377,"HP":1978318880,"DamageIncrea":95,"Exp":5710000,"Gold":5710000},
 {"_t":"MonsterBase","_id":10035,"MapId":1034,"Name":"祖玛雕像","Attr":278255940,"Def":55651188,"HP":2782559400,"DamageIncrea":100,"Exp":6850000,"Gold":6850000},
+{"_t":"MonsterBase","_id":10036,"MapId":1035,"Name":"幻影鸡","Attr":391370000,"Def":78274000,"HP":3913700000,"DamageIncrea":105,"Exp":5280000,"Gold":5280000},
+{"_t":"MonsterBase","_id":10037,"MapId":1036,"Name":"幻影鹿","Attr":550470000,"Def":110094000,"HP":5504700000,"DamageIncrea":110,"Exp":5610000,"Gold":5610000},
+{"_t":"MonsterBase","_id":10038,"MapId":1037,"Name":"幻影草人","Attr":774260000,"Def":154852000,"HP":7742600000,"DamageIncrea":115,"Exp":5950000,"Gold":5950000},
+{"_t":"MonsterBase","_id":10039,"MapId":1038,"Name":"幻影猫","Attr":1089020000,"Def":217804000,"HP":10890200000,"DamageIncrea":120,"Exp":6300000,"Gold":6300000},
+{"_t":"MonsterBase","_id":10040,"MapId":1039,"Name":"幻影花","Attr":1531740000,"Def":306348000,"HP":15317400000,"DamageIncrea":125,"Exp":6660000,"Gold":6660000},
 ]}
