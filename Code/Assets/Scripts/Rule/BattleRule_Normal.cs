@@ -105,7 +105,35 @@ namespace Game
             user.AttributeBonus.SetAttr(AttributeEnum.SecondExp, AttributeFrom.Tower, secondExp);
             user.AttributeBonus.SetAttr(AttributeEnum.SecondGold, AttributeFrom.Tower, secondGold);
 
+            bool isEquip = false;
+            bool isSepecialEquip = false;
+            if (user.TowerFloor % 1000 == 0)
+            {
+                isSepecialEquip = true;
+            }
+            else if (user.TowerFloor % 30 == 0)
+            {
+                isEquip = true;
+            }
+
+            List<Item> items = new List<Item>();
+            if (isEquip )
+            {
+                items = DropHelper.TowerEquip(10);
+            }
+            if (isSepecialEquip)
+            {
+                int rd = RandomHelper.RandomNumber(1, 5);
+                Item item = ItemHelper.BuildItem(ItemType.Equip, rd * 100 + 1, 1, 1);
+                items.Add(item);
+            }
+
             user.TowerFloor++;
+
+            if (items.Count > 0)
+            {
+                user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+            }
 
             long exp = config.Exp;
             long gold = config.Gold;
@@ -113,9 +141,15 @@ namespace Game
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
             {
-                Message = BattleMsgHelper.BuildTowerSuccessMessage(config.RiseExp, config.RiseGold, exp, gold, user.TowerFloor),
+                Message = BattleMsgHelper.BuildTowerSuccessMessage(config.RiseExp, config.RiseGold, exp, gold, user.TowerFloor, items),
                 BattleType = BattleType.Tower
             });
+
+            //自动回收
+            if (isEquip)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new AutoRecoveryEvent() { });
+            }
 
             //判断任务
             TaskHelper.CheckTask(TaskType.Tower, user.TowerFloor);

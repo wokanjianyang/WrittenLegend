@@ -11,11 +11,22 @@ public class Monster_Tower : APlayer
 
     public TowerConfig config { get; set; }
 
+    private bool isEquip = false;
+    private bool isSepecialEquip = false;
+
     public Monster_Tower(long floor, int index)
     {
         this.Floor = floor;
         this.GroupId = 2;
         this.Index = index;
+
+        if (floor % 1000 == 0)
+        {
+            isSepecialEquip = true;
+        }
+        else if (floor % 30 == 0) {
+            isEquip = true;
+        }
 
         this.Init();
     }
@@ -26,7 +37,21 @@ public class Monster_Tower : APlayer
         this.config = config;
 
         this.Camp = PlayerType.Enemy;
-        this.Name = Floor + "层守将";
+
+        if (isSepecialEquip)
+        {
+            this.Name = "守关将军";
+        }
+        else if (isEquip)
+        {
+            this.Name = "守关亲卫";
+        }
+        else
+        {
+            this.Name = "守关小兵";
+        }
+
+
         this.Level = Floor;
 
         this.SetAttr();  //设置属性值
@@ -53,6 +78,14 @@ public class Monster_Tower : APlayer
         //}
         list.Add(new SkillData(9001, (int)SkillPosition.Default)); //增加默认技能
 
+        if (isEquip)
+        {
+            list.Add(new SkillData(12002, 2)); //增加怪物雷电术
+        }
+        else if (isSepecialEquip) {
+            list.Add(new SkillData(11002, 1)); //怪物刺杀
+        }
+
         foreach (SkillData skillData in list)
         {
             List<SkillRune> runeList = new List<SkillRune>();
@@ -78,5 +111,10 @@ public class Monster_Tower : APlayer
         AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr);
         AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr);
         AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, def);
+        AttributeBonus.SetAttr(AttributeEnum.DamageIncrea, AttributeFrom.HeroBase, config.DamageIncrea);
+
+        if (Floor % 30 == 0) { //每30层,掉落装备一件(),每1000层一件4件套
+
+        }
     }
 }

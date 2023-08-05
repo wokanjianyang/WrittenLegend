@@ -159,9 +159,9 @@ public class ViewForgeProcessor : AViewPage
 
         if (strengthLevel >= user.Level)
         {
-            // 改为无限强化
-            //GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "强化等级不能超过人物等级", Parent = tran_AttrList });
-            //return;
+            //改为无限强化
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "强化等级不能超过人物等级", Parent = tran_AttrList });
+            return;
         }
 
         EquipStrengthFeeConfig config = EquipStrengthFeeConfigCategory.Instance.GetByLevel(strengthLevel + 1);

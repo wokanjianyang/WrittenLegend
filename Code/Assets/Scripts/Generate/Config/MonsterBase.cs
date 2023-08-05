@@ -93,14 +93,17 @@ namespace Game
 		/// <summary>生命</summary>
 		[ProtoMember(6)]
 		public long HP { get; set; }
-		/// <summary>经验</summary>
+		/// <summary>DamageIncrea</summary>
 		[ProtoMember(7)]
+		public int DamageIncrea { get; set; }
+		/// <summary>经验</summary>
+		[ProtoMember(8)]
 		public long Exp { get; set; }
 		/// <summary>掉落金币</summary>
-		[ProtoMember(8)]
+		[ProtoMember(9)]
 		public long Gold { get; set; }
 		/// <summary>攻击</summary>
-		[ProtoMember(9)]
+		[ProtoMember(10)]
 		public long PhyAttr { get; set; }
 
 	}

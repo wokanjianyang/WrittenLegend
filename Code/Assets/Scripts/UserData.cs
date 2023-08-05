@@ -48,10 +48,10 @@ namespace Game
                 user.Gold = 0;
             }
             //TEST data
-            //user.Gold = 99999999; 
-            //user.Level = 1000;
+            //user.Gold = 999999999999; 
+            //user.Level = 1000000;
             //user.MapId = 1026;
-            //user.TowerFloor = 500;
+            //user.TowerFloor = 989;
             return user;
         }
 

@@ -114,11 +114,14 @@ namespace Game
 		/// <summary>RiseGold</summary>
 		[ProtoMember(13)]
 		public long RiseGold { get; set; }
-		/// <summary>Exp</summary>
+		/// <summary>DamageIncrea</summary>
 		[ProtoMember(14)]
+		public int DamageIncrea { get; set; }
+		/// <summary>Exp</summary>
+		[ProtoMember(15)]
 		public long Exp { get; set; }
 		/// <summary>Gold</summary>
-		[ProtoMember(15)]
+		[ProtoMember(16)]
 		public long Gold { get; set; }
 
 	}

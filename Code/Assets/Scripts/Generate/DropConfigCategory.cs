@@ -28,6 +28,25 @@ namespace Game
 
     public class DropHelper
     {
+        public static List<Item> TowerEquip(int equipLevel)
+        {
+            List<Item> list = new List<Item>();
+
+            List<DropConfig> drops = DropConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Level == equipLevel && m.ItemType == 2).ToList(); //获取当前等级的装备
+            if (drops.Count > 0)
+            {
+                int[] ids = drops[0].ItemIdList;
+                if (ids != null && ids.Length > 0)
+                {
+                    int index = RandomHelper.RandomNumber(0, ids.Length);
+
+                    Item item = ItemHelper.BuildItem(ItemType.Equip, ids[index], 1, 1);
+                    list.Add(item);
+                }
+            }
+            return list;
+        }
+
         public static List<Item> BuildDropItem(List<KeyValuePair<int, DropConfig>> dropList, int qualityRate)
         {
             List<Item> list = new List<Item>();
