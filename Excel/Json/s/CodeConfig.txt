@@ -9,4 +9,5 @@
 {"_t":"CodeConfig","_id":8,"code":"uq3btk3s","ItemTypeList":[8],"ItemIdList":[7101]},
 {"_t":"CodeConfig","_id":9,"code":"sv72q1d","ItemTypeList":[8],"ItemIdList":[7102]},
 {"_t":"CodeConfig","_id":10,"code":"mefxdokwfn","ItemTypeList":[8],"ItemIdList":[7103]},
+{"_t":"CodeConfig","_id":11,"code":"1000qq","ItemTypeList":[3],"ItemIdList":[3007]},
 ]}
