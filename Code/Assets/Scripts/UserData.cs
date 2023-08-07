@@ -50,7 +50,7 @@ namespace Game
             //TEST data
             //user.Gold = 999999999999; 
             //user.Level = 1000000;
-            //user.MapId = 1026;
+            //user.MapId = 1010;
             //user.TowerFloor = 989;
             return user;
         }

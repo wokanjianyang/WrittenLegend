@@ -40,7 +40,7 @@ public class Com_CompositeItem : MonoBehaviour
         User user = GameProcessor.Inst.User;
         int count = user.Bags.Where(m => (int)m.Item.Type == config.FromItemType && m.Item.ConfigId == config.FromId).Select(m => m.Number).Sum();
 
-        if (count < config.Quantity)
+        if (count < config.Quantity || user.Gold < config.Commission)
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "材料不足" });
             return;

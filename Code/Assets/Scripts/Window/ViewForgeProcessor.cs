@@ -157,12 +157,11 @@ public class ViewForgeProcessor : AViewPage
         User user = GameProcessor.Inst.User;
         user.EquipStrength.TryGetValue(SelectPosition, out long strengthLevel);
 
-        if (strengthLevel >= user.Level)
-        {
-            //改为无限强化
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "强化等级不能超过人物等级", Parent = tran_AttrList });
-            return;
-        }
+        //if (strengthLevel >= user.Level)
+        //{
+        //    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "强化等级不能超过人物等级", ToastType = ToastTypeEnum.Failure });
+        //    return;
+        //}
 
         EquipStrengthFeeConfig config = EquipStrengthFeeConfigCategory.Instance.GetByLevel(strengthLevel + 1);
 
@@ -192,6 +191,12 @@ public class ViewForgeProcessor : AViewPage
         User user = GameProcessor.Inst.User;
         user.EquipStrength.TryGetValue(SelectPosition, out long strengthLevel);
 
+        //if (strengthLevel >= user.Level)
+        //{
+        //    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "强化等级不能超过人物等级", ToastType = ToastTypeEnum.Failure });
+        //    return;
+        //}
+
         //
         EquipStrengthFeeConfig config = EquipStrengthFeeConfigCategory.Instance.GetByLevel(strengthLevel + 1);
 
@@ -209,9 +214,13 @@ public class ViewForgeProcessor : AViewPage
             GameProcessor.Inst.UpdateInfo();
 
             ShowStrengthInfo();
-            Debug.Log("batch strenthen " + sl + " level");
+
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "一键强化成功", ToastType = ToastTypeEnum.Success });
 
             TaskHelper.CheckTask(TaskType.Strength, 1);
+        }
+        else {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "金币不够", ToastType = ToastTypeEnum.Failure });
         }
     }
 

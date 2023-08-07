@@ -35,7 +35,7 @@ public class ProGifPlayerPanel : MonoBehaviour
 
 	[Header("[ Debug ]")]
 	public string m_Url = "";
-	//Test
+
 	//m_Url = "https://media.giphy.com/media/3ohhwmcrvnu7OzD1mM/giphy.gif";
 	//m_Url = "https://media.giphy.com/media/1jgLDGD1Bn27e/giphy.gif";
 	//m_Url = "https://media.giphy.com/media/dLDpXLoJBICaI/giphy.gif";

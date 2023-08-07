@@ -152,20 +152,19 @@ public class Com_AD : MonoBehaviour, IBattleLife
                  StartCoroutine(ShowFakeAD(() =>
                   {
                       User user = GameProcessor.Inst.User;
-                     //发放奖励
-                     long exp = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp);
+                      //发放奖励
+                      long gold = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondGold);
 
-                      exp = exp * 1440; //2小时/5 = 1440
+                      gold = gold * 1440; //2小时/5 = 1440
 
-                     user.AddExpAndGold(exp, 0);
+                      user.AddExpAndGold(0, gold);
                       GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
                       {
-                          Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励", exp, 0)
+                          Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励", 0, gold)
                       });
 
                       data.CurrentShowCount++;
                       this.UpdateAdData();
-
                   }));
              }
          });
@@ -183,18 +182,19 @@ public class Com_AD : MonoBehaviour, IBattleLife
          {
              if (giveReward)
              {
+
                  User user = GameProcessor.Inst.User;
-                //发放奖励
-                long gold = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp); ;
+                 //发放奖励
+                 long exp = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp);
 
-                 gold = gold * 1440; //2小时/5 = 1440
+                 exp = exp * 1440; //2小时/5 = 1440
 
-                user.AddExpAndGold(gold, 0);
+                 user.AddExpAndGold(exp, 0);
                  GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
                  {
-                     Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励",gold, 0)
+                     Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励", exp, 0)
                  });
-                 
+
                  data.CurrentShowCount++;
                  this.UpdateAdData();
 
@@ -204,18 +204,19 @@ public class Com_AD : MonoBehaviour, IBattleLife
                 //不发奖励
                 StartCoroutine(ShowFakeAD(() =>
                 {
+
                     User user = GameProcessor.Inst.User;
                     //发放奖励
-                    long gold = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp); ;
+                    long exp = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp);
 
-                    gold = gold * 1440; //2小时/5 = 1440
+                    exp = exp * 1440; //2小时/5 = 1440
 
-                    user.AddExpAndGold(gold, 0);
+                    user.AddExpAndGold(exp, 0);
                     GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
                     {
-                        Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励",gold, 0)
+                        Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励", exp, 0)
                     });
-                    
+
                     data.CurrentShowCount++;
                     this.UpdateAdData();
 

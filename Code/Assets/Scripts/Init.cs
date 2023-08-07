@@ -9,6 +9,7 @@ using UnityEngine;
 using DG.Tweening;
 using System.Threading.Tasks;
 using SA.Android.App;
+using CodeStage.AntiCheat.Detectors;
 
 public class Init : MonoBehaviour
 {
@@ -120,10 +121,9 @@ public class Init : MonoBehaviour
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
         Log.Debug("Demo Start()");
 
-        InitBuglySDK();
-        Log.Debug("Init bugly sdk done");
-
-        BuglyAgent.SetScene(0);
+        //InitBuglySDK();
+        //Log.Debug("Init bugly sdk done");
+        //BuglyAgent.SetScene(0);
 
         AsyncStartAsync();
     }
@@ -132,34 +132,16 @@ public class Init : MonoBehaviour
     {
         AN_Preloader.LockScreen("正在获取时间...");
 
-        var milliseconds = TimeHelper.GetNetworkTime();
-        
-        var networkDateTime = (new DateTime(1900, 1, 1)).AddMilliseconds((long) milliseconds).AddHours(8); // 根据毫秒数计算网络时间（从 1900 年 1 月 1 日开始计算）
-
-        long currentTimeSecond = 0;
-        if (milliseconds>0)
-        {
-            var startDate = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddHours(8);
-            currentTimeSecond = (long) networkDateTime.Subtract(startDate).TotalSeconds;
-            Log.Debug($"当前时间：{networkDateTime} 当前秒数：{currentTimeSecond}");
-        }
-        else
-        {
-            currentTimeSecond = (long) Mathf.Max(ConfigHelper.PackTime, TimeHelper.ClientNowSeconds());
-            Log.Error($"获取网络时间失败，比较本地时间和打包时间：{currentTimeSecond}");
-        }
+        var timeTaks = TimeCheatingDetector.GetOnlineTimeTask("https://www.baidu.com/");
+        await timeTaks;
+        long currentTimeSecond = (long)timeTaks.Result.onlineSecondsUtc;
+        //Log.Debug("time:" + currentTimeSecond);
 
         UserData.StartTime = currentTimeSecond;
 
         AN_Preloader.UnlockScreen();
 
         this.LoadConfig();
-        //初始化广告模块
-        //初始化Bugly
-        //初始化时间戳
-        //加载存档
-        //加载首页
-        // this.LoadHome2();
 
         StartCoroutine(AsyncLoadWindows(currentTimeSecond));
     }

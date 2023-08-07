@@ -72,7 +72,7 @@ namespace Game
                         //刷新英雄属性
                         hero.EventCenter.Raise(new HeroLevelUp());
                     }
-  
+
                     //自动跳转
                     GameProcessor.Inst.EventCenter.Raise(new ChangeFloorEvent() { });
                 }
@@ -117,9 +117,9 @@ namespace Game
             }
 
             List<Item> items = new List<Item>();
-            if (isEquip )
+            if (isEquip)
             {
-                items = DropHelper.TowerEquip(10);
+                items = DropHelper.TowerEquip(Math.Max(10, (user.MapId - 1000) * 10));
             }
             if (isSepecialEquip)
             {

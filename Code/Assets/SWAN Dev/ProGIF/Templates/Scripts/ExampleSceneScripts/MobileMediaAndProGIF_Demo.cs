@@ -25,7 +25,6 @@ public class MobileMediaAndProGIF_Demo : MonoBehaviour
 
 	public void GetPreviewPhoto()
 	{
-		//Test
 		int mediaType = Random.Range(0, 3);
 		int mediaIndex = (Random.Range(0, 3) == 0)? -1:Random.Range(0, 10);
 		int targetSize = (Random.Range(0, 2) == 0)? 0:100;

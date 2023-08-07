@@ -277,7 +277,7 @@ namespace Game
                     {
                         skill.Do();
                         _enemy = oldEnemy;
-                        GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "无法攻击指定目标，尝试攻击其它目标",ToastType = ToastTypeEnum.Normal});
+                        //GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "无法攻击指定目标，尝试攻击其它目标",ToastType = ToastTypeEnum.Normal});
                         return;
                     }
                 }

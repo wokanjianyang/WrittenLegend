@@ -388,14 +388,6 @@ public class FilePathName
                 for (int i = 0; i < bytes.Length; i++)
                 {
                     sb.Append(bytes[i]);
-
-                    //Test 
-                    //                  bkCount++;
-                    //                  if(bkCount == 3) 
-                    //                  {
-                    //                      bkCount = 0;
-                    //                      sb.Append(" (" + (i+1)/3 + ")\n");
-                    //                  }
                 }
             }
         }
@@ -415,14 +407,6 @@ public class FilePathName
                 {
                     sb.Append(bytes[i]);
                     sb.Append(separator);
-
-                    //Test
-                    //                  bkCount++;
-                    //                  if(bkCount == 3) 
-                    //                  {
-                    //                      bkCount = 0;
-                    //                      sb.Append(" (" + ((i+1)/3-1) + ")\n");
-                    //                  }
                 }
             }
         }
