@@ -52,6 +52,12 @@ namespace Game.Data
                 CurrentShowCount = 0,
                 MaxShowCount = 6
             });
+            ADDatas.Add(new ADData()
+            {
+                ADType = (int)ADTypeEnum.CopyTicketCount,
+                CurrentShowCount = 0,
+                MaxShowCount = 6
+            });
         }
 
         public bool CheckDate()

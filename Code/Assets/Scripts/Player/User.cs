@@ -73,7 +73,10 @@ namespace Game
         public int TaskId { get; set; } = 1;
         public Dictionary<int, bool> TaskLog = new Dictionary<int, bool>();
 
-        //主线boss记录
+        //副本次数记录
+        public long CopyTicketTime { get; set; } = 0;
+        public int CopyTikerCount { get; set; } = 0;
+
         public Dictionary<int, long> MapBossTime { get; } = new Dictionary<int, long>();
 
         //幻神记录

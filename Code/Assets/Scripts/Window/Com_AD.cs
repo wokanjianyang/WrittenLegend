@@ -16,7 +16,7 @@ public class Com_AD : MonoBehaviour, IBattleLife
     [LabelText("经验收益次数")]
     public Text txt_Reward_Exp_Count;
 
-    [LabelText("副本券次数")]
+    [LabelText("装备副本次数")]
     public Text txt_Reward_Copy_Ticket_Count;
 
     [LabelText("精炼石次数")]
@@ -224,11 +224,19 @@ public class Com_AD : MonoBehaviour, IBattleLife
             }
          });
     }
-    
+
     public void OnClick_CopyTicketCount()
     {
-        GameProcessor.Inst.OnShowVideoAd("副本挑战券","copy_ticket_count", (giveReward) =>
+        var data = GameProcessor.Inst.User.ADShowData?.GetADShowStatus(ADTypeEnum.CopyTicketCount);
+        if (data == null)
         {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "广告次数已用尽，请观看其它广告或明日再来", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
+
+        GameProcessor.Inst.OnShowVideoAd("经验收益2小时", "exp_count_2_hour", (giveReward) =>
+        {
+            Debug.Log("广告-副本挑战8次-完成");
             if (giveReward)
             {
                 //发放奖励
@@ -236,9 +244,20 @@ public class Com_AD : MonoBehaviour, IBattleLife
             else
             {
                 //不发奖励
+                //不发奖励
+                StartCoroutine(ShowFakeAD(() =>
+                {
+                    User user = GameProcessor.Inst.User;
+                    user.CopyTikerCount += 8;
+
+                    data.CurrentShowCount++;
+                    this.UpdateAdData();
+                }));
+
             }
         });
     }
+
     public void OnClick_StoneCount()
     {
         GameProcessor.Inst.OnShowVideoAd("精炼石100个","stone_count_100", (giveReward) =>
