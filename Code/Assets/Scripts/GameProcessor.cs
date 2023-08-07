@@ -165,7 +165,8 @@ namespace Game
 
         private void OfflineReward()
         {
-            if (isTimeError) {
+            if (isTimeError)
+            {
                 OfflineMessage = BattleMsgHelper.BuildTimeErrorMessage();
                 return;
             }
@@ -208,6 +209,22 @@ namespace Game
                 }
             }
 
+            List<Item> items = new List<Item>();
+            for (int i = 0; i < offlineFloor; i++)
+            {
+                long fl = User.TowerFloor + i;
+
+                if (fl % 30 == 0)
+                {
+                    items.AddRange(DropHelper.TowerEquip(Math.Max(10, (User.MapId - 1000) * 10)));
+                }
+                else if (fl % 1000 == 0)
+                {
+                    int rd = RandomHelper.RandomNumber(1, 5);
+                    items.Add(ItemHelper.BuildItem(ItemType.Equip, rd * 100 + 1, 1, 1));
+                }
+            }
+
             User.TowerFloor += offlineFloor;
 
             long exp = User.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp) * (offlineTime / 5);
@@ -216,11 +233,21 @@ namespace Game
             User.AddExpAndGold(rewardExp + exp, rewardGold + gold);
             User.SecondExpTick = currentTick;
 
-            OfflineMessage = BattleMsgHelper.BuildOfflineMessage(offlineTime, offlineFloor, rewardExp, rewardGold, exp, gold);
+
+            foreach (Item item in items)
+            {
+                BoxItem boxItem = new BoxItem();
+                boxItem.Item = item;
+                boxItem.Number = 1;
+                boxItem.BoxId = -1;
+                User.Bags.Add(boxItem);
+            }
+
+            OfflineMessage = BattleMsgHelper.BuildOfflineMessage(offlineTime, offlineFloor, rewardExp, rewardGold, items.Count);
             //Debug.Log(OfflineMessage);
 
             UserData.Save();
-            
+
             barragePrefab = Resources.Load<GameObject>("Prefab/Dialog/Toast");
         }
 
