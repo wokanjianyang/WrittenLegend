@@ -12,40 +12,83 @@ public class BattleRule_Phantom : ABattleRule
     private int PhanId = 0;
     private int Layer = 0;
 
-    private List<int> QualityList;
+    private const int MaxTime = 180;
 
-    private int MaxTime = 180;
+    private int Time = 180;
+
+    private long MapTime = 0;
 
     protected override RuleType ruleType => RuleType.Phantom;
 
+    private APlayer RealBoss = null;
 
-    public BattleRule_Phantom(int pid, int layer)
+    public BattleRule_Phantom(int pid,long mapTime)
     {
         PhanId = pid;
-        Layer = layer;
+
+        PhanStart = true;
+        RealBoss = null;
+
+        MapTime = mapTime;
+
+        Time = MaxTime;
+        GameProcessor.Inst.User.PhantomRecord.TryGetValue(PhanId, out int lv);
+        Layer = lv + 1;
     }
 
     public override void DoHeroLogic()
     {
-        if (MaxTime <= 0)
+        if (!PhanStart)
+        {
             return;
-        MaxTime--;
+        }
+
+        if (Time <= 0)
+            return;
+        Time--;
 
         var hero = GameProcessor.Inst.PlayerManager.GetHero();
         hero.DoEvent();
+
+        if (hero.HP <= 0)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new BattlePhantomMsgEvent() { Message = RealBoss.Name + "：你没有通过挑战！" });
+            PhanStart = false;
+        }
+
+        GameProcessor.Inst.EventCenter.Raise(new ShowPhantomInfoEvent() { Time = Time });
+    }
+
+    public override void DoValetLogic()
+    {
+        if (!PhanStart)
+        {
+            return;
+        }
+
+        base.DoValetLogic();
     }
 
     public override void DoMonsterLogic()
     {
-        if (MaxTime <= 0)
-            return;
-        MaxTime--;
-
         if (!PhanStart)
         {
-            var enemy = new Monster_Phantom(PhanId, Layer, true, 10);  //刷新本体,10代表满血
-            GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
-            PhanStart = true;
+            return;
+        }
+
+        if (Time <= 0)
+            return;
+        Time--;
+
+        GameProcessor.Inst.EventCenter.Raise(new ShowPhantomInfoEvent() { Time = Time });
+
+        if (RealBoss == null)
+        {
+            Debug.Log("PhanId:" + PhanId + " Layer:" + Layer);
+            RealBoss = new Monster_Phantom(PhanId, Layer, true, 10);  //刷新本体,10代表满血
+            GameProcessor.Inst.PlayerManager.LoadMonster(RealBoss);
+
+            GameProcessor.Inst.EventCenter.Raise(new BattlePhantomMsgEvent() { Message = RealBoss.Name + "：勇士,你是要来挑战我吗?" });
         }
 
         var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
@@ -54,15 +97,28 @@ public class BattleRule_Phantom : ABattleRule
             enemy.DoEvent();
         }
 
-        if (enemys.Count <= 0 && MaxTime > 0)
+        if (RealBoss.HP <= 0 && Time > 0)
         {
-            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
-            {
-                Message = BattleMsgHelper.BuildCopySuccessMessage(),
-                BattleType = BattleType.Tower
-            });
+            GameProcessor.Inst.User.PhantomRecord[PhanId] = Layer + 1;
 
-            GameProcessor.Inst.HeroDie(RuleType.Tower);
+            GameProcessor.Inst.EventCenter.Raise(new BattlePhantomMsgEvent() { Message = RealBoss.Name + "：强大的勇士,您已经通过了考验！" });
+
+            GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
+
+            GameProcessor.Inst.HeroDie(RuleType.Phantom, MapTime);
+
+            PhanStart = false;
+            return;
         }
+
+        if (Time <= 0) {
+            GameProcessor.Inst.EventCenter.Raise(new BattlePhantomMsgEvent() { Message = RealBoss.Name + "：你没有通过挑战..." });
+            PhanStart = false;
+            return;
+        }
+    }
+
+    public override void CheckGameResult() { 
+
     }
 }

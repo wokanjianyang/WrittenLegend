@@ -22,7 +22,7 @@
 {"_t":"BossConfig","_id":10020,"MapId":1020,"Name":"巨型钳虫","PhyAttr":11700000,"Def":2340000,"HP":1170000000,"DamageIncrea":30,"Exp":153000000,"Gold":153000000,"DropIdList":[102],"DropRateList":[5],"ModelType":0},
 {"_t":"BossConfig","_id":10021,"MapId":1021,"Name":"触龙神","PhyAttr":16500000,"Def":3300000,"HP":1650000000,"DamageIncrea":35,"Exp":171000000,"Gold":171000000,"DropIdList":[102],"DropRateList":[5],"ModelType":0},
 {"_t":"BossConfig","_id":10022,"MapId":1022,"Name":"祖玛教主","PhyAttr":23200000,"Def":4640000,"HP":2320000000,"DamageIncrea":40,"Exp":190000000,"Gold":190000000,"DropIdList":[102],"DropRateList":[5],"ModelType":0},
-{"_t":"BossConfig","_id":10023,"MapId":1023,"Name":"祖玛侍卫","PhyAttr":32600000,"Def":6520000,"HP":3260000000,"DamageIncrea":450,"Exp":210000000,"Gold":210000000,"DropIdList":[102],"DropRateList":[5],"ModelType":0},
+{"_t":"BossConfig","_id":10023,"MapId":1023,"Name":"祖玛侍卫","PhyAttr":32600000,"Def":6520000,"HP":3260000000,"DamageIncrea":45,"Exp":210000000,"Gold":210000000,"DropIdList":[102],"DropRateList":[5],"ModelType":0},
 {"_t":"BossConfig","_id":10024,"MapId":1024,"Name":"虹魔猪王","PhyAttr":45900000,"Def":9180000,"HP":4590000000,"DamageIncrea":50,"Exp":231000000,"Gold":231000000,"DropIdList":[102],"DropRateList":[5],"ModelType":0},
 {"_t":"BossConfig","_id":10025,"MapId":1025,"Name":"虹魔蝎卫","PhyAttr":64550000,"Def":12910000,"HP":6455000000,"DamageIncrea":55,"Exp":253000000,"Gold":253000000,"DropIdList":[102],"DropRateList":[5],"ModelType":0},
 {"_t":"BossConfig","_id":10026,"MapId":1026,"Name":"虹魔教主","PhyAttr":90800000,"Def":18160000,"HP":9080000000,"DamageIncrea":60,"Exp":276000000,"Gold":276000000,"DropIdList":[102],"DropRateList":[5],"ModelType":0},

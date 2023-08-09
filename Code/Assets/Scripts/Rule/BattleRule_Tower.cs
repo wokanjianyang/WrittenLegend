@@ -10,6 +10,7 @@ public class BattleRule_Tower : ABattleRule
     private bool Start = false;
 
     private int MapId = 0;
+    private long MapTime = 0;
 
     private List<int> QualityList;
 
@@ -17,9 +18,10 @@ public class BattleRule_Tower : ABattleRule
     private const int MaxFreshQuanlity = 5; //最多刷新数量
     protected override RuleType ruleType => RuleType.Tower;
 
-    public BattleRule_Tower(int mapId)
+    public BattleRule_Tower(int mapId,long mapTime)
     {
         this.MapId = mapId;
+        this.MapTime = mapTime;
         this.Start = true;
 
         QualityList = new List<int>();
@@ -51,11 +53,11 @@ public class BattleRule_Tower : ABattleRule
         long refeshTime = TimeHelper.ClientNowSeconds() - user.MapBossTime[mapId];
         long count = Math.Min(refeshTime / (mapConfig.BossInterval * 60), 5);
 
-        Debug.Log("挑战前:" + TimeHelper.SecondsToDate(user.MapBossTime[mapId]));
+        //Debug.Log("挑战前:" + TimeHelper.SecondsToDate(user.MapBossTime[mapId]));
 
         user.MapBossTime[mapId] = TimeHelper.ClientNowSeconds() - (count - 1) * mapConfig.BossInterval * 60;
 
-        Debug.Log("挑战后:" + TimeHelper.SecondsToDate(user.MapBossTime[mapId]));
+        //Debug.Log("挑战后:" + TimeHelper.SecondsToDate(user.MapBossTime[mapId]));
 
         TaskHelper.CheckTask(TaskType.ToCopy, 1);
     }
@@ -148,7 +150,7 @@ public class BattleRule_Tower : ABattleRule
                 user.MapId = mapConfig.Id + 1;
             }
 
-            GameProcessor.Inst.HeroDie(RuleType.Tower);
+            GameProcessor.Inst.HeroDie(RuleType.Tower, MapTime);
         }
     }
 }

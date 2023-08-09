@@ -7,6 +7,10 @@ namespace Game
 {
     public class Item_EquipCopy : MonoBehaviour, IPointerClickHandler
     {
+        [Title("插槽")]
+        [LabelText("类型")]
+        public CopyType Type;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -21,7 +25,14 @@ namespace Game
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            GameProcessor.Inst.EventCenter.Raise(new BossInfoEvent());
+            if (Type == CopyType.装备副本)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new BossInfoEvent());
+            }
+            else if (Type == CopyType.幻影挑战)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new PhantomEvent());
+            }
         }
     }
 }

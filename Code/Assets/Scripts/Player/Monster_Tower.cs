@@ -113,6 +113,9 @@ public class Monster_Tower : APlayer
         AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, def);
         AttributeBonus.SetAttr(AttributeEnum.DamageIncrea, AttributeFrom.HeroBase, config.DamageIncrea);
 
+        //回满当前血量
+        SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
+
         if (Floor % 30 == 0) { //每30层,掉落装备一件(),每1000层一件4件套
 
         }

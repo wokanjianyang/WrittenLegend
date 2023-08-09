@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 
 namespace Game
@@ -41,6 +42,28 @@ namespace Game
 				hexAsBytes[index] = byte.Parse(byteValue, NumberStyles.HexNumber, CultureInfo.InvariantCulture);
 			}
 			return hexAsBytes;
+		}
+
+		public static string FormatPhantomText(int rewardId, int number)
+		{
+			return FormatAttrValueName(rewardId) + "+" + FormatAttrValueText(rewardId, number);
+		}
+
+		public static string FormatAttrValueName(int attrId) {
+			return PlayerHelper.PlayerAttributeMap[((AttributeEnum)attrId).ToString()];
+		}
+		public static string FormatAttrValueText(int attr, long val)
+		{
+			string unit = "";
+
+			List<int> percents = ConfigHelper.PercentAttrIdList.ToList(); 
+
+			if (percents.Contains(attr))
+			{
+				unit = "%";
+			}
+
+			return val + unit;
 		}
 
 		public static string Fmt(this string text, params object[] args)

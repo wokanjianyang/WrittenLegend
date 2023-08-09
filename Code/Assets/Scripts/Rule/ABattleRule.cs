@@ -92,7 +92,7 @@ namespace Game
             }
         }
 
-        protected void CheckGameResult()
+        virtual public void CheckGameResult()
         {
             var heroCamp = GameProcessor.Inst.PlayerManager.GetHero();
             if (heroCamp.HP == 0)
@@ -102,7 +102,7 @@ namespace Game
                 GameProcessor.Inst.SetGameOver(PlayerType.Enemy);
                 
                 Log.Debug($"{(GameProcessor.Inst.winCamp == PlayerType.Hero?"玩家":"怪物")}获胜！！");
-                GameProcessor.Inst.HeroDie(this.ruleType);
+                GameProcessor.Inst.HeroDie(this.ruleType,0);
             }
         }
     }

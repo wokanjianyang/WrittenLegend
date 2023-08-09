@@ -288,6 +288,16 @@ namespace Game
                 AttributeBonus.SetAttr(AttributeEnum.SecondGold, AttributeFrom.Tower, secondGold);
             }
 
+            //强化属性
+            foreach (var sp in PhantomRecord)
+            {
+                PhantomAttrConfig phantomAttrConfig = PhantomConfigCategory.Instance.GetAttrConfig(sp.Key, sp.Value - 1);
+                if (phantomAttrConfig != null)
+                {
+                    AttributeBonus.SetAttr((AttributeEnum)phantomAttrConfig.RewardId, AttributeFrom.Phantom, phantomAttrConfig.RewardBase);
+                }
+            }
+
             //UpExp = config.Exp;
             UpExp = upExp;
 

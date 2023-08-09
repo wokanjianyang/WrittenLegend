@@ -299,9 +299,9 @@ namespace Game
 
         private string FormatAttrText(int attr, long val, int percent)
         {
-            string unit = "点";
+            string unit = "";
 
-            List<int> percents = (new int[] { 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 23, 24, 41, 43, 45 }).ToList(); ;
+            List<int> percents = ConfigHelper.PercentAttrIdList.ToList().ToList(); ;
 
             if (percents.Contains(attr))
             {
@@ -312,11 +312,10 @@ namespace Game
             long refineAttr = val * percent / 100;
             if (refineAttr > 0)
             {
-                refineText = "+" + refineAttr;
+                refineText = "+" + StringHelper.FormatNumber(refineAttr);
             }
 
-
-            string text = val + refineText + unit + PlayerHelper.PlayerAttributeMap[((AttributeEnum)attr).ToString()];
+            string text = StringHelper.FormatNumber(val) + refineText + unit + PlayerHelper.PlayerAttributeMap[((AttributeEnum)attr).ToString()];
 
             return text;
         }

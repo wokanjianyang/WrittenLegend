@@ -336,7 +336,7 @@ namespace Game
             }
         }
 
-        public void LoadMap(RuleType ruleType, int mapId, Transform map)
+        public void LoadMap(RuleType ruleType, int mapId, Transform map,long MapTime)
         {
             MapData = map.GetComponentInChildren<MapData>();
             switch (ruleType)
@@ -348,7 +348,10 @@ namespace Game
                     this.BattleRule = new BattleRule_Survivors();
                     break;
                 case RuleType.Tower:
-                    this.BattleRule = new BattleRule_Tower(mapId);
+                    this.BattleRule = new BattleRule_Tower(mapId,MapTime);
+                    break;
+                case RuleType.Phantom:
+                    this.BattleRule = new BattleRule_Phantom(mapId,MapTime);
                     break;
             }
             this.PlayerRoot = MapData.transform.parent.Find("[PlayerRoot]").transform;
@@ -498,14 +501,15 @@ namespace Game
             //TODO 存档
             UserData.Save();
         }
-        
-        public void HeroDie(RuleType ruleType)
+
+        public void HeroDie(RuleType ruleType, long time)
         {
             switch (ruleType)
             {
                 case RuleType.Tower:
+                case RuleType.Phantom:
                     //退出副本
-                    ie_autoExitKey = StartCoroutine(this.AutoExit());
+                    ie_autoExitKey = StartCoroutine(this.AutoExit(time));
                     break;
                 default:
                     StartCoroutine(this.AutoResurrection());
@@ -600,18 +604,18 @@ namespace Game
             this.StartGame();
         }
 
-        private IEnumerator AutoExit()
+        private IEnumerator AutoExit(long time)
         {
             for (int i = 0; i < 5; i++)
             {
                 PlayerManager.GetHero().EventCenter.Raise(new ShowMsgEvent()
                 {
                     Type = MsgType.Normal,
-                    Content = $"{(5-i)}秒后退出"
+                    Content = $"{(5 - i)}秒后退出"
                 });
                 yield return new WaitForSeconds(1f);
             }
-            this.EventCenter.Raise(new BattleLoseEvent());
+            this.EventCenter.Raise(new BattleLoseEvent() { Time = time });
         }
     }
 }

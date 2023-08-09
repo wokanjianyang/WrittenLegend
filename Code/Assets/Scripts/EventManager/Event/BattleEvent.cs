@@ -45,6 +45,11 @@ namespace Game
         public BattleType BattleType { get; set; } = BattleType.Normal;
     }
 
+    public class BattlePhantomMsgEvent : SDD.Events.Event
+    {
+        public string Message { get; set; }
+    }
+
     public class SkillBookEvent : SDD.Events.Event
     {
         /// <summary>
@@ -106,6 +111,21 @@ namespace Game
 
 
     }
+    public class PhantomStartEvent : SDD.Events.Event
+    {
+        public int PhantomId { get; set; }
+    }
+
+    public class PhantomEndEvent : SDD.Events.Event
+    {
+        public int PhantomId { get; set; }
+    }
+
+    public class ShowPhantomInfoEvent : SDD.Events.Event
+    {
+        public int Time { get; set; }
+    }
+
     public class ChangeMapEvent : SDD.Events.Event
     {
         public int MapId { get; set; }
@@ -169,7 +189,7 @@ namespace Game
 
     public class BattleLoseEvent : SDD.Events.Event
     {
-        
+        public long Time { get; set; }
     }
 
     public class SecondaryConfirmationEvent : SDD.Events.Event

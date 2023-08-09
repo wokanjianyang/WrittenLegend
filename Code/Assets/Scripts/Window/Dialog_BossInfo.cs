@@ -19,9 +19,9 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
     // Start is called before the first frame update
     void Start()
     {
-        this.gameObject.SetActive(false);
+        //this.gameObject.SetActive(false);
 
-        ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Item_BossInfo");
+        //ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Item_BossInfo");
 
     }
 
@@ -32,8 +32,8 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
 
     public void OnBattleStart()
     {
+        ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Item_BossInfo");
         GameProcessor.Inst.EventCenter.AddListener<BossInfoEvent>(this.OnBossInfoEvent);
-
     }
 
     public int Order => (int)ComponentOrder.Dialog;

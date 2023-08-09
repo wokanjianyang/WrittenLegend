@@ -58,6 +58,7 @@ namespace Game
         EquiStrong = 3, //装备强化属性
         Skill = 4,//技能增幅
         Tower = 5,//无尽塔
+        Phantom = 6,
         /// <summary>
         /// 测试属性
         /// </summary>
@@ -119,6 +120,13 @@ namespace Game
         PlayerHP = 2,
     }
 
+    public enum CopyType
+    {
+        [LabelText("装备副本")]
+        装备副本 = 1,
+        [LabelText("幻影挑战")]
+        幻影挑战 = 2,
+    }
     public enum RoleType {
         Warrior =1, //战士
         Mage = 2, //法师

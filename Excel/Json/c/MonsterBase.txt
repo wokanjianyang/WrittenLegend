@@ -22,7 +22,7 @@
 {"_t":"MonsterBase","_id":10021,"MapId":1020,"Name":"沃玛战士","Attr":2346229,"Def":469245,"HP":23462290,"DamageIncrea":30,"Exp":1530000,"Gold":1530000},
 {"_t":"MonsterBase","_id":10022,"MapId":1021,"Name":"沃玛勇士","Attr":3300035,"Def":660007,"HP":33000350,"DamageIncrea":35,"Exp":1710000,"Gold":1710000},
 {"_t":"MonsterBase","_id":10023,"MapId":1022,"Name":"火焰沃玛","Attr":4641589,"Def":928317,"HP":46415890,"DamageIncrea":40,"Exp":1900000,"Gold":1900000},
-{"_t":"MonsterBase","_id":10024,"MapId":1023,"Name":"楔蛾","Attr":6528521,"Def":1305704,"HP":65285210,"DamageIncrea":450,"Exp":2100000,"Gold":2100000},
+{"_t":"MonsterBase","_id":10024,"MapId":1023,"Name":"楔蛾","Attr":6528521,"Def":1305704,"HP":65285210,"DamageIncrea":45,"Exp":2100000,"Gold":2100000},
 {"_t":"MonsterBase","_id":10025,"MapId":1024,"Name":"黑野猪","Attr":9182543,"Def":1836508,"HP":91825430,"DamageIncrea":50,"Exp":2310000,"Gold":2310000},
 {"_t":"MonsterBase","_id":10026,"MapId":1025,"Name":"红野猪","Attr":12915497,"Def":2583099,"HP":129154970,"DamageIncrea":55,"Exp":2530000,"Gold":2530000},
 {"_t":"MonsterBase","_id":10027,"MapId":1026,"Name":"蝎蛇","Attr":18165998,"Def":3633199,"HP":181659980,"DamageIncrea":60,"Exp":2760000,"Gold":2760000},

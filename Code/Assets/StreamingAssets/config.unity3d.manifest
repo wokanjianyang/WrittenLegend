@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2697756249
+CRC: 2421658128
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: a0a2d2c869957de7eb4a40c501a96fa8
+    Hash: 1bb26c3660b1fb3993bf3a8b721d253e
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -26,6 +26,7 @@ Assets:
 - Assets/Resources/Config/MonsterBaseCategory.bytes
 - Assets/Resources/Config/AttrEntryConfigCategory.bytes
 - Assets/Resources/Config/EquipConfigCategory.bytes
+- Assets/Resources/Config/PhantomAttrConfigCategory.bytes
 - Assets/Resources/Config/ItemConfigCategory.bytes
 - Assets/Resources/Config/PlayerModelCategory.bytes
 - Assets/Resources/Config/EquipQualityConfigCategory.bytes

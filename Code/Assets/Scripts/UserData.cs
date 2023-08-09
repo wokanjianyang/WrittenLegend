@@ -52,6 +52,7 @@ namespace Game
             //user.Level = 1000000;
             //user.MapId = 1010;
             //user.TowerFloor = 989;
+            //user.PhantomRecord.Clear();
             return user;
         }
 

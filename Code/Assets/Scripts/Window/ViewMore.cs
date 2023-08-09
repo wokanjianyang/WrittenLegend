@@ -17,6 +17,9 @@ namespace Game
 
         public Dialog_BossInfo BossInfo;
 
+        public Dialog_Phantom Phantom;
+
+
         void Start()
         {
   
@@ -26,6 +29,7 @@ namespace Game
         {
             base.OnBattleStart();
             GameProcessor.Inst.EventCenter.AddListener<EndCopyEvent>(this.OnEndCopy);
+            GameProcessor.Inst.EventCenter.AddListener<PhantomEndEvent>(this.OnPhantomEnd);
         }
 
         public void SelectMap(int mapId)
@@ -36,9 +40,21 @@ namespace Game
             GameProcessor.Inst.EventCenter.Raise(new StartCopyEvent() { MapId = mapId });
         }
 
+        public void SelectPhantomMap(int configId)
+        {
+            scrollRect.gameObject.SetActive(false);
+            Phantom.gameObject.SetActive(false);
+            GameProcessor.Inst.EventCenter.Raise(new PhantomStartEvent() { PhantomId = configId });
+        }
+
         public void OnEndCopy(EndCopyEvent e) {
             scrollRect.gameObject.SetActive(true);
         }
+        public void OnPhantomEnd(PhantomEndEvent e)
+        {
+            scrollRect.gameObject.SetActive(true);
+        }
+        
 
         protected override bool CheckPageType(ViewPageType page)
         {

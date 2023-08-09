@@ -33,6 +33,7 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
     private int msgId = 0;
 
     private int CopyMapId = 0;
+    private long MapTime = 0;
 
     public int Order => (int)ComponentOrder.BattleRule;
 
@@ -71,7 +72,8 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {
             GameProcessor.Inst.OnDestroy();
-            GameProcessor.Inst.LoadMap(RuleType.Tower, CopyMapId, this.transform);
+            this.MapTime = TimeHelper.ClientNowSeconds();
+            GameProcessor.Inst.LoadMap(RuleType.Tower, CopyMapId, this.transform, MapTime);
         });
 
         ShowMapInfo();
@@ -122,20 +124,23 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
         //this.sr_BattleMsg.normalizedPosition = new Vector2(0, 0);
         //GameProcessor.Inst.EventCenter.Raise(new UpdateTowerWindowEvent());
     }
-    
-    private void OnBattleLoseEvent(BattleLoseEvent msg)
+
+    private void OnBattleLoseEvent(BattleLoseEvent e)
     {
-        this.Exit();
+        if (MapTime == e.Time)
+        {
+            this.Exit();
+        }
     }
 
     private void OnClick_Exit()
     {
-        GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("是否确认退出？",() =>
-        {
-            this.Exit();
-        },null);
+        GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("是否确认退出？", () =>
+         {
+             this.Exit();
+         }, null);
     }
-    
+
     private void Exit()
     {
         GameProcessor.Inst.OnDestroy();
@@ -145,7 +150,7 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {
             var map = GameObject.Find("Canvas").GetComponentInChildren<ViewBattleProcessor>(true).transform;
-            GameProcessor.Inst.LoadMap(RuleType.Normal, 0, map);
+            GameProcessor.Inst.LoadMap(RuleType.Normal, 0, map, 0);
         });
     }
 }

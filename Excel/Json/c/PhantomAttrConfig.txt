@@ -1,0 +1,12 @@
+{"list":[
+{"_t":"PhantomAttrConfig","_id":1,"PhId":1,"Level":1,"Attr":500,"Def":500,"Hp":500000,"DamageIncrea":5,"CritRate":50,"AttrIncreaRate":10,"RewardId":15,"RewardBase":5,"RewardIncrea":5,"SkillIdList":[],"PhanSkillIdList":[12001,13001]},
+{"_t":"PhantomAttrConfig","_id":2,"PhId":1,"Level":2,"Attr":5000,"Def":5000,"Hp":5000000,"DamageIncrea":10,"CritRate":50,"AttrIncreaRate":10,"RewardId":15,"RewardBase":10,"RewardIncrea":5,"SkillIdList":[],"PhanSkillIdList":[12001,13001]},
+{"_t":"PhantomAttrConfig","_id":3,"PhId":1,"Level":3,"Attr":50000,"Def":50000,"Hp":50000000,"DamageIncrea":15,"CritRate":50,"AttrIncreaRate":10,"RewardId":15,"RewardBase":15,"RewardIncrea":5,"SkillIdList":[],"PhanSkillIdList":[12001,13001]},
+{"_t":"PhantomAttrConfig","_id":4,"PhId":1,"Level":4,"Attr":500000,"Def":500000,"Hp":500000000,"DamageIncrea":20,"CritRate":50,"AttrIncreaRate":10,"RewardId":15,"RewardBase":20,"RewardIncrea":5,"SkillIdList":[],"PhanSkillIdList":[12001,13001]},
+{"_t":"PhantomAttrConfig","_id":5,"PhId":1,"Level":5,"Attr":5000000,"Def":5000000,"Hp":5000000000,"DamageIncrea":25,"CritRate":50,"AttrIncreaRate":10,"RewardId":15,"RewardBase":25,"RewardIncrea":5,"SkillIdList":[],"PhanSkillIdList":[12001,13001]},
+{"_t":"PhantomAttrConfig","_id":6,"PhId":1,"Level":6,"Attr":50000000,"Def":50000000,"Hp":50000000000,"DamageIncrea":30,"CritRate":50,"AttrIncreaRate":10,"RewardId":15,"RewardBase":30,"RewardIncrea":5,"SkillIdList":[],"PhanSkillIdList":[12001,13001]},
+{"_t":"PhantomAttrConfig","_id":7,"PhId":1,"Level":7,"Attr":500000000,"Def":500000000,"Hp":500000000000,"DamageIncrea":35,"CritRate":50,"AttrIncreaRate":10,"RewardId":15,"RewardBase":35,"RewardIncrea":5,"SkillIdList":[],"PhanSkillIdList":[12001,13001]},
+{"_t":"PhantomAttrConfig","_id":8,"PhId":1,"Level":8,"Attr":5000000000,"Def":5000000000,"Hp":5000000000000,"DamageIncrea":40,"CritRate":50,"AttrIncreaRate":10,"RewardId":15,"RewardBase":40,"RewardIncrea":5,"SkillIdList":[],"PhanSkillIdList":[12001,13001]},
+{"_t":"PhantomAttrConfig","_id":9,"PhId":1,"Level":9,"Attr":50000000000,"Def":50000000000,"Hp":50000000000000,"DamageIncrea":45,"CritRate":50,"AttrIncreaRate":10,"RewardId":15,"RewardBase":45,"RewardIncrea":5,"SkillIdList":[],"PhanSkillIdList":[12001,13001]},
+{"_t":"PhantomAttrConfig","_id":10,"PhId":1,"Level":10,"Attr":500000000000,"Def":500000000000,"Hp":500000000000000,"DamageIncrea":50,"CritRate":50,"AttrIncreaRate":10,"RewardId":15,"RewardBase":50,"RewardIncrea":5,"SkillIdList":[],"PhanSkillIdList":[12001,13001]},
+]}

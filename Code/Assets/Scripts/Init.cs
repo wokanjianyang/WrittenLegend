@@ -37,6 +37,7 @@ public class Init : MonoBehaviour
         View_TopStatu,
         View_BottomNavBar,
         Window_EndlessTower,
+        Map_Phantom,
 
         Dialog_EquipDetail,
         Dialog_OfflineExp,
@@ -84,6 +85,7 @@ public class Init : MonoBehaviour
                 WindowTypeEnum.Dialog_Settings,
                 WindowTypeEnum.Dialog_FloatButtons,
                 WindowTypeEnum.Dialog_SecondaryConfirmation,
+                WindowTypeEnum.Map_Phantom,
             }
         },
         {
@@ -199,13 +201,13 @@ public class Init : MonoBehaviour
                     switch (layer)
                     {
                         case UILayer.Bottom:
-                            win.transform.SetParent(Bottom,false);
+                            win.transform.SetParent(Bottom, false);
                             break;
                         case UILayer.Center:
-                            win.transform.SetParent(Center,false);
+                            win.transform.SetParent(Center, false);
                             break;
                         case UILayer.Top:
-                            win.transform.SetParent(Top,false);
+                            win.transform.SetParent(Top, false);
                             break;
                     }
                     win.transform.localPosition = Vector3.zero;
@@ -229,7 +231,7 @@ public class Init : MonoBehaviour
 
         yield return null;
         var mapRoot = GameObject.FindObjectOfType<ViewBattleProcessor>();
-        Game.LoadMap(this.RuleType, 0, mapRoot.transform);
+        Game.LoadMap(this.RuleType, 0, mapRoot.transform, 0);
     }
 
     private IEnumerator IE_DelayAction(float delay, Action callback)

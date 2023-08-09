@@ -9,8 +9,8 @@ namespace Game
         /// <summary>
         /// 角色属性
         /// </summary>
-        private Dictionary<AttributeEnum, object> BaseAttributeMap = new Dictionary<AttributeEnum, object>();
-        private Dictionary<AttributeEnum, object> BattleAttributeMap = new Dictionary<AttributeEnum, object>();
+        //private Dictionary<AttributeEnum, object> BaseAttributeMap = new Dictionary<AttributeEnum, object>();
+        //private Dictionary<AttributeEnum, object> BattleAttributeMap = new Dictionary<AttributeEnum, object>();
 
         private Dictionary<int, Effect> EffectMap = new Dictionary<int, Effect>();
 
@@ -38,31 +38,33 @@ namespace Game
 
         public void SetData(Dictionary<AttributeEnum, object> dict)
         {
-            if (dict != null)
-            {
-                foreach (var kvp in dict)
-                {
-                    BaseAttributeMap[kvp.Key] = kvp.Value;
-                    if (kvp.Key > 0)
-                    {
-                        SelfPlayer.AttributeBonus.SetAttr(kvp.Key, AttributeFrom.HeroBase, Convert.ToInt64(kvp.Value));
-                    }
-                }
-            }
+            //if (dict != null)
+            //{
+            //    foreach (var kvp in dict)
+            //    {
+            //        BaseAttributeMap[kvp.Key] = kvp.Value;
+            //        if (kvp.Key > 0)
+            //        {
+            //            SelfPlayer.AttributeBonus.SetAttr(kvp.Key, AttributeFrom.HeroBase, Convert.ToInt64(kvp.Value));
+            //        }
+            //    }
+            //}
 
-            SelfPlayer.HP = SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.HP);
+            //SelfPlayer.HP = SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.HP);
+
+            //SelfPlayer.HP = SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.HP);
 
             //设置背景  
-            if (BaseAttributeMap.TryGetValue(AttributeEnum.Color, out var color))
-            {
-                if (color is Color _color)
-                {
-                    SelfPlayer.EventCenter.Raise(new SetBackgroundColorEvent
-                    {
-                        Color = _color
-                    });
-                }
-            }
+            //if (BaseAttributeMap.TryGetValue(AttributeEnum.Color, out var color))
+            //{
+            //    if (color is Color _color)
+            //    {
+            //        SelfPlayer.EventCenter.Raise(new SetBackgroundColorEvent
+            //        {
+            //            Color = _color
+            //        });
+            //    }
+            //}
 
             //设置名称
             SelfPlayer.EventCenter.Raise(new SetPlayerNameEvent
@@ -78,7 +80,7 @@ namespace Game
             });
 
             //设置血量
-            this.SelfPlayer.SetHP(SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.HP));
+            //this.SelfPlayer.SetHP(SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.HP));
             
                         
             this.SelfPlayer.EventCenter.Raise(new SetPlayerHPEvent
@@ -89,15 +91,17 @@ namespace Game
 
         public void ResetData()
         {
-            var dict = new Dictionary<AttributeEnum, object>();
-            foreach (var kvp in BaseAttributeMap)
-            {
-                dict[kvp.Key] = kvp.Value;
-            }
-            SetData(dict);
+            //var dict = new Dictionary<AttributeEnum, object>();
+            //foreach (var kvp in BaseAttributeMap)
+            //{
+            //    dict[kvp.Key] = kvp.Value;
+            //}
+            SetData(null);
             IsSurvice = true;
-            BattleAttributeMap.Clear();
-            
+
+            //BattleAttributeMap.Clear();
+
+            SelfPlayer.HP = SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.HP);
             this.SelfPlayer.EventCenter.Raise(new SetPlayerHPEvent
             {
                 HP = SelfPlayer.HP.ToString()
@@ -200,38 +204,38 @@ namespace Game
             this.playerEvents.Clear();
         }
 
-        public int GetMaxHP()
-        {
-            var baseValue = 0f;
-            if (BaseAttributeMap.TryGetValue(AttributeEnum.HP, out var value))
-            {
-                baseValue = (float)Convert.ToDouble(value);
-            }
-            return (int)baseValue;
-        }
+        //public int GetMaxHP()
+        //{
+        //    var baseValue = 0f;
+        //    if (BaseAttributeMap.TryGetValue(AttributeEnum.HP, out var value))
+        //    {
+        //        baseValue = (float)Convert.ToDouble(value);
+        //    }
+        //    return (int)baseValue;
+        //}
 
 
-        public float GetAttributeFloat(AttributeEnum attr)
-        {
-            var baseValue = 0f;
-            if (BaseAttributeMap.TryGetValue(attr, out var value))
-            {
-                baseValue = (float)Convert.ToDouble(value);
-            }
+        //public float GetAttributeFloat(AttributeEnum attr)
+        //{
+        //    var baseValue = 0f;
+        //    if (BaseAttributeMap.TryGetValue(attr, out var value))
+        //    {
+        //        baseValue = (float)Convert.ToDouble(value);
+        //    }
 
-            var battleValue = 0f;
-            if (BattleAttributeMap.TryGetValue(attr, out var value2))
-            {
-                battleValue = (float)Convert.ToDouble(value2);
-            }
+        //    var battleValue = 0f;
+        //    if (BattleAttributeMap.TryGetValue(attr, out var value2))
+        //    {
+        //        battleValue = (float)Convert.ToDouble(value2);
+        //    }
 
-            return baseValue + battleValue;
-        }
+        //    return baseValue + battleValue;
+        //}
 
         public void AddBattleAttribute(AttributeEnum attr, float value)
         {
-            BattleAttributeMap.TryGetValue(attr, out var value2);
-            BattleAttributeMap[attr] = (float)Convert.ToDouble(value2) + value;
+            //BattleAttributeMap.TryGetValue(attr, out var value2);
+            //BattleAttributeMap[attr] = (float)Convert.ToDouble(value2) + value;
         }
 
 /*        private void SetHP(string hp)
