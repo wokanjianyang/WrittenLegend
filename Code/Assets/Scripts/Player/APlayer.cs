@@ -435,12 +435,9 @@ namespace Game
             return ret;
         }
 
-        public virtual void OnHit(int fromId, params long[] damages)
+        public virtual void OnHit(DamageResult dr)
         {
-            foreach (var d in damages)
-            {
-                this.Logic.OnDamage(fromId, d);
-            }
+            this.Logic.OnDamage(dr);
         }
 
         public void OnRestore(int fromId, long hp)

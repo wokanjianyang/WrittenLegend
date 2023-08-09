@@ -106,17 +106,15 @@ public class Monster_Phantom : APlayer
         base.DoEvent();
     }
 
-    public override void OnHit(int fromId, params long[] damages)
+    public override void OnHit(DamageResult dr)
     {
         long maxHp = this.AttributeBonus.GetTotalAttr(AttributeEnum.HP);
         long pp = this.HP * 10 / maxHp;
 
         long maxDamage = maxHp / 10;
-        for (int i = 0; i < damages.Length; i++)
-        {
-            damages[i] = Math.Min(damages[i], maxDamage);
-        }
-        base.OnHit(fromId, damages);
+        dr.Damage = Math.Min(dr.Damage, maxDamage);
+
+        base.OnHit(dr);
 
         int nowPercent = (int)(this.HP * 10 / maxHp);
 

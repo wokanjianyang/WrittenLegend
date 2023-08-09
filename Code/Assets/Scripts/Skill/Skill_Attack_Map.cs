@@ -35,7 +35,7 @@ namespace Game
             long damage = this.SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.PhyAtt) - enemy.AttributeBonus.GetTotalAttr(AttributeEnum.Def);
             damage = damage > 1 ? damage : 1;
 
-            enemy.OnHit(SelfPlayer.ID, damage);
+            enemy.OnHit(new DamageResult(SelfPlayer.ID, damage, MsgType.Damage));
         }
 
         public override List<AttackData> GetAllTargets()

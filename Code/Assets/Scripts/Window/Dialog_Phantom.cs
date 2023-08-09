@@ -91,6 +91,11 @@ public class Dialog_Phantom : MonoBehaviour, IBattleLife
         foreach (PhantomConfig config in configs)
         {
             recordList.TryGetValue(config.Id, out int lv);
+            if (lv == 0)
+            {
+                lv = 1;
+                recordList[config.Id] = lv;
+            }
 
             Item_Phantom com = items.Where(m => m.ConfigId == config.Id).FirstOrDefault();
             if (com != null)

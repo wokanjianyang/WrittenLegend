@@ -62,10 +62,10 @@ namespace Game
                     color = "00A86B";
                     break;
                 case MsgType.Crit:
-                    color = "E3EA6F";
+                    color = "FFD700";
                     break;
                 case MsgType.Effect:
-                    color = "FFD700";
+                    color = "E3EA6F";
                     break;
                 case MsgType.Other:
                     break;

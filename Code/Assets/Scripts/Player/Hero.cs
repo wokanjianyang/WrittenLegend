@@ -80,7 +80,7 @@ namespace Game
 
 
             //TEST
-            //AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroPanel, 100);
+            //AttributeBonus.SetAttr(AttributeEnum.CritRate, AttributeFrom.HeroPanel, 50);
 
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));

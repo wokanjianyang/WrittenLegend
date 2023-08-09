@@ -109,11 +109,11 @@ namespace Game
             this.SelfPlayer.SetPosition(GameProcessor.Inst.PlayerManager.RandomCell(this.SelfPlayer.Cell));
         }
 
-        public void OnDamage(int fromId, long damage)
+        public void OnDamage(DamageResult dr)
         {
             long currentHP = this.SelfPlayer.HP;
 
-            currentHP -= damage;
+            currentHP -= dr.Damage;
             if (currentHP <= 0)
             {
                 currentHP = 0;
@@ -122,10 +122,10 @@ namespace Game
 
             if (SelfPlayer.Camp == PlayerType.Hero)
             {
-               //Debug.Log($"{(this.SelfPlayer.Name)} 受到伤害:{(damage)} ,剩余血量:{(currentHP)}");
+                //Debug.Log($"{(this.SelfPlayer.Name)} 受到伤害:{(damage)} ,剩余血量:{(currentHP)}");
             }
 
-            AddBattleAttribute(AttributeEnum.HP, damage * -1);
+            //AddBattleAttribute(AttributeEnum.HP, damage * -1);
 
             this.SelfPlayer.SetHP(currentHP);
 
@@ -143,7 +143,7 @@ namespace Game
                 });
                 this.playerEvents.Add(new DeadRewarddEvent
                 {
-                    FromId = fromId,
+                    FromId = dr.FromId,
                     ToId = SelfPlayer.ID
                 });
             }
@@ -151,8 +151,8 @@ namespace Game
             {
                 this.playerEvents.Add(new ShowMsgEvent
                 {
-                    Type = MsgType.Damage,
-                    Content = (damage * -1).ToString()
+                    Type = dr.Type,
+                    Content = (dr.Damage * -1).ToString()
                 });
             }
         }

@@ -22,7 +22,7 @@ public class BattleRule_Phantom : ABattleRule
 
     private APlayer RealBoss = null;
 
-    public BattleRule_Phantom(int pid,long mapTime)
+    public BattleRule_Phantom(int pid, long mapTime)
     {
         PhanId = pid;
 
@@ -32,8 +32,9 @@ public class BattleRule_Phantom : ABattleRule
         MapTime = mapTime;
 
         Time = MaxTime;
+
         GameProcessor.Inst.User.PhantomRecord.TryGetValue(PhanId, out int lv);
-        Layer = lv + 1;
+        Layer = lv;
     }
 
     public override void DoHeroLogic()

@@ -45,10 +45,10 @@ namespace Game
         {
             this.ConfigId = config.Id;
 
-            PhantomAttrConfig currentConfig = PhantomConfigCategory.Instance.GetAttrConfig(config.Id, level);
+            PhantomAttrConfig currentConfig = PhantomConfigCategory.Instance.GetAttrConfig(config.Id, level - 1);
 
             this.Txt_Name.text = config.Name;
-            this.Txt_Level.text = $"({level + 1}转)";
+            this.Txt_Level.text = $"({level}转)";
 
             if (currentConfig != null)
             {
@@ -56,12 +56,12 @@ namespace Game
                 this.Txt_Attr_Rise.text = StringHelper.FormatPhantomText(currentConfig.RewardId, currentConfig.RewardIncrea);
             }
 
-            PhantomAttrConfig nextConfig = PhantomConfigCategory.Instance.GetAttrConfig(config.Id, level + 1);
+            PhantomAttrConfig nextConfig = PhantomConfigCategory.Instance.GetAttrConfig(config.Id, level);
             if (nextConfig != null)
             {
                 can = true;
 
-                if (level == 0)
+                if (level == 1)
                 {
                     this.Txt_Attr_Current.text = StringHelper.FormatPhantomText(nextConfig.RewardId, 0);
                     this.Txt_Attr_Rise.text = StringHelper.FormatPhantomText(nextConfig.RewardId, nextConfig.RewardBase);

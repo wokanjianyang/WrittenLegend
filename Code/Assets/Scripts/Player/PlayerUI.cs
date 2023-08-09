@@ -96,7 +96,14 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
 
     private void OnSetPlayerLevelEvent(SetPlayerLevelEvent e)
     {
-        this.tmp_Info_Level.text = "Lv." + e.Level;
+        if (SelfPlayer is Monster_Phantom)
+        {
+            this.tmp_Info_Level.text = e.Level + "转";
+        }
+        else
+        {
+            this.tmp_Info_Level.text = "Lv." + e.Level;
+        }
     }
 
     private void OnSetPlayerHPEvent(SetPlayerHPEvent e)

@@ -70,7 +70,7 @@ namespace Game
             int suitPercent = suitList.Select(m => m.Percent).Sum();
 
             int runeIgnoreDef = runeList.Select(m => m.IgnoreDef).Sum();
-            int suitIgnoreDef = suitList.Select(m => m.Percent).Sum();
+            int suitIgnoreDef = suitList.Select(m => m.IgnoreDef).Sum();
 
             int runeDis = runeList.Select(m => m.Dis).Sum();
             int suitDis = suitList.Select(m => m.Dis).Sum();
@@ -81,8 +81,8 @@ namespace Game
             int runeCD = runeList.Select(m => m.CD).Sum();
             int suitCD = suitList.Select(m => m.CD).Sum();
 
-            int runeDuration = runeList.Select(m => m.CD).Sum();
-            int suitDuration = suitList.Select(m => m.CD).Sum();
+            int runeDuration = runeList.Select(m => m.Duration).Sum();
+            int suitDuration = suitList.Select(m => m.Duration).Sum();
 
             int runeCritRate = runeList.Select(m => m.CritRate).Sum();
             int suitCritRate = suitList.Select(m => m.CritRate).Sum();
@@ -111,7 +111,7 @@ namespace Game
             this.IgnoreDef += skillData.SkillConfig.IgnoreDef + runeIgnoreDef + suitIgnoreDef;
             this.Dis += skillData.SkillConfig.Dis + runeDis + suitDis;
             this.EnemyMax += skillData.SkillConfig.EnemyMax + runeEnemyMax + suitEnemyMax;
-            this.CD += Mathf.Max(skillData.SkillConfig.CD - runeCD - suitCD, 0);
+            this.CD += Math.Max(skillData.SkillConfig.CD - runeCD - suitCD, 0);
             this.Duration = skillData.SkillConfig.Duration + runeDuration + suitDuration;
 
             this.Row = skillData.SkillConfig.Row + runeRow + suitRow;

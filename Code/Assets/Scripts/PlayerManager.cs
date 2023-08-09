@@ -204,7 +204,7 @@ namespace Game
                 {
                     if (valet.IsSurvice)
                     {
-                        valet.OnHit(player.ID, valet.HP);
+                        valet.OnHit(new DamageResult(player.ID, valet.HP, MsgType.Damage));
                     }
                 }
                 cache.Valets.Clear();
