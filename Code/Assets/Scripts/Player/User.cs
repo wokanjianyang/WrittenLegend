@@ -59,6 +59,8 @@ namespace Game
 
         public IDictionary<string, bool> GiftList { get; set; } = new Dictionary<string, bool>();
 
+        public Dictionary<int, long> VersionLog { get; } = new Dictionary<int, long>();
+
         public long LastOut { get; set; }
 
         private bool isInLevelUp;

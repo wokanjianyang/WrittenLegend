@@ -24,6 +24,27 @@ namespace Game
         {
             int rate = Mathf.Min(10, Level + 5);
 
+            if (Level >= 100 && Level < 150)
+            {
+                rate = 20;
+            }
+            else if (Level >= 150 && Level < 200)
+            {
+                rate = 30;
+            }
+            else if (Level >= 200 && Level < 250)
+            {
+                rate = 40;
+            }
+            else if (Level >= 250 && Level < 300)
+            {
+                rate = 50;
+            }
+            else if (Level >= 350 && Level < 400)
+            {
+                rate = 75;
+            }
+
             return rate * SkillConfig.Exp;
         }
 

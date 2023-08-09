@@ -53,6 +53,10 @@ namespace Game
             //user.MapId = 1010;
             //user.TowerFloor = 989;
             //user.PhantomRecord.Clear();
+
+            //记录版号
+            user.VersionLog[ConfigHelper.Version] = TimeHelper.ClientNowSeconds();
+
             return user;
         }
 

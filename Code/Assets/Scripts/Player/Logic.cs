@@ -152,7 +152,7 @@ namespace Game
                 this.playerEvents.Add(new ShowMsgEvent
                 {
                     Type = dr.Type,
-                    Content = (dr.Damage * -1).ToString()
+                    Content = "-" + StringHelper.FormatNumber(dr.Damage)
                 });
             }
         }
@@ -191,7 +191,7 @@ namespace Game
             this.playerEvents.Add(new ShowMsgEvent
             {
                 Type = MsgType.Restore,
-                Content = (hp).ToString()
+                Content = StringHelper.FormatNumber(hp)
             });
         }
 
