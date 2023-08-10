@@ -22,7 +22,8 @@ public class Com_CompositeItem : MonoBehaviour
 
         User user = GameProcessor.Inst.User;
 
-        int count = user.Bags.Where(m => (int)m.Item.Type == config.FromItemType && m.Item.ConfigId == config.FromId).Select(m => m.Number).Sum();
+        //int count = user.Bags.Where(m => (int)m.Item.Type == config.FromItemType && m.Item.ConfigId == config.FromId).Select(m => m.Number).Sum();
+        int count = user.Bags.Where(m => (int)m.Item.Type == config.FromItemType && m.Item.ConfigId == config.FromId).Count();
 
         this.ItemName.text = config.TargetName;
         this.CostItemName.text = config.FromName;
@@ -38,7 +39,7 @@ public class Com_CompositeItem : MonoBehaviour
     public void OnClick_Composite()
     {
         User user = GameProcessor.Inst.User;
-        int count = user.Bags.Where(m => (int)m.Item.Type == config.FromItemType && m.Item.ConfigId == config.FromId).Select(m => m.Number).Sum();
+        int count = user.Bags.Where(m => (int)m.Item.Type == config.FromItemType && m.Item.ConfigId == config.FromId).Count();
 
         if (count < config.Quantity || user.Gold < config.Commission)
         {

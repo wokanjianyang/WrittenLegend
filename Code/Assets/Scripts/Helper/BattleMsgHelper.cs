@@ -51,18 +51,27 @@ namespace Game
             return message;
         }
 
-        public static string BuildGiftPackMessage(string src,long exp, long gold)
+        public static string BuildGiftPackMessage(string src, long exp, long gold, List<Item> items)
         {
-            string message = $"<color=#{QualityConfigHelper.GetQualityColor(4)}> {src}";
+            string message = $"<color=#{QualityConfigHelper.GetQualityColor(4)}> {src}奖励";
             if (exp > 0)
             {
-                message += $"经验奖励{exp}";
+                message += $"经验{exp}";
             }
             if (gold > 0)
             {
-                message += $"金币奖励{gold}";
+                message += $"金币{gold}";
             }
-            return message+ "</color>";
+
+            if (items != null)
+            {
+                foreach (var item in items)
+                {
+                    message += $",{item.Name}*{item.Quantity}";
+                }
+            }
+
+            return message + "</color>";
         }
 
 

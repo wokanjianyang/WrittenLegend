@@ -148,7 +148,8 @@ public class Com_AD : MonoBehaviour, IBattleLife
              }
          });
     }
-    private void RewardGold() {
+    private void RewardGold()
+    {
         User user = GameProcessor.Inst.User;
         //发放奖励
         long gold = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondGold);
@@ -158,7 +159,7 @@ public class Com_AD : MonoBehaviour, IBattleLife
         user.AddExpAndGold(0, gold);
         GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
         {
-            Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励", 0, gold)
+            Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励", 0, gold, null)
         });
     }
 
@@ -190,7 +191,8 @@ public class Com_AD : MonoBehaviour, IBattleLife
              }
          });
     }
-    private void RewardExp() {
+    private void RewardExp()
+    {
         User user = GameProcessor.Inst.User;
         //发放奖励
         long exp = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp);
@@ -200,7 +202,7 @@ public class Com_AD : MonoBehaviour, IBattleLife
         user.AddExpAndGold(exp, 0);
         GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
         {
-            Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励", exp, 0)
+            Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励", exp, 0, null)
         });
     }
 
@@ -287,6 +289,11 @@ public class Com_AD : MonoBehaviour, IBattleLife
         user.EventCenter.Raise(new HeroBagUpdateEvent()
         {
             ItemList = items
+        });
+
+        GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+        {
+            Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励", 0, 0, items)
         });
     }
 

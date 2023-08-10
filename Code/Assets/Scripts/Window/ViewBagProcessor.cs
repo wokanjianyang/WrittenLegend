@@ -211,7 +211,9 @@ namespace Game
 
             List<BoxItem> list = user.Bags.Where(m => (int)m.Item.Type == config.FromItemType && m.Item.ConfigId == config.FromId).ToList();
 
-            int count = list.Select(m => m.Number).Sum();
+            //int count = list.Select(m => m.Number).Sum();
+
+            int count = list.Count;
 
             if (count < config.Quantity)
             {
@@ -425,7 +427,7 @@ namespace Game
                 user.AddExpAndGold(exp, 0);
                 GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
                 {
-                    Message = BattleMsgHelper.BuildGiftPackMessage("道具奖励", exp, 0)
+                    Message = BattleMsgHelper.BuildGiftPackMessage("道具奖励", exp, 0, null)
                 });
             }
             else if (boxItem.Item.Type == ItemType.GoldPack)
@@ -439,7 +441,7 @@ namespace Game
                 user.AddExpAndGold(0, gold);
                 GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
                 {
-                    Message = BattleMsgHelper.BuildGiftPackMessage("道具奖励", 0, gold)
+                    Message = BattleMsgHelper.BuildGiftPackMessage("道具奖励", 0, gold, null)
                 });
             }
             else if (boxItem.Item.Type == ItemType.GiftPack)
