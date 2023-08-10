@@ -31,10 +31,10 @@ namespace Game
             else if (type == ItemType.GoldPack || type == ItemType.ExpPack)
             {
                 item = new Item(configId);
-                item.Quantity = 1;
                 item.Type = type;
-                return item;
             }
+
+            item.Quantity = number;
 
             return item;
         }

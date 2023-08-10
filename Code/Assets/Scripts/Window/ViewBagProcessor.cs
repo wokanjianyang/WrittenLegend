@@ -79,7 +79,9 @@ namespace Game
 
         private IEnumerator LoadBox()
         {
-            
+            //先回收,再加载
+            this.AutoRecovery();
+
             User user = GameProcessor.Inst.User;
             user.EventCenter.AddListener<HeroBagUpdateEvent>(this.OnHeroBagUpdateEvent);
 
@@ -97,7 +99,6 @@ namespace Game
 
             if (user.EquipPanel != null)
             {
-                //��ʼ��Ⱦ����װ��
                 foreach (var kvp in user.EquipPanel)
                 {
                     this.CreateEquipPanelItem(kvp.Key, kvp.Value);
@@ -348,6 +349,10 @@ namespace Game
 
         private void OnAutoRecoveryEvent(AutoRecoveryEvent e)
         {
+            AutoRecovery();
+        }
+
+        private void AutoRecovery() {
             User user = GameProcessor.Inst.User;
 
             List<BoxItem> recoveryList = user.Bags.Where(m => !m.Item.IsLock && user.RecoverySetting.CheckRecovery(m.Item)).ToList();
@@ -461,28 +466,31 @@ namespace Game
             Com_Box boxUI = this.items.Find(m => m.boxId == e.BoxId);
             boxUI.SetLock(e.IsLock);
         }
-            
-        private void UseBoxItem(int boxId,int quantity)
+
+        private void UseBoxItem(int boxId, int quantity)
         {
             User user = GameProcessor.Inst.User;
 
             //逻辑处理
             BoxItem boxItem = user.Bags.Find(m => m.BoxId == boxId);
-            Com_Box boxUI = this.items.Find(m => m.boxId == boxId);
 
             if (boxItem == null)
             {
-                Log.Debug("此物品已经被使用了");
+                //Log.Debug("此物品已经被使用了");
                 return;
             }
             boxItem.RemoveStack(quantity);
-            boxUI.RemoveStack(quantity);
 
             //用光了，移除队列
             if (boxItem.Number <= 0)
             {
                 user.Bags.Remove(boxItem);
+            }
 
+            Com_Box boxUI = this.items.Find(m => m.boxId == boxId);
+            if (boxUI != null) //上线自动回收，可能还没加载
+            {
+                boxUI.RemoveStack(quantity);
                 this.items.Remove(boxUI);
                 GameObject.Destroy(boxUI.gameObject);
             }
@@ -492,20 +500,25 @@ namespace Game
         {
             User user = GameProcessor.Inst.User;
 
-            BoxItem boxItem = user.Bags.Find(m => !m.IsFull() && m.Item.ConfigId == newItem.ConfigId);  //ͬ����Ʒ������û�����ѵ��ĸ���
+            BoxItem boxItem = user.Bags.Find(m => !m.IsFull() && m.Item.ConfigId == newItem.ConfigId);  //ͬ
 
             if (boxItem != null)
-            {  //堆叠UI
-                var item = this.items.Find(b => b.boxId == boxItem.BoxId);
-                item.AddStack(newItem.Quantity);
-
+            {
                 boxItem.AddStack(newItem.Quantity);
+
+                //堆叠UI
+                var boxUI = this.items.Find(b => b.boxId == boxItem.BoxId);
+                if (boxUI != null)
+                {
+                    boxUI.AddStack(newItem.Quantity);
+                }
             }
             else
             {
                 int lastBoxId = GetNextBoxId();
 
-                if (lastBoxId < 0) { //包裹已经满了
+                if (lastBoxId < 0)
+                { //包裹已经满了
                     return;
                 }
 

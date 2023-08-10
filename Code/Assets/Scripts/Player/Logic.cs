@@ -188,6 +188,10 @@ namespace Game
 
             this.SelfPlayer.SetHP(currentHP);
 
+            this.playerEvents.Add(new SetPlayerHPEvent
+            {
+                HP = currentHP.ToString()
+            });
             this.playerEvents.Add(new ShowMsgEvent
             {
                 Type = MsgType.Restore,

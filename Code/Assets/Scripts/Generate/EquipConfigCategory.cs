@@ -38,7 +38,7 @@ namespace Game
 
             Equip equip = new Equip(configId, runeId, suitId, quality);
 
-            //Equip equip = new Equip(410, 7, 2, 4); //Test
+            //Equip equip = new Equip(101, 7, 2, 4); //Test
 
             return equip;
         }
