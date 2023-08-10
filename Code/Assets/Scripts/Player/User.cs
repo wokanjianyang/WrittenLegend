@@ -31,7 +31,7 @@ namespace Game
 
         public string Name { get; set; }
 
-        public int Level { get; set; }
+        public long Level { get; set; }
 
         public IDictionary<int, Equip> EquipPanel { get; set; } = new Dictionary<int, Equip>();
 
@@ -136,7 +136,7 @@ namespace Game
 
             //更新属性面板
             GameProcessor.Inst.UpdateInfo();
-            
+
             //更新技能描述
             this.EventCenter.Raise(new HeroUpdateAllSkillEvent());
         }
@@ -147,7 +147,7 @@ namespace Game
 
             //更新属性面板
             GameProcessor.Inst.UpdateInfo();
-            
+
             //更新技能描述
             this.EventCenter.Raise(new HeroUpdateAllSkillEvent());
         }
@@ -182,7 +182,7 @@ namespace Game
         private void UserAttrChange(UserAttrChangeEvent e)
         {
             this.SetAttr();
-            
+
             this.EventCenter.Raise(new HeroUpdateAllSkillEvent());
         }
 
@@ -326,23 +326,36 @@ namespace Game
         {
             while (this.Exp >= this.UpExp && this.Level < ConfigHelper.Max_Level)
             {
-                Exp -= UpExp;
-                Level++;
+                LevelConfig config = LevelConfigCategory.Instance.GetAll().Where(m => m.Value.StartLevel <= Level && m.Value.EndLevel >= Level).First().Value;
 
-                //Add Base Attr
-                EventCenter.Raise(new UserAttrChangeEvent());
-                EventCenter.Raise(new SetPlayerLevelEvent { Level = Level.ToString() });
-                EventCenter.Raise(new UserInfoUpdateEvent());
+                long upLevel = this.Exp / UpExp;
 
-                if (GameProcessor.Inst.PlayerManager != null && GameProcessor.Inst.PlayerManager.GetHero()!=null)
+                upLevel = Math.Min(upLevel, config.EndLevel - Level + 1);
+                if (upLevel > 1000)
                 {
-                    //GameProcessor.Inst.PlayerManager.GetHero().EventCenter.Raise(new HeroLevelUp());
+                    upLevel = Math.Max(1, upLevel / 10);
                 }
 
+                Exp -= UpExp * upLevel;
+                Level += upLevel;
+
+                SetUpExp();
+
+                EventCenter.Raise(new UserInfoUpdateEvent());
+                EventCenter.Raise(new SetPlayerLevelEvent { Level = Level.ToString() });
                 yield return new WaitForSeconds(0.2f);
             }
             yield return null;
             this.isInLevelUp = false;
+
+            EventCenter.Raise(new UserAttrChangeEvent());
+        }
+
+        private void SetUpExp()
+        {
+            LevelConfig config = LevelConfigCategory.Instance.GetAll().Where(m => m.Value.StartLevel <= Level && m.Value.EndLevel >= Level).First().Value;
+            long rise = Level - config.StartLevel;
+            UpExp = config.StartExp + rise * config.RiseExp;
         }
 
         public long GetMaterialCount(int id)

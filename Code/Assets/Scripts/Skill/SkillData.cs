@@ -22,9 +22,13 @@ namespace Game
 
         public int GetLevelUpExp()
         {
-            int rate = Mathf.Min(10, Level + 5);
+            int rate = 9999999;
 
-            if (Level >= 100 && Level < 150)
+            if (Level < 100)
+            {
+                rate = Mathf.Min(10, Level + 5);
+            }
+            else if (Level >= 100 && Level < 150)
             {
                 rate = 20;
             }

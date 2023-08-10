@@ -35,7 +35,7 @@ namespace Game
     {
         public static bool CheckRequireLevel(SystemEnum SystemId)
         {
-            int level = GameProcessor.Inst.User.Level;
+            long level = GameProcessor.Inst.User.Level;
             var dict = SystemConfigCategory.Instance.SystemDict;
 
             if (dict.ContainsKey(SystemId) && level < dict[SystemId])

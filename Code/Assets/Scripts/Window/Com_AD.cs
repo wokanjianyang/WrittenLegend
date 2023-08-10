@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Game;
 using Game.Data;
 using Sirenix.OdinInspector;
@@ -131,18 +132,7 @@ public class Com_AD : MonoBehaviour, IBattleLife
 
              if (giveReward)
              {
-                 User user = GameProcessor.Inst.User;
-                 //发放奖励
-                 long gold = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondGold);
-
-                 gold = gold * 1440; //2小时/5 = 1440
-
-                 user.AddExpAndGold(0, gold);
-                 GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
-                 {
-                     Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励", 0, gold)
-                 });
-
+                 RewardGold();
                  data.CurrentShowCount++;
                  this.UpdateAdData();
              }
@@ -151,23 +141,25 @@ public class Com_AD : MonoBehaviour, IBattleLife
                  //不发奖励
                  StartCoroutine(ShowFakeAD(() =>
                   {
-                      User user = GameProcessor.Inst.User;
-                      //发放奖励
-                      long gold = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondGold);
-
-                      gold = gold * 1440; //2小时/5 = 1440
-
-                      user.AddExpAndGold(0, gold);
-                      GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
-                      {
-                          Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励", 0, gold)
-                      });
-
+                      RewardGold();
                       data.CurrentShowCount++;
                       this.UpdateAdData();
                   }));
              }
          });
+    }
+    private void RewardGold() {
+        User user = GameProcessor.Inst.User;
+        //发放奖励
+        long gold = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondGold);
+
+        gold = gold * 1440; //2小时/5 = 1440
+
+        user.AddExpAndGold(0, gold);
+        GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+        {
+            Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励", 0, gold)
+        });
     }
 
     public void OnClick_ExpCount()
@@ -175,54 +167,41 @@ public class Com_AD : MonoBehaviour, IBattleLife
         var data = GameProcessor.Inst.User.ADShowData?.GetADShowStatus(ADTypeEnum.ExpCount);
         if (data == null)
         {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "广告次数已用尽，请观看其它广告或明日再来",ToastType = ToastTypeEnum.Failure});
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "广告次数已用尽，请观看其它广告或明日再来", ToastType = ToastTypeEnum.Failure });
             return;
         }
         GameProcessor.Inst.OnShowVideoAd("经验收益2小时", "exp_count_2_hour", (giveReward) =>
          {
              if (giveReward)
              {
-
-                 User user = GameProcessor.Inst.User;
-                 //发放奖励
-                 long exp = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp);
-
-                 exp = exp * 1440; //2小时/5 = 1440
-
-                 user.AddExpAndGold(exp, 0);
-                 GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
-                 {
-                     Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励", exp, 0)
-                 });
-
+                 RewardExp();
                  data.CurrentShowCount++;
                  this.UpdateAdData();
-
              }
              else
              {
-                //不发奖励
-                StartCoroutine(ShowFakeAD(() =>
-                {
-
-                    User user = GameProcessor.Inst.User;
-                    //发放奖励
-                    long exp = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp);
-
-                    exp = exp * 1440; //2小时/5 = 1440
-
-                    user.AddExpAndGold(exp, 0);
-                    GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
-                    {
-                        Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励", exp, 0)
-                    });
-
-                    data.CurrentShowCount++;
-                    this.UpdateAdData();
-
-                }));
-            }
+                 //不发奖励
+                 StartCoroutine(ShowFakeAD(() =>
+                 {
+                     RewardExp();
+                     data.CurrentShowCount++;
+                     this.UpdateAdData();
+                 }));
+             }
          });
+    }
+    private void RewardExp() {
+        User user = GameProcessor.Inst.User;
+        //发放奖励
+        long exp = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp);
+
+        exp = exp * 1440; //2小时/5 = 1440
+
+        user.AddExpAndGold(exp, 0);
+        GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+        {
+            Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励", exp, 0)
+        });
     }
 
     public void OnClick_CopyTicketCount()
@@ -240,16 +219,16 @@ public class Com_AD : MonoBehaviour, IBattleLife
             if (giveReward)
             {
                 //发放奖励
+                RewardCopyTicket();
+                data.CurrentShowCount++;
+                this.UpdateAdData();
             }
             else
             {
                 //不发奖励
-                //不发奖励
                 StartCoroutine(ShowFakeAD(() =>
                 {
-                    User user = GameProcessor.Inst.User;
-                    user.CopyTikerCount += 8;
-
+                    RewardCopyTicket();
                     data.CurrentShowCount++;
                     this.UpdateAdData();
                 }));
@@ -258,20 +237,59 @@ public class Com_AD : MonoBehaviour, IBattleLife
         });
     }
 
+    private void RewardCopyTicket() {
+        User user = GameProcessor.Inst.User;
+        user.CopyTikerCount += 8;
+    }
+
     public void OnClick_StoneCount()
     {
-        GameProcessor.Inst.OnShowVideoAd("精炼石100个","stone_count_100", (giveReward) =>
+        var data = GameProcessor.Inst.User.ADShowData?.GetADShowStatus(ADTypeEnum.StoneCount);
+        if (data == null)
         {
-            if (giveReward)
-            {
-                //发放奖励
-            }
-            else
-            {
-                //不发奖励
-            }
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "广告次数已用尽，请观看其它广告或明日再来", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
+
+        GameProcessor.Inst.OnShowVideoAd("精炼石", "stone_count_100", (giveReward) =>
+         {
+             if (giveReward)
+             {
+                 RewardStone();
+                 data.CurrentShowCount++;
+                 this.UpdateAdData();
+             }
+             else
+             {
+                 StartCoroutine(ShowFakeAD(() =>
+                 {
+                     RewardStone();
+                     data.CurrentShowCount++;
+                     this.UpdateAdData();
+                 }));
+                 //不发奖励
+             }
+         });
+    }
+    private void RewardStone()
+    {
+        User user = GameProcessor.Inst.User;
+
+        int MapNo = (user.MapId - ConfigHelper.MapStartId + 1);
+        int rate = (MapNo / 10) + 1;
+
+        int refineStone = 100 * MapNo * rate;
+        Item item = ItemHelper.BuildRefineStone(refineStone);
+
+        List<Item> items = new List<Item>();
+        items.Add(item);
+
+        user.EventCenter.Raise(new HeroBagUpdateEvent()
+        {
+            ItemList = items
         });
     }
+
     public void OnClick_ExpAdd()
     {
         GameProcessor.Inst.OnShowVideoAd("经验加成","exp_add_percent", (giveReward) =>

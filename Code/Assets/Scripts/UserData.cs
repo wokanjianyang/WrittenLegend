@@ -44,15 +44,17 @@ namespace Game
                 user.Exp = 0;
                 user.Name = "传奇";
                 user.TowerFloor = 1;
-                user.MapId = 1000;
+                user.MapId = ConfigHelper.MapStartId;
                 user.Gold = 0;
+                user.CopyTikerCount = ConfigHelper.CopyTicketFirstCount;
             }
             //TEST data
             //user.Gold = 999999999999; 
-            //user.Level = 1000000;
+            //user.Level = 1;
             //user.MapId = 1010;
             //user.TowerFloor = 989;
             //user.PhantomRecord.Clear();
+            //user.Exp = 999999999999;
 
             //记录版号
             user.VersionLog[ConfigHelper.Version] = TimeHelper.ClientNowSeconds();

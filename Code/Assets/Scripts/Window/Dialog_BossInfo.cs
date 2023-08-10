@@ -94,6 +94,11 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
 
         User user = GameProcessor.Inst.User;
 
+        if (user.CopyTicketTime == 0)
+        {
+            user.CopyTicketTime = TimeHelper.ClientNowSeconds();
+        }
+
         long now = TimeHelper.ClientNowSeconds();
         long dieTime = now - user.CopyTicketTime;
 

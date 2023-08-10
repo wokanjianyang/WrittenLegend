@@ -334,14 +334,16 @@ namespace Game
 
             user.AddExpAndGold(0, gold);
 
-            Item item = ItemHelper.BuildRefineStone(Math.Max(1, refineStone));
-            AddBoxItem(item);
+            if (refineStone > 0)
+            {
+                Item item = ItemHelper.BuildRefineStone(refineStone);
+                AddBoxItem(item);
+            }
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
             {
                 Message = BattleMsgHelper.BuildAutoRecoveryMessage(1, refineStone, gold)
             });
-
         }
 
         private void OnAutoRecoveryEvent(AutoRecoveryEvent e)
@@ -377,14 +379,14 @@ namespace Game
             {
                 Item item = ItemHelper.BuildRefineStone(refineStone);
                 AddBoxItem(item);
+            }
 
-                if (recoveryList.Count > 0)
+            if (recoveryList.Count > 0)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
                 {
-                    GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
-                    {
-                        Message = BattleMsgHelper.BuildAutoRecoveryMessage(recoveryList.Count, refineStone, gold)
-                    });
-                }
+                    Message = BattleMsgHelper.BuildAutoRecoveryMessage(recoveryList.Count, refineStone, gold)
+                });
             }
         }
 
@@ -509,7 +511,7 @@ namespace Game
 
                 boxItem = new BoxItem();
                 boxItem.Item = newItem;
-                boxItem.Number = 1;
+                boxItem.Number = newItem.Quantity;
                 boxItem.BoxId = lastBoxId;
 
                 var item = this.CreateBox(boxItem);

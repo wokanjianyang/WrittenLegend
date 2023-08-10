@@ -216,7 +216,7 @@ namespace Game
 
                 if (fl % 30 == 0)
                 {
-                    items.AddRange(DropHelper.TowerEquip(Math.Max(10, (User.MapId - 1000) * 10)));
+                    items.AddRange(DropHelper.TowerEquip(Math.Max(10, (User.MapId - ConfigHelper.MapStartId) * 10)));
                 }
                 else if (fl % 1000 == 0)
                 {

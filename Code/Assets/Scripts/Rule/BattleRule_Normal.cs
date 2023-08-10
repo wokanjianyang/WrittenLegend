@@ -119,7 +119,7 @@ namespace Game
             List<Item> items = new List<Item>();
             if (isEquip)
             {
-                items = DropHelper.TowerEquip(Math.Max(10, (user.MapId - 1000) * 10));
+                items = DropHelper.TowerEquip(Math.Max(10, (user.MapId - ConfigHelper.MapStartId) * 10));
             }
             if (isSepecialEquip)
             {
