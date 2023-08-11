@@ -22,6 +22,7 @@ public class Com_CompositeItem : MonoBehaviour
 
         User user = GameProcessor.Inst.User;
 
+        //TODO 合成数量问题
         //int count = user.Bags.Where(m => (int)m.Item.Type == config.FromItemType && m.Item.ConfigId == config.FromId).Select(m => m.Number).Sum();
         int count = user.Bags.Where(m => (int)m.Item.Type == config.FromItemType && m.Item.ConfigId == config.FromId).Count();
 
@@ -40,6 +41,7 @@ public class Com_CompositeItem : MonoBehaviour
     {
         User user = GameProcessor.Inst.User;
         int count = user.Bags.Where(m => (int)m.Item.Type == config.FromItemType && m.Item.ConfigId == config.FromId).Count();
+        //TODO 合成数量问题
 
         if (count < config.Quantity || user.Gold < config.Commission)
         {

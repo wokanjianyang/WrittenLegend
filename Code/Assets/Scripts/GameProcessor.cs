@@ -112,6 +112,11 @@ namespace Game
                 isTimeError = true;
             }
 
+            if (UserData.StartTime > ConfigHelper.PackEndTime) {
+                //load时间大于结束时间,必须要更新
+                isTimeError = true;
+            }
+
             if (this.User.SecondExpTick > UserData.StartTime)
             {
                 //收益时间已经大于启动时间了，必然是往后改了

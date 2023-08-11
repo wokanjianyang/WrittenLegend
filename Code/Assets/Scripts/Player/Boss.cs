@@ -137,7 +137,7 @@ namespace Game
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
             {
-                Message = BattleMsgHelper.BuildBossDeadMessage(this, items)
+                Message = BattleMsgHelper.BuildBossDeadMessage(this,exp,gold, items)
             });
 
 

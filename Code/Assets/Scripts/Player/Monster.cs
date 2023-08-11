@@ -113,7 +113,7 @@ namespace Game
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
             {
-                Message = BattleMsgHelper.BuildMonsterDeadMessage(this, items)
+                Message = BattleMsgHelper.BuildMonsterDeadMessage(this, exp, gold, items)
             });
 
             //自动回收

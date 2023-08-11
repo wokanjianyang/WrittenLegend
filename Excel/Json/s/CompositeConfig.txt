@@ -1,5 +1,5 @@
 {"list":[
-{"_t":"CompositeConfig","_id":101,"Type":"斗笠","FromName":"斗笠·一阶","FromId":101,"FromItemType":2,"TargetName":"斗笠二阶","TargetId":102,"TargetType":2,"Quantity":2,"Commission":0},
+{"_t":"CompositeConfig","_id":101,"Type":"斗笠","FromName":"斗笠一阶","FromId":101,"FromItemType":2,"TargetName":"斗笠二阶","TargetId":102,"TargetType":2,"Quantity":2,"Commission":0},
 {"_t":"CompositeConfig","_id":102,"Type":"斗笠","FromName":"斗笠二阶","FromId":102,"FromItemType":2,"TargetName":"斗笠三阶","TargetId":103,"TargetType":2,"Quantity":2,"Commission":0},
 {"_t":"CompositeConfig","_id":103,"Type":"斗笠","FromName":"斗笠三阶","FromId":103,"FromItemType":2,"TargetName":"斗笠四阶","TargetId":104,"TargetType":2,"Quantity":2,"Commission":0},
 {"_t":"CompositeConfig","_id":104,"Type":"斗笠","FromName":"斗笠四阶","FromId":104,"FromItemType":2,"TargetName":"斗笠五阶","TargetId":105,"TargetType":2,"Quantity":2,"Commission":0},

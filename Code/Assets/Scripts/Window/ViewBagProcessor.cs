@@ -211,6 +211,7 @@ namespace Game
 
             List<BoxItem> list = user.Bags.Where(m => (int)m.Item.Type == config.FromItemType && m.Item.ConfigId == config.FromId).ToList();
 
+            //TODO 合成数量问题
             //int count = list.Select(m => m.Number).Sum();
 
             int count = list.Count;

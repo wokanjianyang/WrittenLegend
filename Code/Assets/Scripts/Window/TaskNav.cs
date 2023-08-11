@@ -30,7 +30,8 @@ namespace Game
             {
                 PlayerGuide.gameObject.SetActive(false);
                 Txt_Time.gameObject.SetActive(true);
-                Txt_Time.text = "您的收益时间：" + TimeHelper.SecondsToDate(user.SecondExpTick).AddHours(8).ToString()+",时间正常且过了这个时间才有收益";
+                //Txt_Time.text = "您的收益时间：" + TimeHelper.SecondsToDate(user.SecondExpTick).AddHours(8).ToString()+",时间正常且过了这个时间才有收益";
+                Txt_Time.text = "您的时间不正确或者没有更新，请校检时间或者更新游戏";
                 return;
             }
 

@@ -34,6 +34,12 @@ namespace Game
                     TypeNameHandling = TypeNameHandling.Auto
                 });
                 Debug.Log("成功读取");
+
+                if (user != null && user.VersionLog.Count <= 0)
+                {
+                    //老版本,直接销存档
+                    user = null;
+                }
             }
 
             if (user == null)
