@@ -22,7 +22,7 @@ namespace Game
 
             if (config.Quality == 0)  //随机生成品质
             {
-                quality = RandomHelper.RandomEquipQuality(qualityRate);
+                quality = RandomHelper.RandomEquipQuality(config.LevelRequired, qualityRate);
             }
 
             if (runeId == 0 && quality > 2) //随机生成词条

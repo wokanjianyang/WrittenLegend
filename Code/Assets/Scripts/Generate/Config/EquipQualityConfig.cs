@@ -78,12 +78,15 @@ namespace Game
 		/// <summary>_Id</summary>
 		[ProtoMember(1)]
 		public int Id { get; set; }
-		/// <summary>属性条目数</summary>
+		/// <summary>RandomNum</summary>
 		[ProtoMember(2)]
-		public int Num { get; set; }
-		/// <summary>生成概率</summary>
+		public int RandomNum { get; set; }
+		/// <summary>AttrIdList</summary>
 		[ProtoMember(3)]
-		public int Rate { get; set; }
+		public int[] AttrIdList { get; set; }
+		/// <summary>AttrValueList</summary>
+		[ProtoMember(4)]
+		public int[] AttrValueList { get; set; }
 
 	}
 }

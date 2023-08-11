@@ -42,13 +42,34 @@ namespace Game
                 long AttributeBase = EquipConfig.AttributeBase[i];
                 if (EquipConfig.Quality == 0)  //随机品质装备 40%,60%,80%,100%
                 {
-                    AttributeBase = AttributeBase * (Quality * 20 + 20) / 100;
+                    if (Quality <= 4)
+                    {
+                        AttributeBase = AttributeBase * (Quality * 20 + 20) / 100;
+                    }
+                    else
+                    {
+                        AttributeBase = AttributeBase * 2;
+                    }
                 }
                 BaseAttrList.Add(EquipConfig.BaseArray[i], AttributeBase);
             }
 
+            QualityAttrList = new Dictionary<int, long>();
+            if (Quality > 0 && Part <= 10)
+            {
+                EquipQualityConfig qualityConfig = EquipQualityConfigCategory.Instance.Get(quality);
+
+                if (qualityConfig.AttrIdList != null)
+                {
+                    for (int i = 0; i < qualityConfig.AttrIdList.Length; i++)
+                    {
+                        QualityAttrList.Add(qualityConfig.AttrIdList[i], qualityConfig.AttrValueList[i]);
+                    }
+                }
+            }
+
             //根据品质,生成随机属性
-            if (EquipConfig.RandomAttr == 0)
+            if (EquipConfig.RandomAttr == 0 && Part <= 10)
             {
                 for (int i = 0; i < Quality; i++)
                 {
@@ -60,12 +81,12 @@ namespace Game
                 }
             }
 
-            if (RuneConfigId > 0)
+            if (RuneConfigId > 0 && Part <= 10)
             {
                 SkillRuneConfig = SkillRuneConfigCategory.Instance.Get(RuneConfigId);
             }
 
-            if (SuitConfigId > 0)
+            if (SuitConfigId > 0 && Part <= 10)
             {
                 SkillSuitConfig = SkillSuitConfigCategory.Instance.Get(SuitConfigId);
             }
@@ -95,6 +116,12 @@ namespace Game
         /// 基础属性
         /// </summary>
         public IDictionary<int, long> BaseAttrList { get; set; }
+
+        [JsonIgnore]
+        /// <summary>
+        /// 品质属性
+        /// </summary>
+        public IDictionary<int, long> QualityAttrList { get; set; }
 
         /// <summary>
         /// 属性列表

@@ -174,24 +174,29 @@ namespace Game
                 {
                     case 0:
                     case 1:
-                    {
-                        prefab = Resources.Load<GameObject>("Prefab/Window/Box_White");
-                    }
+                        {
+                            prefab = Resources.Load<GameObject>("Prefab/Window/Box_White");
+                        }
                         break;
                     case 2:
-                    {
-                        prefab = Resources.Load<GameObject>("Prefab/Window/Box_Green");
-                    }
+                        {
+                            prefab = Resources.Load<GameObject>("Prefab/Window/Box_Green");
+                        }
                         break;
                     case 3:
-                    {
-                        prefab = Resources.Load<GameObject>("Prefab/Window/Box_Blue");
-                    }
+                        {
+                            prefab = Resources.Load<GameObject>("Prefab/Window/Box_Blue");
+                        }
                         break;
                     case 4:
-                    {
-                        prefab = Resources.Load<GameObject>("Prefab/Window/Box_Pink");
-                    }
+                        {
+                            prefab = Resources.Load<GameObject>("Prefab/Window/Box_Pink");
+                        }
+                        break;
+                    case 5:
+                        {
+                            prefab = Resources.Load<GameObject>("Prefab/Window/Box_Orange");
+                        }
                         break;
                 }
             }

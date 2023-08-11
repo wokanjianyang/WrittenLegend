@@ -28,6 +28,7 @@ namespace Game
             {nameof(AttributeEnum.DamageResist), "伤害减少" },
             {nameof(AttributeEnum.AttIncrea), "攻击加成" },
             {nameof(AttributeEnum.HpIncrea), "生命加成" },
+            {nameof(AttributeEnum.DefIncrea), "防御加成" },
             {nameof(AttributeEnum.InheritIncrea), "继承加成" },
             {nameof(AttributeEnum.ExpIncrea), "经验加成" },
             {nameof(AttributeEnum.BurstIncrea), "爆率加成" },

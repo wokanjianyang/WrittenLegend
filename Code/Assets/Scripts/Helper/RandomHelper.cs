@@ -41,23 +41,29 @@ namespace Game
             return random.Next(1, rate + 1)<= 1;
         }
 
-        public static int RandomEquipQuality(int qualityRate)
+        public static int RandomEquipQuality(int level, int qualityRate)
         {
             qualityRate = qualityRate <= 0 ? 1 : qualityRate;
-            int rate = Math.Max(1, 1000 / qualityRate);
+            int rate = Math.Max(1, 100000 / qualityRate);
             int rd = random.Next(1, rate + 1);
-            if (rd < 2)
+
+            if (level >= 200 && rd < 2) //200级以上，有概率掉落橙色
+            {
+                return 5;
+            }
+            else if (rd < 200)
             {
                 return 4;
             }
-            else if (rd < 20)
+            else if (rd < 2000)
             {
                 return 3;
             }
-            else if (rd < 100)
+            else if (rd < 10000)
             {
                 return 2;
             }
+
             return 1;
         }
 

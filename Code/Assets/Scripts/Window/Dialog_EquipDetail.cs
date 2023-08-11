@@ -30,6 +30,9 @@ namespace Game
         [LabelText("隐藏属性")]
         public Transform tran_HideAttribute;
 
+        [LabelText("随机属性")]
+        public Transform tran_RandomAttribute;
+
         [LabelText("品质属性")]
         public Transform tran_QualityAttribute;
 
@@ -114,6 +117,7 @@ namespace Game
             this.gameObject.SetActive(true);
             tran_BaseAttribute.gameObject.SetActive(false);
             tran_NormalAttribute.gameObject.SetActive(false);
+            tran_RandomAttribute.gameObject.SetActive(false);
             tran_QualityAttribute.gameObject.SetActive(false);
             tran_SkillAttribute.gameObject.SetActive(false);
             tran_SuitAttribute.gameObject.SetActive(false);
@@ -181,18 +185,41 @@ namespace Game
 
                         if (equip.AttrEntryList != null && equip.AttrEntryList.Count > 0)
                         {
+                            tran_RandomAttribute.gameObject.SetActive(true);
+                            tran_RandomAttribute.Find("Title").GetComponent<Text>().text = "[随机属性]";
+
+                            var AttrEntryList = equip.AttrEntryList.ToList();
+
+                            for (int index = 0; index < 5; index++)
+                            {
+                                var child = tran_RandomAttribute.Find(string.Format("Attribute_{0}", index));
+
+                                if (index < AttrEntryList.Count)
+                                {
+                                    child.GetComponent<Text>().text = FormatAttrText(AttrEntryList[index].Key, AttrEntryList[index].Value, qualityPercent);
+                                    child.gameObject.SetActive(true);
+                                }
+                                else
+                                {
+                                    child.gameObject.SetActive(false);
+                                }
+                            }
+                        }
+
+                        if (equip.QualityAttrList != null && equip.QualityAttrList.Count > 0)
+                        {
                             tran_QualityAttribute.gameObject.SetActive(true);
                             tran_QualityAttribute.Find("Title").GetComponent<Text>().text = "[品质属性]";
 
-                            var AttrEntryList = equip.AttrEntryList.ToList();
+                            var QualityAttrList = equip.QualityAttrList.ToList();
 
                             for (int index = 0; index < 4; index++)
                             {
                                 var child = tran_QualityAttribute.Find(string.Format("Attribute_{0}", index));
 
-                                if (index < AttrEntryList.Count)
+                                if (index < QualityAttrList.Count)
                                 {
-                                    child.GetComponent<Text>().text = FormatAttrText(AttrEntryList[index].Key, AttrEntryList[index].Value, qualityPercent);
+                                    child.GetComponent<Text>().text = FormatAttrText(QualityAttrList[index].Key, QualityAttrList[index].Value, qualityPercent);
                                     child.gameObject.SetActive(true);
                                 }
                                 else
