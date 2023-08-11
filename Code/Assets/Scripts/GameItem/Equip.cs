@@ -152,6 +152,10 @@ namespace Game
                 AttrList[attrId] = val + attrValue;
             }
 
+            foreach (int attrId in QualityAttrList.Keys)
+            {
+                AttrList[attrId] = QualityAttrList[attrId];
+            }
             return AttrList;
         }
     }
