@@ -35,7 +35,7 @@ namespace Game
             switch (quality)
             {
                 case 1:
-                    titleColor = "CCCCCC"; 
+                    titleColor = "CCCCCC";
                     break;
                 case 2:
                     titleColor = "CBFFC2";
@@ -45,6 +45,9 @@ namespace Game
                     break;
                 case 4:
                     titleColor = "EE66EE";
+                    break;
+                case 5:
+                    titleColor = "FF6600";
                     break;
             }
 

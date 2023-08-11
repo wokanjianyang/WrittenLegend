@@ -79,9 +79,6 @@ namespace Game
 
         private IEnumerator LoadBox()
         {
-            //先回收,再加载
-            this.AutoRecovery();
-
             User user = GameProcessor.Inst.User;
             user.EventCenter.AddListener<HeroBagUpdateEvent>(this.OnHeroBagUpdateEvent);
 
@@ -120,6 +117,8 @@ namespace Game
             RefreshBag();
             yield return null;
 
+            //先加载,再回收
+            this.AutoRecovery();
         }
 
         private void OnRefreshBag()

@@ -219,15 +219,9 @@ namespace Game
             {
                 long fl = User.TowerFloor + i;
 
-                if (fl % 30 == 0)
-                {
-                    items.AddRange(DropHelper.TowerEquip(Math.Max(10, (User.MapId - ConfigHelper.MapStartId) * 10)));
-                }
-                else if (fl % 1000 == 0)
-                {
-                    int rd = RandomHelper.RandomNumber(1, 5);
-                    items.Add(ItemHelper.BuildItem(ItemType.Equip, rd * 100 + 1, 1, 1));
-                }
+                int equipLevel = Math.Max(10, (User.MapId - ConfigHelper.MapStartId) * 10);
+
+                items.AddRange(DropHelper.TowerEquip(fl, equipLevel));
             }
 
             User.TowerFloor += offlineFloor;
@@ -239,7 +233,7 @@ namespace Game
             User.SecondExpTick = currentTick;
 
 
-            foreach (Item item in items)
+            foreach (var item in items)
             {
                 BoxItem boxItem = new BoxItem();
                 boxItem.Item = item;

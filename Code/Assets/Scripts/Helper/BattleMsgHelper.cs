@@ -87,16 +87,13 @@ namespace Game
 
         public static string BuildTowerSuccessMessage(long riseExp, long riseGold, long exp, long gold, long floor, List<Item> items)
         {
-            string message = $"<color=white>闯关成功,获得经验奖励:{exp},金币奖励:{gold},收益提升 </color>";
-            if (items.Count > 0)
-            {
-                message += "掉落";
-            }
+            string message = $"闯关成功,奖励";
+
             foreach (var drop in items)
             {
-                message += $"掉落<color=#{QualityConfigHelper.GetColor(drop)}>[{drop.Name}]</color>";
+                message += $"<color=#{QualityConfigHelper.GetColor(drop)}>[{drop.Name}]</color>";
             }
-            return message;
+            return message + $",经验:{ exp},金币奖励: { gold},收益提升";
         }
 
         public static string BuildCopySuccessMessage()

@@ -28,7 +28,40 @@ namespace Game
 
     public class DropHelper
     {
-        public static List<Item> TowerEquip(int equipLevel)
+        public static List<Item> TowerEquip(long fl, int equipLevel)
+        {
+            List<Item> items = new List<Item>();
+
+            if (fl % 20000 == 0)
+            {
+                //2w层掉落当前等级橙装
+                items.AddRange(DropHelper.RandomLevelEquip(equipLevel, 5));
+            }
+            if (fl % 1500 == 0)
+            {
+                //2000层掉落当前等级紫装
+                items.AddRange(DropHelper.RandomLevelEquip(equipLevel, 4));
+            }
+            if (fl % 1000 == 0)
+            {
+                int fourLevel = 100;
+                if (fl > 500000)  //50w以上，掉落2级四格,以下掉落3级4格
+                {
+                    fourLevel = 200;
+                }
+                int rd = RandomHelper.RandomNumber(1, 5);
+                items.Add(ItemHelper.BuildEquip(rd * fourLevel + 1, 1, 1));
+            }
+
+            if (fl % 30 == 0)
+            {
+                //每30层掉落当前等级随机装备
+                items.AddRange(DropHelper.RandomLevelEquip(equipLevel, 0));
+            }
+            return items;
+        }
+
+        public static List<Item> RandomLevelEquip(int equipLevel, int quality)
         {
             List<Item> list = new List<Item>();
 
@@ -40,7 +73,7 @@ namespace Game
                 {
                     int index = RandomHelper.RandomNumber(0, ids.Length);
 
-                    Item item = ItemHelper.BuildItem(ItemType.Equip, ids[index], 1, 1);
+                    Item item = ItemHelper.BuildEquip(ids[index], quality, 1);
                     list.Add(item);
                 }
             }

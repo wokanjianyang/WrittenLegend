@@ -58,7 +58,7 @@ namespace Game
             //user.Gold = 999999999999; 
             //user.Level = 1;
             //user.MapId = 1010;
-            //user.TowerFloor = 989;
+            //user.TowerFloor = 59998;
             //user.PhantomRecord.Clear();
             //user.Exp = 999999999999;
 

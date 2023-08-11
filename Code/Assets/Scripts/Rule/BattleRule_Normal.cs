@@ -105,30 +105,9 @@ namespace Game
             user.AttributeBonus.SetAttr(AttributeEnum.SecondExp, AttributeFrom.Tower, secondExp);
             user.AttributeBonus.SetAttr(AttributeEnum.SecondGold, AttributeFrom.Tower, secondGold);
 
-            bool isEquip = false;
-            bool isSepecialEquip = false;
-            if (user.TowerFloor % 1000 == 0)
-            {
-                isSepecialEquip = true;
-            }
-            else if (user.TowerFloor % 30 == 0)
-            {
-                isEquip = true;
-            }
+            int equipLevel = Math.Max(10, (user.MapId - ConfigHelper.MapStartId) * 10);
 
-            List<Item> items = new List<Item>();
-            if (isEquip)
-            {
-                items = DropHelper.TowerEquip(Math.Max(10, (user.MapId - ConfigHelper.MapStartId) * 10));
-            }
-            if (isSepecialEquip)
-            {
-                int rd = RandomHelper.RandomNumber(1, 5);
-                Item item = ItemHelper.BuildItem(ItemType.Equip, rd * 100 + 1, 1, 1);
-                items.Add(item);
-            }
-
-            user.TowerFloor++;
+            List<Item> items = DropHelper.TowerEquip(user.TowerFloor, equipLevel);
 
             if (items.Count > 0)
             {
@@ -145,8 +124,10 @@ namespace Game
                 BattleType = BattleType.Tower
             });
 
+            user.TowerFloor++;
+
             //自动回收
-            if (isEquip)
+            if (items.Count > 0)
             {
                 GameProcessor.Inst.EventCenter.Raise(new AutoRecoveryEvent() { });
             }

@@ -81,7 +81,7 @@ public class Init : MonoBehaviour
                 WindowTypeEnum.View_BottomNavBar,
                 WindowTypeEnum.Window_EndlessTower,
                 WindowTypeEnum.Dialog_EquipDetail,
-                WindowTypeEnum.Dialog_OfflineExp,
+                //WindowTypeEnum.Dialog_OfflineExp,
                 WindowTypeEnum.Dialog_Settings,
                 WindowTypeEnum.Dialog_FloatButtons,
                 WindowTypeEnum.Dialog_SecondaryConfirmation,

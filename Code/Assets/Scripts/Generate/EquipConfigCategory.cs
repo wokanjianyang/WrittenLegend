@@ -12,7 +12,7 @@ namespace Game
 
     public class EquipHelper
     {
-        public static Equip BuildEquip(int configId, int qualityRate)
+        public static Equip BuildEquip(int configId,int staticQuality, int qualityRate)
         {
             EquipConfig config = EquipConfigCategory.Instance.Get(configId);
 
@@ -23,6 +23,10 @@ namespace Game
             if (config.Quality == 0)  //随机生成品质
             {
                 quality = RandomHelper.RandomEquipQuality(config.LevelRequired, qualityRate);
+            }
+            if (staticQuality > 0)
+            {
+                quality = staticQuality;
             }
 
             if (runeId == 0 && quality > 2) //随机生成词条
