@@ -229,7 +229,10 @@ namespace Game
 
             foreach (BoxItem boxItem in list)
             {
-                int boxUseCount = Math.Min(boxItem.Number, useCount);
+                //TODO 合成数量问题
+                int boxNumber = boxItem.Number > 0 ? boxItem.Number : 1;
+
+                int boxUseCount = Math.Min(boxNumber, useCount);
 
                 Com_Box boxUI = this.items.Find(m => m.boxId == boxItem.BoxId);
                 boxItem.RemoveStack(boxUseCount);

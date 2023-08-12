@@ -236,8 +236,8 @@ namespace ET
                     ret = true;
                     if (buildType == BuildType.Release && isAddVersionNum)
                     {
-                        PlayerSettings.Android.bundleVersionCode++;
-                        PlayerSettings.bundleVersion = string.Join(".", PlayerSettings.Android.bundleVersionCode.ToString().PadLeft(3, '0').ToCharArray());
+                        //PlayerSettings.Android.bundleVersionCode++;
+                        //PlayerSettings.bundleVersion = string.Join(".", PlayerSettings.Android.bundleVersionCode.ToString().PadLeft(3, '0').ToCharArray());
                     }
 
                 }
