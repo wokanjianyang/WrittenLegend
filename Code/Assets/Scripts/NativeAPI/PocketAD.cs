@@ -2,6 +2,7 @@ using SA.Android.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 namespace Game
 {
@@ -31,6 +32,8 @@ namespace Game
                 string adCodeID = (string)args[2];//广告位id
                 string ad_name = (string)args[3];//广告位名称
                 string sdkName = (string)args[4];//sdk名称
+
+                GameProcessor.Inst.adTest += string.Join(", ", args);
 
                 Log.Debug(string.Format("state:{0} adType:{1} adCodeID:{2} ad_name:{3} sdkName:{4}", state, adType, adCodeID, ad_name, sdkName));
                 bool hasReward = false;

@@ -129,22 +129,24 @@ public class Com_AD : MonoBehaviour, IBattleLife
         }
         GameProcessor.Inst.OnShowVideoAd("金币收益2小时", "gold_count_2_hour", (giveReward) =>
          {
+             this.tran_FakeAD.gameObject.SetActive(true);
+             this.txt_FakeAD.text = "ADTest:" + GameProcessor.Inst.adTest+ " Over ";
 
              if (giveReward)
              {
-                 RewardGold();
-                 data.CurrentShowCount++;
-                 this.UpdateAdData();
+                 //RewardGold();
+                 //data.CurrentShowCount++;
+                 //this.UpdateAdData();
              }
              else
              {
                  //不发奖励
-                 StartCoroutine(ShowFakeAD(() =>
-                  {
-                      RewardGold();
-                      data.CurrentShowCount++;
-                      this.UpdateAdData();
-                  }));
+                 //StartCoroutine(ShowFakeAD(() =>
+                 //{
+                 //RewardGold();
+                 //data.CurrentShowCount++;
+                 //this.UpdateAdData();
+                 //}));
              }
          });
     }

@@ -42,6 +42,8 @@ namespace Game
         private long saveTime = 0;
         private string OfflineMessage = "";
 
+        public string adTest = "";
+
         // public bool RefreshSkill = false; //是否要刷新技能
         public bool isTimeError = false;
 
