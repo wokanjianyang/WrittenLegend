@@ -254,7 +254,7 @@ public class LoadADActivity extends AppCompatActivity {
     }
 
     private void showRewardVideoAD() {
-        mRewardVideoAD = new RewardVideoAD(this, "55339");
+        mRewardVideoAD = new RewardVideoAD(this, "57202");
         mRewardVideoAD.setRewardVideoADListener(new RewardVideoADListener() {
             @Override
             public void onADLoaded() {

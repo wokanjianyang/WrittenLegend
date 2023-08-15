@@ -52,7 +52,7 @@ public class MainActivity extends Activity implements PermissionsUtils.IPermissi
 
 
         webview = findViewById(R.id.web1);
-        webview.loadUrl("http://privacy-policy.cn/cxkeuh7z7wticqk8");
+        webview.loadUrl("https://docs.qq.com/doc/p/c2c72d2a99ab2d5c6fdfafc24028560001d1d04e");
 
         webview.setWebViewClient(new WebViewClient() {
             @Override

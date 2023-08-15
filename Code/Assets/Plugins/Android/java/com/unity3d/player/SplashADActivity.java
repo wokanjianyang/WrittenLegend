@@ -136,7 +136,7 @@ public class SplashADActivity extends Activity implements SplashADListener {
     }
 
     private void fetchSplashAD(Activity activity, ViewGroup adContainer, SplashADListener adListener) {
-        SplashAD splashAD = new SplashAD(activity, "55335");
+        SplashAD splashAD = new SplashAD(activity, "57202");
         splashAD.setSplashADListener(adListener);
         splashAD.show(adContainer);
     }
