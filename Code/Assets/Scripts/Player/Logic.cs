@@ -133,7 +133,7 @@ namespace Game
             {
                 HP = currentHP.ToString()
             });
-            if (currentHP == 0)
+            if (currentHP <= 0)
             {
 
                 IsSurvice = false;

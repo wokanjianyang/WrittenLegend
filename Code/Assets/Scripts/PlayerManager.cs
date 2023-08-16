@@ -103,11 +103,15 @@ namespace Game
                 }
             }
 
-            var x = GameProcessor.Inst.MapData.ColCount / 2;
-            var y = GameProcessor.Inst.MapData.RowCount / 2;
-            hero.SetPosition(new Vector3(x, y), true);
-            this.AddPlayer(hero);
+            var tempCells = GameProcessor.Inst.MapData.AllCells.ToList();
+            var allPlayerCells = GameProcessor.Inst.PlayerManager.GetAllPlayers().Select(p => p.Cell).ToList();
+            tempCells.RemoveAll(p => allPlayerCells.Contains(p));
 
+
+            var index = RandomHelper.RandomNumber(0, tempCells.Count);
+            var bornCell = tempCells[index];
+            hero.SetPosition(bornCell, true);
+            this.AddPlayer(hero);
         }
 
         public APlayer LoadMonster(APlayer enemy)
