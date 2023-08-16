@@ -44,13 +44,13 @@ namespace Game
             }
             if (fl % 1000 == 0)
             {
-                int fourLevel = 100;
+                int fourLevel = 1;
                 if (fl > 500000)  //50w以上，掉落2级四格,以下掉落3级4格
                 {
-                    fourLevel = 200;
+                    fourLevel = 2;
                 }
                 int rd = RandomHelper.RandomNumber(1, 5);
-                items.Add(ItemHelper.BuildEquip(rd * fourLevel + 1, 1, 1));
+                items.Add(ItemHelper.BuildEquip(rd * 100 + fourLevel, 1, 1));
             }
 
             if (fl % 30 == 0)
