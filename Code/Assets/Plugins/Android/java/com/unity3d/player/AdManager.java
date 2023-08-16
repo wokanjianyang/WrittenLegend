@@ -46,7 +46,7 @@ public class AdManager{
 
     public void initAd(Activity context) {
 
-        mRewardVideoAD = new RewardVideoAD(context, "57202",false);
+        mRewardVideoAD = new RewardVideoAD(context, "57235",false); //57202
 
         mRewardVideoAD.setRewardVideoADListener(new RewardVideoADListener() {
             @Override
@@ -117,7 +117,7 @@ public class AdManager{
                 Log.d("admanager",""+error.toString());
 
                 adState = AD_STATE_LOADFAIL;
-                String call = String.format("%s(%d, %d, \"%s\", \"%s\", \"%s\");", adAction, adState, RewardVideo, 1, "激励视频", "口袋工厂");
+                String call = String.format("%s(%d, %d, \"%s\", \"%s\", \"%s\");", adAction, adState, RewardVideo, 1, "激励视频abc", error.toString()); //"口袋工厂"
                 toUnity.OnShowAD(call);
 
             }

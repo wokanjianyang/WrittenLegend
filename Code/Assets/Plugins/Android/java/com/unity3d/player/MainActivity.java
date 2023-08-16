@@ -52,7 +52,7 @@ public class MainActivity extends Activity implements PermissionsUtils.IPermissi
 
 
         webview = findViewById(R.id.web1);
-        webview.loadUrl("https://docs.qq.com/doc/p/c2c72d2a99ab2d5c6fdfafc24028560001d1d04e");
+        webview.loadUrl("http://www.lanpard.com/size.html");
 
         webview.setWebViewClient(new WebViewClient() {
             @Override
@@ -133,7 +133,7 @@ public class MainActivity extends Activity implements PermissionsUtils.IPermissi
 
     private void GotoNextActivity()
     {
-        PocketSdk.initSDK(this, "taptap", "12600");
+        PocketSdk.initSDK(this, "taptap", "12600"); //11723
 
         Intent i =  new  Intent (MainActivity.this  ,  ADUnityPlayerActivity.class  ).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity( i);
