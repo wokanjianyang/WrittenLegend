@@ -33,14 +33,14 @@ namespace Game
         {
             this.gameObject.SetActive(false);
 
-            if (GameProcessor.Inst.User.LastOut > 0)
-            {
-                long offlineSecond = GameProcessor.Inst.CurrentTimeSecond - GameProcessor.Inst.User.LastOut;
-                if (offlineSecond > 0)
-                {
-                    this.OnShowOfflineExpEvent(offlineSecond);
-                }
-            }
+            //if (GameProcessor.Inst.User.LastOut > 0)
+            //{
+            //    long offlineSecond = GameProcessor.Inst.CurrentTimeSecond - GameProcessor.Inst.User.LastOut;
+            //    if (offlineSecond > 0)
+            //    {
+            //        this.OnShowOfflineExpEvent(offlineSecond);
+            //    }
+            //}
         }
 
         private void OnClick_GetOfflineExp()

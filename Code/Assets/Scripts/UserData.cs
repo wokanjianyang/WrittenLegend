@@ -38,7 +38,7 @@ namespace Game
                 if (user != null && user.VersionLog.Count <= 0)
                 {
                     //老版本,直接销存档
-                    user = null;
+                    //user = null;
                 }
             }
 
@@ -70,11 +70,8 @@ namespace Game
 
         public static void Save()
         {
-            System.TimeSpan st = System.DateTime.UtcNow - new System.DateTime(1970, 1, 1, 0, 0, 0);//获取时间戳
-            //Log.Debug($"离线时间:{DateTime.UtcNow.ToString("F")}");
-
             var user = GameProcessor.Inst.User;
-            user.LastOut = Convert.ToInt64(st.TotalSeconds);
+            user.LastOut = TimeHelper.ClientNowSeconds();
 
             //序列化
             string str_json = JsonConvert.SerializeObject(user, new JsonSerializerSettings

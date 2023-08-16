@@ -56,7 +56,7 @@ public class Com_BossInfoItem : MonoBehaviour
         txt_MapName.text = mapConfig.Name;
         txt_BossName.text = bossConfig.Name;
 
-        if (GameProcessor.Inst.isTimeError)
+        if (GameProcessor.Inst.isTimeError || GameProcessor.Inst.isCheckError)
         {
             btn_Start.gameObject.SetActive(false);
             txt_Time.gameObject.SetActive(true);

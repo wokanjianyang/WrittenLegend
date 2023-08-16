@@ -86,6 +86,10 @@ namespace Game
 
         public ADShowData ADShowData { get; set; } = new ADShowData();
 
+        public RecordData Record { get; set; } = new RecordData();
+
+        public long AdLastTime { get; set; } = 0;
+
         public User()
         {
             this.EventCenter = new EventManager();

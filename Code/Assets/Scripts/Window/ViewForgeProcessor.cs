@@ -412,7 +412,7 @@ public class ViewForgeProcessor : AViewPage
         if (refineLevel >= user.Level)
         {
             //
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "精练等级不能超过人物等级", Parent = Refine_Tran_AttrList });
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "精练等级不能超过人物等级", ToastType = ToastTypeEnum.Failure });
             return;
         }
 
@@ -422,7 +422,7 @@ public class ViewForgeProcessor : AViewPage
 
         if (materialCount < config.Fee)
         {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的精炼石", Parent = Refine_Tran_AttrList });
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的精炼石", ToastType = ToastTypeEnum.Failure });
             return;
         }
 

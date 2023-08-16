@@ -13,7 +13,8 @@ namespace Game.Data
         ExpAdd,
         ExpTime,
         GoldAdd,
-        GoldTime
+        GoldTime,
+        ErrorCount,
     }
     [Serializable]
     public class ADData
@@ -38,7 +39,7 @@ namespace Game.Data
         {
             this.LastShowADMonth = DateTime.Now.Month;
             this.LastShowADDay = DateTime.Now.Day;
-            
+
             ADDatas = new List<ADData>();
             ADDatas.Add(new ADData()
             {
@@ -64,6 +65,12 @@ namespace Game.Data
                 CurrentShowCount = 0,
                 MaxShowCount = 6
             });
+            ADDatas.Add(new ADData()
+            {
+                ADType = (int)ADTypeEnum.ErrorCount,
+                CurrentShowCount = 0,
+                MaxShowCount = 6
+            });
         }
 
         public bool CheckDate()
@@ -86,15 +93,7 @@ namespace Game.Data
 
             ADData ret = null;
             var data = this.ADDatas.FirstOrDefault(d => d.ADType == (int)adType);
-            if (data != null)
-            {
-                if (data.CurrentShowCount < data.MaxShowCount)
-                {
-                    ret = data;
-                }
-            }
-
-            return ret;
+            return data;
         }
     }
 }

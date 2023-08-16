@@ -35,6 +35,14 @@ namespace Game
                 return;
             }
 
+            if (GameProcessor.Inst.isCheckError)
+            {
+                PlayerGuide.gameObject.SetActive(false);
+                Txt_Time.gameObject.SetActive(true);
+                Txt_Time.text = "您修改了存档";
+                return;
+            }
+
             TaskConfig config = TaskConfigCategory.Instance.GetById(user.TaskId);
 
             if (config == null)

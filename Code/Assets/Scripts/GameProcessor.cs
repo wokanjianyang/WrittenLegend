@@ -46,6 +46,7 @@ namespace Game
 
         // public bool RefreshSkill = false; //是否要刷新技能
         public bool isTimeError = false;
+        public bool isCheckError = false;
 
         private bool isGameOver { get; set; } = true;
         public PlayerType winCamp { get; private set; }
@@ -123,6 +124,10 @@ namespace Game
             {
                 //收益时间已经大于启动时间了，必然是往后改了
                 isTimeError = true;
+            }
+
+            if (!this.User.Record.Check()) {
+                isCheckError = true;
             }
 
             long currentTick = TimeHelper.ClientNowSeconds();

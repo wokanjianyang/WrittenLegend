@@ -7,6 +7,7 @@ namespace Game
     public static class EncryptionHelper
     {
         private const string key = "hAC8hM9f36N5Zwbz";
+        private const string md5_key = "abdoes9JDKk32kkD";
 
         public static string AesEncrypt(string plainText)
         {
@@ -76,6 +77,30 @@ namespace Game
             }
 
             return "";
+        }
+
+        public static string Md5(string plainText)
+        {
+            using (MD5 md5 = MD5.Create())
+            {
+                byte[] dataBytes = Encoding.UTF8.GetBytes(plainText);
+                byte[] keyBytes = Encoding.UTF8.GetBytes(md5_key);
+
+                byte[] combinedBytes = new byte[dataBytes.Length + keyBytes.Length];
+                dataBytes.CopyTo(combinedBytes, 0);
+                keyBytes.CopyTo(combinedBytes, dataBytes.Length);
+
+                byte[] hashBytes = md5.ComputeHash(combinedBytes);
+
+                // Convert the byte array to a hexadecimal string
+                StringBuilder sb = new StringBuilder();
+                foreach (byte b in hashBytes)
+                {
+                    sb.Append(b.ToString("x2"));
+                }
+
+                return sb.ToString();
+            }
         }
     }
 }

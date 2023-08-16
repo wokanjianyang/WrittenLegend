@@ -85,7 +85,7 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
 
     private void RefeshTime()
     {
-        if (GameProcessor.Inst.isTimeError)
+        if (GameProcessor.Inst.isTimeError || GameProcessor.Inst.isCheckError)
         {
             txt_boss_count.text = "-99";
             txt_boss_time.text = "99:99:99";
