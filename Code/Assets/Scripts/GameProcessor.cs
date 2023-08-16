@@ -55,7 +55,7 @@ namespace Game
 
         public ShowDialog ShowSecondaryConfirmationDialog;
 
-        public delegate void ShowAd(string des, string action, Action<bool> adResult);
+        public delegate void ShowAd(string des, string action, Action<int> adResult);
 
         public ShowAd ShowVideoAd;
 
@@ -522,7 +522,7 @@ namespace Game
                     break;
             }
         }
-        
+
 
         /// <summary>
         /// 
@@ -530,14 +530,15 @@ namespace Game
         /// <param name="des"></param>
         /// <param name="action"></param>
         /// <param name="adResult"></param>
-        public void OnShowVideoAd(string des, string action, Action<bool> adResult)
+        public void OnShowVideoAd(string des, string action, Action<int> adResult)
         {
             string title = "友情支持";
             string message = des;
             var builder = new UM_NativeDialogBuilder(title, message);
-            builder.SetPositiveButton(des, () => {
+            builder.SetPositiveButton(des, () =>
+            {
                 Log.Debug(des);
-                PocketAD.Inst.ShowAD(action, async delegate(int rv, AdStateEnum state, AdTypeEnum type)
+                PocketAD.Inst.ShowAD(action, async delegate (int rv, AdStateEnum state, AdTypeEnum type)
                 {
                     var ret = false;
                     switch (state)
@@ -571,14 +572,14 @@ namespace Game
                     }
                     // 到主线程执行
                     await Loom.ToMainThread;
-                    adResult?.Invoke(ret);
+                    adResult?.Invoke((int)(state));
                 });
             });
             builder.SetNegativeButton("取消", async () =>
             {
                 // 到主线程执行
                 await Loom.ToMainThread;
-                adResult?.Invoke(false);
+                adResult?.Invoke(-1);
             });
             var dialog = builder.Build();
             dialog.Show();

@@ -37,12 +37,13 @@ public class Com_AD : MonoBehaviour, IBattleLife
 
     public Text txt_Time;
     public Text txt_Error_Count;
+    public Text txt_Rule;
 
     public Transform tran_FakeAD;
 
     public Text txt_FakeAD;
 
-    private int CD_Time = 5;
+    private int CD_Time = 60;
 
     // Start is called before the first frame update
     void Start()
@@ -68,10 +69,6 @@ public class Com_AD : MonoBehaviour, IBattleLife
 
     public void Open()
     {
-        //Test 播放白屏
-        var data = GameProcessor.Inst.User.ADShowData?.GetADShowStatus(ADTypeEnum.ErrorCount);
-        //data.CurrentShowCount = 100;
-
         this.UpdateAdData();
         this.gameObject.SetActive(true);
     }
@@ -168,11 +165,12 @@ public class Com_AD : MonoBehaviour, IBattleLife
         return false;
     }
 
+    int cc = 0;
     public void OnClick_GoldCount()
     {
         if (!CheckCd())
         {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "广告CD间隔"+CD_Time+"S，请稍候", ToastType = ToastTypeEnum.Failure });
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "广告CD间隔" + CD_Time + "S，请稍候", ToastType = ToastTypeEnum.Failure });
             return;
         }
 
@@ -204,24 +202,28 @@ public class Com_AD : MonoBehaviour, IBattleLife
             return;
         }
 
-        GameProcessor.Inst.OnShowVideoAd("金币收益2小时", "gold_count_2_hour", (giveReward) =>
+        GameProcessor.Inst.OnShowVideoAd("金币收益2小时", "gold_count_2_hour", (code) =>
          {
-             //this.tran_FakeAD.gameObject.SetActive(true);
-             //this.txt_FakeAD.text = "ADTest:" + GameProcessor.Inst.adTest + " Over ";
-
-             if (giveReward)
+             if (code == (int)AdStateEnum.Reward)
              {
+                 this.txt_FakeAD.text += "获得奖励";
+
                  RewardGold(true);
                  data.CurrentShowCount += 2;
                  this.UpdateAdData();
                  GameProcessor.Inst.User.AdLastTime = TimeHelper.ClientNowSeconds();
              }
-             else
+             else if (code == (int)AdStateEnum.NotSupport || code == (int)AdStateEnum.LoadFail)
              {
                  var errorData = GameProcessor.Inst.User.ADShowData?.GetADShowStatus(ADTypeEnum.ErrorCount);
                  errorData.CurrentShowCount++;
                  this.UpdateAdData();
                  GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "广告加载失败,请稍候再试", ToastType = ToastTypeEnum.Failure });
+             }
+             else
+             {
+                 //取消的,不处理
+                 Debug.Log("广告取消");
              }
          });
     }
@@ -261,7 +263,7 @@ public class Com_AD : MonoBehaviour, IBattleLife
     {
         if (!CheckCd())
         {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "广告CD间隔"+CD_Time+"S，请稍候", ToastType = ToastTypeEnum.Failure });
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "广告CD间隔" + CD_Time + "S，请稍候", ToastType = ToastTypeEnum.Failure });
             return;
         }
 
@@ -293,21 +295,25 @@ public class Com_AD : MonoBehaviour, IBattleLife
             return;
         }
 
-        GameProcessor.Inst.OnShowVideoAd("经验收益2小时", "exp_count_2_hour", (giveReward) =>
+        GameProcessor.Inst.OnShowVideoAd("经验收益2小时", "exp_count_2_hour", (code) =>
          {
-             if (giveReward)
+             if (code == (int)AdStateEnum.Reward)
              {
                  RewardExp(true);
                  data.CurrentShowCount += 2;
                  this.UpdateAdData();
                  GameProcessor.Inst.User.AdLastTime = TimeHelper.ClientNowSeconds();
              }
-             else
+             else if (code == (int)AdStateEnum.NotSupport || code == (int)AdStateEnum.LoadFail)
              {
                  var errorData = GameProcessor.Inst.User.ADShowData?.GetADShowStatus(ADTypeEnum.ErrorCount);
                  errorData.CurrentShowCount++;
                  this.UpdateAdData();
                  GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "广告加载失败,请稍候再试", ToastType = ToastTypeEnum.Failure });
+             }
+             else
+             {
+                 //取消的,不处理
              }
          });
     }
@@ -377,10 +383,10 @@ public class Com_AD : MonoBehaviour, IBattleLife
             return;
         }
 
-        GameProcessor.Inst.OnShowVideoAd("广告-副本挑战8次", "ticket_count_8", (giveReward) =>
+        GameProcessor.Inst.OnShowVideoAd("广告-副本挑战8次", "ticket_count_8", (code) =>
         {
             //Debug.Log("广告-副本挑战8次-完成");
-            if (giveReward)
+            if (code == (int)AdStateEnum.Reward)
             {
                 //发放奖励
                 RewardCopyTicket(true);
@@ -388,12 +394,16 @@ public class Com_AD : MonoBehaviour, IBattleLife
                 this.UpdateAdData();
                 GameProcessor.Inst.User.AdLastTime = TimeHelper.ClientNowSeconds();
             }
-            else
+            else if (code == (int)AdStateEnum.NotSupport || code == (int)AdStateEnum.LoadFail)
             {
                 var errorData = GameProcessor.Inst.User.ADShowData?.GetADShowStatus(ADTypeEnum.ErrorCount);
                 errorData.CurrentShowCount++;
                 this.UpdateAdData();
                 GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "广告加载失败,请稍候再试", ToastType = ToastTypeEnum.Failure });
+            }
+            else
+            {
+                //取消的,不处理
             }
         });
     }
@@ -457,20 +467,24 @@ public class Com_AD : MonoBehaviour, IBattleLife
             return;
         }
 
-        GameProcessor.Inst.OnShowVideoAd("精炼石", "stone_count_100", (giveReward) =>
+        GameProcessor.Inst.OnShowVideoAd("精炼石", "stone_count_100", (code) =>
          {
-             if (giveReward)
+             if (code == (int)AdStateEnum.Reward)
              {
                  RewardStone(true);
-                 data.CurrentShowCount++;
+                 data.CurrentShowCount += 2;
                  this.UpdateAdData();
              }
-             else
+             else if (code == (int)AdStateEnum.NotSupport || code == (int)AdStateEnum.LoadFail)
              {
                  var errorData = GameProcessor.Inst.User.ADShowData?.GetADShowStatus(ADTypeEnum.ErrorCount);
                  errorData.CurrentShowCount++;
                  this.UpdateAdData();
                  GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "广告加载失败,请稍候再试", ToastType = ToastTypeEnum.Failure });
+             }
+             else
+             {
+                 //取消的,不处理
              }
          });
     }
@@ -516,40 +530,40 @@ public class Com_AD : MonoBehaviour, IBattleLife
 
     public void OnClick_ExpAdd()
     {
-        GameProcessor.Inst.OnShowVideoAd("经验加成", "exp_add_percent", (giveReward) =>
+        GameProcessor.Inst.OnShowVideoAd("经验加成", "exp_add_percent", (code) =>
          {
-             if (giveReward)
+             if (code > 0)
              {
-                //发放奖励
-            }
+                 //发放奖励
+             }
              else
              {
-                //不发奖励
-            }
+                 //不发奖励
+             }
          });
     }
     public void OnClick_GoldAdd()
     {
-        GameProcessor.Inst.OnShowVideoAd("金币加成", "gold_add_percent", (giveReward) =>
+        GameProcessor.Inst.OnShowVideoAd("金币加成", "gold_add_percent", (code) =>
          {
-             if (giveReward)
+             if (code > 0)
              {
-                //发放奖励
-            }
+                 //发放奖励
+             }
              else
              {
-                //不发奖励
-            }
+                 //不发奖励
+             }
          });
     }
 
     private IEnumerator ShowFakeAD(Action endCallback)
     {
         this.tran_FakeAD.gameObject.SetActive(true);
-        var duration = RandomHelper.RandomNumber(3, 5);
+        var duration = RandomHelper.RandomNumber(45, 60);
         for (int i = duration; i > 0; i--)
         {
-            this.txt_FakeAD.text = $"再看{i}秒广告就发奖励";
+            //this.txt_FakeAD.text = $"再看{i}秒广告就发奖励";
             yield return new WaitForSeconds(1f);
         }
         this.tran_FakeAD.gameObject.SetActive(false);

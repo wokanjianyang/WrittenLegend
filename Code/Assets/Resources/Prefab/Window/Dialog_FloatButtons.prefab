@@ -547,7 +547,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u518D\u770B5\u79D2\u5E7F\u544A\u5C31\u53D1\u5956\u52B1\u518D\u770B5\u79D2\u5E7F\u544A\u5C31\u53D1\u5956\u52B1\u518D\u770B5\u79D2\u5E7F\u544A\u5C31\u53D1\u5956\u52B1\u518D\u770B5\u79D2\u5E7F\u544A\u5C31\u53D1\u5956\u52B1\u518D\u770B5\u79D2\u5E7F\u544A\u5C31\u53D1\u5956\u52B1\u518D\u770B5\u79D2\u5E7F\u544A\u5C31\u53D1\u5956\u52B1\u518D\u770B5\u79D2\u5E7F\u544A\u5C31\u53D1\u5956\u52B1\u518D\u770B5\u79D2\u5E7F\u544A\u5C31\u53D1\u5956\u52B1\u518D\u770B5\u79D2\u5E7F\u544A\u5C31\u53D1\u5956\u52B1\u518D\u770B5\u79D2\u5E7F\u544A\u5C31\u53D1\u5956\u52B1\u518D\u770B5\u79D2\u5E7F\u544A\u5C31\u53D1\u5956\u52B1\u518D\u770B5\u79D2\u5E7F\u544A\u5C31\u53D1\u5956\u52B1\u518D\u770B5\u79D2\u5E7F\u544A\u5C31\u53D1\u5956\u52B1\u518D\u770B5\u79D2\u5E7F\u544A\u5C31\u53D1\u5956\u52B1\u518D\u770B5\u79D2\u5E7F\u544A\u5C31\u53D1\u5956\u52B1"
+  m_Text: 
 --- !u!1 &583037553022390018
 GameObject:
   m_ObjectHideFlags: 0
@@ -2590,6 +2590,7 @@ MonoBehaviour:
   txt_Reward_Gold_Time: {fileID: 8881583544156290213}
   txt_Time: {fileID: 2295459977029635459}
   txt_Error_Count: {fileID: 8836221804000385245}
+  txt_Rule: {fileID: 8903010697955774575}
   tran_FakeAD: {fileID: 5868674709501578799}
   txt_FakeAD: {fileID: 8792228055524180709}
 --- !u!1 &5557104813095485935
@@ -2940,7 +2941,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 540, y: -350}
-  m_SizeDelta: {x: 800, y: 260}
+  m_SizeDelta: {x: 800, y: 460}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8893996180886105998
 CanvasRenderer:
@@ -2972,7 +2973,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 24
+    m_FontSize: 28
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0
@@ -2980,7 +2981,7 @@ MonoBehaviour:
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
+    m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\u5E7F\u544A\u89C4\u5219\uFF1A\u770B\u4E00\u6B21\u771F\u5B9E\u5E7F\u544A\uFF0C\u83B7\u53D62\u6B21\u5E7F\u544A\u5956\u52B1\n\u6BCF\u65E5\u62C9\u53D6\u5E7F\u544A\u5931\u8D25\u6B21\u6570\u8FBE\u52306\u6B21\uFF0C\u5F00\u59CB\u64AD\u653E\u5047\u5E7F\u544A\n\u771F\u5B9E\u5E7F\u544A\u540E\u7EED\u4F1A\u5F00\u53D1\u65B0\u5956\u52B1"

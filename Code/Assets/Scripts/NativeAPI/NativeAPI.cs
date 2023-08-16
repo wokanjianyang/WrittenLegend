@@ -23,7 +23,7 @@ namespace Game
                 //param参数格式: "xxx(0, 0, \"string1\", \"string2\", \"string3\");"
                 Log.Debug("get message from android:" + param);
 
-                GameProcessor.Inst.adTest += "\n param :" + param;
+                //GameProcessor.Inst.adTest += "\n param :" + param;
 
                 param = Regex.Replace(param, @"\s", "");//去除所有空格
                 List<string> tmp = new List<string>(param.Split(new char[] { '(' }));
