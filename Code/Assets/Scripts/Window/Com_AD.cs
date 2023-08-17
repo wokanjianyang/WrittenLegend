@@ -563,7 +563,7 @@ public class Com_AD : MonoBehaviour, IBattleLife
         var duration = RandomHelper.RandomNumber(45, 60);
         for (int i = duration; i > 0; i--)
         {
-            //this.txt_FakeAD.text = $"再看{i}秒广告就发奖励";
+            this.txt_FakeAD.text = $"再看{i}秒广告就发奖励";
             yield return new WaitForSeconds(1f);
         }
         this.tran_FakeAD.gameObject.SetActive(false);
