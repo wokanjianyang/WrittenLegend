@@ -130,10 +130,16 @@ namespace Game
                 {
                     this.CreateEquipPanelItem(kvEp.Key, kvp.Key, kvp.Value);
                     yield return null;
-
                 }
             }
 
+            //穿戴四格
+            foreach (var kvp in user.EquipPanelSpecial)
+            {
+                this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
+                yield return null;
+            }
+                
             var emptyPrefab = Resources.Load<GameObject>("Prefab/Window/Box_Empty");
             yield return null;
             for (var i = 0; i < ConfigHelper.MaxBagCount; i++)
@@ -583,7 +589,10 @@ namespace Game
         {
             e.Item.IsLock = e.IsLock;
             Com_Box boxUI = this.items.Find(m => m.boxId == e.BoxId);
-            boxUI.SetLock(e.IsLock);
+            if (boxUI != null)
+            {
+                boxUI.SetLock(e.IsLock);
+            }
         }
 
         private void UseBoxItem(int boxId, int quantity)
@@ -662,6 +671,17 @@ namespace Game
             User user = GameProcessor.Inst.User;
 
             int Part = equip.Part;
+
+            IDictionary<int, Equip> ep = null; ;
+            if (equip.Part > 10)
+            {
+                ep = user.EquipPanelSpecial;
+            }
+            else
+            {
+                ep = user.EquipPanelList[user.EquipPanelIndex]; ;
+            }
+
             //增加一次穿戴记录，用做轮流穿戴左右
             if (!user.EquipRecord.ContainsKey(Part))
             {
@@ -675,7 +695,7 @@ namespace Game
             UseBoxItem(BoxId, 1);
 
             //如果存在旧装备，增加到包裹
-            if (user.EquipPanelList[user.EquipPanelIndex].ContainsKey(Position))
+            if (ep.ContainsKey(Position))
             {
                 //装备栏卸载
                 var slot = this.transform.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == Position).First();
@@ -683,11 +703,12 @@ namespace Game
                 slot.UnEquip();
                 GameObject.Destroy(comItem.gameObject);
 
-                AddBoxItem(user.EquipPanelList[user.EquipPanelIndex][Position]);
+                AddBoxItem(ep[Position]);
             }
 
             //穿戴到格子上
             this.CreateEquipPanelItem(user.EquipPanelIndex, Position, equip);
+
             //通知英雄更新属性
             user.EventCenter.Raise(new HeroUseEquipEvent
             {
@@ -698,6 +719,7 @@ namespace Game
 
         private void CreateEquipPanelItem(int pi, int position, Equip equip)
         {
+
             SlotBox slot = null;
 
             if (position <= 10)
@@ -736,8 +758,7 @@ namespace Game
 
             if (position <= 10)
             {
-                var EquipInfo = EquipInfoList[user.EquipPanelIndex];
-                slot = EquipInfo.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+                slot = EquipInfoList[user.EquipPanelIndex].GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
             else
             {

@@ -34,7 +34,7 @@ namespace Game
                 int role = equip.EquipConfig.Role;
 
                 if ((EquipQuanlity.GetValueOrDefault(item.GetQuality(), false) || item.Level < EquipLevel || EquipRole.GetValueOrDefault(role, false))
-                    && equip.Part <= 10  && !item.IsLock)
+                    && equip.Part <= 10 && !item.IsLock && equip.Quality < 5)
                 {
                     return true;
                 }

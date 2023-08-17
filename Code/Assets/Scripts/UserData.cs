@@ -3,6 +3,7 @@ using UnityEngine;
 using Newtonsoft.Json;
 using System;
 using SA.Android.Utilities;
+using System.Linq;
 
 namespace Game
 {
@@ -66,11 +67,28 @@ namespace Game
                 {
                     foreach (var kvp in user.EquipPanel)
                     {
-                        user.EquipPanelList[0][kvp.Key] = kvp.Value;
+                        if (kvp.Key <= 10)
+                        {
+                            user.EquipPanelList[0][kvp.Key] = kvp.Value;
+                        }
+                        else
+                        {
+                            user.EquipPanelSpecial[kvp.Key] = kvp.Value;
+                        }
                     }
                     user.EquipPanel.Clear();
                 }
             }
+            //删除装备栏的四格
+            foreach (var kvp in user.EquipPanelList)
+            {
+                var ep = kvp.Value;
+                ep.Remove(11);
+                ep.Remove(12);
+                ep.Remove(13);
+                ep.Remove(14);
+            }
+
 
             //TEST data
             //user.Gold = 999999999999; 

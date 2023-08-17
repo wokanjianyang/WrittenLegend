@@ -36,6 +36,9 @@ namespace Game
         public IDictionary<int, Equip> EquipPanel { get; set; } = new Dictionary<int, Equip>();
 
         public IDictionary<int, IDictionary<int, Equip>> EquipPanelList { get; set; } = new Dictionary<int, IDictionary<int, Equip>>();
+
+        public IDictionary<int, Equip> EquipPanelSpecial { get; set; } = new Dictionary<int, Equip>();
+
         public int EquipPanelIndex { get; set; } = 0;
 
         public IDictionary<int, long> EquipStrength { get; set; } = new Dictionary<int, long>();
@@ -141,7 +144,17 @@ namespace Game
             int PanelPosition = e.Position;
             Equip equip = e.Equip;
 
-            user.EquipPanelList[user.EquipPanelIndex][PanelPosition] = equip;
+            IDictionary<int, Equip> ep = null; ;
+            if (equip.Part > 10)
+            {
+                ep = user.EquipPanelSpecial;
+            }
+            else
+            {
+                ep = user.EquipPanelList[user.EquipPanelIndex]; ;
+            }
+
+            ep[PanelPosition] = equip;
 
             //更新属性面板
             GameProcessor.Inst.UpdateInfo();
@@ -152,7 +165,19 @@ namespace Game
 
         private void HeroUnUseEquip(HeroUnUseEquipEvent e)
         {
-            EquipPanelList[EquipPanelIndex].Remove(e.Position);
+            User user = GameProcessor.Inst.User;
+
+            IDictionary<int, Equip> ep = null; ;
+            if (e.Position > 10)
+            {
+                ep = user.EquipPanelSpecial;
+            }
+            else
+            {
+                ep = user.EquipPanelList[user.EquipPanelIndex]; ;
+            }
+
+            ep.Remove(e.Position);
 
             //更新属性面板
             GameProcessor.Inst.UpdateInfo();
@@ -273,6 +298,14 @@ namespace Game
                 }
 
                 foreach (var a in kvp.Value.GetTotalAttrList(refineConfig))
+                {
+                    AttributeBonus.SetAttr((AttributeEnum)a.Key, AttributeFrom.EquipBase, kvp.Key, a.Value);
+                }
+            }
+
+            foreach (var kvp in EquipPanelSpecial)
+            {
+                foreach (var a in kvp.Value.GetTotalAttrList(null))
                 {
                     AttributeBonus.SetAttr((AttributeEnum)a.Key, AttributeFrom.EquipBase, kvp.Key, a.Value);
                 }
