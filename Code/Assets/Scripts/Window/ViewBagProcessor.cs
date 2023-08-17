@@ -26,6 +26,17 @@ namespace Game
         //[LabelText("整理")]
         //public Toggle toggle_Forging;
 
+        public int EquipIndex = 0;
+        public RectTransform EquipInfo1;
+        public RectTransform EquipInfo2;
+        public RectTransform EquipInfo3;
+        public RectTransform EquipInfoSpecial;
+        public List<RectTransform> EquipInfoList = new List<RectTransform>();
+
+        public Button Btn_Equip1;
+        public Button Btn_Equip2;
+        public Button Btn_Equip3;
+
         [LabelText("整理")]
         public Button btn_Reset;
 
@@ -52,6 +63,10 @@ namespace Game
             this.btn_PlayerTitle.onClick.AddListener(this.OnClick_PlayerTitle);
             this.btn_Setting.onClick.AddListener(this.OnClick_Setting);
             this.btn_Reset.onClick.AddListener(OnRefreshBag);
+
+            this.Btn_Equip1.onClick.AddListener(ChangeEquipPanel1);
+            this.Btn_Equip2.onClick.AddListener(ChangeEquipPanel2);
+            this.Btn_Equip3.onClick.AddListener(ChangeEquipPanel3);
         }
 
         // Update is called once per frame
@@ -90,11 +105,24 @@ namespace Game
             var prefab = Resources.Load<GameObject>("Prefab/Window/Box_Info");
             yield return null;
 
-            foreach (var slotBox in this.transform.GetComponentsInChildren<SlotBox>())
+            EquipInfoList.Add(EquipInfo1);
+            EquipInfoList.Add(EquipInfo2);
+            EquipInfoList.Add(EquipInfo3);
+
+            for (int i = 0; i < EquipInfoList.Count; i++)
+            {
+                var EquipInfo = EquipInfoList[i];
+                foreach (var slotBox in EquipInfo.GetComponentsInChildren<SlotBox>())
+                {
+                    slotBox.Init(prefab);
+                    yield return null;
+                }
+            }
+
+            foreach (var slotBox in EquipInfoSpecial.GetComponentsInChildren<SlotBox>())
             {
                 slotBox.Init(prefab);
                 yield return null;
-
             }
 
             if (user.EquipPanel != null)
@@ -298,7 +326,30 @@ namespace Game
                 }
             }
         }
-        
+
+
+        private void ChangeEquipPanel1()
+        {
+            this.EquipIndex = 0;
+            this.EquipInfo1.gameObject.SetActive(true);
+            this.EquipInfo2.gameObject.SetActive(false);
+            this.EquipInfo3.gameObject.SetActive(false);
+        }
+        private void ChangeEquipPanel2()
+        {
+            this.EquipIndex = 1;
+            this.EquipInfo1.gameObject.SetActive(false);
+            this.EquipInfo2.gameObject.SetActive(true);
+            this.EquipInfo3.gameObject.SetActive(false);
+        }
+        private void ChangeEquipPanel3()
+        {
+            this.EquipIndex = 2;
+            this.EquipInfo1.gameObject.SetActive(false);
+            this.EquipInfo2.gameObject.SetActive(false);
+            this.EquipInfo3.gameObject.SetActive(true);
+        }
+
         private void OnEquipOneEvent(EquipOneEvent e)
         {
             var equip = e.Item as Equip;
@@ -635,11 +686,21 @@ namespace Game
             });
         }
 
-        private void CreateEquipPanelItem(int Position, Equip equip)
+        private void CreateEquipPanelItem(int position, Equip equip)
         {
             User user = GameProcessor.Inst.User;
 
-            var slot = this.transform.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == Position).First();
+            SlotBox slot = null;
+
+            if (position <= 10)
+            {
+                var EquipInfo = EquipInfoList[EquipIndex];
+                slot = EquipInfo.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+            }
+            else
+            {
+                slot = EquipInfoSpecial.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+            }
 
             //生成格子
             BoxItem boxItem = new BoxItem();
@@ -652,7 +713,7 @@ namespace Game
             comItem.transform.localPosition = Vector3.zero;
             comItem.transform.localScale = Vector3.one;
             comItem.SetBoxId(-1);
-            comItem.SetEquipPosition(Position);
+            comItem.SetEquipPosition(position);
 
             //穿戴
             slot.Equip(comItem);
@@ -661,7 +722,18 @@ namespace Game
         private void RmoveEquipment(int position, Equip equip)
         {
             //装备栏卸载
-            var slot = this.transform.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+            SlotBox slot = null;
+
+            if (position <= 10)
+            {
+                var EquipInfo = EquipInfoList[EquipIndex];
+                slot = EquipInfo.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+            }
+            else
+            {
+                slot = EquipInfoSpecial.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+            }
+
             Com_Box comItem = slot.GetEquip();
             slot.UnEquip();
             GameObject.Destroy(comItem.gameObject);
