@@ -26,23 +26,23 @@ public class BattleRule_Tower : ABattleRule
 
         QualityList = new List<int>();
 
-        //for (int i = 0; i < 100; i++)
-        //{
-        //    QualityList.Add(1);
-        //}
-        //for (int i = 0; i < 20; i++)
-        //{
-        //    QualityList.Add(2);
-        //}
-        //for (int i = 0; i < 10; i++)
-        //{
-        //    QualityList.Add(3);
-        //}
-        //for (int i = 0; i < 5; i++)
-        //{
-        //    QualityList.Add(4);
-        //}
         for (int i = 0; i < 100; i++)
+        {
+            QualityList.Add(1);
+        }
+        for (int i = 0; i < 20; i++)
+        {
+            QualityList.Add(2);
+        }
+        for (int i = 0; i < 10; i++)
+        {
+            QualityList.Add(3);
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            QualityList.Add(4);
+        }
+        for (int i = 0; i < 1; i++)
         {
             QualityList.Add(5);
         }
