@@ -40,7 +40,7 @@ namespace Game
 
         private bool isLoadMap = false;
         private long saveTime = 0;
-        private string OfflineMessage = "";
+        public string OfflineMessage = "";
 
         public string adTest = "";
 
@@ -222,7 +222,7 @@ namespace Game
             }
 
             List<Item> items = new List<Item>();
-            for (int i = 0; i < offlineFloor; i++)
+            for (int i = 0; i < offlineFloor; i++) 
             {
                 long fl = User.TowerFloor + i;
 
@@ -315,15 +315,6 @@ namespace Game
             if (isLoadMap)
             {
                 this.BattleRule?.OnUpdate();
-            }
-
-            if (OfflineMessage != "")
-            {
-                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
-                {
-                    Message = OfflineMessage
-                });
-                OfflineMessage = "";
             }
 
             //计算泡点经验

@@ -79,6 +79,9 @@ namespace Game
 
         private IEnumerator LoadBox()
         {
+            //先回收,再加载
+            this.FirstRecovery();
+
             User user = GameProcessor.Inst.User;
             user.EventCenter.AddListener<HeroBagUpdateEvent>(this.OnHeroBagUpdateEvent);
 
@@ -116,9 +119,6 @@ namespace Game
 
             RefreshBag();
             yield return null;
-
-            //先加载,再回收
-            this.AutoRecovery();
         }
 
         private void OnRefreshBag()
@@ -359,10 +359,6 @@ namespace Game
 
         private void OnAutoRecoveryEvent(AutoRecoveryEvent e)
         {
-            AutoRecovery();
-        }
-
-        private void AutoRecovery() {
             User user = GameProcessor.Inst.User;
 
             List<BoxItem> recoveryList = user.Bags.Where(m => !m.Item.IsLock && user.RecoverySetting.CheckRecovery(m.Item)).ToList();
@@ -394,6 +390,58 @@ namespace Game
             {
                 Item item = ItemHelper.BuildRefineStone(refineStone);
                 AddBoxItem(item);
+            }
+
+            if (recoveryList.Count > 0)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+                {
+                    Message = BattleMsgHelper.BuildAutoRecoveryMessage(recoveryList.Count, refineStone, gold)
+                });
+            }
+        }
+
+        private void FirstRecovery()
+        {
+            User user = GameProcessor.Inst.User;
+
+            List<BoxItem> recoveryList = user.Bags.Where(m => !m.Item.IsLock && user.RecoverySetting.CheckRecovery(m.Item)).ToList();
+
+            int refineStone = 0;
+            long gold = 0;
+
+            foreach (BoxItem box in recoveryList)
+            {
+                gold += box.Item.Gold * box.Number;
+
+                if (box.Item.Type == ItemType.Equip)
+                {
+                    Equip equip = box.Item as Equip;
+                    refineStone += equip.Level / 10 * equip.GetQuality();
+                }
+            }
+
+            if (gold > 0)
+            {
+                user.AddExpAndGold(0, gold);
+            }
+
+            user.Bags.RemoveAll(m => !m.Item.IsLock && user.RecoverySetting.CheckRecovery(m.Item)); //移除
+
+            if (refineStone > 0)
+            {
+                Item item = ItemHelper.BuildRefineStone(refineStone);
+                AddBoxItem(item);
+            }
+
+
+            if (GameProcessor.Inst.OfflineMessage != "")
+            {
+                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+                {
+                    Message = GameProcessor.Inst.OfflineMessage
+                });
+                GameProcessor.Inst.OfflineMessage = "";
             }
 
             if (recoveryList.Count > 0)
