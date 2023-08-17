@@ -54,6 +54,24 @@ namespace Game
                 user.Gold = 0;
                 user.CopyTikerCount = ConfigHelper.CopyTicketFirstCount;
             }
+
+            //装备方案更新
+            if (user.EquipPanelList.Count == 0)
+            {
+                user.EquipPanelList[0] = new Dictionary<int, Equip>();
+                user.EquipPanelList[1] = new Dictionary<int, Equip>();
+                user.EquipPanelList[2] = new Dictionary<int, Equip>();
+
+                if (user.EquipPanel.Count > 0)
+                {
+                    foreach (var kvp in user.EquipPanel)
+                    {
+                        user.EquipPanelList[0][kvp.Key] = kvp.Value;
+                    }
+                    user.EquipPanel.Clear();
+                }
+            }
+
             //TEST data
             //user.Gold = 999999999999; 
             //user.Level = 1;

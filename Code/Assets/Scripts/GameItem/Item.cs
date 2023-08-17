@@ -82,5 +82,6 @@ namespace Game
         Buff = 6,
         GoldPack = 7,
         ExpPack = 8,
+        Ticket = 9,
     }
 }

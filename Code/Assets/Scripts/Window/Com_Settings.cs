@@ -77,7 +77,7 @@ namespace Game
                 if (user.GiftList.ContainsKey(code))
                 {
                     Debug.Log("您已经使用了兑换码");
-                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "您已经使用了兑换码",ToastType = ToastTypeEnum.Failure});
+                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "您已经使用了兑换码", ToastType = ToastTypeEnum.Failure });
                     return;
                 }
 
@@ -88,13 +88,11 @@ namespace Game
                 if (configs.Count != 1)
                 {
                     Debug.Log("没有这个兑换码");
-                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有这个兑换码",ToastType = ToastTypeEnum.Failure });
+                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有这个兑换码", ToastType = ToastTypeEnum.Failure });
                     return;
                 }
-                
-                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "兑换成功",ToastType = ToastTypeEnum.Success });
 
-                user.GiftList[code] = true;
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "兑换成功", ToastType = ToastTypeEnum.Success });
 
                 CodeConfig config = configs[0];
 
@@ -102,11 +100,19 @@ namespace Game
 
                 for (int i = 0; i < config.ItemTypeList.Count(); i++)
                 {
-                    Item item = ItemHelper.BuildItem((ItemType)config.ItemTypeList[i], config.ItemIdList[i], 0, 1);
+                    int quantity = 1;
+                    if (config.ItemQuanlityList != null && config.ItemQuanlityList.Count() > i)
+                    {
+                        quantity = config.ItemQuanlityList[i];
+                    }
+
+                    Item item = ItemHelper.BuildItem((ItemType)config.ItemTypeList[i], config.ItemIdList[i], 0, quantity);
                     items.Add(item);
                 }
 
                 user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+
+                user.GiftList[code] = true;
             }
         }
 

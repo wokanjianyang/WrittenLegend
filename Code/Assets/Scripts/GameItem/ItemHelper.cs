@@ -12,7 +12,7 @@ namespace Game
             return EquipHelper.BuildEquip(configId, staticQuality, qualityRate);
         }
 
-        public static Item BuildItem(ItemType type, int configId,int qualityRate, int number)
+        public static Item BuildItem(ItemType type, int configId, int qualityRate, int number)
         {
             Item item = null;
 
@@ -32,7 +32,7 @@ namespace Game
             {
                 item = BuildMaterial(configId, number);
             }
-            else if (type == ItemType.GoldPack || type == ItemType.ExpPack)
+            else if (type == ItemType.GoldPack || type == ItemType.ExpPack || type == ItemType.Ticket)
             {
                 item = new Item(configId);
                 item.Type = type;

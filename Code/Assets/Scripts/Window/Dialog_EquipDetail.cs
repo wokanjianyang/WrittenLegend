@@ -293,6 +293,7 @@ namespace Game
                 case ItemType.GiftPack:
                 case ItemType.ExpPack:
                 case ItemType.GoldPack:
+                case ItemType.Ticket:
                     {
                         //var giftPack = this.item as GiftPack;
 
@@ -303,7 +304,7 @@ namespace Game
                         this.btn_Learn.gameObject.SetActive(false);
 
                         this.btn_Upgrade.gameObject.SetActive(true);
-                        this.btn_UseAll.gameObject.SetActive(!true);
+                        this.btn_UseAll.gameObject.SetActive(true);
                     }
                     break;
                 case ItemType.Material:

@@ -26,7 +26,6 @@ namespace Game
         //[LabelText("整理")]
         //public Toggle toggle_Forging;
 
-        public int EquipIndex = 0;
         public RectTransform EquipInfo1;
         public RectTransform EquipInfo2;
         public RectTransform EquipInfo3;
@@ -125,15 +124,16 @@ namespace Game
                 yield return null;
             }
 
-            if (user.EquipPanel != null)
+            foreach (var kvEp in user.EquipPanelList)
             {
-                foreach (var kvp in user.EquipPanel)
+                foreach (var kvp in kvEp.Value)
                 {
-                    this.CreateEquipPanelItem(kvp.Key, kvp.Value);
+                    this.CreateEquipPanelItem(kvEp.Key, kvp.Key, kvp.Value);
                     yield return null;
 
                 }
             }
+
             var emptyPrefab = Resources.Load<GameObject>("Prefab/Window/Box_Empty");
             yield return null;
             for (var i = 0; i < ConfigHelper.MaxBagCount; i++)
@@ -330,24 +330,30 @@ namespace Game
 
         private void ChangeEquipPanel1()
         {
-            this.EquipIndex = 0;
+            GameProcessor.Inst.User.EquipPanelIndex = 0;
             this.EquipInfo1.gameObject.SetActive(true);
             this.EquipInfo2.gameObject.SetActive(false);
             this.EquipInfo3.gameObject.SetActive(false);
+
+            GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
         }
         private void ChangeEquipPanel2()
         {
-            this.EquipIndex = 1;
+            GameProcessor.Inst.User.EquipPanelIndex = 1;
             this.EquipInfo1.gameObject.SetActive(false);
             this.EquipInfo2.gameObject.SetActive(true);
             this.EquipInfo3.gameObject.SetActive(false);
+
+            GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
         }
         private void ChangeEquipPanel3()
         {
-            this.EquipIndex = 2;
+            GameProcessor.Inst.User.EquipPanelIndex = 2;
             this.EquipInfo1.gameObject.SetActive(false);
             this.EquipInfo2.gameObject.SetActive(false);
             this.EquipInfo3.gameObject.SetActive(true);
+
+            GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
         }
 
         private void OnEquipOneEvent(EquipOneEvent e)
@@ -509,7 +515,7 @@ namespace Game
             User user = GameProcessor.Inst.User;
 
             BoxItem boxItem = user.Bags.Find(m => m.BoxId == e.BoxId);
-            int quantity = e.Quantity == 1 ? 1 : boxItem.Number;
+            int quantity = e.Quantity == -1 ? boxItem.Number : e.Quantity;
 
             UseBoxItem(e.BoxId, quantity);
 
@@ -566,6 +572,10 @@ namespace Game
                 {
                     user.AddExpAndGold(0, gold);
                 }
+            }
+            else if (boxItem.Item.Type == ItemType.Ticket)
+            {
+                user.CopyTikerCount += quantity;
             }
         }
         
@@ -647,7 +657,7 @@ namespace Game
             }
         }
 
-        private void WearEquipment(Equip equip,int BoxId)
+        private void WearEquipment(Equip equip, int BoxId)
         {
             User user = GameProcessor.Inst.User;
 
@@ -662,10 +672,10 @@ namespace Game
             int Position = equip.Position[PartIndex];
 
             //从包袱移除
-            UseBoxItem(BoxId,1);
+            UseBoxItem(BoxId, 1);
 
             //如果存在旧装备，增加到包裹
-            if (user.EquipPanel.ContainsKey(Position))
+            if (user.EquipPanelList[user.EquipPanelIndex].ContainsKey(Position))
             {
                 //装备栏卸载
                 var slot = this.transform.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == Position).First();
@@ -673,11 +683,11 @@ namespace Game
                 slot.UnEquip();
                 GameObject.Destroy(comItem.gameObject);
 
-                AddBoxItem(user.EquipPanel[Position]);
+                AddBoxItem(user.EquipPanelList[user.EquipPanelIndex][Position]);
             }
 
             //穿戴到格子上
-            this.CreateEquipPanelItem(Position, equip);
+            this.CreateEquipPanelItem(user.EquipPanelIndex, Position, equip);
             //通知英雄更新属性
             user.EventCenter.Raise(new HeroUseEquipEvent
             {
@@ -686,15 +696,13 @@ namespace Game
             });
         }
 
-        private void CreateEquipPanelItem(int position, Equip equip)
+        private void CreateEquipPanelItem(int pi, int position, Equip equip)
         {
-            User user = GameProcessor.Inst.User;
-
             SlotBox slot = null;
 
             if (position <= 10)
             {
-                var EquipInfo = EquipInfoList[EquipIndex];
+                var EquipInfo = EquipInfoList[pi];
                 slot = EquipInfo.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
             else
@@ -721,12 +729,14 @@ namespace Game
 
         private void RmoveEquipment(int position, Equip equip)
         {
+            User user = GameProcessor.Inst.User;
+
             //装备栏卸载
             SlotBox slot = null;
 
             if (position <= 10)
             {
-                var EquipInfo = EquipInfoList[EquipIndex];
+                var EquipInfo = EquipInfoList[user.EquipPanelIndex];
                 slot = EquipInfo.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
             else
@@ -742,7 +752,6 @@ namespace Game
             AddBoxItem(equip);
 
             //通知英雄更新属性
-            User user = GameProcessor.Inst.User;
             user.EventCenter.Raise(new HeroUnUseEquipEvent()
             {
                 Position = position,

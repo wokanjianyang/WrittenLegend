@@ -35,6 +35,9 @@ namespace Game
 
         public IDictionary<int, Equip> EquipPanel { get; set; } = new Dictionary<int, Equip>();
 
+        public IDictionary<int, IDictionary<int, Equip>> EquipPanelList { get; set; } = new Dictionary<int, IDictionary<int, Equip>>();
+        public int EquipPanelIndex { get; set; } = 0;
+
         public IDictionary<int, long> EquipStrength { get; set; } = new Dictionary<int, long>();
 
         public IDictionary<int, int> EquipRefine { get; set; } = new Dictionary<int, int>();
@@ -133,10 +136,12 @@ namespace Game
 
         private void HeroUseEquip(HeroUseEquipEvent e)
         {
+            User user = GameProcessor.Inst.User;
+
             int PanelPosition = e.Position;
             Equip equip = e.Equip;
 
-            EquipPanel[PanelPosition] = equip;
+            user.EquipPanelList[user.EquipPanelIndex][PanelPosition] = equip;
 
             //更新属性面板
             GameProcessor.Inst.UpdateInfo();
@@ -147,7 +152,7 @@ namespace Game
 
         private void HeroUnUseEquip(HeroUnUseEquipEvent e)
         {
-            EquipPanel.Remove(e.Position);
+            EquipPanelList[EquipPanelIndex].Remove(e.Position);
 
             //更新属性面板
             GameProcessor.Inst.UpdateInfo();
@@ -195,7 +200,7 @@ namespace Game
             List<SkillRune> list = new List<SkillRune>();
 
             //计算装备的词条加成
-            List<Equip> skillList = this.EquipPanel.Where(m => m.Value.SkillRuneConfig != null && m.Value.SkillRuneConfig.SkillId == skillId).Select(m => m.Value).ToList();
+            List<Equip> skillList = this.EquipPanelList[EquipPanelIndex].Where(m => m.Value.SkillRuneConfig != null && m.Value.SkillRuneConfig.SkillId == skillId).Select(m => m.Value).ToList();
 
             //按单件分组,词条有堆叠上限
             var runeGroup = skillList.GroupBy(m => m.RuneConfigId);
@@ -213,7 +218,7 @@ namespace Game
             List<SkillSuit> list = new List<SkillSuit>();
 
             //计算装备的套装加成
-            List<Equip> skillList = this.EquipPanel.Where(m => m.Value.SkillSuitConfig != null && m.Value.SkillSuitConfig.SkillId == skillId).Select(m => m.Value).ToList();
+            List<Equip> skillList = this.EquipPanelList[EquipPanelIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SkillSuitConfig.SkillId == skillId).Select(m => m.Value).ToList();
             var suitGroup = skillList.GroupBy(m => m.SuitConfigId);
 
             foreach (var suitItem in suitGroup)
@@ -230,7 +235,7 @@ namespace Game
 
         public int GetSuitCount(int suitId)
         {
-            int count = this.EquipPanel.Where(m => m.Value.SkillSuitConfig != null && m.Value.SuitConfigId == suitId).Count();
+            int count = this.EquipPanelList[EquipPanelIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SuitConfigId == suitId).Count();
             return Math.Min(count, SkillSuitHelper.SuitMax);
         }
 
@@ -259,7 +264,7 @@ namespace Game
             //AttributeBonus.SetAttr(AttributeEnum.DamageResist, AttributeFrom.Test, 1000);
 
             //装备属性
-            foreach (var kvp in EquipPanel)
+            foreach (var kvp in EquipPanelList[EquipPanelIndex])
             {
                 EquipRefineConfig refineConfig = null;
                 if (EquipRefine.TryGetValue(kvp.Key, out int refineLevel))
@@ -316,6 +321,11 @@ namespace Game
 
         public void AddExpAndGold(long exp, long gold)
         {
+            if (Level >= ConfigHelper.Max_Level)
+            {
+                return;
+            }
+
             this.Exp += exp;
             this.Gold += gold;
             EventCenter.Raise(new UserInfoUpdateEvent()); //更新UI

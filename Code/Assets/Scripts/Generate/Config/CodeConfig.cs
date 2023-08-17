@@ -87,6 +87,9 @@ namespace Game
 		/// <summary>物品ID</summary>
 		[ProtoMember(4)]
 		public int[] ItemIdList { get; set; }
+		/// <summary>数量</summary>
+		[ProtoMember(5)]
+		public int[] ItemQuanlityList { get; set; }
 
 	}
 }
