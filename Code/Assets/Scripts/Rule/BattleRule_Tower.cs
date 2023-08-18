@@ -10,6 +10,7 @@ public class BattleRule_Tower : ABattleRule
     private bool Start = false;
 
     private int MapId = 0;
+    private int MapRate = 1;
     private long MapTime = 0;
 
     private List<int> QualityList;
@@ -18,44 +19,49 @@ public class BattleRule_Tower : ABattleRule
     private const int MaxFreshQuanlity = 5; //最多刷新数量
     protected override RuleType ruleType => RuleType.Tower;
 
-    public BattleRule_Tower(int mapId,long mapTime)
+    public BattleRule_Tower(Dictionary<string, object> param)
     {
-        this.MapId = mapId;
-        this.MapTime = mapTime;
+        param.TryGetValue("MapId", out object mapId);
+        param.TryGetValue("MapTime", out object mapTime);
+        param.TryGetValue("MapRate", out object mapRate);
+
+        this.MapId = (int)mapId;
+        this.MapTime = (long)mapTime;
+        this.MapRate = (int)mapRate;
         this.Start = true;
 
         QualityList = new List<int>();
 
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 100 * MapRate; i++)
         {
             QualityList.Add(1);
         }
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 20 * MapRate; i++)
         {
             QualityList.Add(2);
         }
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 10 * MapRate; i++)
         {
             QualityList.Add(3);
         }
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 5 * MapRate; i++)
         {
             QualityList.Add(4);
         }
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 1 * MapRate; i++)
         {
             QualityList.Add(5);
         }
 
         User user = GameProcessor.Inst.User;
 
-        MapConfig mapConfig = MapConfigCategory.Instance.Get(mapId);
-        long refeshTime = TimeHelper.ClientNowSeconds() - user.MapBossTime[mapId];
+        MapConfig mapConfig = MapConfigCategory.Instance.Get(MapId);
+        long refeshTime = TimeHelper.ClientNowSeconds() - user.MapBossTime[MapId];
         long count = Math.Min(refeshTime / (mapConfig.BossInterval * 60), 5);
 
         //Debug.Log("挑战前:" + TimeHelper.SecondsToDate(user.MapBossTime[mapId]));
 
-        user.MapBossTime[mapId] = TimeHelper.ClientNowSeconds() - (count - 1) * mapConfig.BossInterval * 60;
+        user.MapBossTime[MapId] = TimeHelper.ClientNowSeconds() - (count - 1) * mapConfig.BossInterval * 60;
 
         //Debug.Log("挑战后:" + TimeHelper.SecondsToDate(user.MapBossTime[mapId]));
 

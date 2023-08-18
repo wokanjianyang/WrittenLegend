@@ -64,7 +64,11 @@ namespace Game
         private GameObject barragePrefab;
 
         private Coroutine ie_autoExitKey = null;
-        
+
+        //副本临时设置
+        public bool EquipCopySetting_Rate = false;
+        public bool EquipCopySetting_Auto = false;
+
         void Awake()
         {
             if (Inst != null)
@@ -333,7 +337,7 @@ namespace Game
             }
         }
 
-        public void LoadMap(RuleType ruleType, int mapId, Transform map,long MapTime)
+        public void LoadMap(RuleType ruleType, Transform map, Dictionary<string, object> param)
         {
             MapData = map.GetComponentInChildren<MapData>();
             switch (ruleType)
@@ -345,10 +349,10 @@ namespace Game
                     this.BattleRule = new BattleRule_Survivors();
                     break;
                 case RuleType.Tower:
-                    this.BattleRule = new BattleRule_Tower(mapId,MapTime);
+                    this.BattleRule = new BattleRule_Tower(param);
                     break;
                 case RuleType.Phantom:
-                    this.BattleRule = new BattleRule_Phantom(mapId,MapTime);
+                    this.BattleRule = new BattleRule_Phantom(param);
                     break;
             }
             this.PlayerRoot = MapData.transform.parent.Find("[PlayerRoot]").transform;
@@ -358,7 +362,7 @@ namespace Game
             this.PlayerManager.LoadHero();
 
             isLoadMap = true;
-            
+
             this.StartGame();
         }
 

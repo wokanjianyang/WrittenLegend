@@ -166,6 +166,7 @@ namespace Game
 
     public class StartCopyEvent : SDD.Events.Event
     {
+        public int Rate { get; set; }
         public int MapId { get; set; }
     }
     public class EndCopyEvent : SDD.Events.Event

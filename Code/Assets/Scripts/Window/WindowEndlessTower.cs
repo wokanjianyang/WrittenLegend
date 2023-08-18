@@ -68,12 +68,17 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
     {
         this.CopyMapId = e.MapId;
         this.gameObject.SetActive(true);
+        this.MapTime = TimeHelper.ClientNowSeconds();
+
+        Dictionary<string, object> param = new Dictionary<string, object>();
+        param.Add("MapId", CopyMapId);
+        param.Add("MapTime", MapTime);
+        param.Add("MapRate", e.Rate);
 
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {
             GameProcessor.Inst.OnDestroy();
-            this.MapTime = TimeHelper.ClientNowSeconds();
-            GameProcessor.Inst.LoadMap(RuleType.Tower, CopyMapId, this.transform, MapTime);
+            GameProcessor.Inst.LoadMap(RuleType.Tower, this.transform, param);
         });
 
         ShowMapInfo();
@@ -150,7 +155,7 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {
             var map = GameObject.Find("Canvas").GetComponentInChildren<ViewBattleProcessor>(true).transform;
-            GameProcessor.Inst.LoadMap(RuleType.Normal, 0, map, 0);
+            GameProcessor.Inst.LoadMap(RuleType.Normal, map, null);
         });
     }
 }

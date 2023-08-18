@@ -231,7 +231,7 @@ public class Init : MonoBehaviour
 
         yield return null;
         var mapRoot = GameObject.FindObjectOfType<ViewBattleProcessor>();
-        Game.LoadMap(this.RuleType, 0, mapRoot.transform, 0);
+        Game.LoadMap(RuleType.Normal,  mapRoot.transform, null);
     }
 
     private IEnumerator IE_DelayAction(float delay, Action callback)

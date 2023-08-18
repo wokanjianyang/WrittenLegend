@@ -36,15 +36,18 @@ public class Com_BossInfoItem : MonoBehaviour
 
     private void OnClick_NavigateMap()
     {
-        if (GameProcessor.Inst.User.CopyTikerCount <= 0) {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有挑战次数了", ToastType = ToastTypeEnum.Failure });
+        int ticket = GameProcessor.Inst.EquipCopySetting_Rate ? 5 : 1;
+
+        if (GameProcessor.Inst.User.CopyTikerCount < ticket)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "挑战次数不够了", ToastType = ToastTypeEnum.Failure });
             return;
         }
 
-        GameProcessor.Inst.User.CopyTikerCount--;
+        GameProcessor.Inst.User.CopyTikerCount -= ticket;
 
         var vm = this.GetComponentInParent<ViewMore>();
-        vm.SelectMap(mapConfig.Id);
+        vm.SelectMap(mapConfig.Id, ticket);
     }
 
     public void SetContent(MapConfig mapConfig, BossConfig bossConfig, long killTime)

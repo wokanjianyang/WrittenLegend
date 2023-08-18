@@ -22,15 +22,16 @@ public class BattleRule_Phantom : ABattleRule
 
     private APlayer RealBoss = null;
 
-    public BattleRule_Phantom(int pid, long mapTime)
+    public BattleRule_Phantom(Dictionary<string, object> param)
     {
-        PhanId = pid;
+        param.TryGetValue("PhantomId", out object pid);
+        param.TryGetValue("MapTime", out object mapTime);
+
+        this.PhanId = (int)pid;
+        this.MapTime = (long)mapTime;
 
         PhanStart = true;
         RealBoss = null;
-
-        MapTime = mapTime;
-
         Time = MaxTime;
 
         GameProcessor.Inst.User.PhantomRecord.TryGetValue(PhanId, out int lv);

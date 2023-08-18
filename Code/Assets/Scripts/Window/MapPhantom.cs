@@ -51,11 +51,15 @@ public class MapPhantom : MonoBehaviour, IBattleLife
         this.PhantomId = e.PhantomId;
         this.gameObject.SetActive(true);
 
+        Dictionary<string, object> param = new Dictionary<string, object>();
+        param.Add("PhantomId", PhantomId);
+        param.Add("MapTime", MapTime);
+
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {
             GameProcessor.Inst.OnDestroy();
             this.MapTime = TimeHelper.ClientNowSeconds();
-            GameProcessor.Inst.LoadMap(RuleType.Phantom, PhantomId, this.transform, MapTime);
+            GameProcessor.Inst.LoadMap(RuleType.Phantom, this.transform, param);
         });
 
         PhantomConfig config = PhantomConfigCategory.Instance.Get(PhantomId);
@@ -123,7 +127,7 @@ public class MapPhantom : MonoBehaviour, IBattleLife
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {
             var map = GameObject.Find("Canvas").GetComponentInChildren<ViewBattleProcessor>(true).transform;
-            GameProcessor.Inst.LoadMap(RuleType.Normal, 0, map, 0);
+            GameProcessor.Inst.LoadMap(RuleType.Normal, map, null);
         });
     }
 }

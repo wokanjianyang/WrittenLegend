@@ -14,6 +14,9 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
     public Text txt_boss_count;
     public Text txt_boss_time;
 
+    public Toggle toggle_Rate;
+    public Toggle toggle_Auto;
+
     List<Com_BossInfoItem> items = new List<Com_BossInfoItem>();
 
     // Start is called before the first frame update
@@ -28,6 +31,16 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
     void Update()
     {
         RefeshTime();
+
+        toggle_Rate.onValueChanged.AddListener((isOn) =>
+        {
+            GameProcessor.Inst.EquipCopySetting_Rate = isOn;
+        });
+
+        toggle_Auto.onValueChanged.AddListener((isOn) =>
+        {
+            GameProcessor.Inst.EquipCopySetting_Auto = isOn;
+        });
     }
 
     public void OnBattleStart()

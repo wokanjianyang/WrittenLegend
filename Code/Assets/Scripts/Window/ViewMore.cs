@@ -32,12 +32,12 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<PhantomEndEvent>(this.OnPhantomEnd);
         }
 
-        public void SelectMap(int mapId)
+        public void SelectMap(int mapId,int rate)
         {
             scrollRect.gameObject.SetActive(false);
             BossInfo.gameObject.SetActive(false);
 
-            GameProcessor.Inst.EventCenter.Raise(new StartCopyEvent() { MapId = mapId });
+            GameProcessor.Inst.EventCenter.Raise(new StartCopyEvent() { MapId = mapId ,Rate= rate});
         }
 
         public void SelectPhantomMap(int configId)
