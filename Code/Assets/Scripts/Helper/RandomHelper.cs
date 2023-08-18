@@ -47,7 +47,7 @@ namespace Game
             int rate = Math.Max(1, 100000 / qualityRate);
             int rd = random.Next(1, rate + 1);
 
-            if (level >= 200 && rd < 2) //200级以上，有概率掉落橙色
+            if (level >= 200 && rd < 3) //200级以上，有概率掉落橙色
             {
                 return 5;
             }
