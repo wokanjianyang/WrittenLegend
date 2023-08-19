@@ -619,8 +619,11 @@ namespace Game
             if (boxUI != null) //上线自动回收，可能还没加载
             {
                 boxUI.RemoveStack(quantity);
-                this.items.Remove(boxUI);
-                GameObject.Destroy(boxUI.gameObject);
+                if (boxItem.Number <= 0)
+                {
+                    this.items.Remove(boxUI);
+                    GameObject.Destroy(boxUI.gameObject);
+                }
             }
         }
 

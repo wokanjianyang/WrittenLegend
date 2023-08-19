@@ -96,26 +96,29 @@ namespace Game
 		/// <summary>DamageIncrea</summary>
 		[ProtoMember(7)]
 		public long DamageIncrea { get; set; }
-		/// <summary>CritRate</summary>
+		/// <summary>DamageResist</summary>
 		[ProtoMember(8)]
+		public long DamageResist { get; set; }
+		/// <summary>CritRate</summary>
+		[ProtoMember(9)]
 		public long CritRate { get; set; }
 		/// <summary>AttrIncreaRate</summary>
-		[ProtoMember(9)]
+		[ProtoMember(10)]
 		public int AttrIncreaRate { get; set; }
 		/// <summary>RewardId</summary>
-		[ProtoMember(10)]
+		[ProtoMember(11)]
 		public int RewardId { get; set; }
 		/// <summary>RewardBase</summary>
-		[ProtoMember(11)]
+		[ProtoMember(12)]
 		public int RewardBase { get; set; }
 		/// <summary>RewardIncrea</summary>
-		[ProtoMember(12)]
+		[ProtoMember(13)]
 		public int RewardIncrea { get; set; }
 		/// <summary>SkillIdList</summary>
-		[ProtoMember(13)]
+		[ProtoMember(14)]
 		public int[] SkillIdList { get; set; }
 		/// <summary>PhanSkillIdList</summary>
-		[ProtoMember(14)]
+		[ProtoMember(15)]
 		public int[] PhanSkillIdList { get; set; }
 
 	}

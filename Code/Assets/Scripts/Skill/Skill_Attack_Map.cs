@@ -32,10 +32,9 @@ namespace Game
             {  //不对队友造成伤害
                 return;
             }
-            long damage = this.SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.PhyAtt) - enemy.AttributeBonus.GetTotalAttr(AttributeEnum.Def);
-            damage = damage > 1 ? damage : 1;
-
-            enemy.OnHit(new DamageResult(SelfPlayer.ID, damage, MsgType.Damage));
+            var dr = DamageHelper.CalcDamage(this.SelfPlayer.AttributeBonus, enemy.AttributeBonus, this.SkillPanel);
+            dr.FromId = this.SelfPlayer.ID;
+            enemy.OnHit(dr);
         }
 
         public override List<AttackData> GetAllTargets()
