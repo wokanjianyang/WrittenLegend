@@ -19,6 +19,9 @@ namespace Game
             this.gameObject.SetActive(false);
 
             GameProcessor.Inst.EventCenter.AddListener<SecondaryConfirmationEvent>(this.OnSecondaryConfirmationEvent);
+            GameProcessor.Inst.EventCenter.AddListener<SecondaryConfirmTextEvent>(this.OnSecondaryConfirmTextEvent);
+            GameProcessor.Inst.EventCenter.AddListener<SecondaryConfirmCloseEvent>(this.OnSecondaryConfirmClose);
+
             GameProcessor.Inst.ShowSecondaryConfirmationDialog += this.OnShow;
         }
 
@@ -36,6 +39,17 @@ namespace Game
         {
             this.gameObject.SetActive(true);
         }
+
+        private void OnSecondaryConfirmTextEvent(SecondaryConfirmTextEvent e)
+        {
+            this.txt_Msg.text = e.Text;
+        }
+
+        private void OnSecondaryConfirmClose(SecondaryConfirmCloseEvent e)
+        {
+            this.gameObject.SetActive(false);
+        }
+
 
         public void OnClick_Done()
         {

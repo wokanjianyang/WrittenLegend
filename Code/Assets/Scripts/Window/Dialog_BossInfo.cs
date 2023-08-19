@@ -84,11 +84,7 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
             if (MapId <= user.MapId)
             {
                 var item = items.Where(m => m.mapConfig.Id == MapId).FirstOrDefault();
-                if (item != null)
-                {
-                    item.SetKillTime(list[MapId]);
-                }
-                else
+                if (item == null)
                 {
                     BuildItem(MapId, list[MapId]);
                 }

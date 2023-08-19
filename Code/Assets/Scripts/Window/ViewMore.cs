@@ -28,8 +28,11 @@ namespace Game
         public override void OnBattleStart()
         {
             base.OnBattleStart();
+
+
             GameProcessor.Inst.EventCenter.AddListener<EndCopyEvent>(this.OnEndCopy);
             GameProcessor.Inst.EventCenter.AddListener<PhantomEndEvent>(this.OnPhantomEnd);
+            GameProcessor.Inst.EventCenter.AddListener<CopyViewCloseEvent>(this.OnCopyViewClose);
         }
 
         public void SelectMap(int mapId,int rate)
@@ -45,6 +48,12 @@ namespace Game
             scrollRect.gameObject.SetActive(false);
             Phantom.gameObject.SetActive(false);
             GameProcessor.Inst.EventCenter.Raise(new PhantomStartEvent() { PhantomId = configId });
+        }
+
+        public void OnCopyViewClose(CopyViewCloseEvent e)
+        {
+            scrollRect.gameObject.SetActive(false);
+            Phantom.gameObject.SetActive(false);
         }
 
         public void OnEndCopy(EndCopyEvent e) {

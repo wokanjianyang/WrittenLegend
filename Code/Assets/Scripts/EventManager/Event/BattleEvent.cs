@@ -169,6 +169,12 @@ namespace Game
         public int Rate { get; set; }
         public int MapId { get; set; }
     }
+
+    public class AutoStartCopyEvent : SDD.Events.Event
+    {
+
+    }
+
     public class EndCopyEvent : SDD.Events.Event
     {
         public int MapId { get; set; }
@@ -196,5 +202,15 @@ namespace Game
     public class SecondaryConfirmationEvent : SDD.Events.Event
     {
         
+    }
+
+    public class SecondaryConfirmTextEvent : SDD.Events.Event
+    {
+        public string Text { get; set; }
+    }
+
+    public class SecondaryConfirmCloseEvent : SDD.Events.Event
+    {
+
     }
 }

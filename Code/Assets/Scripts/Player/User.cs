@@ -113,14 +113,14 @@ namespace Game
             SetAttr();
 
             //设置Boss刷新时间
-            Dictionary<int, MapConfig> mapList = MapConfigCategory.Instance.GetAll();
-            foreach (MapConfig mapConfig in mapList.Values)
-            {
-                if (!MapBossTime.ContainsKey(mapConfig.Id))
-                {
-                    MapBossTime[mapConfig.Id] = 0;
-                }
-            }
+            //Dictionary<int, MapConfig> mapList = MapConfigCategory.Instance.GetAll();
+            //foreach (MapConfig mapConfig in mapList.Values)
+            //{
+            //    if (!MapBossTime.ContainsKey(mapConfig.Id))
+            //    {
+            //        MapBossTime[mapConfig.Id] = 0;
+            //    }
+            //}
         }
 
         private void HeroChange(HeroChangeEvent e)

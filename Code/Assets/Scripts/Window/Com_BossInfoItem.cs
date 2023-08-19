@@ -44,8 +44,6 @@ public class Com_BossInfoItem : MonoBehaviour
             return;
         }
 
-        GameProcessor.Inst.User.CopyTikerCount -= ticket;
-
         var vm = this.GetComponentInParent<ViewMore>();
         vm.SelectMap(mapConfig.Id, ticket);
     }
@@ -73,12 +71,12 @@ public class Com_BossInfoItem : MonoBehaviour
         //RefeshTime();
     }
 
-    public void SetKillTime(long killTime)
-    {
-        this.killTime = killTime;
+    //public void SetKillTime(long killTime)
+    //{
+    //    this.killTime = killTime;
 
-        //RefeshTime();
-    }
+    //    RefeshTime();
+    //}
 
     //private void RefeshTime()
     //{

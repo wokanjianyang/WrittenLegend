@@ -53,18 +53,6 @@ public class BattleRule_Tower : ABattleRule
             QualityList.Add(5);
         }
 
-        User user = GameProcessor.Inst.User;
-
-        MapConfig mapConfig = MapConfigCategory.Instance.Get(MapId);
-        long refeshTime = TimeHelper.ClientNowSeconds() - user.MapBossTime[MapId];
-        long count = Math.Min(refeshTime / (mapConfig.BossInterval * 60), 5);
-
-        //Debug.Log("挑战前:" + TimeHelper.SecondsToDate(user.MapBossTime[mapId]));
-
-        user.MapBossTime[MapId] = TimeHelper.ClientNowSeconds() - (count - 1) * mapConfig.BossInterval * 60;
-
-        //Debug.Log("挑战后:" + TimeHelper.SecondsToDate(user.MapBossTime[mapId]));
-
         TaskHelper.CheckTask(TaskType.ToCopy, 1);
     }
 

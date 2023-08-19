@@ -73,9 +73,12 @@ namespace Game
                 int index = RandomHelper.RandomNumber(0, models.Count);
                 PlayerModel model = models[index];
 
-                for (int i = 0; i < model.SkillList.Length; i++)
+                if (model.SkillList != null)
                 {
-                    list.Add(new SkillData(model.SkillList[i], i)); //增加默认技能
+                    for (int i = 0; i < model.SkillList.Length; i++)
+                    {
+                        list.Add(new SkillData(model.SkillList[i], i)); //增加默认技能
+                    }
                 }
 
                 this.Name = model.Name + "·" + Config.Name;

@@ -64,6 +64,7 @@ namespace Game
         private GameObject barragePrefab;
 
         private Coroutine ie_autoExitKey = null;
+        private Coroutine ie_autoStartCopy = null;
 
         //副本临时设置
         public bool EquipCopySetting_Rate = false;
@@ -510,7 +511,7 @@ namespace Game
                 case RuleType.Tower:
                 case RuleType.Phantom:
                     //退出副本
-                    ie_autoExitKey = StartCoroutine(this.AutoExit(time));
+                    ie_autoExitKey = StartCoroutine(this.AutoExitMap(ruleType,time));
                     break;
                 default:
                     StartCoroutine(this.AutoResurrection());
@@ -606,7 +607,7 @@ namespace Game
             this.StartGame();
         }
 
-        private IEnumerator AutoExit(long time)
+        private IEnumerator AutoExitMap(RuleType ruleType, long time)
         {
             for (int i = 0; i < 5; i++)
             {
@@ -618,6 +619,49 @@ namespace Game
                 yield return new WaitForSeconds(1f);
             }
             this.EventCenter.Raise(new BattleLoseEvent() { Time = time });
+
+            if (ruleType == RuleType.Tower)
+            {
+                //判断是否自动挑战
+                if (EquipCopySetting_Auto) 
+                {
+                    this.AutoEquipCopy();
+                }
+            }
+        }
+
+        private void AutoEquipCopy()
+        {
+            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("5S后自动挑战装备副本",
+            () =>
+            {
+                StopCoroutine(ie_autoStartCopy);
+                AutoStartCopy();
+            }, () =>
+            {
+                StopCoroutine(ie_autoStartCopy);
+            });
+
+            ie_autoStartCopy = StartCoroutine(this.ShowAutoStartCopy());
+        }
+
+        private IEnumerator ShowAutoStartCopy()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                this.EventCenter.Raise(new SecondaryConfirmTextEvent() { Text = $"{(5 - i)}秒后自动挑战副本" });
+                yield return new WaitForSeconds(1f);
+            }
+
+            this.EventCenter.Raise(new SecondaryConfirmCloseEvent());
+
+            AutoStartCopy();
+        }
+
+        private void AutoStartCopy()
+        {
+            this.EventCenter.Raise(new CopyViewCloseEvent());
+            this.EventCenter.Raise(new AutoStartCopyEvent());
         }
     }
 }

@@ -26,8 +26,6 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
 
     public Text TxtMc5;
 
-    private bool isViewMapShowing = false;
-
     private GameObject msgPrefab;
     private List<Text> msgPool = new List<Text>();
     private int msgId = 0;
@@ -51,17 +49,19 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
         GameProcessor.Inst.EventCenter.AddListener<StartCopyEvent>(this.OnStartCopy);
         GameProcessor.Inst.EventCenter.AddListener<ShowCopyInfoEvent>(this.OnShowCopyInfoEvent);
         GameProcessor.Inst.EventCenter.AddListener<BattleLoseEvent>(this.OnBattleLoseEvent);
+        GameProcessor.Inst.EventCenter.AddListener<AutoStartCopyEvent>(this.OnAutoStartCopyEvent);
+        
         //ShowMapInfo();
         this.gameObject.SetActive(false);
     }
-    private void ShowMapInfo()
+    private void ShowMapInfo(int rate)
     {
         User user = GameProcessor.Inst.User;
-        if (user != null)
-        {
-            MapConfig config = MapConfigCategory.Instance.Get(CopyMapId);
-            txt_FloorName.text = config.Name;
-        }
+
+        user.CopyTikerCount -= rate;
+
+        MapConfig config = MapConfigCategory.Instance.Get(this.CopyMapId);
+        txt_FloorName.text = config.Name;
     }
 
     public void OnStartCopy(StartCopyEvent e)
@@ -71,7 +71,7 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
         this.MapTime = TimeHelper.ClientNowSeconds();
 
         Dictionary<string, object> param = new Dictionary<string, object>();
-        param.Add("MapId", CopyMapId);
+        param.Add("MapId", e.MapId);
         param.Add("MapTime", MapTime);
         param.Add("MapRate", e.Rate);
 
@@ -81,7 +81,30 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
             GameProcessor.Inst.LoadMap(RuleType.Tower, this.transform, param);
         });
 
-        ShowMapInfo();
+        ShowMapInfo(e.Rate);
+    }
+
+    public void OnAutoStartCopyEvent(AutoStartCopyEvent e)
+    {
+        int rate = 1;
+
+        this.gameObject.SetActive(true);
+        this.MapTime = TimeHelper.ClientNowSeconds();
+
+        Dictionary<string, object> param = new Dictionary<string, object>();
+        param.Add("MapId", this.CopyMapId);
+        param.Add("MapTime", MapTime);
+        param.Add("MapRate", rate); //自动是1倍
+
+        Debug.Log($"自动挑战副本");
+
+        GameProcessor.Inst.DelayAction(0.1f, () =>
+        {
+            GameProcessor.Inst.OnDestroy();
+            GameProcessor.Inst.LoadMap(RuleType.Tower, this.transform, param);
+        });
+
+        ShowMapInfo(rate);
     }
 
     public void OnShowCopyInfoEvent(ShowCopyInfoEvent e)
