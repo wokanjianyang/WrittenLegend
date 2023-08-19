@@ -86,6 +86,11 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
 
     public void OnAutoStartCopyEvent(AutoStartCopyEvent e)
     {
+        if (GameProcessor.Inst.User.CopyTikerCount <= 0)
+        {
+            return;
+        }
+
         int rate = 1;
 
         this.gameObject.SetActive(true);
@@ -95,8 +100,6 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
         param.Add("MapId", this.CopyMapId);
         param.Add("MapTime", MapTime);
         param.Add("MapRate", rate); //自动是1倍
-
-        Debug.Log($"自动挑战副本");
 
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {

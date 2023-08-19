@@ -354,13 +354,13 @@ namespace Game
 
         public void AddExpAndGold(long exp, long gold)
         {
-            if (Level >= ConfigHelper.Max_Level)
+            if (Level < ConfigHelper.Max_Level || exp < 0)
             {
-                return;
+                this.Exp += exp;
             }
 
-            this.Exp += exp;
             this.Gold += gold;
+
             EventCenter.Raise(new UserInfoUpdateEvent()); //更新UI
 
             if (Exp >= UpExp)

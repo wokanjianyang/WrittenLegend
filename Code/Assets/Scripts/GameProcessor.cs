@@ -269,10 +269,18 @@ namespace Game
                 return;
             }
 
+            if (isTimeError)
+            {
+                return;
+            }
+
             int interval = 5;
             if (User.SecondExpTick == 0)
             {
-                User.SecondExpTick = UserData.StartTime;
+                if (!isTimeError)
+                {
+                    User.SecondExpTick = TimeHelper.ClientNowSeconds();
+                }
             }
             else
             {
@@ -286,11 +294,6 @@ namespace Game
                 long calTk = (tempTime) / interval;
                 if (calTk >= 1)
                 {
-                    if (isTimeError)
-                    {
-                        return;
-                    }
-
                     //5秒计算一次经验,金币
                     User.SecondExpTick += interval * calTk;
                     long exp = User.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp) * calTk;
@@ -623,7 +626,7 @@ namespace Game
             if (ruleType == RuleType.Tower)
             {
                 //判断是否自动挑战
-                if (EquipCopySetting_Auto) 
+                if (EquipCopySetting_Auto && GameProcessor.Inst.User.CopyTikerCount > 0)
                 {
                     this.AutoEquipCopy();
                 }
