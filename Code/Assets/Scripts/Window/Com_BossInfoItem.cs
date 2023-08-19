@@ -17,7 +17,6 @@ public class Com_BossInfoItem : MonoBehaviour
 
     public MapConfig mapConfig { get; set; }
     private BossConfig bossConfig;
-    private long killTime = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -48,11 +47,10 @@ public class Com_BossInfoItem : MonoBehaviour
         vm.SelectMap(mapConfig.Id, ticket);
     }
 
-    public void SetContent(MapConfig mapConfig, BossConfig bossConfig, long killTime)
+    public void SetContent(MapConfig mapConfig, BossConfig bossConfig)
     {
         this.mapConfig = mapConfig;
         this.bossConfig = bossConfig;
-        this.killTime = killTime;
 
         txt_MapName.text = mapConfig.Name;
         txt_BossName.text = bossConfig.Name;

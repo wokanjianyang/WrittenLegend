@@ -58,7 +58,7 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
         this.UpadateItem();
     }
 
-    private void BuildItem(int MapId, long killTime)
+    private void BuildItem(int MapId)
     {
         MapConfig mapConfig = MapConfigCategory.Instance.Get(MapId);
         BossConfig bossConfig = BossConfigCategory.Instance.Get(mapConfig.BoosId);
@@ -66,7 +66,7 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
         var item = GameObject.Instantiate(ItemPrefab);
         var com = item.GetComponent<Com_BossInfoItem>();
 
-        com.SetContent(mapConfig, bossConfig, killTime);
+        com.SetContent(mapConfig, bossConfig);
 
         item.transform.SetParent(this.sr_Boss.content);
         item.transform.localScale = Vector3.one;
@@ -78,15 +78,16 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
     {
         User user = GameProcessor.Inst.User;
 
-        Dictionary<int, long> list = user.MapBossTime;
-        foreach (int MapId in list.Keys)
+        List<int> list = MapConfigCategory.Instance.GetAll().Select(m=>m.Value.Id).ToList();
+
+        foreach (int MapId in list)
         {
             if (MapId <= user.MapId)
             {
                 var item = items.Where(m => m.mapConfig.Id == MapId).FirstOrDefault();
                 if (item == null)
                 {
-                    BuildItem(MapId, list[MapId]);
+                    BuildItem(MapId);
                 }
             }
         }
