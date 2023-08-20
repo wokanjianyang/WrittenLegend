@@ -39,8 +39,11 @@ namespace Game
         [LabelText("技能属性")]
         public Transform tran_SkillAttribute;
 
-        [LabelText("套装属性")]
+        [LabelText("词条套装")]
         public Transform tran_SuitAttribute;
+
+        [LabelText("套装属性")]
+        public Transform tran_GroupAttribute;
 
         [LabelText("普通道具属性")]
         public Transform tran_NormalAttribute;
@@ -121,6 +124,7 @@ namespace Game
             tran_QualityAttribute.gameObject.SetActive(false);
             tran_SkillAttribute.gameObject.SetActive(false);
             tran_SuitAttribute.gameObject.SetActive(false);
+            tran_GroupAttribute.gameObject.SetActive(false);
             this.btn_Equip.gameObject.SetActive(false);
             this.btn_UnEquip.gameObject.SetActive(false);
             this.btn_Learn.gameObject.SetActive(false);
@@ -190,7 +194,7 @@ namespace Game
 
                             var AttrEntryList = equip.AttrEntryList.ToList();
 
-                            for (int index = 0; index < 5; index++)
+                            for (int index = 0; index < 6; index++)
                             {
                                 var child = tran_RandomAttribute.Find(string.Format("Attribute_{0}", index));
 
@@ -256,6 +260,59 @@ namespace Game
                             var child = tran_SuitAttribute.Find(string.Format("Attribute_{0}", index));
                             child.GetComponent<Text>().text = string.Format(" {0}", equip.SkillSuitConfig.Des);
                             child.gameObject.SetActive(true);
+                        }
+
+                        if (1 == 1)
+                        {
+                            tran_GroupAttribute.gameObject.SetActive(true);
+
+                            List<EquipGroup> groupList = user.GetGroupCount(equip.EquipConfig);
+
+                            int groupCount = 0;
+                            int nameIndex = 0;
+                            for (int i = 0; i < 2; i++)
+                            {
+                                EquipGroup eg = groupList[i];
+
+                                var nameChild = tran_GroupAttribute.Find(string.Format("Name_{0}", nameIndex++));
+                                string groupColor = QualityConfigHelper.GetEquipGroupColor(eg.Have);
+                                if (eg.Have)
+                                {
+
+                                    nameChild.GetComponent<Text>().text = string.Format("<color=#{0}>{1}</color>", groupColor, eg.Name);
+                                    groupCount++;
+                                }
+                                else
+                                {
+                                    nameChild.GetComponent<Text>().text = string.Format("<color=#{0}>{1}</color>", groupColor, eg.Name);
+                                }
+
+                                nameChild.gameObject.SetActive(true);
+                            }
+
+                            tran_GroupAttribute.Find("Title").GetComponent<Text>().text = string.Format("[套装属性] ({0}/2)", groupCount);
+
+                            //equip.EquipConfig.LevelRequired
+                            EquipGroupConfig config = EquipGroupConfigCategory.Instance.GetByLevelAndPart(10, equip.EquipConfig.Part);
+
+                            for (int index = 0; index < 3; index++)
+                            {
+                                var attrChild = tran_GroupAttribute.Find(string.Format("Attribute_{0}", index));
+
+                                if (index < config.AttrIdList.Length)
+                                {
+                                    string groupColor = QualityConfigHelper.GetEquipGroupColor(groupCount >= 2);
+
+                                    string attrText = FormatAttrText(config.AttrIdList[index], config.AttrValueList[index], 0);
+                                    attrChild.GetComponent<Text>().text = string.Format("<color=#{0}>{1}</color>", groupColor, attrText);
+
+                                    attrChild.gameObject.SetActive(true);
+                                }
+                                else
+                                {
+                                    attrChild.gameObject.SetActive(false);
+                                }
+                            }
                         }
 
                         this.btn_Equip.gameObject.SetActive(this.boxId != -1);

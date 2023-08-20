@@ -17,7 +17,50 @@ namespace Game
         public int SuitConfigId { get; set; }
 
         public int Quality { get; set; }
-        
+
+        public override int GetQuality()
+        {
+            return Quality;
+        }
+
+        [JsonIgnore]
+        public SkillRuneConfig SkillRuneConfig { get; set; }
+
+        [JsonIgnore]
+        public SkillSuitConfig SkillSuitConfig { get; set; }
+
+        [JsonIgnore]
+        public EquipConfig EquipConfig { get; set; }
+
+        [JsonIgnore]
+        public int[] Position { get; set; }
+
+        [JsonIgnore]
+        public int Part { get; set; }
+
+        [JsonIgnore]
+        /// <summary>
+        /// 基础属性
+        /// </summary>
+        public IDictionary<int, long> BaseAttrList { get; set; }
+
+        [JsonIgnore]
+        /// <summary>
+        /// 品质属性
+        /// </summary>
+        public IDictionary<int, long> QualityAttrList { get; set; }
+
+        [JsonIgnore]
+        /// <summary>
+        /// 套装属性
+        /// </summary>
+        public IDictionary<int, long> GroupAttrList { get; set; }
+
+        [JsonIgnore]
+        /// <summary>
+        /// 套装属性名称
+        /// </summary>
+        public IDictionary<int, string> GroupNameList { get; set; }
 
         public Equip(int configId, int runeConfigId, int suitConfigId,int quality)
         {
@@ -91,37 +134,6 @@ namespace Game
                 SkillSuitConfig = SkillSuitConfigCategory.Instance.Get(SuitConfigId);
             }
         }
-
-        public override int GetQuality() {
-            return Quality;
-        }
-
-        [JsonIgnore]
-        public SkillRuneConfig SkillRuneConfig { get; set; }
-
-        [JsonIgnore]
-        public SkillSuitConfig SkillSuitConfig { get; set; }
-
-        [JsonIgnore]
-        public EquipConfig EquipConfig { get; set; }
-
-        [JsonIgnore]
-        public int[] Position { get; set; }
-
-        [JsonIgnore]
-        public int Part { get; set; }
-
-        [JsonIgnore]
-        /// <summary>
-        /// 基础属性
-        /// </summary>
-        public IDictionary<int, long> BaseAttrList { get; set; }
-
-        [JsonIgnore]
-        /// <summary>
-        /// 品质属性
-        /// </summary>
-        public IDictionary<int, long> QualityAttrList { get; set; }
 
         /// <summary>
         /// 属性列表

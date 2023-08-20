@@ -264,6 +264,38 @@ namespace Game
             return Math.Min(count, SkillSuitHelper.SuitMax);
         }
 
+        public List<EquipGroup> GetGroupCount(EquipConfig config)
+        {
+            List<EquipGroup> list = new List<EquipGroup>();
+
+            EquipGroup self = new EquipGroup(config.Id, config.Name, true);
+
+            list.Add(self);
+
+            int gid = 0; //关联套装Id
+            if (config.Part == 5 || config.Part == 7)
+            {
+                gid = config.Id;
+            }
+            else
+            {
+                gid = config.Part % 2 == 1 ? config.Id + 1 : config.Id - 1;
+            }
+
+            EquipConfig gc = EquipConfigCategory.Instance.Get(gid);
+
+            EquipGroup target = new EquipGroup(gc.Id, gc.Name, false);
+
+            int count = this.EquipPanelList[EquipPanelIndex].Where(m => m.Value.EquipConfig.Id == gid).Count();
+            if ((gid != config.Id && count >= 1) || count >= 2) //非手镯戒指只要一个，手镯戒指要2个
+            {
+                target.Have = true;
+            }
+            list.Add(target);
+
+            return list;
+        }
+
         private void SetAttr()
         {
             this.AttributeBonus = new AttributeBonus();

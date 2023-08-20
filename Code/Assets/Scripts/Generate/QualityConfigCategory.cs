@@ -88,5 +88,18 @@ namespace Game
             }
             
         }
+
+        public static string GetEquipGroupColor(bool over)
+        {
+            if (over)
+            {
+                return "FEFE00";
+            }
+            else
+            {
+                return "CCCCCC";
+            }
+
+        }
     }
 }

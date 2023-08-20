@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3399104198
+CRC: 14211743
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: f07b0ff8dabd2038ae64de5a7d315f67
+    Hash: 48d75edca577fa51b8bc508f5f1b6ac3
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -23,6 +23,7 @@ Assets:
 - Assets/Resources/Config/DropConfigCategory.bytes
 - Assets/Resources/Config/EquipRefineConfigCategory.bytes
 - Assets/Resources/Config/EquipCustomConfigCategory.bytes
+- Assets/Resources/Config/EquipGroupConfigCategory.bytes
 - Assets/Resources/Config/MonsterBaseCategory.bytes
 - Assets/Resources/Config/AttrEntryConfigCategory.bytes
 - Assets/Resources/Config/EquipConfigCategory.bytes
