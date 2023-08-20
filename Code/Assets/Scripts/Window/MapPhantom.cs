@@ -51,6 +51,8 @@ public class MapPhantom : MonoBehaviour, IBattleLife
         this.PhantomId = e.PhantomId;
         this.gameObject.SetActive(true);
 
+        this.MapTime = TimeHelper.ClientNowSeconds();
+
         Dictionary<string, object> param = new Dictionary<string, object>();
         param.Add("PhantomId", PhantomId);
         param.Add("MapTime", MapTime);
@@ -58,7 +60,6 @@ public class MapPhantom : MonoBehaviour, IBattleLife
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {
             GameProcessor.Inst.OnDestroy();
-            this.MapTime = TimeHelper.ClientNowSeconds();
             GameProcessor.Inst.LoadMap(RuleType.Phantom, this.transform, param);
         });
 
