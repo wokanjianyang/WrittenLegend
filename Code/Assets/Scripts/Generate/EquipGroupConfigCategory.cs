@@ -9,23 +9,33 @@ namespace Game
     {
         public EquipGroupConfig GetByLevelAndPart(int level, int part)
         {
-            EquipGroupConfig config = GetAll().Select(m => m.Value).Where(m => m.Level == level && m.Position.Contains(part)).FirstOrDefault();
+            EquipGroupConfig config = GetAll().Select(m => m.Value).Where(m => m.Level == level && m.Position == part).FirstOrDefault();
             return config;
         }
     }
 
-    public class EquipGroup
+    public class EquipSuitItem
     {
-        public EquipGroup(int id, string name, bool have)
+        public EquipSuitItem(int id, string name, bool active)
         {
             this.Id = id;
             this.Name = name;
-            this.Have = have;
+            this.Active = active;
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public bool Have { get; set; }
+        public bool Active { get; set; }
+    }
+
+    public class EquipSuit
+    {
+        public bool Active { get; set; } = false;
+
+        public EquipGroupConfig Config { get; set; }
+        public EquipSuitItem Self { get; set; }
+
+        public List<EquipSuitItem> ItemList = new List<EquipSuitItem>();
     }
 }

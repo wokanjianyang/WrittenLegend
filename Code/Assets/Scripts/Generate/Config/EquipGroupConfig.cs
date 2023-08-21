@@ -83,7 +83,7 @@ namespace Game
 		public int Level { get; set; }
 		/// <summary>Position</summary>
 		[ProtoMember(3)]
-		public int[] Position { get; set; }
+		public int Position { get; set; }
 		/// <summary>AttrIdList</summary>
 		[ProtoMember(4)]
 		public int[] AttrIdList { get; set; }

@@ -264,13 +264,30 @@ namespace Game
             return Math.Min(count, SkillSuitHelper.SuitMax);
         }
 
-        public List<EquipGroup> GetGroupCount(EquipConfig config)
+        public List<EquipGroupConfig> GetEquipGroups()
         {
-            List<EquipGroup> list = new List<EquipGroup>();
+            var currentPanel = this.EquipPanelList[EquipPanelIndex];
 
-            EquipGroup self = new EquipGroup(config.Id, config.Name, true);
+            List<EquipGroupConfig> list = new List<EquipGroupConfig>();
 
-            list.Add(self);
+            for (int i = 1; i < 10; i = i + 2)
+            {  //1,3,5,7,9
+                if (currentPanel[i] != null)
+                {
+                    EquipSuit es = GetEquipSuit(currentPanel[i].EquipConfig);
+                    if (es.Active)
+                    {
+                        list.Add(es.Config);
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        public EquipSuit GetEquipSuit(EquipConfig config)
+        {
+            EquipSuit suit = new EquipSuit();
 
             int gid = 0; //关联套装Id
             if (config.Part == 5 || config.Part == 7)
@@ -283,17 +300,23 @@ namespace Game
             }
 
             EquipConfig gc = EquipConfigCategory.Instance.Get(gid);
-
-            EquipGroup target = new EquipGroup(gc.Id, gc.Name, false);
+            EquipSuitItem target = new EquipSuitItem(gc.Id, gc.Name, false);
 
             int count = this.EquipPanelList[EquipPanelIndex].Where(m => m.Value.EquipConfig.Id == gid).Count();
             if ((gid != config.Id && count >= 1) || count >= 2) //非手镯戒指只要一个，手镯戒指要2个
             {
-                target.Have = true;
+                target.Active = true;
+                suit.Active = true;
             }
-            list.Add(target);
 
-            return list;
+            suit.ItemList.Add(suit.Self);
+            suit.ItemList.Add(target);
+
+            EquipGroupConfig groupConfig = EquipGroupConfigCategory.Instance.GetByLevelAndPart(config.LevelRequired, Math.Min(config.Part, gc.Part));
+
+            suit.Config = groupConfig;
+
+            return suit;
         }
 
         private void SetAttr()
@@ -343,6 +366,15 @@ namespace Game
                 }
             }
 
+            //套装属性
+            List<EquipGroupConfig> suitList = GetEquipGroups();
+            foreach (EquipGroupConfig item in suitList)
+            {
+                for (int i = 0; i < item.AttrIdList.Length; i++)
+                {
+                    AttributeBonus.SetAttr((AttributeEnum)item.AttrIdList[i], AttributeFrom.EquipSuit, item.Position, item.AttrValueList[i]);
+                }
+            }
             //强化属性
             foreach (var sp in EquipStrength)
             {

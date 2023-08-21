@@ -59,6 +59,7 @@ namespace Game
         Skill = 4,//技能增幅
         Tower = 5,//无尽塔
         Phantom = 6,
+        EquipSuit = 7,
         /// <summary>
         /// 测试属性
         /// </summary>

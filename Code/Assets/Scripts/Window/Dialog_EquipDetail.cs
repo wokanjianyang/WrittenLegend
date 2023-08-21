@@ -266,17 +266,17 @@ namespace Game
                         {
                             tran_GroupAttribute.gameObject.SetActive(true);
 
-                            List<EquipGroup> groupList = user.GetGroupCount(equip.EquipConfig);
+                            EquipSuit equipSuit = user.GetEquipSuit(equip.EquipConfig);
 
                             int groupCount = 0;
                             int nameIndex = 0;
                             for (int i = 0; i < 2; i++)
                             {
-                                EquipGroup eg = groupList[i];
+                                EquipSuitItem eg = equipSuit.ItemList[i];
 
                                 var nameChild = tran_GroupAttribute.Find(string.Format("Name_{0}", nameIndex++));
-                                string groupColor = QualityConfigHelper.GetEquipGroupColor(eg.Have);
-                                if (eg.Have)
+                                string groupColor = QualityConfigHelper.GetEquipGroupColor(eg.Active);
+                                if (eg.Active)
                                 {
 
                                     nameChild.GetComponent<Text>().text = string.Format("<color=#{0}>{1}</color>", groupColor, eg.Name);
@@ -292,8 +292,8 @@ namespace Game
 
                             tran_GroupAttribute.Find("Title").GetComponent<Text>().text = string.Format("[套装属性] ({0}/2)", groupCount);
 
-                            //equip.EquipConfig.LevelRequired
-                            EquipGroupConfig config = EquipGroupConfigCategory.Instance.GetByLevelAndPart(10, equip.EquipConfig.Part);
+                            //
+                            EquipGroupConfig config = equipSuit.Config;
 
                             for (int index = 0; index < 3; index++)
                             {
