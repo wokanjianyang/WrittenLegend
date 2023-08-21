@@ -262,7 +262,7 @@ namespace Game
                             child.gameObject.SetActive(true);
                         }
 
-                        if (1 == 1)
+                        if (equip.Part <= 10)
                         {
                             tran_GroupAttribute.gameObject.SetActive(true);
 
@@ -313,6 +313,10 @@ namespace Game
                                     attrChild.gameObject.SetActive(false);
                                 }
                             }
+                        }
+                        else
+                        {
+                            tran_GroupAttribute.gameObject.SetActive(false);
                         }
 
                         this.btn_Equip.gameObject.SetActive(this.boxId != -1);

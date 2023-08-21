@@ -272,9 +272,9 @@ namespace Game
 
             for (int i = 1; i < 10; i = i + 2)
             {  //1,3,5,7,9
-                if (currentPanel[i] != null)
+                if (currentPanel.TryGetValue(i,out Equip equip))
                 {
-                    EquipSuit es = GetEquipSuit(currentPanel[i].EquipConfig);
+                    EquipSuit es = GetEquipSuit(equip.EquipConfig);
                     if (es.Active)
                     {
                         list.Add(es.Config);
@@ -288,6 +288,8 @@ namespace Game
         public EquipSuit GetEquipSuit(EquipConfig config)
         {
             EquipSuit suit = new EquipSuit();
+
+            suit.Self = new EquipSuitItem(config.Id, config.Name, true);
 
             int gid = 0; //关联套装Id
             if (config.Part == 5 || config.Part == 7)
