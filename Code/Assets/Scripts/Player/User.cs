@@ -96,6 +96,8 @@ namespace Game
 
         public long AdLastTime { get; set; } = 0;
 
+        public Dictionary<int, MagicData> SoulRingData { get; } = new Dictionary<int, MagicData>();
+
         public User()
         {
             this.EventCenter = new EventManager();
@@ -121,6 +123,103 @@ namespace Game
             //        MapBossTime[mapConfig.Id] = 0;
             //    }
             //}
+        }
+
+        private void SetAttr()
+        {
+            this.AttributeBonus = new AttributeBonus();
+
+            LevelConfig config = LevelConfigCategory.Instance.GetAll().Where(m => m.Value.StartLevel <= Level && m.Value.EndLevel >= Level).First().Value;
+
+            //等级属性
+            long rise = Level - config.StartLevel;
+            long attr = config.StartAttr + (long)(rise * config.RiseAttr);
+            long hp = config.StartHp + (long)(rise * config.RiseHp);
+            long def = config.StartDef + (long)(rise * config.RiseDef);
+            long upExp = config.StartExp + rise * config.RiseExp;
+
+            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp);
+            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr);
+            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr);
+            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr);
+            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, def);
+
+
+            //Test属性
+            //AttributeBonus.SetAttr(AttributeEnum.DamageIncrea, AttributeFrom.Test, 1000000);
+            //AttributeBonus.SetAttr(AttributeEnum.DamageResist, AttributeFrom.Test, 1000);
+
+            //装备属性
+            foreach (var kvp in EquipPanelList[EquipPanelIndex])
+            {
+                EquipRefineConfig refineConfig = null;
+                if (EquipRefine.TryGetValue(kvp.Key, out int refineLevel))
+                {
+                    refineConfig = EquipRefineConfigCategory.Instance.GetByLevel(refineLevel);
+                }
+
+                foreach (var a in kvp.Value.GetTotalAttrList(refineConfig))
+                {
+                    AttributeBonus.SetAttr((AttributeEnum)a.Key, AttributeFrom.EquipBase, kvp.Key, a.Value);
+                }
+            }
+
+            foreach (var kvp in EquipPanelSpecial)
+            {
+                foreach (var a in kvp.Value.GetTotalAttrList(null))
+                {
+                    AttributeBonus.SetAttr((AttributeEnum)a.Key, AttributeFrom.EquipBase, kvp.Key, a.Value);
+                }
+            }
+
+            //套装属性
+            List<EquipGroupConfig> suitList = GetEquipGroups();
+            foreach (EquipGroupConfig item in suitList)
+            {
+                for (int i = 0; i < item.AttrIdList.Length; i++)
+                {
+                    AttributeBonus.SetAttr((AttributeEnum)item.AttrIdList[i], AttributeFrom.EquipSuit, item.Position, item.AttrValueList[i]);
+                }
+            }
+            //强化属性
+            foreach (var sp in EquipStrength)
+            {
+                EquipStrengthConfig strengthConfig = EquipStrengthConfigCategory.Instance.GetByPositioin(sp.Key);
+                for (int i = 0; i < strengthConfig.AttrList.Length; i++)
+                {
+                    AttributeBonus.SetAttr((AttributeEnum)strengthConfig.AttrList[i], AttributeFrom.EquiStrong, sp.Key, strengthConfig.AttrValueList[i] * sp.Value);
+                }
+            }
+
+            //无尽塔属性
+            if (this.TowerFloor > 1)
+            {
+                long secondExp = 0;
+                long secondGold = 0;
+                MonsterTowerHelper.GetTowerSecond(TowerFloor - 1, out secondExp, out secondGold);
+
+                AttributeBonus.SetAttr(AttributeEnum.SecondExp, AttributeFrom.Tower, secondExp);
+                AttributeBonus.SetAttr(AttributeEnum.SecondGold, AttributeFrom.Tower, secondGold);
+            }
+
+            //强化属性
+            foreach (var sp in PhantomRecord)
+            {
+                PhantomAttrConfig phantomAttrConfig = PhantomConfigCategory.Instance.GetAttrConfig(sp.Key, sp.Value - 1);
+                if (phantomAttrConfig != null)
+                {
+                    AttributeBonus.SetAttr((AttributeEnum)phantomAttrConfig.RewardId, AttributeFrom.Phantom, phantomAttrConfig.RewardBase);
+                }
+            }
+
+            //UpExp = config.Exp;
+            UpExp = upExp;
+
+            //更新面板
+            if (GameProcessor.Inst.PlayerInfo != null)
+            {
+                GameProcessor.Inst.PlayerInfo.UpdateAttrInfo(this);
+            }
         }
 
         private void HeroChange(HeroChangeEvent e)
@@ -321,102 +420,6 @@ namespace Game
             return suit;
         }
 
-        private void SetAttr()
-        {
-            this.AttributeBonus = new AttributeBonus();
-
-            LevelConfig config = LevelConfigCategory.Instance.GetAll().Where(m => m.Value.StartLevel <= Level && m.Value.EndLevel >= Level).First().Value;
-
-            //等级属性
-            long rise = Level - config.StartLevel;
-            long attr = config.StartAttr + (long)(rise * config.RiseAttr);
-            long hp = config.StartHp + (long)(rise * config.RiseHp);
-            long def = config.StartDef + (long)(rise * config.RiseDef);
-            long upExp = config.StartExp + rise * config.RiseExp;
-
-            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp);
-            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr);
-            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr);
-            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr);
-            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, def);
-
-
-            //Test属性
-            //AttributeBonus.SetAttr(AttributeEnum.DamageIncrea, AttributeFrom.Test, 1000000);
-            //AttributeBonus.SetAttr(AttributeEnum.DamageResist, AttributeFrom.Test, 1000);
-
-            //装备属性
-            foreach (var kvp in EquipPanelList[EquipPanelIndex])
-            {
-                EquipRefineConfig refineConfig = null;
-                if (EquipRefine.TryGetValue(kvp.Key, out int refineLevel))
-                {
-                    refineConfig = EquipRefineConfigCategory.Instance.GetByLevel(refineLevel);
-                }
-
-                foreach (var a in kvp.Value.GetTotalAttrList(refineConfig))
-                {
-                    AttributeBonus.SetAttr((AttributeEnum)a.Key, AttributeFrom.EquipBase, kvp.Key, a.Value);
-                }
-            }
-
-            foreach (var kvp in EquipPanelSpecial)
-            {
-                foreach (var a in kvp.Value.GetTotalAttrList(null))
-                {
-                    AttributeBonus.SetAttr((AttributeEnum)a.Key, AttributeFrom.EquipBase, kvp.Key, a.Value);
-                }
-            }
-
-            //套装属性
-            List<EquipGroupConfig> suitList = GetEquipGroups();
-            foreach (EquipGroupConfig item in suitList)
-            {
-                for (int i = 0; i < item.AttrIdList.Length; i++)
-                {
-                    AttributeBonus.SetAttr((AttributeEnum)item.AttrIdList[i], AttributeFrom.EquipSuit, item.Position, item.AttrValueList[i]);
-                }
-            }
-            //强化属性
-            foreach (var sp in EquipStrength)
-            {
-                EquipStrengthConfig strengthConfig = EquipStrengthConfigCategory.Instance.GetByPositioin(sp.Key);
-                for (int i = 0; i < strengthConfig.AttrList.Length; i++)
-                {
-                    AttributeBonus.SetAttr((AttributeEnum)strengthConfig.AttrList[i], AttributeFrom.EquiStrong, sp.Key, strengthConfig.AttrValueList[i] * sp.Value);
-                }
-            }
-
-            //无尽塔属性
-            if (this.TowerFloor > 1)
-            {
-                long secondExp = 0;
-                long secondGold = 0;
-                MonsterTowerHelper.GetTowerSecond(TowerFloor - 1, out secondExp, out secondGold);
-
-                AttributeBonus.SetAttr(AttributeEnum.SecondExp, AttributeFrom.Tower, secondExp);
-                AttributeBonus.SetAttr(AttributeEnum.SecondGold, AttributeFrom.Tower, secondGold);
-            }
-
-            //强化属性
-            foreach (var sp in PhantomRecord)
-            {
-                PhantomAttrConfig phantomAttrConfig = PhantomConfigCategory.Instance.GetAttrConfig(sp.Key, sp.Value - 1);
-                if (phantomAttrConfig != null)
-                {
-                    AttributeBonus.SetAttr((AttributeEnum)phantomAttrConfig.RewardId, AttributeFrom.Phantom, phantomAttrConfig.RewardBase);
-                }
-            }
-
-            //UpExp = config.Exp;
-            UpExp = upExp;
-
-            //更新面板
-            if (GameProcessor.Inst.PlayerInfo != null)
-            {
-                GameProcessor.Inst.PlayerInfo.UpdateAttrInfo(this);
-            }
-        }
 
         public void AddExpAndGold(long exp, long gold)
         {
