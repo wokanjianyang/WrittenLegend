@@ -14,6 +14,36 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
 
     public Text Fee;
 
+    public Toggle Ring1;
+    public Toggle Ring2;
+    public Toggle Ring3;
+    public Toggle Ring4;
+    public Toggle Ring5;
+    public Toggle Ring6;
+    public Toggle Ring7;
+    public Toggle Ring8;
+
+    public Button Btn_Active;
+    public Button Btn_Strong;
+
+    public StrenthAttrItem Atrr1;
+    public StrenthAttrItem Atrr2;
+    public StrenthAttrItem Atrr3;
+    public StrenthAttrItem Atrr4;
+    public StrenthAttrItem Atrr5;
+
+    public Text LockLevel;
+    public Text LockMemo;
+
+    public Toggle RingSkill1;
+    public Toggle RingSkill2;
+    public Toggle RingSkill3;
+    public Toggle RingSkill4;
+    public Toggle RingSkill5;
+    public Toggle RingSkill6;
+    public Toggle RingSkill7;
+    public Toggle RingSkill8;
+
     public int Order => (int)ComponentOrder.Dialog;
 
     // Start is called before the first frame update
@@ -40,15 +70,15 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
             Item_SoulRing ring = rings[i];
             int position = (int)ring.Type;
 
-            Item_SoulRing_Skill ring_Skill = ring_skills.Where(m => m.Type == ring.Type).FirstOrDefault();
+            //Item_SoulRing_Skill ring_Skill = ring_skills.Where(m => m.Type == ring.Type).FirstOrDefault();
 
             if (user.SoulRingData.TryGetValue(0, out MagicData data)) //active
             {
-                ring.SetLevel(data.Data);
+                //ring.SetLevel(data.Data);
             }
             else
             {
-                ring.SetLevel(0);
+                //ring.SetLevel(0);
             }
         }
     }
