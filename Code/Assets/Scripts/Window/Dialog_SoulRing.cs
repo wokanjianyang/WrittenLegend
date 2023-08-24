@@ -20,6 +20,7 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
     public Toggle Ring7;
     public Toggle Ring8;
 
+    public Button Btn_Full;
     public Button Btn_Active;
     public Button Btn_Strong;
 
@@ -49,7 +50,7 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
     // Start is called before the first frame update
     void Start()
     {
-
+        Btn_Full.onClick.AddListener(OnClick_Close);
     }
 
     public void OnBattleStart()
