@@ -129,26 +129,6 @@ namespace Game
         幻影挑战 = 2,
     }
 
-    public enum SoulRingType
-    {
-        [LabelText("十年魂环")]
-        装备副本 = 1,
-        [LabelText("百年魂环")]
-        幻影挑战 = 2,
-        [LabelText("千年魂环")]
-        千年魂环 = 3,
-        [LabelText("万年魂环")]
-        万年魂环 = 4,
-        [LabelText("十万年魂环")]
-        十万年魂环 = 5,
-        [LabelText("百万年魂环")]
-        百万年魂环 = 6,
-        [LabelText("千万年魂环")]
-        千万年魂环 = 7,
-        [LabelText("亿年魂环")]
-        亿年魂环 = 8,
-    }
-
     public enum RoleType {
         Warrior =1, //战士
         Mage = 2, //法师

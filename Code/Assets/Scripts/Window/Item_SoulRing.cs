@@ -15,10 +15,6 @@ public class Item_SoulRing : MonoBehaviour
     public int ConfigId { get; set; }
     private bool can = false;
 
-    [Title("插槽")]
-    [LabelText("类型")]
-    public SoulRingType Type;
-
 
     void Start()
     {

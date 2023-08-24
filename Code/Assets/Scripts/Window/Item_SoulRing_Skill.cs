@@ -16,10 +16,6 @@ public class Item_SoulRing_Skill : MonoBehaviour
 
     public int Level { get; set; }
 
-    [Title("插槽")]
-    [LabelText("类型")]
-    public SoulRingType Type;
-
     // Start is called before the first frame update
     void Start()
     {

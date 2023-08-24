@@ -59,6 +59,7 @@ namespace Game
         // Start is called before the first frame update
         void Start()
         {
+            this.btn_PlayerAttribute.onClick.AddListener(this.OnClick_RingSoul);
             this.btn_PlayerTitle.onClick.AddListener(this.OnClick_PlayerTitle);
             this.btn_Setting.onClick.AddListener(this.OnClick_Setting);
             this.btn_Reset.onClick.AddListener(OnRefreshBag);
@@ -818,10 +819,11 @@ namespace Game
             return -1;
         }
 
+        public void OnClick_RingSoul() {
+            GameProcessor.Inst.EventCenter.Raise(new ShowSoulRingEvent());
+        }
         public void OnClick_PlayerTitle()
         {
-            
-
         }
         
         public void OnClick_Setting()

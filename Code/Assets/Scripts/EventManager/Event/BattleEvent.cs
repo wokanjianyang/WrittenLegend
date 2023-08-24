@@ -213,4 +213,9 @@ namespace Game
     {
 
     }
+
+    public class ShowSoulRingEvent : SDD.Events.Event
+    {
+
+    }
 }

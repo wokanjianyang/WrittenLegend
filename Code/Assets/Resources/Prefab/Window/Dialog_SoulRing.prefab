@@ -83,7 +83,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 781709637427969027}
   toggleTransition: 1
   graphic: {fileID: 4192673447752844163}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 5735779131278019230}
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -498,7 +498,7 @@ GameObject:
   - component: {fileID: 7573419722958377344}
   - component: {fileID: 6112544649945896538}
   m_Layer: 5
-  m_Name: Label
+  m_Name: lb_Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1107,7 +1107,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 34080815878708927}
   toggleTransition: 1
   graphic: {fileID: 4425443849714494449}
@@ -1140,7 +1140,7 @@ GameObject:
   - component: {fileID: 6137998491309963125}
   - component: {fileID: 2330782451053570969}
   m_Layer: 5
-  m_Name: Label
+  m_Name: lb_Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1446,7 +1446,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 8620922344328240300}
   toggleTransition: 1
   graphic: {fileID: 5341092219851141236}
@@ -1945,7 +1945,7 @@ GameObject:
   - component: {fileID: 2930241812385432515}
   - component: {fileID: 481798028953817616}
   m_Layer: 5
-  m_Name: Label
+  m_Name: lb_Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2256,7 +2256,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1871135491222403168}
   toggleTransition: 1
   graphic: {fileID: 905613949651894691}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 5735779131278019230}
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -2554,7 +2554,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 664626707585647219}
   toggleTransition: 1
   graphic: {fileID: 4032413191041259705}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 5735779131278019230}
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -2649,7 +2649,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1845377018385902816}
   toggleTransition: 1
   graphic: {fileID: 4880112585693704142}
@@ -2669,7 +2669,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &2987559555265809676
 GameObject:
   m_ObjectHideFlags: 0
@@ -2779,10 +2779,10 @@ RectTransform:
   m_Father: {fileID: 8900284681530860510}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -960}
+  m_SizeDelta: {x: 960, y: 1734}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3107870005794452656
 CanvasRenderer:
@@ -2944,8 +2944,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Dialog_Phantom, Assembly-CSharp
+      - m_Target: {fileID: 6903258658380622878}
+        m_TargetAssemblyTypeName: Dialog_SoulRing, Assembly-CSharp
         m_MethodName: OnClick_Close
         m_Mode: 1
         m_Arguments:
@@ -2991,7 +2991,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00012207031, y: 0.00024414062}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7282779962409383048
@@ -3114,7 +3114,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 6205816597170960515}
   toggleTransition: 1
   graphic: {fileID: 8085061759594798205}
@@ -3147,7 +3147,7 @@ GameObject:
   - component: {fileID: 8747275360849845243}
   - component: {fileID: 7027938670963373792}
   m_Layer: 5
-  m_Name: Label
+  m_Name: lb_Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3226,6 +3226,7 @@ GameObject:
   - component: {fileID: 7530708615132532791}
   - component: {fileID: 6122698454225610943}
   - component: {fileID: 402696357354447321}
+  - component: {fileID: 5735779131278019230}
   m_Layer: 5
   m_Name: Image_2
   m_TagString: Untagged
@@ -3299,6 +3300,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5735779131278019230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3574829769288649247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fafe2cfe61f6974895a912c3755e8f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AllowSwitchOff: 1
 --- !u!1 &3719383674088156731
 GameObject:
   m_ObjectHideFlags: 0
@@ -3377,7 +3391,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 8664810699178122294}
   toggleTransition: 1
   graphic: {fileID: 5688049118939167107}
@@ -3713,7 +3727,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2977160166318523360}
   toggleTransition: 1
   graphic: {fileID: 5117701830319588988}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 5735779131278019230}
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -3961,7 +3975,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 5458044027097555084}
   toggleTransition: 1
   graphic: {fileID: 461610404588046962}
@@ -4066,7 +4080,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7599634284795479214}
   toggleTransition: 1
   graphic: {fileID: 7856586675962784881}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 5735779131278019230}
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -4082,7 +4096,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!114 &1593462321388461330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4099,7 +4113,6 @@ MonoBehaviour:
   Txt_Name: {fileID: 0}
   Txt_Level: {fileID: 0}
   Txt_Attr_Current: {fileID: 0}
-  Type: 0
 --- !u!1 &4901328833937627550
 GameObject:
   m_ObjectHideFlags: 0
@@ -4418,7 +4431,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 6121567676279648325}
   toggleTransition: 1
   graphic: {fileID: 6736915180506021146}
@@ -4728,10 +4741,10 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -960}
-  m_SizeDelta: {x: 960, y: 1732}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4700570627691751315
 MonoBehaviour:
@@ -4876,7 +4889,7 @@ GameObject:
   - component: {fileID: 2436723717335302410}
   - component: {fileID: 5007572074609714761}
   m_Layer: 5
-  m_Name: Label
+  m_Name: lb_Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5378,7 +5391,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 6595759149695460199}
   toggleTransition: 1
   graphic: {fileID: 5412553510061436423}
@@ -5978,7 +5991,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -47}
+  m_AnchoredPosition: {x: 0, y: -125}
   m_SizeDelta: {x: 498, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1971974970126109412
@@ -6262,7 +6275,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 157878259262873844}
   toggleTransition: 1
   graphic: {fileID: 2398733320640823136}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 5735779131278019230}
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -6600,7 +6613,7 @@ GameObject:
   - component: {fileID: 6195936205885268698}
   - component: {fileID: 5076768793802607362}
   m_Layer: 5
-  m_Name: Label
+  m_Name: lb_Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6840,7 +6853,7 @@ GameObject:
   - component: {fileID: 4004089894439183410}
   - component: {fileID: 4832621470866168489}
   m_Layer: 5
-  m_Name: Label
+  m_Name: lb_Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7148,7 +7161,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5005398168550484210}
   toggleTransition: 1
   graphic: {fileID: 9049360976045057147}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 5735779131278019230}
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -7324,7 +7337,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8271686243607671793}
   toggleTransition: 1
   graphic: {fileID: 6911979420051637716}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 5735779131278019230}
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
