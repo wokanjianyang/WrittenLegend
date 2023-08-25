@@ -40,6 +40,10 @@ namespace Game
             long DamageIncrea = Math.Max(5, 100 + attcher.GetTotalAttr(AttributeEnum.DamageIncrea) + skill.DamageIncrea - enemy.GetTotalAttr(AttributeEnum.DamageResist));
             attack = attack * DamageIncrea / 100;
 
+            //光环伤害加成（不低于5） = 100基础伤害+技能伤害加成 + 攻击者伤害加成 — 被攻击者伤害减免 
+            long AurasDamageIncrea = Math.Max(5, 100 + attcher.GetTotalAttr(AttributeEnum.AurasDamageIncrea) - enemy.GetTotalAttr(AttributeEnum.AurasDamageResist));
+            attack = attack * AurasDamageIncrea / 100;
+
             //最终伤害加成
             attack = attack * (100 + skill.FinalIncrea) / 100;
 

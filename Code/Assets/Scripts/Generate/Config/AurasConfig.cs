@@ -81,15 +81,6 @@ namespace Game
 		/// <summary>Name</summary>
 		[ProtoMember(2)]
 		public string Name { get; set; }
-		/// <summary>Type</summary>
-		[ProtoMember(3)]
-		public string Type { get; set; }
-		/// <summary>AttrId</summary>
-		[ProtoMember(4)]
-		public int AttrId { get; set; }
-		/// <summary>AttrValue</summary>
-		[ProtoMember(5)]
-		public long AttrValue { get; set; }
 
 	}
 }

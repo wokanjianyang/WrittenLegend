@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1399950474
+CRC: 2354193816
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 5990fb3e2d94c9e89b74b0198f1d963c
+    Hash: 8e8579cc39550471eb5dc180d62e501b
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -25,6 +25,7 @@ Assets:
 - Assets/Resources/Config/AurasConfigCategory.bytes
 - Assets/Resources/Config/EquipRefineConfigCategory.bytes
 - Assets/Resources/Config/EquipCustomConfigCategory.bytes
+- Assets/Resources/Config/AurasAttrConfigCategory.bytes
 - Assets/Resources/Config/EquipGroupConfigCategory.bytes
 - Assets/Resources/Config/MonsterBaseCategory.bytes
 - Assets/Resources/Config/AttrEntryConfigCategory.bytes

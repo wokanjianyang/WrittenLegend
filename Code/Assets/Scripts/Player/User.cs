@@ -225,6 +225,16 @@ namespace Game
                 }
             }
 
+            //光环
+            List<AurasAttrConfig> aurasList = GetAurasList();
+            foreach (var ar in aurasList)
+            {
+                if (ar.Type == (int)AurasType.AttrIncra)
+                {
+                    AttributeBonus.SetAttr((AttributeEnum)ar.AttrId, AttributeFrom.Auras, ar.AttrValue);
+                }
+            }
+
             //UpExp = config.Exp;
             UpExp = upExp;
 
@@ -433,6 +443,26 @@ namespace Game
             return suit;
         }
 
+        public List<AurasAttrConfig> GetAurasList()
+        {
+            List<AurasAttrConfig> list = new List<AurasAttrConfig>();
+
+            foreach (var sl in SoulRingData)
+            {
+                if (sl.Value.Data > 0)
+                {
+                    SoulRingAttrConfig ringConfig = SoulRingConfigCategory.Instance.GetAttrConfig(sl.Key, sl.Value.Data);
+
+                    if (ringConfig.AurasId > 0)
+                    {
+                        AurasAttrConfig attrConfig = AurasConfigCategory.Instance.GetAttrConfig(ringConfig.AurasId, ringConfig.AurasLevel);
+                        list.Add(attrConfig);
+                    }
+                }
+            }
+
+            return list;
+        }
 
         public void AddExpAndGold(long exp, long gold)
         {

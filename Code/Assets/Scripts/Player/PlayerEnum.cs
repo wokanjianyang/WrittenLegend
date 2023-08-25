@@ -43,6 +43,9 @@ namespace Game
         WarlockSkillPercent = 45, //道士技能百分比系数
         WarlockSkillDamage = 46, //道士技能固定系数
 
+        AurasDamageResist = 201, //光环减伤
+        AurasDamageIncrea = 202, //光环增伤
+
         EquipBaseIncrea = 101, //装备基础属性百分比
         EquipQualityIncrea = 102, //装备随机属性百分比
     }
@@ -61,6 +64,7 @@ namespace Game
         Phantom = 6,
         EquipSuit = 7,
         SoulRing = 8,
+        Auras = 9,
         /// <summary>
         /// 测试属性
         /// </summary>
