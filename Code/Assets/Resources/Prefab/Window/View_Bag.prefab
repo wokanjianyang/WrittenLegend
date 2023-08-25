@@ -6009,6 +6009,7 @@ MonoBehaviour:
   EquipInfo2: {fileID: 2210069939048947773}
   EquipInfo3: {fileID: 6135879932151870850}
   EquipInfoSpecial: {fileID: 8787083947240384703}
+  EquipInfoList: []
   Btn_Equip1: {fileID: 5045947915315189524}
   Btn_Equip2: {fileID: 3469508088250850400}
   Btn_Equip3: {fileID: 8917434882795366102}
@@ -7408,7 +7409,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u4EBA\u7269\u5C5E\u6027"
+  m_Text: "\u9B42\u73AF"
 --- !u!1 &8419941610679194173
 GameObject:
   m_ObjectHideFlags: 0

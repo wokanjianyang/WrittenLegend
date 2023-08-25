@@ -44,6 +44,9 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
 
     List<Toggle> RingList = new List<Toggle>();
     List<Toggle> RingSkillList = new List<Toggle>();
+    List<StrenthAttrItem> AttrList = new List<StrenthAttrItem>();
+
+    private int Sid = 0;
 
     public int Order => (int)ComponentOrder.Dialog;
 
@@ -51,11 +54,8 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
     void Start()
     {
         Btn_Full.onClick.AddListener(OnClick_Close);
-    }
-
-    public void OnBattleStart()
-    {
-        GameProcessor.Inst.EventCenter.AddListener<ShowSoulRingEvent>(this.OnShowSoulRingEvent);
+        Btn_Active.onClick.AddListener(OnStrong);
+        Btn_Strong.onClick.AddListener(OnStrong);
 
         RingList.Add(Ring1);
         RingList.Add(Ring2);
@@ -75,7 +75,58 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
         RingSkillList.Add(RingSkill7);
         RingSkillList.Add(RingSkill8);
 
+        AttrList.Add(Atrr1);
+        AttrList.Add(Atrr2);
+        AttrList.Add(Atrr3);
+        AttrList.Add(Atrr4);
+        AttrList.Add(Atrr5);
+
+        Ring1.onValueChanged.AddListener((isOn) =>
+        {
+            if (isOn) { ShowSoulRing(1); }
+        });
+
+        Ring2.onValueChanged.AddListener((isOn) =>
+        {
+            if (isOn) { ShowSoulRing(2); }
+        });
+
+        Ring3.onValueChanged.AddListener((isOn) =>
+        {
+            if (isOn) { ShowSoulRing(3); }
+        });
+
+        Ring4.onValueChanged.AddListener((isOn) =>
+        {
+            if (isOn) { ShowSoulRing(4); }
+        });
+
+        Ring5.onValueChanged.AddListener((isOn) =>
+        {
+            if (isOn) { ShowSoulRing(5); }
+        });
+
+        Ring6.onValueChanged.AddListener((isOn) =>
+        {
+            if (isOn) { ShowSoulRing(6); }
+        });
+
+        Ring7.onValueChanged.AddListener((isOn) =>
+        {
+            if (isOn) { ShowSoulRing(7); }
+        });
+
+        Ring8.onValueChanged.AddListener((isOn) =>
+        {
+            if (isOn) { ShowSoulRing(8); }
+        });
+
         Init();
+    }
+
+    public void OnBattleStart()
+    {
+        GameProcessor.Inst.EventCenter.AddListener<ShowSoulRingEvent>(this.OnShowSoulRingEvent);
     }
 
     private void Init()
@@ -84,38 +135,68 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
 
         for (int i = 0; i < RingList.Count; i++)
         {
-            Toggle ring = RingList[i];
-            Toggle ring_skill = RingSkillList[i];
+            int sid = i + 1;
 
-            //Item_SoulRing_Skill ring_Skill = ring_skills.Where(m => m.Type == ring.Type).FirstOrDefault();
-
-            if (user.SoulRingData.TryGetValue(0, out MagicData data)) //active
+            if (user.SoulRingData.TryGetValue(sid, out MagicData data)) //active
             {
-                InitRing(ring, 99);
+                InitRing(sid, data.Data);
             }
             else
             {
-                InitRing(ring, 0);
-                //ring.SetLevel(0);
+                InitRing(sid, 0);
             }
         }
     }
 
 
-    private void InitRing(Toggle ring, long level)
+    private void InitRing(int sid, long level)
     {
+        Toggle ring = RingList[sid - 1];
+
+        //初始未选中,隐藏具体信息
+        for (int i = 0; i < AttrList.Count; i++)
+        {
+            AttrList[i].gameObject.SetActive(false);
+        }
+        Fee.gameObject.SetActive(false);
+        Btn_Active.gameObject.SetActive(false);
+        Btn_Strong.gameObject.SetActive(false);
+        LockLevel.gameObject.SetActive(false);
+        LockMemo.gameObject.SetActive(false);
+
         Text[] txtList = ring.GetComponentsInChildren<Text>();
 
         for (int i = 0; i < txtList.Length; i++)
         {
             if (txtList[i].name == "lb_Name")
             {
-                txtList[i].text = "未激活";
+                if (level <= 0)
+                {
+                    txtList[i].text = "未激活";
+                }
             }
             else
             {
                 txtList[i].text = level + "";
             }
+        }
+
+        SoulRingAttrConfig currentConfig = SoulRingConfigCategory.Instance.GetAttrConfig(sid, level);
+        Toggle ringAuras = RingSkillList[sid - 1];
+        Text aurasName = ringAuras.GetComponentInChildren<Text>();
+
+        if (currentConfig != null && currentConfig.AurasId > 0)
+        {
+            AurasConfig aurasConfig = AurasConfigCategory.Instance.Get(currentConfig.AurasId);
+
+            //激活Auras
+            ringAuras.isOn = true;
+            aurasName.text = aurasConfig.Name.Insert(2, "\n");
+        }
+        else
+        {
+            ringAuras.isOn = false;
+            aurasName.text = "未激活";
         }
     }
 
@@ -123,10 +204,148 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
 
     }
 
+    private void ShowSoulRing(int sid)
+    {
+        this.Sid = sid;
+
+        User user = GameProcessor.Inst.User;
+
+        long currentLevel = 0;
+
+        if (user.SoulRingData.TryGetValue(sid, out MagicData data))
+        {
+            currentLevel = data.Data;
+        }
+        InitRing(sid, currentLevel);
+
+        SoulRingAttrConfig currentConfig = SoulRingConfigCategory.Instance.GetAttrConfig(sid, currentLevel);
+        SoulRingAttrConfig nextConfig = SoulRingConfigCategory.Instance.GetAttrConfig(sid, currentLevel + 1);
+
+        if (currentConfig == null && nextConfig == null)
+        {
+            return; //未配置的
+        }
+
+
+        if (nextConfig == null)
+        {
+            //满了
+            Btn_Strong.gameObject.SetActive(false);
+            Btn_Active.gameObject.SetActive(false);
+            LockLevel.gameObject.SetActive(false);
+            LockMemo.gameObject.SetActive(false);
+        }
+        else
+        {
+            SoulRingConfig ringConfig = SoulRingConfigCategory.Instance.Get(sid);
+
+            LockLevel.text = ringConfig.LevelMemo;
+            LockMemo.text = ringConfig.AurasMemo;
+
+            if (currentLevel == 0)
+            {
+                Btn_Active.gameObject.SetActive(true);
+                Btn_Strong.gameObject.SetActive(false);
+            }
+            else
+            {
+                Btn_Active.gameObject.SetActive(false);
+                Btn_Strong.gameObject.SetActive(true);
+            }
+            LockLevel.gameObject.SetActive(true);
+            LockMemo.gameObject.SetActive(true);
+        }
+
+        //Fee
+        long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_SoulRingShard);
+        if (nextConfig != null)
+        {
+            string color = materialCount >= nextConfig.Fee ? "#FFFF00" : "#FF0000";
+
+            Fee.gameObject.SetActive(true);
+            Fee.text = string.Format("<color={0}>{1}</color>", color, "需要:" + nextConfig.Fee + " 魂环碎片");
+        }
+
+        SoulRingAttrConfig showConfig = currentConfig == null ? nextConfig : currentConfig;
+
+        //Attr
+        for (int i = 0; i < AttrList.Count; i++)
+        {
+            StrenthAttrItem attrItem = AttrList[i];
+
+            if (i >= showConfig.AttrIdList.Length)
+            {
+                attrItem.gameObject.SetActive(false);
+            }
+            else
+            {
+                attrItem.gameObject.SetActive(true);
+
+                string attrName = StringHelper.FormatAttrValueName(showConfig.AttrIdList[i]);
+                string attrBase = "";
+                string attrAdd = "";
+
+                long ab = 0;
+
+                if (currentConfig != null)
+                {
+                    attrBase = StringHelper.FormatAttrValueText(currentConfig.AttrIdList[i], currentConfig.AttrValueList[i]);
+                    ab = currentConfig.AttrValueList[i];
+                }
+                if (nextConfig != null)
+                {
+                    attrAdd = " + " + StringHelper.FormatAttrValueText(nextConfig.AttrIdList[i], nextConfig.AttrValueList[i] - ab);
+                }
+                attrItem.SetContent(attrName, attrBase, attrAdd);
+            }
+        }
+    }
+
     public void OnShowSoulRingEvent(ShowSoulRingEvent e) {
         this.gameObject.SetActive(true);
     }
 
+
+    public void OnStrong()
+    {
+        User user = GameProcessor.Inst.User;
+
+        long currentLevel = 0;
+
+        if (user.SoulRingData.TryGetValue(this.Sid, out MagicData data))
+        {
+            currentLevel = data.Data;
+        }
+
+        long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_SoulRingShard);
+
+        SoulRingAttrConfig currentConfig = SoulRingConfigCategory.Instance.GetAttrConfig(this.Sid, currentLevel);
+        SoulRingAttrConfig nextConfig = SoulRingConfigCategory.Instance.GetAttrConfig(this.Sid, currentLevel + 1);
+
+        if (materialCount < nextConfig.Fee)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的材料", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
+
+        if (currentLevel == 0)
+        {
+            user.SoulRingData[Sid] = new MagicData();
+        }
+        user.SoulRingData[Sid].Data = currentLevel + 1; 
+
+        GameProcessor.Inst.EventCenter.Raise(new MaterialUseEvent()
+        {
+            MaterialId = ItemHelper.SpecialId_SoulRingShard,
+            Quantity = nextConfig.Fee
+        });
+
+        GameProcessor.Inst.UpdateInfo();
+
+        ShowSoulRing(this.Sid);
+
+        Debug.Log("Strong SoulRing Success");
+    }
 
     public void OnClick_Close()
     {

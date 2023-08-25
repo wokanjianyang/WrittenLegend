@@ -212,6 +212,19 @@ namespace Game
                 }
             }
 
+            //魂环
+            foreach (var sl in SoulRingData)
+            {
+                if (sl.Value.Data > 0)
+                {
+                    SoulRingAttrConfig ringConfig = SoulRingConfigCategory.Instance.GetAttrConfig(sl.Key, sl.Value.Data);
+                    for (int i = 0; i < ringConfig.AttrIdList.Length; i++)
+                    {
+                        AttributeBonus.SetAttr((AttributeEnum)ringConfig.AttrIdList[i], AttributeFrom.SoulRing, sl.Key, ringConfig.AttrValueList[i]);
+                    }
+                }
+            }
+
             //UpExp = config.Exp;
             UpExp = upExp;
 

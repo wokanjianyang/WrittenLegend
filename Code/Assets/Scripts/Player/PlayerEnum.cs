@@ -60,6 +60,7 @@ namespace Game
         Tower = 5,//Œﬁæ°À˛
         Phantom = 6,
         EquipSuit = 7,
+        SoulRing = 8,
         /// <summary>
         /// ≤‚ ‘ Ù–‘
         /// </summary>

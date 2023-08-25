@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2842075286
+CRC: 1399950474
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 376ce5eb05550cfba294ac4dd4f26720
+    Hash: 5990fb3e2d94c9e89b74b0198f1d963c
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -20,7 +20,9 @@ Assets:
 - Assets/Resources/Config/TaskConfigCategory.bytes
 - Assets/Resources/Config/LevelConfigCategory.bytes
 - Assets/Resources/Config/PhantomConfigCategory.bytes
+- Assets/Resources/Config/SoulRingConfigCategory.bytes
 - Assets/Resources/Config/DropConfigCategory.bytes
+- Assets/Resources/Config/AurasConfigCategory.bytes
 - Assets/Resources/Config/EquipRefineConfigCategory.bytes
 - Assets/Resources/Config/EquipCustomConfigCategory.bytes
 - Assets/Resources/Config/EquipGroupConfigCategory.bytes
@@ -45,4 +47,5 @@ Assets:
 - Assets/Resources/Config/EquipStrengthFeeConfigCategory.bytes
 - Assets/Resources/Config/CodeConfigCategory.bytes
 - Assets/Resources/Config/RewardConfigCategory.bytes
+- Assets/Resources/Config/SoulRingAttrConfigCategory.bytes
 Dependencies: []
