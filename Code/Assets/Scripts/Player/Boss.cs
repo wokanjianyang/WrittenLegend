@@ -135,7 +135,10 @@ namespace Game
 
             if (SystemConfigHelper.CheckRequireLevel(SystemEnum.SoulRing))
             {
-                items.Add(ItemHelper.BuildSoulRingShard(1));
+                int mapIndex = Config.MapId - ConfigHelper.MapStartId;
+                int quantity = mapIndex / 10 + 1;
+
+                items.Add(ItemHelper.BuildSoulRingShard(quantity));
             }
 
             //µÙ¬‰BOSS÷Æº“√≈∆±

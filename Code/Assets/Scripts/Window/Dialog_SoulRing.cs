@@ -174,6 +174,11 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
                 {
                     txtList[i].text = "Î´¼¤»î";
                 }
+                else
+                {
+                    SoulRingConfig srConfig = SoulRingConfigCategory.Instance.Get(sid);
+                    txtList[i].text = srConfig.Name.Insert(2, "\n");
+                }
             }
             else
             {
