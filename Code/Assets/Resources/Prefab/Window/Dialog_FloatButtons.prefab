@@ -1767,7 +1767,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -172, y: -54.7}
-  m_SizeDelta: {x: 373.72, y: 100}
+  m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7468258880420168898
 CanvasRenderer:
@@ -1810,7 +1810,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u91D1\u5E01\u6536\u76CA2\u5C0F\u65F6"
+  m_Text: "\u91D1\u5E01\u7ECF\u9A8C\u6536\u76CA2\u5C0F\u65F6"
 --- !u!1 &3166296519970355981
 GameObject:
   m_ObjectHideFlags: 0
@@ -2824,7 +2824,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u7ECF\u9A8C\u6536\u76CA2\u5C0F\u65F6"
+  m_Text: "BOSS\u6311\u6218\u5377"
 --- !u!1 &6280100844185659214
 GameObject:
   m_ObjectHideFlags: 0

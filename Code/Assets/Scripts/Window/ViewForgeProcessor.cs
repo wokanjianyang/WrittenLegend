@@ -111,12 +111,21 @@ public class ViewForgeProcessor : AViewPage
 
         EquipStrengthFeeConfig feeConfig = EquipStrengthFeeConfigCategory.Instance.GetByLevel(strengthLevel + 1);
 
-        long fee = feeConfig.Fee;
+        if (feeConfig == null)
+        {
+            Txt_Fee.text = "已满级";
+            Btn_Strengthen.gameObject.SetActive(false);
+            Btn_Strengthen_Batch.gameObject.SetActive(false);
+        }
+        else
+        {
+            long fee = feeConfig.Fee;
+            string color = user.Gold >= fee ? "#FFFF00" : "#FF0000";
+            Txt_Fee.text = string.Format("<color={0}>{1}</color>", color, fee);
 
-        string color = user.Gold >= fee ? "#FFFF00" : "#FF0000";
-
-        Txt_Fee.text = string.Format("<color={0}>{1}</color>", color, fee);
-
+            Btn_Strengthen.gameObject.SetActive(true);
+            Btn_Strengthen_Batch.gameObject.SetActive(true);
+        }
 
         for (int i = 0; i < AttrList.Length; i++)
         {

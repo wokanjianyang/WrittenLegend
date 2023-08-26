@@ -195,20 +195,20 @@ public class Com_AD : MonoBehaviour, IBattleLife
         { //无法播放,直接给播白屏
             StartCoroutine(ShowFakeAD(() =>
             {
-                RewardGold(false);
+                RewardExpAndGold(false);
                 data.CurrentShowCount++;
                 this.UpdateAdData();
             }));
             return;
         }
 
-        GameProcessor.Inst.OnShowVideoAd("金币收益2小时", "gold_count_2_hour", (code) =>
+        GameProcessor.Inst.OnShowVideoAd("金币和经验收益2小时", "gold_count_2_hour", (code) =>
          {
              if (code == (int)AdStateEnum.Reward)
              {
                  this.txt_FakeAD.text += "获得奖励";
 
-                 RewardGold(true);
+                 RewardExpAndGold(true);
                  data.CurrentShowCount += 2;
                  this.UpdateAdData();
                  GameProcessor.Inst.User.AdLastTime = TimeHelper.ClientNowSeconds();
@@ -228,20 +228,22 @@ public class Com_AD : MonoBehaviour, IBattleLife
          });
     }
 
-    private void RewardGold(bool real)  //看的真广告还是假广告
+    private void RewardExpAndGold(bool real)  //看的真广告还是假广告
     {
         User user = GameProcessor.Inst.User;
 
         //发放奖励
         long gold = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondGold);
+        long exp = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp);
         int rate = real ? 2 : 1;
 
         gold = gold * 1440 * rate; //2小时/5 = 1440
+        exp = exp * 1440 * rate; //2小时/5 = 1440
 
-        user.AddExpAndGold(0, gold);
+        user.AddExpAndGold(exp, gold);
         GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
         {
-            Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励", 0, gold, null)
+            Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励", exp, gold, null)
         });
 
         if (!user.Record.Check())
@@ -288,18 +290,18 @@ public class Com_AD : MonoBehaviour, IBattleLife
         { //无法播放,直接给播白屏
             StartCoroutine(ShowFakeAD(() =>
             {
-                RewardExp(false);
+                RewardBossTicket(false);
                 data.CurrentShowCount++;
                 this.UpdateAdData();
             }));
             return;
         }
 
-        GameProcessor.Inst.OnShowVideoAd("经验收益2小时", "exp_count_2_hour", (code) =>
+        GameProcessor.Inst.OnShowVideoAd("BOSS挑战卷", "exp_count_2_hour", (code) =>
          {
              if (code == (int)AdStateEnum.Reward)
              {
-                 RewardExp(true);
+                 RewardBossTicket(true);
                  data.CurrentShowCount += 2;
                  this.UpdateAdData();
                  GameProcessor.Inst.User.AdLastTime = TimeHelper.ClientNowSeconds();
@@ -317,19 +319,26 @@ public class Com_AD : MonoBehaviour, IBattleLife
              }
          });
     }
-    private void RewardExp(bool real)
+    private void RewardBossTicket(bool real)
     {
         User user = GameProcessor.Inst.User;
         //发放奖励
-        long exp = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp);
         int rate = real ? 2 : 1;
 
-        exp = exp * 1440 * rate; //2小时/5 = 1440
 
-        user.AddExpAndGold(exp, 0);
+        Item item = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, rate);
+
+        List<Item> items = new List<Item>();
+        items.Add(item);
+
+        user.EventCenter.Raise(new HeroBagUpdateEvent()
+        {
+            ItemList = items
+        });
+
         GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
         {
-            Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励", exp, 0, null)
+            Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励", 0, 0, items)
         });
 
         if (!user.Record.Check())
