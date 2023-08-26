@@ -126,6 +126,20 @@ namespace Game
         public int Time { get; set; }
     }
 
+    public class ShowBossFamilyInfoEvent : SDD.Events.Event
+    {
+        public int Count { get; set; }
+    }
+    public class BossFamilyStartEvent : SDD.Events.Event
+    {
+  
+    }
+    public class BossFamilyEndEvent : SDD.Events.Event
+    {
+
+    }
+
+
     public class ChangeMapEvent : SDD.Events.Event
     {
         public int MapId { get; set; }

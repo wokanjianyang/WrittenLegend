@@ -358,6 +358,9 @@ namespace Game
                 case RuleType.Phantom:
                     this.BattleRule = new BattleRule_Phantom(param);
                     break;
+                case RuleType.BossFamily:
+                    this.BattleRule = new Battle_BossFamily(param);
+                    break;
             }
             this.PlayerRoot = MapData.transform.parent.Find("[PlayerRoot]").transform;
 
@@ -512,6 +515,7 @@ namespace Game
             switch (ruleType)
             {
                 case RuleType.Tower:
+                case RuleType.BossFamily:
                 case RuleType.Phantom:
                     //退出副本
                     ie_autoExitKey = StartCoroutine(this.AutoExitMap(ruleType,time));

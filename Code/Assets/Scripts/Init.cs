@@ -38,6 +38,7 @@ public class Init : MonoBehaviour
         View_BottomNavBar,
         Window_EndlessTower,
         Map_Phantom,
+        Map_BossFamily,
 
         Dialog_EquipDetail,
         Dialog_OfflineExp,
@@ -85,8 +86,8 @@ public class Init : MonoBehaviour
                 //WindowTypeEnum.Dialog_OfflineExp,
                 WindowTypeEnum.Dialog_Settings,
                 WindowTypeEnum.Dialog_FloatButtons,
-                WindowTypeEnum.Dialog_SecondaryConfirmation,
                 WindowTypeEnum.Map_Phantom,
+                WindowTypeEnum.Map_BossFamily,
                 WindowTypeEnum.Dialog_SoulRing,
             }
         },
@@ -94,7 +95,8 @@ public class Init : MonoBehaviour
             UILayer.Top, new List<WindowTypeEnum>()
             {
 
-                WindowTypeEnum.Loading
+                WindowTypeEnum.Loading,
+                WindowTypeEnum.Dialog_SecondaryConfirmation,
             }
         }
     };

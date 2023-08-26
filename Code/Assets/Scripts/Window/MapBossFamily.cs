@@ -4,25 +4,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MapPhantom : MonoBehaviour, IBattleLife
+public class MapBossFamily : MonoBehaviour, IBattleLife
 {
-    [LabelText("地图名称")]
-    public Text Txt_Name;
 
-    public Text Txt_Time;
+    public Text Txt_Count;
 
     public ScrollRect sr_BattleMsg;
 
     [LabelText("退出")]
     public Button btn_Exit;
 
-    private bool isViewMapShowing = false;
 
     private GameObject msgPrefab;
-    private List<Text> msgPool = new List<Text>();
     private int msgId = 0;
+    private List<Text> msgPool = new List<Text>();
 
-    private int PhantomId = 0;
     private long MapTime = 0;
 
     public int Order => (int)ComponentOrder.BattleRule;
@@ -37,43 +33,37 @@ public class MapPhantom : MonoBehaviour, IBattleLife
     {
         this.msgPrefab = Resources.Load<GameObject>("Prefab/Window/Item_DropMsg");
 
-        GameProcessor.Inst.EventCenter.AddListener<BattlePhantomMsgEvent>(this.OnBattleMsgEvent);
-        GameProcessor.Inst.EventCenter.AddListener<PhantomStartEvent>(this.OnPhantomStart);
-        GameProcessor.Inst.EventCenter.AddListener<ShowPhantomInfoEvent>(this.OnShowPhantomInfoEvent);
+        GameProcessor.Inst.EventCenter.AddListener<BattleMsgEvent>(this.OnBattleMsgEvent);
+        GameProcessor.Inst.EventCenter.AddListener<BossFamilyStartEvent>(this.OnBossFamilyStart);
+        GameProcessor.Inst.EventCenter.AddListener<ShowBossFamilyInfoEvent>(this.ShowBossFamilyInfo);
         GameProcessor.Inst.EventCenter.AddListener<BattleLoseEvent>(this.OnBattleLoseEvent);
 
         this.gameObject.SetActive(false);
     }
 
 
-    public void OnPhantomStart(PhantomStartEvent e)
+    public void OnBossFamilyStart(BossFamilyStartEvent e)
     {
-        this.PhantomId = e.PhantomId;
         this.gameObject.SetActive(true);
 
         this.MapTime = TimeHelper.ClientNowSeconds();
 
         Dictionary<string, object> param = new Dictionary<string, object>();
-        param.Add("PhantomId", PhantomId);
         param.Add("MapTime", MapTime);
 
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {
             GameProcessor.Inst.OnDestroy();
-            GameProcessor.Inst.LoadMap(RuleType.Phantom, this.transform, param);
+            GameProcessor.Inst.LoadMap(RuleType.BossFamily, this.transform, param);
         });
-
-        PhantomConfig config = PhantomConfigCategory.Instance.Get(PhantomId);
-
-        Txt_Name.text = config.Name;
     }
 
-    public void OnShowPhantomInfoEvent(ShowPhantomInfoEvent e)
+    public void ShowBossFamilyInfo(ShowBossFamilyInfoEvent e)
     {
-        Txt_Time.text = "剩余时间：" + e.Time;
+        Txt_Count.text = "剩余BOSS：" + e.Count;
     }
 
-    private void OnBattleMsgEvent(BattlePhantomMsgEvent e)
+    private void OnBattleMsgEvent(BattleMsgEvent e)
     {
         msgId++;
         Text txt_msg = null;
@@ -112,15 +102,18 @@ public class MapPhantom : MonoBehaviour, IBattleLife
     {
         GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("是否确认退出？", () =>
          {
+             Debug.Log("Exit Boss Family");
              this.Exit();
          }, null);
     }
 
     private void Exit()
     {
+        Debug.Log("Exit Boss Family");
+
         GameProcessor.Inst.OnDestroy();
         this.gameObject.SetActive(false);
-        GameProcessor.Inst.EventCenter.Raise(new PhantomEndEvent());
+        GameProcessor.Inst.EventCenter.Raise(new BossFamilyEndEvent());
         GameProcessor.Inst.SetGameOver(PlayerType.Hero);
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {

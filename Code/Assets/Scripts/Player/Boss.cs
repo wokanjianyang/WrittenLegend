@@ -18,12 +18,16 @@ namespace Game
         public float Def;
         public long Exp;
 
-        public Boss(int bossId, int mapId) : base()
+        private int CopyType = 1;
+
+        public Boss(int bossId, int mapId,int copyType) : base()
         {
             this.BossId = bossId;
             this.MapId = mapId;
             this.GroupId = 2;
             this.Quality = 5;
+
+            this.CopyType = copyType;
 
             this.Init();
             this.EventCenter.AddListener<DeadRewarddEvent>(MakeReward);
@@ -132,6 +136,17 @@ namespace Game
             if (SystemConfigHelper.CheckRequireLevel(SystemEnum.SoulRing))
             {
                 items.Add(ItemHelper.BuildSoulRingShard(1));
+            }
+
+            //µÙ¬‰BOSS÷Æº“√≈∆±
+            int ticketRate = 50;
+            if (CopyType == 2)
+            {
+                ticketRate = 500;
+            }
+            if (RandomHelper.RandomNumber(1, ticketRate) <= 1)
+            {
+                items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, 1));
             }
 
             if (items.Count > 0)

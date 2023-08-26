@@ -29,6 +29,7 @@ namespace Game
         Tower,
 
         Phantom,
+        BossFamily,
     }
 
     public enum ComponentOrder

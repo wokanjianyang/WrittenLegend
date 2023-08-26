@@ -8,7 +8,8 @@ namespace Game
 {
     public class ItemHelper
     {
-        public static Equip BuildEquip(int configId, int staticQuality, int qualityRate) {
+        public static Equip BuildEquip(int configId, int staticQuality, int qualityRate)
+        {
             return EquipHelper.BuildEquip(configId, staticQuality, qualityRate);
         }
 
@@ -67,5 +68,7 @@ namespace Game
 
         public static int SpecialId_SoulRingShard = 4001;
         public static int SpecialId_EquipRefineStone = 4002;
+        public static int SpecialId_Copy_Ticket = 4003;
+        public static int SpecialId_Boss_Ticket = 4004;
     }
 }

@@ -19,10 +19,11 @@ namespace Game
 
         public Dialog_Phantom Phantom;
 
+        public Button BtnBossFamily;
 
         void Start()
         {
-  
+            BtnBossFamily.onClick.AddListener(OnClickBossFamily);
         }
 
         public override void OnBattleStart()
@@ -33,14 +34,16 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<EndCopyEvent>(this.OnEndCopy);
             GameProcessor.Inst.EventCenter.AddListener<PhantomEndEvent>(this.OnPhantomEnd);
             GameProcessor.Inst.EventCenter.AddListener<CopyViewCloseEvent>(this.OnCopyViewClose);
+            GameProcessor.Inst.EventCenter.AddListener<BossFamilyEndEvent>(this.OnBossFamilyEnd);
+
         }
 
-        public void SelectMap(int mapId,int rate)
+        public void SelectMap(int mapId, int rate)
         {
             scrollRect.gameObject.SetActive(false);
             BossInfo.gameObject.SetActive(false);
 
-            GameProcessor.Inst.EventCenter.Raise(new StartCopyEvent() { MapId = mapId ,Rate= rate});
+            GameProcessor.Inst.EventCenter.Raise(new StartCopyEvent() { MapId = mapId, Rate = rate });
         }
 
         public void SelectPhantomMap(int configId)
@@ -56,14 +59,42 @@ namespace Game
             Phantom.gameObject.SetActive(false);
         }
 
-        public void OnEndCopy(EndCopyEvent e) {
+        public void OnEndCopy(EndCopyEvent e)
+        {
             scrollRect.gameObject.SetActive(true);
         }
         public void OnPhantomEnd(PhantomEndEvent e)
         {
             scrollRect.gameObject.SetActive(true);
         }
-        
+
+        public void OnClickBossFamily()
+        {
+            User user = GameProcessor.Inst.User;
+
+            long bossTicket = user.GetMaterialCount(ItemHelper.SpecialId_Boss_Ticket);
+
+            if (bossTicket <= 0)
+            {
+
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的BOSS挑战卷", ToastType = ToastTypeEnum.Failure });
+                return;
+            }
+
+            GameProcessor.Inst.EventCenter.Raise(new MaterialUseEvent()
+            {
+                MaterialId = ItemHelper.SpecialId_Boss_Ticket,
+                Quantity = 1
+            });
+
+            scrollRect.gameObject.SetActive(false);
+
+            GameProcessor.Inst.EventCenter.Raise(new BossFamilyStartEvent() { });
+        }
+        public void OnBossFamilyEnd(BossFamilyEndEvent e)
+        {
+            scrollRect.gameObject.SetActive(true);
+        }
 
         protected override bool CheckPageType(ViewPageType page)
         {
