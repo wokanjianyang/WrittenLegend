@@ -1,6 +1,6 @@
 {"list":[
 {"_t":"AurasAttrConfig","_id":101,"AurasId":1,"Type":1,"Level":1,"AttrId":201,"AttrValue":10},
-{"_t":"AurasAttrConfig","_id":201,"AurasId":2,"Type":1,"Level":1,"AttrId":202,"AttrValue":100},
-{"_t":"AurasAttrConfig","_id":301,"AurasId":3,"Type":3,"Level":1,"AttrId":0,"AttrValue":10},
-{"_t":"AurasAttrConfig","_id":401,"AurasId":4,"Type":4,"Level":1,"AttrId":0,"AttrValue":10},
+{"_t":"AurasAttrConfig","_id":201,"AurasId":2,"Type":1,"Level":1,"AttrId":202,"AttrValue":10},
+{"_t":"AurasAttrConfig","_id":301,"AurasId":3,"Type":3,"Level":1,"AttrId":0,"AttrValue":5},
+{"_t":"AurasAttrConfig","_id":401,"AurasId":4,"Type":4,"Level":1,"AttrId":0,"AttrValue":5},
 ]}

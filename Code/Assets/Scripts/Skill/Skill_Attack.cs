@@ -62,13 +62,16 @@ namespace Game
             {
                 var enemy = GameProcessor.Inst.PlayerManager.GetPlayer(attackData.Tid);
 
-                var dr = DamageHelper.CalcDamage(SelfPlayer.AttributeBonus, enemy.AttributeBonus, SkillPanel);
-                dr.FromId = attackData.Tid;
-                enemy.OnHit(dr);
-
-                foreach (EffectData effect in SkillPanel.EffectIdList.Values)
+                if (enemy != null)
                 {
-                    DoEffect(enemy, this.SelfPlayer, dr.Damage, effect);
+                    var dr = DamageHelper.CalcDamage(SelfPlayer.AttributeBonus, enemy.AttributeBonus, SkillPanel);
+                    dr.FromId = attackData.Tid;
+                    enemy.OnHit(dr);
+
+                    foreach (EffectData effect in SkillPanel.EffectIdList.Values)
+                    {
+                        DoEffect(enemy, this.SelfPlayer, dr.Damage, effect);
+                    }
                 }
             }
         }

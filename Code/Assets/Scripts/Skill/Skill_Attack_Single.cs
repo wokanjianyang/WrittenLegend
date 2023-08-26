@@ -15,12 +15,15 @@ namespace Game
         {
             List<AttackData> attackDatas = new List<AttackData>();
 
-            attackDatas.Add(new AttackData()
+            if (SelfPlayer.Enemy != null)
             {
-                Tid = SelfPlayer.Enemy.ID,
-                Cell = SelfPlayer.Enemy.Cell,
-                Ratio = 0
-            });
+                attackDatas.Add(new AttackData()
+                {
+                    Tid = SelfPlayer.Enemy.ID,
+                    Cell = SelfPlayer.Enemy.Cell,
+                    Ratio = 0
+                });
+            }
 
             if (attackDatas.Count >= SkillPanel.EnemyMax)  //如果只能攻击一个，则优先攻击目标
             {

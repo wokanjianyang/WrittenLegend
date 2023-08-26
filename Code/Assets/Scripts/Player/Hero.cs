@@ -83,6 +83,12 @@ namespace Game
 
             //TEST
             //AttributeBonus.SetAttr(AttributeEnum.CritRate, AttributeFrom.HeroPanel, 50);
+            this.AurasList = new List<AAuras>();
+            foreach (var ac in user.GetAurasList())
+            {
+                AAuras auras = AurasFactory.BuildAuras(this, ac);
+                this.AurasList.Add(auras);
+            }
 
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));

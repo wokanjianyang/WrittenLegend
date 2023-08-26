@@ -1,8 +1,8 @@
 {"list":[
 {"_t":"SoulRingConfig","_id":1,"Name":"十年","LevelMemo":"10级解锁守护光环","AurasMemo":"友方最终伤害减少10%"},
 {"_t":"SoulRingConfig","_id":2,"Name":"百年","LevelMemo":"10级解锁虚弱光环","AurasMemo":"敌方所受伤害增加10%"},
-{"_t":"SoulRingConfig","_id":3,"Name":"千年","LevelMemo":"10级解锁献祭光环","AurasMemo":"造成敌方10%全体攻击伤害"},
-{"_t":"SoulRingConfig","_id":4,"Name":"万年","LevelMemo":"10级解锁回复光环","AurasMemo":"回复友方10%全体攻击生命"},
+{"_t":"SoulRingConfig","_id":3,"Name":"千年","LevelMemo":"10级解锁献祭光环","AurasMemo":"造成敌方5%全体攻击伤害"},
+{"_t":"SoulRingConfig","_id":4,"Name":"万年","LevelMemo":"10级解锁回复光环","AurasMemo":"回复友方5%全体攻击生命"},
 {"_t":"SoulRingConfig","_id":5,"Name":"十万年","LevelMemo":"未开放","AurasMemo":"未开放"},
 {"_t":"SoulRingConfig","_id":6,"Name":"百万年","LevelMemo":"未开放","AurasMemo":"未开放"},
 {"_t":"SoulRingConfig","_id":7,"Name":"千万年","LevelMemo":"未开放","AurasMemo":"未开放"},

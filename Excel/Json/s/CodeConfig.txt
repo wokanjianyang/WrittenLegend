@@ -13,4 +13,5 @@
 {"_t":"CodeConfig","_id":12,"code":"bc127","ItemTypeList":[9],"ItemIdList":[4003],"ItemQuanlityList":[100]},
 {"_t":"CodeConfig","_id":13,"code":"bc130","ItemTypeList":[9],"ItemIdList":[4003],"ItemQuanlityList":[50]},
 {"_t":"CodeConfig","_id":14,"code":"gx134","ItemTypeList":[5],"ItemIdList":[4004],"ItemQuanlityList":[5]},
+{"_t":"CodeConfig","_id":15,"code":"qx777","ItemTypeList":[9],"ItemIdList":[4003],"ItemQuanlityList":[100]},
 ]}

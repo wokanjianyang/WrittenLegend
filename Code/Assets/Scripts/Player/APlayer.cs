@@ -66,7 +66,8 @@ namespace Game
         public int GroupId { get; set; }
 
         [JsonIgnore]
-        public APlayer Enemy {
+        public APlayer Enemy
+        {
             get
             {
                 if (_enemy != null && _enemy.IsSurvice)
@@ -74,13 +75,17 @@ namespace Game
                     return _enemy;
                 }
 
-                return null;
+                _enemy = null;
+
+                return _enemy;
             }
         }
         protected APlayer _enemy { get; set; }
 
         [JsonIgnore]
         public string UUID { get; set; }
+
+        public List<AAuras> AurasList = null;
 
         public APlayer()
         {
@@ -124,34 +129,6 @@ namespace Game
             return list.Count > 0 ? list[list.Count - 1] : new SkillPanel(new SkillData(9001, (int)SkillPosition.Default), new List<SkillRune>(), new List<SkillSuit>());
         }
 
-        //public void LoadSkill()
-        //{
-        //    foreach (var skill in SelectSkillList)
-        //    {
-        //        if (!SkillUseRoundCache.TryGetValue(skill.SkillPanel.SkillId, out var useRound))
-        //        {
-        //            useRound = 0;
-        //        }
-        //        SkillUseRoundCache[skill.SkillPanel.SkillId] = useRound;
-
-        //        //销毁技能
-        //        skill.Destory();
-        //    }
-
-        //    SelectSkillList = new List<SkillState>();
-
-        //    List<SkillData> list = SkillList.FindAll(m => m.Status == SkillStatus.Equip).OrderBy(m => m.Position).ToList();
-        //    //加载已选择的技能
-        //    for (int p = 0; p < list.Count; p++)
-        //    {
-        //        SkillData skillData = list[p];
-        //        skillData.Position = p + 1; //按顺序从1开始重新排位
-        //        EquipSkill(skillData);
-        //    }
-        //    //默认增加普通攻击
-        //    SkillData defaulSkill = new SkillData(9001, (int)SkillPosition.Default);
-        //    EquipSkill(defaulSkill);
-        //}
 
         public virtual long GetRoleAttack(int role)
         {
@@ -167,21 +144,6 @@ namespace Game
         {
             return DamageHelper.GetRoleDamage(this.AttributeBonus, role);
         }
-
-
-        //public void EquipSkill(SkillData skillData)
-        //{
-        //    //TODO 计算装备天赋等技能加成
-        //    List<SkillRune> runeList = GetRuneList(skillData.SkillId);
-        //    List<SkillSuit> suitList = GetSuitList(skillData.SkillId);
-
-        //    SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList);
-
-        //    SkillUseRoundCache.TryGetValue(skillData.SkillId, out var lastUseRound);
-
-        //    SkillState skill = new SkillState(this, skillPanel, skillData.Position, lastUseRound);
-        //    SelectSkillList.Add(skill);
-        //}
 
         virtual public SkillState GetSkill()
         {
@@ -208,11 +170,17 @@ namespace Game
         public virtual void DoEvent()
         {
             this.RoundCounter++;
-            if (this.Camp == PlayerType.Hero)
-            {
-                //Log.Debug($"角色回合数：{this.RoundCounter}");
-            }
+
             if (!this.IsSurvice) return;
+
+            //光环
+            if (this.Camp == PlayerType.Hero && this.AurasList != null)
+            {
+                foreach (AAuras auras in this.AurasList)
+                {
+                    auras.Do();
+                }
+            }
 
             //行动前计算buff
             bool pause = false;
