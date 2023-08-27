@@ -9,5 +9,7 @@
 {"_t":"LevelConfig","_id":8,"StartLevel":500001,"EndLevel":1000000,"StartAttr":500010,"RiseAttr":1,"StartDef":100001,"RiseDef":0.2,"StartHp":5000050,"RiseHp":10,"StartExp":2243430,"RiseExp":3},
 {"_t":"LevelConfig","_id":9,"StartLevel":1000001,"EndLevel":2000000,"StartAttr":1000010,"RiseAttr":1,"StartDef":200001,"RiseDef":0.2,"StartHp":10000050,"RiseHp":10,"StartExp":3743430,"RiseExp":2},
 {"_t":"LevelConfig","_id":10,"StartLevel":2000001,"EndLevel":5000000,"StartAttr":2000010,"RiseAttr":1,"StartDef":400001,"RiseDef":0.2,"StartHp":20000050,"RiseHp":10,"StartExp":5743430,"RiseExp":1},
-{"_t":"LevelConfig","_id":11,"StartLevel":5000001,"EndLevel":7500000,"StartAttr":5000010,"RiseAttr":1,"StartDef":1000001,"RiseDef":0.2,"StartHp":50000050,"RiseHp":10,"StartExp":8743430,"RiseExp":2},
+{"_t":"LevelConfig","_id":11,"StartLevel":5000001,"EndLevel":7500000,"StartAttr":5000010,"RiseAttr":1,"StartDef":1000001,"RiseDef":0.2,"StartHp":50000050,"RiseHp":10,"StartExp":8743430,"RiseExp":1},
+{"_t":"LevelConfig","_id":12,"StartLevel":7500001,"EndLevel":10000000,"StartAttr":7500010,"RiseAttr":1,"StartDef":1500001,"RiseDef":0.2,"StartHp":75000050,"RiseHp":10,"StartExp":11243430,"RiseExp":1},
+{"_t":"LevelConfig","_id":13,"StartLevel":10000001,"EndLevel":20000000,"StartAttr":10000010,"RiseAttr":1,"StartDef":2000001,"RiseDef":0.2,"StartHp":100000050,"RiseHp":10,"StartExp":13743430,"RiseExp":1},
 ]}
