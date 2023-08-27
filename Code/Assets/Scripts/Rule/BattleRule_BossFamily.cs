@@ -79,6 +79,7 @@ public class Battle_BossFamily : ABattleRule
             enemy.DoEvent();
         }
 
+        int bossCount = enemys.Count + QualityList.Count;
 
         if (enemys.Count < MaxQuanlity && QualityList.Count > 0)
         {
@@ -97,7 +98,6 @@ public class Battle_BossFamily : ABattleRule
             }
         }
 
-        int bossCount = enemys.Count + QualityList.Count;
         GameProcessor.Inst.EventCenter.Raise(new ShowBossFamilyInfoEvent() { Count = bossCount });
 
         if (Start && enemys.Count <= 0 && QualityList.Count <= 0)
