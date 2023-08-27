@@ -67,6 +67,8 @@ namespace Game
             this.Btn_Equip1.onClick.AddListener(ChangeEquipPanel1);
             this.Btn_Equip2.onClick.AddListener(ChangeEquipPanel2);
             this.Btn_Equip3.onClick.AddListener(ChangeEquipPanel3);
+
+            ShowEquipPanel();
         }
 
         // Update is called once per frame
@@ -88,6 +90,10 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<MaterialUseEvent>(this.OnMaterialUseEvent);
             GameProcessor.Inst.EventCenter.AddListener<EquipLockEvent>(this.OnEquipLockEvent);
 
+            this.EquipInfoList.Add(EquipInfo1);
+            this.EquipInfoList.Add(EquipInfo2);
+            this.EquipInfoList.Add(EquipInfo3);
+
             GameProcessor.Inst.StartCoroutine(LoadBox());
         }
 
@@ -104,10 +110,6 @@ namespace Game
 
             var prefab = Resources.Load<GameObject>("Prefab/Window/Box_Info");
             yield return null;
-
-            EquipInfoList.Add(EquipInfo1);
-            EquipInfoList.Add(EquipInfo2);
-            EquipInfoList.Add(EquipInfo3);
 
             for (int i = 0; i < EquipInfoList.Count; i++)
             {
@@ -338,28 +340,34 @@ namespace Game
         private void ChangeEquipPanel1()
         {
             GameProcessor.Inst.User.EquipPanelIndex = 0;
-            this.EquipInfo1.gameObject.SetActive(true);
-            this.EquipInfo2.gameObject.SetActive(false);
-            this.EquipInfo3.gameObject.SetActive(false);
-
-            GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
+            ShowEquipPanel();
         }
         private void ChangeEquipPanel2()
         {
             GameProcessor.Inst.User.EquipPanelIndex = 1;
-            this.EquipInfo1.gameObject.SetActive(false);
-            this.EquipInfo2.gameObject.SetActive(true);
-            this.EquipInfo3.gameObject.SetActive(false);
-
-            GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
+            ShowEquipPanel();
         }
         private void ChangeEquipPanel3()
         {
             GameProcessor.Inst.User.EquipPanelIndex = 2;
-            this.EquipInfo1.gameObject.SetActive(false);
-            this.EquipInfo2.gameObject.SetActive(false);
-            this.EquipInfo3.gameObject.SetActive(true);
+            ShowEquipPanel();
+        }
 
+        private void ShowEquipPanel()
+        {
+            int position = GameProcessor.Inst.User.EquipPanelIndex;
+
+            for (int i = 0; i < this.EquipInfoList.Count; i++)
+            {
+                if (i == position)
+                {
+                    this.EquipInfoList[i].gameObject.SetActive(true);
+                }
+                else
+                {
+                    this.EquipInfoList[i].gameObject.SetActive(false);
+                }
+            }
             GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
         }
 
@@ -702,7 +710,17 @@ namespace Game
             if (ep.ContainsKey(Position))
             {
                 //装备栏卸载
-                var slot = this.transform.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == Position).First();
+                SlotBox slot = null;
+
+                if (Position <= 10)
+                {
+                    slot = EquipInfoList[user.EquipPanelIndex].GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == Position).First();
+                }
+                else
+                {
+                    slot = EquipInfoSpecial.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == Position).First();
+                }
+
                 Com_Box comItem = slot.GetEquip();
                 slot.UnEquip();
                 GameObject.Destroy(comItem.gameObject);
