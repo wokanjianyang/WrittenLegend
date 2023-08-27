@@ -364,14 +364,22 @@ public class ViewForgeProcessor : AViewPage
             Refine_Txt_Fee.text = string.Format("<color={0}>{1}</color>", color, nextConfig.Fee);
         }
 
-        EquipRefineConfig showConfig = currentConfig == null ? nextConfig : currentConfig;
-
 
         Refine_Attr_Base.gameObject.SetActive(false);
         Refine_Attr_Quality.gameObject.SetActive(false);
 
+        if (nextConfig == null)
+        {
+            Btn_Strengthen.gameObject.SetActive(false);
+            Btn_Strengthen_Batch.gameObject.SetActive(false);
+        }
+        else
+        {
+            Btn_Strengthen.gameObject.SetActive(true);
+            Btn_Strengthen_Batch.gameObject.SetActive(false);
+        }
 
-        if (nextConfig.BaseAttrPercent > 0)
+        if (nextConfig != null && nextConfig.BaseAttrPercent > 0)
         {
             long currentAttrValue = currentConfig == null ? 0 : currentConfig.BaseAttrPercent;
             long nextAttrValue = nextConfig == null ? 0 : nextConfig.BaseAttrPercent;
@@ -384,7 +392,7 @@ public class ViewForgeProcessor : AViewPage
             Refine_Attr_Base.SetContent(attrName, attrCurrent, attrAdd);
         }
 
-        if (nextConfig.QualityAttrPercent > 0)
+        if (nextConfig != null && nextConfig.QualityAttrPercent > 0)
         {
             long currentAttrValue = currentConfig == null ? 0 : currentConfig.QualityAttrPercent;
             long nextAttrValue = nextConfig == null ? 0 : nextConfig.QualityAttrPercent;
@@ -399,8 +407,6 @@ public class ViewForgeProcessor : AViewPage
     }
     private void OnEquipRefineSelectEvent(EquipRefineSelectEvent e)
     {
-        Debug.Log("Refine Position:" + e.Position);
-
         if (e.Position == Refine_Position)
         {
             return;
@@ -418,10 +424,10 @@ public class ViewForgeProcessor : AViewPage
         User user = GameProcessor.Inst.User;
         user.EquipRefine.TryGetValue(Refine_Position, out int refineLevel);
 
-        if (refineLevel >= user.Level)
+        if (refineLevel >= 350)
         {
             //
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "精练等级不能超过人物等级", ToastType = ToastTypeEnum.Failure });
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "精练等级满级了", ToastType = ToastTypeEnum.Failure });
             return;
         }
 

@@ -15,7 +15,7 @@ namespace Game
 
     public class SetPlayerLevelEvent : SDD.Events.Event
     {
-        public string Level { get; set; }
+        public long Level { get; set; }
     }
 
 

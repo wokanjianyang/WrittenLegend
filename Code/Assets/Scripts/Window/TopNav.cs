@@ -28,9 +28,12 @@ namespace Game
             this.gameObject.SetActive(true);
             this.user = GameProcessor.Inst.User;
             this.tmp_Name.text = user.Name;
-            this.tmp_Level.text = $"{user.Level}级";
+
             this.OnHeroInfoUpdateEvent(null);
+
+            this.tmp_Level.text = StringHelper.FormatNumber(user.Level) + "级";
             this.tmp_BattlePower.text = $"战力：{user.AttributeBonus.GetPower()}"; 
+
             user.EventCenter.AddListener<SetPlayerLevelEvent>(this.OnSetPlayerLevelEvent);
             user.EventCenter.AddListener<UserInfoUpdateEvent>(this.OnHeroInfoUpdateEvent);
             user.EventCenter.AddListener<SetPlayerNameEvent>(this.OnSetPlayerNameEvent);
@@ -50,7 +53,7 @@ namespace Game
 
         private void OnSetPlayerLevelEvent(SetPlayerLevelEvent e)
         {
-            this.tmp_Level.text = $"{e.Level}级";
+            this.tmp_Level.text = StringHelper.FormatNumber(e.Level) + "级";
         }
 
         private void OnHeroInfoUpdateEvent(UserInfoUpdateEvent e)
@@ -58,7 +61,6 @@ namespace Game
             string goldText = this.user.Gold > 100000000 ? StringHelper.FormatNumber(this.user.Gold) : this.user.Gold + "";
 
             this.tmp_Gold.text = $"金币:{goldText}";
-
             this.tmp_BattlePower.text = $"战力：{user.AttributeBonus.GetPower()}";
         }
         

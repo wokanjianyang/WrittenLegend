@@ -76,7 +76,7 @@ namespace Game
 
             SelfPlayer.EventCenter.Raise(new SetPlayerLevelEvent
             {
-                Level = SelfPlayer.Level.ToString()
+                Level = SelfPlayer.Level
             });
 
             //设置血量

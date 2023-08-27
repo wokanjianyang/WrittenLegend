@@ -501,7 +501,7 @@ namespace Game
                 SetUpExp();
 
                 EventCenter.Raise(new UserInfoUpdateEvent());
-                EventCenter.Raise(new SetPlayerLevelEvent { Level = Level.ToString() });
+                EventCenter.Raise(new SetPlayerLevelEvent { Level = Level });
                 yield return new WaitForSeconds(0.2f);
             }
             yield return null;

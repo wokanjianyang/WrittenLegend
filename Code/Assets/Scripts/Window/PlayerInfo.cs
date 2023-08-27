@@ -63,27 +63,30 @@ namespace Game
        
         }
 
-        public void UpdateAttrInfo(User user) {
-            HP.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.HP).ToString();
-            PhyAtt.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.PhyAtt).ToString();
-            SpiritAtt.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.SpiritAtt).ToString();
-            MagicAtt.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.MagicAtt).ToString();
+        public void UpdateAttrInfo(User user)
+        {
+            HP.text = StringHelper.FormatNumber(user.AttributeBonus.GetTotalAttr(AttributeEnum.HP));
+            PhyAtt.text = StringHelper.FormatNumber(user.AttributeBonus.GetTotalAttr(AttributeEnum.PhyAtt));
+            SpiritAtt.text = StringHelper.FormatNumber(user.AttributeBonus.GetTotalAttr(AttributeEnum.SpiritAtt));
+            MagicAtt.text = StringHelper.FormatNumber(user.AttributeBonus.GetTotalAttr(AttributeEnum.MagicAtt));
             Lucky.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.Lucky).ToString();
-            Def.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.Def).ToString();
+            Def.text = StringHelper.FormatNumber(user.AttributeBonus.GetTotalAttr(AttributeEnum.Def));
             LevelExp.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.Exp).ToString();
             DamageIncrea.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.DamageIncrea).ToString() + "%";
             DamageResist.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.DamageResist).ToString() + "%";
             CritRate.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.CritRate).ToString() + "%";
             CritRateResist.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.CritRateResist).ToString() + "%";
             CritDamage.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.CritDamage).ToString() + "%";
-            SecondExp.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp).ToString();
 
-            GoldIncrea.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.GoldIncrea).ToString()+"%";
+
+            GoldIncrea.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.GoldIncrea).ToString() + "%";
             ExpIncrea.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.ExpIncrea).ToString() + "%";
             BurstIncrea.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstIncrea).ToString() + "%";
             QualityIncrea.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea).ToString() + "%";
 
-            SecondGold.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondGold).ToString() ;
+            SecondExp.text = StringHelper.FormatNumber(user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp));
+            SecondGold.text = StringHelper.FormatNumber(user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondGold));
+
             RestoerHpPercent.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.RestoreHpPercent).ToString() + "%";
             RestoreHp.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.RestoreHp).ToString();
             CritDamageResist.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.CritDamageResist).ToString() + "%";
