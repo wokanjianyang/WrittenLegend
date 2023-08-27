@@ -4,9 +4,9 @@ namespace Game
 {
 	public class ConfigHelper
 	{
-		public const int Version = 134;
+		public const int Version = 135;
 
-		public const long Max_Level = 5000000; //最大等级
+		public const long Max_Level = 10000000; //最大等级
 
 		public const double Def_Rate = 3.0; //防御系数
 
