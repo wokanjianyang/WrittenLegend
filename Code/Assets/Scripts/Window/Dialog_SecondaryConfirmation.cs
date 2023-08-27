@@ -11,6 +11,9 @@ namespace Game
         private Action doneAction;
         private Action cancleAction;
 
+        public Button Btn_OK;
+        public Button Btn_Cancle;
+
         void Start()
         {
         }
@@ -27,12 +30,23 @@ namespace Game
 
         public int Order => (int)ComponentOrder.Dialog;
 
-        private void OnShow(string msg,Action done, Action cancle)
+        private void OnShow(string msg, bool showButton, Action done, Action cancle)
         {
             this.gameObject.SetActive(true);
             this.txt_Msg.text = msg;
             this.doneAction = done;
             this.cancleAction = cancle;
+
+            if (!showButton)
+            {
+                this.Btn_OK.gameObject.SetActive(false);
+                this.Btn_Cancle.gameObject.SetActive(false);
+            }
+            else
+            {
+                this.Btn_OK.gameObject.SetActive(true);
+                this.Btn_Cancle.gameObject.SetActive(true);
+            }
         }
         
         private void OnSecondaryConfirmationEvent(SecondaryConfirmationEvent e)

@@ -51,7 +51,7 @@ namespace Game
         private bool isGameOver { get; set; } = true;
         public PlayerType winCamp { get; private set; }
 
-        public delegate void ShowDialog(string msg,Action doneAction,Action cancleAction);
+        public delegate void ShowDialog(string msg, bool showButton, Action doneAction,Action cancleAction);
 
         public ShowDialog ShowSecondaryConfirmationDialog;
 
@@ -143,7 +143,6 @@ namespace Game
                 isTimeError = true;
             }
 
-
             //计算离线
             if (User.SecondExpTick > 0)
             {
@@ -178,6 +177,12 @@ namespace Game
             ShowVideoAd += OnShowVideoAd;
             
             this.UIRoot_Top = GameObject.Find("Canvas/UIRoot/Top").transform;
+
+            if (isTimeError || isCheckError)
+            {
+                StartCoroutine(this.AutoExitApp());
+                return;
+            }
         }
 
         private void OfflineReward()
@@ -639,7 +644,7 @@ namespace Game
 
         private void AutoEquipCopy()
         {
-            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("5S后自动挑战装备副本",
+            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("5S后自动挑战装备副本",true,
             () =>
             {
                 StopCoroutine(ie_autoStartCopy);
@@ -669,6 +674,19 @@ namespace Game
         {
             this.EventCenter.Raise(new CopyViewCloseEvent());
             this.EventCenter.Raise(new AutoStartCopyEvent());
+        }
+
+        private IEnumerator AutoExitApp()
+        {
+            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("5S后自动关闭游戏", false, null, null);
+
+            for (int i = 0; i < 5; i++)
+            {
+                this.EventCenter.Raise(new SecondaryConfirmTextEvent() { Text = $"{(5 - i)}秒后自动关闭游戏" });
+                yield return new WaitForSeconds(1f);
+            }
+
+            Application.Quit();
         }
     }
 }

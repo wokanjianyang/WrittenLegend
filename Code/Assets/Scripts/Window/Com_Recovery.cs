@@ -104,7 +104,7 @@ namespace Game
         {
             if (equipToggles[3].isOn)
             {
-                GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("是否确认回收紫色品质？", () =>
+                GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("是否确认回收紫色品质？",true, () =>
                 {
                     this.SaveSetting();
                 }, null);

@@ -70,7 +70,7 @@ namespace Game
 
         public void OnClickBossFamily()
         {
-            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("是否确认挑战？", () =>
+            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("是否确认挑战？",true, () =>
             {
                 User user = GameProcessor.Inst.User;
 
