@@ -68,7 +68,7 @@ namespace Game
         }
         private void OnHeroInfoUpdateEvent(UserInfoUpdateEvent e)
         {
-            this.SetProgress(this.user.Exp, this.user.UpExp);
+            this.SetProgress(this.user.MagicExp.Data, this.user.MagicUpExp.Data);
         }
     }
 }

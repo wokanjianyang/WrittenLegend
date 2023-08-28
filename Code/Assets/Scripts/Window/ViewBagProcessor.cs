@@ -590,7 +590,7 @@ namespace Game
             }
             else if (boxItem.Item.Type == ItemType.Ticket)
             {
-                user.CopyTikerCount += quantity;
+                user.MagicCopyTikerCount.Data += quantity;
             }
         }
         

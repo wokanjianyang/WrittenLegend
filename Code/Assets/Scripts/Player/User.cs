@@ -11,9 +11,9 @@ namespace Game
 {
     public class User
     {
-        public long Exp { get; set; }
+        //public long Exp { get; set; }
 
-        public long UpExp { get; set; }
+        //public long UpExp { get; set; }
 
         public long Gold { get; set; }
 
@@ -33,6 +33,14 @@ namespace Game
 
         public long Level { get; set; }
 
+        public MagicData MagicLevel { get; } = new MagicData();
+
+        public MagicData MagicGold { get; } = new MagicData();
+
+        public MagicData MagicExp { get; } = new MagicData();
+
+        public MagicData MagicUpExp { get; } = new MagicData();
+
         public IDictionary<int, Equip> EquipPanel { get; set; } = new Dictionary<int, Equip>();
 
         public IDictionary<int, IDictionary<int, Equip>> EquipPanelList { get; set; } = new Dictionary<int, IDictionary<int, Equip>>();
@@ -43,7 +51,10 @@ namespace Game
 
         public IDictionary<int, long> EquipStrength { get; set; } = new Dictionary<int, long>();
 
+        public IDictionary<int, MagicData> MagicEquipStrength { get; set; } = new Dictionary<int, MagicData>();
+
         public IDictionary<int, int> EquipRefine { get; set; } = new Dictionary<int, int>();
+        public IDictionary<int, MagicData> MagicEquipRefine { get; set; } = new Dictionary<int, MagicData>();
 
         [JsonIgnore]
         public IDictionary<int, int> EquipRecord { get; set; } = new Dictionary<int, int>();
@@ -76,6 +87,8 @@ namespace Game
         /// </summary>
         public long TowerFloor { get; set; } = 1;
 
+        public MagicData MagicTowerFloor { get; } = new MagicData();
+
         public int MapId { get; set; } = 1000;
 
         public int TaskId { get; set; } = 1;
@@ -84,6 +97,8 @@ namespace Game
         //副本次数记录
         public long CopyTicketTime { get; set; } = 0;
         public int CopyTikerCount { get; set; } = 0;
+
+        public MagicData MagicCopyTikerCount { get; } = new MagicData();
 
         public Dictionary<int, long> MapBossTime { get; } = new Dictionary<int, long>();
 
@@ -129,21 +144,19 @@ namespace Game
         {
             this.AttributeBonus = new AttributeBonus();
 
+            long Level = MagicLevel.Data;
+            long levelAttr = LevelConfigCategory.GetLevelAttr(Level);
+
             LevelConfig config = LevelConfigCategory.Instance.GetAll().Where(m => m.Value.StartLevel <= Level && m.Value.EndLevel >= Level).First().Value;
 
-            //等级属性
-            long rise = Level - config.StartLevel;
-            long attr = config.StartAttr + (long)(rise * config.RiseAttr);
-            long hp = config.StartHp + (long)(rise * config.RiseHp);
-            long def = config.StartDef + (long)(rise * config.RiseDef);
-            long upExp = config.StartExp + rise * config.RiseExp;
+            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, levelAttr * 10);
+            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, levelAttr);
+            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, levelAttr);
+            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, levelAttr);
+            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, levelAttr / 5);
 
-            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp);
-            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr);
-            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr);
-            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr);
-            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, def);
-
+            //设置升级属性
+            SetUpExp();
 
             //Test属性
             //AttributeBonus.SetAttr(AttributeEnum.DamageIncrea, AttributeFrom.Test, 1000000);
@@ -153,9 +166,9 @@ namespace Game
             foreach (var kvp in EquipPanelList[EquipPanelIndex])
             {
                 EquipRefineConfig refineConfig = null;
-                if (EquipRefine.TryGetValue(kvp.Key, out int refineLevel))
+                if (MagicEquipRefine.TryGetValue(kvp.Key, out MagicData refineData))
                 {
-                    refineConfig = EquipRefineConfigCategory.Instance.GetByLevel(refineLevel);
+                    refineConfig = EquipRefineConfigCategory.Instance.GetByLevel(refineData.Data);
                 }
 
                 foreach (var a in kvp.Value.GetTotalAttrList(refineConfig))
@@ -181,22 +194,24 @@ namespace Game
                     AttributeBonus.SetAttr((AttributeEnum)item.AttrIdList[i], AttributeFrom.EquipSuit, item.Position, item.AttrValueList[i]);
                 }
             }
+
             //强化属性
-            foreach (var sp in EquipStrength)
+            foreach (var sp in this.MagicEquipStrength)
             {
                 EquipStrengthConfig strengthConfig = EquipStrengthConfigCategory.Instance.GetByPositioin(sp.Key);
                 for (int i = 0; i < strengthConfig.AttrList.Length; i++)
                 {
-                    AttributeBonus.SetAttr((AttributeEnum)strengthConfig.AttrList[i], AttributeFrom.EquiStrong, sp.Key, strengthConfig.AttrValueList[i] * sp.Value);
+                    long strenthAttr = LevelConfigCategory.GetLevelAttr(sp.Value.Data);
+                    AttributeBonus.SetAttr((AttributeEnum)strengthConfig.AttrList[i], AttributeFrom.EquiStrong, sp.Key, strenthAttr);
                 }
             }
 
             //无尽塔属性
-            if (this.TowerFloor > 1)
+            if (this.MagicTowerFloor.Data > 1)
             {
                 long secondExp = 0;
                 long secondGold = 0;
-                MonsterTowerHelper.GetTowerSecond(TowerFloor - 1, out secondExp, out secondGold);
+                MonsterTowerHelper.GetTowerSecond(this.MagicTowerFloor.Data - 1, out secondExp, out secondGold);
 
                 AttributeBonus.SetAttr(AttributeEnum.SecondExp, AttributeFrom.Tower, secondExp);
                 AttributeBonus.SetAttr(AttributeEnum.SecondGold, AttributeFrom.Tower, secondGold);
@@ -234,9 +249,6 @@ namespace Game
                     AttributeBonus.SetAttr((AttributeEnum)ar.AttrId, AttributeFrom.Auras, ar.AttrValue);
                 }
             }
-
-            //UpExp = config.Exp;
-            UpExp = upExp;
 
             //更新面板
             if (GameProcessor.Inst.PlayerInfo != null)
@@ -466,16 +478,12 @@ namespace Game
 
         public void AddExpAndGold(long exp, long gold)
         {
-            if (Level < ConfigHelper.Max_Level || exp < 0)
-            {
-                this.Exp += exp;
-            }
-
-            this.Gold += gold;
+            this.MagicExp.Data += exp;
+            this.MagicGold.Data += gold;
 
             EventCenter.Raise(new UserInfoUpdateEvent()); //更新UI
 
-            if (Exp >= UpExp)
+            if (MagicExp.Data >= MagicUpExp.Data)
             {
                 GameProcessor.Inst.StartCoroutine(LevelUp()); //升级
             }
@@ -483,25 +491,16 @@ namespace Game
 
         IEnumerator LevelUp()
         {
-            while (this.Exp >= this.UpExp && this.Level < ConfigHelper.Max_Level)
+
+            while (this.MagicExp.Data >= this.MagicUpExp.Data && this.MagicLevel.Data < ConfigHelper.Max_Level)
             {
-                LevelConfig config = LevelConfigCategory.Instance.GetAll().Where(m => m.Value.StartLevel <= Level && m.Value.EndLevel >= Level).First().Value;
-
-                long upLevel = this.Exp / UpExp;
-
-                upLevel = Math.Min(upLevel, config.EndLevel - Level + 1);
-                if (upLevel > 1000)
-                {
-                    upLevel = Math.Max(1, upLevel / 10);
-                }
-
-                Exp -= UpExp * upLevel;
-                Level += upLevel;
+                MagicExp.Data -= MagicUpExp.Data;
+                this.MagicLevel.Data++;
 
                 SetUpExp();
 
                 EventCenter.Raise(new UserInfoUpdateEvent());
-                EventCenter.Raise(new SetPlayerLevelEvent { Level = Level });
+                EventCenter.Raise(new SetPlayerLevelEvent { Level = this.MagicLevel.Data });
                 yield return new WaitForSeconds(0.2f);
             }
             yield return null;
@@ -512,9 +511,9 @@ namespace Game
 
         private void SetUpExp()
         {
-            LevelConfig config = LevelConfigCategory.Instance.GetAll().Where(m => m.Value.StartLevel <= Level && m.Value.EndLevel >= Level).First().Value;
-            long rise = Level - config.StartLevel;
-            UpExp = config.StartExp + rise * config.RiseExp;
+            long levelAttr = LevelConfigCategory.GetLevelAttr(MagicLevel.Data);
+            LevelConfig config = LevelConfigCategory.Instance.GetAll().Where(m => m.Value.StartLevel <= MagicLevel.Data && m.Value.EndLevel >= MagicLevel.Data).First().Value;
+            MagicUpExp.Data = levelAttr * config.Exp;
         }
 
         public long GetMaterialCount(int id)

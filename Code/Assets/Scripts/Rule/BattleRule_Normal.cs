@@ -77,7 +77,7 @@ namespace Game
                     GameProcessor.Inst.EventCenter.Raise(new ChangeFloorEvent() { });
                 }
 
-                var monsters = MonsterTowerHelper.BuildMonster(user.TowerFloor);
+                var monsters = MonsterTowerHelper.BuildMonster(user.MagicTowerFloor.Data);
                 if (monsters != null && monsters.Count > 0)
                 {
                     start = true;
@@ -96,18 +96,18 @@ namespace Game
             start = false;
             User user = GameProcessor.Inst.User;
 
-            TowerConfig config = TowerConfigCategory.Instance.GetByFloor(user.TowerFloor);
+            TowerConfig config = TowerConfigCategory.Instance.GetByFloor(user.MagicTowerFloor.Data);
 
             long secondExp = 0;
             long secondGold = 0;
-            MonsterTowerHelper.GetTowerSecond(user.TowerFloor, out secondExp, out secondGold);
+            MonsterTowerHelper.GetTowerSecond(user.MagicTowerFloor.Data, out secondExp, out secondGold);
 
             user.AttributeBonus.SetAttr(AttributeEnum.SecondExp, AttributeFrom.Tower, secondExp);
             user.AttributeBonus.SetAttr(AttributeEnum.SecondGold, AttributeFrom.Tower, secondGold);
 
             int equipLevel = Math.Max(10, (user.MapId - ConfigHelper.MapStartId) * 10);
 
-            List<Item> items = DropHelper.TowerEquip(user.TowerFloor, equipLevel);
+            List<Item> items = DropHelper.TowerEquip(user.MagicTowerFloor.Data, equipLevel);
 
             if (items.Count > 0)
             {
@@ -120,11 +120,11 @@ namespace Game
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
             {
-                Message = BattleMsgHelper.BuildTowerSuccessMessage(config.RiseExp, config.RiseGold, exp, gold, user.TowerFloor, items),
+                Message = BattleMsgHelper.BuildTowerSuccessMessage(config.RiseExp, config.RiseGold, exp, gold, user.MagicTowerFloor.Data, items),
                 BattleType = BattleType.Tower
             });
 
-            user.TowerFloor++;
+            user.MagicTowerFloor.Data++;
 
             //自动回收
             if (items.Count > 0)
@@ -133,7 +133,7 @@ namespace Game
             }
 
             //判断任务
-            TaskHelper.CheckTask(TaskType.Tower, user.TowerFloor);
+            TaskHelper.CheckTask(TaskType.Tower, user.MagicTowerFloor.Data);
         }
     }
 }

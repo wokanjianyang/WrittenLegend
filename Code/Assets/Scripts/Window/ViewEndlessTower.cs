@@ -66,25 +66,25 @@ namespace Game
 
             var maxFloor = TowerConfigCategory.Instance.GetAll().Count;
             long minFloor = 0;
-            if (user.TowerFloor == maxFloor)
+            if (user.MagicTowerFloor.Data == maxFloor)
             {
-                minFloor = user.TowerFloor - 2;
+                minFloor = user.MagicTowerFloor.Data - 2;
             }
-            else if (user.TowerFloor == maxFloor - 1)
+            else if (user.MagicTowerFloor.Data == maxFloor - 1)
             {
-                minFloor = user.TowerFloor - 1;
+                minFloor = user.MagicTowerFloor.Data - 1;
             }
             else
             {
-                minFloor = user.TowerFloor;
+                minFloor = user.MagicTowerFloor.Data;
             }
 
             this.tmp_Floor_0.text = $"{(minFloor)}";
             this.tmp_Floor_1.text = $"{(minFloor + 1)}";
             this.tmp_Floor_2.text = $"{(minFloor + 2)}";
 
-            var config = TowerConfigCategory.Instance.GetByFloor(user.TowerFloor);
-            this.tmp_CurrentFloor.text = $"{(user.TowerFloor)}";
+            var config = TowerConfigCategory.Instance.GetByFloor(user.MagicTowerFloor.Data);
+            this.tmp_CurrentFloor.text = $"{(user.MagicTowerFloor.Data)}";
             this.tmp_ExpAdd.text = $"{config.RiseExp}";
             this.tmp_Reward.text = "暂无";
             this.tmp_Cri.text = "暂无";

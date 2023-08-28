@@ -26,7 +26,7 @@ namespace Game
         private void LevelUp(HeroLevelUp e)
         {
             User user = GameProcessor.Inst.User;
-            this.Level = user.Level;
+            this.Level = user.MagicLevel.Data;
 
             this.SetAttr(user);  //设置属性值
             this.Logic.SetData(null); //设置UI
@@ -47,7 +47,7 @@ namespace Game
             User user = GameProcessor.Inst.User;
             this.Camp = PlayerType.Hero;
             this.Name = user.Name;
-            this.Level = user.Level;
+            this.Level = user.MagicLevel.Data;
 
             this.SetAttr(user);  //设置属性值
             this.SetSkill(user); //设置技能

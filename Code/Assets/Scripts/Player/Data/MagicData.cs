@@ -14,6 +14,8 @@ namespace Game.Data
 
         private long data;
 
+        private string text;
+
         public long Data
         {
             get
@@ -31,6 +33,11 @@ namespace Game.Data
             {
                 data = value * MagicRate + MagicOff;
             }
+        }
+
+        public bool Check()
+        {
+            return true;
         }
     }
 

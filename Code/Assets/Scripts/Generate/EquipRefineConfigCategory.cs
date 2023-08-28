@@ -8,7 +8,7 @@ namespace Game
     public partial class EquipRefineConfigCategory
     {
 
-        public EquipRefineConfig GetByLevel(int level)
+        public EquipRefineConfig GetByLevel(long level)
         {
             try
             {

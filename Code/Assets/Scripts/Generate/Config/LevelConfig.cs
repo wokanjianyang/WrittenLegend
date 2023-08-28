@@ -84,30 +84,9 @@ namespace Game
 		/// <summary>EndLevel</summary>
 		[ProtoMember(3)]
 		public long EndLevel { get; set; }
-		/// <summary>StartAttr</summary>
+		/// <summary>Exp</summary>
 		[ProtoMember(4)]
-		public long StartAttr { get; set; }
-		/// <summary>RiseAttr</summary>
-		[ProtoMember(5)]
-		public double RiseAttr { get; set; }
-		/// <summary>StartDef</summary>
-		[ProtoMember(6)]
-		public long StartDef { get; set; }
-		/// <summary>RiseDef</summary>
-		[ProtoMember(7)]
-		public double RiseDef { get; set; }
-		/// <summary>StartHp</summary>
-		[ProtoMember(8)]
-		public long StartHp { get; set; }
-		/// <summary>RiseHp</summary>
-		[ProtoMember(9)]
-		public long RiseHp { get; set; }
-		/// <summary>StartExp</summary>
-		[ProtoMember(10)]
-		public long StartExp { get; set; }
-		/// <summary>RiseExp</summary>
-		[ProtoMember(11)]
-		public long RiseExp { get; set; }
+		public long Exp { get; set; }
 
 	}
 }

@@ -31,8 +31,8 @@ namespace Game
 
             this.OnHeroInfoUpdateEvent(null);
 
-            this.tmp_Level.text = StringHelper.FormatNumber(user.Level) + "级";
-            this.tmp_BattlePower.text = $"战力：{user.AttributeBonus.GetPower()}"; 
+            this.tmp_Level.text = user.MagicLevel.Data + "级";
+            this.tmp_BattlePower.text = $"战力：{user.AttributeBonus.GetPower()}";
 
             user.EventCenter.AddListener<SetPlayerLevelEvent>(this.OnSetPlayerLevelEvent);
             user.EventCenter.AddListener<UserInfoUpdateEvent>(this.OnHeroInfoUpdateEvent);
@@ -58,7 +58,9 @@ namespace Game
 
         private void OnHeroInfoUpdateEvent(UserInfoUpdateEvent e)
         {
-            string goldText = this.user.Gold > 100000000 ? StringHelper.FormatNumber(this.user.Gold) : this.user.Gold + "";
+            long gold = this.user.MagicGold.Data;
+
+            string goldText = gold > 100000000 ? StringHelper.FormatNumber(gold) : gold + "";
 
             this.tmp_Gold.text = $"金币:{goldText}";
             this.tmp_BattlePower.text = $"战力：{user.AttributeBonus.GetPower()}";

@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using Game.Data;
 
 namespace Game
 {
@@ -156,9 +157,9 @@ namespace Game
 
                         int basePercent = 0;
                         int qualityPercent = 0;
-                        if (user.EquipRefine.TryGetValue(equipPositioin, out int refineLevel))
+                        if (user.MagicEquipRefine.TryGetValue(equipPositioin, out MagicData refineData))
                         {
-                            EquipRefineConfig refineConfig = EquipRefineConfigCategory.Instance.GetByLevel(refineLevel);
+                            EquipRefineConfig refineConfig = EquipRefineConfigCategory.Instance.GetByLevel(refineData.Data);
                             basePercent = refineConfig.BaseAttrPercent;
                             qualityPercent = refineConfig.QualityAttrPercent;
                         }

@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using SA.Android.Utilities;
 using System.Linq;
+using Game.Data;
 
 namespace Game
 {
@@ -47,13 +48,13 @@ namespace Game
             {
                 user = new User();
                 //首次初始化
-                user.Level = 1;
-                user.Exp = 0;
+                user.MagicLevel.Data = 1;
+                user.MagicExp.Data = 0;
                 user.Name = "传奇";
-                user.TowerFloor = 1;
+                user.MagicTowerFloor.Data = 1;
                 user.MapId = ConfigHelper.MapStartId;
-                user.Gold = 0;
-                user.CopyTikerCount = ConfigHelper.CopyTicketFirstCount;
+                user.MagicGold.Data = 0;
+                user.MagicCopyTikerCount.Data = ConfigHelper.CopyTicketFirstCount;
             }
 
             //装备方案更新
@@ -89,6 +90,49 @@ namespace Game
                 ep.Remove(14);
             }
 
+            //等级转换
+            if (user.MagicLevel.Data <= 1 && user.Level > 100)
+            {
+                user.MagicLevel.Data = LevelConfigCategory.ConvertLevel(user.Level,3200);
+                user.Level = 0;
+
+                user.MagicGold.Data = user.Gold;
+                user.Gold = 0;
+            }
+
+            if (user.EquipRefine.Count > 0)
+            {
+                foreach (var kv in user.EquipRefine)
+                {
+                    user.MagicEquipRefine[kv.Key] = new MagicData();
+                    user.MagicEquipRefine[kv.Key].Data = user.EquipRefine[kv.Key];
+                }
+
+                user.EquipRefine.Clear();
+            }
+
+            if (user.EquipStrength.Count > 0)
+            {
+
+                foreach (var kv in user.EquipStrength)
+                {
+                    user.MagicEquipStrength[kv.Key] = new MagicData();
+                    user.MagicEquipStrength[kv.Key].Data = LevelConfigCategory.ConvertLevel(user.EquipStrength[kv.Key], 4500);
+                }
+
+                user.EquipStrength.Clear();
+            }
+
+            if (user.TowerFloor > 100 && user.MagicTowerFloor.Data == 1)
+            {
+                user.MagicTowerFloor.Data = user.TowerFloor;
+                user.TowerFloor = 0;
+            }
+
+            if (user.CopyTikerCount > 0) {
+                user.MagicCopyTikerCount.Data = user.CopyTikerCount;
+                user.CopyTikerCount = 0;
+            }
 
             //TEST data
             //user.Gold = 999999999999; 

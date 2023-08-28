@@ -43,7 +43,7 @@ public class Com_CompositeItem : MonoBehaviour
         int count = user.Bags.Where(m => (int)m.Item.Type == config.FromItemType && m.Item.ConfigId == config.FromId).Count();
         //TODO 合成数量问题
 
-        if (count < config.Quantity || user.Gold < config.Commission)
+        if (count < config.Quantity || user.MagicGold.Data < config.Commission)
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "材料不足" });
             return;

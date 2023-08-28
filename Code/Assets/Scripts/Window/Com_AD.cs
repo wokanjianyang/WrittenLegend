@@ -422,7 +422,7 @@ public class Com_AD : MonoBehaviour, IBattleLife
         int rate = real ? 2 : 1;
 
         User user = GameProcessor.Inst.User;
-        user.CopyTikerCount += 8 * rate;
+        user.MagicCopyTikerCount.Data += 8 * rate;
 
         if (!user.Record.Check())
         {

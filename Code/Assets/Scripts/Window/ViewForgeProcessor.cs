@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Game;
+using Game.Data;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -87,13 +88,6 @@ public class ViewForgeProcessor : AViewPage
 
     private void OnEquipStrengthSelectEvent(EquipStrengthSelectEvent e)
     {
-        Debug.Log("SelectPosition:" + e.Position);
-
-        if (e.Position == SelectPosition) {
-            return;
-        }
-
-        //̬
         StrenthBox oldBox = StrengthenEquiList.Where(m => ((int)m.SlotType) == SelectPosition).First();
         oldBox.SeSelect(false);
 
@@ -105,11 +99,37 @@ public class ViewForgeProcessor : AViewPage
     {
         User user = GameProcessor.Inst.User;
 
-        user.EquipStrength.TryGetValue(SelectPosition, out long strengthLevel);
+        foreach (var box in StrengthenEquiList)
+        {
+            int position = ((int)box.SlotType);
+
+            if (user.MagicEquipStrength.TryGetValue(position, out MagicData strenthTemp))
+            {
+                box.SetLevel(strenthTemp.Data);
+            }
+            else
+            {
+                user.MagicEquipStrength[position] = new MagicData();
+            }
+
+            if (position == SelectPosition)
+            {
+                box.SeSelect(true);
+            }
+        }
+
+        long nextLevel = 1;
+
+        if (user.MagicEquipStrength.TryGetValue(SelectPosition, out MagicData strengthData))
+        {
+            nextLevel = strengthData.Data;
+        }
 
         EquipStrengthConfig config = EquipStrengthConfigCategory.Instance.GetByPositioin(SelectPosition);
 
-        EquipStrengthFeeConfig feeConfig = EquipStrengthFeeConfigCategory.Instance.GetByLevel(strengthLevel + 1);
+        EquipStrengthFeeConfig feeConfig = EquipStrengthFeeConfigCategory.Instance.GetByLevel(nextLevel);
+
+        long levelAttr = LevelConfigCategory.GetLevelAttr(nextLevel);
 
         if (feeConfig == null)
         {
@@ -119,8 +139,8 @@ public class ViewForgeProcessor : AViewPage
         }
         else
         {
-            long fee = feeConfig.Fee;
-            string color = user.Gold >= fee ? "#FFFF00" : "#FF0000";
+            long fee = levelAttr * feeConfig.Fee;
+            string color = user.MagicGold.Data >= fee ? "#FFFF00" : "#FF0000";
             Txt_Fee.text = string.Format("<color={0}>{1}</color>", color, fee);
 
             Btn_Strengthen.gameObject.SetActive(true);
@@ -133,8 +153,8 @@ public class ViewForgeProcessor : AViewPage
             {
                 int attrId = config.AttrList[i];
 
-                string attrAdd = config.AttrValueList[i] + "";
-                string attrCurrent = config.AttrValueList[i] * strengthLevel + "";
+                string attrAdd = config.AttrValueList[i] * nextLevel + "";
+                string attrCurrent = config.AttrValueList[i] * levelAttr + "";
                 string attrName = PlayerHelper.PlayerAttributeMap[((AttributeEnum)attrId).ToString()];
 
                 AttrList[i].SetContent(attrName, attrCurrent, attrAdd);
@@ -145,44 +165,31 @@ public class ViewForgeProcessor : AViewPage
                 AttrList[i].gameObject.SetActive(false);
             }
         }
-
-
-        foreach (var box in StrengthenEquiList)
-        {
-            int position = ((int)box.SlotType);
-            user.EquipStrength.TryGetValue(position, out long level);
-
-            box.SetLevel(level);
-
-            if (position == SelectPosition)
-            {
-                box.SeSelect(true);
-            }
-        }
     }
 
     private void OnClick_Strengthen()
     {
         User user = GameProcessor.Inst.User;
-        user.EquipStrength.TryGetValue(SelectPosition, out long strengthLevel);
 
-        //if (strengthLevel >= user.Level)
-        //{
-        //    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "强化等级不能超过人物等级", ToastType = ToastTypeEnum.Failure });
-        //    return;
-        //}
+        long nextLevel = 1;
 
-        EquipStrengthFeeConfig config = EquipStrengthFeeConfigCategory.Instance.GetByLevel(strengthLevel + 1);
-
-        long fee = config.Fee;
-
-        if (user.Gold < fee)
+        if (user.MagicEquipStrength.TryGetValue(SelectPosition, out MagicData strengthData))
         {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的金币", ToastType = ToastTypeEnum.Failure});
+            nextLevel = strengthData.Data + 1;
+        }
+
+        EquipStrengthFeeConfig config = EquipStrengthFeeConfigCategory.Instance.GetByLevel(nextLevel);
+
+        long levelAttr = LevelConfigCategory.GetLevelAttr(nextLevel);
+        long fee = levelAttr * config.Fee;
+
+        if (user.MagicGold.Data < fee)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的金币", ToastType = ToastTypeEnum.Failure });
             return;
         }
 
-        user.EquipStrength[SelectPosition] = strengthLevel + 1;
+        user.MagicEquipStrength[SelectPosition].Data++;
 
         user.AddExpAndGold(0, -fee);
 
@@ -192,33 +199,47 @@ public class ViewForgeProcessor : AViewPage
 
         TaskHelper.CheckTask(TaskType.Strength, 1);
         //Debug.Log("Strengthen Success");
-        
-        GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "强化成功", ToastType = ToastTypeEnum.Success});
+
+        GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "强化成功", ToastType = ToastTypeEnum.Success });
     }
+
     private void OnClick_Strengthen_Batch()
     {
         User user = GameProcessor.Inst.User;
-        user.EquipStrength.TryGetValue(SelectPosition, out long strengthLevel);
 
-        //if (strengthLevel >= user.Level)
-        //{
-        //    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "强化等级不能超过人物等级", ToastType = ToastTypeEnum.Failure });
-        //    return;
-        //}
+        long nextLevel = 1;
 
-        //
-        EquipStrengthFeeConfig config = EquipStrengthFeeConfigCategory.Instance.GetByLevel(strengthLevel + 1);
+        if (user.MagicEquipStrength.TryGetValue(SelectPosition, out MagicData strengthData))
+        {
+            nextLevel = strengthData.Data + 1;
+        }
 
-        long maxLevel = config.EndLevel - strengthLevel;
-        long realLevel = user.Gold / config.Fee;
+        EquipStrengthFeeConfig config = EquipStrengthFeeConfigCategory.Instance.GetByLevel(nextLevel);
 
-        long sl = Math.Min(maxLevel, realLevel);
+        long maxLevel = config.EndLevel - nextLevel+1;
+
+        long sl = 0;
+        long feeTotal = 0;
+
+        for (int i = 0; i < maxLevel; i++)
+        {
+            long levelAttr = LevelConfigCategory.GetLevelAttr(nextLevel + i);
+            long fee = levelAttr * config.Fee;
+
+            if (feeTotal + fee > user.MagicGold.Data) {
+                break;
+            }
+
+            feeTotal += fee;
+            sl++;
+        }
+
 
         if (sl > 0)
         {
-            user.EquipStrength[SelectPosition] = strengthLevel + sl;
+            user.MagicEquipStrength[SelectPosition].Data += sl;
 
-            user.AddExpAndGold(0, -config.Fee * sl);
+            user.AddExpAndGold(0, -feeTotal);
 
             GameProcessor.Inst.UpdateInfo();
 
@@ -228,7 +249,8 @@ public class ViewForgeProcessor : AViewPage
 
             TaskHelper.CheckTask(TaskType.Strength, 1);
         }
-        else {
+        else
+        {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "金币不够", ToastType = ToastTypeEnum.Failure });
         }
     }
@@ -337,13 +359,18 @@ public class ViewForgeProcessor : AViewPage
     private void ShowRefine()
     {
         User user = GameProcessor.Inst.User;
-        user.EquipRefine.TryGetValue(Refine_Position, out int refineLevel);
-
         foreach (var box in Refine_EquiList)
         {
             int position = ((int)box.SlotType);
-            user.EquipRefine.TryGetValue(position, out int level);
-            box.SetLevel(level);
+
+            if (user.MagicEquipRefine.TryGetValue(position, out MagicData refineTemp))
+            {
+                box.SetLevel(refineTemp.Data);
+            }
+            else
+            {
+                user.MagicEquipRefine[position] = new MagicData();
+            }
 
             if (position == Refine_Position)
             {
@@ -351,9 +378,11 @@ public class ViewForgeProcessor : AViewPage
             }
         }
 
-        EquipRefineConfig currentConfig = EquipRefineConfigCategory.Instance.GetByLevel(refineLevel);
+        user.MagicEquipRefine.TryGetValue(Refine_Position, out MagicData refineData);
 
-        EquipRefineConfig nextConfig = EquipRefineConfigCategory.Instance.GetByLevel(refineLevel + 1);
+        EquipRefineConfig currentConfig = EquipRefineConfigCategory.Instance.GetByLevel(refineData.Data);
+
+        EquipRefineConfig nextConfig = EquipRefineConfigCategory.Instance.GetByLevel(refineData.Data + 1);
 
         if (nextConfig != null)
         {
@@ -422,16 +451,16 @@ public class ViewForgeProcessor : AViewPage
     private void OnClick_Refine()
     {
         User user = GameProcessor.Inst.User;
-        user.EquipRefine.TryGetValue(Refine_Position, out int refineLevel);
+        user.MagicEquipRefine.TryGetValue(Refine_Position, out MagicData refineData);
 
-        if (refineLevel >= 350)
+        if (refineData.Data >= 350)
         {
             //
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "精练等级满级了", ToastType = ToastTypeEnum.Failure });
             return;
         }
 
-        EquipRefineConfig config = EquipRefineConfigCategory.Instance.GetByLevel(refineLevel + 1);
+        EquipRefineConfig config = EquipRefineConfigCategory.Instance.GetByLevel(refineData.Data + 1);
 
         var materialCount = user.GetMaterialCount(ItemHelper.SpecialId_EquipRefineStone);
 
@@ -441,7 +470,7 @@ public class ViewForgeProcessor : AViewPage
             return;
         }
 
-        user.EquipRefine[Refine_Position] = refineLevel + 1;
+        user.MagicEquipRefine[Refine_Position].Data++;
 
         GameProcessor.Inst.EventCenter.Raise(new MaterialUseEvent()
         {
@@ -482,7 +511,6 @@ public class ViewForgeProcessor : AViewPage
     public override void OnOpen()
     {
         base.OnOpen();
-        
         this.ShowStrengthInfo();
     }
 }

@@ -32,7 +32,7 @@ namespace Game
 
         }
 
-        public void SetLevel(int level)
+        public void SetLevel(long level)
         {
             if (level > 0)
             {

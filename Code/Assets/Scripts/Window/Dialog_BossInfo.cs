@@ -122,18 +122,18 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
             {
                 count = ConfigHelper.CopyTicketFirstCount;
             }
-            if (user.CopyTikerCount + count > ConfigHelper.CopyTicketMax) //次数超过200次，时间不能累计
+            if (user.MagicCopyTikerCount.Data + count > ConfigHelper.CopyTicketMax) //次数超过200次，时间不能累计
             {
-                count = Math.Max(0, ConfigHelper.CopyTicketMax - user.CopyTikerCount);
+                count = Math.Max(0, (int)(ConfigHelper.CopyTicketMax - user.MagicCopyTikerCount.Data));
             }
 
-            user.CopyTikerCount += count;
+            user.MagicCopyTikerCount.Data += count;
 
             dieTime = now - user.CopyTicketTime;
         }
 
         //显示倒计时
-        txt_boss_count.text = user.CopyTikerCount + "";
+        txt_boss_count.text = user.MagicCopyTikerCount.Data + "";
         long refeshTime = ConfigHelper.CopyTicketCd - dieTime;
         txt_boss_time.text = TimeSpan.FromSeconds(refeshTime).ToString(@"hh\:mm\:ss");
     }

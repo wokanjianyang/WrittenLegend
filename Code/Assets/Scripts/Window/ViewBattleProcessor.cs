@@ -144,7 +144,7 @@ namespace Game
 
             if (user != null)
             {
-                txt_MapName.text = user.TowerFloor + "层";
+                txt_MapName.text = user.MagicTowerFloor.Data + "层";
             }
 
         }

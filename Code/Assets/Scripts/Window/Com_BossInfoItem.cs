@@ -37,7 +37,7 @@ public class Com_BossInfoItem : MonoBehaviour
     {
         int ticket = GameProcessor.Inst.EquipCopySetting_Rate ? 5 : 1;
 
-        if (GameProcessor.Inst.User.CopyTikerCount < ticket)
+        if (GameProcessor.Inst.User.MagicCopyTikerCount.Data < ticket)
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "挑战次数不够了", ToastType = ToastTypeEnum.Failure });
             return;

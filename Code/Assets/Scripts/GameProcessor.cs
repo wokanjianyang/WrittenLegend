@@ -203,7 +203,7 @@ namespace Game
             long tempTime = Math.Min(offlineTime, ConfigHelper.MaxOfflineTime);
             while (tempTime > 0)
             {
-                long tmepFloor = User.TowerFloor + offlineFloor + 100;
+                long tmepFloor = User.MagicTowerFloor.Data + offlineFloor + 100;
                 TowerConfig config = TowerConfigCategory.Instance.GetByFloor(tmepFloor); //quick
 
                 AttributeBonus offlineHero = User.AttributeBonus;
@@ -234,14 +234,14 @@ namespace Game
             List<Item> items = new List<Item>();
             for (int i = 0; i < offlineFloor; i++) 
             {
-                long fl = User.TowerFloor + i;
+                long fl = User.MagicTowerFloor.Data + i;
 
                 int equipLevel = Math.Max(10, (User.MapId - ConfigHelper.MapStartId) * 10);
 
                 items.AddRange(DropHelper.TowerEquip(fl, equipLevel));
             }
 
-            User.TowerFloor += offlineFloor;
+            User.MagicTowerFloor.Data += offlineFloor;
 
             long exp = User.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp) * (offlineTime / 5);
             long gold = User.AttributeBonus.GetTotalAttr(AttributeEnum.SecondGold) * (offlineTime / 5);
@@ -635,7 +635,7 @@ namespace Game
             if (ruleType == RuleType.Tower)
             {
                 //判断是否自动挑战
-                if (EquipCopySetting_Auto && GameProcessor.Inst.User.CopyTikerCount > 0)
+                if (EquipCopySetting_Auto && GameProcessor.Inst.User.MagicCopyTikerCount.Data > 0)
                 {
                     this.AutoEquipCopy();
                 }

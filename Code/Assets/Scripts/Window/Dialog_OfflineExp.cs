@@ -62,7 +62,7 @@ namespace Game
             this.tmp_Msg.text = string.Format("本次离线时间:{0}\n奖励离线经验: {1}", t, offlineExp);
 
 
-            user.Exp += offlineExp;
+            user.MagicExp.Data += offlineExp;
             user.EventCenter.Raise(new HeroChangeEvent
             {
                 Type = UserChangeType.LevelUp
