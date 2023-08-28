@@ -58,7 +58,7 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
     {
         User user = GameProcessor.Inst.User;
 
-        user.CopyTikerCount -= rate;
+        user.MagicCopyTikerCount.Data -= rate;
 
         MapConfig config = MapConfigCategory.Instance.Get(this.CopyMapId);
         txt_FloorName.text = config.Name;
@@ -86,7 +86,7 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
 
     public void OnAutoStartCopyEvent(AutoStartCopyEvent e)
     {
-        if (GameProcessor.Inst.User.CopyTikerCount <= 0)
+        if (GameProcessor.Inst.User.MagicCopyTikerCount.Data <= 0)
         {
             return;
         }
