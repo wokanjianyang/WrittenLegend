@@ -144,7 +144,7 @@ namespace Game
             }
 
             //TEST data
-            user.MagicGold.Data = 9999999999999; 
+            //user.MagicGold.Data = 9999999999999; 
             //user.Level = 1;
             //user.MapId = 1010;
             //user.TowerFloor = 59998;
