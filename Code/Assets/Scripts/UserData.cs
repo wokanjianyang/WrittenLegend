@@ -123,7 +123,7 @@ namespace Game
                 user.EquipStrength.Clear();
             }
 
-            if (user.TowerFloor > 100 && user.MagicTowerFloor.Data == 1)
+            if (user.TowerFloor > 100 && user.MagicTowerFloor.Data <= 1)
             {
                 user.MagicTowerFloor.Data = user.TowerFloor;
                 user.TowerFloor = 0;
@@ -134,8 +134,17 @@ namespace Game
                 user.CopyTikerCount = 0;
             }
 
+            foreach (var box in user.Bags)
+            {
+                if (box.Number > 0)
+                {
+                    box.MagicNubmer.Data = box.Number;
+                    box.Number = 0;
+                }
+            }
+
             //TEST data
-            //user.Gold = 999999999999; 
+            user.MagicGold.Data = 9999999999999; 
             //user.Level = 1;
             //user.MapId = 1010;
             //user.TowerFloor = 59998;

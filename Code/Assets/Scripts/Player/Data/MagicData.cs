@@ -20,7 +20,7 @@ namespace Game.Data
         {
             get
             {
-                if (data == 0)
+                if (data <= 1)
                 {
                     return data;
                 }
@@ -31,7 +31,14 @@ namespace Game.Data
             }
             set
             {
-                data = value * MagicRate + MagicOff;
+                if (value <= 1)
+                {
+                    data = value;
+                }
+                else
+                {
+                    data = value * MagicRate + MagicOff;
+                }
             }
         }
 

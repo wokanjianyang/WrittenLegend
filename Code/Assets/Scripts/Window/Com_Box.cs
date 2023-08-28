@@ -23,7 +23,7 @@ namespace Game
         public int boxId { get; private set; }
 
         public int EquipPosition { get; private set; }
-        public int Count { get; private set; }
+        public long Count { get; private set; }
 
         // Start is called before the first frame update
         void Start()
@@ -63,7 +63,7 @@ namespace Game
 
             this.Item = item;
 
-            this.Count = item.Number;
+            this.Count = item.MagicNubmer.Data;
             
             this.go_Lock.gameObject.SetActive(item.Item.IsLock);
 
@@ -81,14 +81,14 @@ namespace Game
             this.EquipPosition = position;
         }
 
-        public void AddStack(int quantity)
+        public void AddStack(long quantity)
         {
             this.Count+= quantity;
             this.tmp_Count.transform.gameObject.SetActive(this.Count != 1);
             this.tmp_Count.text = this.Count.ToString();
         }
 
-        public void RemoveStack(int quantity)
+        public void RemoveStack(long quantity)
         {
             this.Count -= quantity;
             this.tmp_Count.transform.gameObject.SetActive(this.Count != 1);

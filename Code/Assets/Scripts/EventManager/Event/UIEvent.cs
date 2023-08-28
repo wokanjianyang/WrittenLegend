@@ -101,7 +101,7 @@ namespace Game
 
         public Item Item { get; set; }
 
-        public int Quantity { get; set; }
+        public long Quantity { get; set; }
     }
 
     //选择出战技能

@@ -518,7 +518,7 @@ namespace Game
 
         public long GetMaterialCount(int id)
         {
-            long count = this.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == id).Select(m => m.Number).Sum();
+            long count = this.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == id).Select(m => m.MagicNubmer.Data).Sum();
             return count;
         }
     }

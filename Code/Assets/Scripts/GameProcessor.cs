@@ -254,7 +254,7 @@ namespace Game
             {
                 BoxItem boxItem = new BoxItem();
                 boxItem.Item = item;
-                boxItem.Number = 1;
+                boxItem.MagicNubmer.Data = 1;
                 boxItem.BoxId = -1;
                 User.Bags.Add(boxItem);
             }

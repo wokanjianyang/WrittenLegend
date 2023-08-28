@@ -262,20 +262,20 @@ namespace Game
                 return;
             }
 
-            int useCount = (int)config.Quantity;
+            long useCount = config.Quantity;
 
             foreach (BoxItem boxItem in list)
             {
                 //TODO 合成数量问题
-                int boxNumber = boxItem.Number > 0 ? boxItem.Number : 1;
+                long boxNumber = boxItem.MagicNubmer.Data > 0 ? boxItem.MagicNubmer.Data : 1;
 
-                int boxUseCount = Math.Min(boxNumber, useCount);
+                long boxUseCount = Math.Min(boxNumber, useCount);
 
                 Com_Box boxUI = this.items.Find(m => m.boxId == boxItem.BoxId);
                 boxItem.RemoveStack(boxUseCount);
                 boxUI.RemoveStack(boxUseCount);
 
-                if (boxItem.Number <= 0)
+                if (boxItem.MagicNubmer.Data <= 0)
                 {
                     user.Bags.Remove(boxItem);
 
@@ -306,19 +306,19 @@ namespace Game
 
             List<BoxItem> list = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == e.MaterialId).ToList();
 
-            int count = list.Select(m => m.Number).Sum();
+            long count = list.Select(m => m.MagicNubmer.Data).Sum();
 
-            int useCount = (int)e.Quantity;
+            long useCount = e.Quantity;
 
             foreach (BoxItem boxItem in list)
             {
-                int boxUseCount = Math.Min(boxItem.Number, useCount);
+                long boxUseCount = Math.Min(boxItem.MagicNubmer.Data, useCount);
 
                 Com_Box boxUI = this.items.Find(m => m.boxId == boxItem.BoxId);
                 boxItem.RemoveStack(boxUseCount);
                 boxUI.RemoveStack(boxUseCount);
 
-                if (boxItem.Number <= 0)
+                if (boxItem.MagicNubmer.Data <= 0)
                 {
                     user.Bags.Remove(boxItem);
 
@@ -440,7 +440,7 @@ namespace Game
 
             foreach (BoxItem box in recoveryList)
             {
-                gold += box.Item.Gold * box.Number;
+                gold += box.Item.Gold * box.MagicNubmer.Data;
 
                 if (box.Item.Type == ItemType.Equip)
                 {
@@ -449,7 +449,7 @@ namespace Game
                 }
                 //Log.Debug("自动回收:" + box.Item.Name + " " + box.Number + "个");
 
-                box.Number = 0;
+                box.MagicNubmer.Data = 0;
                 UseBoxItem(box.BoxId, 1);
             }
 
@@ -484,7 +484,7 @@ namespace Game
 
             foreach (BoxItem box in recoveryList)
             {
-                gold += box.Item.Gold * box.Number;
+                gold += box.Item.Gold * box.MagicNubmer.Data;
 
                 if (box.Item.Type == ItemType.Equip)
                 {
@@ -530,7 +530,7 @@ namespace Game
             User user = GameProcessor.Inst.User;
 
             BoxItem boxItem = user.Bags.Find(m => m.BoxId == e.BoxId);
-            int quantity = e.Quantity == -1 ? boxItem.Number : e.Quantity;
+            long quantity = e.Quantity == -1 ? boxItem.MagicNubmer.Data : e.Quantity;
 
             UseBoxItem(e.BoxId, quantity);
 
@@ -604,7 +604,7 @@ namespace Game
             }
         }
 
-        private void UseBoxItem(int boxId, int quantity)
+        private void UseBoxItem(int boxId, long quantity)
         {
             User user = GameProcessor.Inst.User;
 
@@ -619,7 +619,7 @@ namespace Game
             boxItem.RemoveStack(quantity);
 
             //用光了，移除队列
-            if (boxItem.Number <= 0)
+            if (boxItem.MagicNubmer.Data <= 0)
             {
                 user.Bags.Remove(boxItem);
             }
@@ -628,7 +628,7 @@ namespace Game
             if (boxUI != null) //上线自动回收，可能还没加载
             {
                 boxUI.RemoveStack(quantity);
-                if (boxItem.Number <= 0)
+                if (boxItem.MagicNubmer.Data <= 0)
                 {
                     this.items.Remove(boxUI);
                     GameObject.Destroy(boxUI.gameObject);
@@ -664,7 +664,7 @@ namespace Game
 
                 boxItem = new BoxItem();
                 boxItem.Item = newItem;
-                boxItem.Number = newItem.Quantity;
+                boxItem.MagicNubmer.Data = newItem.Quantity;
                 boxItem.BoxId = lastBoxId;
 
                 var item = this.CreateBox(boxItem);
@@ -757,7 +757,7 @@ namespace Game
             //生成格子
             BoxItem boxItem = new BoxItem();
             boxItem.Item = equip;
-            boxItem.Number = 1;
+            boxItem.MagicNubmer.Data = 1;
             boxItem.BoxId = -1;
 
             Com_Box comItem = this.CreateBox(boxItem);
