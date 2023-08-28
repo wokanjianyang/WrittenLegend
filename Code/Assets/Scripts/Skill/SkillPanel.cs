@@ -37,6 +37,8 @@ namespace Game
 
         public int FinalIncrea { get; } //最终伤害加成
 
+        public int InheritIncrea { get; } //召唤物高级属性继承
+
         public Dictionary<int, EffectData> EffectIdList { get; } = new Dictionary<int, EffectData>(); //特殊效果 
 
         public AttackGeometryType Area { get; }
@@ -105,6 +107,10 @@ namespace Game
             int runeColumn = runeList.Select(m => m.Column).Sum();
             int suitColumn = suitList.Select(m => m.Column).Sum();
 
+            int runeInheritIncrea = runeList.Select(m => m.InheritIncrea).Sum();
+            int suitInheritIncrea = suitList.Select(m => m.InheritIncrea).Sum();
+
+
             this.Damage += skillData.SkillConfig.Damage + runeDamage + suitDamage + levelDamage;
             this.Percent += skillData.SkillConfig.Percent + runePercent + suitPercent + levelPercent;
 
@@ -123,6 +129,8 @@ namespace Game
 
             this.AttrIncrea = 0 + runeAttrIncrea + suitAttrIncrea;
             this.FinalIncrea = 0 + runeFinalIncrea + suitFinalIncrea;
+
+            this.InheritIncrea = skillData.SkillConfig.InheritIncrea + runeInheritIncrea + suitInheritIncrea;
 
             //施法范围
             this.Area = EnumHelper.FromString<AttackGeometryType>(skillData.SkillConfig.Area);

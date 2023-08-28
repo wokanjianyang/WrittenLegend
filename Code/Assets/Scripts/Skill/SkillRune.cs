@@ -26,6 +26,7 @@ namespace Game
         public int AttrIncrea { get; } //攻击加成
         public int FinalIncrea { get; } //最终伤害加成
 
+        public int InheritIncrea { get; }
         public int EffectId { get; } //
 
         public SkillRune(int runeId, int quantity)
@@ -50,6 +51,7 @@ namespace Game
 
             this.AttrIncrea = SkillRuneConfig.AttrIncrea;
             this.FinalIncrea = SkillRuneConfig.FinalIncrea;
+            this.InheritIncrea = SkillRuneConfig.InheritIncrea;
 
             this.EffectId = SkillRuneConfig.EffectId;
         }

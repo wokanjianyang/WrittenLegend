@@ -147,11 +147,14 @@ namespace Game
 		/// <summary>伤害加成</summary>
 		[ProtoMember(24)]
 		public int DamageIncrea { get; set; }
-		/// <summary>附带效果</summary>
+		/// <summary>继承加成</summary>
 		[ProtoMember(25)]
+		public int InheritIncrea { get; set; }
+		/// <summary>附带效果</summary>
+		[ProtoMember(26)]
 		public string[] EffectList { get; set; }
 		/// <summary>升级经验</summary>
-		[ProtoMember(26)]
+		[ProtoMember(27)]
 		public int Exp { get; set; }
 
 	}

@@ -135,8 +135,11 @@ namespace Game
 		/// <summary>最终加成</summary>
 		[ProtoMember(20)]
 		public int FinalIncrea { get; set; }
-		/// <summary>附带效果</summary>
+		/// <summary>继承加成</summary>
 		[ProtoMember(21)]
+		public int InheritIncrea { get; set; }
+		/// <summary>附带效果</summary>
+		[ProtoMember(22)]
 		public int EffectId { get; set; }
 
 	}
