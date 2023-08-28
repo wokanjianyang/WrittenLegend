@@ -42,11 +42,11 @@ namespace Game
 				case AttributeEnum.HP:
 					return CalTotal(AttributeEnum.HP, AttributeEnum.HpIncrea);
 				case AttributeEnum.PhyAtt:
-					return CalTotal(AttributeEnum.PhyAtt, AttributeEnum.AttIncrea);
+					return CalTotal(AttributeEnum.PhyAtt, AttributeEnum.AttIncrea, AttributeEnum.PhyAttIncrea);
 				case AttributeEnum.MagicAtt:
-					return CalTotal(AttributeEnum.MagicAtt, AttributeEnum.AttIncrea);
+					return CalTotal(AttributeEnum.MagicAtt, AttributeEnum.AttIncrea, AttributeEnum.MagicAttIncrea);
 				case AttributeEnum.SpiritAtt:
-					return CalTotal(AttributeEnum.SpiritAtt, AttributeEnum.AttIncrea);
+					return CalTotal(AttributeEnum.SpiritAtt, AttributeEnum.AttIncrea, AttributeEnum.SpiritAttIncrea);
 				case AttributeEnum.Def:
 					return CalTotal(AttributeEnum.Def, AttributeEnum.DefIncrea);
 				case AttributeEnum.SecondExp:
@@ -78,19 +78,27 @@ namespace Game
 			return StringHelper.FormatNumber(power);
 		}
 
-		private long CalTotal(AttributeEnum type, AttributeEnum typeIncrea) {
+		private long CalTotal(AttributeEnum type, params AttributeEnum[] increaTypes)
+		{
 			long total = 0;
 
-			foreach (long hp in AllAttrDict[type].Values) {
+			foreach (long hp in AllAttrDict[type].Values)
+			{
 				total += hp;
 			}
 
 			long percent = 0;
-			foreach (long pc in AllAttrDict[typeIncrea].Values) {
-				percent += pc;
+
+			for (int i = 0; i < increaTypes.Length; i++)
+			{
+				AttributeEnum percentType = increaTypes[i];
+				foreach (long pc in AllAttrDict[percentType].Values)
+				{
+					percent += pc;
+				}
 			}
 
-            return total * (100+ percent) /100;
+			return total * (100 + percent) / 100;
 		}
 
 		private long CalTotal(AttributeEnum type)

@@ -36,7 +36,14 @@ namespace Game
         {
             if (level > 0)
             {
-                Txt_Level.text = level + "";
+                if (level >= 1000000)
+                {
+                    Txt_Level.text = StringHelper.FormatNumber(level);
+                }
+                else
+                {
+                    Txt_Level.text = level + "";
+                }
             }
         }
 

@@ -38,6 +38,11 @@ namespace Game
             {nameof(AttributeEnum.RestoreHp), "每秒点数回血" },
             {nameof(AttributeEnum.RestoreHpPercent), "每秒上限回血" },
             {nameof(AttributeEnum.QualityIncrea), "品质加成" },
+
+            {nameof(AttributeEnum.PhyAttIncrea), "物攻加成" },
+            {nameof(AttributeEnum.MagicAttIncrea),"魔法加成" },
+            {nameof(AttributeEnum.SpiritAttIncrea), "道术加成" },
+
             {nameof(AttributeEnum.EquipBaseIncrea), "装备基础属性提升" },
             {nameof(AttributeEnum.EquipQualityIncrea), "装备品质属性提升" },
         };

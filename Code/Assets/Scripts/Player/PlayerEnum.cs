@@ -32,10 +32,14 @@ namespace Game
         BurstIncrea = 19, //爆率加成
         GoldIncrea = 20, //金币加成
         SecondExp = 21, //每秒经验收益
-        SecondGold = 25, //每秒金币收益
         RestoreHp = 22, //固定回血数值
         RestoreHpPercent = 23,//百分比回血数值
         QualityIncrea = 24,//品质加成
+        SecondGold = 25, //每秒金币收益
+        PhyAttIncrea = 26, //物攻加成
+        MagicAttIncrea = 27, //魔法加成
+        SpiritAttIncrea = 28, //道术加成
+
         WarriorSkillPercent = 41, //战士技能百分比系数
         WarriorSkillDamage = 42, //战士技能固定系数
         MageSkillPercent = 43, //法师技能百分比系数
