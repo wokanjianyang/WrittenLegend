@@ -143,6 +143,20 @@ namespace Game
                 }
             }
 
+            foreach (var skill in user.SkillList)
+            {
+                if (skill.Level > 0)
+                {
+                    skill.MagicLevel.Data = skill.Level;
+                    skill.Level = 0;
+                }
+                if (skill.Exp > 0)
+                {
+                    skill.MagicExp.Data = skill.Exp;
+                    skill.Exp = 0;
+                }
+            }
+
             //TEST data
             //user.MagicGold.Data = 9999999999999; 
             //user.Level = 1;

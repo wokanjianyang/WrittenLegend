@@ -331,8 +331,8 @@ namespace Game
                 //第一次学习，创建技能数据
                 skillData = new SkillData(Book.ConfigId, 0);
                 skillData.Status = SkillStatus.Learn;
-                skillData.Level = 1;
-                skillData.Exp = 0;
+                skillData.MagicLevel.Data = 1;
+                skillData.MagicExp.Data = 0;
 
                 this.SkillList.Add(skillData);
             }

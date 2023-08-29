@@ -62,11 +62,11 @@ namespace Game
                 }
             }
 
-            int levelPercent = skillData.Level ;
-            long levelDamage = skillData.Level * 1000;
+            int levelPercent = (int)skillData.MagicLevel.Data;
+            long levelDamage = skillData.MagicLevel.Data * 1000;
 
-            long runeDamage = runeList.Select(m => m.Damage).Sum() * skillData.Level;
-            long suitDamage = suitList.Select(m => m.Damage).Sum() * skillData.Level;
+            long runeDamage = runeList.Select(m => m.Damage).Sum() * skillData.MagicLevel.Data;
+            long suitDamage = suitList.Select(m => m.Damage).Sum() * skillData.MagicLevel.Data;
 
             int runePercent = runeList.Select(m => m.Percent).Sum();
             int suitPercent = suitList.Select(m => m.Percent).Sum();

@@ -46,13 +46,13 @@ namespace Game
             {
                 this.tmp_Name.text = SkillPanel.SkillData.SkillConfig.Name;
             }
-            this.tmp_Level.text = string.Format("LV:{0}", SkillPanel.SkillData.Level);
+            this.tmp_Level.text = string.Format("LV:{0}", SkillPanel.SkillData.MagicLevel.Data);
             this.tmp_CD.text = string.Format("冷却时间{0}秒", SkillPanel.CD);
 
             this.tmp_Des.text = string.Format(SkillPanel.SkillData.SkillConfig.Des, SkillPanel.Dis, SkillPanel.EnemyMax, SkillPanel.Percent, SkillPanel.Damage);
 
             var expProgress = this.GetComponentInChildren<Com_Progress>();
-            expProgress.SetProgress(SkillPanel.SkillData.Exp, SkillPanel.SkillData.GetLevelUpExp());
+            expProgress.SetProgress(SkillPanel.SkillData.MagicExp.Data, SkillPanel.SkillData.GetLevelUpExp());
         }
         public void OnPointerClick(PointerEventData eventData)
         {

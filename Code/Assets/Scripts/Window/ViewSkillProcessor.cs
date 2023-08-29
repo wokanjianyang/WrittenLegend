@@ -109,9 +109,17 @@ namespace Game
                 var equip = this.equipSkills.Find(s => s.SkillPanel.SkillId == skill.SkillId);
                 if (equip == null)
                 {
-                    int position = CalSkillPosition();
-                    skill.SkillData.Position = position;
-                    var com = this.tran_EquipSkills.GetChild(position).GetComponent<Com_Skill>();
+                    if (skill.SkillData.Position <= 0 || skill.SkillData.Position > 5)
+                    {
+                        int position = CalSkillPosition();
+                        if (position == 0)
+                        {
+                            return; //出错了，满了
+                        }
+                        skill.SkillData.Position = position;
+                    }
+
+                    var com = this.tran_EquipSkills.GetChild(skill.SkillData.Position - 1).GetComponent<Com_Skill>();
                     com.SetItem(skill);
                     this.equipSkills.Add(com);
                 }
@@ -120,7 +128,7 @@ namespace Game
 
         private int CalSkillPosition()
         {
-            List<int> alls = new int[] { 0, 1, 2, 3, 4 }.ToList();
+            List<int> alls = new int[] { 1, 2, 3, 4, 5 }.ToList();
             List<int> ps = this.equipSkills.Select(m => m.SkillPanel.SkillData.Position).ToList();
 
             foreach (var item in this.equipSkills)

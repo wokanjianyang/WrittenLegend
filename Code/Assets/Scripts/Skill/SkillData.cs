@@ -1,4 +1,6 @@
+using Game.Data;
 using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +13,9 @@ namespace Game
         public long Exp { get; set; }
         public int Level { get; set; }
 
+        public MagicData MagicExp { get; set; } = new MagicData();
+        public MagicData MagicLevel { get; set; } = new MagicData();
+
         //技能状态
         public SkillStatus Status { get; set; }
 
@@ -20,31 +25,33 @@ namespace Game
         [JsonIgnore]
         public SkillConfig SkillConfig { get; set; }
 
-        public int GetLevelUpExp()
+        public long GetLevelUpExp()
         {
-            int rate = 9999999;
+            long rate = 9999999;
 
-            if (Level < 100)
+            long tempLevel = MagicLevel.Data;
+
+            if (tempLevel < 100)
             {
-                rate = Mathf.Min(10, Level + 5);
+                rate = Math.Min(10, tempLevel + 5);
             }
-            else if (Level >= 100 && Level < 150)
+            else if (tempLevel >= 100 && tempLevel < 150)
             {
                 rate = 20;
             }
-            else if (Level >= 150 && Level < 200)
+            else if (tempLevel >= 150 && tempLevel < 200)
             {
                 rate = 30;
             }
-            else if (Level >= 200 && Level < 250)
+            else if (tempLevel >= 200 && tempLevel < 250)
             {
                 rate = 40;
             }
-            else if (Level >= 250 && Level < 300)
+            else if (tempLevel >= 250 && tempLevel < 300)
             {
                 rate = 50;
             }
-            else if (Level >= 350 && Level < 400)
+            else if (tempLevel >= 350 && tempLevel < 400)
             {
                 rate = 75;
             }
@@ -61,12 +68,12 @@ namespace Game
 
         public void AddExp(long exp)
         {
-            this.Exp += exp;
-            while (this.Exp >= GetLevelUpExp())
+            this.MagicExp.Data += exp;
+            while (this.MagicExp.Data >= GetLevelUpExp())
             {
                 var upExp = GetLevelUpExp();
-                this.Level++;
-                this.Exp -= upExp;
+                this.MagicLevel.Data++;
+                this.MagicExp.Data -= upExp;
             }
         }
         //----------------

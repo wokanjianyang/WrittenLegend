@@ -22,7 +22,7 @@ namespace Game
         private void Init()
         {
             this.Camp = PlayerType.Valet;
-            this.Level = SkillPanel.SkillData.Level;
+            this.Level = SkillPanel.SkillData.MagicLevel.Data;
             this.Name = SkillPanel.SkillData.SkillConfig.Name.Replace("’ŸªΩ", "") + "(" + Master.Name + ")";
 
             this.SetAttr();  //…Ë÷√ Ù–‘÷µ
