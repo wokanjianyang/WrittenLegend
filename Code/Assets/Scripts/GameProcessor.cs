@@ -15,7 +15,7 @@ namespace Game
     public class GameProcessor : MonoBehaviour
     {
         public static GameProcessor Inst { get; private set; } = null;
-        
+
         public MapData MapData { get; private set; }
 
         public User User { get; private set; }
@@ -51,7 +51,7 @@ namespace Game
         private bool isGameOver { get; set; } = true;
         public PlayerType winCamp { get; private set; }
 
-        public delegate void ShowDialog(string msg, bool showButton, Action doneAction,Action cancleAction);
+        public delegate void ShowDialog(string msg, bool showButton, Action doneAction, Action cancleAction);
 
         public ShowDialog ShowSecondaryConfirmationDialog;
 
@@ -95,12 +95,12 @@ namespace Game
         // Start is called before the first frame update
         void Start()
         {
-            
+
         }
-        
+
         public void Init(long currentTimeSecond)
         {
-            
+
             if (currentTimeSecond > 0)
             {
                 this.CurrentTimeSecond = currentTimeSecond;
@@ -150,14 +150,14 @@ namespace Game
             }
 
             var coms = Canvas.FindObjectsOfType<MonoBehaviour>(true);
-            var battleComs = coms.Where(com => com is IBattleLife).Select(com=>com as IBattleLife).ToList();
+            var battleComs = coms.Where(com => com is IBattleLife).Select(com => com as IBattleLife).ToList();
             battleComs.Sort((a, b) =>
             {
                 if (a.Order < b.Order)
                 {
                     return -1;
                 }
-                else if(a.Order > b.Order)
+                else if (a.Order > b.Order)
                 {
                     return 1;
                 }
@@ -173,14 +173,16 @@ namespace Game
 
             this.EventCenter.AddListener<ShowGameMsgEvent>(ShowGameMsg);
             this.EventCenter.AddListener<EndCopyEvent>(this.OnEndCopy);
+            this.EventCenter.AddListener<CheckGameCheatEvent>(CheckGameCheat);
+
 
             ShowVideoAd += OnShowVideoAd;
-            
+
             this.UIRoot_Top = GameObject.Find("Canvas/UIRoot/Top").transform;
 
             if (isTimeError || isCheckError)
             {
-                StartCoroutine(this.AutoExitApp());
+                StartCoroutine(this.AutoExitApp(true));
                 return;
             }
         }
@@ -232,7 +234,7 @@ namespace Game
             }
 
             List<Item> items = new List<Item>();
-            for (int i = 0; i < offlineFloor; i++) 
+            for (int i = 0; i < offlineFloor; i++)
             {
                 long fl = User.MagicTowerFloor.Data + i;
 
@@ -427,6 +429,15 @@ namespace Game
             }
             toastTaskList.Add(e);
             this.ShowNextToast();
+        }
+
+        private void CheckGameCheat(CheckGameCheatEvent e)
+        {
+            if (User != null)
+            {
+                User.GameCheat = true;
+            }
+            StartCoroutine(this.AutoExitApp(false));
         }
 
         private void OnEndCopy(EndCopyEvent e)
@@ -676,13 +687,19 @@ namespace Game
             this.EventCenter.Raise(new AutoStartCopyEvent());
         }
 
-        private IEnumerator AutoExitApp()
+        private IEnumerator AutoExitApp(bool type)
         {
-            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("5S后自动关闭游戏", false, null, null);
+            string text = "后自动关闭游戏,请更新";
+            if (!type)
+            {
+                text = "后自动关闭游戏,请不要作弊";
+            }
+
+            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("5S" + text, false, null, null);
 
             for (int i = 0; i < 5; i++)
             {
-                this.EventCenter.Raise(new SecondaryConfirmTextEvent() { Text = $"{(5 - i)}秒后自动关闭游戏" });
+                this.EventCenter.Raise(new SecondaryConfirmTextEvent() { Text = $"{(5 - i)}S" + text });
                 yield return new WaitForSeconds(1f);
             }
 

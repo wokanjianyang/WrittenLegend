@@ -39,6 +39,11 @@ namespace Game
         public ToastTypeEnum ToastType { get; set; } = ToastTypeEnum.Normal;
     }
 
+    public class CheckGameCheatEvent : SDD.Events.Event
+    {
+
+    }
+
     public class PlayerDeadEvent : SDD.Events.Event
     {
         public int RoundNum { get; set; }

@@ -113,6 +113,8 @@ namespace Game
 
         public Dictionary<int, MagicData> SoulRingData { get; } = new Dictionary<int, MagicData>();
 
+        public bool GameCheat { get; set; } = false;
+
         public User()
         {
             this.EventCenter = new EventManager();
