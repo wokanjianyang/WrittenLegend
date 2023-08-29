@@ -111,6 +111,7 @@ namespace Game
 
             //启动就加载用户存档
             this.User = UserData.Load();
+
             this.User.Init();
 
             //判断是否非法时间
@@ -184,6 +185,12 @@ namespace Game
             {
                 StartCoroutine(this.AutoExitApp(true));
                 return;
+            }
+
+            if (User.GameCheat)
+            {
+                //StartCoroutine(this.AutoExitApp(false));
+                //return;
             }
         }
 

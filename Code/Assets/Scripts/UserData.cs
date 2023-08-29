@@ -105,20 +105,14 @@ namespace Game
                 int MaxLevel = user.EquipRefine.Select(m => m.Value).Max();
                 int TotalLeve = user.EquipRefine.Select(m => m.Value).Sum();
 
-                if (MaxLevel > 150 || TotalLeve > 1000)
+                foreach (var kv in user.EquipRefine)
                 {
-                    GameProcessor.Inst.isCheckError = true;
+                    user.MagicEquipRefine[kv.Key] = new MagicData();
+                    user.MagicEquipRefine[kv.Key].Data = Math.Min(110, user.EquipRefine[kv.Key]);
                 }
-                else
-                {
-                    foreach (var kv in user.EquipRefine)
-                    {
-                        user.MagicEquipRefine[kv.Key] = new MagicData();
-                        user.MagicEquipRefine[kv.Key].Data = user.EquipRefine[kv.Key];
-                    }
 
-                    user.EquipRefine.Clear();
-                }
+                user.EquipRefine.Clear();
+
             }
 
             if (user.EquipStrength.Count > 0)
@@ -159,24 +153,16 @@ namespace Game
                 int MaxLevel = user.SkillList.Select(m => m.Level).Max();
                 int TotalLeve = user.SkillList.Select(m => m.Level).Sum();
 
-                if (MaxLevel > 150 || TotalLeve > 1000)
+                if (skill.Level > 0)
                 {
-                    GameProcessor.Inst.isCheckError = true;
+                    skill.MagicLevel.Data = Math.Min(skill.Level, 150);
+                    skill.Position = 0;
+                    skill.Level = 0;
                 }
-                else
+                if (skill.Exp > 0)
                 {
-
-                    if (skill.Level > 0)
-                    {
-                        skill.MagicLevel.Data = skill.Level;
-                        skill.Position = 0;
-                        skill.Level = 0;
-                    }
-                    if (skill.Exp > 0)
-                    {
-                        skill.MagicExp.Data = skill.Exp;
-                        skill.Exp = 0;
-                    }
+                    skill.MagicExp.Data = Math.Min(skill.Exp, 750);
+                    skill.Exp = 0;
                 }
             }
 

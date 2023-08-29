@@ -37,10 +37,10 @@ namespace Game.Data
                 }
                 else
                 {
-                    if (!Check())
-                    {
-                        return;
-                    }
+                    //if (!Check())
+                    //{
+                    //    return;
+                    //}
 
                     data = value * MagicRate + MagicOff;
 
