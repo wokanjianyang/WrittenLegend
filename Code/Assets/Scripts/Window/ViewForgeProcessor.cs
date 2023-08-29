@@ -122,7 +122,7 @@ public class ViewForgeProcessor : AViewPage
 
         if (user.MagicEquipStrength.TryGetValue(SelectPosition, out MagicData strengthData))
         {
-            nextLevel = strengthData.Data;
+            nextLevel = strengthData.Data + 1;
         }
 
         EquipStrengthConfig config = EquipStrengthConfigCategory.Instance.GetByPositioin(SelectPosition);
