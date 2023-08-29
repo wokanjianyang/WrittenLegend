@@ -93,22 +93,32 @@ namespace Game
             //等级转换
             if (user.MagicLevel.Data <= 1 && user.Level > 100)
             {
-                user.MagicLevel.Data = LevelConfigCategory.ConvertLevel(user.Level,3200);
+                user.MagicLevel.Data = LevelConfigCategory.ConvertLevel(user.Level, 3200);
                 user.Level = 0;
 
-                user.MagicGold.Data = user.Gold;
+                user.MagicGold.Data = Math.Min(user.Gold, 100000000000); //最多1000亿
                 user.Gold = 0;
             }
 
             if (user.EquipRefine.Count > 0)
             {
-                foreach (var kv in user.EquipRefine)
-                {
-                    user.MagicEquipRefine[kv.Key] = new MagicData();
-                    user.MagicEquipRefine[kv.Key].Data = user.EquipRefine[kv.Key];
-                }
+                int MaxLevel = user.EquipRefine.Select(m => m.Value).Max();
+                int TotalLeve = user.EquipRefine.Select(m => m.Value).Sum();
 
-                user.EquipRefine.Clear();
+                if (MaxLevel > 150 || TotalLeve > 1000)
+                {
+                    GameProcessor.Inst.isCheckError = true;
+                }
+                else
+                {
+                    foreach (var kv in user.EquipRefine)
+                    {
+                        user.MagicEquipRefine[kv.Key] = new MagicData();
+                        user.MagicEquipRefine[kv.Key].Data = user.EquipRefine[kv.Key];
+                    }
+
+                    user.EquipRefine.Clear();
+                }
             }
 
             if (user.EquipStrength.Count > 0)
@@ -129,7 +139,8 @@ namespace Game
                 user.TowerFloor = 0;
             }
 
-            if (user.CopyTikerCount > 0) {
+            if (user.CopyTikerCount > 0)
+            {
                 user.MagicCopyTikerCount.Data = user.CopyTikerCount;
                 user.CopyTikerCount = 0;
             }
@@ -145,15 +156,26 @@ namespace Game
 
             foreach (var skill in user.SkillList)
             {
-                if (skill.Level > 0)
+                int MaxLevel = user.SkillList.Select(m => m.Level).Max();
+                int TotalLeve = user.SkillList.Select(m => m.Level).Sum();
+
+                if (MaxLevel > 150 || TotalLeve > 1000)
                 {
-                    skill.MagicLevel.Data = skill.Level;
-                    skill.Level = 0;
+                    GameProcessor.Inst.isCheckError = true;
                 }
-                if (skill.Exp > 0)
+                else
                 {
-                    skill.MagicExp.Data = skill.Exp;
-                    skill.Exp = 0;
+
+                    if (skill.Level > 0)
+                    {
+                        skill.MagicLevel.Data = skill.Level;
+                        skill.Level = 0;
+                    }
+                    if (skill.Exp > 0)
+                    {
+                        skill.MagicExp.Data = skill.Exp;
+                        skill.Exp = 0;
+                    }
                 }
             }
 
