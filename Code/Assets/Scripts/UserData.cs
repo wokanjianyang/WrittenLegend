@@ -169,6 +169,7 @@ namespace Game
                     if (skill.Level > 0)
                     {
                         skill.MagicLevel.Data = skill.Level;
+                        skill.Position = 0;
                         skill.Level = 0;
                     }
                     if (skill.Exp > 0)
