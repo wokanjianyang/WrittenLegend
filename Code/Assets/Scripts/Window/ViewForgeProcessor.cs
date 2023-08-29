@@ -131,7 +131,7 @@ public class ViewForgeProcessor : AViewPage
 
         long levelAttr = LevelConfigCategory.GetLevelAttr(nextLevel);
 
-        if (feeConfig == null)
+        if (feeConfig == null || nextLevel >= ConfigHelper.Max_Level)
         {
             Txt_Fee.text = "已满级";
             Btn_Strengthen.gameObject.SetActive(false);
@@ -141,7 +141,7 @@ public class ViewForgeProcessor : AViewPage
         {
             long fee = levelAttr * feeConfig.Fee;
             string color = user.MagicGold.Data >= fee ? "#FFFF00" : "#FF0000";
-            Txt_Fee.text = string.Format("<color={0}>{1}</color>", color, fee);
+            Txt_Fee.text = string.Format("<color={0}>{1}</color>", color, StringHelper.FormatNumber(fee));
 
             Btn_Strengthen.gameObject.SetActive(true);
             Btn_Strengthen_Batch.gameObject.SetActive(true);
