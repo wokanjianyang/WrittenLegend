@@ -620,6 +620,15 @@ namespace Game
         public void StartGame()
         {
             this.isGameOver = false;
+
+            if (GameProcessor.Inst.OfflineMessage != "")
+            {
+                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+                {
+                    Message = GameProcessor.Inst.OfflineMessage
+                });
+                GameProcessor.Inst.OfflineMessage = "";
+            }
         }
 
         private IEnumerator AutoResurrection()

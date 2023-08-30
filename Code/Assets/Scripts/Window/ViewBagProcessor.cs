@@ -506,16 +506,6 @@ namespace Game
                 AddBoxItem(item);
             }
 
-
-            if (GameProcessor.Inst.OfflineMessage != "")
-            {
-                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
-                {
-                    Message = GameProcessor.Inst.OfflineMessage
-                });
-                GameProcessor.Inst.OfflineMessage = "";
-            }
-
             if (recoveryList.Count > 0)
             {
                 GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()

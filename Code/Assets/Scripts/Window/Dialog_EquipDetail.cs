@@ -160,8 +160,11 @@ namespace Game
                         if (user.MagicEquipRefine.TryGetValue(equipPositioin, out MagicData refineData))
                         {
                             EquipRefineConfig refineConfig = EquipRefineConfigCategory.Instance.GetByLevel(refineData.Data);
-                            basePercent = refineConfig.BaseAttrPercent;
-                            qualityPercent = refineConfig.QualityAttrPercent;
+                            if (refineConfig != null)
+                            {
+                                basePercent = refineConfig.BaseAttrPercent;
+                                qualityPercent = refineConfig.QualityAttrPercent;
+                            }
                         }
 
                         if (equip.BaseAttrList != null && equip.BaseAttrList.Count > 0)
