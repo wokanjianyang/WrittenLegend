@@ -25,7 +25,7 @@ namespace Game
             if (config.Type == 1)
             {  //按基础属性计算
                 long baseValue = EquipConfigCategory.Instance.GetAll().Where(m => m.Value.LevelRequired == level && m.Value.Part == 1).First().Value.AttributeBase[0];
-                attrValue = baseValue * config.MaxValue / 200;
+                attrValue = baseValue * config.MaxValue / 100;
             }
             else if (config.Type == 2)
             {
