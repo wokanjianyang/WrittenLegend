@@ -55,31 +55,21 @@ namespace Game
                 user.MapId = ConfigHelper.MapStartId;
                 user.MagicGold.Data = 0;
                 user.MagicCopyTikerCount.Data = ConfigHelper.CopyTicketFirstCount;
-            }
 
-            //装备方案更新
-            if (user.EquipPanelList.Count == 0)
-            {
                 user.EquipPanelList[0] = new Dictionary<int, Equip>();
                 user.EquipPanelList[1] = new Dictionary<int, Equip>();
                 user.EquipPanelList[2] = new Dictionary<int, Equip>();
-
-                if (user.EquipPanel.Count > 0)
-                {
-                    foreach (var kvp in user.EquipPanel)
-                    {
-                        if (kvp.Key <= 10)
-                        {
-                            user.EquipPanelList[0][kvp.Key] = kvp.Value;
-                        }
-                        else
-                        {
-                            user.EquipPanelSpecial[kvp.Key] = kvp.Value;
-                        }
-                    }
-                    user.EquipPanel.Clear();
-                }
+                user.EquipPanelList[3] = new Dictionary<int, Equip>();
+                user.EquipPanelList[4] = new Dictionary<int, Equip>();
             }
+
+            //装备方案更新
+            if (user.EquipPanelList.Count == 3)
+            {
+                user.EquipPanelList[3] = new Dictionary<int, Equip>();
+                user.EquipPanelList[4] = new Dictionary<int, Equip>();
+            }
+
             //删除装备栏的四格
             foreach (var kvp in user.EquipPanelList)
             {

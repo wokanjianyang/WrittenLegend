@@ -29,12 +29,16 @@ namespace Game
         public RectTransform EquipInfo1;
         public RectTransform EquipInfo2;
         public RectTransform EquipInfo3;
+        public RectTransform EquipInfo4;
+        public RectTransform EquipInfo5;
         public RectTransform EquipInfoSpecial;
         public List<RectTransform> EquipInfoList = new List<RectTransform>();
 
         public Button Btn_Equip1;
         public Button Btn_Equip2;
         public Button Btn_Equip3;
+        public Button Btn_Equip4;
+        public Button Btn_Equip5;
 
         [LabelText("整理")]
         public Button btn_Reset;
@@ -67,6 +71,8 @@ namespace Game
             this.Btn_Equip1.onClick.AddListener(ChangeEquipPanel1);
             this.Btn_Equip2.onClick.AddListener(ChangeEquipPanel2);
             this.Btn_Equip3.onClick.AddListener(ChangeEquipPanel3);
+            this.Btn_Equip4.onClick.AddListener(ChangeEquipPanel4);
+            this.Btn_Equip5.onClick.AddListener(ChangeEquipPanel5);
 
             ShowEquipPanel();
         }
@@ -93,6 +99,8 @@ namespace Game
             this.EquipInfoList.Add(EquipInfo1);
             this.EquipInfoList.Add(EquipInfo2);
             this.EquipInfoList.Add(EquipInfo3);
+            this.EquipInfoList.Add(EquipInfo4);
+            this.EquipInfoList.Add(EquipInfo5);
 
             GameProcessor.Inst.StartCoroutine(LoadBox());
         }
@@ -353,6 +361,17 @@ namespace Game
         private void ChangeEquipPanel3()
         {
             GameProcessor.Inst.User.EquipPanelIndex = 2;
+            ShowEquipPanel();
+        }
+        private void ChangeEquipPanel4()
+        {
+            GameProcessor.Inst.User.EquipPanelIndex = 3;
+            ShowEquipPanel();
+        }
+
+        private void ChangeEquipPanel5()
+        {
+            GameProcessor.Inst.User.EquipPanelIndex = 4;
             ShowEquipPanel();
         }
 
