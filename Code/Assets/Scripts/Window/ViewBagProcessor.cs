@@ -100,6 +100,7 @@ namespace Game
 
         private IEnumerator LoadBox()
         {
+            Debug.Log("LoadBox Begin:" +DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             //先回收,再加载
             this.FirstRecovery();
 
@@ -117,7 +118,7 @@ namespace Game
                 foreach (var slotBox in EquipInfo.GetComponentsInChildren<SlotBox>())
                 {
                     slotBox.Init(prefab);
-                    yield return null;
+                    //yield return null;
                 }
             }
 
@@ -132,7 +133,7 @@ namespace Game
                 foreach (var kvp in kvEp.Value)
                 {
                     this.CreateEquipPanelItem(kvEp.Key, kvp.Key, kvp.Value);
-                    yield return null;
+                    //yield return null;
                 }
             }
 
@@ -140,7 +141,7 @@ namespace Game
             foreach (var kvp in user.EquipPanelSpecial)
             {
                 this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
-                yield return null;
+                //yield return null;
             }
                 
             var emptyPrefab = Resources.Load<GameObject>("Prefab/Window/Box_Empty");
@@ -150,12 +151,14 @@ namespace Game
                 var empty = GameObject.Instantiate(emptyPrefab, (this.sr_Bag.content));
                 empty.name = "Box_" + i;
                 
-                yield return null;
+                //yield return null;
 
             }
 
             RefreshBag();
-            yield return null;
+
+            Debug.Log("LoadBox End:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            //yield return null;
         }
 
         private void OnRefreshBag()
