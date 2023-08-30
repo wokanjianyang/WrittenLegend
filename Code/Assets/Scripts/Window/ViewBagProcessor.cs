@@ -558,7 +558,7 @@ namespace Game
             }
             else if (boxItem.Item.Type == ItemType.ExpPack)
             {
-                long exp = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondGold);
+                long exp = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp);
 
                 ItemConfig config = ItemConfigCategory.Instance.Get(boxItem.Item.ConfigId);
 
@@ -572,7 +572,7 @@ namespace Game
             }
             else if (boxItem.Item.Type == ItemType.GoldPack)
             {
-                long gold = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp);
+                long gold = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondGold);
 
                 ItemConfig config = ItemConfigCategory.Instance.Get(boxItem.Item.ConfigId);
 
