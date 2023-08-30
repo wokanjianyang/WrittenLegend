@@ -252,10 +252,10 @@ namespace Game
 
             User.MagicTowerFloor.Data += offlineFloor;
 
-            long exp = User.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp) * (offlineTime / 5);
-            long gold = User.AttributeBonus.GetTotalAttr(AttributeEnum.SecondGold) * (offlineTime / 5);
+            long exp = User.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp) * (offlineTime / 5) + rewardExp;
+            long gold = User.AttributeBonus.GetTotalAttr(AttributeEnum.SecondGold) * (offlineTime / 5) + rewardGold;
 
-            User.AddExpAndGold(rewardExp + exp, rewardGold + gold);
+            User.AddExpAndGold(exp, gold);
             User.SecondExpTick = currentTick;
 
 
@@ -268,7 +268,7 @@ namespace Game
                 User.Bags.Add(boxItem);
             }
 
-            OfflineMessage = BattleMsgHelper.BuildOfflineMessage(offlineTime, offlineFloor, rewardExp, rewardGold, items.Count);
+            OfflineMessage = BattleMsgHelper.BuildOfflineMessage(offlineTime, offlineFloor, exp, gold, items.Count);
             //Debug.Log(OfflineMessage);
 
             UserData.Save();
