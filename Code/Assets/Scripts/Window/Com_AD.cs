@@ -506,7 +506,7 @@ public class Com_AD : MonoBehaviour, IBattleLife
         int MapNo = (user.MapId - ConfigHelper.MapStartId + 1);
         int stoneRate = (MapNo / 10) + 1;
 
-        int refineStone = 300 * MapNo * stoneRate * rate;
+        int refineStone = 600 * MapNo * stoneRate * rate;
         Item item = ItemHelper.BuildRefineStone(refineStone);
 
         List<Item> items = new List<Item>();
