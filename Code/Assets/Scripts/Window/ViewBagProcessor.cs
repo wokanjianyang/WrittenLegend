@@ -731,6 +731,7 @@ namespace Game
                 int lastBoxId = GetNextBoxId(bagType);
                 if (lastBoxId < 0)
                 {  //包裹已经满了,不显示，但是实际保留
+                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "包裹" + (bagType + 1) + "已经满了,请清理包裹", ToastType = ToastTypeEnum.Failure });
                     return;
                 }
                 boxItem.BoxId = lastBoxId;
