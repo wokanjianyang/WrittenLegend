@@ -22,6 +22,8 @@ namespace Game
         public BoxItem Item { get; private set; }
         public int boxId { get; private set; }
 
+        public int BagType { get; private set; }
+
         public int EquipPosition { get; private set; }
         public long Count { get; private set; }
 
@@ -43,8 +45,7 @@ namespace Game
             GameProcessor.Inst.EventCenter.Raise(new ShowEquipDetailEvent()
             {
                 Position = this.transform.position,
-                Item = this.Item.Item,
-                BoxId = this.boxId,
+                boxItem = this.Item,
                 EquipPosition = this.EquipPosition
             });
         }
@@ -64,6 +65,7 @@ namespace Game
             this.Item = item;
 
             this.Count = item.MagicNubmer.Data;
+            this.BagType = item.GetBagType();
             
             this.go_Lock.gameObject.SetActive(item.Item.IsLock);
 

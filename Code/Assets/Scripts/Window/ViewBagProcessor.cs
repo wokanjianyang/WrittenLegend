@@ -14,17 +14,14 @@ namespace Game
     public class ViewBagProcessor : AViewPage
     {
         [Title("包裹导航")]
-        [LabelText("所有物品")]
-        public Toggle toggle_All;
-
-        [LabelText("装备")]
-        public Toggle toggle_Equip;
-
-        [LabelText("道具")]
-        public Toggle toggle_Prop;
-
-        //[LabelText("整理")]
-        //public Toggle toggle_Forging;
+        [LabelText("战士包裹")]
+        public Toggle toggle_Equip1;
+        [LabelText("法师包裹")]
+        public Toggle toggle_Equip2;
+        [LabelText("道士包裹")]
+        public Toggle toggle_Equip3;
+        [LabelText("其他")]
+        public Toggle toggle_Other;
 
         public RectTransform EquipInfo1;
         public RectTransform EquipInfo2;
@@ -44,16 +41,23 @@ namespace Game
         public Button btn_Reset;
 
         [Title("包裹格子")]
-        [LabelText("包裹")]
-        public ScrollRect sr_Bag;
+        [LabelText("战士包裹")]
+        public ScrollRect Bag_Equip1;
+        [LabelText("法师包裹")]
+        public ScrollRect Bag_Equip2;
+        [LabelText("道士包裹")]
+        public ScrollRect Bag_Equip3;
+        [LabelText("其他包裹")]
+        public ScrollRect Bag_Other;
+
+        List<ScrollRect> BagList = new List<ScrollRect>();
 
         [Title("个人信息")]
-        [LabelText("属性")]
-        public Button btn_PlayerAttribute;
+        [LabelText("魂环")]
+        public Button btn_SoulRing;
 
         [LabelText("称号")]
         public Button btn_PlayerTitle;
-
         [LabelText("设置")]
         public Button btn_Setting;
         
@@ -63,7 +67,7 @@ namespace Game
         // Start is called before the first frame update
         void Start()
         {
-            this.btn_PlayerAttribute.onClick.AddListener(this.OnClick_RingSoul);
+            this.btn_SoulRing.onClick.AddListener(this.OnClick_RingSoul);
             this.btn_PlayerTitle.onClick.AddListener(this.OnClick_PlayerTitle);
             this.btn_Setting.onClick.AddListener(this.OnClick_Setting);
             this.btn_Reset.onClick.AddListener(OnRefreshBag);
@@ -73,6 +77,11 @@ namespace Game
             this.Btn_Equip3.onClick.AddListener(ChangeEquipPanel3);
             this.Btn_Equip4.onClick.AddListener(ChangeEquipPanel4);
             this.Btn_Equip5.onClick.AddListener(ChangeEquipPanel5);
+
+            this.toggle_Equip1.onValueChanged.AddListener((isOn) => { if (isOn) { this.ShowBagPanel(0); } });
+            this.toggle_Equip2.onValueChanged.AddListener((isOn) => { if (isOn) { this.ShowBagPanel(1); } });
+            this.toggle_Equip3.onValueChanged.AddListener((isOn) => { if (isOn) { this.ShowBagPanel(2); } });
+            this.toggle_Other.onValueChanged.AddListener((isOn) => { if (isOn) { this.ShowBagPanel(3); } });
 
             ShowEquipPanel();
         }
@@ -88,7 +97,7 @@ namespace Game
             base.OnBattleStart();
 
             GameProcessor.Inst.EventCenter.AddListener<EquipOneEvent>(this.OnEquipOneEvent);
-            GameProcessor.Inst.EventCenter.AddListener<SkillBookEvent>(this.OnSkillBookEvent);
+            GameProcessor.Inst.EventCenter.AddListener<SkillBookLearnEvent>(this.OnSkillBookLearn);
             GameProcessor.Inst.EventCenter.AddListener<RecoveryEvent>(this.OnRecoveryEvent);
             GameProcessor.Inst.EventCenter.AddListener<AutoRecoveryEvent>(this.OnAutoRecoveryEvent);
             GameProcessor.Inst.EventCenter.AddListener<BagUseEvent>(this.OnBagUseEvent);
@@ -102,13 +111,18 @@ namespace Game
             this.EquipInfoList.Add(EquipInfo4);
             this.EquipInfoList.Add(EquipInfo5);
 
+            this.BagList.Add(Bag_Equip1);
+            this.BagList.Add(Bag_Equip2);
+            this.BagList.Add(Bag_Equip3);
+            this.BagList.Add(Bag_Other);
+
             GameProcessor.Inst.StartCoroutine(LoadBox());
         }
 
 
         private IEnumerator LoadBox()
         {
-            Debug.Log("LoadBox Begin:" +DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            Debug.Log("LoadBox Begin:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             //先回收,再加载
             this.FirstRecovery();
 
@@ -151,16 +165,18 @@ namespace Game
                 this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
                 //yield return null;
             }
-                
+
             var emptyPrefab = Resources.Load<GameObject>("Prefab/Window/Box_Empty");
             yield return null;
-            for (var i = 0; i < ConfigHelper.MaxBagCount; i++)
-            {
-                var empty = GameObject.Instantiate(emptyPrefab, (this.sr_Bag.content));
-                empty.name = "Box_" + i;
-                
-                //yield return null;
 
+            for (int k = 0; k < BagList.Count; k++)
+            {
+                for (var i = 0; i < ConfigHelper.MaxBagCount; i++)
+                {
+                    var empty = GameObject.Instantiate(emptyPrefab, this.BagList[k].content);
+                    empty.name = "Box_" + i;
+                    //yield return null;
+                }
             }
 
             RefreshBag();
@@ -180,25 +196,45 @@ namespace Game
             {
                 GameObject.Destroy(box.gameObject);
             }
-            items = new List<Com_Box>();
+            items.Clear();
 
             User user = GameProcessor.Inst.User;
 
             if (user.Bags != null)
             {
-                user.Bags = user.Bags.OrderBy(m => m.Item.GetQuality()).OrderBy(m => m.Item.Type).OrderBy(m => m.Item.ConfigId).ToList();
-                for (int BoxId = 0; BoxId < user.Bags.Count; BoxId++)
+                for (int i = 0; i < this.BagList.Count; i++)
                 {
-                    BoxItem item = user.Bags[BoxId];
-                    item.BoxId = BoxId;
+                    List<BoxItem> list = user.Bags.Where(m => m.GetBagType() == i).OrderBy(m => m.GetBagSort()).ToList();
 
-                    Com_Box box = this.CreateBox(item);
-                    box.transform.SetParent(this.sr_Bag.content.GetChild(BoxId));
-                    box.transform.localPosition = Vector3.zero;
-                    box.transform.localScale = Vector3.one;
-                    box.SetBoxId(BoxId);
-                    this.items.Add(box);
+                    BuildBag(this.BagList[i], list);
                 }
+            }
+        }
+
+        private void BuildBag(ScrollRect bagRect, List<BoxItem> list)
+        {
+            for (int BoxId = 0; BoxId < list.Count; BoxId++)
+            {
+                if (BoxId + 1 > ConfigHelper.MaxBagCount)
+                {
+                    return;
+                }
+
+                var bagBox = bagRect.content.GetChild(BoxId);
+                if (bagBox == null)
+                {
+                    return;
+                }
+
+                BoxItem item = list[BoxId];
+                item.BoxId = BoxId;
+
+                Com_Box box = this.CreateBox(item);
+                box.transform.SetParent(bagBox);
+                box.transform.localPosition = Vector3.zero;
+                box.transform.localScale = Vector3.one;
+                box.SetBoxId(BoxId);
+                this.items.Add(box);
             }
         }
 
@@ -282,7 +318,7 @@ namespace Game
 
                 long boxUseCount = Math.Min(boxNumber, useCount);
 
-                Com_Box boxUI = this.items.Find(m => m.boxId == boxItem.BoxId);
+                Com_Box boxUI = this.items.Find(m => m.boxId == boxItem.BoxId && m.BagType == boxItem.GetBagType());
                 boxItem.RemoveStack(boxUseCount);
                 boxUI.RemoveStack(boxUseCount);
 
@@ -325,7 +361,7 @@ namespace Game
             {
                 long boxUseCount = Math.Min(boxItem.MagicNubmer.Data, useCount);
 
-                Com_Box boxUI = this.items.Find(m => m.boxId == boxItem.BoxId);
+                Com_Box boxUI = this.items.Find(m => m.boxId == boxItem.BoxId && m.BagType == boxItem.GetBagType());
                 boxItem.RemoveStack(boxUseCount);
                 boxUI.RemoveStack(boxUseCount);
 
@@ -374,7 +410,6 @@ namespace Game
             GameProcessor.Inst.User.EquipPanelIndex = 4;
             ShowEquipPanel();
         }
-
         private void ShowEquipPanel()
         {
             int position = GameProcessor.Inst.User.EquipPanelIndex;
@@ -393,32 +428,47 @@ namespace Game
             GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
         }
 
+        private void ShowBagPanel(int index)
+        {
+            for (int i = 0; i < this.BagList.Count; i++)
+            {
+                if (i == index)
+                {
+                    this.BagList[i].gameObject.SetActive(true);
+                }
+                else
+                {
+                    this.BagList[i].gameObject.SetActive(false);
+                }
+            }
+        }
+
+
         private void OnEquipOneEvent(EquipOneEvent e)
         {
-            var equip = e.Item as Equip;
-
             if (e.IsWear)
             {
-                this.WearEquipment(equip, e.BoxId);
+                this.WearEquipment(e.BoxItem);
             }
             else
             {
-                this.RmoveEquipment(e.Position, equip);
+                this.RmoveEquipment(e.Part, e.BoxItem);
             }
             //UserData.Save();
 
             TaskHelper.CheckTask(TaskType.Equip, 1);
         }
-        private void OnSkillBookEvent(SkillBookEvent e)
+        private void OnSkillBookLearn(SkillBookLearnEvent e)
         {
             User user = GameProcessor.Inst.User;
 
-            UseBoxItem(e.BoxId,1);
+            UseBoxItem(e.BoxItem, 1);
 
             user.EventCenter.Raise(new HeroUseSkillBookEvent
             {
-                IsLearn = e.IsLearn,
-                Item = e.Item
+                IsLearn = true,
+                BoxItem = e.BoxItem,
+                Quantity = 1,
             });
         }
 
@@ -426,23 +476,24 @@ namespace Game
         {
             User user = GameProcessor.Inst.User;
 
-            UseBoxItem(e.BoxId, 1);
-
+            Item item = e.BoxItem.Item;
             int refineStone = 0;
-            if (e.Item.Type == ItemType.Equip)
+            if (item.Type == ItemType.Equip)
             {
-                Equip equip = e.Item as Equip;
+                Equip equip = item as Equip;
                 refineStone += equip.Level / 10 * equip.GetQuality();
             }
 
-            long gold = e.Item.Gold;
+            long gold = item.Gold;
+
+            UseBoxItem(e.BoxItem, 1);
 
             user.AddExpAndGold(0, gold);
 
             if (refineStone > 0)
             {
-                Item item = ItemHelper.BuildRefineStone(refineStone);
-                AddBoxItem(item);
+                Item stoneItem = ItemHelper.BuildRefineStone(refineStone);
+                AddBoxItem(stoneItem);
             }
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
@@ -470,9 +521,8 @@ namespace Game
                     refineStone += equip.Level / 10 * equip.GetQuality();
                 }
                 //Log.Debug("自动回收:" + box.Item.Name + " " + box.Number + "个");
-
-                box.MagicNubmer.Data = 0;
-                UseBoxItem(box.BoxId, 1);
+                //box.MagicNubmer.Data = 0;
+                UseBoxItem(box, 1);
             }
 
             if (gold > 0)
@@ -541,10 +591,10 @@ namespace Game
         {
             User user = GameProcessor.Inst.User;
 
-            BoxItem boxItem = user.Bags.Find(m => m.BoxId == e.BoxId);
+            BoxItem boxItem = e.BoxItem;
             long quantity = e.Quantity == -1 ? boxItem.MagicNubmer.Data : e.Quantity;
 
-            UseBoxItem(e.BoxId, quantity);
+            UseBoxItem(boxItem, quantity);
 
             //use logic
             if (boxItem.Item.Type == ItemType.SkillBox)
@@ -552,7 +602,7 @@ namespace Game
                 user.EventCenter.Raise(new HeroUseSkillBookEvent
                 {
                     IsLearn = false,
-                    Item = boxItem.Item,
+                    BoxItem = boxItem,
                     Quantity = quantity,
                 });
             }
@@ -562,7 +612,7 @@ namespace Game
 
                 ItemConfig config = ItemConfigCategory.Instance.Get(boxItem.Item.ConfigId);
 
-                exp = exp * config.UseParam * 720; //3600/5 = 720,配置的是小时
+                exp = exp * quantity * config.UseParam * 720; //3600/5 = 720,配置的是小时
 
                 user.AddExpAndGold(exp, 0);
                 GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
@@ -576,7 +626,7 @@ namespace Game
 
                 ItemConfig config = ItemConfigCategory.Instance.Get(boxItem.Item.ConfigId);
 
-                gold = gold * config.UseParam * 720; //3600/5 = 720,配置的是小时
+                gold = gold * quantity * config.UseParam * 720; //3600/5 = 720,配置的是小时
 
                 user.AddExpAndGold(0, gold);
                 GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
@@ -605,29 +655,32 @@ namespace Game
                 user.MagicCopyTikerCount.Data += quantity;
             }
         }
-        
+
         private void OnEquipLockEvent(EquipLockEvent e)
         {
-            e.Item.IsLock = e.IsLock;
-            Com_Box boxUI = this.items.Find(m => m.boxId == e.BoxId);
+            var boxItem = e.BoxItem;
+
+            boxItem.Item.IsLock = e.IsLock;
+
+            Com_Box boxUI = this.items.Find(m => m.boxId == boxItem.BoxId && m.BagType == boxItem.GetBagType()); //穿戴的找不到这个UI
             if (boxUI != null)
             {
                 boxUI.SetLock(e.IsLock);
             }
         }
 
-        private void UseBoxItem(int boxId, long quantity)
+        private void UseBoxItem(BoxItem boxItem, long quantity)
         {
             User user = GameProcessor.Inst.User;
 
             //逻辑处理
-            BoxItem boxItem = user.Bags.Find(m => m.BoxId == boxId);
 
             if (boxItem == null)
             {
                 //Log.Debug("此物品已经被使用了");
                 return;
             }
+
             boxItem.RemoveStack(quantity);
 
             //用光了，移除队列
@@ -636,11 +689,11 @@ namespace Game
                 user.Bags.Remove(boxItem);
             }
 
-            Com_Box boxUI = this.items.Find(m => m.boxId == boxId);
+            Com_Box boxUI = this.items.Find(m => m.boxId == boxItem.BoxId && m.BagType == boxItem.GetBagType());
             if (boxUI != null) //上线自动回收，可能还没加载
             {
                 boxUI.RemoveStack(quantity);
-                if (boxItem.MagicNubmer.Data <= 0)
+                if (boxUI.Count <= 0)
                 {
                     this.items.Remove(boxUI);
                     GameObject.Destroy(boxUI.gameObject);
@@ -659,7 +712,7 @@ namespace Game
                 boxItem.AddStack(newItem.Quantity);
 
                 //堆叠UI
-                var boxUI = this.items.Find(b => b.boxId == boxItem.BoxId);
+                var boxUI = this.items.Find(m => m.boxId == boxItem.BoxId && m.BagType == boxItem.GetBagType());
                 if (boxUI != null)
                 {
                     boxUI.AddStack(newItem.Quantity);
@@ -667,37 +720,39 @@ namespace Game
             }
             else
             {
-                int lastBoxId = GetNextBoxId();
-
-                if (lastBoxId < 0)
-                { //包裹已经满了
-                    return;
-                }
-
                 boxItem = new BoxItem();
                 boxItem.Item = newItem;
                 boxItem.MagicNubmer.Data = newItem.Quantity;
+                boxItem.BoxId = -1;
+                user.Bags.Add(boxItem);
+
+                int bagType = boxItem.GetBagType();
+
+                int lastBoxId = GetNextBoxId(bagType);
+                if (lastBoxId < 0)
+                {  //包裹已经满了,不显示，但是实际保留
+                    return;
+                }
                 boxItem.BoxId = lastBoxId;
 
                 var item = this.CreateBox(boxItem);
-                item.transform.SetParent(this.sr_Bag.content.GetChild(lastBoxId));
+                item.transform.SetParent(this.BagList[bagType].content.GetChild(lastBoxId));
                 item.transform.localPosition = Vector3.zero;
                 item.transform.localScale = Vector3.one;
                 item.SetBoxId(lastBoxId);
                 this.items.Add(item);
-
-                user.Bags.Add(boxItem);
             }
         }
 
-        private void WearEquipment(Equip equip, int BoxId)
+        private void WearEquipment(BoxItem boxItem)
         {
             User user = GameProcessor.Inst.User;
 
+            var equip = boxItem.Item as Equip;
             int Part = equip.Part;
 
             IDictionary<int, Equip> ep = null; ;
-            if (equip.Part > 10)
+            if (Part > 10)
             {
                 ep = user.EquipPanelSpecial;
             }
@@ -716,7 +771,7 @@ namespace Game
             int Position = equip.Position[PartIndex];
 
             //从包袱移除
-            UseBoxItem(BoxId, 1);
+            UseBoxItem(boxItem, 1);
 
             //如果存在旧装备，增加到包裹
             if (ep.ContainsKey(Position))
@@ -783,10 +838,11 @@ namespace Game
             slot.Equip(comItem);
         }
 
-        private void RmoveEquipment(int position, Equip equip)
+        private void RmoveEquipment(int position, BoxItem boxItem)
         {
             User user = GameProcessor.Inst.User;
 
+            var equip = boxItem.Item as Equip;
             //装备栏卸载
             SlotBox slot = null;
 
@@ -815,6 +871,7 @@ namespace Game
 
             //UserData.Save();
         }
+
         private void OnHeroBagUpdateEvent(HeroBagUpdateEvent e)
         {
             User user = GameProcessor.Inst.User;
@@ -836,12 +893,12 @@ namespace Game
             }
         }
 
-        public int GetNextBoxId()
+        public int GetNextBoxId(int bagType)
         {
             int maxNum = ConfigHelper.MaxBagCount;
             for (int boxId = 0; boxId < maxNum; boxId++)
             {
-                if (this.items.Find(m => m.boxId == boxId) == null)
+                if (this.items.Find(m => m.boxId == boxId && m.BagType == bagType) == null)
                 {
                     return boxId;
                 }

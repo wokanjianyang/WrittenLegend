@@ -322,7 +322,7 @@ namespace Game
 
         private void HeroUseSkillBook(HeroUseSkillBookEvent e)
         {
-            SkillBook Book = e.Item as SkillBook;
+            SkillBook Book = e.BoxItem.Item as SkillBook;
 
             SkillData skillData;
 

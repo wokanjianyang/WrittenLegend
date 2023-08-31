@@ -77,8 +77,7 @@ namespace Game
         [LabelText("解除锁定装备")]
         public Button btn_Unlock;
         
-        private Item item;
-        private int boxId;
+        private BoxItem boxItem;
         private int equipPositioin;
 
         private RectTransform rectTransform;
@@ -137,23 +136,21 @@ namespace Game
             this.btn_Unlock.gameObject.SetActive(false);
 
             // this.transform.position = this.GetBetterPosition(e.Position);
-            this.tmp_Title.text = e.Item.Name;
-            this.item = e.Item;
-            this.boxId = e.BoxId;
+            // this.img_Background.sprite = this.list_BackgroundImgs[this.item.GetQuality() - 1];
+            this.boxItem = e.boxItem;
             this.equipPositioin = e.EquipPosition;
 
-            var titleColor = QualityConfigHelper.GetColor(this.item);
-            // this.img_Background.sprite = this.list_BackgroundImgs[this.item.GetQuality() - 1];
-            tmp_Title.text = string.Format("<color=#{0}>{1}</color>", titleColor, this.item.Name);
+            var titleColor = QualityConfigHelper.GetColor(this.boxItem.Item);
+            this.tmp_Title.text = string.Format("<color=#{0}>{1}</color>", titleColor, this.boxItem.Item.Name);
 
             string color = "green";
 
             User user = GameProcessor.Inst.User;
-            switch ((ItemType)this.item.Type)
+            switch ((ItemType)this.boxItem.Item.Type)
             {
                 case ItemType.Equip://装备
                     {
-                        Equip equip = this.item as Equip;
+                        Equip equip = this.boxItem.Item as Equip;
 
                         int basePercent = 0;
                         int qualityPercent = 0;
@@ -171,7 +168,7 @@ namespace Game
                         {
                             tran_BaseAttribute.gameObject.SetActive(true);
                             tran_BaseAttribute.Find("Title").GetComponent<Text>().text = "[基础属性]";
-                            tran_BaseAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.item.Level);
+                            tran_BaseAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.boxItem.Item.Level);
 
                             var BaseAttrList = equip.BaseAttrList.ToList();
 
@@ -323,35 +320,35 @@ namespace Game
                             tran_GroupAttribute.gameObject.SetActive(false);
                         }
 
-                        this.btn_Equip.gameObject.SetActive(this.boxId != -1);
-                        this.btn_UnEquip.gameObject.SetActive(this.boxId == -1);
+                        this.btn_Equip.gameObject.SetActive(this.boxItem.BoxId != -1);
+                        this.btn_UnEquip.gameObject.SetActive(this.boxItem.BoxId == -1);
 
-                        if (equip.Part <= 10 && !this.item.IsLock)
+                        if (equip.Part <= 10 && !this.boxItem.Item.IsLock)
                         {
-                            this.btn_Recovery.gameObject.SetActive(this.boxId != -1);
+                            this.btn_Recovery.gameObject.SetActive(this.boxItem.BoxId != -1);
                         }
                         else
                         {
                             this.btn_Recovery.gameObject.SetActive(false);
                         }
 
-                        this.btn_Lock.gameObject.SetActive(!this.item.IsLock);
-                        this.btn_Unlock.gameObject.SetActive(this.item.IsLock);
+                        this.btn_Lock.gameObject.SetActive(!this.boxItem.Item.IsLock);
+                        this.btn_Unlock.gameObject.SetActive(this.boxItem.Item.IsLock);
                     }
                     break;
                 case ItemType.SkillBox://技能书
                     {
-                        var skillBox = this.item as SkillBook;
+                        var skillBox = this.boxItem.Item as SkillBook;
                         tran_NormalAttribute.gameObject.SetActive(true);
                         tran_NormalAttribute.Find("Title").GetComponent<Text>().text = skillBox.ItemConfig.Des;
-                        tran_NormalAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.item.Level);
-                        var isLearn = user.SkillList.Find(b => b.SkillId == this.item.ConfigId) == null;
+                        tran_NormalAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.boxItem.Item.Level);
+                        var isLearn = user.SkillList.Find(b => b.SkillId == this.boxItem.Item.ConfigId) == null;
                         
                         this.btn_Learn.gameObject.SetActive(isLearn);
                         this.btn_Upgrade.gameObject.SetActive(!isLearn);
                         this.btn_UseAll.gameObject.SetActive(!isLearn);
-                        this.btn_Lock.gameObject.SetActive(this.boxId!=-1 && !this.item.IsLock);
-                        this.btn_Unlock.gameObject.SetActive(this.boxId!=-1 && this.item.IsLock);
+                        this.btn_Lock.gameObject.SetActive(this.boxItem.BoxId!=-1 && !this.boxItem.Item.IsLock);
+                        this.btn_Unlock.gameObject.SetActive(this.boxItem.BoxId!=-1 && this.boxItem.Item.IsLock);
                         //this.btn_Learn.interactable = this.item.Level <= UserData.Load().Level;
                     }
                     break;
@@ -363,7 +360,7 @@ namespace Game
                         //var giftPack = this.item as GiftPack;
 
                         tran_NormalAttribute.gameObject.SetActive(true);
-                        tran_NormalAttribute.Find("Title").GetComponent<Text>().text = item.ItemConfig.Des;
+                        tran_NormalAttribute.Find("Title").GetComponent<Text>().text = this.boxItem.Item.ItemConfig.Des;
                         //tran_NormalAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.item.Level);
 
                         this.btn_Learn.gameObject.SetActive(false);
@@ -375,8 +372,8 @@ namespace Game
                 case ItemType.Material:
                     {
                         tran_NormalAttribute.gameObject.SetActive(true);
-                        tran_NormalAttribute.Find("Title").GetComponent<Text>().text = item.ItemConfig.Des;
-                        tran_NormalAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.item.Level);
+                        tran_NormalAttribute.Find("Title").GetComponent<Text>().text = this.boxItem.Item.ItemConfig.Des;
+                        tran_NormalAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.boxItem.Item.Level);
                     }
                     break;
                 default:
@@ -419,8 +416,8 @@ namespace Game
 
             GameProcessor.Inst.EventCenter.Raise(new EquipOneEvent()
             {
-                Item = this.item,
-                BoxId = this.boxId
+                IsWear = true,
+                BoxItem = this.boxItem,
             });
         }
 
@@ -431,9 +428,8 @@ namespace Game
             GameProcessor.Inst.EventCenter.Raise(new EquipOneEvent()
             {
                 IsWear = false,
-                Item = this.item,
-                BoxId = this.boxId,
-                Position = this.equipPositioin,
+                BoxItem = this.boxItem,
+                Part = this.equipPositioin,
             });
         }
 
@@ -441,11 +437,9 @@ namespace Game
         {
             this.gameObject.SetActive(false);
 
-            GameProcessor.Inst.EventCenter.Raise(new SkillBookEvent()
+            GameProcessor.Inst.EventCenter.Raise(new SkillBookLearnEvent()
             {
-                IsLearn = true,
-                Item = this.item,
-                BoxId = this.boxId
+                BoxItem = this.boxItem,
             });
         }
 
@@ -455,8 +449,7 @@ namespace Game
 
             GameProcessor.Inst.EventCenter.Raise(new RecoveryEvent()
             {
-                Item = this.item,
-                BoxId = this.boxId
+                BoxItem = this.boxItem,
             });
         }
 
@@ -466,8 +459,7 @@ namespace Game
             
             GameProcessor.Inst.EventCenter.Raise(new ForgingEvent()
             {
-                Item = this.item,
-                BoxId = this.boxId
+                BoxItem = this.boxItem,
             });
         }
 
@@ -482,8 +474,7 @@ namespace Game
             
             GameProcessor.Inst.EventCenter.Raise(new EquipLockEvent()
             {
-                Item = this.item,
-                BoxId = this.boxId,
+                BoxItem = this.boxItem,
                 IsLock = true
             });
         }
@@ -494,8 +485,7 @@ namespace Game
             
             GameProcessor.Inst.EventCenter.Raise(new EquipLockEvent()
             {
-                Item = this.item,
-                BoxId = this.boxId,
+                BoxItem = this.boxItem,
                 IsLock = false
             });
         }
@@ -506,7 +496,7 @@ namespace Game
             GameProcessor.Inst.EventCenter.Raise(new BagUseEvent()
             {
                 Quantity = 1,
-                BoxId = this.boxId
+                BoxItem = this.boxItem
             });
         }
         private void OnUseAll()
@@ -516,7 +506,7 @@ namespace Game
             GameProcessor.Inst.EventCenter.Raise(new BagUseEvent()
             {
                 Quantity = -1,
-                BoxId = this.boxId
+                BoxItem = this.boxItem
             });
         }
     }

@@ -13,9 +13,7 @@ namespace Game
     {
         public Vector3 Position { get; set; }
 
-        public Item Item { get; set; }
-
-        public int BoxId { get; set; }
+        public BoxItem boxItem { get; set; }
 
         public int EquipPosition { get; set; }
     }
@@ -24,9 +22,8 @@ namespace Game
     {
         public bool IsWear { get; set; } = true;
 
-        public int Position { get; set; }
-        public Item Item { get; set; }
-        public int BoxId { get; set; }
+        public int Part { get; set; }
+        public BoxItem BoxItem { get; set; }
     }
 
 
@@ -50,31 +47,22 @@ namespace Game
         public string Message { get; set; }
     }
 
-    public class SkillBookEvent : SDD.Events.Event
+    public class SkillBookLearnEvent : SDD.Events.Event
     {
-        /// <summary>
-        /// ����ѧϰ��������
-        /// </summary>
-        public bool IsLearn { get; set; }
-
-        public Item Item { get; set; }
-        public int BoxId { get; set; }
+        public BoxItem BoxItem { get; set; }
     }
 
     public class RecoveryEvent : SDD.Events.Event
     {
-        public Item Item { get; set; }
-        public int BoxId { get; set; }
+        public BoxItem BoxItem { get; set; }
     }
     public class ForgingEvent : SDD.Events.Event
     {
-        public Item Item { get; set; }
-        public int BoxId { get; set; }
+        public BoxItem BoxItem { get; set; }
     }
     public class EquipLockEvent : SDD.Events.Event
     {
-        public Item Item { get; set; }
-        public int BoxId { get; set; }
+        public BoxItem BoxItem { get; set; }
         public bool IsLock { get; set; }
     }
     public class AutoRecoveryEvent : SDD.Events.Event
@@ -82,7 +70,7 @@ namespace Game
     }
     public class BagUseEvent : SDD.Events.Event
     {
-        public int BoxId { get; set; }
+        public BoxItem BoxItem { get; set; }
 
         public int Quantity { get; set; }
     }

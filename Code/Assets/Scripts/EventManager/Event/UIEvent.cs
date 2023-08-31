@@ -104,7 +104,7 @@ namespace Game
     {
         public bool IsLearn { get; set; }
 
-        public Item Item { get; set; }
+        public BoxItem BoxItem { get; set; }
 
         public long Quantity { get; set; }
     }
