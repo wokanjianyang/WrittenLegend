@@ -42,9 +42,9 @@ namespace Game
         {
             if (this.Item.Type == ItemType.Equip)
             {
-                int type = (this.Item as Equip).EquipConfig.Role - 1;
+                int type = (this.Item as Equip).EquipConfig.Role;
 
-                return Math.Max(type, 0); //四格等全职业装备放战士包裹
+                return type <= 0 ? 3 : type - 1; //四格等全职业装备放战士包裹
             }
 
             return 3;
