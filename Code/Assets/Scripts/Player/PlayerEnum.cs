@@ -52,6 +52,13 @@ namespace Game
 
         EquipBaseIncrea = 101, //装备基础属性百分比
         EquipQualityIncrea = 102, //装备随机属性百分比
+
+        PanelHp = 1001, //面板生命
+        PanelPhyAtt = 1002, //面板物攻
+        PanelMagicAtt = 1003, //面板魔法
+        PanelSpiritAtt = 1004, //面板道术
+        PanelDef = 1005, //面板防御
+        PanelAtt = 1006,//面板攻击
     }
 
     /// <summary>

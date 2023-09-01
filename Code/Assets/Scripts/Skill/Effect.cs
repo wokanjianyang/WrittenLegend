@@ -43,7 +43,7 @@ namespace Game
             else if (Data.Config.TargetAttr == ((int)AttributeEnum.CurrentHp))
             {
                 //效果扣血,需要给APlayer封装一个方法，传入伤害数值，Player扣血以及计算后续死亡以及UI
-                if (Data.Config.Type == (int)EffectTypeEnum.Sub)
+                if (Data.Config.Type == (int)EffectType.Sub)
                 {
                     SelfPlayer.Logic.OnDamage(new DamageResult(SelfPlayer.ID, Total, MsgType.Damage));
                 }
@@ -56,6 +56,7 @@ namespace Game
             {
                 if (DoCount == 1) //第一次增加属性
                 {
+                    Debug.Log("Effect " + this.Data.Config.Id + " Total:" + Total);
                     SelfPlayer.AttributeBonus.SetAttr((AttributeEnum)Data.Config.TargetAttr, FromId, Total * Data.Config.Type);
                 }
                 else if (DoCount >= Duration)  //最后一次，移除属性
@@ -73,11 +74,6 @@ namespace Game
             }
 
             player.Logic.OnDamage(new DamageResult(SelfPlayer.ID, Total, MsgType.Damage));
-        }
-
-        public enum EffectTypeEnum { 
-            Sub = -1,  //增加属性
-            Add = 1  //减少属性
         }
     }
 }

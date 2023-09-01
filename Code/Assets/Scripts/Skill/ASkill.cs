@@ -15,7 +15,7 @@ namespace Game
     abstract public class ASkill : IPlayer
     {
         public APlayer SelfPlayer { get; set; }
-        public SkillPanel SkillPanel{ get; set; }
+        public SkillPanel SkillPanel { get; set; }
 
         protected List<AttackData> attackDataCache { get; set; }
 
@@ -28,18 +28,11 @@ namespace Game
         }
         abstract public void Do();
 
-        public void DoEffect(APlayer enemy, APlayer self, long damage, EffectData data)
+        public void DoEffect(APlayer enemy, APlayer self, long total, EffectData data)
         {
             EffectConfig config = data.Config;
 
             var effectTarget = config.TargetType == 1 ? this.SelfPlayer : enemy; //1 为作用自己 2 为作用敌人
-
-            long total = damage;
-            if (config.SourceAttr != (int)AttributeEnum.SkillDamage)
-            {
-                total = self.AttributeBonus.GetTotalAttr((AttributeEnum)config.SourceAttr);
-            }
-            total = total * data.Percent / 100;
 
             if (data.Duration > 0)
             {  //持续Buff

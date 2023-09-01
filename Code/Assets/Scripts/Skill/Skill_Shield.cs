@@ -24,23 +24,12 @@ namespace Game
             //对自己加属性Buff
             foreach (EffectData effect in SkillPanel.EffectIdList.Values)
             {
-                long total = CalcFormula();
+                long total = DamageHelper.GetEffectFromTotal(this.SelfPlayer.AttributeBonus, SkillPanel, effect);
+
+                //Debug.Log("Skill" + effect.Config.Id + " _Shield:" + total);
 
                 DoEffect(this.SelfPlayer, this.SelfPlayer, total, effect);
             }
-        }
-
-        public long CalcFormula()
-        {
-            //Buff不计暴击增伤幸运等
-            int role = SkillPanel.SkillData.SkillConfig.Role;
-
-            long roleAttr = SelfPlayer.GetRoleAttack(role) * (100 + SkillPanel.AttrIncrea) / 100;  //职业攻击
-
-            //技能系数
-            long attack = roleAttr * (SkillPanel.Percent + SelfPlayer.GetRolePercent(role)) / 100 + SkillPanel.Damage + SelfPlayer.GetRoleDamage(role);  // *百分比系数 + 固定数值
-
-            return attack;
         }
 
         public List<AttackData> GetAllTargets()

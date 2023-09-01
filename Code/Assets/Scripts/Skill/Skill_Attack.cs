@@ -70,7 +70,8 @@ namespace Game
 
                     foreach (EffectData effect in SkillPanel.EffectIdList.Values)
                     {
-                        DoEffect(enemy, this.SelfPlayer, dr.Damage, effect);
+                        long total = dr.Damage * effect.Percent;
+                        DoEffect(enemy, this.SelfPlayer, total, effect);
                     }
                 }
             }

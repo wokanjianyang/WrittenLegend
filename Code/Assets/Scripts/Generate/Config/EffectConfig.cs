@@ -96,6 +96,12 @@ namespace Game
 		/// <summary>来源属性</summary>
 		[ProtoMember(7)]
 		public int SourceAttr { get; set; }
+		/// <summary>系数百分比增益</summary>
+		[ProtoMember(8)]
+		public int PercentGain { get; set; }
+		/// <summary>固定值增益</summary>
+		[ProtoMember(9)]
+		public long ConstGain { get; set; }
 
 	}
 }

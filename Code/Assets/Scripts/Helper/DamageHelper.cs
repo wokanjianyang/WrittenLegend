@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using UnityEngine;
 
 namespace Game
 {
@@ -57,7 +58,7 @@ namespace Game
             return new DamageResult(Math.Max(1, attack), type); //
         }
 
-        public static long GetRoleAttack(AttributeBonus attributeBonus,int role)
+        public static long GetRoleAttack(AttributeBonus attributeBonus, int role)
         {
             long attack = 0;
             switch (role)
@@ -139,6 +140,55 @@ namespace Game
             long hp = enemy.GetTotalAttr(AttributeEnum.HP);
 
             return dr.Damage > 0 ? Math.Min((int)(hp / dr.Damage), 9999999) : 0;
+        }
+
+        public static long GetEffectFromTotal(AttributeBonus attacker, SkillPanel skillPanel, EffectData effect)
+        {
+            int srcAttr = effect.Config.SourceAttr;
+
+            //按照某个属性，计算百分比+固定值得来的
+            if (srcAttr > 0)
+            {
+                long total = attacker.GetTotalAttr((AttributeEnum)effect.Config.SourceAttr);
+
+                //Debug.Log("Shield Base Total:" + total);
+
+                int role = skillPanel.SkillData.SkillConfig.Role;
+
+                long percent = 0;
+                if (effect.Config.PercentGain > 0) //享受其他增强收益
+                {
+                    //Debug.Log("Shield Skill-Percent:" + skillPanel.Percent);
+                    //Debug.Log("Shield Role-Percent:" + GetRolePercent(attacker, role));
+
+                    //技能系数
+                    percent = (skillPanel.Percent + GetRolePercent(attacker, role)) * effect.Config.PercentGain / 100;
+                }
+
+                long damage = 0;
+                if (effect.Config.ConstGain > 0)
+                {
+                    damage = (skillPanel.Damage + GetRoleDamage(attacker, role)) * effect.Config.ConstGain / 100;
+
+                    //Debug.Log("Shield Damage:" + damage);
+                }
+
+                //Debug.Log("Shield Percent:" + percent);
+
+                total = total * percent / 100 + damage;   // *百分比系数 + 固定数值
+
+                //Debug.Log("Shield Gain Total :" + total);
+
+                return total;
+            }
+            //配置来源的数值
+            else if (srcAttr == 0)
+            {
+                long total = effect.Percent;
+                return total;
+            }
+
+            return 0;
         }
     }
 

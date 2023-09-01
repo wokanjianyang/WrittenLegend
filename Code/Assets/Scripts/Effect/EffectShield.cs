@@ -21,8 +21,6 @@ namespace Game
         private int currentIndex = 0;
         private int totalCount = 0;
 
-        private int Duration = 0;
-
         private bool hasEffect = false;
 
         private float currentTime = 0f;
@@ -34,8 +32,6 @@ namespace Game
             {
                 this.hasEffect = this.imgs.Length > 0;
                 this.totalCount = this.imgs.Length;
-
-                Debug.Log("EffectShieldCount:" + (1f / this.totalCount));
             }
         }
 
@@ -44,8 +40,6 @@ namespace Game
             if (this.hasEffect)
             {
                 this.currentTime += Time.deltaTime;
-
-                Debug.Log("EffectShield:" + this.currentTime);
 
                 if (this.currentTime > 1f / this.totalCount)
                 {
@@ -59,11 +53,9 @@ namespace Game
                 }
             }
         }
-
-        public void SetData(string effectPath, int duration)
+        public void SetData(string effectPath)
         {
             this.EffectPath = effectPath;
-            this.Duration = duration;
         }
     }
 }

@@ -34,7 +34,7 @@ namespace Game
             if (prefab)
             {
                 com = GameObject.Instantiate(prefab).GetComponent<EffectShield>();
-                com.SetData("UI/Buff斩杀素材/" + skillName, duration);
+                com.SetData("UI/Buff斩杀素材/" + skillName);
             }
 
             return com;

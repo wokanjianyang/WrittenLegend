@@ -176,11 +176,18 @@ namespace Game
             if (!this.IsSurvice) return;
 
             //光环
-            if (this.Camp == PlayerType.Hero && this.AurasList != null)
+            if (this.Camp == PlayerType.Hero)
             {
-                foreach (AAuras auras in this.AurasList)
+                //
+                Debug.Log("Hero Def:" + this.AttributeBonus.GetTotalAttr(AttributeEnum.Def));
+                Debug.Log("Hero DamageResist:" + this.AttributeBonus.GetTotalAttr(AttributeEnum.DamageResist));
+
+                if (this.AurasList != null)
                 {
-                    auras.Do();
+                    foreach (AAuras auras in this.AurasList)
+                    {
+                        auras.Do();
+                    }
                 }
             }
 

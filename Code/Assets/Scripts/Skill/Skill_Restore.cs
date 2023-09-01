@@ -31,13 +31,12 @@ namespace Game
                 teamer.OnRestore(attackData.Tid, hp);
 
                 //Buff
-                foreach (int effectId in SkillPanel.EffectIdList.Keys)
+                foreach (EffectData effect in SkillPanel.EffectIdList.Values)
                 {
-                    DoEffect(this.SelfPlayer, this.SelfPlayer, hp, SkillPanel.EffectIdList[effectId]);
+                    long total = hp * effect.Percent;
+                    DoEffect(this.SelfPlayer, this.SelfPlayer, total, effect);
                 }
             }
-
-
         }
 
         public long CalcFormula()

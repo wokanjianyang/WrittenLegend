@@ -40,15 +40,15 @@ namespace Game
 			switch (attrType)
 			{
 				case AttributeEnum.HP:
-					return CalTotal(AttributeEnum.HP, AttributeEnum.HpIncrea);
+					return CalTotal(AttributeEnum.HP, AttributeEnum.HpIncrea) + CalTotal(AttributeEnum.PanelHp);
 				case AttributeEnum.PhyAtt:
-					return CalTotal(AttributeEnum.PhyAtt, AttributeEnum.AttIncrea, AttributeEnum.PhyAttIncrea);
+					return CalTotal(AttributeEnum.PhyAtt, AttributeEnum.AttIncrea, AttributeEnum.PhyAttIncrea) + CalTotal(AttributeEnum.PanelPhyAtt);
 				case AttributeEnum.MagicAtt:
-					return CalTotal(AttributeEnum.MagicAtt, AttributeEnum.AttIncrea, AttributeEnum.MagicAttIncrea);
+					return CalTotal(AttributeEnum.MagicAtt, AttributeEnum.AttIncrea, AttributeEnum.MagicAttIncrea) + CalTotal(AttributeEnum.PanelMagicAtt);
 				case AttributeEnum.SpiritAtt:
-					return CalTotal(AttributeEnum.SpiritAtt, AttributeEnum.AttIncrea, AttributeEnum.SpiritAttIncrea);
+					return CalTotal(AttributeEnum.SpiritAtt, AttributeEnum.AttIncrea, AttributeEnum.SpiritAttIncrea) + CalTotal(AttributeEnum.PanelSpiritAtt);
 				case AttributeEnum.Def:
-					return CalTotal(AttributeEnum.Def, AttributeEnum.DefIncrea);
+					return CalTotal(AttributeEnum.Def, AttributeEnum.DefIncrea) + CalTotal(AttributeEnum.PanelDef);
 				case AttributeEnum.SecondExp:
 					return CalTotal(AttributeEnum.SecondExp, AttributeEnum.ExpIncrea);
 				case AttributeEnum.SecondGold:
