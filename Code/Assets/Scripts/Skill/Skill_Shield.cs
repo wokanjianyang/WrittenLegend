@@ -6,9 +6,9 @@ namespace Game
 {
     public class Skill_Shield : ASkill
     {
-        public Skill_Shield(APlayer player, SkillPanel skillPanel) : base(player, skillPanel)
+        public Skill_Shield(APlayer player, SkillPanel skill) : base(player, skill)
         {
-            this.skillGraphic = null;
+            this.skillGraphic = new SkillGraphic_Shield(player, skill);
         }
 
         public override bool IsCanUse()
@@ -20,12 +20,6 @@ namespace Game
         {
             //如果还有附加特效
             this.skillGraphic?.PlayAnimation(SelfPlayer.Cell);
-            //
-            SelfPlayer.EventCenter.Raise(new ShowMsgEvent
-            {
-                Type = MsgType.SkillName,
-                Content = SkillPanel.SkillData.SkillConfig.Name
-            });
 
             //对自己加属性Buff
             foreach (EffectData effect in SkillPanel.EffectIdList.Values)

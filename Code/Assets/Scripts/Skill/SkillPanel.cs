@@ -156,11 +156,12 @@ namespace Game
                     }
                 }
             }
-            
+
             //TEST skill
             //this.CD = 0;
             //this.Row = 2;
             //this.Column = 2;
+            //this.Duration = 3;
         }
     }
 }

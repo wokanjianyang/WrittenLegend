@@ -27,6 +27,7 @@ namespace Game
         public void PlayAnimation(Vector3Int cell)
         {
             List<Vector3Int> cells = new List<Vector3Int>();
+            cells.Add(cell);
             this.PlayAnimation(cells, Vector3Int.zero);
         }
     }

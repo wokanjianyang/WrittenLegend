@@ -25,5 +25,19 @@ namespace Game
             com.Loop = loop;
             return com;
         }
+
+        public static EffectShield CreateEffectShield(string skillName, int duration)
+        {
+            EffectShield com = null;
+            var prefab = Resources.Load<GameObject>("Prefab/Effect/盾");
+
+            if (prefab)
+            {
+                com = GameObject.Instantiate(prefab).GetComponent<EffectShield>();
+                com.SetData("UI/Buff斩杀素材/" + skillName, duration);
+            }
+
+            return com;
+        }
     }
 }
