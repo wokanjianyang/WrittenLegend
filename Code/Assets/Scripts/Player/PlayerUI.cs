@@ -37,6 +37,9 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
     [LabelText("血条")]
     public Com_Progress com_Progress;
 
+    [LabelText("魂环")]
+    public Transform SourRingEffect;
+
     private GameObject barragePrefab;
 
     private Vector2 size;
@@ -77,6 +80,10 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
         {
             case PlayerType.Hero:
                 this.image_Background.sprite = list_Backgrounds[0];
+                if (SelfPlayer.RingType > 0)
+                {
+                    SourRingEffect.gameObject.SetActive(true);
+                }
                 break;
             case PlayerType.Valet:
                 this.image_Background.sprite = list_Backgrounds[1];

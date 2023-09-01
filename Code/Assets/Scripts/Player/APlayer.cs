@@ -24,6 +24,8 @@ namespace Game
         [JsonIgnore]
         public PlayerType Camp { get; set; }
 
+        public int RingType { get; set; } = 0;
+
         [JsonIgnore]
         public MondelType ModelType { get; set; } = MondelType.Nomal;
 

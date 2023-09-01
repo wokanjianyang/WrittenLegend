@@ -90,6 +90,10 @@ namespace Game
                 this.AurasList.Add(auras);
             }
 
+            if (user.SoulRingData.Count > 0) {
+                this.RingType = 1;
+            }
+
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
         }
