@@ -97,7 +97,7 @@ public class Monster_Phantom : APlayer
         long MaxHP = AttributeBonus.GetTotalAttr(AttributeEnum.HP);
         long CurrentHp = Percent * MaxHP / 10;
 
-        Debug.Log("Phan CurrentHp:" + CurrentHp);
+        //Debug.Log("Phan CurrentHp:" + CurrentHp);
         SetHP(CurrentHp);
     }
 

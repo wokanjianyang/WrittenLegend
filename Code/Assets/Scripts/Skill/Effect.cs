@@ -56,7 +56,7 @@ namespace Game
             {
                 if (DoCount == 1) //第一次增加属性
                 {
-                    Debug.Log("Effect " + this.Data.Config.Id + " Total:" + Total);
+                    Debug.Log("Effect " + this.Data.Config.Id + " Gain:" + Total);
                     SelfPlayer.AttributeBonus.SetAttr((AttributeEnum)Data.Config.TargetAttr, FromId, Total * Data.Config.Type);
                 }
                 else if (DoCount >= Duration)  //最后一次，移除属性

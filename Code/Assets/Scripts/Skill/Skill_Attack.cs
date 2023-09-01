@@ -68,9 +68,13 @@ namespace Game
                     dr.FromId = attackData.Tid;
                     enemy.OnHit(dr);
 
+                    //if (this.SkillPanel.SkillId == 1001)
+                    //{ Debug.Log("attck:" + dr.Damage); }
+
                     foreach (EffectData effect in SkillPanel.EffectIdList.Values)
                     {
-                        long total = dr.Damage * effect.Percent;
+                        long total = dr.Damage * effect.Percent / 100;
+                        //Debug.Log("restor:" + total);
                         DoEffect(enemy, this.SelfPlayer, total, effect);
                     }
                 }

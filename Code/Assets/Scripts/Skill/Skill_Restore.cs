@@ -30,10 +30,15 @@ namespace Game
                 var hp = CalcFormula();
                 teamer.OnRestore(attackData.Tid, hp);
 
+                //Debug.Log("Restore Base :" + hp);
+
                 //Buff
                 foreach (EffectData effect in SkillPanel.EffectIdList.Values)
                 {
-                    long total = hp * effect.Percent;
+                    //Debug.Log("Restore Effect Percent:" + effect.Percent);
+                    long total = hp * effect.Percent/100;
+                    //Debug.Log("Restore Effect :" + total);
+
                     DoEffect(this.SelfPlayer, this.SelfPlayer, total, effect);
                 }
             }

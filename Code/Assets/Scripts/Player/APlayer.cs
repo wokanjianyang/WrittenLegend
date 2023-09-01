@@ -179,8 +179,8 @@ namespace Game
             if (this.Camp == PlayerType.Hero)
             {
                 //
-                Debug.Log("Hero Def:" + this.AttributeBonus.GetTotalAttr(AttributeEnum.Def));
-                Debug.Log("Hero DamageResist:" + this.AttributeBonus.GetTotalAttr(AttributeEnum.DamageResist));
+                //Debug.Log("Hero Def:" + this.AttributeBonus.GetTotalAttr(AttributeEnum.Def));
+                //Debug.Log("Hero DamageResist:" + this.AttributeBonus.GetTotalAttr(AttributeEnum.DamageResist));
 
                 if (this.AurasList != null)
                 {
