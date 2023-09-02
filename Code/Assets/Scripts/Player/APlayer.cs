@@ -63,6 +63,19 @@ namespace Game
 
         [JsonIgnore]
         private Dictionary<int, int> SkillUseRoundCache = new Dictionary<int, int>();
+        public void ChangeMaxHp(int fromId, long total)
+        {
+            long MaxHp = this.AttributeBonus.GetAttackAttr(AttributeEnum.HP);
+
+            double rate = this.HP * 1f / MaxHp;
+
+            long currentHp = (long)(total * rate);
+
+            this.AttributeBonus.SetAttr(AttributeEnum.PanelHp, fromId, total);
+            this.HP += currentHp;
+
+            this.EventCenter.Raise(new SetPlayerHPEvent { });
+        }
 
         [JsonIgnore]
         public int GroupId { get; set; }
