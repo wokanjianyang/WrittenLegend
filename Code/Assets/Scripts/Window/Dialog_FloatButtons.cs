@@ -20,6 +20,8 @@ public class Dialog_FloatButtons : MonoBehaviour, IBattleLife,IPointerDownHandle
     public Image btn_AD;
 
     private DragEnum dragType;
+
+    public Text Txt_Version;
     
     public enum DragEnum
     {
@@ -39,7 +41,7 @@ public class Dialog_FloatButtons : MonoBehaviour, IBattleLife,IPointerDownHandle
     void Update()
     {
 
-
+        this.Txt_Version.text = "V" + ConfigHelper.Version + "";
     }
 
     public void OnBattleStart()

@@ -47,6 +47,7 @@ namespace Game
         // public bool RefreshSkill = false; //是否要刷新技能
         public bool isTimeError = false;
         public bool isCheckError = false;
+        public bool isVersionError = false;
 
         private bool isGameOver { get; set; } = true;
         public PlayerType winCamp { get; private set; }
@@ -136,6 +137,11 @@ namespace Game
                 isCheckError = true;
             }
 
+            int MaxVersion = User.VersionLog.Select(m => m.Key).Max();
+            if (ConfigHelper.Version < MaxVersion) {
+                isVersionError = true;
+            }
+
             long currentTick = TimeHelper.ClientNowSeconds();
 
             if (Math.Abs(UserData.StartTime - currentTick) > 60 * 2)
@@ -181,7 +187,7 @@ namespace Game
 
             this.UIRoot_Top = GameObject.Find("Canvas/UIRoot/Top").transform;
 
-            if (isTimeError || isCheckError)
+            if (isTimeError || isCheckError || isVersionError)
             {
                 StartCoroutine(this.AutoExitApp(true));
                 return;
@@ -706,9 +712,15 @@ namespace Game
         private IEnumerator AutoExitApp(bool type)
         {
             string text = "后自动关闭游戏,请更新";
+
             if (!type)
             {
                 text = "后自动关闭游戏,请不要作弊";
+            }
+
+            if (isVersionError)
+            {
+                text = "后自动关闭游戏,请不要降版本";
             }
 
             GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("5S" + text, false, null, null);
