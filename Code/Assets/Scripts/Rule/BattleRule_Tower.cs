@@ -32,23 +32,23 @@ public class BattleRule_Tower : ABattleRule
 
         QualityList = new List<int>();
 
-        for (int i = 0; i < 100 * MapRate; i++)
+        for (int i = 0; i < 100; i++)
         {
             QualityList.Add(1);
         }
-        for (int i = 0; i < 20 * MapRate; i++)
+        for (int i = 0; i < 20; i++)
         {
             QualityList.Add(2);
         }
-        for (int i = 0; i < 10 * MapRate; i++)
+        for (int i = 0; i < 10; i++)
         {
             QualityList.Add(3);
         }
-        for (int i = 0; i < 5 * MapRate; i++)
+        for (int i = 0; i < 5; i++)
         {
             QualityList.Add(4);
         }
-        for (int i = 0; i < 1 * MapRate; i++)
+        for (int i = 0; i < 1; i++)
         {
             QualityList.Add(5);
         }
@@ -114,13 +114,13 @@ public class BattleRule_Tower : ABattleRule
                 {
                     if (QualityList[0] < 5)
                     {
-                        var enemy = MonsterHelper.BuildMonster(mapConfig, QualityList[0]);
+                        var enemy = MonsterHelper.BuildMonster(mapConfig, QualityList[0], MapRate);
                         GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
                     }
                     else
                     {
                         BossConfig bossConfig = BossConfigCategory.Instance.Get(mapConfig.BoosId);
-                        GameProcessor.Inst.PlayerManager.LoadMonster(BossHelper.BuildBoss(mapConfig.BoosId, mapConfig.Id, 1));
+                        GameProcessor.Inst.PlayerManager.LoadMonster(BossHelper.BuildBoss(mapConfig.BoosId, mapConfig.Id, 1, MapRate));
                     }
                     QualityList.RemoveAt(0);
                 }

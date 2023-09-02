@@ -91,7 +91,7 @@ public class Battle_BossFamily : ABattleRule
                 {
 
                     BossConfig bossConfig = BossConfigCategory.Instance.Get(QualityList[0]);
-                    GameProcessor.Inst.PlayerManager.LoadMonster(BossHelper.BuildBoss(bossConfig.Id, bossConfig.MapId, 2));
+                    GameProcessor.Inst.PlayerManager.LoadMonster(BossHelper.BuildBoss(bossConfig.Id, bossConfig.MapId, 2, 1));
 
                     QualityList.RemoveAt(0);
                 }

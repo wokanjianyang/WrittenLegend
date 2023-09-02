@@ -19,8 +19,9 @@ namespace Game
         public long Exp;
 
         private int CopyType = 1;
+        private int Rate = 1;
 
-        public Boss(int bossId, int mapId,int copyType) : base()
+        public Boss(int bossId, int mapId,int copyType,int rate) : base()
         {
             this.BossId = bossId;
             this.MapId = mapId;
@@ -28,6 +29,7 @@ namespace Game
             this.Quality = 5;
 
             this.CopyType = copyType;
+            this.Rate = rate;
 
             this.Init();
             this.EventCenter.AddListener<DeadRewarddEvent>(MakeReward);
@@ -107,6 +109,16 @@ namespace Game
         {
             Log.Info("Boss :" + this.ToString() + " dead");
 
+            for (int i = 0; i < Rate; i++)
+            {
+                BuildReword();
+            }
+
+            //´æµµ
+            //UserData.Save();
+        }
+
+        private void BuildReword() {
             User user = GameProcessor.Inst.User;
 
             long exp = this.Exp * (100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.ExpIncrea)) / 100;
@@ -159,7 +171,7 @@ namespace Game
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
             {
-                Message = BattleMsgHelper.BuildBossDeadMessage(this,exp,gold, items)
+                Message = BattleMsgHelper.BuildBossDeadMessage(this, exp, gold, items)
             });
 
 
@@ -168,12 +180,6 @@ namespace Game
             {
                 GameProcessor.Inst.EventCenter.Raise(new AutoRecoveryEvent() { });
             }
-
-            //¼ÇÂ¼»÷É±Ê±¼ä
-            //user.MapBossTime[MapId] = TimeHelper.ClientNowSeconds();
-
-            //´æµµ
-            //UserData.Save();
         }
     }
 }

@@ -20,11 +20,15 @@ namespace Game
         public long Exp;
         public int range;
 
-        public Monster(int monsterId, int quality) : base()
+        private int Rate;
+
+        public Monster(int monsterId, int quality,int rate) : base()
         {
             this.MonsterId = monsterId;
             this.GroupId = 2;
             this.Quality = quality;
+
+            this.Rate = rate;
 
             this.Init();
             this.EventCenter.AddListener<DeadRewarddEvent>(MakeReward);
@@ -85,6 +89,15 @@ namespace Game
         {
             //Log.Info("Monster :" + this.ToString() + " dead");
 
+            for (int i = 0; i < Rate; i++) {
+                BuildReword();
+            }
+
+            //´æµµ
+            //UserData.Save();
+        }
+
+        private void BuildReword() {
             User user = GameProcessor.Inst.User;
 
             long exp = this.Exp * (100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.ExpIncrea)) / 100;
@@ -121,9 +134,6 @@ namespace Game
             {
                 GameProcessor.Inst.EventCenter.Raise(new AutoRecoveryEvent() { });
             }
-
-            //´æµµ
-            //UserData.Save();
         }
     }
 }
