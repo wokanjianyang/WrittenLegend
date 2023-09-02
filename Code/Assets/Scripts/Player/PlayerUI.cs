@@ -117,14 +117,8 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
     {
         if (this.com_Progress != null)
         {
-            this.com_Progress.SetProgress(this.SelfPlayer.HP, SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.HP));
+            this.com_Progress.SetProgress(this.SelfPlayer.HP, SelfPlayer.AttributeBonus.GetAttackAttr(AttributeEnum.HP));
         }
-
-        //this.com_Progress?.SetProgress(this.SelfPlayer.HP, this.SelfPlayer.Logic.GetMaxHP()); TODO
-        //GameProcessor.Inst.DelayAction(0.5f, () =>
-        //{
-
-        //});
     }
 
     private void OnShowMsgEvent(ShowMsgEvent e)

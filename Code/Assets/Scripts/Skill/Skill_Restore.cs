@@ -6,9 +6,9 @@ namespace Game
 {
     public class Skill_Restore : ASkill
     {
-        public Skill_Restore(APlayer player, SkillPanel skillPanel) : base(player, skillPanel)
+        public Skill_Restore(APlayer player, SkillPanel skill) : base(player, skill)
         {
-            this.skillGraphic = new SkillGraphic_Single(player, skillPanel.SkillData.SkillConfig);
+            this.skillGraphic = new SkillGraphic_Single(player, skill);
         }
 
         public override bool IsCanUse()

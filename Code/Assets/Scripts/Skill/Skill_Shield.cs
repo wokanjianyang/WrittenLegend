@@ -13,7 +13,7 @@ namespace Game
 
         public override bool IsCanUse()
         {
-            return GetAllTargets().Count > 0;
+            return true;
         }
 
         public override void Do()
@@ -26,22 +26,10 @@ namespace Game
             {
                 long total = DamageHelper.GetEffectFromTotal(this.SelfPlayer.AttributeBonus, SkillPanel, effect);
 
-                //Debug.Log("Skill" + effect.Config.Id + " _Shield:" + total);
+                Debug.Log("Skill" + effect.Config.Id + " _Shield:" + total);
 
                 DoEffect(this.SelfPlayer, this.SelfPlayer, total, effect);
             }
         }
-
-        public List<AttackData> GetAllTargets()
-        {
-            List<AttackData> attackDatas = new List<AttackData>();
-            attackDatas.Add(new AttackData()
-            {
-                Tid = this.SelfPlayer.ID,
-                Ratio = 1
-            });
-            return attackDatas;
-        }
-
     }
 }

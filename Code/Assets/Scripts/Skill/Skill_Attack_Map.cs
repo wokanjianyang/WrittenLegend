@@ -9,7 +9,7 @@ namespace Game
     {
         public Skill_Attack_Map(APlayer player, SkillPanel skill) : base(player, skill)
         {
-            this.skillGraphic = new SkillGraphic_Persistent(player, skill.SkillData.SkillConfig);
+            this.skillGraphic = new SkillGraphic_Persistent(player, skill);
         }
         public override void Do()
         {

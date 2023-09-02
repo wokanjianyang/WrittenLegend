@@ -15,7 +15,7 @@ namespace Game
             long roleAttr = GetRoleAttack(attcher, role) * (100 + skill.AttrIncrea) / 100;  //职业攻击
 
             //防御 = 目标防御 * (100-无视防御)/100
-            long def = enemy.GetTotalAttr(AttributeEnum.Def);
+            long def = enemy.GetAttackAttr(AttributeEnum.Def);
             int ignoreDef = Math.Min(skill.IgnoreDef, 100);
             def = def * (100 - ignoreDef) / 100;
 
@@ -27,29 +27,29 @@ namespace Game
             attack = attack * (skill.Percent + GetRolePercent(attcher, role)) / 100 + skill.Damage + GetRoleDamage(attcher, role);  // *百分比系数 + 固定数值
 
             //暴击率 = 攻击者暴击率+技能暴击倍率-被攻击者暴击抵抗率
-            long CritRate = attcher.GetTotalAttr(AttributeEnum.CritRate) + skill.CritRate - enemy.GetTotalAttr(AttributeEnum.CritRateResist);
+            long CritRate = attcher.GetAttackAttr(AttributeEnum.CritRate) + skill.CritRate - enemy.GetAttackAttr(AttributeEnum.CritRateResist);
 
             bool isCrit = RandomHelper.RandomCritRate((int)CritRate);
             if (isCrit)
             {
                 //暴击倍率（ 不低于0 ） = 50基础爆伤+技能爆伤 + 攻击者爆伤 - 被攻击者爆伤减免
-                long CritDamage = Math.Max(0, 50 + attcher.GetTotalAttr(AttributeEnum.CritDamage) + skill.CritDamage - enemy.GetTotalAttr(AttributeEnum.CritDamageResist));
+                long CritDamage = Math.Max(0, 50 + attcher.GetAttackAttr(AttributeEnum.CritDamage) + skill.CritDamage - enemy.GetAttackAttr(AttributeEnum.CritDamageResist));
                 attack = attack * (CritDamage + 100) / 100;
             }
 
             //伤害加成（不低于5） = 100基础伤害+技能伤害加成 + 攻击者伤害加成 — 被攻击者伤害减免 
-            long DamageIncrea = Math.Max(5, 100 + attcher.GetTotalAttr(AttributeEnum.DamageIncrea) + skill.DamageIncrea - enemy.GetTotalAttr(AttributeEnum.DamageResist));
+            long DamageIncrea = Math.Max(5, 100 + attcher.GetAttackAttr(AttributeEnum.DamageIncrea) + skill.DamageIncrea - enemy.GetAttackAttr(AttributeEnum.DamageResist));
             attack = attack * DamageIncrea / 100;
 
             //光环伤害加成（不低于5） = 100基础伤害+技能伤害加成 + 攻击者伤害加成 — 被攻击者伤害减免 
-            long AurasDamageIncrea = Math.Max(5, 100 + attcher.GetTotalAttr(AttributeEnum.AurasDamageIncrea) - enemy.GetTotalAttr(AttributeEnum.AurasDamageResist));
+            long AurasDamageIncrea = Math.Max(5, 100 + attcher.GetAttackAttr(AttributeEnum.AurasDamageIncrea) - enemy.GetAttackAttr(AttributeEnum.AurasDamageResist));
             attack = attack * AurasDamageIncrea / 100;
 
             //最终伤害加成
             attack = attack * (100 + skill.FinalIncrea) / 100;
 
             //幸运，每点造成10%最终伤害
-            long lucky = attcher.GetTotalAttr(AttributeEnum.Lucky);
+            long lucky = attcher.GetAttackAttr(AttributeEnum.Lucky);
             attack = attack * (lucky * 10 + 100) / 100;
 
             MsgType type = isCrit ? MsgType.Crit : MsgType.Damage;
@@ -65,17 +65,17 @@ namespace Game
             {
                 case (int)RoleType.Warrior:
                     {
-                        attack = attributeBonus.GetTotalAttr(AttributeEnum.PhyAtt);
+                        attack = attributeBonus.GetAttackAttr(AttributeEnum.PhyAtt);
                         break;
                     }
                 case (int)RoleType.Mage:
                     {
-                        attack = attributeBonus.GetTotalAttr(AttributeEnum.MagicAtt);
+                        attack = attributeBonus.GetAttackAttr(AttributeEnum.MagicAtt);
                         break;
                     }
                 case (int)RoleType.Warlock:
                     {
-                        attack = attributeBonus.GetTotalAttr(AttributeEnum.SpiritAtt);
+                        attack = attributeBonus.GetAttackAttr(AttributeEnum.SpiritAtt);
                         break;
                     }
             }
@@ -90,17 +90,17 @@ namespace Game
             {
                 case (int)RoleType.Warrior:
                     {
-                        attack = attributeBonus.GetTotalAttr(AttributeEnum.WarriorSkillPercent);
+                        attack = attributeBonus.GetAttackAttr(AttributeEnum.WarriorSkillPercent);
                         break;
                     }
                 case (int)RoleType.Mage:
                     {
-                        attack = attributeBonus.GetTotalAttr(AttributeEnum.MageSkillPercent);
+                        attack = attributeBonus.GetAttackAttr(AttributeEnum.MageSkillPercent);
                         break;
                     }
                 case (int)RoleType.Warlock:
                     {
-                        attack = attributeBonus.GetTotalAttr(AttributeEnum.WarlockSkillPercent);
+                        attack = attributeBonus.GetAttackAttr(AttributeEnum.WarlockSkillPercent);
                         break;
                     }
             }
@@ -115,17 +115,17 @@ namespace Game
             {
                 case (int)RoleType.Warrior:
                     {
-                        attack = attributeBonus.GetTotalAttr(AttributeEnum.WarriorSkillDamage);
+                        attack = attributeBonus.GetAttackAttr(AttributeEnum.WarriorSkillDamage);
                         break;
                     }
                 case (int)RoleType.Mage:
                     {
-                        attack = attributeBonus.GetTotalAttr(AttributeEnum.MageSkillDamage);
+                        attack = attributeBonus.GetAttackAttr(AttributeEnum.MageSkillDamage);
                         break;
                     }
                 case (int)RoleType.Warlock:
                     {
-                        attack = attributeBonus.GetTotalAttr(AttributeEnum.WarlockSkillDamage);
+                        attack = attributeBonus.GetAttackAttr(AttributeEnum.WarlockSkillDamage);
                         break;
                     }
             }
@@ -137,7 +137,7 @@ namespace Game
         {
             var dr = CalcDamage(attacker, enemy, offlineSkill);
 
-            long hp = enemy.GetTotalAttr(AttributeEnum.HP);
+            long hp = enemy.GetAttackAttr(AttributeEnum.HP);
 
             return dr.Damage > 0 ? Math.Min((int)(hp / dr.Damage), 9999999) : 0;
         }

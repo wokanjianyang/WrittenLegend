@@ -21,7 +21,6 @@ namespace Game
 
     public class SetPlayerHPEvent : SDD.Events.Event
     {
-        public string HP { get; set; }
     }
 
     public class ShowMsgEvent : SDD.Events.Event

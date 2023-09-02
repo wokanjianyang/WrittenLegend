@@ -98,8 +98,6 @@ namespace Game
                     list.Add(item);
                 }
             }
-            //TEST add equip
-            //list.Add(ItemHelper.BuildItem(ItemType.Equip, 401, 1, 1)); 
             return list;
         }
     }

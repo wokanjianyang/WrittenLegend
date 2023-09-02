@@ -41,7 +41,6 @@ namespace Game
             }
 
             Equip equip = new Equip(configId, runeId, suitId, quality);
-            //Equip equip = new Equip(101, 7, 2, 4); //Test
 
             equip.Quantity = 1;
             return equip;

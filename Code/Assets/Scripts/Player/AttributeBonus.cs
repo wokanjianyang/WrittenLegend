@@ -40,6 +40,29 @@ namespace Game
 			switch (attrType)
 			{
 				case AttributeEnum.HP:
+					return CalTotal(AttributeEnum.HP, AttributeEnum.HpIncrea);
+				case AttributeEnum.PhyAtt:
+					return CalTotal(AttributeEnum.PhyAtt, AttributeEnum.AttIncrea, AttributeEnum.PhyAttIncrea);
+				case AttributeEnum.MagicAtt:
+					return CalTotal(AttributeEnum.MagicAtt, AttributeEnum.AttIncrea, AttributeEnum.MagicAttIncrea);
+				case AttributeEnum.SpiritAtt:
+					return CalTotal(AttributeEnum.SpiritAtt, AttributeEnum.AttIncrea, AttributeEnum.SpiritAttIncrea);
+				case AttributeEnum.Def:
+					return CalTotal(AttributeEnum.Def, AttributeEnum.DefIncrea);
+				case AttributeEnum.SecondExp:
+					return CalTotal(AttributeEnum.SecondExp, AttributeEnum.ExpIncrea);
+				case AttributeEnum.SecondGold:
+					return CalTotal(AttributeEnum.SecondGold, AttributeEnum.GoldIncrea);
+				default:
+					return CalTotal(attrType);
+			}
+		}
+
+		public long GetAttackAttr(AttributeEnum attrType)
+		{
+			switch (attrType)
+			{
+				case AttributeEnum.HP:
 					return CalTotal(AttributeEnum.HP, AttributeEnum.HpIncrea) + CalTotal(AttributeEnum.PanelHp);
 				case AttributeEnum.PhyAtt:
 					return CalTotal(AttributeEnum.PhyAtt, AttributeEnum.AttIncrea, AttributeEnum.PhyAttIncrea) + CalTotal(AttributeEnum.PanelPhyAtt);

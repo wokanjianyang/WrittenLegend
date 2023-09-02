@@ -8,11 +8,10 @@ namespace Game
 {
     public class SkillGraphic_Shield : SkillGraphic
     {
-        private SkillPanel SkillPanel { get; set; }
 
-        public SkillGraphic_Shield(APlayer player, SkillPanel skillPanel) : base(player, skillPanel.SkillData.SkillConfig)
+        public SkillGraphic_Shield(APlayer player, SkillPanel skill) : base(player, skill)
         {
-            this.SkillPanel = skillPanel;
+
         }
 
         public override void PlayAnimation(List<Vector3Int> cells, Vector3Int scale)
@@ -30,12 +29,13 @@ namespace Game
             if (effectCom != null)
             {
                 effectCom.transform.SetParent(this.SelfPlayer.Transform);
-                effectCom.transform.localPosition = new Vector3(0,0,0);
-
+                effectCom.transform.localPosition = new Vector3(0, 0, 0);
 
                 yield return new WaitForSeconds(this.SkillPanel.Duration); //因为现在1s才是一个回合
-                GameObject.Destroy(effectCom.gameObject);
-
+                if (effectCom != null && effectCom.gameObject != null)
+                {
+                    GameObject.Destroy(effectCom.gameObject);
+                }
             }
             yield return null;
         }

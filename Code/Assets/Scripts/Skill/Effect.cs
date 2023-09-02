@@ -58,6 +58,11 @@ namespace Game
                 {
                     Debug.Log("Effect " + this.Data.Config.Id + " Gain:" + Total);
                     SelfPlayer.AttributeBonus.SetAttr((AttributeEnum)Data.Config.TargetAttr, FromId, Total * Data.Config.Type);
+
+                    if (Data.Config.TargetAttr == (int)AttributeEnum.PanelHp)
+                    {
+                        this.SelfPlayer.EventCenter.Raise(new SetPlayerHPEvent { });
+                    }
                 }
                 else if (DoCount >= Duration)  //最后一次，移除属性
                 {

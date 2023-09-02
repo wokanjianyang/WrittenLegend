@@ -8,7 +8,7 @@ namespace Game
     {
         public Skill_Attack_Normal(APlayer player, SkillPanel skill) : base(player, skill)
         {
-            this.skillGraphic = new SkillGraphic_Normal(player, skill.SkillData.SkillConfig);
+            this.skillGraphic = new SkillGraphic_Normal(player, skill);
         }
 
         public override List<AttackData> GetAllTargets()

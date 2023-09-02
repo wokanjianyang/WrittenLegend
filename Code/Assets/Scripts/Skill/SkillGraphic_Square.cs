@@ -7,7 +7,7 @@ namespace Game
 {
     public class SkillGraphic_Square : SkillGraphic
     {
-        public SkillGraphic_Square(APlayer player, SkillConfig skillConfig) : base(player, skillConfig)
+        public SkillGraphic_Square(APlayer player, SkillPanel skill) : base(player, skill)
         {
         }
 
@@ -18,7 +18,7 @@ namespace Game
 
         private IEnumerator IE_Attack(List<Vector3Int> cells, Vector3Int scale)
         {
-            var effectCom = EffectLoader.CreateEffect(this.SkillConfig.ModelName, true);
+            var effectCom = EffectLoader.CreateEffect(this.SkillPanel.SkillData.SkillConfig.ModelName, true);
             if (effectCom != null)
             {
                 var selfPos = GameProcessor.Inst.MapData.GetWorldPosition(SelfPlayer.Cell);
@@ -34,7 +34,7 @@ namespace Game
                 effectCom.transform.DOLocalMove(targetPos, 0.3f);
                 effectCom.transform.DOScale(scale, 0.7f);
 
-                var duration = Mathf.Max(this.SkillConfig.Duration, 1f);
+                var duration = Mathf.Max(this.SkillPanel.Duration, 1f);
                 yield return new WaitForSeconds(duration);
                 //GameObject.Destroy(effectCom.gameObject);
             }

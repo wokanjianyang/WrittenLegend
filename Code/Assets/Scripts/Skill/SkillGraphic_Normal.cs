@@ -7,12 +7,9 @@ namespace Game
 {
     public class SkillGraphic_Normal : SkillGraphic
     {
-        private IEnumerator lastIE = null;
-        private bool isIEEnd = false;
-
         const float speed = 0.3f;
 
-        public SkillGraphic_Normal(APlayer player, SkillConfig skillConfig) : base(player, skillConfig)
+        public SkillGraphic_Normal(APlayer player, SkillPanel skill) : base(player, skill)
         {
         }
 
@@ -31,7 +28,6 @@ namespace Game
 
             yield return new WaitForSeconds(speed);
             this.SelfPlayer.Transform.DOLocalMove(targetPos, speed);
-            this.isIEEnd = true;
         }
     }
 }

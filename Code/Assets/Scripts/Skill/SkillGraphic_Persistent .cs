@@ -8,7 +8,7 @@ namespace Game
 {
     public class SkillGraphic_Persistent : SkillGraphic
     {
-        public SkillGraphic_Persistent(APlayer player,SkillConfig skillConfig) : base(player,skillConfig)
+        public SkillGraphic_Persistent(APlayer player,SkillPanel skill) : base(player,skill)
         {
         }
 
@@ -23,10 +23,10 @@ namespace Game
         private IEnumerator IE_Attack(Vector3Int cell)
         {
             //yield return new WaitForSeconds(0.5f);
-            var duration = Math.Max(this.SkillConfig.Duration, 1);
+            var duration = Math.Max(this.SkillPanel.Duration, 1);
             bool loop = duration > 1;
 
-            var effectCom = EffectLoader.CreateEffect(this.SkillConfig.ModelName,loop);
+            var effectCom = EffectLoader.CreateEffect(this.SkillPanel.SkillData.SkillConfig.ModelName, loop);
             if (effectCom != null)
             {
                 var targetPos = GameProcessor.Inst.MapData.GetWorldPosition(cell);

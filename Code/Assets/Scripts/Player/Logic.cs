@@ -81,12 +81,9 @@ namespace Game
 
             //设置血量
             //this.SelfPlayer.SetHP(SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.HP));
-            
-                        
-            this.SelfPlayer.EventCenter.Raise(new SetPlayerHPEvent
-            {
-                HP = SelfPlayer.HP.ToString()
-            });
+
+
+            this.SelfPlayer.EventCenter.Raise(new SetPlayerHPEvent { });
         }
 
         public void ResetData()
@@ -102,10 +99,7 @@ namespace Game
             //BattleAttributeMap.Clear();
 
             SelfPlayer.HP = SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.HP);
-            this.SelfPlayer.EventCenter.Raise(new SetPlayerHPEvent
-            {
-                HP = SelfPlayer.HP.ToString()
-            });
+            this.SelfPlayer.EventCenter.Raise(new SetPlayerHPEvent { });
             this.SelfPlayer.SetPosition(GameProcessor.Inst.PlayerManager.RandomCell(this.SelfPlayer.Cell));
         }
 
@@ -129,10 +123,7 @@ namespace Game
 
             this.SelfPlayer.SetHP(currentHP);
 
-            this.playerEvents.Add(new SetPlayerHPEvent
-            {
-                HP = currentHP.ToString()
-            });
+            this.playerEvents.Add(new SetPlayerHPEvent { });
             if (currentHP <= 0)
             {
 
@@ -167,7 +158,7 @@ namespace Game
                 return;
             }
 
-            long maxHp = this.SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.HP);
+            long maxHp = this.SelfPlayer.AttributeBonus.GetAttackAttr(AttributeEnum.HP);
 
             if (maxHp <= currentHP)
             {
@@ -188,10 +179,7 @@ namespace Game
 
             this.SelfPlayer.SetHP(currentHP);
 
-            this.playerEvents.Add(new SetPlayerHPEvent
-            {
-                HP = currentHP.ToString()
-            });
+            this.playerEvents.Add(new SetPlayerHPEvent { });
             this.playerEvents.Add(new ShowMsgEvent
             {
                 Type = MsgType.Restore,

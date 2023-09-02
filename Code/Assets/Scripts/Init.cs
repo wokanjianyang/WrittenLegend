@@ -236,7 +236,7 @@ public class Init : MonoBehaviour
         yield return null;
         var mapRoot = GameObject.FindObjectOfType<ViewBattleProcessor>();
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
         Game.LoadMap(RuleType.Normal,  mapRoot.transform, null);
     }
 

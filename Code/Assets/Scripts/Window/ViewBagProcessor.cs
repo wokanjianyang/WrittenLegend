@@ -122,7 +122,6 @@ namespace Game
 
         private IEnumerator LoadBox()
         {
-            Debug.Log("LoadBox Begin:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             //先回收,再加载
             this.FirstRecovery();
 
@@ -181,7 +180,6 @@ namespace Game
 
             RefreshBag();
 
-            Debug.Log("LoadBox End:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             //yield return null;
         }
 

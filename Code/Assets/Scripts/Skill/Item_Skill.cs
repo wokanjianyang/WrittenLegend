@@ -1,4 +1,6 @@
 using Sirenix.OdinInspector;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -49,15 +51,16 @@ namespace Game
             this.tmp_Level.text = string.Format("LV:{0}", SkillPanel.SkillData.MagicLevel.Data);
             this.tmp_CD.text = string.Format("冷却时间{0}秒", SkillPanel.CD);
 
-            this.tmp_Des.text = string.Format(SkillPanel.SkillData.SkillConfig.Des, SkillPanel.Dis, SkillPanel.EnemyMax, SkillPanel.Percent, SkillPanel.Damage);
+            this.tmp_Des.text = string.Format(SkillPanel.SkillData.SkillConfig.Des, SkillPanel.Dis, SkillPanel.EnemyMax, SkillPanel.Percent, SkillPanel.Damage, SkillPanel.Duration);
 
             var expProgress = this.GetComponentInChildren<Com_Progress>();
             expProgress.SetProgress(SkillPanel.SkillData.MagicExp.Data, SkillPanel.SkillData.GetLevelUpExp());
         }
         public void OnPointerClick(PointerEventData eventData)
         {
-            int count = GameProcessor.Inst.User.SkillList.FindAll(m => m.Status == SkillStatus.Equip).Count;
-            if (this.SkillPanel == null || this.SkillPanel.SkillData == null || count >= 5)
+            List<SkillData> skillList = GameProcessor.Inst.User.SkillList.FindAll(m => m.Status == SkillStatus.Equip);
+  
+            if (this.SkillPanel == null || this.SkillPanel.SkillData == null || skillList.Count >= 5)
             {
                 return;
             }
@@ -65,6 +68,17 @@ namespace Game
             if (this.SkillPanel.SkillData.Status == SkillStatus.Equip)
             {
                 return;
+            }
+
+            int repet = this.SkillPanel.SkillData.SkillConfig.Repet;
+            if (repet > 0)
+            {
+                //查找是否已经上阵了同类技能
+                if (skillList.Where(m => m.SkillConfig.Repet == repet).Count() > 0)
+                {
+                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "已经上阵了同类技能", ToastType = ToastTypeEnum.Failure });
+                    return;
+                }
             }
 
             this.SkillPanel.SkillData.Status = SkillStatus.Equip;

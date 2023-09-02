@@ -12,15 +12,15 @@ namespace Game
         {
             if (skillPanel.Area == AttackGeometryType.FrontRow)
             {
-                this.skillGraphic = new SkillGraphic_FrontRow(player, skillPanel.SkillData.SkillConfig);
+                this.skillGraphic = new SkillGraphic_FrontRow(player, skillPanel);
             }
             else if (skillPanel.Area == AttackGeometryType.Arc)
             {
-                this.skillGraphic = new SkillGraphic_Arc(player, skillPanel.SkillData.SkillConfig);
+                this.skillGraphic = new SkillGraphic_Arc(player, skillPanel);
             }
             else
             {
-                this.skillGraphic = new SkillGraphic_Square(player, skillPanel.SkillData.SkillConfig);
+                this.skillGraphic = new SkillGraphic_Square(player, skillPanel);
             }
         }
 

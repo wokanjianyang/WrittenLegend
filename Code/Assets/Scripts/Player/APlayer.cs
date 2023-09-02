@@ -180,7 +180,7 @@ namespace Game
             {
                 //
                 //Debug.Log("Hero Def:" + this.AttributeBonus.GetTotalAttr(AttributeEnum.Def));
-                //Debug.Log("Hero DamageResist:" + this.AttributeBonus.GetTotalAttr(AttributeEnum.DamageResist));
+                Debug.Log("Hero Hp:" + this.AttributeBonus.GetAttackAttr(AttributeEnum.HP));
 
                 if (this.AurasList != null)
                 {
@@ -213,8 +213,8 @@ namespace Game
             }
 
             //回血
-            long restoreHp = AttributeBonus.GetTotalAttr(AttributeEnum.RestoreHp) +
-                AttributeBonus.GetTotalAttr(AttributeEnum.RestoreHpPercent) * AttributeBonus.GetTotalAttr(AttributeEnum.HP) / 100;
+            long restoreHp = AttributeBonus.GetAttackAttr(AttributeEnum.RestoreHp) +
+                AttributeBonus.GetAttackAttr(AttributeEnum.RestoreHpPercent) * AttributeBonus.GetAttackAttr(AttributeEnum.HP) / 100;
             if (restoreHp > 0)
             {
                 this.OnRestore(this.ID, restoreHp);

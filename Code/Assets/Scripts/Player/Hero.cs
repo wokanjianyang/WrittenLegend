@@ -81,8 +81,6 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.AurasDamageIncrea, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttr(AttributeEnum.AurasDamageIncrea));
             AttributeBonus.SetAttr(AttributeEnum.AurasDamageResist, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttr(AttributeEnum.AurasDamageResist));
 
-            //TEST
-            //AttributeBonus.SetAttr(AttributeEnum.CritRate, AttributeFrom.HeroPanel, 50);
             this.AurasList = new List<AAuras>();
             foreach (var ac in user.GetAurasList())
             {
@@ -105,10 +103,6 @@ namespace Game
             //加载技能
             List<SkillData> list = user.SkillList.FindAll(m => m.Status == SkillStatus.Equip).OrderBy(m => m.Position).ToList();
             list.Add(new SkillData(9001, (int)SkillPosition.Default)); //增加默认技能
-
-            //TEST skill
-            //list.Clear();
-            //list.Add(new SkillData(2004, (int)SkillPosition.Default)); //增加默认技能
 
             foreach (SkillData skillData in list)
             {

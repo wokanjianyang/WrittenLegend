@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ namespace Game
 {
     public class SkillGraphic_Arc : SkillGraphic
     {
-        public SkillGraphic_Arc(APlayer player, SkillConfig skillConfig) : base(player, skillConfig)
+        public SkillGraphic_Arc(APlayer player, SkillPanel skill) : base(player, skill)
         {
         }
 
@@ -18,7 +19,7 @@ namespace Game
 
         private IEnumerator IE_Attack(List<Vector3Int> cells, Vector3Int scale)
         {
-            var effectCom = EffectLoader.CreateEffect(this.SkillConfig.ModelName, true);
+            var effectCom = EffectLoader.CreateEffect(this.SkillPanel.SkillData.SkillConfig.ModelName, true);
             if (effectCom != null)
             {
                 var selfPos = GameProcessor.Inst.MapData.GetWorldPosition(SelfPlayer.Cell);
@@ -35,11 +36,11 @@ namespace Game
 
                     var targetPos = GameProcessor.Inst.MapData.GetWorldPosition(cell);
                     Log.Info("arc targetPos :" + targetPos.ToString());
-                    effectCom.transform.DOLocalMove(targetPos, cellDuration).SetEase(Ease.InQuad) ;
+                    effectCom.transform.DOLocalMove(targetPos, cellDuration).SetEase(Ease.InQuad);
                     yield return new WaitForSeconds(cellDuration);
                 }
 
-                var duration = Mathf.Max(this.SkillConfig.Duration, 0.5f);
+                var duration = Math.Max(this.SkillPanel.Duration, 0.5f);
                 yield return new WaitForSeconds(duration);
                 GameObject.Destroy(effectCom.gameObject);
             }
