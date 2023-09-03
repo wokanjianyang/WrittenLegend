@@ -24,7 +24,7 @@ namespace Game
         {
             this.SelfPlayer = player;
             this.SkillPanel = skillPanel;
-            this.Priority = position - skillPanel.SkillData.SkillConfig.Priority ;
+            this.Priority = position; // - skillPanel.SkillData.SkillConfig.Priority;
             this.Position = position;
             this.lastUseRound = useRound;
 
@@ -59,7 +59,20 @@ namespace Game
             {
                 this.skillLogic = new Skill_Expert(player, skillPanel);
             }
-            else {
+            else if (skillPanel.SkillData.SkillConfig.Type == 1008)
+            {
+                this.skillLogic = new Skill_Huti(player, skillPanel);
+            }
+            else if (skillPanel.SkillData.SkillConfig.Type == 2008)
+            {
+                this.skillLogic = new Skill_Move(player, skillPanel);
+            }
+            else if (skillPanel.SkillData.SkillConfig.Type == 3008)
+            {
+                this.skillLogic = new Skill_Yinshen(player, skillPanel);
+            }
+            else
+            {
                 this.skillLogic = new Skill_Attack_Normal(player, skillPanel);
             }
         }

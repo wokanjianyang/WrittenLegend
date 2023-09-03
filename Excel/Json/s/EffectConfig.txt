@@ -4,6 +4,7 @@
 {"_t":"EffectConfig","_id":3,"Name":"道术攻击增强","Type":1,"Priority":50,"TargetType":1,"TargetAttr":1004,"SourceAttr":4,"PercentGain":100,"ConstGain":100},
 {"_t":"EffectConfig","_id":4,"Name":"防御增强","Type":1,"Priority":10,"TargetType":1,"TargetAttr":1005,"SourceAttr":5,"PercentGain":100,"ConstGain":100},
 {"_t":"EffectConfig","_id":5,"Name":"生命增强","Type":1,"Priority":10,"TargetType":1,"TargetAttr":1001,"SourceAttr":1,"PercentGain":100,"ConstGain":100},
+{"_t":"EffectConfig","_id":6,"Name":"生命上限回血增强","Type":1,"Priority":10,"TargetType":1,"TargetAttr":23,"SourceAttr":0,"PercentGain":0,"ConstGain":0},
 {"_t":"EffectConfig","_id":101,"Name":"吸血","Type":1,"Priority":10,"TargetType":1,"TargetAttr":0,"SourceAttr":-6,"PercentGain":0,"ConstGain":0},
 {"_t":"EffectConfig","_id":102,"Name":"回复","Type":1,"Priority":10,"TargetType":1,"TargetAttr":0,"SourceAttr":4,"PercentGain":100,"ConstGain":100},
 {"_t":"EffectConfig","_id":103,"Name":"灼烧","Type":-1,"Priority":10,"TargetType":2,"TargetAttr":0,"SourceAttr":3,"PercentGain":0,"ConstGain":0},

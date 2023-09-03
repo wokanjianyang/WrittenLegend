@@ -141,7 +141,7 @@ public class Monster_Phantom : APlayer
             var bornCell = Vector3Int.zero;
             if (tempCells.Count > 1)
             {
-                var index = UnityEngine.Random.Range(0, tempCells.Count);
+                var index = RandomHelper.RandomNumber(0, tempCells.Count);
                 bornCell = tempCells[index];
                 this.SetPosition(bornCell, false);
             }

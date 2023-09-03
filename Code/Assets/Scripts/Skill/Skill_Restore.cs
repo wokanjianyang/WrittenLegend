@@ -83,7 +83,7 @@ namespace Game
 
             foreach (var teamer in teamList)
             {
-                if (teamer.AttributeBonus.GetTotalAttr(AttributeEnum.HP) > teamer.HP)
+                if (teamer.AttributeBonus.GetAttackAttr(AttributeEnum.HP) > teamer.HP)
                 {
                     attackDatas.Add(new AttackData()
                     {

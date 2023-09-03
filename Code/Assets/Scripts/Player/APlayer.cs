@@ -19,6 +19,8 @@ namespace Game
         public long HP { get; set; }
         public int Quality { get; set; }
 
+        public bool IsHide { get; set; } = false;
+
         public List<SkillData> SkillList { get; set; } = new List<SkillData>();
 
         [JsonIgnore]
@@ -97,6 +99,8 @@ namespace Game
 
                 return _enemy;
             }
+
+            set { }
         }
         protected APlayer _enemy { get; set; }
 
@@ -185,6 +189,19 @@ namespace Game
             return null;
         }
 
+        public bool GetIsPause()
+        {
+            foreach (List<Effect> list in EffectMap.Values)
+            {
+                int count = list.Where(m => m.Data.Config.Type == 2).Count();
+                if (count > 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public virtual void DoEvent()
         {
             this.RoundCounter++;
@@ -257,23 +274,23 @@ namespace Game
             if (_enemy != null)
             {
 
-                //如果有锁定目标，需要在攻击后恢复
-                var oldEnemy = Enemy;
+                ////如果有锁定目标，需要在攻击后恢复
+                //var oldEnemy = Enemy;
 
-                _enemy = this.FindNearestEnemy();
-                if (Enemy.ID != oldEnemy.ID)
-                {
+                //_enemy = this.FindNearestEnemy();
+                //if (Enemy.ID != oldEnemy.ID)
+                //{
 
-                    skill = this.GetSkill();
+                //    skill = this.GetSkill();
 
-                    if (skill != null)
-                    {
-                        skill.Do();
-                        _enemy = oldEnemy;
-                        //GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "无法攻击指定目标，尝试攻击其它目标",ToastType = ToastTypeEnum.Normal});
-                        return;
-                    }
-                }
+                //    if (skill != null)
+                //    {
+                //        skill.Do();
+                //        _enemy = oldEnemy;
+                //        //GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "无法攻击指定目标，尝试攻击其它目标",ToastType = ToastTypeEnum.Normal});
+                //        return;
+                //    }
+                //}
             }
             else
             {
@@ -387,6 +404,11 @@ namespace Game
 
         virtual public APlayer CalcEnemy()
         {
+            if (Enemy != null && Enemy.IsHide)
+            {
+                Enemy = null;
+            }
+
             return Enemy;
         }
 
@@ -396,7 +418,7 @@ namespace Game
             APlayer ret = null;
 
             //查找和自己不同类的,并且不是自己的主人/仆人
-            var enemys = GameProcessor.Inst.PlayerManager.GetAllPlayers().FindAll(p => p.Camp != this.Camp && p.IsSurvice && p.GroupId != this.GroupId);
+            var enemys = GameProcessor.Inst.PlayerManager.GetAllPlayers().FindAll(p => p.Camp != this.Camp && p.IsSurvice && p.GroupId != this.GroupId && !p.IsHide);
 
             if (enemys.Count > 0)
             {
