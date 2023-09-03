@@ -91,7 +91,7 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
             return;
         }
 
-        int rate = 1;
+        int rate = GameProcessor.Inst.EquipCopySetting_Rate ? 5 : 1;
 
         this.gameObject.SetActive(true);
         this.MapTime = TimeHelper.ClientNowSeconds();

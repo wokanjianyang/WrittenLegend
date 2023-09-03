@@ -65,14 +65,17 @@ namespace Game
         private Dictionary<int, int> SkillUseRoundCache = new Dictionary<int, int>();
         public void ChangeMaxHp(int fromId, long total)
         {
-            long MaxHp = this.AttributeBonus.GetAttackAttr(AttributeEnum.HP);
-
-            double rate = this.HP * 1f / MaxHp;
-
-            long currentHp = (long)(total * rate);
+            long PreMaxHp = this.AttributeBonus.GetAttackAttr(AttributeEnum.HP);
+            //Debug.Log("PreMaxHp:" + PreMaxHp);
+            double rate = this.HP * 1f / PreMaxHp;
+            //Debug.Log("rate:" + rate);
 
             this.AttributeBonus.SetAttr(AttributeEnum.PanelHp, fromId, total);
-            this.HP += currentHp;
+            long CurrentMaxHp = this.AttributeBonus.GetAttackAttr(AttributeEnum.HP);
+            //Debug.Log("CurrentMaxHp:" + CurrentMaxHp);
+            long currentHp = (long)(CurrentMaxHp * rate);
+            //Debug.Log("currentHp:" + currentHp);
+            this.HP = currentHp;
 
             this.EventCenter.Raise(new SetPlayerHPEvent { });
         }

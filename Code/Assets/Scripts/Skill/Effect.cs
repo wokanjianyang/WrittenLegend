@@ -68,7 +68,14 @@ namespace Game
                 }
                 else if (DoCount >= Duration)  //最后一次，移除属性
                 {
-                    SelfPlayer.AttributeBonus.SetAttr((AttributeEnum)Data.Config.TargetAttr, FromId, 0);
+                    if (Data.Config.TargetAttr == (int)AttributeEnum.PanelHp)
+                    {
+                        this.SelfPlayer.ChangeMaxHp(FromId, 0);
+                    }
+                    else
+                    {
+                        SelfPlayer.AttributeBonus.SetAttr((AttributeEnum)Data.Config.TargetAttr, FromId, 0);
+                    }
                 }
             }
         }
