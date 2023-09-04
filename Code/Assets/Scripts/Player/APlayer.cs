@@ -167,9 +167,10 @@ namespace Game
             return DamageHelper.GetRoleDamage(this.AttributeBonus, role);
         }
 
-        virtual public SkillState GetSkill()
+
+        virtual public SkillState GetSkill(int priority)
         {
-            List<SkillState> list = SelectSkillList.OrderBy(m => m.UserCount * 1000 + m.Priority).ToList();
+            List<SkillState> list = SelectSkillList.Where(m => m.SkillPanel.SkillData.SkillConfig.Priority >= priority).OrderBy(m => m.UserCount * 1000 + m.Priority).ToList();
 
             foreach (SkillState state in list)
             {
@@ -180,12 +181,12 @@ namespace Game
                 }
             }
 
-            var flag = this.IsEnemyClosest(Enemy);
-            //当敌人在邻格时，强制使用普攻
-            if (flag)
-            {
-                return SelectSkillList.FirstOrDefault(s => s.SkillPanel.SkillData.SkillId == 9001);
-            }
+            //var flag = this.IsEnemyClosest(Enemy);
+            ////当敌人在邻格时，强制使用普攻
+            //if (flag)
+            //{
+            //    return SelectSkillList.FirstOrDefault(s => s.SkillPanel.SkillData.SkillId == 9001);
+            //}
             return null;
         }
 
@@ -230,7 +231,7 @@ namespace Game
                 }
             }
 
-            //特效
+            //行动前计算buff
             foreach (List<Effect> list in EffectMap.Values)
             {
                 foreach (Effect effect in list)
@@ -256,16 +257,31 @@ namespace Game
                 this.OnRestore(this.ID, restoreHp);
             }
 
-            //行动前计算buff
-            bool pause = GetIsPause();
-            if (pause)
+            //控制前计算高优级技能
+            SkillState skill = this.GetSkill(200);
+            if (skill != null)
             {
-                return; //如果有控制技能，不继续后续行动
+                Debug.Log("Hero Use Prioriry Skill:");
+                skill.Do();
+                return;
+            }
+
+            if (this.Camp == PlayerType.Hero)
+            {
+                bool pause = GetIsPause();
+                if (pause)
+                {
+                    Debug.Log("Hero Pause:");
+                    return; //如果有控制技能，不继续后续行动
+                }
+            }
+            else { 
+
             }
 
             //1.尝试攻击手选目标或上回合目标
             _enemy = this.CalcEnemy();
-            SkillState skill = this.GetSkill();
+            skill = this.GetSkill(0);
 
             if (skill != null)
             {  //使用技能
@@ -300,7 +316,7 @@ namespace Game
             else
             {
                 _enemy = this.FindNearestEnemy();
-                skill = this.GetSkill();
+                skill = this.GetSkill(0);
 
                 if (skill != null)
                 {
