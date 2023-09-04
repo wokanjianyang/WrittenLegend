@@ -1,6 +1,6 @@
 {"list":[
 {"_t":"PlayerModel","_id":1,"Name":"刺杀","AttrList":[],"AttrValueList":[],"SkillList":[11002],"Desc":""},
-{"_t":"PlayerModel","_id":2,"Name":"野蛮","AttrList":[],"AttrValueList":[],"SkillList":[11004],"Desc":""},
+{"_t":"PlayerModel","_id":2,"Name":"战神","AttrList":[],"AttrValueList":[],"SkillList":[11004,11007],"Desc":""},
 {"_t":"PlayerModel","_id":3,"Name":"烈火","AttrList":[],"AttrValueList":[],"SkillList":[11007],"Desc":""},
 {"_t":"PlayerModel","_id":4,"Name":"火球","AttrList":[],"AttrValueList":[],"SkillList":[12001],"Desc":""},
 {"_t":"PlayerModel","_id":5,"Name":"雷电","AttrList":[],"AttrValueList":[],"SkillList":[12002],"Desc":""},
