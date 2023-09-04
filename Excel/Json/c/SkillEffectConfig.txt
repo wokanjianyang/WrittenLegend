@@ -1,0 +1,5 @@
+{"list":[
+{"_t":"SkillEffectConfig","_id":10081,"Name":7,"Duration":5,"Max":0},
+{"_t":"SkillEffectConfig","_id":10082,"Name":6,"Duration":180,"Max":3},
+{"_t":"SkillEffectConfig","_id":20081,"Name":2,"Duration":180,"Max":3},
+]}

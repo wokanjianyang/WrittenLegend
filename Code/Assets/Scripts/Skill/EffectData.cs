@@ -42,6 +42,8 @@ namespace Game
     public enum EffectType
     {
         Sub = -1,  //增加属性
-        Add = 1  //减少属性
+        Add = 1,  //减少属性
+        Pause = 2,
+        IgnorePause = 3,
     }
 }

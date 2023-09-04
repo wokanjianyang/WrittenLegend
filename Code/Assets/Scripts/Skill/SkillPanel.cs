@@ -142,11 +142,12 @@ namespace Game
             {
                 foreach (string skillEffect in skilEffectList)
                 {
+                    //如果为-1,则使用技能的配置
                     int[] effectParams = StringHelper.ConvertSkillParams(skillEffect);
                     int effectId = effectParams[0];
-                    int duration = effectParams[1] >= 0 ? effectParams[1] : Duration; //如果为-1,则使用技能的配置
+                    int duration = effectParams[1] >= 0 ? effectParams[1] : Duration;
                     int max = effectParams[2] >= 0 ? effectParams[2] : EnemyMax;
-                    int percent = effectParams[3] == 100 ? this.Percent : effectParams[3]; //如果为100，则取值技能的比例
+                    int percent = effectParams[3] >= 0 ? effectParams[3] : this.Percent;
 
                     if (effectId > 0 && !EffectIdList.ContainsKey(effectId)) //不能叠加特效
                     {

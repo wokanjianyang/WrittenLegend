@@ -53,6 +53,11 @@ namespace Game
         EquipBaseIncrea = 101, //装备基础属性百分比
         EquipQualityIncrea = 102, //装备随机属性百分比
 
+        PhyDamage = 302, //物理伤害
+        MagicDamage = 303,//魔法伤害
+        SpiritDamage = 304, //道术伤害
+        AllDamage = 305, //所有伤害加成
+
         PanelHp = 1001, //面板生命
         PanelPhyAtt = 1002, //面板物攻
         PanelMagicAtt = 1003, //面板魔法

@@ -36,7 +36,7 @@ namespace Game
         {
             DoCount++;
 
-            if (Data.Config.Type == 2)
+            if (Data.Config.Type == (int)EffectType.Pause || Data.Config.Type == (int)EffectType.IgnorePause)
             {  //控制特效,延迟触发
                 //
             }
@@ -80,14 +80,21 @@ namespace Game
             }
         }
 
-        public void DoCell(APlayer player)
+        public void Clear()
         {
-            if (player.GroupId == SelfPlayer.GroupId)
-            { //不对队友产生伤害
-                return;
-            }
+            this.DoCount = this.Duration + 99;
 
-            player.Logic.OnDamage(new DamageResult(SelfPlayer.ID, Total, MsgType.Damage));
+            if (Data.Config.Type == (int)EffectType.Sub || Data.Config.Type == (int)EffectType.Add)
+            {
+                if (Data.Config.TargetAttr == (int)AttributeEnum.PanelHp)
+                {
+                    this.SelfPlayer.ChangeMaxHp(FromId, 0);
+                }
+                else
+                {
+                    this.SelfPlayer.AttributeBonus.SetAttr((AttributeEnum)Data.Config.TargetAttr, FromId, 0);
+                }
+            }
         }
     }
 }

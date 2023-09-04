@@ -193,7 +193,13 @@ namespace Game
         {
             foreach (List<Effect> list in EffectMap.Values)
             {
-                int count = list.Where(m => m.Data.Config.Type == 2).Count();
+                int mc = list.Where(m => m.Data.Config.Type == (int)EffectType.IgnorePause).Count();
+                if (mc > 0)
+                {
+                    return false;
+                }
+
+                int count = list.Where(m => m.Data.Config.Type == (int)EffectType.Pause).Count();
                 if (count > 0)
                 {
                     return true;
@@ -213,7 +219,7 @@ namespace Game
             {
                 //
                 //Debug.Log("Hero Def:" + this.AttributeBonus.GetTotalAttr(AttributeEnum.Def));
-                Debug.Log("Hero Hp:" + this.AttributeBonus.GetAttackAttr(AttributeEnum.HP));
+                //Debug.Log("Hero Hp:" + this.AttributeBonus.GetAttackAttr(AttributeEnum.HP));
 
                 if (this.AurasList != null)
                 {
@@ -224,17 +230,14 @@ namespace Game
                 }
             }
 
-            //行动前计算buff
-            bool pause = false;
+            //特效
             foreach (List<Effect> list in EffectMap.Values)
             {
                 foreach (Effect effect in list)
                 {
                     effect.Do();
-                    if (effect.Data.Config.Type == 2)
+                    if (effect.Data.Config.Type == (int)EffectType.Pause)
                     {
-                        pause = true;
-
                         this.EventCenter.Raise(new ShowMsgEvent
                         {
                             Type = MsgType.Other,
@@ -253,6 +256,8 @@ namespace Game
                 this.OnRestore(this.ID, restoreHp);
             }
 
+            //行动前计算buff
+            bool pause = GetIsPause();
             if (pause)
             {
                 return; //如果有控制技能，不继续后续行动
@@ -374,7 +379,13 @@ namespace Game
             if (list.Count > 0 && list.Count >= effectData.Max)
             {
                 //移除旧的
-                list.RemoveRange(0, list.Count - Math.Max(0, effectData.Max - 1));
+                int RemoveCount = list.Count - Math.Max(0, effectData.Max - 1);
+
+                for (int i = 0; i < RemoveCount; i++)
+                {
+                    list[i].Clear();
+                }
+                list.RemoveRange(0, RemoveCount);
             }
 
             Effect effect = new Effect(this, effectData, total);

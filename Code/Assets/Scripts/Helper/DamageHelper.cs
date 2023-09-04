@@ -45,6 +45,11 @@ namespace Game
             long AurasDamageIncrea = Math.Max(5, 100 + attcher.GetAttackAttr(AttributeEnum.AurasDamageIncrea) - enemy.GetAttackAttr(AttributeEnum.AurasDamageResist));
             attack = attack * AurasDamageIncrea / 100;
 
+            //技能伤害加成
+            long SkillDamage = GetSkillDamage(attcher, role);
+
+            attack = attack * SkillDamage / 100;
+
             //最终伤害加成
             attack = attack * (100 + skill.FinalIncrea) / 100;
 
@@ -56,6 +61,33 @@ namespace Game
 
             //强制最少1点伤害
             return new DamageResult(Math.Max(1, attack), type); //
+        }
+
+        public static long GetSkillDamage(AttributeBonus attributeBonus, int role)
+        {
+            long attack = 100;
+            switch (role)
+            {
+                case (int)RoleType.Warrior:
+                    {
+                        attack += attributeBonus.GetAttackAttr(AttributeEnum.PhyDamage);
+                        break;
+                    }
+                case (int)RoleType.Mage:
+                    {
+                        attack += attributeBonus.GetAttackAttr(AttributeEnum.MagicDamage);
+                        break;
+                    }
+                case (int)RoleType.Warlock:
+                    {
+                        attack += attributeBonus.GetAttackAttr(AttributeEnum.SpiritDamage);
+                        break;
+                    }
+            }
+
+            attack += attributeBonus.GetAttackAttr(AttributeEnum.AllDamage);
+
+            return attack;
         }
 
         public static long GetRoleAttack(AttributeBonus attributeBonus, int role)
