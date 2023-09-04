@@ -79,7 +79,7 @@ namespace Game
             }
 
             //按损失血量排序
-            teamList = teamList.OrderBy(m => m.AttributeBonus.GetTotalAttr(AttributeEnum.HP) - m.HP).ToList();
+            teamList = teamList.OrderBy(m => m.AttributeBonus.GetAttackAttr(AttributeEnum.HP) - m.HP).ToList();
 
             foreach (var teamer in teamList)
             {
