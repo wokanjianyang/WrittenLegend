@@ -57,7 +57,7 @@ namespace Game
             {
                 if (suit.EffectId > 0 && !EffectIdList.ContainsKey(suit.EffectId))
                 {
-                    int fromId = (int)AttributeFrom.Skill * 100000 + suit.EffectId;
+                    int fromId = (int)AttributeFrom.Skill * 100000 + suit.EffectId * 10;
                     EffectIdList[suit.EffectId] = new EffectData(suit.EffectId, fromId, suit.Percent, suit.Damage, suit.Duration, suit.EnemyMax); //可以叠加
                 }
             }
@@ -151,8 +151,7 @@ namespace Game
 
                     if (effectId > 0 && !EffectIdList.ContainsKey(effectId)) //不能叠加特效
                     {
-                        int fromId = (int)AttributeFrom.Skill * 100000 + SkillId + effectId;
-
+                        int fromId = (int)AttributeFrom.Skill * 100000 + effectId * 10;
                         EffectIdList[effectId] = new EffectData(effectId, fromId, percent, 0, duration, max);
                     }
                 }

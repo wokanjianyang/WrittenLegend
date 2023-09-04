@@ -219,7 +219,7 @@ namespace Game
             {
                 //
                 //Debug.Log("Hero Def:" + this.AttributeBonus.GetTotalAttr(AttributeEnum.Def));
-                //Debug.Log("Hero Hp:" + this.AttributeBonus.GetAttackAttr(AttributeEnum.HP));
+                //Debug.Log("Hero PhyDamage:" + this.AttributeBonus.GetAttackAttr(AttributeEnum.PhyDamage));
 
                 if (this.AurasList != null)
                 {
@@ -383,9 +383,15 @@ namespace Game
 
                 for (int i = 0; i < RemoveCount; i++)
                 {
+                    effectData.Layer = list[i].Data.Layer; //使用旧的FromId
+
                     list[i].Clear();
                 }
                 list.RemoveRange(0, RemoveCount);
+            }
+            else
+            {
+                effectData.Layer = list.Count; //每叠加一层，FromId+1
             }
 
             Effect effect = new Effect(this, effectData, total);

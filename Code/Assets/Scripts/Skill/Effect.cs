@@ -63,7 +63,7 @@ namespace Game
                     }
                     else
                     {
-                        SelfPlayer.AttributeBonus.SetAttr((AttributeEnum)Data.Config.TargetAttr, FromId, Total * Data.Config.Type);
+                        SelfPlayer.AttributeBonus.SetAttr((AttributeEnum)Data.Config.TargetAttr, FromId + Data.Layer, Total * Data.Config.Type);
                     }
                 }
                 else if (DoCount >= Duration)  //最后一次，移除属性
@@ -74,7 +74,7 @@ namespace Game
                     }
                     else
                     {
-                        SelfPlayer.AttributeBonus.SetAttr((AttributeEnum)Data.Config.TargetAttr, FromId, 0);
+                        SelfPlayer.AttributeBonus.SetAttr((AttributeEnum)Data.Config.TargetAttr, FromId + Data.Layer, 0);
                     }
                 }
             }
@@ -88,11 +88,11 @@ namespace Game
             {
                 if (Data.Config.TargetAttr == (int)AttributeEnum.PanelHp)
                 {
-                    this.SelfPlayer.ChangeMaxHp(FromId, 0);
+                    this.SelfPlayer.ChangeMaxHp(FromId + Data.Layer, 0);
                 }
                 else
                 {
-                    this.SelfPlayer.AttributeBonus.SetAttr((AttributeEnum)Data.Config.TargetAttr, FromId, 0);
+                    this.SelfPlayer.AttributeBonus.SetAttr((AttributeEnum)Data.Config.TargetAttr, FromId + Data.Layer, 0);
                 }
             }
         }
