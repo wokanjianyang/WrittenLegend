@@ -44,6 +44,8 @@
 {"_t":"DropConfig","_id":200430,"Level":430,"Name":"430级装备","Quantity":1,"ItemType":2,"ItemIdList":[21004201,21004202,21004203,21004204,21004205,21004207,21004209,21004210,22004201,22004202,22004203,22004204,22004205,22004207,22004209,22004210,23004201,23004202,23004203,23004204,23004205,23004207,23004209,23004210],"ItemRaTEList":[]},
 {"_t":"DropConfig","_id":200440,"Level":440,"Name":"440级装备","Quantity":1,"ItemType":2,"ItemIdList":[21004301,21004302,21004303,21004304,21004305,21004307,21004309,21004310,22004301,22004302,22004303,22004304,22004305,22004307,22004309,22004310,23004301,23004302,23004303,23004304,23004305,23004307,23004309,23004310],"ItemRaTEList":[]},
 {"_t":"DropConfig","_id":200450,"Level":450,"Name":"450级装备","Quantity":1,"ItemType":2,"ItemIdList":[21004401,21004402,21004403,21004404,21004405,21004407,21004409,21004410,22004401,22004402,22004403,22004404,22004405,22004407,22004409,22004410,23004401,23004402,23004403,23004404,23004405,23004407,23004409,23004410],"ItemRaTEList":[]},
+{"_t":"DropConfig","_id":101,"Level":0,"Name":"4件套装备","Quantity":1,"ItemType":2,"ItemIdList":[101,201,301,401],"ItemRaTEList":[]},
+{"_t":"DropConfig","_id":102,"Level":0,"Name":"4件套装备2","Quantity":1,"ItemType":2,"ItemIdList":[102,202,302,402],"ItemRaTEList":[]},
 {"_t":"DropConfig","_id":300010,"Level":10,"Name":"10级技能书","Quantity":1,"ItemType":3,"ItemIdList":[1001,2001,3001],"ItemRaTEList":[]},
 {"_t":"DropConfig","_id":300020,"Level":20,"Name":"20级技能书","Quantity":1,"ItemType":3,"ItemIdList":[1002,2002,3002],"ItemRaTEList":[]},
 {"_t":"DropConfig","_id":300030,"Level":30,"Name":"30级技能书","Quantity":1,"ItemType":3,"ItemIdList":[1003,2003,3003],"ItemRaTEList":[]},
@@ -51,6 +53,5 @@
 {"_t":"DropConfig","_id":300050,"Level":50,"Name":"50级技能书","Quantity":1,"ItemType":3,"ItemIdList":[1005,2005,3005],"ItemRaTEList":[]},
 {"_t":"DropConfig","_id":300060,"Level":60,"Name":"60级技能书","Quantity":1,"ItemType":3,"ItemIdList":[1006,2006,3006],"ItemRaTEList":[]},
 {"_t":"DropConfig","_id":300070,"Level":70,"Name":"70级技能书","Quantity":1,"ItemType":3,"ItemIdList":[1007,2007,3007],"ItemRaTEList":[]},
-{"_t":"DropConfig","_id":101,"Level":0,"Name":"4件套装备","Quantity":1,"ItemType":2,"ItemIdList":[101,201,301,401],"ItemRaTEList":[]},
-{"_t":"DropConfig","_id":102,"Level":0,"Name":"经验BUFF","Quantity":1,"ItemType":6,"ItemIdList":[6001,6002,6003],"ItemRaTEList":[]},
+{"_t":"DropConfig","_id":300080,"Level":80,"Name":"80级技能书","Quantity":1,"ItemType":3,"ItemIdList":[1008,2008,3008],"ItemRaTEList":[]},
 ]}

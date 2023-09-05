@@ -347,8 +347,6 @@ namespace Game
                         this.btn_Learn.gameObject.SetActive(isLearn);
                         this.btn_Upgrade.gameObject.SetActive(!isLearn);
                         this.btn_UseAll.gameObject.SetActive(!isLearn);
-                        this.btn_Lock.gameObject.SetActive(this.boxItem.BoxId!=-1 && !this.boxItem.Item.IsLock);
-                        this.btn_Unlock.gameObject.SetActive(this.boxItem.BoxId!=-1 && this.boxItem.Item.IsLock);
                         //this.btn_Learn.interactable = this.item.Level <= UserData.Load().Level;
                     }
                     break;
