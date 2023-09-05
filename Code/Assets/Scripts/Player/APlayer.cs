@@ -99,10 +99,19 @@ namespace Game
 
                 return _enemy;
             }
-
-            set { }
         }
+
         protected APlayer _enemy { get; set; }
+
+        virtual public APlayer CalcEnemy()
+        {
+            if (_enemy != null && _enemy.IsHide)
+            {
+                _enemy = null;
+            }
+
+            return _enemy;
+        }
 
         [JsonIgnore]
         public string UUID { get; set; }
@@ -433,16 +442,6 @@ namespace Game
             {
                 this.Transform.localPosition = GameProcessor.Inst.MapData.GetWorldPosition(this.Cell);
             }
-        }
-
-        virtual public APlayer CalcEnemy()
-        {
-            if (Enemy != null && Enemy.IsHide)
-            {
-                Enemy = null;
-            }
-
-            return Enemy;
         }
 
         public APlayer FindNearestEnemy()

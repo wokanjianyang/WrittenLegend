@@ -667,8 +667,10 @@ namespace Game
 
             if (ruleType == RuleType.Tower)
             {
+                int rate = this.EquipCopySetting_Rate ? 5 : 1;
+
                 //判断是否自动挑战
-                if (EquipCopySetting_Auto && GameProcessor.Inst.User.MagicCopyTikerCount.Data > 0)
+                if (EquipCopySetting_Auto && GameProcessor.Inst.User.MagicCopyTikerCount.Data >= rate)
                 {
                     this.AutoEquipCopy();
                 }
