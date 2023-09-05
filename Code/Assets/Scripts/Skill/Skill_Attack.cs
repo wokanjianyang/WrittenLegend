@@ -68,8 +68,13 @@ namespace Game
                     dr.FromId = attackData.Tid;
                     enemy.OnHit(dr);
 
-                    //if (this.SkillPanel.SkillId == 1001)
-                    //{ Debug.Log("attck:" + dr.Damage); }
+                    //if (this.SelfPlayer.Camp == PlayerType.Valet)
+                    //{
+                    //    Debug.Log(SkillPanel.SkillData.SkillConfig.Name + ":" + dr.Damage);
+                    //}
+
+                    //if (this.SkillPanel.SkillId < 4000)
+                    //{ Debug.Log(SkillPanel.SkillData.SkillConfig.Name + ":" + dr.Damage); }
 
                     foreach (EffectData effect in SkillPanel.EffectIdList.Values)
                     {

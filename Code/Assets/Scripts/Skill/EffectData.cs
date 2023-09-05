@@ -47,4 +47,12 @@ namespace Game
         Pause = 2,
         IgnorePause = 3,
     }
+
+    public enum EffectTarget
+    {
+        Self = 1,
+        Enemy = 2,
+        Skill = 3,
+        Valet = 4,
+    }
 }

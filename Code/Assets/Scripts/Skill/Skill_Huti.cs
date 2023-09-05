@@ -26,7 +26,7 @@ namespace Game
             {
                 long total = DamageHelper.GetEffectFromTotal(this.SelfPlayer.AttributeBonus, SkillPanel, effect);
 
-                Debug.Log("Skill" + effect.Config.Id + " _Shield:" + total);
+                //Debug.Log("Effect " + effect.Config.Id + " _Percetn:" + total);
 
                 DoEffect(this.SelfPlayer, this.SelfPlayer, total, effect);
             }

@@ -28,9 +28,21 @@ namespace Game
             {
                 long total = DamageHelper.GetEffectFromTotal(this.SelfPlayer.AttributeBonus, SkillPanel, effect);
 
-                Debug.Log("Skill" + effect.Config.Id + " _Shield:" + total);
+                //Debug.Log("Effect " + effect.Config.Id + " _Percetn:" + total);
 
-                DoEffect(this.SelfPlayer, this.SelfPlayer, total, effect);
+                if (effect.Config.TargetType == (int)EffectTarget.Valet)
+                {
+                    var valets = GameProcessor.Inst.PlayerManager.GetValets(this.SelfPlayer);
+                    //Debug.Log("valets count:" + valets.Count);
+                    foreach (Valet valet in valets)
+                    {
+                        DoEffect(valet, this.SelfPlayer, total, effect);
+                    }
+                }
+                else
+                {
+                    DoEffect(this.SelfPlayer, this.SelfPlayer, total, effect);
+                }
             }
         }
 

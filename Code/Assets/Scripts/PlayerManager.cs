@@ -233,6 +233,26 @@ namespace Game
             return valets;
         }
 
+        public List<Valet> GetValets(APlayer player)
+        {
+            List<Valet> valets = new List<Valet>();
+            var cache = valetCache.Where(c => c.OwnerId == player.ID).ToList();
+            if (cache != null)
+            {
+                foreach (var vg in cache)
+                {
+                    foreach (var valet in vg.Valets)
+                    {
+                        if (valet.IsSurvice)
+                        {
+                            valets.Add(valet);
+                        }
+                    }
+                }
+            }
+            return valets;
+        }
+
         public Vector3Int RandomCell(Vector3Int currentCell)
         {
             var tempCells = GameProcessor.Inst.MapData.AllCells.ToList();
