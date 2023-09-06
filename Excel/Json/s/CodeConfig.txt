@@ -16,5 +16,5 @@
 {"_t":"CodeConfig","_id":15,"code":"qx777","ItemTypeList":[9],"ItemIdList":[4003],"ItemQuanlityList":[100]},
 {"_t":"CodeConfig","_id":16,"code":"bc136","ItemTypeList":[9],"ItemIdList":[4003],"ItemQuanlityList":[100]},
 {"_t":"CodeConfig","_id":17,"code":"bc137","ItemTypeList":[7],"ItemIdList":[6106],"ItemQuanlityList":[4]},
-{"_t":"CodeConfig","_id":18,"code":"temp","ItemTypeList":[3,3,3],"ItemIdList":[1008,2008,3008],"ItemQuanlityList":[]},
+{"_t":"CodeConfig","_id":18,"code":"gx140","ItemTypeList":[9],"ItemIdList":[4003],"ItemQuanlityList":[100]},
 ]}

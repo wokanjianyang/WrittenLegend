@@ -421,6 +421,7 @@ namespace Game
 
             Effect effect = new Effect(this, effectData, total);
             list.Add(effect);
+            effect.Do(); //旧的清除了，新的需要立即使用
         }
 
         public void Move(Vector3Int cell)
