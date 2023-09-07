@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2139473199
+CRC: 2993475624
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 7ffde69335646254805a261390939cf1
+    Hash: 01cba3397e233f4c02d7d4983f8ba859
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -22,8 +22,9 @@ Assets:
 - Assets/Resources/Config/LevelConfigCategory.bytes
 - Assets/Resources/Config/PhantomConfigCategory.bytes
 - Assets/Resources/Config/SoulRingConfigCategory.bytes
-- Assets/Resources/Config/DropConfigCategory.bytes
+- Assets/Resources/Config/AchievementConfigCategory.bytes
 - Assets/Resources/Config/AurasConfigCategory.bytes
+- Assets/Resources/Config/DropConfigCategory.bytes
 - Assets/Resources/Config/EquipRefineConfigCategory.bytes
 - Assets/Resources/Config/EquipCustomConfigCategory.bytes
 - Assets/Resources/Config/AurasAttrConfigCategory.bytes

@@ -89,7 +89,9 @@ namespace Game
         public override APlayer CalcEnemy()
         {
             //攻击主人的目标
-            return this.Master.CalcEnemy();
+            var mm = this.Master.CalcEnemy();
+
+            return mm != null ? mm : this.CalcEnemy();
         }
     }
 }

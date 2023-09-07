@@ -1,0 +1,13 @@
+{"list":[
+{"_t":"AchievementConfig","_id":1,"Type":1,"Condition":10,"RewardType":0,"AttrIdList":1,"AttrValueist":2,"Memo":""},
+{"_t":"AchievementConfig","_id":2,"Type":2,"Condition":1,"RewardType":0,"AttrIdList":0,"AttrValueist":0,"Memo":""},
+{"_t":"AchievementConfig","_id":3,"Type":1,"Condition":50,"RewardType":0,"AttrIdList":2,"AttrValueist":2,"Memo":""},
+{"_t":"AchievementConfig","_id":4,"Type":1,"Condition":100,"RewardType":0,"AttrIdList":401,"AttrValueist":2,"Memo":""},
+{"_t":"AchievementConfig","_id":5,"Type":3,"Condition":1,"RewardType":0,"AttrIdList":0,"AttrValueist":0,"Memo":""},
+{"_t":"AchievementConfig","_id":6,"Type":4,"Condition":1,"RewardType":0,"AttrIdList":0,"AttrValueist":0,"Memo":""},
+{"_t":"AchievementConfig","_id":7,"Type":5,"Condition":1,"RewardType":0,"AttrIdList":2001,"AttrValueist":3,"Memo":""},
+{"_t":"AchievementConfig","_id":8,"Type":6,"Condition":1,"RewardType":0,"AttrIdList":0,"AttrValueist":0,"Memo":""},
+{"_t":"AchievementConfig","_id":9,"Type":1,"Condition":1000,"RewardType":0,"AttrIdList":2002,"AttrValueist":3,"Memo":""},
+{"_t":"AchievementConfig","_id":10,"Type":1,"Condition":2000,"RewardType":0,"AttrIdList":2003,"AttrValueist":3,"Memo":""},
+{"_t":"AchievementConfig","_id":11,"Type":1,"Condition":5000,"RewardType":0,"AttrIdList":3003,"AttrValueist":3,"Memo":""},
+]}
