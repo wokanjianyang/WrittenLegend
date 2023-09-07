@@ -56,18 +56,9 @@ namespace Game
         public IDictionary<int, int> EquipRefine { get; set; } = new Dictionary<int, int>();
         public IDictionary<int, MagicData> MagicEquipRefine { get; set; } = new Dictionary<int, MagicData>();
 
-        [JsonIgnore]
-        public IDictionary<int, int> EquipRecord { get; set; } = new Dictionary<int, int>();
-
         public RecoverySetting RecoverySetting { get; set; } = new RecoverySetting();
 
         public List<SkillData> SkillList { get; set; } = new List<SkillData>();
-
-        [JsonIgnore]
-        public EventManager EventCenter { get; private set; }
-
-        [JsonIgnore]
-        public AttributeBonus AttributeBonus { get; set; }
 
         /// <summary>
         /// 包裹
@@ -113,7 +104,21 @@ namespace Game
 
         public Dictionary<int, MagicData> SoulRingData { get; } = new Dictionary<int, MagicData>();
 
+        public Dictionary<int, int> AchievementData { get; } = new Dictionary<int, int>();
+
         public bool GameCheat { get; set; } = false;
+
+        [JsonIgnore]
+        public IDictionary<int, int> EquipRecord { get; set; } = new Dictionary<int, int>();
+
+        [JsonIgnore]
+        public EventManager EventCenter { get; private set; }
+
+        [JsonIgnore]
+        public AttributeBonus AttributeBonus { get; set; }
+
+        [JsonIgnore]
+        public int SuitMax = 0;
 
         public User()
         {
@@ -149,11 +154,11 @@ namespace Game
             long Level = MagicLevel.Data;
             long levelAttr = LevelConfigCategory.GetLevelAttr(Level);
 
-            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, levelAttr * 10+40);
-            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, levelAttr+10);
-            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, levelAttr+10);
-            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, levelAttr+10);
-            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, levelAttr / 5+1);
+            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, levelAttr * 10 + 40);
+            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, levelAttr + 10);
+            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, levelAttr + 10);
+            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, levelAttr + 10);
+            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, levelAttr / 5 + 1);
 
             //设置升级属性
             SetUpExp();
@@ -245,6 +250,24 @@ namespace Game
                     AttributeBonus.SetAttr((AttributeEnum)ar.AttrId, AttributeFrom.Auras, ar.AttrValue);
                 }
             }
+
+            this.SuitMax = ConfigHelper.SkillSuitMax;
+
+            //成就
+            foreach (int aid in AchievementData.Keys)
+            {
+                AchievementConfig achievementConfig = AchievementConfigCategory.Instance.Get(aid);
+                if (achievementConfig.RewardType == (int)AchievementType.Attr)
+                {
+                    AttributeBonus.SetAttr((AttributeEnum)achievementConfig.AttrId, AttributeFrom.Auras, achievementConfig.AttrValue);
+                }
+                else if (achievementConfig.Type == (int)AchievementType.Suit)
+                {
+                    this.SuitMax--;
+                }
+            }
+
+            this.SuitMax = Math.Max(this.SuitMax, ConfigHelper.SkillSuitMin);
 
             //更新面板
             if (GameProcessor.Inst.PlayerInfo != null)
@@ -378,7 +401,7 @@ namespace Game
 
             foreach (var suitItem in suitGroup)
             {
-                if (suitItem.Count() >= SkillSuitHelper.SuitMax)
+                if (suitItem.Count() >= this.SuitMax)
                 {  //SkillSuitHelper.SuitMax 件才成套,并且只能有一套能生效
                     SkillSuit suit = new SkillSuit(suitItem.Key);
                     list.Add(suit);
@@ -391,7 +414,7 @@ namespace Game
         public int GetSuitCount(int suitId)
         {
             int count = this.EquipPanelList[EquipPanelIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SuitConfigId == suitId).Count();
-            return Math.Min(count, SkillSuitHelper.SuitMax);
+            return Math.Min(count, this.SuitMax);
         }
 
         public List<EquipGroupConfig> GetEquipGroups()

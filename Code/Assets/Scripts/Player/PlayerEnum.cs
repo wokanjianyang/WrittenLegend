@@ -77,10 +77,11 @@ namespace Game
         EquiStrong = 3, //装备强化属性
         Skill = 4,//技能增幅
         Tower = 5,//无尽塔
-        Phantom = 6,
-        EquipSuit = 7,
-        SoulRing = 8,
-        Auras = 9,
+        Phantom = 6,//幻神
+        EquipSuit = 7, //装备套装
+        SoulRing = 8, //魂环
+        Auras = 9, //光环
+        Achivement = 10, //成就
         /// <summary>
         /// 测试属性
         /// </summary>

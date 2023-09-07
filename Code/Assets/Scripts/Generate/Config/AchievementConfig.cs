@@ -87,12 +87,12 @@ namespace Game
 		/// <summary>RewardType</summary>
 		[ProtoMember(4)]
 		public int RewardType { get; set; }
-		/// <summary>AttrIdList</summary>
+		/// <summary>AttrId</summary>
 		[ProtoMember(5)]
-		public int AttrIdList { get; set; }
-		/// <summary>AttrValueist</summary>
+		public int AttrId { get; set; }
+		/// <summary>AttrValue</summary>
 		[ProtoMember(6)]
-		public int AttrValueist { get; set; }
+		public int AttrValue { get; set; }
 		/// <summary>Memo</summary>
 		[ProtoMember(7)]
 		public string Memo { get; set; }

@@ -4,7 +4,7 @@ namespace Game
 {
 	public class ConfigHelper
 	{
-		public const int Version = 140;
+		public const int Version = 142;
 
 		public const long Max_Level = 10000; //最大等级
 
@@ -32,5 +32,8 @@ namespace Game
 		public static int[] PercentAttrIdList = { 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 23, 24, 26, 27, 28, 41, 43, 45 };
 
 		public const int MapStartId = 1000;
+
+		public const int SkillSuitMax = 4;
+		public const int SkillSuitMin = 2;
 	}
 }

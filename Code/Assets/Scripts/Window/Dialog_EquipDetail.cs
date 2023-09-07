@@ -256,7 +256,7 @@ namespace Game
 
                             int index = 0; 
                             tran_SuitAttribute.gameObject.SetActive(true);
-                            tran_SuitAttribute.Find("Title").GetComponent<Text>().text = equip.SkillSuitConfig.Name + string.Format("({0}/{1})", suitCount, SkillSuitHelper.SuitMax);
+                            tran_SuitAttribute.Find("Title").GetComponent<Text>().text = equip.SkillSuitConfig.Name + string.Format("({0}/{1})", suitCount, user.SuitMax);
 
                             var child = tran_SuitAttribute.Find(string.Format("Attribute_{0}", index));
                             child.GetComponent<Text>().text = string.Format(" {0}", equip.SkillSuitConfig.Des);

@@ -11,8 +11,6 @@ namespace Game
     }
 
     public class SkillSuitHelper {
-        public static readonly int SuitMax = 4;
-
         public static SkillSuitConfig RandomSuit(int skillId)
         {
             List<SkillSuitConfig> list = SkillSuitConfigCategory.Instance.GetAll().Where(m => m.Value.SkillId == skillId).Select(m => m.Value).ToList();
