@@ -119,6 +119,8 @@ namespace Game
 
         [JsonIgnore]
         public int SuitMax = 0;
+        [JsonIgnore]
+        public int StoneNumber = 0;
 
         public User()
         {
@@ -129,6 +131,7 @@ namespace Game
             this.EventCenter.AddListener<HeroUnUseEquipEvent>(HeroUnUseEquip);
             this.EventCenter.AddListener<HeroUseSkillBookEvent>(HeroUseSkillBook);
             this.EventCenter.AddListener<UserAttrChangeEvent>(UserAttrChange);
+            this.EventCenter.AddListener<UserAchievementEvent>(UserAchievement);
         }
 
         public void Init()
@@ -252,7 +255,7 @@ namespace Game
             }
 
             this.SuitMax = ConfigHelper.SkillSuitMax;
-
+            this.StoneNumber = 0;
             //成就
             foreach (int aid in AchievementData.Keys)
             {
@@ -265,6 +268,10 @@ namespace Game
                 {
                     this.SuitMax--;
                 }
+                else if (achievementConfig.Type == (int)AchievementType.Stone)
+                {
+                    this.StoneNumber += achievementConfig.AttrValue;
+                }
             }
 
             this.SuitMax = Math.Max(this.SuitMax, ConfigHelper.SkillSuitMin);
@@ -274,6 +281,13 @@ namespace Game
             {
                 GameProcessor.Inst.PlayerInfo.UpdateAttrInfo(this);
             }
+        }
+
+        public int CalStone(Equip equip)
+        {
+            int count = equip.Level * 3 / 20 * equip.GetQuality() + this.StoneNumber;
+
+            return count;
         }
 
         private void HeroChange(HeroChangeEvent e)
@@ -371,6 +385,12 @@ namespace Game
             this.SetAttr();
 
             this.EventCenter.Raise(new HeroUpdateAllSkillEvent());
+        }
+
+        private void UserAchievement(UserAchievementEvent e)
+        {
+            this.AchievementData.Add(e.Id, 1);
+            this.EventCenter.Raise(new UserAttrChangeEvent());
         }
 
         public List<SkillRune> GetRuneList(int skillId)

@@ -81,6 +81,10 @@ namespace Game
     {
 
     }
+
+    public class UserAchievementEvent : SDD.Events.Event { 
+        public int Id { get; set; }
+    }
     public class HeroAttrChangeEvent : SDD.Events.Event
     {
 

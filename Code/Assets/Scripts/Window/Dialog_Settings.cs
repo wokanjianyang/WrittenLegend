@@ -15,8 +15,13 @@ namespace Game
     public class Dialog_Settings : MonoBehaviour, IBattleLife
     {
         public Com_Recovery com_Recovery;
+        public Com_Other com_Other;
+        public Com_Settings com_Settings;
+
         public Toggle tog_Recovery;
-        
+        public Toggle tog_Base;
+        public Toggle tog_Other;
+
         // Start is called before the first frame update
         void Start()
         {

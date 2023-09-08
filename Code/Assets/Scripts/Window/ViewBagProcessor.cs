@@ -478,8 +478,7 @@ namespace Game
             int refineStone = 0;
             if (item.Type == ItemType.Equip)
             {
-                Equip equip = item as Equip;
-                refineStone += equip.Level * 3 / 20 * equip.GetQuality();
+                refineStone += user.CalStone(item as Equip);
             }
 
             long gold = item.Gold;
@@ -516,7 +515,7 @@ namespace Game
                 if (box.Item.Type == ItemType.Equip)
                 {
                     Equip equip = box.Item as Equip;
-                    refineStone += equip.Level * 3 / 20 * equip.GetQuality();
+                    refineStone += user.CalStone(equip);
                 }
                 //Log.Debug("自动回收:" + box.Item.Name + " " + box.Number + "个");
                 //box.MagicNubmer.Data = 0;
@@ -559,7 +558,7 @@ namespace Game
                 if (box.Item.Type == ItemType.Equip)
                 {
                     Equip equip = box.Item as Equip;
-                    refineStone += equip.Level * 3 / 20 * equip.GetQuality();
+                    refineStone += user.CalStone(equip);
                 }
             }
 

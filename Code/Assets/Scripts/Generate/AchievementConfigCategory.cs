@@ -14,5 +14,6 @@ namespace Game
     { 
         Attr =1,
         Suit = 2,
+        Stone = 3,
     }
 }

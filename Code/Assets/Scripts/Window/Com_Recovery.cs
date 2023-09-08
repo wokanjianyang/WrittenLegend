@@ -14,32 +14,29 @@ namespace Game
 {
     public class Com_Recovery : MonoBehaviour
     {
-        [LabelText("装备回收设置")]
+        [LabelText("装备品质设置")]
         public Transform tran_EquipQualityList;
-
-        // [LabelText("装备等级")]
-        // public Toggle toggle_EquipLevel;
-
+        [LabelText("装备职业设置")]
+        public Transform tran_EquipRoleList;
         [LabelText("装备等级")]
         public InputField if_EquipLevel;
-        
-        [LabelText("秘籍回收设置")]
-        public Transform tran_BookJobList;
 
-        [LabelText("秘籍等级")]
-        public Toggle toggle_BookLevel;
-        
-        [LabelText("装备等级")]
-        public Dropdown dd_BookLevel;
-        
+        [LabelText("随机幸运属性")]
+        public InputField if_Lucky;
+        [LabelText("随机金币属性")]
+        public InputField if_Gold;
+        [LabelText("随机经验属性")]
+        public InputField if_Exp;
+
         [LabelText("确认")]
         public Button btn_Done;
         
         [LabelText("取消")]
         public Button btn_Cancle;
 
-        Toggle[] equipToggles;
-        Toggle[] bookToggles;
+        Toggle[] equipQualityToggles;
+        Toggle[] equipRoleToggles;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -57,8 +54,8 @@ namespace Game
         public void Open()
         {
             //初始化
-            equipToggles = tran_EquipQualityList.GetComponentsInChildren<Toggle>();
-            bookToggles = tran_BookJobList.GetComponentsInChildren<Toggle>();
+            equipQualityToggles = tran_EquipQualityList.GetComponentsInChildren<Toggle>();
+            equipRoleToggles = tran_EquipRoleList.GetComponentsInChildren<Toggle>();
                 
             User user = GameProcessor.Inst.User;
             RecoverySetting setting = user.RecoverySetting;
@@ -67,11 +64,11 @@ namespace Game
             {
                 if (setting.EquipQuanlity[equipQuality])
                 {
-                    equipToggles[equipQuality - 1].isOn = true;
+                    equipQualityToggles[equipQuality - 1].isOn = true;
                 }
                 else
                 {
-                    equipToggles[equipQuality - 1].isOn = false;
+                    equipQualityToggles[equipQuality - 1].isOn = false;
                 }
             }
 
@@ -82,37 +79,31 @@ namespace Game
             {
                 if (setting.EquipRole[skillBookRole])
                 {
-                    bookToggles[skillBookRole - 1].isOn = true;
+                    equipRoleToggles[skillBookRole - 1].isOn = true;
                 }
                 else
                 {
-                    bookToggles[skillBookRole - 1].isOn = false;
+                    equipRoleToggles[skillBookRole - 1].isOn = false;
                 }
             }
 
-            if (setting.SkillBookLevel > 0)
-            {
-                toggle_BookLevel.isOn = true;
-                dd_BookLevel.value = Math.Max(1, setting.SkillBookLevel / 10) - 1;
-            }
-            else {
-                toggle_BookLevel.isOn = false;
-            }
         }
 
         public void OnClick_Done()
         {
-            if (equipToggles[3].isOn)
-            {
-                GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("是否确认回收紫色品质？",true, () =>
-                {
-                    this.SaveSetting();
-                }, null);
-            }
-            else
-            {
-                this.SaveSetting();
-            }
+            //if (equipQualityToggles[3].isOn)
+            //{
+            //    GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("是否确认回收紫色品质？",true, () =>
+            //    {
+            //        this.SaveSetting();
+            //    }, null);
+            //}
+            //else
+            //{
+               
+            //}
+
+            this.SaveSetting();
         }
         
         public void OnClick_Cancle()
@@ -127,9 +118,9 @@ namespace Game
             StringBuilder sb = new StringBuilder();
 
             sb.Append("装备自动回收 品质：");
-            for (var i = 0; i < equipToggles.Length; i++)
+            for (var i = 0; i < equipQualityToggles.Length; i++)
             {
-                var toggle = equipToggles[i];
+                var toggle = equipQualityToggles[i];
                 if (toggle.isOn)
                 {
                     user.RecoverySetting.SetEquipQuanlity(i + 1, true);
@@ -152,9 +143,9 @@ namespace Game
             // }
 
             sb.Append("装备自动回收 职业：");
-            for (var i = 0; i < bookToggles.Length; i++)
+            for (var i = 0; i < equipRoleToggles.Length; i++)
             {
-                var toggle = bookToggles[i];
+                var toggle = equipRoleToggles[i];
                 if (toggle.isOn)
                 {
                     user.RecoverySetting.SetEquipRole(i + 1, true);
@@ -163,19 +154,6 @@ namespace Game
                 {
                     user.RecoverySetting.SetEquipRole(i + 1, false);
                 }
-            }
-            if (toggle_BookLevel.isOn)
-            {
-                sb.Append("等级：");
-                sb.Append(dd_BookLevel.options[dd_BookLevel.value].text);
-
-                int bookLevel = 0;
-                int.TryParse(dd_BookLevel.options[dd_BookLevel.value].text, out bookLevel);
-
-                user.RecoverySetting.SkillBookLevel = bookLevel;
-            }
-            else {
-                user.RecoverySetting.SkillBookLevel = 0;
             }
 
             Log.Debug($"回收设置 {sb.ToString()}");
