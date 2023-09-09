@@ -6,9 +6,12 @@ namespace Game
 {
     public class Skill_Yinshen : ASkill
     {
-        public Skill_Yinshen(APlayer player, SkillPanel skill) : base(player, skill)
+        public Skill_Yinshen(APlayer player, SkillPanel skill, bool isShow) : base(player, skill)
         {
-            this.skillGraphic = new SkillGraphic_Hide(player, skill);
+            if (isShow)
+            {
+                this.skillGraphic = new SkillGraphic_Hide(player, skill);
+            }
         }
 
         public override bool IsCanUse()

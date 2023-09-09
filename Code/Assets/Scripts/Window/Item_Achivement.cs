@@ -14,7 +14,8 @@ public class Item_Achivement : MonoBehaviour
 
     public Button Btn_Active;
 
-    private AchievementConfig Config = null;
+    public AchievementConfig Config { get; set; }
+    private long Progress;
 
     // Start is called before the first frame update
     void Start()
@@ -28,9 +29,54 @@ public class Item_Achivement : MonoBehaviour
 
     }
 
-    public void SetItem(AchievementConfig config, bool active)
+    public void SetItem(AchievementConfig config, long progress, bool active)
     {
         this.Config = config;
+        this.Progress = progress;
+
+        Txt_Name.text = config.Name;
+
+        Txt_Des.text = string.Format(config.Memo, config.Condition);
+
+
+        if (active)
+        {
+            if (config.RewardType == 1)
+            {
+                Txt_Attr.text = "成就属性:" + StringHelper.FormatAttrText(config.AttrId, config.AttrValue);
+            }
+            else if (config.RewardType == 2)
+            {
+                Txt_Attr.text = "成就属性:装备技能套装上限 -1";
+            }
+            else if (config.RewardType == 3)
+            {
+                Txt_Attr.text = "成就属性:精炼石分解数量 + " + config.AttrValue;
+            }
+            else if (config.RewardType == 4)
+            {
+                Txt_Attr.text = "成就属性:魂环碎片掉落数量 + " + config.AttrValue;
+            }
+
+
+            Txt_Progress.gameObject.SetActive(false);
+            Btn_Active.gameObject.SetActive(false);
+        }
+        else
+        {
+            Txt_Attr.text = "成就属性: ？ ？ ？";
+
+            if (progress > config.Condition)
+            {
+                Txt_Progress.text = string.Format("<color=#{0}>{1}</color>", "D8CAB0", progress + "/" + config.Condition);
+                Btn_Active.gameObject.SetActive(true);
+            }
+            else
+            {
+                Txt_Progress.text = string.Format("<color=#{0}>{1}</color>", "FF0000", progress + "/" + config.Condition);
+                Btn_Active.gameObject.SetActive(false);
+            }
+        }
     }
 
     private void Active()
@@ -40,10 +86,9 @@ public class Item_Achivement : MonoBehaviour
             return;
         }
 
-        int current = 0;
-        if (current >= Config.Condition)
+        if (Progress >= Config.Condition)
         {
-            GameProcessor.Inst.User.EventCenter.Raise(new UserAchievementEvent() { Id = Config.Id });
+            GameProcessor.Inst.EventCenter.Raise(new ActiveAchievementEvent() { Id = Config.Id });
             return;
         }
         else

@@ -349,12 +349,12 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
 
         ShowSoulRing(this.Sid);
 
-        Debug.Log("Strong SoulRing Success");
+        //Debug.Log("Strong SoulRing Success");
     }
 
     public void OnClick_Close()
     {
-        Debug.Log("OnClick_Close");
+        //Debug.Log("OnClick_Close");
         this.gameObject.SetActive(false);
     }
 }

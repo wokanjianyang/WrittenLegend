@@ -7,7 +7,7 @@ namespace Game
     public class Skill_Expert : ASkill
     {
         //被动专精技能
-        public Skill_Expert(APlayer player, SkillPanel skillPanel) : base(player, skillPanel)
+        public Skill_Expert(APlayer player, SkillPanel skillPanel, bool isShow) : base(player, skillPanel)
         {
             this.skillGraphic = null;
         }

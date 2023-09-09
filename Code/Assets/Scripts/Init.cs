@@ -46,6 +46,7 @@ public class Init : MonoBehaviour
         Dialog_FloatButtons,
         Dialog_SecondaryConfirmation,
         Dialog_SoulRing,
+        Dialog_Achievement,
     }
 
     [LabelText("战斗模式")]
@@ -89,6 +90,7 @@ public class Init : MonoBehaviour
                 WindowTypeEnum.Map_Phantom,
                 WindowTypeEnum.Map_BossFamily,
                 WindowTypeEnum.Dialog_SoulRing,
+                WindowTypeEnum.Dialog_Achievement,
             }
         },
         {

@@ -31,7 +31,7 @@ namespace Game
 
 		public void SetAttr(AttributeEnum attrType, AttributeFrom attrKey, int Position, long attrValue)
 		{
-			int key = ((int)attrKey) * 100 + Position;
+			int key = ((int)attrKey) * 9999 + Position;
 			AllAttrDict[attrType][key] = attrValue;
 		}
 

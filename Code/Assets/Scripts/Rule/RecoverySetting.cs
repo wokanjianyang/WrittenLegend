@@ -9,6 +9,12 @@ namespace Game
         public Dictionary<int, bool> EquipQuanlity { get; private set; } = new Dictionary<int, bool>();  //??????????(1??? 2??? 3??? 4???)
         public int EquipLevel { get; set; } = 0;
 
+        public int GoldTotal { get; set; } = 0;
+
+        public int ExpTotal { get; set; } = 0;
+
+        public int LuckyTotal { get; set; } = 0;
+
         public Dictionary<int, bool> EquipRole { get; private set; } = new Dictionary<int, bool>();
         public int SkillBookLevel { get; set; } = 0;//
 
@@ -32,6 +38,32 @@ namespace Game
             {
                 Equip equip = item as Equip;
                 int role = equip.EquipConfig.Role;
+
+                if (GoldTotal > 0)
+                {
+                    long gt = equip.AttrEntryList.Where(m => m.Key == (int)AttributeEnum.GoldIncrea).Select(m => m.Value).Sum();
+                    if (gt >= GoldTotal) {
+                        return false;
+                    }
+                }
+
+                if (ExpTotal > 0)
+                {
+                    long et = equip.AttrEntryList.Where(m => m.Key == (int)AttributeEnum.ExpIncrea).Select(m => m.Value).Sum();
+                    if (et >= ExpTotal)
+                    {
+                        return false;
+                    }
+                }
+
+                if (LuckyTotal > 0)
+                {
+                    long lucky = equip.AttrEntryList.Where(m => m.Key == (int)AttributeEnum.Lucky).Select(m => m.Value).Sum();
+                    if (lucky >= LuckyTotal)
+                    {
+                        return false;
+                    }
+                }
 
                 if ((EquipQuanlity.GetValueOrDefault(item.GetQuality(), false) || item.Level < EquipLevel || EquipRole.GetValueOrDefault(role, false))
                     && equip.Part <= 10 && !item.IsLock && equip.Quality < 5)

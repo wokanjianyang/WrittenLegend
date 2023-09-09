@@ -70,30 +70,32 @@ namespace Game
 
         public void OnClickBossFamily()
         {
-            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("是否确认挑战？",true, () =>
-            {
-                User user = GameProcessor.Inst.User;
+            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("是否确认挑战？", true, () =>
+             {
+                 User user = GameProcessor.Inst.User;
 
-                long bossTicket = user.GetMaterialCount(ItemHelper.SpecialId_Boss_Ticket);
+                 long bossTicket = user.GetMaterialCount(ItemHelper.SpecialId_Boss_Ticket);
 
-                if (bossTicket <= 0)
-                {
+                 if (bossTicket <= 0)
+                 {
 
-                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的BOSS挑战卷", ToastType = ToastTypeEnum.Failure });
-                    return;
-                }
+                     GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的BOSS挑战卷", ToastType = ToastTypeEnum.Failure });
+                     return;
+                 }
 
-                GameProcessor.Inst.EventCenter.Raise(new MaterialUseEvent()
-                {
-                    MaterialId = ItemHelper.SpecialId_Boss_Ticket,
-                    Quantity = 1
-                });
+                 GameProcessor.Inst.EventCenter.Raise(new MaterialUseEvent()
+                 {
+                     MaterialId = ItemHelper.SpecialId_Boss_Ticket,
+                     Quantity = 1
+                 });
 
-                scrollRect.gameObject.SetActive(false);
+                 user.MagicRecord[AchievementSourceType.BossFamily].Data++;
 
-                GameProcessor.Inst.EventCenter.Raise(new BossFamilyStartEvent() { });
+                 scrollRect.gameObject.SetActive(false);
 
-            }, null);
+                 GameProcessor.Inst.EventCenter.Raise(new BossFamilyStartEvent() { });
+
+             }, null);
         }
         public void OnBossFamilyEnd(BossFamilyEndEvent e)
         {

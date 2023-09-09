@@ -6,9 +6,12 @@ namespace Game
 {
     public class Skill_Attack_Single : Skill_Attack
     {
-        public Skill_Attack_Single(APlayer player, SkillPanel skill) : base(player, skill)
+        public Skill_Attack_Single(APlayer player, SkillPanel skill,bool isShow) : base(player, skill)
         {
-            this.skillGraphic = new SkillGraphic_Single(player, skill);
+            if (isShow)
+            {
+                this.skillGraphic = new SkillGraphic_Single(player, skill);
+            }
         }
 
         public override List<AttackData> GetAllTargets()

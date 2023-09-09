@@ -17,10 +17,17 @@ namespace Game
         [LabelText("显示怪物技能特效")]
         public Toggle tog_Monster_Skill;
 
+        [LabelText("确认")]
+        public Button btn_Done;
+
+        [LabelText("取消")]
+        public Button btn_Cancle;
+
         // Start is called before the first frame update
         void Start()
         {
-    
+            this.btn_Done.onClick.AddListener(this.OnClick_Done);
+            this.btn_Cancle.onClick.AddListener(this.OnClick_Cancle);
         }
 
         // Update is called once per frame
@@ -29,9 +36,24 @@ namespace Game
 
         }
 
+        public void Init()
+        {
+            Debug.Log("Other Init");
+
+            tog_Monster_Skill.isOn = GameProcessor.Inst.User.ShowMonsterSkill;
+        }
+
+        public void OnClick_Cancle()
+        {
+            GameProcessor.Inst.EventCenter.Raise(new DialogSettingEvent());
+        }
+
         public void OnClick_Done()
         {
-            
+            User user = GameProcessor.Inst.User;
+
+            user.ShowMonsterSkill = tog_Monster_Skill.isOn;
+
             GameProcessor.Inst.EventCenter.Raise(new DialogSettingEvent());
         }
     }

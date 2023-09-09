@@ -6,7 +6,7 @@ namespace Game
 {
     public class Skill_Move : ASkill
     {
-        public Skill_Move(APlayer player, SkillPanel skill) : base(player, skill)
+        public Skill_Move(APlayer player, SkillPanel skill, bool isShow) : base(player, skill)
         {
             this.skillGraphic = null;
         }

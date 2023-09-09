@@ -73,7 +73,9 @@ namespace Game
             }
 
             if_EquipLevel.text = setting.EquipLevel.ToString();
-
+            if_Exp.text = setting.ExpTotal.ToString();
+            if_Gold.text = setting.GoldTotal.ToString();
+            if_Lucky.text = setting.LuckyTotal.ToString();
 
             foreach (int skillBookRole in setting.EquipRole.Keys)
             {
@@ -110,14 +112,11 @@ namespace Game
         {
             GameProcessor.Inst.EventCenter.Raise(new DialogSettingEvent());
         }
-        
+
         private void SaveSetting()
         {
             User user = GameProcessor.Inst.User;
 
-            StringBuilder sb = new StringBuilder();
-
-            sb.Append("装备自动回收 品质：");
             for (var i = 0; i < equipQualityToggles.Length; i++)
             {
                 var toggle = equipQualityToggles[i];
@@ -131,18 +130,9 @@ namespace Game
                 }
             }
 
-            // if (toggle_EquipLevel.isOn)
-            {
-                int level = 0;
-                int.TryParse(if_EquipLevel.text, out level);
+            int.TryParse(if_EquipLevel.text, out int equipLevel);
+            user.RecoverySetting.EquipLevel = equipLevel;
 
-                user.RecoverySetting.EquipLevel = level;
-            }
-            // else {
-                // user.RecoverySetting.EquipLevel = 0;
-            // }
-
-            sb.Append("装备自动回收 职业：");
             for (var i = 0; i < equipRoleToggles.Length; i++)
             {
                 var toggle = equipRoleToggles[i];
@@ -156,17 +146,24 @@ namespace Game
                 }
             }
 
-            Log.Debug($"回收设置 {sb.ToString()}");
-                
+            int.TryParse(if_Exp.text, out int exp);
+            user.RecoverySetting.ExpTotal = exp;
+
+            int.TryParse(if_Gold.text, out int gold);
+            user.RecoverySetting.GoldTotal = gold;
+
+            int.TryParse(if_Lucky.text, out int lucky);
+            user.RecoverySetting.LuckyTotal = lucky;
+
             //立即执行一次回收
             GameProcessor.Inst.EventCenter.Raise(new AutoRecoveryEvent() { });
 
             TaskHelper.CheckTask(TaskType.Recovery, 1);
 
             UserData.Save();
-            
+
             GameProcessor.Inst.EventCenter.Raise(new DialogSettingEvent());
-            
+
         }
     }
 }

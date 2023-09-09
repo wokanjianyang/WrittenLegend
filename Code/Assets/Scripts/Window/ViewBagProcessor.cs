@@ -909,6 +909,7 @@ namespace Game
         }
         public void OnClick_PlayerTitle()
         {
+            GameProcessor.Inst.EventCenter.Raise(new ShowAchievementEvent());
         }
         
         public void OnClick_Setting()

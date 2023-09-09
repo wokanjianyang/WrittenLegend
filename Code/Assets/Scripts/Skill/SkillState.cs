@@ -28,52 +28,58 @@ namespace Game
             this.Position = position;
             this.lastUseRound = useRound;
 
+            bool isShow = true;
+            if (player.Camp == PlayerType.Enemy && !GameProcessor.Inst.User.ShowMonsterSkill)
+            {
+                isShow = false;
+            }
+
             if (skillPanel.SkillData.SkillConfig.Type == (int)SkillType.Attack)
             {
                 if (skillPanel.SkillData.SkillConfig.CastType == ((int)AttackCastType.Single))
                 {
-                    this.skillLogic = new Skill_Attack_Single(player, skillPanel);
+                    this.skillLogic = new Skill_Attack_Single(player, skillPanel, isShow);
                 }
                 else
                 {
-                    this.skillLogic = new Skill_Attack_Area(player, skillPanel);
+                    this.skillLogic = new Skill_Attack_Area(player, skillPanel, isShow);
                 }
             }
             else if (skillPanel.SkillData.SkillConfig.Type == (int)SkillType.Valet)
             {
-                this.skillLogic = new Skill_Valet(player, skillPanel);
+                this.skillLogic = new Skill_Valet(player, skillPanel, isShow);
             }
             else if (skillPanel.SkillData.SkillConfig.Type == (int)SkillType.Map)
             {
-                this.skillLogic = new Skill_Attack_Map(player, skillPanel);
+                this.skillLogic = new Skill_Attack_Map(player, skillPanel, isShow);
             }
             else if (skillPanel.SkillData.SkillConfig.Type == (int)SkillType.Restore)
             {
-                this.skillLogic = new Skill_Restore(player, skillPanel);
+                this.skillLogic = new Skill_Restore(player, skillPanel, isShow);
             }
             else if (skillPanel.SkillData.SkillConfig.Type == (int)SkillType.Shield)
             {
-                this.skillLogic = new Skill_Shield(player, skillPanel);
+                this.skillLogic = new Skill_Shield(player, skillPanel, isShow);
             }
             else if (skillPanel.SkillData.SkillConfig.Type == (int)SkillType.Expert)
             {
-                this.skillLogic = new Skill_Expert(player, skillPanel);
+                this.skillLogic = new Skill_Expert(player, skillPanel, isShow);
             }
             else if (skillPanel.SkillData.SkillConfig.Type == 1008)
             {
-                this.skillLogic = new Skill_Huti(player, skillPanel);
+                this.skillLogic = new Skill_Huti(player, skillPanel, isShow);
             }
             else if (skillPanel.SkillData.SkillConfig.Type == 2008)
             {
-                this.skillLogic = new Skill_Move(player, skillPanel);
+                this.skillLogic = new Skill_Move(player, skillPanel, isShow);
             }
             else if (skillPanel.SkillData.SkillConfig.Type == 3008)
             {
-                this.skillLogic = new Skill_Yinshen(player, skillPanel);
+                this.skillLogic = new Skill_Yinshen(player, skillPanel, isShow);
             }
             else
             {
-                this.skillLogic = new Skill_Attack_Normal(player, skillPanel);
+                this.skillLogic = new Skill_Attack_Normal(player, skillPanel, isShow);
             }
         }
 

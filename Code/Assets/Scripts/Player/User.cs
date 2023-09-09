@@ -58,12 +58,58 @@ namespace Game
 
         public RecoverySetting RecoverySetting { get; set; } = new RecoverySetting();
 
+        public bool ShowMonsterSkill { get; set; } = true;
+
         public List<SkillData> SkillList { get; set; } = new List<SkillData>();
+
+        public IDictionary<AchievementSourceType, MagicData> MagicRecord { get; set; } = new Dictionary<AchievementSourceType, MagicData>();
 
         /// <summary>
         /// 包裹
         /// </summary>
         public List<BoxItem> Bags { get; set; } = new List<BoxItem>();
+
+        public long GetAchievementProgeress(AchievementSourceType type)
+        {
+            long progress = 0;
+
+            switch (type)
+            {
+                case AchievementSourceType.Advert:
+                    if (!this.MagicRecord.ContainsKey(AchievementSourceType.Advert))
+                    {
+                        this.MagicRecord[AchievementSourceType.Advert] = new MagicData();
+                    }
+                    progress = this.Record.RecordList[(int)RecordType.AdVirtual] + this.Record.RecordList[(int)RecordType.AdReal];
+                    break;
+                case AchievementSourceType.RealAdvert:
+                    if (!this.MagicRecord.ContainsKey(AchievementSourceType.RealAdvert))
+                    {
+                        this.MagicRecord[AchievementSourceType.RealAdvert] = new MagicData();
+                    }
+                    progress = this.Record.RecordList[(int)RecordType.AdReal];
+                    break;
+                case AchievementSourceType.Strong:
+                    progress = this.MagicEquipStrength.Select(m => m.Value.Data).Sum();
+                    break;
+                case AchievementSourceType.Refine:
+                    progress = this.MagicEquipRefine.Select(m => m.Value.Data).Sum();
+                    break;
+                case AchievementSourceType.Level:
+                    progress = this.MagicLevel.Data;
+                    break;
+                case AchievementSourceType.BossFamily:
+                    if (!this.MagicRecord.ContainsKey(AchievementSourceType.BossFamily))
+                    {
+                        this.MagicRecord[AchievementSourceType.BossFamily] = new MagicData();
+                    }
+
+                    progress = this.MagicRecord[AchievementSourceType.BossFamily].Data;
+                    break;
+            }
+
+            return progress;
+        }
 
         public IDictionary<string, bool> GiftList { get; set; } = new Dictionary<string, bool>();
 
@@ -131,7 +177,6 @@ namespace Game
             this.EventCenter.AddListener<HeroUnUseEquipEvent>(HeroUnUseEquip);
             this.EventCenter.AddListener<HeroUseSkillBookEvent>(HeroUseSkillBook);
             this.EventCenter.AddListener<UserAttrChangeEvent>(UserAttrChange);
-            this.EventCenter.AddListener<UserAchievementEvent>(UserAchievement);
         }
 
         public void Init()
@@ -256,19 +301,20 @@ namespace Game
 
             this.SuitMax = ConfigHelper.SkillSuitMax;
             this.StoneNumber = 0;
+
             //成就
             foreach (int aid in AchievementData.Keys)
             {
                 AchievementConfig achievementConfig = AchievementConfigCategory.Instance.Get(aid);
-                if (achievementConfig.RewardType == (int)AchievementType.Attr)
+                if (achievementConfig.RewardType == (int)AchievementRewardType.Attr)
                 {
-                    AttributeBonus.SetAttr((AttributeEnum)achievementConfig.AttrId, AttributeFrom.Auras, achievementConfig.AttrValue);
+                    AttributeBonus.SetAttr((AttributeEnum)achievementConfig.AttrId, AttributeFrom.Achivement, achievementConfig.Id, achievementConfig.AttrValue);
                 }
-                else if (achievementConfig.Type == (int)AchievementType.Suit)
+                else if (achievementConfig.Type == (int)AchievementRewardType.Suit)
                 {
                     this.SuitMax--;
                 }
-                else if (achievementConfig.Type == (int)AchievementType.Stone)
+                else if (achievementConfig.Type == (int)AchievementRewardType.Stone)
                 {
                     this.StoneNumber += achievementConfig.AttrValue;
                 }
@@ -285,7 +331,7 @@ namespace Game
 
         public int CalStone(Equip equip)
         {
-            int count = equip.Level * 3 / 20 * equip.GetQuality() + this.StoneNumber;
+            int count = (equip.Level * 3 / 20 + this.StoneNumber) * equip.GetQuality();
 
             return count;
         }
@@ -385,12 +431,6 @@ namespace Game
             this.SetAttr();
 
             this.EventCenter.Raise(new HeroUpdateAllSkillEvent());
-        }
-
-        private void UserAchievement(UserAchievementEvent e)
-        {
-            this.AchievementData.Add(e.Id, 1);
-            this.EventCenter.Raise(new UserAttrChangeEvent());
         }
 
         public List<SkillRune> GetRuneList(int skillId)

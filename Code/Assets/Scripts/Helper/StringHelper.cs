@@ -52,13 +52,18 @@ namespace Game
 		public static string FormatAttrValueName(int attrId) {
 			return PlayerHelper.PlayerAttributeMap[((AttributeEnum)attrId).ToString()];
 		}
-		public static string FormatAttrValueText(int attr, long val)
+
+		public static string FormatAttrText(int attrId, long val) {
+			return FormatAttrValueName(attrId) + FormatAttrValueText(attrId, val);
+		}
+
+		public static string FormatAttrValueText(int attrId, long val)
 		{
 			string unit = "";
 
 			List<int> percents = ConfigHelper.PercentAttrIdList.ToList(); 
 
-			if (percents.Contains(attr))
+			if (percents.Contains(attrId))
 			{
 				unit = "%";
 			}

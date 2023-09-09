@@ -8,7 +8,7 @@ namespace Game
     {
         public int MaxValet = 0;
 
-        public Skill_Valet(APlayer player, SkillPanel skillPanel) : base(player, skillPanel)
+        public Skill_Valet(APlayer player, SkillPanel skillPanel, bool isShow) : base(player, skillPanel)
         {
             this.skillGraphic = null;
             MaxValet = skillPanel.EnemyMax;

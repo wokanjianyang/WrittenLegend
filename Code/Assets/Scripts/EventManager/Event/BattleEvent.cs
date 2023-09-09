@@ -220,4 +220,9 @@ namespace Game
     {
 
     }
+
+    public class ShowAchievementEvent : SDD.Events.Event
+    {
+
+    }
 }

@@ -6,9 +6,12 @@ namespace Game
 {
     public class Skill_Huti : ASkill
     {
-        public Skill_Huti(APlayer player, SkillPanel skill) : base(player, skill)
+        public Skill_Huti(APlayer player, SkillPanel skill, bool isShow) : base(player, skill)
         {
-            this.skillGraphic = new SkillGraphic_Shield(player, skill);
+            if (isShow)
+            {
+                this.skillGraphic = new SkillGraphic_Shield(player, skill);
+            }
         }
 
         public override bool IsCanUse()

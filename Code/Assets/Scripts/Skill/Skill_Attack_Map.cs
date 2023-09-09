@@ -7,9 +7,12 @@ namespace Game
 {
     public class Skill_Attack_Map : Skill_Attack
     {
-        public Skill_Attack_Map(APlayer player, SkillPanel skill) : base(player, skill)
+        public Skill_Attack_Map(APlayer player, SkillPanel skill, bool isShow) : base(player, skill)
         {
-            this.skillGraphic = new SkillGraphic_Persistent(player, skill);
+            if (isShow)
+            {
+                this.skillGraphic = new SkillGraphic_Persistent(player, skill);
+            }
         }
         public override void Do()
         {

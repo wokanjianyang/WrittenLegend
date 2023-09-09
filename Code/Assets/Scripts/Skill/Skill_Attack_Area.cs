@@ -8,19 +8,22 @@ namespace Game
 {
     public class Skill_Attack_Area : Skill_Attack
     {
-        public Skill_Attack_Area(APlayer player, SkillPanel skillPanel) : base(player, skillPanel)
+        public Skill_Attack_Area(APlayer player, SkillPanel skillPanel, bool isShow) : base(player, skillPanel)
         {
-            if (skillPanel.Area == AttackGeometryType.FrontRow)
+            if (isShow)
             {
-                this.skillGraphic = new SkillGraphic_FrontRow(player, skillPanel);
-            }
-            else if (skillPanel.Area == AttackGeometryType.Arc)
-            {
-                this.skillGraphic = new SkillGraphic_Arc(player, skillPanel);
-            }
-            else
-            {
-                this.skillGraphic = new SkillGraphic_Square(player, skillPanel);
+                if (skillPanel.Area == AttackGeometryType.FrontRow)
+                {
+                    this.skillGraphic = new SkillGraphic_FrontRow(player, skillPanel);
+                }
+                else if (skillPanel.Area == AttackGeometryType.Arc)
+                {
+                    this.skillGraphic = new SkillGraphic_Arc(player, skillPanel);
+                }
+                else
+                {
+                    this.skillGraphic = new SkillGraphic_Square(player, skillPanel);
+                }
             }
         }
 
