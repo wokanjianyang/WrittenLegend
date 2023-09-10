@@ -171,7 +171,9 @@ namespace Game
 
             long hp = enemy.GetAttackAttr(AttributeEnum.HP);
 
-            return dr.Damage > 0 ? Math.Min((int)(hp / dr.Damage), 9999999) : 0;
+            int rd = dr.Damage > 0 ? Math.Min((int)(hp / dr.Damage), 9999999) : 0;
+
+            return Math.Max(rd, 1);
         }
 
         public static long GetEffectFromTotal(AttributeBonus attacker, SkillPanel skillPanel, EffectData effect)

@@ -22,10 +22,12 @@ namespace Game
     }
 
     public enum AchievementRewardType
-    { 
-        Attr =1,
+    {
+        Attr = 1,
         Suit = 2,
         Stone = 3,
+        SoulRing = 4,
+        Tower = 5,
     }
 
     public enum AchievementSourceType

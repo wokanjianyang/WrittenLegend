@@ -57,7 +57,10 @@ public class Item_Achivement : MonoBehaviour
             {
                 Txt_Attr.text = "成就属性:魂环碎片掉落数量 + " + config.AttrValue;
             }
-
+            else if (config.RewardType == 5)
+            {
+                Txt_Attr.text = "成就属性:闯关寻怪时间 - " + config.AttrValue;
+            }
 
             Txt_Progress.gameObject.SetActive(false);
             Btn_Active.gameObject.SetActive(false);

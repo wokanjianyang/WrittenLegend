@@ -167,6 +167,10 @@ namespace Game
         public int SuitMax = 0;
         [JsonIgnore]
         public int StoneNumber = 0;
+        [JsonIgnore]
+        public int SoulRingNumber = 0;
+        [JsonIgnore]
+        public int TowerNumber = 0;
 
         public User()
         {
@@ -301,6 +305,8 @@ namespace Game
 
             this.SuitMax = ConfigHelper.SkillSuitMax;
             this.StoneNumber = 0;
+            this.SoulRingNumber = 0;
+            this.TowerNumber = 0;
 
             //成就
             foreach (int aid in AchievementData.Keys)
@@ -310,13 +316,21 @@ namespace Game
                 {
                     AttributeBonus.SetAttr((AttributeEnum)achievementConfig.AttrId, AttributeFrom.Achivement, achievementConfig.Id, achievementConfig.AttrValue);
                 }
-                else if (achievementConfig.Type == (int)AchievementRewardType.Suit)
+                else if (achievementConfig.RewardType == (int)AchievementRewardType.Suit)
                 {
                     this.SuitMax--;
                 }
-                else if (achievementConfig.Type == (int)AchievementRewardType.Stone)
+                else if (achievementConfig.RewardType == (int)AchievementRewardType.Stone)
                 {
                     this.StoneNumber += achievementConfig.AttrValue;
+                }
+                else if (achievementConfig.RewardType == (int)AchievementRewardType.SoulRing)
+                {
+                    this.SoulRingNumber += achievementConfig.AttrValue;
+                }
+                else if (achievementConfig.RewardType == (int)AchievementRewardType.Tower)
+                {
+                    this.TowerNumber += achievementConfig.AttrValue;
                 }
             }
 

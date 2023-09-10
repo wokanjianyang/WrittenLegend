@@ -21,7 +21,7 @@ namespace Game
         private int CopyType = 1;
         private int Rate = 1;
 
-        public Boss(int bossId, int mapId,int copyType,int rate) : base()
+        public Boss(int bossId, int mapId, int copyType, int rate) : base()
         {
             this.BossId = bossId;
             this.MapId = mapId;
@@ -118,7 +118,8 @@ namespace Game
             //UserData.Save();
         }
 
-        private void BuildReword() {
+        private void BuildReword()
+        {
             User user = GameProcessor.Inst.User;
 
             long exp = this.Exp * (100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.ExpIncrea)) / 100;
@@ -145,13 +146,12 @@ namespace Game
 
             List<Item> items = DropHelper.BuildDropItem(dropList, 250);
 
-            if (SystemConfigHelper.CheckRequireLevel(SystemEnum.SoulRing))
-            {
-                int mapIndex = Config.MapId - ConfigHelper.MapStartId;
-                int quantity = mapIndex / 10 + 1;
 
-                items.Add(ItemHelper.BuildSoulRingShard(quantity));
-            }
+            int mapIndex = Config.MapId - ConfigHelper.MapStartId;
+            int quantity = mapIndex / 10 + 1 + user.SoulRingNumber;
+
+            items.Add(ItemHelper.BuildSoulRingShard(quantity));
+
 
             //µÙ¬‰BOSS÷Æº“√≈∆±
             int ticketRate = 50;

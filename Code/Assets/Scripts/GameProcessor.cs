@@ -236,7 +236,8 @@ namespace Game
                 }
                 else
                 {
-                    long floorTime = roundHeroToTower + 5; //5s find monster
+                    long floorTime = roundHeroToTower + (5 - User.TowerNumber); //5s find monster - achievement time
+                    floorTime = Math.Max(floorTime, 1);
                     long maxFloor = Math.Min(tempTime / floorTime, 100);
 
                     offlineFloor += maxFloor;
