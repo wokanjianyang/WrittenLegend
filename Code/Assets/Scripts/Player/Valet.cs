@@ -10,7 +10,7 @@ namespace Game
         public APlayer Master { get; set; }
         private SkillPanel SkillPanel { get; set; }
 
-        public Valet(APlayer player,SkillPanel skill) : base()
+        public Valet(APlayer player, SkillPanel skill) : base()
         {
             this.GroupId = player.GroupId;
             this.Master = player;
@@ -91,7 +91,7 @@ namespace Game
             //攻击主人的目标
             var mm = this.Master.CalcEnemy();
 
-            return mm != null ? mm : this.CalcEnemy();
+            return mm != null ? mm : base.CalcEnemy();
         }
     }
 }

@@ -62,6 +62,15 @@ namespace Game.Data
 
             this.Text = md5;
         }
+
+        public long GetRecord(int type)
+        {
+            if (RecordList.ContainsKey(type))
+            {
+                return RecordList[type];
+            }
+            return 0;
+        }
     }
 
     public enum RecordType

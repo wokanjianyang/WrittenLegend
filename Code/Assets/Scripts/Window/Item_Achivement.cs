@@ -51,7 +51,7 @@ public class Item_Achivement : MonoBehaviour
             }
             else if (config.RewardType == 3)
             {
-                Txt_Attr.text = "成就属性:精炼石分解数量 + " + config.AttrValue;
+                Txt_Attr.text = "成就属性:装备分解精炼石数量 + " + config.AttrValue;
             }
             else if (config.RewardType == 4)
             {
@@ -59,7 +59,7 @@ public class Item_Achivement : MonoBehaviour
             }
             else if (config.RewardType == 5)
             {
-                Txt_Attr.text = "成就属性:闯关寻怪时间 - " + config.AttrValue;
+                Txt_Attr.text = "成就属性:离线闯关寻怪时间 - " + config.AttrValue;
             }
 
             Txt_Progress.gameObject.SetActive(false);

@@ -80,14 +80,14 @@ namespace Game
                     {
                         this.MagicRecord[AchievementSourceType.Advert] = new MagicData();
                     }
-                    progress = this.Record.RecordList[(int)RecordType.AdVirtual] + this.Record.RecordList[(int)RecordType.AdReal];
+                    progress = this.Record.GetRecord((int)RecordType.AdVirtual) + this.Record.GetRecord((int)RecordType.AdReal) * 2;
                     break;
                 case AchievementSourceType.RealAdvert:
                     if (!this.MagicRecord.ContainsKey(AchievementSourceType.RealAdvert))
                     {
                         this.MagicRecord[AchievementSourceType.RealAdvert] = new MagicData();
                     }
-                    progress = this.Record.RecordList[(int)RecordType.AdReal];
+                    progress = this.Record.GetRecord((int)RecordType.AdReal);
                     break;
                 case AchievementSourceType.Strong:
                     progress = this.MagicEquipStrength.Select(m => m.Value.Data).Sum();
