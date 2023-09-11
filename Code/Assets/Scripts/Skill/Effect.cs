@@ -45,6 +45,7 @@ namespace Game
                 //效果扣血,需要给APlayer封装一个方法，传入伤害数值，Player扣血以及计算后续死亡以及UI
                 if (Data.Config.Type == (int)EffectType.Sub)
                 {
+                    Debug.Log("Effect Sub Hp:" + Total);
                     SelfPlayer.Logic.OnDamage(new DamageResult(SelfPlayer.ID, Total, MsgType.Damage));
                 }
                 else

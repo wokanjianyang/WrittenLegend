@@ -196,13 +196,13 @@ namespace Game
                     //Debug.Log("Shield Role-Percent:" + GetRolePercent(attacker, role));
 
                     //技能系数
-                    percent = (skillPanel.Percent + GetRolePercent(attacker, role)) * effect.Config.PercentGain / 100;
+                    percent = (effect.Percent + GetRolePercent(attacker, role)) * effect.Config.PercentGain / 100;
                 }
 
                 long damage = 0;
                 if (effect.Config.ConstGain > 0)
                 {
-                    damage = (skillPanel.Damage + GetRoleDamage(attacker, role)) * effect.Config.ConstGain / 100;
+                    damage = (effect.Damage + GetRoleDamage(attacker, role)) * effect.Config.ConstGain / 100;
 
                     //Debug.Log("Shield Damage:" + damage);
                 }
