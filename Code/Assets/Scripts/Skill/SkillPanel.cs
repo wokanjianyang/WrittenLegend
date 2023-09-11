@@ -11,9 +11,9 @@ namespace Game
     {
         public SkillData SkillData { get; set; }
 
-        public List<SkillRune> RuneList { get; }
+        //public List<SkillRune> RuneList { get; }
 
-        public List<SkillSuit> SuitList { get; }
+        //public List<SkillSuit> SuitList { get; }
 
         public int SkillId { get; }
 
@@ -48,67 +48,61 @@ namespace Game
         public SkillPanel(SkillData skillData, List<SkillRune> runeList, List<SkillSuit> suitList)
         {
             this.SkillData = skillData; //技能本身
-            this.RuneList = runeList;  //词条
-            this.SuitList = suitList; //套装
             this.SkillId = skillData.SkillId;
 
-            //套装的特效
-            foreach (SkillSuit suit in suitList)
-            {
-                if (suit.EffectId > 0 && !EffectIdList.ContainsKey(suit.EffectId))
-                {
-                    int fromId = (int)AttributeFrom.Skill * 100000 + suit.EffectId * 10;
-                    EffectIdList[suit.EffectId] = new EffectData(suit.EffectId, fromId, suit.Percent, suit.Damage, suit.Duration, suit.EnemyMax); //可以叠加
-                }
-            }
+            List<SkillRune> baseRuneList = runeList.Where(m => m.EffectId == 0).ToList();
+            List<SkillSuit> baseSuitList = suitList.Where(m => m.EffectId == 0).ToList();
 
-            int levelPercent = (int)skillData.MagicLevel.Data;
+            List<SkillRune> effectRuneList = runeList.Where(m => m.EffectId > 0).ToList();
+            List<SkillSuit> effectSuitList = suitList.Where(m => m.EffectId > 0).ToList();
+
+            int levelPercent = (int)skillData.MagicLevel.Data - 1;
             long levelDamage = skillData.MagicLevel.Data * 1000;
 
-            long runeDamage = runeList.Select(m => m.Damage).Sum() * skillData.MagicLevel.Data;
-            long suitDamage = suitList.Select(m => m.Damage).Sum() * skillData.MagicLevel.Data;
+            long runeDamage = baseRuneList.Select(m => m.Damage).Sum() * skillData.MagicLevel.Data;
+            long suitDamage = baseSuitList.Select(m => m.Damage).Sum() * skillData.MagicLevel.Data;
 
-            int runePercent = runeList.Select(m => m.Percent).Sum();
-            int suitPercent = suitList.Select(m => m.Percent).Sum();
+            int runePercent = baseRuneList.Select(m => m.Percent).Sum();
+            int suitPercent = baseSuitList.Select(m => m.Percent).Sum();
 
-            int runeIgnoreDef = runeList.Select(m => m.IgnoreDef).Sum();
-            int suitIgnoreDef = suitList.Select(m => m.IgnoreDef).Sum();
+            int runeIgnoreDef = baseRuneList.Select(m => m.IgnoreDef).Sum();
+            int suitIgnoreDef = baseSuitList.Select(m => m.IgnoreDef).Sum();
 
-            int runeDis = runeList.Select(m => m.Dis).Sum();
-            int suitDis = suitList.Select(m => m.Dis).Sum();
+            int runeDis = baseRuneList.Select(m => m.Dis).Sum();
+            int suitDis = baseSuitList.Select(m => m.Dis).Sum();
 
-            int runeEnemyMax = runeList.Select(m => m.EnemyMax).Sum();
-            int suitEnemyMax = suitList.Select(m => m.EnemyMax).Sum();
+            int runeEnemyMax = baseRuneList.Select(m => m.EnemyMax).Sum();
+            int suitEnemyMax = baseSuitList.Select(m => m.EnemyMax).Sum();
 
-            int runeCD = runeList.Select(m => m.CD).Sum();
-            int suitCD = suitList.Select(m => m.CD).Sum();
+            int runeCD = baseRuneList.Select(m => m.CD).Sum();
+            int suitCD = baseSuitList.Select(m => m.CD).Sum();
 
-            int runeDuration = runeList.Select(m => m.Duration).Sum();
-            int suitDuration = suitList.Select(m => m.Duration).Sum();
+            int runeDuration = baseRuneList.Select(m => m.Duration).Sum();
+            int suitDuration = baseSuitList.Select(m => m.Duration).Sum();
 
-            int runeCritRate = runeList.Select(m => m.CritRate).Sum();
-            int suitCritRate = suitList.Select(m => m.CritRate).Sum();
+            int runeCritRate = baseRuneList.Select(m => m.CritRate).Sum();
+            int suitCritRate = baseSuitList.Select(m => m.CritRate).Sum();
 
-            int runeCritDamage = runeList.Select(m => m.CritDamage).Sum();
-            int suitCritDamage = suitList.Select(m => m.CritDamage).Sum();
+            int runeCritDamage = baseRuneList.Select(m => m.CritDamage).Sum();
+            int suitCritDamage = baseSuitList.Select(m => m.CritDamage).Sum();
 
-            int runeDamageIncrea = runeList.Select(m => m.DamageIncrea).Sum();
-            int suitDamageIncrea = suitList.Select(m => m.DamageIncrea).Sum();
+            int runeDamageIncrea = baseRuneList.Select(m => m.DamageIncrea).Sum();
+            int suitDamageIncrea = baseSuitList.Select(m => m.DamageIncrea).Sum();
 
-            int runeAttrIncrea = runeList.Select(m => m.AttrIncrea).Sum();
-            int suitAttrIncrea = suitList.Select(m => m.AttrIncrea).Sum();
+            int runeAttrIncrea = baseRuneList.Select(m => m.AttrIncrea).Sum();
+            int suitAttrIncrea = baseSuitList.Select(m => m.AttrIncrea).Sum();
 
-            int runeFinalIncrea = runeList.Select(m => m.FinalIncrea).Sum();
-            int suitFinalIncrea = suitList.Select(m => m.FinalIncrea).Sum();
+            int runeFinalIncrea = baseRuneList.Select(m => m.FinalIncrea).Sum();
+            int suitFinalIncrea = baseSuitList.Select(m => m.FinalIncrea).Sum();
 
-            int runeRow = runeList.Select(m => m.Row).Sum();
-            int suitRow = suitList.Select(m => m.Row).Sum();
+            int runeRow = baseRuneList.Select(m => m.Row).Sum();
+            int suitRow = baseSuitList.Select(m => m.Row).Sum();
 
-            int runeColumn = runeList.Select(m => m.Column).Sum();
-            int suitColumn = suitList.Select(m => m.Column).Sum();
+            int runeColumn = baseRuneList.Select(m => m.Column).Sum();
+            int suitColumn = baseSuitList.Select(m => m.Column).Sum();
 
-            int runeInheritIncrea = runeList.Select(m => m.InheritIncrea).Sum();
-            int suitInheritIncrea = suitList.Select(m => m.InheritIncrea).Sum();
+            int runeInheritIncrea = baseRuneList.Select(m => m.InheritIncrea).Sum();
+            int suitInheritIncrea = baseSuitList.Select(m => m.InheritIncrea).Sum();
 
 
             this.Damage += skillData.SkillConfig.Damage + runeDamage + suitDamage + levelDamage;
@@ -142,18 +136,55 @@ namespace Game
             {
                 foreach (string skillEffect in skilEffectList)
                 {
-                    //如果为-1,则使用技能的配置
                     int[] effectParams = StringHelper.ConvertSkillParams(skillEffect);
                     int effectId = effectParams[0];
-                    int duration = effectParams[1] >= 0 ? effectParams[1] : Duration;
-                    int max = effectParams[2] >= 0 ? effectParams[2] : EnemyMax;
-                    int percent = effectParams[3] >= 0 ? effectParams[3] : this.Percent;
+                    int duration = effectParams[1];
+                    int max = effectParams[2];
+                    int percent = effectParams[3];
 
-                    if (effectId > 0 && !EffectIdList.ContainsKey(effectId)) //不能叠加特效
+                    List<SkillSuit> itemSuitList = effectSuitList.Where(m => m.EffectId == effectId).ToList();
+
+                    if (itemSuitList.Count > 0)
                     {
-                        int fromId = (int)AttributeFrom.Skill * 100000 + effectId * 10;
+                        duration += itemSuitList.Select(m => m.Duration).Sum();
+                        max += itemSuitList.Select(m => m.EnemyMax).Sum();
+                        percent += itemSuitList.Select(m => m.Percent).Sum();
+                    }
+
+                    List<SkillRune> itemRuneList = effectRuneList.Where(m => m.EffectId == effectId).ToList();
+                    if (itemRuneList.Count > 0)
+                    {
+                        duration += itemRuneList.Select(m => m.Duration).Sum();
+                        max += itemRuneList.Select(m => m.EnemyMax).Sum();
+                        percent += itemRuneList.Select(m => m.Percent).Sum();
+                    }
+
+                    EffectConfig effectConfig = EffectConfigCategory.Instance.Get(effectId);
+
+                    if (effectConfig.LevelGain > 0)
+                    {
+                        percent += levelPercent;
+                    }
+
+                    if (effectId > 0 && !EffectIdList.ContainsKey(effectId)) //不能叠加
+                    {
+                        int fromId = GetFromId(effectId);
                         EffectIdList[effectId] = new EffectData(effectId, fromId, percent, 0, duration, max);
                     }
+
+                    //Remove
+                    effectSuitList.RemoveAll(m => m.EffectId == effectId);
+                    effectRuneList.RemoveAll(m => m.EffectId == effectId);
+                }
+            }
+
+            //suit effect
+            foreach (SkillSuit suit in effectSuitList)
+            {
+                if (suit.EffectId > 0 && !EffectIdList.ContainsKey(suit.EffectId))
+                {
+                    int fromId = GetFromId(suit.EffectId);
+                    EffectIdList[suit.EffectId] = new EffectData(suit.EffectId, fromId, suit.Percent, suit.Damage, suit.Duration, suit.EnemyMax);
                 }
             }
 
@@ -162,6 +193,11 @@ namespace Game
             //this.Row = 2;
             //this.Column = 2;
             //this.Duration = 3;
+        }
+
+        private int GetFromId(int effectId)
+        {
+            return (int)AttributeFrom.Skill * 100000 + effectId * 10;
         }
     }
 }

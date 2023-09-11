@@ -102,6 +102,9 @@ namespace Game
 		/// <summary>固定值增益</summary>
 		[ProtoMember(9)]
 		public long ConstGain { get; set; }
+		/// <summary>等级增益</summary>
+		[ProtoMember(10)]
+		public int LevelGain { get; set; }
 
 	}
 }

@@ -144,9 +144,6 @@ namespace Game
 		/// <summary>附带效果</summary>
 		[ProtoMember(23)]
 		public int EffectId { get; set; }
-		/// <summary>效果参数</summary>
-		[ProtoMember(24)]
-		public int[] EffectParam { get; set; }
 
 	}
 }
