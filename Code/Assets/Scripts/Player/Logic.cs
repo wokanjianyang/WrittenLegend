@@ -105,6 +105,11 @@ namespace Game
 
         public void OnDamage(DamageResult dr)
         {
+            if (!IsSurvice)
+            {
+                return;
+            }
+
             long currentHP = this.SelfPlayer.HP;
 
             currentHP -= dr.Damage;
@@ -119,8 +124,6 @@ namespace Game
                 //Debug.Log($"{(this.SelfPlayer.Name)} 受到伤害:{(damage)} ,剩余血量:{(currentHP)}");
             }
 
-            //AddBattleAttribute(AttributeEnum.HP, damage * -1);
-
             this.SelfPlayer.SetHP(currentHP);
 
             this.playerEvents.Add(new SetPlayerHPEvent { });
@@ -128,10 +131,6 @@ namespace Game
             {
 
                 IsSurvice = false;
-                this.playerEvents.Add(new PlayerDeadEvent
-                {
-                    RoundNum = SelfPlayer.RoundCounter
-                });
                 this.playerEvents.Add(new DeadRewarddEvent
                 {
                     FromId = dr.FromId,

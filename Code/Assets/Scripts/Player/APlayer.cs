@@ -424,7 +424,7 @@ namespace Game
             // Buff类立即使用
             if (effect.Data.Config.TargetAttr > 0)
             {
-                effect.Do(); //旧的清除了，新的需要立即使用
+                effect.Do();
             }
         }
 
