@@ -56,6 +56,11 @@ namespace Game
                 rate = 75;
             }
 
+            if (tempLevel >= SkillConfig.MaxLevel)
+            {
+                rate = 9999999;
+            }
+
             return rate * SkillConfig.Exp;
         }
 
@@ -69,7 +74,7 @@ namespace Game
         public void AddExp(long exp)
         {
             this.MagicExp.Data += exp;
-            while (this.MagicExp.Data >= GetLevelUpExp())
+            while (this.MagicExp.Data >= GetLevelUpExp() && this.MagicLevel.Data < SkillConfig.MaxLevel)
             {
                 var upExp = GetLevelUpExp();
                 this.MagicLevel.Data++;
