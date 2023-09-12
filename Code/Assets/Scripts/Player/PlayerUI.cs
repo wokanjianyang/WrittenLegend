@@ -44,6 +44,12 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
 
     private Vector2 size;
 
+    private float doTime = 0;
+
+    private float speed = 1f;
+
+                    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,6 +62,17 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
     void Update()
     {
         this.ShowNextToast();
+
+    //    this.doTime += Time.deltaTime;
+    //    if (doTime >= speed)
+    //    { //应该运行了
+    //        Debug.Log("Player Speed Run");
+    //        if (this.SelfPlayer != null)
+    //        {
+    //            this.SelfPlayer.DoEvent();
+    //        }
+    //        this.doTime = 0;
+    //    }
     }
 
     public void OnDestroy()

@@ -154,14 +154,12 @@ namespace Game
 
 
             //µÙ¬‰BOSS÷Æº“√≈∆±
-            int ticketRate = 50;
-            if (CopyType == 2)
+            if (CopyType == 1)
             {
-                ticketRate = 500;
-            }
-            if (RandomHelper.RandomNumber(1, ticketRate) <= 1)
-            {
-                items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, 1));
+                if (RandomHelper.RandomNumber(1, 25) <= 1)
+                {
+                    items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, 1));
+                }
             }
 
             if (items.Count > 0)

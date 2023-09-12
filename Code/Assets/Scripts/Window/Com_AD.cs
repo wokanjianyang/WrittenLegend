@@ -326,7 +326,7 @@ public class Com_AD : MonoBehaviour, IBattleLife
         int rate = real ? 2 : 1;
 
 
-        Item item = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, rate);
+        Item item = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, rate * 2);
 
         List<Item> items = new List<Item>();
         items.Add(item);
