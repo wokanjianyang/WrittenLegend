@@ -150,7 +150,7 @@ namespace Game
             int mapIndex = Config.MapId - ConfigHelper.MapStartId;
             int quantity = mapIndex / 10 + 1 + user.SoulRingNumber;
 
-            items.Add(ItemHelper.BuildSoulRingShard(quantity));
+            items.Add(ItemHelper.BuildSoulRingShard(quantity * 2));
 
 
             //µÙ¬‰BOSS÷Æº“√≈∆±
