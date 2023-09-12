@@ -163,7 +163,8 @@ namespace Game
 
                     if (effectConfig.LevelGain > 0)
                     {
-                        percent += levelPercent + suitPercent + runePercent;
+                        percent += this.Percent;
+                        duration += this.Duration;
                     }
 
                     if (effectId > 0 && !EffectIdList.ContainsKey(effectId)) //不能叠加
