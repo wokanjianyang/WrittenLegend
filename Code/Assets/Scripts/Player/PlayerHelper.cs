@@ -44,7 +44,7 @@ namespace Game
             {nameof(AttributeEnum.SpiritAttIncrea), "道术加成" },
 
             {nameof(AttributeEnum.EquipBaseIncrea), "装备基础属性提升" },
-            {nameof(AttributeEnum.EquipQualityIncrea), "装备品质属性提升" },
+            {nameof(AttributeEnum.EquipRandomIncrea), "装备随机属性提升" },
         };
     }
 }

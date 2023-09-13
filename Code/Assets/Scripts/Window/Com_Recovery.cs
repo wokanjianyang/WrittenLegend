@@ -27,6 +27,10 @@ namespace Game
         public InputField if_Gold;
         [LabelText("随机经验属性")]
         public InputField if_Exp;
+        [LabelText("随机爆率属性")]
+        public InputField if_DropRate;
+        [LabelText("随机品质属性")]
+        public InputField if_DropQuality;
 
         [LabelText("确认")]
         public Button btn_Done;
@@ -76,6 +80,8 @@ namespace Game
             if_Exp.text = setting.ExpTotal.ToString();
             if_Gold.text = setting.GoldTotal.ToString();
             if_Lucky.text = setting.LuckyTotal.ToString();
+            if_DropRate.text = setting.DropRate.ToString();
+            if_DropQuality.text = setting.DropQuality.ToString();
 
             foreach (int skillBookRole in setting.EquipRole.Keys)
             {
@@ -154,6 +160,12 @@ namespace Game
 
             int.TryParse(if_Lucky.text, out int lucky);
             user.RecoverySetting.LuckyTotal = lucky;
+
+            int.TryParse(if_DropRate.text, out int dropRate);
+            user.RecoverySetting.DropRate = dropRate;
+
+            int.TryParse(if_DropQuality.text, out int dropQuality);
+            user.RecoverySetting.DropQuality = dropQuality;
 
             //立即执行一次回收
             GameProcessor.Inst.EventCenter.Raise(new AutoRecoveryEvent() { });

@@ -426,7 +426,7 @@ public class ViewForgeProcessor : AViewPage
             long currentAttrValue = currentConfig == null ? 0 : currentConfig.QualityAttrPercent;
             long nextAttrValue = nextConfig == null ? 0 : nextConfig.QualityAttrPercent;
 
-            string attrName = PlayerHelper.PlayerAttributeMap[AttributeEnum.EquipQualityIncrea.ToString()];
+            string attrName = PlayerHelper.PlayerAttributeMap[AttributeEnum.EquipRandomIncrea.ToString()];
             string attrCurrent = currentAttrValue == 0 ? "" : currentAttrValue + "%";
             string attrAdd = "+" + (nextAttrValue - currentAttrValue) + "%";
 

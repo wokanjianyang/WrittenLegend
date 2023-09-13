@@ -51,7 +51,7 @@ namespace Game
         AurasDamageIncrea = 202, //光环增伤
 
         EquipBaseIncrea = 101, //装备基础属性百分比
-        EquipQualityIncrea = 102, //装备随机属性百分比
+        EquipRandomIncrea = 102, //装备随机属性百分比
 
         PhyDamage = 302, //物理伤害
         MagicDamage = 303,//魔法伤害

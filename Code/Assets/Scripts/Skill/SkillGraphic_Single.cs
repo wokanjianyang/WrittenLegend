@@ -31,7 +31,7 @@ namespace Game
                 effectCom.transform.localPosition = selfPos;
                 effectCom.transform.DOLocalMove(targetPos, 0.5f);
 
-                var duration = Mathf.Max(this.SkillPanel.Duration, 1f);
+                var duration = Mathf.Max(this.SkillPanel.Duration, ConfigHelper.DelayShowTime);
                 yield return new WaitForSeconds(duration);
                 //effectCom.gameObject.SetActive(false);
                 GameObject.Destroy(effectCom.gameObject);

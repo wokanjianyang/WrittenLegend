@@ -18,7 +18,7 @@ namespace Game
         {
             List<Vector3Int> allAttackCells = GetPlayCells();
 
-            this.skillGraphic.PlayAnimation(allAttackCells, Vector3Int.zero);
+            this.skillGraphic?.PlayAnimation(allAttackCells, Vector3Int.zero);
 
             foreach (var cell in allAttackCells)
             {

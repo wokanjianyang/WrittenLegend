@@ -23,7 +23,7 @@ namespace Game
         private IEnumerator IE_Attack(Vector3Int cell)
         {
             //yield return new WaitForSeconds(0.5f);
-            var duration = Math.Max(this.SkillPanel.Duration, 1);
+            var duration = Math.Max(this.SkillPanel.Duration, 0.5f);
             bool loop = duration > 1;
 
             var effectCom = EffectLoader.CreateEffect(this.SkillPanel.SkillData.SkillConfig.ModelName, loop);

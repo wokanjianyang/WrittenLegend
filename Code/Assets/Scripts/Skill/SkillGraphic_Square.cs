@@ -34,9 +34,9 @@ namespace Game
                 effectCom.transform.DOLocalMove(targetPos, 0.3f);
                 effectCom.transform.DOScale(scale, 0.7f);
 
-                var duration = Mathf.Max(this.SkillPanel.Duration, 1f);
+                var duration = Mathf.Max(this.SkillPanel.Duration, 0.5f);
                 yield return new WaitForSeconds(duration);
-                //GameObject.Destroy(effectCom.gameObject);
+                GameObject.Destroy(effectCom.gameObject);
             }
         }
     }

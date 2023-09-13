@@ -99,7 +99,7 @@ namespace Game
 
             //BattleAttributeMap.Clear();
 
-            SelfPlayer.HP = SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.HP);
+            SelfPlayer.HP = SelfPlayer.AttributeBonus.GetAttackAttr(AttributeEnum.HP);
             this.SelfPlayer.EventCenter.Raise(new SetPlayerHPEvent { });
             //this.SelfPlayer.SetPosition(GameProcessor.Inst.PlayerManager.RandomCell(this.SelfPlayer.Cell));
         }
@@ -143,14 +143,17 @@ namespace Game
                     ToId = SelfPlayer.ID
                 });
 
-                StartCoroutine(this.ClearPlayer());
+                if (SelfPlayer.Camp != PlayerType.Hero)
+                {
+                    StartCoroutine(this.ClearPlayer());
+                }
 
             }
         }
 
         private IEnumerator ClearPlayer()
         {
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(ConfigHelper.DelayShowTime);
 
             GameProcessor.Inst.PlayerManager.RemoveDeadPlayers(this.SelfPlayer);
             this.SelfPlayer.OnDestroy();
