@@ -69,7 +69,7 @@ public class Item_Achivement : MonoBehaviour
         {
             Txt_Attr.text = "³É¾ÍÊôÐÔ: £¿ £¿ £¿";
 
-            if (progress > config.Condition)
+            if (progress >= config.Condition)
             {
                 Txt_Progress.text = string.Format("<color=#{0}>{1}</color>", "D8CAB0", progress + "/" + config.Condition);
                 Btn_Active.gameObject.SetActive(true);
