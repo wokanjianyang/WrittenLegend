@@ -63,16 +63,18 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
     {
         this.ShowNextToast();
 
-    //    this.doTime += Time.deltaTime;
-    //    if (doTime >= speed)
-    //    { //应该运行了
-    //        Debug.Log("Player Speed Run");
-    //        if (this.SelfPlayer != null)
-    //        {
-    //            this.SelfPlayer.DoEvent();
-    //        }
-    //        this.doTime = 0;
-    //    }
+        this.doTime += Time.deltaTime;
+        if (doTime >= speed)
+        {
+            this.doTime = 0;
+            //应该运行了
+            Debug.Log("Player " + this.SelfPlayer.Camp + " Speed Run");
+
+            if (this.SelfPlayer != null)
+            {
+                this.SelfPlayer.DoEvent();
+            }
+        }
     }
 
     public void OnDestroy()

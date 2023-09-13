@@ -41,44 +41,9 @@ public class Battle_BossFamily : ABattleRule
         TaskHelper.CheckTask(TaskType.ToCopy, 1);
     }
 
-    public override void DoHeroLogic()
+    public override void DoMapLogic()
     {
-        var hero = GameProcessor.Inst.PlayerManager.GetHero();
-        hero.DoEvent();
-    }
-
-    public override void DoMonsterLogic()
-    {
-        var hero = GameProcessor.Inst.PlayerManager.GetHero();
-
         var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
-        enemys.Sort((a, b) =>
-        {
-            var distance = a.Cell - hero.Cell;
-            var l0 = Math.Abs(distance.x) + Math.Abs(distance.y);
-
-            distance = b.Cell - hero.Cell;
-            var l1 = Math.Abs(distance.x) + Math.Abs(distance.y);
-
-            if (l0 < l1)
-            {
-                return -1;
-            }
-            else if (l0 > l1)
-            {
-                return 1;
-            }
-            else
-            {
-                return 0;
-            }
-        });
-
-        foreach (var enemy in enemys)
-        {
-            enemy.DoEvent();
-        }
-
         int bossCount = enemys.Count + QualityList.Count;
 
         if (enemys.Count < MaxQuanlity && QualityList.Count > 0)
@@ -89,7 +54,6 @@ public class Battle_BossFamily : ABattleRule
             {
                 if (QualityList.Count > 0)
                 {
-
                     BossConfig bossConfig = BossConfigCategory.Instance.Get(QualityList[0]);
                     GameProcessor.Inst.PlayerManager.LoadMonster(BossHelper.BuildBoss(bossConfig.Id, bossConfig.MapId, 2, 1));
 
@@ -103,11 +67,76 @@ public class Battle_BossFamily : ABattleRule
         if (Start && enemys.Count <= 0 && QualityList.Count <= 0)
         {
             Start = false;
-
-
             GameProcessor.Inst.HeroDie(RuleType.BossFamily, MapTime);
         }
     }
+    //public override void DoHeroLogic()
+    //{
+    //    var hero = GameProcessor.Inst.PlayerManager.GetHero();
+    //    hero.DoEvent();
+    //}
+
+    //public override void DoMonsterLogic()
+    //{
+    //    var hero = GameProcessor.Inst.PlayerManager.GetHero();
+
+    //    var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
+    //    enemys.Sort((a, b) =>
+    //    {
+    //        var distance = a.Cell - hero.Cell;
+    //        var l0 = Math.Abs(distance.x) + Math.Abs(distance.y);
+
+    //        distance = b.Cell - hero.Cell;
+    //        var l1 = Math.Abs(distance.x) + Math.Abs(distance.y);
+
+    //        if (l0 < l1)
+    //        {
+    //            return -1;
+    //        }
+    //        else if (l0 > l1)
+    //        {
+    //            return 1;
+    //        }
+    //        else
+    //        {
+    //            return 0;
+    //        }
+    //    });
+
+    //    foreach (var enemy in enemys)
+    //    {
+    //        enemy.DoEvent();
+    //    }
+
+    //    int bossCount = enemys.Count + QualityList.Count;
+
+    //    if (enemys.Count < MaxQuanlity && QualityList.Count > 0)
+    //    {
+    //        int count = Math.Min(MaxFreshQuanlity, MaxQuanlity - enemys.Count);
+
+    //        for (int i = 0; i < count; i++)
+    //        {
+    //            if (QualityList.Count > 0)
+    //            {
+
+    //                BossConfig bossConfig = BossConfigCategory.Instance.Get(QualityList[0]);
+    //                GameProcessor.Inst.PlayerManager.LoadMonster(BossHelper.BuildBoss(bossConfig.Id, bossConfig.MapId, 2, 1));
+
+    //                QualityList.RemoveAt(0);
+    //            }
+    //        }
+    //    }
+
+    //    GameProcessor.Inst.EventCenter.Raise(new ShowBossFamilyInfoEvent() { Count = bossCount });
+
+    //    if (Start && enemys.Count <= 0 && QualityList.Count <= 0)
+    //    {
+    //        Start = false;
+
+
+    //        GameProcessor.Inst.HeroDie(RuleType.BossFamily, MapTime);
+    //    }
+    //}
 
     public override void CheckGameResult()
     {

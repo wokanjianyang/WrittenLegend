@@ -38,87 +38,91 @@ public class BattleRule_Phantom : ABattleRule
         Layer = lv;
     }
 
-    public override void DoHeroLogic()
+    public override void DoMapLogic()
     {
-        if (!PhanStart)
-        {
-            return;
-        }
-
-        if (Time <= 0)
-            return;
-        Time--;
-
-        var hero = GameProcessor.Inst.PlayerManager.GetHero();
-        hero.DoEvent();
-
-        if (hero.HP <= 0)
-        {
-            GameProcessor.Inst.EventCenter.Raise(new BattlePhantomMsgEvent() { Message = RealBoss.Name + "：你没有通过挑战！" });
-            PhanStart = false;
-        }
-
-        GameProcessor.Inst.EventCenter.Raise(new ShowPhantomInfoEvent() { Time = Time });
     }
 
-    public override void DoValetLogic()
-    {
-        if (!PhanStart)
-        {
-            return;
-        }
+    //public override void DoHeroLogic()
+    //{
+    //    if (!PhanStart)
+    //    {
+    //        return;
+    //    }
 
-        base.DoValetLogic();
-    }
+    //    if (Time <= 0)
+    //        return;
+    //    Time--;
 
-    public override void DoMonsterLogic()
-    {
-        if (!PhanStart)
-        {
-            return;
-        }
+    //    var hero = GameProcessor.Inst.PlayerManager.GetHero();
+    //    hero.DoEvent();
 
-        if (Time <= 0)
-            return;
-        Time--;
+    //    if (hero.HP <= 0)
+    //    {
+    //        GameProcessor.Inst.EventCenter.Raise(new BattlePhantomMsgEvent() { Message = RealBoss.Name + "：你没有通过挑战！" });
+    //        PhanStart = false;
+    //    }
 
-        GameProcessor.Inst.EventCenter.Raise(new ShowPhantomInfoEvent() { Time = Time });
+    //    GameProcessor.Inst.EventCenter.Raise(new ShowPhantomInfoEvent() { Time = Time });
+    //}
 
-        if (RealBoss == null)
-        {
-            Debug.Log("PhanId:" + PhanId + " Layer:" + Layer);
-            RealBoss = new Monster_Phantom(PhanId, Layer, true, 10);  //刷新本体,10代表满血
-            GameProcessor.Inst.PlayerManager.LoadMonster(RealBoss);
+    //public override void DoValetLogic()
+    //{
+    //    if (!PhanStart)
+    //    {
+    //        return;
+    //    }
 
-            GameProcessor.Inst.EventCenter.Raise(new BattlePhantomMsgEvent() { Message = RealBoss.Name + "：勇士,你是要来挑战我吗?" });
-        }
+    //    base.DoValetLogic();
+    //}
 
-        var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
-        foreach (var enemy in enemys)
-        {
-            enemy.DoEvent();
-        }
+    //public override void DoMonsterLogic()
+    //{
+    //    if (!PhanStart)
+    //    {
+    //        return;
+    //    }
 
-        if (RealBoss.HP <= 0 && Time > 0)
-        {
-            GameProcessor.Inst.User.PhantomRecord[PhanId] = Layer + 1;
+    //    if (Time <= 0)
+    //        return;
+    //    Time--;
 
-            GameProcessor.Inst.EventCenter.Raise(new BattlePhantomMsgEvent() { Message = RealBoss.Name + "：强大的勇士,您已经通过了考验！" });
+    //    GameProcessor.Inst.EventCenter.Raise(new ShowPhantomInfoEvent() { Time = Time });
 
-            GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
+    //    if (RealBoss == null)
+    //    {
+    //        Debug.Log("PhanId:" + PhanId + " Layer:" + Layer);
+    //        RealBoss = new Monster_Phantom(PhanId, Layer, true, 10);  //刷新本体,10代表满血
+    //        GameProcessor.Inst.PlayerManager.LoadMonster(RealBoss);
 
-            GameProcessor.Inst.HeroDie(RuleType.Phantom, MapTime);
+    //        GameProcessor.Inst.EventCenter.Raise(new BattlePhantomMsgEvent() { Message = RealBoss.Name + "：勇士,你是要来挑战我吗?" });
+    //    }
 
-            PhanStart = false;
-            return;
-        }
+    //    var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
+    //    foreach (var enemy in enemys)
+    //    {
+    //        enemy.DoEvent();
+    //    }
 
-        if (Time <= 0) {
-            GameProcessor.Inst.EventCenter.Raise(new BattlePhantomMsgEvent() { Message = RealBoss.Name + "：你没有通过挑战..." });
-            PhanStart = false;
-            return;
-        }
-    }
+    //    if (RealBoss.HP <= 0 && Time > 0)
+    //    {
+    //        GameProcessor.Inst.User.PhantomRecord[PhanId] = Layer + 1;
+
+    //        GameProcessor.Inst.EventCenter.Raise(new BattlePhantomMsgEvent() { Message = RealBoss.Name + "：强大的勇士,您已经通过了考验！" });
+
+    //        GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
+
+    //        GameProcessor.Inst.HeroDie(RuleType.Phantom, MapTime);
+
+    //        PhanStart = false;
+    //        return;
+    //    }
+
+    //    if (Time <= 0) {
+    //        GameProcessor.Inst.EventCenter.Raise(new BattlePhantomMsgEvent() { Message = RealBoss.Name + "：你没有通过挑战..." });
+    //        PhanStart = false;
+    //        return;
+    //    }
+    //}
 
     public override void CheckGameResult()
     {

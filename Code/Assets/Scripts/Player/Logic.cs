@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -100,7 +101,7 @@ namespace Game
 
             SelfPlayer.HP = SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.HP);
             this.SelfPlayer.EventCenter.Raise(new SetPlayerHPEvent { });
-            this.SelfPlayer.SetPosition(GameProcessor.Inst.PlayerManager.RandomCell(this.SelfPlayer.Cell));
+            //this.SelfPlayer.SetPosition(GameProcessor.Inst.PlayerManager.RandomCell(this.SelfPlayer.Cell));
         }
 
         public void OnDamage(DamageResult dr)
@@ -126,25 +127,35 @@ namespace Game
 
             this.SelfPlayer.SetHP(currentHP);
 
-            this.playerEvents.Add(new SetPlayerHPEvent { });
+            this.SelfPlayer.EventCenter.Raise(new ShowMsgEvent
+            {
+                Type = dr.Type,
+                Content = "-" + StringHelper.FormatNumber(dr.Damage)
+            });
+            this.SelfPlayer.EventCenter.Raise(new SetPlayerHPEvent { });
+
             if (currentHP <= 0)
             {
-
                 IsSurvice = false;
-                this.playerEvents.Add(new DeadRewarddEvent
+                this.SelfPlayer.EventCenter.Raise(new DeadRewarddEvent
                 {
                     FromId = dr.FromId,
                     ToId = SelfPlayer.ID
                 });
+
+                StartCoroutine(this.ClearPlayer());
+
             }
-            else
-            {
-                this.playerEvents.Add(new ShowMsgEvent
-                {
-                    Type = dr.Type,
-                    Content = "-" + StringHelper.FormatNumber(dr.Damage)
-                });
-            }
+        }
+
+        private IEnumerator ClearPlayer()
+        {
+            yield return new WaitForSeconds(0.2f);
+
+            GameProcessor.Inst.PlayerManager.RemoveDeadPlayers(this.SelfPlayer);
+            this.SelfPlayer.OnDestroy();
+
+            yield return null;
         }
 
         public void OnRestore(long hp)

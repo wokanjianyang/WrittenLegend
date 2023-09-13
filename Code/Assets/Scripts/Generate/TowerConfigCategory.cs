@@ -12,6 +12,11 @@ namespace Game
             TowerConfig config = TowerConfigCategory.Instance.GetAll().Where(m => m.Value.StartLevel <= floor && m.Value.EndLevel >= floor).First().Value;
             return config;
         }
+
+        public long GetMaxFloor()
+        {
+            return TowerConfigCategory.Instance.GetAll().Select(m => m.Value.EndLevel).Max();
+        }
     }
 
     public class MonsterTowerHelper
@@ -20,16 +25,19 @@ namespace Game
         {
             List<Monster_Tower> monsters = new List<Monster_Tower>();
 
-            long monsterQuantity = 1;
-            //if (floor > 10000)
-            //{
-            //    monsterQuantity = (floor % 10) + 1;
-            //}
-
-            for (int i = 0; i < monsterQuantity; i++)
+            if (floor <= TowerConfigCategory.Instance.GetMaxFloor())
             {
-                var enemy = new Monster_Tower(floor, i);
-                monsters.Add(enemy);
+                long monsterQuantity = 1;
+                //if (floor > 10000)
+                //{
+                //    monsterQuantity = (floor % 10) + 1;
+                //}
+
+                for (int i = 0; i < monsterQuantity; i++)
+                {
+                    var enemy = new Monster_Tower(floor, i);
+                    monsters.Add(enemy);
+                }
             }
 
             return monsters;

@@ -268,6 +268,11 @@ namespace Game
             return currentCell;
         }
 
+        public void RemoveDeadPlayers(APlayer player)
+        {
+            this.AllPlayers.Remove(player);
+        }
+
         public void RemoveAllDeadPlayers()
         {
             for (var i = this.AllPlayers.Count - 1; i >= 0; i--)

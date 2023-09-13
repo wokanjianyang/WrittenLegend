@@ -12,7 +12,8 @@ namespace Game
         protected int roundNum = 0;
 
 
-        protected const float roundTime = 0.5f;
+        protected const float roundTime = 1f;
+
         protected float currentRoundTime = 0f;
         protected bool needRefreshGraphic = false;
 
@@ -29,18 +30,21 @@ namespace Game
             }
         }
 
-        abstract public void DoHeroLogic();
-        abstract public void DoMonsterLogic();
+        //abstract public void DoHeroLogic();
+        //abstract public void DoMonsterLogic();
 
-        virtual public void DoValetLogic() {
-            var valets = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Valet);
+        //virtual public void DoValetLogic() {
+        //    var valets = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Valet);
 
-            foreach (var valet in valets)
-            {
-                valet.DoEvent();
-            }
+        //    foreach (var valet in valets)
+        //    {
+        //        //valet.DoEvent();
+        //    }
+        //}
+
+        virtual public void DoMapLogic() { 
+
         }
-
         public void DoMapCellLogic()
         {
             var cells = GameProcessor.Inst.MapData.MapCells.ToList();
@@ -54,42 +58,50 @@ namespace Game
             }
         }
 
+
         virtual public void OnUpdate()
         {
             this.currentRoundTime += Time.deltaTime * Time.timeScale;
-                
             if (this.currentRoundTime >= roundTime)
             {
                 this.currentRoundTime = 0;
-                this.needRefreshGraphic = true;
-                GameProcessor.Inst.PlayerManager.RemoveAllDeadPlayers();
-                var roundType = (RoundType)(this.roundNum % 2);
-                //GameProcessor.Inst.EventCenter.Raise(new HideAttackIcon (){RoundType = roundType});
-
-                switch (roundType)
-                {
-                    case RoundType.Hero:
-                        this.DoHeroLogic();
-                        this.DoValetLogic();
-                        break;
-                    case RoundType.Monster:
-                        this.DoMonsterLogic();
-                        this.DoMapCellLogic();
-                        break;
-                }
-
-                this.roundNum++;
+                this.DoMapLogic();
+                this.DoMapCellLogic();
             }
-            else if (this.needRefreshGraphic && this.currentRoundTime >= roundTime * 0.5f)
-            {
-                this.needRefreshGraphic = false;
-                var allPlayers = GameProcessor.Inst.PlayerManager.GetAllPlayers(true);
-                foreach (var player in allPlayers)
-                {
-                    player.Logic.RaiseEvents();
-                }
-                this.CheckGameResult();
-            }
+
+            //if (this.currentRoundTime >= roundTime)
+            //{
+            //    this.currentRoundTime = 0;
+
+            //    this.needRefreshGraphic = true;
+            //    GameProcessor.Inst.PlayerManager.RemoveAllDeadPlayers();
+            //    var roundType = (RoundType)(this.roundNum % 2);
+            //    //GameProcessor.Inst.EventCenter.Raise(new HideAttackIcon (){RoundType = roundType});
+
+            //    switch (roundType)
+            //    {
+            //        case RoundType.Hero:
+            //            this.DoHeroLogic();
+            //            this.DoValetLogic();
+            //            break;
+            //        case RoundType.Monster:
+            //            this.DoMonsterLogic();
+            //            this.DoMapCellLogic();
+            //            break;
+            //    }
+
+            //    this.roundNum++;
+            //}
+            //else if (this.needRefreshGraphic && this.currentRoundTime >= roundTime * 0.5f)
+            //{
+            //    this.needRefreshGraphic = false;
+            //    var allPlayers = GameProcessor.Inst.PlayerManager.GetAllPlayers(true);
+            //    foreach (var player in allPlayers)
+            //    {
+            //        player.Logic.RaiseEvents();
+            //    }
+            //    this.CheckGameResult();
+            //}
         }
 
         virtual public void CheckGameResult()
