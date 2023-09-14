@@ -38,6 +38,8 @@ namespace Game
 
             RandomTransport();
 
+            this.SelfPlayer.ClearEnemy();
+
             //对自己加属性Buff
             foreach (EffectData effect in SkillPanel.EffectIdList.Values)
             {

@@ -90,20 +90,23 @@ namespace Game
 		/// <summary>施法目标</summary>
 		[ProtoMember(5)]
 		public int TargetType { get; set; }
-		/// <summary>目标属性</summary>
+		/// <summary>运行类型</summary>
 		[ProtoMember(6)]
+		public int RunType { get; set; }
+		/// <summary>目标属性</summary>
+		[ProtoMember(7)]
 		public int TargetAttr { get; set; }
 		/// <summary>来源属性</summary>
-		[ProtoMember(7)]
+		[ProtoMember(8)]
 		public int SourceAttr { get; set; }
 		/// <summary>系数百分比增益</summary>
-		[ProtoMember(8)]
+		[ProtoMember(9)]
 		public int PercentGain { get; set; }
 		/// <summary>固定值增益</summary>
-		[ProtoMember(9)]
+		[ProtoMember(10)]
 		public long ConstGain { get; set; }
 		/// <summary>等级增益</summary>
-		[ProtoMember(10)]
+		[ProtoMember(11)]
 		public int LevelGain { get; set; }
 
 	}

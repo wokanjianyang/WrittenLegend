@@ -114,6 +114,17 @@ public class BattleRule_Tower : ABattleRule
         }
     }
 
+    public override void CheckGameResult()
+    {
+        var heroCamp = GameProcessor.Inst.PlayerManager.GetHero();
+        if (heroCamp.HP == 0)
+        {
+            GameProcessor.Inst.SetGameOver(PlayerType.Enemy);
+            GameProcessor.Inst.HeroDie(RuleType.Tower, MapTime);
+        }
+    }
+
+
     //public override void DoHeroLogic()
     //{
     //    //var hero = GameProcessor.Inst.PlayerManager.GetHero();

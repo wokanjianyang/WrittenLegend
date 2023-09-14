@@ -40,6 +40,63 @@ public class BattleRule_Phantom : ABattleRule
 
     public override void DoMapLogic()
     {
+        if (!PhanStart)
+        {
+            return;
+        }
+
+        if (Time <= 0)
+            return;
+        Time--;
+
+        var hero = GameProcessor.Inst.PlayerManager.GetHero();
+        if (hero.HP <= 0)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new BattlePhantomMsgEvent() { Message = RealBoss.Name + "：你没有通过挑战！" });
+            PhanStart = false;
+        }
+
+        if (RealBoss == null)
+        {
+            //Debug.Log("PhanId:" + PhanId + " Layer:" + Layer);
+            RealBoss = new Monster_Phantom(PhanId, Layer, true, 10);  //刷新本体,10代表满血
+            GameProcessor.Inst.PlayerManager.LoadMonster(RealBoss);
+
+            GameProcessor.Inst.EventCenter.Raise(new BattlePhantomMsgEvent() { Message = RealBoss.Name + "：勇士,你是要来挑战我吗?" });
+        }
+
+        if (RealBoss.HP <= 0 && Time > 0)
+        {
+            GameProcessor.Inst.User.PhantomRecord[PhanId] = Layer + 1;
+
+            GameProcessor.Inst.EventCenter.Raise(new BattlePhantomMsgEvent() { Message = RealBoss.Name + "：强大的勇士,您已经通过了考验！" });
+
+            GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
+
+            GameProcessor.Inst.HeroDie(RuleType.Phantom, MapTime);
+
+            PhanStart = false;
+            return;
+        }
+
+        if (Time <= 0)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new BattlePhantomMsgEvent() { Message = RealBoss.Name + "：你没有通过挑战..." });
+            PhanStart = false;
+            return;
+        }
+
+        GameProcessor.Inst.EventCenter.Raise(new ShowPhantomInfoEvent() { Time = Time });
+    }
+
+    public override void CheckGameResult()
+    {
+        var heroCamp = GameProcessor.Inst.PlayerManager.GetHero();
+        if (heroCamp.HP == 0)
+        {
+            GameProcessor.Inst.SetGameOver(PlayerType.Enemy);
+            GameProcessor.Inst.HeroDie(RuleType.Phantom, MapTime);
+        }
     }
 
     //public override void DoHeroLogic()
@@ -124,13 +181,5 @@ public class BattleRule_Phantom : ABattleRule
     //    }
     //}
 
-    public override void CheckGameResult()
-    {
-        var heroCamp = GameProcessor.Inst.PlayerManager.GetHero();
-        if (heroCamp.HP == 0)
-        {
-            GameProcessor.Inst.SetGameOver(PlayerType.Enemy);
-            GameProcessor.Inst.HeroDie(RuleType.Phantom, MapTime);
-        }
-    }
+
 }

@@ -67,6 +67,7 @@ namespace Game
                 this.currentRoundTime = 0;
                 this.DoMapLogic();
                 this.DoMapCellLogic();
+                this.CheckGameResult();
             }
 
             //if (this.currentRoundTime >= roundTime)

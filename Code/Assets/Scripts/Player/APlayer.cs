@@ -113,6 +113,11 @@ namespace Game
             return _enemy;
         }
 
+        public void ClearEnemy()
+        {
+            this._enemy = null;
+        }
+
         [JsonIgnore]
         public string UUID { get; set; }
 
@@ -421,8 +426,8 @@ namespace Game
 
             Effect effect = new Effect(this, effectData, total);
             list.Add(effect);
-            // Buff类立即使用
-            if (effect.Data.Config.TargetAttr > 0)
+            // 立即运行类型，立即使用
+            if (effect.Data.Config.RunType == 0)
             {
                 effect.Do();
             }
