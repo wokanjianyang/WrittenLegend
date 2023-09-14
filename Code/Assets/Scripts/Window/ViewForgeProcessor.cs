@@ -382,31 +382,26 @@ public class ViewForgeProcessor : AViewPage
 
         EquipRefineConfig currentConfig = EquipRefineConfigCategory.Instance.GetByLevel(refineData.Data);
 
-        EquipRefineConfig nextConfig = EquipRefineConfigCategory.Instance.GetByLevel(refineData.Data + 1);
+        long nextLevel = refineData.Data + 1;
+        EquipRefineConfig nextConfig = EquipRefineConfigCategory.Instance.GetByLevel(nextLevel);
 
-        if (nextConfig != null)
+        if (nextConfig == null || nextLevel >= ConfigHelper.Max_Level_Refine)
+        {
+            Refine_Txt_Fee.text = "已满级";
+            Btn_Refine.gameObject.SetActive(false);
+        }
+        else
         {
             var materialCount = user.GetMaterialCount(ItemHelper.SpecialId_EquipRefineStone);
 
             string color = materialCount >= nextConfig.Fee ? "#FFFF00" : "#FF0000";
 
             Refine_Txt_Fee.text = string.Format("<color={0}>{1}</color>", color, nextConfig.Fee);
+            Btn_Refine.gameObject.SetActive(true);
         }
-
 
         Refine_Attr_Base.gameObject.SetActive(false);
         Refine_Attr_Quality.gameObject.SetActive(false);
-
-        if (nextConfig == null)
-        {
-            Btn_Strengthen.gameObject.SetActive(false);
-            Btn_Strengthen_Batch.gameObject.SetActive(false);
-        }
-        else
-        {
-            Btn_Strengthen.gameObject.SetActive(true);
-            Btn_Strengthen_Batch.gameObject.SetActive(false);
-        }
 
         if (nextConfig != null && nextConfig.BaseAttrPercent > 0)
         {

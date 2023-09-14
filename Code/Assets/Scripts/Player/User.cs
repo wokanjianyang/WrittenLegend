@@ -221,7 +221,7 @@ namespace Game
                 EquipRefineConfig refineConfig = null;
                 if (MagicEquipRefine.TryGetValue(kvp.Key, out MagicData refineData))
                 {
-                    refineConfig = EquipRefineConfigCategory.Instance.GetByLevel(refineData.Data);
+                    refineConfig = EquipRefineConfigCategory.Instance.GetByLevel(Math.Min(refineData.Data, ConfigHelper.Max_Level_Refine));
                 }
 
                 foreach (var a in kvp.Value.GetTotalAttrList(refineConfig))
@@ -571,7 +571,15 @@ namespace Game
 
         public void AddExpAndGold(long exp, long gold)
         {
-            this.MagicExp.Data += exp;
+            if (this.MagicLevel.Data < ConfigHelper.Max_Level)
+            {
+                this.MagicExp.Data += exp;
+            }
+            else
+            {
+                this.MagicExp.Data = 0;
+            }
+
             this.MagicGold.Data += gold;
 
             EventCenter.Raise(new UserInfoUpdateEvent()); //更新UI
