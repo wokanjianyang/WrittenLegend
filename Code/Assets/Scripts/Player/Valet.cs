@@ -86,12 +86,12 @@ namespace Game
             }
         }
 
-        public override APlayer CalcEnemy()
-        {
-            //攻击主人的目标
-            var mm = this.Master.CalcEnemy();
+        //public override APlayer CalcEnemy()
+        //{
+        //    //攻击主人的目标
+        //    var mm = this.Master.CalcEnemy();
 
-            return mm != null ? mm : base.CalcEnemy();
-        }
+        //    return mm != null ? mm : base.CalcEnemy();
+        //}
     }
 }
