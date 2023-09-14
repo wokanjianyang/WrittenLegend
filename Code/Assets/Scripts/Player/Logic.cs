@@ -17,7 +17,7 @@ namespace Game
 
         public bool IsSurvice { get; private set; } = true;
 
-        private List<SDD.Events.Event> playerEvents = new List<SDD.Events.Event>();
+        //private List<SDD.Events.Event> playerEvents = new List<SDD.Events.Event>();
 
 
         private void Awake()
@@ -192,22 +192,22 @@ namespace Game
 
             this.SelfPlayer.SetHP(currentHP);
 
-            this.playerEvents.Add(new SetPlayerHPEvent { });
-            this.playerEvents.Add(new ShowMsgEvent
+            this.SelfPlayer.EventCenter.Raise(new ShowMsgEvent
             {
                 Type = MsgType.Restore,
                 Content = StringHelper.FormatNumber(hp)
             });
+            this.SelfPlayer.EventCenter.Raise(new SetPlayerHPEvent { });
         }
 
-        public void RaiseEvents()
-        {
-            foreach(var e in this.playerEvents)
-            {
-                this.SelfPlayer.EventCenter.Raise(e);
-            }
-            this.playerEvents.Clear();
-        }
+        //public void RaiseEvents()
+        //{
+        //    foreach(var e in this.playerEvents)
+        //    {
+        //        this.SelfPlayer.EventCenter.Raise(e);
+        //    }
+        //    this.playerEvents.Clear();
+        //}
 
         //public int GetMaxHP()
         //{
