@@ -15,9 +15,6 @@ namespace Game
 
         public override void DoMapLogic()
         {
-            User user = GameProcessor.Inst.User;
-
-            Hero hero = GameProcessor.Inst.PlayerManager.GetHero();
             var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
 
             if (start)
@@ -26,23 +23,34 @@ namespace Game
                 {
                     start = false;
                     MakeReward();
+
+                    Hero hero = GameProcessor.Inst.PlayerManager.GetHero();
                     hero.Resurrection();
+
                     GameProcessor.Inst.EventCenter.Raise(new ChangeFloorEvent() { });
+
+                    NewFloor();
                 }
             }
             else
             {
-                var monsters = MonsterTowerHelper.BuildMonster(user.MagicTowerFloor.Data);
-                if (monsters != null && monsters.Count > 0)
-                {
-                    monsters.ForEach(enemy =>
-                    {
-                        GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
-                    });
-                    start = true;
-                }
+                NewFloor();
             }
         }
+
+        private void NewFloor() {
+            User user = GameProcessor.Inst.User;
+            var monsters = MonsterTowerHelper.BuildMonster(user.MagicTowerFloor.Data);
+            if (monsters != null && monsters.Count > 0)
+            {
+                monsters.ForEach(enemy =>
+                {
+                    GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
+                });
+                start = true;
+            }
+        }
+
         protected void MakeReward()
         {
             //Log.Info("Tower Success");
