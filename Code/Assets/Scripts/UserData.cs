@@ -19,7 +19,7 @@ namespace Game
             User user = null;
             string folderPath = System.IO.Path.Combine(Application.persistentDataPath, savePath); //文件夹路径                                        
             string filePath = System.IO.Path.Combine(folderPath, fileName);             //文件路径
-            Debug.Log($"存档路径：{filePath}");
+            //Debug.Log($"存档路径：{filePath}");
 
             if (System.IO.File.Exists(filePath))
             {
@@ -35,7 +35,7 @@ namespace Game
                 {
                     TypeNameHandling = TypeNameHandling.Auto
                 });
-                Debug.Log("成功读取");
+                //Debug.Log("成功读取");
 
                 if (user != null && user.VersionLog.Count <= 0)
                 {

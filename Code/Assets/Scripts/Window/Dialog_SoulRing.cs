@@ -348,13 +348,10 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
         GameProcessor.Inst.UpdateInfo();
 
         ShowSoulRing(this.Sid);
-
-        //Debug.Log("Strong SoulRing Success");
     }
 
     public void OnClick_Close()
     {
-        //Debug.Log("OnClick_Close");
         this.gameObject.SetActive(false);
     }
 }

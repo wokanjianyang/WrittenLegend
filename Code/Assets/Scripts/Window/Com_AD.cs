@@ -223,7 +223,6 @@ public class Com_AD : MonoBehaviour, IBattleLife
              else
              {
                  //取消的,不处理
-                 Debug.Log("广告取消");
              }
          });
     }
@@ -394,7 +393,6 @@ public class Com_AD : MonoBehaviour, IBattleLife
 
         GameProcessor.Inst.OnShowVideoAd("广告-副本挑战8次", "ticket_count_8", (code) =>
         {
-            //Debug.Log("广告-副本挑战8次-完成");
             if (code == (int)AdStateEnum.Reward)
             {
                 //发放奖励

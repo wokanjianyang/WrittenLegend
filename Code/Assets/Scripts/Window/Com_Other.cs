@@ -38,8 +38,6 @@ namespace Game
 
         public void Init()
         {
-            Debug.Log("Other Init");
-
             tog_Monster_Skill.isOn = GameProcessor.Inst.User.ShowMonsterSkill;
         }
 

@@ -102,15 +102,12 @@ public class MapBossFamily : MonoBehaviour, IBattleLife
     {
         GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("是否确认退出？", true, () =>
          {
-             Debug.Log("Exit Boss Family");
              this.Exit();
          }, null);
     }
 
     private void Exit()
     {
-        Debug.Log("Exit Boss Family");
-
         GameProcessor.Inst.OnDestroy();
         this.gameObject.SetActive(false);
         GameProcessor.Inst.EventCenter.Raise(new BossFamilyEndEvent());

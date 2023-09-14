@@ -76,7 +76,6 @@ namespace Game
 
                 if (user.GiftList.ContainsKey(code))
                 {
-                    Debug.Log("您已经使用了兑换码");
                     GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "您已经使用了兑换码", ToastType = ToastTypeEnum.Failure });
                     return;
                 }
@@ -87,7 +86,6 @@ namespace Game
 
                 if (configs.Count != 1)
                 {
-                    Debug.Log("没有这个兑换码");
                     GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有这个兑换码", ToastType = ToastTypeEnum.Failure });
                     return;
                 }
@@ -131,10 +129,8 @@ namespace Game
                 {
                     output += Convert.ToString((int)encodedBytes[byteIndex], 2)+"  ";//二进制
                 }
-                Debug.Log(output);
 
                 int byteCount = System.Text.ASCIIEncoding.UTF8.GetByteCount(tempStr);
-                Debug.Log("字节数=" + byteCount);
 
                 if (byteCount>1)
                 {

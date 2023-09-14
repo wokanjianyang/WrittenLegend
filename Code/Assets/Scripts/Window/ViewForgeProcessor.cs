@@ -198,7 +198,6 @@ public class ViewForgeProcessor : AViewPage
         ShowStrengthInfo();
 
         TaskHelper.CheckTask(TaskType.Strength, 1);
-        //Debug.Log("Strengthen Success");
 
         GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "强化成功", ToastType = ToastTypeEnum.Success });
     }
@@ -476,8 +475,6 @@ public class ViewForgeProcessor : AViewPage
         GameProcessor.Inst.UpdateInfo();
 
         ShowRefine();
-
-        Debug.Log("Refine Success");
     }
 
     protected override bool CheckPageType(ViewPageType page)

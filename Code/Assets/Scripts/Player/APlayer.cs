@@ -275,7 +275,7 @@ namespace Game
             SkillState skill = this.GetSkill(200);
             if (skill != null)
             {
-                Debug.Log("Hero Use Prioriry Skill:");
+                //Debug.Log("Hero Use Prioriry Skill:");
                 skill.Do();
                 return;
             }
@@ -285,7 +285,7 @@ namespace Game
                 bool pause = GetIsPause();
                 if (pause)
                 {
-                    Debug.Log("Hero Pause:");
+                    //Debug.Log("Hero Pause:");
                     return; //如果有控制技能，不继续后续行动
                 }
             }

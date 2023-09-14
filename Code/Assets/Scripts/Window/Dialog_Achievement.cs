@@ -132,7 +132,6 @@ namespace Game
 
         public void OnClick_Close()
         {
-            Debug.Log("OnClick_Close");
             this.gameObject.SetActive(false);
         }
     }
