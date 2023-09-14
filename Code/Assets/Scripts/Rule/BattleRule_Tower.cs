@@ -16,7 +16,7 @@ public class BattleRule_Tower : ABattleRule
     private List<int> QualityList;
 
     private const int MaxQuanlity = 20; //最多数量
-    private const int MaxFreshQuanlity = 5; //最多刷新数量
+    private const int MaxFreshQuanlity = 1; //最多刷新数量
     protected override RuleType ruleType => RuleType.Tower;
 
     public BattleRule_Tower(Dictionary<string, object> param)

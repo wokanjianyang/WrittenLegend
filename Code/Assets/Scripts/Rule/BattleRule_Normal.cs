@@ -28,8 +28,6 @@ namespace Game
                     hero.Resurrection();
 
                     GameProcessor.Inst.EventCenter.Raise(new ChangeFloorEvent() { });
-
-                    NewFloor();
                 }
             }
             else

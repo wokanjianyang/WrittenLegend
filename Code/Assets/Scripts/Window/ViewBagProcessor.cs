@@ -318,14 +318,20 @@ namespace Game
 
                 Com_Box boxUI = this.items.Find(m => m.boxId == boxItem.BoxId && m.BagType == boxItem.GetBagType());
                 boxItem.RemoveStack(boxUseCount);
-                boxUI.RemoveStack(boxUseCount);
+                if (boxUI != null) //可能是超出包裹的，没有显示
+                {
+                    boxUI.RemoveStack(boxUseCount);
+                }
 
                 if (boxItem.MagicNubmer.Data <= 0)
                 {
                     user.Bags.Remove(boxItem);
 
-                    this.items.Remove(boxUI);
-                    GameObject.Destroy(boxUI.gameObject);
+                    if (boxUI != null) //可能是超出包裹的，没有显示
+                    {
+                        this.items.Remove(boxUI);
+                        GameObject.Destroy(boxUI.gameObject);
+                    }
 
                 }
 

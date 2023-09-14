@@ -12,7 +12,7 @@ namespace Game
         protected int roundNum = 0;
 
 
-        protected const float roundTime = 1f;
+        protected const float roundTime = 0.2f;
 
         protected float currentRoundTime = 0f;
         protected bool needRefreshGraphic = false;
@@ -65,9 +65,25 @@ namespace Game
             if (this.currentRoundTime >= roundTime)
             {
                 this.currentRoundTime = 0;
-                this.DoMapLogic();
-                this.DoMapCellLogic();
-                this.CheckGameResult();
+
+
+
+
+                var roundType = this.roundNum % 5;
+                switch (roundType)
+                {
+                    case 0:
+                        this.DoMapLogic();
+                        break;
+                    case 1:
+                        this.DoMapCellLogic();
+                        break;
+                    case 2:
+                        this.CheckGameResult();
+                        break;
+                }
+
+                this.roundNum++;
             }
 
             //if (this.currentRoundTime >= roundTime)

@@ -44,6 +44,8 @@ namespace Game
         {
             // GameProcessor.Inst.RefreshSkill = true;
             SkillToBattle(e.SkillPanel);
+
+            GameProcessor.Inst.User.EventCenter.Raise(new HeroUpdateAllSkillEvent());
             //UserData.Save(); //修改技能后，存档
             // var hero = GameProcessor.Inst.PlayerManager.GetHero();
             //

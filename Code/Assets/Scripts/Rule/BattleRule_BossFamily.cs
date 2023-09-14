@@ -14,7 +14,7 @@ public class Battle_BossFamily : ABattleRule
     private List<int> QualityList;
 
     private const int MaxQuanlity = 10; //最多数量
-    private const int MaxFreshQuanlity = 5; //最多刷新数量
+    private const int MaxFreshQuanlity = 1; //最多刷新数量
     protected override RuleType ruleType => RuleType.BossFamily;
 
     public Battle_BossFamily(Dictionary<string, object> param)
