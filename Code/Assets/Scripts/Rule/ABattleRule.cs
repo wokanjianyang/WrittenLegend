@@ -15,7 +15,7 @@ namespace Game
         protected const float roundTime = 0.2f;
 
         protected float currentRoundTime = 0f;
-        protected bool needRefreshGraphic = false;
+        //protected bool needRefreshGraphic = false;
 
         virtual protected RuleType ruleType => RuleType.Normal;
         virtual public void OnBattleStart()
@@ -65,60 +65,27 @@ namespace Game
             if (this.currentRoundTime >= roundTime)
             {
                 this.currentRoundTime = 0;
-
-
+                this.DoMapLogic();
 
 
                 var roundType = this.roundNum % 5;
                 switch (roundType)
                 {
                     case 0:
-                        this.DoMapLogic();
-                        break;
-                    case 1:
                         this.DoMapCellLogic();
                         break;
-                    case 2:
+                    case 1:
                         this.CheckGameResult();
                         break;
                 }
 
+                if (this.roundNum % 25 == 0)
+                {
+                    GameProcessor.Inst.PlayerManager.RemoveAllDeadPlayers();
+                }
+
                 this.roundNum++;
             }
-
-            //if (this.currentRoundTime >= roundTime)
-            //{
-            //    this.currentRoundTime = 0;
-
-            //    this.needRefreshGraphic = true;
-            //    GameProcessor.Inst.PlayerManager.RemoveAllDeadPlayers();
-            //    var roundType = (RoundType)(this.roundNum % 2);
-            //    //GameProcessor.Inst.EventCenter.Raise(new HideAttackIcon (){RoundType = roundType});
-
-            //    switch (roundType)
-            //    {
-            //        case RoundType.Hero:
-            //            this.DoHeroLogic();
-            //            this.DoValetLogic();
-            //            break;
-            //        case RoundType.Monster:
-            //            this.DoMonsterLogic();
-            //            this.DoMapCellLogic();
-            //            break;
-            //    }
-
-            //    this.roundNum++;
-            //}
-            //else if (this.needRefreshGraphic && this.currentRoundTime >= roundTime * 0.5f)
-            //{
-            //    this.needRefreshGraphic = false;
-            //    var allPlayers = GameProcessor.Inst.PlayerManager.GetAllPlayers(true);
-            //    foreach (var player in allPlayers)
-            //    {
-            //        player.Logic.RaiseEvents();
-            //    }
-            //    this.CheckGameResult();
-            //}
         }
 
         virtual public void CheckGameResult()

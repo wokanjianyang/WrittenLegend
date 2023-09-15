@@ -154,10 +154,7 @@ namespace Game
         private IEnumerator ClearPlayer()
         {
             yield return new WaitForSeconds(ConfigHelper.DelayShowTime);
-
             GameProcessor.Inst.PlayerManager.RemoveDeadPlayers(this.SelfPlayer);
-            this.SelfPlayer.OnDestroy();
-
             yield return null;
         }
 

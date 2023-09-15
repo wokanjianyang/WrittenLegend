@@ -54,7 +54,7 @@ namespace Game
                 }
 
                 var enemy = GameProcessor.Inst.PlayerManager.GetPlayer(cell);
-                if (enemy != null && enemy.GroupId != SelfPlayer.GroupId) //不会攻击同组成员
+                if (enemy != null && enemy.IsSurvice && enemy.GroupId != SelfPlayer.GroupId) //不会攻击同组成员
                 {
                     attackDatas.Add(new AttackData()
                     {

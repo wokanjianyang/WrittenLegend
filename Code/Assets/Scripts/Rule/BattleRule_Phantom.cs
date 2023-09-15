@@ -12,9 +12,9 @@ public class BattleRule_Phantom : ABattleRule
     private int PhanId = 0;
     private int Layer = 0;
 
-    private const int MaxTime = 180;
+    private const int MaxTime = 180*5;
 
-    private int Time = 180;
+    private int Time = 180*5;
 
     private long MapTime = 0;
 
@@ -82,11 +82,15 @@ public class BattleRule_Phantom : ABattleRule
         if (Time <= 0)
         {
             GameProcessor.Inst.EventCenter.Raise(new BattlePhantomMsgEvent() { Message = RealBoss.Name + "：你没有通过挑战..." });
+            GameProcessor.Inst.HeroDie(RuleType.Phantom, MapTime);
             PhanStart = false;
             return;
         }
 
-        GameProcessor.Inst.EventCenter.Raise(new ShowPhantomInfoEvent() { Time = Time });
+        if (Time % 5 == 0)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowPhantomInfoEvent() { Time = Time / 5 });
+        }
     }
 
     public override void CheckGameResult()

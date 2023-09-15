@@ -16,6 +16,7 @@ public class Monster_Phantom : APlayer
 
     public Monster_Phantom(int id, int layer, bool real, int percent)
     {
+        this.GroupId = 2;
         this.Real = real;
         this.Layer = layer;
         this.Percent = percent;

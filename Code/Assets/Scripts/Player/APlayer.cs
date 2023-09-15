@@ -349,50 +349,54 @@ namespace Game
             }
 
             //4.如果周围有目标，但没有可攻击的技能，也什么都不做
-            if (IsEnemyClosest(_enemy))
-            {
-                return;
-            }
+            //if (IsEnemyClosest(_enemy))
+            //{
+            //    return;
+            //}
+
             //5.朝目标移动
             var endPos = GameProcessor.Inst.MapData.GetPath(this.Cell, _enemy.Cell);
             if (GameProcessor.Inst.PlayerManager.IsCellCanMove(endPos))
             {
                 this.Move(endPos);
             }
+            else {
+                this.FindNearestEnemy(); //如果走不过去，则重新选择目标
+            }
         }
 
-        protected bool IsEnemyClosest(APlayer enemy)
-        {
-            if (enemy == null)
-            {
-                return false;
-            }
-            var up = this.Cell + Vector3Int.up;
-            if (up == enemy.Cell)
-            {
-                return true;
-            }
-            var left = this.Cell + Vector3Int.left;
-            if (left == enemy.Cell)
-            {
-                return true;
+        //protected bool IsEnemyClosest(APlayer enemy)
+        //{
+        //    if (enemy == null)
+        //    {
+        //        return false;
+        //    }
+        //    var up = this.Cell + Vector3Int.up;
+        //    if (up == enemy.Cell)
+        //    {
+        //        return true;
+        //    }
+        //    var left = this.Cell + Vector3Int.left;
+        //    if (left == enemy.Cell)
+        //    {
+        //        return true;
 
-            }
-            var right = this.Cell + Vector3Int.right;
-            if (right == enemy.Cell)
-            {
-                return true;
+        //    }
+        //    var right = this.Cell + Vector3Int.right;
+        //    if (right == enemy.Cell)
+        //    {
+        //        return true;
 
-            }
-            var down = this.Cell + Vector3Int.down;
-            if (down == enemy.Cell)
-            {
-                return true;
+        //    }
+        //    var down = this.Cell + Vector3Int.down;
+        //    if (down == enemy.Cell)
+        //    {
+        //        return true;
 
-            }
+        //    }
 
-            return false;
-        }
+        //    return false;
+        //}
         public void RunEffect(APlayer attchPlayer, EffectData effectData, long total)
         {
             Effect effect = new Effect(this, effectData, total);
@@ -460,7 +464,7 @@ namespace Game
             APlayer ret = null;
 
             //查找和自己不同类的,并且不是自己的主人/仆人
-            var enemys = GameProcessor.Inst.PlayerManager.GetAllPlayers().FindAll(p => p.Camp != this.Camp && p.IsSurvice && p.GroupId != this.GroupId && !p.IsHide);
+            var enemys = GameProcessor.Inst.PlayerManager.GetAllPlayers().FindAll(p => p.IsSurvice && p.GroupId != this.GroupId && !p.IsHide);
 
             if (enemys.Count > 0)
             {

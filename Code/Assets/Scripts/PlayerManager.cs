@@ -270,6 +270,7 @@ namespace Game
 
         public void RemoveDeadPlayers(APlayer player)
         {
+            player.OnDestroy();
             this.AllPlayers.Remove(player);
         }
 
