@@ -153,7 +153,7 @@ namespace Game
         {
             Valet valet = null;
 
-            var centerCell = hero.Cell;
+            var centerCell = player.Cell;
 
             var tempCells = GameProcessor.Inst.MapData.AllCells.ToList();
             var allPlayerCells = GameProcessor.Inst.PlayerManager.GetAllPlayers().Select(p => p.Cell).ToList();

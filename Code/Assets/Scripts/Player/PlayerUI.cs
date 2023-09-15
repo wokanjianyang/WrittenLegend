@@ -225,9 +225,10 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (this.SelfPlayer.Camp == PlayerType.Enemy)
+        Hero hero = GameProcessor.Inst.PlayerManager.GetHero();
+
+        if (this.SelfPlayer.GroupId != hero.GroupId)
         {
-            Hero hero = GameProcessor.Inst.PlayerManager.GetHero();
             if (hero.Enemy != null)
             {
                 hero.Enemy.EventCenter.Raise(new ShowAttackIcon { NeedShow = false });
