@@ -131,7 +131,7 @@ public class ViewForgeProcessor : AViewPage
 
         long levelAttr = LevelConfigCategory.GetLevelAttr(nextLevel);
 
-        if (feeConfig == null || nextLevel >= ConfigHelper.Max_Level)
+        if (feeConfig == null || nextLevel > ConfigHelper.Max_Level)
         {
             Txt_Fee.text = "已满级";
             Btn_Strengthen.gameObject.SetActive(false);
@@ -384,7 +384,7 @@ public class ViewForgeProcessor : AViewPage
         long nextLevel = refineData.Data + 1;
         EquipRefineConfig nextConfig = EquipRefineConfigCategory.Instance.GetByLevel(nextLevel);
 
-        if (nextConfig == null || nextLevel >= ConfigHelper.Max_Level_Refine)
+        if (nextConfig == null || nextLevel > ConfigHelper.Max_Level_Refine)
         {
             Refine_Txt_Fee.text = "已满级";
             Btn_Refine.gameObject.SetActive(false);
