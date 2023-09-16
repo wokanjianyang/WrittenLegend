@@ -139,7 +139,7 @@ namespace Game
             var allPlayersCells = GameProcessor.Inst.PlayerManager.GetAllPlayers(true).Select(p => p.Cell).ToList();
             var costDict = new Dictionary<Position, float>();
 
-            float highCost = 9999;
+            float highCost = 9999999;
             float lowCost = 1;
 
             //临时将敌人的cell的cost设置为可通过但是代价高
@@ -148,7 +148,11 @@ namespace Game
             {
                 var pos = new Position(cell.x, cell.y);
                 costDict[pos] = AStarBattleGrid.GetCellCost(pos);
-                AStarBattleGrid.SetCellCost(pos, tempCost);
+                if (cell != startPos && cell != endPos)
+                {
+                    AStarBattleGrid.SetCellCost(pos, tempCost);
+                    //AStarBattleGrid.BlockCell(pos);
+                }
             }
 
             //寻路
@@ -270,7 +274,11 @@ namespace Game
                 var pos = new Position(cell.x, cell.y);
                 if (costDict.ContainsKey(pos))
                 {
-                    AStarBattleGrid.SetCellCost(pos, costDict[pos]);
+                    if (cell != startPos && cell != endPos)
+                    {
+                        AStarBattleGrid.SetCellCost(pos, costDict[pos]);
+                        //AStarBattleGrid.UnblockCell(pos);
+                    }
                 }
             }
 #if UNITY_EDITOR

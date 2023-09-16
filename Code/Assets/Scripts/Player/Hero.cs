@@ -160,6 +160,79 @@ namespace Game
             }
         }
 
+        public override void AttackLogic()
+        {
+            //1. 控制前计算高优级技能
+            SkillState skill = this.GetSkill(200);
+            if (skill != null)
+            {
+                //Debug.Log("Hero Use Prioriry Skill:");
+                skill.Do();
+                return;
+            }
+
+            //2.是否有控制技能，不继续后续行动
+            bool pause = GetIsPause();
+            if (pause)
+            {
+                //Debug.Log("Hero Pause:");
+                return;
+            }
+
+            //3.寻找目标
+            _enemy = this.CalcEnemy();
+
+            //4 尝试攻击优先目标
+            skill = this.GetSkill(0);
+            if (skill != null)
+            {  //使用技能
+                //Debug.Log($"{(this.Name)}使用技能:{(skill.SkillPanel.SkillData.SkillConfig.Name)},攻击:" + targets.Count + "个");
+                skill.Do();
+                //this.EventCenter.Raise(new ShowAttackIcon ());
+                return;
+            }
+
+            //5.朝目标移动
+            if (_enemy != null)
+            {
+                var endPos = GameProcessor.Inst.MapData.GetPath(this.Cell, _enemy.Cell);
+                if (GameProcessor.Inst.PlayerManager.IsCellCanMove(endPos))
+                {
+                    this.Move(endPos);
+                    return;
+                }
+            }
+
+            //6 尝试更改攻击目标
+            if (_enemy != null)
+            {
+                _enemy.EventCenter.Raise(new ShowAttackIcon { NeedShow = false });
+            }
+            _enemy = this.FindNearestEnemy();
+            if (_enemy != null)
+            {
+                //如果有新目标
+                skill = this.GetSkill(0);
+
+                //6.1 先攻击新目标
+                if (skill != null)
+                {
+                    skill.Do();
+                    return;
+                }
+                else
+                {
+                    //攻击不到，则移动过去
+                    var endPos = GameProcessor.Inst.MapData.GetPath(this.Cell, _enemy.Cell);
+                    if (GameProcessor.Inst.PlayerManager.IsCellCanMove(endPos))
+                    {
+                        this.Move(endPos);
+                        return;
+                    }
+                }
+            }
+        }
+
         public override APlayer CalcEnemy()
         {
             var ret = base.CalcEnemy();
