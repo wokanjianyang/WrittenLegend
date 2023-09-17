@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1171297905
+CRC: 4119294743
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 0c747d2c5580afb1929a5b82ccdcf200
+    Hash: ee66156d295442c044c80e163324e9c7
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -27,6 +27,7 @@ Assets:
 - Assets/Resources/Config/ExclusiveConfigCategory.bytes
 - Assets/Resources/Config/DropConfigCategory.bytes
 - Assets/Resources/Config/EquipRefineConfigCategory.bytes
+- Assets/Resources/Config/SkillDoubleHitConfigCategory.bytes
 - Assets/Resources/Config/EquipCustomConfigCategory.bytes
 - Assets/Resources/Config/AurasAttrConfigCategory.bytes
 - Assets/Resources/Config/EquipGroupConfigCategory.bytes

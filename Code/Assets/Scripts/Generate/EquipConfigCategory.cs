@@ -42,7 +42,7 @@ namespace Game
 
             Equip equip = new Equip(configId, runeId, suitId, quality);
 
-            equip.Quantity = 1;
+            equip.Count = 1;
             return equip;
         }
     }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5528839361914937337}
   - component: {fileID: 5528839361914937339}
   - component: {fileID: 5528839361914937336}
-  - component: {fileID: 3854619303720609246}
+  - component: {fileID: 5501911942703788953}
   m_Layer: 5
   m_Name: ExclusiveBox
   m_TagString: Untagged
@@ -79,7 +79,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3854619303720609246
+--- !u!114 &5501911942703788953
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,12 +88,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5528839361914937342}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a3d3fe7f4406c14dbc6025a1c3e5163, type: 3}
+  m_Script: {fileID: 11500000, guid: 7542f587fa8626f46967de24c7f1cdca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SlotType: 0
-  Txt_Name: {fileID: 7674113156131010085}
-  Txt_Level: {fileID: 5145446972010010552}
 --- !u!1 &5762241685902485255
 GameObject:
   m_ObjectHideFlags: 0

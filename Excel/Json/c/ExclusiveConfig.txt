@@ -1,8 +1,8 @@
 {"list":[
-{"_t":"ExclusiveConfig","_id":1,"Name":"银蛇","Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[4,2,6],"MeterialId":0},
-{"_t":"ExclusiveConfig","_id":2,"Name":"血饮","Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[4,2,6],"MeterialId":0},
-{"_t":"ExclusiveConfig","_id":3,"Name":"裁决","Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[4,2,6],"MeterialId":0},
-{"_t":"ExclusiveConfig","_id":4,"Name":"命运","Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[4,2,6],"MeterialId":0},
-{"_t":"ExclusiveConfig","_id":5,"Name":"倚天","Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[4,2,6],"MeterialId":0},
-{"_t":"ExclusiveConfig","_id":6,"Name":"屠龙","Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[4,2,6],"MeterialId":0},
+{"_t":"ExclusiveConfig","_id":1,"Name":"神圣怒斩","Part":15,"Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[6,4,8]},
+{"_t":"ExclusiveConfig","_id":2,"Name":"神圣噬魂","Part":16,"Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[6,4,8]},
+{"_t":"ExclusiveConfig","_id":3,"Name":"神圣血饮","Part":17,"Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[6,4,8]},
+{"_t":"ExclusiveConfig","_id":4,"Name":"神圣屠龙","Part":18,"Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[6,4,8]},
+{"_t":"ExclusiveConfig","_id":5,"Name":"神圣倚天","Part":19,"Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[6,4,8]},
+{"_t":"ExclusiveConfig","_id":6,"Name":"神圣命运","Part":20,"Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[6,4,8]},
 ]}

@@ -82,6 +82,7 @@ namespace Game
         SoulRing = 8, //魂环
         Auras = 9, //光环
         Achivement = 10, //成就
+        Exclusive = 11, //专属
         /// <summary>
         /// 测试属性
         /// </summary>
@@ -132,17 +133,17 @@ namespace Game
         魔石 = 14,
 
         [LabelText("专属1")]
-        专属1 = 15,
+        神圣怒斩 = 15,
         [LabelText("专属2")]
-        专属2 = 16,
+        神圣噬魂 = 16,
         [LabelText("专属3")]
-        专属3 = 17,
+        神圣血饮 = 17,
         [LabelText("专属4")]
-        专属4 = 18,
+        神圣屠龙 = 18,
         [LabelText("专属5")]
-        专属5 = 19,
+        神圣倚天 = 19,
         [LabelText("专属6")]
-        专属6 = 20,
+        神圣命运 = 20,
     }
     public enum ProgressType
     {

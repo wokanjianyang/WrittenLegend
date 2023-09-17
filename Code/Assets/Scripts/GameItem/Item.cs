@@ -7,7 +7,7 @@ namespace Game
 {
     public class Item
     {
-        public int Quantity { get; set; }
+        public int Count { get; set; }
         
         public bool IsLock { get; set; }
         protected Item() { 
@@ -23,7 +23,7 @@ namespace Game
             this.Level = ItemConfig.LevelRequired;
             this.Gold = ItemConfig.Price;
             this.MaxNum = ItemConfig.MaxNum;
-            this.Quantity = 1;
+            this.Count = 1;
         }
 
         public int ConfigId

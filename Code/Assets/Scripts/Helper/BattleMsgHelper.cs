@@ -31,9 +31,9 @@ namespace Game
                 foreach (var drop in Drops)
                 {
                     string qt = "";
-                    if (drop.Quantity > 1)
+                    if (drop.Count > 1)
                     {
-                        qt = "*" + drop.Quantity;
+                        qt = "*" + drop.Count;
                     }
 
                     drops += $"<color=#{QualityConfigHelper.GetColor(drop)}>[{drop.Name}]</color>" + qt;
@@ -67,7 +67,7 @@ namespace Game
             {
                 foreach (var item in items)
                 {
-                    message += $",{item.Name}*{item.Quantity}";
+                    message += $",{item.Name}*{item.Count}";
                 }
             }
 

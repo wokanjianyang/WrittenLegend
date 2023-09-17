@@ -61,6 +61,8 @@ namespace Game
         [LabelText("设置")]
         public Button btn_Setting;
 
+        public Dialog_Exclusive ExclusiveDialog;
+
         public Button Btn_Exclusive ;
 
         private List<Com_Box> items = new List<Com_Box>();
@@ -166,6 +168,12 @@ namespace Game
             {
                 this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
                 //yield return null;
+            }
+
+            //穿戴专属
+            foreach (var kvp in user.ExclusiveList)
+            {
+                this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
             }
 
             var emptyPrefab = Resources.Load<GameObject>("Prefab/Window/Box_Empty");
@@ -301,9 +309,8 @@ namespace Game
             List<BoxItem> list = user.Bags.Where(m => (int)m.Item.Type == config.FromItemType && m.Item.ConfigId == config.FromId).ToList();
 
             //TODO 合成数量问题
-            //int count = list.Select(m => m.Number).Sum();
-
-            int count = list.Count;
+            long count = list.Select(m => m.MagicNubmer.Data).Sum();
+            //int count = list.Count;
 
             if (count < config.Quantity)
             {
@@ -315,8 +322,8 @@ namespace Game
             foreach (BoxItem boxItem in list)
             {
                 //TODO 合成数量问题
-                long boxNumber = boxItem.MagicNubmer.Data > 0 ? boxItem.MagicNubmer.Data : 1;
-
+                //long boxNumber = boxItem.MagicNubmer.Data > 0 ? boxItem.MagicNubmer.Data : 1;
+                long boxNumber = boxItem.MagicNubmer.Data;
                 long boxUseCount = Math.Min(boxNumber, useCount);
 
                 Com_Box boxUI = this.items.Find(m => m.boxId == boxItem.BoxId && m.BagType == boxItem.GetBagType());
@@ -455,16 +462,31 @@ namespace Game
         {
             if (e.IsWear)
             {
-                this.WearEquipment(e.BoxItem);
+                if (e.BoxItem.Item.Type == ItemType.Exclusive)
+                {
+                    this.WearExclusive(e.BoxItem);
+                }
+                else
+                {
+                    this.WearEquipment(e.BoxItem);
+                }
             }
             else
             {
-                this.RmoveEquipment(e.Part, e.BoxItem);
+                if (e.BoxItem.Item.Type == ItemType.Exclusive)
+                {
+                    this.RmoveExclusive(e.BoxItem);
+                }
+                else
+                {
+                    this.RmoveEquipment(e.Part, e.BoxItem);
+                }
             }
             //UserData.Save();
 
             TaskHelper.CheckTask(TaskType.Equip, 1);
         }
+
         private void OnSkillBookLearn(SkillBookLearnEvent e)
         {
             User user = GameProcessor.Inst.User;
@@ -715,20 +737,20 @@ namespace Game
 
             if (boxItem != null)
             {
-                boxItem.AddStack(newItem.Quantity);
+                boxItem.AddStack(newItem.Count);
 
                 //堆叠UI
                 var boxUI = this.items.Find(m => m.boxId == boxItem.BoxId && m.BagType == boxItem.GetBagType());
                 if (boxUI != null)
                 {
-                    boxUI.AddStack(newItem.Quantity);
+                    boxUI.AddStack(newItem.Count);
                 }
             }
             else
             {
                 boxItem = new BoxItem();
                 boxItem.Item = newItem;
-                boxItem.MagicNubmer.Data = newItem.Quantity;
+                boxItem.MagicNubmer.Data = newItem.Count;
                 boxItem.BoxId = -1;
                 user.Bags.Add(boxItem);
 
@@ -805,27 +827,64 @@ namespace Game
             //穿戴到格子上
             this.CreateEquipPanelItem(user.EquipPanelIndex, Position, equip);
 
+            //记录
+            ep[Position] = equip;
+
             //通知英雄更新属性
-            user.EventCenter.Raise(new HeroUseEquipEvent
-            {
-                Position = Position,
-                Equip = equip
-            });
+            user.EventCenter.Raise(new HeroUseEquipEvent { });
         }
 
-        private void CreateEquipPanelItem(int pi, int position, Equip equip)
+        public void WearExclusive(BoxItem boxItem)
+        {
+            User user = GameProcessor.Inst.User;
+
+            var exclusive = boxItem.Item as ExclusiveItem;
+
+            var ep = user.ExclusiveList;
+            int Position = exclusive.Part;
+
+            //从包袱移除
+            UseBoxItem(boxItem, 1);
+
+            //如果存在旧装备，增加到包裹
+            if (ep.ContainsKey(Position))
+            {
+                //装备栏卸载
+                SlotBox slot = ExclusiveDialog.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == Position).First();
+
+                Com_Box comItem = slot.GetEquip();
+                slot.UnEquip();
+                GameObject.Destroy(comItem.gameObject);
+
+                AddBoxItem(ep[Position]);
+            }
+
+            //穿戴到格子上
+            this.CreateEquipPanelItem(-1, Position, exclusive);
+
+            user.ExclusiveList[Position] = exclusive;
+
+            //通知英雄更新属性
+            user.EventCenter.Raise(new HeroUseEquipEvent { });
+        }
+
+        private void CreateEquipPanelItem(int pi, int position, Item equip)
         {
 
             SlotBox slot = null;
 
-            if (position <= 10)
+            if (position > 14)
             {
-                var EquipInfo = EquipInfoList[pi];
-                slot = EquipInfo.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+                slot = ExclusiveDialog.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+            }
+            else if (position > 10)
+            {
+                slot = EquipInfoSpecial.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
             else
             {
-                slot = EquipInfoSpecial.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+                var EquipInfo = EquipInfoList[pi];
+                slot = EquipInfo.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
 
             //生成格子
@@ -869,14 +928,45 @@ namespace Game
             //装备移动到包裹里面
             AddBoxItem(equip);
 
-            //通知英雄更新属性
-            user.EventCenter.Raise(new HeroUnUseEquipEvent()
+            //
+            IDictionary<int, Equip> ep = null; ;
+            if (position > 10)
             {
-                Position = position,
-                Equip = equip
-            });
+                ep = user.EquipPanelSpecial;
+            }
+            else
+            {
+                ep = user.EquipPanelList[user.EquipPanelIndex]; ;
+            }
+            ep.Remove(position);
+
+            //通知英雄更新属性
+            user.EventCenter.Raise(new HeroUnUseEquipEvent() { });
 
             //UserData.Save();
+        }
+
+        private void RmoveExclusive(BoxItem boxItem)
+        {
+            User user = GameProcessor.Inst.User;
+
+            var exclusive = boxItem.Item as ExclusiveItem;
+            int position = exclusive.Part;
+
+            //装备栏卸载
+            SlotBox slot = ExclusiveDialog.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+
+            Com_Box comItem = slot.GetEquip();
+            slot.UnEquip();
+            GameObject.Destroy(comItem.gameObject);
+
+            //装备移动到包裹里面
+            AddBoxItem(exclusive);
+
+            user.ExclusiveList.Remove(position);
+
+            //通知英雄更新属性
+            user.EventCenter.Raise(new HeroUnUseEquipEvent() { });
         }
 
         private void OnHeroBagUpdateEvent(HeroBagUpdateEvent e)

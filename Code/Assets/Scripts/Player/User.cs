@@ -47,6 +47,8 @@ namespace Game
 
         public IDictionary<int, Equip> EquipPanelSpecial { get; set; } = new Dictionary<int, Equip>();
 
+        public IDictionary<int, ExclusiveItem> ExclusiveList { get; set; } = new Dictionary< int, ExclusiveItem>();
+
         public int EquipPanelIndex { get; set; } = 0;
 
         public IDictionary<int, long> EquipStrength { get; set; } = new Dictionary<int, long>();
@@ -259,6 +261,15 @@ namespace Game
                 }
             }
 
+            //专属属性
+            foreach (var sp in this.ExclusiveList)
+            {
+                foreach (var a in sp.Value.GetTotalAttrList())
+                {
+                    AttributeBonus.SetAttr((AttributeEnum)a.Key, AttributeFrom.Exclusive, sp.Key, a.Value);
+                }
+            }
+
             //无尽塔属性
             if (this.MagicTowerFloor.Data > 1)
             {
@@ -366,23 +377,6 @@ namespace Game
 
         private void HeroUseEquip(HeroUseEquipEvent e)
         {
-            User user = GameProcessor.Inst.User;
-
-            int PanelPosition = e.Position;
-            Equip equip = e.Equip;
-
-            IDictionary<int, Equip> ep = null; ;
-            if (equip.Part > 10)
-            {
-                ep = user.EquipPanelSpecial;
-            }
-            else
-            {
-                ep = user.EquipPanelList[user.EquipPanelIndex]; ;
-            }
-
-            ep[PanelPosition] = equip;
-
             //更新属性面板
             GameProcessor.Inst.UpdateInfo();
 
@@ -392,20 +386,6 @@ namespace Game
 
         private void HeroUnUseEquip(HeroUnUseEquipEvent e)
         {
-            User user = GameProcessor.Inst.User;
-
-            IDictionary<int, Equip> ep = null; ;
-            if (e.Position > 10)
-            {
-                ep = user.EquipPanelSpecial;
-            }
-            else
-            {
-                ep = user.EquipPanelList[user.EquipPanelIndex]; ;
-            }
-
-            ep.Remove(e.Position);
-
             //更新属性面板
             GameProcessor.Inst.UpdateInfo();
 

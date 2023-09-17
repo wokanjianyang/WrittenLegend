@@ -23,8 +23,8 @@ public class Com_CompositeItem : MonoBehaviour
         User user = GameProcessor.Inst.User;
 
         //TODO 合成数量问题
-        //int count = user.Bags.Where(m => (int)m.Item.Type == config.FromItemType && m.Item.ConfigId == config.FromId).Select(m => m.Number).Sum();
-        int count = user.Bags.Where(m => (int)m.Item.Type == config.FromItemType && m.Item.ConfigId == config.FromId).Count();
+        long count = user.Bags.Where(m => (int)m.Item.Type == config.FromItemType && m.Item.ConfigId == config.FromId).Select(m => m.MagicNubmer.Data).Sum();
+        //int count = user.Bags.Where(m => (int)m.Item.Type == config.FromItemType && m.Item.ConfigId == config.FromId).Count();
 
         this.ItemName.text = config.TargetName;
         this.CostItemName.text = config.FromName;
@@ -40,7 +40,7 @@ public class Com_CompositeItem : MonoBehaviour
     public void OnClick_Composite()
     {
         User user = GameProcessor.Inst.User;
-        int count = user.Bags.Where(m => (int)m.Item.Type == config.FromItemType && m.Item.ConfigId == config.FromId).Count();
+        long count = user.Bags.Where(m => (int)m.Item.Type == config.FromItemType && m.Item.ConfigId == config.FromId).Select(m => m.MagicNubmer.Data).Sum();
         //TODO 合成数量问题
 
         if (count < config.Quantity || user.MagicGold.Data < config.Commission)

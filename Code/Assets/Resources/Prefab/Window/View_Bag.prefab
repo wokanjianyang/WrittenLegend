@@ -8043,6 +8043,7 @@ MonoBehaviour:
   btn_SoulRing: {fileID: 621561734630310349}
   btn_PlayerTitle: {fileID: 195145537542312454}
   btn_Setting: {fileID: 2614374053111119750}
+  ExclusiveDialog: {fileID: 5899230564857440251}
   Btn_Exclusive: {fileID: 7497212629422779923}
 --- !u!1 &6872092984540657718
 GameObject:
@@ -11539,6 +11540,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2438474546376999886}
     m_Modifications:
+    - target: {fileID: 900659150330120424, guid: 12e26b25d4a39aa4d89b47cd179af00b, type: 3}
+      propertyPath: SlotType
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 3239340526377662305, guid: 12e26b25d4a39aa4d89b47cd179af00b, type: 3}
+      propertyPath: SlotType
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4888305474092002440, guid: 12e26b25d4a39aa4d89b47cd179af00b, type: 3}
+      propertyPath: SlotType
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 5289086196677155177, guid: 12e26b25d4a39aa4d89b47cd179af00b, type: 3}
+      propertyPath: SlotType
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 5610141186736488680, guid: 12e26b25d4a39aa4d89b47cd179af00b, type: 3}
+      propertyPath: SlotType
+      value: 17
+      objectReference: {fileID: 0}
     - target: {fileID: 5666275668401246167, guid: 12e26b25d4a39aa4d89b47cd179af00b, type: 3}
       propertyPath: m_Name
       value: Dialog_Exclusive
@@ -11546,6 +11567,10 @@ PrefabInstance:
     - target: {fileID: 5666275668401246167, guid: 12e26b25d4a39aa4d89b47cd179af00b, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7372212380869006659, guid: 12e26b25d4a39aa4d89b47cd179af00b, type: 3}
+      propertyPath: SlotType
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8900284681530860510, guid: 12e26b25d4a39aa4d89b47cd179af00b, type: 3}
       propertyPath: m_Pivot.x
@@ -11638,6 +11663,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8900284681530860510, guid: 12e26b25d4a39aa4d89b47cd179af00b, type: 3}
   m_PrefabInstance: {fileID: 4187861954421668512}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5899230564857440251 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7764206526853111131, guid: 12e26b25d4a39aa4d89b47cd179af00b, type: 3}
+  m_PrefabInstance: {fileID: 4187861954421668512}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b5633248c6dbac4c961a11ab1dbb6d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5753261512749071404
 PrefabInstance:
   m_ObjectHideFlags: 0

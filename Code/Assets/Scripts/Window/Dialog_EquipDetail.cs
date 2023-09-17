@@ -49,6 +49,9 @@ namespace Game
         [LabelText("普通道具属性")]
         public Transform tran_NormalAttribute;
 
+        [LabelText("追击属性")]
+        public Transform tran_DoubleHitAttribute;
+
         [Title("导航")]
         [LabelText("穿戴")]
         public Button btn_Equip;
@@ -125,6 +128,7 @@ namespace Game
             tran_SkillAttribute.gameObject.SetActive(false);
             tran_SuitAttribute.gameObject.SetActive(false);
             tran_GroupAttribute.gameObject.SetActive(false);
+            tran_DoubleHitAttribute.gameObject.SetActive(false);
             this.btn_Equip.gameObject.SetActive(false);
             this.btn_UnEquip.gameObject.SetActive(false);
             this.btn_Learn.gameObject.SetActive(false);
@@ -335,6 +339,73 @@ namespace Game
                         this.btn_Lock.gameObject.SetActive(!this.boxItem.Item.IsLock);
                         this.btn_Unlock.gameObject.SetActive(this.boxItem.Item.IsLock);
                     }
+                    break;
+
+                case ItemType.Exclusive:
+                    ExclusiveItem exclusive = this.boxItem.Item as ExclusiveItem;
+                    if (exclusive.BaseAttrList != null && exclusive.BaseAttrList.Count > 0)
+                    {
+                        tran_BaseAttribute.gameObject.SetActive(true);
+                        tran_BaseAttribute.Find("Title").GetComponent<Text>().text = "[基础属性]";
+                        tran_BaseAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.boxItem.Item.Level);
+
+                        var BaseAttrList = exclusive.BaseAttrList.ToList();
+
+                        for (int index = 0; index < 6; index++)
+                        {
+                            var child = tran_BaseAttribute.Find(string.Format("Attribute_{0}", index));
+
+                            if (index < BaseAttrList.Count)
+                            {
+                                child.GetComponent<Text>().text = StringHelper.FormatAttrText(BaseAttrList[index].Key, BaseAttrList[index].Value);
+                                child.gameObject.SetActive(true);
+                            }
+                            else
+                            {
+                                child.gameObject.SetActive(false);
+                            }
+                        }
+                    }
+                    if (exclusive.SkillRuneConfig != null)
+                    {
+                        int index = 0;
+                        tran_SkillAttribute.gameObject.SetActive(true);
+                        tran_SkillAttribute.Find("Title").GetComponent<Text>().text = exclusive.SkillRuneConfig.Name;
+
+                        var child = tran_SkillAttribute.Find(string.Format("Attribute_{0}", index));
+                        child.GetComponent<Text>().text = string.Format(" {0}", exclusive.SkillRuneConfig.Des);
+                        child.gameObject.SetActive(true);
+
+                        index = 1;
+                        child = tran_SkillAttribute.Find(string.Format("Attribute_{0}", index));
+                        child.GetComponent<Text>().text = string.Format(" 最大生效数量{0}", exclusive.SkillRuneConfig.Max);
+                        child.gameObject.SetActive(true);
+                    }
+                    if (exclusive.SkillSuitConfig != null)
+                    {
+                        int suitCount = user.GetSuitCount(exclusive.SkillSuitConfig.Id);
+
+                        int index = 0;
+                        tran_SuitAttribute.gameObject.SetActive(true);
+                        tran_SuitAttribute.Find("Title").GetComponent<Text>().text = exclusive.SkillSuitConfig.Name + string.Format("({0}/{1})", suitCount, user.SuitMax);
+
+                        var child = tran_SuitAttribute.Find(string.Format("Attribute_{0}", index));
+                        child.GetComponent<Text>().text = string.Format(" {0}", exclusive.SkillSuitConfig.Des);
+                        child.gameObject.SetActive(true);
+                    }
+                    if (exclusive.DoubleHitConfig != null)
+                    {
+                        tran_DoubleHitAttribute.gameObject.SetActive(true);
+                        var child = tran_DoubleHitAttribute.Find(string.Format("Attribute_{0}", 0));
+                        child.GetComponent<Text>().text = string.Format(" {0}", exclusive.DoubleHitConfig.Des);
+                        child.gameObject.SetActive(true);
+                    }
+
+                    this.btn_Recovery.gameObject.SetActive(this.boxItem.BoxId != -1);
+                    this.btn_Equip.gameObject.SetActive(this.boxItem.BoxId != -1);
+                    this.btn_UnEquip.gameObject.SetActive(this.boxItem.BoxId == -1);
+                    this.btn_Lock.gameObject.SetActive(!this.boxItem.Item.IsLock);
+                    this.btn_Unlock.gameObject.SetActive(this.boxItem.Item.IsLock);
                     break;
                 case ItemType.SkillBox://技能书
                     {

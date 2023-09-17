@@ -1,0 +1,5 @@
+{"list":[
+{"_t":"SkillDoubleHitConfig","_id":1,"SkillId":1003,"Rate":15,"Name":"连击·半月弯刀","Des":"释放攻击技能之后，15%概率追加一次半月弯刀"},
+{"_t":"SkillDoubleHitConfig","_id":2,"SkillId":2004,"Rate":15,"Name":"连击·爆裂火焰","Des":"释放攻击技能之后，15%概率追加一次爆裂火焰"},
+{"_t":"SkillDoubleHitConfig","_id":3,"SkillId":3003,"Rate":15,"Name":"连击·施毒术","Des":"释放攻击技能之后，15%概率追加一次施毒术"},
+]}

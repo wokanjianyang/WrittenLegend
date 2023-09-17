@@ -38,8 +38,12 @@ namespace Game
                 item = new Item(configId);
                 item.Type = type;
             }
+            else if (type == ItemType.Exclusive)
+            {
+                item = ExclusiveHelper.Build(configId);
+            }
 
-            item.Quantity = number;
+            item.Count = number;
 
             return item;
         }
@@ -62,7 +66,7 @@ namespace Game
         public static Item BuildMaterial(int configId, int quanlity)
         {
             Item item = new Item(configId);
-            item.Quantity = quanlity;
+            item.Count = quanlity;
             return item;
         }
 

@@ -46,6 +46,7 @@
 {"_t":"DropConfig","_id":200450,"Level":450,"Name":"450级装备","Quantity":1,"ItemType":2,"ItemIdList":[21004401,21004402,21004403,21004404,21004405,21004407,21004409,21004410,22004401,22004402,22004403,22004404,22004405,22004407,22004409,22004410,23004401,23004402,23004403,23004404,23004405,23004407,23004409,23004410],"ItemRaTEList":[]},
 {"_t":"DropConfig","_id":101,"Level":0,"Name":"4件套装备","Quantity":1,"ItemType":2,"ItemIdList":[101,201,301,401],"ItemRaTEList":[]},
 {"_t":"DropConfig","_id":102,"Level":0,"Name":"4件套装备2","Quantity":1,"ItemType":2,"ItemIdList":[102,202,302,402],"ItemRaTEList":[]},
+{"_t":"DropConfig","_id":501,"Level":0,"Name":"专属第一批","Quantity":1,"ItemType":5,"ItemIdList":[4101,4102,4103,4104,4105,4106],"ItemRaTEList":[]},
 {"_t":"DropConfig","_id":300010,"Level":10,"Name":"10级技能书","Quantity":1,"ItemType":3,"ItemIdList":[1001,2001,3001],"ItemRaTEList":[]},
 {"_t":"DropConfig","_id":300020,"Level":20,"Name":"20级技能书","Quantity":1,"ItemType":3,"ItemIdList":[1002,2002,3002],"ItemRaTEList":[]},
 {"_t":"DropConfig","_id":300030,"Level":30,"Name":"30级技能书","Quantity":1,"ItemType":3,"ItemIdList":[1003,2003,3003],"ItemRaTEList":[]},
