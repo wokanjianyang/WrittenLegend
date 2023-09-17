@@ -270,7 +270,7 @@ namespace Game
             {
                 BoxItem boxItem = new BoxItem();
                 boxItem.Item = item;
-                boxItem.MagicNubmer.Data = 1;
+                boxItem.MagicNubmer.Data = item.Quantity;
                 boxItem.BoxId = -1;
                 User.Bags.Add(boxItem);
             }

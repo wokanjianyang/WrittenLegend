@@ -48,7 +48,7 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
 
     private float speed = 1f;
 
-                    
+    public APlayer SelfPlayer { get; set; }
 
     // Start is called before the first frame update
     void Start()
@@ -63,7 +63,7 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
     {
         this.ShowNextToast();
 
-        this.doTime += Time.deltaTime;
+        this.doTime += Time.deltaTime * Time.timeScale;
         if (doTime >= speed)
         {
             this.doTime = 0;
@@ -151,44 +151,44 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
         this.ShowNextToast();
     }
 
-        private float currentMsgShowTime = 0f;
-        private List<ShowMsgEvent> msgTaskList = new List<ShowMsgEvent>();
-        private void ShowNextToast()
+    private float currentMsgShowTime = 0f;
+    private List<ShowMsgEvent> msgTaskList = new List<ShowMsgEvent>();
+    private void ShowNextToast()
+    {
+        if (msgTaskList.Count > 0)
         {
-            if (msgTaskList.Count > 0)
+            var e = msgTaskList[0];
+            msgTaskList.RemoveAt(0);
+
+            currentMsgShowTime = Time.realtimeSinceStartup;
+
+            var msg = GameObject.Instantiate(barragePrefab);
+            msg.transform.SetParent(this.tran_Barrage);
+
+            var msgSize = msg.GetComponent<RectTransform>().sizeDelta;
+            var msgMaxY = this.size.y + msgSize.y;
+            var msgMinY = 0 - msgSize.y;
+
+            var msgX = 0;
+
+            msg.transform.localPosition = new Vector3(msgX, msgMinY);
+            var com = msg.GetComponent<Dialog_Msg>();
+
+            var msgColor = QualityConfigHelper.GetMsgColor(e.Type);
+            com.tmp_Msg_Content.text = string.Format("<color=#{0}>{1}</color>", msgColor, e.Content);
+
+            //首先要创建一个DOTween队列
+            Sequence seq = DOTween.Sequence();
+
+            //seq.Append  里面是让主相机振动的临时试验代码
+            seq.Append(msg.transform.DOLocalMoveY(msgMaxY, 2.5f));
+
+            seq.AppendCallback(() =>
             {
-                var e = msgTaskList[0];
-                msgTaskList.RemoveAt(0);
-                    
-                currentMsgShowTime = Time.realtimeSinceStartup;
-                
-                var msg = GameObject.Instantiate(barragePrefab);
-                msg.transform.SetParent(this.tran_Barrage);
-
-                var msgSize = msg.GetComponent<RectTransform>().sizeDelta;
-                var msgMaxY = this.size.y + msgSize.y;
-                var msgMinY = 0 - msgSize.y;
-                    
-                var msgX = 0;
-
-                msg.transform.localPosition = new Vector3(msgX, msgMinY);
-                var com = msg.GetComponent<Dialog_Msg>();
-
-                var msgColor = QualityConfigHelper.GetMsgColor(e.Type);
-                com.tmp_Msg_Content.text = string.Format("<color=#{0}>{1}</color>", msgColor, e.Content);
-
-                //首先要创建一个DOTween队列
-                Sequence seq = DOTween.Sequence();
-
-                //seq.Append  里面是让主相机振动的临时试验代码
-                seq.Append(msg.transform.DOLocalMoveY(msgMaxY, 2.5f));
-
-                seq.AppendCallback(() =>
-                {
-                    GameObject.Destroy(msg);
-                });
-            }
+                GameObject.Destroy(msg);
+            });
         }
+    }
 
     private void OnShowAttackIcon(ShowAttackIcon e)
     {
@@ -196,20 +196,10 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
         {
             this.tran_Attack.localScale = e.NeedShow ? Vector3.one : Vector3.zero;
         }
-
-        //if(e.NeedShow)
-        //{
-        //    GameProcessor.Inst.DelayAction(1f, () => {
-        //        if (this.tran_Attack != null)
-        //        {
-        //            this.tran_Attack.localScale = Vector3.zero;
-        //        }
-        //    });
-        //}
     }
 
 
-    public APlayer SelfPlayer { get; set; }
+
 
 
     public void SetParent(APlayer player)

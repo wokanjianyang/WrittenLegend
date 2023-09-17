@@ -60,7 +60,9 @@ namespace Game
         public Button btn_PlayerTitle;
         [LabelText("设置")]
         public Button btn_Setting;
-        
+
+        public Button Btn_Exclusive ;
+
         private List<Com_Box> items = new List<Com_Box>();
 
 
@@ -71,6 +73,7 @@ namespace Game
             this.btn_PlayerTitle.onClick.AddListener(this.OnClick_PlayerTitle);
             this.btn_Setting.onClick.AddListener(this.OnClick_Setting);
             this.btn_Reset.onClick.AddListener(OnRefreshBag);
+            this.Btn_Exclusive.onClick.AddListener(OnExclusive);
 
             this.Btn_Equip1.onClick.AddListener(ChangeEquipPanel1);
             this.Btn_Equip2.onClick.AddListener(ChangeEquipPanel2);
@@ -923,5 +926,8 @@ namespace Game
             GameProcessor.Inst.EventCenter.Raise(new DialogSettingEvent(){IsOpen = true});
         }
 
+        public void OnExclusive() {
+            GameProcessor.Inst.EventCenter.Raise(new ShowExclusive());
+        }
     }
 }

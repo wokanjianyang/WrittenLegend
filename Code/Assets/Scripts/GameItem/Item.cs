@@ -83,5 +83,6 @@ namespace Game
         GoldPack = 7,
         ExpPack = 8,
         Ticket = 9,
+        Exclusive = 10,
     }
 }

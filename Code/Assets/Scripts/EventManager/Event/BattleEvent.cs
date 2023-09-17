@@ -120,7 +120,7 @@ namespace Game
     }
     public class BossFamilyStartEvent : SDD.Events.Event
     {
-  
+
     }
     public class BossFamilyEndEvent : SDD.Events.Event
     {
@@ -193,7 +193,7 @@ namespace Game
 
     public class TaskChangeEvent : SDD.Events.Event
     {
-      
+
     }
 
     public class BattleLoseEvent : SDD.Events.Event
@@ -203,7 +203,7 @@ namespace Game
 
     public class SecondaryConfirmationEvent : SDD.Events.Event
     {
-        
+
     }
 
     public class SecondaryConfirmTextEvent : SDD.Events.Event
@@ -224,5 +224,9 @@ namespace Game
     public class ShowAchievementEvent : SDD.Events.Event
     {
 
+    }
+
+    public class ShowExclusive : SDD.Events.Event
+    {
     }
 }

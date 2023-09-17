@@ -130,6 +130,19 @@ namespace Game
         神符 = 13,
         [LabelText("魔石")]
         魔石 = 14,
+
+        [LabelText("专属1")]
+        专属1 = 15,
+        [LabelText("专属2")]
+        专属2 = 16,
+        [LabelText("专属3")]
+        专属3 = 17,
+        [LabelText("专属4")]
+        专属4 = 18,
+        [LabelText("专属5")]
+        专属5 = 19,
+        [LabelText("专属6")]
+        专属6 = 20,
     }
     public enum ProgressType
     {

@@ -1,0 +1,8 @@
+{"list":[
+{"_t":"ExclusiveConfig","_id":1,"Name":"银蛇","Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[4,2,6],"MeterialId":0},
+{"_t":"ExclusiveConfig","_id":2,"Name":"血饮","Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[4,2,6],"MeterialId":0},
+{"_t":"ExclusiveConfig","_id":3,"Name":"裁决","Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[4,2,6],"MeterialId":0},
+{"_t":"ExclusiveConfig","_id":4,"Name":"命运","Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[4,2,6],"MeterialId":0},
+{"_t":"ExclusiveConfig","_id":5,"Name":"倚天","Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[4,2,6],"MeterialId":0},
+{"_t":"ExclusiveConfig","_id":6,"Name":"屠龙","Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[4,2,6],"MeterialId":0},
+]}
