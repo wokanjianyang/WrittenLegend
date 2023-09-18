@@ -35,7 +35,7 @@ namespace Game
                     //Log.Info("arc cell :" + cell.ToString());
 
                     var targetPos = GameProcessor.Inst.MapData.GetWorldPosition(cell);
-                    Log.Info("arc targetPos :" + targetPos.ToString());
+                    //Log.Info("arc targetPos :" + targetPos.ToString());
                     effectCom.transform.DOLocalMove(targetPos, cellDuration).SetEase(Ease.InQuad);
                     yield return new WaitForSeconds(cellDuration);
                 }
