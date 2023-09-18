@@ -552,7 +552,7 @@ namespace Game
             {
                 ExclusiveSuitItem target = new ExclusiveSuitItem(item.Id, item.Name, false);
 
-                if (this.ExclusiveList.ContainsKey(item.Id))
+                if (this.ExclusiveList.ContainsKey(item.Part))
                 {
                     target.Active = true;
                     suit.ActiveCount++;

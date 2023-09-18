@@ -275,24 +275,32 @@ namespace Game
 
                             int groupCount = 0;
                             int nameIndex = 0;
-                            for (int i = 0; i < 2; i++)
+                            for (int i = 0; i < 3; i++)
                             {
-                                EquipSuitItem eg = equipSuit.ItemList[i];
-
                                 var nameChild = tran_GroupAttribute.Find(string.Format("Name_{0}", nameIndex++));
-                                string groupColor = QualityConfigHelper.GetEquipGroupColor(eg.Active);
-                                if (eg.Active)
-                                {
 
-                                    nameChild.GetComponent<Text>().text = string.Format("<color=#{0}>{1}</color>", groupColor, eg.Name);
-                                    groupCount++;
+                                if (i >= equipSuit.ItemList.Count)
+                                {
+                                    nameChild.gameObject.SetActive(false);
                                 }
                                 else
                                 {
-                                    nameChild.GetComponent<Text>().text = string.Format("<color=#{0}>{1}</color>", groupColor, eg.Name);
-                                }
+                                    EquipSuitItem eg = equipSuit.ItemList[i];
 
-                                nameChild.gameObject.SetActive(true);
+                                    string groupColor = QualityConfigHelper.GetEquipGroupColor(eg.Active);
+                                    if (eg.Active)
+                                    {
+
+                                        nameChild.GetComponent<Text>().text = string.Format("<color=#{0}>{1}</color>", groupColor, eg.Name);
+                                        groupCount++;
+                                    }
+                                    else
+                                    {
+                                        nameChild.GetComponent<Text>().text = string.Format("<color=#{0}>{1}</color>", groupColor, eg.Name);
+                                    }
+
+                                    nameChild.gameObject.SetActive(true);
+                                }
                             }
 
                             tran_GroupAttribute.Find("Title").GetComponent<Text>().text = string.Format("[套装属性] ({0}/2)", groupCount);
@@ -411,15 +419,17 @@ namespace Game
                         for (int index = 0; index < 3; index++)
                         {
                             var nameChild = tran_GroupAttribute.Find(string.Format("Name_{0}", index));
+                            nameChild.gameObject.SetActive(true);
 
                             ExclusiveSuitItem suitItem1 = exclusiveSuit.ItemList[index * 2];
                             string groupColor = QualityConfigHelper.GetEquipGroupColor(suitItem1.Active);
                             nameChild.GetComponent<Text>().text = string.Format("<color=#{0}>{1}</color>", groupColor, suitItem1.Name);
 
                             var attrChild = tran_GroupAttribute.Find(string.Format("Attribute_{0}", index));
+                            attrChild.gameObject.SetActive(true);
                             ExclusiveSuitItem suitItem2 = exclusiveSuit.ItemList[index * 2 + 1];
-                            groupColor = QualityConfigHelper.GetEquipGroupColor(suitItem1.Active);
-                            nameChild.GetComponent<Text>().text = string.Format("<color=#{0}>{1}</color>", groupColor, suitItem2.Name);
+                            groupColor = QualityConfigHelper.GetEquipGroupColor(suitItem2.Active);
+                            attrChild.GetComponent<Text>().text = string.Format("<color=#{0}>{1}</color>", groupColor, suitItem2.Name);
                         }
                     }
 
@@ -471,11 +481,6 @@ namespace Game
                     Log.Debug("未知的类型");
                     break;
             }
-
-
-            // var size = this.rect_Content.sizeDelta;
-            // size.x = 804;
-            // this.rectTransform.sizeDelta = size;
         }
 
         private string FormatAttrText(int attr, long val, int percent)

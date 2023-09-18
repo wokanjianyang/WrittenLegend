@@ -176,8 +176,8 @@ namespace Game
                         skill = new SkillState(this, skillPanel, skillData.Position, 0);
                         DoubleHitSkillList.Add(skill);
                     }
-
-                    skill.AddRate(exclusive.DoubleHitConfig.Rate);
+                    skill.AddRate(100);
+                    //skill.AddRate(exclusive.DoubleHitConfig.Rate);
                 }
             }
         }
@@ -235,7 +235,7 @@ namespace Game
 
                 if (skill.SkillPanel.SkillData.SkillConfig.Type == (int)SkillType.Attack)
                 {
-                    DoubleHit();
+                   this.DoubleHit();
                 }
 
                 return;
@@ -289,6 +289,7 @@ namespace Game
                 if (RandomHelper.RandomRate(skill.Rate))
                 {
                     skill.Do();
+                    return;
                 }
             }
         }

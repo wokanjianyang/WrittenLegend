@@ -16,6 +16,8 @@ namespace Game
         [LabelText("装载技能")]
         public Transform tran_EquipSkills;
 
+        private Com_Skill[] AllEquipSkills;
+
         private List<Item_Skill> learnSkills;
         private List<Com_Skill> equipSkills;
         private GameObject bookPrefab;
@@ -32,7 +34,9 @@ namespace Game
             user.EventCenter.AddListener<HeroUpdateAllSkillEvent>(OnHeroUpdateAllSkillEvent);
             bookPrefab = Resources.Load<GameObject>("Prefab/Window/Item_Skill");
 
+            this.AllEquipSkills = this.tran_EquipSkills.GetComponentsInChildren<Com_Skill>();
             this.UpdateAllSkillInfo();
+
         }
 
         protected override bool CheckPageType(ViewPageType page)
@@ -57,7 +61,19 @@ namespace Game
         private void UpdateAllSkillInfo()
         {
             var user = GameProcessor.Inst.User;
-            
+
+            for (int i = 0; i < AllEquipSkills.Length; i++)
+            {
+                if (i < user.SkillNumber)
+                {
+                    AllEquipSkills[i].gameObject.SetActive(true);
+                }
+                else
+                {
+                    AllEquipSkills[i].gameObject.SetActive(false);
+                }
+            }
+
             user.SkillList.Sort((a, b) => {
                 return a.SkillConfig.Id.CompareTo(b.SkillConfig.Id);
             });
