@@ -256,6 +256,8 @@ namespace Game
 
                 items.AddRange(DropHelper.TowerEquip(fl, equipLevel));
             }
+            items.Add(ItemHelper.BuildMaterial(ItemHelper.Exclusive_Meterial1, 100));
+            items.Add(ItemHelper.BuildMaterial(ItemHelper.Exclusive_Meterial1+1, 100));
 
             User.MagicTowerFloor.Data += offlineFloor;
 

@@ -137,7 +137,7 @@ namespace Game
             return random.Next(2) == 0;
         }
 
-        public static bool RandomCritRate(int rate)
+        public static bool RandomRate(int rate)
         {
             if (rate >= 100) return true;
             if (rate <= 0) return false;

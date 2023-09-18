@@ -173,6 +173,8 @@ namespace Game
         public int SoulRingNumber = 0;
         [JsonIgnore]
         public int TowerNumber = 0;
+        [JsonIgnore]
+        public int SkillNumber = 0;
 
         public User()
         {
@@ -318,6 +320,13 @@ namespace Game
             this.StoneNumber = 0;
             this.SoulRingNumber = 0;
             this.TowerNumber = 0;
+            this.SkillNumber = ConfigHelper.SkillNumber;
+
+            //专属
+            if (this.ExclusiveList.Count >= 6)
+            {
+                this.SkillNumber += 1;
+            }
 
             //成就
             foreach (int aid in AchievementData.Keys)
@@ -524,6 +533,37 @@ namespace Game
             EquipGroupConfig groupConfig = EquipGroupConfigCategory.Instance.GetByLevelAndPart(config.LevelRequired, Math.Min(config.Part, gc.Part));
 
             suit.Config = groupConfig;
+
+            return suit;
+        }
+
+
+        public ExclusiveSuit GetExclusiveSuit(ExclusiveConfig config)
+        {
+            ExclusiveSuit suit = new ExclusiveSuit();
+            suit.ActiveCount = 0;
+            suit.Active = true;
+
+            //suit.Self = new ExclusiveSuitItem(config.Id, config.Name, true);
+
+            List<ExclusiveConfig> configs = ExclusiveConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Type == config.Type).ToList();
+
+            foreach (ExclusiveConfig item in configs)
+            {
+                ExclusiveSuitItem target = new ExclusiveSuitItem(item.Id, item.Name, false);
+
+                if (this.ExclusiveList.ContainsKey(item.Id))
+                {
+                    target.Active = true;
+                    suit.ActiveCount++;
+                }
+                else
+                {
+                    suit.Active = false;
+                }
+
+                suit.ItemList.Add(target);
+            }
 
             return suit;
         }

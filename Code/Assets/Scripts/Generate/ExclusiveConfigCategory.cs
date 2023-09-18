@@ -59,4 +59,28 @@ namespace Game
             return 1;
         }
     }
+
+    public class ExclusiveSuitItem
+    {
+        public ExclusiveSuitItem(int id, string name, bool active)
+        {
+            this.Id = id;
+            this.Name = name;
+            this.Active = active;
+        }
+
+        public int Id { get; set; }
+        public string Name { get; set; }
+
+        public bool Active { get; set; }
+    }
+
+    public class ExclusiveSuit
+    {
+        public bool Active { get; set; } = false;
+
+        public int ActiveCount { get; set; } = 0;
+
+        public List<ExclusiveSuitItem> ItemList = new List<ExclusiveSuitItem>();
+    }
 }

@@ -18,6 +18,7 @@ namespace Game
 
         private ASkill skillLogic;
 
+        public int Rate { get; private set; } = 0;
 
 
         public SkillState(APlayer player, SkillPanel skillPanel, int position, int useRound)
@@ -97,6 +98,11 @@ namespace Game
         public void SetLastUseRound(int round)
         {
             this.lastUseRound = round;
+        }
+
+        public void AddRate(int rate)
+        {
+            this.Rate += rate;
         }
     }
 }

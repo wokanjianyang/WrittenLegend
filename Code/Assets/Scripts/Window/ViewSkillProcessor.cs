@@ -47,22 +47,6 @@ namespace Game
 
             GameProcessor.Inst.User.EventCenter.Raise(new HeroUpdateAllSkillEvent());
             //UserData.Save(); //修改技能后，存档
-            // var hero = GameProcessor.Inst.PlayerManager.GetHero();
-            //
-            // if (e.SkillPanel != null && hero!=null)
-            // {
-            //     if (e.SkillPanel.SkillData.Status == SkillStatus.Learn)
-            //     {
-            //         hero?.SelectSkillList.RemoveAll(b => b.SkillPanel.SkillId == e.SkillPanel.SkillId);
-            //
-            //     }
-            //     else
-            //     {
-            //         
-            //         SkillState ss = new SkillState(hero, e.SkillPanel, e.SkillPanel.SkillData.Position, 0);
-            //         hero.SelectSkillList.Add(ss);
-            //     }
-            // }
         }
         
         private void OnHeroUpdateAllSkillEvent(HeroUpdateAllSkillEvent e)
@@ -111,9 +95,11 @@ namespace Game
                 var equip = this.equipSkills.Find(s => s.SkillPanel.SkillId == skill.SkillId);
                 if (equip == null)
                 {
-                    if (skill.SkillData.Position <= 0 || skill.SkillData.Position > 5)
+                    int SkillNumber = GameProcessor.Inst.User.SkillNumber;
+
+                    if (skill.SkillData.Position <= 0 || skill.SkillData.Position > SkillNumber)
                     {
-                        int position = CalSkillPosition();
+                        int position = CalSkillPosition(SkillNumber);
                         if (position == 0)
                         {
                             return; //出错了，满了
@@ -128,9 +114,14 @@ namespace Game
             }
         }
 
-        private int CalSkillPosition()
+        private int CalSkillPosition(int SkillNumber)
         {
-            List<int> alls = new int[] { 1, 2, 3, 4, 5 }.ToList();
+            List<int> alls = new List<int>();
+            for (int i = 1; i <= SkillNumber; i++)
+            {
+                alls.Add(i);
+            }
+
             List<int> ps = this.equipSkills.Select(m => m.SkillPanel.SkillData.Position).ToList();
 
             foreach (var item in this.equipSkills)

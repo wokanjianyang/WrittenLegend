@@ -10,6 +10,10 @@ namespace Game
     public class Hero : APlayer
     {
         private Dictionary<int, int> skillUseCache = new Dictionary<int, int>();
+
+        public List<SkillState> DoubleHitSkillList { get; set; } = new List<SkillState>();
+
+
         public Hero() : base()
         {
             this.GroupId = 1;
@@ -137,6 +141,45 @@ namespace Game
                     }
                 }
             }
+
+            InitDoubleHitSkill(user);
+        }
+
+        private void InitDoubleHitSkill(User user)
+        {
+            DoubleHitSkillList.Clear();
+
+            foreach (var kv in user.ExclusiveList)
+            {
+                ExclusiveItem exclusive = kv.Value;
+
+                if (exclusive.DoubleHitId > 0)
+                {
+                    int skillId = exclusive.DoubleHitConfig.SkillId;
+
+                    SkillData skillData = user.SkillList.Where(m => m.SkillId == skillId).FirstOrDefault();
+
+                    if (skillData == null)
+                    {
+                        break;
+                    }
+
+                    List<SkillRune> runeList = user.GetRuneList(skillData.SkillId);
+                    List<SkillSuit> suitList = user.GetSuitList(skillData.SkillId);
+
+                    SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList);
+
+                    SkillState skill = DoubleHitSkillList.Where(m => m.SkillPanel.SkillId == skillId).FirstOrDefault();
+
+                    if (skill == null)
+                    {
+                        skill = new SkillState(this, skillPanel, skillData.Position, 0);
+                        DoubleHitSkillList.Add(skill);
+                    }
+
+                    skill.AddRate(exclusive.DoubleHitConfig.Rate);
+                }
+            }
         }
 
         private void UpdateSkills()
@@ -189,6 +232,12 @@ namespace Game
                 //Debug.Log($"{(this.Name)}使用技能:{(skill.SkillPanel.SkillData.SkillConfig.Name)},攻击:" + targets.Count + "个");
                 skill.Do();
                 //this.EventCenter.Raise(new ShowAttackIcon ());
+
+                if (skill.SkillPanel.SkillData.SkillConfig.Type == (int)SkillType.Attack)
+                {
+                    DoubleHit();
+                }
+
                 return;
             }
 
@@ -229,6 +278,17 @@ namespace Game
                         this.Move(endPos);
                         return;
                     }
+                }
+            }
+        }
+
+        private void DoubleHit()
+        {
+            foreach (SkillState skill in this.DoubleHitSkillList)
+            {
+                if (RandomHelper.RandomRate(skill.Rate))
+                {
+                    skill.Do();
                 }
             }
         }

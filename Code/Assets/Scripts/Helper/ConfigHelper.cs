@@ -38,6 +38,8 @@ namespace Game
 		public const int SkillSuitMax = 4;
 		public const int SkillSuitMin = 2;
 
+		public const int SkillNumber = 5;
+
 		public const float DelayShowTime = 0.5f;
 	}
 }

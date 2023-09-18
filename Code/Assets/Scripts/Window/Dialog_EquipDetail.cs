@@ -400,6 +400,28 @@ namespace Game
                         child.GetComponent<Text>().text = string.Format(" {0}", exclusive.DoubleHitConfig.Des);
                         child.gameObject.SetActive(true);
                     }
+                    if (exclusive.ExclusiveConfig.Type > 0)
+                    {
+                        tran_GroupAttribute.gameObject.SetActive(true);
+
+                        ExclusiveSuit exclusiveSuit = user.GetExclusiveSuit(exclusive.ExclusiveConfig);
+
+                        tran_GroupAttribute.Find("Title").GetComponent<Text>().text = string.Format("[套装属性] ({0}/6)   增加一个上阵技能栏", exclusiveSuit.ActiveCount);
+
+                        for (int index = 0; index < 3; index++)
+                        {
+                            var nameChild = tran_GroupAttribute.Find(string.Format("Name_{0}", index));
+
+                            ExclusiveSuitItem suitItem1 = exclusiveSuit.ItemList[index * 2];
+                            string groupColor = QualityConfigHelper.GetEquipGroupColor(suitItem1.Active);
+                            nameChild.GetComponent<Text>().text = string.Format("<color=#{0}>{1}</color>", groupColor, suitItem1.Name);
+
+                            var attrChild = tran_GroupAttribute.Find(string.Format("Attribute_{0}", index));
+                            ExclusiveSuitItem suitItem2 = exclusiveSuit.ItemList[index * 2 + 1];
+                            groupColor = QualityConfigHelper.GetEquipGroupColor(suitItem1.Active);
+                            nameChild.GetComponent<Text>().text = string.Format("<color=#{0}>{1}</color>", groupColor, suitItem2.Name);
+                        }
+                    }
 
                     this.btn_Recovery.gameObject.SetActive(this.boxItem.BoxId != -1);
                     this.btn_Equip.gameObject.SetActive(this.boxItem.BoxId != -1);

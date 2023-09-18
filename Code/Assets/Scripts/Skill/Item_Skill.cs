@@ -58,9 +58,10 @@ namespace Game
         }
         public void OnPointerClick(PointerEventData eventData)
         {
-            List<SkillData> skillList = GameProcessor.Inst.User.SkillList.FindAll(m => m.Status == SkillStatus.Equip);
-  
-            if (this.SkillPanel == null || this.SkillPanel.SkillData == null || skillList.Count >= 5)
+            User user = GameProcessor.Inst.User;
+            List<SkillData> skillList = user.SkillList.FindAll(m => m.Status == SkillStatus.Equip);
+
+            if (this.SkillPanel == null || this.SkillPanel.SkillData == null || skillList.Count >=  user.SkillNumber)
             {
                 return;
             }
