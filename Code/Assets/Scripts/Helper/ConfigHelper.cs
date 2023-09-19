@@ -4,7 +4,7 @@ namespace Game
 {
 	public class ConfigHelper
 	{
-		public const int Version = 145;
+		public const int Version = 146;
 
 		public const long Max_Level = 15000; //最大人物等级和强化等级
 
