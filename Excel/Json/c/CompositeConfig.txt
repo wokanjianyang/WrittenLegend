@@ -43,10 +43,4 @@
 {"_t":"CompositeConfig","_id":409,"Type":"魔石","FromName":"魔石九阶","FromId":409,"FromItemType":2,"TargetName":"魔石十阶","TargetId":410,"TargetType":2,"Quantity":2,"Commission":0},
 {"_t":"CompositeConfig","_id":410,"Type":"魔石","FromName":"魔石十阶","FromId":410,"FromItemType":2,"TargetName":"魔石十一阶","TargetId":411,"TargetType":2,"Quantity":2,"Commission":0},
 {"_t":"CompositeConfig","_id":411,"Type":"魔石","FromName":"魔石十一阶","FromId":411,"FromItemType":2,"TargetName":"魔石十二阶","TargetId":412,"TargetType":2,"Quantity":2,"Commission":0},
-{"_t":"CompositeConfig","_id":501,"Type":"专属","FromName":"铜矿","FromId":4101,"FromItemType":5,"TargetName":"神圣怒斩","TargetId":1,"TargetType":10,"Quantity":6,"Commission":0},
-{"_t":"CompositeConfig","_id":502,"Type":"专属","FromName":"铁矿","FromId":4102,"FromItemType":5,"TargetName":"神圣噬魂","TargetId":2,"TargetType":10,"Quantity":6,"Commission":0},
-{"_t":"CompositeConfig","_id":503,"Type":"专属","FromName":"银矿","FromId":4103,"FromItemType":5,"TargetName":"神圣血饮","TargetId":3,"TargetType":10,"Quantity":6,"Commission":0},
-{"_t":"CompositeConfig","_id":504,"Type":"专属","FromName":"金矿","FromId":4104,"FromItemType":5,"TargetName":"神圣屠龙","TargetId":4,"TargetType":10,"Quantity":6,"Commission":0},
-{"_t":"CompositeConfig","_id":505,"Type":"专属","FromName":"黑铁矿","FromId":4105,"FromItemType":5,"TargetName":"神圣倚天","TargetId":5,"TargetType":10,"Quantity":6,"Commission":0},
-{"_t":"CompositeConfig","_id":506,"Type":"专属","FromName":"紫金矿","FromId":4106,"FromItemType":5,"TargetName":"神圣命运","TargetId":6,"TargetType":10,"Quantity":6,"Commission":0},
 ]}
