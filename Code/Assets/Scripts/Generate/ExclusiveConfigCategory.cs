@@ -46,7 +46,7 @@ namespace Game
         }
 
         private static int RandomQuanlity() {
-            int[] rates = { 1, 4, 8, 16, 32 };
+            int[] rates = { 1, 5, 10, 18, 32 };
 
             int r = RandomHelper.RandomNumber(0, 32);
 
