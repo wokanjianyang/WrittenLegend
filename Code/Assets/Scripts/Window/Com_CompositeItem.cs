@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ public class Com_CompositeItem : MonoBehaviour
         User user = GameProcessor.Inst.User;
 
         //TODO 合成数量问题
-        long count = user.Bags.Where(m => (int)m.Item.Type == config.FromItemType && m.Item.ConfigId == config.FromId).Select(m => m.MagicNubmer.Data).Sum();
+        long count = user.Bags.Where(m => (int)m.Item.Type == config.FromItemType && m.Item.ConfigId == config.FromId).Select(m => Math.Max(1, m.MagicNubmer.Data)).Sum();
         //int count = user.Bags.Where(m => (int)m.Item.Type == config.FromItemType && m.Item.ConfigId == config.FromId).Count();
 
         this.ItemName.text = config.TargetName;
@@ -40,7 +41,7 @@ public class Com_CompositeItem : MonoBehaviour
     public void OnClick_Composite()
     {
         User user = GameProcessor.Inst.User;
-        long count = user.Bags.Where(m => (int)m.Item.Type == config.FromItemType && m.Item.ConfigId == config.FromId).Select(m => m.MagicNubmer.Data).Sum();
+        long count = user.Bags.Where(m => (int)m.Item.Type == config.FromItemType && m.Item.ConfigId == config.FromId).Select(m => Math.Max(1, m.MagicNubmer.Data)).Sum();
         //TODO 合成数量问题
 
         if (count < config.Quantity || user.MagicGold.Data < config.Commission)
@@ -65,7 +66,7 @@ public class Com_CompositeItem : MonoBehaviour
         }
         User user = GameProcessor.Inst.User;
 
-        long count = user.Bags.Where(m => (int)m.Item.Type == config.FromItemType && m.Item.ConfigId == config.FromId).Select(m => m.MagicNubmer.Data).Sum();
+        long count = user.Bags.Where(m => (int)m.Item.Type == config.FromItemType && m.Item.ConfigId == config.FromId).Select(m => Math.Max(1,m.MagicNubmer.Data)).Sum();
 
         this.ItemName.text = config.TargetName;
         this.CostItemName.text = config.FromName;

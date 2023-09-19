@@ -45,9 +45,21 @@ namespace Game
             return message;
         }
 
-        public static string BuildAutoRecoveryMessage(int equipQuantity, int refineStone, long gold)
+        public static string BuildAutoRecoveryMessage(int equipQuantity, int refineStone, int exclusiveStone, long gold)
         {
-            string message = "回收" + equipQuantity + "件装备，获得" + refineStone + "个装备精炼石，" + gold + "金币";
+            string message = "回收" + equipQuantity + "件装备，获得";
+            if (refineStone > 0)
+            {
+                message += refineStone + "个装备精炼石，";
+            }
+            if (exclusiveStone > 0)
+            {
+                message += exclusiveStone + "个装备专属洗练石，";
+            }
+            if (gold > 0)
+            {
+                message += gold + "金币";
+            }
             return message;
         }
 

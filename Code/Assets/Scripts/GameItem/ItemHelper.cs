@@ -74,7 +74,6 @@ namespace Game
         public static int SpecialId_EquipRefineStone = 4002;
         public static int SpecialId_Copy_Ticket = 4003;
         public static int SpecialId_Boss_Ticket = 4004;
-
-        public static int Exclusive_Meterial1 = 4101;
+        public static int SpecialId_Exclusive_Stone = 4005;
     }
 }

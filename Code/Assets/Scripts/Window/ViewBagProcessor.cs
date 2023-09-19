@@ -507,9 +507,14 @@ namespace Game
 
             Item item = e.BoxItem.Item;
             int refineStone = 0;
+            int exclusiveStone = 0;
             if (item.Type == ItemType.Equip)
             {
                 refineStone += user.CalStone(item as Equip);
+            }
+            else if (item.Type == ItemType.Exclusive)
+            {
+                exclusiveStone = item.GetQuality() * 1;
             }
 
             long gold = item.Gold;
@@ -523,10 +528,15 @@ namespace Game
                 Item stoneItem = ItemHelper.BuildRefineStone(refineStone);
                 AddBoxItem(stoneItem);
             }
+            if (exclusiveStone > 0)
+            {
+                Item exStoneItem = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Stone, exclusiveStone);
+                AddBoxItem(exStoneItem);
+            }
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
             {
-                Message = BattleMsgHelper.BuildAutoRecoveryMessage(1, refineStone, gold)
+                Message = BattleMsgHelper.BuildAutoRecoveryMessage(1, refineStone,exclusiveStone, gold)
             });
         }
 
@@ -537,6 +547,7 @@ namespace Game
             List<BoxItem> recoveryList = user.Bags.Where(m => !m.Item.IsLock && user.RecoverySetting.CheckRecovery(m.Item)).ToList();
 
             int refineStone = 0;
+            int exclusiveStone = 0;
             long gold = 0;
 
             foreach (BoxItem box in recoveryList)
@@ -547,6 +558,10 @@ namespace Game
                 {
                     Equip equip = box.Item as Equip;
                     refineStone += user.CalStone(equip);
+                }
+                else if (box.Item.Type == ItemType.Exclusive)
+                {
+                    exclusiveStone = box.Item.GetQuality() * 1;
                 }
                 //Log.Debug("自动回收:" + box.Item.Name + " " + box.Number + "个");
                 //box.MagicNubmer.Data = 0;
@@ -568,7 +583,7 @@ namespace Game
             {
                 GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
                 {
-                    Message = BattleMsgHelper.BuildAutoRecoveryMessage(recoveryList.Count, refineStone, gold)
+                    Message = BattleMsgHelper.BuildAutoRecoveryMessage(recoveryList.Count, refineStone, exclusiveStone, gold)
                 });
             }
         }
@@ -580,6 +595,7 @@ namespace Game
             List<BoxItem> recoveryList = user.Bags.Where(m => !m.Item.IsLock && user.RecoverySetting.CheckRecovery(m.Item)).ToList();
 
             int refineStone = 0;
+            int exclusiveStone = 0;
             long gold = 0;
 
             foreach (BoxItem box in recoveryList)
@@ -590,6 +606,10 @@ namespace Game
                 {
                     Equip equip = box.Item as Equip;
                     refineStone += user.CalStone(equip);
+                }
+                else if (box.Item.Type == ItemType.Exclusive)
+                {
+                    exclusiveStone = box.Item.GetQuality() * 1;
                 }
             }
 
@@ -610,7 +630,7 @@ namespace Game
             {
                 GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
                 {
-                    Message = BattleMsgHelper.BuildAutoRecoveryMessage(recoveryList.Count, refineStone, gold)
+                    Message = BattleMsgHelper.BuildAutoRecoveryMessage(recoveryList.Count, refineStone, exclusiveStone, gold)
                 });
             }
         }
