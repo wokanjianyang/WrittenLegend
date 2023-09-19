@@ -6,7 +6,7 @@ namespace Game
 	{
 		public const int Version = 145;
 
-		public const long Max_Level = 10000; //最大人物等级和强化等级
+		public const long Max_Level = 15000; //最大人物等级和强化等级
 
 		public const long Max_Level_Refine = 150; //最大精练等级
 
@@ -14,9 +14,9 @@ namespace Game
 
 		public static int[] RuneRate = new int[] { 1, 3, 8, 18, 39, 85, 185 }; //词条产生概率，按等级
 		                             
-		public const long PackTime = 1694608732; //打包时间，防止作弊
+		public const long PackTime = 1695094373; //打包时间，防止作弊
 
-		public const long PackEndTime = 1697913532; //超过此时间,游戏不能使用，需要更新
+		public const long PackEndTime = 1695699173; //超过此时间,游戏不能使用，需要更新
 
 		//public const int CopyMax = 5; //副本最大累计次数
 
