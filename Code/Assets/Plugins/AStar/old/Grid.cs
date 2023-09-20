@@ -57,6 +57,14 @@ namespace Game
             }
         }
 
+        public void ClearCellCost()
+        {
+            for (int i = 0; i < Weights.Length; i++)
+            {
+                Weights[i] = DefaultCost;
+            }
+        }
+
         /// <summary>
         ///     Makes the cell intraversable
         /// </summary>

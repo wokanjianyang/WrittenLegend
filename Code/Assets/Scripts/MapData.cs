@@ -136,6 +136,32 @@ namespace Game
 
         public Vector3Int GetPath(Vector3Int startPos, Vector3Int endPos)
         {
+            AStarBattleGrid.ClearCellCost();
+
+            var allPlayersCells = GameProcessor.Inst.PlayerManager.GetAllPlayers(true).Select(p => p.Cell).ToList();
+
+            float highCost = 9999;
+            foreach (var cell in allPlayersCells)
+            {
+                var pos = new Position(cell.x, cell.y);
+                if (cell != startPos && cell != endPos)
+                {
+                    AStarBattleGrid.SetCellCost(pos, highCost);
+                }
+            }
+
+            var path = this.GetPathWithAStar(startPos, endPos);
+
+            if (path.Count > 1)
+            {
+                return path[1];
+            }
+
+            return startPos;
+        }
+
+        public Vector3Int GetPath1(Vector3Int startPos, Vector3Int endPos)
+        {
             var allPlayersCells = GameProcessor.Inst.PlayerManager.GetAllPlayers(true).Select(p => p.Cell).ToList();
             var costDict = new Dictionary<Position, float>();
 
