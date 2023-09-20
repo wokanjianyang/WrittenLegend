@@ -152,9 +152,9 @@ namespace Game
 
             var path = this.GetPathWithAStar(startPos, endPos);
 
-            if (path.Count > 1)
+            if (path.Count > 0)
             {
-                return path[1];
+                return path[0];
             }
 
             return startPos;
