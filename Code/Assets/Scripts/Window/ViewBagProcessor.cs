@@ -309,7 +309,7 @@ namespace Game
             List<BoxItem> list = user.Bags.Where(m => (int)m.Item.Type == config.FromItemType && m.Item.ConfigId == config.FromId).ToList();
 
             //TODO 合成数量问题
-            long count = list.Select(m => m.MagicNubmer.Data).Sum();
+            long count = list.Select(m => Math.Max(1, m.MagicNubmer.Data)).Sum();
             //int count = list.Count;
 
             if (count < config.Quantity)

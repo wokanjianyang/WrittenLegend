@@ -11,10 +11,6 @@ namespace Game
     {
         public Button Btn_Close;
 
-        private List<Item_Achivement> activeItems = new List<Item_Achivement>();
-
-        private GameObject ItemPrefab;
-
         public int Order => (int)ComponentOrder.Dialog;
 
         void Start()
@@ -26,8 +22,13 @@ namespace Game
         {
             GameProcessor.Inst.EventCenter.AddListener<ShowExclusive>(this.OnShowExclusive);
 
+            var prefab = Resources.Load<GameObject>("Prefab/Window/Box_Info");
 
-            ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Item_Achievement");
+            SlotBox[] items = this.GetComponentsInChildren<SlotBox>();
+
+            for (int i = 0; i < items.Length; i++) {
+                items[i].Init(prefab);
+            }
 
             Init();
         }
