@@ -441,11 +441,14 @@ namespace Game
             List<SkillRune> list = new List<SkillRune>();
 
             //计算装备的词条加成
-            List<Equip> skillList = this.EquipPanelList[EquipPanelIndex].Where(m => m.Value.SkillRuneConfig != null && m.Value.SkillRuneConfig.SkillId == skillId).Select(m => m.Value).ToList();
+            List<SkillRuneConfig> skillList = this.EquipPanelList[EquipPanelIndex].Where(m => m.Value.SkillRuneConfig != null && m.Value.SkillRuneConfig.SkillId == skillId).Select(m => m.Value.SkillRuneConfig).ToList();
+
+            skillList.AddRange(this.ExclusiveList.Select(m => m.Value).Where(m => m.SkillRuneConfig != null && m.SkillRuneConfig.SkillId == skillId).Select(m => m.SkillRuneConfig).ToList());
 
             //按单件分组,词条有堆叠上限
-            var runeGroup = skillList.GroupBy(m => m.RuneConfigId);
-            foreach (IGrouping<int, Equip> runeItem in runeGroup)
+            var runeGroup = skillList.GroupBy(m => m.Id);
+
+            foreach (IGrouping<int, SkillRuneConfig> runeItem in runeGroup)
             {
                 SkillRune skillRune = new SkillRune(runeItem.Key, runeItem.Count());
                 list.Add(skillRune);
@@ -459,8 +462,14 @@ namespace Game
             List<SkillSuit> list = new List<SkillSuit>();
 
             //计算装备的套装加成
-            List<Equip> skillList = this.EquipPanelList[EquipPanelIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SkillSuitConfig.SkillId == skillId).Select(m => m.Value).ToList();
-            var suitGroup = skillList.GroupBy(m => m.SuitConfigId);
+            List<SkillSuitConfig> skillList = this.EquipPanelList[EquipPanelIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SkillSuitConfig.SkillId == skillId).Select(m => m.Value.SkillSuitConfig).ToList();
+            var el = this.ExclusiveList.Select(m => m.Value).Where(m => m.SkillSuitConfig != null && m.SkillSuitConfig.SkillId == skillId).Select(m => m.SkillSuitConfig).ToList();
+            if (el.Count > 0)
+            {
+                skillList.AddRange(el);
+            }
+
+            var suitGroup = skillList.GroupBy(m => m.Id);
 
             foreach (var suitItem in suitGroup)
             {
@@ -477,6 +486,7 @@ namespace Game
         public int GetSuitCount(int suitId)
         {
             int count = this.EquipPanelList[EquipPanelIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SuitConfigId == suitId).Count();
+            count += this.ExclusiveList.Where(m => m.Value.SuitConfigId == suitId).Count();
             return Math.Min(count, this.SuitMax);
         }
 

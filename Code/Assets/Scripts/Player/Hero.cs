@@ -292,7 +292,7 @@ namespace Game
                 if (RandomHelper.RandomRate(skill.Rate))
                 {
                     skill.Do();
-                    Debug.Log(" Double Hit " + skill.SkillPanel.SkillData.SkillConfig.Name);
+                    //Debug.Log(" Double Hit " + skill.SkillPanel.SkillData.SkillConfig.Name);
                     return;
                 }
             }
