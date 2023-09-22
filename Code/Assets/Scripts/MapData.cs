@@ -441,12 +441,15 @@ namespace Game
 
                         //得到弧线起点
                         int startPos = 0;
-                        for (startPos = 0; startPos < clockwise.Length; startPos++){
-                            if (dir == clockwise[startPos]) {
+                        for (startPos = 0; startPos < clockwise.Length; startPos++)
+                        {
+                            if (dir == clockwise[startPos])
+                            {
                                 break;
                             }
                         }
 
+                        startPos += skill.EnemyMax / 2;
                         for (var i = 0; i < skill.EnemyMax; i++)
                         {
                             int p = (startPos - i + 8) % 8;

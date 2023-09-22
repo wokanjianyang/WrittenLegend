@@ -20,7 +20,7 @@ namespace Game
         private IEnumerator IE_Attack(List<Vector3Int> cells, Vector3Int ss)
         {
             Vector3Int startCell = this.SelfPlayer.Cell;
-            Vector3Int endCell = cells[0];
+            Vector3Int endCell = cells[cells.Count/2];
             Vector3 scale = endCell - startCell;
 
             float rotation = 0;
