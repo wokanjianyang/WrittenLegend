@@ -5,10 +5,15 @@ namespace Game
 {
     public static class EffectLoader
     {
-        public static EffectProcessor CreateEffect(string skillName,bool loop)
+        public static EffectProcessor CreateEffect(string skillName, bool loop)
+        {
+            return CreateEffect(skillName, loop, 0);
+        }
+
+        public static EffectProcessor CreateEffect(string skillName, bool loop, float rotation)
         {
             EffectProcessor com = null;
-            var prefab = Resources.Load<GameObject>("Prefab/Effect/"+skillName);
+            var prefab = Resources.Load<GameObject>("Prefab/Effect/" + skillName);
             if (prefab)
             {
                 com = GameObject.Instantiate(prefab).GetComponent<EffectProcessor>();
@@ -22,7 +27,9 @@ namespace Game
                     com.EffectPath += skillName;
                 }
             }
-            com.Loop = loop;
+
+            com.SetData(loop, rotation);
+
             return com;
         }
 

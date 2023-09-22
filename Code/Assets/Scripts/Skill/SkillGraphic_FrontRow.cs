@@ -16,29 +16,51 @@ namespace Game
             GameProcessor.Inst.StartCoroutine(IE_Attack(cells, scale));
         }
 
-        private IEnumerator IE_Attack(List<Vector3Int> cells, Vector3Int scale)
+        private IEnumerator IE_Attack(List<Vector3Int> cells, Vector3Int ss)
         {
-            var effectCom = EffectLoader.CreateEffect(this.SkillPanel.SkillData.SkillConfig.ModelName, true);
+            Vector3Int startCell = cells[0];
+            Vector3Int endCell = cells[cells.Count - 1];
+            Vector3 scale = endCell - startCell;
+
+            float rotation = 0;
+            if (SelfPlayer.Cell.x == startCell.x)
+            {
+                rotation = 90f;
+                scale.x = 1;
+            }
+            else
+            {
+                scale.y = 1;
+            }
+
+            //Log.Info("scale :" + scale.ToString());
+
+            var effectCom = EffectLoader.CreateEffect(this.SkillPanel.SkillData.SkillConfig.ModelName, false, rotation);
+
             if (effectCom != null)
             {
-                var selfPos = GameProcessor.Inst.MapData.GetWorldPosition(SelfPlayer.Cell);
-
-                //Log.Info("self :" + SelfPlayer.Cell.ToString());
                 effectCom.transform.SetParent(GameProcessor.Inst.EffectRoot);
-                effectCom.transform.localPosition = selfPos;
+                effectCom.transform.localPosition = GameProcessor.Inst.MapData.GetWorldPosition(startCell);
 
-                foreach (Vector3Int cell in cells)
+                Sequence sequence = DOTween.Sequence();
+
+                // 添加缩放动画
+                sequence.Append(effectCom.transform.DOScale(scale, 0.5f)); // 缩放到目标大小，持续1秒
+
+                // 添加移动动画
+                //sequence.Append(effectCom.transform.DOLocalMove(targetPos, 1.0f)); // 移动到目标位置，持续1秒
+
+                // 在动画结束时执行回调
+                sequence.OnComplete(() =>
                 {
-                    //Log.Info("cell :" + cell.ToString());
+                    GameObject.Destroy(effectCom.gameObject);
+                    //Debug.Log("拉升和移动动画完成！");
+                });
 
-                    var targetPos = GameProcessor.Inst.MapData.GetWorldPosition(cell);
-                    //Log.Info("targetPos :" + targetPos.ToString());
-                    effectCom.transform.DOLocalMove(targetPos, 0.5f);
-                }
+                // 启动动画序列
+                sequence.Play();
 
-                var duration = Mathf.Max(this.SkillPanel.Duration, 1f);
-                yield return new WaitForSeconds(duration);
-                GameObject.Destroy(effectCom.gameObject);
+                yield return null;
             }
         }
     }

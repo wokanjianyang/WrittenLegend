@@ -29,6 +29,8 @@ namespace Game
 
         private float currentTime = 0f;
 
+        private float rotation = 0;
+
         private void Start()
         {
             this.imgs = Resources.LoadAll<Sprite>(this.EffectPath);
@@ -44,11 +46,16 @@ namespace Game
             if (this.hasEffect)
             {
                 this.currentTime += Time.deltaTime;
-                if (this.currentTime > 1f/this.totalCount)
+                if (this.currentTime > 1f / this.totalCount)
                 {
                     this.currentTime = 0;
                     var sprite = this.imgs[this.currentIndex++ % this.totalCount];
                     this.img_Effect.sprite = sprite;
+
+                    if (rotation > 0)
+                    {
+                        this.img_Effect.rectTransform.localRotation = Quaternion.Euler(0f, 0f, rotation);
+                    }
                     if (this.NeedReSize)
                     {
                         this.img_Effect.SetNativeSize();
@@ -62,10 +69,12 @@ namespace Game
             }
         }
 
-        public void SetData(string effectPath, bool loop)
+
+
+        public void SetData(bool loop, float rotation)
         {
-            this.EffectPath = effectPath;
             this.Loop = loop;
+            this.rotation = rotation;
         }
     }
 }

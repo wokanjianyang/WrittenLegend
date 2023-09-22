@@ -5,6 +5,7 @@ using System;
 using SA.Android.Utilities;
 using System.Linq;
 using Game.Data;
+using System.IO;
 
 namespace Game
 {
@@ -195,27 +196,12 @@ namespace Game
 
             //创建一个空白文件
             string filePath = System.IO.Path.Combine(folderPath, fileName);             //文件路径
-            System.IO.File.Create(filePath).Dispose();
 
-            //写入文件
-            System.IO.StreamWriter sw = new System.IO.StreamWriter(filePath);
-            sw.Write(str_json);
-            sw.Close();
-
-            //确认保存
-            if (System.IO.File.Exists(filePath))
+            using (StreamWriter writer = new StreamWriter(filePath))
             {
-                Log.Debug("保存成功");
+                // 写入要保存的内容
+                writer.Write(str_json);
             }
-            else
-                Log.Debug("保存失败");
-        }
-
-        public static void Delete()
-        {
-            string folderPath = System.IO.Path.Combine(Application.persistentDataPath, savePath); //文件夹路径
-            string filePath = System.IO.Path.Combine(folderPath, fileName);             //文件路径
-            System.IO.File.Delete(filePath);
         }
     }
 }
