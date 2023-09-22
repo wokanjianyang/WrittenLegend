@@ -23,7 +23,7 @@ namespace Game
             Vector3 scale = endCell - startCell;
 
             float rotation = 0;
-            if (SelfPlayer.Cell.x == startCell.x)
+            if (startCell.x == endCell.x)
             {
                 rotation = 90f;
                 scale.x = 1;
@@ -45,7 +45,7 @@ namespace Game
                 Sequence sequence = DOTween.Sequence();
 
                 // 添加缩放动画
-                sequence.Append(effectCom.transform.DOScale(scale, 0.5f)); // 缩放到目标大小，持续1秒
+                sequence.Append(effectCom.transform.DOScale(scale, ConfigHelper.SkillAnimaTime)); // 缩放到目标大小，持续1秒
 
                 // 添加移动动画
                 //sequence.Append(effectCom.transform.DOLocalMove(targetPos, 1.0f)); // 移动到目标位置，持续1秒

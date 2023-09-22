@@ -13,7 +13,7 @@ namespace Game
 		public const double Def_Rate = 3.0; //防御系数
 
 		public static int[] RuneRate = new int[] { 1, 3, 8, 18, 39, 85, 185 }; //词条产生概率，按等级
-		                             
+
 		public const long PackTime = 1695094373; //打包时间，防止作弊
 
 		public const long PackEndTime = 1695699173; //超过此时间,游戏不能使用，需要更新
@@ -41,5 +41,6 @@ namespace Game
 		public const int SkillNumber = 5;
 
 		public const float DelayShowTime = 0.5f;
+		public const float SkillAnimaTime = 0.75f;
 	}
 }

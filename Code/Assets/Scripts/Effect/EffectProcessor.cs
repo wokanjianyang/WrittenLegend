@@ -46,7 +46,7 @@ namespace Game
             if (this.hasEffect)
             {
                 this.currentTime += Time.deltaTime;
-                if (this.currentTime > 1f / this.totalCount)
+                if (this.currentTime > ConfigHelper.SkillAnimaTime / this.totalCount)
                 {
                     this.currentTime = 0;
                     var sprite = this.imgs[this.currentIndex++ % this.totalCount];

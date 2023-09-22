@@ -17,32 +17,38 @@ namespace Game
             GameProcessor.Inst.StartCoroutine(IE_Attack(cells, scale));
         }
 
-        private IEnumerator IE_Attack(List<Vector3Int> cells, Vector3Int scale)
+        private IEnumerator IE_Attack(List<Vector3Int> cells, Vector3Int ss)
         {
-            var effectCom = EffectLoader.CreateEffect(this.SkillPanel.SkillData.SkillConfig.ModelName, true);
+            Vector3Int startCell = this.SelfPlayer.Cell;
+            Vector3Int endCell = cells[0];
+            Vector3 scale = endCell - startCell;
+
+            float rotation = 0;
+            if (startCell.x == endCell.x)
+            {
+                rotation = 90f;
+                scale.x = 1;
+            }
+            else
+            {
+                scale.y = 1;
+            }
+            var effectCom = EffectLoader.CreateEffect(this.SkillPanel.SkillData.SkillConfig.ModelName, false, rotation);
+
+            //Log.Info("scale :" + scale.ToString());
             if (effectCom != null)
             {
-                var selfPos = GameProcessor.Inst.MapData.GetWorldPosition(SelfPlayer.Cell);
-
-                //Log.Info("arc self :" + SelfPlayer.Cell.ToString());
                 effectCom.transform.SetParent(GameProcessor.Inst.EffectRoot);
-                effectCom.transform.localPosition = selfPos;
+                effectCom.transform.localPosition = GameProcessor.Inst.MapData.GetWorldPosition(startCell);
 
-                var cellDuration = 0.5f / cells.Count;
+                Sequence sequence = DOTween.Sequence();
 
-                foreach (Vector3Int cell in cells)
-                {
-                    //Log.Info("arc cell :" + cell.ToString());
+                sequence.Append(effectCom.transform.DOScale(scale * 1.2f, ConfigHelper.SkillAnimaTime));
 
-                    var targetPos = GameProcessor.Inst.MapData.GetWorldPosition(cell);
-                    //Log.Info("arc targetPos :" + targetPos.ToString());
-                    effectCom.transform.DOLocalMove(targetPos, cellDuration).SetEase(Ease.InQuad);
-                    yield return new WaitForSeconds(cellDuration);
-                }
+                sequence.OnComplete(() => { GameObject.Destroy(effectCom.gameObject); });
+                sequence.Play();
 
-                var duration = Math.Max(this.SkillPanel.Duration, 0.5f);
-                yield return new WaitForSeconds(duration);
-                GameObject.Destroy(effectCom.gameObject);
+                yield return null;
             }
         }
     }
