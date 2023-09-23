@@ -17,8 +17,7 @@ namespace Game
         public override void Do()
         {
             List<Vector3Int> allAttackCells = GetPlayCells();
-
-            this.skillGraphic?.PlayAnimation(allAttackCells, Vector3Int.zero);
+            this.skillGraphic?.PlayAnimation(allAttackCells);
 
             foreach (var cell in allAttackCells)
             {

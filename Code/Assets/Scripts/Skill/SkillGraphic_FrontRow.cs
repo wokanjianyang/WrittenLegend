@@ -11,12 +11,12 @@ namespace Game
         {
         }
 
-        public override void PlayAnimation(List<Vector3Int> cells, Vector3Int scale)
+        public override void PlayAnimation(List<Vector3Int> cells)
         {
-            GameProcessor.Inst.StartCoroutine(IE_Attack(cells, scale));
+            GameProcessor.Inst.StartCoroutine(IE_Attack(cells));
         }
 
-        private IEnumerator IE_Attack(List<Vector3Int> cells, Vector3Int ss)
+        private IEnumerator IE_Attack(List<Vector3Int> cells)
         {
             Vector3Int startCell = cells[0];
             Vector3Int endCell = cells[cells.Count - 1];

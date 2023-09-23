@@ -77,8 +77,9 @@ namespace Game
             float x = list.Select(m => m.x).Sum() * 1.0f / list.Count;
             float y = list.Select(m => m.y).Sum() * 1.0f / list.Count;
             float z = list.Select(m => m.z).Sum() * 1.0f / list.Count;
+            float offset = list.Count % 2 == 0 ? 0.5f : 0;
 
-            return new Vector3(x * this.CellSize.x, y * this.CellSize.y, z) + MapStartPos + this.CellSize * 0.5f;
+            return new Vector3(x * this.CellSize.x, y * this.CellSize.y, z) + MapStartPos + this.CellSize * offset;
         }
 
         #endregion

@@ -17,18 +17,16 @@ namespace Game
             this.SkillPanel = skill;
         }
 
-        abstract public void PlayAnimation(List<Vector3Int> cells, Vector3Int scale);
-
-        public void PlayAnimation(List<Vector3Int> cells)
+        virtual public void PlayAnimation(List<Vector3Int> cells)
         {
-            this.PlayAnimation(cells, Vector3Int.zero);
+
         }
 
         public void PlayAnimation(Vector3Int cell)
         {
             List<Vector3Int> cells = new List<Vector3Int>();
             cells.Add(cell);
-            this.PlayAnimation(cells, Vector3Int.zero);
+            this.PlayAnimation(cells);
         }
     }
 }

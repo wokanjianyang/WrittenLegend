@@ -13,7 +13,7 @@ namespace Game
         {
         }
 
-        public override void PlayAnimation(List<Vector3Int> cells, Vector3Int scale)
+        public override void PlayAnimation(List<Vector3Int> cells)
         {
             GameProcessor.Inst.StartCoroutine(IE_Attack(cells[0]));
         }

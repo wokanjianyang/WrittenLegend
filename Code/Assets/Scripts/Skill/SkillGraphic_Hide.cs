@@ -14,7 +14,7 @@ namespace Game
 
         }
 
-        public override void PlayAnimation(List<Vector3Int> cells, Vector3Int scale)
+        public override void PlayAnimation(List<Vector3Int> cells)
         {
             foreach (Vector3Int cell in cells)
             {

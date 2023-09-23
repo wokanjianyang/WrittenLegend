@@ -12,7 +12,7 @@ namespace Game
         {
         }
 
-        public override void PlayAnimation(List<Vector3Int> cells, Vector3Int scale)
+        public override void PlayAnimation(List<Vector3Int> cells)
         {
             foreach (Vector3Int cell in cells)
             {
@@ -24,9 +24,8 @@ namespace Game
         {
             //yield return new WaitForSeconds(0.5f);
             var duration = this.SkillPanel.Duration;
-            bool loop = duration > 1;
 
-            var effectCom = EffectLoader.CreateEffect(this.SkillPanel.SkillData.SkillConfig.ModelName, loop);
+            var effectCom = EffectLoader.CreateEffect(this.SkillPanel.SkillData.SkillConfig.ModelName, true);
             if (effectCom != null)
             {
                 var targetPos = GameProcessor.Inst.MapData.GetWorldPosition(cell);

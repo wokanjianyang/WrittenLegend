@@ -45,17 +45,7 @@ namespace Game
         public override void Do()
         {
             List<Vector3Int> playCells = GetPlayCells();
-            Vector3Int scale = Vector3Int.zero;
-            if (SkillPanel.Area == AttackGeometryType.Square)
-            {
-                scale = new Vector3Int(SkillPanel.Column, SkillPanel.Row, 0);
-            }
-            else if (SkillPanel.Area == AttackGeometryType.FrontRow)
-            {
-                scale = new Vector3Int(SkillPanel.Dis, 1, 0);
-            }
-
-            this.skillGraphic?.PlayAnimation(playCells, scale);
+            this.skillGraphic?.PlayAnimation(playCells);
 
             List<AttackData> attackDataCache = GetAllTargets();
             foreach (var attackData in attackDataCache)
