@@ -7,7 +7,7 @@ namespace Game
 {
     public class SkillGraphic_Normal : SkillGraphic
     {
-        const float speed = 0.3f;
+        const float speed = 0.2f;
 
         public SkillGraphic_Normal(APlayer player, SkillPanel skill) : base(player, skill)
         {
@@ -22,7 +22,7 @@ namespace Game
         {
             yield return new WaitForSeconds(speed);
             var distance = cell - this.SelfPlayer.Cell;
-            Vector3 offset = new Vector3(distance.x * 0.5f, distance.y * 0.5f) * GameProcessor.Inst.MapData.CellSize.x;
+            Vector3 offset = new Vector3(distance.x * 0.2f, distance.y * 0.2f) * GameProcessor.Inst.MapData.CellSize.x;
             var targetPos = GameProcessor.Inst.MapData.GetWorldPosition(this.SelfPlayer.Cell);
             this.SelfPlayer.Transform.DOLocalMove(targetPos + offset, speed);
 
