@@ -20,7 +20,6 @@ namespace Game
 
         IEnumerator IE_Attack(Vector3Int cell)
         {
-            yield return new WaitForSeconds(speed);
             var distance = cell - this.SelfPlayer.Cell;
             Vector3 offset = new Vector3(distance.x * 0.2f, distance.y * 0.2f) * GameProcessor.Inst.MapData.CellSize.x;
             var targetPos = GameProcessor.Inst.MapData.GetWorldPosition(this.SelfPlayer.Cell);
@@ -28,6 +27,7 @@ namespace Game
 
             yield return new WaitForSeconds(speed);
             this.SelfPlayer.Transform.DOLocalMove(targetPos, speed);
+            yield return null;
         }
     }
 }

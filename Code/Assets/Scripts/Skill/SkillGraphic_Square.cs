@@ -18,25 +18,26 @@ namespace Game
 
         private IEnumerator IE_Attack(List<Vector3Int> cells, Vector3Int scale)
         {
+            var startPos = GameProcessor.Inst.MapData.GetWorldPosition(SelfPlayer.Cell);
+            var endPos = GameProcessor.Inst.MapData.GetCenterPosition(cells);
+
             var effectCom = EffectLoader.CreateEffect(this.SkillPanel.SkillData.SkillConfig.ModelName, true);
             if (effectCom != null)
             {
-                var selfPos = GameProcessor.Inst.MapData.GetWorldPosition(SelfPlayer.Cell);
-
-                //Log.Info("selfPos :" + selfPos.ToString());
-
-                var targetPos = GameProcessor.Inst.MapData.GetCenterPosition(cells);
-
-                //Log.Info("centerPos :" + targetPos.ToString());
-
                 effectCom.transform.SetParent(GameProcessor.Inst.EffectRoot);
-                effectCom.transform.localPosition = selfPos;
-                effectCom.transform.DOLocalMove(targetPos, 0.3f);
-                effectCom.transform.DOScale(scale, 0.7f);
+                effectCom.transform.localPosition = startPos;
 
-                var duration = Mathf.Max(this.SkillPanel.Duration, 0.5f);
-                yield return new WaitForSeconds(duration);
-                GameObject.Destroy(effectCom.gameObject);
+                Sequence sequence = DOTween.Sequence();
+                sequence.Append(effectCom.transform.DOScale(scale, ConfigHelper.SkillAnimaTime));
+                sequence.Append(effectCom.transform.DOLocalMove(endPos, ConfigHelper.SkillAnimaTime));
+                sequence.OnComplete(() =>
+                {
+                    GameObject.Destroy(effectCom.gameObject);
+                });
+
+                // ∆Ù∂Ø∂Øª≠–Ú¡–
+                sequence.Play();
+                yield return null;
             }
         }
     }

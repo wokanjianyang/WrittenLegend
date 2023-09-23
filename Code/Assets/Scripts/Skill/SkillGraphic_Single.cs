@@ -29,11 +29,9 @@ namespace Game
                 var targetPos = GameProcessor.Inst.MapData.GetWorldPosition(cell);
                 effectCom.transform.SetParent(GameProcessor.Inst.EffectRoot);
                 effectCom.transform.localPosition = selfPos;
-                effectCom.transform.DOLocalMove(targetPos, 0.5f);
+                effectCom.transform.DOLocalMove(targetPos, ConfigHelper.SkillAnimaTime);
 
-                var duration = Mathf.Max(this.SkillPanel.Duration, ConfigHelper.DelayShowTime);
-                yield return new WaitForSeconds(duration);
-                //effectCom.gameObject.SetActive(false);
+                yield return new WaitForSeconds(ConfigHelper.SkillAnimaTime);
                 GameObject.Destroy(effectCom.gameObject);
             }
         }

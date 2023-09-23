@@ -23,7 +23,7 @@ namespace Game
         private IEnumerator IE_Attack(Vector3Int cell)
         {
             //yield return new WaitForSeconds(0.5f);
-            var duration = Math.Max(this.SkillPanel.Duration, 0.5f);
+            var duration = this.SkillPanel.Duration;
             bool loop = duration > 1;
 
             var effectCom = EffectLoader.CreateEffect(this.SkillPanel.SkillData.SkillConfig.ModelName, loop);
@@ -34,11 +34,9 @@ namespace Game
                 effectCom.transform.localPosition = targetPos;
 
                 yield return new WaitForSeconds(duration); //因为现在1s才是一个回合
-                //effectCom.gameObject.SetActive(false);
                 GameObject.Destroy(effectCom.gameObject);
-
             }
-            //yield return null;
+            yield return null;
         }
     }
 }
