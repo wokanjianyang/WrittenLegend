@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2167398331
+CRC: 4161950928
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: f0a859fadf6fd77c19ba8791d2d4662e
+    Hash: 420349f6c9155e67d4d3ff2b99bac56a
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -44,6 +44,7 @@ Assets:
 - Assets/Resources/Config/SkillConfigCategory.bytes
 - Assets/Resources/Config/ItemCategory.bytes
 - Assets/Resources/Config/SkillRuneConfigCategory.bytes
+- Assets/Resources/Config/DropLimitConfigCategory.bytes
 - Assets/Resources/Config/BossConfigCategory.bytes
 - Assets/Resources/Config/EffectConfigCategory.bytes
 - Assets/Resources/Config/CompositeConfigCategory.bytes

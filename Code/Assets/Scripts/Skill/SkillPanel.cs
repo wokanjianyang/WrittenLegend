@@ -56,7 +56,7 @@ namespace Game
             List<SkillRune> effectRuneList = runeList.Where(m => m.EffectId > 0).ToList();
             List<SkillSuit> effectSuitList = suitList.Where(m => m.EffectId > 0).ToList();
 
-            int levelPercent = (int)skillData.MagicLevel.Data - 1;
+            int levelPercent = ((int)skillData.MagicLevel.Data - 1) * skillData.SkillConfig.LevelPercent;
             long levelDamage = skillData.MagicLevel.Data * 1000;
 
             long runeDamage = baseRuneList.Select(m => m.Damage).Sum() * skillData.MagicLevel.Data;
@@ -190,7 +190,7 @@ namespace Game
             }
 
             //TEST skill
-            //this.CD = 0;
+            this.CD = 0;
             //this.Row = 2;
             //this.Column = 2;
             //this.Duration = 3;

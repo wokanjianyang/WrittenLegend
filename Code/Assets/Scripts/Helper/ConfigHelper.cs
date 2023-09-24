@@ -40,7 +40,8 @@ namespace Game
 
 		public const int SkillNumber = 5;
 
-		public const float DelayShowTime = 0.65f;
-		public const float SkillAnimaTime = 0.5f;
+		public const float DelayShowTime = 0.75f;
+		public const float SkillAnimaTime = 0.75f;
+		public const float SkillAnimaTime1 = 0.75f;
 	}
 }

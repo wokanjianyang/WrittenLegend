@@ -45,7 +45,7 @@ namespace Game
                 Sequence sequence = DOTween.Sequence();
 
                 // 添加缩放动画
-                sequence.Append(effectCom.transform.DOScale(scale, ConfigHelper.SkillAnimaTime)); // 缩放到目标大小，持续1秒
+                sequence.Append(effectCom.transform.DOScale(scale, ConfigHelper.SkillAnimaTime1)); // 缩放到目标大小，持续1秒
 
                 // 添加移动动画
                 //sequence.Append(effectCom.transform.DOLocalMove(targetPos, 1.0f)); // 移动到目标位置，持续1秒

@@ -116,10 +116,9 @@ namespace Game
             //生成道具奖励
             List<KeyValuePair<int, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(Config.MapId, qualityConfig.DropRate);
             List<Item> items = DropHelper.BuildDropItem(dropList, qualityRate);
-            //if (SystemConfigHelper.CheckRequireLevel(SystemEnum.SoulRing))
-            //{
-            //    items.Add(ItemHelper.BuildSoulRingShard(Math.Max(1, Level / 10)));
-            //}
+
+            //限时奖励
+            items.AddRange(DropLimitHelper.RandomItem(qualityRate));
 
             if (items.Count > 0)
             {

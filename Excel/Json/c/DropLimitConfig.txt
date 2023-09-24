@@ -1,0 +1,3 @@
+{"list":[
+{"_t":"DropLimitConfig","_id":1,"Name":"中秋活动月饼","Quantity":1,"ItemType":5,"ItemId":4006,"Rate":10,"StartDate":"2023-09-29","EndDate":"2023-10-07"},
+]}
