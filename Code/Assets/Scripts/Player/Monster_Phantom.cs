@@ -72,7 +72,7 @@ public class Monster_Phantom : APlayer
             List<SkillRune> runeList = new List<SkillRune>();
             List<SkillSuit> suitList = new List<SkillSuit>();
 
-            SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList);
+            SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, false);
 
             SkillState skill = new SkillState(this, skillPanel, skillData.Position, 0);
             SelectSkillList.Add(skill);

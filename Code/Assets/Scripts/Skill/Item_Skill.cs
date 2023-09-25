@@ -22,12 +22,30 @@ namespace Game
         [LabelText("描述")]
         public Text tmp_Des;
 
+        List<Text> runeList = new List<Text>();
+        List<Text> suitList = new List<Text>();
         public SkillPanel SkillPanel { get; private set; }
 
         // Start is called before the first frame update
         void Start()
         {
+            for (int i = 1; i <= 8; i++)
+            {
+                Text text = this.transform.Find(string.Format("Txt_Rune{0}", i)).GetComponent<Text>();
+                if (text != null)
+                {
+                    runeList.Add(text);
+                }
+            }
 
+            for (int i = 1; i <= 4; i++)
+            {
+                Text text = this.transform.Find(string.Format("Txt_Suit{0}", i)).GetComponent<Text>();
+                if (text != null)
+                {
+                    suitList.Add(text);
+                }
+            }
         }
 
         // Update is called once per frame
@@ -48,6 +66,36 @@ namespace Game
             {
                 this.tmp_Name.text = SkillPanel.SkillData.SkillConfig.Name;
             }
+
+            for (int i = 0; i < runeList.Count; i++)
+            {
+                if (i < skillPanel.RuneTextList.Count)
+                {
+                    runeList[i].gameObject.SetActive(true);
+                    var kp = skillPanel.RuneTextList.GetEnumerator().Current;
+                    runeList[i].text = formatText(kp);
+                }
+                else
+                {
+                    runeList[i].gameObject.SetActive(false);
+                }
+            }
+
+            for (int i = 0; i < suitList.Count; i++)
+            {
+                if (i < skillPanel.SuitTextList.Count)
+                {
+                    suitList[i].gameObject.SetActive(true);
+                    var kp = skillPanel.SuitTextList.GetEnumerator().Current;
+                    suitList[i].text = formatText(kp);
+                }
+                else
+                {
+                    suitList[i].gameObject.SetActive(false);
+                }
+            }
+
+
             this.tmp_Level.text = string.Format("LV:{0}", SkillPanel.SkillData.MagicLevel.Data);
             this.tmp_CD.text = string.Format("冷却时间{0}秒", SkillPanel.CD);
 
@@ -56,6 +104,13 @@ namespace Game
             var expProgress = this.GetComponentInChildren<Com_Progress>();
             expProgress.SetProgress(SkillPanel.SkillData.MagicExp.Data, SkillPanel.SkillData.GetLevelUpExp());
         }
+
+        private string formatText(KeyValuePair<string, int> kp)
+        {
+            string ct = kp.Value > 0 ? kp.Value + "" : "无";
+            return kp.Key + ":" + string.Format("<color=#FF0000>{0}</color>", ct);
+        }
+
         public void OnPointerClick(PointerEventData eventData)
         {
             User user = GameProcessor.Inst.User;

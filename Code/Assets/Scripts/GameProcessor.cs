@@ -224,7 +224,7 @@ namespace Game
                 AttributeBonus offlineHero = User.AttributeBonus;
                 AttributeBonus offlineTower = MonsterTowerHelper.BuildOffline(tmepFloor);
 
-                SkillPanel sp = new SkillPanel(new SkillData(9001, (int)SkillPosition.Default), new List<SkillRune>(), new List<SkillSuit>());
+                SkillPanel sp = new SkillPanel(new SkillData(9001, (int)SkillPosition.Default), new List<SkillRune>(), new List<SkillSuit>(), false);
 
                 int roundHeroToTower = DamageHelper.CalcAttackRound(offlineHero, offlineTower, sp);
                 int roundTowerToHero = DamageHelper.CalcAttackRound(offlineTower, offlineHero, sp);

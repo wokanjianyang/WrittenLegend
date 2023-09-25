@@ -114,7 +114,7 @@ namespace Game
                 List<SkillRune> runeList = user.GetRuneList(skillData.SkillId);
                 List<SkillSuit> suitList = user.GetSuitList(skillData.SkillId);
 
-                SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList);
+                SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList,true);
 
                 SkillState skill = new SkillState(this, skillPanel, skillData.Position, 0);
                 SelectSkillList.Add(skill);
@@ -167,7 +167,7 @@ namespace Game
                     List<SkillRune> runeList = user.GetRuneList(skillData.SkillId);
                     List<SkillSuit> suitList = user.GetSuitList(skillData.SkillId);
 
-                    SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList);
+                    SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList,true);
 
                     SkillState skill = DoubleHitSkillList.Where(m => m.SkillPanel.SkillId == skillId).FirstOrDefault();
 

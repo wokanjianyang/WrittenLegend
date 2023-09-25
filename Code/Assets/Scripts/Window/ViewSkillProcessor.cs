@@ -74,13 +74,14 @@ namespace Game
                 }
             }
 
-            user.SkillList.Sort((a, b) => {
+            user.SkillList.Sort((a, b) =>
+            {
                 return a.SkillConfig.Id.CompareTo(b.SkillConfig.Id);
             });
 
             foreach (var skill in user.SkillList)
             {
-                SkillPanel skillPanel = new SkillPanel(skill, user.GetRuneList(skill.SkillId), user.GetSuitList(skill.SkillId));
+                SkillPanel skillPanel = new SkillPanel(skill, user.GetRuneList(skill.SkillId), user.GetSuitList(skill.SkillId), true);
                 SkillToBattle(skillPanel);
             }
         }

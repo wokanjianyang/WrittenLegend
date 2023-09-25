@@ -10,11 +10,6 @@ namespace Game
     public class SkillPanel
     {
         public SkillData SkillData { get; set; }
-
-        //public List<SkillRune> RuneList { get; }
-
-        //public List<SkillSuit> SuitList { get; }
-
         public int SkillId { get; }
 
         public long Damage { get; }
@@ -45,10 +40,30 @@ namespace Game
 
         public AttackCastType CastType { get; }
 
-        public SkillPanel(SkillData skillData, List<SkillRune> runeList, List<SkillSuit> suitList)
+        public Dictionary<string, int> RuneTextList { get; } = new Dictionary<string, int>();
+        public Dictionary<string, int> SuitTextList { get; } = new Dictionary<string, int>();
+
+        public SkillPanel(SkillData skillData, List<SkillRune> runeList, List<SkillSuit> suitList,bool isPlayer)
         {
-            this.SkillData = skillData; //技能本身
+            this.SkillData = skillData;
             this.SkillId = skillData.SkillId;
+
+            if (isPlayer)
+            {
+                List<SkillRuneConfig> skillRuneConfigs = SkillRuneConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.SkillId == SkillId).ToList();
+                foreach (SkillRuneConfig config in skillRuneConfigs)
+                {
+                    int count = runeList.Where(m => m.SkillRuneConfig.Id == config.Id).Count();
+                    RuneTextList.Add(config.Name, count);
+                }
+
+                List<SkillSuitConfig> skillSuitConfigs = SkillSuitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.SkillId == SkillId).ToList();
+                foreach (SkillSuitConfig config in skillSuitConfigs)
+                {
+                    int count = suitList.Where(m => m.SkillSuitConfig.Id == config.Id).Count();
+                    RuneTextList.Add(config.Name, count);
+                }
+            }
 
             List<SkillRune> baseRuneList = runeList.Where(m => m.EffectId == 0).ToList();
             List<SkillSuit> baseSuitList = suitList.Where(m => m.EffectId == 0).ToList();

@@ -157,13 +157,6 @@ namespace Game
             //LoadSkill();
         }
 
-        internal SkillPanel GetOfflineSkill()
-        {
-            List<SkillPanel> list = SelectSkillList.Where(m => m.SkillPanel.CD == 0).Select(m => m.SkillPanel).OrderBy(m => m.Percent).ToList();
-            return list.Count > 0 ? list[list.Count - 1] : new SkillPanel(new SkillData(9001, (int)SkillPosition.Default), new List<SkillRune>(), new List<SkillSuit>());
-        }
-
-
         public virtual long GetRoleAttack(int role)
         {
             return DamageHelper.GetRoleAttack(this.AttributeBonus, role);
