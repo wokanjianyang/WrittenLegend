@@ -22,6 +22,10 @@ namespace Game
         [LabelText("描述")]
         public Text tmp_Des;
 
+        public Toggle Recovery;
+
+        public Button Btn_UpLevel;
+
         List<Text> runeList = new List<Text>();
         List<Text> suitList = new List<Text>();
         public SkillPanel SkillPanel { get; private set; }
@@ -29,6 +33,20 @@ namespace Game
         // Start is called before the first frame update
         void Start()
         {
+
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
+
+        private void Init() {
+            if (runeList.Count > 0) {
+                return;
+            }
+
             for (int i = 1; i <= 8; i++)
             {
                 Text text = this.transform.Find(string.Format("Txt_Rune{0}", i)).GetComponent<Text>();
@@ -48,14 +66,9 @@ namespace Game
             }
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
         public void SetItem(SkillPanel skillPanel)
         {
+            this.Init();
             this.SkillPanel = skillPanel;
 
             if (SkillPanel.SkillData.SkillConfig.Name.Length > 2)
@@ -72,8 +85,7 @@ namespace Game
                 if (i < skillPanel.RuneTextList.Count)
                 {
                     runeList[i].gameObject.SetActive(true);
-                    var kp = skillPanel.RuneTextList.GetEnumerator().Current;
-                    runeList[i].text = formatText(kp);
+                    runeList[i].text = formatText(skillPanel.RuneTextList[i]);
                 }
                 else
                 {
@@ -86,8 +98,7 @@ namespace Game
                 if (i < skillPanel.SuitTextList.Count)
                 {
                     suitList[i].gameObject.SetActive(true);
-                    var kp = skillPanel.SuitTextList.GetEnumerator().Current;
-                    suitList[i].text = formatText(kp);
+                    suitList[i].text = formatText(skillPanel.SuitTextList[i]);
                 }
                 else
                 {
@@ -107,8 +118,15 @@ namespace Game
 
         private string formatText(KeyValuePair<string, int> kp)
         {
-            string ct = kp.Value > 0 ? kp.Value + "" : "无";
-            return kp.Key + ":" + string.Format("<color=#FF0000>{0}</color>", ct);
+            string name = kp.Key;
+            if (name.Contains("·"))
+            {
+                name = name.Substring(name.IndexOf("·") + 1);
+            }
+            Debug.Log("name:" + name);
+
+            string ct = kp.Value > 0 ? "+" + kp.Value : "无";
+            return name + "：" + string.Format("<color=#FF0000>{0}</color>", ct);
         }
 
         public void OnPointerClick(PointerEventData eventData)

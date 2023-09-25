@@ -38,6 +38,11 @@ namespace Game
 
         public bool CheckRecovery(Item item)
         {
+            if (item.IsLock)
+            {
+                return false;
+            }
+
             if (item.Type == ItemType.Equip)
             {
                 Equip equip = item as Equip;
@@ -46,7 +51,8 @@ namespace Game
                 if (GoldTotal > 0)
                 {
                     long gt = equip.AttrEntryList.Where(m => m.Key == (int)AttributeEnum.GoldIncrea).Select(m => m.Value).Sum();
-                    if (gt >= GoldTotal) {
+                    if (gt >= GoldTotal)
+                    {
                         return false;
                     }
                 }
@@ -69,7 +75,8 @@ namespace Game
                     }
                 }
 
-                if (DropRate > 0) {
+                if (DropRate > 0)
+                {
                     long rateTotal = equip.AttrEntryList.Where(m => m.Key == (int)AttributeEnum.BurstIncrea).Select(m => m.Value).Sum();
                     if (rateTotal >= DropRate)
                     {
@@ -86,23 +93,12 @@ namespace Game
                     }
                 }
 
-
                 if ((EquipQuanlity.GetValueOrDefault(item.GetQuality(), false) || item.Level < EquipLevel || EquipRole.GetValueOrDefault(role, false))
-                    && equip.Part <= 10 && !item.IsLock && equip.Quality < 5)
+                    && equip.Part <= 10 && equip.Quality < 5)
                 {
                     return true;
                 }
             }
-            //else if (item.Type == ItemType.SkillBox)
-            //{
-            //    SkillBook skillBook = item as SkillBook;
-
-            //    int role = skillBook.SkillConfig.Role;
-            //    if (SkillBookRole.GetValueOrDefault(role, false) || item.Level < SkillBookLevel)
-            //    {
-            //        return true;
-            //    }
-            //}
 
             return false;
         }

@@ -40,8 +40,8 @@ namespace Game
 
         public AttackCastType CastType { get; }
 
-        public Dictionary<string, int> RuneTextList { get; } = new Dictionary<string, int>();
-        public Dictionary<string, int> SuitTextList { get; } = new Dictionary<string, int>();
+        public List<KeyValuePair< string, int>> RuneTextList { get; } = new List<KeyValuePair<string, int>>();
+        public List<KeyValuePair<string, int>> SuitTextList { get; } = new List<KeyValuePair<string, int>>();
 
         public SkillPanel(SkillData skillData, List<SkillRune> runeList, List<SkillSuit> suitList,bool isPlayer)
         {
@@ -54,14 +54,14 @@ namespace Game
                 foreach (SkillRuneConfig config in skillRuneConfigs)
                 {
                     int count = runeList.Where(m => m.SkillRuneConfig.Id == config.Id).Count();
-                    RuneTextList.Add(config.Name, count);
+                    RuneTextList.Add(new KeyValuePair<string, int>(config.Name, count));
                 }
 
                 List<SkillSuitConfig> skillSuitConfigs = SkillSuitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.SkillId == SkillId).ToList();
                 foreach (SkillSuitConfig config in skillSuitConfigs)
                 {
                     int count = suitList.Where(m => m.SkillSuitConfig.Id == config.Id).Count();
-                    RuneTextList.Add(config.Name, count);
+                    SuitTextList.Add(new KeyValuePair<string, int>(config.Name, count));
                 }
             }
 

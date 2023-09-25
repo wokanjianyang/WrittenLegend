@@ -2237,6 +2237,8 @@ MonoBehaviour:
   tmp_Level: {fileID: 3100922409237923125}
   tmp_CD: {fileID: 8261336960888524801}
   tmp_Des: {fileID: 7256414721186957394}
+  Recovery: {fileID: 2974347799264887128}
+  Btn_UpLevel: {fileID: 3978492309196581893}
 --- !u!1 &7955611023279236672
 GameObject:
   m_ObjectHideFlags: 0
