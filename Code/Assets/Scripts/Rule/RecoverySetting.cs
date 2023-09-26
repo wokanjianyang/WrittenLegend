@@ -93,6 +93,15 @@ namespace Game
                     }
                 }
 
+                if (equip.SkillSuitConfig != null)
+                {
+                    int c = GameProcessor.Inst.User.SkillList.Where(m => m.SkillId == equip.SkillSuitConfig.SkillId && m.Recovery).Count();
+                    if (c == 1)
+                    {
+                        return false;
+                    }
+                }
+
                 if ((EquipQuanlity.GetValueOrDefault(item.GetQuality(), false) || item.Level < EquipLevel || EquipRole.GetValueOrDefault(role, false))
                     && equip.Part <= 10 && equip.Quality < 5)
                 {

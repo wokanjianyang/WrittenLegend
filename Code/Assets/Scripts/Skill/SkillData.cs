@@ -22,6 +22,8 @@ namespace Game
         //装配位置
         public int Position { get; set; }
 
+        public bool Recovery { get; set; } = false;
+
         [JsonIgnore]
         public SkillConfig SkillConfig { get; set; }
 

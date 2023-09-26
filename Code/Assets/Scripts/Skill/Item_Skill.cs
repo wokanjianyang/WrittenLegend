@@ -34,6 +34,10 @@ namespace Game
         void Start()
         {
 
+            Recovery.onValueChanged.AddListener((isOn) =>
+            {
+                this.SkillPanel.SkillData.Recovery = isOn;
+            });
         }
 
         // Update is called once per frame
@@ -106,6 +110,7 @@ namespace Game
                 }
             }
 
+            Recovery.isOn = skillPanel.SkillData.Recovery;
 
             this.tmp_Level.text = string.Format("LV:{0}", SkillPanel.SkillData.MagicLevel.Data);
             this.tmp_CD.text = string.Format("冷却时间{0}秒", SkillPanel.CD);
