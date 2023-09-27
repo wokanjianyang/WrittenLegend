@@ -185,14 +185,18 @@ namespace Game
                 return;
             }
 
-            if (this.SkillPanel.SkillData.MagicLevel.Data >= this.SkillPanel.SkillData.SkillConfig.MaxLevel)
+            SkillData skill = this.SkillPanel.SkillData;
+
+            if (skill.MagicLevel.Data >= skill.SkillConfig.MaxLevel)
             {
                 GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "技能已经满级了" });
                 return;
             }
 
-            this.SkillPanel.SkillData.MagicLevel.Data++;
-            this.SetItem(this.SkillPanel);
+            skill.MagicLevel.Data++;
+
+            SkillPanel skillPanel = new SkillPanel(skill, user.GetRuneList(skill.SkillId), user.GetSuitList(skill.SkillId), true);
+            this.SetItem(skillPanel);
 
             GameProcessor.Inst.EventCenter.Raise(new MaterialUseEvent()
             {

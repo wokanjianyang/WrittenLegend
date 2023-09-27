@@ -96,8 +96,11 @@ namespace Game
 		/// <summary>RewardTypeList</summary>
 		[ProtoMember(7)]
 		public int[] RewardTypeList { get; set; }
-		/// <summary>Memo</summary>
+		/// <summary>QuanlityList</summary>
 		[ProtoMember(8)]
+		public int[] QuanlityList { get; set; }
+		/// <summary>Memo</summary>
+		[ProtoMember(9)]
 		public string Memo { get; set; }
 
 	}

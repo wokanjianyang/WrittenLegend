@@ -104,8 +104,17 @@ namespace Game
                         quantity = config.ItemQuanlityList[i];
                     }
 
-                    Item item = ItemHelper.BuildItem((ItemType)config.ItemTypeList[i], config.ItemIdList[i], 0, quantity);
-                    items.Add(item);
+                    ItemType type = (ItemType)config.ItemTypeList[i];
+
+                    if (type == ItemType.Gold)
+                    {
+                        user.AddExpAndGold(0, quantity * 100000000);
+                    }
+                    else
+                    {
+                        Item item = ItemHelper.BuildItem(type, config.ItemIdList[i], 0, quantity);
+                        items.Add(item);
+                    }
                 }
 
                 user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });

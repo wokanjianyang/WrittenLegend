@@ -83,7 +83,7 @@ namespace Game
                     int itemId = config.RewardIdList[i];
                     ItemType type = (ItemType)config.RewardTypeList[i];
 
-                    Item item = ItemHelper.BuildItem(type, itemId, 1, 1);
+                    Item item = ItemHelper.BuildItem(type, itemId, 1, config.QuanlityList[i]);
                     if (item != null)
                     {
                         items.Add(item);
