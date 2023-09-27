@@ -108,7 +108,7 @@ namespace Game
 
                     if (type == ItemType.Gold)
                     {
-                        user.AddExpAndGold(0, quantity * 100000000);
+                        user.AddExpAndGold(0, 100000000L * quantity);
                     }
                     else
                     {

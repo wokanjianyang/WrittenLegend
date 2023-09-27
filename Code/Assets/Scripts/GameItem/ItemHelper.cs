@@ -66,6 +66,7 @@ namespace Game
         public static Item BuildMaterial(int configId, int quanlity)
         {
             Item item = new Item(configId);
+            item.Type = ItemType.Material;
             item.Count = quanlity;
             return item;
         }
