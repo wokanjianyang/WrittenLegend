@@ -20,4 +20,12 @@
 {"_t":"CodeConfig","_id":19,"code":"gx142","ItemTypeList":[9],"ItemIdList":[4003],"ItemQuanlityList":[100]},
 {"_t":"CodeConfig","_id":20,"code":"gx143","ItemTypeList":[5],"ItemIdList":[4004],"ItemQuanlityList":[50]},
 {"_t":"CodeConfig","_id":21,"code":"gx146","ItemTypeList":[5],"ItemIdList":[4003],"ItemQuanlityList":[100]},
+{"_t":"CodeConfig","_id":22,"code":"zqkl666","ItemTypeList":[],"ItemIdList":[],"ItemQuanlityList":[]},
+{"_t":"CodeConfig","_id":23,"code":"yylx888","ItemTypeList":[],"ItemIdList":[],"ItemQuanlityList":[]},
+{"_t":"CodeConfig","_id":24,"code":"gqkl888","ItemTypeList":[],"ItemIdList":[],"ItemQuanlityList":[]},
+{"_t":"CodeConfig","_id":25,"code":"jgtq888","ItemTypeList":[],"ItemIdList":[],"ItemQuanlityList":[]},
+{"_t":"CodeConfig","_id":26,"code":"frcs888","ItemTypeList":[],"ItemIdList":[],"ItemQuanlityList":[]},
+{"_t":"CodeConfig","_id":27,"code":"tpss888","ItemTypeList":[],"ItemIdList":[],"ItemQuanlityList":[]},
+{"_t":"CodeConfig","_id":28,"code":"gtma888","ItemTypeList":[],"ItemIdList":[],"ItemQuanlityList":[]},
+{"_t":"CodeConfig","_id":29,"code":"xqyy888","ItemTypeList":[],"ItemIdList":[],"ItemQuanlityList":[]},
 ]}
