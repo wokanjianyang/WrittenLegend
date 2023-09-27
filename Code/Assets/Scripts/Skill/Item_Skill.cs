@@ -38,6 +38,9 @@ namespace Game
             {
                 this.SkillPanel.SkillData.Recovery = isOn;
             });
+
+
+            this.Btn_UpLevel.onClick.AddListener(this.Click_UpLevel);
         }
 
         // Update is called once per frame
@@ -110,6 +113,11 @@ namespace Game
                 }
             }
 
+            if (this.SkillPanel.SkillData.MagicLevel.Data >= this.SkillPanel.SkillData.SkillConfig.MaxLevel)
+            {
+                this.Btn_UpLevel.gameObject.SetActive(false);
+            }
+
             Recovery.isOn = skillPanel.SkillData.Recovery;
 
             this.tmp_Level.text = string.Format("LV:{0}", SkillPanel.SkillData.MagicLevel.Data);
@@ -162,6 +170,36 @@ namespace Game
 
             this.SkillPanel.SkillData.Status = SkillStatus.Equip;
             GameProcessor.Inst.User.EventCenter.Raise(new HeroUpdateSkillEvent() { SkillPanel = this.SkillPanel });
+        }
+
+        public void Click_UpLevel()
+        {
+            int upCount = 20;
+
+            User user = GameProcessor.Inst.User;
+            long total = user.Bags.Where(m => (int)m.Item.Type == (int)ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Moon_Cake).Select(m => m.MagicNubmer.Data).Sum();
+
+            if (total < upCount)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "月饼数量不足20个" });
+                return;
+            }
+
+            if (this.SkillPanel.SkillData.MagicLevel.Data >= this.SkillPanel.SkillData.SkillConfig.MaxLevel)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "技能已经满级了" });
+                return;
+            }
+
+            this.SkillPanel.SkillData.MagicLevel.Data++;
+            this.SetItem(this.SkillPanel);
+
+            GameProcessor.Inst.EventCenter.Raise(new MaterialUseEvent()
+            {
+                MaterialId = ItemHelper.SpecialId_Moon_Cake,
+                Quantity = upCount
+            });
+
         }
     }
 }
