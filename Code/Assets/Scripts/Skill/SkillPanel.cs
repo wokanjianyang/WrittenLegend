@@ -53,7 +53,7 @@ namespace Game
                 List<SkillRuneConfig> skillRuneConfigs = SkillRuneConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.SkillId == SkillId).ToList();
                 foreach (SkillRuneConfig config in skillRuneConfigs)
                 {
-                    int count = runeList.Where(m => m.SkillRuneConfig.Id == config.Id).Count();
+                    int count = runeList.Where(m => m.SkillRuneConfig.Id == config.Id).Select(m=>m.AvailableQuantity).Sum();
                     RuneTextList.Add(new KeyValuePair<string, int>(config.Name, count));
                 }
 
