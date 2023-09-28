@@ -20,7 +20,7 @@ namespace Game
         {
             if (this.SelfPlayer.Camp == PlayerType.Enemy)
             {
-                Debug.Log(cells.ListToString());
+                //Debug.Log(cells.ListToString());
             }
 
             Vector3Int scale = new Vector3Int(SkillPanel.Column, SkillPanel.Row, 0);

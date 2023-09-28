@@ -66,6 +66,8 @@ namespace Game
 
         public IDictionary<AchievementSourceType, MagicData> MagicRecord { get; set; } = new Dictionary<AchievementSourceType, MagicData>();
 
+        public bool isError = false;
+
         /// <summary>
         /// 包裹
         /// </summary>
