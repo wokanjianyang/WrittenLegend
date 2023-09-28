@@ -156,7 +156,7 @@ namespace Game
             items.Add(ItemHelper.BuildSoulRingShard(quantity * 2));
 
             //限时奖励
-            items.AddRange(DropLimitHelper.RandomItem(qualityRate));
+            items.AddRange(DropLimitHelper.RandomItem(1));
 
             //掉落BOSS之家门票
             if (CopyType == 1)

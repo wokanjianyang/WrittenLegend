@@ -43,6 +43,8 @@ namespace Game
         public List<KeyValuePair< string, int>> RuneTextList { get; } = new List<KeyValuePair<string, int>>();
         public List<KeyValuePair<string, int>> SuitTextList { get; } = new List<KeyValuePair<string, int>>();
 
+        public string Desc { get; set; }
+
         public SkillPanel(SkillData skillData, List<SkillRune> runeList, List<SkillSuit> suitList,bool isPlayer)
         {
             this.SkillData = skillData;
@@ -145,6 +147,11 @@ namespace Game
             this.Area = EnumHelper.FromString<AttackGeometryType>(skillData.SkillConfig.Area);
             this.CastType = (AttackCastType)skillData.SkillConfig.CastType;
 
+            if (isPlayer)
+            {
+                Desc = string.Format(SkillData.SkillConfig.Des, Dis, EnemyMax, Percent, Damage, Duration);
+            }
+
             //技能的特效
             string[] skilEffectList = skillData.SkillConfig.EffectList;
             if (skilEffectList != null && skilEffectList.Length > 0)
@@ -191,6 +198,11 @@ namespace Game
                     //Remove
                     effectSuitList.RemoveAll(m => m.EffectId == effectId);
                     effectRuneList.RemoveAll(m => m.EffectId == effectId);
+
+                    if (effectConfig.Des != "")
+                    {
+                        Desc += "," + string.Format(effectConfig.Des, percent, max, duration);
+                    }
                 }
             }
 

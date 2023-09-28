@@ -108,6 +108,9 @@ namespace Game
 		/// <summary>等级增益</summary>
 		[ProtoMember(11)]
 		public int LevelGain { get; set; }
+		/// <summary>备注</summary>
+		[ProtoMember(12)]
+		public string Des { get; set; }
 
 	}
 }

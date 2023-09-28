@@ -101,6 +101,14 @@ namespace Game
 
         public void Init(long currentTimeSecond)
         {
+            string pn = Application.identifier;
+            pn = EncryptionHelper.AesEncrypt(pn)+EncryptionHelper.Md5(pn+"8932kMD5#>>");
+            if (pn != "CZiSFbEnJLzHUa2n4QiF3a5EgGe+458f4EBvGvm+xZQ=ebe5d8b49fc4c8e07ebb7ddf8cb95fa5")
+            {
+                UserData.Clear();
+                Application.Quit();
+                return;
+            }
 
             if (currentTimeSecond > 0)
             {

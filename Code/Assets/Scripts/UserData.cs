@@ -203,5 +203,22 @@ namespace Game
                 writer.Write(str_json);
             }
         }
+
+        public static void Clear()
+        {
+            string str_json = "";
+            //
+            string folderPath = System.IO.Path.Combine(Application.persistentDataPath, savePath); //文件夹路径
+            System.IO.Directory.CreateDirectory(folderPath);
+
+            //创建一个空白文件
+            string filePath = System.IO.Path.Combine(folderPath, fileName);             //文件路径
+
+            using (StreamWriter writer = new StreamWriter(filePath))
+            {
+                // 写入要保存的内容
+                writer.Write(str_json);
+            }
+        }
     }
 }

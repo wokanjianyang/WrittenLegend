@@ -71,8 +71,11 @@ namespace Game
         {
             //加载技能
             List<SkillData> list = new List<SkillData>();
+            if (this.SkillPanel.SkillId == 3007)
+            {
+                list.Add(new SkillData(11002, 1)); //神兽增加刺杀
+            }
             list.Add(new SkillData(9001, (int)SkillPosition.Default)); //增加默认技能
-
 
             foreach (SkillData skillData in list)
             {

@@ -123,7 +123,7 @@ namespace Game
             this.tmp_Level.text = string.Format("LV:{0}", SkillPanel.SkillData.MagicLevel.Data);
             this.tmp_CD.text = string.Format("冷却时间{0}秒", SkillPanel.CD);
 
-            this.tmp_Des.text = string.Format(SkillPanel.SkillData.SkillConfig.Des, SkillPanel.Dis, SkillPanel.EnemyMax, SkillPanel.Percent, SkillPanel.Damage, SkillPanel.Duration);
+            this.tmp_Des.text = SkillPanel.Desc;
 
             var expProgress = this.GetComponentInChildren<Com_Progress>();
             expProgress.SetProgress(SkillPanel.SkillData.MagicExp.Data, SkillPanel.SkillData.GetLevelUpExp());
@@ -136,7 +136,7 @@ namespace Game
             {
                 name = name.Substring(name.IndexOf("·") + 1);
             }
-            Debug.Log("name:" + name);
+            //Debug.Log("name:" + name);
 
             string ct = kp.Value > 0 ? "+" + kp.Value : "无";
             return name + "：" + string.Format("<color=#FF0000>{0}</color>", ct);

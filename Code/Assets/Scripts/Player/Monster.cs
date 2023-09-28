@@ -118,7 +118,7 @@ namespace Game
             List<Item> items = DropHelper.BuildDropItem(dropList, qualityRate);
 
             //ÏÞÊ±½±Àø
-            items.AddRange(DropLimitHelper.RandomItem(qualityRate));
+            items.AddRange(DropLimitHelper.RandomItem(1));
 
             if (items.Count > 0)
             {

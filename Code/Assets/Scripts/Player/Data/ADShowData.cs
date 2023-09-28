@@ -76,7 +76,7 @@ namespace Game.Data
         public bool CheckDate()
         {
             
-            return this.LastShowADDay != DateTime.Now.Day || this.LastShowADMonth != DateTime.Now.Month;
+            return this.LastShowADDay < DateTime.Now.Day || this.LastShowADMonth < DateTime.Now.Month;
         }
 
         public ADData GetADShowStatus(ADTypeEnum adType)
