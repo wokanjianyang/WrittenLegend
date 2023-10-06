@@ -747,7 +747,7 @@ namespace Game
         {
             User user = GameProcessor.Inst.User;
 
-            BoxItem boxItem = user.Bags.Find(m => !m.IsFull() && m.Item.ConfigId == newItem.ConfigId);  //ͬ
+            BoxItem boxItem = user.Bags.Find(m => !m.IsFull() && m.Item.Type == newItem.Type && m.Item.ConfigId == newItem.ConfigId);  //ͬ
 
             if (boxItem != null)
             {
