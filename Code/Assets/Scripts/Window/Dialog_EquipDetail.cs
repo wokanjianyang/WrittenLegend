@@ -258,7 +258,7 @@ namespace Game
                         {
                             int suitCount = user.GetSuitCount(equip.SkillSuitConfig.Id);
 
-                            int index = 0; 
+                            int index = 0;
                             tran_SuitAttribute.gameObject.SetActive(true);
                             tran_SuitAttribute.Find("Title").GetComponent<Text>().text = equip.SkillSuitConfig.Name + string.Format("({0}/{1})", suitCount, user.SuitMax);
 
@@ -446,7 +446,7 @@ namespace Game
                         tran_NormalAttribute.Find("Title").GetComponent<Text>().text = skillBox.ItemConfig.Des;
                         tran_NormalAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.boxItem.Item.Level);
                         var isLearn = user.SkillList.Find(b => b.SkillId == this.boxItem.Item.ConfigId) == null;
-                        
+
                         this.btn_Learn.gameObject.SetActive(isLearn);
                         this.btn_Upgrade.gameObject.SetActive(!isLearn);
                         this.btn_UseAll.gameObject.SetActive(!isLearn);
@@ -454,12 +454,20 @@ namespace Game
                     }
                     break;
                 case ItemType.GiftPack:
+                    {
+                        var giftPack = this.boxItem.Item as GiftPack;
+
+                        tran_NormalAttribute.gameObject.SetActive(true);
+                        tran_NormalAttribute.Find("Title").GetComponent<Text>().text = giftPack.Des;
+
+
+                        this.btn_Upgrade.gameObject.SetActive(true);
+                    }
+                    break;
                 case ItemType.ExpPack:
                 case ItemType.GoldPack:
                 case ItemType.Ticket:
                     {
-                        //var giftPack = this.item as GiftPack;
-
                         tran_NormalAttribute.gameObject.SetActive(true);
                         tran_NormalAttribute.Find("Title").GetComponent<Text>().text = this.boxItem.Item.ItemConfig.Des;
                         //tran_NormalAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.item.Level);
@@ -480,6 +488,19 @@ namespace Game
                 default:
                     Log.Debug("未知的类型");
                     break;
+            }
+
+            if (equipPositioin < -1) //道具自选包，不可操作
+            {
+                this.btn_Equip.gameObject.SetActive(false);
+                this.btn_UnEquip.gameObject.SetActive(false);
+                this.btn_Learn.gameObject.SetActive(false);
+                this.btn_Upgrade.gameObject.SetActive(false);
+                this.btn_UseAll.gameObject.SetActive(false);
+                this.btn_Recovery.gameObject.SetActive(false);
+                this.btn_Forging.gameObject.SetActive(false);
+                this.btn_Lock.gameObject.SetActive(false);
+                this.btn_Unlock.gameObject.SetActive(false);
             }
         }
 

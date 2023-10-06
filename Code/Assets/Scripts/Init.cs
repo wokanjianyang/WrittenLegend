@@ -40,6 +40,7 @@ public class Init : MonoBehaviour
         Map_Phantom,
         Map_BossFamily,
 
+        Select_Dialog,
         Dialog_EquipDetail,
         Dialog_OfflineExp,
         Dialog_Settings,
@@ -83,6 +84,7 @@ public class Init : MonoBehaviour
                 WindowTypeEnum.View_TopStatu,
                 WindowTypeEnum.View_BottomNavBar,
                 WindowTypeEnum.Window_EndlessTower,
+                WindowTypeEnum.Select_Dialog,
                 WindowTypeEnum.Dialog_EquipDetail,
                 //WindowTypeEnum.Dialog_OfflineExp,
                 WindowTypeEnum.Dialog_Settings,

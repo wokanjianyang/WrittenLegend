@@ -16,18 +16,31 @@ namespace Game
         {
             ExclusiveConfig config = ExclusiveConfigCategory.Instance.Get(configId);
 
-            int quality = RandomQuanlity();
+            int quality = config.Quality;
+            int runeId = config.RuneId;
+            int suitId = config.SuitId;
 
-            int role = RandomHelper.RandomNumber(1, 4);
+            if (quality <= 0)
+            {
+                quality = RandomQuanlity();
+            }
 
-            int runeId = 0;
-            int suitId = 0;
             if (quality >= 3)
             {
-                SkillRuneConfig runeConfig = SkillRuneHelper.RandomRune(role);
-                runeId = runeConfig.Id;
+                int role = RandomHelper.RandomNumber(1, 4);
 
-                if (quality >= 4)
+                SkillRuneConfig runeConfig;
+                if (runeId <= 0)
+                {
+                    runeConfig = SkillRuneHelper.RandomRune(role);
+                    runeId = runeConfig.Id;
+                }
+                else
+                {
+                    runeConfig = SkillRuneConfigCategory.Instance.Get(runeId);
+                }
+
+                if (suitId <= 0 && quality >= 4)
                 {
                     suitId = SkillSuitHelper.RandomSuit(runeConfig.SkillId).Id;
                 }

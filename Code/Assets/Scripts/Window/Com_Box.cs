@@ -19,7 +19,7 @@ namespace Game
 
         public GameObject go_Lock;
 
-        public BoxItem Item { get; private set; }
+        public BoxItem BoxItem { get; private set; }
         public int boxId { get; private set; }
 
         public int BagType { get; private set; }
@@ -41,14 +41,23 @@ namespace Game
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (this.Item == null) return;
-            GameProcessor.Inst.EventCenter.Raise(new ShowEquipDetailEvent()
+            if (this.BoxItem == null) return;
+
+            if (this.BoxItem.Item.Type == ItemType.GiftPack)
             {
-                Position = this.transform.position,
-                boxItem = this.Item,
-                EquipPosition = this.EquipPosition
-            });
+                GameProcessor.Inst.EventCenter.Raise(new ShowSelectEvent() { boxItem = this.BoxItem });
+            }
+            else
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowEquipDetailEvent()
+                {
+                    boxItem = this.BoxItem,
+                    EquipPosition = this.EquipPosition
+                });
+            }
         }
+
+
 
         public void OnPointerUp(PointerEventData eventData)
         {
@@ -62,7 +71,7 @@ namespace Game
         {
             this.tmp_Title.text = item.Item.Name;
 
-            this.Item = item;
+            this.BoxItem = item;
 
             this.Count = item.MagicNubmer.Data;
             this.BagType = item.GetBagType();

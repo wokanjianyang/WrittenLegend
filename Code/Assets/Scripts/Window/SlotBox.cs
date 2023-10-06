@@ -13,6 +13,8 @@ namespace Game
 
         private Com_Box equip;
 
+        private Com_Box baseInfo;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -28,16 +30,19 @@ namespace Game
         public void Init(GameObject prefab)
         {
             var box = GameObject.Instantiate(prefab, this.transform);
-            box.GetComponent<Com_Box>().tmp_Title.text = this.SlotType.ToString();
+            baseInfo = box.GetComponent<Com_Box>();
+            baseInfo.tmp_Title.text = this.SlotType.ToString();
         }
 
         public void Equip(Com_Box equip)
         {
             this.equip = equip;
+            baseInfo.gameObject.SetActive(false);
         }
         public void UnEquip()
         {
             this.equip = null;
+            baseInfo.gameObject.SetActive(true);
         }
         public Com_Box GetEquip()
         {

@@ -96,6 +96,15 @@ namespace Game
 		/// <summary>AttrValueList</summary>
 		[ProtoMember(7)]
 		public int[] AttrValueList { get; set; }
+		/// <summary>品质</summary>
+		[ProtoMember(8)]
+		public int Quality { get; set; }
+		/// <summary>词条</summary>
+		[ProtoMember(9)]
+		public int RuneId { get; set; }
+		/// <summary>套装</summary>
+		[ProtoMember(10)]
+		public int SuitId { get; set; }
 
 	}
 }

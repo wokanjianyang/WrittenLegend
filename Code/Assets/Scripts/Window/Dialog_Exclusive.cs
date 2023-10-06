@@ -20,7 +20,7 @@ namespace Game
 
         public void OnBattleStart()
         {
-            GameProcessor.Inst.EventCenter.AddListener<ShowExclusive>(this.OnShowExclusive);
+            GameProcessor.Inst.EventCenter.AddListener<ShowExclusiveEvent>(this.OnShowExclusive);
 
             var prefab = Resources.Load<GameObject>("Prefab/Window/Box_Info");
 
@@ -40,7 +40,7 @@ namespace Game
 
         }
 
-        public void OnShowExclusive(ShowExclusive e)
+        public void OnShowExclusive(ShowExclusiveEvent e)
         {
             this.gameObject.SetActive(true);
         }

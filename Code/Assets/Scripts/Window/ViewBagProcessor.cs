@@ -108,6 +108,7 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<BagUseEvent>(this.OnBagUseEvent);
             GameProcessor.Inst.EventCenter.AddListener<CompositeEvent>(this.OnCompositeEvent);
             GameProcessor.Inst.EventCenter.AddListener<MaterialUseEvent>(this.OnMaterialUseEvent);
+            GameProcessor.Inst.EventCenter.AddListener<SelectGiftEvent>(this.OnSelectGift);
             GameProcessor.Inst.EventCenter.AddListener<EquipLockEvent>(this.OnEquipLockEvent);
 
             this.EquipInfoList.Add(EquipInfo1);
@@ -397,6 +398,11 @@ namespace Game
             }
         }
 
+        private void OnSelectGift(SelectGiftEvent e)
+        {
+            UseBoxItem(e.BoxItem, 1);
+            AddBoxItem(e.Item);
+        }
 
         private void ChangeEquipPanel1()
         {
@@ -684,19 +690,7 @@ namespace Game
             }
             else if (boxItem.Item.Type == ItemType.GiftPack)
             {
-                int gold = 0;
-                List<Item> items = GiftPackHelper.BuildItems(boxItem.Item.ConfigId, ref gold);
-
-                user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
-                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
-                {
-                    Message = BattleMsgHelper.BuildGiftPackMessage(items)
-                });
-
-                if (gold > 0)
-                {
-                    user.AddExpAndGold(0, gold);
-                }
+                //GameProcessor.Inst.EventCenter.Raise(new ShowSelect());
             }
             else if (boxItem.Item.Type == ItemType.Ticket)
             {
@@ -1037,7 +1031,7 @@ namespace Game
         }
 
         public void OnExclusive() {
-            GameProcessor.Inst.EventCenter.Raise(new ShowExclusive());
+            GameProcessor.Inst.EventCenter.Raise(new ShowExclusiveEvent());
         }
     }
 }

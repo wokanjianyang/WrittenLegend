@@ -28,4 +28,5 @@
 {"_t":"CodeConfig","_id":27,"code":"tpss888","ItemTypeList":[9],"ItemIdList":[4003],"ItemQuanlityList":[188]},
 {"_t":"CodeConfig","_id":28,"code":"gtma888","ItemTypeList":[5],"ItemIdList":[4002],"ItemQuanlityList":[188888]},
 {"_t":"CodeConfig","_id":29,"code":"xqyy888","ItemTypeList":[9,5],"ItemIdList":[4003,4004],"ItemQuanlityList":[188,18]},
+{"_t":"CodeConfig","_id":30,"code":"gl2000","ItemTypeList":[4],"ItemIdList":[1],"ItemQuanlityList":[1]},
 ]}

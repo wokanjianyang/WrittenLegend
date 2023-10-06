@@ -11,7 +11,7 @@ namespace Game
 
     public class ShowEquipDetailEvent : SDD.Events.Event
     {
-        public Vector3 Position { get; set; }
+        //public Vector3 Position { get; set; }
 
         public BoxItem boxItem { get; set; }
 
@@ -226,7 +226,18 @@ namespace Game
 
     }
 
-    public class ShowExclusive : SDD.Events.Event
+    public class ShowExclusiveEvent : SDD.Events.Event
     {
+    }
+
+    public class ShowSelectEvent : SDD.Events.Event
+    {
+        public BoxItem boxItem { get; set; }
+    }
+
+    public class SelectGiftEvent : SDD.Events.Event
+    {
+        public BoxItem BoxItem { get; set; }
+        public Item Item { get; set; }
     }
 }

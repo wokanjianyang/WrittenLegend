@@ -192,6 +192,7 @@ namespace Game
             ShowVideoAd += OnShowVideoAd;
 
             this.UIRoot_Top = GameObject.Find("Canvas/UIRoot/Top").transform;
+            this.barragePrefab = Resources.Load<GameObject>("Prefab/Dialog/Toast");
 
             if (isTimeError || isCheckError || isVersionError)
             {
@@ -286,7 +287,7 @@ namespace Game
 
             UserData.Save();
 
-            barragePrefab = Resources.Load<GameObject>("Prefab/Dialog/Toast");
+
         }
 
         private void SecondRewarod()
