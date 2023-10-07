@@ -1,3 +1,3 @@
 {"list":[
-{"_t":"GiftPackConfig","_id":1,"Name":"专属自选","LevelRequired":0,"ItemTypeList":[10,10,10,10,10,10],"ItemIdList":[1001,1002,1003,2001,2002,2003],"ItemQuanlityList":[1,1,1,1,1,1],"Des":"十一盖楼礼包，专属自选包"},
+{"_t":"GiftPackConfig","_id":1,"Name":"专属自选","LevelRequired":0,"ItemTypeList":[10,10,10,10,10,10],"ItemIdList":[1000001,1000002,1000003,1000004,1000005,1000006],"ItemQuanlityList":[1,1,1,1,1,1],"Des":"十一盖楼礼包，专属自选包"},
 ]}

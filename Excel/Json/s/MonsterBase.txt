@@ -49,4 +49,9 @@
 {"_t":"MonsterBase","_id":10048,"MapId":1047,"Name":"幻影小鹰","Attr":23462280000,"Def":4692456000,"HP":674552000000,"DamageIncrea":99,"DamageResist":9,"CritRate":15,"CritDamage":15,"Exp":75036000,"Gold":75036000},
 {"_t":"MonsterBase","_id":10049,"MapId":1048,"Name":"幻影多角虫","Attr":33000340000,"Def":6600068000,"HP":1349104000000,"DamageIncrea":102,"DamageResist":12,"CritRate":20,"CritDamage":20,"Exp":84423000,"Gold":84423000},
 {"_t":"MonsterBase","_id":10050,"MapId":1049,"Name":"幻影蜈蚣","Attr":46415880000,"Def":9283176000,"HP":2698208000000,"DamageIncrea":105,"DamageResist":15,"CritRate":25,"CritDamage":25,"Exp":94380000,"Gold":94380000},
+{"_t":"MonsterBase","_id":10051,"MapId":1050,"Name":"幻影钳虫","Attr":65285210000,"Def":13057042000,"HP":5396416000000,"DamageIncrea":108,"DamageResist":18,"CritRate":30,"CritDamage":30,"Exp":104920499,"Gold":104920499},
+{"_t":"MonsterBase","_id":10052,"MapId":1051,"Name":"幻影蠕虫","Attr":91825420000,"Def":18365084000,"HP":10792832000000,"DamageIncrea":111,"DamageResist":21,"CritRate":35,"CritDamage":35,"Exp":116058000,"Gold":116058000},
+{"_t":"MonsterBase","_id":10053,"MapId":1052,"Name":"幻影黑猪","Attr":129154960000,"Def":25830992000,"HP":21585664000000,"DamageIncrea":114,"DamageResist":24,"CritRate":40,"CritDamage":40,"Exp":127806000,"Gold":127806000},
+{"_t":"MonsterBase","_id":10054,"MapId":1053,"Name":"幻影红猪","Attr":181659970000,"Def":36331994000,"HP":43171328000000,"DamageIncrea":117,"DamageResist":27,"CritRate":45,"CritDamage":45,"Exp":140178000,"Gold":140178000},
+{"_t":"MonsterBase","_id":10055,"MapId":1054,"Name":"幻影蝎蛇","Attr":255509700000,"Def":51101940000,"HP":86342656000000,"DamageIncrea":120,"DamageResist":30,"CritRate":50,"CritDamage":50,"Exp":153187500,"Gold":153187500},
 ]}
