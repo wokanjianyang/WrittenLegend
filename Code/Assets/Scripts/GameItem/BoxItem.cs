@@ -15,8 +15,6 @@ namespace Game
 
         public Item Item { get; set; }
 
-        public int Number { get; set; } = 0;
-
         public MagicData MagicNubmer { get; } = new MagicData();
 
         public int BoxId { get; set; }

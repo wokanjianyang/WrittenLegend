@@ -17,7 +17,7 @@ namespace Game
                 }
             }
 
-            string message = $"<color=#{QualityConfigHelper.GetQualityColor(monster.Quality)}>[{monster.Name}]</color><color=white>死亡,经验增加:{exp},金币增加:{gold}{drops}</color>";
+            string message = $"<color=#{QualityConfigHelper.GetQualityColor(monster.Quality)}>[{monster.Name}]</color><color=white>死亡,经验增加:{StringHelper.FormatNumber(exp)},金币增加:{StringHelper.FormatNumber(gold)}{drops}</color>";
 
             return message;
         }
@@ -40,7 +40,7 @@ namespace Game
                 }
             }
 
-            string message = $"<color=#FFD700>[{monster.Name}]</color><color=white>死亡,经验增加:{exp},金币增加:{gold}{drops}</color>";
+            string message = $"<color=#FFD700>[{monster.Name}]</color><color=white>死亡,经验增加:{StringHelper.FormatNumber(exp)},金币增加:{StringHelper.FormatNumber(gold)}{drops}</color>";
 
             return message;
         }
@@ -89,12 +89,12 @@ namespace Game
 
         public static string BuildSecondExpMessage(long exp, long gold)
         {
-            return $"获得经验收益{exp}，金币收益{gold}";
+            return $"获得经验收益{StringHelper.FormatNumber(exp)}，金币收益{StringHelper.FormatNumber(gold)}";
         }
 
         public static string BuildOfflineMessage(long time, long floor, long exp, long gold, long itemCount)
         {
-            return $"离线时间{time}S,闯关{floor}层,获得总经验{exp}，总金币{gold},装备{itemCount}件,金币经验收益提升";
+            return $"离线时间{time}S,闯关{floor}层,获得总经验{StringHelper.FormatNumber(exp)}，总金币{gold},装备{itemCount}件,金币经验收益提升";
         }
 
         public static string BuildTowerSuccessMessage(long riseExp, long riseGold, long exp, long gold, long floor, List<Item> items)
@@ -105,7 +105,7 @@ namespace Game
             {
                 message += $"<color=#{QualityConfigHelper.GetColor(drop)}>[{drop.Name}]</color>";
             }
-            return message + $",经验:{ exp},金币奖励: { gold},收益提升";
+            return message + $",经验:{ StringHelper.FormatNumber(exp)},金币奖励: { StringHelper.FormatNumber(gold)},收益提升";
         }
 
         public static string BuildCopySuccessMessage()

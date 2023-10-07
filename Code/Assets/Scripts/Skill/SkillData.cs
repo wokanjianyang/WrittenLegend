@@ -10,9 +10,6 @@ namespace Game
     public class SkillData
     {
         public int SkillId { get; set; }
-        public long Exp { get; set; }
-        public int Level { get; set; }
-
         public MagicData MagicExp { get; set; } = new MagicData();
         public MagicData MagicLevel { get; set; } = new MagicData();
 

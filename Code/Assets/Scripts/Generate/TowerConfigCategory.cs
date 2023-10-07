@@ -9,6 +9,10 @@ namespace Game
     {
         public TowerConfig GetByFloor(long floor)
         {
+            if (floor > ConfigHelper.Max_Floor)
+            {
+                floor = ConfigHelper.Max_Floor;
+            }
             TowerConfig config = TowerConfigCategory.Instance.GetAll().Where(m => m.Value.StartLevel <= floor && m.Value.EndLevel >= floor).First().Value;
             return config;
         }
@@ -23,6 +27,11 @@ namespace Game
     {
         public static List<Monster_Tower> BuildMonster(long floor)
         {
+            if (floor >= ConfigHelper.Max_Floor)
+            {
+                return null;
+            }
+
             List<Monster_Tower> monsters = new List<Monster_Tower>();
 
             if (floor <= TowerConfigCategory.Instance.GetMaxFloor())

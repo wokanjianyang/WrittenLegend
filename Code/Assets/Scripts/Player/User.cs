@@ -11,16 +11,7 @@ namespace Game
 {
     public class User
     {
-        //public long Exp { get; set; }
-
-        //public long UpExp { get; set; }
-
-        public long Gold { get; set; }
-
         public long Essence { get; set; }
-
-
-
         public int LastCityId { get; set; }
 
         public long Power { get; set; }
@@ -31,8 +22,6 @@ namespace Game
 
         public string Name { get; set; }
 
-        public long Level { get; set; }
-
         public MagicData MagicLevel { get; } = new MagicData();
 
         public MagicData MagicGold { get; } = new MagicData();
@@ -40,6 +29,7 @@ namespace Game
         public MagicData MagicExp { get; } = new MagicData();
 
         public MagicData MagicUpExp { get; } = new MagicData();
+        public MagicData MagicTowerFloor { get; } = new MagicData();
 
         public IDictionary<int, Equip> EquipPanel { get; set; } = new Dictionary<int, Equip>();
 
@@ -50,8 +40,6 @@ namespace Game
         public IDictionary<int, ExclusiveItem> ExclusiveList { get; set; } = new Dictionary< int, ExclusiveItem>();
 
         public int EquipPanelIndex { get; set; } = 0;
-
-        public IDictionary<int, long> EquipStrength { get; set; } = new Dictionary<int, long>();
 
         public IDictionary<int, MagicData> MagicEquipStrength { get; set; } = new Dictionary<int, MagicData>();
 
@@ -123,12 +111,7 @@ namespace Game
 
         private bool isInLevelUp;
 
-        /// <summary>
-        /// 无尽塔层数
-        /// </summary>
-        public long TowerFloor { get; set; } = 1;
-
-        public MagicData MagicTowerFloor { get; } = new MagicData();
+ 
 
         public int MapId { get; set; } = 1000;
 
@@ -137,7 +120,6 @@ namespace Game
 
         //副本次数记录
         public long CopyTicketTime { get; set; } = 0;
-        public int CopyTikerCount { get; set; } = 0;
 
         public MagicData MagicCopyTikerCount { get; } = new MagicData();
 

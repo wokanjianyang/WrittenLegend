@@ -562,6 +562,12 @@ namespace Game
 
         private void OnRecovery()
         {
+            if (this.boxItem.Item.IsLock)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "锁定的不能回收", ToastType = ToastTypeEnum.Failure });
+                return;
+            }
+
             this.gameObject.SetActive(false);
 
             GameProcessor.Inst.EventCenter.Raise(new RecoveryEvent()

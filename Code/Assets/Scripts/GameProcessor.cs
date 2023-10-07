@@ -221,11 +221,13 @@ namespace Game
             long offlineFloor = 0;
             long rewardExp = 0;
             long rewardGold = 0;
+            long tmepFloor = User.MagicTowerFloor.Data;
 
             long tempTime = Math.Min(offlineTime, ConfigHelper.MaxOfflineTime);
-            while (tempTime > 0)
+            while (tempTime > 0 && tmepFloor< ConfigHelper.Max_Floor)
             {
-                long tmepFloor = User.MagicTowerFloor.Data + offlineFloor + 100;
+                tmepFloor = User.MagicTowerFloor.Data + offlineFloor + 100;
+
                 TowerConfig config = TowerConfigCategory.Instance.GetByFloor(tmepFloor); //quick
 
                 AttributeBonus offlineHero = User.AttributeBonus;
@@ -264,7 +266,9 @@ namespace Game
                 items.AddRange(DropHelper.TowerEquip(fl, equipLevel));
             }
 
-            User.MagicTowerFloor.Data += offlineFloor;
+            long newFloor = User.MagicTowerFloor.Data + offlineFloor;
+
+            User.MagicTowerFloor.Data = Math.Min(newFloor, ConfigHelper.Max_Floor);
 
             long exp = User.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp) * (offlineTime / 5) + rewardExp;
             long gold = User.AttributeBonus.GetTotalAttr(AttributeEnum.SecondGold) * (offlineTime / 5) + rewardGold;
@@ -286,8 +290,6 @@ namespace Game
             //Debug.Log(OfflineMessage);
 
             UserData.Save();
-
-
         }
 
         private void SecondRewarod()

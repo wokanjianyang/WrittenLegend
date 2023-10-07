@@ -54,6 +54,11 @@ namespace Game
             //Log.Info("Tower Success");
             User user = GameProcessor.Inst.User;
 
+            if (user.MagicTowerFloor.Data >= ConfigHelper.Max_Floor)
+            {
+                return;
+            }
+
             TowerConfig config = TowerConfigCategory.Instance.GetByFloor(user.MagicTowerFloor.Data);
 
             MonsterTowerHelper.GetTowerSecond(user.MagicTowerFloor.Data, out long secondExp, out long secondGold);
