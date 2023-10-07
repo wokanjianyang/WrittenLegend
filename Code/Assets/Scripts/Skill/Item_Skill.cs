@@ -177,7 +177,7 @@ namespace Game
             int upCount = 20;
 
             User user = GameProcessor.Inst.User;
-            long total = user.Bags.Where(m => (int)m.Item.Type == (int)ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Moon_Cake).Select(m => m.MagicNubmer.Data).Sum();
+            long total = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Moon_Cake).Select(m => m.MagicNubmer.Data).Sum();
 
             if (total < upCount)
             {
