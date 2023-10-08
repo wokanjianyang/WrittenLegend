@@ -64,6 +64,11 @@ namespace Game
                 user.EquipPanelList[4] = new Dictionary<int, Equip>();
             }
 
+            if (user.MagicLevel.Data <= 0)
+            {
+                //user.MagicLevel.Data = 1;
+            }
+
             //clear month
             user.Bags.RemoveAll(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Moon_Cake);
 
