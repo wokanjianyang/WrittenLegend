@@ -2,4 +2,7 @@
 {"_t":"PhantomConfig","_id":1,"Name":"幻神鸡王"},
 {"_t":"PhantomConfig","_id":2,"Name":"幻神鹿王"},
 {"_t":"PhantomConfig","_id":3,"Name":"幻神草王"},
+{"_t":"PhantomConfig","_id":4,"Name":"幻神战士"},
+{"_t":"PhantomConfig","_id":5,"Name":"幻神法师"},
+{"_t":"PhantomConfig","_id":6,"Name":"幻神道士"},
 ]}

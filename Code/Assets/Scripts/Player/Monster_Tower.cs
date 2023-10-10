@@ -111,7 +111,12 @@ public class Monster_Tower : APlayer
         AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr);
         AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr);
         AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, def);
+
         AttributeBonus.SetAttr(AttributeEnum.DamageIncrea, AttributeFrom.HeroBase, config.DamageIncrea);
+        //AttributeBonus.SetAttr(AttributeEnum.DamageResist, AttributeFrom.HeroBase, config.DamageResist);
+        //AttributeBonus.SetAttr(AttributeEnum.CritRate, AttributeFrom.HeroBase, config.CritRate);
+        //AttributeBonus.SetAttr(AttributeEnum.CritDamage, AttributeFrom.HeroBase, config.CritDamage);
+
 
         //回满当前血量
         SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));

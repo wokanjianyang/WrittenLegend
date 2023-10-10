@@ -46,11 +46,11 @@ namespace Game
                 if (Data.Config.Type == (int)EffectType.Sub)
                 {
                     //Debug.Log("Effect Sub Hp:" + Total);
-                    SelfPlayer.Logic.OnDamage(new DamageResult(SelfPlayer.ID, Total, MsgType.Damage));
+                    SelfPlayer.OnHit(new DamageResult(0, Total, MsgType.Damage, RoleType.All));
                 }
                 else
                 {
-                    SelfPlayer.Logic.OnRestore(Total);
+                    SelfPlayer.OnRestore(0, Total);
                 }
             }
             else

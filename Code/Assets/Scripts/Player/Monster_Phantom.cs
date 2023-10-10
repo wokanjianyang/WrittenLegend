@@ -93,7 +93,9 @@ public class Monster_Phantom : APlayer
         AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, def);
 
         AttributeBonus.SetAttr(AttributeEnum.CritRate, AttributeFrom.HeroBase, attrConfig.CritRate);
+        AttributeBonus.SetAttr(AttributeEnum.CritDamage, AttributeFrom.HeroBase, attrConfig.CritDamage);
         AttributeBonus.SetAttr(AttributeEnum.DamageIncrea, AttributeFrom.HeroBase, attrConfig.DamageIncrea);
+        AttributeBonus.SetAttr(AttributeEnum.DamageResist, AttributeFrom.HeroBase, attrConfig.DamageResist);
 
         long MaxHP = AttributeBonus.GetTotalAttr(AttributeEnum.HP);
         long CurrentHp = Percent * MaxHP / 10;
@@ -109,6 +111,19 @@ public class Monster_Phantom : APlayer
 
     public override void OnHit(DamageResult dr)
     {
+        if (attrConfig.ResistType > 0)
+        {
+            if (dr.RoleType != RoleType.All && (int)dr.RoleType != attrConfig.ResistType)
+            {
+                this.EventCenter.Raise(new ShowMsgEvent
+                {
+                    Type = MsgType.SkillName,
+                    Content = "抵抗"
+                });
+                return;
+            }
+        }
+
         long maxHp = this.AttributeBonus.GetTotalAttr(AttributeEnum.HP);
         long pp = this.HP * 10 / maxHp;
 

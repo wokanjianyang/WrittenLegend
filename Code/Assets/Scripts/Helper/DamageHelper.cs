@@ -12,7 +12,7 @@ namespace Game
 
             int role = skill.SkillData.SkillConfig.Role;
 
-            long roleAttr = GetRoleAttack(attcher, role) * (100 + skill.AttrIncrea) / 100;  //职业攻击
+            long roleAttr = GetRoleAttack(attcher, role) * (100 + skill.AttrIncrea + attcher.GetAttackAttr(AttributeEnum.AurasAttrIncrea)) / 100;  //职业攻击
 
             //防御 = 目标防御 * (100-无视防御)/100
             long def = enemy.GetAttackAttr(AttributeEnum.Def);
@@ -60,7 +60,7 @@ namespace Game
             MsgType type = isCrit ? MsgType.Crit : MsgType.Damage;
 
             //强制最少1点伤害
-            return new DamageResult(Math.Max(1, attack), type); //
+            return new DamageResult(Math.Max(1, attack), type, (RoleType)role); //
         }
 
         public static long GetSkillDamage(AttributeBonus attributeBonus, int role)
@@ -228,19 +228,24 @@ namespace Game
 
     public class DamageResult
     {
-        public DamageResult(long damage, MsgType type) {
+        public DamageResult(long damage, MsgType type,RoleType roleType)
+        {
             this.Damage = damage;
             this.Type = type;
+            this.RoleType = roleType;
         }
 
-        public DamageResult(int formId,long damage, MsgType type)
+        public DamageResult(int formId, long damage, MsgType type, RoleType roleType)
         {
             this.FromId = formId;
             this.Damage = damage;
             this.Type = type;
+            this.RoleType = roleType;
         }
 
         public MsgType Type { get; set; }
+
+        public RoleType RoleType { get; set; }
         public long Damage { get; set; }
         public int FromId { get; set; }
     }

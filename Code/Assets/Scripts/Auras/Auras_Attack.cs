@@ -23,7 +23,7 @@ namespace Game
 
             foreach (var enemy in enemys)
             {
-                DamageResult dr = new DamageResult(0, damage, MsgType.Damage); //光环伤害,来源为0
+                DamageResult dr = new DamageResult(0, damage, MsgType.Damage, RoleType.All); //光环伤害,来源为0
                 enemy.OnHit(dr);
             }
         }

@@ -49,6 +49,7 @@ namespace Game
 
         AurasDamageResist = 201, //光环减伤
         AurasDamageIncrea = 202, //光环增伤
+        AurasAttrIncrea = 203,//
 
         EquipBaseIncrea = 101, //装备基础属性百分比
         EquipRandomIncrea = 102, //装备随机属性百分比
@@ -165,9 +166,11 @@ namespace Game
         幻影挑战 = 2,
     }
 
-    public enum RoleType {
-        Warrior =1, //战士
+    public enum RoleType
+    {
+        Warrior = 1, //战士
         Mage = 2, //法师
         Warlock = 3, //道士
+        All = 99,
     }
 }

@@ -333,7 +333,7 @@ GameObject:
   - component: {fileID: 321929081357305577}
   - component: {fileID: 8364489625745139042}
   m_Layer: 5
-  m_Name: Item_Phantom_
+  m_Name: Item_Phantom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

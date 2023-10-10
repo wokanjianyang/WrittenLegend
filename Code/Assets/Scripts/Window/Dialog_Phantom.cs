@@ -21,7 +21,7 @@ public class Dialog_Phantom : MonoBehaviour, IBattleLife
 
     public void OnBattleStart()
     {
-        ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Group_Phantom");
+        ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Item_Phantom");
         GameProcessor.Inst.EventCenter.AddListener<PhantomEvent>(this.OnPhantomEvent);
 
         Init();
@@ -31,24 +31,16 @@ public class Dialog_Phantom : MonoBehaviour, IBattleLife
     {
         List<PhantomConfig> configs = PhantomConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
 
-        int groupCount = ((int)Math.Ceiling(configs.Count / 3.0));
-
-        int index = 0;
-
-        for (int i = 0; i < groupCount; i++)
+        for (int i = 0; i < configs.Count; i++)
         {
             var item = GameObject.Instantiate(ItemPrefab);
-            var coms = item.GetComponentsInChildren<Item_Phantom>();
-            items.AddRange(coms);
+            var com = item.GetComponentInChildren<Item_Phantom>();
 
-            foreach (var com in coms)
-            {
-                if (index < configs.Count)
-                {
-                    com.SetContent(configs[index++], 0);
-                }
-                com.gameObject.SetActive(false);
-            }
+            items.Add(com);
+
+            com.SetContent(configs[i], 0);
+            com.gameObject.SetActive(false);
+
 
             item.transform.SetParent(this.sr_Boss.content);
             item.transform.localScale = Vector3.one;
