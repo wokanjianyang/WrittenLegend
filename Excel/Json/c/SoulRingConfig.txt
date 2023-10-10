@@ -3,7 +3,7 @@
 {"_t":"SoulRingConfig","_id":2,"Name":"百年魂环","LevelMemo":"10级解锁强击光环","AurasMemo":"友方最终伤害增加10%"},
 {"_t":"SoulRingConfig","_id":3,"Name":"千年魂环","LevelMemo":"10级解锁暴击光环","AurasMemo":"友方暴击概率增加10%"},
 {"_t":"SoulRingConfig","_id":4,"Name":"万年魂环","LevelMemo":"10级解锁爆伤光环","AurasMemo":"友方暴击伤害增加30%"},
-{"_t":"SoulRingConfig","_id":5,"Name":"十万年魂环","LevelMemo":"未开放","AurasMemo":"未开放"},
+{"_t":"SoulRingConfig","_id":5,"Name":"十万年魂环","LevelMemo":"10级解锁祝福光环","AurasMemo":"友方最终攻击增加10%"},
 {"_t":"SoulRingConfig","_id":6,"Name":"百万年魂环","LevelMemo":"未开放","AurasMemo":"未开放"},
 {"_t":"SoulRingConfig","_id":7,"Name":"千万年魂环","LevelMemo":"未开放","AurasMemo":"未开放"},
 {"_t":"SoulRingConfig","_id":8,"Name":"亿年魂环","LevelMemo":"未开放","AurasMemo":"未开放"},
