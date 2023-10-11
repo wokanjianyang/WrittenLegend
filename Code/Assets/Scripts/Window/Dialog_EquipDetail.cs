@@ -433,7 +433,7 @@ namespace Game
                         }
                     }
 
-                    this.btn_Recovery.gameObject.SetActive(this.boxItem.BoxId != -1);
+                    this.btn_Recovery.gameObject.SetActive(this.boxItem.BoxId != -1 && !this.boxItem.Item.IsLock);
                     this.btn_Equip.gameObject.SetActive(this.boxItem.BoxId != -1);
                     this.btn_UnEquip.gameObject.SetActive(this.boxItem.BoxId == -1);
                     this.btn_Lock.gameObject.SetActive(!this.boxItem.Item.IsLock);
