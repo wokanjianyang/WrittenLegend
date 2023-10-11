@@ -37,6 +37,7 @@ public class MapBossFamily : MonoBehaviour, IBattleLife
         GameProcessor.Inst.EventCenter.AddListener<BossFamilyStartEvent>(this.OnBossFamilyStart);
         GameProcessor.Inst.EventCenter.AddListener<ShowBossFamilyInfoEvent>(this.ShowBossFamilyInfo);
         GameProcessor.Inst.EventCenter.AddListener<BattleLoseEvent>(this.OnBattleLoseEvent);
+        GameProcessor.Inst.EventCenter.AddListener<AutoStartBossFamily>(this.OnAutoStart);
 
         this.gameObject.SetActive(false);
     }
@@ -44,6 +45,15 @@ public class MapBossFamily : MonoBehaviour, IBattleLife
 
     public void OnBossFamilyStart(BossFamilyStartEvent e)
     {
+        StartCopy();
+    }
+
+    public void OnAutoStart(AutoStartBossFamily e)
+    {
+        StartCopy();
+    }
+
+    private void StartCopy() {
         this.gameObject.SetActive(true);
 
         this.MapTime = TimeHelper.ClientNowSeconds();

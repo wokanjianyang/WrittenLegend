@@ -33,6 +33,10 @@ namespace Game
             {
                 GameProcessor.Inst.EventCenter.Raise(new PhantomEvent());
             }
+            else if (Type == CopyType.BossFamily)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new OpenBossFamilyEvent());
+            }
         }
     }
 }

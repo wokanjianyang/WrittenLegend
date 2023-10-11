@@ -26,12 +26,6 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
 
         //ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Item_BossInfo");
 
-    }
-
-    void Update()
-    {
-        RefeshTime();
-
         toggle_Rate.onValueChanged.AddListener((isOn) =>
         {
             GameProcessor.Inst.EquipCopySetting_Rate = isOn;
@@ -41,6 +35,11 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
         {
             GameProcessor.Inst.EquipCopySetting_Auto = isOn;
         });
+    }
+
+    void Update()
+    {
+        RefeshTime();
     }
 
     public void OnBattleStart()

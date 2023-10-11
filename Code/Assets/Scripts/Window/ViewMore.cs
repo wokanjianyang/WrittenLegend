@@ -19,11 +19,10 @@ namespace Game
 
         public Dialog_Phantom Phantom;
 
-        public Button BtnBossFamily;
+        public Dialog_BossFamily BossFamily;
 
         void Start()
         {
-            BtnBossFamily.onClick.AddListener(OnClickBossFamily);
         }
 
         public override void OnBattleStart()
@@ -68,35 +67,34 @@ namespace Game
             scrollRect.gameObject.SetActive(true);
         }
 
-        public void OnClickBossFamily()
+        public void StartBossFamily()
         {
-            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("是否确认挑战？", true, () =>
-             {
-                 User user = GameProcessor.Inst.User;
+            User user = GameProcessor.Inst.User;
 
-                 long bossTicket = user.GetMaterialCount(ItemHelper.SpecialId_Boss_Ticket);
+            long bossTicket = user.GetMaterialCount(ItemHelper.SpecialId_Boss_Ticket);
 
-                 if (bossTicket <= 0)
-                 {
+            if (bossTicket <= 0)
+            {
 
-                     GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的BOSS挑战卷", ToastType = ToastTypeEnum.Failure });
-                     return;
-                 }
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的BOSS挑战卷", ToastType = ToastTypeEnum.Failure });
+                return;
+            }
 
-                 GameProcessor.Inst.EventCenter.Raise(new MaterialUseEvent()
-                 {
-                     MaterialId = ItemHelper.SpecialId_Boss_Ticket,
-                     Quantity = 1
-                 });
+            BossFamily.gameObject.SetActive(false);
 
-                 user.MagicRecord[AchievementSourceType.BossFamily].Data++;
+            GameProcessor.Inst.EventCenter.Raise(new MaterialUseEvent()
+            {
+                MaterialId = ItemHelper.SpecialId_Boss_Ticket,
+                Quantity = 1
+            });
 
-                 scrollRect.gameObject.SetActive(false);
+            user.MagicRecord[AchievementSourceType.BossFamily].Data++;
 
-                 GameProcessor.Inst.EventCenter.Raise(new BossFamilyStartEvent() { });
+            scrollRect.gameObject.SetActive(false);
 
-             }, null);
+            GameProcessor.Inst.EventCenter.Raise(new BossFamilyStartEvent() { });
         }
+
         public void OnBossFamilyEnd(BossFamilyEndEvent e)
         {
             scrollRect.gameObject.SetActive(true);

@@ -66,10 +66,12 @@ namespace Game
 
         private Coroutine ie_autoExitKey = null;
         private Coroutine ie_autoStartCopy = null;
+        private Coroutine ie_autoBossFamily = null;
 
         //副本临时设置
         public bool EquipCopySetting_Rate = false;
         public bool EquipCopySetting_Auto = false;
+        public bool EquipBossFamily_Auto = false;
 
         void Awake()
         {
@@ -701,6 +703,11 @@ namespace Game
                     this.AutoEquipCopy();
                 }
             }
+            else if (ruleType == RuleType.BossFamily) {
+                if (EquipBossFamily_Auto) {
+                    this.AutoBossFamily();
+                }
+            }
         }
 
         private void AutoEquipCopy()
@@ -717,7 +724,6 @@ namespace Game
 
             ie_autoStartCopy = StartCoroutine(this.ShowAutoStartCopy());
         }
-
         private IEnumerator ShowAutoStartCopy()
         {
             for (int i = 0; i < 5; i++)
@@ -736,6 +742,40 @@ namespace Game
             this.EventCenter.Raise(new CopyViewCloseEvent());
             this.EventCenter.Raise(new AutoStartCopyEvent());
         }
+
+        private void AutoBossFamily()
+        {
+            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("5S后自动挑战BOSS之家", true,
+            () =>
+            {
+                StopCoroutine(ie_autoBossFamily);
+                AutoStartBossFamily();
+            }, () =>
+            {
+                StopCoroutine(ie_autoBossFamily);
+            });
+
+            ie_autoBossFamily = StartCoroutine(this.ShowAutoStartBossFamily());
+        }
+
+        private IEnumerator ShowAutoStartBossFamily()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                this.EventCenter.Raise(new SecondaryConfirmTextEvent() { Text = $"{(5 - i)}秒后自动挑战BOSS之家" });
+                yield return new WaitForSeconds(1f);
+            }
+
+            this.EventCenter.Raise(new SecondaryConfirmCloseEvent());
+
+            AutoStartBossFamily();
+        }
+        private void AutoStartBossFamily()
+        {
+            this.EventCenter.Raise(new CopyViewCloseEvent());
+            this.EventCenter.Raise(new AutoStartBossFamily());
+        }
+
 
         private IEnumerator AutoExitApp(bool type)
         {

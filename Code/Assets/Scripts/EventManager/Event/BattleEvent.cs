@@ -94,6 +94,10 @@ namespace Game
 
     }
 
+    public class OpenBossFamilyEvent : SDD.Events.Event
+    {
+    }
+
     public class PhantomEvent : SDD.Events.Event
     {
 
@@ -174,6 +178,11 @@ namespace Game
 
     public class AutoStartCopyEvent : SDD.Events.Event
     {
+
+    }
+
+    public class AutoStartBossFamily : SDD.Events.Event
+    { 
 
     }
 

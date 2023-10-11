@@ -53,6 +53,7 @@ namespace Game
                     long gt = equip.AttrEntryList.Where(m => m.Key == (int)AttributeEnum.GoldIncrea).Select(m => m.Value).Sum();
                     if (gt >= GoldTotal)
                     {
+                        item.IsLock = true;
                         return false;
                     }
                 }
@@ -62,6 +63,7 @@ namespace Game
                     long et = equip.AttrEntryList.Where(m => m.Key == (int)AttributeEnum.ExpIncrea).Select(m => m.Value).Sum();
                     if (et >= ExpTotal)
                     {
+                        item.IsLock = true;
                         return false;
                     }
                 }
@@ -71,6 +73,7 @@ namespace Game
                     long lucky = equip.AttrEntryList.Where(m => m.Key == (int)AttributeEnum.Lucky).Select(m => m.Value).Sum();
                     if (lucky >= LuckyTotal)
                     {
+                        item.IsLock = true;
                         return false;
                     }
                 }
@@ -80,6 +83,7 @@ namespace Game
                     long rateTotal = equip.AttrEntryList.Where(m => m.Key == (int)AttributeEnum.BurstIncrea).Select(m => m.Value).Sum();
                     if (rateTotal >= DropRate)
                     {
+                        item.IsLock = true;
                         return false;
                     }
                 }
@@ -89,6 +93,7 @@ namespace Game
                     long qualityTotal = equip.AttrEntryList.Where(m => m.Key == (int)AttributeEnum.QualityIncrea).Select(m => m.Value).Sum();
                     if (qualityTotal >= DropQuality)
                     {
+                        item.IsLock = true;
                         return false;
                     }
                 }
@@ -96,8 +101,9 @@ namespace Game
                 if (equip.SkillSuitConfig != null)
                 {
                     int c = GameProcessor.Inst.User.SkillList.Where(m => m.SkillId == equip.SkillSuitConfig.SkillId && m.Recovery).Count();
-                    if (c == 1)
+                    if (c == 1 && item.Level >= EquipLevel)
                     {
+                        item.IsLock = true;
                         return false;
                     }
                 }
