@@ -43,5 +43,10 @@ namespace Assets.Scripts
                 this.skills.Remove(skill);
             }
         }
+
+        public void Clear()
+        {
+            this.skills = new List<SkillMapState>();
+        }
     }
 }

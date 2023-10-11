@@ -330,6 +330,14 @@ namespace Game
             return startPos;
         }
 
+        public void Clear()
+        {
+            foreach (var mc in MapCells)
+            {
+                mc.Clear();
+            }
+        }
+
         #endregion
 
         #region AOE Range

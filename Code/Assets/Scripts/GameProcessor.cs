@@ -386,6 +386,8 @@ namespace Game
         public void LoadMap(RuleType ruleType, Transform map, Dictionary<string, object> param)
         {
             MapData = map.GetComponentInChildren<MapData>();
+            MapData.Clear();
+
             switch (ruleType)
             {
                 case RuleType.Normal:
@@ -648,6 +650,8 @@ namespace Game
         public void StartGame()
         {
             this.isGameOver = false;
+
+            Debug.Log("StartGame");
 
             if (GameProcessor.Inst.OfflineMessage != "")
             {
