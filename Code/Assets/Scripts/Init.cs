@@ -131,7 +131,7 @@ public class Init : MonoBehaviour
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
         Log.Debug("Demo Start()");
 
-        //InitBuglySDK();
+        InitBuglySDK();
         //Log.Debug("Init bugly sdk done");
         //BuglyAgent.SetScene(0);
 
