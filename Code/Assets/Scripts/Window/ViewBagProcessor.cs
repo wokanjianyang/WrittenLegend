@@ -648,6 +648,17 @@ namespace Game
             BoxItem boxItem = e.BoxItem;
             long quantity = e.Quantity == -1 ? boxItem.MagicNubmer.Data : e.Quantity;
 
+            if (boxItem.Item.Type == ItemType.Ticket && boxItem.Item.ConfigId == ItemHelper.SpecialId_Copy_Ticket)
+            {
+                if (user.MagicCopyTikerCount.Data >= ConfigHelper.CopyTicketMax)
+                {
+                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "次数已经满了", ToastType = ToastTypeEnum.Failure });
+                    return;
+                }
+
+                quantity = Math.Min(quantity, ConfigHelper.CopyTicketMax - user.MagicCopyTikerCount.Data);
+            }
+
             UseBoxItem(boxItem, quantity);
 
             //use logic
