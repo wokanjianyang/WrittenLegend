@@ -19,6 +19,8 @@ namespace Game
 
         public GameObject go_Lock;
 
+        public Text Tag;
+
         public BoxItem BoxItem { get; private set; }
         public int boxId { get; private set; }
 
@@ -43,6 +45,9 @@ namespace Game
         {
             if (this.BoxItem == null) return;
 
+            this.BoxItem.Item.IsNew = false;
+            this.Tag.gameObject.SetActive(false);
+
             if (this.BoxItem.Item.Type == ItemType.GiftPack)
             {
                 GameProcessor.Inst.EventCenter.Raise(new ShowSelectEvent() { boxItem = this.BoxItem });
@@ -56,8 +61,6 @@ namespace Game
                 });
             }
         }
-
-
 
         public void OnPointerUp(PointerEventData eventData)
         {
@@ -75,11 +78,17 @@ namespace Game
 
             this.Count = item.MagicNubmer.Data;
             this.BagType = item.GetBagType();
-            
+
             this.go_Lock.gameObject.SetActive(item.Item.IsLock);
 
             this.tmp_Count.transform.gameObject.SetActive(this.Count > 1);
             this.tmp_Count.text = this.Count.ToString();
+
+            if (item.Item.IsNew && (item.Item.Type == ItemType.Equip || item.Item.Type == ItemType.Exclusive))
+            {
+                this.Tag.gameObject.SetActive(true);
+                this.Tag.text = $"<color=#{QualityConfigHelper.GetEquipTagColor(item.Item.IsKeep)}>New</color>";
+            }
         }
 
         public void SetBoxId(int id)

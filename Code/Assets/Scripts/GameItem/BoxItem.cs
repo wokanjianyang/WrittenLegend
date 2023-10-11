@@ -9,7 +9,8 @@ namespace Game
 {
     public class BoxItem
     {
-        public BoxItem() {
+        public BoxItem()
+        {
 
         }
 
@@ -24,12 +25,15 @@ namespace Game
             this.MagicNubmer.Data += quantity;
         }
 
-        public void RemoveStack(long quantity) {
+        public void RemoveStack(long quantity)
+        {
             this.MagicNubmer.Data -= quantity;
         }
 
-        public bool IsFull() {
-            if (MagicNubmer.Data < Item.MaxNum) {
+        public bool IsFull()
+        {
+            if (MagicNubmer.Data < Item.MaxNum)
+            {
                 return false;
             }
 

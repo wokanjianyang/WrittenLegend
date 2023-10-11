@@ -10,6 +10,9 @@ namespace Game
         public int Count { get; set; }
         
         public bool IsLock { get; set; }
+        public bool IsNew { get; set; } = true;
+        public bool IsKeep { get; set; } = false;
+
         protected Item() { 
 
         }

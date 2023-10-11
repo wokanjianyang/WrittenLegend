@@ -28,6 +28,11 @@ namespace Game
             return titleColor;
         }
 
+        public static string GetEquipTagColor(bool isKeep)
+        {
+            return isKeep ? "FF0000" : "FFFFFF";
+        }
+
         public static string GetQualityColor(int quality)
         {
             var titleColor = "FFFFFF";
