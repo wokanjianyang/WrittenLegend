@@ -99,6 +99,12 @@ namespace Game
 		/// <summary>Fee</summary>
 		[ProtoMember(8)]
 		public int Fee { get; set; }
+		/// <summary>LockMemo</summary>
+		[ProtoMember(9)]
+		public string LockMemo { get; set; }
+		/// <summary>AurasMemo</summary>
+		[ProtoMember(10)]
+		public string AurasMemo { get; set; }
 
 	}
 }

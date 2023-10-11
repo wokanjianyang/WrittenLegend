@@ -161,8 +161,6 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
         Fee.gameObject.SetActive(false);
         Btn_Active.gameObject.SetActive(false);
         Btn_Strong.gameObject.SetActive(false);
-        LockLevel.gameObject.SetActive(false);
-        LockMemo.gameObject.SetActive(false);
 
         Text[] txtList = ring.GetComponentsInChildren<Text>();
 
@@ -237,15 +235,10 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
             //ย๚มห
             Btn_Strong.gameObject.SetActive(false);
             Btn_Active.gameObject.SetActive(false);
-            LockLevel.gameObject.SetActive(false);
-            LockMemo.gameObject.SetActive(false);
         }
         else
         {
             SoulRingConfig ringConfig = SoulRingConfigCategory.Instance.Get(sid);
-
-            LockLevel.text = ringConfig.LevelMemo;
-            LockMemo.text = ringConfig.AurasMemo;
 
             if (currentLevel == 0)
             {
@@ -257,8 +250,6 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
                 Btn_Active.gameObject.SetActive(false);
                 Btn_Strong.gameObject.SetActive(true);
             }
-            LockLevel.gameObject.SetActive(true);
-            LockMemo.gameObject.SetActive(true);
         }
 
         //Fee
@@ -272,6 +263,9 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
         }
 
         SoulRingAttrConfig showConfig = currentConfig == null ? nextConfig : currentConfig;
+
+        LockLevel.text = showConfig.LockMemo;
+        LockMemo.text = showConfig.AurasMemo;
 
         //Attr
         for (int i = 0; i < AttrList.Count; i++)

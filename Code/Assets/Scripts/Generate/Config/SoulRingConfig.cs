@@ -81,12 +81,6 @@ namespace Game
 		/// <summary>Name</summary>
 		[ProtoMember(2)]
 		public string Name { get; set; }
-		/// <summary>LevelMemo</summary>
-		[ProtoMember(3)]
-		public string LevelMemo { get; set; }
-		/// <summary>AurasMemo</summary>
-		[ProtoMember(4)]
-		public string AurasMemo { get; set; }
 
 	}
 }
