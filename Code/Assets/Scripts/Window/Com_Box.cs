@@ -86,6 +86,16 @@ namespace Game
 
             if (item.Item.IsNew && (item.Item.Type == ItemType.Equip || item.Item.Type == ItemType.Exclusive))
             {
+                if (item.Item.Type == ItemType.Equip)
+                {
+                    Equip equip = item.Item as Equip;
+                    if (equip.Part > 10)
+                    {
+                        item.Item.IsNew = false;
+                        return;
+                    }
+                }
+
                 this.Tag.gameObject.SetActive(true);
                 this.Tag.text = $"<color=#{QualityConfigHelper.GetEquipTagColor(item.Item.IsKeep)}>New</color>";
             }
