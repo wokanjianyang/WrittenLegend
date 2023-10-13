@@ -101,6 +101,8 @@ namespace Game
 
         }
 
+
+
         public void Init(long currentTimeSecond)
         {
             if (currentTimeSecond > 0)

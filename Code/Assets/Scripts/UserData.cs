@@ -8,6 +8,8 @@ using Game.Data;
 using System.IO;
 using TapTap.Bootstrap;
 using System.Threading.Tasks;
+using UnityEngine.Networking;
+using System.Text;
 
 namespace Game
 {
@@ -88,7 +90,7 @@ namespace Game
             return user;
         }
 
-        public static async Task<User> LoadTapData()
+        public static async Task<string> LoadTapData()
         {
             Debug.Log("LoadTapData Start");
 
@@ -101,8 +103,6 @@ namespace Game
 
             foreach (var gameSave in collection)
             {
-                Debug.Log("LoadTapData:" + gameSave.ToString());
-
                 var summary = gameSave.Summary;
                 var modifiedAt = gameSave.ModifiedAt;
                 var playedTime = gameSave.PlayedTime;
@@ -110,15 +110,44 @@ namespace Game
                 var coverFile = gameSave.Cover;
                 var gameFile = gameSave.GameFile;
                 var gameFileUrl = gameFile.Url;
+
+                Debug.Log("gameFileUrl:" + gameSave.ToString());
+
+                return gameFileUrl;
             }
 
             Debug.Log("LoadTapData Over");
 
-            return user;
+            return null;
+        }
+
+        public static async Task DownData()
+        {
+            string url = await LoadTapData();
+
+            UnityWebRequest www = UnityWebRequest.Get(url);
+
+            Debug.Log("DownDataURL：" + url);
+
+            www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.LogError("下载文件时发生错误：" + www.error);
+            }
+            else
+            {
+                string str_json = Encoding.UTF8.GetString(www.downloadHandler.data);
+                str_json = EncryptionHelper.AesDecrypt(str_json);
+
+                Debug.Log("user file data：" + str_json);
+            }
         }
 
         public static void Save()
         {
+            return;
+
             var user = GameProcessor.Inst.User;
             user.LastOut = TimeHelper.ClientNowSeconds();
 
@@ -152,17 +181,25 @@ namespace Game
 
         public static async Task SaveTapData()
         {
-
             Debug.Log("SaveTapData Start");
+
+            //先删除旧存档
+            var collection = await TapGameSave.GetCurrentUserGameSaves();
+            foreach (var oldGameSave in collection)
+            {
+                oldGameSave.Delete();
+            }
 
             string folderPath = System.IO.Path.Combine(Application.persistentDataPath, savePath); //文件夹路径                                        
             string filePath = System.IO.Path.Combine(folderPath, fileName);             //文件路径
+
+            DateTime time = DateTime.Now.ToLocalTime();
 
             var gameSave = new TapGameSave
             {
                 Name = "UserData",
                 Summary = "description",
-                ModifiedAt = DateTime.Now.ToLocalTime(),
+                ModifiedAt = time,
                 PlayedTime = 60000L, // ms
                 ProgressValue = 100,
                 //CoverFilePath = "", // jpg/png
@@ -174,10 +211,8 @@ namespace Game
             Debug.Log("SaveTapData Result:" + res.ToString());
 
             Debug.Log("SaveTapData Over");
-        }
 
-        public static async Task CearTapData() { 
-
+            //return res.Result.ModifiedAt.ToString();
         }
 
         public static void Clear()

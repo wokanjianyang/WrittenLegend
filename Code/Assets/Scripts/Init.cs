@@ -138,11 +138,11 @@ public class Init : MonoBehaviour
         //Log.Debug("Init bugly sdk done");
         //BuglyAgent.SetScene(0);
 
-        //InitTapSDK();
+        InitTapSDK();
 
         AsyncStartAsync();
 
-        //AsyncLoginTap();
+        AsyncLoginTap();
     }
 
     private async Task AsyncStartAsync()
