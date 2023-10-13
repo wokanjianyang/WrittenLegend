@@ -6,6 +6,8 @@ using SA.Android.Utilities;
 using System.Linq;
 using Game.Data;
 using System.IO;
+using TapTap.Bootstrap;
+using System.Threading.Tasks;
 
 namespace Game
 {
@@ -86,6 +88,35 @@ namespace Game
             return user;
         }
 
+        public static async Task<User> LoadTapData()
+        {
+            Debug.Log("LoadTapData Start");
+
+            User user = null;
+
+            var collection = await TapGameSave.GetCurrentUserGameSaves();
+
+
+            Debug.Log("LoadTapData Count:" + collection.Count());
+
+            foreach (var gameSave in collection)
+            {
+                Debug.Log("LoadTapData:" + gameSave.ToString());
+
+                var summary = gameSave.Summary;
+                var modifiedAt = gameSave.ModifiedAt;
+                var playedTime = gameSave.PlayedTime;
+                var progressValue = gameSave.ProgressValue;
+                var coverFile = gameSave.Cover;
+                var gameFile = gameSave.GameFile;
+                var gameFileUrl = gameFile.Url;
+            }
+
+            Debug.Log("LoadTapData Over");
+
+            return user;
+        }
+
         public static void Save()
         {
             var user = GameProcessor.Inst.User;
@@ -117,6 +148,36 @@ namespace Game
                 // 写入要保存的内容
                 writer.Write(str_json);
             }
+        }
+
+        public static async Task SaveTapData()
+        {
+
+            Debug.Log("SaveTapData Start");
+
+            string folderPath = System.IO.Path.Combine(Application.persistentDataPath, savePath); //文件夹路径                                        
+            string filePath = System.IO.Path.Combine(folderPath, fileName);             //文件路径
+
+            var gameSave = new TapGameSave
+            {
+                Name = "UserData",
+                Summary = "description",
+                ModifiedAt = DateTime.Now.ToLocalTime(),
+                PlayedTime = 60000L, // ms
+                ProgressValue = 100,
+                //CoverFilePath = "", // jpg/png
+                GameFilePath = filePath,
+            };
+
+            var res = gameSave.Save();
+
+            Debug.Log("SaveTapData Result:" + res.ToString());
+
+            Debug.Log("SaveTapData Over");
+        }
+
+        public static async Task CearTapData() { 
+
         }
 
         public static void Clear()

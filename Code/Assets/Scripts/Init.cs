@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 using SA.Android.App;
 using CodeStage.AntiCheat.Detectors;
 
+using TapTap.Bootstrap;
+using TapTap.Common;
+
 public class Init : MonoBehaviour
 {
     public enum UILayer
@@ -135,7 +138,11 @@ public class Init : MonoBehaviour
         //Log.Debug("Init bugly sdk done");
         //BuglyAgent.SetScene(0);
 
+        //InitTapSDK();
+
         AsyncStartAsync();
+
+        //AsyncLoginTap();
     }
 
     private async Task AsyncStartAsync()
@@ -164,32 +171,6 @@ public class Init : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-    }
-
-    //private void LoadHome()
-    //{
-    //    var homePrefab = Resources.Load<GameObject>("Prefab/Window/Home");
-    //    var home = GameObject.Instantiate(homePrefab);
-    //    home.transform.SetParent(GameObject.Find("Canvas").transform,false);
-    //    StartCoroutine(IE_DelayAction(5f, () =>
-    //    {
-    //        home.gameObject.SetActive(false);
-    //        var game = new GameObject("Game");
-    //        var com = game.AddComponent<GameProcessor>();
-    //        com.LoadMap(this.RuleType);
-    //    }));
-    //}
-
-    private void LoadHome2()
-    {
-        // Game.Init();
-        //
-        // StartCoroutine(IE_DelayAction(1f, () =>
-        // {
-        //     this.LoadingPage.gameObject.SetActive(false);
-        //
-        //     Game.LoadMap(this.RuleType, this.currentTimeSecond, 0, this.MapRoot);
-        // }));
     }
 
     private IEnumerator AsyncLoadWindows(long currentTimeSecond)
@@ -244,6 +225,57 @@ public class Init : MonoBehaviour
         Game.LoadMap(RuleType.Normal,  mapRoot.transform, null);
     }
 
+    private async Task AsyncLoginTap()
+    {
+        var currentUser = await TDSUser.GetCurrent();
+        if (null == currentUser)
+        {
+            Debug.Log("当前未登录");
+            // 开始登录
+
+            try
+            {
+                // 在 iOS、Android 系统下会唤起 TapTap 客户端或以 WebView 方式进行登录
+                // 在 Windows、macOS 系统下显示二维码（默认）和跳转链接（需配置）
+                var tdsUser = await TDSUser.LoginWithTapTap();
+                Debug.Log($"login success:{tdsUser}");
+                // 获取 TDSUser 属性
+                var objectId = tdsUser.ObjectId;     // 用户唯一标识
+                var nickname = tdsUser["nickname"];  // 昵称
+                var avatar = tdsUser["avatar"];      // 头像
+            }
+            catch (Exception e)
+            {
+                if (e is TapException tapError)  // using TapTap.Common
+                {
+                    Debug.Log($"encounter exception:{tapError.code} message:{tapError.message}");
+                    if (tapError.code == (int)TapErrorCode.ERROR_CODE_BIND_CANCEL) // 取消登录
+                    {
+                        Debug.Log("登录取消");
+                    }
+                }
+            }
+        }
+        else
+        {
+            Debug.Log("已登录");
+            // 进入游戏
+        }
+
+        //try
+        //{
+        //    // 通过 tdsUSer 给出用户唯一标识，如果有的话
+        //    var tdsUser = await TDSUser.LoginAnonymously();
+
+        //    Debug.Log("tdsUser:" + tdsUser.ToString());
+        //}
+        //catch (Exception e)
+        //{
+        //    // 登录失败
+        //    Debug.Log($"TapLogin Error : {e.Message}");
+        //}
+    }
+
     private IEnumerator IE_DelayAction(float delay, Action callback)
     {
         yield return new WaitForSeconds(delay);
@@ -275,5 +307,20 @@ public class Init : MonoBehaviour
         //        BuglyAgent.SetLogCallbackExtrasHandler (MyLogCallbackExtrasHandler);
 
         BuglyAgent.PrintLog(LogSeverity.LogInfo, "Init the bugly sdk");
+    }
+
+    private void InitTapSDK()
+    {
+        var config = new TapConfig.Builder()
+            .ClientID("hljkzf86szjm1drye1") // 必须，开发者中心对应 Client ID
+            .ClientToken("wmXYPPVmuLxj71r9FJOEafO5XudtQ3Qry6LjMy0W") // 必须，开发者中心对应 Client Token
+            .ServerURL("https://hljkzf86.cloud.tds1.tapapis.cn") // 必须，开发者中心 > 你的游戏 > 游戏服务 > 基本信息 > 域名配置 > API
+            .RegionType(RegionType.CN) // 非必须，CN 表示中国大陆，IO 表示其他国家或地区
+            .ConfigBuilder();
+        TapBootstrap.Init(config);
+
+        Debug.Log("InInitTapSDK Over");
+
+
     }
 }

@@ -188,6 +188,7 @@ namespace Game
 
             this.EventCenter.AddListener<ShowGameMsgEvent>(ShowGameMsg);
             this.EventCenter.AddListener<EndCopyEvent>(this.OnEndCopy);
+            this.EventCenter.AddListener<BossFamilyEndEvent>(this.OnEndBossFamily);
             this.EventCenter.AddListener<CheckGameCheatEvent>(CheckGameCheat);
 
 
@@ -487,6 +488,15 @@ namespace Game
             }
             ie_autoExitKey = null;
         }
+        private void OnEndBossFamily(BossFamilyEndEvent e)
+        {
+            if (ie_autoExitKey != null)
+            {
+                StopCoroutine(ie_autoExitKey);
+            }
+            ie_autoExitKey = null;
+        }
+
         private void ShowNextToast()
         {
             if (Time.realtimeSinceStartup - currentToastShowTime > 0.5f)
@@ -570,10 +580,9 @@ namespace Game
             switch (ruleType)
             {
                 case RuleType.Tower:
-                case RuleType.BossFamily:
                 case RuleType.Phantom:
-                    //退出副本
-                    ie_autoExitKey = StartCoroutine(this.AutoExitMap(ruleType,time));
+                case RuleType.BossFamily:
+                    ie_autoExitKey = StartCoroutine(this.AutoExitMap(ruleType, time));
                     break;
                 default:
                     StartCoroutine(this.AutoResurrection());

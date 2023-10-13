@@ -50,6 +50,24 @@ public class MapBossFamily : MonoBehaviour, IBattleLife
 
     public void OnAutoStart(AutoStartBossFamily e)
     {
+        User user = GameProcessor.Inst.User;
+
+        long bossTicket = user.GetMaterialCount(ItemHelper.SpecialId_Boss_Ticket);
+
+        if (bossTicket <= 0)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的BOSS挑战卷", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
+
+        GameProcessor.Inst.EventCenter.Raise(new MaterialUseEvent()
+        {
+            MaterialId = ItemHelper.SpecialId_Boss_Ticket,
+            Quantity = 1
+        });
+
+        user.MagicRecord[AchievementSourceType.BossFamily].Data++;
+
         StartCopy();
     }
 
