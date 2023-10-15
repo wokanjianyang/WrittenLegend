@@ -46,13 +46,9 @@ namespace Game
             {
                 rate = 40;
             }
-            else if (tempLevel >= 250 && tempLevel < 300)
+            else
             {
                 rate = 50;
-            }
-            else if (tempLevel >= 350 && tempLevel < 400)
-            {
-                rate = 75;
             }
 
             if (tempLevel >= SkillConfig.MaxLevel)
