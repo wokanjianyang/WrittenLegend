@@ -10,7 +10,7 @@
 {"_t":"PlayerModel","_id":9,"Name":"治疗","AttrList":[],"AttrValueList":[],"SkillList":[13001],"Desc":""},
 {"_t":"PlayerModel","_id":10,"Name":"火符","AttrList":[],"AttrValueList":[],"SkillList":[13002],"Desc":""},
 {"_t":"PlayerModel","_id":11,"Name":"剧毒","AttrList":[],"AttrValueList":[],"SkillList":[13003],"Desc":""},
-{"_t":"PlayerModel","_id":12,"Name":"召唤","AttrList":[],"AttrValueList":[],"SkillList":[13004],"Desc":""},
+{"_t":"PlayerModel","_id":12,"Name":"召唤","AttrList":[],"AttrValueList":[],"SkillList":[3004,13002],"Desc":""},
 {"_t":"PlayerModel","_id":13,"Name":"火神","AttrList":[],"AttrValueList":[],"SkillList":[12001,12003],"Desc":""},
 {"_t":"PlayerModel","_id":14,"Name":"战五渣","AttrList":[],"AttrValueList":[],"SkillList":[],"Desc":"啥都不会"},
 ]}

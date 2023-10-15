@@ -100,6 +100,13 @@ namespace Game
             scrollRect.gameObject.SetActive(true);
         }
 
+        public void StartAnDian()
+        {
+            scrollRect.gameObject.SetActive(false);
+
+            GameProcessor.Inst.EventCenter.Raise(new AnDianStartEvent() { });
+        }
+
         protected override bool CheckPageType(ViewPageType page)
         {
             return page == ViewPageType.View_More;

@@ -42,6 +42,7 @@ public class Init : MonoBehaviour
         Window_EndlessTower,
         Map_Phantom,
         Map_BossFamily,
+        Map_AnDian,
 
         Select_Dialog,
         Dialog_EquipDetail,
@@ -94,6 +95,7 @@ public class Init : MonoBehaviour
                 WindowTypeEnum.Dialog_FloatButtons,
                 WindowTypeEnum.Map_Phantom,
                 WindowTypeEnum.Map_BossFamily,
+                WindowTypeEnum.Map_AnDian,
                 WindowTypeEnum.Dialog_SoulRing,
                 WindowTypeEnum.Dialog_Achievement,
             }

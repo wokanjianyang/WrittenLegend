@@ -149,7 +149,7 @@ namespace Game
                 Summary = "description",
                 ModifiedAt = time,
                 PlayedTime = 60000L, // ms
-                ProgressValue = 100,
+                ProgressValue = user.DataProgeress,
                 //CoverFilePath = "", // jpg/png
                 GameFilePath = filePath,
             };

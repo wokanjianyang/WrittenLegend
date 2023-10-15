@@ -417,6 +417,9 @@ namespace Game
                 case RuleType.BossFamily:
                     this.BattleRule = new Battle_BossFamily(param);
                     break;
+                case RuleType.AnDian:
+                    this.BattleRule = new Battle_BossFamily(param);
+                    break;
             }
             this.PlayerRoot = MapData.transform.parent.Find("[PlayerRoot]").transform;
 

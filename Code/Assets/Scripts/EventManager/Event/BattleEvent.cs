@@ -126,11 +126,25 @@ namespace Game
     {
 
     }
+
     public class BossFamilyEndEvent : SDD.Events.Event
     {
 
     }
 
+    public class AnDianStartEvent : SDD.Events.Event
+    {
+
+    }
+    public class ShowAnDianInfoEvent : SDD.Events.Event
+    {
+        public int Count { get; set; }
+    }
+
+    public class AnDianEndEvent : SDD.Events.Event
+    {
+
+    }
 
     public class ChangeMapEvent : SDD.Events.Event
     {

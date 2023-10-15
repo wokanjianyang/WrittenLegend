@@ -166,6 +166,8 @@ namespace Game
         幻影挑战 = 2,
         [LabelText("BOSS之家")]
         BossFamily = 3,
+        [LabelText("未知暗殿")]
+        AnDian = 4,
     }
 
     public enum RoleType
