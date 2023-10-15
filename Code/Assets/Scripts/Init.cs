@@ -141,8 +141,6 @@ public class Init : MonoBehaviour
         InitTapSDK();
 
         AsyncStartAsync();
-
-        AsyncLoginTap();
     }
 
     private async Task AsyncStartAsync()
@@ -159,6 +157,8 @@ public class Init : MonoBehaviour
         AN_Preloader.UnlockScreen();
 
         this.LoadConfig();
+
+        AsyncLoginTap();
 
         StartCoroutine(AsyncLoadWindows(currentTimeSecond));
     }

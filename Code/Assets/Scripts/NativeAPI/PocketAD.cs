@@ -38,7 +38,7 @@ namespace Game
 
                 bool hasReward = false;
 
-                GameProcessor.Inst.adTest += string.Join(", ", args);
+                //GameProcessor.Inst.adTest += string.Join(", ", args);
 
                 Log.Debug(string.Format("state:{0} adType:{1} adCodeID:{2} ad_name:{3} sdkName:{4}", state, adType, adCodeID, ad_name, sdkName));
                 if (state == AdStateEnum.Show)

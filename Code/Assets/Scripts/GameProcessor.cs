@@ -42,8 +42,6 @@ namespace Game
         private long saveTime = 0;
         public string OfflineMessage = "";
 
-        public string adTest = "";
-
         // public bool RefreshSkill = false; //是否要刷新技能
         public bool isTimeError = false;
         public bool isCheckError = false;
@@ -229,7 +227,7 @@ namespace Game
             long tmepFloor = User.MagicTowerFloor.Data;
 
             long tempTime = Math.Min(offlineTime, ConfigHelper.MaxOfflineTime);
-            while (tempTime > 0 && tmepFloor< ConfigHelper.Max_Floor)
+            while (tempTime > 0 && tmepFloor < ConfigHelper.Max_Floor)
             {
                 tmepFloor = User.MagicTowerFloor.Data + offlineFloor + 100;
 
@@ -294,6 +292,15 @@ namespace Game
             OfflineMessage = BattleMsgHelper.BuildOfflineMessage(offlineTime, offlineFloor, exp, gold, items.Count);
             //Debug.Log(OfflineMessage);
 
+            //检查
+            DateTime saveDate = new DateTime(User.DataDate);
+            if (saveDate.Day < DateTime.Now.Day || saveDate.Month < DateTime.Now.Month)
+            {
+                User.SaveLimit = 5;
+                User.LoadLimit = 5;
+                User.DataDate = DateTime.Now.Ticks;
+                //保存到Tap
+            }
             UserData.Save();
         }
 

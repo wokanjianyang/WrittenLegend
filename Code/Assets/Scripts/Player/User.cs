@@ -22,6 +22,11 @@ namespace Game
 
         public string Name { get; set; }
 
+        public long DataDate { get; set; } = 0;
+        public int DataProgeress { get; set; } = 0;
+        public int SaveLimit { get; set; } = 0;
+        public int LoadLimit { get; set; }  = 0;
+
         public MagicData MagicLevel { get; } = new MagicData();
 
         public MagicData MagicGold { get; } = new MagicData();
