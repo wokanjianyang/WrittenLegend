@@ -12,11 +12,11 @@ namespace Game
 
     public class MonsterHelper
     {
-        public static Monster BuildMonster(MapConfig mapConfig, int quality, int rate)
+        public static Monster BuildMonster(MapConfig mapConfig, int quality, int rate, int modelId)
         {
             MonsterBase config = MonsterBaseCategory.Instance.GetAll().Where(m => m.Value.MapId == mapConfig.Id).First().Value;
 
-            Monster enemy = new Monster(config.Id, quality, rate);
+            Monster enemy = new Monster(config.Id, quality, rate, modelId);
             return enemy;
         }
     }

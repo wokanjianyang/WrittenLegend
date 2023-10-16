@@ -41,7 +41,7 @@ public class Battle_BossFamily : ABattleRule
         TaskHelper.CheckTask(TaskType.ToCopy, 1);
     }
 
-    public override void DoMapLogic()
+    public override void DoMapLogic(int roundNum)
     {
         var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
         int bossCount = enemys.Count + QualityList.Count;
@@ -55,7 +55,7 @@ public class Battle_BossFamily : ABattleRule
                 if (QualityList.Count > 0)
                 {
                     BossConfig bossConfig = BossConfigCategory.Instance.Get(QualityList[0]);
-                    GameProcessor.Inst.PlayerManager.LoadMonster(BossHelper.BuildBoss(bossConfig.Id, bossConfig.MapId, 2, 1));
+                    GameProcessor.Inst.PlayerManager.LoadMonster(BossHelper.BuildBoss(bossConfig.Id, bossConfig.MapId, 2, 1, 1));
 
                     QualityList.RemoveAt(0);
                 }

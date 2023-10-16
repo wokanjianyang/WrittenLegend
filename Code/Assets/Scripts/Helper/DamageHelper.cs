@@ -29,7 +29,9 @@ namespace Game
             //暴击率 = 攻击者暴击率+技能暴击倍率-被攻击者暴击抵抗率
             long CritRate = attcher.GetAttackAttr(AttributeEnum.CritRate) + skill.CritRate - enemy.GetAttackAttr(AttributeEnum.CritRateResist);
 
-            bool isCrit = RandomHelper.RandomRate((int)CritRate);
+            //DefinitelyCrit 是否必定暴击
+            bool isCrit = skill.DefinitelyCrit || RandomHelper.RandomRate((int)CritRate);
+
             if (isCrit)
             {
                 //暴击倍率（ 不低于0 ） = 50基础爆伤+技能爆伤 + 攻击者爆伤 - 被攻击者爆伤减免
@@ -49,6 +51,10 @@ namespace Game
             long SkillDamage = GetSkillDamage(attcher, role);
 
             attack = attack * SkillDamage / 100;
+
+            //承受者的易伤
+            long ExtraDamage = enemy.GetAttackAttr(AttributeEnum.ExtraDamage);
+            attack = attack * (100 + ExtraDamage) / 100;
 
             //最终伤害加成
             attack = attack * (100 + skill.FinalIncrea) / 100;

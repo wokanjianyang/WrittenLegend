@@ -1,0 +1,3 @@
+{"list":[
+{"_t":"MonsterModel","_id":1,"Name":"暗殿","AttrRate":1,"HpRate":5,"DefRate":1,"DropRate":1,"SkillList":[9002],"Desc":""},
+]}

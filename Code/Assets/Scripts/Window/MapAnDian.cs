@@ -1,5 +1,6 @@
 using Game;
 using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -52,8 +53,11 @@ public class MapAnDian : MonoBehaviour, IBattleLife
         this.gameObject.SetActive(true);
         this.MapTime = TimeHelper.ClientNowSeconds();
 
+        int MapId = Math.Max(GameProcessor.Inst.User.MapId - 1, ConfigHelper.MapStartId);
+
         Dictionary<string, object> param = new Dictionary<string, object>();
         param.Add("MapTime", MapTime);
+        param.Add("MapId", MapId);
 
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {
@@ -64,7 +68,7 @@ public class MapAnDian : MonoBehaviour, IBattleLife
 
     public void OnShowAnDianInfo(ShowAnDianInfoEvent e)
     {
-        Txt_Count.text = "击杀数量：" + e.Count;
+        Txt_Count.text = "刷新统计：" + e.Count;
     }
 
     private void OnBattleMsgEvent(BattleMsgEvent e)

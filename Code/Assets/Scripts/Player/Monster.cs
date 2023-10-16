@@ -12,6 +12,8 @@ namespace Game
         MonsterBase Config { get; set; }
         QualityConfig QualityConfig { get; set; }
 
+        MonsterModelConfig ModelConfig { get; set; }
+
         public int GoldRate;
         public long Gold;
         public int AttTyp;
@@ -20,15 +22,22 @@ namespace Game
         public long Exp;
         public int range;
 
-        private int Rate;
+        private int RewardRate;
 
-        public Monster(int monsterId, int quality,int rate) : base()
+        public Monster(int monsterId, int quality, int rewarRate, int modelId) : base()
         {
             this.MonsterId = monsterId;
             this.GroupId = 2;
             this.Quality = quality;
 
-            this.Rate = rate;
+            this.RewardRate = rewarRate;
+
+            this.Config = MonsterBaseCategory.Instance.Get(MonsterId);
+            this.QualityConfig = QualityConfigCategory.Instance.Get(Quality);
+            if (modelId > 0)
+            {
+                ModelConfig = MonsterModelConfigCategory.Instance.Get(modelId);
+            }
 
             this.Init();
             this.EventCenter.AddListener<DeadRewarddEvent>(MakeReward);
@@ -36,11 +45,12 @@ namespace Game
 
         private void Init()
         {
-            this.Config = MonsterBaseCategory.Instance.Get(MonsterId);
-            this.QualityConfig = QualityConfigCategory.Instance.Get(Quality);
-
             this.Camp = PlayerType.Enemy;
-            this.Name = Config.Name + QualityConfig.MonsterTitle;
+
+            string modelName = ModelConfig?.Name + "·";
+
+            this.Name = modelName + Config.Name + QualityConfig.MonsterTitle;
+
             this.Level = (Config.MapId - 999) * 100;
             this.Exp = Config.Exp * QualityConfig.ExpRate;
             this.Gold = Config.Gold * QualityConfig.GoldRate;
@@ -57,11 +67,15 @@ namespace Game
         {
             this.AttributeBonus = new AttributeBonus();
 
-            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, (long)(Config.HP * QualityConfig.HpRate));
-            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, (long)(Config.Attr * QualityConfig.AttrRate));
-            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, (long)(Config.Attr * QualityConfig.AttrRate));
-            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, (long)(Config.Attr * QualityConfig.AttrRate));
-            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, (long)(Config.Def * QualityConfig.DefRate));
+            double hpModelRate = ModelConfig == null ? 1 : ModelConfig.HpRate;
+            double attrModelRate = ModelConfig == null ? 1 : ModelConfig.AttrRate;
+            double defModelRate = ModelConfig == null ? 1 : ModelConfig.DefRate;
+
+            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, (long)(Config.HP * QualityConfig.HpRate * hpModelRate) );
+            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, (long)(Config.Attr * QualityConfig.AttrRate * attrModelRate) );
+            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, (long)(Config.Attr * QualityConfig.AttrRate * attrModelRate) );
+            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, (long)(Config.Attr * QualityConfig.AttrRate * attrModelRate) );
+            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, (long)(Config.Def * QualityConfig.DefRate * defModelRate) );
 
             AttributeBonus.SetAttr(AttributeEnum.DamageIncrea, AttributeFrom.HeroBase, Config.DamageIncrea);
             AttributeBonus.SetAttr(AttributeEnum.DamageResist, AttributeFrom.HeroBase, Config.DamageResist);
@@ -93,7 +107,7 @@ namespace Game
         {
             //Log.Info("Monster :" + this.ToString() + " dead");
 
-            for (int i = 0; i < Rate; i++) {
+            for (int i = 0; i < RewardRate; i++) {
                 BuildReword();
             }
 
@@ -101,22 +115,25 @@ namespace Game
             //UserData.Save();
         }
 
-        private void BuildReword() {
+        private void BuildReword()
+        {
             User user = GameProcessor.Inst.User;
 
-            long exp = this.Exp * (100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.ExpIncrea)) / 100;
-            long gold = this.Gold * (100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.GoldIncrea)) / 100;
+            double rewardModelRate = ModelConfig == null ? 1 : ModelConfig.RewardRate;
+            double dropModelRate = ModelConfig == null ? 1 : ModelConfig.DropRate;
+
+            long exp = (long)(this.Exp * (100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.ExpIncrea)) / 100 * rewardModelRate);
+            long gold = (long)(this.Gold * (100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.GoldIncrea)) / 100 * rewardModelRate);
 
             //增加经验,金币
             user.AddExpAndGold(exp, gold);
 
-            MapConfig mapConfig = MapConfigCategory.Instance.Get(Config.MapId);
             QualityConfig qualityConfig = QualityConfigCategory.Instance.Get(Quality);
 
             int qualityRate = qualityConfig.QualityRate * (100 + (int)user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea)) / 100;
 
             //生成道具奖励
-            List<KeyValuePair<int, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(Config.MapId, qualityConfig.DropRate);
+            List<KeyValuePair<int, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(Config.MapId, qualityConfig.DropRate * dropModelRate);
             List<Item> items = DropHelper.BuildDropItem(dropList, qualityRate);
 
             //限时奖励

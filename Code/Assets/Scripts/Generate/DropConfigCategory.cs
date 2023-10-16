@@ -7,7 +7,7 @@ namespace Game
 
     public partial class DropConfigCategory
     {
-        public List<KeyValuePair<int, DropConfig>> GetByMapLevel(int mapId, int rate)
+        public List<KeyValuePair<int, DropConfig>> GetByMapLevel(int mapId, double rate)
         {
             List<KeyValuePair<int, DropConfig>> list = new List<KeyValuePair<int, DropConfig>>();
 
@@ -18,7 +18,7 @@ namespace Game
                 for (int i = 0; i < map.DropIdList.Length; i++)
                 {
                     DropConfig dropConfig = this.Get(map.DropIdList[i]);
-                    list.Add(new KeyValuePair<int, DropConfig>(map.DropRateList[i] / rate, dropConfig));
+                    list.Add(new KeyValuePair<int, DropConfig>((int)(map.DropRateList[i] / rate), dropConfig));
                 }
             }
 

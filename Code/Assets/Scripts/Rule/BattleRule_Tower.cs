@@ -56,11 +56,11 @@ public class BattleRule_Tower : ABattleRule
         TaskHelper.CheckTask(TaskType.ToCopy, 1);
     }
 
-    public override void DoMapLogic()
+    public override void DoMapLogic(int roundNum)
     {
         var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
 
-        MapConfig mapConfig = MapConfigCategory.Instance.Get(MapId); ;
+        MapConfig mapConfig = MapConfigCategory.Instance.Get(MapId);
 
         int mc1 = QualityList.Where(m => m == 1).Count() + enemys.Where(m => m.Quality == 1).Count();
         int mc2 = QualityList.Where(m => m == 2).Count() + enemys.Where(m => m.Quality == 2).Count();
@@ -80,13 +80,13 @@ public class BattleRule_Tower : ABattleRule
                 {
                     if (QualityList[0] < 5)
                     {
-                        var enemy = MonsterHelper.BuildMonster(mapConfig, QualityList[0], MapRate);
+                        var enemy = MonsterHelper.BuildMonster(mapConfig, QualityList[0], MapRate, 0);
                         GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
                     }
                     else
                     {
                         BossConfig bossConfig = BossConfigCategory.Instance.Get(mapConfig.BoosId);
-                        GameProcessor.Inst.PlayerManager.LoadMonster(BossHelper.BuildBoss(mapConfig.BoosId, mapConfig.Id, 1, MapRate));
+                        GameProcessor.Inst.PlayerManager.LoadMonster(BossHelper.BuildBoss(mapConfig.BoosId, mapConfig.Id, 1, MapRate, 1));
                     }
                     QualityList.RemoveAt(0);
                 }

@@ -12,13 +12,17 @@ namespace Game
 
     public class SkillRuneHelper
     {
-        public static SkillRuneConfig RandomRune(int role)
+        public static SkillRuneConfig RandomRune(int role, int type)
         {
             int skillId = role * 1000;
-            int index = RandomHelper.RandomNumber(0, ConfigHelper.RuneRate[ConfigHelper.RuneRate.Length - 1]);
-            for (int i = 0; i < ConfigHelper.RuneRate.Length; i++)
+
+            int[] RuneRate = type == 1 ? ConfigHelper.RuneRate : ConfigHelper.RuneRate1;
+
+            int index = RandomHelper.RandomNumber(0, RuneRate[RuneRate.Length - 1]);
+
+            for (int i = 0; i < RuneRate.Length; i++)
             {
-                if (index < ConfigHelper.RuneRate[i])
+                if (index < RuneRate[i])
                 {
                     skillId = skillId + (7 - i);
                     break;

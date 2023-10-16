@@ -54,6 +54,15 @@ namespace Game
 
                 if (enemy != null)
                 {
+                    //先行特效
+                    foreach (EffectData effect in SkillPanel.EffectIdList.Values)
+                    {
+                        if (effect.Config.Priority < 0)
+                        {
+                            DoEffect(enemy, this.SelfPlayer, 0, effect);
+                        }
+                    }
+
                     var dr = DamageHelper.CalcDamage(SelfPlayer.AttributeBonus, enemy.AttributeBonus, SkillPanel);
                     dr.FromId = attackData.Tid;
                     enemy.OnHit(dr);
@@ -66,11 +75,15 @@ namespace Game
                     //if (this.SkillPanel.SkillId < 4000)
                     //{ Debug.Log(SkillPanel.SkillData.SkillConfig.Name + ":" + dr.Damage); }
 
+                    //后行特效
                     foreach (EffectData effect in SkillPanel.EffectIdList.Values)
                     {
-                        long total = dr.Damage * effect.Percent / 100;
-                        //Debug.Log("restor:" + total);
-                        DoEffect(enemy, this.SelfPlayer, total, effect);
+                        if (effect.Config.Priority >= 0)
+                        {
+                            long total = dr.Damage * effect.Percent / 100;
+                            //Debug.Log("restor:" + total);
+                            DoEffect(enemy, this.SelfPlayer, total, effect);
+                        }
                     }
                 }
             }

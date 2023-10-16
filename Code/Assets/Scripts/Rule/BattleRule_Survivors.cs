@@ -11,7 +11,7 @@ namespace Game
         private float defaultWaitInputTime = 5f;
         protected override RuleType ruleType => RuleType.Survivors;
 
-        public override void DoMapLogic()
+        public override void DoMapLogic(int roundNum)
         {
         }
 

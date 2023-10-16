@@ -38,7 +38,7 @@ public class BattleRule_Phantom : ABattleRule
         Layer = lv;
     }
 
-    public override void DoMapLogic()
+    public override void DoMapLogic(int roundNum)
     {
         if (!PhanStart)
         {

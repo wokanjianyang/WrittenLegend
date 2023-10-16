@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1763608340
+CRC: 2958048364
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 8a381be51af018057404dab2d728bcc5
+    Hash: bf929c798a3ca49681cacad5c56e953d
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -13,45 +13,47 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Resources/Config/MapConfigCategory.bytes
 - Assets/Resources/Config/SkillEffectConfigCategory.bytes
 - Assets/Resources/Config/EquipStrengthConfigCategory.bytes
 - Assets/Resources/Config/SkillSuitConfigCategory.bytes
 - Assets/Resources/Config/QualityConfigCategory.bytes
-- Assets/Resources/Config/TaskConfigCategory.bytes
 - Assets/Resources/Config/LevelConfigCategory.bytes
 - Assets/Resources/Config/PhantomConfigCategory.bytes
 - Assets/Resources/Config/SoulRingConfigCategory.bytes
-- Assets/Resources/Config/AchievementConfigCategory.bytes
-- Assets/Resources/Config/AurasConfigCategory.bytes
-- Assets/Resources/Config/ExclusiveConfigCategory.bytes
 - Assets/Resources/Config/DropConfigCategory.bytes
 - Assets/Resources/Config/EquipRefineConfigCategory.bytes
-- Assets/Resources/Config/SkillDoubleHitConfigCategory.bytes
 - Assets/Resources/Config/EquipCustomConfigCategory.bytes
 - Assets/Resources/Config/AurasAttrConfigCategory.bytes
 - Assets/Resources/Config/EquipGroupConfigCategory.bytes
 - Assets/Resources/Config/MonsterBaseCategory.bytes
 - Assets/Resources/Config/AttrEntryConfigCategory.bytes
 - Assets/Resources/Config/EquipConfigCategory.bytes
-- Assets/Resources/Config/PhantomAttrConfigCategory.bytes
 - Assets/Resources/Config/ItemConfigCategory.bytes
-- Assets/Resources/Config/PlayerModelCategory.bytes
 - Assets/Resources/Config/EquipQualityConfigCategory.bytes
-- Assets/Resources/Config/SkillCategory.bytes
 - Assets/Resources/Config/GameAttributeCategory.bytes
-- Assets/Resources/Config/GiftPackConfigCategory.bytes
-- Assets/Resources/Config/SkillConfigCategory.bytes
-- Assets/Resources/Config/ItemCategory.bytes
-- Assets/Resources/Config/SkillRuneConfigCategory.bytes
-- Assets/Resources/Config/DropLimitConfigCategory.bytes
 - Assets/Resources/Config/BossConfigCategory.bytes
-- Assets/Resources/Config/EffectConfigCategory.bytes
 - Assets/Resources/Config/CompositeConfigCategory.bytes
 - Assets/Resources/Config/TowerConfigCategory.bytes
-- Assets/Resources/Config/SynthesisConfigCategory.bytes
 - Assets/Resources/Config/EquipStrengthFeeConfigCategory.bytes
 - Assets/Resources/Config/CodeConfigCategory.bytes
 - Assets/Resources/Config/RewardConfigCategory.bytes
 - Assets/Resources/Config/SoulRingAttrConfigCategory.bytes
+- Assets/Resources/Config/MapConfigCategory.bytes
+- Assets/Resources/Config/TaskConfigCategory.bytes
+- Assets/Resources/Config/AchievementConfigCategory.bytes
+- Assets/Resources/Config/AurasConfigCategory.bytes
+- Assets/Resources/Config/ExclusiveConfigCategory.bytes
+- Assets/Resources/Config/MonsterModelConfigCategory.bytes
+- Assets/Resources/Config/SkillDoubleHitConfigCategory.bytes
+- Assets/Resources/Config/PhantomAttrConfigCategory.bytes
+- Assets/Resources/Config/PlayerModelCategory.bytes
+- Assets/Resources/Config/SkillCategory.bytes
+- Assets/Resources/Config/GiftPackConfigCategory.bytes
+- Assets/Resources/Config/SkillConfigCategory.bytes
+- Assets/Resources/Config/ItemCategory.bytes
+- Assets/Resources/Config/MonsterModelCategory.bytes
+- Assets/Resources/Config/DropLimitConfigCategory.bytes
+- Assets/Resources/Config/EffectConfigCategory.bytes
+- Assets/Resources/Config/SkillRuneConfigCategory.bytes
+- Assets/Resources/Config/SynthesisConfigCategory.bytes
 Dependencies: []

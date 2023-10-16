@@ -14,7 +14,8 @@ namespace Game
 
 		public const double Def_Rate = 3.0; //防御系数
 
-		public static int[] RuneRate = new int[] { 1, 3, 8, 18, 39, 85, 185 }; //词条产生概率，按等级
+		public static int[] RuneRate = new int[] { 1, 3, 8, 18, 39, 85, 185 }; //词条产生概率
+		public static int[] RuneRate1 = new int[] { 1, 3, 6, 9, 15, 24, 39 }; //橙色和专属产生概率
 
 		public const long PackTime = 1697118218; //打包时间，防止作弊
 

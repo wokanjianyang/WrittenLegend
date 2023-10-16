@@ -7,63 +7,71 @@ using System.Linq;
 
 public class Battle_AnDian : ABattleRule
 {
-    private bool Start = false;
-
     private long MapTime = 0;
+    private int MapId = 0;
 
-    private List<int> QualityList;
-
-    private const int MaxQuanlity = 10; //最多数量
-    private const int MaxFreshQuanlity = 1; //最多刷新数量
+    private int Count = 1; //最多数量
     protected override RuleType ruleType => RuleType.AnDian;
 
     public Battle_AnDian(Dictionary<string, object> param)
     {
         param.TryGetValue("MapTime", out object mapTime);
+        param.TryGetValue("MapId", out object mapId);
 
         this.MapTime = (long)mapTime;
-        this.Start = true;
-
-        QualityList = new List<int>();
+        this.MapId = (int)mapId;
     }
 
-    public override void DoMapLogic()
+    public override void DoMapLogic(int roundNum)
     {
+        if (roundNum % 5 != 0)
+        {
+            return;
+        }
+
         var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
-        int bossCount = enemys.Count + QualityList.Count;
-
-        if (enemys.Count < MaxQuanlity && QualityList.Count > 0)
+        if (enemys.Count >= 20)
         {
-            int count = Math.Min(MaxFreshQuanlity, MaxQuanlity - enemys.Count);
+            return;
+        }
 
-            for (int i = 0; i < count; i++)
+        MapConfig mapConfig = MapConfigCategory.Instance.Get(MapId);
+
+        if (Count % 500 != 0)
+        {
+            int quality = 1;
+            if (Count % 100 == 0)
             {
-                if (QualityList.Count > 0)
-                {
-                    BossConfig bossConfig = BossConfigCategory.Instance.Get(QualityList[0]);
-                    GameProcessor.Inst.PlayerManager.LoadMonster(BossHelper.BuildBoss(bossConfig.Id, bossConfig.MapId, 2, 1));
-
-                    QualityList.RemoveAt(0);
-                }
+                quality = 4;
             }
+            else if (Count % 30 == 0)
+            {
+                quality = 3;
+            }
+            else if (Count % 10 == 0)
+            {
+                quality = 2;
+            }
+
+            var enemy = MonsterHelper.BuildMonster(mapConfig, quality, 1, 1);
+            GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
         }
-
-        GameProcessor.Inst.EventCenter.Raise(new ShowBossFamilyInfoEvent() { Count = bossCount });
-
-        if (Start && enemys.Count <= 0 && QualityList.Count <= 0)
+        else
         {
-            Start = false;
-            GameProcessor.Inst.HeroDie(RuleType.BossFamily, MapTime);
+            BossConfig bossConfig = BossConfigCategory.Instance.Get(mapConfig.BoosId);
+            GameProcessor.Inst.PlayerManager.LoadMonster(BossHelper.BuildBoss(mapConfig.BoosId, mapConfig.Id, 2, 1, 1));
         }
+
+        GameProcessor.Inst.EventCenter.Raise(new ShowAnDianInfoEvent() { Count = Count });
+        Count++;
     }
 
     public override void CheckGameResult()
     {
-        var heroCamp = GameProcessor.Inst.PlayerManager.GetHero();
-        if (heroCamp.HP == 0)
+        var hero = GameProcessor.Inst.PlayerManager.GetHero();
+        if (hero.HP == 0)
         {
-            GameProcessor.Inst.SetGameOver(PlayerType.Enemy);
-            GameProcessor.Inst.HeroDie(RuleType.BossFamily, MapTime);
+            hero.Resurrection();
         }
     }
 }

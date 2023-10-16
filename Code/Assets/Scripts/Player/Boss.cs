@@ -11,6 +11,7 @@ namespace Game
         public int BossId;
         public int MapId;
         BossConfig Config { get; set; }
+        MonsterModelConfig ModelConfig { get; set; }
 
         public int GoldRate;
         public long Gold;
@@ -19,9 +20,9 @@ namespace Game
         public long Exp;
 
         private int CopyType = 1;
-        private int Rate = 1;
+        private int RewarCount = 1;
 
-        public Boss(int bossId, int mapId, int copyType, int rate) : base()
+        public Boss(int bossId, int mapId, int copyType, int rewarCount, int modelId) : base()
         {
             this.BossId = bossId;
             this.MapId = mapId;
@@ -29,7 +30,13 @@ namespace Game
             this.Quality = 5;
 
             this.CopyType = copyType;
-            this.Rate = rate;
+            this.RewarCount = rewarCount;
+
+            this.Config = BossConfigCategory.Instance.Get(BossId);
+            if (modelId > 0)
+            {
+                ModelConfig = MonsterModelConfigCategory.Instance.Get(modelId);
+            }
 
             this.Init();
             this.EventCenter.AddListener<DeadRewarddEvent>(MakeReward);
@@ -37,11 +44,12 @@ namespace Game
 
         private void Init()
         {
-            this.Config = BossConfigCategory.Instance.Get(BossId);
-
             this.Camp = PlayerType.Enemy;
             this.ModelType = MondelType.Boss;
-            this.Name = Config.Name;
+
+            string modelName = ModelConfig?.Name + "·";
+
+            this.Name = modelName + Config.Name;
             this.Level = (Config.MapId - 999) * 100;
             this.Exp = Config.Exp;
             this.Gold = Config.Gold;
@@ -58,11 +66,15 @@ namespace Game
         {
             this.AttributeBonus = new AttributeBonus();
 
-            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, Config.HP);
-            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, Config.PhyAttr);
-            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, Config.PhyAttr);
-            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, Config.PhyAttr);
-            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, Config.Def);
+            double hpModelRate = ModelConfig == null ? 1 : ModelConfig.HpRate;
+            double attrModelRate = ModelConfig == null ? 1 : ModelConfig.AttrRate;
+            double defModelRate = ModelConfig == null ? 1 : ModelConfig.DefRate;
+
+            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, (long)(Config.HP * hpModelRate));
+            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, (long)(Config.PhyAttr * attrModelRate));
+            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, (long)(Config.PhyAttr * attrModelRate));
+            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, (long)(Config.PhyAttr * attrModelRate));
+            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, (long)(Config.Def * defModelRate));
 
             AttributeBonus.SetAttr(AttributeEnum.DamageIncrea, AttributeFrom.HeroBase, Config.DamageIncrea);
             AttributeBonus.SetAttr(AttributeEnum.DamageResist, AttributeFrom.HeroBase, Config.DamageResist);
@@ -112,29 +124,29 @@ namespace Game
 
         private void MakeReward(DeadRewarddEvent dead)
         {
-            Log.Info("Boss :" + this.ToString() + " dead");
+            //Log.Info("Boss :" + this.ToString() + " dead");
 
-            for (int i = 0; i < Rate; i++)
+            for (int i = 0; i < RewarCount; i++)
             {
                 BuildReword();
             }
-
-            //存档
-            //UserData.Save();
         }
 
         private void BuildReword()
         {
             User user = GameProcessor.Inst.User;
 
-            long exp = this.Exp * (100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.ExpIncrea)) / 100;
-            long gold = this.Gold * (100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.GoldIncrea)) / 100;
+            double rewardModelRate = ModelConfig == null ? 1 : ModelConfig.RewardRate;
+            double dropModelRate = ModelConfig == null ? 1 : ModelConfig.DropRate;
+
+            long exp = (long)(this.Exp * (100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.ExpIncrea)) / 100 * rewardModelRate);
+            long gold = (long)(this.Gold * (100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.GoldIncrea)) / 100 * rewardModelRate);
 
             //增加经验,金币
             user.AddExpAndGold(exp, gold);
 
             //地图道具奖励
-            List<KeyValuePair<int, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(Config.MapId, 10);
+            List<KeyValuePair<int, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(Config.MapId, 10 * dropModelRate);
 
             //自身掉落
             if (Config.DropIdList != null && Config.DropIdList.Length > 0)

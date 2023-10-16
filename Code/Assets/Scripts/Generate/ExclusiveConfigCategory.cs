@@ -32,7 +32,7 @@ namespace Game
                 SkillRuneConfig runeConfig;
                 if (runeId <= 0)
                 {
-                    runeConfig = SkillRuneHelper.RandomRune(role);
+                    runeConfig = SkillRuneHelper.RandomRune(role,2);
                     runeId = runeConfig.Id;
                 }
                 else

@@ -59,6 +59,8 @@ namespace Game
         SpiritDamage = 304, //道术伤害
         AllDamage = 305, //所有伤害加成
 
+        ExtraDamage = 401,//额外伤害
+
         PanelHp = 1001, //面板生命
         PanelPhyAtt = 1002, //面板物攻
         PanelMagicAtt = 1003, //面板魔法

@@ -34,6 +34,8 @@ namespace Game
 
         public int InheritIncrea { get; } //召唤物高级属性继承
 
+        public bool DefinitelyCrit { get;  } //必定暴击
+
         public Dictionary<int, EffectData> EffectIdList { get; } = new Dictionary<int, EffectData>(); //特殊效果 
 
         public AttackGeometryType Area { get; }
@@ -214,6 +216,17 @@ namespace Game
                     int fromId = GetFromId(suit.EffectId);
                     EffectIdList[suit.EffectId] = new EffectData(suit.EffectId, fromId, suit.Percent, suit.Damage, suit.Duration, suit.EnemyMax);
                 }
+            }
+
+            //special
+            if (EffectIdList.ContainsKey((int)EffectSpecialId.DefinitelyCrit))
+            {
+                this.DefinitelyCrit = true;
+                EffectIdList.Remove((int)EffectSpecialId.DefinitelyCrit);
+            }
+            else
+            {
+                this.DefinitelyCrit = false;
             }
 
             //TEST skill

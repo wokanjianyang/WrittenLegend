@@ -55,4 +55,9 @@ namespace Game
         Skill = 3,
         Valet = 4,
     }
+
+    public enum EffectSpecialId
+    {
+        DefinitelyCrit = 500, //±Ø¶¨±©»÷
+    }
 }
