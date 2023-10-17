@@ -22,8 +22,8 @@ namespace Game
         public static User Load()
         {
             User user = null;
-            string folderPath = System.IO.Path.Combine(Application.persistentDataPath, savePath); //文件夹路径                                        
-            string filePath = System.IO.Path.Combine(folderPath, fileName);             //文件路径
+                                    
+            string filePath = getSavePath();         
             //Debug.Log($"存档路径：{filePath}");
 
             if (System.IO.File.Exists(filePath))
@@ -130,8 +130,21 @@ namespace Game
 
         public static string getSavePath()
         {
-            string folderPath = System.IO.Path.Combine(Application.persistentDataPath, savePath); //文件夹路径                                        
+            string folderPath = System.IO.Path.Combine(Application.persistentDataPath, savePath); //文件夹路径
+
+            if (!File.Exists(folderPath))
+            {
+                System.IO.Directory.CreateDirectory(folderPath);
+            }
+
             string filePath = System.IO.Path.Combine(folderPath, fileName);             //文件路径
+
+            if (!File.Exists(filePath))
+            {
+                //创建文件
+                System.IO.File.Create(filePath).Dispose();
+            }
+
             return filePath;
         }
 
