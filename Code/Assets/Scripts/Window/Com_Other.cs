@@ -146,7 +146,7 @@ namespace Game
             var gameSave = new TapGameSave
             {
                 Name = "UserData",
-                Summary = "description",
+                Summary = user.Name,
                 ModifiedAt = time,
                 PlayedTime = 60000L, // ms
                 ProgressValue = user.DataProgeress,

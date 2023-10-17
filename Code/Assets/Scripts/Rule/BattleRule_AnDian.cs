@@ -32,7 +32,10 @@ public class Battle_AnDian : ABattleRule
             return;
         }
 
-        MapConfig mapConfig = MapConfigCategory.Instance.Get(MapId);
+        int tempMapId = RandomHelper.RandomNumber(0, 5);
+        tempMapId = Math.Max(MapId - tempMapId, ConfigHelper.MapStartId);
+
+        MapConfig mapConfig = MapConfigCategory.Instance.Get(tempMapId);
 
         if (Count % 500 != 0)
         {

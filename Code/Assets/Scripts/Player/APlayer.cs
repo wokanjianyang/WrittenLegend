@@ -175,7 +175,8 @@ namespace Game
 
         virtual public SkillState GetSkill(int priority)
         {
-            List<SkillState> list = SelectSkillList.Where(m => m.SkillPanel.SkillData.SkillConfig.Priority >= priority).OrderBy(m => m.UserCount * 1000 + m.Priority).ToList();
+            List<SkillState> list = SelectSkillList.Where(m => m.SkillPanel.SkillData.SkillConfig.Priority >= priority && m.SkillPanel.SkillId != 9001)
+                .OrderBy(m => m.UserCount * 1000 + m.Priority).ToList();
 
             foreach (SkillState state in list)
             {
@@ -186,12 +187,15 @@ namespace Game
                 }
             }
 
-            //var flag = this.IsEnemyClosest(Enemy);
-            ////当敌人在邻格时，强制使用普攻
-            //if (flag)
-            //{
-            //    return SelectSkillList.FirstOrDefault(s => s.SkillPanel.SkillData.SkillId == 9001);
-            //}
+            if (priority == 0)
+            {
+                SkillState normal = SelectSkillList.FirstOrDefault(m => m.SkillPanel.SkillId == 9001);
+                if (normal.IsCanUse())
+                {
+                    return normal;
+                }
+            }
+
             return null;
         }
 
