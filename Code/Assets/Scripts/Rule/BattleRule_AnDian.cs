@@ -7,18 +7,15 @@ using System.Linq;
 
 public class Battle_AnDian : ABattleRule
 {
-    private long MapTime = 0;
     private int MapId = 0;
 
-    private int Count = 1; //最多数量
+    private int Count = 1; 
     protected override RuleType ruleType => RuleType.AnDian;
 
     public Battle_AnDian(Dictionary<string, object> param)
     {
-        param.TryGetValue("MapTime", out object mapTime);
         param.TryGetValue("MapId", out object mapId);
 
-        this.MapTime = (long)mapTime;
         this.MapId = (int)mapId;
     }
 
@@ -71,7 +68,7 @@ public class Battle_AnDian : ABattleRule
         var hero = GameProcessor.Inst.PlayerManager.GetHero();
         if (hero.HP == 0)
         {
-            hero.Resurrection();
+            GameProcessor.Inst.HeroDie(RuleType.AnDian, 0);
         }
     }
 }

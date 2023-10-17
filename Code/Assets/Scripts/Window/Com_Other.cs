@@ -176,7 +176,7 @@ namespace Game
             User user = GameProcessor.Inst.User;
             btn_Load.gameObject.SetActive(false);
 
-            if (user.SaveLimit <= 0)
+            if (user.LoadLimit <= 0)
             {
                 this.txt_Name.text = "今天读档次数已满";
                 return;
@@ -223,9 +223,11 @@ namespace Game
             }
             else
             {
+                int tempLoadLimit = GameProcessor.Inst.User.LoadLimit;
+
                 string str_json = Encoding.UTF8.GetString(www.downloadHandler.data);
 
-                Debug.Log("str_json:" + str_json);
+                //Debug.Log("str_json:" + str_json);
 
                 GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("是确认读取" + at + "\n的存档,读档成功之后会自动退出，需要手动进入游戏？", true, () =>
                 {
@@ -235,7 +237,7 @@ namespace Game
                     GameProcessor.Inst.Init(UserData.StartTime);
 
                     GameProcessor.Inst.User.DataDate = DateTime.Now.Ticks;
-                    GameProcessor.Inst.User.LoadLimit--;
+                    GameProcessor.Inst.User.LoadLimit = Math.Min(tempLoadLimit, GameProcessor.Inst.User.LoadLimit) - 1;
                     UserData.Save();
                     this.CheckProgress();
 

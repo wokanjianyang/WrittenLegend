@@ -55,7 +55,7 @@ public class Battle_BossFamily : ABattleRule
                 if (QualityList.Count > 0)
                 {
                     BossConfig bossConfig = BossConfigCategory.Instance.Get(QualityList[0]);
-                    GameProcessor.Inst.PlayerManager.LoadMonster(BossHelper.BuildBoss(bossConfig.Id, bossConfig.MapId, 2, 1, 1));
+                    GameProcessor.Inst.PlayerManager.LoadMonster(BossHelper.BuildBoss(bossConfig.Id, bossConfig.MapId, 2, 1, 0));
 
                     QualityList.RemoveAt(0);
                 }

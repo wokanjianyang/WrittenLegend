@@ -86,7 +86,7 @@ public class BattleRule_Tower : ABattleRule
                     else
                     {
                         BossConfig bossConfig = BossConfigCategory.Instance.Get(mapConfig.BoosId);
-                        GameProcessor.Inst.PlayerManager.LoadMonster(BossHelper.BuildBoss(mapConfig.BoosId, mapConfig.Id, 1, MapRate, 1));
+                        GameProcessor.Inst.PlayerManager.LoadMonster(BossHelper.BuildBoss(mapConfig.BoosId, mapConfig.Id, 1, MapRate, 0));
                     }
                     QualityList.RemoveAt(0);
                 }

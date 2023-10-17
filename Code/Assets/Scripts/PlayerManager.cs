@@ -279,7 +279,7 @@ namespace Game
             for (var i = this.AllPlayers.Count - 1; i >= 0; i--)
             {
                 var player = this.AllPlayers[i];
-                if (!player.IsSurvice)
+                if (!player.IsSurvice && player.Camp != PlayerType.Hero)
                 {
                     //player.Transform.gameObject.SetActive(false);
                     player.OnDestroy();
