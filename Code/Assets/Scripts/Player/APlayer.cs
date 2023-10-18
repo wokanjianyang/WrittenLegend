@@ -21,6 +21,8 @@ namespace Game
 
         public bool IsHide { get; set; } = false;
 
+        public float Speed { get; private set; } = 1;
+
         public List<SkillData> SkillList { get; set; } = new List<SkillData>();
 
         [JsonIgnore]
@@ -157,6 +159,11 @@ namespace Game
             //LoadSkill();
         }
 
+        public void SetSpeed(int SpeedPercent)
+        {
+            this.Speed = Mathf.Max(0.2f, 100f / (100 + SpeedPercent));
+        }
+
         public virtual long GetRoleAttack(int role)
         {
             return DamageHelper.GetRoleAttack(this.AttributeBonus, role);
@@ -190,7 +197,7 @@ namespace Game
             if (priority == 0)
             {
                 SkillState normal = SelectSkillList.FirstOrDefault(m => m.SkillPanel.SkillId == 9001);
-                if (normal.IsCanUse())
+                if (normal!=null && normal.IsCanUse())
                 {
                     return normal;
                 }
@@ -480,6 +487,7 @@ namespace Game
             this.HP = hp;
 
         }
+
 
         public T GetComponent<T>()
         {

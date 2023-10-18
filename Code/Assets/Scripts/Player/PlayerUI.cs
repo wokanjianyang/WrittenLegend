@@ -70,6 +70,7 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
 
             if (this.SelfPlayer != null)
             {
+                this.speed = this.SelfPlayer.Speed;
                 this.SelfPlayer.DoEvent();
                 //应该运行了
                 //Debug.Log("Player " + this.SelfPlayer.Camp + " Speed Run");
