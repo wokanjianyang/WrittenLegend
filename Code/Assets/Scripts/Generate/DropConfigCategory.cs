@@ -94,7 +94,7 @@ namespace Game
                     int index = RandomHelper.RandomNumber(0, config.ItemIdList.Length);
                     int configId = config.ItemIdList[index];
 
-                    Item item = ItemHelper.BuildItem((ItemType)config.ItemType, configId, qualityRate, 1);
+                    Item item = ItemHelper.BuildItem((ItemType)config.ItemType, configId, qualityRate, config.Quantity);
                     list.Add(item);
                 }
             }

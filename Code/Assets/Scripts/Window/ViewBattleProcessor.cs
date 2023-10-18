@@ -52,7 +52,7 @@ namespace Game
             //    GameProcessor.Inst.Pause();
             //}
             //this.isViewMapShowing = ret;
-            return ret;
+            return true;
         }
 
         public override void OnBattleStart()

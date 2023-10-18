@@ -10,12 +10,12 @@ namespace Game
             string drops = "";
             if (exp > 0)
             {
-                drops += "经验增加:" + StringHelper.FormatNumber(exp);
+                drops += ",经验增加:" + StringHelper.FormatNumber(exp);
             }
 
             if (gold > 0)
             {
-                drops += "金币增加:" + StringHelper.FormatNumber(gold);
+                drops += ",金币增加:" + StringHelper.FormatNumber(gold);
             }
 
             if (Drops != null && Drops.Count > 0)
@@ -27,7 +27,7 @@ namespace Game
                 }
             }
 
-            string message = $"<color=#{QualityConfigHelper.GetQualityColor(monster.Quality)}>[{monster.Name}]</color><color=white>死亡,{drops}</color>";
+            string message = $"<color=#{QualityConfigHelper.GetQualityColor(monster.Quality)}>[{monster.Name}]</color><color=white>死亡{drops}</color>";
 
             return message;
         }
@@ -38,12 +38,12 @@ namespace Game
 
             if (exp > 0)
             {
-                drops += "经验增加:" + StringHelper.FormatNumber(exp);
+                drops += ",经验增加:" + StringHelper.FormatNumber(exp);
             }
 
             if (gold > 0)
             {
-                drops += "金币增加:" + StringHelper.FormatNumber(gold);
+                drops += ",金币增加:" + StringHelper.FormatNumber(gold);
             }
 
             if (Drops != null && Drops.Count > 0)
@@ -61,7 +61,7 @@ namespace Game
                 }
             }
 
-            string message = $"<color=#FFD700>[{monster.Name}]</color><color=white>死亡,{drops}</color>";
+            string message = $"<color=#FFD700>[{monster.Name}]</color><color=white>死亡{drops}</color>";
 
             return message;
         }
