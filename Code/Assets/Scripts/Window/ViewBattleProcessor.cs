@@ -43,15 +43,15 @@ namespace Game
         protected override bool CheckPageType(ViewPageType page)
         {
             var ret = page == ViewPageType.View_Battle;
-            if (ret)
-            {
-                GameProcessor.Inst.Resume();
-            }
-            else if (this.isViewMapShowing)
-            {
-                GameProcessor.Inst.Pause();
-            }
-            this.isViewMapShowing = ret;
+            //if (ret)
+            //{
+            //    GameProcessor.Inst.Resume();
+            //}
+            //else if (this.isViewMapShowing)
+            //{
+            //    GameProcessor.Inst.Pause();
+            //}
+            //this.isViewMapShowing = ret;
             return ret;
         }
 

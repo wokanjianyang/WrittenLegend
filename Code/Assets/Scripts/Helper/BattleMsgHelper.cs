@@ -5,29 +5,50 @@ namespace Game
 {
     public class BattleMsgHelper
     {
-        public static string BuildMonsterDeadMessage(Monster monster,long exp,long gold, List<Item> Drops)
+        public static string BuildMonsterDeadMessage(APlayer monster,long exp,long gold, List<Item> Drops)
         {
             string drops = "";
+            if (exp > 0)
+            {
+                drops += "经验增加:" + StringHelper.FormatNumber(exp);
+            }
+
+            if (gold > 0)
+            {
+                drops += "金币增加:" + StringHelper.FormatNumber(gold);
+            }
+
             if (Drops != null && Drops.Count > 0)
             {
-                drops = ",掉落";
+                drops += ",掉落";
                 foreach (var drop in Drops)
                 {
                     drops += $"<color=#{QualityConfigHelper.GetColor(drop)}>[{drop.Name}]</color>";
                 }
             }
 
-            string message = $"<color=#{QualityConfigHelper.GetQualityColor(monster.Quality)}>[{monster.Name}]</color><color=white>死亡,经验增加:{StringHelper.FormatNumber(exp)},金币增加:{StringHelper.FormatNumber(gold)}{drops}</color>";
+            string message = $"<color=#{QualityConfigHelper.GetQualityColor(monster.Quality)}>[{monster.Name}]</color><color=white>死亡,{drops}</color>";
 
             return message;
         }
 
-        public static string BuildBossDeadMessage(Boss monster, long exp, long gold, List<Item> Drops)
+        public static string BuildBossDeadMessage(APlayer monster, long exp, long gold, List<Item> Drops)
         {
             string drops = "";
+
+            if (exp > 0)
+            {
+                drops += "经验增加:" + StringHelper.FormatNumber(exp);
+            }
+
+            if (gold > 0)
+            {
+                drops += "金币增加:" + StringHelper.FormatNumber(gold);
+            }
+
             if (Drops != null && Drops.Count > 0)
             {
-                drops = ",掉落";
+                drops += ",掉落";
                 foreach (var drop in Drops)
                 {
                     string qt = "";
@@ -40,7 +61,7 @@ namespace Game
                 }
             }
 
-            string message = $"<color=#FFD700>[{monster.Name}]</color><color=white>死亡,经验增加:{StringHelper.FormatNumber(exp)},金币增加:{StringHelper.FormatNumber(gold)}{drops}</color>";
+            string message = $"<color=#FFD700>[{monster.Name}]</color><color=white>死亡,{drops}</color>";
 
             return message;
         }

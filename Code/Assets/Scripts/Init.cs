@@ -29,8 +29,8 @@ public class Init : MonoBehaviour
         Loading = -1,
 
         //Bottom
-        View_Bag = 0,
         View_Map,
+        View_Bag,
         View_Skill,
         View_EndlessTower,
         View_Forge,
@@ -74,8 +74,8 @@ public class Init : MonoBehaviour
         {
             UILayer.Bottom, new List<WindowTypeEnum>()
             {
-                WindowTypeEnum.View_Bag,
                 WindowTypeEnum.View_Map,
+                WindowTypeEnum.View_Bag,
                 WindowTypeEnum.View_Skill,
                 WindowTypeEnum.View_EndlessTower,
                 WindowTypeEnum.View_Forge,
@@ -92,7 +92,6 @@ public class Init : MonoBehaviour
                 WindowTypeEnum.Dialog_EquipDetail,
                 //WindowTypeEnum.Dialog_OfflineExp,
                 WindowTypeEnum.Dialog_Settings,
-                WindowTypeEnum.Dialog_FloatButtons,
                 WindowTypeEnum.Map_Phantom,
                 WindowTypeEnum.Map_BossFamily,
                 WindowTypeEnum.Map_AnDian,
@@ -103,7 +102,7 @@ public class Init : MonoBehaviour
         {
             UILayer.Top, new List<WindowTypeEnum>()
             {
-
+                WindowTypeEnum.Dialog_FloatButtons,
                 WindowTypeEnum.Loading,
                 WindowTypeEnum.Dialog_SecondaryConfirmation,
             }

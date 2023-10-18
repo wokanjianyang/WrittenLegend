@@ -62,6 +62,16 @@ public class Battle_AnDian : ABattleRule
             GameProcessor.Inst.PlayerManager.LoadMonster(BossHelper.BuildBoss(mapConfig.BoosId, mapConfig.Id, 2, 1, 1));
         }
 
+        //Specail
+        List<MonsterSpecialConfig> configs = MonsterSpecialConfigCategory.Instance.GetAll().Values.Where(m => m.BuildRate < Count).ToList();
+        foreach (MonsterSpecialConfig config in configs)
+        {
+            if (RandomHelper.RandomNumber(1, config.BuildRate) <= 1)
+            {
+                GameProcessor.Inst.PlayerManager.LoadMonster(new Monster_Specail(config.Id));
+            }
+        }
+
         GameProcessor.Inst.EventCenter.Raise(new ShowAnDianInfoEvent() { Count = Count });
         Count++;
     }

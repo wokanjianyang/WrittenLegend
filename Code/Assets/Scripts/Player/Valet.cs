@@ -41,8 +41,6 @@ namespace Game
         {
             this.SetSpeed(ModelConfig.SpeedRate);
 
-            Debug.Log("Speed:" + this.Speed);
-
             int role = SkillPanel.SkillData.SkillConfig.Role;
 
             long roleAttr = Master.GetRoleAttack(role) * (100 + SkillPanel.AttrIncrea) / 100; //Ö°Òµ¹¥»÷

@@ -93,9 +93,6 @@ namespace Game
 		/// <summary>掉落Id列表</summary>
 		[ProtoMember(6)]
 		public int[] ItemIdList { get; set; }
-		/// <summary>掉落概率列表</summary>
-		[ProtoMember(7)]
-		public int[] ItemRaTEList { get; set; }
 
 	}
 }

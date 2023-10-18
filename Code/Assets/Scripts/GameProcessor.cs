@@ -443,16 +443,16 @@ namespace Game
             callback?.Invoke();
         }
 
-        public void Pause()
-        {
-            this.PauseCounter--;
-            //this.PlayerManager.Save();
-        }
+        //public void Pause()
+        //{
+        //    this.PauseCounter--;
+        //    //this.PlayerManager.Save();
+        //}
 
-        public void Resume()
-        {
-            this.PauseCounter++;
-        }
+        //public void Resume()
+        //{
+        //    this.PauseCounter++;
+        //}
 
         public bool IsGameOver()
         {
@@ -571,14 +571,14 @@ namespace Game
 
         void OnApplicationPause(bool isPaused)
         {
-            if(isPaused)
-            {
-                this.Pause();
-            }
-            else
-            {
-                this.Resume();
-            }
+            //if(isPaused)
+            //{
+            //    this.Pause();
+            //}
+            //else
+            //{
+            //    this.Resume();
+            //}
         }
 
         void OnApplicationQuit()

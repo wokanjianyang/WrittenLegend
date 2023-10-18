@@ -1,0 +1,3 @@
+{"list":[
+{"_t":"MonsterSpecial","_id":10001,"MapId":0,"Name":"yutu","Attr":1000,"Def":0,"HP":1000,"DropIdList":[4006],"DropCountList":[10],"BuildRate":1000},
+]}

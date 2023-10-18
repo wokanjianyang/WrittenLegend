@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3649827780
+CRC: 3638687902
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 79b3c03383017dcd7f93b209d0c08718
+    Hash: ab54236474c33081670edad73dad526b
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -19,6 +19,7 @@ Assets:
 - Assets/Resources/Config/QualityConfigCategory.bytes
 - Assets/Resources/Config/LevelConfigCategory.bytes
 - Assets/Resources/Config/PhantomConfigCategory.bytes
+- Assets/Resources/Config/MonsterSpecialCategory.bytes
 - Assets/Resources/Config/SoulRingConfigCategory.bytes
 - Assets/Resources/Config/DropConfigCategory.bytes
 - Assets/Resources/Config/EquipRefineConfigCategory.bytes
@@ -47,6 +48,7 @@ Assets:
 - Assets/Resources/Config/MonsterModelConfigCategory.bytes
 - Assets/Resources/Config/SkillDoubleHitConfigCategory.bytes
 - Assets/Resources/Config/PhantomAttrConfigCategory.bytes
+- Assets/Resources/Config/MonsterSpecialConfigCategory.bytes
 - Assets/Resources/Config/PlayerModelCategory.bytes
 - Assets/Resources/Config/SkillCategory.bytes
 - Assets/Resources/Config/GiftPackConfigCategory.bytes
