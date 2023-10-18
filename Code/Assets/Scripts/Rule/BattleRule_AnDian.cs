@@ -21,7 +21,7 @@ public class Battle_AnDian : ABattleRule
 
     public override void DoMapLogic(int roundNum)
     {
-        if (roundNum % 5 != 0)
+        if (roundNum % 2 != 0)
         {
             return;
         }
@@ -71,6 +71,7 @@ public class Battle_AnDian : ABattleRule
         var hero = GameProcessor.Inst.PlayerManager.GetHero();
         if (hero.HP == 0)
         {
+            GameProcessor.Inst.SetGameOver(PlayerType.Enemy);
             GameProcessor.Inst.HeroDie(RuleType.AnDian, 0);
         }
     }

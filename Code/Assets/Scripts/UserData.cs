@@ -70,7 +70,7 @@ namespace Game
 
             if (user.MagicLevel.Data <= 0)
             {
-                //user.MagicLevel.Data = 1;
+                user.MagicLevel.Data = 1;
             }
 
             //clear month
@@ -151,12 +151,9 @@ namespace Game
         public static void Clear()
         {
             string str_json = "";
-            //
-            string folderPath = System.IO.Path.Combine(Application.persistentDataPath, savePath); //文件夹路径
-            System.IO.Directory.CreateDirectory(folderPath);
 
             //创建一个空白文件
-            string filePath = System.IO.Path.Combine(folderPath, fileName);             //文件路径
+            string filePath = getSavePath();             //文件路径
 
             using (StreamWriter writer = new StreamWriter(filePath))
             {

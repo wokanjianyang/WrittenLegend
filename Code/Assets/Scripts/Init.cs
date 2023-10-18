@@ -160,8 +160,6 @@ public class Init : MonoBehaviour
 
         this.LoadConfig();
 
-        AsyncLoginTap();
-
         StartCoroutine(AsyncLoadWindows(currentTimeSecond));
     }
 
@@ -227,56 +225,7 @@ public class Init : MonoBehaviour
         Game.LoadMap(RuleType.Normal,  mapRoot.transform, null);
     }
 
-    private async Task AsyncLoginTap()
-    {
-        var currentUser = await TDSUser.GetCurrent();
-        if (null == currentUser)
-        {
-            Debug.Log("当前未登录");
-            // 开始登录
 
-            try
-            {
-                // 在 iOS、Android 系统下会唤起 TapTap 客户端或以 WebView 方式进行登录
-                // 在 Windows、macOS 系统下显示二维码（默认）和跳转链接（需配置）
-                var tdsUser = await TDSUser.LoginWithTapTap();
-                Debug.Log($"login success:{tdsUser}");
-                // 获取 TDSUser 属性
-                var objectId = tdsUser.ObjectId;     // 用户唯一标识
-                var nickname = tdsUser["nickname"];  // 昵称
-                var avatar = tdsUser["avatar"];      // 头像
-            }
-            catch (Exception e)
-            {
-                if (e is TapException tapError)  // using TapTap.Common
-                {
-                    Debug.Log($"encounter exception:{tapError.code} message:{tapError.message}");
-                    if (tapError.code == (int)TapErrorCode.ERROR_CODE_BIND_CANCEL) // 取消登录
-                    {
-                        Debug.Log("登录取消");
-                    }
-                }
-            }
-        }
-        else
-        {
-            Debug.Log("已登录");
-            // 进入游戏
-        }
-
-        //try
-        //{
-        //    // 通过 tdsUSer 给出用户唯一标识，如果有的话
-        //    var tdsUser = await TDSUser.LoginAnonymously();
-
-        //    Debug.Log("tdsUser:" + tdsUser.ToString());
-        //}
-        //catch (Exception e)
-        //{
-        //    // 登录失败
-        //    Debug.Log($"TapLogin Error : {e.Message}");
-        //}
-    }
 
     private IEnumerator IE_DelayAction(float delay, Action callback)
     {

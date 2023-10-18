@@ -30,4 +30,5 @@
 {"_t":"CodeConfig","_id":29,"code":"xqyy888","ItemTypeList":[9,5],"ItemIdList":[4003,4004],"ItemQuanlityList":[188,18]},
 {"_t":"CodeConfig","_id":30,"code":"gl2000","ItemTypeList":[4],"ItemIdList":[1],"ItemQuanlityList":[1]},
 {"_t":"CodeConfig","_id":31,"code":"zhbc","ItemTypeList":[9,5],"ItemIdList":[4003,4004],"ItemQuanlityList":[488,48]},
+{"_t":"CodeConfig","_id":32,"code":"gx153","ItemTypeList":[9],"ItemIdList":[4003],"ItemQuanlityList":[100]},
 ]}
