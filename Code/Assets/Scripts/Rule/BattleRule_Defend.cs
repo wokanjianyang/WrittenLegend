@@ -7,67 +7,59 @@ using System.Linq;
 
 public class Battle_Defend : ABattleRule
 {
-    private bool Start = false;
+    private bool Success = false;
 
-    private long MapTime = 0;
+    private int Progress = 0;
 
-    private List<int> QualityList;
+    private const int MaxProgress = 100; //
 
-    private const int MaxQuanlity = 10; //
-    private const int MaxFreshQuanlity = 1; //
-    protected override RuleType ruleType => RuleType.BossFamily;
+    protected override RuleType ruleType => RuleType.Defend;
 
     public Battle_Defend(Dictionary<string, object> param)
     {
-        param.TryGetValue("MapTime", out object mapTime);
+        param.TryGetValue("progress", out object progress);
+        param.TryGetValue("hp", out object hp);
 
-        this.MapTime = (long)mapTime;
-        this.Start = true;
+        this.Progress = (int)progress;
 
-        QualityList = new List<int>();
+        this.LoadDefend((int)hp);
+    }
 
-        List<BossConfig> list = BossConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
-
-        for (int i = 0; i < list.Count; i++)
-        {
-            int bossId = list[i].Id;
-            QualityList.Add(bossId);
-            QualityList.Add(bossId);
-            QualityList.Add(bossId);
-            QualityList.Add(bossId);
-            QualityList.Add(bossId);
-        }
-
-        TaskHelper.CheckTask(TaskType.ToCopy, 1);
+    private void LoadDefend(int hp)
+    {
+        var enemy = new Defend(hp);
+        GameProcessor.Inst.PlayerManager.LoadDefend(enemy);
     }
 
     public override void DoMapLogic(int roundNum)
     {
         var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
-        int bossCount = enemys.Count + QualityList.Count;
 
-        if (enemys.Count < MaxQuanlity && QualityList.Count > 0)
+        if (enemys.Count <= 0 && this.Progress < MaxProgress)
         {
-            int count = Math.Min(MaxFreshQuanlity, MaxQuanlity - enemys.Count);
+            this.Progress++;
 
-            for (int i = 0; i < count; i++)
+            //Load All
+            for (int i = 0; i < 10; i++)
             {
-                if (QualityList.Count > 0)
-                {
-                    BossConfig bossConfig = BossConfigCategory.Instance.Get(QualityList[0]);
-                    GameProcessor.Inst.PlayerManager.LoadMonster(BossHelper.BuildBoss(bossConfig.Id, bossConfig.MapId, 2, 1, 0));
+                int tempMapId = RandomHelper.RandomNumber(0, 5);
+                tempMapId = 1001 + tempMapId;
 
-                    QualityList.RemoveAt(0);
-                }
+                MapConfig mapConfig = MapConfigCategory.Instance.Get(tempMapId);
+                var enemy = MonsterHelper.BuildMonster(mapConfig, 1, 1, 0);
+                GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
             }
+
+            GameProcessor.Inst.EventCenter.Raise(new ShowDefendInfoEvent() { Count = Progress });
         }
 
-        GameProcessor.Inst.EventCenter.Raise(new ShowBossFamilyInfoEvent() { Count = bossCount });
+        if (this.Progress >= MaxProgress) //Success
+        { 
+            GameProcessor.Inst.EventCenter.Raise(new BattlePhantomMsgEvent() { Message = "Success" });
 
-        if (Start && enemys.Count <= 0 && QualityList.Count <= 0)
-        {
-            Start = false;
-            GameProcessor.Inst.HeroDie(RuleType.BossFamily, MapTime);
+            GameProcessor.Inst.HeroDie(RuleType.Phantom, 0);
+
+            return;
         }
     }
 
@@ -77,7 +69,10 @@ public class Battle_Defend : ABattleRule
         if (heroCamp.HP == 0)
         {
             GameProcessor.Inst.SetGameOver(PlayerType.Enemy);
-            GameProcessor.Inst.HeroDie(RuleType.BossFamily, MapTime);
+            GameProcessor.Inst.HeroDie(RuleType.Defend, 0);
         }
+        
+
+        var defend = GameProcessor.Inst.PlayerManager.GetHero();
     }
 }

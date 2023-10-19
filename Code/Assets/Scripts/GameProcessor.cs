@@ -400,6 +400,10 @@ namespace Game
             MapData = map.GetComponentInChildren<MapData>();
             MapData.Clear();
 
+            this.PlayerRoot = MapData.transform.parent.Find("[PlayerRoot]").transform;
+
+            this.EffectRoot = MapData.transform.parent.Find("[EffectRoot]").transform;
+
             switch (ruleType)
             {
                 case RuleType.Normal:
@@ -420,10 +424,10 @@ namespace Game
                 case RuleType.AnDian:
                     this.BattleRule = new Battle_AnDian(param);
                     break;
+                case RuleType.Defend:
+                    this.BattleRule = new Battle_Defend(param);
+                    break;
             }
-            this.PlayerRoot = MapData.transform.parent.Find("[PlayerRoot]").transform;
-
-            this.EffectRoot = MapData.transform.parent.Find("[EffectRoot]").transform;
 
             this.PlayerManager.LoadHero();
 

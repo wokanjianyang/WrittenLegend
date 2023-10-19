@@ -10,27 +10,79 @@ namespace Game
 {
     public class PlayerManager : MonoBehaviour, IBattleLife
     {
+        public int Order
+        {
+            get
+            {
+                return (int)ComponentOrder.PlayerManager;
+            }
+        }
 
+        private Hero hero;
+        private Defend defend;
+
+        private int playerId = 0;
+        private List<APlayer> AllPlayers = new List<APlayer>();
+        private List<ValetData> valetCache = new List<ValetData>();
         public class ValetData
         {
             public int OwnerId { get; set; }
             public int SkillId { get; set; }
             public List<Valet> Valets { get; set; } = new List<Valet>();
         }
-        private Hero hero;
-        private List<APlayer> AllPlayers = new List<APlayer>();
-        private int playerId = 0;
-        private List<ValetData> valetCache = new List<ValetData>();
+
+        public void OnBattleStart()
+        {
+        }
 
         public Hero GetHero()
         {
             return hero;
         }
 
-        public Boss GetBoss()
+        public void LoadHero()
         {
-            var list = this.AllPlayers.FindAll(p => p.Camp == PlayerType.Enemy && p.ModelType == MondelType.Boss).ToList(); ;
-            return list.Count > 0 ? list[0] as Boss : null;
+            hero = new Hero();
+
+            var coms = hero.Transform.GetComponents<MonoBehaviour>();
+            foreach (var com in coms)
+            {
+                if (com is IPlayer _com)
+                {
+                    _com.SetParent(hero);
+                }
+            }
+
+            var tempCells = GameProcessor.Inst.MapData.AllCells.ToList();
+            var allPlayerCells = GameProcessor.Inst.PlayerManager.GetAllPlayers().Select(p => p.Cell).ToList();
+            tempCells.RemoveAll(p => allPlayerCells.Contains(p));
+
+
+            var index = RandomHelper.RandomNumber(0, tempCells.Count);
+            var bornCell = tempCells[index];
+            hero.SetPosition(bornCell, true);
+            this.AddPlayer(hero);
+        }
+
+        public Defend GetDefend()
+        {
+            return defend;
+        }
+
+        public void LoadDefend(Defend defend)
+        {
+            this.defend = defend;
+
+            var coms = defend.Transform.GetComponents<MonoBehaviour>();
+            foreach (var com in coms)
+            {
+                if (com is IPlayer _com)
+                {
+                    _com.SetParent(defend);
+                }
+            }
+            defend.SetPosition(new Vector3(3, 1), true);
+            this.AddPlayer(defend);
         }
 
         private void AddPlayer(APlayer player)
@@ -78,42 +130,6 @@ namespace Game
             return !allCells.Contains(cell);
         }
 
-        public void OnBattleStart()
-        {
-        }
-
-        public int Order
-        {
-            get
-            {
-                return (int)ComponentOrder.PlayerManager;
-            }
-        }
-
-        public void LoadHero()
-        {
-            hero = new Hero();
-
-            var coms = hero.Transform.GetComponents<MonoBehaviour>();
-            foreach (var com in coms)
-            {
-                if (com is IPlayer _com)
-                {
-                    _com.SetParent(hero);
-                }
-            }
-
-            var tempCells = GameProcessor.Inst.MapData.AllCells.ToList();
-            var allPlayerCells = GameProcessor.Inst.PlayerManager.GetAllPlayers().Select(p => p.Cell).ToList();
-            tempCells.RemoveAll(p => allPlayerCells.Contains(p));
-
-
-            var index = RandomHelper.RandomNumber(0, tempCells.Count);
-            var bornCell = tempCells[index];
-            hero.SetPosition(bornCell, true);
-            this.AddPlayer(hero);
-        }
-
         public APlayer LoadMonster(APlayer enemy)
         {
             var tempCells = GameProcessor.Inst.MapData.AllCells.ToList();
@@ -148,6 +164,7 @@ namespace Game
 
             return enemy;
         }
+
 
         public Valet LoadValet(APlayer player,SkillPanel skill)
         {

@@ -31,6 +31,7 @@ namespace Game
         Phantom,
         BossFamily,
         AnDian,
+        Defend,
     }
 
     public enum ComponentOrder

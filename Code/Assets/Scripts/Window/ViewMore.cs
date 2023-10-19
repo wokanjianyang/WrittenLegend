@@ -34,7 +34,7 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<PhantomEndEvent>(this.OnPhantomEnd);
             GameProcessor.Inst.EventCenter.AddListener<CopyViewCloseEvent>(this.OnCopyViewClose);
             GameProcessor.Inst.EventCenter.AddListener<BossFamilyEndEvent>(this.OnBossFamilyEnd);
-
+            GameProcessor.Inst.EventCenter.AddListener<DefendEndEvent>(this.OnDefendEnd);
         }
 
         public void SelectMap(int mapId, int rate)
@@ -100,12 +100,25 @@ namespace Game
             scrollRect.gameObject.SetActive(true);
         }
 
+        public void OnDefendEnd(DefendEndEvent e)
+        {
+            scrollRect.gameObject.SetActive(true);
+        }
+
         public void StartAnDian()
         {
             scrollRect.gameObject.SetActive(false);
 
             GameProcessor.Inst.EventCenter.Raise(new AnDianStartEvent() { });
         }
+
+        public void StartDefend()
+        {
+            scrollRect.gameObject.SetActive(false);
+
+            GameProcessor.Inst.EventCenter.Raise(new DefendStartEvent() { });
+        }
+
 
         protected override bool CheckPageType(ViewPageType page)
         {

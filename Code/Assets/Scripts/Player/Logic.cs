@@ -39,34 +39,6 @@ namespace Game
 
         public void SetData(Dictionary<AttributeEnum, object> dict)
         {
-            //if (dict != null)
-            //{
-            //    foreach (var kvp in dict)
-            //    {
-            //        BaseAttributeMap[kvp.Key] = kvp.Value;
-            //        if (kvp.Key > 0)
-            //        {
-            //            SelfPlayer.AttributeBonus.SetAttr(kvp.Key, AttributeFrom.HeroBase, Convert.ToInt64(kvp.Value));
-            //        }
-            //    }
-            //}
-
-            //SelfPlayer.HP = SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.HP);
-
-            //SelfPlayer.HP = SelfPlayer.AttributeBonus.GetTotalAttr(AttributeEnum.HP);
-
-            //设置背景  
-            //if (BaseAttributeMap.TryGetValue(AttributeEnum.Color, out var color))
-            //{
-            //    if (color is Color _color)
-            //    {
-            //        SelfPlayer.EventCenter.Raise(new SetBackgroundColorEvent
-            //        {
-            //            Color = _color
-            //        });
-            //    }
-            //}
-
             //设置名称
             SelfPlayer.EventCenter.Raise(new SetPlayerNameEvent
             {

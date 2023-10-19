@@ -43,6 +43,7 @@ public class Init : MonoBehaviour
         Map_Phantom,
         Map_BossFamily,
         Map_AnDian,
+        Map_Defend,
 
         Select_Dialog,
         Dialog_EquipDetail,
@@ -95,6 +96,7 @@ public class Init : MonoBehaviour
                 WindowTypeEnum.Map_Phantom,
                 WindowTypeEnum.Map_BossFamily,
                 WindowTypeEnum.Map_AnDian,
+                WindowTypeEnum.Map_Defend,
                 WindowTypeEnum.Dialog_SoulRing,
                 WindowTypeEnum.Dialog_Achievement,
             }

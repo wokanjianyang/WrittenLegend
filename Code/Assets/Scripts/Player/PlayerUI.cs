@@ -108,6 +108,9 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
             case PlayerType.Valet:
                 this.image_Background.sprite = list_Backgrounds[1];
                 break;
+            case PlayerType.Defend:
+                this.image_Background.sprite = list_Backgrounds[1];
+                break;
             case PlayerType.Enemy:
                 if (this.SelfPlayer.ModelType == MondelType.Boss)
                 {

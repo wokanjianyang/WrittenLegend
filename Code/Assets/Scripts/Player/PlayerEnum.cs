@@ -97,6 +97,7 @@ namespace Game
         Hero = 0,
         Enemy,
         Valet, 
+        Defend,
     }
 
     public enum MondelType { 
@@ -170,6 +171,8 @@ namespace Game
         BossFamily = 3,
         [LabelText("Œ¥÷™∞µµÓ")]
         AnDian = 4,
+        [LabelText(" ÿŒ¿…≥≥«")]
+        Defend = 5,
     }
 
     public enum RoleType
