@@ -67,9 +67,9 @@ public class Monster_Specail : APlayer
         SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
     }
 
-    public override void DoEvent()
+    public override float DoEvent()
     {
-        base.DoEvent();
+        return base.DoEvent();
     }
 
     public override void OnHit(DamageResult dr)

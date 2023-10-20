@@ -21,7 +21,8 @@ namespace Game
 
         public bool IsHide { get; set; } = false;
 
-        public float Speed { get; private set; } = 1;
+        public float MoveSpeed { get; private set; } = 1;
+        public float AttckSpeed { get; private set; } = 1;
 
         public List<SkillData> SkillList { get; set; } = new List<SkillData>();
 
@@ -161,7 +162,7 @@ namespace Game
 
         public void SetSpeed(int SpeedPercent)
         {
-            this.Speed = Mathf.Max(0.2f, 100f / (100 + SpeedPercent));
+            this.AttckSpeed = Mathf.Max(0.2f, 100f / (100 + SpeedPercent));
         }
 
         public virtual long GetRoleAttack(int role)
@@ -225,11 +226,11 @@ namespace Game
             return false;
         }
 
-        public virtual void DoEvent()
+        public virtual float DoEvent()
         {
             this.RoundCounter++;
 
-            if (!this.IsSurvice) return;
+            if (!this.IsSurvice) return 1f;
 
             //光环
             if (this.Camp == PlayerType.Hero)
@@ -273,10 +274,10 @@ namespace Game
                 this.OnRestore(this.ID, restoreHp);
             }
 
-            AttackLogic();
+            return AttackLogic();
         }
 
-        public virtual void AttackLogic()
+        public virtual float AttackLogic()
         {
             //1. 控制前计算高优级技能
             SkillState skill = this.GetSkill(200);
@@ -284,7 +285,7 @@ namespace Game
             {
                 //Debug.Log("Hero Use Prioriry Skill:");
                 skill.Do();
-                return;
+                return AttckSpeed;
             }
 
             //2.是否有控制技能，不继续后续行动
@@ -292,17 +293,18 @@ namespace Game
             if (pause)
             {
                 //Debug.Log("Hero Pause:");
-                return;
+                return 1f;
             }
 
             //3. 优先攻击首要目标
             this.CalcEnemy();
-            if (_enemy != null) {
+            if (_enemy != null)
+            {
                 skill = this.GetSkill(0);
                 if (skill != null)
                 {
                     skill.Do();
-                    return;
+                    return AttckSpeed;
                 }
             }
 
@@ -314,15 +316,17 @@ namespace Game
                 if (skill != null)
                 {
                     skill.Do();
-                    return;
+                    return AttckSpeed;
                 }
             }
-            else {
-                return;
+            else
+            {
+                return 1f;
             }
 
             //5. 移动到首要目标
             MoveToEnemy();
+            return 1f;
         }
 
         private void MoveToEnemy()

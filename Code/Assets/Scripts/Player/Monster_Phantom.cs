@@ -104,9 +104,9 @@ public class Monster_Phantom : APlayer
         SetHP(CurrentHp);
     }
 
-    public override void DoEvent()
+    public override float DoEvent()
     {
-        base.DoEvent();
+        return base.DoEvent();
     }
 
     public override void OnHit(DamageResult dr)

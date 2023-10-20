@@ -78,30 +78,33 @@ namespace Game
 		/// <summary>_ID</summary>
 		[ProtoMember(1)]
 		public int Id { get; set; }
-		/// <summary>属性ID</summary>
+		/// <summary>AttrId</summary>
 		[ProtoMember(2)]
 		public int AttrId { get; set; }
-		/// <summary>类型</summary>
+		/// <summary>Type</summary>
 		[ProtoMember(3)]
 		public int Type { get; set; }
 		/// <summary>描述</summary>
 		[ProtoMember(4)]
 		public string Desc { get; set; }
-		/// <summary>最小值</summary>
+		/// <summary>MinValue</summary>
 		[ProtoMember(5)]
 		public int MinValue { get; set; }
-		/// <summary>最大值</summary>
+		/// <summary>MaxValue</summary>
 		[ProtoMember(6)]
 		public int MaxValue { get; set; }
-		/// <summary>所属装备位置</summary>
+		/// <summary>PartList</summary>
 		[ProtoMember(7)]
 		public int[] PartList { get; set; }
-		/// <summary>等级</summary>
+		/// <summary>MinLevel</summary>
 		[ProtoMember(8)]
 		public int MinLevel { get; set; }
-		/// <summary>等级</summary>
+		/// <summary>MaxLevel</summary>
 		[ProtoMember(9)]
 		public int MaxLevel { get; set; }
+		/// <summary>MaxQuality</summary>
+		[ProtoMember(10)]
+		public int MaxQuality { get; set; }
 
 	}
 }

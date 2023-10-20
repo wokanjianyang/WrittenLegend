@@ -293,7 +293,6 @@ namespace Game
             //Debug.Log(OfflineMessage);
 
             //检查
-            //User.DataDate = 0;
             DateTime saveDate = new DateTime(User.DataDate);
             if (saveDate.Day < DateTime.Now.Day || saveDate.Month < DateTime.Now.Month)
             {

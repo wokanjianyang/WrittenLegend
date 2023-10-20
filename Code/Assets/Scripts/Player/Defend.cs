@@ -43,8 +43,9 @@ public class Defend : APlayer
         SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
     }
 
-    public override void DoEvent()
+    public override float DoEvent()
     {
+        return 1f;
         //this.OnRestore(0, 1);
     }
 

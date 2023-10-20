@@ -73,8 +73,14 @@ namespace Game
                 user.MagicLevel.Data = 1;
             }
 
+            if (user.DefendData == null)
+            {
+                user.DefendData = new DefendData();
+                user.DefendData.Count.Data = 100;
+            }
+
             //clear month
-            user.Bags.RemoveAll(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Moon_Cake);
+            //user.Bags.RemoveAll(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Moon_Cake);
 
             //TEST data
             //user.MagicGold.Data = 9999999999999; 

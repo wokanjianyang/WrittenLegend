@@ -202,7 +202,7 @@ namespace Game
             }
         }
 
-        public override void AttackLogic()
+        public override float AttackLogic()
         {
             //1. 控制前计算高优级技能
             SkillState skill = this.GetSkill(200);
@@ -210,7 +210,7 @@ namespace Game
             {
                 //Debug.Log("Hero Use Prioriry Skill:");
                 skill.Do();
-                return;
+                return AttckSpeed;
             }
 
             //2.是否有控制技能，不继续后续行动
@@ -218,7 +218,7 @@ namespace Game
             if (pause)
             {
                 //Debug.Log("Hero Pause:");
-                return;
+                return 1f;
             }
 
             //3.寻找目标
@@ -234,10 +234,10 @@ namespace Game
 
                 if (skill.SkillPanel.SkillData.SkillConfig.Type == (int)SkillType.Attack)
                 {
-                   this.DoubleHit();
+                    this.DoubleHit();
                 }
 
-                return;
+                return AttckSpeed;
             }
 
             //5.朝目标移动
@@ -247,7 +247,7 @@ namespace Game
                 if (GameProcessor.Inst.PlayerManager.IsCellCanMove(endPos))
                 {
                     this.Move(endPos);
-                    return;
+                    return MoveSpeed;
                 }
             }
 
@@ -270,7 +270,7 @@ namespace Game
                     {
                         this.DoubleHit();
                     }
-                    return;
+                    return AttckSpeed;
                 }
                 else
                 {
@@ -279,10 +279,12 @@ namespace Game
                     if (GameProcessor.Inst.PlayerManager.IsCellCanMove(endPos))
                     {
                         this.Move(endPos);
-                        return;
+                        return MoveSpeed;
                     }
                 }
             }
+
+            return 1f;
         }
 
         private void DoubleHit()
