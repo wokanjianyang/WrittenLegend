@@ -116,7 +116,7 @@ namespace Game
             {
                 for (int i = 0; i < Quality; i++)
                 {
-                    var ra = AttrEntryConfigCategory.Instance.Build(this.Part, this.Level);
+                    var ra = AttrEntryConfigCategory.Instance.Build(this.Part, this.Level,this.Quality);
                     if (ra.Key > 0)
                     {
                         this.AttrEntryList.Add(ra);

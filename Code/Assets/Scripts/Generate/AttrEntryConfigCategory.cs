@@ -7,9 +7,9 @@ namespace Game
 
     public partial class AttrEntryConfigCategory
     {
-        public KeyValuePair<int, long> Build(int part, int level)
+        public KeyValuePair<int, long> Build(int part, int level, int quality)
         {
-            List<AttrEntryConfig> configs = list.FindAll(m => m.PartList.Contains(part) && m.MinLevel <= level && level <= m.MaxLevel);
+            List<AttrEntryConfig> configs = list.FindAll(m => m.PartList.Contains(part) && m.MinLevel <= level && level <= m.MaxLevel && quality <= m.MaxQuality);
 
             if (configs.Count <= 0)
             {
