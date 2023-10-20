@@ -1,3 +1,3 @@
 {"list":[
-{"_t":"MonsterSpecialConfig","_id":10001,"MapId":0,"Name":"玉兔","Attr":1000,"Def":0,"HP":10,"DropIdList":[1001],"DropRateList":[1],"BuildRate":10},
+{"_t":"MonsterSpecialConfig","_id":10001,"MapId":0,"Name":"玉兔","Attr":1000,"Def":0,"HP":10,"DropIdList":[1001],"DropRateList":[1],"BuildRate":1000},
 ]}

@@ -78,7 +78,7 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {
             GameProcessor.Inst.OnDestroy();
-            GameProcessor.Inst.LoadMap(RuleType.Tower, this.transform, param);
+            GameProcessor.Inst.LoadMap(RuleType.EquipCopy, this.transform, param);
         });
 
         ShowMapInfo(e.Rate);
@@ -104,7 +104,7 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {
             GameProcessor.Inst.OnDestroy();
-            GameProcessor.Inst.LoadMap(RuleType.Tower, this.transform, param);
+            GameProcessor.Inst.LoadMap(RuleType.EquipCopy, this.transform, param);
         });
 
         ShowMapInfo(rate);

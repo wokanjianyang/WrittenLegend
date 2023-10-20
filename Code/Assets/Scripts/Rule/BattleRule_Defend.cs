@@ -7,9 +7,9 @@ using System.Linq;
 
 public class Battle_Defend : ABattleRule
 {
-    private bool Success = false;
+    private bool Start = true;
 
-    private int Progress = 0;
+    private long Progress = 0;
 
     private const int MaxProgress = 100; //
 
@@ -20,25 +20,34 @@ public class Battle_Defend : ABattleRule
         param.TryGetValue("progress", out object progress);
         param.TryGetValue("hp", out object hp);
 
-        this.Progress = (int)progress;
+        Debug.Log("record:" + progress + "," + hp);
 
-        this.LoadDefend((int)hp);
+        this.Progress = (long)progress;
+
+        this.LoadDefend((long)hp);
     }
 
-    private void LoadDefend(int hp)
+    private Defend defendPlayer = null;
+
+    private void LoadDefend(long hp)
     {
-        var enemy = new Defend(hp);
-        GameProcessor.Inst.PlayerManager.LoadDefend(enemy);
+        this.defendPlayer = new Defend(hp);
+        GameProcessor.Inst.PlayerManager.LoadDefend(this.defendPlayer);
+
+        this.Start = true;
     }
 
     public override void DoMapLogic(int roundNum)
     {
         var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
 
-        if (enemys.Count <= 0 && this.Progress < MaxProgress)
+        if (enemys.Count > 0)
         {
-            this.Progress++;
+            return;
+        }
 
+        if (enemys.Count <= 0 && this.Progress < MaxProgress && this.Start)
+        {
             //Load All
             for (int i = 0; i < 10; i++)
             {
@@ -51,10 +60,31 @@ public class Battle_Defend : ABattleRule
             }
 
             GameProcessor.Inst.EventCenter.Raise(new ShowDefendInfoEvent() { Count = Progress });
+
+            this.Start = false;
+
+            return;
         }
 
-        if (this.Progress >= MaxProgress) //Success
-        { 
+        User user = GameProcessor.Inst.User;
+
+        if (enemys.Count <= 0 && !this.Start)
+        {
+            this.Start = true;
+            this.Progress++;
+
+            DefendRecord record = user.DefendData.GetCurrentRecord();
+
+            record.Progress.Data = this.Progress;
+            record.Hp.Data = defendPlayer.HP;
+
+            return;
+        }
+
+        if (this.Progress >= MaxProgress && this.Start)
+        {
+            user.DefendData.Complete();
+
             GameProcessor.Inst.EventCenter.Raise(new BattlePhantomMsgEvent() { Message = "Success" });
 
             GameProcessor.Inst.HeroDie(RuleType.Phantom, 0);

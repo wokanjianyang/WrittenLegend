@@ -59,6 +59,8 @@ namespace Game
 
         public IDictionary<AchievementSourceType, MagicData> MagicRecord { get; set; } = new Dictionary<AchievementSourceType, MagicData>();
 
+        public DefendData DefendData { get; set; } = new DefendData();
+
         public bool isError = false;
 
         /// <summary>

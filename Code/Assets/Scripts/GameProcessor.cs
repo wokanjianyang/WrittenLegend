@@ -293,14 +293,18 @@ namespace Game
             //Debug.Log(OfflineMessage);
 
             //检查
+            //User.DataDate = 0;
             DateTime saveDate = new DateTime(User.DataDate);
             if (saveDate.Day < DateTime.Now.Day || saveDate.Month < DateTime.Now.Month)
             {
                 User.SaveLimit = 5;
                 User.LoadLimit = 5;
+                User.DefendData.Refresh();
+
                 User.DataDate = DateTime.Now.Ticks;
                 //保存到Tap
             }
+
             UserData.Save();
         }
 
@@ -412,8 +416,8 @@ namespace Game
                 case RuleType.Survivors:
                     this.BattleRule = new BattleRule_Survivors();
                     break;
-                case RuleType.Tower:
-                    this.BattleRule = new BattleRule_Tower(param);
+                case RuleType.EquipCopy:
+                    this.BattleRule = new BattleRule_EquipCopy(param);
                     break;
                 case RuleType.Phantom:
                     this.BattleRule = new BattleRule_Phantom(param);
@@ -595,7 +599,7 @@ namespace Game
         {
             switch (ruleType)
             {
-                case RuleType.Tower:
+                case RuleType.EquipCopy:
                 case RuleType.Phantom:
                 case RuleType.BossFamily:
                     ie_autoExitKey = StartCoroutine(this.AutoExitMap(ruleType, time));
@@ -718,7 +722,7 @@ namespace Game
             }
             this.EventCenter.Raise(new BattleLoseEvent() { Time = time });
 
-            if (ruleType == RuleType.Tower)
+            if (ruleType == RuleType.EquipCopy)
             {
                 int rate = this.EquipCopySetting_Rate ? 5 : 1;
 

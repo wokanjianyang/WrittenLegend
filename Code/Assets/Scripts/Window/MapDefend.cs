@@ -1,4 +1,5 @@
 using Game;
+using Game.Data;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
@@ -52,10 +53,19 @@ public class MapDefend : MonoBehaviour, IBattleLife
     {
         this.gameObject.SetActive(true);
 
+        User user = GameProcessor.Inst.User;
+
+        DefendRecord record = user.DefendData.GetCurrentRecord();
+
+        if (record == null)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有了挑战次数", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
 
         Dictionary<string, object> param = new Dictionary<string, object>();
-        param.Add("progress", 1);
-        param.Add("hp", 1000);
+        param.Add("progress", record.Progress.Data);
+        param.Add("hp", record.Hp.Data);
 
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {

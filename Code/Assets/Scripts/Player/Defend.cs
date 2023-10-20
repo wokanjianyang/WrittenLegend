@@ -7,14 +7,14 @@ using System;
 
 public class Defend : APlayer
 {
-    public Defend(int hp)
+    public Defend(long hp)
     {
         this.GroupId = 1;
 
         this.Init(hp);
     }
 
-    private void Init(int hp)
+    private void Init(long hp)
     {
         this.Camp = PlayerType.Defend;
         this.Name = "沙城";
@@ -31,7 +31,7 @@ public class Defend : APlayer
     {
     }
 
-    private void SetAttr(int hp)
+    private void SetAttr(long hp)
     {
         Debug.Log("Defend HP:" + hp);
         AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp);

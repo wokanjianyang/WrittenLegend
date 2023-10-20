@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class BattleRule_Tower : ABattleRule
+public class BattleRule_EquipCopy : ABattleRule
 {
     private bool Start = false;
 
@@ -17,9 +17,9 @@ public class BattleRule_Tower : ABattleRule
 
     private const int MaxQuanlity = 20; //最多数量
     private const int MaxFreshQuanlity = 1; //最多刷新数量
-    protected override RuleType ruleType => RuleType.Tower;
+    protected override RuleType ruleType => RuleType.EquipCopy;
 
-    public BattleRule_Tower(Dictionary<string, object> param)
+    public BattleRule_EquipCopy(Dictionary<string, object> param)
     {
         param.TryGetValue("MapId", out object mapId);
         param.TryGetValue("MapTime", out object mapTime);
@@ -110,7 +110,7 @@ public class BattleRule_Tower : ABattleRule
                 user.MapId = mapConfig.Id + 1;
             }
 
-            GameProcessor.Inst.HeroDie(RuleType.Tower, MapTime);
+            GameProcessor.Inst.HeroDie(RuleType.EquipCopy, MapTime);
         }
     }
 
@@ -120,7 +120,7 @@ public class BattleRule_Tower : ABattleRule
         if (heroCamp.HP == 0)
         {
             GameProcessor.Inst.SetGameOver(PlayerType.Enemy);
-            GameProcessor.Inst.HeroDie(RuleType.Tower, MapTime);
+            GameProcessor.Inst.HeroDie(RuleType.EquipCopy, MapTime);
         }
     }
 }

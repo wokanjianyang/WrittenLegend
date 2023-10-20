@@ -25,8 +25,8 @@ namespace Game
         [LabelText("幸存者")]
         Survivors,
 
-        [LabelText("无尽塔")]
-        Tower,
+        [LabelText("装备副本")]
+        EquipCopy,
 
         Phantom,
         BossFamily,

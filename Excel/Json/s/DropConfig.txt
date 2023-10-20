@@ -67,5 +67,5 @@
 {"_t":"DropConfig","_id":300060,"Level":60,"Name":"60级技能书","Quantity":1,"ItemType":3,"ItemIdList":[1006,2006,3006]},
 {"_t":"DropConfig","_id":300070,"Level":70,"Name":"70级技能书","Quantity":1,"ItemType":3,"ItemIdList":[1007,2007,3007]},
 {"_t":"DropConfig","_id":300080,"Level":80,"Name":"80级技能书","Quantity":1,"ItemType":3,"ItemIdList":[1008,2008,3008]},
-{"_t":"DropConfig","_id":1001,"Level":0,"Name":"特殊月饼BOSS","Quantity":10,"ItemType":5,"ItemIdList":[4006]},
+{"_t":"DropConfig","_id":1001,"Level":0,"Name":"特殊月饼BOSS","Quantity":1,"ItemType":5,"ItemIdList":[4006]},
 ]}
