@@ -39,6 +39,7 @@ Assets:
 - Assets/Resources/Config/CodeConfigCategory.bytes
 - Assets/Resources/Config/RewardConfigCategory.bytes
 - Assets/Resources/Config/SoulRingAttrConfigCategory.bytes
+- Assets/Resources/Config/CardConfigCategory.bytes
 - Assets/Resources/Config/MapConfigCategory.bytes
 - Assets/Resources/Config/TaskConfigCategory.bytes
 - Assets/Resources/Config/ValetModelConfigCategory.bytes
