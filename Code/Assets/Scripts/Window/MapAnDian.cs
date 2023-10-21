@@ -9,18 +9,20 @@ public class MapAnDian : MonoBehaviour, IBattleLife
 {
 
     public Text Txt_Count;
+    public Button btn_Level;
+    public Text txt_Btn_Level;
 
     public ScrollRect sr_BattleMsg;
 
     [LabelText("ÍË³ö")]
     public Button btn_Exit;
 
-
     private GameObject msgPrefab;
     private int msgId = 0;
     private List<Text> msgPool = new List<Text>();
 
     private long MapTime = 0;
+    private int Level = 1;
 
     public int Order => (int)ComponentOrder.BattleRule;
 
@@ -28,6 +30,7 @@ public class MapAnDian : MonoBehaviour, IBattleLife
     void Start()
     {
         this.btn_Exit.onClick.AddListener(this.OnClick_Exit);
+        this.btn_Level.onClick.AddListener(this.OnClick_Level);
     }
 
     public void OnBattleStart()
@@ -114,11 +117,20 @@ public class MapAnDian : MonoBehaviour, IBattleLife
          }, null);
     }
 
+    private void OnClick_Level()
+    {
+        Level = (Level % 10) + 1;
+        txt_Btn_Level.text = "ÄÑ¶È£º" + Level;
+
+        GameProcessor.Inst.EventCenter.Raise(new AnDianChangeLevel() { Level = this.Level });
+
+    }
+       
     private void Exit()
     {
         GameProcessor.Inst.OnDestroy();
         this.gameObject.SetActive(false);
-        GameProcessor.Inst.EventCenter.Raise(new BossFamilyEndEvent());
+        GameProcessor.Inst.EventCenter.Raise(new PhantomEndEvent());
         GameProcessor.Inst.SetGameOver(PlayerType.Hero);
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {

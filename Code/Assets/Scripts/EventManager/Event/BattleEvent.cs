@@ -141,6 +141,12 @@ namespace Game
         public int Count { get; set; }
     }
 
+    public class AnDianChangeLevel : SDD.Events.Event
+    {
+        public int Level { get; set; }
+    }
+
+
     public class AnDianEndEvent : SDD.Events.Event
     {
 

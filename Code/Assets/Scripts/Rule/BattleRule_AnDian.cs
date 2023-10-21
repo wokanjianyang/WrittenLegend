@@ -9,6 +9,7 @@ public class Battle_AnDian : ABattleRule
 {
     private int MapId = 0;
 
+    private int Level = 1;
     private int Count = 1; 
     protected override RuleType ruleType => RuleType.AnDian;
 
@@ -17,6 +18,14 @@ public class Battle_AnDian : ABattleRule
         param.TryGetValue("MapId", out object mapId);
 
         this.MapId = (int)mapId;
+
+
+        GameProcessor.Inst.EventCenter.AddListener<AnDianChangeLevel>(this.OnAnDianChangeLevel);
+    }
+
+    public void OnAnDianChangeLevel(AnDianChangeLevel e)
+    {
+        this.Level = e.Level;
     }
 
     public override void DoMapLogic(int roundNum)
@@ -32,8 +41,7 @@ public class Battle_AnDian : ABattleRule
             return;
         }
 
-        int tempMapId = RandomHelper.RandomNumber(0, 5);
-        tempMapId = Math.Max(MapId - tempMapId, ConfigHelper.MapStartId);
+        int tempMapId = Math.Max(MapId - 10 + Level, ConfigHelper.MapStartId);
 
         MapConfig mapConfig = MapConfigCategory.Instance.Get(tempMapId);
 

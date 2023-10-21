@@ -58,10 +58,13 @@ namespace Game
 
         [LabelText("称号")]
         public Button btn_PlayerTitle;
+        [LabelText("图鉴")]
+        public Button btn_Card;
         [LabelText("设置")]
         public Button btn_Setting;
 
         public Dialog_Exclusive ExclusiveDialog;
+        public Dialog_Card Dialog_Card;
 
         public Button Btn_Exclusive ;
 
@@ -76,6 +79,7 @@ namespace Game
             this.btn_Setting.onClick.AddListener(this.OnClick_Setting);
             this.btn_Reset.onClick.AddListener(OnRefreshBag);
             this.Btn_Exclusive.onClick.AddListener(OnExclusive);
+            this.btn_Card.onClick.AddListener(OnOpenCard);
 
             this.Btn_Equip1.onClick.AddListener(ChangeEquipPanel1);
             this.Btn_Equip2.onClick.AddListener(ChangeEquipPanel2);
@@ -1043,6 +1047,11 @@ namespace Game
 
         public void OnExclusive() {
             GameProcessor.Inst.EventCenter.Raise(new ShowExclusiveEvent());
+        }
+
+        public void OnOpenCard()
+        {
+            this.Dialog_Card.gameObject.SetActive(true);
         }
     }
 }
