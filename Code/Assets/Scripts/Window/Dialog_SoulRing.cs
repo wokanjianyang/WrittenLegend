@@ -331,11 +331,12 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
         {
             user.SoulRingData[Sid] = new MagicData();
         }
-        user.SoulRingData[Sid].Data = currentLevel + 1; 
+        user.SoulRingData[Sid].Data = currentLevel + 1;
 
-        GameProcessor.Inst.EventCenter.Raise(new MaterialUseEvent()
+        GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
         {
-            MaterialId = ItemHelper.SpecialId_SoulRingShard,
+            Type = ItemType.Material,
+            ItemId = ItemHelper.SpecialId_SoulRingShard,
             Quantity = nextConfig.Fee
         });
 

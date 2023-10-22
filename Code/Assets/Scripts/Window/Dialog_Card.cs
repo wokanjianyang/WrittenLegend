@@ -13,32 +13,34 @@ public class Dialog_Card : MonoBehaviour
 
     public Button btn_Close;
 
-    List<Item_Phantom> items = new List<Item_Phantom>();
+    //List<Item_Card> items = new List<Item_Card>();
 
     // Start is called before the first frame update
     void Start()
     {
         this.btn_Close.onClick.AddListener(OnClick_Close);
 
-        ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Item_Phantom");
+        ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Item_Card");
 
         Init();
     }
 
     private void Init()
     {
-        List<PhantomConfig> configs = PhantomConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
+        List<CardConfig> configs = CardConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
+
+        User user = GameProcessor.Inst.User;
 
         for (int i = 0; i < configs.Count; i++)
         {
             var item = GameObject.Instantiate(ItemPrefab);
-            var com = item.GetComponentInChildren<Item_Phantom>();
+            var com = item.GetComponentInChildren<Item_Card>();
 
-            items.Add(com);
+            if (!user.CardData.ContainsKey(configs[i].Id)) {
+                user.CardData[configs[i].Id] = new Game.Data.MagicData();
+            }
 
-            com.SetContent(configs[i], 0);
-            com.gameObject.SetActive(false);
-
+            com.SetContent(configs[i], user.CardData[configs[i].Id].Data);
 
             item.transform.SetParent(this.sr_Boss.content);
             item.transform.localScale = Vector3.one;
@@ -46,33 +48,6 @@ public class Dialog_Card : MonoBehaviour
     }
 
     public int Order => (int)ComponentOrder.Dialog;
-
-
-    public void UpadateItem()
-    {
-        User user = GameProcessor.Inst.User;
-
-        Dictionary<int, int> recordList = user.PhantomRecord;
-
-        List<PhantomConfig> configs = PhantomConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
-
-        foreach (PhantomConfig config in configs)
-        {
-            recordList.TryGetValue(config.Id, out int lv);
-            if (lv == 0)
-            {
-                lv = 1;
-                recordList[config.Id] = lv;
-            }
-
-            Item_Phantom com = items.Where(m => m.ConfigId == config.Id).FirstOrDefault();
-            if (com != null)
-            {
-                com.gameObject.SetActive(true);
-                com.SetContent(config, lv);
-            }
-        }
-    }
     
     public void OnClick_Close()
     {

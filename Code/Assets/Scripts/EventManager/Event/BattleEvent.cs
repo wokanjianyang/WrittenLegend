@@ -198,9 +198,10 @@ namespace Game
     {
     }
 
-    public class MaterialUseEvent : SDD.Events.Event
+    public class SystemUseEvent : SDD.Events.Event
     {
-        public int MaterialId { get; set; }
+        public ItemType Type { get; set; }
+        public int ItemId { get; set; }
         public long Quantity { get; set; }
     }
 

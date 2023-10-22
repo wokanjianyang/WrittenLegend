@@ -60,9 +60,10 @@ public class MapBossFamily : MonoBehaviour, IBattleLife
             return;
         }
 
-        GameProcessor.Inst.EventCenter.Raise(new MaterialUseEvent()
+        GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
         {
-            MaterialId = ItemHelper.SpecialId_Boss_Ticket,
+            Type = ItemType.Material,
+            ItemId = ItemHelper.SpecialId_Boss_Ticket,
             Quantity = 1
         });
 

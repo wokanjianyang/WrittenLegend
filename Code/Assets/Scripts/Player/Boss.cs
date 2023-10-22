@@ -159,18 +159,17 @@ namespace Game
                 }
             }
 
+            //限时奖励
+            dropList.AddRange(DropLimitHelper.Build(10 * dropModelRate));
+
             int qualityRate = 250 * (100 + (int)user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea)) / 100;
 
             List<Item> items = DropHelper.BuildDropItem(dropList, 250);
-
 
             int mapIndex = Config.MapId - ConfigHelper.MapStartId;
             int quantity = mapIndex / 10 + 1 + user.SoulRingNumber;
 
             items.Add(ItemHelper.BuildSoulRingShard(quantity * 2));
-
-            //限时奖励
-            items.AddRange(DropLimitHelper.RandomItem(1));
 
             //掉落BOSS之家门票
             if (CopyType == 1)

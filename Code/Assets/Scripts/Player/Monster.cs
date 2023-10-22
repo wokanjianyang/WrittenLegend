@@ -134,10 +134,10 @@ namespace Game
 
             //生成道具奖励
             List<KeyValuePair<int, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(Config.MapId, qualityConfig.DropRate * dropModelRate);
-            List<Item> items = DropHelper.BuildDropItem(dropList, qualityRate);
-
             //限时奖励
-            items.AddRange(DropLimitHelper.RandomItem(1));
+            dropList.AddRange(DropLimitHelper.Build(10 * dropModelRate));
+
+            List<Item> items = DropHelper.BuildDropItem(dropList, qualityRate);
 
             if (items.Count > 0)
             {

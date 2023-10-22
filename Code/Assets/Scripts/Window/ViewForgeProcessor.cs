@@ -466,9 +466,10 @@ public class ViewForgeProcessor : AViewPage
 
         user.MagicEquipRefine[Refine_Position].Data++;
 
-        GameProcessor.Inst.EventCenter.Raise(new MaterialUseEvent()
+        GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
         {
-            MaterialId = ItemHelper.SpecialId_EquipRefineStone,
+            Type = ItemType.Material,
+            ItemId = ItemHelper.SpecialId_EquipRefineStone,
             Quantity = config.Fee
         });
 

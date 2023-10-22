@@ -68,48 +68,6 @@ namespace Game
         /// </summary>
         public List<BoxItem> Bags { get; set; } = new List<BoxItem>();
 
-        public long GetAchievementProgeress(AchievementSourceType type)
-        {
-            long progress = 0;
-
-            switch (type)
-            {
-                case AchievementSourceType.Advert:
-                    if (!this.MagicRecord.ContainsKey(AchievementSourceType.Advert))
-                    {
-                        this.MagicRecord[AchievementSourceType.Advert] = new MagicData();
-                    }
-                    progress = this.Record.GetRecord((int)RecordType.AdVirtual) + this.Record.GetRecord((int)RecordType.AdReal) * 2;
-                    break;
-                case AchievementSourceType.RealAdvert:
-                    if (!this.MagicRecord.ContainsKey(AchievementSourceType.RealAdvert))
-                    {
-                        this.MagicRecord[AchievementSourceType.RealAdvert] = new MagicData();
-                    }
-                    progress = this.Record.GetRecord((int)RecordType.AdReal);
-                    break;
-                case AchievementSourceType.Strong:
-                    progress = this.MagicEquipStrength.Select(m => m.Value.Data).Sum();
-                    break;
-                case AchievementSourceType.Refine:
-                    progress = this.MagicEquipRefine.Select(m => m.Value.Data).Sum();
-                    break;
-                case AchievementSourceType.Level:
-                    progress = this.MagicLevel.Data;
-                    break;
-                case AchievementSourceType.BossFamily:
-                    if (!this.MagicRecord.ContainsKey(AchievementSourceType.BossFamily))
-                    {
-                        this.MagicRecord[AchievementSourceType.BossFamily] = new MagicData();
-                    }
-
-                    progress = this.MagicRecord[AchievementSourceType.BossFamily].Data;
-                    break;
-            }
-
-            return progress;
-        }
-
         public IDictionary<string, bool> GiftList { get; set; } = new Dictionary<string, bool>();
 
         public Dictionary<int, long> VersionLog { get; } = new Dictionary<int, long>();
@@ -144,6 +102,8 @@ namespace Game
         public Dictionary<int, MagicData> SoulRingData { get; } = new Dictionary<int, MagicData>();
 
         public Dictionary<int, int> AchievementData { get; } = new Dictionary<int, int>();
+
+        public Dictionary<int, MagicData> CardData { get; } = new Dictionary<int, MagicData>();
 
         public bool GameCheat { get; set; } = false;
 
@@ -260,6 +220,17 @@ namespace Game
                 foreach (var a in sp.Value.GetTotalAttrList())
                 {
                     AttributeBonus.SetAttr((AttributeEnum)a.Key, AttributeFrom.Exclusive, sp.Key, a.Value);
+                }
+            }
+
+            //图鉴属性
+            foreach (var sp in this.CardData)
+            {
+                if (sp.Value.Data > 0)
+                {
+                    CardConfig cardConfig = CardConfigCategory.Instance.Get(sp.Key);
+                    long cardAttr = cardConfig.AttrValue + (sp.Value.Data - 1) * cardConfig.LevelIncrea;
+                    AttributeBonus.SetAttr((AttributeEnum)cardConfig.AttrId, AttributeFrom.Card, sp.Key, cardAttr);
                 }
             }
 
@@ -590,6 +561,47 @@ namespace Game
             return list;
         }
 
+        public long GetAchievementProgeress(AchievementSourceType type)
+        {
+            long progress = 0;
+
+            switch (type)
+            {
+                case AchievementSourceType.Advert:
+                    if (!this.MagicRecord.ContainsKey(AchievementSourceType.Advert))
+                    {
+                        this.MagicRecord[AchievementSourceType.Advert] = new MagicData();
+                    }
+                    progress = this.Record.GetRecord((int)RecordType.AdVirtual) + this.Record.GetRecord((int)RecordType.AdReal) * 2;
+                    break;
+                case AchievementSourceType.RealAdvert:
+                    if (!this.MagicRecord.ContainsKey(AchievementSourceType.RealAdvert))
+                    {
+                        this.MagicRecord[AchievementSourceType.RealAdvert] = new MagicData();
+                    }
+                    progress = this.Record.GetRecord((int)RecordType.AdReal);
+                    break;
+                case AchievementSourceType.Strong:
+                    progress = this.MagicEquipStrength.Select(m => m.Value.Data).Sum();
+                    break;
+                case AchievementSourceType.Refine:
+                    progress = this.MagicEquipRefine.Select(m => m.Value.Data).Sum();
+                    break;
+                case AchievementSourceType.Level:
+                    progress = this.MagicLevel.Data;
+                    break;
+                case AchievementSourceType.BossFamily:
+                    if (!this.MagicRecord.ContainsKey(AchievementSourceType.BossFamily))
+                    {
+                        this.MagicRecord[AchievementSourceType.BossFamily] = new MagicData();
+                    }
+
+                    progress = this.MagicRecord[AchievementSourceType.BossFamily].Data;
+                    break;
+            }
+
+            return progress;
+        }
         public void AddExpAndGold(long exp, long gold)
         {
             if (this.MagicLevel.Data < ConfigHelper.Max_Level)

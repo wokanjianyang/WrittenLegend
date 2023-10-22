@@ -87,5 +87,6 @@ namespace Game
         ExpPack = 8,
         Ticket = 9,
         Exclusive = 10,
+        Card = 11,
     }
 }

@@ -75,45 +75,30 @@ namespace Game
     [ProtoContract]
 	public partial class CardConfig: ProtoObject, IConfig
 	{
-		/// <summary>_Id</summary>
+		/// <summary>Id</summary>
 		[ProtoMember(1)]
 		public int Id { get; set; }
-		/// <summary>道具名字</summary>
+		/// <summary>Name</summary>
 		[ProtoMember(2)]
 		public string Name { get; set; }
-		/// <summary>道具类型</summary>
-		[ProtoMember(3)]
-		public int Type { get; set; }
-		/// <summary>道具描述</summary>
-		[ProtoMember(4)]
-		public string Des { get; set; }
-		/// <summary>售价</summary>
-		[ProtoMember(5)]
-		public int Price { get; set; }
-		/// <summary>堆叠数量</summary>
-		[ProtoMember(6)]
-		public int MaxNum { get; set; }
-		/// <summary>道具使用等级</summary>
-		[ProtoMember(7)]
-		public int LevelRequired { get; set; }
-		/// <summary>品质</summary>
-		[ProtoMember(8)]
-		public int Quality { get; set; }
-		/// <summary>使用效果值</summary>
-		[ProtoMember(9)]
-		public int UseParam { get; set; }
 		/// <summary>AttrId</summary>
-		[ProtoMember(10)]
+		[ProtoMember(3)]
 		public int AttrId { get; set; }
 		/// <summary>AttrValue</summary>
-		[ProtoMember(11)]
+		[ProtoMember(4)]
 		public int AttrValue { get; set; }
 		/// <summary>LevelIncrea</summary>
-		[ProtoMember(12)]
+		[ProtoMember(5)]
 		public int LevelIncrea { get; set; }
 		/// <summary>MaxLevel</summary>
-		[ProtoMember(13)]
+		[ProtoMember(6)]
 		public int MaxLevel { get; set; }
+		/// <summary>StoneNumber</summary>
+		[ProtoMember(7)]
+		public int StoneNumber { get; set; }
+		/// <summary>Des</summary>
+		[ProtoMember(8)]
+		public string Des { get; set; }
 
 	}
 }

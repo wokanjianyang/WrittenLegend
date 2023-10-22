@@ -198,9 +198,10 @@ namespace Game
             SkillPanel skillPanel = new SkillPanel(skill, user.GetRuneList(skill.SkillId), user.GetSuitList(skill.SkillId), true);
             this.SetItem(skillPanel);
 
-            GameProcessor.Inst.EventCenter.Raise(new MaterialUseEvent()
+            GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
             {
-                MaterialId = ItemHelper.SpecialId_Moon_Cake,
+                Type = ItemType.Material,
+                ItemId = ItemHelper.SpecialId_Moon_Cake,
                 Quantity = upCount
             });
 

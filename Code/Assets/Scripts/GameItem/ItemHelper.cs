@@ -42,6 +42,11 @@ namespace Game
             {
                 item = ExclusiveHelper.Build(configId);
             }
+            else if (type == ItemType.Card)
+            {
+                item = new Item(configId);
+                item.Type = ItemType.Card;
+            }
 
             item.Count = number;
 
@@ -77,5 +82,6 @@ namespace Game
         public static int SpecialId_Boss_Ticket = 4004;
         public static int SpecialId_Exclusive_Stone = 4005;
         public static int SpecialId_Moon_Cake = 4006;
+        public static int SpecialId_Card_Stone = 4101;
     }
 }

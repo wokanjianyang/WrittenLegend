@@ -86,6 +86,7 @@ namespace Game
         Auras = 9, //光环
         Achivement = 10, //成就
         Exclusive = 11, //专属
+        Card = 12,//图鉴
         /// <summary>
         /// 测试属性
         /// </summary>

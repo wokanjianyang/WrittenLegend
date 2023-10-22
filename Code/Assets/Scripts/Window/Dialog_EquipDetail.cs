@@ -350,94 +350,96 @@ namespace Game
                     break;
 
                 case ItemType.Exclusive:
-                    ExclusiveItem exclusive = this.boxItem.Item as ExclusiveItem;
-                    if (exclusive.BaseAttrList != null && exclusive.BaseAttrList.Count > 0)
                     {
-                        tran_BaseAttribute.gameObject.SetActive(true);
-                        tran_BaseAttribute.Find("Title").GetComponent<Text>().text = "[基础属性]";
-                        tran_BaseAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.boxItem.Item.Level);
-
-                        var BaseAttrList = exclusive.BaseAttrList.ToList();
-
-                        for (int index = 0; index < 6; index++)
+                        ExclusiveItem exclusive = this.boxItem.Item as ExclusiveItem;
+                        if (exclusive.BaseAttrList != null && exclusive.BaseAttrList.Count > 0)
                         {
-                            var child = tran_BaseAttribute.Find(string.Format("Attribute_{0}", index));
+                            tran_BaseAttribute.gameObject.SetActive(true);
+                            tran_BaseAttribute.Find("Title").GetComponent<Text>().text = "[基础属性]";
+                            tran_BaseAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.boxItem.Item.Level);
 
-                            if (index < BaseAttrList.Count)
+                            var BaseAttrList = exclusive.BaseAttrList.ToList();
+
+                            for (int index = 0; index < 6; index++)
                             {
-                                child.GetComponent<Text>().text = StringHelper.FormatAttrText(BaseAttrList[index].Key, BaseAttrList[index].Value);
-                                child.gameObject.SetActive(true);
-                            }
-                            else
-                            {
-                                child.gameObject.SetActive(false);
+                                var child = tran_BaseAttribute.Find(string.Format("Attribute_{0}", index));
+
+                                if (index < BaseAttrList.Count)
+                                {
+                                    child.GetComponent<Text>().text = StringHelper.FormatAttrText(BaseAttrList[index].Key, BaseAttrList[index].Value);
+                                    child.gameObject.SetActive(true);
+                                }
+                                else
+                                {
+                                    child.gameObject.SetActive(false);
+                                }
                             }
                         }
-                    }
-                    if (exclusive.SkillRuneConfig != null)
-                    {
-                        int index = 0;
-                        tran_SkillAttribute.gameObject.SetActive(true);
-                        tran_SkillAttribute.Find("Title").GetComponent<Text>().text = exclusive.SkillRuneConfig.Name;
-
-                        var child = tran_SkillAttribute.Find(string.Format("Attribute_{0}", index));
-                        child.GetComponent<Text>().text = string.Format(" {0}", exclusive.SkillRuneConfig.Des);
-                        child.gameObject.SetActive(true);
-
-                        index = 1;
-                        child = tran_SkillAttribute.Find(string.Format("Attribute_{0}", index));
-                        child.GetComponent<Text>().text = string.Format(" 最大生效数量{0}", exclusive.SkillRuneConfig.Max);
-                        child.gameObject.SetActive(true);
-                    }
-                    if (exclusive.SkillSuitConfig != null)
-                    {
-                        int suitCount = user.GetSuitCount(exclusive.SkillSuitConfig.Id);
-
-                        int index = 0;
-                        tran_SuitAttribute.gameObject.SetActive(true);
-                        tran_SuitAttribute.Find("Title").GetComponent<Text>().text = exclusive.SkillSuitConfig.Name + string.Format("({0}/{1})", suitCount, user.SuitMax);
-
-                        var child = tran_SuitAttribute.Find(string.Format("Attribute_{0}", index));
-                        child.GetComponent<Text>().text = string.Format(" {0}", exclusive.SkillSuitConfig.Des);
-                        child.gameObject.SetActive(true);
-                    }
-                    if (exclusive.DoubleHitConfig != null)
-                    {
-                        tran_DoubleHitAttribute.gameObject.SetActive(true);
-                        var child = tran_DoubleHitAttribute.Find(string.Format("Attribute_{0}", 0));
-                        child.GetComponent<Text>().text = string.Format(" {0}", exclusive.DoubleHitConfig.Des);
-                        child.gameObject.SetActive(true);
-                    }
-                    if (exclusive.ExclusiveConfig.Type > 0)
-                    {
-                        tran_GroupAttribute.gameObject.SetActive(true);
-
-                        ExclusiveSuit exclusiveSuit = user.GetExclusiveSuit(exclusive.ExclusiveConfig);
-
-                        tran_GroupAttribute.Find("Title").GetComponent<Text>().text = string.Format("[套装属性] ({0}/6)   增加一个上阵技能栏", exclusiveSuit.ActiveCount);
-
-                        for (int index = 0; index < 3; index++)
+                        if (exclusive.SkillRuneConfig != null)
                         {
-                            var nameChild = tran_GroupAttribute.Find(string.Format("Name_{0}", index));
-                            nameChild.gameObject.SetActive(true);
+                            int index = 0;
+                            tran_SkillAttribute.gameObject.SetActive(true);
+                            tran_SkillAttribute.Find("Title").GetComponent<Text>().text = exclusive.SkillRuneConfig.Name;
 
-                            ExclusiveSuitItem suitItem1 = exclusiveSuit.ItemList[index * 2];
-                            string groupColor = QualityConfigHelper.GetEquipGroupColor(suitItem1.Active);
-                            nameChild.GetComponent<Text>().text = string.Format("<color=#{0}>{1}</color>", groupColor, suitItem1.Name);
+                            var child = tran_SkillAttribute.Find(string.Format("Attribute_{0}", index));
+                            child.GetComponent<Text>().text = string.Format(" {0}", exclusive.SkillRuneConfig.Des);
+                            child.gameObject.SetActive(true);
 
-                            var attrChild = tran_GroupAttribute.Find(string.Format("Attribute_{0}", index));
-                            attrChild.gameObject.SetActive(true);
-                            ExclusiveSuitItem suitItem2 = exclusiveSuit.ItemList[index * 2 + 1];
-                            groupColor = QualityConfigHelper.GetEquipGroupColor(suitItem2.Active);
-                            attrChild.GetComponent<Text>().text = string.Format("<color=#{0}>{1}</color>", groupColor, suitItem2.Name);
+                            index = 1;
+                            child = tran_SkillAttribute.Find(string.Format("Attribute_{0}", index));
+                            child.GetComponent<Text>().text = string.Format(" 最大生效数量{0}", exclusive.SkillRuneConfig.Max);
+                            child.gameObject.SetActive(true);
                         }
-                    }
+                        if (exclusive.SkillSuitConfig != null)
+                        {
+                            int suitCount = user.GetSuitCount(exclusive.SkillSuitConfig.Id);
 
-                    this.btn_Recovery.gameObject.SetActive(this.boxItem.BoxId != -1 && !this.boxItem.Item.IsLock);
-                    this.btn_Equip.gameObject.SetActive(this.boxItem.BoxId != -1);
-                    this.btn_UnEquip.gameObject.SetActive(this.boxItem.BoxId == -1);
-                    this.btn_Lock.gameObject.SetActive(!this.boxItem.Item.IsLock);
-                    this.btn_Unlock.gameObject.SetActive(this.boxItem.Item.IsLock);
+                            int index = 0;
+                            tran_SuitAttribute.gameObject.SetActive(true);
+                            tran_SuitAttribute.Find("Title").GetComponent<Text>().text = exclusive.SkillSuitConfig.Name + string.Format("({0}/{1})", suitCount, user.SuitMax);
+
+                            var child = tran_SuitAttribute.Find(string.Format("Attribute_{0}", index));
+                            child.GetComponent<Text>().text = string.Format(" {0}", exclusive.SkillSuitConfig.Des);
+                            child.gameObject.SetActive(true);
+                        }
+                        if (exclusive.DoubleHitConfig != null)
+                        {
+                            tran_DoubleHitAttribute.gameObject.SetActive(true);
+                            var child = tran_DoubleHitAttribute.Find(string.Format("Attribute_{0}", 0));
+                            child.GetComponent<Text>().text = string.Format(" {0}", exclusive.DoubleHitConfig.Des);
+                            child.gameObject.SetActive(true);
+                        }
+                        if (exclusive.ExclusiveConfig.Type > 0)
+                        {
+                            tran_GroupAttribute.gameObject.SetActive(true);
+
+                            ExclusiveSuit exclusiveSuit = user.GetExclusiveSuit(exclusive.ExclusiveConfig);
+
+                            tran_GroupAttribute.Find("Title").GetComponent<Text>().text = string.Format("[套装属性] ({0}/6)   增加一个上阵技能栏", exclusiveSuit.ActiveCount);
+
+                            for (int index = 0; index < 3; index++)
+                            {
+                                var nameChild = tran_GroupAttribute.Find(string.Format("Name_{0}", index));
+                                nameChild.gameObject.SetActive(true);
+
+                                ExclusiveSuitItem suitItem1 = exclusiveSuit.ItemList[index * 2];
+                                string groupColor = QualityConfigHelper.GetEquipGroupColor(suitItem1.Active);
+                                nameChild.GetComponent<Text>().text = string.Format("<color=#{0}>{1}</color>", groupColor, suitItem1.Name);
+
+                                var attrChild = tran_GroupAttribute.Find(string.Format("Attribute_{0}", index));
+                                attrChild.gameObject.SetActive(true);
+                                ExclusiveSuitItem suitItem2 = exclusiveSuit.ItemList[index * 2 + 1];
+                                groupColor = QualityConfigHelper.GetEquipGroupColor(suitItem2.Active);
+                                attrChild.GetComponent<Text>().text = string.Format("<color=#{0}>{1}</color>", groupColor, suitItem2.Name);
+                            }
+                        }
+
+                        this.btn_Recovery.gameObject.SetActive(this.boxItem.BoxId != -1 && !this.boxItem.Item.IsLock);
+                        this.btn_Equip.gameObject.SetActive(this.boxItem.BoxId != -1);
+                        this.btn_UnEquip.gameObject.SetActive(this.boxItem.BoxId == -1);
+                        this.btn_Lock.gameObject.SetActive(!this.boxItem.Item.IsLock);
+                        this.btn_Unlock.gameObject.SetActive(this.boxItem.Item.IsLock);
+                    }
                     break;
                 case ItemType.SkillBox://技能书
                     {
@@ -483,6 +485,16 @@ namespace Game
                         tran_NormalAttribute.gameObject.SetActive(true);
                         tran_NormalAttribute.Find("Title").GetComponent<Text>().text = this.boxItem.Item.ItemConfig.Des;
                         tran_NormalAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.boxItem.Item.Level);
+                    }
+                    break;
+                case ItemType.Card:
+                    {
+                        tran_NormalAttribute.gameObject.SetActive(true);
+                        tran_NormalAttribute.Find("Title").GetComponent<Text>().text = this.boxItem.Item.ItemConfig.Des;
+                        tran_NormalAttribute.Find("NeedLevel").GetComponent<Text>().text = "";
+
+                        btn_Recovery.gameObject.SetActive(true);
+                        //tran_NormalAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.boxItem.Item.Level);
                     }
                     break;
                 default:

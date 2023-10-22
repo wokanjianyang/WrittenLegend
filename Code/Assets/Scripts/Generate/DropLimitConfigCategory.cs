@@ -11,9 +11,9 @@ namespace Game
 
     public class DropLimitHelper
     {
-        public static List<Item> RandomItem(int rateIncrea)
+        public static List<KeyValuePair<int, DropConfig>> Build(double rateRise)
         {
-            List<Item> list = new List<Item>();
+            List<KeyValuePair<int, DropConfig>> list = new List<KeyValuePair<int, DropConfig>>();
 
             long time = DateTime.Now.Ticks;
 
@@ -22,13 +22,16 @@ namespace Game
 
             foreach (DropLimitConfig dropLimit in drops)
             {
-                int rate = dropLimit.Rate /rateIncrea;
-                if (RandomHelper.RandomResult(rate))
+                DropConfig dropConfig = DropConfigCategory.Instance.Get(dropLimit.DropId);
+
+                int rate = dropLimit.Rate;
+                if (dropLimit.ShareRise > 0)
                 {
-                    Item item = ItemHelper.BuildItem((ItemType)dropLimit.ItemType, dropLimit.ItemId, 1, 1);
-                    list.Add(item);
+                    rate = (int)(rate / rateRise);
                 }
+                list.Add(new KeyValuePair<int, DropConfig>(rate, dropConfig));
             }
+
             return list;
         }
     }

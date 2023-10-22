@@ -81,23 +81,20 @@ namespace Game
 		/// <summary>掉落名称</summary>
 		[ProtoMember(2)]
 		public string Name { get; set; }
-		/// <summary>掉落数量</summary>
-		[ProtoMember(3)]
-		public int Quantity { get; set; }
-		/// <summary>道具类型</summary>
-		[ProtoMember(4)]
-		public int ItemType { get; set; }
 		/// <summary>掉落Id</summary>
-		[ProtoMember(5)]
-		public int ItemId { get; set; }
+		[ProtoMember(3)]
+		public int DropId { get; set; }
 		/// <summary>掉落概率</summary>
-		[ProtoMember(6)]
+		[ProtoMember(4)]
 		public int Rate { get; set; }
+		/// <summary>享受爆率加成</summary>
+		[ProtoMember(5)]
+		public int ShareRise { get; set; }
 		/// <summary>开始日期</summary>
-		[ProtoMember(7)]
+		[ProtoMember(6)]
 		public string StartDate { get; set; }
 		/// <summary>结束日期</summary>
-		[ProtoMember(8)]
+		[ProtoMember(7)]
 		public string EndDate { get; set; }
 
 	}

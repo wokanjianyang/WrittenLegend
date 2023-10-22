@@ -111,7 +111,7 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<AutoRecoveryEvent>(this.OnAutoRecoveryEvent);
             GameProcessor.Inst.EventCenter.AddListener<BagUseEvent>(this.OnBagUseEvent);
             GameProcessor.Inst.EventCenter.AddListener<CompositeEvent>(this.OnCompositeEvent);
-            GameProcessor.Inst.EventCenter.AddListener<MaterialUseEvent>(this.OnMaterialUseEvent);
+            GameProcessor.Inst.EventCenter.AddListener<SystemUseEvent>(this.OnSystemUse);
             GameProcessor.Inst.EventCenter.AddListener<SelectGiftEvent>(this.OnSelectGift);
             GameProcessor.Inst.EventCenter.AddListener<EquipLockEvent>(this.OnEquipLockEvent);
 
@@ -366,11 +366,11 @@ namespace Game
             GameProcessor.Inst.EventCenter.Raise(new CompositeUIFreshEvent());
         }
 
-        private void OnMaterialUseEvent(MaterialUseEvent e)
+        private void OnSystemUse(SystemUseEvent e)
         {
             User user = GameProcessor.Inst.User;
 
-            List<BoxItem> list = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == e.MaterialId).ToList();
+            List<BoxItem> list = user.Bags.Where(m => m.Item.Type == e.Type && m.Item.ConfigId == e.ItemId).ToList();
 
             long count = list.Select(m => m.MagicNubmer.Data).Sum();
 
@@ -518,18 +518,25 @@ namespace Game
             Item item = e.BoxItem.Item;
             int refineStone = 0;
             int exclusiveStone = 0;
+            int cardStone = 0;
+            int number = (int)e.BoxItem.MagicNubmer.Data;
+
             if (item.Type == ItemType.Equip)
             {
                 refineStone += user.CalStone(item as Equip);
             }
             else if (item.Type == ItemType.Exclusive)
             {
-                exclusiveStone = item.GetQuality() * 1;
+                exclusiveStone = item.GetQuality();
+            }
+            else if (item.Type == ItemType.Card)
+            {
+                cardStone = item.GetQuality() * number;
             }
 
             long gold = item.Gold;
 
-            UseBoxItem(e.BoxItem, 1);
+            UseBoxItem(e.BoxItem, number);
 
             user.AddExpAndGold(0, gold);
 
@@ -543,10 +550,15 @@ namespace Game
                 Item exStoneItem = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Stone, exclusiveStone);
                 AddBoxItem(exStoneItem);
             }
+            if (cardStone > 0)
+            {
+                Item cardItem = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Card_Stone, cardStone);
+                AddBoxItem(cardItem);
+            }
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
             {
-                Message = BattleMsgHelper.BuildAutoRecoveryMessage(1, refineStone,exclusiveStone, gold)
+                Message = BattleMsgHelper.BuildAutoRecoveryMessage(1, refineStone, exclusiveStone, gold)
             });
         }
 
