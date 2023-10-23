@@ -1,4 +1,4 @@
 {"list":[
 {"_t":"ValetModelConfig","_id":1,"FromSkillId":3004,"Name":"骷髅","SpeedRate":0,"HpRate":2000,"AttrRate":50,"DefRate":50,"AdvanceRate":0,"SkillList":[],"Desc":""},
-{"_t":"ValetModelConfig","_id":2,"FromSkillId":3007,"Name":"神兽","SpeedRate":100,"HpRate":4000,"AttrRate":50,"DefRate":100,"AdvanceRate":15,"SkillList":[11002,13005],"Desc":""},
+{"_t":"ValetModelConfig","_id":2,"FromSkillId":3007,"Name":"神兽","SpeedRate":100,"HpRate":4000,"AttrRate":50,"DefRate":100,"AdvanceRate":15,"SkillList":[21002,13005],"Desc":""},
 ]}

@@ -48,13 +48,13 @@ namespace Game
                         return;
                     }
 
-                    GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("是否使用图鉴碎片升级？", true, () =>
+                    GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("是否使用"+ Config.StoneNumber + "个图鉴碎片升级？", true, () =>
                     {
                         GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
                         {
                             Type = ItemType.Material,
                             ItemId = ItemHelper.SpecialId_Card_Stone,
-                            Quantity = 1
+                            Quantity = Config.StoneNumber
                         });
                         cardData.Data++;
                         this.SetContent(this.Config, cardData.Data);
@@ -68,8 +68,9 @@ namespace Game
                     {
                         Type = ItemType.Card,
                         ItemId = Config.Id,
-                        Quantity = Config.StoneNumber
+                        Quantity = 1
                     });
+
                     cardData.Data++;
                     this.SetContent(this.Config, cardData.Data);
                     GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
@@ -88,7 +89,7 @@ namespace Game
         {
             this.Config = config;
 
-            this.Txt_Name.text = config.Name;
+            this.Txt_Name.text = string.Format("<color=#{0}>{1}</color>", QualityConfigHelper.GetQualityColor(Config.Quality), config.Name);
 
             if (level > 0)
             {

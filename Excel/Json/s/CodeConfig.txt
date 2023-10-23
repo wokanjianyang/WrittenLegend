@@ -32,4 +32,5 @@
 {"_t":"CodeConfig","_id":31,"code":"zhbc","ItemTypeList":[9,5],"ItemIdList":[4003,4004],"ItemQuanlityList":[488,48]},
 {"_t":"CodeConfig","_id":32,"code":"gx153","ItemTypeList":[9],"ItemIdList":[4003],"ItemQuanlityList":[100]},
 {"_t":"CodeConfig","_id":33,"code":"gx154","ItemTypeList":[9],"ItemIdList":[4003],"ItemQuanlityList":[100]},
+{"_t":"CodeConfig","_id":34,"code":"gx155","ItemTypeList":[9],"ItemIdList":[4003],"ItemQuanlityList":[100]},
 ]}

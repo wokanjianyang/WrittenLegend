@@ -96,8 +96,11 @@ namespace Game
 		/// <summary>StoneNumber</summary>
 		[ProtoMember(7)]
 		public int StoneNumber { get; set; }
-		/// <summary>Des</summary>
+		/// <summary>Quality</summary>
 		[ProtoMember(8)]
+		public int Quality { get; set; }
+		/// <summary>Des</summary>
+		[ProtoMember(9)]
 		public string Des { get; set; }
 
 	}

@@ -66,6 +66,7 @@ public class MapAnDian : MonoBehaviour, IBattleLife
         {
             GameProcessor.Inst.OnDestroy();
             GameProcessor.Inst.LoadMap(RuleType.AnDian, this.transform, param);
+            ShowLevel();
         });
     }
 
@@ -120,10 +121,13 @@ public class MapAnDian : MonoBehaviour, IBattleLife
     private void OnClick_Level()
     {
         Level = (Level % 10) + 1;
+        ShowLevel();
+    }
+
+    private void ShowLevel()
+    {
         txt_Btn_Level.text = "ÄÑ¶È£º" + Level;
-
         GameProcessor.Inst.EventCenter.Raise(new AnDianChangeLevel() { Level = this.Level });
-
     }
        
     private void Exit()

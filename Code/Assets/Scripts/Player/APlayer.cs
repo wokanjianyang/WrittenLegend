@@ -248,6 +248,8 @@ namespace Game
                 }
             }
 
+            bool isPause = false;
+
             //行动前计算buff
             foreach (List<Effect> list in EffectMap.Values)
             {
@@ -261,9 +263,15 @@ namespace Game
                             Type = MsgType.Other,
                             Content = effect.Data.Config.Name
                         });
+                        isPause = true;
                     }
                 }
                 list.RemoveAll(m => m.Duration <= m.DoCount);//移除已结束的
+            }
+
+            if (isPause)
+            {
+                return MoveSpeed;
             }
 
             //回血
