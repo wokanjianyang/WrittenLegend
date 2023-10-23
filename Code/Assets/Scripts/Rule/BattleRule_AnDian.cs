@@ -76,7 +76,7 @@ public class Battle_AnDian : ABattleRule
         {
             if (RandomHelper.RandomNumber(1, config.BuildRate) <= 1)
             {
-                GameProcessor.Inst.PlayerManager.LoadMonster(new Monster_Specail(config.Id));
+                GameProcessor.Inst.PlayerManager.LoadMonster(new Monster_Specail(config.Id,1));
             }
         }
 

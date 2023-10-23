@@ -8,10 +8,12 @@ using System;
 public class Monster_Specail : APlayer
 {
     MonsterSpecialConfig config;
+    private int RewardRate = 1;
 
-    public Monster_Specail(int id)
+    public Monster_Specail(int id, int rate)
     {
         this.GroupId = 2;
+        this.RewardRate = rate;
 
         config = MonsterSpecialConfigCategory.Instance.Get(id);
 
@@ -81,7 +83,10 @@ public class Monster_Specail : APlayer
     private void MakeReward(DeadRewarddEvent dead)
     {
         //Log.Info("Monster :" + this.ToString() + " dead");
-        BuildReword();
+        for (int i = 0; i < RewardRate; i++)
+        {
+            BuildReword();
+        }
     }
 
     private void BuildReword()
