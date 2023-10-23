@@ -1352,7 +1352,7 @@
 {"_t":"EquipConfig","_id":210,"LevelRequired":0,"Name":"护盾十阶","Part":12,"Position":[12],"BaseArray":[16,13],"AttributeBase":[100,100],"RandomAttr":-1,"Quality":4,"RuneId":-1,"SuitId":-1,"Price":1,"Role":0},
 {"_t":"EquipConfig","_id":211,"LevelRequired":0,"Name":"护盾十一阶","Part":12,"Position":[12],"BaseArray":[16,13],"AttributeBase":[110,110],"RandomAttr":-1,"Quality":4,"RuneId":-1,"SuitId":-1,"Price":1,"Role":0},
 {"_t":"EquipConfig","_id":212,"LevelRequired":0,"Name":"护盾十二阶","Part":12,"Position":[12],"BaseArray":[16,13],"AttributeBase":[120,120],"RandomAttr":-1,"Quality":4,"RuneId":-1,"SuitId":-1,"Price":1,"Role":0},
-{"_t":"EquipConfig","_id":213,"LevelRequired":0,"Name":"护盾十三阶","Part":12,"Position":[12],"BaseArray":[16,13],"AttributeBase":[140,140],"RandomAttr":-1,"Quality":4,"RuneId":-1,"SuitId":-1,"Price":1,"Role":0},
+{"_t":"EquipConfig","_id":213,"LevelRequired":0,"Name":"护盾十三阶","Part":12,"Position":[12],"BaseArray":[16,13],"AttributeBase":[140,140],"RandomAttr":-1,"Quality":5,"RuneId":-1,"SuitId":-1,"Price":1,"Role":0},
 {"_t":"EquipConfig","_id":301,"LevelRequired":0,"Name":"神符一阶","Part":13,"Position":[13],"BaseArray":[7,8,14,18,20],"AttributeBase":[1,1,10,10,10],"RandomAttr":-1,"Quality":1,"RuneId":-1,"SuitId":-1,"Price":1,"Role":0},
 {"_t":"EquipConfig","_id":302,"LevelRequired":0,"Name":"神符二阶","Part":13,"Position":[13],"BaseArray":[7,8,14,18,20],"AttributeBase":[2,2,20,20,20],"RandomAttr":-1,"Quality":1,"RuneId":-1,"SuitId":-1,"Price":1,"Role":0},
 {"_t":"EquipConfig","_id":303,"LevelRequired":0,"Name":"神符三阶","Part":13,"Position":[13],"BaseArray":[7,8,14,18,20],"AttributeBase":[3,3,30,30,30],"RandomAttr":-1,"Quality":1,"RuneId":-1,"SuitId":-1,"Price":1,"Role":0},

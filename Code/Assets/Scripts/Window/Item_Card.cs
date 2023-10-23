@@ -68,7 +68,7 @@ namespace Game
                     {
                         Type = ItemType.Card,
                         ItemId = Config.Id,
-                        Quantity = 1
+                        Quantity = Config.StoneNumber
                     });
                     cardData.Data++;
                     this.SetContent(this.Config, cardData.Data);
