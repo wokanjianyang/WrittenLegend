@@ -51,11 +51,7 @@ public class Battle_Defend : ABattleRule
             //Load All
             for (int i = 0; i < 10; i++)
             {
-                int tempMapId = RandomHelper.RandomNumber(0, 5);
-                tempMapId = 1001 + tempMapId;
-
-                MapConfig mapConfig = MapConfigCategory.Instance.Get(tempMapId);
-                var enemy = MonsterHelper.BuildMonster(mapConfig, 1, 1, 0);
+                var enemy = new Monster_Defend(this.Progress, 1);
                 GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
             }
 

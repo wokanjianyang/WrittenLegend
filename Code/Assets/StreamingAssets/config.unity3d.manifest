@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1543175176
+CRC: 3289007329
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 88fca08452566573ffe692f041ea5b1b
+    Hash: cbc07d3fa1af239eea05977bdf35ba54
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -58,6 +58,7 @@ Assets:
 - Assets/Resources/Config/MonsterModelCategory.bytes
 - Assets/Resources/Config/DropLimitConfigCategory.bytes
 - Assets/Resources/Config/EffectConfigCategory.bytes
+- Assets/Resources/Config/DefendConfigCategory.bytes
 - Assets/Resources/Config/SkillRuneConfigCategory.bytes
 - Assets/Resources/Config/SynthesisConfigCategory.bytes
 Dependencies: []
