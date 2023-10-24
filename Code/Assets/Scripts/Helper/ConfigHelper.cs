@@ -10,7 +10,7 @@ namespace Game
 
 		public const long Max_Level_Refine = 200; //最大精练等级
 
-		public const long Max_Floor = 4000000; //最大闯关
+		public const long Max_Floor = 5000000; //最大闯关
 
 		public const double Def_Rate = 3.0; //防御系数
 

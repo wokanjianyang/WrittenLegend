@@ -76,7 +76,7 @@ namespace Game
             if (user.DefendData == null)
             {
                 user.DefendData = new DefendData();
-                user.DefendData.Count.Data = 100;
+                user.DefendData.Count.Data = 1;
             }
 
             //clear month
