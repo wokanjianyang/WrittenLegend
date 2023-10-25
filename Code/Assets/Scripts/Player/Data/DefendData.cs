@@ -22,7 +22,7 @@ namespace Game
             {
                 Current = new DefendRecord();
                 Current.Progress.Data = 1;
-                Current.Hp.Data = 1000;
+                Current.Hp.Data = ConfigHelper.DefendHp;
                 //this.Count.Data--;
             }
 
