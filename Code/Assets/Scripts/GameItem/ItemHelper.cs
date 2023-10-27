@@ -42,6 +42,10 @@ namespace Game
             {
                 item = ExclusiveHelper.Build(configId);
             }
+            else if (type == ItemType.GiftPackExclusive)
+            {
+                item = ExclusiveHelper.BuildByPack(configId);
+            }
             else if (type == ItemType.Card)
             {
                 item = new Item(configId);

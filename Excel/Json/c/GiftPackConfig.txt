@@ -1,3 +1,8 @@
 {"list":[
-{"_t":"GiftPackConfig","_id":1,"Name":"专属自选","LevelRequired":0,"ItemTypeList":[10,10,10,10,10,10],"ItemIdList":[1000001,1000002,1000003,1000004,1000005,1000006],"ItemQuanlityList":[1,1,1,1,1,1],"Des":"十一盖楼礼包，专属自选包"},
+{"_t":"GiftPackConfig","_id":1,"Name":"专属自选1","LevelRequired":0,"ItemTypeList":[12,12,12,12,12,12],"ItemIdList":[101,102,103,104,105,106],"ItemQuanlityList":[1,1,1,1,1,1],"Des":"专属1自选包"},
+{"_t":"GiftPackConfig","_id":2,"Name":"专属自选2","LevelRequired":0,"ItemTypeList":[12,12,12,12,12,12],"ItemIdList":[201,202,203,204,205,206],"ItemQuanlityList":[1,1,1,1,1,1],"Des":"专属2自选包"},
+{"_t":"GiftPackConfig","_id":3,"Name":"专属自选3","LevelRequired":0,"ItemTypeList":[12,12,12,12,12,12],"ItemIdList":[301,302,303,304,305,306],"ItemQuanlityList":[1,1,1,1,1,1],"Des":"专属3自选包"},
+{"_t":"GiftPackConfig","_id":4,"Name":"专属自选4","LevelRequired":0,"ItemTypeList":[12,12,12,12,12,12],"ItemIdList":[401,402,403,404,405,406],"ItemQuanlityList":[1,1,1,1,1,1],"Des":"专属4自选包"},
+{"_t":"GiftPackConfig","_id":5,"Name":"专属自选5","LevelRequired":0,"ItemTypeList":[12,12,12,12,12,12],"ItemIdList":[501,502,503,504,505,506],"ItemQuanlityList":[1,1,1,1,1,1],"Des":"专属5自选包"},
+{"_t":"GiftPackConfig","_id":6,"Name":"专属自选6","LevelRequired":0,"ItemTypeList":[12,12,12,12,12,12],"ItemIdList":[601,602,603,604,605,606],"ItemQuanlityList":[1,1,1,1,1,1],"Des":"专属6自选包"},
 ]}

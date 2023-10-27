@@ -58,6 +58,16 @@ namespace Game
             return item;
         }
 
+        public static ExclusiveItem BuildByPack(int configId)
+        {
+            GiftPackExclusiveConfig config = GiftPackExclusiveConfigCategory.Instance.Get(configId);
+
+            ExclusiveItem item = new ExclusiveItem(config.ExclusiveId, config.RuneId, config.SuitId, config.Quality, config.DoubeId);
+
+            item.Count = 1;
+            return item;
+        }
+
         private static int RandomQuanlity() {
             int[] rates = { 1, 5, 10, 18, 32 };
 
