@@ -78,33 +78,24 @@ namespace Game
 		/// <summary>Id</summary>
 		[ProtoMember(1)]
 		public int Id { get; set; }
-		/// <summary>Type</summary>
+		/// <summary>ItemTypeList</summary>
 		[ProtoMember(2)]
-		public string Type { get; set; }
-		/// <summary>FromName</summary>
+		public int[] ItemTypeList { get; set; }
+		/// <summary>ItemIdList</summary>
 		[ProtoMember(3)]
-		public string FromName { get; set; }
-		/// <summary>FromId</summary>
+		public int[] ItemIdList { get; set; }
+		/// <summary>ItemQuanlityList</summary>
 		[ProtoMember(4)]
-		public int FromId { get; set; }
-		/// <summary>FromItemType</summary>
-		[ProtoMember(5)]
-		public int FromItemType { get; set; }
+		public int[] ItemQuanlityList { get; set; }
 		/// <summary>TargetName</summary>
-		[ProtoMember(6)]
+		[ProtoMember(5)]
 		public string TargetName { get; set; }
+		/// <summary>TargetType</summary>
+		[ProtoMember(6)]
+		public int TargetType { get; set; }
 		/// <summary>TargetId</summary>
 		[ProtoMember(7)]
 		public int TargetId { get; set; }
-		/// <summary>TargetType</summary>
-		[ProtoMember(8)]
-		public int TargetType { get; set; }
-		/// <summary>Quantity</summary>
-		[ProtoMember(9)]
-		public long Quantity { get; set; }
-		/// <summary>Commission</summary>
-		[ProtoMember(10)]
-		public long Commission { get; set; }
 
 	}
 }

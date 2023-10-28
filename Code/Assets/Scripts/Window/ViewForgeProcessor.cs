@@ -36,6 +36,8 @@ public class ViewForgeProcessor : AViewPage
     private RefineBox[] Refine_EquiList;
     private int Refine_Position = 1;
 
+    public Toggle toggle_Exchange;
+    public Panel_Exchange PanelExchange;
 
     private Dictionary<string, List<CompositeConfig>> allCompositeDatas= new Dictionary<string, List<CompositeConfig>>();
 
@@ -67,6 +69,16 @@ public class ViewForgeProcessor : AViewPage
             {
                 Log.Debug("打开精练界面");
                 this.ShowRefine();
+            }
+        });
+
+        this.toggle_Exchange.onValueChanged.AddListener((isOn) =>
+        {
+            PanelExchange.gameObject.SetActive(isOn);
+            if (isOn)
+            {
+                Log.Debug("打开兑换界面");
+                this.ShowExchange();
             }
         });
 
@@ -476,6 +488,13 @@ public class ViewForgeProcessor : AViewPage
         GameProcessor.Inst.UpdateInfo();
 
         ShowRefine();
+    }
+
+
+    //Exchange
+    private void ShowExchange()
+    {
+
     }
 
     protected override bool CheckPageType(ViewPageType page)

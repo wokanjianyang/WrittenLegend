@@ -27,7 +27,7 @@
 {"_t":"ItemConfig","_id":4002,"Name":"精炼石","Type":5,"Des":"装备精练材料","Price":1,"MaxNum":99999999,"LevelRequired":0,"Quality":5,"UseParam":0},
 {"_t":"ItemConfig","_id":4003,"Name":"装备副本卷","Type":9,"Des":"装备副本次数+1","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":5,"UseParam":0},
 {"_t":"ItemConfig","_id":4004,"Name":"BOSS挑战卷","Type":5,"Des":"挑战BOSS之家","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":5,"UseParam":0},
-{"_t":"ItemConfig","_id":4005,"Name":"专属洗练石","Type":5,"Des":"洗练专属词条","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":5,"UseParam":0},
+{"_t":"ItemConfig","_id":4005,"Name":"专属碎片","Type":5,"Des":"兑换专属自选包","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":5,"UseParam":0},
 {"_t":"ItemConfig","_id":4006,"Name":"月饼","Type":5,"Des":"节日道具，20个升级一级任意技能","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":5,"UseParam":50},
 {"_t":"ItemConfig","_id":4101,"Name":"图鉴碎片","Type":5,"Des":"兑换万能图鉴的碎片","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":5,"UseParam":0},
 {"_t":"ItemConfig","_id":4102,"Name":"铁矿","Type":5,"Des":"合成专属装备","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":5,"UseParam":0},
