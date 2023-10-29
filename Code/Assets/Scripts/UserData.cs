@@ -24,7 +24,7 @@ namespace Game
             User user = null;
                                     
             string filePath = getSavePath();         
-            //Debug.Log($"存档路径：{filePath}");
+            Debug.Log($"存档路径：{filePath}");
 
             if (System.IO.File.Exists(filePath))
             {
