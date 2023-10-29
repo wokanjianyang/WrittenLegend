@@ -19,6 +19,9 @@ namespace Game
         [LabelText("冷却")]
         public Text tmp_CD;
 
+        [LabelText("距离")]
+        public Text txt_Dis;
+
         [LabelText("描述")]
         public Text tmp_Des;
 
@@ -49,8 +52,10 @@ namespace Game
 
         }
 
-        private void Init() {
-            if (runeList.Count > 0) {
+        private void Init()
+        {
+            if (runeList.Count > 0)
+            {
                 return;
             }
 
@@ -121,8 +126,8 @@ namespace Game
             Recovery.isOn = skillPanel.SkillData.Recovery;
 
             this.tmp_Level.text = string.Format("LV:{0}", SkillPanel.SkillData.MagicLevel.Data);
-            this.tmp_CD.text = string.Format("冷却时间{0}秒", SkillPanel.CD);
-
+            this.tmp_CD.text = string.Format("CD：{0}秒", SkillPanel.CD);
+            this.txt_Dis.text = SkillPanel.Dis > 0 ? string.Format("施法距离：{0}格", SkillPanel.Dis) : "施法距离：无";
             this.tmp_Des.text = SkillPanel.Desc;
 
             var expProgress = this.GetComponentInChildren<Com_Progress>();
@@ -147,7 +152,7 @@ namespace Game
             User user = GameProcessor.Inst.User;
             List<SkillData> skillList = user.SkillList.FindAll(m => m.Status == SkillStatus.Equip);
 
-            if (this.SkillPanel == null || this.SkillPanel.SkillData == null || skillList.Count >=  user.SkillNumber)
+            if (this.SkillPanel == null || this.SkillPanel.SkillData == null || skillList.Count >= user.SkillNumber)
             {
                 return;
             }

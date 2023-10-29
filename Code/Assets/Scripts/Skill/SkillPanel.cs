@@ -34,7 +34,7 @@ namespace Game
 
         public int InheritIncrea { get; } //召唤物高级属性继承
 
-        public bool DefinitelyCrit { get;  } //必定暴击
+        public bool DefinitelyCrit { get; } //必定暴击
 
         public Dictionary<int, EffectData> EffectIdList { get; } = new Dictionary<int, EffectData>(); //特殊效果 
 
@@ -42,12 +42,12 @@ namespace Game
 
         public AttackCastType CastType { get; }
 
-        public List<KeyValuePair< string, int>> RuneTextList { get; } = new List<KeyValuePair<string, int>>();
+        public List<KeyValuePair<string, int>> RuneTextList { get; } = new List<KeyValuePair<string, int>>();
         public List<KeyValuePair<string, int>> SuitTextList { get; } = new List<KeyValuePair<string, int>>();
 
         public string Desc { get; set; }
 
-        public SkillPanel(SkillData skillData, List<SkillRune> runeList, List<SkillSuit> suitList,bool isPlayer)
+        public SkillPanel(SkillData skillData, List<SkillRune> runeList, List<SkillSuit> suitList, bool isPlayer)
         {
             this.SkillData = skillData;
             this.SkillId = skillData.SkillId;
@@ -57,7 +57,7 @@ namespace Game
                 List<SkillRuneConfig> skillRuneConfigs = SkillRuneConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.SkillId == SkillId).ToList();
                 foreach (SkillRuneConfig config in skillRuneConfigs)
                 {
-                    int count = runeList.Where(m => m.SkillRuneConfig.Id == config.Id).Select(m=>m.AvailableQuantity).Sum();
+                    int count = runeList.Where(m => m.SkillRuneConfig.Id == config.Id).Select(m => m.AvailableQuantity).Sum();
                     RuneTextList.Add(new KeyValuePair<string, int>(config.Name, count));
                 }
 
@@ -151,7 +151,7 @@ namespace Game
 
             if (isPlayer)
             {
-                Desc = string.Format(SkillData.SkillConfig.Des, Dis, EnemyMax, Percent, Damage, Duration);
+                Desc = string.Format(SkillData.SkillConfig.Des, EnemyMax, Percent, Duration, Row, Column);
             }
 
             //技能的特效
