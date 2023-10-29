@@ -22,7 +22,7 @@ public class Item_Exchange : MonoBehaviour
 
     private ExchangeConfig Config { get; set; }
 
-    public int Level { get; set; }
+    private bool check = false;
 
     // Start is called before the first frame update
     void Awake()
@@ -32,6 +32,10 @@ public class Item_Exchange : MonoBehaviour
 
         TxtCountList.Add(FromCount);
         TxtCountList.Add(CommissionCount);
+
+        Btn_Ok.onClick.AddListener(OnClickOK);
+
+        GameProcessor.Inst.EventCenter.AddListener<ExchangeUIFreshEvent>(this.OnExchangeUIFresh);
 
         Debug.Log("Awake");
     }
@@ -76,11 +80,23 @@ public class Item_Exchange : MonoBehaviour
 
         User user = GameProcessor.Inst.User;
 
+        this.check = true;
+
         for (int i = 0; i < Config.ItemIdList.Length; i++)
         {
-            long count = user.Bags.Where(m => (int)m.Item.Type == Config.ItemTypeList[i] && m.Item.ConfigId == Config.ItemIdList[i]).Select(m => m.MagicNubmer.Data).Sum();
-            int MaxCount = Config.ItemQuanlityList[i];
-            string color = count >= MaxCount ? "#00FF00" : "#FF0000";
+            int quality = Config.ItemQualityList[i];
+            int MaxCount = Config.ItemCountList[i];
+
+            long count = user.Bags.Where(m => (int)m.Item.Type == Config.ItemTypeList[i] && m.Item.ConfigId == Config.ItemIdList[i]
+            && m.Item.GetQuality() >= quality && !m.Item.IsLock).Select(m => m.MagicNubmer.Data).Sum();
+
+            string color = "#00FF00";
+
+            if (count < MaxCount)
+            {
+                color = "#FF0000";
+                this.check = false;
+            }
 
             TxtCountList[i].text = string.Format("<color={0}>({1}/{2})</color>", color, count, MaxCount); ;
         }
@@ -88,9 +104,32 @@ public class Item_Exchange : MonoBehaviour
 
     public void SetData(ExchangeConfig config)
     {
-        Debug.Log("SetData");
         this.Config = config;
         this.Init();
+        this.Check();
+    }
+
+    public void OnClickOK()
+    {
+        if (!check)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "材料不足", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
+
+        this.Check();
+
+        if (!check)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "材料不足", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
+
+        GameProcessor.Inst.EventCenter.Raise(new ExchangeEvent() { Config = Config });
+    }
+
+    public void OnExchangeUIFresh(ExchangeUIFreshEvent e)
+    {
         this.Check();
     }
 }

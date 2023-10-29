@@ -38,8 +38,6 @@ public class Panel_Exchange : MonoBehaviour
 
             Item_Exchange sc = Item.GetComponent<Item_Exchange>();
             sc.SetData(config);
-
-            return;
         }
     }
 }

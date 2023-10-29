@@ -31,8 +31,7 @@ namespace Game
 
             if (runeId == 0 && quality > 2) //随机生成词条
             {
-                int runeRandomType = quality >= 5 ? 2 : 1;
-                SkillRuneConfig runeConfig = SkillRuneHelper.RandomRune(config.Role, runeRandomType);
+                SkillRuneConfig runeConfig = SkillRuneHelper.RandomRune(config.Role, 1, quality);
                 runeId = runeConfig.Id;
 
                 if (suitId == 0 && quality > 3)  //随机生成词条

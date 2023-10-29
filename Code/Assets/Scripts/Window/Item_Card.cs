@@ -36,34 +36,39 @@ namespace Game
 
             if (cardData.Data < Config.MaxLevel)
             {
-                long total = user.Bags.Where(m => m.Item.Type == ItemType.Card && m.Item.ConfigId == Config.Id).Select(m => m.MagicNubmer.Data).Sum();
-
-                if (total < 1)
-                {
+                if (Config.StoneNumber > 0)
+                { //使用碎片升级的
                     long stoneTotal = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Card_Stone).Select(m => m.MagicNubmer.Data).Sum();
 
                     if (stoneTotal < Config.StoneNumber)
                     {
-                        GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "您没有此图鉴与足够的图鉴碎片", ToastType = ToastTypeEnum.Failure });
+                        GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "您的图鉴碎片不足" + Config.StoneNumber + "个", ToastType = ToastTypeEnum.Failure });
                         return;
                     }
 
-                    GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("是否使用"+ Config.StoneNumber + "个图鉴碎片升级？", true, () =>
-                    {
-                        GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
-                        {
-                            Type = ItemType.Material,
-                            ItemId = ItemHelper.SpecialId_Card_Stone,
-                            Quantity = Config.StoneNumber
-                        });
-                        cardData.Data++;
-                        this.SetContent(this.Config, cardData.Data);
-                        GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
-                    }, null);
+                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "消耗" + Config.StoneNumber + "个图鉴碎片升级成功", ToastType = ToastTypeEnum.Success });
 
+                    GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
+                    {
+                        Type = ItemType.Material,
+                        ItemId = ItemHelper.SpecialId_Card_Stone,
+                        Quantity = Config.StoneNumber
+                    });
+                    cardData.Data++;
+                    this.SetContent(this.Config, cardData.Data);
+                    GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
                 }
                 else
                 {
+                    //使用卡片升级的
+                    long total = user.Bags.Where(m => m.Item.Type == ItemType.Card && m.Item.ConfigId == Config.Id).Select(m => m.MagicNubmer.Data).Sum();
+                    if (total < 1)
+                    {
+                        GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "您没有对应的图鉴", ToastType = ToastTypeEnum.Failure });
+                        return;
+                    }
+
+                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "消耗" + Config.Name + "升级成功", ToastType = ToastTypeEnum.Success });
                     GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
                     {
                         Type = ItemType.Card,
@@ -75,8 +80,6 @@ namespace Game
                     this.SetContent(this.Config, cardData.Data);
                     GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
                 }
-
-                //
             }
             else
             {

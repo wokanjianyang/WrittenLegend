@@ -194,7 +194,15 @@ namespace Game
     {
         public CompositeConfig Config { get; set; }
     }
+
     public class CompositeUIFreshEvent : SDD.Events.Event
+    {
+    }
+    public class ExchangeEvent : SDD.Events.Event
+    {
+        public ExchangeConfig Config { get; set; }
+    }
+    public class ExchangeUIFreshEvent : SDD.Events.Event
     {
     }
 

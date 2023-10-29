@@ -108,10 +108,18 @@ namespace Game
                     }
                 }
 
-                if ((EquipQuanlity.GetValueOrDefault(item.GetQuality(), false) || item.Level < EquipLevel || EquipRole.GetValueOrDefault(role, false))
-                    && equip.Part <= 10 && equip.Quality < 5)
+                if (equip.Part <= 10)
                 {
-                    return true;
+                    if (item.Level < EquipLevel && EquipQuanlity.GetValueOrDefault(5, false)) //如果勾选了橙色，低于等级就回收
+                    {
+                        return true;
+                    }
+
+                    if ((EquipQuanlity.GetValueOrDefault(item.GetQuality(), false) || item.Level < EquipLevel || EquipRole.GetValueOrDefault(role, false))
+                        && equip.Quality < 5)
+                    {
+                        return true;
+                    }
                 }
             }
 

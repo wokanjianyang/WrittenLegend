@@ -99,18 +99,6 @@ namespace Game
 
         public void OnClick_Done()
         {
-            //if (equipQualityToggles[3].isOn)
-            //{
-            //    GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("是否确认回收紫色品质？",true, () =>
-            //    {
-            //        this.SaveSetting();
-            //    }, null);
-            //}
-            //else
-            //{
-               
-            //}
-
             this.SaveSetting();
         }
         

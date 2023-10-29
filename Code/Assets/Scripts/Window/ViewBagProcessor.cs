@@ -114,6 +114,7 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<SystemUseEvent>(this.OnSystemUse);
             GameProcessor.Inst.EventCenter.AddListener<SelectGiftEvent>(this.OnSelectGift);
             GameProcessor.Inst.EventCenter.AddListener<EquipLockEvent>(this.OnEquipLockEvent);
+            GameProcessor.Inst.EventCenter.AddListener<ExchangeEvent>(this.OnExchangeEvent);
 
             this.EquipInfoList.Add(EquipInfo1);
             this.EquipInfoList.Add(EquipInfo2);
@@ -364,6 +365,46 @@ namespace Game
             AddBoxItem(item);
 
             GameProcessor.Inst.EventCenter.Raise(new CompositeUIFreshEvent());
+        }
+
+        private void OnExchangeEvent(ExchangeEvent e)
+        {
+            ExchangeConfig Config = e.Config;
+            for (int i = 0; i < Config.ItemIdList.Length; i++)
+            {
+                ItemType type = (ItemType)(Config.ItemTypeList[i]);
+                int configId = Config.ItemIdList[i];
+                int quality = Config.ItemQualityList[i];
+
+                if (type == ItemType.Exclusive)
+                {
+                    User user = GameProcessor.Inst.User;
+                    BoxItem boxItem = user.Bags.Where(m => m.Item.Type == type && m.Item.ConfigId == configId
+                    && m.Item.GetQuality() >= quality && !m.Item.IsLock).FirstOrDefault();
+
+
+                    GameProcessor.Inst.EventCenter.Raise(new BagUseEvent()
+                    {
+                        Quantity = 1,
+                        BoxItem = boxItem
+                    });
+                }
+                else
+                {
+                    GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
+                    {
+                        Type = type,
+                        ItemId = configId,
+                        Quantity = Config.ItemCountList[i]
+                    });
+                }
+            }
+
+            Item item = ItemHelper.BuildItem((ItemType)Config.TargetType, Config.TargetId, 5, 1);
+
+            AddBoxItem(item);
+
+            GameProcessor.Inst.EventCenter.Raise(new ExchangeUIFreshEvent());
         }
 
         private void OnSystemUse(SystemUseEvent e)

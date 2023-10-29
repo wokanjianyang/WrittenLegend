@@ -75,11 +75,6 @@ public class ViewForgeProcessor : AViewPage
         this.toggle_Exchange.onValueChanged.AddListener((isOn) =>
         {
             PanelExchange.gameObject.SetActive(isOn);
-            if (isOn)
-            {
-                Log.Debug("打开兑换界面");
-                this.ShowExchange();
-            }
         });
 
         Btn_Refine.onClick.AddListener(OnClick_Refine);
@@ -488,13 +483,6 @@ public class ViewForgeProcessor : AViewPage
         GameProcessor.Inst.UpdateInfo();
 
         ShowRefine();
-    }
-
-
-    //Exchange
-    private void ShowExchange()
-    {
-
     }
 
     protected override bool CheckPageType(ViewPageType page)
