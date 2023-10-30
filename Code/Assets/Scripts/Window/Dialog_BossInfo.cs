@@ -16,6 +16,7 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
 
     public Toggle toggle_Rate;
     public Toggle toggle_Auto;
+    public Toggle toggle_Hide;
 
     List<Com_BossInfoItem> items = new List<Com_BossInfoItem>();
 
@@ -34,6 +35,11 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
         toggle_Auto.onValueChanged.AddListener((isOn) =>
         {
             GameProcessor.Inst.EquipCopySetting_Auto = isOn;
+        });
+
+        toggle_Hide.onValueChanged.AddListener((isOn) =>
+        {
+            this.ShowItem(isOn);
         });
     }
 
@@ -55,6 +61,8 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
         this.gameObject.SetActive(true);
 
         this.UpadateItem();
+
+        this.ShowItem(toggle_Hide.isOn);
     }
 
     private void BuildItem(int MapId)
@@ -135,6 +143,22 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
         txt_boss_count.text = user.MagicCopyTikerCount.Data + "";
         long refeshTime = ConfigHelper.CopyTicketCd - dieTime;
         txt_boss_time.text = TimeSpan.FromSeconds(refeshTime).ToString(@"hh\:mm\:ss");
+    }
+
+    private void ShowItem(bool hide)
+    {
+        int hideCount = items.Count - 10;
+
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (i < hideCount)
+            {
+                items[i].gameObject.SetActive(!hide);
+            }
+            else {
+                items[i].gameObject.SetActive(true);
+            }
+        }
     }
 
     public void OnClick_Close()
