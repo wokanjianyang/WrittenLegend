@@ -732,7 +732,9 @@ namespace Game
                 }
             }
             else if (ruleType == RuleType.BossFamily) {
-                if (EquipBossFamily_Auto) {
+                long bossTicket = GameProcessor.Inst.User.GetMaterialCount(ItemHelper.SpecialId_Boss_Ticket);
+                if (EquipBossFamily_Auto && bossTicket > 0)
+                {
                     this.AutoBossFamily();
                 }
             }
