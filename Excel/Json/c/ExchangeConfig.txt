@@ -1,8 +1,8 @@
 {"list":[
-{"_t":"ExchangeConfig","_id":1,"ItemTypeList":[10,5],"ItemIdList":[1,4005],"ItemCountList":[1,300],"ItemQualityList":[5,0],"TargetName":"怒斩自选","TargetType":4,"TargetId":1},
-{"_t":"ExchangeConfig","_id":2,"ItemTypeList":[10,5],"ItemIdList":[2,4005],"ItemCountList":[1,300],"ItemQualityList":[5,0],"TargetName":"噬魂自选","TargetType":4,"TargetId":2},
-{"_t":"ExchangeConfig","_id":3,"ItemTypeList":[10,5],"ItemIdList":[3,4005],"ItemCountList":[1,300],"ItemQualityList":[5,0],"TargetName":"血饮自选","TargetType":4,"TargetId":3},
-{"_t":"ExchangeConfig","_id":4,"ItemTypeList":[10,5],"ItemIdList":[4,4005],"ItemCountList":[1,300],"ItemQualityList":[5,0],"TargetName":"屠龙自选","TargetType":4,"TargetId":4},
-{"_t":"ExchangeConfig","_id":5,"ItemTypeList":[10,5],"ItemIdList":[5,4005],"ItemCountList":[1,300],"ItemQualityList":[5,0],"TargetName":"倚天自选","TargetType":4,"TargetId":5},
-{"_t":"ExchangeConfig","_id":6,"ItemTypeList":[10,5],"ItemIdList":[6,4005],"ItemCountList":[1,300],"ItemQualityList":[5,0],"TargetName":"命运自选","TargetType":4,"TargetId":6},
+{"_t":"ExchangeConfig","_id":1,"ItemTypeList":[10,5],"ItemIdList":[1,4005],"ItemCountList":[1,150],"ItemQualityList":[5,0],"TargetName":"怒斩自选","TargetType":4,"TargetId":1},
+{"_t":"ExchangeConfig","_id":2,"ItemTypeList":[10,5],"ItemIdList":[2,4005],"ItemCountList":[1,150],"ItemQualityList":[5,0],"TargetName":"噬魂自选","TargetType":4,"TargetId":2},
+{"_t":"ExchangeConfig","_id":3,"ItemTypeList":[10,5],"ItemIdList":[3,4005],"ItemCountList":[1,150],"ItemQualityList":[5,0],"TargetName":"血饮自选","TargetType":4,"TargetId":3},
+{"_t":"ExchangeConfig","_id":4,"ItemTypeList":[10,5],"ItemIdList":[4,4005],"ItemCountList":[1,150],"ItemQualityList":[5,0],"TargetName":"屠龙自选","TargetType":4,"TargetId":4},
+{"_t":"ExchangeConfig","_id":5,"ItemTypeList":[10,5],"ItemIdList":[5,4005],"ItemCountList":[1,150],"ItemQualityList":[5,0],"TargetName":"倚天自选","TargetType":4,"TargetId":5},
+{"_t":"ExchangeConfig","_id":6,"ItemTypeList":[10,5],"ItemIdList":[6,4005],"ItemCountList":[1,150],"ItemQualityList":[5,0],"TargetName":"命运自选","TargetType":4,"TargetId":6},
 ]}

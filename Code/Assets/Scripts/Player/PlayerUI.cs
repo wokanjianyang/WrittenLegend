@@ -179,7 +179,7 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
             var msgColor = QualityConfigHelper.GetMsgColor(e.Type);
             com.tmp_Msg_Content.text = string.Format("<color=#{0}>{1}</color>", msgColor, e.Content);
 
-            Vector3 scale = new Vector3(1.5f, 1.5f, 0);
+            Vector3 scale = new Vector3(1.3f, 1.3f, 0);
 
             //首先要创建一个DOTween队列
             Sequence seq = DOTween.Sequence();
