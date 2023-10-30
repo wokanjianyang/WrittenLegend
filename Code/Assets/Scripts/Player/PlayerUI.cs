@@ -168,8 +168,8 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
             msg.transform.SetParent(this.tran_Barrage);
 
             var msgSize = msg.GetComponent<RectTransform>().sizeDelta;
-            var msgMaxY = this.size.y + msgSize.y;
-            var msgMinY = 0 - msgSize.y;
+            var msgMaxY = 60;
+            var msgMinY = -120;
 
             var msgX = 0;
 
@@ -179,11 +179,14 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
             var msgColor = QualityConfigHelper.GetMsgColor(e.Type);
             com.tmp_Msg_Content.text = string.Format("<color=#{0}>{1}</color>", msgColor, e.Content);
 
+            Vector3 scale = new Vector3(1.5f, 1.5f, 0);
+
             //首先要创建一个DOTween队列
             Sequence seq = DOTween.Sequence();
 
             //seq.Append  里面是让主相机振动的临时试验代码
-            seq.Append(msg.transform.DOLocalMoveY(msgMaxY, 2.5f));
+            seq.Append(msg.transform.DOLocalMoveY(msgMaxY, 1.5f));
+            seq.Join(msg.transform.DOScale(scale, 1.5f));
 
             seq.AppendCallback(() =>
             {
