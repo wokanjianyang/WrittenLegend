@@ -54,14 +54,17 @@ public class Item_Exchange : MonoBehaviour
 
     private void Init()
     {
-        TargetName.text = Config.TargetName;
+        TargetName.text = Config.TargetName.Insert(2, "\n");
 
         for (int i = 0; i < Config.ItemIdList.Length; i++)
         {
+            string color = QualityConfigHelper.GetQualityColor(Config.ItemQualityList[i]);
+
             if (Config.ItemTypeList[i] == (int)ItemType.Exclusive)
             {
                 ExclusiveConfig exclusiveConfig = ExclusiveConfigCategory.Instance.Get(Config.ItemIdList[i]);
-                TxtNameList[i].text = exclusiveConfig.Name;
+                Debug.Log(Config.ItemQualityList[i] + " " + color);
+                TxtNameList[i].text = string.Format("<color=#{0}>{1}</color>", color, exclusiveConfig.Name); 
             }
             else
             {
@@ -98,7 +101,7 @@ public class Item_Exchange : MonoBehaviour
                 this.check = false;
             }
 
-            TxtCountList[i].text = string.Format("<color={0}>({1}/{2})</color>", color, count, MaxCount); ;
+            TxtCountList[i].text = string.Format("<color={0}>({1}/{2})</color>", color, count, MaxCount);
         }
     }
 
