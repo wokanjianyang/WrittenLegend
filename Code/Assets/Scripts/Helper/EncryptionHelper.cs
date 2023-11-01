@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
+using System.IO;
 
 namespace Game
 {
@@ -100,6 +101,37 @@ namespace Game
                 }
 
                 return sb.ToString();
+            }
+        }
+
+        public static string FileMD5(string filePath)
+        {
+            byte[] retVal;
+            using (FileStream file = new FileStream(filePath, FileMode.Open))
+            {
+                MD5 md5 = MD5.Create();
+                retVal = md5.ComputeHash(file);
+            }
+            return retVal.ToHex("x2");
+        }
+
+        public static string GetMD5(byte[] bytedata)
+        {
+            try
+            {
+                MD5 md5 = new MD5CryptoServiceProvider();
+                byte[] retVal = md5.ComputeHash(bytedata);
+
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < retVal.Length; i++)
+                {
+                    sb.Append(retVal[i].ToString("x2"));
+                }
+                return sb.ToString();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("GetMD5 fail,error:" + ex.Message);
             }
         }
     }
