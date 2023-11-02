@@ -11,6 +11,7 @@ namespace Game
         public int Progeress;
         public int Type;
         MonsterDefendConfig Config { get; set; }
+        QualityConfig QualityConfig { get; set; }
 
         public Monster_Defend(long progress, int type) : base()
         {
@@ -19,6 +20,7 @@ namespace Game
             this.GroupId = 2;
 
             this.Config = MonsterDefendConfigCategory.Instance.Get(Progeress);
+            this.QualityConfig = QualityConfigCategory.Instance.Get(this.Type);
 
             this.Init();
             this.EventCenter.AddListener<DeadRewarddEvent>(MakeReward);

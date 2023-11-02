@@ -165,6 +165,31 @@ namespace Game
             return enemy;
         }
 
+        public APlayer LoadMonsterDefend(APlayer enemy)
+        {
+            var tempCells = GameProcessor.Inst.MapData.AllCells.ToList();
+            var allPlayerCells = GameProcessor.Inst.PlayerManager.GetAllPlayers().Select(p => p.Cell).ToList();
+            tempCells.RemoveAll(p => allPlayerCells.Contains(p));
+
+            if (tempCells.Count > 0)
+            {
+                tempCells = tempCells.OrderByDescending(m => m.y).ToList();
+
+                var bornCell = tempCells[0];
+
+                var coms = enemy.Transform.GetComponents<MonoBehaviour>();
+                foreach (var com in coms)
+                {
+                    if (com is IPlayer _com)
+                    {
+                        _com.SetParent(enemy);
+                    }
+                }
+                enemy.SetPosition(bornCell, true);
+                this.AddPlayer(enemy);
+            }
+            return enemy;
+        }
 
         public Valet LoadValet(APlayer player,SkillPanel skill)
         {

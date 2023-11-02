@@ -15,6 +15,8 @@ public class Battle_Defend : ABattleRule
 
     private const int MaxProgress = 100; //
 
+    private int[] MonsterList = new int[] { 5, 4, 4, 4, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1 };
+
     protected override RuleType ruleType => RuleType.Defend;
 
     public Battle_Defend(Dictionary<string, object> param)
@@ -58,10 +60,10 @@ public class Battle_Defend : ABattleRule
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Defend, Message = "第" + this.Progress + "波发起了进攻" });
 
             //Load All
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < MonsterList.Length; i++)
             {
-                var enemy = new Monster_Defend(this.Progress, 1);
-                GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
+                var enemy = new Monster_Defend(this.Progress, MonsterList[i]);
+                GameProcessor.Inst.PlayerManager.LoadMonsterDefend(enemy);
             }
 
             GameProcessor.Inst.EventCenter.Raise(new ShowDefendInfoEvent() { Count = Progress });
