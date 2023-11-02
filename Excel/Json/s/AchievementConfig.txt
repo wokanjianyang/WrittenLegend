@@ -238,4 +238,5 @@
 {"_t":"AchievementConfig","_id":6018,"Name":"BOSS之家18","Type":6,"Condition":1800,"RewardType":4,"AttrId":0,"AttrValue":1,"Memo":"挑战BOSS之家{0}次"},
 {"_t":"AchievementConfig","_id":6019,"Name":"BOSS之家19","Type":6,"Condition":1900,"RewardType":4,"AttrId":0,"AttrValue":1,"Memo":"挑战BOSS之家{0}次"},
 {"_t":"AchievementConfig","_id":6020,"Name":"BOSS之家20","Type":6,"Condition":2000,"RewardType":4,"AttrId":0,"AttrValue":1,"Memo":"挑战BOSS之家{0}次"},
+{"_t":"AchievementConfig","_id":8001,"Name":"守卫1","Type":8,"Condition":100,"RewardType":2,"AttrId":0,"AttrValue":1,"Memo":"守卫龙城通过{0}层数"},
 ]}

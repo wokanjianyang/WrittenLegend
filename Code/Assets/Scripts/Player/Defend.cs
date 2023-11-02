@@ -33,7 +33,6 @@ public class Defend : APlayer
 
     private void SetAttr(long hp)
     {
-        Debug.Log("Defend HP:" + hp);
         AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp);
         AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, 0);
         AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, 0);
@@ -45,8 +44,8 @@ public class Defend : APlayer
 
     public override float DoEvent()
     {
-        return 1f;
-        //this.OnRestore(0, 1);
+        this.OnRestore(0, 1);
+        return AttckSpeed;
     }
 
     public override void OnHit(DamageResult dr)

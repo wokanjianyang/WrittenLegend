@@ -598,6 +598,15 @@ namespace Game
 
                     progress = this.MagicRecord[AchievementSourceType.BossFamily].Data;
                     break;
+                case AchievementSourceType.Defend:
+                    {
+                        if (!this.MagicRecord.ContainsKey(AchievementSourceType.Defend))
+                        {
+                            this.MagicRecord[AchievementSourceType.Defend] = new MagicData();
+                        }
+                        progress = this.MagicRecord[AchievementSourceType.Defend].Data;
+                    }
+                    break;
             }
 
             return progress;

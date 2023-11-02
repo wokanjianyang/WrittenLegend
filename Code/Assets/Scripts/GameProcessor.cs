@@ -603,6 +603,10 @@ namespace Game
             }
         }
 
+        public void CloseBattle(RuleType ruleType, long time) {
+            ie_autoExitKey = StartCoroutine(this.AutoExitMap(ruleType, time));
+        }
+
 
         /// <summary>
         /// 

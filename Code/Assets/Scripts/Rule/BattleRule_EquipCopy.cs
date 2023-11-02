@@ -114,7 +114,7 @@ public class BattleRule_EquipCopy : ABattleRule
                 GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
                 {
                     Message = BattleMsgHelper.BuildCopySuccessMessage(),
-                    BattleType = BattleType.Tower
+                    Type = RuleType.EquipCopy
                 });
 
                 user.MapId = mapConfig.Id + 1;

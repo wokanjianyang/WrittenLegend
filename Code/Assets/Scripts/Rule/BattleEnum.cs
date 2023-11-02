@@ -113,12 +113,6 @@ namespace Game
         HideWithAuto
     }
 
-    public enum BattleType
-    {
-        Normal = 0,
-        Tower
-    }
-
     public enum MsgType
     {
         Normal = 0,

@@ -38,6 +38,7 @@ namespace Game
         Refine = 4,
         Level = 5,
         BossFamily = 6,
-        EquipCopy=7,
+        EquipCopy = 7,
+        Defend = 8,
     }
 }

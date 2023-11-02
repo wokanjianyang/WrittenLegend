@@ -82,7 +82,7 @@ namespace Game
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
             {
                 Message = BattleMsgHelper.BuildTowerSuccessMessage(config.RiseExp, config.RiseGold, exp, gold, user.MagicTowerFloor.Data, items),
-                BattleType = BattleType.Tower
+                Type = RuleType.Normal
             });
 
             user.MagicTowerFloor.Data++;

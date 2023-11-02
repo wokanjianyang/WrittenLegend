@@ -81,6 +81,8 @@ public class MapDefend : MonoBehaviour, IBattleLife
 
     private void OnBattleMsgEvent(BattleMsgEvent e)
     {
+
+
         msgId++;
         Text txt_msg = null;
         if (this.sr_BattleMsg.content.childCount > 50)
