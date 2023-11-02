@@ -1,5 +1,5 @@
 {"list":[
-{"_t":"BossConfig","_id":10000,"MapId":1000,"Name":"鸡王","PhyAttr":500,"Def":100,"HP":50000,"DamageIncrea":0,"DamageResist":0,"CritRate":0,"CritDamage":0,"Exp":10000,"Gold":10000,"DropIdList":[],"DropRateList":[90],"ModelType":-1},
+{"_t":"BossConfig","_id":10000,"MapId":1000,"Name":"鸡王","PhyAttr":10,"Def":1,"HP":50000,"DamageIncrea":0,"DamageResist":0,"CritRate":0,"CritDamage":0,"Exp":10000,"Gold":10000,"DropIdList":[],"DropRateList":[90],"ModelType":-1},
 {"_t":"BossConfig","_id":10001,"MapId":1001,"Name":"鹿王","PhyAttr":2500,"Def":500,"HP":250000,"DamageIncrea":0,"DamageResist":0,"CritRate":0,"CritDamage":0,"Exp":50000,"Gold":50000,"DropIdList":[],"DropRateList":[45],"ModelType":-1},
 {"_t":"BossConfig","_id":10002,"MapId":1002,"Name":"稻草人王","PhyAttr":10000,"Def":2000,"HP":1000000,"DamageIncrea":0,"DamageResist":0,"CritRate":0,"CritDamage":0,"Exp":200000,"Gold":200000,"DropIdList":[],"DropRateList":[30],"ModelType":-1},
 {"_t":"BossConfig","_id":10003,"MapId":1003,"Name":"钉耙猫王","PhyAttr":25000,"Def":5000,"HP":2500000,"DamageIncrea":0,"DamageResist":0,"CritRate":0,"CritDamage":0,"Exp":500000,"Gold":500000,"DropIdList":[],"DropRateList":[22],"ModelType":0},

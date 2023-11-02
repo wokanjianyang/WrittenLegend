@@ -1,5 +1,5 @@
 {"list":[
-{"_t":"MonsterBase","_id":10001,"MapId":1000,"Name":"鸡","Attr":100,"Def":20,"HP":1000,"DamageIncrea":0,"DamageResist":0,"CritRate":0,"CritDamage":0,"Exp":100,"Gold":100},
+{"_t":"MonsterBase","_id":10001,"MapId":1000,"Name":"鸡","Attr":5,"Def":2,"HP":1000,"DamageIncrea":0,"DamageResist":0,"CritRate":0,"CritDamage":0,"Exp":100,"Gold":100},
 {"_t":"MonsterBase","_id":10002,"MapId":1001,"Name":"鹿","Attr":500,"Def":100,"HP":5000,"DamageIncrea":0,"DamageResist":0,"CritRate":0,"CritDamage":0,"Exp":500,"Gold":500},
 {"_t":"MonsterBase","_id":10003,"MapId":1002,"Name":"稻草人","Attr":2000,"Def":400,"HP":20000,"DamageIncrea":0,"DamageResist":0,"CritRate":0,"CritDamage":0,"Exp":2000,"Gold":2000},
 {"_t":"MonsterBase","_id":10004,"MapId":1003,"Name":"钉耙猫","Attr":5000,"Def":1000,"HP":50000,"DamageIncrea":0,"DamageResist":0,"CritRate":0,"CritDamage":0,"Exp":5000,"Gold":5000},

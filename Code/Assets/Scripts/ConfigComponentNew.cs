@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Reflection;
 using UnityEngine;
 using System.IO;
+using System.Linq;
 
 namespace Game
 {
@@ -45,6 +46,27 @@ namespace Game
 				string key = kv.Key;
 				configBytes[key] = v.bytes;
 			}
+
+			//check
+
+			string md5 = "";
+			foreach (Type type in configTypes)
+			{
+				byte[] oneConfigBytes = configBytes[type.Name];
+
+				md5 += EncryptionHelper.GetMD5(oneConfigBytes); 
+			}
+
+			md5 = EncryptionHelper.Md5(md5);
+			Debug.Log("MD5:" + md5);
+			if (md5 != "b3379142216586eacdf32adaccbe76e1")
+			{
+#if !UNITY_EDITOR
+				return;
+#endif
+			}
+
+
 
 			foreach (Type type in configTypes)
 			{
