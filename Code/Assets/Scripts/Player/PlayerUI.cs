@@ -107,10 +107,10 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
                 this.image_Background.sprite = list_Backgrounds[1];
                 break;
             case PlayerType.Defend:
-                this.image_Background.sprite = list_Backgrounds[1];
+                this.image_Background.sprite = list_Backgrounds[4];
                 break;
             case PlayerType.Enemy:
-                if (this.SelfPlayer.ModelType == MondelType.Boss)
+                if (this.SelfPlayer.ModelType == MondelType.Boss || this.SelfPlayer.Quality == 5)
                 {
                     this.image_Background.sprite = list_Backgrounds[3];
                 }

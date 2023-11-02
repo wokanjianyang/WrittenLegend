@@ -9,18 +9,17 @@ namespace Game
     public class Monster_Defend : APlayer
     {
         public int Progeress;
-        public int Type;
         MonsterDefendConfig Config { get; set; }
         QualityConfig QualityConfig { get; set; }
 
-        public Monster_Defend(long progress, int type) : base()
+        public Monster_Defend(long progress, int quality) : base()
         {
             this.Progeress = (int)progress;
-            this.Type = type;
             this.GroupId = 2;
+            this.Quality = quality;
 
             this.Config = MonsterDefendConfigCategory.Instance.Get(Progeress);
-            this.QualityConfig = QualityConfigCategory.Instance.Get(this.Type);
+            this.QualityConfig = QualityConfigCategory.Instance.Get(this.Quality);
 
             this.Init();
             this.EventCenter.AddListener<DeadRewarddEvent>(MakeReward);
@@ -29,7 +28,7 @@ namespace Game
         private void Init()
         {
             this.Camp = PlayerType.Enemy;
-            this.Name = Config.Name;
+            this.Name = Config.Name + QualityConfig.MonsterTitle;
             this.Level = Progeress * 100;
 
             this.SetAttr();  //设置属性值
@@ -43,18 +42,17 @@ namespace Game
         {
             this.AttributeBonus = new AttributeBonus();
 
-
-
-            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, (long)(Config.HP));
-            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, (long)(Config.PhyAttr));
-            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, (long)(Config.PhyAttr));
-            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, (long)(Config.PhyAttr));
-            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, (long)(Config.Def));
+            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, (long)(Config.HP * QualityConfig.HpRate));
+            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, (long)(Config.PhyAttr * QualityConfig.AttrRate));
+            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, (long)(Config.PhyAttr * QualityConfig.AttrRate));
+            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, (long)(Config.PhyAttr * QualityConfig.AttrRate));
+            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, (long)(Config.Def * QualityConfig.DefRate));
 
             AttributeBonus.SetAttr(AttributeEnum.DamageIncrea, AttributeFrom.HeroBase, Config.DamageIncrea);
             AttributeBonus.SetAttr(AttributeEnum.DamageResist, AttributeFrom.HeroBase, Config.DamageResist);
             AttributeBonus.SetAttr(AttributeEnum.CritRate, AttributeFrom.HeroBase, Config.CritRate);
             AttributeBonus.SetAttr(AttributeEnum.CritDamage, AttributeFrom.HeroBase, Config.CritDamage);
+
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
         }

@@ -15,7 +15,7 @@ public class Battle_Defend : ABattleRule
 
     private const int MaxProgress = 100; //
 
-    private int[] MonsterList = new int[] { 5, 4, 4, 4, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1 };
+    private int[] MonsterList = new int[] { 5, 4, 4, 3, 3, 3, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1 };
 
     protected override RuleType ruleType => RuleType.Defend;
 

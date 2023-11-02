@@ -33,13 +33,13 @@ public class Defend : APlayer
 
     private void SetAttr(long hp)
     {
-        AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp);
+        AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, ConfigHelper.DefendHp);
         AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, 0);
         AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, 0);
         AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, 0);
         AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, 0);
 
-        SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
+        SetHP(hp);
     }
 
     public override float DoEvent()
