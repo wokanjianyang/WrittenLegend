@@ -60,6 +60,8 @@ namespace Game
                 user.MapId = ConfigHelper.MapStartId;
                 user.MagicGold.Data = 0;
                 user.MagicCopyTikerCount.Data = ConfigHelper.CopyTicketFirstCount;
+                user.SaveLimit = 5;
+                user.LoadLimit = 5;
 
                 user.EquipPanelList[0] = new Dictionary<int, Equip>();
                 user.EquipPanelList[1] = new Dictionary<int, Equip>();

@@ -19,6 +19,7 @@ namespace Game
             {nameof(AttributeEnum.SpiritAtt), "道术攻击" },
             {nameof(AttributeEnum.Def), "防御" },
             {nameof(AttributeEnum.Speed), "攻速" },
+            {nameof(AttributeEnum.MoveSpeed), "移动速度" },
             {nameof(AttributeEnum.Lucky), "幸运" },
             {nameof(AttributeEnum.CritRate), "暴击率" },
             {nameof(AttributeEnum.CritDamage), "暴伤加成" },

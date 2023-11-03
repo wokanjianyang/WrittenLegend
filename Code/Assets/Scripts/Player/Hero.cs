@@ -9,7 +9,7 @@ namespace Game
 {
     public class Hero : APlayer
     {
-        private Dictionary<int, int> skillUseCache = new Dictionary<int, int>();
+        private Dictionary<int, long> skillUseCache = new Dictionary<int, long>();
 
         public List<SkillState> DoubleHitSkillList { get; set; } = new List<SkillState>();
 
@@ -65,6 +65,10 @@ namespace Game
             this.AttributeBonus = new AttributeBonus();
 
             //把用户面板属性，当做战斗的基本属性
+
+            this.SetAttackSpeed((int)user.AttributeBonus.GetTotalAttr(AttributeEnum.Speed));
+            this.SetMoveSpeed((int)user.AttributeBonus.GetTotalAttr(AttributeEnum.MoveSpeed));
+
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttr(AttributeEnum.HP));
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttr(AttributeEnum.PhyAtt));
             AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttr(AttributeEnum.MagicAtt));
@@ -185,7 +189,7 @@ namespace Game
         {
             foreach (var skillState in SelectSkillList)
             {
-                skillUseCache[skillState.SkillPanel.SkillId] = skillState.lastUseRound;
+                skillUseCache[skillState.SkillPanel.SkillId] = skillState.LastUseTime;
             }
 
             var user = GameProcessor.Inst.User;
@@ -194,10 +198,10 @@ namespace Game
 
             foreach (var skillState in SelectSkillList)
             {
-                skillUseCache.TryGetValue(skillState.SkillPanel.SkillId, out int lastUseRound);
-                if (lastUseRound > 0)
+                skillUseCache.TryGetValue(skillState.SkillPanel.SkillId, out long LastUseTime);
+                if (LastUseTime > 0)
                 {
-                    skillState.SetLastUseRound(lastUseRound);
+                    skillState.SetLastUseTime(LastUseTime);
                 }
             }
         }
@@ -205,21 +209,7 @@ namespace Game
         public override float AttackLogic()
         {
             //1. 控制前计算高优级技能
-            SkillState skill = this.GetSkill(200);
-            if (skill != null)
-            {
-                //Debug.Log("Hero Use Prioriry Skill:");
-                skill.Do();
-                return AttckSpeed;
-            }
-
-            //2.是否有控制技能，不继续后续行动
-            bool pause = GetIsPause();
-            if (pause)
-            {
-                //Debug.Log("Hero Pause:");
-                return 1f;
-            }
+            SkillState skill;
 
             //3.寻找目标
             _enemy = this.CalcEnemy();
@@ -284,7 +274,7 @@ namespace Game
                 }
             }
 
-            return 1f;
+            return AttckSpeed;
         }
 
         private void DoubleHit()

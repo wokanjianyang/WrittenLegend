@@ -39,7 +39,7 @@ namespace Game
 
         private void SetAttr()
         {
-            this.SetSpeed(ModelConfig.SpeedRate);
+            this.SetAttackSpeed(ModelConfig.SpeedRate);
 
             int role = SkillPanel.SkillData.SkillConfig.Role;
 

@@ -160,9 +160,13 @@ namespace Game
             //LoadSkill();
         }
 
-        public void SetSpeed(int SpeedPercent)
+        public void SetAttackSpeed(int SpeedPercent)
         {
             this.AttckSpeed = Mathf.Max(0.2f, 100f / (100 + SpeedPercent));
+        }
+        public void SetMoveSpeed(int SpeedPercent)
+        {
+            this.MoveSpeed = Mathf.Max(0.2f, 100f / (100 + SpeedPercent));
         }
 
         public virtual long GetRoleAttack(int role)
@@ -186,9 +190,11 @@ namespace Game
             List<SkillState> list = SelectSkillList.Where(m => m.SkillPanel.SkillData.SkillConfig.Priority >= priority && m.SkillPanel.SkillId != 9001)
                 .OrderBy(m => m.UserCount * 1000 + m.Priority).ToList();
 
+            long now = TimeHelper.ClientNowSeconds();
+
             foreach (SkillState state in list)
             {
-                if (state.IsCanUse())
+                if (state.IsCanUse(now))
                 {
                     state.UserCount = state.UserCount + 1;
                     return state;
@@ -198,7 +204,7 @@ namespace Game
             if (priority == 0)
             {
                 SkillState normal = SelectSkillList.FirstOrDefault(m => m.SkillPanel.SkillId == 9001);
-                if (normal!=null && normal.IsCanUse())
+                if (normal!=null && normal.IsCanUse(now))
                 {
                     return normal;
                 }
@@ -207,8 +213,10 @@ namespace Game
             return null;
         }
 
-        public bool GetIsPause()
+        public bool GetIsPause(out string name)
         {
+            name = "";
+
             foreach (List<Effect> list in EffectMap.Values)
             {
                 int mc = list.Where(m => m.Data.Config.Type == (int)EffectType.IgnorePause).Count();
@@ -220,22 +228,22 @@ namespace Game
                 int count = list.Where(m => m.Data.Config.Type == (int)EffectType.Pause).Count();
                 if (count > 0)
                 {
+                    name = list[0].Data.Config.Name;
+
                     return true;
                 }
             }
+
             return false;
         }
 
-        public virtual float DoEvent()
+        public void DoEffect()
         {
-            this.RoundCounter++;
-
-            if (!this.IsSurvice) return 1f;
+            if (!this.IsSurvice) return;
 
             //光环
             if (this.Camp == PlayerType.Hero)
             {
-                //
                 //Debug.Log("Hero Def:" + this.AttributeBonus.GetTotalAttr(AttributeEnum.Def));
                 //Debug.Log("Hero PhyDamage:" + this.AttributeBonus.GetAttackAttr(AttributeEnum.PhyDamage));
 
@@ -248,30 +256,14 @@ namespace Game
                 }
             }
 
-            bool isPause = false;
-
             //行动前计算buff
             foreach (List<Effect> list in EffectMap.Values)
             {
                 foreach (Effect effect in list)
                 {
                     effect.Do();
-                    if (effect.Data.Config.Type == (int)EffectType.Pause)
-                    {
-                        this.EventCenter.Raise(new ShowMsgEvent
-                        {
-                            Type = MsgType.Other,
-                            Content = effect.Data.Config.Name
-                        });
-                        isPause = true;
-                    }
                 }
                 list.RemoveAll(m => m.Duration <= m.DoCount);//移除已结束的
-            }
-
-            if (isPause)
-            {
-                return MoveSpeed;
             }
 
             //回血
@@ -281,13 +273,41 @@ namespace Game
             {
                 this.OnRestore(this.ID, restoreHp);
             }
+        }
 
+        public virtual float DoEvent()
+        {
+            this.RoundCounter++;
+
+            if (!this.IsSurvice) return 1f;
+
+            //1.控制前计算高优级技能
+            float attackIgnorePause = AttackIgnorePause();
+            if (attackIgnorePause > 0)
+            {
+                return attackIgnorePause;
+            }
+
+            //2.判断控制
+            if (GetIsPause(out string name))
+            {
+
+                this.EventCenter.Raise(new ShowMsgEvent
+                {
+                    Type = MsgType.Other,
+                    Content = name
+                });
+
+
+                return Math.Min(AttckSpeed, MoveSpeed);
+            }
+
+            //3.普通技能
             return AttackLogic();
         }
 
-        public virtual float AttackLogic()
+        public virtual float AttackIgnorePause()
         {
-            //1. 控制前计算高优级技能
             SkillState skill = this.GetSkill(200);
             if (skill != null)
             {
@@ -296,16 +316,14 @@ namespace Game
                 return AttckSpeed;
             }
 
-            //2.是否有控制技能，不继续后续行动
-            bool pause = GetIsPause();
-            if (pause)
-            {
-                //Debug.Log("Hero Pause:");
-                return 1f;
-            }
+            return 0f;
+        }
 
-            //3. 优先攻击首要目标
+        public virtual float AttackLogic()
+        {
+            //1. 优先攻击首要目标
             this.CalcEnemy();
+            SkillState skill;
             if (_enemy != null)
             {
                 skill = this.GetSkill(0);
@@ -316,7 +334,7 @@ namespace Game
                 }
             }
 
-            //4. 攻击最近目标
+            //2. 攻击最近目标
             _enemy = this.FindNearestEnemy();
             if (_enemy != null)
             {
@@ -329,15 +347,14 @@ namespace Game
             }
             else
             {
-                return 1f;
+                return AttckSpeed;
             }
 
-            //5. 移动到首要目标
-            MoveToEnemy();
-            return 1f;
+            //3. 移动到首要目标
+            return MoveToEnemy();
         }
 
-        private void MoveToEnemy()
+        private float MoveToEnemy()
         {
             var enemys = FindNearestEnemys();
 
@@ -347,9 +364,10 @@ namespace Game
                 if (GameProcessor.Inst.PlayerManager.IsCellCanMove(endPos))
                 {
                     this.Move(endPos);
-                    return;
+                    return MoveSpeed;
                 }
             }
+            return 1f;
         }
 
         public void RunEffect(APlayer attchPlayer, EffectData effectData, long total)

@@ -42,11 +42,9 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
 
     private GameObject barragePrefab;
 
-    private Vector2 size;
-
     private float doTime = 0;
 
-    private float speed = 1f;
+    private float effectTime = 0;
 
     public APlayer SelfPlayer { get; set; }
 
@@ -55,23 +53,29 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
     {
         this.tran_Info.gameObject.SetActive(true);
         this.barragePrefab = Resources.Load<GameObject>("Prefab/Dialog/Msg");
-        this.size = this.transform.GetComponent<RectTransform>().sizeDelta;
+        //this.size = this.transform.GetComponent<RectTransform>().sizeDelta;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //this.ShowNextToast();
-
         this.doTime -= Time.deltaTime * Time.timeScale;
+        this.effectTime += Time.deltaTime * Time.timeScale;
 
         if (doTime <= 0)
         {
             if (this.SelfPlayer != null)
             {
                 this.doTime = this.SelfPlayer.DoEvent();
-                //应该运行了
-                //Debug.Log("Player " + this.SelfPlayer.Camp + " Speed Run");
+            }
+        }
+
+        if (effectTime > 1f)
+        {
+            effectTime = 0;
+            if (this.SelfPlayer != null)
+            {
+                this.SelfPlayer.DoEffect();
             }
         }
     }

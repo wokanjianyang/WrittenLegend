@@ -10,7 +10,7 @@ namespace Game
         public APlayer SelfPlayer { get; set; }
 
         public int Priority {  get; }
-        public int lastUseRound { get; private set; } =0;
+        public long LastUseTime { get; private set; } =0;
 
         public int UserCount { get; set; } = 0;
 
@@ -27,7 +27,7 @@ namespace Game
             this.SkillPanel = skillPanel;
             this.Priority = position; // - skillPanel.SkillData.SkillConfig.Priority;
             this.Position = position;
-            this.lastUseRound = useRound;
+            this.LastUseTime = useRound;
 
             bool isShow = true;
             if (player.Camp == PlayerType.Enemy && !GameProcessor.Inst.User.ShowMonsterSkill)
@@ -84,20 +84,20 @@ namespace Game
             }
         }
 
-        public bool IsCanUse()
+        public bool IsCanUse(long Now)
         {
-            return (this.lastUseRound == 0 || this.SelfPlayer.RoundCounter - lastUseRound > this.SkillPanel.CD) && this.skillLogic.IsCanUse();
+            return (this.LastUseTime == 0 || Now - this.LastUseTime >= this.SkillPanel.CD) && this.skillLogic.IsCanUse();
         }
 
         public void Do()
         {
-            this.lastUseRound = this.SelfPlayer.RoundCounter;
+            this.LastUseTime = TimeHelper.ClientNowSeconds();
             this.skillLogic.Do();
         }
 
-        public void SetLastUseRound(int round)
+        public void SetLastUseTime(long time)
         {
-            this.lastUseRound = round;
+            this.LastUseTime = time;
         }
 
         public void AddRate(int rate)
