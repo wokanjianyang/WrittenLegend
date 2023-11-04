@@ -18,6 +18,7 @@ namespace Game
             {nameof(AttributeEnum.MagicAtt),"魔法攻击" },
             {nameof(AttributeEnum.SpiritAtt), "道术攻击" },
             {nameof(AttributeEnum.Def), "防御" },
+            {nameof(AttributeEnum.DefIgnore), "忽视防御" },
             {nameof(AttributeEnum.Speed), "攻速" },
             {nameof(AttributeEnum.MoveSpeed), "移动速度" },
             {nameof(AttributeEnum.Lucky), "幸运" },
@@ -39,6 +40,7 @@ namespace Game
             {nameof(AttributeEnum.RestoreHp), "每秒点数回血" },
             {nameof(AttributeEnum.RestoreHpPercent), "每秒上限回血" },
             {nameof(AttributeEnum.QualityIncrea), "品质加成" },
+    
 
             {nameof(AttributeEnum.PhyAttIncrea), "物攻加成" },
             {nameof(AttributeEnum.MagicAttIncrea),"魔法加成" },

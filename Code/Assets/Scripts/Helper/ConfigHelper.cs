@@ -31,7 +31,7 @@ namespace Game
         public const int CopyTicketMax = 200; //副本最大次数
         public const int CopyTicketFirstCount = 100; //副本离线和新号最多多少次
 
-        public static int[] PercentAttrIdList = { 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 23, 24, 26, 27, 28, 41, 43, 45 };
+        public static int[] PercentAttrIdList = { 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 23, 24, 26, 27, 28, 30, 41, 43, 45 };
 
         public const int MapStartId = 1000;
 
