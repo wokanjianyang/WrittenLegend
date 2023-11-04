@@ -144,7 +144,7 @@ public class Init : MonoBehaviour
 
         InitTapSDK();
 
-        if (!Check())
+        if (!Load())
         {
             return;
         }
@@ -152,7 +152,7 @@ public class Init : MonoBehaviour
         AsyncStartAsync();
     }
 
-    private bool Check()
+    private bool Load()
     {
 #if UNITY_EDITOR
         return true;

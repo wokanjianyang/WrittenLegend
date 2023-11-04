@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
 using System;
+using System.Linq;
 
 namespace Game
 {
@@ -62,6 +63,23 @@ namespace Game
             //加载技能
             List<SkillData> list = new List<SkillData>();
             list.Add(new SkillData(9001, (int)SkillPosition.Default)); //增加默认技能
+
+            if (Quality >= 5) {
+                //random model
+                List<PlayerModel> models = PlayerModelCategory.Instance.GetAll().Select(m => m.Value).ToList();
+                int index = RandomHelper.RandomNumber(0, models.Count);
+                PlayerModel model = models[index];
+
+                if (model.SkillList != null)
+                {
+                    for (int i = 0; i < model.SkillList.Length; i++)
+                    {
+                        list.Add(new SkillData(model.SkillList[i], i)); //增加默认技能
+                    }
+                }
+
+                this.Name = model.Name + "·" + Config.Name;
+            }
 
             foreach (SkillData skillData in list)
             {
