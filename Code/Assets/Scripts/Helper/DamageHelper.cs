@@ -15,7 +15,7 @@ namespace Game
             long roleAttr = GetRoleAttack(attcher, role) * (100 + skill.AttrIncrea + attcher.GetAttackAttr(AttributeEnum.AurasAttrIncrea)) / 100;  //职业攻击
 
             //防御 = 目标防御 * (100-无视防御)/100
-            long def = enemy.GetAttackAttr(AttributeEnum.Def);
+            long def = enemy.GetAttackAttr(AttributeEnum.Def) + attcher.GetAttackAttr(AttributeEnum.DefIgnore);
             int ignoreDef = Math.Min(skill.IgnoreDef, 100);
             def = def * (100 - ignoreDef) / 100;
 
@@ -195,21 +195,20 @@ namespace Game
 
                 int role = skillPanel.SkillData.SkillConfig.Role;
 
-                long percent = 0;
-                if (effect.Config.PercentGain > 0) //享受其他增强收益
+                long percent = effect.Percent;
+                if (effect.Config.ExpertRise > 0) //享受其他增强收益
                 {
                     //Debug.Log("Shield Skill-Percent:" + skillPanel.Percent);
                     //Debug.Log("Shield Role-Percent:" + GetRolePercent(attacker, role));
 
                     //技能系数
-                    percent = (effect.Percent + GetRolePercent(attacker, role)) * effect.Config.PercentGain / 100;
+                    percent += GetRolePercent(attacker, role) * effect.Config.ExpertRise / 100;
                 }
 
-                long damage = 0;
-                if (effect.Config.ConstGain > 0)
+                long damage = effect.Damage;
+                if (effect.Config.ExpertRise > 0)
                 {
-                    damage = (effect.Damage + GetRoleDamage(attacker, role)) * effect.Config.ConstGain / 100;
-
+                    damage += GetRoleDamage(attacker, role) * effect.Config.ExpertRise / 100;
                     //Debug.Log("Shield Damage:" + damage);
                 }
 

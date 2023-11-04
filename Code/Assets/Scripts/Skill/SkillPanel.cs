@@ -185,7 +185,7 @@ namespace Game
 
                     EffectConfig effectConfig = EffectConfigCategory.Instance.Get(effectId);
 
-                    if (effectConfig.LevelGain > 0)
+                    if (effectConfig.LevelRise > 0)
                     {
                         percent += this.Percent;
                         duration += this.Duration;

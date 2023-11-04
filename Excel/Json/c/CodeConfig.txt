@@ -34,5 +34,4 @@
 {"_t":"CodeConfig","_id":33,"code":"gx154","ItemTypeList":[9],"ItemIdList":[4003],"ItemQuanlityList":[100]},
 {"_t":"CodeConfig","_id":34,"code":"gx155","ItemTypeList":[9],"ItemIdList":[4003],"ItemQuanlityList":[100]},
 {"_t":"CodeConfig","_id":35,"code":"gx156","ItemTypeList":[9],"ItemIdList":[4003],"ItemQuanlityList":[100]},
-{"_t":"CodeConfig","_id":100,"code":"csdl","ItemTypeList":[2],"ItemIdList":[501],"ItemQuanlityList":[1]},
 ]}

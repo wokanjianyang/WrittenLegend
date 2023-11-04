@@ -208,6 +208,8 @@ namespace Game
 
         public override float AttackLogic()
         {
+            Debug.Log("减伤:"+AttributeBonus.GetAttackAttr(AttributeEnum.DamageResist)+" 增伤:"+ AttributeBonus.GetAttackAttr(AttributeEnum.DamageIncrea));
+
             //1. 控制前计算高优级技能
             SkillState skill;
 

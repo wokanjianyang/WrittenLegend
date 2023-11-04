@@ -84,30 +84,30 @@ namespace Game
 		/// <summary>类型</summary>
 		[ProtoMember(3)]
 		public int Type { get; set; }
-		/// <summary>优先度</summary>
+		/// <summary>计算类型</summary>
 		[ProtoMember(4)]
+		public int CalType { get; set; }
+		/// <summary>来源属性</summary>
+		[ProtoMember(5)]
+		public int SourceAttr { get; set; }
+		/// <summary>优先度</summary>
+		[ProtoMember(6)]
 		public int Priority { get; set; }
 		/// <summary>施法目标</summary>
-		[ProtoMember(5)]
+		[ProtoMember(7)]
 		public int TargetType { get; set; }
 		/// <summary>运行类型</summary>
-		[ProtoMember(6)]
+		[ProtoMember(8)]
 		public int RunType { get; set; }
 		/// <summary>目标属性</summary>
-		[ProtoMember(7)]
-		public int TargetAttr { get; set; }
-		/// <summary>来源属性</summary>
-		[ProtoMember(8)]
-		public int SourceAttr { get; set; }
-		/// <summary>系数百分比增益</summary>
 		[ProtoMember(9)]
-		public int PercentGain { get; set; }
-		/// <summary>固定值增益</summary>
+		public int TargetAttr { get; set; }
+		/// <summary>精通技能增益</summary>
 		[ProtoMember(10)]
-		public long ConstGain { get; set; }
+		public long ExpertRise { get; set; }
 		/// <summary>等级增益</summary>
 		[ProtoMember(11)]
-		public int LevelGain { get; set; }
+		public int LevelRise { get; set; }
 		/// <summary>备注</summary>
 		[ProtoMember(12)]
 		public string Des { get; set; }

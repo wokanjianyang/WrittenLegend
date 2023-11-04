@@ -40,6 +40,7 @@ namespace Game
         MagicAttIncrea = 27, //魔法加成
         SpiritAttIncrea = 28, //道术加成
         MoveSpeed = 29,//移动速度
+        DefIgnore = 30,//移动速度
 
         WarriorSkillPercent = 41, //战士技能百分比系数
         WarriorSkillDamage = 42, //战士技能固定系数

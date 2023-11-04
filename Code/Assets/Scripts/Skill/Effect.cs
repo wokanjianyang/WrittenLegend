@@ -6,10 +6,12 @@ namespace Game
 {
     public class Effect
     {
-        public APlayer SelfPlayer { get;  }
-        public EffectData Data { get;  }
+        public APlayer SelfPlayer { get; }
+        public EffectData Data { get; }
         public int FromId { get; }
         public long Total { get; set; }
+
+        public int UID { get; private set; }
 
         public int Duration { get; set; }
         public int Max { get; }
@@ -19,15 +21,18 @@ namespace Game
         /// </summary>
         public int DoCount { get; set; }
 
-        public Effect(APlayer player,EffectData effectData, long total)
+        public Effect(APlayer player, EffectData effectData, long total)
         {
             this.SelfPlayer = player;
             this.Data = effectData;
+
             this.Total = total;
 
             this.FromId = Data.FromId;
             this.Duration = Data.Duration;
             this.Max = Data.Max;
+
+            this.UID = FromId + Data.Layer;
 
             this.DoCount = 0;
         }
@@ -36,47 +41,76 @@ namespace Game
         {
             DoCount++;
 
-            if (Data.Config.Type == (int)EffectType.Pause || Data.Config.Type == (int)EffectType.IgnorePause)
-            {  //控制特效,延迟触发
-                //
-            }
-            else if (Data.Config.TargetAttr == ((int)AttributeEnum.CurrentHp))
+            if (Data.Config.Type == ((int)EffectType.HP))
             {
-                //效果扣血,需要给APlayer封装一个方法，传入伤害数值，Player扣血以及计算后续死亡以及UI
-                if (Data.Config.Type == (int)EffectType.Sub)
+                DamageAndRestore();
+
+            }
+            else if (Data.Config.Type == ((int)EffectType.Attr))
+            {
+                ChangeAttr();
+            }
+        }
+
+        private long CalBaseValue()
+        {
+            long m = Data.Percent;
+
+            if (Data.Config.SourceAttr == -1)
+            {
+                m = Total;
+            }
+            else if (Data.Config.SourceAttr == 0)
+            {
+                m = m * SelfPlayer.HP;
+            }
+            else if (Data.Config.SourceAttr == 1)
+            {
+                m = m * SelfPlayer.AttributeBonus.GetAttackAttr((AttributeEnum)Data.Config.SourceAttr);
+            }
+
+            return m;
+        }
+
+        private void DamageAndRestore()
+        {
+            long hp = CalBaseValue();
+
+            if (Data.Config.CalType > 0) //回血
+            {
+                SelfPlayer.OnRestore(0, hp);
+            }
+            else //伤害
+            {
+                SelfPlayer.OnHit(new DamageResult(0, hp, MsgType.Damage, RoleType.All));
+            }
+        }
+
+        private void ChangeAttr()
+        {
+            long attr = CalBaseValue() * Data.Config.CalType;
+
+            if (DoCount == 1) //第一次增加属性
+            {
+                if (Data.Config.TargetAttr == (int)AttributeEnum.PanelHp)
                 {
-                    //Debug.Log("Effect Sub Hp:" + Total);
-                    SelfPlayer.OnHit(new DamageResult(0, Total, MsgType.Damage, RoleType.All));
+
+                    this.SelfPlayer.ChangeMaxHp(FromId, attr);
                 }
                 else
                 {
-                    SelfPlayer.OnRestore(0, Total);
+                    SelfPlayer.AttributeBonus.SetAttr((AttributeEnum)Data.Config.TargetAttr, UID, attr);
                 }
             }
-            else
+            else if (DoCount >= Duration)  //最后一次，移除属性
             {
-                if (DoCount == 1) //第一次增加属性
+                if (Data.Config.TargetAttr == (int)AttributeEnum.PanelHp)
                 {
-                    if (Data.Config.TargetAttr == (int)AttributeEnum.PanelHp)
-                    {
-
-                        this.SelfPlayer.ChangeMaxHp(FromId, Total * Data.Config.Type);
-                    }
-                    else
-                    {
-                        SelfPlayer.AttributeBonus.SetAttr((AttributeEnum)Data.Config.TargetAttr, FromId + Data.Layer, Total * Data.Config.Type);
-                    }
+                    this.SelfPlayer.ChangeMaxHp(FromId, 0);
                 }
-                else if (DoCount >= Duration)  //最后一次，移除属性
+                else
                 {
-                    if (Data.Config.TargetAttr == (int)AttributeEnum.PanelHp)
-                    {
-                        this.SelfPlayer.ChangeMaxHp(FromId, 0);
-                    }
-                    else
-                    {
-                        SelfPlayer.AttributeBonus.SetAttr((AttributeEnum)Data.Config.TargetAttr, FromId + Data.Layer, 0);
-                    }
+                    SelfPlayer.AttributeBonus.SetAttr((AttributeEnum)Data.Config.TargetAttr, UID, 0);
                 }
             }
         }
@@ -85,7 +119,7 @@ namespace Game
         {
             this.DoCount = this.Duration + 99;
 
-            if (Data.Config.Type == (int)EffectType.Sub || Data.Config.Type == (int)EffectType.Add)
+            if (Data.Config.Type == (int)EffectType.Attr)
             {
                 if (Data.Config.TargetAttr == (int)AttributeEnum.PanelHp)
                 {
@@ -93,7 +127,7 @@ namespace Game
                 }
                 else
                 {
-                    this.SelfPlayer.AttributeBonus.SetAttr((AttributeEnum)Data.Config.TargetAttr, FromId + Data.Layer, 0);
+                    this.SelfPlayer.AttributeBonus.SetAttr((AttributeEnum)Data.Config.TargetAttr, UID, 0);
                 }
             }
         }

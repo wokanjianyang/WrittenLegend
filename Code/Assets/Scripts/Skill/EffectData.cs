@@ -42,10 +42,11 @@ namespace Game
 
     public enum EffectType
     {
-        Sub = -1,  //增加属性
-        Add = 1,  //减少属性
-        Pause = 2,
-        IgnorePause = 3,
+        Attr = 1,  //增减属性
+        HP = 2, //伤害回复
+        Pause = 3, //控制
+        IgnorePause = 4, //免疫控制
+
     }
 
     public enum EffectTarget
