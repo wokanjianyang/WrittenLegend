@@ -15,6 +15,8 @@ public class Battle_Defend : ABattleRule
 
     private const int MaxProgress = 100; //
 
+    private long PauseCount = 0;
+
     private int[] MonsterList = new int[] { 5, 4, 4, 3, 3, 3, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1 };
 
     protected override RuleType ruleType => RuleType.Defend;
@@ -23,10 +25,12 @@ public class Battle_Defend : ABattleRule
     {
         param.TryGetValue("progress", out object progress);
         param.TryGetValue("hp", out object hp);
+        param.TryGetValue("count", out object count);
 
         Debug.Log("record:" + progress + "," + hp);
 
         this.Progress = (long)progress;
+        this.PauseCount = (long)count;
 
         this.LoadDefend((long)hp);
     }
@@ -66,7 +70,7 @@ public class Battle_Defend : ABattleRule
                 GameProcessor.Inst.PlayerManager.LoadMonsterDefend(enemy);
             }
 
-            GameProcessor.Inst.EventCenter.Raise(new ShowDefendInfoEvent() { Count = Progress });
+            GameProcessor.Inst.EventCenter.Raise(new ShowDefendInfoEvent() { Count = Progress, PauseCount = PauseCount });
 
             this.Start = false;
 

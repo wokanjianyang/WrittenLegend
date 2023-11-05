@@ -18,11 +18,17 @@ namespace Game
 
         public DefendRecord GetCurrentRecord()
         {
+            if (Current != null && Current.Count.Data <= 0)
+            {
+                Current = null;
+            }
+
             if (Current == null && this.Count.Data >= 0)
             {
                 Current = new DefendRecord();
                 Current.Progress.Data = 1;
                 Current.Hp.Data = ConfigHelper.DefendHp;
+                Current.Count.Data = 10;
                 //this.Count.Data--;
             }
 
@@ -44,5 +50,7 @@ namespace Game
         public MagicData Progress { get; set; } = new MagicData();
 
         public MagicData Hp { get; set; } = new MagicData();
+
+        public MagicData Count { get; set; } = new MagicData();
     }
 }

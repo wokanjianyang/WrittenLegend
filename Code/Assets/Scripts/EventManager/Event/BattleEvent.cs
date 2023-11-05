@@ -151,6 +151,7 @@ namespace Game
     public class ShowDefendInfoEvent : SDD.Events.Event
     {
         public long Count { get; set; }
+        public long PauseCount { get; set; }
     }
 
     public class DefendEndEvent : SDD.Events.Event

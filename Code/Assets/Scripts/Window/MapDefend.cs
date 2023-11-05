@@ -22,6 +22,7 @@ public class MapDefend : MonoBehaviour, IBattleLife
     private List<Text> msgPool = new List<Text>();
 
     private long MapTime = 0;
+    private long PauseCount = 0;
 
     public int Order => (int)ComponentOrder.BattleRule;
 
@@ -62,10 +63,12 @@ public class MapDefend : MonoBehaviour, IBattleLife
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有了挑战次数", ToastType = ToastTypeEnum.Failure });
             return;
         }
+        record.Count.Data--;
 
         Dictionary<string, object> param = new Dictionary<string, object>();
         param.Add("progress", record.Progress.Data);
         param.Add("hp", record.Hp.Data);
+        param.Add("count", record.Count.Data);
 
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {
@@ -77,6 +80,7 @@ public class MapDefend : MonoBehaviour, IBattleLife
     public void OnShowDefendInfo(ShowDefendInfoEvent e)
     {
         Txt_Count.text = "进攻波数：" + e.Count;
+        PauseCount = e.PauseCount;
     }
 
     private void OnBattleMsgEvent(BattleMsgEvent e)
@@ -118,7 +122,7 @@ public class MapDefend : MonoBehaviour, IBattleLife
 
     private void OnClick_Exit()
     {
-        GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("是否确认退出？", true, () =>
+        GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("还剩"+ PauseCount + "次退出次数,是否退出？", true, () =>
          {
              this.Exit();
          }, null);
