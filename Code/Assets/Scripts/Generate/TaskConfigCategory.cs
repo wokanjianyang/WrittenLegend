@@ -15,7 +15,7 @@ namespace Game
 
                 return config;
             }
-            catch (Exception ex)
+            catch 
             {
             }
 

@@ -14,7 +14,7 @@ namespace Game
             {
                 return this.GetAll().Where(m => m.Value.Level == level).First().Value;
             }
-            catch (Exception ex)
+            catch 
             {
 
             }

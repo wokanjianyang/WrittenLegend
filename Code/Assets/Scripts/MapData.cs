@@ -167,7 +167,7 @@ namespace Game
             var costDict = new Dictionary<Position, float>();
 
             float highCost = 9999999;
-            float lowCost = 1;
+            //float lowCost = 1;
 
             //临时将敌人的cell的cost设置为可通过但是代价高
             float tempCost = highCost;

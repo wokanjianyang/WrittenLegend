@@ -36,7 +36,7 @@ namespace Game
                 string ad_name = (string)args[3];//广告位名称
                 string sdkName = (string)args[4];//sdk名称
 
-                bool hasReward = false;
+                //bool hasReward = false;
 
                 //GameProcessor.Inst.adTest += string.Join(", ", args);
 
@@ -53,11 +53,11 @@ namespace Game
                 else if (state == AdStateEnum.Reward)
                 {
                     if (logicCallback != null) logicCallback(0, state, adType);
-                    hasReward = true;
+                    //hasReward = true;
                 }
                 else if (state == AdStateEnum.VideoComplete)
                 {
-                    hasReward = true;
+                    //hasReward = true;
                 }
                 else if (state == AdStateEnum.Click)
                 {

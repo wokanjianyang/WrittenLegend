@@ -36,7 +36,7 @@ namespace Game
                 }
                 return Convert.ToBase64String(encryptedBytes);
             }
-            catch (Exception ex)
+            catch 
             {
 
             }
@@ -72,7 +72,7 @@ namespace Game
                 }
                 return plainText;
             }
-            catch (Exception ex)
+            catch 
             {
 
             }

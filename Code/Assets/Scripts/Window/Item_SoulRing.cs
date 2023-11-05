@@ -13,7 +13,6 @@ public class Item_SoulRing : MonoBehaviour
     public Text Txt_Attr_Current;
 
     public int ConfigId { get; set; }
-    private bool can = false;
 
 
     void Start()

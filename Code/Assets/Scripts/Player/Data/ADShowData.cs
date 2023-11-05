@@ -91,7 +91,7 @@ namespace Game.Data
                 this.Reset();
             }
 
-            ADData ret = null;
+            //ADData ret = null;
             var data = this.ADDatas.FirstOrDefault(d => d.ADType == (int)adType);
             return data;
         }

@@ -30,8 +30,6 @@ namespace Game
 
         public EventManager EventCenter { get; private set; }
 
-        private int PauseCounter = -1;
-
         public PlayerInfo PlayerInfo { get; set; }
 
         public long CurrentTimeSecond { get; private set; }
@@ -624,7 +622,7 @@ namespace Game
                 Log.Debug(des);
                 PocketAD.Inst.ShowAD(action, async delegate (int rv, AdStateEnum state, AdTypeEnum type)
                 {
-                    var ret = false;
+                    //var ret = false;
                     switch (state)
                     {
                         case AdStateEnum.Click:
@@ -635,7 +633,7 @@ namespace Game
                             break;
                         case AdStateEnum.Reward:
                             Log.Debug("发放奖励");
-                            ret = true;
+                            //ret = true;
                             break;
                         case AdStateEnum.Show:
                             Log.Debug("广告显示");
@@ -651,7 +649,7 @@ namespace Game
                             break;
                         case AdStateEnum.VideoComplete:
                             Log.Debug("广告播放完毕");
-                            ret = true;
+                            //ret = true;
                             break;
                     }
                     // 到主线程执行

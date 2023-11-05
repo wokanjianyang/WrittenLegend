@@ -149,7 +149,7 @@ public class Init : MonoBehaviour
             return;
         }
 
-        AsyncStartAsync();
+       AsyncStartAsync();
     }
 
     private bool Load()

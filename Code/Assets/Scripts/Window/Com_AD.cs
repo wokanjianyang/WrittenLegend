@@ -165,7 +165,6 @@ public class Com_AD : MonoBehaviour, IBattleLife
         return false;
     }
 
-    int cc = 0;
     public void OnClick_GoldCount()
     {
         if (!CheckCd())
