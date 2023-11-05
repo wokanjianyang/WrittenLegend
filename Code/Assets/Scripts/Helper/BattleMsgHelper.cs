@@ -66,7 +66,7 @@ namespace Game
             return message;
         }
 
-        public static string BuildAutoRecoveryMessage(int equipQuantity, int refineStone, int exclusiveStone, long gold)
+        public static string BuildAutoRecoveryMessage(int equipQuantity, int refineStone, int speicalStone, int exclusiveStone,int cardStone, long gold)
         {
             string message = "回收" + equipQuantity + "件装备，获得";
             if (refineStone > 0)
@@ -76,6 +76,14 @@ namespace Game
             if (exclusiveStone > 0)
             {
                 message += exclusiveStone + "个装备专属洗练石，";
+            }
+            if (speicalStone > 0)
+            {
+                message += speicalStone + "个四格碎片，";
+            }
+            if (cardStone > 0)
+            {
+                message += cardStone + "个图鉴碎片，";
             }
             if (gold > 0)
             {

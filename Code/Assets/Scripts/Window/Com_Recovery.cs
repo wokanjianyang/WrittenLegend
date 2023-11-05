@@ -20,6 +20,8 @@ namespace Game
         public Transform tran_EquipRoleList;
         [LabelText("装备等级")]
         public InputField if_EquipLevel;
+        [LabelText("四格等级")]
+        public InputField ifSpeicalLevel;
 
         [LabelText("随机幸运属性")]
         public InputField if_Lucky;
@@ -82,6 +84,7 @@ namespace Game
             if_Lucky.text = setting.LuckyTotal.ToString();
             if_DropRate.text = setting.DropRate.ToString();
             if_DropQuality.text = setting.DropQuality.ToString();
+            ifSpeicalLevel.text= setting.SpecailLevel.ToString();
 
             foreach (int skillBookRole in setting.EquipRole.Keys)
             {
@@ -126,6 +129,9 @@ namespace Game
 
             int.TryParse(if_EquipLevel.text, out int equipLevel);
             user.RecoverySetting.EquipLevel = equipLevel;
+
+            int.TryParse(ifSpeicalLevel.text, out int speicalLevel);
+            user.RecoverySetting.SpecailLevel = speicalLevel;
 
             for (var i = 0; i < equipRoleToggles.Length; i++)
             {

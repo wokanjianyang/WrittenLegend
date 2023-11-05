@@ -66,7 +66,7 @@ namespace Game
         public Dialog_Exclusive ExclusiveDialog;
         public Dialog_Card Dialog_Card;
 
-        public Button Btn_Exclusive ;
+        public Button Btn_Exclusive;
 
         private List<Com_Box> items = new List<Com_Box>();
 
@@ -258,7 +258,7 @@ namespace Game
             return page == ViewPageType.View_Bag;
         }
 
-   
+
         private Com_Box CreateBox(BoxItem item)
         {
             GameObject prefab = null;
@@ -298,7 +298,7 @@ namespace Game
                         break;
                 }
             }
-            
+
             var go = GameObject.Instantiate(prefab);
             var comItem = go.GetComponent<Com_Box>();
             comItem.SetBoxId(item.BoxId);
@@ -558,13 +558,23 @@ namespace Game
 
             Item item = e.BoxItem.Item;
             int refineStone = 0;
+            int speicalStone = 0;
             int exclusiveStone = 0;
             int cardStone = 0;
             int number = (int)e.BoxItem.MagicNubmer.Data;
 
             if (item.Type == ItemType.Equip)
             {
-                refineStone += user.CalStone(item as Equip);
+                Equip equip = item as Equip;
+
+                if (equip.Part <= 10)
+                {
+                    refineStone += user.CalStone(equip);
+                }
+                else
+                {
+                    speicalStone += user.CalSpecailStone(equip);
+                }
             }
             else if (item.Type == ItemType.Exclusive)
             {
@@ -596,10 +606,15 @@ namespace Game
                 Item cardItem = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Card_Stone, cardStone);
                 AddBoxItem(cardItem);
             }
+            if (speicalStone > 0)
+            {
+                Item speicalStoneItem = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Equip_Speical_Stone, speicalStone);
+                AddBoxItem(speicalStoneItem);
+            }
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
             {
-                Message = BattleMsgHelper.BuildAutoRecoveryMessage(1, refineStone, exclusiveStone, gold)
+                Message = BattleMsgHelper.BuildAutoRecoveryMessage(1, refineStone, speicalStone, exclusiveStone, cardStone, gold)
             });
         }
 
@@ -610,6 +625,7 @@ namespace Game
             List<BoxItem> recoveryList = user.Bags.Where(m => !m.Item.IsLock && user.RecoverySetting.CheckRecovery(m.Item)).ToList();
 
             int refineStone = 0;
+            int speicalStone = 0;
             int exclusiveStone = 0;
             long gold = 0;
 
@@ -620,7 +636,15 @@ namespace Game
                 if (box.Item.Type == ItemType.Equip)
                 {
                     Equip equip = box.Item as Equip;
-                    refineStone += user.CalStone(equip);
+
+                    if (equip.Part <= 10)
+                    {
+                        refineStone += user.CalStone(equip);
+                    }
+                    else
+                    {
+                        speicalStone += user.CalSpecailStone(equip);
+                    }
                 }
                 else if (box.Item.Type == ItemType.Exclusive)
                 {
@@ -641,12 +665,17 @@ namespace Game
                 Item item = ItemHelper.BuildRefineStone(refineStone);
                 AddBoxItem(item);
             }
+            if (speicalStone > 0)
+            {
+                Item speicalStoneItem = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Equip_Speical_Stone, speicalStone);
+                AddBoxItem(speicalStoneItem);
+            }
 
             if (recoveryList.Count > 0)
             {
                 GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
                 {
-                    Message = BattleMsgHelper.BuildAutoRecoveryMessage(recoveryList.Count, refineStone, exclusiveStone, gold)
+                    Message = BattleMsgHelper.BuildAutoRecoveryMessage(recoveryList.Count, refineStone, speicalStone, exclusiveStone, 0, gold)
                 });
             }
         }
@@ -658,6 +687,7 @@ namespace Game
             List<BoxItem> recoveryList = user.Bags.Where(m => !m.Item.IsLock && user.RecoverySetting.CheckRecovery(m.Item)).ToList();
 
             int refineStone = 0;
+            int speicalStone = 0;
             int exclusiveStone = 0;
             long gold = 0;
 
@@ -668,7 +698,15 @@ namespace Game
                 if (box.Item.Type == ItemType.Equip)
                 {
                     Equip equip = box.Item as Equip;
-                    refineStone += user.CalStone(equip);
+
+                    if (equip.Part <= 10)
+                    {
+                        refineStone += user.CalStone(equip);
+                    }
+                    else
+                    {
+                        speicalStone += user.CalSpecailStone(equip);
+                    }
                 }
                 else if (box.Item.Type == ItemType.Exclusive)
                 {
@@ -688,12 +726,17 @@ namespace Game
                 Item item = ItemHelper.BuildRefineStone(refineStone);
                 AddBoxItem(item);
             }
+            if (speicalStone > 0)
+            {
+                Item speicalStoneItem = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Equip_Speical_Stone, speicalStone);
+                AddBoxItem(speicalStoneItem);
+            }
 
             if (recoveryList.Count > 0)
             {
                 GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
                 {
-                    Message = BattleMsgHelper.BuildAutoRecoveryMessage(recoveryList.Count, refineStone, exclusiveStone, gold)
+                    Message = BattleMsgHelper.BuildAutoRecoveryMessage(recoveryList.Count, refineStone, speicalStone, exclusiveStone, 0, gold)
                 });
             }
         }
@@ -1085,20 +1128,22 @@ namespace Game
             return -1;
         }
 
-        public void OnClick_RingSoul() {
+        public void OnClick_RingSoul()
+        {
             GameProcessor.Inst.EventCenter.Raise(new ShowSoulRingEvent());
         }
         public void OnClick_PlayerTitle()
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowAchievementEvent());
         }
-        
+
         public void OnClick_Setting()
         {
-            GameProcessor.Inst.EventCenter.Raise(new DialogSettingEvent(){IsOpen = true});
+            GameProcessor.Inst.EventCenter.Raise(new DialogSettingEvent() { IsOpen = true });
         }
 
-        public void OnExclusive() {
+        public void OnExclusive()
+        {
             GameProcessor.Inst.EventCenter.Raise(new ShowExclusiveEvent());
         }
 

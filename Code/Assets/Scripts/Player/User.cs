@@ -335,6 +335,16 @@ namespace Game
             return count;
         }
 
+        public int CalSpecailStone(Equip equip)
+        {
+            int count = 1;
+            for (int i = 0; i < equip.Level; i++)
+            {
+                count *= 2;
+            }
+            return count;
+        }
+
         private void HeroChange(HeroChangeEvent e)
         {
             switch (e.Type)

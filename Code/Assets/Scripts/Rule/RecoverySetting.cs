@@ -9,6 +9,8 @@ namespace Game
         public Dictionary<int, bool> EquipQuanlity { get; private set; } = new Dictionary<int, bool>();  //??????????(1??? 2??? 3??? 4???)
         public int EquipLevel { get; set; } = 0;
 
+        public int SpecailLevel { get; set; } = 0;
+
         public int GoldTotal { get; set; } = 0;
 
         public int ExpTotal { get; set; } = 0;
@@ -120,6 +122,11 @@ namespace Game
                     {
                         return true;
                     }
+                }
+
+                if (equip.Part > 10 && equip.Level < SpecailLevel)
+                {
+                    return true;
                 }
             }
 
