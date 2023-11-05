@@ -103,6 +103,7 @@ namespace Game
             //user.TowerFloor = 59998;
             //user.PhantomRecord.Clear();
             //user.Exp = 999999999999;
+            //TestFull(user);
 
             //记录版号
             user.VersionLog[ConfigHelper.Version] = TimeHelper.ClientNowSeconds();
@@ -120,9 +121,6 @@ namespace Game
             user.LastOut = TimeHelper.ClientNowSeconds();
             user.packName = UserData.pn;
             user.signKey = UserData.sk;
-
-            Debug.Log("pn:" + UserData.pn);
-            Debug.Log("sk:" + UserData.sk);
 
             //序列化
             string str_json = JsonConvert.SerializeObject(user, new JsonSerializerSettings
@@ -186,5 +184,35 @@ namespace Game
                 writer.Write(str_json);
             }
         }
+
+        //public static void TestFull(User user) {
+        //    user.MagicLevel.Data = ConfigHelper.Max_Level;
+       
+        //    //精练
+        //    foreach(var kv in user.MagicEquipRefine) {
+        //        kv.Value.Data = ConfigHelper.Max_Level_Refine;
+        //    }
+
+        //    //强化
+        //    foreach (var kv in user.MagicEquipStrength) { 
+        //        kv.Value.Data = ConfigHelper.Max_Level;
+        //    }
+
+        //    //图鉴
+        //    foreach (var kv in user.CardData) {
+        //        try
+        //        {
+        //            CardConfig cardConfig = CardConfigCategory.Instance.Get(kv.Key);
+        //            kv.Value.Data = cardConfig.MaxLevel;
+        //        }
+        //        catch { }
+        //    }
+
+        //    //魂环
+        //    foreach (var kv in user.SoulRingData) {
+        //    }
+         
+        //    //技能
+        //}
     }
 }
