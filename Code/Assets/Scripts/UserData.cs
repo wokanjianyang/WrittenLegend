@@ -74,12 +74,12 @@ namespace Game
             }
             else
             {
-                if (user.packName != "" && user.packName != "3241c82c420823c129660e367cb91c60")
+                if (!String.IsNullOrEmpty(user.packName) && user.packName != "3241c82c420823c129660e367cb91c60")
                 {
                     return null;
                 }
 
-                if (user.signKey != "" && user.signKey != "312fc4ca3769fe53c60c234371f89a6f")
+                if (!String.IsNullOrEmpty(user.signKey) && user.signKey != "312fc4ca3769fe53c60c234371f89a6f")
                 {
                     return null;
                 }
@@ -120,6 +120,9 @@ namespace Game
             user.LastOut = TimeHelper.ClientNowSeconds();
             user.packName = UserData.pn;
             user.signKey = UserData.sk;
+
+            Debug.Log("pn:" + UserData.pn);
+            Debug.Log("sk:" + UserData.sk);
 
             //序列化
             string str_json = JsonConvert.SerializeObject(user, new JsonSerializerSettings
