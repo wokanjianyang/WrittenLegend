@@ -58,8 +58,8 @@ namespace Game
 			}
 
 			md5 = EncryptionHelper.Md5(md5).ToUpper();
-			Debug.Log("MD5:" + md5);
-			if (md5 != "0AA0EA04A65B99F177E696B8A0F9F6F4")
+			//Debug.Log("MD5:" + md5);
+			if (md5 != "554865AD94C5048D36480EB69A8B991B")
 			{
 #if !UNITY_EDITOR
 				return;
