@@ -164,6 +164,7 @@ public class Init : MonoBehaviour
         {
             return false;
         }
+        UserData.pn = EncryptionHelper.Md5(pn + "z1!");
 
         // 获取Android的PackageManager    
         AndroidJavaClass Player = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
@@ -187,11 +188,11 @@ public class Init : MonoBehaviour
 
             hashCode = EncryptionHelper.Md5(hashCode + "z6kMz5#>>");
 
-            Debug.Log("hashCode" + hashCode);
+            UserData.sk = EncryptionHelper.Md5(hashCode + "#2A");
 
             return hashCode == "c9135d6f755c992a35c79bd6f9291f12";
-
         }
+
         return false;
     }
 

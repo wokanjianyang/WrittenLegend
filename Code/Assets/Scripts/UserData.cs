@@ -19,11 +19,14 @@ namespace Game
         static string fileName = "data.json"; //文件名
 
         public static long StartTime = 0;
+        public static string pn = "";
+        public static string sk = "";
+
         public static User Load()
         {
             User user = null;
-                                    
-            string filePath = getSavePath();         
+
+            string filePath = getSavePath();
             Debug.Log($"存档路径：{filePath}");
 
             if (System.IO.File.Exists(filePath))
@@ -69,6 +72,18 @@ namespace Game
                 user.EquipPanelList[3] = new Dictionary<int, Equip>();
                 user.EquipPanelList[4] = new Dictionary<int, Equip>();
             }
+            else
+            {
+                if (user.packName != "" && user.packName != "3241c82c420823c129660e367cb91c60")
+                {
+                    return null;
+                }
+
+                if (user.signKey != "" && user.signKey != "312fc4ca3769fe53c60c234371f89a6f")
+                {
+                    return null;
+                }
+            }
 
             if (user.MagicLevel.Data <= 0)
             {
@@ -80,9 +95,6 @@ namespace Game
                 user.DefendData = new DefendData();
                 user.DefendData.Count.Data = 1;
             }
-
-            //clear month
-            //user.Bags.RemoveAll(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Moon_Cake);
 
             //TEST data
             //user.MagicGold.Data = 9999999999999; 
@@ -106,6 +118,8 @@ namespace Game
             }
             var user = GameProcessor.Inst.User;
             user.LastOut = TimeHelper.ClientNowSeconds();
+            user.packName = UserData.pn;
+            user.signKey = UserData.sk;
 
             //序列化
             string str_json = JsonConvert.SerializeObject(user, new JsonSerializerSettings

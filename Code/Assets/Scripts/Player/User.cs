@@ -25,7 +25,7 @@ namespace Game
         public long DataDate { get; set; } = 0;
         public int DataProgeress { get; set; } = 0;
         public int SaveLimit { get; set; } = 0;
-        public int LoadLimit { get; set; }  = 0;
+        public int LoadLimit { get; set; } = 0;
 
         public MagicData MagicLevel { get; } = new MagicData();
 
@@ -42,7 +42,7 @@ namespace Game
 
         public IDictionary<int, Equip> EquipPanelSpecial { get; set; } = new Dictionary<int, Equip>();
 
-        public IDictionary<int, ExclusiveItem> ExclusiveList { get; set; } = new Dictionary< int, ExclusiveItem>();
+        public IDictionary<int, ExclusiveItem> ExclusiveList { get; set; } = new Dictionary<int, ExclusiveItem>();
 
         public int EquipPanelIndex { get; set; } = 0;
 
@@ -76,7 +76,10 @@ namespace Game
 
         private bool isInLevelUp;
 
- 
+        public string packName { get; set; }
+
+        public string signKey { get; set; }
+
 
         public int MapId { get; set; } = 1000;
 
@@ -460,7 +463,7 @@ namespace Game
 
             for (int i = 1; i < 10; i = i + 2)
             {  //1,3,5,7,9
-                if (currentPanel.TryGetValue(i,out Equip equip))
+                if (currentPanel.TryGetValue(i, out Equip equip))
                 {
                     EquipSuit es = GetEquipSuit(equip.EquipConfig);
                     if (es.Active)
