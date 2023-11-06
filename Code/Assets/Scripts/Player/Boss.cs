@@ -172,13 +172,13 @@ namespace Game
             items.Add(ItemHelper.BuildSoulRingShard(quantity * 2));
 
             //µÙ¬‰BOSS÷Æº“√≈∆±
-            if (CopyType == 1)
-            {
-                if (RandomHelper.RandomNumber(1, 25) <= 1)
-                {
-                    items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, 1));
-                }
-            }
+            //if (CopyType == 1)
+            //{
+            //    if (RandomHelper.RandomNumber(1, 25) <= 1)
+            //    {
+            //        items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, 1));
+            //    }
+            //}
 
             if (items.Count > 0)
             {

@@ -208,7 +208,7 @@ namespace Game
 
         public override float AttackLogic()
         {
-            Debug.Log("生命:" + AttributeBonus.GetAttackAttr(AttributeEnum.HP));
+            //Debug.Log("生命:" + AttributeBonus.GetAttackAttr(AttributeEnum.HP));
             //Debug.Log("减伤:"+AttributeBonus.GetAttackAttr(AttributeEnum.DamageResist)+" 增伤:"+ AttributeBonus.GetAttackAttr(AttributeEnum.DamageIncrea));
 
             //1. 控制前计算高优级技能
