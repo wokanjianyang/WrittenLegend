@@ -62,11 +62,11 @@ namespace Game
             }
             else if (Data.Config.SourceAttr == 0)
             {
-                m = m * SelfPlayer.HP;
+                m = m * SelfPlayer.HP / 100;
             }
-            else if (Data.Config.SourceAttr == 1)
+            else if (Data.Config.SourceAttr >= 1)
             {
-                m = m * SelfPlayer.AttributeBonus.GetAttackAttr((AttributeEnum)Data.Config.SourceAttr);
+                m = m * SelfPlayer.AttributeBonus.GetTotalAttr((AttributeEnum)Data.Config.SourceAttr) / 100;
             }
 
             return m;
@@ -94,7 +94,6 @@ namespace Game
             {
                 if (Data.Config.TargetAttr == (int)AttributeEnum.PanelHp)
                 {
-
                     this.SelfPlayer.ChangeMaxHp(FromId, attr);
                 }
                 else
@@ -117,7 +116,7 @@ namespace Game
 
         public void Clear()
         {
-            this.DoCount = this.Duration + 99;
+            this.DoCount = this.Duration + 999999;
 
             if (Data.Config.Type == (int)EffectType.Attr)
             {
