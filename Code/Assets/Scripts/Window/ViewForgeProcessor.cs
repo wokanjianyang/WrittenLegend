@@ -60,7 +60,7 @@ public class ViewForgeProcessor : AViewPage
             if (isOn)
             {
                 Log.Debug("打开合成界面");
-                this.ShowComposite();
+                //this.ShowComposite();
             }
         });
         this.toggle_Refine.onValueChanged.AddListener((isOn) =>
@@ -88,7 +88,7 @@ public class ViewForgeProcessor : AViewPage
 
         GameProcessor.Inst.EventCenter.AddListener<EquipStrengthSelectEvent>(this.OnEquipStrengthSelectEvent);
         GameProcessor.Inst.EventCenter.AddListener<ChangeCompositeTypeEvent>(this.OnChangeCompositeTypeEvent);
-        GameProcessor.Inst.EventCenter.AddListener<CompositeUIFreshEvent>(this.OnCompositeUIFreshEvent);
+        //GameProcessor.Inst.EventCenter.AddListener<CompositeUIFreshEvent>(this.OnCompositeUIFreshEvent);
         GameProcessor.Inst.EventCenter.AddListener<EquipRefineSelectEvent>(this.OnEquipRefineSelectEvent);
         
     }
@@ -292,29 +292,28 @@ public class ViewForgeProcessor : AViewPage
 
         var firstCompositeList = this.allCompositeDatas.First().Value;
 
-        var compositeItemPrefab = sr_Right.content.GetChild(0);
-        compositeItemPrefab.gameObject.SetActive(false);
+        var compositeItemPrefab = Resources.Load<GameObject>("Prefab/Window/Item_Composite");
         foreach (var config in firstCompositeList)
         {
             var compositeItem = GameObject.Instantiate(compositeItemPrefab);
             compositeItem.transform.SetParent(sr_Right.content);
             compositeItem.gameObject.SetActive(true);
 
-            var com = compositeItem.GetComponent<Com_CompositeItem>();
+            var com = compositeItem.GetComponent<Item_Composite>();
             com.SetData(config);
         }
     }
 
-    private void ShowComposite() {
-        for (int i = 0; i < sr_Right.content.childCount; i++)
-        {
-            Com_CompositeItem com = sr_Right.content.GetChild(i).GetComponent<Com_CompositeItem>();
-            if (com != null)
-            {
-                com.Refresh();
-            }
-        }
-    }
+    //private void ShowComposite() {
+    //    for (int i = 0; i < sr_Right.content.childCount; i++)
+    //    {
+    //        Item_Composite com = sr_Right.content.GetChild(i).GetComponent<Item_Composite>();
+    //        if (com != null)
+    //        {
+    //            com.Check();
+    //        }
+    //    }
+    //}
 
     private void OnChangeCompositeTypeEvent(ChangeCompositeTypeEvent e)
     {
@@ -330,10 +329,10 @@ public class ViewForgeProcessor : AViewPage
             if (i < compositeList.Count)
             {
                 var config = compositeList[i];
-                Com_CompositeItem com = null;
+                Item_Composite com = null;
                 if (i < sr_Right.content.childCount - 1)
                 {
-                    com = sr_Right.content.GetChild(i + 1).GetComponent<Com_CompositeItem>();
+                    com = sr_Right.content.GetChild(i + 1).GetComponent<Item_Composite>();
                     com.gameObject.SetActive(true);
                 }
                 else
@@ -342,7 +341,7 @@ public class ViewForgeProcessor : AViewPage
                     compositeItem.transform.SetParent(sr_Right.content);
                     compositeItem.gameObject.SetActive(true);
 
-                    com = compositeItem.GetComponent<Com_CompositeItem>();
+                    com = compositeItem.GetComponent<Item_Composite>();
                 }
                 com.SetData(config);
             }
@@ -355,10 +354,10 @@ public class ViewForgeProcessor : AViewPage
         //sr_Right.horizontalNormalizedPosition = 0;
     }
 
-    private void OnCompositeUIFreshEvent(CompositeUIFreshEvent e)
-    {
-        ShowComposite();
-    }
+    //private void OnCompositeUIFreshEvent(CompositeUIFreshEvent e)
+    //{
+    //    ShowComposite();
+    //}
 
 
     // Refine

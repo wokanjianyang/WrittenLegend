@@ -308,59 +308,38 @@ namespace Game
 
         private void OnCompositeEvent(CompositeEvent e)
         {
-            CompositeConfig config = e.Config;
+            CompositeConfig Config = e.Config;
 
             User user = GameProcessor.Inst.User;
 
-            List<BoxItem> list = user.Bags.Where(m => (int)m.Item.Type == config.FromItemType && m.Item.ConfigId == config.FromId).ToList();
-
-            //TODO 合成数量问题
-            long count = list.Select(m => Math.Max(1, m.MagicNubmer.Data)).Sum();
-            //int count = list.Count;
-
-            if (count < config.Quantity)
+            for (int i = 0; i < Config.ItemIdList.Length; i++)
             {
-                return;
-            }
+                ItemType type = (ItemType)(Config.ItemTypeList[i]);
+                int configId = Config.ItemIdList[i];
+                int quality = Config.ItemQualityList[i];
 
-            long useCount = config.Quantity;
-
-            foreach (BoxItem boxItem in list)
-            {
-                //TODO 合成数量问题
-                //long boxNumber = boxItem.MagicNubmer.Data > 0 ? boxItem.MagicNubmer.Data : 1;
-                long boxNumber = boxItem.MagicNubmer.Data;
-                long boxUseCount = Math.Min(boxNumber, useCount);
-
-                Com_Box boxUI = this.items.Find(m => m.boxId == boxItem.BoxId && m.BagType == boxItem.GetBagType());
-                boxItem.RemoveStack(boxUseCount);
-                if (boxUI != null) //可能是超出包裹的，没有显示
+                if (type == ItemType.Equip)
                 {
-                    boxUI.RemoveStack(boxUseCount);
-                }
+                    BoxItem boxItem = user.Bags.Where(m => m.Item.Type == type && m.Item.ConfigId == configId).FirstOrDefault();
 
-                if (boxItem.MagicNubmer.Data <= 0)
-                {
-                    user.Bags.Remove(boxItem);
-
-                    if (boxUI != null) //可能是超出包裹的，没有显示
+                    GameProcessor.Inst.EventCenter.Raise(new BagUseEvent()
                     {
-                        this.items.Remove(boxUI);
-                        GameObject.Destroy(boxUI.gameObject);
-                    }
-
+                        Quantity = 1,
+                        BoxItem = boxItem
+                    });
                 }
-
-                useCount = useCount - boxUseCount;
-
-                if (useCount <= 0)
+                else
                 {
-                    break;
+                    GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
+                    {
+                        Type = type,
+                        ItemId = configId,
+                        Quantity = Config.ItemCountList[i]
+                    });
                 }
             }
 
-            //
-            Item item = ItemHelper.BuildItem((ItemType)config.TargetType, config.TargetId, 1, 1);
+            Item item = ItemHelper.BuildItem((ItemType)Config.TargetType, Config.TargetId, 1, 1);
 
             AddBoxItem(item);
 

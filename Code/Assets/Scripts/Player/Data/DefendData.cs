@@ -28,6 +28,7 @@ namespace Game
                 Current = new DefendRecord();
                 Current.Progress.Data = 1;
                 Current.Hp.Data = ConfigHelper.DefendHp;
+                Current.Count.Data = 10;
                 this.Count.Data--;
             }
 
@@ -37,7 +38,7 @@ namespace Game
         public void Refresh()
         {
             this.Current = null;
-            this.Count.Data = 2;
+            this.Count.Data = 1;
         }
 
         public void Complete()

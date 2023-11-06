@@ -35,7 +35,7 @@ public class Item_Composite : MonoBehaviour
 
         Btn_Ok.onClick.AddListener(OnClickOK);
 
-        GameProcessor.Inst.EventCenter.AddListener<ExchangeUIFreshEvent>(this.OnExchangeUIFresh);
+        GameProcessor.Inst.EventCenter.AddListener<CompositeUIFreshEvent>(this.OnUIFresh);
 
         Debug.Log("Awake");
     }
@@ -60,11 +60,11 @@ public class Item_Composite : MonoBehaviour
         {
             string color = QualityConfigHelper.GetQualityColor(Config.ItemQualityList[i]);
 
-            if (Config.ItemTypeList[i] == (int)ItemType.Exclusive)
+            if (Config.ItemTypeList[i] == (int)ItemType.Equip)
             {
-                ExclusiveConfig exclusiveConfig = ExclusiveConfigCategory.Instance.Get(Config.ItemIdList[i]);
+                EquipConfig equipConfig = EquipConfigCategory.Instance.Get(Config.ItemIdList[i]);
                 Debug.Log(Config.ItemQualityList[i] + " " + color);
-                TxtNameList[i].text = string.Format("<color=#{0}>{1}</color>", color, exclusiveConfig.Name); 
+                TxtNameList[i].text = string.Format("<color=#{0}>{1}</color>", color, equipConfig.Name); 
             }
             else
             {
@@ -90,8 +90,7 @@ public class Item_Composite : MonoBehaviour
             int quality = Config.ItemQualityList[i];
             int MaxCount = Config.ItemCountList[i];
 
-            long count = user.Bags.Where(m => (int)m.Item.Type == Config.ItemTypeList[i] && m.Item.ConfigId == Config.ItemIdList[i]
-            && m.Item.GetQuality() >= quality && !m.Item.IsLock).Select(m => m.MagicNubmer.Data).Sum();
+            long count = user.Bags.Where(m => (int)m.Item.Type == Config.ItemTypeList[i] && m.Item.ConfigId == Config.ItemIdList[i]).Select(m => m.MagicNubmer.Data).Sum();
 
             string color = "#00FF00";
 
@@ -128,10 +127,10 @@ public class Item_Composite : MonoBehaviour
             return;
         }
 
-        GameProcessor.Inst.EventCenter.Raise(new ExchangeEvent() { Config = Config });
+        GameProcessor.Inst.EventCenter.Raise(new CompositeEvent() { Config = Config });
     }
 
-    public void OnExchangeUIFresh(ExchangeUIFreshEvent e)
+    public void OnUIFresh(CompositeUIFreshEvent e)
     {
         this.Check();
     }
