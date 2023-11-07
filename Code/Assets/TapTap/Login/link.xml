@@ -1,4 +1,0 @@
-<linker>
-  <assembly fullname="TapTap.Login.Runtime" preserve="all" />
-  <assembly fullname="TapTap.Login.Mobile.Runtime" preserve="all" />
-</linker>
