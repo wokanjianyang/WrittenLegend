@@ -61,7 +61,12 @@ namespace Game
 
         virtual public void OnUpdate()
         {
-            this.currentRoundTime += Time.deltaTime * Time.timeScale;
+            if (Time.timeScale > 1)
+            {
+                Time.timeScale = 1;
+            }
+
+            this.currentRoundTime += Time.deltaTime;
             if (this.currentRoundTime >= roundTime)
             {
                 this.currentRoundTime = 0;

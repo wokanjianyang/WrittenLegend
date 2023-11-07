@@ -119,8 +119,8 @@ public class Init : MonoBehaviour
 
     private void OnValidate()
     {
-        Time.timeScale = this.TimeScale;
-        DOTween.timeScale = 1f / this.TimeScale;
+        //Time.timeScale = this.TimeScale;
+        //DOTween.timeScale = 1f / this.TimeScale;
     }
 #endif
 

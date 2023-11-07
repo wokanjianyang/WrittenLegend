@@ -500,7 +500,7 @@ MonoBehaviour:
   Bottom: {fileID: 1854261347}
   Center: {fileID: 1308732843}
   Top: {fileID: 1663236006}
-  TimeScale: 1
+  TimeScale: 5
 --- !u!4 &726770592
 Transform:
   m_ObjectHideFlags: 0
@@ -541,7 +541,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerManager: {fileID: 726770593}
+  OfflineMessage: 
   isTimeError: 0
+  isCheckError: 0
+  isVersionError: 0
+  EquipCopySetting_Rate: 0
+  EquipCopySetting_Auto: 0
+  EquipBossFamily_Auto: 0
 --- !u!1 &735339100
 GameObject:
   m_ObjectHideFlags: 0

@@ -47,24 +47,24 @@ namespace Game
 				configBytes[key] = v.bytes;
 			}
 
-			//check
+            //check
 
-//			string md5 = "";
-//			foreach (Type type in configTypes)
-//			{
-//				byte[] oneConfigBytes = configBytes[type.Name];
+            string md5 = "";
+            foreach (Type type in configTypes)
+            {
+                byte[] oneConfigBytes = configBytes[type.Name];
 
-//				md5 += EncryptionHelper.GetMD5(oneConfigBytes); 
-//			}
+                md5 += EncryptionHelper.GetMD5(oneConfigBytes);
+            }
 
-//			md5 = EncryptionHelper.Md5(md5).ToUpper();
-//			//Debug.Log("MD5:" + md5);
-//			if (md5 != "02589B040D94A6E33E972CB45BB74488")
-//			{
-//#if !UNITY_EDITOR
-//				//return;
-//#endif
-//			}
+            md5 = EncryptionHelper.Md5(md5).ToUpper();
+            Debug.Log("MD5:" + md5);
+            if (md5 != "F2D3FDDF7A5993CEF79D18A901C993E8")
+            {
+#if !UNITY_EDITOR
+            				return;
+#endif
+			}
 
 #if !UNITY_EDITOR
 			if (!Load1())
