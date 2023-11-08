@@ -5,6 +5,7 @@ using System.Reflection;
 using UnityEngine;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace Game
 {
@@ -44,34 +45,16 @@ namespace Game
 			{
 				TextAsset v = kv.Value as TextAsset;
 				string key = kv.Key;
-				configBytes[key] = v.bytes;
+
+				Debug.Log("bytes:" + v.bytes.Length);
+
+				string text = Convert.ToBase64String(v.bytes);
+				byte[] bytes = Convert.FromBase64String(text);
+
+				Debug.Log("bytes:" + bytes.Length);
+
+				configBytes[key] = bytes;
 			}
-
-            //check
-
-            string md5 = "";
-            foreach (Type type in configTypes)
-            {
-                byte[] oneConfigBytes = configBytes[type.Name];
-
-                md5 += EncryptionHelper.GetMD5(oneConfigBytes);
-            }
-
-            md5 = EncryptionHelper.Md5(md5).ToUpper();
-            Debug.Log("MD5:" + md5);
-            if (md5 != "F2D3FDDF7A5993CEF79D18A901C993E8")
-            {
-#if !UNITY_EDITOR
-            				return;
-#endif
-			}
-
-#if !UNITY_EDITOR
-			if (!Load1())
-			{
-				return;
-			}
-#endif
 
 			foreach (Type type in configTypes)
 			{

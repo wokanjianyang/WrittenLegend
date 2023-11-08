@@ -120,6 +120,11 @@ namespace Game
 
             List<Item> items = DropHelper.BuildDropItem(dropList, 1);
 
+            if (items.Count > 0)
+            {
+                user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+            }
+
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
             {
                 Message = BattleMsgHelper.BuildMonsterDeadMessage(this, exp, gold, items)

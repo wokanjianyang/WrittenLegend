@@ -59,8 +59,8 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
     // Update is called once per frame
     void Update()
     {
-        this.doTime -= Time.deltaTime * Time.timeScale;
-        this.effectTime += Time.deltaTime * Time.timeScale;
+        this.doTime -= Time.unscaledDeltaTime;
+        this.effectTime += Time.unscaledDeltaTime; 
 
         if (doTime <= 0)
         {
