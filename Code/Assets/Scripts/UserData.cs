@@ -72,18 +72,18 @@ namespace Game
                 user.EquipPanelList[3] = new Dictionary<int, Equip>();
                 user.EquipPanelList[4] = new Dictionary<int, Equip>();
             }
-            else
-            {
-                if (!String.IsNullOrEmpty(user.packName) && user.packName != "3241c82c420823c129660e367cb91c60")
-                {
-                    return null;
-                }
+            //else
+            //{
+            //    if (!String.IsNullOrEmpty(user.packName) && user.packName != "3241c82c420823c129660e367cb91c60")
+            //    {
+            //        return null;
+            //    }
 
-                if (!String.IsNullOrEmpty(user.signKey) && user.signKey != "312fc4ca3769fe53c60c234371f89a6f")
-                {
-                    return null;
-                }
-            }
+            //    if (!String.IsNullOrEmpty(user.signKey) && user.signKey != "312fc4ca3769fe53c60c234371f89a6f")
+            //    {
+            //        return null;
+            //    }
+            //}
 
             if (user.MagicLevel.Data <= 0)
             {

@@ -92,6 +92,8 @@ namespace Game
 
             if (DoCount == 1) //第一次增加属性
             {
+                Debug.Log("Skill" + Data.Config.Id + " attr:" + attr);
+
                 if (Data.Config.TargetAttr == (int)AttributeEnum.PanelHp)
                 {
                     this.SelfPlayer.ChangeMaxHp(FromId, attr);

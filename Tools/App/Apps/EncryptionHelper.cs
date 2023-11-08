@@ -7,10 +7,12 @@ namespace Game
 {
     public static class EncryptionHelper
     {
-        private const string key = "hAC8hM9f36N5Zwbz";
+        private const string aseKey = "hAC8hM9f36N5Zwbz";
         private const string md5_key = "abdoes9JDKk32kkD";
 
-        public static string AesEncrypt(string plainText)
+
+
+        public static string AesEncrypt(string plainText,string key)
         {
             try
             {
@@ -44,7 +46,7 @@ namespace Game
             return "";
         }
 
-        public static string AesDecrypt(string encryptedText)
+        public static string AesDecrypt(string encryptedText,string key)
         {
             try
             {

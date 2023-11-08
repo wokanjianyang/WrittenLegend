@@ -41,17 +41,21 @@ namespace Game
 			var bundle = AssetsBundleHelper.LoadBundle("config.unity3d");
 			keys = bundle.Item2;
 
+			string skey = getKey();
+
+#if UNITY_EDITOR
+			skey = "fb2d1feffd645dae1c574954fd702a80";
+#endif
+			//Debug.Log("skey:" + skey);
+
 			foreach (var kv in keys)
 			{
 				TextAsset v = kv.Value as TextAsset;
 				string key = kv.Key;
 
-				Debug.Log("bytes:" + v.bytes.Length);
-
-				string text = Convert.ToBase64String(v.bytes);
+				string text = Encoding.UTF8.GetString(v.bytes);
+				text = EncryptionHelper.AesDecrypt(text, skey);
 				byte[] bytes = Convert.FromBase64String(text);
-
-				Debug.Log("bytes:" + bytes.Length);
 
 				configBytes[key] = bytes;
 			}
@@ -62,15 +66,18 @@ namespace Game
 			}
 		}
 
-		private static bool Load1()
+		private static string getKey()
 		{
-			string pn = Application.identifier;
-			pn = EncryptionHelper.AesEncrypt(pn) + EncryptionHelper.Md5(pn + "8932kMD5#>>");
-			if (pn != "CZiSFbEnJLzHUa2n4QiF3a5EgGe+458f4EBvGvm+xZQ=ebe5d8b49fc4c8e07ebb7ddf8cb95fa5")
-			{
-				return false;
-			}
-			UserData.pn = EncryptionHelper.Md5(pn + "z1!");
+#if UNITY_EDITOR
+			return "";
+#endif
+			//string pn = Application.identifier;
+			//pn = EncryptionHelper.AesEncrypt(pn) + EncryptionHelper.Md5(pn + "8932kMD5#>>");
+			//if (pn != "CZiSFbEnJLzHUa2n4QiF3a5EgGe+458f4EBvGvm+xZQ=ebe5d8b49fc4c8e07ebb7ddf8cb95fa5")
+			//{
+			//	return false;
+			//}
+			//UserData.pn = EncryptionHelper.Md5(pn + "z1!");
 
 			// »ñÈ¡AndroidµÄPackageManager    
 			AndroidJavaClass Player = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
@@ -92,15 +99,16 @@ namespace Game
 
 				string hashCode = EncryptionHelper.GetMD5(bytes).ToUpper();
 
-				hashCode = EncryptionHelper.Md5(hashCode + "z6kMz5#>>");
+				hashCode = EncryptionHelper.Md5(hashCode + "12sd#$kd0z54");
 
-				UserData.sk = EncryptionHelper.Md5(hashCode + "#2A");
+				//UserData.sk = EncryptionHelper.Md5(hashCode + "#2A");
 
-				return hashCode == "c9135d6f755c992a35c79bd6f9291f12";
+				return hashCode;
 			}
 
-			return false;
+			return null;
 		}
+
 		private static void LoadOneInThread(Type configType, Dictionary<string, byte[]> configBytes)
 		{
 			if (!configBytes.ContainsKey(configType.Name)) {

@@ -7,10 +7,15 @@ namespace Game
 {
     public static class EncryptionHelper
     {
-        private const string key = "hAC8hM9f36N5Zwbz";
+        private const string aesKey = "hAC8hM9f36N5Zwbz";
         private const string md5_key = "abdoes9JDKk32kkD";
 
         public static string AesEncrypt(string plainText)
+        {
+            return AesEncrypt(plainText, aesKey);
+        }
+
+        public static string AesEncrypt(string plainText, string key)
         {
             try
             {
@@ -36,7 +41,7 @@ namespace Game
                 }
                 return Convert.ToBase64String(encryptedBytes);
             }
-            catch 
+            catch
             {
 
             }
@@ -44,7 +49,13 @@ namespace Game
             return "";
         }
 
+
         public static string AesDecrypt(string encryptedText)
+        {
+            return AesDecrypt(encryptedText, aesKey);
+        }
+
+        public static string AesDecrypt(string encryptedText, string key)
         {
             try
             {
@@ -72,7 +83,7 @@ namespace Game
                 }
                 return plainText;
             }
-            catch 
+            catch
             {
 
             }

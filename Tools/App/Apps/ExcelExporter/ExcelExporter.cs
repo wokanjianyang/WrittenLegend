@@ -641,8 +641,30 @@ namespace Game
 
             string path = Path.Combine(dir, $"{protoName}Category.bytes");
 
+            //Console.WriteLine(protoName);
+
             using FileStream file = File.Create(path);
             Serializer.Serialize(file, final);
+            file.Close();
+
+            FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
+            int n = (int)fs.Length;
+            byte[] buffer = new byte[n];
+            fs.Read(buffer, 0, n);
+            fs.Close();
+
+            string baseText = System.Convert.ToBase64String(buffer);
+
+            //D67512B30D2D4B6AFE9E782E8EACE7E2
+
+            //加密
+            string text = EncryptionHelper.AesEncrypt(baseText, "fb2d1feffd645dae1c574954fd702a80");
+
+            using (StreamWriter writer = new StreamWriter(path))
+            {
+                // 写入要保存的内容
+                writer.Write(text);
+            }
         }
     }
 }

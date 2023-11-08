@@ -187,7 +187,7 @@ namespace Game
             int srcAttr = effect.Config.SourceAttr;
 
             //按照某个属性，计算百分比+固定值得来的
-            if (srcAttr > 0)
+            if (srcAttr == -2)
             {
                 long total = attacker.GetTotalAttr((AttributeEnum)effect.Config.SourceAttr);
 

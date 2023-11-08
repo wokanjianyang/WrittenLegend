@@ -284,5 +284,6 @@
 {"_t":"AchievementConfig","_id":8004,"Name":"声名鹊起","Type":8,"Condition":60,"RewardType":1,"AttrId":9,"AttrValue":50,"Memo":"守卫龙城通过{0}层数"},
 {"_t":"AchievementConfig","_id":8005,"Name":"过关斩将","Type":8,"Condition":70,"RewardType":1,"AttrId":30,"AttrValue":30,"Memo":"守卫龙城通过{0}层数"},
 {"_t":"AchievementConfig","_id":8006,"Name":"独孤求败","Type":8,"Condition":80,"RewardType":1,"AttrId":7,"AttrValue":10,"Memo":"守卫龙城通过{0}层数"},
-{"_t":"AchievementConfig","_id":8007,"Name":"武林至尊","Type":8,"Condition":100,"RewardType":2,"AttrId":0,"AttrValue":1,"Memo":"守卫龙城通过{0}层数"},
+{"_t":"AchievementConfig","_id":8007,"Name":"武林至尊","Type":8,"Condition":90,"RewardType":1,"AttrId":12,"AttrValue":30,"Memo":"守卫龙城通过{0}层数"},
+{"_t":"AchievementConfig","_id":8008,"Name":"天下无敌","Type":8,"Condition":100,"RewardType":2,"AttrId":0,"AttrValue":1,"Memo":"守卫龙城通过{0}层数"},
 ]}
