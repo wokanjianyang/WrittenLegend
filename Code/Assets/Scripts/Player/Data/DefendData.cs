@@ -23,7 +23,7 @@ namespace Game
                 Current = null;
             }
 
-            if (Current == null && this.Count.Data >= 0)
+            if (Current == null && this.Count.Data > 0)
             {
                 Current = new DefendRecord();
                 Current.Progress.Data = 1;

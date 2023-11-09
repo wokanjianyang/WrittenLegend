@@ -204,7 +204,7 @@ namespace Game
             if (priority == 0)
             {
                 SkillState normal = SelectSkillList.FirstOrDefault(m => m.SkillPanel.SkillId == 9001);
-                if (normal!=null && normal.IsCanUse(now))
+                if (normal != null && normal.IsCanUse(now))
                 {
                     return normal;
                 }
@@ -370,12 +370,12 @@ namespace Game
             return 1f;
         }
 
-        public void RunEffect(APlayer attchPlayer, EffectData effectData, long total)
+        public void RunEffect(APlayer attchPlayer, EffectData effectData, long damage, long rolePercent)
         {
-            Effect effect = new Effect(this, effectData, total);
+            Effect effect = new Effect(this, effectData, damage, rolePercent,0);
             effect.Do();
         }
-        public void AddEffect(APlayer attchPlayer, EffectData effectData, long total)
+        public void AddEffect(APlayer attchPlayer, EffectData effectData, long damage, long rolePercent)
         {
             if (!EffectMap.TryGetValue(effectData.FromId, out List<Effect> list))
             {
@@ -390,19 +390,22 @@ namespace Game
 
                 for (int i = 0; i < RemoveCount; i++)
                 {
-                    effectData.Layer = list[i].Data.Layer; //使用旧的FromId
+                    //effectData.Layer = list[i].Data.Layer; //使用旧的FromId
 
                     list[i].Clear();
                 }
                 list.RemoveRange(0, RemoveCount);
             }
-            else
+
+            int layer = 0;
+            if (list.Count > 0)
             {
-                effectData.Layer = list.Count; //每叠加一层，FromId+1
+                layer = (list[list.Count - 1].Layer + 1) % effectData.Max; //每叠加一层，FromId+1
             }
 
-            Effect effect = new Effect(this, effectData, total);
+            Effect effect = new Effect(this, effectData, damage, rolePercent,layer);
             list.Add(effect);
+
             // 立即运行类型，立即使用
             if (effect.Data.Config.RunType == 0)
             {

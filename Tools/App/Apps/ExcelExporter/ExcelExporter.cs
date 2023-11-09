@@ -641,7 +641,7 @@ namespace Game
 
             string path = Path.Combine(dir, $"{protoName}Category.bytes");
 
-            //Console.WriteLine(protoName);
+            Console.WriteLine(protoName);
 
             using FileStream file = File.Create(path);
             Serializer.Serialize(file, final);

@@ -76,11 +76,6 @@ namespace Game
 
         private bool isInLevelUp;
 
-        public string packName { get; set; }
-
-        public string signKey { get; set; }
-
-
         public int MapId { get; set; } = 1000;
 
         public int TaskId { get; set; } = 1;

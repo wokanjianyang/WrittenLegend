@@ -9,30 +9,35 @@ namespace Game
         public APlayer SelfPlayer { get; }
         public EffectData Data { get; }
         public int FromId { get; }
-        public long Total { get; set; }
+        public long Damage { get; set; }
+        public long RolePercent { get; set; }
 
         public int UID { get; private set; }
 
         public int Duration { get; set; }
         public int Max { get; }
 
+        public int Layer { get; set; }
+
         /// <summary>
         /// 已生效次数
         /// </summary>
         public int DoCount { get; set; }
 
-        public Effect(APlayer player, EffectData effectData, long total)
+        public Effect(APlayer player, EffectData effectData, long damage, long rolePercent, int layer)
         {
             this.SelfPlayer = player;
             this.Data = effectData;
 
-            this.Total = total;
+            this.Damage = damage;
+            this.RolePercent = rolePercent;
 
             this.FromId = Data.FromId;
             this.Duration = Data.Duration;
             this.Max = Data.Max;
 
-            this.UID = FromId + Data.Layer;
+            this.Layer = layer;
+            this.UID = FromId + this.Layer;
 
             this.DoCount = 0;
         }
@@ -56,9 +61,14 @@ namespace Game
         {
             long m = Data.Percent;
 
+            if (Data.Config.ExpertRise > 0)
+            {
+                m += RolePercent * Data.Config.ExpertRise / 100;
+            }
+
             if (Data.Config.SourceAttr == -1)
             {
-                m = Total;
+                m = Damage;
             }
             else if (Data.Config.SourceAttr == 0)
             {
@@ -92,7 +102,7 @@ namespace Game
 
             if (DoCount == 1) //第一次增加属性
             {
-                Debug.Log("Skill" + Data.Config.Id + " attr:" + attr);
+                //Debug.Log("Skill" + Data.Config.Id + " attr:" + attr);
 
                 if (Data.Config.TargetAttr == (int)AttributeEnum.PanelHp)
                 {
@@ -124,7 +134,7 @@ namespace Game
             {
                 if (Data.Config.TargetAttr == (int)AttributeEnum.PanelHp)
                 {
-                    this.SelfPlayer.ChangeMaxHp(FromId + Data.Layer, 0);
+                    this.SelfPlayer.ChangeMaxHp(UID, 0);
                 }
                 else
                 {

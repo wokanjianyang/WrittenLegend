@@ -39,10 +39,10 @@ namespace Game
                 foreach (EffectData effect in SkillPanel.EffectIdList.Values)
                 {
                     //Debug.Log("Restore Effect Percent:" + effect.Percent);
-                    long total = hp * effect.Percent/100;
+                    long total = hp * effect.Percent / 100;
                     //Debug.Log("Restore Effect :" + total);
 
-                    DoEffect(this.SelfPlayer, this.SelfPlayer, total, effect);
+                    DoEffect(this.SelfPlayer, this.SelfPlayer, total, 0, effect);
                 }
             }
         }

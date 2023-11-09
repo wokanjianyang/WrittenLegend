@@ -28,7 +28,7 @@ namespace Game
         }
         abstract public void Do();
 
-        public void DoEffect(APlayer enemy, APlayer self, long total, EffectData data)
+        public void DoEffect(APlayer enemy, APlayer self, long damage, long rolePercent, EffectData data)
         {
             EffectConfig config = data.Config;
 
@@ -36,11 +36,11 @@ namespace Game
 
             if (data.Duration > 0)
             {  //持续Buff
-                effectTarget.AddEffect(effectTarget, data, total);
+                effectTarget.AddEffect(effectTarget, data, damage, rolePercent);
             }
             else
             {
-                effectTarget.RunEffect(effectTarget, data, total);
+                effectTarget.RunEffect(effectTarget, data, damage, rolePercent);
             }
         }
         public void SetParent(APlayer player)

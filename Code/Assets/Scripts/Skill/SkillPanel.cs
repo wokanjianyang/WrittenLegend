@@ -208,6 +208,8 @@ namespace Game
                 }
             }
 
+            //rune effect 暂无
+
             //suit effect
             foreach (SkillSuit suit in effectSuitList)
             {

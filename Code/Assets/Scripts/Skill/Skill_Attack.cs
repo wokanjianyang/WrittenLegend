@@ -59,7 +59,7 @@ namespace Game
                     {
                         if (effect.Config.Priority < 0)
                         {
-                            DoEffect(enemy, this.SelfPlayer, 0, effect);
+                            DoEffect(enemy, this.SelfPlayer, 0, 0, effect); 
                         }
                     }
 
@@ -82,7 +82,7 @@ namespace Game
                         {
                             long total = dr.Damage * effect.Percent / 100;
                             //Debug.Log("restor:" + total);
-                            DoEffect(enemy, this.SelfPlayer, total, effect);
+                            DoEffect(enemy, this.SelfPlayer, total,0, effect);
                         }
                     }
                 }

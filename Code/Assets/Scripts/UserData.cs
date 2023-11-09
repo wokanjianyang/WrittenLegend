@@ -95,6 +95,10 @@ namespace Game
                 user.DefendData = new DefendData();
                 user.DefendData.Count.Data = 1;
             }
+            if (user.DefendData.Count.Data > 1)
+            {
+                user.DefendData.Count.Data = 1;
+            }
 
             //TEST data
             //user.MagicGold.Data = 9999999999999; 
@@ -119,8 +123,6 @@ namespace Game
             }
             var user = GameProcessor.Inst.User;
             user.LastOut = TimeHelper.ClientNowSeconds();
-            user.packName = UserData.pn;
-            user.signKey = UserData.sk;
 
             //序列化
             string str_json = JsonConvert.SerializeObject(user, new JsonSerializerSettings
@@ -187,7 +189,7 @@ namespace Game
 
         //public static void TestFull(User user) {
         //    user.MagicLevel.Data = ConfigHelper.Max_Level;
-       
+
         //    //精练
         //    foreach(var kv in user.MagicEquipRefine) {
         //        kv.Value.Data = ConfigHelper.Max_Level_Refine;
@@ -211,7 +213,7 @@ namespace Game
         //    //魂环
         //    foreach (var kv in user.SoulRingData) {
         //    }
-         
+
         //    //技能
         //}
     }

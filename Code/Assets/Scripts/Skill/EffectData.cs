@@ -25,8 +25,6 @@ namespace Game
         /// </summary>
         public int Max { get; }
 
-        public int Layer { get; set; } = 0;
-
         public EffectData(int configId, int fromId, int percent, long damage, int duration, int max)
         {
             this.Config = EffectConfigCategory.Instance.Get(configId);
