@@ -54,4 +54,9 @@
 {"_t":"MonsterBase","_id":10053,"MapId":1052,"Name":"幻影黑猪","Attr":129154960000,"Def":25830992000,"HP":21585664000000,"DamageIncrea":114,"DamageResist":24,"CritRate":40,"CritDamage":40,"Exp":127806000,"Gold":127806000},
 {"_t":"MonsterBase","_id":10054,"MapId":1053,"Name":"幻影红猪","Attr":181659970000,"Def":36331994000,"HP":43171328000000,"DamageIncrea":117,"DamageResist":27,"CritRate":45,"CritDamage":45,"Exp":140178000,"Gold":140178000},
 {"_t":"MonsterBase","_id":10055,"MapId":1054,"Name":"幻影蝎蛇","Attr":255509700000,"Def":51101940000,"HP":86342656000000,"DamageIncrea":120,"DamageResist":30,"CritRate":50,"CritDamage":50,"Exp":153187500,"Gold":153187500},
+{"_t":"MonsterBase","_id":10056,"MapId":1055,"Name":"幻影火焰","Attr":359381360000,"Def":71876272000,"HP":164051046400000,"DamageIncrea":123,"DamageResist":33,"CritRate":55,"CritDamage":55,"Exp":156928000,"Gold":156928000},
+{"_t":"MonsterBase","_id":10057,"MapId":1056,"Name":"幻影勇士","Attr":505479680000,"Def":101095936000,"HP":311696988100000,"DamageIncrea":126,"DamageResist":36,"CritRate":60,"CritDamage":60,"Exp":160737000,"Gold":160737000},
+{"_t":"MonsterBase","_id":10058,"MapId":1057,"Name":"幻影雕像","Attr":710970940000,"Def":142194188000,"HP":592224277500000,"DamageIncrea":129,"DamageResist":39,"CritRate":65,"CritDamage":65,"Exp":164619000,"Gold":164619000},
+{"_t":"MonsterBase","_id":10059,"MapId":1058,"Name":"幻影卫士","Attr":1000000000000,"Def":200000000000,"HP":1125226127200000,"DamageIncrea":132,"DamageResist":42,"CritRate":70,"CritDamage":70,"Exp":168578500,"Gold":168578500},
+{"_t":"MonsterBase","_id":10060,"MapId":1059,"Name":"幻影魔猪","Attr":1406527240000,"Def":281305448000,"HP":2137929641700000,"DamageIncrea":135,"DamageResist":45,"CritRate":75,"CritDamage":75,"Exp":172620000,"Gold":172620000},
 ]}

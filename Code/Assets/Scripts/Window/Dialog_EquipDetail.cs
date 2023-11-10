@@ -267,11 +267,10 @@ namespace Game
                             child.gameObject.SetActive(true);
                         }
 
-                        if (equip.Part <= 10)
+                        EquipSuit equipSuit = user.GetEquipSuit(equip.EquipConfig);
+                        if (equip.Part <= 10 && equipSuit.Config!=null)
                         {
                             tran_GroupAttribute.gameObject.SetActive(true);
-
-                            EquipSuit equipSuit = user.GetEquipSuit(equip.EquipConfig);
 
                             int groupCount = 0;
                             int nameIndex = 0;
