@@ -621,6 +621,11 @@ namespace Game
         }
         public void AddExpAndGold(long exp, long gold)
         {
+            if (this.MagicGold.Data < 0)
+            {
+                return;
+            }
+
             if (this.MagicLevel.Data < ConfigHelper.Max_Level)
             {
                 this.MagicExp.Data += exp;

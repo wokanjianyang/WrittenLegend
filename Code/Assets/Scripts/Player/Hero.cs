@@ -211,7 +211,7 @@ namespace Game
             //Debug.Log("生命:" + AttributeBonus.GetAttackAttr(AttributeEnum.HP));
             //Debug.Log("减伤:"+AttributeBonus.GetAttackAttr(AttributeEnum.DamageResist)+" 增伤:"+ AttributeBonus.GetAttackAttr(AttributeEnum.DamageIncrea));
 
-            Debug.Log("瞬移魔法伤害:" + AttributeBonus.GetAttackAttr(AttributeEnum.MagicDamage));
+            //Debug.Log("瞬移魔法伤害:" + AttributeBonus.GetAttackAttr(AttributeEnum.MagicDamage));
 
             //1. 控制前计算高优级技能
             SkillState skill;
