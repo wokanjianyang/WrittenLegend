@@ -17,6 +17,7 @@ namespace Game
     {
         static string savePath = "user";
         static string fileName = "data.json"; //文件名
+        static string tempName = "temp.json"; //文件名
 
         public static long StartTime = 0;
         public static string pn = "";
@@ -115,7 +116,7 @@ namespace Game
             return user;
         }
 
-        public static void Save()
+        public static void Save(bool andTemp = false)
         {
             if (GameProcessor.Inst == null)
             {
@@ -139,10 +140,10 @@ namespace Game
             str_json = EncryptionHelper.AesEncrypt(str_json);
 
             //
-            SaveData(str_json);
+            SaveData(str_json, andTemp);
         }
 
-        public static void SaveData(string str_json)
+        public static void SaveData(string str_json, bool andTemp)
         {
             string filePath = getSavePath();             //文件路径
 
@@ -151,23 +152,53 @@ namespace Game
                 // 写入要保存的内容
                 writer.Write(str_json);
             }
+
+            if (andTemp)
+            {
+                string tempPath = getTempPath();
+                using (StreamWriter writer = new StreamWriter(tempPath))
+                {
+                    // 写入要保存的内容
+                    writer.Write(str_json);
+                }
+            }
         }
 
         public static string getSavePath()
         {
-            string folderPath = System.IO.Path.Combine(Application.persistentDataPath, savePath); //文件夹路径
+            string folderPath = Path.Combine(Application.persistentDataPath, savePath); //文件夹路径
 
             if (!File.Exists(folderPath))
             {
-                System.IO.Directory.CreateDirectory(folderPath);
+                Directory.CreateDirectory(folderPath);
             }
 
-            string filePath = System.IO.Path.Combine(folderPath, fileName);             //文件路径
+            string filePath = Path.Combine(folderPath, fileName);             //文件路径
 
             if (!File.Exists(filePath))
             {
                 //创建文件
-                System.IO.File.Create(filePath).Dispose();
+                File.Create(filePath).Dispose();
+            }
+
+            return filePath;
+        }
+
+        public static string getTempPath()
+        {
+            string folderPath = Path.Combine(Application.persistentDataPath, savePath); //文件夹路径
+
+            if (!File.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+
+            string filePath = Path.Combine(folderPath, tempName);             //文件路径
+
+            if (!File.Exists(filePath))
+            {
+                //创建文件
+                File.Create(filePath).Dispose();
             }
 
             return filePath;

@@ -267,62 +267,67 @@ namespace Game
                             child.gameObject.SetActive(true);
                         }
 
-                        EquipSuit equipSuit = user.GetEquipSuit(equip.EquipConfig);
-                        if (equip.Part <= 10 && equipSuit.Config!=null)
+
+                        if (equip.Part <= 10)
                         {
-                            tran_GroupAttribute.gameObject.SetActive(true);
+                            EquipSuit equipSuit = user.GetEquipSuit(equip.EquipConfig);
 
-                            int groupCount = 0;
-                            int nameIndex = 0;
-                            for (int i = 0; i < 3; i++)
+                            if (equipSuit.Config != null)
                             {
-                                var nameChild = tran_GroupAttribute.Find(string.Format("Name_{0}", nameIndex++));
+                                tran_GroupAttribute.gameObject.SetActive(true);
 
-                                if (i >= equipSuit.ItemList.Count)
+                                int groupCount = 0;
+                                int nameIndex = 0;
+                                for (int i = 0; i < 3; i++)
                                 {
-                                    nameChild.gameObject.SetActive(false);
-                                }
-                                else
-                                {
-                                    EquipSuitItem eg = equipSuit.ItemList[i];
+                                    var nameChild = tran_GroupAttribute.Find(string.Format("Name_{0}", nameIndex++));
 
-                                    string groupColor = QualityConfigHelper.GetEquipGroupColor(eg.Active);
-                                    if (eg.Active)
+                                    if (i >= equipSuit.ItemList.Count)
                                     {
-
-                                        nameChild.GetComponent<Text>().text = string.Format("<color=#{0}>{1}</color>", groupColor, eg.Name);
-                                        groupCount++;
+                                        nameChild.gameObject.SetActive(false);
                                     }
                                     else
                                     {
-                                        nameChild.GetComponent<Text>().text = string.Format("<color=#{0}>{1}</color>", groupColor, eg.Name);
+                                        EquipSuitItem eg = equipSuit.ItemList[i];
+
+                                        string groupColor = QualityConfigHelper.GetEquipGroupColor(eg.Active);
+                                        if (eg.Active)
+                                        {
+
+                                            nameChild.GetComponent<Text>().text = string.Format("<color=#{0}>{1}</color>", groupColor, eg.Name);
+                                            groupCount++;
+                                        }
+                                        else
+                                        {
+                                            nameChild.GetComponent<Text>().text = string.Format("<color=#{0}>{1}</color>", groupColor, eg.Name);
+                                        }
+
+                                        nameChild.gameObject.SetActive(true);
                                     }
-
-                                    nameChild.gameObject.SetActive(true);
                                 }
-                            }
 
-                            tran_GroupAttribute.Find("Title").GetComponent<Text>().text = string.Format("[套装属性] ({0}/2)", groupCount);
+                                tran_GroupAttribute.Find("Title").GetComponent<Text>().text = string.Format("[套装属性] ({0}/2)", groupCount);
 
-                            //
-                            EquipGroupConfig config = equipSuit.Config;
+                                //
+                                EquipGroupConfig config = equipSuit.Config;
 
-                            for (int index = 0; index < 3; index++)
-                            {
-                                var attrChild = tran_GroupAttribute.Find(string.Format("Attribute_{0}", index));
-
-                                if (index < config.AttrIdList.Length)
+                                for (int index = 0; index < 3; index++)
                                 {
-                                    string groupColor = QualityConfigHelper.GetEquipGroupColor(groupCount >= 2);
+                                    var attrChild = tran_GroupAttribute.Find(string.Format("Attribute_{0}", index));
 
-                                    string attrText = FormatAttrText(config.AttrIdList[index], config.AttrValueList[index], 0);
-                                    attrChild.GetComponent<Text>().text = string.Format("<color=#{0}>{1}</color>", groupColor, attrText);
+                                    if (index < config.AttrIdList.Length)
+                                    {
+                                        string groupColor = QualityConfigHelper.GetEquipGroupColor(groupCount >= 2);
 
-                                    attrChild.gameObject.SetActive(true);
-                                }
-                                else
-                                {
-                                    attrChild.gameObject.SetActive(false);
+                                        string attrText = FormatAttrText(config.AttrIdList[index], config.AttrValueList[index], 0);
+                                        attrChild.GetComponent<Text>().text = string.Format("<color=#{0}>{1}</color>", groupColor, attrText);
+
+                                        attrChild.gameObject.SetActive(true);
+                                    }
+                                    else
+                                    {
+                                        attrChild.gameObject.SetActive(false);
+                                    }
                                 }
                             }
                         }

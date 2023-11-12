@@ -65,6 +65,10 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.CritRateResist, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttr(AttributeEnum.CritRateResist) * InheritIncrea / 100);
             AttributeBonus.SetAttr(AttributeEnum.Lucky, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttr(AttributeEnum.Lucky) * InheritIncrea / 100);
 
+            if (ModelConfig.RestorePercent > 0) {
+                AttributeBonus.SetAttr(AttributeEnum.RestoreHpPercent, AttributeFrom.HeroPanel, ModelConfig.RestorePercent);
+            }
+
             //队友的光环
             AttributeBonus.SetAttr(AttributeEnum.AurasDamageIncrea, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttr(AttributeEnum.AurasDamageIncrea));
             AttributeBonus.SetAttr(AttributeEnum.AurasDamageResist, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttr(AttributeEnum.AurasDamageResist));
@@ -82,7 +86,7 @@ namespace Game
             {
                 foreach (int skillId in this.ModelConfig.SkillList)
                 {
-                    SkillData skillData = Master.SkillList.Where(m => m.SkillConfig.Id == skillId).FirstOrDefault();
+                    SkillData skillData = GameProcessor.Inst.User.SkillList.Where(m => m.SkillConfig.Id == skillId).FirstOrDefault();
 
                     if (skillData != null && Master.Camp == PlayerType.Hero)
                     {

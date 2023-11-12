@@ -96,20 +96,23 @@ namespace Game
 		/// <summary>DefRate</summary>
 		[ProtoMember(7)]
 		public int DefRate { get; set; }
-		/// <summary>AdvanceRate</summary>
+		/// <summary>RestorePercent</summary>
 		[ProtoMember(8)]
+		public int RestorePercent { get; set; }
+		/// <summary>AdvanceRate</summary>
+		[ProtoMember(9)]
 		public int AdvanceRate { get; set; }
 		/// <summary>SkillList</summary>
-		[ProtoMember(9)]
+		[ProtoMember(10)]
 		public int[] SkillList { get; set; }
 		/// <summary>Desc</summary>
-		[ProtoMember(10)]
+		[ProtoMember(11)]
 		public string Desc { get; set; }
 		/// <summary>AttrList</summary>
-		[ProtoMember(11)]
+		[ProtoMember(12)]
 		public int[] AttrList { get; set; }
 		/// <summary>AttrValueList</summary>
-		[ProtoMember(12)]
+		[ProtoMember(13)]
 		public long[] AttrValueList { get; set; }
 
 	}

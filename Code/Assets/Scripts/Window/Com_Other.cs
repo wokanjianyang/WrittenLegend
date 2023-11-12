@@ -191,13 +191,13 @@ namespace Game
                 await oldGameSave.Delete();
             }
 
-            //在存储新档
-            string filePath = UserData.getSavePath();
-            DateTime time = DateTime.Now.ToLocalTime();
-
+            //再存储新档
             user.DataProgeress++;
             user.SaveLimit--;
-            UserData.Save();
+            UserData.Save(true);
+
+            string filePath = UserData.getTempPath();
+            DateTime time = DateTime.Now.ToLocalTime();
 
             var gameSave = new TapGameSave
             {
@@ -288,7 +288,7 @@ namespace Game
                 GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("是确认读取" + at + "\n的存档,读档成功之后会自动退出，需要手动进入游戏？", true, () =>
                 {
                     this.txt_Name.text = "读取存档成功,请退出重进";
-                    UserData.SaveData(str_json);
+                    UserData.SaveData(str_json, false);
 
                     GameProcessor.Inst.Init(UserData.StartTime);
 

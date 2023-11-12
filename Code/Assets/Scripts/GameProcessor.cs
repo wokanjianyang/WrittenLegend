@@ -261,6 +261,19 @@ namespace Game
                 items.AddRange(DropHelper.TowerEquip(fl, equipLevel));
             }
 
+            //items.Add(new Equip(23005501, 23, 15, 5));
+            //items.Add(new Equip(23005502, 23, 15, 5));
+            //items.Add(new Equip(23005503, 23, 15, 5));
+            //items.Add(new Equip(23005504, 23, 15, 5));
+            //items.Add(new Equip(23005505, 16, 10037, 5));
+            //items.Add(new Equip(23005505, 16, 10037, 5));
+            //items.Add(new Equip(23005507, 16, 10037, 5));
+            //items.Add(new Equip(23005507, 16, 10037, 5));
+            //items.Add(new Equip(23005509, 23, 15, 5));
+            //items.Add(new Equip(23005510, 23, 15, 5));
+
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Equip_Speical_Stone,99999999));
+
             long newFloor = User.MagicTowerFloor.Data + offlineFloor;
 
             User.MagicTowerFloor.Data = Math.Min(newFloor, ConfigHelper.Max_Floor);
