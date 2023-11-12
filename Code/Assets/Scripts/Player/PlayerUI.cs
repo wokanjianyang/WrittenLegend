@@ -108,7 +108,13 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
                 }
                 break;
             case PlayerType.Valet:
-                this.image_Background.sprite = list_Backgrounds[1];
+                if (this.SelfPlayer.ModelType == MondelType.YueLing)
+                {
+                    this.image_Background.sprite = list_Backgrounds[5];
+                }
+                else {
+                    this.image_Background.sprite = list_Backgrounds[1];
+                }
                 break;
             case PlayerType.Defend:
                 this.image_Background.sprite = list_Backgrounds[4];

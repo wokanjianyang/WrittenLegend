@@ -84,35 +84,38 @@ namespace Game
 		/// <summary>Name</summary>
 		[ProtoMember(3)]
 		public string Name { get; set; }
-		/// <summary>SpeedRate</summary>
+		/// <summary>ModelType</summary>
 		[ProtoMember(4)]
+		public int ModelType { get; set; }
+		/// <summary>SpeedRate</summary>
+		[ProtoMember(5)]
 		public int SpeedRate { get; set; }
 		/// <summary>HpRate</summary>
-		[ProtoMember(5)]
+		[ProtoMember(6)]
 		public int HpRate { get; set; }
 		/// <summary>AttrRate</summary>
-		[ProtoMember(6)]
+		[ProtoMember(7)]
 		public int AttrRate { get; set; }
 		/// <summary>DefRate</summary>
-		[ProtoMember(7)]
+		[ProtoMember(8)]
 		public int DefRate { get; set; }
 		/// <summary>RestorePercent</summary>
-		[ProtoMember(8)]
+		[ProtoMember(9)]
 		public int RestorePercent { get; set; }
 		/// <summary>AdvanceRate</summary>
-		[ProtoMember(9)]
+		[ProtoMember(10)]
 		public int AdvanceRate { get; set; }
 		/// <summary>SkillList</summary>
-		[ProtoMember(10)]
+		[ProtoMember(11)]
 		public int[] SkillList { get; set; }
 		/// <summary>Desc</summary>
-		[ProtoMember(11)]
+		[ProtoMember(12)]
 		public string Desc { get; set; }
 		/// <summary>AttrList</summary>
-		[ProtoMember(12)]
+		[ProtoMember(13)]
 		public int[] AttrList { get; set; }
 		/// <summary>AttrValueList</summary>
-		[ProtoMember(13)]
+		[ProtoMember(14)]
 		public long[] AttrValueList { get; set; }
 
 	}

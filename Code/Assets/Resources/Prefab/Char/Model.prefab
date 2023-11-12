@@ -557,6 +557,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 053f31fdbd61b784e9b631e55b96012b, type: 3}
   - {fileID: 21300000, guid: f0748ddbb0bb5f342a9510d335602850, type: 3}
   - {fileID: 21300000, guid: 81017b44e38092d4387ba0f54a8300d7, type: 3}
+  - {fileID: 21300000, guid: 26b5a7a6c83549c40be23d90762a3d30, type: 3}
   tran_Info: {fileID: 1173079490924791338}
   tmp_Info_Name: {fileID: 3517343299721237907}
   tmp_Info_Level: {fileID: 8866319226953566738}

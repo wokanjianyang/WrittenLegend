@@ -28,6 +28,7 @@ namespace Game
 
             this.ModelConfig = ValetModelConfigCategory.Instance.GetAll().Values.Where(m => m.FromSkillId == SkillPanel.SkillId).FirstOrDefault();
 
+            this.ModelType = (MondelType)ModelConfig.ModelType;
             this.Name = ModelConfig.Name + "(" + Master.Name + ")";
 
             this.SetAttr();  //…Ë÷√ Ù–‘÷µ

@@ -103,9 +103,11 @@ namespace Game
         Defend,
     }
 
-    public enum MondelType { 
+    public enum MondelType
+    {
         Nomal = 1,
         Boss = 2,
+        YueLing = 5,
     }
 
     public enum SlotType
