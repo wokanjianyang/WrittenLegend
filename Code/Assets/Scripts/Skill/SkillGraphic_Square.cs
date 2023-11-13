@@ -1,14 +1,17 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Game
 {
     public class SkillGraphic_Square : SkillGraphic
     {
+        SkillModelConfig SkillModelConfig;
         public SkillGraphic_Square(APlayer player, SkillPanel skill) : base(player, skill)
         {
+            SkillModelConfig = SkillModelConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.ModelName == this.SkillPanel.SkillData.SkillConfig.ModelName).FirstOrDefault();
         }
 
         public override void PlayAnimation(List<Vector3Int> cells)
@@ -30,15 +33,15 @@ namespace Game
 
             var endPos = GameProcessor.Inst.MapData.GetWorldPosition(SelfPlayer.Enemy.Cell);
 
-            var effectCom = EffectLoader.CreateEffect(this.SkillPanel.SkillData.SkillConfig.ModelName, false);
+            var effectCom = EffectLoader.CreateEffect(this.SkillPanel.SkillData.SkillConfig.ModelName, false, 0, (float)SkillModelConfig.ModelTime);
             if (effectCom != null)
             {
                 effectCom.transform.SetParent(GameProcessor.Inst.EffectRoot);
                 effectCom.transform.localPosition = startPos;
 
                 Sequence sequence = DOTween.Sequence();
-                sequence.Append(effectCom.transform.DOLocalMove(endPos, ConfigHelper.SkillAnimaTime/2));
-                sequence.Append(effectCom.transform.DOScale(scale, ConfigHelper.SkillAnimaTime/2));
+                sequence.Append(effectCom.transform.DOLocalMove(endPos, (float)SkillModelConfig.ModelTime/ 2));
+                sequence.Append(effectCom.transform.DOScale(scale, (float)SkillModelConfig.ModelTime / 2));
                 sequence.OnComplete(() =>
                 {
                     GameObject.Destroy(effectCom.gameObject);

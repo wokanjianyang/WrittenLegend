@@ -46,6 +46,8 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
 
     private float effectTime = 0;
 
+    private float damageTime = 0;
+
     public APlayer SelfPlayer { get; set; }
 
     // Start is called before the first frame update
@@ -60,7 +62,8 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
     void Update()
     {
         this.doTime -= Time.unscaledDeltaTime;
-        this.effectTime += Time.unscaledDeltaTime; 
+        this.effectTime += Time.unscaledDeltaTime;
+        this.damageTime += Time.unscaledDeltaTime;
 
         if (doTime <= 0)
         {
@@ -77,6 +80,12 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
             {
                 this.SelfPlayer.DoEffect();
             }
+        }
+
+        if (damageTime > 0.1f)
+        {
+            this.damageTime = 0;
+            this.ShowNextToast();
         }
     }
 
@@ -112,7 +121,8 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
                 {
                     this.image_Background.sprite = list_Backgrounds[5];
                 }
-                else {
+                else
+                {
                     this.image_Background.sprite = list_Backgrounds[1];
                 }
                 break;
@@ -160,19 +170,20 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
             return;
         }
         msgTaskList.Add(e);
-        this.ShowNextToast();
     }
 
-    private float currentMsgShowTime = 0f;
     private List<ShowMsgEvent> msgTaskList = new List<ShowMsgEvent>();
     private void ShowNextToast()
     {
+        if (msgTaskList.Count > 10)
+        {
+            this.damageTime = 1 / msgTaskList.Count;
+        }
+
         if (msgTaskList.Count > 0)
         {
             var e = msgTaskList[0];
             msgTaskList.RemoveAt(0);
-
-            currentMsgShowTime = Time.realtimeSinceStartup;
 
             var msg = GameObject.Instantiate(barragePrefab);
             msg.transform.SetParent(this.tran_Barrage);

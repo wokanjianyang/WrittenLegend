@@ -1,14 +1,17 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Game
 {
     public class SkillGraphic_FrontRow : SkillGraphic
     {
+        SkillModelConfig SkillModelConfig;
         public SkillGraphic_FrontRow(APlayer player, SkillPanel skill) : base(player, skill)
         {
+            SkillModelConfig = SkillModelConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.ModelName == this.SkillPanel.SkillData.SkillConfig.ModelName).FirstOrDefault();
         }
 
         public override void PlayAnimation(List<Vector3Int> cells)
@@ -35,7 +38,7 @@ namespace Game
 
             //Log.Info("scale :" + scale.ToString());
 
-            var effectCom = EffectLoader.CreateEffect(this.SkillPanel.SkillData.SkillConfig.ModelName, false, rotation);
+            var effectCom = EffectLoader.CreateEffect(this.SkillPanel.SkillData.SkillConfig.ModelName, false, rotation, (float)SkillModelConfig.ModelTime);
 
             if (effectCom != null)
             {
@@ -45,7 +48,7 @@ namespace Game
                 Sequence sequence = DOTween.Sequence();
 
                 // 添加缩放动画
-                sequence.Append(effectCom.transform.DOScale(scale, ConfigHelper.SkillAnimaTime1)); // 缩放到目标大小，持续1秒
+                sequence.Append(effectCom.transform.DOScale(scale, (float)SkillModelConfig.ModelTime)); // 缩放到目标大小，持续1秒
 
                 // 添加移动动画
                 //sequence.Append(effectCom.transform.DOLocalMove(targetPos, 1.0f)); // 移动到目标位置，持续1秒

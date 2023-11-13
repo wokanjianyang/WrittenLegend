@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3816737034
+CRC: 2885186557
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 871e6fd7837b3ac89003b5046c824876
+    Hash: 787e30f2c5b613e0e8c6c2ef82da379d
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -51,10 +51,12 @@ Assets:
 - Assets/Resources/Config/PhantomAttrConfigCategory.bytes
 - Assets/Resources/Config/MonsterSpecialConfigCategory.bytes
 - Assets/Resources/Config/ExchangeConfigCategory.bytes
-- Assets/Resources/Config/PlayerModelCategory.bytes
+- Assets/Resources/Config/SkillModelCategory.bytes
 - Assets/Resources/Config/GiftPackConfigCategory.bytes
 - Assets/Resources/Config/SkillConfigCategory.bytes
 - Assets/Resources/Config/SkillRuneConfigCategory.bytes
+- Assets/Resources/Config/PlayerModelCategory.bytes
 - Assets/Resources/Config/DropLimitConfigCategory.bytes
 - Assets/Resources/Config/EffectConfigCategory.bytes
+- Assets/Resources/Config/SkillModelConfigCategory.bytes
 Dependencies: []

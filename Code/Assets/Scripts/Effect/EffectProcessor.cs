@@ -31,6 +31,8 @@ namespace Game
 
         private float rotation = 0;
 
+        private float AnimaTime = 0.75f;
+
         private void Start()
         {
             this.imgs = Resources.LoadAll<Sprite>(this.EffectPath);
@@ -46,7 +48,7 @@ namespace Game
             if (this.hasEffect)
             {
                 this.currentTime += Time.deltaTime;
-                if (this.currentTime > ConfigHelper.SkillAnimaTime / this.totalCount)
+                if (this.currentTime > AnimaTime / this.totalCount)
                 {
                     this.currentTime = 0;
                     var sprite = this.imgs[this.currentIndex++ % this.totalCount];
@@ -71,10 +73,14 @@ namespace Game
 
 
 
-        public void SetData(bool loop, float rotation)
+        public void SetData(bool loop, float rotation,float animaTime)
         {
             this.Loop = loop;
             this.rotation = rotation;
+            if (animaTime > 0)
+            {
+                this.AnimaTime = animaTime;
+            }
         }
     }
 }
