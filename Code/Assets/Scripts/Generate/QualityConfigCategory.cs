@@ -14,17 +14,7 @@ namespace Game
     {
         public static string GetColor(Item item)
         {
-            var titleColor = "FFFFFF";
-
-            if (item.Type == ItemType.Material || item.Type == ItemType.SkillBox)
-            {
-                titleColor = "FF6600";
-            }
-            else
-            {
-                titleColor = GetQualityColor(item.GetQuality());
-            }
-            
+            var titleColor = GetQualityColor(item.GetQuality());
             return titleColor;
         }
 
@@ -59,10 +49,12 @@ namespace Game
             return titleColor;
         }
 
-        public static string GetMsgColor(MsgType type) {
+        public static string GetMsgColor(MsgType type)
+        {
             string color = "FFFFFF";
 
-            switch (type) {
+            switch (type)
+            {
                 case MsgType.Damage:
                     color = "FF0000";
                     break;
@@ -86,12 +78,13 @@ namespace Game
         {
             if (over)
             {
-                return "00FF00"; 
+                return "00FF00";
             }
-            else {
+            else
+            {
                 return "FFFFFF";
             }
-            
+
         }
 
         public static string GetEquipGroupColor(bool over)

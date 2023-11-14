@@ -262,41 +262,41 @@ namespace Game
         private Com_Box CreateBox(BoxItem item)
         {
             GameObject prefab = null;
-            if (item.Item.Type == ItemType.Material || item.Item.Type == ItemType.SkillBox)
+            //if (item.Item.Type == ItemType.Material || item.Item.Type == ItemType.SkillBox)
+            //{
+            //    prefab = Resources.Load<GameObject>("Prefab/Window/Box_SkillOrMat");
+            //}
+            //else
+            //{
+            switch (item.Item.GetQuality())
             {
-                prefab = Resources.Load<GameObject>("Prefab/Window/Box_SkillOrMat");
-            }
-            else
-            {
-                switch (item.Item.GetQuality())
-                {
-                    case 0:
-                    case 1:
-                        {
-                            prefab = Resources.Load<GameObject>("Prefab/Window/Box_White");
-                        }
-                        break;
-                    case 2:
-                        {
-                            prefab = Resources.Load<GameObject>("Prefab/Window/Box_Green");
-                        }
-                        break;
-                    case 3:
-                        {
-                            prefab = Resources.Load<GameObject>("Prefab/Window/Box_Blue");
-                        }
-                        break;
-                    case 4:
-                        {
-                            prefab = Resources.Load<GameObject>("Prefab/Window/Box_Pink");
-                        }
-                        break;
-                    case 5:
-                        {
-                            prefab = Resources.Load<GameObject>("Prefab/Window/Box_Orange");
-                        }
-                        break;
-                }
+                case 0:
+                case 1:
+                    {
+                        prefab = Resources.Load<GameObject>("Prefab/Window/Box_White");
+                    }
+                    break;
+                case 2:
+                    {
+                        prefab = Resources.Load<GameObject>("Prefab/Window/Box_Green");
+                    }
+                    break;
+                case 3:
+                    {
+                        prefab = Resources.Load<GameObject>("Prefab/Window/Box_Blue");
+                    }
+                    break;
+                case 4:
+                    {
+                        prefab = Resources.Load<GameObject>("Prefab/Window/Box_Pink");
+                    }
+                    break;
+                case 5:
+                    {
+                        prefab = Resources.Load<GameObject>("Prefab/Window/Box_Orange");
+                    }
+                    break;
+                    //}
             }
 
             var go = GameObject.Instantiate(prefab);
