@@ -83,15 +83,13 @@ namespace Game
             var currentUser = await TDSUser.GetCurrent();
             if (null == currentUser)
             {
-                Debug.Log("当前未登录");
                 // 开始登录
-
                 try
                 {
                     // 在 iOS、Android 系统下会唤起 TapTap 客户端或以 WebView 方式进行登录
                     // 在 Windows、macOS 系统下显示二维码（默认）和跳转链接（需配置）
                     var tdsUser = await TDSUser.LoginWithTapTap();
-                    Debug.Log($"login success:{tdsUser}");
+                    //Debug.Log($"login success:{tdsUser}");
                     // 获取 TDSUser 属性
                     var objectId = tdsUser.ObjectId;     // 用户唯一标识
                     var nickname = tdsUser["nickname"];  // 昵称
@@ -101,17 +99,17 @@ namespace Game
                 {
                     if (e is TapException tapError)  // using TapTap.Common
                     {
-                        Debug.Log($"encounter exception:{tapError.code} message:{tapError.message}");
+                        //Debug.Log($"encounter exception:{tapError.code} message:{tapError.message}");
                         if (tapError.code == (int)TapErrorCode.ERROR_CODE_BIND_CANCEL) // 取消登录
                         {
-                            Debug.Log("登录取消");
+                            //Debug.Log("登录取消");
                         }
                     }
                 }
             }
             else
             {
-                Debug.Log("已登录");
+                //Debug.Log("已登录");
                 // 进入游戏
             }
 
@@ -170,8 +168,6 @@ namespace Game
 
         async Task saveData()
         {
-            Debug.Log("Async Method Begin");
-
             User user = GameProcessor.Inst.User;
             btn_Save.gameObject.SetActive(false);
 
@@ -215,8 +211,6 @@ namespace Game
             this.txt_Name.text = res.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss");
 
             this.CheckProgress();
-
-            Debug.Log("Async Method End");
         }
 
         public void OnClick_Load()
@@ -227,8 +221,6 @@ namespace Game
 
         private async Task loadData()
         {
-            Debug.Log("loadData Begin");
-
             User user = GameProcessor.Inst.User;
             btn_Load.gameObject.SetActive(false);
 
@@ -258,20 +250,15 @@ namespace Game
             }
 
             StartCoroutine(DownData(url, at));
-
-            Debug.Log("loadData End");
         }
 
 
         private IEnumerator DownData(string url, string at)
         {
             UnityWebRequest www = UnityWebRequest.Get(url);
-
-            Debug.Log("DownDataURL：" + url);
+            www.timeout = 15;
 
             yield return www.SendWebRequest();
-
-            Debug.Log("DownDataURL END:" + www.result);
 
             if (www.result != UnityWebRequest.Result.Success)
             {

@@ -213,10 +213,8 @@ namespace Game
             return null;
         }
 
-        public bool GetIsPause(out string name)
+        public bool GetIsPause()
         {
-            name = "";
-
             foreach (List<Effect> list in EffectMap.Values)
             {
                 int mc = list.Where(m => m.Data.Config.Type == (int)EffectType.IgnorePause).Count();
@@ -228,8 +226,6 @@ namespace Game
                 int count = list.Where(m => m.Data.Config.Type == (int)EffectType.Pause).Count();
                 if (count > 0)
                 {
-                    name = list[0].Data.Config.Name;
-
                     return true;
                 }
             }
@@ -237,33 +233,33 @@ namespace Game
             return false;
         }
 
-        public void DoEffect()
+        public void DoEffect(float time)
         {
             if (!this.IsSurvice) return;
 
             //光环
-            if (this.Camp == PlayerType.Hero)
-            {
-                //Debug.Log("Hero Def:" + this.AttributeBonus.GetTotalAttr(AttributeEnum.Def));
-                //Debug.Log("Hero PhyDamage:" + this.AttributeBonus.GetAttackAttr(AttributeEnum.PhyDamage));
+            //if (this.Camp == PlayerType.Hero)
+            //{
+            //    //Debug.Log("Hero Def:" + this.AttributeBonus.GetTotalAttr(AttributeEnum.Def));
+            //    //Debug.Log("Hero PhyDamage:" + this.AttributeBonus.GetAttackAttr(AttributeEnum.PhyDamage));
 
-                if (this.AurasList != null)
-                {
-                    foreach (AAuras auras in this.AurasList)
-                    {
-                        auras.Do();
-                    }
-                }
-            }
+            //    if (this.AurasList != null)
+            //    {
+            //        foreach (AAuras auras in this.AurasList)
+            //        {
+            //            auras.Do();
+            //        }
+            //    }
+            //}
 
             //行动前计算buff
             foreach (List<Effect> list in EffectMap.Values)
             {
                 foreach (Effect effect in list)
                 {
-                    effect.Do();
+                    effect.Do(time);
                 }
-                list.RemoveAll(m => m.Duration <= m.DoCount);//移除已结束的
+                list.RemoveAll(m => !m.Active);//移除已结束的
             }
 
             //回血
@@ -289,16 +285,8 @@ namespace Game
             }
 
             //2.判断控制
-            if (GetIsPause(out string name))
+            if (GetIsPause())
             {
-
-                this.EventCenter.Raise(new ShowMsgEvent
-                {
-                    Type = MsgType.Other,
-                    Content = name
-                });
-
-
                 return Math.Min(AttckSpeed, MoveSpeed);
             }
 
@@ -311,7 +299,7 @@ namespace Game
             SkillState skill = this.GetSkill(200);
             if (skill != null)
             {
-                //Debug.Log("Hero Use Prioriry Skill:");
+                //Debug.Log("Player Use Prioriry Skill:" + skill.SkillPanel.SkillData.SkillConfig.Name);
                 skill.Do();
                 return AttckSpeed;
             }
@@ -372,8 +360,8 @@ namespace Game
 
         public void RunEffect(APlayer attchPlayer, EffectData effectData, long damage, long rolePercent)
         {
-            Effect effect = new Effect(this, effectData, damage, rolePercent,0);
-            effect.Do();
+            Effect effect = new Effect(this, effectData, damage, rolePercent, 0);
+            effect.Do(1f);
         }
         public void AddEffect(APlayer attchPlayer, EffectData effectData, long damage, long rolePercent)
         {
@@ -403,13 +391,13 @@ namespace Game
                 layer = (list[list.Count - 1].Layer + 1) % effectData.Max; //每叠加一层，FromId+1
             }
 
-            Effect effect = new Effect(this, effectData, damage, rolePercent,layer);
+            Effect effect = new Effect(this, effectData, damage, rolePercent, layer);
             list.Add(effect);
 
             // 立即运行类型，立即使用
             if (effect.Data.Config.RunType == 0)
             {
-                effect.Do();
+                effect.Do(1f);
             }
         }
 

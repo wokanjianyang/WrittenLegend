@@ -27,8 +27,6 @@ public class Battle_Defend : ABattleRule
         param.TryGetValue("hp", out object hp);
         param.TryGetValue("count", out object count);
 
-        Debug.Log("record:" + progress + "," + hp);
-
         this.Progress = (long)progress;
         this.PauseCount = (long)count;
 

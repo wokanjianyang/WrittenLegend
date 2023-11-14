@@ -273,9 +273,5 @@ public class Init : MonoBehaviour
             .RegionType(RegionType.CN) // 非必须，CN 表示中国大陆，IO 表示其他国家或地区
             .ConfigBuilder();
         TapBootstrap.Init(config);
-
-        Debug.Log("InInitTapSDK Over");
-
-
     }
 }

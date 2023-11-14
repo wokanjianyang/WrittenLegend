@@ -15,14 +15,20 @@ namespace Game
         public int UID { get; private set; }
 
         public int Duration { get; set; }
+
         public int Max { get; }
 
         public int Layer { get; set; }
 
-        /// <summary>
-        /// 已生效次数
-        /// </summary>
-        public int DoCount { get; set; }
+        private float TotalTime = 0;
+
+        private float Interval = 1f;
+
+        private float RunTime = 0f;
+
+        private int RunCount = 0;
+
+        public bool Active = true;
 
         public Effect(APlayer player, EffectData effectData, long damage, long rolePercent, int layer)
         {
@@ -33,28 +39,55 @@ namespace Game
             this.RolePercent = rolePercent;
 
             this.FromId = Data.FromId;
-            this.Duration = Data.Duration;
+            this.Duration = Data.Duration; //延迟触发的,要多1s
             this.Max = Data.Max;
 
             this.Layer = layer;
             this.UID = FromId + this.Layer;
-
-            this.DoCount = 0;
         }
 
-        public void Do()
+        public void Do(float time)
         {
-            DoCount++;
+            if (!Active)
+            {
+                return; //已经结束的
+            }
+
+            TotalTime += time;
+            RunTime += time;
+
+            if (RunTime < Interval)
+            {
+                return; //还没到触发时间
+            }
+
+            RunTime = 0;
+            RunCount++;
+
+            if (TotalTime > Duration)
+            {
+                Active = false;
+            }
 
             if (Data.Config.Type == ((int)EffectType.HP))
             {
                 DamageAndRestore();
-
             }
             else if (Data.Config.Type == ((int)EffectType.Attr))
             {
                 ChangeAttr();
             }
+            else if (Data.Config.Type == (int)EffectType.Pause)
+            {
+                //show message
+                this.SelfPlayer.EventCenter.Raise(new ShowMsgEvent
+                {
+                    Type = MsgType.Other,
+                    Content = Data.Config.Name
+                });
+            }
+
+            //Debug.Log("Do Effect:" + TotalTime);
         }
 
         private long CalBaseValue()
@@ -100,7 +133,7 @@ namespace Game
         {
             long attr = CalBaseValue() * Data.Config.CalType;
 
-            if (DoCount == 1) //第一次增加属性
+            if (RunCount == 1) //第一次增加属性
             {
                 //Debug.Log("Skill" + Data.Config.Id + " attr:" + attr);
 
@@ -113,7 +146,7 @@ namespace Game
                     SelfPlayer.AttributeBonus.SetAttr((AttributeEnum)Data.Config.TargetAttr, UID, attr);
                 }
             }
-            else if (DoCount >= Duration)  //最后一次，移除属性
+            else if (!Active) //最后一次，移除属性
             {
                 if (Data.Config.TargetAttr == (int)AttributeEnum.PanelHp)
                 {
@@ -128,7 +161,7 @@ namespace Game
 
         public void Clear()
         {
-            this.DoCount = this.Duration + 999999;
+            this.Active = false;
 
             if (Data.Config.Type == (int)EffectType.Attr)
             {

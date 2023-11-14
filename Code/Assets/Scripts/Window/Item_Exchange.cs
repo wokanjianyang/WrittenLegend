@@ -36,8 +36,6 @@ public class Item_Exchange : MonoBehaviour
         Btn_Ok.onClick.AddListener(OnClickOK);
 
         GameProcessor.Inst.EventCenter.AddListener<ExchangeUIFreshEvent>(this.OnExchangeUIFresh);
-
-        Debug.Log("Awake");
     }
 
     // Update is called once per frame
@@ -48,7 +46,6 @@ public class Item_Exchange : MonoBehaviour
 
     void OnEnable()
     {
-        Debug.Log("Check");
         this.Check();
     }
 
@@ -63,7 +60,6 @@ public class Item_Exchange : MonoBehaviour
             if (Config.ItemTypeList[i] == (int)ItemType.Exclusive)
             {
                 ExclusiveConfig exclusiveConfig = ExclusiveConfigCategory.Instance.Get(Config.ItemIdList[i]);
-                Debug.Log(Config.ItemQualityList[i] + " " + color);
                 TxtNameList[i].text = string.Format("<color=#{0}>{1}</color>", color, exclusiveConfig.Name); 
             }
             else

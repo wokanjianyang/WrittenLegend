@@ -36,8 +36,6 @@ public class Item_Composite : MonoBehaviour
         Btn_Ok.onClick.AddListener(OnClickOK);
 
         GameProcessor.Inst.EventCenter.AddListener<CompositeUIFreshEvent>(this.OnUIFresh);
-
-        Debug.Log("Awake");
     }
 
     // Update is called once per frame
@@ -48,7 +46,6 @@ public class Item_Composite : MonoBehaviour
 
     void OnEnable()
     {
-        Debug.Log("Check");
         this.Check();
     }
 
@@ -63,7 +60,6 @@ public class Item_Composite : MonoBehaviour
             if (Config.ItemTypeList[i] == (int)ItemType.Equip)
             {
                 EquipConfig equipConfig = EquipConfigCategory.Instance.Get(Config.ItemIdList[i]);
-                Debug.Log(Config.ItemQualityList[i] + " " + color);
                 TxtNameList[i].text = string.Format("<color=#{0}>{1}</color>", color, equipConfig.Name); 
             }
             else

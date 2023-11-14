@@ -73,13 +73,13 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
             }
         }
 
-        if (effectTime > 1f)
+        if (effectTime > 0.2f)
         {
-            effectTime = 0;
             if (this.SelfPlayer != null)
             {
-                this.SelfPlayer.DoEffect();
+                this.SelfPlayer.DoEffect(effectTime);
             }
+            effectTime = 0;
         }
 
         if (damageTime > 0.1f)
