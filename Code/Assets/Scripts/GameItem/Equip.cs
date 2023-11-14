@@ -62,7 +62,7 @@ namespace Game
         /// </summary>
         public IDictionary<int, string> GroupNameList { get; set; }
 
-        public Equip(int configId, int runeConfigId, int suitConfigId,int quality)
+        public Equip(int configId, int runeConfigId, int suitConfigId, int quality)
         {
             this.Type = ItemType.Equip;
             this.ConfigId = configId;
@@ -104,9 +104,10 @@ namespace Game
 
                 if (qualityConfig.AttrIdList != null)
                 {
+                    int qualityRate = Level / 200 + 1;
                     for (int i = 0; i < qualityConfig.AttrIdList.Length; i++)
                     {
-                        QualityAttrList.Add(qualityConfig.AttrIdList[i], qualityConfig.AttrValueList[i]);
+                        QualityAttrList.Add(qualityConfig.AttrIdList[i], qualityConfig.AttrValueList[i] * qualityRate);
                     }
                 }
             }
@@ -116,7 +117,7 @@ namespace Game
             {
                 for (int i = 0; i < Quality; i++)
                 {
-                    var ra = AttrEntryConfigCategory.Instance.Build(this.Part, this.Level,this.Quality);
+                    var ra = AttrEntryConfigCategory.Instance.Build(this.Part, this.Level, this.Quality);
                     if (ra.Key > 0)
                     {
                         this.AttrEntryList.Add(ra);
@@ -143,7 +144,8 @@ namespace Game
             long basePercent = 100;
             long qualityPercent = 100;
 
-            if (refineConfig != null) {
+            if (refineConfig != null)
+            {
                 basePercent += refineConfig.BaseAttrPercent;
                 qualityPercent += refineConfig.QualityAttrPercent;
             }

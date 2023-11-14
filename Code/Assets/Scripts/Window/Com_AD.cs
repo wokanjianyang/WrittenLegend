@@ -235,8 +235,8 @@ public class Com_AD : MonoBehaviour, IBattleLife
         long exp = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp);
         int rate = real ? 2 : 1;
 
-        gold = gold * 1440 * rate; //2小时/5 = 1440
-        exp = exp * 1440 * rate; //2小时/5 = 1440
+        gold = gold * 2160 * rate; //3小时/5 = 2160
+        exp = exp * 2160 * rate; //3小时/5 = 2160
 
         user.AddExpAndGold(exp, gold);
         GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
@@ -501,7 +501,7 @@ public class Com_AD : MonoBehaviour, IBattleLife
         User user = GameProcessor.Inst.User;
 
         int MapNo = (user.MapId - ConfigHelper.MapStartId + 1);
-        int stoneRate = (MapNo / 10) + 1;
+        int stoneRate = (MapNo / 5) + 1;
 
         int refineStone = 600 * MapNo * stoneRate * rate;
         Item item = ItemHelper.BuildRefineStone(refineStone);
