@@ -16,7 +16,7 @@
 {"_t":"SkillModelConfig","_id":2006,"ModelName":"法术精通","ModelTime":0.75},
 {"_t":"SkillModelConfig","_id":2007,"ModelName":"冰咆哮","ModelTime":1},
 {"_t":"SkillModelConfig","_id":2008,"ModelName":"瞬息移动","ModelTime":0.75},
-{"_t":"SkillModelConfig","_id":2009,"ModelName":"流星火雨","ModelTime":5},
+{"_t":"SkillModelConfig","_id":2009,"ModelName":"流星火雨","ModelTime":1.5},
 {"_t":"SkillModelConfig","_id":3001,"ModelName":"治疗术","ModelTime":0.75},
 {"_t":"SkillModelConfig","_id":3002,"ModelName":"火符术","ModelTime":0.5},
 {"_t":"SkillModelConfig","_id":3003,"ModelName":"施毒术","ModelTime":0.75},

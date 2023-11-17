@@ -123,7 +123,7 @@ namespace Game
 
         public static string BuildOfflineMessage(long time, long floor, long exp, long gold, long itemCount)
         {
-            return $"离线时间{time}S,闯关{floor}层,获得总经验{StringHelper.FormatNumber(exp)}，总金币{gold},装备{itemCount}件,金币经验收益提升";
+            return $"离线时间{time}S,闯关{floor}层,获得总经验{StringHelper.FormatNumber(exp)}，总金币{StringHelper.FormatNumber(gold)},装备{itemCount}件,金币经验收益提升";
         }
 
         public static string BuildTowerSuccessMessage(long riseExp, long riseGold, long exp, long gold, long floor, List<Item> items)

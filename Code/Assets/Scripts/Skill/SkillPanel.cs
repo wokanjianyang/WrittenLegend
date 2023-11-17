@@ -137,8 +137,8 @@ namespace Game
             this.Column = skillData.SkillConfig.Column + runeColumn + suitColumn;
 
             this.CritRate = skillData.SkillConfig.CritRate + runeCritRate + suitCritRate;
-            this.CritDamage = skillData.SkillConfig.CritRate + runeCritDamage + suitCritDamage;
-            this.DamageIncrea = skillData.SkillConfig.CritRate + runeDamageIncrea + suitDamageIncrea;
+            this.CritDamage = skillData.SkillConfig.CritDamage + runeCritDamage + suitCritDamage;
+            this.DamageIncrea = skillData.SkillConfig.DamageIncrea + runeDamageIncrea + suitDamageIncrea;
 
             this.AttrIncrea = 0 + runeAttrIncrea + suitAttrIncrea;
             this.FinalIncrea = 0 + runeFinalIncrea + suitFinalIncrea;
