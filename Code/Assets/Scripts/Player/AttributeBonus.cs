@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 
 namespace Game
@@ -34,6 +35,28 @@ namespace Game
         {
             int key = ((int)attrKey) * 9999 + Position;
             AllAttrDict[attrType][key] = attrValue;
+        }
+
+        public BigInteger GetTotalAttrBig(AttributeEnum attrType) {
+            switch (attrType)
+            {
+                case AttributeEnum.HP:
+                    return CalTotalBig(AttributeEnum.HP, AttributeEnum.HpIncrea);
+                case AttributeEnum.PhyAtt:
+                    return CalTotalBig(AttributeEnum.PhyAtt, AttributeEnum.AttIncrea, AttributeEnum.PhyAttIncrea);
+                case AttributeEnum.MagicAtt:
+                    return CalTotalBig(AttributeEnum.MagicAtt, AttributeEnum.AttIncrea, AttributeEnum.MagicAttIncrea);
+                case AttributeEnum.SpiritAtt:
+                    return CalTotalBig(AttributeEnum.SpiritAtt, AttributeEnum.AttIncrea, AttributeEnum.SpiritAttIncrea);
+                case AttributeEnum.Def:
+                    return CalTotalBig(AttributeEnum.Def, AttributeEnum.DefIncrea);
+                case AttributeEnum.SecondExp:
+                    return CalTotalBig(AttributeEnum.SecondExp, AttributeEnum.ExpIncrea);
+                case AttributeEnum.SecondGold:
+                    return CalTotalBig(AttributeEnum.SecondGold, AttributeEnum.GoldIncrea);
+                default:
+                    return CalTotalBig(attrType);
+            }
         }
 
         public long GetTotalAttr(AttributeEnum attrType)
@@ -79,6 +102,29 @@ namespace Game
                     return CalTotal(AttributeEnum.SecondGold, AttributeEnum.GoldIncrea);
                 default:
                     return CalTotal(attrType);
+            }
+        }
+
+        public BigInteger GetAttackAttrBig(AttributeEnum attrType)
+        {
+            switch (attrType)
+            {
+                case AttributeEnum.HP:
+                    return CalTotalBig(AttributeEnum.HP, AttributeEnum.HpIncrea) * (CalTotal(AttributeEnum.PanelHp) + 100) / 100;
+                case AttributeEnum.PhyAtt:
+                    return CalTotalBig(AttributeEnum.PhyAtt, AttributeEnum.AttIncrea, AttributeEnum.PhyAttIncrea) * (CalTotal(AttributeEnum.PanelPhyAtt) + 100) / 100;
+                case AttributeEnum.MagicAtt:
+                    return CalTotalBig(AttributeEnum.MagicAtt, AttributeEnum.AttIncrea, AttributeEnum.MagicAttIncrea) * (CalTotal(AttributeEnum.PanelMagicAtt) + 100) / 100;
+                case AttributeEnum.SpiritAtt:
+                    return CalTotalBig(AttributeEnum.SpiritAtt, AttributeEnum.AttIncrea, AttributeEnum.SpiritAttIncrea) * (CalTotal(AttributeEnum.PanelSpiritAtt) + 100) / 100;
+                case AttributeEnum.Def:
+                    return CalTotalBig(AttributeEnum.Def, AttributeEnum.DefIncrea) * (CalTotal(AttributeEnum.PanelDef) + 100) / 100;
+                case AttributeEnum.SecondExp:
+                    return CalTotalBig(AttributeEnum.SecondExp, AttributeEnum.ExpIncrea);
+                case AttributeEnum.SecondGold:
+                    return CalTotalBig(AttributeEnum.SecondGold, AttributeEnum.GoldIncrea);
+                default:
+                    return CalTotalBig(attrType);
             }
         }
 
@@ -128,6 +174,42 @@ namespace Game
         private long CalTotal(AttributeEnum type)
         {
             long total = 0;
+
+            foreach (long attr in AllAttrDict[type].Values)
+            {
+                total += attr;
+            }
+
+            return total;
+        }
+
+
+        private BigInteger CalTotalBig(AttributeEnum type, params AttributeEnum[] increaTypes)
+        {
+            BigInteger total = 0;
+
+            foreach (long hp in AllAttrDict[type].Values)
+            {
+                total += hp;
+            }
+
+            long percent = 0;
+
+            for (int i = 0; i < increaTypes.Length; i++)
+            {
+                AttributeEnum percentType = increaTypes[i];
+                foreach (long pc in AllAttrDict[percentType].Values)
+                {
+                    percent += pc;
+                }
+            }
+
+            return total * (100 + percent) / 100;
+        }
+
+        private BigInteger CalTotalBig(AttributeEnum type)
+        {
+            BigInteger total = 0;
 
             foreach (long attr in AllAttrDict[type].Values)
             {

@@ -82,7 +82,7 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.CritDamage, AttributeFrom.HeroBase, Config.CritDamage);
 
             //回满当前血量
-            SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
+            SetHP(((long)AttributeBonus.GetTotalAttrBig(AttributeEnum.HP)));
         }
 
         private void SetSkill()

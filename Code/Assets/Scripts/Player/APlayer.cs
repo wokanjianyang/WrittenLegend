@@ -6,6 +6,7 @@ using DG.Tweening;
 using SDD.Events;
 using Newtonsoft.Json;
 using System.Linq;
+using System.Numerics;
 
 namespace Game
 {
@@ -70,13 +71,13 @@ namespace Game
         private Dictionary<int, int> SkillUseRoundCache = new Dictionary<int, int>();
         public void ChangeMaxHp(int fromId, long total)
         {
-            long PreMaxHp = this.AttributeBonus.GetAttackAttr(AttributeEnum.HP);
+            long PreMaxHp = ((long)this.AttributeBonus.GetAttackAttrBig(AttributeEnum.HP));
             //Debug.Log("PreMaxHp:" + PreMaxHp);
             double rate = this.HP * 1f / PreMaxHp;
             //Debug.Log("rate:" + rate);
 
             this.AttributeBonus.SetAttr(AttributeEnum.PanelHp, fromId, total);
-            long CurrentMaxHp = this.AttributeBonus.GetAttackAttr(AttributeEnum.HP);
+            long CurrentMaxHp = ((long)this.AttributeBonus.GetAttackAttrBig(AttributeEnum.HP));
             //Debug.Log("CurrentMaxHp:" + CurrentMaxHp);
             long currentHp = (long)(CurrentMaxHp * rate);
             //Debug.Log("currentHp:" + currentHp);
@@ -145,7 +146,7 @@ namespace Game
             this.Transform.SetParent(GameProcessor.Inst.PlayerRoot);
             var rect = this.Transform.GetComponent<RectTransform>();
             rect.sizeDelta = GameProcessor.Inst.MapData.CellSize;
-            rect.localScale = Vector3.one;
+            rect.localScale = UnityEngine.Vector3.one;
             this.Logic = this.Transform.GetComponent<Logic>();
             var coms = this.Transform.GetComponents<MonoBehaviour>();
             foreach (var com in coms)
@@ -266,11 +267,11 @@ namespace Game
         public void AutoRestore()
         {
             //回血
-            long restoreHp = AttributeBonus.GetAttackAttr(AttributeEnum.RestoreHp) +
-                AttributeBonus.GetAttackAttr(AttributeEnum.RestoreHpPercent) * AttributeBonus.GetAttackAttr(AttributeEnum.HP) / 100;
+            BigInteger restoreHp = AttributeBonus.GetAttackAttr(AttributeEnum.RestoreHp) +
+                AttributeBonus.GetAttackAttr(AttributeEnum.RestoreHpPercent) * AttributeBonus.GetAttackAttrBig(AttributeEnum.HP) / 100;
             if (restoreHp > 0)
             {
-                this.OnRestore(this.ID, restoreHp);
+                this.OnRestore(this.ID, ((long)restoreHp));
             }
         }
 
@@ -404,7 +405,7 @@ namespace Game
             }
         }
 
-        public void Move(Vector3Int cell)
+        public void Move(UnityEngine.Vector3Int cell)
         {
             //this.EventCenter.Raise(new ShowMsgEvent
             //{
@@ -416,7 +417,7 @@ namespace Game
             this.Transform.DOLocalMove(targetPos, 1f);
         }
 
-        public void SetPosition(Vector3 pos, bool isGraphic = false)
+        public void SetPosition(UnityEngine.Vector3 pos, bool isGraphic = false)
         {
             this.Cell = new Vector3Int((int)pos.x, (int)pos.y, 0);
             if (isGraphic)
