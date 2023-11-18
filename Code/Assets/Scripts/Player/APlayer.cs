@@ -252,7 +252,7 @@ namespace Game
             //    }
             //}
 
-            //行动前计算buff
+            //计算buff
             foreach (List<Effect> list in EffectMap.Values)
             {
                 foreach (Effect effect in list)
@@ -261,7 +261,10 @@ namespace Game
                 }
                 list.RemoveAll(m => !m.Active);//移除已结束的
             }
+        }
 
+        public void AutoRestore()
+        {
             //回血
             long restoreHp = AttributeBonus.GetAttackAttr(AttributeEnum.RestoreHp) +
                 AttributeBonus.GetAttackAttr(AttributeEnum.RestoreHpPercent) * AttributeBonus.GetAttackAttr(AttributeEnum.HP) / 100;

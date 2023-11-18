@@ -48,6 +48,8 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
 
     private float damageTime = 0;
 
+    private float restoreTime = 0;
+
     public APlayer SelfPlayer { get; set; }
 
     // Start is called before the first frame update
@@ -64,21 +66,21 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
         this.doTime -= Time.unscaledDeltaTime;
         this.effectTime += Time.unscaledDeltaTime;
         this.damageTime += Time.unscaledDeltaTime;
+        this.restoreTime += Time.unscaledDeltaTime;
+
+        if (this.SelfPlayer == null)
+        {
+            return;
+        }
 
         if (doTime <= 0)
         {
-            if (this.SelfPlayer != null)
-            {
-                this.doTime = this.SelfPlayer.DoEvent();
-            }
+            this.doTime = this.SelfPlayer.DoEvent();
         }
 
         if (effectTime > 0.2f)
         {
-            if (this.SelfPlayer != null)
-            {
-                this.SelfPlayer.DoEffect(effectTime);
-            }
+            this.SelfPlayer.DoEffect(effectTime);
             effectTime = 0;
         }
 
@@ -86,6 +88,12 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
         {
             this.damageTime = 0;
             this.ShowNextToast();
+        }
+
+        if (this.restoreTime >= 1f)
+        {
+            this.restoreTime = 0;
+            this.SelfPlayer.AutoRestore();
         }
     }
 
