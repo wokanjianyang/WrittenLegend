@@ -32,11 +32,17 @@ namespace Game
             }
             else
             {
+                if (roundNum % 4 != 0)
+                {
+                    return;
+                }
+
                 NewFloor();
             }
         }
 
-        private void NewFloor() {
+        private void NewFloor()
+        {
             User user = GameProcessor.Inst.User;
             var monsters = MonsterTowerHelper.BuildMonster(user.MagicTowerFloor.Data);
             if (monsters != null && monsters.Count > 0)

@@ -166,7 +166,7 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
     {
         if (this.com_Progress != null)
         {
-            this.com_Progress.SetProgress(this.SelfPlayer.HP, ((long)SelfPlayer.AttributeBonus.GetAttackAttrBig(AttributeEnum.HP)));
+            this.com_Progress.SetProgress(this.SelfPlayer.HP, SelfPlayer.AttributeBonus.GetAttackAttr(AttributeEnum.HP));
         }
     }
 

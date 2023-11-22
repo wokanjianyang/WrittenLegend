@@ -23,13 +23,13 @@ namespace Game
         // Start is called before the first frame update
         void Start()
         {
-        
+
         }
 
         // Update is called once per frame
         void Update()
         {
-        
+
         }
 
         public int Order => (int)ComponentOrder.Progress;
@@ -47,15 +47,15 @@ namespace Game
                     break;
             }
         }
-        public void SetProgress(long current, long total)
+        public void SetProgress(double current, double total)
         {
-            var value = current * 1f / total;
+            double value = current / total;
             if (value > 1)
             {
-                value = 1;
+                value = 1f;
                 //current = total;
             }
-            this.img_Progress.fillAmount = value;
+            this.img_Progress.fillAmount = (float)value;
             switch (this.ProgressType)
             {
                 case ProgressType.PlayerExp:

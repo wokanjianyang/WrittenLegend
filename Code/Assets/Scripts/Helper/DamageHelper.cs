@@ -12,16 +12,16 @@ namespace Game
 
             int role = skill.SkillData.SkillConfig.Role;
 
-            long roleAttr = GetRoleAttack(attcher, role) * (100 + skill.AttrIncrea + attcher.GetAttackAttr(AttributeEnum.AurasAttrIncrea)) / 100;  //职业攻击
+            double roleAttr = GetRoleAttack(attcher, role) * (100 + skill.AttrIncrea + attcher.GetAttackAttr(AttributeEnum.AurasAttrIncrea)) / 100;  //职业攻击
 
             //防御 = 目标防御 * (100-无视防御)/100
-            long def = enemy.GetAttackAttr(AttributeEnum.Def) + attcher.GetAttackAttr(AttributeEnum.DefIgnore);
+            double def = enemy.GetAttackAttr(AttributeEnum.Def) + attcher.GetAttackAttr(AttributeEnum.DefIgnore);
             int ignoreDef = Math.Min(skill.IgnoreDef, 100);
             def = def * (100 - ignoreDef) / 100;
 
             double defRate = def * ConfigHelper.Def_Rate / (def * ConfigHelper.Def_Rate + roleAttr);
 
-            long attack = (long)(roleAttr * (1 - defRate)); //攻击 - 防御
+            double attack = roleAttr * (1 - defRate); //攻击 - 防御
 
             //技能系数
             attack = attack * (skill.Percent + GetRolePercent(attcher, role)) / 100 + skill.Damage + GetRoleDamage(attcher, role);  // *百分比系数 + 固定数值
@@ -233,14 +233,14 @@ namespace Game
 
     public class DamageResult
     {
-        public DamageResult(long damage, MsgType type,RoleType roleType)
+        public DamageResult(double damage, MsgType type, RoleType roleType)
         {
             this.Damage = damage;
             this.Type = type;
             this.RoleType = roleType;
         }
 
-        public DamageResult(int formId, long damage, MsgType type, RoleType roleType)
+        public DamageResult(int formId, double damage, MsgType type, RoleType roleType)
         {
             this.FromId = formId;
             this.Damage = damage;
@@ -251,7 +251,7 @@ namespace Game
         public MsgType Type { get; set; }
 
         public RoleType RoleType { get; set; }
-        public long Damage { get; set; }
+        public double Damage { get; set; }
         public int FromId { get; set; }
     }
 }

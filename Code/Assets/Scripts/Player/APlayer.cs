@@ -17,7 +17,7 @@ namespace Game
         public string Name { get; set; }
 
         public long Level { get; set; }
-        public long HP { get; set; }
+        public double HP { get; set; }
         public int Quality { get; set; }
 
         public bool IsHide { get; set; } = false;
@@ -69,17 +69,18 @@ namespace Game
 
         [JsonIgnore]
         private Dictionary<int, int> SkillUseRoundCache = new Dictionary<int, int>();
-        public void ChangeMaxHp(int fromId, long total)
+        public void ChangeMaxHp(int fromId, double total)
         {
-            long PreMaxHp = ((long)this.AttributeBonus.GetAttackAttrBig(AttributeEnum.HP));
+            double PreMaxHp = this.AttributeBonus.GetAttackAttr(AttributeEnum.HP);
             //Debug.Log("PreMaxHp:" + PreMaxHp);
             double rate = this.HP * 1f / PreMaxHp;
             //Debug.Log("rate:" + rate);
 
             this.AttributeBonus.SetAttr(AttributeEnum.PanelHp, fromId, total);
-            long CurrentMaxHp = ((long)this.AttributeBonus.GetAttackAttrBig(AttributeEnum.HP));
+
+            double CurrentMaxHp = this.AttributeBonus.GetAttackAttr(AttributeEnum.HP);
             //Debug.Log("CurrentMaxHp:" + CurrentMaxHp);
-            long currentHp = (long)(CurrentMaxHp * rate);
+            double currentHp = (long)(CurrentMaxHp * rate);
             //Debug.Log("currentHp:" + currentHp);
             this.HP = currentHp;
 
@@ -267,8 +268,8 @@ namespace Game
         public void AutoRestore()
         {
             //回血
-            BigInteger restoreHp = AttributeBonus.GetAttackAttr(AttributeEnum.RestoreHp) +
-                AttributeBonus.GetAttackAttr(AttributeEnum.RestoreHpPercent) * AttributeBonus.GetAttackAttrBig(AttributeEnum.HP) / 100;
+            double restoreHp = AttributeBonus.GetAttackAttr(AttributeEnum.RestoreHp) +
+                AttributeBonus.GetAttackAttr(AttributeEnum.RestoreHpPercent) * AttributeBonus.GetAttackAttr(AttributeEnum.HP) / 100;
             if (restoreHp > 0)
             {
                 this.OnRestore(this.ID, ((long)restoreHp));
@@ -362,12 +363,12 @@ namespace Game
             return 1f;
         }
 
-        public void RunEffect(APlayer attchPlayer, EffectData effectData, long damage, long rolePercent)
+        public void RunEffect(APlayer attchPlayer, EffectData effectData, double damage, long rolePercent)
         {
             Effect effect = new Effect(this, effectData, damage, rolePercent, 0);
             effect.Do(1f);
         }
-        public void AddEffect(APlayer attchPlayer, EffectData effectData, long damage, long rolePercent)
+        public void AddEffect(APlayer attchPlayer, EffectData effectData, double damage, long rolePercent)
         {
             if (!EffectMap.TryGetValue(effectData.FromId, out List<Effect> list))
             {
@@ -502,12 +503,12 @@ namespace Game
             this.Logic.OnDamage(dr);
         }
 
-        public void OnRestore(int fromId, long hp)
+        public void OnRestore(int fromId, double hp)
         {
             this.Logic.OnRestore(hp);
         }
 
-        public void SetHP(long hp)
+        public void SetHP(double hp)
         {
             this.HP = hp;
 

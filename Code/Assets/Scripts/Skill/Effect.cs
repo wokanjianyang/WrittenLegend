@@ -9,7 +9,7 @@ namespace Game
         public APlayer SelfPlayer { get; }
         public EffectData Data { get; }
         public int FromId { get; }
-        public long Damage { get; set; }
+        public double Damage { get; set; }
         public long RolePercent { get; set; }
 
         public int UID { get; private set; }
@@ -30,7 +30,7 @@ namespace Game
 
         public bool Active = true;
 
-        public Effect(APlayer player, EffectData effectData, long damage, long rolePercent, int layer)
+        public Effect(APlayer player, EffectData effectData, double damage, long rolePercent, int layer)
         {
             this.SelfPlayer = player;
             this.Data = effectData;
@@ -90,9 +90,9 @@ namespace Game
             //Debug.Log("Do Effect:" + TotalTime);
         }
 
-        private long CalBaseValue()
+        private double CalBaseValue()
         {
-            long m = Data.Percent;
+            double m = Data.Percent;
 
             if (Data.Config.ExpertRise > 0)
             {
@@ -117,7 +117,7 @@ namespace Game
 
         private void DamageAndRestore()
         {
-            long hp = CalBaseValue();
+            double hp = CalBaseValue();
 
             if (Data.Config.CalType > 0) //回血
             {
@@ -131,7 +131,7 @@ namespace Game
 
         private void ChangeAttr()
         {
-            long attr = CalBaseValue() * Data.Config.CalType;
+            double attr = CalBaseValue() * Data.Config.CalType;
 
             if (RunCount == 1) //第一次增加属性
             {

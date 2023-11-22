@@ -28,7 +28,7 @@ namespace Game
         }
         abstract public void Do();
 
-        public void DoEffect(APlayer enemy, APlayer self, long damage, long rolePercent, EffectData data)
+        public void DoEffect(APlayer enemy, APlayer self, double damage, long rolePercent, EffectData data)
         {
             EffectConfig config = data.Config;
 
