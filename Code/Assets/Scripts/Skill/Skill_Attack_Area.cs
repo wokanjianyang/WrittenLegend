@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using UnityEngine;
 
@@ -14,7 +15,15 @@ namespace Game
             {
                 if (skillPanel.Area == AttackGeometryType.FrontRow)
                 {
-                    this.skillGraphic = new SkillGraphic_FrontRow(player, skillPanel);
+                    SkillModelConfig SkillModelConfig = SkillModelConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.ModelName == this.SkillPanel.SkillData.SkillConfig.ModelName).FirstOrDefault();
+
+                    if (SkillModelConfig.ScaleType == 1)
+                    {
+                        this.skillGraphic = new SkillGraphic_FrontRow(player, skillPanel);
+                    }
+                    else {
+                        this.skillGraphic = new SkillGraphic_FrontRow1(player, skillPanel);
+                    }
                 }
                 else if (skillPanel.Area == AttackGeometryType.Arc)
                 {

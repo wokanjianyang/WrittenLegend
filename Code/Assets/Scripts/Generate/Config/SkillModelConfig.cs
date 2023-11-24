@@ -84,6 +84,9 @@ namespace Game
 		/// <summary>施法时间</summary>
 		[ProtoMember(3)]
 		public double ModelTime { get; set; }
+		/// <summary>是否缩放</summary>
+		[ProtoMember(4)]
+		public int ScaleType { get; set; }
 
 	}
 }
