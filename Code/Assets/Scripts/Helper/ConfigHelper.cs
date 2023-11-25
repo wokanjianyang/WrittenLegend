@@ -6,7 +6,7 @@ namespace Game
     {
         public const int Version = 160;
 
-        public const long Max_Level = 30000; //最大人物等级和强化等级
+        public const long Max_Level = 40000; //最大人物等级和强化等级
 
         public const long Max_Level_Refine = 200; //最大精练等级
 
