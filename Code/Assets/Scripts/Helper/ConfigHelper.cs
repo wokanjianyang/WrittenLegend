@@ -42,8 +42,19 @@ namespace Game
 
         public const int SkillNumber = 5;
 
+        public const int FastFloor = 3000000;
+
         public const float DelayShowTime = 0.75f;
         //public const float SkillAnimaTime = 0.75f;
         //public const float SkillAnimaTime1 = 0.75f;
+
+        public static int GetFloorRate(long floor)
+        {
+            if (floor > 100 && floor < FastFloor)
+            {
+                return 2;
+            }
+            return 1;
+        }
     }
 }

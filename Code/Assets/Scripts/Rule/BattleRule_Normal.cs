@@ -91,7 +91,9 @@ namespace Game
                 Type = RuleType.Normal
             });
 
-            user.MagicTowerFloor.Data++;
+            int floorRate = ConfigHelper.GetFloorRate(user.MagicTowerFloor.Data);
+
+            user.MagicTowerFloor.Data += floorRate;
 
             //自动回收
             if (items.Count > 0)

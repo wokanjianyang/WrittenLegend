@@ -122,7 +122,8 @@ namespace Game
                 isTimeError = true;
             }
 
-            if (UserData.StartTime > ConfigHelper.PackEndTime) {
+            if (UserData.StartTime > ConfigHelper.PackEndTime)
+            {
                 //load时间大于结束时间,必须要更新
                 isTimeError = true;
             }
@@ -133,12 +134,14 @@ namespace Game
                 isTimeError = true;
             }
 
-            if (!this.User.Record.Check()) {
+            if (!this.User.Record.Check())
+            {
                 isCheckError = true;
             }
 
             int MaxVersion = User.VersionLog.Select(m => m.Key).Max();
-            if (ConfigHelper.Version < MaxVersion) {
+            if (ConfigHelper.Version < MaxVersion)
+            {
                 isVersionError = true;
             }
 
@@ -274,7 +277,8 @@ namespace Game
 
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Equip_Speical_Stone,99999999));
 
-            long newFloor = User.MagicTowerFloor.Data + offlineFloor;
+            int floorRate = ConfigHelper.GetFloorRate(tmepFloor);
+            long newFloor = User.MagicTowerFloor.Data + offlineFloor * floorRate;
 
             User.MagicTowerFloor.Data = Math.Min(newFloor, ConfigHelper.Max_Floor);
 
@@ -529,7 +533,7 @@ namespace Game
                 {
                     var toast = toastTaskList[0];
                     toastTaskList.RemoveAt(0);
-                    
+
                     currentToastShowTime = Time.realtimeSinceStartup;
 
                     var msg = GameObject.Instantiate(barragePrefab);
@@ -561,7 +565,7 @@ namespace Game
                     }
 
                     com.tmp_Msg_Content.text = string.Format("<color=#{0}>{1}</color>", color, toast.Content);
-                
+
                     //首先要创建一个DOTween队列
                     Sequence seq = DOTween.Sequence();
 
@@ -577,7 +581,7 @@ namespace Game
                         GameObject.Destroy(msg);
                     });
                 }
-                
+
             }
         }
 
@@ -614,7 +618,8 @@ namespace Game
             }
         }
 
-        public void CloseBattle(RuleType ruleType, long time) {
+        public void CloseBattle(RuleType ruleType, long time)
+        {
             ie_autoExitKey = StartCoroutine(this.AutoExitMap(ruleType, time));
         }
 
@@ -709,7 +714,7 @@ namespace Game
                 PlayerManager.GetHero().EventCenter.Raise(new ShowMsgEvent()
                 {
                     Type = MsgType.Normal,
-                    Content = $"{(10-i)}秒后复活"
+                    Content = $"{(10 - i)}秒后复活"
                 });
                 yield return new WaitForSeconds(1f);
             }
@@ -740,7 +745,8 @@ namespace Game
                     this.AutoEquipCopy();
                 }
             }
-            else if (ruleType == RuleType.BossFamily) {
+            else if (ruleType == RuleType.BossFamily)
+            {
                 long bossTicket = GameProcessor.Inst.User.GetMaterialCount(ItemHelper.SpecialId_Boss_Ticket);
                 if (EquipBossFamily_Auto && bossTicket > 0)
                 {
@@ -751,7 +757,7 @@ namespace Game
 
         private void AutoEquipCopy()
         {
-            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("5S后自动挑战装备副本",true,
+            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("5S后自动挑战装备副本", true,
             () =>
             {
                 StopCoroutine(ie_autoStartCopy);
