@@ -18,7 +18,7 @@
 {"_t":"EffectConfig","_id":101,"Name":"吸血","Type":2,"CalType":1,"SourceAttr":-1,"Priority":1,"TargetType":1,"RunType":0,"TargetAttr":0,"ExpertRise":0,"LevelRise":0,"Des":"吸血{0}%"},
 {"_t":"EffectConfig","_id":102,"Name":"回复","Type":2,"CalType":1,"SourceAttr":-1,"Priority":1,"TargetType":1,"RunType":1,"TargetAttr":0,"ExpertRise":100,"LevelRise":0,"Des":""},
 {"_t":"EffectConfig","_id":103,"Name":"灼烧","Type":2,"CalType":-1,"SourceAttr":-1,"Priority":1,"TargetType":2,"RunType":1,"TargetAttr":0,"ExpertRise":0,"LevelRise":0,"Des":"灼烧{0}%伤害{2}秒"},
-{"_t":"EffectConfig","_id":104,"Name":"中毒","Type":2,"CalType":-1,"SourceAttr":-1,"Priority":1,"TargetType":2,"RunType":1,"TargetAttr":0,"ExpertRise":100,"LevelRise":0,"Des":""},
+{"_t":"EffectConfig","_id":104,"Name":"中毒","Type":2,"CalType":-1,"SourceAttr":-1,"Priority":1,"TargetType":2,"RunType":1,"TargetAttr":0,"ExpertRise":0,"LevelRise":0,"Des":""},
 {"_t":"EffectConfig","_id":107,"Name":"流血","Type":2,"CalType":-1,"SourceAttr":-1,"Priority":1,"TargetType":2,"RunType":1,"TargetAttr":0,"ExpertRise":0,"LevelRise":0,"Des":""},
 {"_t":"EffectConfig","_id":109,"Name":"切割","Type":2,"CalType":-1,"SourceAttr":0,"Priority":-1,"TargetType":2,"RunType":0,"TargetAttr":0,"ExpertRise":0,"LevelRise":0,"Des":"额外造成{0}%当前生命的绝对伤害"},
 {"_t":"EffectConfig","_id":110,"Name":"绝对切割","Type":2,"CalType":-1,"SourceAttr":1,"Priority":-1,"TargetType":2,"RunType":0,"TargetAttr":0,"ExpertRise":0,"LevelRise":0,"Des":"额外造成{0}%最大生命的绝对伤害"},
