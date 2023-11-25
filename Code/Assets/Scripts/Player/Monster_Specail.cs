@@ -66,7 +66,7 @@ public class Monster_Specail : APlayer
         AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr);
         AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, def);
 
-        SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
+        SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
     }
 
     public override float DoEvent()

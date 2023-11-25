@@ -97,8 +97,8 @@ public class Monster_Phantom : APlayer
         AttributeBonus.SetAttr(AttributeEnum.DamageIncrea, AttributeFrom.HeroBase, attrConfig.DamageIncrea);
         AttributeBonus.SetAttr(AttributeEnum.DamageResist, AttributeFrom.HeroBase, attrConfig.DamageResist);
 
-        long MaxHP = AttributeBonus.GetTotalAttr(AttributeEnum.HP);
-        long CurrentHp = Percent * MaxHP / 10;
+        double MaxHP = AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
+        double CurrentHp = Percent * MaxHP / 10;
 
         //Debug.Log("Phan CurrentHp:" + CurrentHp);
         SetHP(CurrentHp);
