@@ -10,7 +10,7 @@ namespace Game
 
         public const long Max_Level_Refine = 200; //最大精练等级
 
-        public const long Max_Floor = 6000000; //最大闯关
+        public const long Max_Floor = 8000000; //最大闯关
 
         public const double Def_Rate = 3.0; //防御系数
 
@@ -42,7 +42,7 @@ namespace Game
 
         public const int SkillNumber = 5;
 
-        public const int FastFloor = 3000000;
+        public const int FastFloor = 4000000;
 
         public const float DelayShowTime = 0.75f;
         //public const float SkillAnimaTime = 0.75f;

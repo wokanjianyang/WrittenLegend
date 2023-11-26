@@ -278,7 +278,8 @@ namespace Game
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Equip_Speical_Stone,99999999));
 
             int floorRate = ConfigHelper.GetFloorRate(tmepFloor);
-            long newFloor = User.MagicTowerFloor.Data + offlineFloor * floorRate;
+            offlineFloor = offlineFloor * floorRate;
+            long newFloor = User.MagicTowerFloor.Data + offlineFloor;
 
             User.MagicTowerFloor.Data = Math.Min(newFloor, ConfigHelper.Max_Floor);
 
