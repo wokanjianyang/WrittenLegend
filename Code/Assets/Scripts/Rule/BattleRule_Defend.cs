@@ -126,7 +126,7 @@ public class Battle_Defend : ABattleRule
 
         GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
         {
-            Message = BattleMsgHelper.BuildGiftPackMessage("ÊØÎÀ½±Àø", 0, 0, items)
+            Message = BattleMsgHelper.BuildRewardMessage("ÊØÎÀ³É¹¦½±Àø", 0, 0, items)
         });
     }
 

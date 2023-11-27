@@ -5,7 +5,7 @@ namespace Game
 {
     public class BattleMsgHelper
     {
-        public static string BuildMonsterDeadMessage(APlayer monster,long exp,long gold, List<Item> Drops)
+        public static string BuildMonsterDeadMessage(APlayer monster, long exp, long gold, List<Item> Drops)
         {
             string drops = "";
             if (exp > 0)
@@ -66,7 +66,39 @@ namespace Game
             return message;
         }
 
-        public static string BuildAutoRecoveryMessage(int equipQuantity, int refineStone, int speicalStone, int exclusiveStone,int cardStone, long gold)
+        public static string BuildRewardMessage(string src, long exp, long gold, List<Item> Drops)
+        {
+            string drops = src + "";
+
+            if (exp > 0)
+            {
+                drops += ",经验增加:" + StringHelper.FormatNumber(exp);
+            }
+
+            if (gold > 0)
+            {
+                drops += ",金币增加:" + StringHelper.FormatNumber(gold);
+            }
+
+            if (Drops != null && Drops.Count > 0)
+            {
+                drops += ",掉落";
+                foreach (var drop in Drops)
+                {
+                    string qt = "";
+                    if (drop.Count > 1)
+                    {
+                        qt = "*" + drop.Count + " ";
+                    }
+
+                    drops += $"<color=#{QualityConfigHelper.GetColor(drop)}>[{drop.Name}]</color>" + qt;
+                }
+            }
+
+            return drops;
+        }
+
+        public static string BuildAutoRecoveryMessage(int equipQuantity, int refineStone, int speicalStone, int exclusiveStone, int cardStone, long gold)
         {
             string message = "回收" + equipQuantity + "件装备，获得";
             if (refineStone > 0)
@@ -154,7 +186,7 @@ namespace Game
             return message;
         }
 
-        public static string BuildTaskRewardMessage(long exp,long gold, List<Item> items)
+        public static string BuildTaskRewardMessage(long exp, long gold, List<Item> items)
         {
             string message = $"获得任务奖励:经验 {exp},金币 {gold} ";
             foreach (var drop in items)
