@@ -145,40 +145,23 @@ namespace Game
             //增加经验,金币
             user.AddExpAndGold(exp, gold);
 
-            //地图道具奖励
-            List<KeyValuePair<int, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(Config.MapId, 10 * dropModelRate);
+            QualityConfig qualityConfig = QualityConfigCategory.Instance.Get(Quality);
 
-            //自身掉落
-            if (Config.DropIdList != null && Config.DropIdList.Length > 0)
-            {
-                for (int i = 0; i < Config.DropIdList.Length; i++)
-                {
-                    DropConfig dropConfig = DropConfigCategory.Instance.Get(Config.DropIdList[i]);
+            double dropRate = (100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstIncrea)) / 100;
+            dropRate = dropRate * dropModelRate * qualityConfig.DropRate; //爆率 = 人物爆率*怪物类型爆率*怪物品质爆率
 
-                    dropList.Add(new KeyValuePair<int, DropConfig>(Config.DropRateList[i], dropConfig));
-                }
-            }
-
+            //生成道具奖励
+            List<KeyValuePair<int, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(Config.MapId, dropRate);
             //限时奖励
-            dropList.AddRange(DropLimitHelper.Build(10 * dropModelRate));
+            dropList.AddRange(DropLimitHelper.Build((int)DropLimitType.Normal, dropRate));
 
-            int qualityRate = 250 * (100 + (int)user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea)) / 100;
-
-            List<Item> items = DropHelper.BuildDropItem(dropList, 250);
+            int qualityRate = qualityConfig.QualityRate * (100 + (int)user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea)) / 100;
+            List<Item> items = DropHelper.BuildDropItem(dropList, qualityRate);
 
             int mapIndex = Config.MapId - ConfigHelper.MapStartId;
             int quantity = mapIndex / 10 + 1 + user.SoulRingNumber;
 
             items.Add(ItemHelper.BuildSoulRingShard(quantity * 2));
-
-            //掉落BOSS之家门票
-            //if (CopyType == 1)
-            //{
-            //    if (RandomHelper.RandomNumber(1, 25) <= 1)
-            //    {
-            //        items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, 1));
-            //    }
-            //}
 
             if (items.Count > 0)
             {

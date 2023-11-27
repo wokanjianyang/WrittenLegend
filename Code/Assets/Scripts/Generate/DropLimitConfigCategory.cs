@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Game
 {
@@ -11,14 +12,15 @@ namespace Game
 
     public class DropLimitHelper
     {
-        public static List<KeyValuePair<int, DropConfig>> Build(double rateRise)
+        public static List<KeyValuePair<int, DropConfig>> Build(int type, double rateRise)
         {
             List<KeyValuePair<int, DropConfig>> list = new List<KeyValuePair<int, DropConfig>>();
 
             long time = DateTime.Now.Ticks;
 
-            List<DropLimitConfig> drops = DropLimitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => DateTime.Parse(m.StartDate).Ticks <= time &&
-            time <= DateTime.Parse(m.EndDate).Ticks).ToList();
+            List<DropLimitConfig> drops = DropLimitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m =>
+            m.Type == type &&
+            DateTime.Parse(m.StartDate).Ticks <= time && time <= DateTime.Parse(m.EndDate).Ticks).ToList();
 
             foreach (DropLimitConfig dropLimit in drops)
             {
@@ -34,5 +36,11 @@ namespace Game
 
             return list;
         }
+    }
+
+    public enum DropLimitType
+    {
+        Normal = 0,
+        Defend = 100,
     }
 }

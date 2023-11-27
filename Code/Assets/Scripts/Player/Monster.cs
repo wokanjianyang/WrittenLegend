@@ -71,11 +71,11 @@ namespace Game
             double attrModelRate = ModelConfig == null ? 1 : ModelConfig.AttrRate;
             double defModelRate = ModelConfig == null ? 1 : ModelConfig.DefRate;
 
-            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, (long)(Config.HP * QualityConfig.HpRate * hpModelRate) );
-            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, (long)(Config.Attr * QualityConfig.AttrRate * attrModelRate) );
-            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, (long)(Config.Attr * QualityConfig.AttrRate * attrModelRate) );
-            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, (long)(Config.Attr * QualityConfig.AttrRate * attrModelRate) );
-            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, (long)(Config.Def * QualityConfig.DefRate * defModelRate) );
+            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, (long)(Config.HP * QualityConfig.HpRate * hpModelRate));
+            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, (long)(Config.Attr * QualityConfig.AttrRate * attrModelRate));
+            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, (long)(Config.Attr * QualityConfig.AttrRate * attrModelRate));
+            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, (long)(Config.Attr * QualityConfig.AttrRate * attrModelRate));
+            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, (long)(Config.Def * QualityConfig.DefRate * defModelRate));
 
             AttributeBonus.SetAttr(AttributeEnum.DamageIncrea, AttributeFrom.HeroBase, Config.DamageIncrea);
             AttributeBonus.SetAttr(AttributeEnum.DamageResist, AttributeFrom.HeroBase, Config.DamageResist);
@@ -107,7 +107,8 @@ namespace Game
         {
             //Log.Info("Monster :" + this.ToString() + " dead");
 
-            for (int i = 0; i < RewardRate; i++) {
+            for (int i = 0; i < RewardRate; i++)
+            {
                 BuildReword();
             }
 
@@ -130,13 +131,15 @@ namespace Game
 
             QualityConfig qualityConfig = QualityConfigCategory.Instance.Get(Quality);
 
-            int qualityRate = qualityConfig.QualityRate * (100 + (int)user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea)) / 100;
+            double dropRate = (100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstIncrea)) / 100;
+            dropRate = dropRate * dropModelRate * qualityConfig.DropRate; //爆率 = 人物爆率*怪物类型爆率*怪物品质爆率
 
             //生成道具奖励
-            List<KeyValuePair<int, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(Config.MapId, qualityConfig.DropRate * dropModelRate);
+            List<KeyValuePair<int, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(Config.MapId, dropRate);
             //限时奖励
-            dropList.AddRange(DropLimitHelper.Build(10 * dropModelRate));
+            dropList.AddRange(DropLimitHelper.Build((int)DropLimitType.Normal, dropRate));
 
+            int qualityRate = qualityConfig.QualityRate * (100 + (int)user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea)) / 100;
             List<Item> items = DropHelper.BuildDropItem(dropList, qualityRate);
 
             if (items.Count > 0)

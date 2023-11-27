@@ -103,12 +103,31 @@ public class Battle_Defend : ABattleRule
 
             user.DefendData.Complete();
 
+            BuildReward();
+
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Defend, Message = " ÿŒ¿≥…π¶" });
 
             GameProcessor.Inst.CloseBattle(RuleType.Defend, 0);
 
             return;
         }
+    }
+
+    private void BuildReward()
+    {
+        List<KeyValuePair<int, DropConfig>> dropList = DropLimitHelper.Build((int)DropLimitType.Defend, 1);
+
+        List<Item> items = DropHelper.BuildDropItem(dropList, 1);
+
+        if (items.Count > 0)
+        {
+            GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+        }
+
+        GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+        {
+            Message = BattleMsgHelper.BuildGiftPackMessage(" ÿŒ¿Ω±¿¯", 0, 0, items)
+        });
     }
 
     public override void CheckGameResult()
