@@ -124,10 +124,10 @@ public class Monster_Phantom : APlayer
             }
         }
 
-        long maxHp = this.AttributeBonus.GetTotalAttr(AttributeEnum.HP);
+        double maxHp = this.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
         double pp = this.HP * 10 / maxHp;
 
-        long maxDamage = maxHp / 10;
+        double maxDamage = maxHp / 10;
         dr.Damage = Math.Min(dr.Damage, maxDamage);
 
         base.OnHit(dr);
