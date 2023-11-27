@@ -254,6 +254,9 @@ namespace Game
                 }
             }
 
+            int floorRate = ConfigHelper.GetFloorRate(tmepFloor);
+            offlineFloor = offlineFloor * floorRate;
+
             List<Item> items = new List<Item>();
             for (int i = 0; i < offlineFloor; i++)
             {
@@ -277,8 +280,6 @@ namespace Game
 
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Equip_Speical_Stone,99999999));
 
-            int floorRate = ConfigHelper.GetFloorRate(tmepFloor);
-            offlineFloor = offlineFloor * floorRate;
             long newFloor = User.MagicTowerFloor.Data + offlineFloor;
 
             User.MagicTowerFloor.Data = Math.Min(newFloor, ConfigHelper.Max_Floor);

@@ -67,6 +67,8 @@ namespace Game
 
             TowerConfig config = TowerConfigCategory.Instance.GetByFloor(user.MagicTowerFloor.Data);
 
+            int floorRate = ConfigHelper.GetFloorRate(user.MagicTowerFloor.Data);
+
             MonsterTowerHelper.GetTowerSecond(user.MagicTowerFloor.Data, out long secondExp, out long secondGold);
 
             user.AttributeBonus.SetAttr(AttributeEnum.SecondExp, AttributeFrom.Tower, secondExp);
@@ -74,7 +76,12 @@ namespace Game
 
             int equipLevel = Math.Max(10, (user.MapId - ConfigHelper.MapStartId) * 10);
 
-            List<Item> items = DropHelper.TowerEquip(user.MagicTowerFloor.Data, equipLevel);
+            List<Item> items = new List<Item>();
+
+            for (int i = 0; i < floorRate; i++)
+            {
+                items.AddRange(DropHelper.TowerEquip(user.MagicTowerFloor.Data + i, equipLevel));
+            }
 
             if (items.Count > 0)
             {
@@ -90,8 +97,6 @@ namespace Game
                 Message = BattleMsgHelper.BuildTowerSuccessMessage(config.RiseExp, config.RiseGold, exp, gold, user.MagicTowerFloor.Data, items),
                 Type = RuleType.Normal
             });
-
-            int floorRate = ConfigHelper.GetFloorRate(user.MagicTowerFloor.Data);
 
             user.MagicTowerFloor.Data += floorRate;
 
