@@ -1,6 +1,8 @@
 {"list":[
-{"_t":"DropLimitConfig","_id":1,"Name":"中秋活动月饼","DropId":1001,"Rate":70,"ShareRise":0,"StartDate":"2023-09-29","EndDate":"2023-10-07"},
-{"_t":"DropLimitConfig","_id":100,"Name":"第一批冠名图鉴","DropId":2001,"Rate":30000,"ShareRise":1,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
-{"_t":"DropLimitConfig","_id":101,"Name":"第一批白绿图鉴","DropId":2002,"Rate":8000,"ShareRise":1,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
-{"_t":"DropLimitConfig","_id":102,"Name":"第一批蓝紫图鉴","DropId":2003,"Rate":15000,"ShareRise":1,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
+{"_t":"DropLimitConfig","_id":1,"Name":"中秋活动月饼","Type":0,"DropId":1001,"Rate":70,"ShareRise":0,"StartDate":"2023-09-29","EndDate":"2023-10-07"},
+{"_t":"DropLimitConfig","_id":100,"Name":"第一批冠名图鉴","Type":0,"DropId":2001,"Rate":30000,"ShareRise":1,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
+{"_t":"DropLimitConfig","_id":101,"Name":"第一批白绿图鉴","Type":0,"DropId":2002,"Rate":8000,"ShareRise":1,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
+{"_t":"DropLimitConfig","_id":102,"Name":"第一批蓝紫图鉴","Type":0,"DropId":2003,"Rate":15000,"ShareRise":1,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
+{"_t":"DropLimitConfig","_id":201,"Name":"守沙100书页","Type":100,"DropId":1002,"Rate":1,"ShareRise":0,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
+{"_t":"DropLimitConfig","_id":202,"Name":"守沙图鉴","Type":100,"DropId":2004,"Rate":1,"ShareRise":0,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
 ]}
