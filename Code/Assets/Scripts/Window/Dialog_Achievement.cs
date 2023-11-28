@@ -14,6 +14,8 @@ namespace Game
 
         public Button Btn_Full;
 
+        public Toggle toggle_Hide;
+
         private List<Item_Achivement> activeItems = new List<Item_Achivement>();
 
         private List<Item_Achivement> currentItems = new List<Item_Achivement>();
@@ -25,6 +27,11 @@ namespace Game
         void Start()
         {
             Btn_Full.onClick.AddListener(OnClick_Close);
+
+            toggle_Hide.onValueChanged.AddListener((isOn) =>
+            {
+                this.ShowItem(isOn);
+            });
         }
 
         public void OnBattleStart()
@@ -54,6 +61,7 @@ namespace Game
 
                 var com = item.GetComponentInChildren<Item_Achivement>();
                 com.SetItem(config, 0, true);
+                com.gameObject.SetActive(false);
                 activeItems.Add(com);
             }
 
@@ -127,6 +135,14 @@ namespace Game
                     newCom.SetItem(newConfig, progress, false);
                     currentItems.Add(newCom);
                 }
+            }
+        }
+
+        private void ShowItem(bool hide)
+        {
+            for (int i = 0; i < activeItems.Count; i++)
+            {
+                activeItems[i].gameObject.SetActive(!hide);
             }
         }
 
