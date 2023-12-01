@@ -73,18 +73,6 @@ namespace Game
                 user.EquipPanelList[3] = new Dictionary<int, Equip>();
                 user.EquipPanelList[4] = new Dictionary<int, Equip>();
             }
-            //else
-            //{
-            //    if (!String.IsNullOrEmpty(user.packName) && user.packName != "3241c82c420823c129660e367cb91c60")
-            //    {
-            //        return null;
-            //    }
-
-            //    if (!String.IsNullOrEmpty(user.signKey) && user.signKey != "312fc4ca3769fe53c60c234371f89a6f")
-            //    {
-            //        return null;
-            //    }
-            //}
 
             if (user.MagicLevel.Data <= 0)
             {
@@ -96,11 +84,12 @@ namespace Game
                 user.DefendData = new DefendData();
                 user.DefendData.Count.Data = 1;
             }
-            if (user.DefendData.Count.Data > 1)
+            if (user.HeroPhatomData == null)
             {
-                user.DefendData.Count.Data = 1;
+                user.HeroPhatomData = new HeroPhatomData();
+                user.HeroPhatomData.Count.Data = 1;
             }
-
+            user.HeroPhatomData.Count.Data = 1;
             //TEST data
             //user.MagicGold.Data = 9999999999999; 
             //user.Level = 1;

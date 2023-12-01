@@ -99,7 +99,7 @@ namespace Game
     {
         Hero = 0,
         Enemy,
-        Valet, 
+        Valet,
         Defend,
     }
 
@@ -178,6 +178,7 @@ namespace Game
         AnDian = 4,
         [LabelText(" ÿŒ¿…≥≥«")]
         Defend = 5,
+        HeorPhantom = 6,
     }
 
     public enum RoleType

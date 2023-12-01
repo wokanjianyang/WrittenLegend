@@ -285,4 +285,24 @@ namespace Game
         public BoxItem BoxItem { get; set; }
         public Item Item { get; set; }
     }
+
+    //------------Hero Phantom---------------
+    public class OpenHeroPhatomEvent : SDD.Events.Event
+    {
+    }
+
+    public class HeroPhatomStartEvent : SDD.Events.Event
+    {
+        public int PhantomId { get; set; }
+    }
+
+    public class HeroPhatomEndEvent : SDD.Events.Event
+    {
+        public int PhantomId { get; set; }
+    }
+
+    public class ShowHeroPhatomInfoEvent : SDD.Events.Event
+    {
+        public int Time { get; set; }
+    }
 }

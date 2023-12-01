@@ -35,7 +35,6 @@ namespace Game
                 effectCom.transform.localScale = new Vector3Int(2, 2, 1);
 
                 yield return new WaitForSeconds(duration); //因为现在1s才是一个回合
-                Debug.Log("duration:" + duration);
                 GameObject.Destroy(effectCom.gameObject);
             }
 

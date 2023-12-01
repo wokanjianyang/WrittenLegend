@@ -120,6 +120,12 @@ namespace Game
             GameProcessor.Inst.EventCenter.Raise(new DefendStartEvent() { });
         }
 
+        public void StartHeroPhantom()
+        {
+            scrollRect.gameObject.SetActive(false);
+
+            GameProcessor.Inst.EventCenter.Raise(new HeroPhatomStartEvent() { });
+        }
 
         protected override bool CheckPageType(ViewPageType page)
         {

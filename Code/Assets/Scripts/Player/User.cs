@@ -61,6 +61,8 @@ namespace Game
 
         public DefendData DefendData { get; set; }
 
+        public HeroPhatomData HeroPhatomData { get; set; }
+
         public bool isError = false;
 
         /// <summary>

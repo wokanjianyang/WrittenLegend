@@ -7,52 +7,24 @@ using System;
 
 namespace Game
 {
-    public class Hero : APlayer
+    public class HeroPhantom : APlayer
     {
         private Dictionary<int, long> skillUseCache = new Dictionary<int, long>();
 
         public List<SkillState> DoubleHitSkillList { get; set; } = new List<SkillState>();
 
-        private bool isPvp = false;
-
-        public Hero(bool pvp) : base()
+        public HeroPhantom() : base()
         {
-            this.GroupId = 1;
-            this.isPvp = pvp;
+            this.GroupId = 2;
 
             this.Init();
-
-            this.EventCenter.AddListener<HeroLevelUp>(LevelUp);
-            this.EventCenter.AddListener<HeroAttrChangeEvent>(HeroAttrChange);
-            User user = GameProcessor.Inst.User;
-            user.EventCenter.AddListener<HeroUpdateAllSkillEvent>(OnHeroUpdateAllSkillEvent);
-
         }
 
-        private void LevelUp(HeroLevelUp e)
-        {
-            User user = GameProcessor.Inst.User;
-            this.Level = user.MagicLevel.Data;
-
-            this.SetAttr(user);  //设置属性值
-            this.Logic.SetData(null); //设置UI
-        }
-
-        public void HeroAttrChange(HeroAttrChangeEvent e)
-        {
-            User user = GameProcessor.Inst.User;
-            this.SetAttr(user);  //设置属性值
-        }
-
-        private void OnHeroUpdateAllSkillEvent(HeroUpdateAllSkillEvent e)
-        {
-            this.UpdateSkills();
-        }
         private void Init()
         {
             User user = GameProcessor.Inst.User;
-            this.Camp = PlayerType.Hero;
-            this.Name = user.Name;
+            this.Camp = PlayerType.Enemy;
+            this.Name = "镜像-" + user.Name;
             this.Level = user.MagicLevel.Data;
 
             this.SetAttr(user);  //设置属性值
@@ -71,13 +43,15 @@ namespace Game
             this.SetAttackSpeed((int)user.AttributeBonus.GetTotalAttr(AttributeEnum.Speed));
             this.SetMoveSpeed((int)user.AttributeBonus.GetTotalAttr(AttributeEnum.MoveSpeed));
 
-            double pr = isPvp ? 100 : 1;
+            double attr = Math.Max(user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.PhyAtt), user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.MagicAtt));
+            attr = Math.Max(attr, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.SpiritAtt));
+            attr = attr / 100;
 
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttr(AttributeEnum.HP));
-            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttr(AttributeEnum.PhyAtt) / pr);
-            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttr(AttributeEnum.MagicAtt) / pr);
-            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttr(AttributeEnum.SpiritAtt) / pr);
-            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttr(AttributeEnum.Def) / pr);
+            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroPanel, attr);
+            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroPanel, attr);
+            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroPanel, attr);
+            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttr(AttributeEnum.Def) / 100);
             AttributeBonus.SetAttr(AttributeEnum.Speed, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttr(AttributeEnum.Speed));
             AttributeBonus.SetAttr(AttributeEnum.Lucky, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttr(AttributeEnum.Lucky));
             AttributeBonus.SetAttr(AttributeEnum.CritRate, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttr(AttributeEnum.CritRate));
@@ -106,7 +80,7 @@ namespace Game
             }
 
             //回满当前血量
-            SetHP(AttributeBonus.GetTotalAttr(AttributeEnum.HP));
+            SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
         }
 
         private void SetSkill(User user)
@@ -190,27 +164,7 @@ namespace Game
             }
         }
 
-        private void UpdateSkills()
-        {
-            foreach (var skillState in SelectSkillList)
-            {
-                skillUseCache[skillState.SkillPanel.SkillId] = skillState.LastUseTime;
-            }
-
-            var user = GameProcessor.Inst.User;
-
-            this.SetSkill(user);
-
-            foreach (var skillState in SelectSkillList)
-            {
-                skillUseCache.TryGetValue(skillState.SkillPanel.SkillId, out long LastUseTime);
-                if (LastUseTime > 0)
-                {
-                    skillState.SetLastUseTime(LastUseTime);
-                }
-            }
-        }
-
+   
         public override float AttackLogic()
         {
             //Debug.Log("生命:" + AttributeBonus.GetAttackAttr(AttributeEnum.HP));
@@ -298,29 +252,6 @@ namespace Game
                     return;
                 }
             }
-        }
-
-        public override APlayer CalcEnemy()
-        {
-            var ret = base.CalcEnemy();
-
-            ret?.EventCenter.Raise(new ShowAttackIcon { NeedShow = true });
-
-            return ret;
-        }
-
-        /// <summary>
-        /// 复活
-        /// </summary>
-        public void Resurrection()
-        {
-            this.Logic.ResetData();
-            this._enemy = null;
-        }
-
-        public void UpdateEnemy(APlayer player)
-        {
-            this._enemy = player;
         }
     }
 }

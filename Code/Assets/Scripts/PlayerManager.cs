@@ -42,7 +42,7 @@ namespace Game
 
         public void LoadHero()
         {
-            hero = new Hero();
+            hero = new Hero(false);
 
             var coms = hero.Transform.GetComponents<MonoBehaviour>();
             foreach (var com in coms)
@@ -62,6 +62,37 @@ namespace Game
             var bornCell = tempCells[index];
             hero.SetPosition(bornCell, true);
             this.AddPlayer(hero);
+        }
+
+        public void LoadHeroPvp()
+        {
+            hero = new Hero(true);
+
+            var coms = hero.Transform.GetComponents<MonoBehaviour>();
+            foreach (var com in coms)
+            {
+                if (com is IPlayer _com)
+                {
+                    _com.SetParent(hero);
+                }
+            }
+
+            hero.SetPosition(new Vector3(0, 3), true);
+            this.AddPlayer(hero);
+        }
+
+        public void LoadHeroPhantom(APlayer player)
+        {
+            var coms = player.Transform.GetComponents<MonoBehaviour>();
+            foreach (var com in coms)
+            {
+                if (com is IPlayer _com)
+                {
+                    _com.SetParent(player);
+                }
+            }
+            player.SetPosition(new Vector3(6, 3), true);
+            this.AddPlayer(player);
         }
 
         public Defend GetDefend()
@@ -191,7 +222,7 @@ namespace Game
             return enemy;
         }
 
-        public Valet LoadValet(APlayer player,SkillPanel skill)
+        public Valet LoadValet(APlayer player, SkillPanel skill)
         {
             Valet valet = null;
 
@@ -207,7 +238,7 @@ namespace Game
             {
                 var bornCell = tempCells[0];
 
-                valet = new Valet(player,skill);
+                valet = new Valet(player, skill);
 
                 var coms = valet.Transform.GetComponents<MonoBehaviour>();
                 foreach (var com in coms)
@@ -228,16 +259,16 @@ namespace Game
                     {
                         OwnerId = player.ID,
                         SkillId = skill.SkillId,
-                        Valets = new List<Valet>(){valet}
+                        Valets = new List<Valet>() { valet }
                     });
                 }
                 else
                 {
                     cache.Valets.Add(valet);
                 }
-                
+
             }
-            
+
             return valet;
         }
 

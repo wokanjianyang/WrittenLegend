@@ -310,6 +310,7 @@ namespace Game
                 User.SaveLimit = 5;
                 User.LoadLimit = 5;
                 User.DefendData.Refresh();
+                User.HeroPhatomData.Refresh();
 
                 User.DataDate = DateTime.Now.Ticks;
                 //保存到Tap
@@ -418,6 +419,8 @@ namespace Game
 
             this.EffectRoot = MapData.transform.parent.Find("[EffectRoot]").transform;
 
+            bool autoHero = true;
+
             switch (ruleType)
             {
                 case RuleType.Normal:
@@ -441,9 +444,16 @@ namespace Game
                 case RuleType.Defend:
                     this.BattleRule = new Battle_Defend(param);
                     break;
+                case RuleType.HeroPhantom:
+                    autoHero = false;
+                    this.BattleRule = new BattleRule_HeroPhantom(param);
+                    break;
             }
 
-            this.PlayerManager.LoadHero();
+            if (autoHero)
+            {
+                this.PlayerManager.LoadHero();
+            }
 
             isLoadMap = true;
 
@@ -612,6 +622,7 @@ namespace Game
                 case RuleType.EquipCopy:
                 case RuleType.Phantom:
                 case RuleType.BossFamily:
+                case RuleType.HeroPhantom:
                     ie_autoExitKey = StartCoroutine(this.AutoExitMap(ruleType, time));
                     break;
                 default:

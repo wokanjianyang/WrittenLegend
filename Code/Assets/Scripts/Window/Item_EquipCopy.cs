@@ -43,7 +43,8 @@ namespace Game
                 var vm = this.GetComponentInParent<ViewMore>();
                 vm.StartAnDian();
             }
-            else if (Type == CopyType.Defend) {
+            else if (Type == CopyType.Defend)
+            {
                 User user = GameProcessor.Inst.User;
                 DefendRecord record = user.DefendData.GetCurrentRecord();
 
@@ -55,6 +56,21 @@ namespace Game
 
                 var vm = this.GetComponentInParent<ViewMore>();
                 vm.StartDefend();
+            }
+            else if (Type == CopyType.HeorPhantom)
+            {
+                User user = GameProcessor.Inst.User;
+
+                HeroPhatomRecord record = user.HeroPhatomData.GetCurrentRecord();
+
+                if (record == null)
+                {
+                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "今天挑战已经通关了", ToastType = ToastTypeEnum.Failure });
+                    return;
+                }
+
+                var vm = this.GetComponentInParent<ViewMore>();
+                vm.StartHeroPhantom();
             }
         }
     }
