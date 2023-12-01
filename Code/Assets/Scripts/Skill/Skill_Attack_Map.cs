@@ -11,7 +11,16 @@ namespace Game
         {
             if (isShow)
             {
-                this.skillGraphic = new SkillGraphic_Persistent(player, skill);
+                SkillModelConfig SkillModelConfig = SkillModelConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.ModelName == this.SkillPanel.SkillData.SkillConfig.ModelName).FirstOrDefault();
+
+                if (SkillModelConfig.ScaleType == 1)
+                {
+                    this.skillGraphic = new SkillGraphic_Persistent(player, skill);
+                }
+                else
+                {
+                    this.skillGraphic = new SkillGraphic_Persistent_Square(player, skill);
+                }
             }
         }
         public override void Do()
