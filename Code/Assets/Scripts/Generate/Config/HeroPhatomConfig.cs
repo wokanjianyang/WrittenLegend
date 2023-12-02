@@ -84,12 +84,6 @@ namespace Game
 		/// <summary>SkillList</summary>
 		[ProtoMember(3)]
 		public int[] SkillList { get; set; }
-		/// <summary>AttrList</summary>
-		[ProtoMember(4)]
-		public int[] AttrList { get; set; }
-		/// <summary>AttrValueList</summary>
-		[ProtoMember(5)]
-		public long[] AttrValueList { get; set; }
 
 	}
 }

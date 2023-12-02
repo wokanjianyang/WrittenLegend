@@ -32,22 +32,18 @@ namespace Game
             if (startCell.x == selfCell.x && startCell.y > selfCell.y) //打上面
             {
                 rotation = 270;
-                Log.Info("打上面");
             }
             else if (startCell.x == selfCell.x && startCell.y < selfCell.y) //打下面
             {
                 rotation = 90f;
-                Log.Info("打下面");
             }
             else if (startCell.x < selfCell.x && startCell.y == selfCell.y) //打左边
             {
                 rotation = -180f;
-                Log.Info("打左边");
             }
             else {
                 rotation = 0;
                 scale = new Vector3(-1, 1, 0);
-                Log.Info("打右面");
             }
 
             //Log.Info("scale :" + scale.ToString());
