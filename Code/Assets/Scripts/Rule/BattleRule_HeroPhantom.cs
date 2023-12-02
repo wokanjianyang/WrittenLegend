@@ -49,7 +49,7 @@ public class BattleRule_HeroPhantom : ABattleRule
             Start = false;
         }
 
-        var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
+        var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.HeroPhatom);
 
         if (enemys.Count <= 0)
         {

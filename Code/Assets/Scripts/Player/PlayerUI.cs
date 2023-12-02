@@ -118,6 +118,7 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
         switch (SelfPlayer.Camp)
         {
             case PlayerType.Hero:
+            case PlayerType.HeroPhatom:
                 this.image_Background.sprite = list_Backgrounds[0];
                 if (SelfPlayer.RingType > 0)
                 {

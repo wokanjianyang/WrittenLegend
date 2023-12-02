@@ -27,7 +27,7 @@ namespace Game
         private void Init()
         {
             User user = GameProcessor.Inst.User;
-            this.Camp = PlayerType.Enemy;
+            this.Camp = PlayerType.HeroPhatom;
 
             int configId = GameProcessor.Inst.User.HeroPhatomData.Current.ConfigId;
 
@@ -56,7 +56,7 @@ namespace Game
 
             //把用户面板属性，当做战斗的基本属性
 
-            double phRate = 0.4 + 0.1 * Scale;
+            double phRate = 1 + 0.07 * (Scale - 1);
 
             this.SetAttackSpeed((int)user.AttributeBonus.GetTotalAttr(AttributeEnum.Speed));
             this.SetMoveSpeed((int)user.AttributeBonus.GetTotalAttr(AttributeEnum.MoveSpeed));

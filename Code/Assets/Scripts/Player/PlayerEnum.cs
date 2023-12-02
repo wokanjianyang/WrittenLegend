@@ -101,6 +101,7 @@ namespace Game
         Enemy,
         Valet,
         Defend,
+        HeroPhatom,
     }
 
     public enum MondelType
