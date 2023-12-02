@@ -52,7 +52,7 @@ public class MapHeroPhantom : MonoBehaviour, IBattleLife
             GameProcessor.Inst.LoadMap(RuleType.HeroPhantom, this.transform, param);
         });
 
-        Debug.Log("HeroPhatomStartEvent");
+        this.Level = (int)GameProcessor.Inst.User.HeroPhatomData.Current.Progress.Data;
 
         Txt_Name.text = "дя╤х:" + Level;
     }

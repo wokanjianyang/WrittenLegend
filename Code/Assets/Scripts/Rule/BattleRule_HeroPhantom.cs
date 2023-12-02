@@ -56,6 +56,7 @@ public class BattleRule_HeroPhantom : ABattleRule
             GameProcessor.Inst.User.HeroPhatomData.Current.Next();
             //reward
 
+            BuildReward();
 
             GameProcessor.Inst.EventCenter.Raise(new BattlePhantomMsgEvent() { Message = "您已经通过了挑战！" });
 
@@ -64,6 +65,23 @@ public class BattleRule_HeroPhantom : ABattleRule
             Start = false;
             return;
         }
+    }
+
+    private void BuildReward()
+    {
+        List<KeyValuePair<int, DropConfig>> dropList = DropLimitHelper.Build((int)DropLimitType.HeroPhatom, 1);
+
+        List<Item> items = DropHelper.BuildDropItem(dropList, 1);
+
+        if (items.Count > 0)
+        {
+            GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+        }
+
+        GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+        {
+            Message = BattleMsgHelper.BuildRewardMessage("挑战成功奖励", 0, 0, items)
+        });
     }
 
     public override void CheckGameResult()

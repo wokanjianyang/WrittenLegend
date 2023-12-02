@@ -30,15 +30,6 @@ namespace Game
                 Current = new HeroPhatomRecord();
                 Current.Progress.Data = 1;
 
-                Current.SkillIdList.Add(1001);
-                Current.SkillIdList.Add(1002);
-                Current.SkillIdList.Add(1003);
-                Current.SkillIdList.Add(1004);
-                Current.SkillIdList.Add(1005);
-                Current.SkillIdList.Add(1006);
-                Current.SkillIdList.Add(1007);
-                Current.SkillIdList.Add(1008);
-
                 this.Count.Data--;
             }
 
