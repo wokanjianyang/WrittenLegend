@@ -1,0 +1,5 @@
+{"list":[
+{"_t":"HeroPhatomConfig","_id":1,"Name":"战士","SkillList":[1002,1004,1005,1007,1008,1009]},
+{"_t":"HeroPhatomConfig","_id":2,"Name":"法师","SkillList":[2001,2003,2005,2007,2008,2009]},
+{"_t":"HeroPhatomConfig","_id":3,"Name":"道士","SkillList":[3001,3002,3003,3005,3008,3009]},
+]}

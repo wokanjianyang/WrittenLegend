@@ -178,8 +178,14 @@ namespace Game
         {
             SelectSkillList = new List<SkillState>();
 
-
             List<int> skillIdList = RandomSkillList();
+
+            if (RandomHelper.RandomBool())
+            {
+                List<int[]> allList = HeroPhatomConfigCategory.Instance.GetAll().Select(m => m.Value.SkillList).ToList();
+                int index = RandomHelper.RandomNumber(0, allList.Count);
+                skillIdList = allList[index].ToList();
+            }
 
             List<SkillData> list = new List<SkillData>();
             for (int i = 0; i < skillIdList.Count; i++)
