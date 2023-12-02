@@ -230,10 +230,7 @@ namespace Game
             //Debug.Log("瞬移魔法伤害:" + AttributeBonus.GetAttackAttr(AttributeEnum.MagicDamage));
 
             //0 优先攻击英雄
-            if (_enemy == null)
-            {
-                _enemy = GameProcessor.Inst.PlayerManager.GetHero();
-            }
+            _enemy = GameProcessor.Inst.PlayerManager.GetHero();
 
             //1. 控制前计算高优级技能
             SkillState skill;

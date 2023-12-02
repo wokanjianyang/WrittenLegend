@@ -16,7 +16,7 @@ namespace Game
 
         public HeroPhatomRecord Current = null;
 
-        private int MaxLevel = 5;
+        private int MaxLevel = 10;
 
         public HeroPhatomRecord GetCurrentRecord()
         {
