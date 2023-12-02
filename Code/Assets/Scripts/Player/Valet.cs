@@ -82,7 +82,6 @@ namespace Game
         private void SetSkill()
         {
             //加载技能
-            List<SkillData> list = new List<SkillData>();
             if (this.ModelConfig.SkillList != null)
             {
                 foreach (int skillId in this.ModelConfig.SkillList)
@@ -113,8 +112,6 @@ namespace Game
                     }
                 }
             }
-
-            list.Add(new SkillData(9001, (int)SkillPosition.Default)); //增加默认技能
         }
 
         //public override APlayer CalcEnemy()

@@ -13,9 +13,13 @@ namespace Game
 
         public List<SkillState> DoubleHitSkillList { get; set; } = new List<SkillState>();
 
-        public HeroPhantom() : base()
+        public int Scale = 1;
+
+        public HeroPhantom(int scale) : base()
         {
             this.GroupId = 2;
+
+            this.Scale = scale;
 
             this.Init();
         }
@@ -40,18 +44,19 @@ namespace Game
 
             //把用户面板属性，当做战斗的基本属性
 
+            double phRate = 0.4 + 0.1 * Scale;
+
             this.SetAttackSpeed((int)user.AttributeBonus.GetTotalAttr(AttributeEnum.Speed));
             this.SetMoveSpeed((int)user.AttributeBonus.GetTotalAttr(AttributeEnum.MoveSpeed));
 
             double attr = Math.Max(user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.PhyAtt), user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.MagicAtt));
             attr = Math.Max(attr, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.SpiritAtt));
-            attr = attr / 100;
 
-            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttr(AttributeEnum.HP));
-            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroPanel, attr);
-            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroPanel, attr);
-            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroPanel, attr);
-            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttr(AttributeEnum.Def) / 100);
+            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP) * ConfigHelper.PvpRate * phRate);
+            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroPanel, attr * phRate);
+            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroPanel, attr * phRate);
+            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroPanel, attr * phRate);
+            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttr(AttributeEnum.Def) * phRate);
             AttributeBonus.SetAttr(AttributeEnum.Speed, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttr(AttributeEnum.Speed));
             AttributeBonus.SetAttr(AttributeEnum.Lucky, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttr(AttributeEnum.Lucky));
             AttributeBonus.SetAttr(AttributeEnum.CritRate, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttr(AttributeEnum.CritRate));
@@ -83,19 +88,113 @@ namespace Game
             SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
         }
 
+        private List<int> RandomSkillList()
+        {
+            int role = RandomHelper.RandomNumber(1, 4);
+
+            List<SkillConfig> configs = SkillConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Role == role).ToList();
+
+            //1 随机去掉不能重复的技能
+            List<int> repeatIdList = configs.Where(m => m.Repet > 0).Select(m => m.Repet).ToList();
+
+            foreach (int repeatId in repeatIdList)
+            {
+                List<SkillConfig> repeatList = configs.Where(m => m.Repet == repeatId).ToList();
+
+                if (repeatList.Count > 1)
+                {
+                    //随机保留一个
+                    int index = RandomHelper.RandomNumber(0, repeatList.Count);
+                    List<int> removeList = repeatList.Select(m => m.Id).ToList();
+                    removeList.RemoveAt(index);
+
+                    configs.RemoveAll(m => removeList.Contains(m.Id));
+                }
+            }
+
+            //2 保留6个技能
+            //最多只去掉一个大于等于7级的技能
+            int ImportCount = 0;
+            while (configs.Count > 6)
+            {
+                int index = RandomHelper.RandomNumber(0, configs.Count);
+
+                if (configs[index].Id % 1000 == 5)
+                {
+                    //如果是盾,不去掉
+                    continue;
+                }
+
+                if (configs[index].Id % 1000 >= 7)
+                {
+                    if (ImportCount <= 0)
+                    {
+                        configs.RemoveAt(index);
+                        ImportCount++;
+                    }
+                    continue;
+                }
+
+                configs.RemoveAt(index);
+            }
+
+            List<int> skillList = configs.Select(m => m.Id).ToList();
+
+            Debug.Log("Random SKill Id:" + JsonConvert.SerializeObject(skillList));
+
+            return skillList;
+        }
+
+        private List<SkillRune> RandomSkillRuneList(int skillId)
+        {
+            List<SkillRune> runeList = new List<SkillRune>();
+
+            List<SkillRuneConfig> runeConfigs = SkillRuneConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.SkillId == skillId).ToList();
+
+            if (runeConfigs.Count > 0)
+            {
+                SkillRune skillRune = new SkillRune(runeConfigs[0].Id, 4);
+                runeList.Add(skillRune);
+            }
+
+            return runeList;
+        }
+
+        private List<SkillSuit> RandomSkillSuitList(int skillId)
+        {
+            List<SkillSuit> suitList = new List<SkillSuit>();
+
+            List<SkillSuitConfig> suitConfigs = SkillSuitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.SkillId == skillId).ToList();
+            if (suitConfigs.Count > 0)
+            {
+                SkillSuit suit = new SkillSuit(suitConfigs[0].Id);
+                suitList.Add(suit);
+            }
+
+            return suitList;
+        }
+
         private void SetSkill(User user)
         {
             SelectSkillList = new List<SkillState>();
 
-            //加载技能
-            List<SkillData> list = user.SkillList.FindAll(m => m.Status == SkillStatus.Equip).OrderBy(m => m.Position).ToList();
+
+            List<int> skillIdList = RandomSkillList();
+
+            List<SkillData> list = new List<SkillData>();
+            for (int i = 0; i < skillIdList.Count; i++)
+            {
+                SkillData skillData = new SkillData(skillIdList[i], i);
+                skillData.MagicLevel.Data = skillData.SkillConfig.MaxLevel / 10 * Scale;
+                list.Add(skillData);
+            }
             list.Add(new SkillData(9001, (int)SkillPosition.Default)); //增加默认技能
 
             foreach (SkillData skillData in list)
             {
 
-                List<SkillRune> runeList = user.GetRuneList(skillData.SkillId);
-                List<SkillSuit> suitList = user.GetSuitList(skillData.SkillId);
+                List<SkillRune> runeList = RandomSkillRuneList(skillData.SkillId);
+                List<SkillSuit> suitList = RandomSkillSuitList(skillData.SkillId);
 
                 SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, true);
 
@@ -164,7 +263,7 @@ namespace Game
             }
         }
 
-   
+
         public override float AttackLogic()
         {
             //Debug.Log("生命:" + AttributeBonus.GetAttackAttr(AttributeEnum.HP));
