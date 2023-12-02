@@ -39,6 +39,11 @@ namespace Game
         public string Message { get; set; }
     }
 
+    public class BattleHeroPhantomMsgEvent : SDD.Events.Event
+    {
+        public string Message { get; set; }
+    }
+
     public class SkillBookLearnEvent : SDD.Events.Event
     {
         public BoxItem BoxItem { get; set; }

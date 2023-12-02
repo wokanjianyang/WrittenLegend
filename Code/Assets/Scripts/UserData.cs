@@ -89,7 +89,7 @@ namespace Game
                 user.HeroPhatomData = new HeroPhatomData();
                 user.HeroPhatomData.Count.Data = 1;
             }
-            user.HeroPhatomData.Count.Data = 1;
+
             //TEST data
             //user.MagicGold.Data = 9999999999999; 
             //user.Level = 1;
