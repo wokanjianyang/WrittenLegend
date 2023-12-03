@@ -708,7 +708,7 @@ namespace Game
         {
             this.isGameOver = false;
 
-            Debug.Log("StartGame");
+            //Debug.Log("StartGame");
 
             if (GameProcessor.Inst.OfflineMessage != "")
             {

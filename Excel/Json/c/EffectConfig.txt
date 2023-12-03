@@ -26,4 +26,5 @@
 {"_t":"EffectConfig","_id":305,"Name":"冰冻","Type":3,"CalType":0,"SourceAttr":-2,"Priority":1,"TargetType":2,"RunType":1,"TargetAttr":-1,"ExpertRise":0,"LevelRise":0,"Des":"冰冻{2}秒"},
 {"_t":"EffectConfig","_id":306,"Name":"晕眩","Type":3,"CalType":0,"SourceAttr":-2,"Priority":1,"TargetType":2,"RunType":1,"TargetAttr":-1,"ExpertRise":0,"LevelRise":0,"Des":"晕眩{2}秒"},
 {"_t":"EffectConfig","_id":401,"Name":"免疫控制","Type":4,"CalType":1,"SourceAttr":-2,"Priority":-1,"TargetType":1,"RunType":0,"TargetAttr":-1,"ExpertRise":0,"LevelRise":0,"Des":""},
+{"_t":"EffectConfig","_id":500,"Name":"必爆","Type":5,"CalType":0,"SourceAttr":0,"Priority":0,"TargetType":0,"RunType":0,"TargetAttr":0,"ExpertRise":0,"LevelRise":0,"Des":"必爆"},
 ]}

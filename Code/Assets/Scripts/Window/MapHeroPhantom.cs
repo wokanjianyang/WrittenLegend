@@ -19,6 +19,7 @@ public class MapHeroPhantom : MonoBehaviour, IBattleLife
     private int msgId = 0;
 
     private int Level = 1;
+    private long MapTime = 0;
 
     public int Order => (int)ComponentOrder.BattleRule;
 
@@ -44,7 +45,9 @@ public class MapHeroPhantom : MonoBehaviour, IBattleLife
     {
         this.gameObject.SetActive(true);
 
+        this.MapTime = TimeHelper.ClientNowSeconds();
         Dictionary<string, object> param = new Dictionary<string, object>();
+        param.Add("MapTime", MapTime);
 
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {
@@ -86,7 +89,10 @@ public class MapHeroPhantom : MonoBehaviour, IBattleLife
 
     private void OnBattleLoseEvent(BattleLoseEvent e)
     {
-        this.Exit();
+        if (e.Time == MapTime)
+        {
+            this.Exit();
+        }
     }
 
     private void OnClick_Exit()

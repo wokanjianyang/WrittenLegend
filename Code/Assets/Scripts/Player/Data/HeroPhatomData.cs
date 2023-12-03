@@ -65,17 +65,15 @@ namespace Game
             if (rd < 2)
             {
                 this.SkillIdList = RandomSkillList();
+                this.ConfigId = 0;
             }
             else
             {
-                if (RandomHelper.RandomBool())
-                {
-                    List<HeroPhatomConfig> allList = HeroPhatomConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
-                    int index = RandomHelper.RandomNumber(0, allList.Count);
+                List<HeroPhatomConfig> allList = HeroPhatomConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
+                int index = RandomHelper.RandomNumber(0, allList.Count);
 
-                    this.ConfigId = allList[index].Id;
-                    this.SkillIdList = allList[index].SkillList.ToList();
-                }
+                this.ConfigId = allList[index].Id;
+                this.SkillIdList = allList[index].SkillList.ToList();
             }
         }
 
@@ -83,7 +81,7 @@ namespace Game
         {
             int role = RandomHelper.RandomNumber(1, 4);
 
-            List<SkillConfig> configs = SkillConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Role == role).ToList();
+            List<SkillConfig> configs = SkillConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Role == role && m.Id < 4000).ToList();
 
             //1 随机去掉不能重复的技能
             List<int> repeatIdList = configs.Where(m => m.Repet > 0).Select(m => m.Repet).ToList();

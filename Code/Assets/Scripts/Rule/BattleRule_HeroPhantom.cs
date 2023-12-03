@@ -10,13 +10,16 @@ public class BattleRule_HeroPhantom : ABattleRule
     private bool Start = false;
 
     private int Level = 0;
-
+    private long MapTime = 0;
     protected override RuleType ruleType => RuleType.HeroPhantom;
 
     private APlayer PhantomPlayer = null;
 
     public BattleRule_HeroPhantom(Dictionary<string, object> param)
     {
+        param.TryGetValue("MapTime", out object mapTime);
+
+        this.MapTime = (long)mapTime;
         Start = true;
 
         Level = (int)GameProcessor.Inst.User.HeroPhatomData.Current.Progress.Data;
@@ -96,6 +99,6 @@ public class BattleRule_HeroPhantom : ABattleRule
     private void GameOver()
     {
         GameProcessor.Inst.SetGameOver(PlayerType.Enemy);
-        GameProcessor.Inst.HeroDie(RuleType.HeroPhantom, 0);
+        GameProcessor.Inst.HeroDie(RuleType.HeroPhantom, MapTime);
     }
 }
