@@ -56,7 +56,7 @@ namespace Game
 
             //把用户面板属性，当做战斗的基本属性
 
-            double phRate = 0.8 + 0.08 * (Scale - 1);
+            double phRate = 0.8 + 0.1 * (Scale - 1);
 
             this.SetAttackSpeed((int)user.AttributeBonus.GetTotalAttr(AttributeEnum.Speed));
             this.SetMoveSpeed((int)user.AttributeBonus.GetTotalAttr(AttributeEnum.MoveSpeed));
@@ -108,12 +108,11 @@ namespace Game
 
             List<SkillRuneConfig> runeConfigs = SkillRuneConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.SkillId == skillId).OrderBy(m => m.Id).ToList();
 
-            if (runeConfigs.Count > 0)
+            foreach (SkillRuneConfig config in runeConfigs)
             {
-                SkillRune skillRune = new SkillRune(runeConfigs[0].Id, 4);
+                SkillRune skillRune = new SkillRune(config.Id, 4);
                 runeList.Add(skillRune);
             }
-
             return runeList;
         }
 
@@ -122,9 +121,9 @@ namespace Game
             List<SkillSuit> suitList = new List<SkillSuit>();
 
             List<SkillSuitConfig> suitConfigs = SkillSuitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.SkillId == skillId).OrderBy(m => m.Id).ToList();
-            if (suitConfigs.Count > 0)
+            foreach (SkillSuitConfig config in suitConfigs)
             {
-                SkillSuit suit = new SkillSuit(suitConfigs[0].Id);
+                SkillSuit suit = new SkillSuit(config.Id);
                 suitList.Add(suit);
             }
 
