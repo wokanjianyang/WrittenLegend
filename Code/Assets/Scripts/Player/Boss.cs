@@ -148,7 +148,8 @@ namespace Game
             QualityConfig qualityConfig = QualityConfigCategory.Instance.Get(Quality);
 
             double dropRate = (100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstIncrea)) / 100;
-            dropRate = dropRate * dropModelRate * qualityConfig.DropRate; //爆率 = 人物爆率*怪物类型爆率*怪物品质爆率
+            dropRate = dropRate * dropModelRate * qualityConfig.DropRate / 2; //爆率 = 人物爆率*怪物类型爆率*怪物品质爆率
+
 
             //生成道具奖励
             List<KeyValuePair<int, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(Config.MapId, dropRate);
