@@ -35,4 +35,5 @@
 {"_t":"CodeConfig","_id":34,"code":"gx155","ItemTypeList":[9],"ItemIdList":[4003],"ItemQuanlityList":[100]},
 {"_t":"CodeConfig","_id":35,"code":"gx156","ItemTypeList":[9],"ItemIdList":[4003],"ItemQuanlityList":[100]},
 {"_t":"CodeConfig","_id":36,"code":"gx158","ItemTypeList":[9,5],"ItemIdList":[4003,4006],"ItemQuanlityList":[88,388]},
+{"_t":"CodeConfig","_id":37,"code":"gx161","ItemTypeList":[9],"ItemIdList":[4003],"ItemQuanlityList":[100]},
 ]}
