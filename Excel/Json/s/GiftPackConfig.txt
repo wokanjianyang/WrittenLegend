@@ -5,4 +5,5 @@
 {"_t":"GiftPackConfig","_id":4,"Name":"专属自选4","LevelRequired":0,"ItemTypeList":[12,12,12,12,12,12],"ItemIdList":[401,402,403,404,405,406],"ItemQuanlityList":[1,1,1,1,1,1],"Des":"专属4自选包"},
 {"_t":"GiftPackConfig","_id":5,"Name":"专属自选5","LevelRequired":0,"ItemTypeList":[12,12,12,12,12,12],"ItemIdList":[501,502,503,504,505,506],"ItemQuanlityList":[1,1,1,1,1,1],"Des":"专属5自选包"},
 {"_t":"GiftPackConfig","_id":6,"Name":"专属自选6","LevelRequired":0,"ItemTypeList":[12,12,12,12,12,12],"ItemIdList":[601,602,603,604,605,606],"ItemQuanlityList":[1,1,1,1,1,1],"Des":"专属6自选包"},
+{"_t":"GiftPackConfig","_id":7,"Name":"攻略自选包","LevelRequired":0,"ItemTypeList":[12,12,12,12,12,12],"ItemIdList":[1,2,3,4,5,6],"ItemQuanlityList":[1,1,1,1,1,1],"Des":"攻略自选包"},
 ]}
