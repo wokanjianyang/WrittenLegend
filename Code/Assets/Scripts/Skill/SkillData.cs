@@ -61,9 +61,9 @@ namespace Game
 
         public SkillData(int skillId, int position)
         {
-            this.SkillId = skillId;
             this.Position = position;
             SkillConfig = SkillConfigCategory.Instance.Get(skillId);
+            this.SkillId = SkillConfig.SkillId;
         }
 
         public void AddExp(long exp)
