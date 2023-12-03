@@ -87,6 +87,7 @@ namespace Game
         Restore = 4,//恢复技能
         Shield = 5,//状态技能
         Expert = 6,//职业专精技能
+        Yeman = 7,//野蛮
     }
 
     public enum SkillStatus

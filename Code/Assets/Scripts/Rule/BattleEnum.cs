@@ -6,7 +6,7 @@ namespace Game
     public enum RoundType
     {
         Hero = 0,
-        Monster ,
+        Monster,
         Valet
     }
 
@@ -21,7 +21,7 @@ namespace Game
     {
         [LabelText("常规")]
         Normal = 0,
-        
+
         [LabelText("幸存者")]
         Survivors,
 
@@ -73,6 +73,7 @@ namespace Game
         /// </summary>
         Arc = 5,
 
+        Chase = 8,
         Circle = 9,
     }
 
@@ -88,8 +89,9 @@ namespace Game
         Area = 2,
     }
 
-    public enum SkillCenter { 
-        Self ,
+    public enum SkillCenter
+    {
+        Self,
         Enemy
     }
 

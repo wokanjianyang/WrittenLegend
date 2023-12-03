@@ -78,6 +78,10 @@ namespace Game
             {
                 this.skillLogic = new Skill_Yinshen(player, skillPanel, isShow);
             }
+            else if (skillPanel.SkillData.SkillConfig.Type == (int)SkillType.Yeman)
+            {
+                this.skillLogic = new Skill_Yeman(player, skillPanel, isShow);
+            }
             else
             {
                 this.skillLogic = new Skill_Attack_Normal(player, skillPanel, isShow);

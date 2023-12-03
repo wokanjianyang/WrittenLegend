@@ -384,6 +384,18 @@ namespace Game
                         }
                     }
                     break;
+                case AttackGeometryType.Chase://追击
+                    {
+                        targetCell = enemyCell + Vector3Int.up;
+                        rangeCells.Add(targetCell);
+                        targetCell = enemyCell + Vector3Int.down;
+                        rangeCells.Add(targetCell);
+                        targetCell = enemyCell + Vector3Int.left;
+                        rangeCells.Add(targetCell);
+                        targetCell = enemyCell + Vector3Int.right;
+                        rangeCells.Add(targetCell);
+                    }
+                    break;
                 case AttackGeometryType.Circle: //圆
                     {
                         for (var i = distance * -1; i <= distance; i++)
@@ -484,7 +496,7 @@ namespace Game
             }
 
             //移除范围内的
-            rangeCells.RemoveAll(m => m.x > maxX || m.x < minX || m.y > maxY || m.y < minY );
+            rangeCells.RemoveAll(m => m.x > maxX || m.x < minX || m.y > maxY || m.y < minY);
             rangeCells = rangeCells.Distinct().ToList();
 
             return rangeCells;
@@ -508,34 +520,34 @@ namespace Game
                 //    break;
                 case AttackGeometryType.FrontRow:
                 case AttackGeometryType.Cross:
-                {
-                    for (var i = 1; i <= attackRange; i++)
                     {
-                        targetCell = selfCell + Vector3Int.up * i;
-                        rangeCells.Add(targetCell);
-                        targetCell = selfCell + Vector3Int.down * i;
-                        rangeCells.Add(targetCell);
-                        targetCell = selfCell + Vector3Int.left * i;
-                        rangeCells.Add(targetCell);
-                        targetCell = selfCell + Vector3Int.right * i;
-                        rangeCells.Add(targetCell);
-                    }
-                }
-                    break;
-                case AttackGeometryType.Square:
-                {
-                    for (var i = attackRange*-1; i <= attackRange; i++)
-                    {
-                        for (var j = attackRange * -1; j <= attackRange; j++)
+                        for (var i = 1; i <= attackRange; i++)
                         {
-                            targetCell = selfCell + new Vector3Int(j, i); 
+                            targetCell = selfCell + Vector3Int.up * i;
+                            rangeCells.Add(targetCell);
+                            targetCell = selfCell + Vector3Int.down * i;
+                            rangeCells.Add(targetCell);
+                            targetCell = selfCell + Vector3Int.left * i;
+                            rangeCells.Add(targetCell);
+                            targetCell = selfCell + Vector3Int.right * i;
                             rangeCells.Add(targetCell);
                         }
                     }
-                }
+                    break;
+                case AttackGeometryType.Square:
+                    {
+                        for (var i = attackRange * -1; i <= attackRange; i++)
+                        {
+                            for (var j = attackRange * -1; j <= attackRange; j++)
+                            {
+                                targetCell = selfCell + new Vector3Int(j, i);
+                                rangeCells.Add(targetCell);
+                            }
+                        }
+                    }
                     break;
                 case AttackGeometryType.Diamond:
-                    for (var i = attackRange*-1; i <= attackRange; i++)
+                    for (var i = attackRange * -1; i <= attackRange; i++)
                     {
                         var rowCount = attackRange - Mathf.Abs(i);
                         for (var j = rowCount * -1; j <= rowCount; j++)
@@ -554,7 +566,8 @@ namespace Game
             return rangeCells;
         }
 
-        public MapCell GetMapCell(Vector3Int cell) {
+        public MapCell GetMapCell(Vector3Int cell)
+        {
             return MapCells.Find(m => m.cell == cell);
         }
 
