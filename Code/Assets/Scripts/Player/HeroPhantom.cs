@@ -56,7 +56,7 @@ namespace Game
 
             //把用户面板属性，当做战斗的基本属性
 
-            double phRate = 0.8 + 0.1 * (Scale - 1);
+            double phRate = 0.8 + 0.09 * (Scale - 1);
 
             this.SetAttackSpeed((int)user.AttributeBonus.GetTotalAttr(AttributeEnum.Speed));
             this.SetMoveSpeed((int)user.AttributeBonus.GetTotalAttr(AttributeEnum.MoveSpeed));
