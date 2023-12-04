@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2031152173
+CRC: 3054386152
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 44a3e07886103a88e39aaa304697af80
+    Hash: ec55238fe5a19b21622ca5eed32f70e6
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -35,6 +35,7 @@ Assets:
 - Assets/Resources/Config/HeroPhatomConfigCategory.bytes
 - Assets/Resources/Config/BossConfigCategory.bytes
 - Assets/Resources/Config/CompositeConfigCategory.bytes
+- Assets/Resources/Config/WingConfigCategory.bytes
 - Assets/Resources/Config/TowerConfigCategory.bytes
 - Assets/Resources/Config/EquipStrengthFeeConfigCategory.bytes
 - Assets/Resources/Config/CodeConfigCategory.bytes

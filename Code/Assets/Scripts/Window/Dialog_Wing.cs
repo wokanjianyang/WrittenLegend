@@ -9,7 +9,8 @@ using UnityEngine.UI;
 
 public class Dialog_Wing : MonoBehaviour, IBattleLife
 {
-    public Text Fee;
+    public Text txt_Fee;
+    public Text txt_Level;
 
     public Button Btn_Full;
     public Button Btn_Active;
@@ -45,19 +46,82 @@ public class Dialog_Wing : MonoBehaviour, IBattleLife
 
     public void OnBattleStart()
     {
-        GameProcessor.Inst.EventCenter.AddListener<ShowSoulRingEvent>(this.OnShowSoulRingEvent);
     }
 
     private void Show()
     {
+        User user = GameProcessor.Inst.User;
+        long currentLevel = user.WingData.Data;
 
+        Debug.Log("currentLevel show:"+ currentLevel);
+
+        if (currentLevel > 0)
+        {
+            this.Btn_Active.gameObject.SetActive(false);
+            this.Btn_Strong.gameObject.SetActive(true);
+            this.txt_Level.text = "等级:" + currentLevel;
+        }
+        else
+        {
+            this.Btn_Active.gameObject.SetActive(true);
+            this.Btn_Strong.gameObject.SetActive(false);
+            this.txt_Fee.text = "未激活";
+        }
+
+        WingConfig currentConfig = WingConfigCategory.Instance.GetByLevel(currentLevel);
+        WingConfig nextConfig = WingConfigCategory.Instance.GetByLevel(currentLevel + 1);
+
+        if (nextConfig == null)
+        {
+            this.Btn_Strong.gameObject.SetActive(false);
+            this.txt_Fee.text = "已满级";
+        }
+        else
+        {
+            //Fee
+            long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_Wing_Stone);
+            if (nextConfig != null)
+            {
+                string color = materialCount >= nextConfig.Fee ? "#FFFF00" : "#FF0000";
+
+                txt_Fee.gameObject.SetActive(true);
+                txt_Fee.text = string.Format("<color={0}>{1}</color>", color, "需要:" + nextConfig.Fee + " 凤凰之羽");
+            }
+        }
+
+        WingConfig showConfig = currentConfig == null ? nextConfig : currentConfig;
+
+        for (int i = 0; i < AttrList.Count; i++)
+        {
+            StrenthAttrItem attrItem = AttrList[i];
+
+            if (i >= showConfig.AttrIdList.Length)
+            {
+                attrItem.gameObject.SetActive(false);
+            }
+            else
+            {
+                attrItem.gameObject.SetActive(true);
+
+                string attrName = StringHelper.FormatAttrValueName(showConfig.AttrIdList[i]);
+                string attrBase = "";
+                string attrAdd = "";
+
+                long ab = 0;
+
+                if (currentConfig != null)
+                {
+                    attrBase = StringHelper.FormatAttrValueText(currentConfig.AttrIdList[i], currentConfig.AttrValueList[i]);
+                    ab = currentConfig.AttrValueList[i];
+                }
+                if (nextConfig != null)
+                {
+                    attrAdd = " + " + StringHelper.FormatAttrValueText(nextConfig.AttrIdList[i], nextConfig.AttrValueList[i] - ab);
+                }
+                attrItem.SetContent(attrName, attrBase, attrAdd);
+            }
+        }
     }
-
-    public void OnShowSoulRingEvent(ShowSoulRingEvent e)
-    {
-        this.gameObject.SetActive(true);
-    }
-
 
     public void OnStrong()
     {
@@ -67,7 +131,6 @@ public class Dialog_Wing : MonoBehaviour, IBattleLife
 
         long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_Wing_Stone);
 
-        WingConfig currentConfig = WingConfigCategory.Instance.GetByLevel(currentLevel);
         WingConfig nextConfig = WingConfigCategory.Instance.GetByLevel(currentLevel + 1);
 
         if (materialCount < nextConfig.Fee)
@@ -85,9 +148,11 @@ public class Dialog_Wing : MonoBehaviour, IBattleLife
             Quantity = nextConfig.Fee
         });
 
+        Show();
+
         GameProcessor.Inst.UpdateInfo();
 
-        Show();
+        Debug.Log("OnStrong :" + user.WingData.Data);
     }
 
     public void OnClick_Close()
