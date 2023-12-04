@@ -77,7 +77,7 @@ namespace Game
                 }
             }
 
-            hero.SetPosition(new Vector3(0, 3), true);
+            hero.SetPosition(new Vector3(0, 0), true);
             this.AddPlayer(hero);
         }
 
@@ -91,7 +91,7 @@ namespace Game
                     _com.SetParent(player);
                 }
             }
-            player.SetPosition(new Vector3(6, 3), true);
+            player.SetPosition(new Vector3(6, 7), true);
             this.AddPlayer(player);
         }
 

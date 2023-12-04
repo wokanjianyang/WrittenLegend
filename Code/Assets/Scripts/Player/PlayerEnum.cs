@@ -40,7 +40,7 @@ namespace Game
         MagicAttIncrea = 27, //魔法加成
         SpiritAttIncrea = 28, //道术加成
         MoveSpeed = 29,//移动速度
-        DefIgnore = 30,//移动速度
+        DefIgnore = 30,//无视防御
 
         WarriorSkillPercent = 41, //战士技能百分比系数
         WarriorSkillDamage = 42, //战士技能固定系数
@@ -89,6 +89,7 @@ namespace Game
         Achivement = 10, //成就
         Exclusive = 11, //专属
         Card = 12,//图鉴
+        Wing = 13,
         /// <summary>
         /// 测试属性
         /// </summary>

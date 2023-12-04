@@ -21,11 +21,16 @@ namespace Game
             //如果还有附加特效
             this.skillGraphic?.PlayAnimation(SelfPlayer.Cell);
 
+            this.SelfPlayer.EventCenter.Raise(new ShowMsgEvent()
+            {
+                Type = MsgType.SkillName,
+                Content = SkillPanel.SkillData.SkillConfig.Name
+            });
             //是否被控制？
-            //if (this.SelfPlayer.GetIsPause())
-            //{
-            //    RandomTransport();
-            //}
+            if (this.SelfPlayer.GetIsPause())
+            {
+                RandomTransport();
+            }
             //else
             //{
             //    double rate = this.SelfPlayer.HP * 1d / this.SelfPlayer.AttributeBonus.GetAttackAttr(AttributeEnum.HP);
@@ -36,7 +41,7 @@ namespace Game
             //    }
             //}
 
-            RandomTransport();
+            //RandomTransport();
 
             this.SelfPlayer.ClearEnemy();
 

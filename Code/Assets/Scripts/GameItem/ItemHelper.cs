@@ -87,6 +87,7 @@ namespace Game
         public static int SpecialId_Exclusive_Stone = 4005;
         public static int SpecialId_Moon_Cake = 4006;
         public static int SpecialId_Equip_Speical_Stone = 4007;
+        public static int SpecialId_Wing_Stone = 4008;
 
         public static int SpecialId_Card_Stone = 4101;
     }

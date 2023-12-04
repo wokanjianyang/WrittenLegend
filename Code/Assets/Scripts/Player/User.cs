@@ -101,6 +101,8 @@ namespace Game
 
         public Dictionary<int, MagicData> SoulRingData { get; } = new Dictionary<int, MagicData>();
 
+        public MagicData WingData { get; set; } = new MagicData();
+
         public Dictionary<int, int> AchievementData { get; } = new Dictionary<int, int>();
 
         public Dictionary<int, MagicData> CardData { get; } = new Dictionary<int, MagicData>();
@@ -265,6 +267,16 @@ namespace Game
                     {
                         AttributeBonus.SetAttr((AttributeEnum)ringConfig.AttrIdList[i], AttributeFrom.SoulRing, sl.Key, ringConfig.AttrValueList[i]);
                     }
+                }
+            }
+
+            //翅膀
+            if (WingData.Data > 0)
+            {
+                WingConfig wingConfig = WingConfigCategory.Instance.GetByLevel(WingData.Data);
+                for (int i = 0; i < wingConfig.AttrIdList.Length; i++)
+                {
+                    AttributeBonus.SetAttr((AttributeEnum)wingConfig.AttrIdList[i], AttributeFrom.Wing, wingConfig.AttrValueList[i]);
                 }
             }
 

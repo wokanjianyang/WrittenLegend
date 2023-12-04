@@ -1,0 +1,12 @@
+{"list":[
+{"_t":"WingConfig","_id":1,"Level":1,"AttrIdList":[6,29,15],"AttrValueList":[5,5,25],"Fee":10},
+{"_t":"WingConfig","_id":2,"Level":2,"AttrIdList":[6,29,15],"AttrValueList":[10,10,50],"Fee":20},
+{"_t":"WingConfig","_id":3,"Level":3,"AttrIdList":[6,29,15],"AttrValueList":[15,15,75],"Fee":30},
+{"_t":"WingConfig","_id":4,"Level":4,"AttrIdList":[6,29,15],"AttrValueList":[20,20,100],"Fee":30},
+{"_t":"WingConfig","_id":5,"Level":5,"AttrIdList":[6,29,15],"AttrValueList":[25,25,125],"Fee":30},
+{"_t":"WingConfig","_id":6,"Level":6,"AttrIdList":[6,29,15],"AttrValueList":[30,30,150],"Fee":30},
+{"_t":"WingConfig","_id":7,"Level":7,"AttrIdList":[6,29,15],"AttrValueList":[35,35,175],"Fee":30},
+{"_t":"WingConfig","_id":8,"Level":8,"AttrIdList":[6,29,15],"AttrValueList":[40,40,200],"Fee":30},
+{"_t":"WingConfig","_id":9,"Level":9,"AttrIdList":[6,29,15],"AttrValueList":[45,45,225],"Fee":30},
+{"_t":"WingConfig","_id":10,"Level":10,"AttrIdList":[6,29,15],"AttrValueList":[50,50,250],"Fee":30},
+]}
