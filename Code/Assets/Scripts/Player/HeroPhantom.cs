@@ -56,7 +56,17 @@ namespace Game
 
             //把用户面板属性，当做战斗的基本属性
 
-            double phRate = 0.5 + 0.12 * (Scale - 1);
+            double phRate =0;
+            if (Scale <= 6)
+            {
+                phRate = 0.5 + 0.1 * (Scale - 1);
+            }
+            else
+            {
+                phRate = 1.0 + 0.25 * (Scale - 6);
+            }
+
+            Debug.Log("phRate:" + phRate);
 
             this.SetAttackSpeed((int)user.AttributeBonus.GetTotalAttr(AttributeEnum.Speed));
             this.SetMoveSpeed((int)user.AttributeBonus.GetTotalAttr(AttributeEnum.MoveSpeed));
@@ -64,7 +74,13 @@ namespace Game
             double attr = Math.Max(user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.PhyAtt), user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.MagicAtt));
             attr = Math.Max(attr, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.SpiritAtt));
 
+            double hp = user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP) * ConfigHelper.PvpRate * phRate;
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP) * ConfigHelper.PvpRate * phRate);
+
+            Debug.Log("hp:" + hp);
+
+            Debug.Log("attr:" + attr * phRate);
+
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroPanel, attr * phRate);
             AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroPanel, attr * phRate);
             AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroPanel, attr * phRate);
