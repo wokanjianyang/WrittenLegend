@@ -57,13 +57,13 @@ namespace Game
             //把用户面板属性，当做战斗的基本属性
 
             double phRate = 0;
-            if (Scale <= 6)
+            if (Scale <= 5)
             {
-                phRate = 0.5 + 0.1 * (Scale - 1);
+                phRate = 0.6 + 0.1 * (Scale - 1);
             }
             else
             {
-                phRate = 1.0 + 0.25 * (Scale - 6);
+                phRate = 1.0 + 0.2 * (Scale - 5);
             }
 
             this.SetAttackSpeed((int)user.AttributeBonus.GetTotalAttr(AttributeEnum.Speed));
@@ -110,11 +110,14 @@ namespace Game
             SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
         }
 
-
-
         private List<SkillRune> RandomSkillRuneList(int skillId)
         {
             List<SkillRune> runeList = new List<SkillRune>();
+
+            if (this.Scale <= 3)
+            {
+                return runeList;
+            }
 
             List<SkillRuneConfig> runeConfigs = SkillRuneConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.SkillId == skillId).OrderBy(m => m.Id).ToList();
 
@@ -129,6 +132,11 @@ namespace Game
         private List<SkillSuit> RandomSkillSuitList(int skillId)
         {
             List<SkillSuit> suitList = new List<SkillSuit>();
+
+            if (this.Scale <= 3)
+            {
+                return suitList;
+            }
 
             List<SkillSuitConfig> suitConfigs = SkillSuitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.SkillId == skillId).OrderBy(m => m.Id).ToList();
             foreach (SkillSuitConfig config in suitConfigs)

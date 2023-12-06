@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -21,7 +22,6 @@ namespace Game
 
         public override void Do()
         {
-            //如果还有附加特效
             var moveCell = GetMoveCell();
             this.SelfPlayer.SetPosition(moveCell, false);
 
@@ -35,7 +35,17 @@ namespace Game
                 return Vector3Int.zero;
             }
 
+            Vector3Int dis = SelfPlayer.Cell - SelfPlayer.Enemy.Cell;
+            if (Math.Abs(dis.x + dis.y) == 1)
+            {
+                return SelfPlayer.Cell;
+            }
+
+
             List<Vector3Int> allAttackCells = GameProcessor.Inst.MapData.GetAttackRangeCell(SelfPlayer.Cell, SelfPlayer.Enemy.Cell, SkillPanel);
+
+            Vector3Int selfCell = SelfPlayer.Cell;
+            allAttackCells = allAttackCells.OrderBy(m => Math.Abs(m.x - selfCell.x) + Math.Abs(m.y - selfCell.y) + Math.Abs(m.z - selfCell.z)).ToList();
 
             foreach (var cell in allAttackCells)
             {
