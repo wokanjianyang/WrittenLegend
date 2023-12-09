@@ -29,7 +29,7 @@ namespace Game
                 int rate = dropLimit.Rate;
                 if (dropLimit.ShareRise > 0)
                 {
-                    rate = (int)(rate / rateRise);
+                    rate = (int)Math.Floor(rate / rateRise);
                 }
                 list.Add(new KeyValuePair<int, DropConfig>(rate, dropConfig));
             }

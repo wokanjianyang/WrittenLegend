@@ -18,7 +18,7 @@ namespace Game
                 for (int i = 0; i < map.DropIdList.Length; i++)
                 {
                     DropConfig dropConfig = this.Get(map.DropIdList[i]);
-                    list.Add(new KeyValuePair<int, DropConfig>((int)(map.DropRateList[i] / rate), dropConfig));
+                    list.Add(new KeyValuePair<int, DropConfig>((int)Math.Floor(map.DropRateList[i] / rate), dropConfig));
                 }
             }
 
