@@ -119,7 +119,7 @@ namespace Game
             }
             if (gold > 0)
             {
-                message += gold + "金币";
+                message += StringHelper.FormatNumber(gold) + "金币";
             }
             return message;
         }
