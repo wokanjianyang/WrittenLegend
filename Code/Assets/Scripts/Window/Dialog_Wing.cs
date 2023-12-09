@@ -55,17 +55,16 @@ public class Dialog_Wing : MonoBehaviour, IBattleLife
 
         Debug.Log("currentLevel show:"+ currentLevel);
 
+        this.txt_Level.text = "等级:" + currentLevel;
         if (currentLevel > 0)
         {
             this.Btn_Active.gameObject.SetActive(false);
             this.Btn_Strong.gameObject.SetActive(true);
-            this.txt_Level.text = "等级:" + currentLevel;
         }
         else
         {
             this.Btn_Active.gameObject.SetActive(true);
             this.Btn_Strong.gameObject.SetActive(false);
-            this.txt_Fee.text = "未激活";
         }
 
         WingConfig currentConfig = WingConfigCategory.Instance.GetByLevel(currentLevel);
