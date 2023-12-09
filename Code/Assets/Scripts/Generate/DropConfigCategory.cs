@@ -1,15 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Game
 {
 
     public partial class DropConfigCategory
     {
-        public List<KeyValuePair<int, DropConfig>> GetByMapLevel(int mapId, double rate)
+        public List<KeyValuePair<double, DropConfig>> GetByMapLevel(int mapId, double rate)
         {
-            List<KeyValuePair<int, DropConfig>> list = new List<KeyValuePair<int, DropConfig>>();
+            List<KeyValuePair<double, DropConfig>> list = new List<KeyValuePair<double, DropConfig>>();
 
             MapConfig map = MapConfigCategory.Instance.Get(mapId);
 
@@ -18,7 +19,9 @@ namespace Game
                 for (int i = 0; i < map.DropIdList.Length; i++)
                 {
                     DropConfig dropConfig = this.Get(map.DropIdList[i]);
-                    list.Add(new KeyValuePair<int, DropConfig>((int)Math.Floor(map.DropRateList[i] / rate), dropConfig));
+                    list.Add(new KeyValuePair<double, DropConfig>(map.DropRateList[i] / rate, dropConfig));
+
+                    //Debug.Log("fd:" + (map.DropRateList[i] / rate));
                 }
             }
 
@@ -80,13 +83,13 @@ namespace Game
             return list;
         }
 
-        public static List<Item> BuildDropItem(List<KeyValuePair<int, DropConfig>> dropList, int qualityRate)
+        public static List<Item> BuildDropItem(List<KeyValuePair<double, DropConfig>> dropList, int qualityRate)
         {
             List<Item> list = new List<Item>();
 
             for (int i = 0; i < dropList.Count; i++)
             {
-                int rate = dropList[i].Key;
+                double rate = dropList[i].Key;
                 DropConfig config = dropList[i].Value;
 
                 if (RandomHelper.RandomResult(rate))

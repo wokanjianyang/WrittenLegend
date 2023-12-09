@@ -12,9 +12,9 @@ namespace Game
 
     public class DropLimitHelper
     {
-        public static List<KeyValuePair<int, DropConfig>> Build(int type, double rateRise)
+        public static List<KeyValuePair<double, DropConfig>> Build(int type, double rateRise)
         {
-            List<KeyValuePair<int, DropConfig>> list = new List<KeyValuePair<int, DropConfig>>();
+            List<KeyValuePair<double, DropConfig>> list = new List<KeyValuePair<double, DropConfig>>();
 
             long time = DateTime.Now.Ticks;
 
@@ -26,12 +26,12 @@ namespace Game
             {
                 DropConfig dropConfig = DropConfigCategory.Instance.Get(dropLimit.DropId);
 
-                int rate = dropLimit.Rate;
+                double rate = dropLimit.Rate;
                 if (dropLimit.ShareRise > 0)
                 {
-                    rate = (int)Math.Floor(rate / rateRise);
+                    rate = rate / rateRise;
                 }
-                list.Add(new KeyValuePair<int, DropConfig>(rate, dropConfig));
+                list.Add(new KeyValuePair<double, DropConfig>(rate, dropConfig));
             }
 
             return list;

@@ -94,11 +94,11 @@ public class Monster_Specail : APlayer
         User user = GameProcessor.Inst.User;
 
         //生成道具奖励
-        List<KeyValuePair<int, DropConfig>> dropList = new List<KeyValuePair<int, DropConfig>>();
+        List<KeyValuePair<double, DropConfig>> dropList = new List<KeyValuePair<double, DropConfig>>();
         for (int i = 0; i < config.DropIdList.Length; i++)
         {
             DropConfig dropConfig = DropConfigCategory.Instance.Get(config.DropIdList[i]);
-            dropList.Add(new KeyValuePair<int, DropConfig>((int)(config.DropRateList[i]), dropConfig));
+            dropList.Add(new KeyValuePair<double, DropConfig>(config.DropRateList[i], dropConfig));
         }
 
         List<Item> items = DropHelper.BuildDropItem(dropList, 1);

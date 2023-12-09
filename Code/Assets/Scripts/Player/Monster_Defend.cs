@@ -109,13 +109,13 @@ namespace Game
             //增加经验,金币
             user.AddExpAndGold(exp, gold);
 
-            List<KeyValuePair<int, DropConfig>> dropList = new List<KeyValuePair<int, DropConfig>>();
+            List<KeyValuePair<double, DropConfig>> dropList = new List<KeyValuePair<double, DropConfig>>();
 
             //掉落道具
             for (int i = 0; i < Config.DropIdList.Length; i++)
             {
                 DropConfig dropConfig = DropConfigCategory.Instance.Get(Config.DropIdList[i]);
-                dropList.Add(new KeyValuePair<int, DropConfig>(Config.DropRateList[i], dropConfig));
+                dropList.Add(new KeyValuePair<double, DropConfig>(Config.DropRateList[i], dropConfig));
             }
 
             List<Item> items = DropHelper.BuildDropItem(dropList, 1);

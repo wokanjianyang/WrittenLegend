@@ -18,7 +18,7 @@ namespace Game
         {
             return random.Next();
         }
-        
+
         public static uint RandUInt32(this Random random)
         {
             return (uint)random.Next();
@@ -31,14 +31,25 @@ namespace Game
             return BitConverter.ToInt64(byte8, 0);
         }
     }
-    
+
     public static class RandomHelper
     {
         public static Random random = new Random(Guid.NewGuid().GetHashCode());
 
-        public static bool RandomResult(int rate)
+        public static bool RandomResult(double rate)
         {
-            return random.Next(1, rate + 1)<= 1;
+            if (rate >= 10)
+            {
+                int fr = (int)rate;
+                return random.Next(1, fr + 1) <= 1;
+            }
+            else
+            {
+                int fr = (int)(100 / rate);
+                int rd = random.Next(1, 100);
+
+                return rd < fr;
+            }
         }
 
         public static int RandomEquipQuality(int level, int qualityRate)
@@ -67,7 +78,8 @@ namespace Game
             return 1;
         }
 
-        public static int RandomMonsterQuality() {
+        public static int RandomMonsterQuality()
+        {
             int rd = random.Next(1, 201);
             if (rd < 10)
             {
@@ -96,7 +108,7 @@ namespace Game
         {
             return random.Next();
         }
-        
+
         public static uint RandUInt32()
         {
             return (uint)random.Next();
@@ -121,15 +133,15 @@ namespace Game
             return value;
         }
 
-        public static long NextLong(long minValue,long maxValue)
+        public static long NextLong(long minValue, long maxValue)
         {
             if (minValue > maxValue)
             {
                 throw new ArgumentException("minValue is great than maxValue", "minValue");
             }
-            
+
             long num = maxValue - minValue;
-            return minValue + (long) (random.NextDouble() * num);
+            return minValue + (long)(random.NextDouble() * num);
         }
 
         public static bool RandomBool()
@@ -187,7 +199,8 @@ namespace Game
             //表示键和值对的集合。
             Hashtable hashtable = new Hashtable();
             Random rm = random;
-            while (hashtable.Count < sum) {
+            while (hashtable.Count < sum)
+            {
                 //返回一个min到max之间的随机数
                 int nValue = rm.Next(min, max);
                 // 是否包含特定值
@@ -202,7 +215,7 @@ namespace Game
 
             return arr;
         }
-        
+
         /// <summary>
         /// 随机从数组中取若干个不重复的元素，
         /// 为了降低算法复杂度，所以是伪随机，对随机要求不是非常高的逻辑可以用
@@ -217,7 +230,7 @@ namespace Game
             {
                 return false;
             }
-            
+
             destList.Clear();
 
             if (randCount >= sourceList.Count)
@@ -226,7 +239,7 @@ namespace Game
                 {
                     destList.Add(val);
                 }
-                
+
                 return true;
             }
 
@@ -317,7 +330,7 @@ namespace Game
 
             return -1;
         }
-        
+
         public static int RandomByWeight(List<int> weights, int weightRandomMinVal)
         {
             if (weights.Count == 0)
@@ -351,7 +364,7 @@ namespace Game
 
             return -1;
         }
-        
+
         public static int RandomByWeight(List<long> weights)
         {
             if (weights.Count == 0)
@@ -369,7 +382,7 @@ namespace Game
             {
                 sum += weights[i];
             }
-            
+
             long number_rand = NextLong(1, sum + 1);
 
             long sum_temp = 0;

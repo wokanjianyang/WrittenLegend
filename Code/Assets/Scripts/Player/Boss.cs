@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
 using System.Linq;
+using System;
 
 namespace Game
 {
@@ -147,12 +148,13 @@ namespace Game
 
             QualityConfig qualityConfig = QualityConfigCategory.Instance.Get(Quality);
 
-            double dropRate = 1 + user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstIncrea) / 250.0;
+            double dropRate = 1 + user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstIncrea) / 350.0;
+            dropRate = Math.Min(8, 1 + dropRate);
             dropRate = dropRate * dropModelRate * qualityConfig.DropRate; //爆率 = 人物爆率*怪物类型爆率*怪物品质爆率
 
 
             //生成道具奖励
-            List<KeyValuePair<int, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(Config.MapId, dropRate);
+            List<KeyValuePair<double, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(Config.MapId, dropRate);
             //限时奖励
             dropList.AddRange(DropLimitHelper.Build((int)DropLimitType.Normal, dropRate));
 
