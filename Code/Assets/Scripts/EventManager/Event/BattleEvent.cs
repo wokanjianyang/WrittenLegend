@@ -223,7 +223,7 @@ namespace Game
     }
 
     public class AutoStartBossFamily : SDD.Events.Event
-    { 
+    {
 
     }
 
@@ -278,6 +278,10 @@ namespace Game
 
     public class ShowExclusiveEvent : SDD.Events.Event
     {
+    }
+    public class ChangeExclusiveEvent : SDD.Events.Event
+    {
+        public int Index { get; set; }
     }
 
     public class ShowSelectEvent : SDD.Events.Event

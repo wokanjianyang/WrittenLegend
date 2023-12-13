@@ -199,14 +199,14 @@ namespace Game
                 }
             }
 
-            InitDoubleHitSkill(user);
+            //InitDoubleHitSkill(user);
         }
 
         private void InitDoubleHitSkill(User user)
         {
             DoubleHitSkillList.Clear();
 
-            foreach (var kv in user.ExclusiveList)
+            foreach (var kv in user.ExclusivePanelList[user.ExclusiveIndex])
             {
                 ExclusiveItem exclusive = kv.Value;
 

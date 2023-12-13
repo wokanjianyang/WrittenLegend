@@ -158,7 +158,7 @@ namespace Game
         {
             DoubleHitSkillList.Clear();
 
-            foreach (var kv in user.ExclusiveList)
+            foreach (var kv in user.ExclusivePanelList[user.ExclusiveIndex])
             {
                 ExclusiveItem exclusive = kv.Value;
 

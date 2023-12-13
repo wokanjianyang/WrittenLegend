@@ -118,6 +118,8 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<SelectGiftEvent>(this.OnSelectGift);
             GameProcessor.Inst.EventCenter.AddListener<EquipLockEvent>(this.OnEquipLockEvent);
             GameProcessor.Inst.EventCenter.AddListener<ExchangeEvent>(this.OnExchangeEvent);
+            GameProcessor.Inst.EventCenter.AddListener<ChangeExclusiveEvent>(this.OnChangeExclusiveEvent);
+            
 
             this.EquipInfoList.Add(EquipInfo1);
             this.EquipInfoList.Add(EquipInfo2);
@@ -180,7 +182,7 @@ namespace Game
             }
 
             //穿戴专属
-            foreach (var kvp in user.ExclusiveList)
+            foreach (var kvp in user.ExclusivePanelList[user.ExclusiveIndex])
             {
                 this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
             }
@@ -429,6 +431,21 @@ namespace Game
         {
             UseBoxItem(e.BoxItem, 1);
             AddBoxItem(e.Item);
+        }
+
+        private void OnChangeExclusiveEvent(ChangeExclusiveEvent e)
+        {
+            User user = GameProcessor.Inst.User;
+            user.ExclusiveIndex = e.Index;
+
+            for (int i = 15; i <= 20; i++) {
+                this.ClearEquipPanelItem(i);
+            }
+
+            foreach (var kvp in user.ExclusivePanelList[e.Index])
+            {
+                this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
+            }
         }
 
         private void ChangeEquipPanel1()
@@ -947,7 +964,7 @@ namespace Game
 
             var exclusive = boxItem.Item as ExclusiveItem;
 
-            var ep = user.ExclusiveList;
+            var ep = user.ExclusivePanelList[user.ExclusiveIndex];
             int Position = exclusive.Part;
 
             //从包袱移除
@@ -969,10 +986,44 @@ namespace Game
             //穿戴到格子上
             this.CreateEquipPanelItem(-1, Position, exclusive);
 
-            user.ExclusiveList[Position] = exclusive;
+            user.ExclusivePanelList[user.ExclusiveIndex][Position] = exclusive;
 
             //通知英雄更新属性
             user.EventCenter.Raise(new HeroUseEquipEvent { });
+        }
+
+        private void ClearEquipPanelItem(int position)
+        {
+            SlotBox slot = GetEquipSolt(position);
+
+            Com_Box comItem = slot.GetEquip();
+            if (comItem != null)
+            {
+                slot.UnEquip();
+                GameObject.Destroy(comItem.gameObject);
+            }
+        }
+
+        private SlotBox GetEquipSolt(int position)
+        {
+            SlotBox slot = null;
+
+            if (position > 14)
+            {
+                slot = ExclusiveDialog.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+            }
+            else if (position > 10)
+            {
+                slot = EquipInfoSpecial.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+            }
+            else
+            {
+                int pi = GameProcessor.Inst.User.EquipPanelIndex;
+
+                var EquipInfo = EquipInfoList[pi];
+                slot = EquipInfo.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+            }
+            return slot;
         }
 
         private void CreateEquipPanelItem(int pi, int position, Item equip)
@@ -1070,7 +1121,7 @@ namespace Game
             //装备移动到包裹里面
             AddBoxItem(exclusive);
 
-            user.ExclusiveList.Remove(position);
+            user.ExclusivePanelList[user.ExclusiveIndex].Remove(position);
 
             //通知英雄更新属性
             user.EventCenter.Raise(new HeroUnUseEquipEvent() { });

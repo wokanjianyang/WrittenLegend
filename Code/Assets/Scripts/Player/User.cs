@@ -42,9 +42,13 @@ namespace Game
 
         public IDictionary<int, Equip> EquipPanelSpecial { get; set; } = new Dictionary<int, Equip>();
 
+        public IDictionary<int, IDictionary<int, ExclusiveItem>> ExclusivePanelList { get; set; } = new Dictionary<int, IDictionary<int, ExclusiveItem>>();
+
         public IDictionary<int, ExclusiveItem> ExclusiveList { get; set; } = new Dictionary<int, ExclusiveItem>();
 
         public int EquipPanelIndex { get; set; } = 0;
+
+        public int ExclusiveIndex { get; set; } = 0;
 
         public IDictionary<int, MagicData> MagicEquipStrength { get; set; } = new Dictionary<int, MagicData>();
 
@@ -217,7 +221,7 @@ namespace Game
             }
 
             //专属属性
-            foreach (var sp in this.ExclusiveList)
+            foreach (var sp in this.ExclusivePanelList[ExclusiveIndex])
             {
                 foreach (var a in sp.Value.GetTotalAttrList())
                 {
@@ -297,7 +301,7 @@ namespace Game
             this.SkillNumber = ConfigHelper.SkillNumber;
 
             //专属
-            if (this.ExclusiveList.Count >= 6)
+            if (this.ExclusivePanelList[ExclusiveIndex].Count >= 6)
             {
                 this.SkillNumber += 1;
             }
@@ -427,7 +431,7 @@ namespace Game
             //计算装备的词条加成
             List<SkillRuneConfig> skillList = this.EquipPanelList[EquipPanelIndex].Where(m => m.Value.SkillRuneConfig != null && m.Value.SkillRuneConfig.SkillId == skillId).Select(m => m.Value.SkillRuneConfig).ToList();
 
-            skillList.AddRange(this.ExclusiveList.Select(m => m.Value).Where(m => m.SkillRuneConfig != null && m.SkillRuneConfig.SkillId == skillId).Select(m => m.SkillRuneConfig).ToList());
+            skillList.AddRange(this.ExclusivePanelList[ExclusiveIndex].Select(m => m.Value).Where(m => m.SkillRuneConfig != null && m.SkillRuneConfig.SkillId == skillId).Select(m => m.SkillRuneConfig).ToList());
 
             //按单件分组,词条有堆叠上限
             var runeGroup = skillList.GroupBy(m => m.Id);
@@ -447,7 +451,7 @@ namespace Game
 
             //计算装备的套装加成
             List<SkillSuitConfig> skillList = this.EquipPanelList[EquipPanelIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SkillSuitConfig.SkillId == skillId).Select(m => m.Value.SkillSuitConfig).ToList();
-            var el = this.ExclusiveList.Select(m => m.Value).Where(m => m.SkillSuitConfig != null && m.SkillSuitConfig.SkillId == skillId).Select(m => m.SkillSuitConfig).ToList();
+            var el = this.ExclusivePanelList[ExclusiveIndex].Select(m => m.Value).Where(m => m.SkillSuitConfig != null && m.SkillSuitConfig.SkillId == skillId).Select(m => m.SkillSuitConfig).ToList();
             if (el.Count > 0)
             {
                 skillList.AddRange(el);
@@ -470,7 +474,7 @@ namespace Game
         public int GetSuitCount(int suitId)
         {
             int count = this.EquipPanelList[EquipPanelIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SuitConfigId == suitId).Count();
-            count += this.ExclusiveList.Where(m => m.Value.SuitConfigId == suitId).Count();
+            count += this.ExclusivePanelList[ExclusiveIndex].Where(m => m.Value.SuitConfigId == suitId).Count();
             return Math.Min(count, this.SuitMax);
         }
 
@@ -546,7 +550,7 @@ namespace Game
             {
                 ExclusiveSuitItem target = new ExclusiveSuitItem(item.Id, item.Name, false);
 
-                if (this.ExclusiveList.ContainsKey(item.Part))
+                if (this.ExclusivePanelList[ExclusiveIndex].ContainsKey(item.Part))
                 {
                     target.Active = true;
                     suit.ActiveCount++;

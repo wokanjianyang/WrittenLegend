@@ -11,11 +11,24 @@ namespace Game
     {
         public Button Btn_Close;
 
+        public List<Button> Btn_Plan_List = new List<Button>();
+
+        public Toggle toggle;
+
         public int Order => (int)ComponentOrder.Dialog;
 
-        void Start()
+        void Awake()
         {
             Btn_Close.onClick.AddListener(OnClick_Close);
+
+            for (int i = 0; i < Btn_Plan_List.Count; i++)
+            {
+                int index = i;
+                Btn_Plan_List[i].onClick.AddListener(() =>
+                {
+                    ChangePlan(index);
+                });
+            }
         }
 
         public void OnBattleStart()
@@ -26,25 +39,21 @@ namespace Game
 
             SlotBox[] items = this.GetComponentsInChildren<SlotBox>();
 
-            for (int i = 0; i < items.Length; i++) {
+            for (int i = 0; i < items.Length; i++)
+            {
                 items[i].Init(prefab);
             }
-
-            Init();
         }
 
-        private void Init()
+        private void ChangePlan(int i)
         {
-            
-
-
+            GameProcessor.Inst.EventCenter.Raise(new ChangeExclusiveEvent() { Index = i });
         }
 
         public void OnShowExclusive(ShowExclusiveEvent e)
         {
             this.gameObject.SetActive(true);
         }
-
 
         public void OnClick_Close()
         {
