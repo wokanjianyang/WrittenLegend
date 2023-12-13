@@ -446,6 +446,8 @@ namespace Game
             {
                 this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
             }
+
+            GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
         }
 
         private void ChangeEquipPanel1()

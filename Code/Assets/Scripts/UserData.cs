@@ -81,6 +81,15 @@ namespace Game
                 user.ExclusivePanelList[2] = new Dictionary<int, ExclusiveItem>();
                 user.ExclusivePanelList[3] = new Dictionary<int, ExclusiveItem>();
                 user.ExclusivePanelList[4] = new Dictionary<int, ExclusiveItem>();
+
+                if (user.ExclusiveList.Count > 0)
+                {
+                    foreach (var kv in user.ExclusiveList)
+                    {
+                        user.ExclusivePanelList[0].Add(kv);
+                    }
+                    user.ExclusiveList.Clear();
+                }
             }
 
             if (user.MagicLevel.Data <= 0)
