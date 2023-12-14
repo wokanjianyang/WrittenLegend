@@ -35,7 +35,7 @@ namespace Game
 
         private void OnClick_RemoveSkill()
         {
-            this.tran_Skill.gameObject.SetActive(false);
+            Clear();
 
             this.SkillPanel.SkillData.Status = SkillStatus.Learn;
             this.SkillPanel.SkillData.Position = 0;
@@ -56,6 +56,11 @@ namespace Game
             }
 
             this.tran_Skill.gameObject.SetActive(true);
+        }
+
+        public void Clear()
+        {
+            this.tran_Skill.gameObject.SetActive(false);
         }
     }
 }

@@ -10,7 +10,7 @@ public class Com_Power : MonoBehaviour, IBattleLife
     public Slider Slider;
 
     public Text Time;
-    
+
     public Text Date;
 
     public Text Map;
@@ -43,8 +43,8 @@ public class Com_Power : MonoBehaviour, IBattleLife
         if (min != minute)
         {
             minute = DateTime.Now.Minute;
-            
-            Time.text = $"{DateTime.Now.Hour.ToString().PadLeft(2,'0')}:{DateTime.Now.Minute.ToString().PadLeft(2,'0')}";
+
+            Time.text = $"{DateTime.Now.Hour.ToString().PadLeft(2, '0')}:{DateTime.Now.Minute.ToString().PadLeft(2, '0')}";
         }
 
         if (d != day)
@@ -85,12 +85,12 @@ public class Com_Power : MonoBehaviour, IBattleLife
 
         return weekStr;
     }
-    
+
     public void OnBattleStart()
     {
 
         GameProcessor.Inst.EventCenter.AddListener<ChangeMapEvent>(this.OnChangeMapEvent);
-        
+
     }
 
     public int Order => (int)ComponentOrder.Dialog;
@@ -105,11 +105,13 @@ public class Com_Power : MonoBehaviour, IBattleLife
     {
         this.gameObject.SetActive(true);
         this.Slider.value = 0;
-        
+
         User user = GameProcessor.Inst.User;
         if (user != null)
         {
-            MapConfig config = MapConfigCategory.Instance.Get(user.MapId);
+            int MapNo = Math.Max(user.MapId - 1, ConfigHelper.MapStartId);
+
+            MapConfig config = MapConfigCategory.Instance.Get(MapNo);
             Map.text = config.Name;
         }
     }

@@ -50,6 +50,8 @@ namespace Game
 
         public int ExclusiveIndex { get; set; } = 0;
 
+        public int SkillPanelIndex { get; set; } = 0;
+
         public IDictionary<int, MagicData> MagicEquipStrength { get; set; } = new Dictionary<int, MagicData>();
 
         public IDictionary<int, int> EquipRefine { get; set; } = new Dictionary<int, int>();
@@ -60,6 +62,8 @@ namespace Game
         public bool ShowMonsterSkill { get; set; } = true;
 
         public List<SkillData> SkillList { get; set; } = new List<SkillData>();
+
+        public IDictionary<int, IDictionary<int, int>> SkillPanelList { get; set; } = new Dictionary<int, IDictionary<int, int>>();
 
         public IDictionary<AchievementSourceType, MagicData> MagicRecord { get; set; } = new Dictionary<AchievementSourceType, MagicData>();
 

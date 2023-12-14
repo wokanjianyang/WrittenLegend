@@ -16,11 +16,25 @@ namespace Game
         [LabelText("装载技能")]
         public Transform tran_EquipSkills;
 
+        public List<Button> PlanList;
+
         private Com_Skill[] AllEquipSkills;
 
         private List<Item_Skill> learnSkills;
         private List<Com_Skill> equipSkills;
         private GameObject bookPrefab;
+
+        void Awake()
+        {
+            for (int i = 0; i < PlanList.Count; i++)
+            {
+                int index = i;
+                PlanList[i].onClick.AddListener(() =>
+                {
+                    ChangePlan(index);
+                });
+            }
+        }
 
         public override void OnBattleStart()
         {
@@ -39,6 +53,20 @@ namespace Game
 
         }
 
+        private void ChangePlan(int index)
+        {
+            Debug.Log("Skill ChangePlan: " + index);
+
+            foreach (Com_Skill com in equipSkills)
+            {
+                com.Clear();
+            }
+
+            //显示方案
+            this.UpdateAllSkillInfo();
+
+        }
+
         protected override bool CheckPageType(ViewPageType page)
         {
             return page == ViewPageType.View_Skill;
@@ -52,7 +80,7 @@ namespace Game
             GameProcessor.Inst.User.EventCenter.Raise(new HeroUpdateAllSkillEvent());
             //UserData.Save(); //修改技能后，存档
         }
-        
+
         private void OnHeroUpdateAllSkillEvent(HeroUpdateAllSkillEvent e)
         {
             this.UpdateAllSkillInfo();
@@ -158,11 +186,11 @@ namespace Game
             emptyBook.transform.localScale = Vector3.one;
             this.learnSkills.Add(com);
         }
-        
+
         public override void OnOpen()
         {
             base.OnOpen();
-        
+
             this.UpdateAllSkillInfo();
         }
     }
