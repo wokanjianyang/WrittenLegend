@@ -13,7 +13,6 @@ namespace Game
 
         public List<SkillState> DoubleHitSkillList { get; set; } = new List<SkillState>();
 
-        private bool isPvp = false;
 
         public Hero(bool pvp) : base()
         {

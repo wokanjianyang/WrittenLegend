@@ -48,7 +48,7 @@ namespace Game
         //public const float SkillAnimaTime = 0.75f;
         //public const float SkillAnimaTime1 = 0.75f;
 
-        public const float PvpRate = 100;
+        public const float PvpRate = 200;
 
         public static int GetFloorRate(long floor)
         {
