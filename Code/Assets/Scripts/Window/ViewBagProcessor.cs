@@ -422,7 +422,7 @@ namespace Game
 
             GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
 
-            Debug.Log("OnChangeExclusiveEvent");
+            //Debug.Log("OnChangeExclusiveEvent");
         }
 
 
