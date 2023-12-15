@@ -63,7 +63,7 @@ namespace Game
         {
             GameProcessor.Inst.User.SkillPanelIndex = index;
             this.ShowSkillBattle();
-            GameProcessor.Inst.EventCenter.Raise(new HeroUpdateSkillEvent());
+            GameProcessor.Inst.User.EventCenter.Raise(new HeroUpdateSkillEvent());
         }
 
         private void ShowSkillPanel()
@@ -135,76 +135,30 @@ namespace Game
         private void OnSkillShow(SkillShowEvent e)
         {
             this.ShowSkillPanel();
-            GameProcessor.Inst.EventCenter.Raise(new HeroUpdateSkillEvent());
+            GameProcessor.Inst.User.EventCenter.Raise(new HeroUpdateSkillEvent());
         }
 
         private void OnSkillUp(SkillUpEvent e)
         {
             this.ShowSkillBattle();
-            GameProcessor.Inst.EventCenter.Raise(new HeroUpdateSkillEvent());
+            GameProcessor.Inst.User.EventCenter.Raise(new HeroUpdateSkillEvent());
         }
 
         private void OnSkillDown(SkillDownEvent e)
         {
             this.ShowSkillBattle();
-            GameProcessor.Inst.EventCenter.Raise(new HeroUpdateSkillEvent());
+            GameProcessor.Inst.User.EventCenter.Raise(new HeroUpdateSkillEvent());
         }
         private void OnSkillChangePlan(SkillChangePlanEvent e)
         {
             this.ShowSkillBattle();
+            GameProcessor.Inst.User.EventCenter.Raise(new HeroUpdateSkillEvent());
         }
 
         protected override bool CheckPageType(ViewPageType page)
         {
             return page == ViewPageType.View_Skill;
         }
-
-        private void SkillToBattle(SkillPanel skill)
-        {
-            if (skill == null)
-            {
-                return;
-            }
-
-            var equip = this.equipSkills.Find(s => s.SkillData.SkillId == skill.SkillId);
-            if (equip == null)
-            {
-                int SkillNumber = GameProcessor.Inst.User.SkillNumber;
-
-                if (skill.SkillData.Position <= 0 || skill.SkillData.Position > SkillNumber)
-                {
-                    int position = CalSkillPosition(SkillNumber);
-                    if (position == 0)
-                    {
-                        return; //出错了，满了
-                    }
-                    skill.SkillData.Position = position;
-                }
-
-                var com = this.tran_EquipSkills.GetChild(skill.SkillData.Position - 1).GetComponent<Com_Skill>();
-                com.SetItem(skill.SkillData);
-                this.equipSkills.Add(com);
-            }
-        }
-
-        private int CalSkillPosition(int SkillNumber)
-        {
-            List<int> alls = new List<int>();
-            for (int i = 1; i <= SkillNumber; i++)
-            {
-                alls.Add(i);
-            }
-
-            List<int> ps = this.equipSkills.Select(m => m.SkillData.Position).ToList();
-
-            foreach (var item in this.equipSkills)
-            {
-                alls.Remove(item.SkillData.Position);
-            }
-
-            return alls.Count > 0 ? alls[0] : 0;
-        }
-
 
         public override void OnOpen()
         {

@@ -48,7 +48,7 @@ namespace Game
 
         public int EquipPanelIndex { get; set; } = 0;
 
-        public bool ExclusiveSetting { get; set; } = true;
+        public bool ExclusiveSetting { get; set; } = false;
         public int ExclusiveIndex { get; set; } = 0;
 
         public int SkillPanelIndex { get; set; } = 0;
@@ -706,6 +706,23 @@ namespace Game
                 SkillPanelList[SkillPanelIndex] = new List<int>();
             }
             return SkillPanelList[SkillPanelIndex];
+        }
+
+        public List<SkillData> GetCurrentSkill()
+        {
+            List<int> ids = GetCurrentSkillList();
+
+            Debug.Log(JsonConvert.SerializeObject(ids));
+
+            List<SkillData> list = new List<SkillData>();
+
+            for (int i = 0; i < ids.Count; i++)
+            {
+                SkillData skill = SkillList.Where(m => m.SkillId == ids[i]).FirstOrDefault();
+                list.Add(skill);
+            }
+
+            return list;
         }
     }
 

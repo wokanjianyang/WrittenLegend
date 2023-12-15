@@ -438,6 +438,7 @@ namespace Game
             }
 
             user.SkillPanelIndex = index;
+            GameProcessor.Inst.User.EventCenter.Raise(new SkillChangePlanEvent());
 
             ShowEquipPanel();
         }

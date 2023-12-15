@@ -116,18 +116,19 @@ namespace Game
             SelectSkillList = new List<SkillState>();
 
             //加载技能
-            List<SkillData> list = user.SkillList.FindAll(m => m.Status == SkillStatus.Equip).OrderBy(m => m.Position).ToList();
+            List<SkillData> list = user.GetCurrentSkill();
             list.Add(new SkillData(9001, (int)SkillPosition.Default)); //增加默认技能
 
-            foreach (SkillData skillData in list)
+            for (int i = 0; i < list.Count; i++)
             {
+                SkillData skillData = list[i];
 
                 List<SkillRune> runeList = user.GetRuneList(skillData.SkillId);
                 List<SkillSuit> suitList = user.GetSuitList(skillData.SkillId);
 
                 SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, true);
 
-                SkillState skill = new SkillState(this, skillPanel, skillData.Position, 0);
+                SkillState skill = new SkillState(this, skillPanel, i, 0);
                 SelectSkillList.Add(skill);
 
                 //职业专精技能的属性
