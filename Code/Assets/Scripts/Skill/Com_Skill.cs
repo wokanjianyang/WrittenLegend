@@ -19,7 +19,7 @@ namespace Game
         [LabelText("移除")]
         public Button btn_Skill;
 
-        public SkillPanel SkillPanel { get; private set; }
+        public SkillData SkillData { get; private set; }
 
         // Start is called before the first frame update
         void Start()
@@ -37,22 +37,25 @@ namespace Game
         {
             Clear();
 
-            this.SkillPanel.SkillData.Status = SkillStatus.Learn;
-            this.SkillPanel.SkillData.Position = 0;
-            GameProcessor.Inst.User.EventCenter.Raise(new HeroUpdateSkillEvent() { SkillPanel = this.SkillPanel });
+            User user = GameProcessor.Inst.User;
+
+            List<int> list = user.GetCurrentSkillList();
+            list.Remove(this.SkillData.SkillId);
+
+            GameProcessor.Inst.User.EventCenter.Raise(new SkillDownEvent());
         }
 
-        public void SetItem(SkillPanel skillPanel)
+        public void SetItem(SkillData skillData)
         {
-            this.SkillPanel = skillPanel;
+            this.SkillData = skillData;
 
-            if (SkillPanel.SkillData.SkillConfig.Name.Length > 2)
+            if (SkillData.SkillConfig.Name.Length > 2)
             {
-                this.tmp_Name.text = SkillPanel.SkillData.SkillConfig.Name.Insert(2, "\n");
+                this.tmp_Name.text = SkillData.SkillConfig.Name.Insert(2, "\n");
             }
             else
             {
-                this.tmp_Name.text = SkillPanel.SkillData.SkillConfig.Name;
+                this.tmp_Name.text = SkillData.SkillConfig.Name;
             }
 
             this.tran_Skill.gameObject.SetActive(true);

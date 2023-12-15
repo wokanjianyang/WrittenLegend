@@ -13,44 +13,16 @@ namespace Game
 {
     public class ViewBagProcessor : AViewPage
     {
-        [Title("包裹导航")]
-        [LabelText("战士包裹")]
-        public Toggle toggle_Equip1;
-        [LabelText("法师包裹")]
-        public Toggle toggle_Equip2;
-        [LabelText("道士包裹")]
-        public Toggle toggle_Equip3;
-        [LabelText("其他")]
-        public Toggle toggle_Other;
+        public List<Toggle> BagToggleList = new List<Toggle>();
 
-        public RectTransform EquipInfo1;
-        public RectTransform EquipInfo2;
-        public RectTransform EquipInfo3;
-        public RectTransform EquipInfo4;
-        public RectTransform EquipInfo5;
         public RectTransform EquipInfoSpecial;
         public List<RectTransform> EquipInfoList = new List<RectTransform>();
-
-        public Button Btn_Equip1;
-        public Button Btn_Equip2;
-        public Button Btn_Equip3;
-        public Button Btn_Equip4;
-        public Button Btn_Equip5;
+        public List<Button> Equip_Plan_List = new List<Button>();
 
         [LabelText("整理")]
         public Button btn_Reset;
 
-        [Title("包裹格子")]
-        [LabelText("战士包裹")]
-        public ScrollRect Bag_Equip1;
-        [LabelText("法师包裹")]
-        public ScrollRect Bag_Equip2;
-        [LabelText("道士包裹")]
-        public ScrollRect Bag_Equip3;
-        [LabelText("其他包裹")]
-        public ScrollRect Bag_Other;
-
-        List<ScrollRect> BagList = new List<ScrollRect>();
+        public List<ScrollRect> BagList = new List<ScrollRect>();
 
         [Title("个人信息")]
         [LabelText("魂环")]
@@ -72,10 +44,30 @@ namespace Game
 
         private List<Com_Box> items = new List<Com_Box>();
 
-
-        // Start is called before the first frame update
-        void Start()
+        private void Awake()
         {
+
+            for (int i = 0; i < Equip_Plan_List.Count; i++)
+            {
+                int index = i;
+                Equip_Plan_List[i].onClick.AddListener(() =>
+                {
+                    ChangePlan(index);
+                });
+            }
+
+            for (int i = 0; i < BagToggleList.Count; i++)
+            {
+                int index = i;
+                BagToggleList[i].onValueChanged.AddListener((isOn) =>
+                {
+                    if (isOn)
+                    {
+                        ShowBagPanel(index);
+                    }
+                });
+            }
+
             this.btn_SoulRing.onClick.AddListener(this.OnClick_RingSoul);
             this.btn_PlayerTitle.onClick.AddListener(this.OnClick_PlayerTitle);
             this.btn_Setting.onClick.AddListener(this.OnClick_Setting);
@@ -83,18 +75,11 @@ namespace Game
             this.Btn_Exclusive.onClick.AddListener(OnExclusive);
             this.btn_Card.onClick.AddListener(OnOpenCard);
             this.btn_Wing.onClick.AddListener(OnOpenWing);
+        }
 
-            this.Btn_Equip1.onClick.AddListener(ChangeEquipPanel1);
-            this.Btn_Equip2.onClick.AddListener(ChangeEquipPanel2);
-            this.Btn_Equip3.onClick.AddListener(ChangeEquipPanel3);
-            this.Btn_Equip4.onClick.AddListener(ChangeEquipPanel4);
-            this.Btn_Equip5.onClick.AddListener(ChangeEquipPanel5);
-
-            this.toggle_Equip1.onValueChanged.AddListener((isOn) => { if (isOn) { this.ShowBagPanel(0); } });
-            this.toggle_Equip2.onValueChanged.AddListener((isOn) => { if (isOn) { this.ShowBagPanel(1); } });
-            this.toggle_Equip3.onValueChanged.AddListener((isOn) => { if (isOn) { this.ShowBagPanel(2); } });
-            this.toggle_Other.onValueChanged.AddListener((isOn) => { if (isOn) { this.ShowBagPanel(3); } });
-
+        // Start is called before the first frame update
+        void Start()
+        {
             ShowEquipPanel();
         }
 
@@ -119,18 +104,6 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<EquipLockEvent>(this.OnEquipLockEvent);
             GameProcessor.Inst.EventCenter.AddListener<ExchangeEvent>(this.OnExchangeEvent);
             GameProcessor.Inst.EventCenter.AddListener<ChangeExclusiveEvent>(this.OnChangeExclusiveEvent);
-            
-
-            this.EquipInfoList.Add(EquipInfo1);
-            this.EquipInfoList.Add(EquipInfo2);
-            this.EquipInfoList.Add(EquipInfo3);
-            this.EquipInfoList.Add(EquipInfo4);
-            this.EquipInfoList.Add(EquipInfo5);
-
-            this.BagList.Add(Bag_Equip1);
-            this.BagList.Add(Bag_Equip2);
-            this.BagList.Add(Bag_Equip3);
-            this.BagList.Add(Bag_Other);
 
             GameProcessor.Inst.StartCoroutine(LoadBox());
         }
@@ -448,34 +421,27 @@ namespace Game
             }
 
             GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
+
+            Debug.Log("OnChangeExclusiveEvent");
         }
 
-        private void ChangeEquipPanel1()
+
+        private void ChangePlan(int index)
         {
-            GameProcessor.Inst.User.EquipPanelIndex = 0;
-            ShowEquipPanel();
-        }
-        private void ChangeEquipPanel2()
-        {
-            GameProcessor.Inst.User.EquipPanelIndex = 1;
-            ShowEquipPanel();
-        }
-        private void ChangeEquipPanel3()
-        {
-            GameProcessor.Inst.User.EquipPanelIndex = 2;
-            ShowEquipPanel();
-        }
-        private void ChangeEquipPanel4()
-        {
-            GameProcessor.Inst.User.EquipPanelIndex = 3;
+            User user = GameProcessor.Inst.User;
+            user.EquipPanelIndex = index;
+
+            if (user.ExclusiveSetting)
+            {
+                user.ExclusiveIndex = index;
+                GameProcessor.Inst.EventCenter.Raise(new ChangeExclusiveEvent() { Index = index });
+            }
+
+            user.SkillPanelIndex = index;
+
             ShowEquipPanel();
         }
 
-        private void ChangeEquipPanel5()
-        {
-            GameProcessor.Inst.User.EquipPanelIndex = 4;
-            ShowEquipPanel();
-        }
         private void ShowEquipPanel()
         {
             int position = GameProcessor.Inst.User.EquipPanelIndex;

@@ -150,14 +150,16 @@ namespace Game
         public void OnPointerClick(PointerEventData eventData)
         {
             User user = GameProcessor.Inst.User;
-            List<SkillData> skillList = user.SkillList.FindAll(m => m.Status == SkillStatus.Equip);
+
+            List<int> list = user.GetCurrentSkillList();
+            List<SkillData> skillList = user.SkillList.FindAll(m => list.Contains(m.SkillId));
 
             if (this.SkillPanel == null || this.SkillPanel.SkillData == null || skillList.Count >= user.SkillNumber)
             {
                 return;
             }
 
-            if (this.SkillPanel.SkillData.Status == SkillStatus.Equip)
+            if (list.Contains(this.SkillPanel.SkillId))
             {
                 return;
             }
@@ -173,8 +175,8 @@ namespace Game
                 }
             }
 
-            this.SkillPanel.SkillData.Status = SkillStatus.Equip;
-            GameProcessor.Inst.User.EventCenter.Raise(new HeroUpdateSkillEvent() { SkillPanel = this.SkillPanel });
+            list.Add(this.SkillPanel.SkillId);
+            GameProcessor.Inst.User.EventCenter.Raise(new SkillUpEvent());
         }
 
         public void Click_UpLevel()

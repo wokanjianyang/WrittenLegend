@@ -29,6 +29,16 @@ namespace Game
                     ChangePlan(index);
                 });
             }
+
+            toggle.onValueChanged.AddListener((isOn) =>
+            {
+                GameProcessor.Inst.User.ExclusiveSetting = isOn;
+            });
+        }
+
+        void Start()
+        {
+            toggle.isOn = GameProcessor.Inst.User.ExclusiveSetting;
         }
 
         public void OnBattleStart()

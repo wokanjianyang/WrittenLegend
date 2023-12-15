@@ -48,6 +48,7 @@ namespace Game
 
         public int EquipPanelIndex { get; set; } = 0;
 
+        public bool ExclusiveSetting { get; set; } = true;
         public int ExclusiveIndex { get; set; } = 0;
 
         public int SkillPanelIndex { get; set; } = 0;
@@ -63,7 +64,7 @@ namespace Game
 
         public List<SkillData> SkillList { get; set; } = new List<SkillData>();
 
-        public IDictionary<int, IDictionary<int, int>> SkillPanelList { get; set; } = new Dictionary<int, IDictionary<int, int>>();
+        public IDictionary<int, List<int>> SkillPanelList { get; set; } = new Dictionary<int, List<int>>();
 
         public IDictionary<AchievementSourceType, MagicData> MagicRecord { get; set; } = new Dictionary<AchievementSourceType, MagicData>();
 
@@ -382,7 +383,7 @@ namespace Game
             GameProcessor.Inst.UpdateInfo();
 
             //更新技能描述
-            this.EventCenter.Raise(new HeroUpdateAllSkillEvent());
+            this.EventCenter.Raise(new SkillShowEvent());
         }
 
         private void HeroUnUseEquip(HeroUnUseEquipEvent e)
@@ -391,7 +392,7 @@ namespace Game
             GameProcessor.Inst.UpdateInfo();
 
             //更新技能描述
-            this.EventCenter.Raise(new HeroUpdateAllSkillEvent());
+            this.EventCenter.Raise(new SkillShowEvent());
         }
 
         private void HeroUseSkillBook(HeroUseSkillBookEvent e)
@@ -418,14 +419,12 @@ namespace Game
                 skillData.AddExp(Book.ItemConfig.UseParam * e.Quantity);
             }
 
-            this.EventCenter.Raise(new HeroUpdateAllSkillEvent());
+            this.EventCenter.Raise(new SkillShowEvent());
         }
 
         private void UserAttrChange(UserAttrChangeEvent e)
         {
             this.SetAttr();
-
-            this.EventCenter.Raise(new HeroUpdateAllSkillEvent());
         }
 
         public List<SkillRune> GetRuneList(int skillId)
@@ -698,6 +697,15 @@ namespace Game
         {
             long count = this.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == id).Select(m => m.MagicNubmer.Data).Sum();
             return count;
+        }
+
+        public List<int> GetCurrentSkillList()
+        {
+            if (!SkillPanelList.ContainsKey(SkillPanelIndex))
+            {
+                SkillPanelList[SkillPanelIndex] = new List<int>();
+            }
+            return SkillPanelList[SkillPanelIndex];
         }
     }
 

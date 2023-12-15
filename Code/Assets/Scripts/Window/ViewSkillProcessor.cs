@@ -44,63 +44,31 @@ namespace Game
             this.equipSkills = new List<Com_Skill>();
 
             var user = GameProcessor.Inst.User;
-            user.EventCenter.AddListener<HeroUpdateSkillEvent>(OnHeroUpdateSkillEvent);
-            user.EventCenter.AddListener<HeroUpdateAllSkillEvent>(OnHeroUpdateAllSkillEvent);
+
+            user.EventCenter.AddListener<SkillShowEvent>(OnSkillShow);
+            user.EventCenter.AddListener<SkillUpEvent>(OnSkillUp);
+            user.EventCenter.AddListener<SkillDownEvent>(OnSkillDown);
+            user.EventCenter.AddListener<SkillChangePlanEvent>(OnSkillChangePlan);
+            
+
             bookPrefab = Resources.Load<GameObject>("Prefab/Window/Item_Skill");
 
             this.AllEquipSkills = this.tran_EquipSkills.GetComponentsInChildren<Com_Skill>();
-            this.UpdateAllSkillInfo();
 
+            this.ShowSkillPanel();
+            this.ShowSkillBattle();
         }
 
         private void ChangePlan(int index)
         {
-            Debug.Log("Skill ChangePlan: " + index);
-
-            foreach (Com_Skill com in equipSkills)
-            {
-                com.Clear();
-            }
-
-            //显示方案
-            this.UpdateAllSkillInfo();
-
+            GameProcessor.Inst.User.SkillPanelIndex = index;
+            this.ShowSkillBattle();
+            GameProcessor.Inst.EventCenter.Raise(new HeroUpdateSkillEvent());
         }
 
-        protected override bool CheckPageType(ViewPageType page)
+        private void ShowSkillPanel()
         {
-            return page == ViewPageType.View_Skill;
-        }
-
-        private void OnHeroUpdateSkillEvent(HeroUpdateSkillEvent e)
-        {
-            // GameProcessor.Inst.RefreshSkill = true;
-            SkillToBattle(e.SkillPanel);
-
-            GameProcessor.Inst.User.EventCenter.Raise(new HeroUpdateAllSkillEvent());
-            //UserData.Save(); //修改技能后，存档
-        }
-
-        private void OnHeroUpdateAllSkillEvent(HeroUpdateAllSkillEvent e)
-        {
-            this.UpdateAllSkillInfo();
-        }
-
-        private void UpdateAllSkillInfo()
-        {
-            var user = GameProcessor.Inst.User;
-
-            for (int i = 0; i < AllEquipSkills.Length; i++)
-            {
-                if (i < user.SkillNumber)
-                {
-                    AllEquipSkills[i].gameObject.SetActive(true);
-                }
-                else
-                {
-                    AllEquipSkills[i].gameObject.SetActive(false);
-                }
-            }
+            User user = GameProcessor.Inst.User;
 
             user.SkillList.Sort((a, b) =>
             {
@@ -110,11 +78,10 @@ namespace Game
             foreach (var skill in user.SkillList)
             {
                 SkillPanel skillPanel = new SkillPanel(skill, user.GetRuneList(skill.SkillId), user.GetSuitList(skill.SkillId), true);
-                SkillToBattle(skillPanel);
+                ShowSkillPanelItem(skillPanel);
             }
         }
-
-        private void SkillToBattle(SkillPanel skill)
+        private void ShowSkillPanelItem(SkillPanel skill)
         {
             if (skill == null)
             {
@@ -128,34 +95,95 @@ namespace Game
             }
             else
             {
-                this.CreateBook(skill);
-            }
+                var emptyBook = GameObject.Instantiate(bookPrefab);
+                var com = emptyBook.GetComponent<Item_Skill>();
+                com.SetItem(skill);
+                emptyBook.transform.SetParent(this.sr_AllSkill.content);
+                emptyBook.transform.localScale = Vector3.one;
 
-            if (skill.SkillData.Status == SkillStatus.Learn)
-            {
-                this.equipSkills.RemoveAll(b => b.SkillPanel.SkillId == skill.SkillId);
+                this.learnSkills.Add(com);
             }
-            else
+        }
+
+        private void ShowSkillBattle()
+        {
+            var user = GameProcessor.Inst.User;
+
+            for (int i = 0; i < AllEquipSkills.Length; i++)
             {
-                var equip = this.equipSkills.Find(s => s.SkillPanel.SkillId == skill.SkillId);
-                if (equip == null)
+                AllEquipSkills[i].Clear();
+                if (i < user.SkillNumber)
                 {
-                    int SkillNumber = GameProcessor.Inst.User.SkillNumber;
-
-                    if (skill.SkillData.Position <= 0 || skill.SkillData.Position > SkillNumber)
-                    {
-                        int position = CalSkillPosition(SkillNumber);
-                        if (position == 0)
-                        {
-                            return; //出错了，满了
-                        }
-                        skill.SkillData.Position = position;
-                    }
-
-                    var com = this.tran_EquipSkills.GetChild(skill.SkillData.Position - 1).GetComponent<Com_Skill>();
-                    com.SetItem(skill);
-                    this.equipSkills.Add(com);
+                    AllEquipSkills[i].gameObject.SetActive(true);
                 }
+                else
+                {
+                    AllEquipSkills[i].gameObject.SetActive(false);
+                }
+            }
+
+            List<int> skills = user.GetCurrentSkillList();
+
+            for (int i = 0; i < skills.Count; i++)
+            {
+                SkillData skillData = user.SkillList.Where(m => m.SkillId == skills[i]).FirstOrDefault();
+
+                AllEquipSkills[i].SetItem(skillData);
+            }
+        }
+
+        private void OnSkillShow(SkillShowEvent e)
+        {
+            this.ShowSkillPanel();
+            GameProcessor.Inst.EventCenter.Raise(new HeroUpdateSkillEvent());
+        }
+
+        private void OnSkillUp(SkillUpEvent e)
+        {
+            this.ShowSkillBattle();
+            GameProcessor.Inst.EventCenter.Raise(new HeroUpdateSkillEvent());
+        }
+
+        private void OnSkillDown(SkillDownEvent e)
+        {
+            this.ShowSkillBattle();
+            GameProcessor.Inst.EventCenter.Raise(new HeroUpdateSkillEvent());
+        }
+        private void OnSkillChangePlan(SkillChangePlanEvent e)
+        {
+            this.ShowSkillBattle();
+        }
+
+        protected override bool CheckPageType(ViewPageType page)
+        {
+            return page == ViewPageType.View_Skill;
+        }
+
+        private void SkillToBattle(SkillPanel skill)
+        {
+            if (skill == null)
+            {
+                return;
+            }
+
+            var equip = this.equipSkills.Find(s => s.SkillData.SkillId == skill.SkillId);
+            if (equip == null)
+            {
+                int SkillNumber = GameProcessor.Inst.User.SkillNumber;
+
+                if (skill.SkillData.Position <= 0 || skill.SkillData.Position > SkillNumber)
+                {
+                    int position = CalSkillPosition(SkillNumber);
+                    if (position == 0)
+                    {
+                        return; //出错了，满了
+                    }
+                    skill.SkillData.Position = position;
+                }
+
+                var com = this.tran_EquipSkills.GetChild(skill.SkillData.Position - 1).GetComponent<Com_Skill>();
+                com.SetItem(skill.SkillData);
+                this.equipSkills.Add(com);
             }
         }
 
@@ -167,31 +195,20 @@ namespace Game
                 alls.Add(i);
             }
 
-            List<int> ps = this.equipSkills.Select(m => m.SkillPanel.SkillData.Position).ToList();
+            List<int> ps = this.equipSkills.Select(m => m.SkillData.Position).ToList();
 
             foreach (var item in this.equipSkills)
             {
-                alls.Remove(item.SkillPanel.SkillData.Position);
+                alls.Remove(item.SkillData.Position);
             }
 
             return alls.Count > 0 ? alls[0] : 0;
         }
 
-        private void CreateBook(SkillPanel skill)
-        {
-            var emptyBook = GameObject.Instantiate(bookPrefab);
-            var com = emptyBook.GetComponent<Item_Skill>();
-            com.SetItem(skill);
-            emptyBook.transform.SetParent(this.sr_AllSkill.content);
-            emptyBook.transform.localScale = Vector3.one;
-            this.learnSkills.Add(com);
-        }
 
         public override void OnOpen()
         {
             base.OnOpen();
-
-            this.UpdateAllSkillInfo();
         }
     }
 }

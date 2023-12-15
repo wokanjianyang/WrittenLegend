@@ -25,7 +25,8 @@ namespace Game
             this.EventCenter.AddListener<HeroLevelUp>(LevelUp);
             this.EventCenter.AddListener<HeroAttrChangeEvent>(HeroAttrChange);
             User user = GameProcessor.Inst.User;
-            user.EventCenter.AddListener<HeroUpdateAllSkillEvent>(OnHeroUpdateAllSkillEvent);
+
+            user.EventCenter.AddListener<HeroUpdateSkillEvent>(OnHeroUpdateAllSkillEvent);
 
         }
 
@@ -44,10 +45,11 @@ namespace Game
             this.SetAttr(user);  //…Ë÷√ Ù–‘÷µ
         }
 
-        private void OnHeroUpdateAllSkillEvent(HeroUpdateAllSkillEvent e)
+        private void OnHeroUpdateAllSkillEvent(HeroUpdateSkillEvent e)
         {
             this.UpdateSkills();
         }
+
         private void Init()
         {
             User user = GameProcessor.Inst.User;

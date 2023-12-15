@@ -47,7 +47,8 @@ namespace Game
         public int RoundNum { get; set; }
     }
 
-    public class HeroChangeEvent : SDD.Events.Event {
+    public class HeroChangeEvent : SDD.Events.Event
+    {
         public UserChangeType Type { get; set; }
     }
 
@@ -77,7 +78,8 @@ namespace Game
 
     }
 
-    public class ActiveAchievementEvent : SDD.Events.Event { 
+    public class ActiveAchievementEvent : SDD.Events.Event
+    {
         public int Id { get; set; }
     }
     public class HeroAttrChangeEvent : SDD.Events.Event
@@ -107,12 +109,24 @@ namespace Game
         public long Quantity { get; set; }
     }
 
-    //选择出战技能
+    public class SkillShowEvent : SDD.Events.Event
+    {
+
+    }
+    public class SkillChangePlanEvent : SDD.Events.Event
+    {
+
+    }
+
+    public class SkillUpEvent : SDD.Events.Event
+    {
+    }
+    public class SkillDownEvent : SDD.Events.Event
+    {
+    }
+
     public class HeroUpdateSkillEvent : SDD.Events.Event
     {
-        public SkillPanel SkillPanel { get; set; }
-    }
-    public class HeroUpdateAllSkillEvent : SDD.Events.Event
-    {
+
     }
 }
