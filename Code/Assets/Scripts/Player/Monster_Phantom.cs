@@ -159,7 +159,7 @@ public class Monster_Phantom : APlayer
             {
                 var index = RandomHelper.RandomNumber(0, tempCells.Count);
                 bornCell = tempCells[index];
-                this.SetPosition(bornCell, false);
+                this.Move(bornCell);
             }
         }
     }

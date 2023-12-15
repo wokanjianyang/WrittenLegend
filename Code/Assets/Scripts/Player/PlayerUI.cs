@@ -97,6 +97,19 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
         }
     }
 
+    public void SetParent(APlayer player)
+    {
+        this.SelfPlayer = player;
+        // this.SelfPlayer.EventCenter.AddListener<SetBackgroundColorEvent>(OnSetBackgroundColorEvent);
+        this.SelfPlayer.EventCenter.AddListener<SetPlayerNameEvent>(OnSetNameEvent);
+        this.SelfPlayer.EventCenter.AddListener<SetPlayerLevelEvent>(OnSetPlayerLevelEvent);
+        this.SelfPlayer.EventCenter.AddListener<SetPlayerHPEvent>(OnSetPlayerHPEvent);
+        this.SelfPlayer.EventCenter.AddListener<ShowMsgEvent>(OnShowMsgEvent);
+        this.SelfPlayer.EventCenter.AddListener<ShowAttackIcon>(OnShowAttackIcon);
+
+        this.SelfPlayer.EventCenter.AddListener<ShowHideEvent>(OnShowHide);
+    }
+
     public void OnDestroy()
     {
         if (this.SelfPlayer != null)
@@ -106,6 +119,7 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
             this.SelfPlayer.EventCenter.RemoveListener<SetPlayerLevelEvent>(OnSetPlayerLevelEvent);
             this.SelfPlayer.EventCenter.RemoveListener<SetPlayerHPEvent>(OnSetPlayerHPEvent);
             this.SelfPlayer.EventCenter.RemoveListener<ShowMsgEvent>(OnShowMsgEvent);
+            this.SelfPlayer.EventCenter.RemoveListener<ShowHideEvent>(OnShowHide);
         }
         this.com_Progress = null;
     }
@@ -235,21 +249,16 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
             this.tran_Attack.localScale = e.NeedShow ? Vector3.one : Vector3.zero;
         }
     }
-
-
-
-
-
-    public void SetParent(APlayer player)
+    private void OnShowHide(ShowHideEvent e)
     {
-        this.SelfPlayer = player;
-        // this.SelfPlayer.EventCenter.AddListener<SetBackgroundColorEvent>(OnSetBackgroundColorEvent);
-        this.SelfPlayer.EventCenter.AddListener<SetPlayerNameEvent>(OnSetNameEvent);
-        this.SelfPlayer.EventCenter.AddListener<SetPlayerLevelEvent>(OnSetPlayerLevelEvent);
-        this.SelfPlayer.EventCenter.AddListener<SetPlayerHPEvent>(OnSetPlayerHPEvent);
-        this.SelfPlayer.EventCenter.AddListener<ShowMsgEvent>(OnShowMsgEvent);
-        this.SelfPlayer.EventCenter.AddListener<ShowAttackIcon>(OnShowAttackIcon);
+        if (this.image_Background != null)
+        {
+            Color temp = this.image_Background.color;
+            temp.a = e.IsHide ? 0.3f : 1f;
+            this.image_Background.color = temp;
+        }
     }
+    
 
     public void OnPointerClick(PointerEventData eventData)
     {

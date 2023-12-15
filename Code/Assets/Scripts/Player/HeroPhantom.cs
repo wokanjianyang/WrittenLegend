@@ -18,6 +18,7 @@ namespace Game
         public HeroPhantom(int scale) : base()
         {
             this.GroupId = 2;
+            this.isPvp = true;
 
             this.Scale = scale;
 
@@ -66,8 +67,8 @@ namespace Game
                 phRate = 1.0 + 0.15 * (Scale - 5);
             }
 
-            this.SetAttackSpeed((int)user.AttributeBonus.GetTotalAttr(AttributeEnum.Speed));
-            this.SetMoveSpeed((int)user.AttributeBonus.GetTotalAttr(AttributeEnum.MoveSpeed));
+            //this.SetAttackSpeed((int)user.AttributeBonus.GetTotalAttr(AttributeEnum.Speed));
+            //this.SetMoveSpeed((int)user.AttributeBonus.GetTotalAttr(AttributeEnum.MoveSpeed));
 
             double attr = Math.Max(user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.PhyAtt), user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.MagicAtt));
             attr = Math.Max(attr, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.SpiritAtt));
@@ -114,7 +115,7 @@ namespace Game
         {
             List<SkillRune> runeList = new List<SkillRune>();
 
-            if (this.Scale <= 3)
+            if (this.Scale <= 5)
             {
                 return runeList;
             }
@@ -199,7 +200,7 @@ namespace Game
                 }
             }
 
-            //InitDoubleHitSkill(user);
+            InitDoubleHitSkill(user);
         }
 
         private void InitDoubleHitSkill(User user)

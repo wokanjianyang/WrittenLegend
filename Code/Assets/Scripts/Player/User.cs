@@ -712,7 +712,7 @@ namespace Game
         {
             List<int> ids = GetCurrentSkillList();
 
-            Debug.Log(JsonConvert.SerializeObject(ids));
+            //Debug.Log(JsonConvert.SerializeObject(ids));
 
             List<SkillData> list = new List<SkillData>();
 

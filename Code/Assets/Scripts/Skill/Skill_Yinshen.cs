@@ -8,10 +8,7 @@ namespace Game
     {
         public Skill_Yinshen(APlayer player, SkillPanel skill, bool isShow) : base(player, skill)
         {
-            if (isShow)
-            {
-                this.skillGraphic = new SkillGraphic_Hide(player, skill);
-            }
+            this.skillGraphic = new SkillGraphic_Hide(player, skill);
         }
 
         public override bool IsCanUse()
@@ -21,10 +18,9 @@ namespace Game
 
         public override void Do()
         {
+            ToHide();
             //如果还有附加特效
             this.skillGraphic?.PlayAnimation(SelfPlayer.Cell);
-
-            ToHide();
 
             //对自己加属性Buff
             foreach (EffectData effect in SkillPanel.EffectIdList.Values)

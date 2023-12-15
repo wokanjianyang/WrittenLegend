@@ -70,7 +70,7 @@ namespace Game
                 {
                     var index = RandomHelper.RandomNumber(0, tempCells.Count);
                     bornCell = tempCells[index];
-                    this.SelfPlayer.SetPosition(bornCell, true);
+                    this.SelfPlayer.Move(bornCell);
                 }
             }
         }

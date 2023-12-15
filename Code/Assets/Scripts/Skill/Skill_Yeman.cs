@@ -23,7 +23,7 @@ namespace Game
         public override void Do()
         {
             var moveCell = GetMoveCell();
-            this.SelfPlayer.SetPosition(moveCell, false);
+            this.SelfPlayer.Move(moveCell);
 
             base.Do();
         }

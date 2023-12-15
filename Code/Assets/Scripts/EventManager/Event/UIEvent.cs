@@ -96,6 +96,12 @@ namespace Game
     {
         public bool NeedShow { get; set; }
     }
+
+    public class ShowHideEvent : SDD.Events.Event
+    {
+        public bool IsHide { get; set; }
+    }
+
     public class HideAttackIcon : SDD.Events.Event
     {
         public RoundType RoundType { get; set; }

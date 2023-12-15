@@ -6,7 +6,6 @@ using DG.Tweening;
 using SDD.Events;
 using Newtonsoft.Json;
 using System.Linq;
-using System.Numerics;
 
 namespace Game
 {
@@ -407,19 +406,15 @@ namespace Game
             }
         }
 
-        public void Move(UnityEngine.Vector3Int cell)
+        public void Move(Vector3Int cell)
         {
-            //this.EventCenter.Raise(new ShowMsgEvent
-            //{
-            //    Content = "移动"
-            //});
             this.SetPosition(cell);
             var targetPos = GameProcessor.Inst.MapData.GetWorldPosition(cell);
             this.Transform.DOKill(true);
-            this.Transform.DOLocalMove(targetPos, 1f);
+            this.Transform.DOLocalMove(targetPos, MoveSpeed);
         }
 
-        public void SetPosition(UnityEngine.Vector3 pos, bool isGraphic = false)
+        public void SetPosition(Vector3 pos, bool isGraphic = false)
         {
             this.Cell = new Vector3Int((int)pos.x, (int)pos.y, 0);
             if (isGraphic)
