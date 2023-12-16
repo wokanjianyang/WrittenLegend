@@ -71,11 +71,11 @@ namespace Game
             double attrModelRate = ModelConfig == null ? 1 : ModelConfig.AttrRate;
             double defModelRate = ModelConfig == null ? 1 : ModelConfig.DefRate;
 
-            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, (long)(Config.HP * QualityConfig.HpRate * hpModelRate));
-            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, (long)(Config.Attr * QualityConfig.AttrRate * attrModelRate));
-            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, (long)(Config.Attr * QualityConfig.AttrRate * attrModelRate));
-            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, (long)(Config.Attr * QualityConfig.AttrRate * attrModelRate));
-            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, (long)(Config.Def * QualityConfig.DefRate * defModelRate));
+            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, (Config.HP * QualityConfig.HpRate * hpModelRate));
+            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, (Config.Attr * QualityConfig.AttrRate * attrModelRate));
+            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, (Config.Attr * QualityConfig.AttrRate * attrModelRate));
+            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, (Config.Attr * QualityConfig.AttrRate * attrModelRate));
+            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, (Config.Def * QualityConfig.DefRate * defModelRate));
 
             AttributeBonus.SetAttr(AttributeEnum.DamageIncrea, AttributeFrom.HeroBase, Config.DamageIncrea);
             AttributeBonus.SetAttr(AttributeEnum.DamageResist, AttributeFrom.HeroBase, Config.DamageResist);

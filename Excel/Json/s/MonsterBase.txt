@@ -58,5 +58,10 @@
 {"_t":"MonsterBase","_id":10057,"MapId":1056,"Name":"幻影勇士","Attr":505479680000,"Def":101095936000,"HP":311696988100000,"DamageIncrea":126,"DamageResist":36,"CritRate":60,"CritDamage":60,"Exp":160737000,"Gold":160737000},
 {"_t":"MonsterBase","_id":10058,"MapId":1057,"Name":"幻影雕像","Attr":710970940000,"Def":142194188000,"HP":592224277500000,"DamageIncrea":129,"DamageResist":39,"CritRate":65,"CritDamage":65,"Exp":164619000,"Gold":164619000},
 {"_t":"MonsterBase","_id":10059,"MapId":1058,"Name":"幻影卫士","Attr":1000000000000,"Def":200000000000,"HP":1125226127200000,"DamageIncrea":132,"DamageResist":42,"CritRate":70,"CritDamage":70,"Exp":168578500,"Gold":168578500},
-{"_t":"MonsterBase","_id":10060,"MapId":1059,"Name":"幻影魔猪","Attr":1406527240000,"Def":281305448000,"HP":2137929641700000,"DamageIncrea":135,"DamageResist":45,"CritRate":75,"CritDamage":75,"Exp":172620000,"Gold":172620000},
+{"_t":"MonsterBase","_id":10060,"MapId":1059,"Name":"幻影魔猪","Attr":1406527240000,"Def":281305448000,"HP":2140000000000000,"DamageIncrea":135,"DamageResist":45,"CritRate":75,"CritDamage":75,"Exp":172620000,"Gold":172620000},
+{"_t":"MonsterBase","_id":10061,"MapId":1060,"Name":"幻影树妖","Attr":1978318880000,"Def":395663776000,"HP":4708000000000000,"DamageIncrea":140,"DamageResist":50,"CritRate":80,"CritDamage":80,"Exp":176748000,"Gold":176748000},
+{"_t":"MonsterBase","_id":10062,"MapId":1061,"Name":"幻影侍卫","Attr":2782559400000,"Def":556511880000,"HP":10357600000000000,"DamageIncrea":145,"DamageResist":55,"CritRate":85,"CritDamage":85,"Exp":180967000,"Gold":180967000},
+{"_t":"MonsterBase","_id":10063,"MapId":1062,"Name":"幻影剧毒","Attr":3913745600000,"Def":782749120000,"HP":22786720000000000,"DamageIncrea":150,"DamageResist":60,"CritRate":90,"CritDamage":90,"Exp":185281500,"Gold":185281500},
+{"_t":"MonsterBase","_id":10064,"MapId":1063,"Name":"幻影锤兵","Attr":5504789800000,"Def":1100957960000,"HP":50130784000000000,"DamageIncrea":155,"DamageResist":65,"CritRate":95,"CritDamage":95,"Exp":189696000,"Gold":189696000},
+{"_t":"MonsterBase","_id":10065,"MapId":1064,"Name":"幻影将军","Attr":7742636820000,"Def":1548527364000,"HP":110287724800000000,"DamageIncrea":160,"DamageResist":70,"CritRate":100,"CritDamage":100,"Exp":194215000,"Gold":194215000},
 ]}
