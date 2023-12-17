@@ -52,7 +52,7 @@ namespace Game
             //技能系数
             long baseAttr = roleAttr * (SkillPanel.Percent + Master.GetRolePercent(role) + InheritIncrea) / 100 + SkillPanel.Damage + Master.GetRoleDamage(role);  // *百分比系数 + 固定数值
 
-            double pr = isPvp ? ConfigHelper.PvpRate : 1;
+            double pr = isPvp ? ConfigHelper.ValetPvpRate : 1;
 
             this.AttributeBonus = new AttributeBonus();
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, baseAttr * ModelConfig.HpRate * pr / 100);

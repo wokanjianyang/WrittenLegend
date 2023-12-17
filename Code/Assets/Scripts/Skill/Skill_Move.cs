@@ -26,20 +26,14 @@ namespace Game
                 Type = MsgType.SkillName,
                 Content = SkillPanel.SkillData.SkillConfig.Name
             });
+
+            bool isLoss = this.SelfPlayer.HP < this.SelfPlayer.AttributeBonus.GetAttackAttr(AttributeEnum.HP); //是否损失了血量
+
             //是否被控制？
-            if (this.SelfPlayer.GetIsPause())
+            if (this.SelfPlayer.GetIsPause() || isLoss)
             {
                 RandomTransport();
             }
-            //else
-            //{
-            //    double rate = this.SelfPlayer.HP * 1d / this.SelfPlayer.AttributeBonus.GetAttackAttr(AttributeEnum.HP);
-            //    if (rate < 0.8)
-            //    {
-            //        //是否血量低于80%
-            //        RandomTransport();
-            //    }
-            //}
 
             //RandomTransport();
 
