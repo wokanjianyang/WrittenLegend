@@ -6,7 +6,9 @@ namespace Game
 
     public class RecoverySetting
     {
-        public Dictionary<int, bool> EquipQuanlity { get; private set; } = new Dictionary<int, bool>();  //??????????(1??? 2??? 3??? 4???)
+        public Dictionary<int, bool> EquipQuanlity { get; private set; } = new Dictionary<int, bool>();
+        public Dictionary<int, bool> ExclusiveQuanlity { get; private set; } = new Dictionary<int, bool>();
+
         public int EquipLevel { get; set; } = 0;
 
         public int SpecailLevel { get; set; } = 0;
@@ -24,12 +26,18 @@ namespace Game
         public Dictionary<int, bool> EquipRole { get; private set; } = new Dictionary<int, bool>();
         public int SkillBookLevel { get; set; } = 0;//
 
-        public RecoverySetting() {
+        public RecoverySetting()
+        {
         }
 
         public void SetEquipQuanlity(int quanlity, bool check)
         {
             this.EquipQuanlity[quanlity] = check;
+        }
+
+        public void SetExclusiveQuanlity(int quanlity, bool check)
+        {
+            this.ExclusiveQuanlity[quanlity] = check;
         }
 
         public void SetEquipRole(int role, bool check)
@@ -125,6 +133,13 @@ namespace Game
                 }
 
                 if (equip.Part > 10 && equip.Level < SpecailLevel)
+                {
+                    return true;
+                }
+            }
+            else if (item.Type == ItemType.Exclusive)
+            {
+                if (ExclusiveQuanlity.GetValueOrDefault(item.GetQuality(), false))
                 {
                     return true;
                 }

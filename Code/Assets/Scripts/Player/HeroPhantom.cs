@@ -64,7 +64,7 @@ namespace Game
             }
             else
             {
-                phRate = 1.0 + 0.15 * (Scale - 5);
+                phRate = 1.0 + 0.1 * (Scale - 5);
             }
 
             //this.SetAttackSpeed((int)user.AttributeBonus.GetTotalAttr(AttributeEnum.Speed));

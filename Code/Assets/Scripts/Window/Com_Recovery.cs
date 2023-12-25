@@ -18,6 +18,9 @@ namespace Game
         public Transform tran_EquipQualityList;
         [LabelText("装备职业设置")]
         public Transform tran_EquipRoleList;
+
+        public Transform tran_ExclusiveList;
+
         [LabelText("装备等级")]
         public InputField if_EquipLevel;
         [LabelText("四格等级")]
@@ -36,12 +39,13 @@ namespace Game
 
         [LabelText("确认")]
         public Button btn_Done;
-        
+
         [LabelText("取消")]
         public Button btn_Cancle;
 
         Toggle[] equipQualityToggles;
         Toggle[] equipRoleToggles;
+        Toggle[] exclusiveToggles;
 
         // Start is called before the first frame update
         void Start()
@@ -62,20 +66,24 @@ namespace Game
             //初始化
             equipQualityToggles = tran_EquipQualityList.GetComponentsInChildren<Toggle>();
             equipRoleToggles = tran_EquipRoleList.GetComponentsInChildren<Toggle>();
-                
+            exclusiveToggles = tran_ExclusiveList.GetComponentsInChildren<Toggle>();
+
             User user = GameProcessor.Inst.User;
             RecoverySetting setting = user.RecoverySetting;
 
             foreach (int equipQuality in setting.EquipQuanlity.Keys)
             {
-                if (setting.EquipQuanlity[equipQuality])
-                {
-                    equipQualityToggles[equipQuality - 1].isOn = true;
-                }
-                else
-                {
-                    equipQualityToggles[equipQuality - 1].isOn = false;
-                }
+                equipQualityToggles[equipQuality - 1].isOn = setting.EquipQuanlity[equipQuality];
+            }
+
+            foreach (int quality in setting.ExclusiveQuanlity.Keys)
+            {
+                exclusiveToggles[quality - 1].isOn = setting.ExclusiveQuanlity[quality];
+            }
+
+            foreach (int skillBookRole in setting.EquipRole.Keys)
+            {
+                equipRoleToggles[skillBookRole - 1].isOn = setting.EquipRole[skillBookRole];
             }
 
             if_EquipLevel.text = setting.EquipLevel.ToString();
@@ -84,27 +92,14 @@ namespace Game
             if_Lucky.text = setting.LuckyTotal.ToString();
             if_DropRate.text = setting.DropRate.ToString();
             if_DropQuality.text = setting.DropQuality.ToString();
-            ifSpeicalLevel.text= setting.SpecailLevel.ToString();
-
-            foreach (int skillBookRole in setting.EquipRole.Keys)
-            {
-                if (setting.EquipRole[skillBookRole])
-                {
-                    equipRoleToggles[skillBookRole - 1].isOn = true;
-                }
-                else
-                {
-                    equipRoleToggles[skillBookRole - 1].isOn = false;
-                }
-            }
-
+            ifSpeicalLevel.text = setting.SpecailLevel.ToString();
         }
 
         public void OnClick_Done()
         {
             this.SaveSetting();
         }
-        
+
         public void OnClick_Cancle()
         {
             GameProcessor.Inst.EventCenter.Raise(new DialogSettingEvent());
@@ -116,15 +111,12 @@ namespace Game
 
             for (var i = 0; i < equipQualityToggles.Length; i++)
             {
-                var toggle = equipQualityToggles[i];
-                if (toggle.isOn)
-                {
-                    user.RecoverySetting.SetEquipQuanlity(i + 1, true);
-                }
-                else
-                {
-                    user.RecoverySetting.SetEquipQuanlity(i + 1, false);
-                }
+                user.RecoverySetting.SetEquipQuanlity(i + 1, equipQualityToggles[i].isOn);
+            }
+
+            for (var i = 0; i < exclusiveToggles.Length; i++)
+            {
+                user.RecoverySetting.SetExclusiveQuanlity(i + 1, exclusiveToggles[i].isOn);
             }
 
             int.TryParse(if_EquipLevel.text, out int equipLevel);
@@ -135,15 +127,7 @@ namespace Game
 
             for (var i = 0; i < equipRoleToggles.Length; i++)
             {
-                var toggle = equipRoleToggles[i];
-                if (toggle.isOn)
-                {
-                    user.RecoverySetting.SetEquipRole(i + 1, true);
-                }
-                else
-                {
-                    user.RecoverySetting.SetEquipRole(i + 1, false);
-                }
+                user.RecoverySetting.SetEquipRole(i + 1, equipRoleToggles[i].isOn);
             }
 
             int.TryParse(if_Exp.text, out int exp);

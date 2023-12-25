@@ -99,8 +99,14 @@ namespace Game
 		/// <summary>Quality</summary>
 		[ProtoMember(8)]
 		public int Quality { get; set; }
-		/// <summary>Des</summary>
+		/// <summary>RiseLevel</summary>
 		[ProtoMember(9)]
+		public int RiseLevel { get; set; }
+		/// <summary>RiseNumber</summary>
+		[ProtoMember(10)]
+		public int RiseNumber { get; set; }
+		/// <summary>Des</summary>
+		[ProtoMember(11)]
 		public string Des { get; set; }
 
 	}
