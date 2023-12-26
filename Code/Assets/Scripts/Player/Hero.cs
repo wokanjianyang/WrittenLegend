@@ -99,7 +99,7 @@ namespace Game
             this.AurasList = new List<AAuras>();
             foreach (var ac in user.GetAurasList())
             {
-                AAuras auras = AurasFactory.BuildAuras(this, ac);
+                AAuras auras = AurasFactory.BuildAuras(this, ac.Key, ac.Value);
                 this.AurasList.Add(auras);
             }
 

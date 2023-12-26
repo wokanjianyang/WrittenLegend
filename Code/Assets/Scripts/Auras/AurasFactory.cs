@@ -10,9 +10,11 @@ namespace Game
 
 
 
-        public static AAuras BuildAuras(APlayer player, AurasAttrConfig config)
+        public static AAuras BuildAuras(APlayer player, int atid, int level)
         {
             AAuras auras = null;
+
+            AurasAttrConfig config = AurasAttrConfigCategory.Instance.Get(atid);
 
             if (config.Type == (int)AurasType.AutoDamage)
             {
@@ -26,7 +28,6 @@ namespace Game
             {
                 auras = new Auras_Base(player, config);
             }
-
             return auras;
         }
     }
