@@ -4,7 +4,7 @@
 {"_t":"AurasConfig","_id":3,"Name":"暴击光环"},
 {"_t":"AurasConfig","_id":4,"Name":"爆伤光环"},
 {"_t":"AurasConfig","_id":5,"Name":"祝福光环"},
-{"_t":"AurasConfig","_id":6,"Name":"未设定"},
+{"_t":"AurasConfig","_id":6,"Name":"闪避光环"},
 {"_t":"AurasConfig","_id":7,"Name":"未设定"},
 {"_t":"AurasConfig","_id":8,"Name":"未设定"},
 ]}

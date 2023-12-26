@@ -43,6 +43,13 @@ namespace Game
             {  //不对队友造成伤害
                 return;
             }
+
+            if (DamageHelper.IsMiss(SelfPlayer, enemy))
+            {
+                enemy.ShowMiss();
+                return;
+            }
+
             var dr = DamageHelper.CalcDamage(this.SelfPlayer.AttributeBonus, enemy.AttributeBonus, this.SkillPanel);
             dr.FromId = this.SelfPlayer.ID;
             enemy.OnHit(dr);

@@ -69,6 +69,18 @@ namespace Game
             return new DamageResult(Math.Max(1, attack), type, (RoleType)role); //
         }
 
+        public static bool IsMiss(APlayer self, APlayer enemy)
+        {
+            double accuracy = self.AttributeBonus.GetAttackAttrDouble(AttributeEnum.Accuracy);
+            double miss = enemy.AttributeBonus.GetAttackAttrDouble(AttributeEnum.Miss);
+
+            double rate = 100 + accuracy - miss;
+
+            //Debug.Log("miss rate:" + rate);
+
+            return !RandomHelper.RandomRate((int)rate);
+        }
+
         public static long GetSkillDamage(AttributeBonus attributeBonus, int role)
         {
             long attack = 100;

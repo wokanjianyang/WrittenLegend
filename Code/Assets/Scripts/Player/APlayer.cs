@@ -510,6 +510,14 @@ namespace Game
 
         }
 
+        public void ShowMiss()
+        {
+            this.EventCenter.Raise(new ShowMsgEvent()
+            {
+                Type = MsgType.Miss,
+                Content = "MISS"
+            });
+        }
 
         public T GetComponent<T>()
         {

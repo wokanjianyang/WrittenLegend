@@ -41,6 +41,8 @@ namespace Game
         SpiritAttIncrea = 28, //道术加成
         MoveSpeed = 29,//移动速度
         DefIgnore = 30,//无视防御
+        Miss = 31, //闪避
+        Accuracy = 32, //精准
 
         WarriorSkillPercent = 41, //战士技能百分比系数
         WarriorSkillDamage = 42, //战士技能固定系数

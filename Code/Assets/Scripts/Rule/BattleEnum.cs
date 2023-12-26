@@ -125,6 +125,7 @@ namespace Game
         Effect = 4,
         Other = 5,
         SkillName = 6,
+        Miss = 7,
     }
 
     public enum TaskType
