@@ -52,9 +52,6 @@ namespace Game
             {
                 var enemy = GameProcessor.Inst.PlayerManager.GetPlayer(attackData.Tid);
 
-                //分别计算闪避
-                double miss = enemy.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Miss);
-
                 if (enemy != null)
                 {
                     if (DamageHelper.IsMiss(SelfPlayer, enemy))

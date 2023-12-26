@@ -37,4 +37,6 @@
 {"_t":"CodeConfig","_id":36,"code":"gx158","ItemTypeList":[9,5],"ItemIdList":[4003,4006],"ItemQuanlityList":[88,388]},
 {"_t":"CodeConfig","_id":37,"code":"gx161","ItemTypeList":[9],"ItemIdList":[4003],"ItemQuanlityList":[100]},
 {"_t":"CodeConfig","_id":38,"code":"dzhd","ItemTypeList":[9,9,5],"ItemIdList":[4003,4004,4006],"ItemQuanlityList":[188,18,888]},
+{"_t":"CodeConfig","_id":39,"code":"qq1700","ItemTypeList":[4,9,9],"ItemIdList":[8,4003,4004],"ItemQuanlityList":[1,488,48]},
+{"_t":"CodeConfig","_id":40,"code":"ydlb","ItemTypeList":[9,9],"ItemIdList":[4003,4004],"ItemQuanlityList":[488,48]},
 ]}
