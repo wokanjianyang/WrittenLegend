@@ -141,6 +141,14 @@ namespace Game
             List<KeyValuePair<double, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(Config.MapId, dropRate);
             //ÏÞÊ±½±Àø
             dropList.AddRange(DropLimitHelper.Build((int)DropLimitType.Normal, dropRate));
+            if (ModelConfig == null)
+            {
+                dropList.AddRange(DropLimitHelper.Build((int)DropLimitType.EquipCopy, dropRate));
+            }
+            else
+            {
+                //dropList.AddRange(DropLimitHelper.Build((int)DropLimitType.AnDian, dropRate));
+            }
 
             int qualityRate = qualityConfig.QualityRate * (100 + (int)user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea)) / 100;
             List<Item> items = DropHelper.BuildDropItem(dropList, qualityRate);

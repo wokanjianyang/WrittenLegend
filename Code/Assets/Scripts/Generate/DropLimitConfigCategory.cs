@@ -41,6 +41,8 @@ namespace Game
     public enum DropLimitType
     {
         Normal = 0,
+        EquipCopy = 1,
+        AnDian = 2,
         HeroPhatom = 99,
         Defend = 100,
     }
