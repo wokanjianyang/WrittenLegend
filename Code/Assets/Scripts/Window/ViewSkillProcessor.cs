@@ -49,7 +49,7 @@ namespace Game
             user.EventCenter.AddListener<SkillUpEvent>(OnSkillUp);
             user.EventCenter.AddListener<SkillDownEvent>(OnSkillDown);
             user.EventCenter.AddListener<SkillChangePlanEvent>(OnSkillChangePlan);
-            
+
 
             bookPrefab = Resources.Load<GameObject>("Prefab/Window/Item_Skill");
 
@@ -152,6 +152,7 @@ namespace Game
         private void OnSkillChangePlan(SkillChangePlanEvent e)
         {
             this.ShowSkillBattle();
+            this.ShowSkillPanel();
             GameProcessor.Inst.User.EventCenter.Raise(new HeroUpdateSkillEvent());
         }
 
