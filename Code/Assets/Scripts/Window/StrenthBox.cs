@@ -17,13 +17,13 @@ namespace Game
         public Text Txt_Name;
         public Text Txt_Level;
 
+        public bool Active = false;
+
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             Txt_Name.text = this.SlotType.ToString();
             Txt_Level.text = "";
-
-            SeSelect(false);
         }
 
         // Update is called once per frame
@@ -49,17 +49,20 @@ namespace Game
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            SeSelect(true);
-
             //高亮，更换UI
             int position = ((int)SlotType);
-
             GameProcessor.Inst.EventCenter.Raise(new EquipStrengthSelectEvent() { Position = position });
+
+            SeSelect(true);
         }
 
         public void SeSelect(bool select)
         {
-            if (select)
+            //Debug.Log("SeSelect :" + (int)SlotType + " " + select);
+
+            this.Active = select;
+
+            if (Active)
             {
                 Txt_Name.color = new Color(0xD8 / 255.0f, 0xCA / 255.0f, 0xAF / 255.0f);
             }

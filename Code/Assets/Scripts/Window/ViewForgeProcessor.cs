@@ -32,42 +32,24 @@ public class ViewForgeProcessor : AViewPage
 
     public StrenthAttrItem Refine_Attr_Base;
     public StrenthAttrItem Refine_Attr_Quality;
-   
+
     private RefineBox[] Refine_EquiList;
     private int Refine_Position = 1;
 
     public Toggle toggle_Exchange;
     public Panel_Exchange PanelExchange;
 
-    private Dictionary<string, List<CompositeConfig>> allCompositeDatas= new Dictionary<string, List<CompositeConfig>>();
+    private Dictionary<string, List<CompositeConfig>> allCompositeDatas = new Dictionary<string, List<CompositeConfig>>();
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         Btn_Strengthen.onClick.AddListener(OnClick_Strengthen);
         Btn_Strengthen_Batch.onClick.AddListener(OnClick_Strengthen_Batch);
 
-        this.toggle_Strengthen.onValueChanged.AddListener((isOn) =>
-        {
-            if (isOn)
-            {
-                Log.Debug("打开强化界面");
-                this.ShowStrengthInfo();
-            }
-        });
-        this.toggle_Compound.onValueChanged.AddListener((isOn) =>
-        {
-            if (isOn)
-            {
-                Log.Debug("打开合成界面");
-                //this.ShowComposite();
-            }
-        });
         this.toggle_Refine.onValueChanged.AddListener((isOn) =>
         {
             if (isOn)
             {
-                Log.Debug("打开精练界面");
                 this.ShowRefine();
             }
         });
@@ -82,6 +64,12 @@ public class ViewForgeProcessor : AViewPage
         Refine.gameObject.SetActive(false);
     }
 
+    // Start is called before the first frame update
+    void Start()
+    {
+        this.ShowStrengthInfo();
+    }
+
     public override void OnBattleStart()
     {
         base.OnBattleStart();
@@ -90,20 +78,25 @@ public class ViewForgeProcessor : AViewPage
         GameProcessor.Inst.EventCenter.AddListener<ChangeCompositeTypeEvent>(this.OnChangeCompositeTypeEvent);
         //GameProcessor.Inst.EventCenter.AddListener<CompositeUIFreshEvent>(this.OnCompositeUIFreshEvent);
         GameProcessor.Inst.EventCenter.AddListener<EquipRefineSelectEvent>(this.OnEquipRefineSelectEvent);
-        
+
     }
 
     private void OnEquipStrengthSelectEvent(EquipStrengthSelectEvent e)
     {
-        StrenthBox oldBox = StrengthenEquiList.Where(m => ((int)m.SlotType) == SelectPosition).First();
-        oldBox.SeSelect(false);
-
+        List<StrenthBox> list = StrengthenEquiList.Where(m => m.Active).ToList();
+        foreach (var oldBox in list)
+        {
+            oldBox.SeSelect(false);
+        }
         this.SelectPosition = e.Position;
-        ShowStrengthInfo();
+
+        this.ShowStrengthInfo();
     }
 
     private void ShowStrengthInfo()
     {
+        //Log.Debug("ShowStrengthInfo");
+
         User user = GameProcessor.Inst.User;
 
         foreach (var box in StrengthenEquiList)
@@ -117,11 +110,6 @@ public class ViewForgeProcessor : AViewPage
             else
             {
                 user.MagicEquipStrength[position] = new MagicData();
-            }
-
-            if (position == SelectPosition)
-            {
-                box.SeSelect(true);
             }
         }
 
@@ -222,7 +210,7 @@ public class ViewForgeProcessor : AViewPage
 
         EquipStrengthFeeConfig config = EquipStrengthFeeConfigCategory.Instance.GetByLevel(nextLevel);
 
-        long maxLevel = config.EndLevel - nextLevel+1;
+        long maxLevel = config.EndLevel - nextLevel + 1;
 
         long sl = 0;
         long feeTotal = 0;
@@ -232,7 +220,8 @@ public class ViewForgeProcessor : AViewPage
             long levelAttr = LevelConfigCategory.GetLevelAttr(nextLevel + i);
             long fee = levelAttr * config.Fee;
 
-            if (feeTotal + fee > user.MagicGold.Data) {
+            if (feeTotal + fee > user.MagicGold.Data)
+            {
                 break;
             }
 
@@ -272,7 +261,7 @@ public class ViewForgeProcessor : AViewPage
             {
                 list = new List<CompositeConfig>();
             }
-            
+
             list.Add(kvp.Value);
 
             this.allCompositeDatas[kvp.Value.Type] = list;
@@ -285,7 +274,7 @@ public class ViewForgeProcessor : AViewPage
             var menuItem = GameObject.Instantiate(menuItemPrefab.gameObject);
             menuItem.transform.SetParent(sr_Left.content);
             menuItem.gameObject.SetActive(true);
-            
+
             var com = menuItem.GetComponent<Com_CompositeMenu>();
             com.SetData(kvp.Key);
         }
@@ -318,7 +307,7 @@ public class ViewForgeProcessor : AViewPage
     private void OnChangeCompositeTypeEvent(ChangeCompositeTypeEvent e)
     {
         var compositeList = this.allCompositeDatas[e.CompositeType];
-        
+
         var compositeItemPrefab = sr_Right.content.GetChild(0);
         compositeItemPrefab.gameObject.SetActive(false);
 
@@ -347,7 +336,7 @@ public class ViewForgeProcessor : AViewPage
             }
             else
             {
-                sr_Right.content.GetChild(i+1).gameObject.SetActive(false);
+                sr_Right.content.GetChild(i + 1).gameObject.SetActive(false);
             }
         }
 
@@ -492,7 +481,7 @@ public class ViewForgeProcessor : AViewPage
     public override void OnInit()
     {
         base.OnInit();
-        
+
         //var equipList = tran_EquiList.GetComponentsInChildren<SlotBox>();
 
         AttrList = tran_AttrList.GetComponentsInChildren<StrenthAttrItem>();
@@ -502,7 +491,7 @@ public class ViewForgeProcessor : AViewPage
         }
         StrengthenEquiList = tran_EquiList.GetComponentsInChildren<StrenthBox>();
 
-        Refine_EquiList =  Refine_Tran_EquiList.GetComponentsInChildren<RefineBox>();
+        Refine_EquiList = Refine_Tran_EquiList.GetComponentsInChildren<RefineBox>();
 
         this.InitComposite();
     }
@@ -510,6 +499,5 @@ public class ViewForgeProcessor : AViewPage
     public override void OnOpen()
     {
         base.OnOpen();
-        this.ShowStrengthInfo();
     }
 }
