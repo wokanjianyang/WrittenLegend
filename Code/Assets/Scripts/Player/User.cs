@@ -294,7 +294,7 @@ namespace Game
             {
                 AurasAttrConfig config = AurasAttrConfigCategory.Instance.Get(ar.Key);
                 int arValue = config.AttrValue + (ar.Value - 1) * config.Rise;
-                Debug.Log("auras value :" + arValue);
+                //Debug.Log("auras value :" + arValue);
                 AttributeBonus.SetAttr((AttributeEnum)config.AttrId, AttributeFrom.Auras, arValue);
             }
 
