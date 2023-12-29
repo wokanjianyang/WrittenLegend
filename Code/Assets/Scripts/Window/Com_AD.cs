@@ -35,6 +35,15 @@ public class Com_AD : MonoBehaviour, IBattleLife
     [LabelText("金币加成持续时间")]
     public Text txt_Reward_Gold_Time;
 
+    public Button Btn_Read1;
+    public Button Btn_Read2;
+    public Button Btn_Read3;
+    public Button Btn_Read4;
+
+
+    public Toggle toggle_Skip;
+    public Text txt_Skip;
+
     public Text txt_Time;
     public Text txt_Error_Count;
     public Text txt_Rule;
@@ -48,7 +57,22 @@ public class Com_AD : MonoBehaviour, IBattleLife
     // Start is called before the first frame update
     void Start()
     {
+        Btn_Read1.onClick.AddListener(() => { ReadAd(1); });
+        Btn_Read2.onClick.AddListener(() => { ReadAd(2); });
+        Btn_Read3.onClick.AddListener(() => { ReadAd(3); });
+        Btn_Read4.onClick.AddListener(() => { ReadAd(4); });
 
+        User user = GameProcessor.Inst.User;
+
+        if (user.AdData.GetSkipCount() > 0)
+        {
+            toggle_Skip.gameObject.SetActive(true);
+            txt_Skip.gameObject.SetActive(true);
+        }
+        else {
+            toggle_Skip.gameObject.SetActive(false);
+            txt_Skip.gameObject.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -224,6 +248,11 @@ public class Com_AD : MonoBehaviour, IBattleLife
                  //取消的,不处理
              }
          });
+    }
+
+    private void ReadAd(int type)
+    {
+
     }
 
     private void RewardExpAndGold(bool real)  //看的真广告还是假广告

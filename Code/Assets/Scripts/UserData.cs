@@ -20,8 +20,7 @@ namespace Game
         static string tempName = "temp.json"; //文件名
 
         public static long StartTime = 0;
-        public static string pn = "";
-        public static string sk = "";
+        public static string tapAccount = "";
 
         public static User Load()
         {

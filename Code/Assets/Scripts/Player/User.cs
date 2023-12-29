@@ -106,6 +106,8 @@ namespace Game
 
         public RecordData Record { get; set; } = new RecordData();
 
+        public AdData AdData { get; } = new AdData();
+
         public long AdLastTime { get; set; } = 0;
 
         public Dictionary<int, MagicData> SoulRingData { get; } = new Dictionary<int, MagicData>();
@@ -115,6 +117,8 @@ namespace Game
         public Dictionary<int, int> AchievementData { get; } = new Dictionary<int, int>();
 
         public Dictionary<int, MagicData> CardData { get; } = new Dictionary<int, MagicData>();
+
+        //public Dictionary<string, MagicData> AdData { get; } = new Dictionary<string, MagicData>();
 
         public bool GameCheat { get; set; } = false;
 

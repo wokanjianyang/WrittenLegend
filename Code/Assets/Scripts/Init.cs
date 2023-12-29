@@ -146,7 +146,9 @@ public class Init : MonoBehaviour
 
         InitTapSDK();
 
-       AsyncStartAsync();
+        AsyncTapAccount();
+
+        AsyncStartAsync();
     }
 
 
@@ -228,7 +230,7 @@ public class Init : MonoBehaviour
         var mapRoot = GameObject.FindObjectOfType<ViewBattleProcessor>();
 
         yield return new WaitForSeconds(1f);
-        Game.LoadMap(RuleType.Normal,  mapRoot.transform, null);
+        Game.LoadMap(RuleType.Normal, mapRoot.transform, null);
     }
 
 
@@ -275,5 +277,18 @@ public class Init : MonoBehaviour
             .RegionType(RegionType.CN) // 非必须，CN 表示中国大陆，IO 表示其他国家或地区
             .ConfigBuilder();
         TapBootstrap.Init(config);
+
+   
+    }
+
+    private async Task AsyncTapAccount()
+    {
+        var currentUser = await TDSUser.GetCurrent();
+        if (null != currentUser)
+        {
+            UserData.tapAccount = currentUser.ObjectId;
+
+            //Debug.Log("tapAccount:" + UserData.tapAccount);
+        }
     }
 }

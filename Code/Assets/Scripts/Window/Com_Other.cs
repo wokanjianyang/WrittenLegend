@@ -94,6 +94,8 @@ namespace Game
                     var objectId = tdsUser.ObjectId;     // 用户唯一标识
                     var nickname = tdsUser["nickname"];  // 昵称
                     var avatar = tdsUser["avatar"];      // 头像
+
+                    UserData.tapAccount = objectId;
                 }
                 catch (Exception e)
                 {
