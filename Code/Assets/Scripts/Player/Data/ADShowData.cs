@@ -28,6 +28,7 @@ namespace Game.Data
     {
         public int LastShowADMonth = 0;
         public int LastShowADDay = 0;
+        public int LastShowYear = 0;
         public List<ADData> ADDatas;
 
         public ADShowData()
@@ -39,6 +40,7 @@ namespace Game.Data
         {
             this.LastShowADMonth = DateTime.Now.Month;
             this.LastShowADDay = DateTime.Now.Day;
+            this.LastShowYear = DateTime.Now.Year;
 
             ADDatas = new List<ADData>();
             ADDatas.Add(new ADData()
@@ -75,8 +77,8 @@ namespace Game.Data
 
         public bool CheckDate()
         {
-            
-            return this.LastShowADDay < DateTime.Now.Day || this.LastShowADMonth < DateTime.Now.Month;
+
+            return this.LastShowADDay < DateTime.Now.Day || this.LastShowADMonth < DateTime.Now.Month || this.LastShowYear < DateTime.Now.Year;
         }
 
         public ADData GetADShowStatus(ADTypeEnum adType)

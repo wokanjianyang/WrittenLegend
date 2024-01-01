@@ -189,6 +189,27 @@ public class Com_AD : MonoBehaviour, IBattleLife
         return false;
     }
 
+    private void ReadAd(int type)
+    {
+        switch (type)
+        {
+            case 1:
+                OnClick_GoldCount();
+                break;
+            case 2:
+                OnClick_ExpCount();
+                break;
+            case 3:
+                OnClick_CopyTicketCount();
+                break;
+            case 4:
+                OnClick_StoneCount();
+                break;
+            default:
+                break;
+        }
+    }
+
     public void OnClick_GoldCount()
     {
         if (!CheckCd())
@@ -248,11 +269,6 @@ public class Com_AD : MonoBehaviour, IBattleLife
                  //取消的,不处理
              }
          });
-    }
-
-    private void ReadAd(int type)
-    {
-
     }
 
     private void RewardExpAndGold(bool real)  //看的真广告还是假广告

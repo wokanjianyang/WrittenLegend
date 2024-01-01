@@ -616,7 +616,7 @@ namespace Game
                 }
                 else if (box.Item.Type == ItemType.Exclusive)
                 {
-                    exclusiveStone = box.Item.GetQuality() * 1;
+                    exclusiveStone += box.Item.GetQuality() * 1;
                 }
                 //Log.Debug("自动回收:" + box.Item.Name + " " + box.Number + "个");
                 //box.MagicNubmer.Data = 0;
@@ -632,6 +632,11 @@ namespace Game
             {
                 Item item = ItemHelper.BuildRefineStone(refineStone);
                 AddBoxItem(item);
+            }
+            if (exclusiveStone > 0)
+            {
+                Item exStoneItem = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Stone, exclusiveStone);
+                AddBoxItem(exStoneItem);
             }
             if (speicalStone > 0)
             {

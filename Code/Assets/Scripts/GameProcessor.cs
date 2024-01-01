@@ -305,7 +305,7 @@ namespace Game
 
             //检查
             DateTime saveDate = new DateTime(User.DataDate);
-            if (saveDate.Day < DateTime.Now.Day || saveDate.Month < DateTime.Now.Month)
+            if (saveDate.Day < DateTime.Now.Day || saveDate.Month < DateTime.Now.Month || saveDate.Year < DateTime.Now.Year)
             {
                 User.SaveLimit = 5;
                 User.LoadLimit = 5;
