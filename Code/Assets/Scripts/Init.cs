@@ -147,8 +147,6 @@ public class Init : MonoBehaviour
         InitTapSDK();
 
         AsyncTapAccount();
-
-        AsyncStartAsync();
     }
 
 
@@ -284,11 +282,12 @@ public class Init : MonoBehaviour
     private async Task AsyncTapAccount()
     {
         var currentUser = await TDSUser.GetCurrent();
+
         if (null != currentUser)
         {
             UserData.tapAccount = currentUser.ObjectId;
-
-            //Debug.Log("tapAccount:" + UserData.tapAccount);
         }
+
+        AsyncStartAsync();
     }
 }

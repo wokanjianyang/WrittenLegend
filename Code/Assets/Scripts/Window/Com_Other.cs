@@ -23,25 +23,25 @@ namespace Game
         [LabelText("显示怪物技能特效")]
         public Toggle tog_Monster_Skill;
 
-        [LabelText("确认")]
-        public Button btn_Done;
-
-        [LabelText("取消")]
-        public Button btn_Cancle;
-
         public Button btn_Query;
         public Button btn_Save;
         public Button btn_Load;
         public Text txt_Name;
         public Text txt_Desc;
 
+        public Text txt_Account;
+        public Button btn_Change;
 
 
         // Start is called before the first frame update
         void Start()
         {
-            this.btn_Done.onClick.AddListener(this.OnClick_Done);
-            this.btn_Cancle.onClick.AddListener(this.OnClick_Cancle);
+            tog_Monster_Skill.onValueChanged.AddListener((isOn) =>
+            {
+                this.ShowSkill(isOn);
+            });
+
+            this.btn_Change.onClick.AddListener(this.OnClick_Change);
 
             this.btn_Query.onClick.AddListener(this.OnClick_Query);
             this.btn_Save.onClick.AddListener(this.OnClick_Save);
@@ -51,6 +51,11 @@ namespace Game
 
             AsyncLoginTap();
 
+        }
+
+        public void ShowSkill(bool show)
+        {
+            GameProcessor.Inst.User.ShowMonsterSkill = show;
         }
 
         private void CheckProgress()
@@ -83,50 +88,15 @@ namespace Game
             var currentUser = await TDSUser.GetCurrent();
             if (null == currentUser)
             {
-                // 开始登录
-                try
-                {
-                    // 在 iOS、Android 系统下会唤起 TapTap 客户端或以 WebView 方式进行登录
-                    // 在 Windows、macOS 系统下显示二维码（默认）和跳转链接（需配置）
-                    var tdsUser = await TDSUser.LoginWithTapTap();
-                    //Debug.Log($"login success:{tdsUser}");
-                    // 获取 TDSUser 属性
-                    var objectId = tdsUser.ObjectId;     // 用户唯一标识
-                    var nickname = tdsUser["nickname"];  // 昵称
-                    var avatar = tdsUser["avatar"];      // 头像
-
-                    UserData.tapAccount = objectId;
-                }
-                catch (Exception e)
-                {
-                    if (e is TapException tapError)  // using TapTap.Common
-                    {
-                        //Debug.Log($"encounter exception:{tapError.code} message:{tapError.message}");
-                        if (tapError.code == (int)TapErrorCode.ERROR_CODE_BIND_CANCEL) // 取消登录
-                        {
-                            //Debug.Log("登录取消");
-                        }
-                    }
-                }
+                Debug.Log("开始登录");
+                AsyncLoginTap1();
             }
             else
             {
-                //Debug.Log("已登录");
-                // 进入游戏
+                var nickname = currentUser["nickname"];  // 昵称
+                this.txt_Account.text = "Tap帐号:" + nickname;
+                UserData.tapAccount = currentUser.ObjectId;
             }
-
-            //try
-            //{
-            //    // 通过 tdsUSer 给出用户唯一标识，如果有的话
-            //    var tdsUser = await TDSUser.LoginAnonymously();
-
-            //    Debug.Log("tdsUser:" + tdsUser.ToString());
-            //}
-            //catch (Exception e)
-            //{
-            //    // 登录失败
-            //    Debug.Log($"TapLogin Error : {e.Message}");
-            //}
         }
 
         // Update is called once per frame
@@ -140,18 +110,40 @@ namespace Game
             tog_Monster_Skill.isOn = GameProcessor.Inst.User.ShowMonsterSkill;
         }
 
-        public void OnClick_Cancle()
+        public void OnClick_Change()
         {
-            GameProcessor.Inst.EventCenter.Raise(new DialogSettingEvent());
+            AsyncLoginTap1();
         }
 
-        public void OnClick_Done()
+        private async Task AsyncLoginTap1()
         {
-            User user = GameProcessor.Inst.User;
+            // 开始登录
+            try
+            {
 
-            user.ShowMonsterSkill = tog_Monster_Skill.isOn;
+                // 在 iOS、Android 系统下会唤起 TapTap 客户端或以 WebView 方式进行登录
+                // 在 Windows、macOS 系统下显示二维码（默认）和跳转链接（需配置）
+                var tdsUser = await TDSUser.LoginWithTapTap();
+                //Debug.Log($"login success:{tdsUser}");
+                // 获取 TDSUser 属性
+                var objectId = tdsUser.ObjectId;     // 用户唯一标识
+                var nickname = tdsUser["nickname"];  // 昵称
+                var avatar = tdsUser["avatar"];      // 头像
 
-            GameProcessor.Inst.EventCenter.Raise(new DialogSettingEvent());
+                this.txt_Account.text = "Tap帐号:" + nickname;
+                UserData.tapAccount = objectId;
+            }
+            catch (Exception e)
+            {
+                if (e is TapException tapError)  // using TapTap.Common
+                {
+                    //Debug.Log($"encounter exception:{tapError.code} message:{tapError.message}");
+                    if (tapError.code == (int)TapErrorCode.ERROR_CODE_BIND_CANCEL) // 取消登录
+                    {
+                        //Debug.Log("登录取消");
+                    }
+                }
+            }    // 头像
         }
 
         public void OnClick_Query()
