@@ -48,7 +48,7 @@ public class BattleRule_HeroPhantom : ABattleRule
         var hero = GameProcessor.Inst.PlayerManager.GetHero();
         if (hero.HP <= 0)
         {
-            GameProcessor.Inst.EventCenter.Raise(new BattlePhantomMsgEvent() { Message = "你没有通过挑战！" });
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.HeroPhantom, Message = "你没有通过挑战！" });
             Start = false;
         }
 
@@ -61,7 +61,7 @@ public class BattleRule_HeroPhantom : ABattleRule
 
             BuildReward();
 
-            GameProcessor.Inst.EventCenter.Raise(new BattleHeroPhantomMsgEvent() { Message = "您已经通过了挑战！" });
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.HeroPhantom, Message = "您已经通过了挑战！" });
 
             GameOver();
 
@@ -81,8 +81,9 @@ public class BattleRule_HeroPhantom : ABattleRule
             GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
         }
 
-        GameProcessor.Inst.EventCenter.Raise(new BattleHeroPhantomMsgEvent()
+        GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
         {
+            Type = RuleType.HeroPhantom,
             Message = BattleMsgHelper.BuildRewardMessage("挑战成功奖励", 0, 0, items)
         });
     }

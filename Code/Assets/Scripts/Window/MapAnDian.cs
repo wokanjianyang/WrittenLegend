@@ -77,6 +77,11 @@ public class MapAnDian : MonoBehaviour, IBattleLife
 
     private void OnBattleMsgEvent(BattleMsgEvent e)
     {
+        if (e.Type != RuleType.AnDian)
+        {
+            return;
+        }
+
         msgId++;
         Text txt_msg = null;
         if (this.sr_BattleMsg.content.childCount > 50)
@@ -104,7 +109,7 @@ public class MapAnDian : MonoBehaviour, IBattleLife
 
     private void OnBattleLoseEvent(BattleLoseEvent e)
     {
-        if (e.Time == MapTime)
+        if (e.Time == MapTime && e.Type == RuleType.AnDian)
         {
             this.Exit();
         }

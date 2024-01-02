@@ -24,13 +24,16 @@ namespace Game
 
         private int RewardRate;
 
-        public Monster(int monsterId, int quality, int rewarRate, int modelId) : base()
+        RuleType RuleType = RuleType.Normal;
+
+        public Monster(int monsterId, int quality, int rewarRate, int modelId, RuleType ruleType) : base()
         {
             this.MonsterId = monsterId;
             this.GroupId = 2;
             this.Quality = quality;
 
             this.RewardRate = rewarRate;
+            this.RuleType = ruleType;
 
             this.Config = MonsterBaseCategory.Instance.Get(MonsterId);
             this.QualityConfig = QualityConfigCategory.Instance.Get(Quality);
@@ -160,6 +163,7 @@ namespace Game
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
             {
+                Type = RuleType,
                 Message = BattleMsgHelper.BuildMonsterDeadMessage(this, exp, gold, items)
             });
 

@@ -10,7 +10,7 @@ public class Battle_AnDian : ABattleRule
     private int MapId = 0;
 
     private int Level = 1;
-    private int Count = 1; 
+    private int Count = 1;
     protected override RuleType ruleType => RuleType.AnDian;
 
     public Battle_AnDian(Dictionary<string, object> param)
@@ -61,13 +61,13 @@ public class Battle_AnDian : ABattleRule
                 quality = 2;
             }
 
-            var enemy = MonsterHelper.BuildMonster(mapConfig, quality, 1, 1);
+            var enemy = MonsterHelper.BuildMonster(mapConfig, quality, 1, 1,RuleType.AnDian);
             GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
         }
         else
         {
             BossConfig bossConfig = BossConfigCategory.Instance.Get(mapConfig.BoosId);
-            GameProcessor.Inst.PlayerManager.LoadMonster(BossHelper.BuildBoss(mapConfig.BoosId, mapConfig.Id, 2, 1, 1));
+            GameProcessor.Inst.PlayerManager.LoadMonster(BossHelper.BuildBoss(mapConfig.BoosId, mapConfig.Id, RuleType.AnDian, 1, 1));
         }
 
         //Specail
@@ -76,7 +76,7 @@ public class Battle_AnDian : ABattleRule
         {
             if (RandomHelper.RandomNumber(1, config.BuildRate) <= 1)
             {
-                GameProcessor.Inst.PlayerManager.LoadMonster(new Monster_Specail(config.Id,1));
+                GameProcessor.Inst.PlayerManager.LoadMonster(new Monster_Specail(config.Id, 1, RuleType.AnDian));
             }
         }
 

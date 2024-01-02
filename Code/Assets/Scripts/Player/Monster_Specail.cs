@@ -9,11 +9,13 @@ public class Monster_Specail : APlayer
 {
     MonsterSpecialConfig config;
     private int RewardRate = 1;
+    RuleType RuleType = RuleType.Normal;
 
-    public Monster_Specail(int id, int rate)
+    public Monster_Specail(int id, int rate, RuleType ruleType)
     {
         this.GroupId = 2;
         this.RewardRate = rate;
+        this.RuleType = ruleType;
 
         config = MonsterSpecialConfigCategory.Instance.Get(id);
 
@@ -110,6 +112,7 @@ public class Monster_Specail : APlayer
 
         GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
         {
+            Type = RuleType,
             Message = BattleMsgHelper.BuildBossDeadMessage(this, 0, 0, items)
         });
     }

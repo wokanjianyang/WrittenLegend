@@ -6,15 +6,15 @@ namespace Game.Data
 {
     public enum ADTypeEnum
     {
-        GoldCount = 0,
-        ExpCount,
-        CopyTicketCount,
-        StoneCount,
-        ExpAdd,
-        ExpTime,
-        GoldAdd,
-        GoldTime,
-        ErrorCount,
+        GoldCount = 1,
+        ExpCount = 2,
+        CopyTicketCount = 3,
+        StoneCount = 4,
+        //ExpAdd,
+        //ExpTime,
+        //GoldAdd,
+        //GoldTime,
+        ErrorCount = 99,
     }
     [Serializable]
     public class ADData

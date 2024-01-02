@@ -20,17 +20,18 @@ namespace Game
         public float Def;
         public long Exp;
 
-        private int CopyType = 1;
         private int RewarCount = 1;
 
-        public Boss(int bossId, int mapId, int copyType, int rewarCount, int modelId) : base()
+        RuleType RuleType = RuleType.Normal;
+
+        public Boss(int bossId, int mapId, RuleType ruleType, int rewarCount, int modelId) : base()
         {
             this.BossId = bossId;
             this.MapId = mapId;
             this.GroupId = 2;
             this.Quality = 5;
 
-            this.CopyType = copyType;
+            this.RuleType = ruleType;
             this.RewarCount = rewarCount;
 
             this.Config = BossConfigCategory.Instance.Get(BossId);
@@ -179,8 +180,10 @@ namespace Game
                 user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
             }
 
+
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
             {
+                Type = RuleType,
                 Message = BattleMsgHelper.BuildBossDeadMessage(this, exp, gold, items)
             });
 

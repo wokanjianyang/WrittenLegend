@@ -203,6 +203,8 @@ namespace Game
                 //StartCoroutine(this.AutoExitApp(false));
                 //return;
             }
+
+            this.User.AdData.Check();
         }
 
         private void OfflineReward()
@@ -746,7 +748,7 @@ namespace Game
                 });
                 yield return new WaitForSeconds(1f);
             }
-            this.EventCenter.Raise(new BattleLoseEvent() { Time = time });
+            this.EventCenter.Raise(new BattleLoseEvent() { Type = ruleType, Time = time });
 
             if (ruleType == RuleType.EquipCopy)
             {

@@ -33,7 +33,7 @@ public class MapHeroPhantom : MonoBehaviour, IBattleLife
     {
         this.msgPrefab = Resources.Load<GameObject>("Prefab/Window/Item_DropMsg");
 
-        GameProcessor.Inst.EventCenter.AddListener<BattleHeroPhantomMsgEvent>(this.OnBattleMsgEvent);
+        GameProcessor.Inst.EventCenter.AddListener<BattleMsgEvent>(this.OnBattleMsgEvent);
         GameProcessor.Inst.EventCenter.AddListener<HeroPhatomStartEvent>(this.OnStart);
         GameProcessor.Inst.EventCenter.AddListener<BattleLoseEvent>(this.OnBattleLoseEvent);
 
@@ -60,8 +60,13 @@ public class MapHeroPhantom : MonoBehaviour, IBattleLife
         Txt_Name.text = "дя╤х:" + Level;
     }
 
-    private void OnBattleMsgEvent(BattleHeroPhantomMsgEvent e)
+    private void OnBattleMsgEvent(BattleMsgEvent e)
     {
+        if (e.Type != RuleType.HeroPhantom)
+        {
+            return;
+        }
+
         msgId++;
         Text txt_msg = null;
         if (this.sr_BattleMsg.content.childCount > 50)
@@ -89,7 +94,7 @@ public class MapHeroPhantom : MonoBehaviour, IBattleLife
 
     private void OnBattleLoseEvent(BattleLoseEvent e)
     {
-        if (e.Time == MapTime)
+        if (e.Time == MapTime && e.Type == RuleType.HeroPhantom)
         {
             this.Exit();
         }

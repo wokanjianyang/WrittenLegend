@@ -40,7 +40,7 @@ public class Init : MonoBehaviour
         //Center
         View_TopStatu,
         View_BottomNavBar,
-        Window_EndlessTower,
+        Map_EquipCopy,
         Map_Phantom,
         Map_BossFamily,
         Map_AnDian,
@@ -90,11 +90,11 @@ public class Init : MonoBehaviour
             {
                 WindowTypeEnum.View_TopStatu,
                 WindowTypeEnum.View_BottomNavBar,
-                WindowTypeEnum.Window_EndlessTower,
                 WindowTypeEnum.Select_Dialog,
                 WindowTypeEnum.Dialog_EquipDetail,
                 //WindowTypeEnum.Dialog_OfflineExp,
                 WindowTypeEnum.Dialog_Settings,
+                WindowTypeEnum.Map_EquipCopy,
                 WindowTypeEnum.Map_Phantom,
                 WindowTypeEnum.Map_BossFamily,
                 WindowTypeEnum.Map_AnDian,
@@ -278,7 +278,7 @@ public class Init : MonoBehaviour
             .ConfigBuilder();
         TapBootstrap.Init(config);
 
-   
+
     }
 
     private async Task AsyncTapAccount()

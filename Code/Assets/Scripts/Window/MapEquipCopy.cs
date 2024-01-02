@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WindowEndlessTower : MonoBehaviour, IBattleLife
+public class MapEquipCopy : MonoBehaviour, IBattleLife
 {
-    [Title("ÎÞ¾¡Ëþ")]
     [LabelText("ÍË³ö")]
     public Button btn_Exit;
 
@@ -121,6 +120,11 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
 
     private void OnBattleMsgEvent(BattleMsgEvent e)
     {
+        if (e.Type != RuleType.EquipCopy)
+        {
+            return;
+        }
+
         msgId++;
         Text txt_msg = null;
         if (this.sr_BattleMsg.content.childCount > 50)
@@ -158,7 +162,7 @@ public class WindowEndlessTower : MonoBehaviour, IBattleLife
 
     private void OnBattleLoseEvent(BattleLoseEvent e)
     {
-        if (MapTime == e.Time)
+        if (MapTime == e.Time && e.Type == RuleType.EquipCopy)
         {
             this.Exit();
         }

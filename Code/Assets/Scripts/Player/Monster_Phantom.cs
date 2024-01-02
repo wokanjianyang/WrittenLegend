@@ -136,7 +136,7 @@ public class Monster_Phantom : APlayer
 
         if (HP > 0 && pp < 10 && pp > nowPercent && Real)  //只有本体，从90%开始,过了每10%的界限
         {
-            GameProcessor.Inst.EventCenter.Raise(new BattlePhantomMsgEvent() { Message = this.Name + "：看我鬼影无踪!" });
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Phantom, Message = this.Name + "：看我鬼影无踪!" });
             //sepcial logic
             var enemy = new Monster_Phantom(config.Id, Layer, false, nowPercent);
             GameProcessor.Inst.PlayerManager.LoadMonster(enemy);

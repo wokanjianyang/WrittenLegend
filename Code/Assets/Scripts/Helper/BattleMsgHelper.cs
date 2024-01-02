@@ -129,11 +129,11 @@ namespace Game
             string message = $"<color=#{QualityConfigHelper.GetQualityColor(4)}> {src}奖励";
             if (exp > 0)
             {
-                message += $"经验{exp}";
+                message += $"经验{StringHelper.FormatNumber(exp)}";
             }
             if (gold > 0)
             {
-                message += $"金币{gold}";
+                message += $"金币{StringHelper.FormatNumber(gold)}";
             }
 
             if (items != null)

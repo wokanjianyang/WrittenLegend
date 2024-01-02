@@ -37,7 +37,7 @@ public class MapPhantom : MonoBehaviour, IBattleLife
     {
         this.msgPrefab = Resources.Load<GameObject>("Prefab/Window/Item_DropMsg");
 
-        GameProcessor.Inst.EventCenter.AddListener<BattlePhantomMsgEvent>(this.OnBattleMsgEvent);
+        GameProcessor.Inst.EventCenter.AddListener<BattleMsgEvent>(this.OnBattleMsgEvent);
         GameProcessor.Inst.EventCenter.AddListener<PhantomStartEvent>(this.OnPhantomStart);
         GameProcessor.Inst.EventCenter.AddListener<ShowPhantomInfoEvent>(this.OnShowPhantomInfoEvent);
         GameProcessor.Inst.EventCenter.AddListener<BattleLoseEvent>(this.OnBattleLoseEvent);
@@ -73,8 +73,13 @@ public class MapPhantom : MonoBehaviour, IBattleLife
         Txt_Time.text = "Ê£ÓàÊ±¼ä£º" + e.Time;
     }
 
-    private void OnBattleMsgEvent(BattlePhantomMsgEvent e)
+    private void OnBattleMsgEvent(BattleMsgEvent e)
     {
+        if (e.Type != RuleType.Phantom)
+        {
+            return;
+        }
+
         msgId++;
         Text txt_msg = null;
         if (this.sr_BattleMsg.content.childCount > 50)
@@ -102,7 +107,7 @@ public class MapPhantom : MonoBehaviour, IBattleLife
 
     private void OnBattleLoseEvent(BattleLoseEvent e)
     {
-        if (e.Time == MapTime)
+        if (e.Time == MapTime && e.Type == RuleType.Phantom)
         {
             this.Exit();
         }

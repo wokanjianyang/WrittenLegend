@@ -127,6 +127,7 @@ namespace Game
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
             {
+                Type = RuleType.Defend,
                 Message = BattleMsgHelper.BuildMonsterDeadMessage(this, exp, gold, items)
             });
         }

@@ -59,7 +59,7 @@ public class BattleRule_EquipCopy : ABattleRule
             List<MonsterSpecialConfig> configs = MonsterSpecialConfigCategory.Instance.GetAll().Values.ToList();
             foreach (MonsterSpecialConfig config in configs)
             {
-                GameProcessor.Inst.PlayerManager.LoadMonster(new Monster_Specail(config.Id, MapRate));
+                GameProcessor.Inst.PlayerManager.LoadMonster(new Monster_Specail(config.Id, MapRate, RuleType.EquipCopy));
             }
         }
 
@@ -90,13 +90,13 @@ public class BattleRule_EquipCopy : ABattleRule
                 {
                     if (QualityList[0] < 5)
                     {
-                        var enemy = MonsterHelper.BuildMonster(mapConfig, QualityList[0], MapRate, 0);
+                        var enemy = MonsterHelper.BuildMonster(mapConfig, QualityList[0], MapRate, 0, RuleType.EquipCopy);
                         GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
                     }
                     else
                     {
                         BossConfig bossConfig = BossConfigCategory.Instance.Get(mapConfig.BoosId);
-                        GameProcessor.Inst.PlayerManager.LoadMonster(BossHelper.BuildBoss(mapConfig.BoosId, mapConfig.Id, 1, MapRate, 0));
+                        GameProcessor.Inst.PlayerManager.LoadMonster(BossHelper.BuildBoss(mapConfig.BoosId, mapConfig.Id, RuleType.EquipCopy, MapRate, 0));
                     }
                     QualityList.RemoveAt(0);
                 }

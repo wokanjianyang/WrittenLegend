@@ -34,16 +34,6 @@ namespace Game
         public RuleType Type { get; set; } = RuleType.Normal;
     }
 
-    public class BattlePhantomMsgEvent : SDD.Events.Event
-    {
-        public string Message { get; set; }
-    }
-
-    public class BattleHeroPhantomMsgEvent : SDD.Events.Event
-    {
-        public string Message { get; set; }
-    }
-
     public class SkillBookLearnEvent : SDD.Events.Event
     {
         public BoxItem BoxItem { get; set; }
@@ -248,6 +238,7 @@ namespace Game
 
     public class BattleLoseEvent : SDD.Events.Event
     {
+        public RuleType Type { get; set; }
         public long Time { get; set; }
     }
 

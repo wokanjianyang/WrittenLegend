@@ -79,6 +79,11 @@ namespace Game
         private int msgId = 0;
         private void OnBattleMsgEvent(BattleMsgEvent e)
         {
+            if (e.Type != RuleType.Normal)
+            {
+                return;
+            }
+
             msgId++;
             Text txt_msg = null;
             if (this.sr_BattleMsg.content.childCount > 50)

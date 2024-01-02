@@ -85,7 +85,10 @@ public class MapDefend : MonoBehaviour, IBattleLife
 
     private void OnBattleMsgEvent(BattleMsgEvent e)
     {
-
+        if (e.Type != RuleType.Defend)
+        {
+            return;
+        }
 
         msgId++;
         Text txt_msg = null;
@@ -114,7 +117,7 @@ public class MapDefend : MonoBehaviour, IBattleLife
 
     private void OnBattleLoseEvent(BattleLoseEvent e)
     {
-        if (e.Time == MapTime)
+        if (e.Time == MapTime && e.Type == RuleType.Defend)
         {
             this.Exit();
         }

@@ -12,9 +12,9 @@ public class BattleRule_Phantom : ABattleRule
     private int PhanId = 0;
     private int Layer = 0;
 
-    private const int MaxTime = 180*5;
+    private const int MaxTime = 180 * 5;
 
-    private int Time = 180*5;
+    private int Time = 180 * 5;
 
     private long MapTime = 0;
 
@@ -52,7 +52,7 @@ public class BattleRule_Phantom : ABattleRule
         var hero = GameProcessor.Inst.PlayerManager.GetHero();
         if (hero.HP <= 0)
         {
-            GameProcessor.Inst.EventCenter.Raise(new BattlePhantomMsgEvent() { Message = RealBoss.Name + "：你没有通过挑战！" });
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Phantom, Message = RealBoss.Name + "：你没有通过挑战！" });
             PhanStart = false;
         }
 
@@ -62,14 +62,14 @@ public class BattleRule_Phantom : ABattleRule
             RealBoss = new Monster_Phantom(PhanId, Layer, true, 10);  //刷新本体,10代表满血
             GameProcessor.Inst.PlayerManager.LoadMonster(RealBoss);
 
-            GameProcessor.Inst.EventCenter.Raise(new BattlePhantomMsgEvent() { Message = RealBoss.Name + "：勇士,你是要来挑战我吗?" });
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Phantom, Message = RealBoss.Name + "：勇士,你是要来挑战我吗?" });
         }
 
         if (RealBoss.HP <= 0 && Time > 0)
         {
             GameProcessor.Inst.User.PhantomRecord[PhanId] = Layer + 1;
 
-            GameProcessor.Inst.EventCenter.Raise(new BattlePhantomMsgEvent() { Message = RealBoss.Name + "：强大的勇士,您已经通过了考验！" });
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Phantom, Message = RealBoss.Name + "：强大的勇士,您已经通过了考验！" });
 
             GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
 
@@ -81,7 +81,7 @@ public class BattleRule_Phantom : ABattleRule
 
         if (Time <= 0)
         {
-            GameProcessor.Inst.EventCenter.Raise(new BattlePhantomMsgEvent() { Message = RealBoss.Name + "：你没有通过挑战..." });
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Phantom, Message = RealBoss.Name + "：你没有通过挑战..." });
             GameProcessor.Inst.HeroDie(RuleType.Phantom, MapTime);
             PhanStart = false;
             return;

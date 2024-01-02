@@ -4882,7 +4882,7 @@ GameObject:
   - component: {fileID: 2841246072015343806}
   - component: {fileID: 565321350}
   m_Layer: 5
-  m_Name: Window_EndlessTower
+  m_Name: Map_EquipCopy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

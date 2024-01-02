@@ -54,6 +54,8 @@ public class Com_AD : MonoBehaviour, IBattleLife
 
     private int CD_Time = 60;
 
+    public int Order => (int)ComponentOrder.Dialog;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,18 +63,6 @@ public class Com_AD : MonoBehaviour, IBattleLife
         Btn_Read2.onClick.AddListener(() => { ReadAd(2); });
         Btn_Read3.onClick.AddListener(() => { ReadAd(3); });
         Btn_Read4.onClick.AddListener(() => { ReadAd(4); });
-
-        User user = GameProcessor.Inst.User;
-
-        if (user.AdData.GetSkipCount() > 0)
-        {
-            toggle_Skip.gameObject.SetActive(true);
-            txt_Skip.gameObject.SetActive(true);
-        }
-        else {
-            toggle_Skip.gameObject.SetActive(false);
-            txt_Skip.gameObject.SetActive(false);
-        }
     }
 
     // Update is called once per frame
@@ -85,11 +75,8 @@ public class Com_AD : MonoBehaviour, IBattleLife
 
     public void OnBattleStart()
     {
-
-
     }
 
-    public int Order => (int)ComponentOrder.Dialog;
 
     public void Open()
     {
@@ -124,34 +111,43 @@ public class Com_AD : MonoBehaviour, IBattleLife
                     this.txt_Reward_Stone_Count.text = $"{data.CurrentShowCount}/{data.MaxShowCount}";
 
                     break;
-                case ADTypeEnum.ExpAdd:
-                    this.txt_Reward_Exp_Add.text = $"{data.CurrentShowCount}/{data.MaxShowCount}";
+                //case ADTypeEnum.ExpAdd:
+                //    this.txt_Reward_Exp_Add.text = $"{data.CurrentShowCount}/{data.MaxShowCount}";
 
-                    break;
-                case ADTypeEnum.ExpTime:
-                    this.txt_Reward_Exp_Time.text = $"{data.CurrentShowCount}/{data.MaxShowCount}";
+                //    break;
+                //case ADTypeEnum.ExpTime:
+                //    this.txt_Reward_Exp_Time.text = $"{data.CurrentShowCount}/{data.MaxShowCount}";
 
-                    break;
-                case ADTypeEnum.GoldAdd:
-                    this.txt_Reward_Gold_Add.text = $"{data.CurrentShowCount}/{data.MaxShowCount}";
+                //    break;
+                //case ADTypeEnum.GoldAdd:
+                //    this.txt_Reward_Gold_Add.text = $"{data.CurrentShowCount}/{data.MaxShowCount}";
 
-                    break;
-                case ADTypeEnum.GoldTime:
-                    this.txt_Reward_Gold_Time.text = $"{data.CurrentShowCount}/{data.MaxShowCount}";
+                //    break;
+                //case ADTypeEnum.GoldTime:
+                //    this.txt_Reward_Gold_Time.text = $"{data.CurrentShowCount}/{data.MaxShowCount}";
 
-                    break;
+                //    break;
                 case ADTypeEnum.ErrorCount:
                     this.txt_Error_Count.text = $"失败次数:{data.CurrentShowCount}/{data.MaxShowCount}";
                     break;
             }
         }
 
+        User user = GameProcessor.Inst.User;
+        int skipCount = user.AdData.GetSkipCount();
+        txt_Skip.text = skipCount + "";
 
-    }
+        if (skipCount > 0)
+        {
+            toggle_Skip.gameObject.SetActive(true);
 
-    public void OnClick_Close()
-    {
-        this.gameObject.SetActive(false);
+            txt_Skip.gameObject.SetActive(true);
+        }
+        else
+        {
+            toggle_Skip.gameObject.SetActive(false);
+            txt_Skip.gameObject.SetActive(false);
+        }
     }
 
     private bool CheckErrorPlatform()
@@ -189,41 +185,14 @@ public class Com_AD : MonoBehaviour, IBattleLife
         return false;
     }
 
-    private void ReadAd(int type)
+    private bool CheckCount(int type)
     {
-        switch (type)
-        {
-            case 1:
-                OnClick_GoldCount();
-                break;
-            case 2:
-                OnClick_ExpCount();
-                break;
-            case 3:
-                OnClick_CopyTicketCount();
-                break;
-            case 4:
-                OnClick_StoneCount();
-                break;
-            default:
-                break;
-        }
-    }
-
-    public void OnClick_GoldCount()
-    {
-        if (!CheckCd())
-        {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "广告CD间隔" + CD_Time + "S，请稍候", ToastType = ToastTypeEnum.Failure });
-            return;
-        }
-
-        var data = GameProcessor.Inst.User.ADShowData?.GetADShowStatus(ADTypeEnum.GoldCount);
+        var data = GameProcessor.Inst.User.ADShowData?.GetADShowStatus((ADTypeEnum)type);
         if (data == null)
         {
             GameProcessor.Inst.User.ADShowData.ADDatas.Add(new ADData()
             {
-                ADType = (int)ADTypeEnum.GoldCount,
+                ADType = type,
                 CurrentShowCount = 0,
                 MaxShowCount = 6
             });
@@ -232,6 +201,38 @@ public class Com_AD : MonoBehaviour, IBattleLife
         if (data.CurrentShowCount >= data.MaxShowCount)
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "广告次数已用尽，请观看其它广告或明日再来", ToastType = ToastTypeEnum.Failure });
+            return false;
+        }
+
+        return true;
+    }
+
+    private void ReadAd(int type)
+    {
+        //
+        if (!CheckCount(type))
+        {
+            return;
+        }
+
+        if (toggle_Skip.isOn)
+        {
+            User user = GameProcessor.Inst.User;
+            int skipCount = user.AdData.GetSkipCount();
+
+            if (skipCount > 0)
+            {
+                //使用跳过次数
+                user.AdData.Use();
+                RewardAd(type, true);
+                return;
+            }
+        }
+
+        //
+        if (!CheckCd())
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "广告CD间隔" + CD_Time + "S，请稍候", ToastType = ToastTypeEnum.Failure });
             return;
         }
 
@@ -239,37 +240,94 @@ public class Com_AD : MonoBehaviour, IBattleLife
         { //无法播放,直接给播白屏
             StartCoroutine(ShowFakeAD(() =>
             {
-                RewardExpAndGold(false);
-                data.CurrentShowCount++;
-                this.UpdateAdData();
+                RewardAd(type, false);
             }));
             return;
         }
 
-        GameProcessor.Inst.OnShowVideoAd("金币和经验收益2小时", "gold_count_2_hour", (code) =>
-         {
-             if (code == (int)AdStateEnum.Reward)
-             {
-                 this.txt_FakeAD.text += "获得奖励";
+        string des = "";
+        string action = "";
+        switch (type)
+        {
+            case 1:
+                des = "金币和经验收益2小时";
+                action = "gold_count_2_hour";
+                break;
+            case 2:
+                des = "BOSS挑战卷";
+                action = "exp_count_2_hour";
+                break;
+            case 3:
+                des = "副本挑战卷";
+                action = "ticket_count_8";
+                break;
+            case 4:
+                des = "精炼石";
+                action = "stone_count_100";
+                break;
+            default:
+                break;
+        }
 
-                 RewardExpAndGold(true);
-                 data.CurrentShowCount += 2;
-                 this.UpdateAdData();
-                 GameProcessor.Inst.User.AdLastTime = TimeHelper.ClientNowSeconds();
-             }
-             else if (code == (int)AdStateEnum.NotSupport || code == (int)AdStateEnum.LoadFail)
-             {
-                 var errorData = GameProcessor.Inst.User.ADShowData?.GetADShowStatus(ADTypeEnum.ErrorCount);
-                 errorData.CurrentShowCount++;
-                 this.UpdateAdData();
-                 GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "广告加载失败,请稍候再试", ToastType = ToastTypeEnum.Failure });
-             }
-             else
-             {
-                 //取消的,不处理
-             }
-         });
+        GameProcessor.Inst.OnShowVideoAd(des, action, (code) =>
+        {
+            if (code == (int)AdStateEnum.Reward)
+            {
+                this.txt_FakeAD.text += "获得奖励";
+
+                RewardAd(type, true);
+
+                GameProcessor.Inst.User.AdLastTime = TimeHelper.ClientNowSeconds();
+            }
+            else if (code == (int)AdStateEnum.NotSupport || code == (int)AdStateEnum.LoadFail)
+            {
+                ErrorAd();
+            }
+            else
+            {
+                //取消的,不处理
+            }
+        });
     }
+
+
+    public void RewardAd(int type, bool real)
+    {
+        int rate = real ? 2 : 1;
+
+        var data = GameProcessor.Inst.User.ADShowData?.GetADShowStatus((ADTypeEnum)type);
+        data.CurrentShowCount += rate;
+
+        switch (type)
+        {
+            case 1:
+                RewardExpAndGold(real);
+                break;
+            case 2:
+                RewardCopyTicket(real);
+                break;
+            case 3:
+                RewardBossTicket(real);
+                break;
+            case 4:
+                RewardStone(real);
+                break;
+            default:
+                break;
+        }
+
+        this.UpdateAdData();
+    }
+
+    private void ErrorAd()
+    {
+        var errorData = GameProcessor.Inst.User.ADShowData?.GetADShowStatus(ADTypeEnum.ErrorCount);
+        errorData.CurrentShowCount++;
+        GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "广告加载失败,请稍候再试", ToastType = ToastTypeEnum.Failure });
+
+        this.UpdateAdData();
+    }
+
 
     private void RewardExpAndGold(bool real)  //看的真广告还是假广告
     {
@@ -304,64 +362,6 @@ public class Com_AD : MonoBehaviour, IBattleLife
         }
     }
 
-    public void OnClick_ExpCount()
-    {
-        if (!CheckCd())
-        {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "广告CD间隔" + CD_Time + "S，请稍候", ToastType = ToastTypeEnum.Failure });
-            return;
-        }
-
-        var data = GameProcessor.Inst.User.ADShowData?.GetADShowStatus(ADTypeEnum.ExpCount);
-        if (data == null)
-        {
-            GameProcessor.Inst.User.ADShowData.ADDatas.Add(new ADData()
-            {
-                ADType = (int)ADTypeEnum.ExpCount,
-                CurrentShowCount = 0,
-                MaxShowCount = 6
-            });
-        }
-
-        if (data.CurrentShowCount >= data.MaxShowCount)
-        {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "广告次数已用尽，请观看其它广告或明日再来", ToastType = ToastTypeEnum.Failure });
-            return;
-        }
-
-        if (CheckErrorPlatform())
-        { //无法播放,直接给播白屏
-            StartCoroutine(ShowFakeAD(() =>
-            {
-                RewardBossTicket(false);
-                data.CurrentShowCount++;
-                this.UpdateAdData();
-            }));
-            return;
-        }
-
-        GameProcessor.Inst.OnShowVideoAd("BOSS挑战卷", "exp_count_2_hour", (code) =>
-         {
-             if (code == (int)AdStateEnum.Reward)
-             {
-                 RewardBossTicket(true);
-                 data.CurrentShowCount += 2;
-                 this.UpdateAdData();
-                 GameProcessor.Inst.User.AdLastTime = TimeHelper.ClientNowSeconds();
-             }
-             else if (code == (int)AdStateEnum.NotSupport || code == (int)AdStateEnum.LoadFail)
-             {
-                 var errorData = GameProcessor.Inst.User.ADShowData?.GetADShowStatus(ADTypeEnum.ErrorCount);
-                 errorData.CurrentShowCount++;
-                 this.UpdateAdData();
-                 GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "广告加载失败,请稍候再试", ToastType = ToastTypeEnum.Failure });
-             }
-             else
-             {
-                 //取消的,不处理
-             }
-         });
-    }
     private void RewardBossTicket(bool real)
     {
         User user = GameProcessor.Inst.User;
@@ -399,66 +399,6 @@ public class Com_AD : MonoBehaviour, IBattleLife
         }
     }
 
-    public void OnClick_CopyTicketCount()
-    {
-        if (!CheckCd())
-        {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "广告CD间隔" + CD_Time + "S，请稍候", ToastType = ToastTypeEnum.Failure });
-            return;
-        }
-
-        var data = GameProcessor.Inst.User.ADShowData?.GetADShowStatus(ADTypeEnum.CopyTicketCount);
-        if (data == null)
-        {
-            GameProcessor.Inst.User.ADShowData.ADDatas.Add(new ADData()
-            {
-                ADType = (int)ADTypeEnum.CopyTicketCount,
-                CurrentShowCount = 0,
-                MaxShowCount = 6
-            });
-        }
-
-        if (data.CurrentShowCount >= data.MaxShowCount)
-        {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "广告次数已用尽，请观看其它广告或明日再来", ToastType = ToastTypeEnum.Failure });
-            return;
-        }
-
-        if (CheckErrorPlatform())
-        { //无法播放,直接给播白屏
-            StartCoroutine(ShowFakeAD(() =>
-            {
-                RewardCopyTicket(false);
-                data.CurrentShowCount++;
-                this.UpdateAdData();
-            }));
-            return;
-        }
-
-        GameProcessor.Inst.OnShowVideoAd("广告-副本挑战8次", "ticket_count_8", (code) =>
-        {
-            if (code == (int)AdStateEnum.Reward)
-            {
-                //发放奖励
-                RewardCopyTicket(true);
-                data.CurrentShowCount += 2;
-                this.UpdateAdData();
-                GameProcessor.Inst.User.AdLastTime = TimeHelper.ClientNowSeconds();
-            }
-            else if (code == (int)AdStateEnum.NotSupport || code == (int)AdStateEnum.LoadFail)
-            {
-                var errorData = GameProcessor.Inst.User.ADShowData?.GetADShowStatus(ADTypeEnum.ErrorCount);
-                errorData.CurrentShowCount++;
-                this.UpdateAdData();
-                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "广告加载失败,请稍候再试", ToastType = ToastTypeEnum.Failure });
-            }
-            else
-            {
-                //取消的,不处理
-            }
-        });
-    }
-
     private void RewardCopyTicket(bool real)
     {
         int rate = real ? 2 : 1;
@@ -481,64 +421,6 @@ public class Com_AD : MonoBehaviour, IBattleLife
         }
     }
 
-    public void OnClick_StoneCount()
-    {
-        if (!CheckCd())
-        {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "广告CD间隔" + CD_Time + "S，请稍候", ToastType = ToastTypeEnum.Failure });
-            return;
-        }
-
-        var data = GameProcessor.Inst.User.ADShowData?.GetADShowStatus(ADTypeEnum.StoneCount);
-        if (data == null)
-        {
-            GameProcessor.Inst.User.ADShowData.ADDatas.Add(new ADData()
-            {
-                ADType = (int)ADTypeEnum.StoneCount,
-                CurrentShowCount = 0,
-                MaxShowCount = 6
-            });
-        }
-
-        if (data.CurrentShowCount >= data.MaxShowCount)
-        {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "广告次数已用尽，请观看其它广告或明日再来", ToastType = ToastTypeEnum.Failure });
-            return;
-        }
-
-        if (CheckErrorPlatform())
-        { //无法播放,直接给播白屏
-            StartCoroutine(ShowFakeAD(() =>
-            {
-                RewardStone(false);
-                data.CurrentShowCount++;
-                this.UpdateAdData();
-                GameProcessor.Inst.User.AdLastTime = TimeHelper.ClientNowSeconds();
-            }));
-            return;
-        }
-
-        GameProcessor.Inst.OnShowVideoAd("精炼石", "stone_count_100", (code) =>
-         {
-             if (code == (int)AdStateEnum.Reward)
-             {
-                 RewardStone(true);
-                 data.CurrentShowCount += 2;
-                 this.UpdateAdData();
-             }
-             else if (code == (int)AdStateEnum.NotSupport || code == (int)AdStateEnum.LoadFail)
-             {
-                 var errorData = GameProcessor.Inst.User.ADShowData?.GetADShowStatus(ADTypeEnum.ErrorCount);
-                 errorData.CurrentShowCount++;
-                 this.UpdateAdData();
-                 GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "广告加载失败,请稍候再试", ToastType = ToastTypeEnum.Failure });
-             }
-             else
-             {
-                 //取消的,不处理
-             }
-         });
-    }
     private void RewardStone(bool real)
     {
         int rate = real ? 2 : 1;
@@ -579,35 +461,6 @@ public class Com_AD : MonoBehaviour, IBattleLife
         }
     }
 
-    public void OnClick_ExpAdd()
-    {
-        GameProcessor.Inst.OnShowVideoAd("经验加成", "exp_add_percent", (code) =>
-         {
-             if (code > 0)
-             {
-                 //发放奖励
-             }
-             else
-             {
-                 //不发奖励
-             }
-         });
-    }
-    public void OnClick_GoldAdd()
-    {
-        GameProcessor.Inst.OnShowVideoAd("金币加成", "gold_add_percent", (code) =>
-         {
-             if (code > 0)
-             {
-                 //发放奖励
-             }
-             else
-             {
-                 //不发奖励
-             }
-         });
-    }
-
     private IEnumerator ShowFakeAD(Action endCallback)
     {
         this.tran_FakeAD.gameObject.SetActive(true);
@@ -620,5 +473,10 @@ public class Com_AD : MonoBehaviour, IBattleLife
         this.tran_FakeAD.gameObject.SetActive(false);
 
         endCallback?.Invoke();
+    }
+
+    public void OnClick_Close()
+    {
+        this.gameObject.SetActive(false);
     }
 }
