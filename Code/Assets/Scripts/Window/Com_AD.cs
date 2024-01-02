@@ -295,25 +295,47 @@ public class Com_AD : MonoBehaviour, IBattleLife
     {
         int rate = real ? 2 : 1;
 
-        var data = GameProcessor.Inst.User.ADShowData?.GetADShowStatus((ADTypeEnum)type);
+        User user = GameProcessor.Inst.User;
+
+        var data = user.ADShowData?.GetADShowStatus((ADTypeEnum)type);
+
+        if (data.CurrentShowCount >= data.MaxShowCount)
+        {
+            return;
+        }
+
         data.CurrentShowCount += rate;
+
+        if (!user.Record.Check())
+        {
+            return;
+        }
 
         switch (type)
         {
             case 1:
-                RewardExpAndGold(real);
+                RewardExpAndGold(rate);
                 break;
             case 2:
-                RewardCopyTicket(real);
+                RewardBossTicket(rate);
                 break;
             case 3:
-                RewardBossTicket(real);
+                RewardCopyTicket(rate);
                 break;
             case 4:
-                RewardStone(real);
+                RewardStone(rate);
                 break;
             default:
                 break;
+        }
+
+        if (real)
+        {
+            user.Record.AddRecord(RecordType.AdReal, 1);
+        }
+        else
+        {
+            user.Record.AddRecord(RecordType.AdVirtual, 1);
         }
 
         this.UpdateAdData();
@@ -329,14 +351,13 @@ public class Com_AD : MonoBehaviour, IBattleLife
     }
 
 
-    private void RewardExpAndGold(bool real)  //看的真广告还是假广告
+    private void RewardExpAndGold(int rate)  //看的真广告还是假广告
     {
         User user = GameProcessor.Inst.User;
 
         //发放奖励
         long gold = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondGold);
         long exp = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp);
-        int rate = real ? 2 : 1;
 
         gold = gold * 2160 * rate; //3小时/5 = 2160
         exp = exp * 2160 * rate; //3小时/5 = 2160
@@ -346,28 +367,11 @@ public class Com_AD : MonoBehaviour, IBattleLife
         {
             Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励", exp, gold, null)
         });
-
-        if (!user.Record.Check())
-        {
-            return;
-        }
-
-        if (real)
-        {
-            user.Record.AddRecord(RecordType.AdReal, 1);
-        }
-        else
-        {
-            user.Record.AddRecord(RecordType.AdVirtual, 1);
-        }
     }
 
-    private void RewardBossTicket(bool real)
+    private void RewardBossTicket(int rate)
     {
         User user = GameProcessor.Inst.User;
-        //发放奖励
-        int rate = real ? 2 : 1;
-
 
         Item item = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, rate * 4);
 
@@ -383,48 +387,21 @@ public class Com_AD : MonoBehaviour, IBattleLife
         {
             Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励", 0, 0, items)
         });
-
-        if (!user.Record.Check())
-        {
-            return;
-        }
-
-        if (real)
-        {
-            user.Record.AddRecord(RecordType.AdReal, 1);
-        }
-        else
-        {
-            user.Record.AddRecord(RecordType.AdVirtual, 1);
-        }
     }
 
-    private void RewardCopyTicket(bool real)
+    private void RewardCopyTicket(int rate)
     {
-        int rate = real ? 2 : 1;
-
         User user = GameProcessor.Inst.User;
         user.MagicCopyTikerCount.Data += 8 * rate;
 
-        if (!user.Record.Check())
+        GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
         {
-            return;
-        }
-
-        if (real)
-        {
-            user.Record.AddRecord(RecordType.AdReal, 1);
-        }
-        else
-        {
-            user.Record.AddRecord(RecordType.AdVirtual, 1);
-        }
+            Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励-副本次数:" + (8 * rate) + "次", 0, 0, null)
+        });
     }
 
-    private void RewardStone(bool real)
+    private void RewardStone(int rate)
     {
-        int rate = real ? 2 : 1;
-
         User user = GameProcessor.Inst.User;
 
         int MapNo = (user.MapId - ConfigHelper.MapStartId + 1);
@@ -445,20 +422,6 @@ public class Com_AD : MonoBehaviour, IBattleLife
         {
             Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励", 0, 0, items)
         });
-
-        if (!user.Record.Check())
-        {
-            return;
-        }
-
-        if (real)
-        {
-            user.Record.AddRecord(RecordType.AdReal, 1);
-        }
-        else
-        {
-            user.Record.AddRecord(RecordType.AdVirtual, 1);
-        }
     }
 
     private IEnumerator ShowFakeAD(Action endCallback)

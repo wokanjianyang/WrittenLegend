@@ -14,7 +14,7 @@ namespace Game
 
         private static int Total = 360;
 
-        Dictionary<string, AdRecord> CodeDict { get; } = new Dictionary<string, AdRecord>();
+        public Dictionary<string, AdRecord> CodeDict { get; } = new Dictionary<string, AdRecord>();
 
         public void SaveCode(string code)
         {
