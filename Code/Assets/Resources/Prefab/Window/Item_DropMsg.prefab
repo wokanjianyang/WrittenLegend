@@ -76,7 +76,7 @@ MonoBehaviour:
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 1
+    m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "<color=#D800FF>[\u725B\u9B54\u738B]<color=white>\u6B7B\u4EA1,\u7ECF\u9A8C\u589E\u52A0:5000,\u6389\u843D<color=#D800FF>[\u795E\u5723\u6CD5\u6756]<color=white>,<color=#76B0FF>[\u795E\u5723\u6CD5\u6756]"

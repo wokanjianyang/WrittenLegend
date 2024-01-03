@@ -53,5 +53,9 @@ namespace Game
         public MagicData Hp { get; set; } = new MagicData();
 
         public MagicData Count { get; set; } = new MagicData();
+
+        public Dictionary<int, int> BuffDict = new Dictionary<int, int>();
+
+
     }
 }

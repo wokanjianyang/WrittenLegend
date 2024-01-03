@@ -149,6 +149,11 @@ namespace Game
         public long PauseCount { get; set; }
     }
 
+    public class DefendBuffSelectEvent : SDD.Events.Event
+    {
+        public int Index { get; set; }
+    }
+
     public class DefendEndEvent : SDD.Events.Event
     {
 

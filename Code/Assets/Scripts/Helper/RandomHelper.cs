@@ -161,6 +161,14 @@ namespace Game
             return array[RandomNumber(0, array.Length)];
         }
 
+        public static List<T> RandomList<T>(List<T> list, int size) {
+            List<T> rs = new List<T>();
+
+   
+
+            return rs;
+        }
+
         public static int RandomArray_Len2(this int[] array)
         {
             return RandomHelper.RandomNumber(array[0], array[1]);

@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3479512820
+CRC: 2812764057
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: d12bd4006b5f5bdd786e33a4863b6b0e
+    Hash: 921fdd2726bf73fb5d4e8e4af6ddfba2
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -13,9 +13,10 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Resources/Config/SkillEffectConfigCategory.bytes
+- Assets/Resources/Config/DefendBuffConfigCategory.bytes
 - Assets/Resources/Config/EquipStrengthConfigCategory.bytes
 - Assets/Resources/Config/SkillSuitConfigCategory.bytes
+- Assets/Resources/Config/SkillEffectConfigCategory.bytes
 - Assets/Resources/Config/QualityConfigCategory.bytes
 - Assets/Resources/Config/LevelConfigCategory.bytes
 - Assets/Resources/Config/PhantomConfigCategory.bytes
