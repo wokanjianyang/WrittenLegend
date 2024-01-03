@@ -80,8 +80,8 @@ public class Dialog_Buff : MonoBehaviour, IBattleLife
 
         record.BuffDict[this.Progress] = selectList[SelectIndex].Id;
 
+        GameProcessor.Inst.UpdateInfo();
+
         this.gameObject.SetActive(false);
-
-
     }
 }

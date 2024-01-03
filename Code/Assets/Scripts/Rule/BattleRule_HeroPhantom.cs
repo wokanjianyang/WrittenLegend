@@ -29,7 +29,7 @@ public class BattleRule_HeroPhantom : ABattleRule
 
     private void LoadPhantom()
     {
-        GameProcessor.Inst.PlayerManager.LoadHeroPvp();
+        GameProcessor.Inst.PlayerManager.LoadHeroPvp(RuleType.HeroPhantom);
 
         this.PhantomPlayer = new HeroPhantom(Level);
         GameProcessor.Inst.PlayerManager.LoadHeroPhantom(this.PhantomPlayer);

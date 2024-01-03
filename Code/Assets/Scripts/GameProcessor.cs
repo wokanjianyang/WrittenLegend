@@ -454,7 +454,7 @@ namespace Game
 
             if (autoHero)
             {
-                this.PlayerManager.LoadHero();
+                this.PlayerManager.LoadHero(ruleType);
             }
 
             isLoadMap = true;

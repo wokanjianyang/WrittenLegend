@@ -40,9 +40,9 @@ namespace Game
             return hero;
         }
 
-        public void LoadHero()
+        public void LoadHero(RuleType ruleType)
         {
-            hero = new Hero(false);
+            hero = new Hero(ruleType);
 
             var coms = hero.Transform.GetComponents<MonoBehaviour>();
             foreach (var com in coms)
@@ -64,9 +64,9 @@ namespace Game
             this.AddPlayer(hero);
         }
 
-        public void LoadHeroPvp()
+        public void LoadHeroPvp(RuleType ruleType)
         {
-            hero = new Hero(true);
+            hero = new Hero(ruleType);
 
             var coms = hero.Transform.GetComponents<MonoBehaviour>();
             foreach (var com in coms)
