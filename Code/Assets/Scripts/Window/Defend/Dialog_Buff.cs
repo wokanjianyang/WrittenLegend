@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class Dialog_Buff : MonoBehaviour, IBattleLife
 {
     public List<Item_Buff> ItemList;
-
+    public Text Txt_Progress;
     public Button btn_Ok;
 
     private int Progress = 0;
@@ -48,27 +48,32 @@ public class Dialog_Buff : MonoBehaviour, IBattleLife
 
     private void OnShow(DefendBuffSelectEvent e)
     {
-        Debug.Log("DefendBuffSelectEvent");
+        //Debug.Log("DefendBuffSelectEvent");
 
-        this.Progress = e.Index;
-
-        User user = GameProcessor.Inst.User;
-
-        DefendRecord record = user.DefendData.GetCurrentRecord();
-
-        List<DefendBuffConfig> list = DefendBuffConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
-
-        selectList.Clear();
-        for (int i = 0; i < ItemList.Count; i++)
+        if (this.Progress < e.Index)
         {
-            int k = RandomHelper.RandomNumber(0, list.Count);
-            selectList.Add(list[k]);
-            list.RemoveAt(k);
-        }
+            this.Progress = e.Index;
 
-        for (int i = 0; i < ItemList.Count; i++)
-        {
-            ItemList[i].SetContent(selectList[i]);
+            this.Txt_Progress.text = "ÃüÔË" + this.Progress + "²ã";
+
+            User user = GameProcessor.Inst.User;
+
+            DefendRecord record = user.DefendData.GetCurrentRecord();
+
+            List<DefendBuffConfig> list = DefendBuffConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
+
+            selectList.Clear();
+            for (int i = 0; i < ItemList.Count; i++)
+            {
+                int k = RandomHelper.RandomNumber(0, list.Count);
+                selectList.Add(list[k]);
+                list.RemoveAt(k);
+            }
+
+            for (int i = 0; i < ItemList.Count; i++)
+            {
+                ItemList[i].SetContent(selectList[i]);
+            }
         }
 
         this.gameObject.SetActive(true);

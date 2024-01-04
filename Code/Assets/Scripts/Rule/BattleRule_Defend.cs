@@ -59,7 +59,8 @@ public class Battle_Defend : ABattleRule
 
         if (enemys.Count <= 0 && this.Progress <= MaxProgress && this.Start)
         {
-            int si = (int)(this.Progress - 1) / 10;
+            int si = (int)(this.Progress - 1) / 10 + 1;
+
             if (!GameProcessor.Inst.User.DefendData.GetCurrentRecord().BuffDict.ContainsKey(si))
             {
                 GameProcessor.Inst.EventCenter.Raise(new DefendBuffSelectEvent() { Index = si });
