@@ -430,7 +430,7 @@ namespace Game
             this.SetAttr();
         }
 
-        public List<SkillRune> GetRuneList(int skillId)
+        public List<SkillRune> GetRuneList(int skillId, List<SkillRuneConfig> buffList)
         {
             List<SkillRune> list = new List<SkillRune>();
 
@@ -438,6 +438,11 @@ namespace Game
             List<SkillRuneConfig> skillList = this.EquipPanelList[EquipPanelIndex].Where(m => m.Value.SkillRuneConfig != null && m.Value.SkillRuneConfig.SkillId == skillId).Select(m => m.Value.SkillRuneConfig).ToList();
 
             skillList.AddRange(this.ExclusivePanelList[ExclusiveIndex].Select(m => m.Value).Where(m => m.SkillRuneConfig != null && m.SkillRuneConfig.SkillId == skillId).Select(m => m.SkillRuneConfig).ToList());
+
+            if (buffList != null)
+            {
+                skillList.AddRange(buffList);
+            }
 
             //按单件分组,词条有堆叠上限
             var runeGroup = skillList.GroupBy(m => m.Id);

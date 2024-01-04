@@ -22,8 +22,6 @@ namespace Game
 
         private int RewarCount = 1;
 
-        RuleType RuleType = RuleType.Normal;
-
         public Boss(int bossId, int mapId, RuleType ruleType, int rewarCount, int modelId) : base()
         {
             this.BossId = bossId;

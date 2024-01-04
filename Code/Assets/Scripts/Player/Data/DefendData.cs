@@ -45,7 +45,43 @@ namespace Game
         {
             this.Current = null;
         }
+
+        public List<DefendBuffConfig> GetBuffList(DefendBuffType type)
+        {
+            List<DefendBuffConfig> list = new List<DefendBuffConfig>();
+
+            if (Current != null)
+            {
+                foreach (var kv in Current.BuffDict)
+                {
+                    DefendBuffConfig config = DefendBuffConfigCategory.Instance.Get(kv.Value);
+                    if (config.Type == (int)type)
+                    {
+                        list.Add(config);
+                    }
+                }
+            }
+            return list;
+        }
+
+        public List<SkillRuneConfig> GetBuffRuneList(int skillId)
+        {
+            List<SkillRuneConfig> list = new List<SkillRuneConfig>();
+
+            List<DefendBuffConfig> configs = GetBuffList(DefendBuffType.Rune);
+
+            foreach (DefendBuffConfig config in configs)
+            {
+                SkillRuneConfig runeConfig = SkillRuneConfigCategory.Instance.Get(config.RuneId);
+                if (runeConfig.SkillId == skillId)
+                {
+                    list.Add(runeConfig);
+                }
+            }
+            return list;
+        }
     }
+
     public class DefendRecord
     {
         public MagicData Progress { get; set; } = new MagicData();
@@ -55,7 +91,5 @@ namespace Game
         public MagicData Count { get; set; } = new MagicData();
 
         public Dictionary<int, int> BuffDict = new Dictionary<int, int>();
-
-
     }
 }

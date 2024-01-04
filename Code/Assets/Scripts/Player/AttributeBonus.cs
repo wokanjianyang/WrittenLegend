@@ -10,6 +10,8 @@ namespace Game
     {
         private Dictionary<AttributeEnum, Dictionary<int, double>> AllAttrDict = new Dictionary<AttributeEnum, Dictionary<int, double>>();
 
+        private Dictionary<AttributeEnum, List<DefendBuffConfig>> BuffDict = new Dictionary<AttributeEnum, List<DefendBuffConfig>>();
+
         public AttributeBonus()
         {
             foreach (AttributeEnum item in Enum.GetValues(typeof(AttributeEnum)))
@@ -17,6 +19,25 @@ namespace Game
                 AllAttrDict.Add(item, new Dictionary<int, double>());
             }
 
+        }
+
+        public void SetBuffList(List<DefendBuffConfig> list)
+        {
+            this.BuffDict.Clear();
+
+            foreach (DefendBuffConfig config in list)
+            {
+                AttributeEnum key = (AttributeEnum)config.AttrId;
+
+                BuffDict.TryGetValue(key, out List<DefendBuffConfig> attrList);
+                if (attrList == null)
+                {
+                    attrList = new List<DefendBuffConfig>();
+                    BuffDict[key] = attrList;
+                }
+
+                attrList.Add(config);
+            }
         }
 
         public void SetAttr(AttributeEnum attrType, AttributeFrom attrKey, double attrValue)
@@ -49,25 +70,42 @@ namespace Game
 
         public double GetTotalAttrDouble(AttributeEnum attrType)
         {
+            double total = 0;
+
             switch (attrType)
             {
                 case AttributeEnum.HP:
-                    return CalTotal(AttributeEnum.HP, AttributeEnum.HpIncrea);
+                    total = CalTotal(AttributeEnum.HP, AttributeEnum.HpIncrea);
+                    total = CalMulTotal(total, AttributeEnum.MulHp);
+                    break;
                 case AttributeEnum.PhyAtt:
-                    return CalTotal(AttributeEnum.PhyAtt, AttributeEnum.AttIncrea, AttributeEnum.PhyAttIncrea);
+                    total = CalTotal(AttributeEnum.PhyAtt, AttributeEnum.AttIncrea, AttributeEnum.PhyAttIncrea);
+                    total = CalMulTotal(total, AttributeEnum.MulAttr, AttributeEnum.MulAttrPhy);
+                    break;
                 case AttributeEnum.MagicAtt:
-                    return CalTotal(AttributeEnum.MagicAtt, AttributeEnum.AttIncrea, AttributeEnum.MagicAttIncrea);
+                    total = CalTotal(AttributeEnum.MagicAtt, AttributeEnum.AttIncrea, AttributeEnum.MagicAttIncrea);
+                    total = CalMulTotal(total, AttributeEnum.MulAttr, AttributeEnum.MulAttrMagic);
+                    break;
                 case AttributeEnum.SpiritAtt:
-                    return CalTotal(AttributeEnum.SpiritAtt, AttributeEnum.AttIncrea, AttributeEnum.SpiritAttIncrea);
+                    total = CalTotal(AttributeEnum.SpiritAtt, AttributeEnum.AttIncrea, AttributeEnum.SpiritAttIncrea);
+                    total = CalMulTotal(total, AttributeEnum.MulAttr, AttributeEnum.MulAttrSpirit);
+                    break;
                 case AttributeEnum.Def:
-                    return CalTotal(AttributeEnum.Def, AttributeEnum.DefIncrea);
+                    total = CalTotal(AttributeEnum.Def, AttributeEnum.DefIncrea);
+                    total = CalMulTotal(total, AttributeEnum.MulDef);
+                    break;
                 case AttributeEnum.SecondExp:
-                    return CalTotal(AttributeEnum.SecondExp, AttributeEnum.ExpIncrea);
+                    total = CalTotal(AttributeEnum.SecondExp, AttributeEnum.ExpIncrea);
+                    break;
                 case AttributeEnum.SecondGold:
-                    return CalTotal(AttributeEnum.SecondGold, AttributeEnum.GoldIncrea);
+                    total = CalTotal(AttributeEnum.SecondGold, AttributeEnum.GoldIncrea);
+                    break;
                 default:
-                    return CalTotal(attrType);
+                    total = CalTotal(attrType);
+                    break;
             }
+
+            return total;
         }
 
         public double GetAttackAttrDouble(AttributeEnum attrType)
@@ -131,6 +169,14 @@ namespace Game
                 total += hp;
             }
 
+            if (BuffDict.ContainsKey(type))
+            {
+                foreach (var item in BuffDict[type])
+                {
+                    total += item.AttrValue;
+                }
+            }
+
             double percent = 0;
 
             for (int i = 0; i < increaTypes.Length; i++)
@@ -140,21 +186,50 @@ namespace Game
                 {
                     percent += pc;
                 }
+
+                if (BuffDict.ContainsKey(percentType))
+                {
+                    foreach (var item in BuffDict[percentType])
+                    {
+                        percent += item.AttrValue;
+                    }
+                }
             }
 
-            return total * (100 + percent) / 100;
+            return total * (100.0 + percent) / 100.0;
         }
 
-        private double CalTotal(AttributeEnum type)
+        private double CalMulTotal(double total, params AttributeEnum[] mulTypes)
         {
-            double total = 0;
-
-            foreach (double attr in AllAttrDict[type].Values)
+            for (int i = 0; i < mulTypes.Length; i++)
             {
-                total += attr;
-            }
+                AttributeEnum percentType = mulTypes[i];
+                foreach (double pc in AllAttrDict[percentType].Values)
+                {
+                    total *= (100.0 + pc) / 100.0;
+                }
 
+                if (BuffDict.ContainsKey(percentType))
+                {
+                    foreach (var item in BuffDict[percentType])
+                    {
+                        total *= (100.0 + item.AttrValue) / 100.0;
+                    }
+                }
+            }
             return total;
         }
+
+        //private double CalTotal(AttributeEnum type)
+        //{
+        //    double total = 0;
+
+        //    foreach (double attr in AllAttrDict[type].Values)
+        //    {
+        //        total += attr;
+        //    }
+
+        //    return total;
+        //}
     }
 }

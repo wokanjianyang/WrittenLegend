@@ -202,7 +202,7 @@ namespace Game
 
             skill.MagicLevel.Data++;
 
-            SkillPanel skillPanel = new SkillPanel(skill, user.GetRuneList(skill.SkillId), user.GetSuitList(skill.SkillId), true);
+            SkillPanel skillPanel = new SkillPanel(skill, user.GetRuneList(skill.SkillId, null), user.GetSuitList(skill.SkillId), true);
             this.SetItem(skillPanel);
 
             GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()

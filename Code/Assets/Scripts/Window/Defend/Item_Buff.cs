@@ -22,8 +22,6 @@ namespace Game
 
         }
 
-
-
         public void SetContent(DefendBuffConfig config)
         {
             this.Config = config;

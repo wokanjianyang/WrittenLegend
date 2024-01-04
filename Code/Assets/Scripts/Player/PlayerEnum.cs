@@ -71,6 +71,13 @@ namespace Game
         PanelSpiritAtt = 1004, //面板道术
         PanelDef = 1005, //面板防御
         PanelAtt = 1006,//面板攻击
+
+        MulAttr = 2001,
+        MulDef = 2002,
+        MulHp = 2003,
+        MulAttrPhy = 2004,
+        MulAttrMagic = 2005,
+        MulAttrSpirit = 2006,
     }
 
     /// <summary>

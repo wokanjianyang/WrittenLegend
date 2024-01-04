@@ -12,12 +12,13 @@ namespace Game
         private SkillPanel SkillPanel { get; set; }
 
         private ValetModelConfig ModelConfig { get; set; }
+
         public Valet(APlayer player, SkillPanel skill) : base()
         {
             this.GroupId = player.GroupId;
             this.Master = player;
             this.SkillPanel = skill;
-            this.isPvp = player.isPvp;
+            this.RuleType = player.RuleType;
 
             this.Init();
         }
@@ -52,7 +53,7 @@ namespace Game
             //技能系数
             long baseAttr = roleAttr * (SkillPanel.Percent + Master.GetRolePercent(role) + InheritIncrea) / 100 + SkillPanel.Damage + Master.GetRoleDamage(role);  // *百分比系数 + 固定数值
 
-            double pr = isPvp ? ConfigHelper.ValetPvpRate : 1;
+            double pr = RuleType == RuleType.HeroPhantom ? ConfigHelper.PvpRate : 1;
 
             this.AttributeBonus = new AttributeBonus();
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, baseAttr * ModelConfig.HpRate * pr / 100);
@@ -96,8 +97,16 @@ namespace Game
 
                     if (skillData != null && Master.Camp == PlayerType.Hero)
                     {
-                        List<SkillRune> runeList = GameProcessor.Inst.User.GetRuneList(skillData.SkillId);
-                        List<SkillSuit> suitList = GameProcessor.Inst.User.GetSuitList(skillData.SkillId);
+                        User user = GameProcessor.Inst.User;
+
+                        List<SkillRuneConfig> buffRuneList = null;
+                        if (RuleType == RuleType.Defend)
+                        {
+                            buffRuneList = user.DefendData.GetBuffRuneList(skillData.SkillId);
+                        }
+
+                        List<SkillRune> runeList = user.GetRuneList(skillData.SkillId, buffRuneList);
+                        List<SkillSuit> suitList = user.GetSuitList(skillData.SkillId);
 
                         SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, false);
 

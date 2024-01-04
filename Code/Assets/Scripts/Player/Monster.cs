@@ -24,8 +24,6 @@ namespace Game
 
         private int RewardRate;
 
-        RuleType RuleType = RuleType.Normal;
-
         public Monster(int monsterId, int quality, int rewarRate, int modelId, RuleType ruleType) : base()
         {
             this.MonsterId = monsterId;

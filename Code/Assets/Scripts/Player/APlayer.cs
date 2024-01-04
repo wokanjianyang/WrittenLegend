@@ -13,7 +13,7 @@ namespace Game
     {
         public int ID { get; set; }
 
-        public bool isPvp = false;
+        public RuleType RuleType = RuleType.Normal;
         public string Name { get; set; }
 
         public long Level { get; set; }

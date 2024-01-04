@@ -13,8 +13,6 @@ namespace Game
 
         public List<SkillState> DoubleHitSkillList { get; set; } = new List<SkillState>();
 
-        private RuleType RuleType = RuleType.Normal;
-
         public Hero(RuleType ruleType) : base()
         {
             this.GroupId = 1;
@@ -68,6 +66,18 @@ namespace Game
         {
             this.AttributeBonus = new AttributeBonus();
 
+            //计算Buff
+            if (RuleType == RuleType.Defend)
+            {
+                List<DefendBuffConfig> buffList = user.DefendData.GetBuffList(DefendBuffType.Attr);
+
+                user.AttributeBonus.SetBuffList(buffList);
+            }
+            else
+            {
+                user.AttributeBonus.SetBuffList(new List<DefendBuffConfig>());
+            }
+
             //把用户面板属性，当做战斗的基本属性
 
             this.SetAttackSpeed((int)user.AttributeBonus.GetTotalAttr(AttributeEnum.Speed));
@@ -84,27 +94,6 @@ namespace Game
             double speed = user.AttributeBonus.GetTotalAttr(AttributeEnum.Speed);
             double damageIncrea = user.AttributeBonus.GetTotalAttr(AttributeEnum.DamageIncrea);
             double damageResist = user.AttributeBonus.GetTotalAttr(AttributeEnum.DamageResist);
-
-            //计算Buff
-            if (RuleType == RuleType.Defend)
-            {
-                DefendRecord record = user.DefendData.GetCurrentRecord();
-                if (record != null)
-                {
-                    foreach (var kp in record.BuffDict)
-                    {
-                        DefendBuffConfig config = DefendBuffConfigCategory.Instance.Get(kp.Value);
-                        if (config.Type == 1)
-                        {
-                            if (config.AttrId == (int)AttributeEnum.Speed)
-                            {
-
-                            }
-                        }
-                    }
-                }
-            }
-            //user.DefendData.Current.;
 
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, hp);
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroPanel, phyAttr);
@@ -148,15 +137,30 @@ namespace Game
         {
             SelectSkillList = new List<SkillState>();
 
-            //加载技能
             List<SkillData> list = user.GetCurrentSkill();
-            list.Add(new SkillData(9001, (int)SkillPosition.Default)); //增加默认技能
+            list.Add(new SkillData(9001, (int)SkillPosition.Default));
+
+            if (RuleType == RuleType.Defend)
+            {
+                List<DefendBuffConfig> buffList = user.DefendData.GetBuffList(DefendBuffType.Skill);
+                foreach (DefendBuffConfig config in buffList)
+                {
+                    list.Add(new SkillData(config.SkillId, (int)SkillPosition.Default));
+                }
+            }
 
             for (int i = 0; i < list.Count; i++)
             {
                 SkillData skillData = list[i];
 
-                List<SkillRune> runeList = user.GetRuneList(skillData.SkillId);
+                List<SkillRuneConfig> buffRuneList = null;
+                if (RuleType == RuleType.Defend)
+                {
+                    buffRuneList = user.DefendData.GetBuffRuneList(skillData.SkillId);
+                }
+
+                List<SkillRune> runeList = user.GetRuneList(skillData.SkillId, buffRuneList);
+
                 List<SkillSuit> suitList = user.GetSuitList(skillData.SkillId);
 
                 SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, true);
@@ -209,7 +213,7 @@ namespace Game
                         break;
                     }
 
-                    List<SkillRune> runeList = user.GetRuneList(skillData.SkillId);
+                    List<SkillRune> runeList = user.GetRuneList(skillData.SkillId, null);
                     List<SkillSuit> suitList = user.GetSuitList(skillData.SkillId);
 
                     SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, true);

@@ -18,7 +18,7 @@ namespace Game
         public HeroPhantom(int scale) : base()
         {
             this.GroupId = 2;
-            this.isPvp = true;
+            this.RuleType = RuleType.HeroPhantom;
 
             this.Scale = scale;
 
@@ -224,7 +224,7 @@ namespace Game
                         break;
                     }
 
-                    List<SkillRune> runeList = user.GetRuneList(skillData.SkillId);
+                    List<SkillRune> runeList = user.GetRuneList(skillData.SkillId, null);
                     List<SkillSuit> suitList = user.GetSuitList(skillData.SkillId);
 
                     SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, true);

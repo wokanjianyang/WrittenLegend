@@ -48,6 +48,8 @@ public class Dialog_Buff : MonoBehaviour, IBattleLife
 
     private void OnShow(DefendBuffSelectEvent e)
     {
+        Debug.Log("DefendBuffSelectEvent");
+
         this.Progress = e.Index;
 
         User user = GameProcessor.Inst.User;
@@ -80,7 +82,14 @@ public class Dialog_Buff : MonoBehaviour, IBattleLife
 
         record.BuffDict[this.Progress] = selectList[SelectIndex].Id;
 
-        GameProcessor.Inst.UpdateInfo();
+        if (selectList[SelectIndex].Type == 1)
+        {
+            GameProcessor.Inst.UpdateInfo();
+        }
+        else
+        {
+            GameProcessor.Inst.User.EventCenter.Raise(new HeroUpdateSkillEvent());
+        }
 
         this.gameObject.SetActive(false);
     }
