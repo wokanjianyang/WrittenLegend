@@ -24,7 +24,8 @@ public class Monster_Tower : APlayer
         {
             isSepecialEquip = true;
         }
-        else if (floor % 30 == 0) {
+        else if (floor % 30 == 0)
+        {
             isEquip = true;
         }
 
@@ -82,7 +83,8 @@ public class Monster_Tower : APlayer
         {
             list.Add(new SkillData(12002, 2)); //增加怪物雷电术
         }
-        else if (isSepecialEquip) {
+        else if (isSepecialEquip)
+        {
             list.Add(new SkillData(11002, 1)); //怪物刺杀
         }
 
@@ -121,7 +123,8 @@ public class Monster_Tower : APlayer
         //回满当前血量
         SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
 
-        if (Floor % 30 == 0) { //每30层,掉落装备一件(),每1000层一件4件套
+        if (Floor % 30 == 0)
+        { //每30层,掉落装备一件(),每1000层一件4件套
 
         }
     }

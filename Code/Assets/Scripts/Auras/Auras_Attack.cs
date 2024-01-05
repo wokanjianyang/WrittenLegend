@@ -18,7 +18,7 @@ namespace Game
         {
             List<APlayer> enemys = GameProcessor.Inst.PlayerManager.GetAllPlayers().Where(m => m.GroupId != this.SelfPlayer.GroupId).ToList();
 
-            long damage = this.SelfPlayer.GetRoleAttack(1) + this.SelfPlayer.GetRoleAttack(2) + this.SelfPlayer.GetRoleAttack(3);
+            double damage = this.SelfPlayer.GetRoleAttack(1, true) + this.SelfPlayer.GetRoleAttack(2, true) + this.SelfPlayer.GetRoleAttack(3, true);
             damage = damage * Config.AttrValue / 100;
 
             foreach (var enemy in enemys)

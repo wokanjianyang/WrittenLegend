@@ -64,7 +64,8 @@ namespace Game
             List<SkillData> list = new List<SkillData>();
             list.Add(new SkillData(9001, (int)SkillPosition.Default)); //增加默认技能
 
-            if (Quality >= 5) {
+            if (Quality >= 5)
+            {
                 //random model
                 List<PlayerModel> models = PlayerModelCategory.Instance.GetAll().Select(m => m.Value).ToList();
                 int index = RandomHelper.RandomNumber(0, models.Count);

@@ -65,77 +65,48 @@ namespace Game
 
         public long GetAttackAttr(AttributeEnum attrType)
         {
-            return (long)GetAttackAttrDouble(attrType);
+            return (long)GetTotalAttrDouble(attrType);
         }
 
         public double GetTotalAttrDouble(AttributeEnum attrType)
         {
-            double total = 0;
-
-            switch (attrType)
-            {
-                case AttributeEnum.HP:
-                    total = CalTotal(AttributeEnum.HP, AttributeEnum.HpIncrea);
-                    total = CalMulTotal(total, AttributeEnum.MulHp);
-                    break;
-                case AttributeEnum.PhyAtt:
-                    total = CalTotal(AttributeEnum.PhyAtt, AttributeEnum.AttIncrea, AttributeEnum.PhyAttIncrea);
-                    total = CalMulTotal(total, AttributeEnum.MulAttr, AttributeEnum.MulAttrPhy);
-                    break;
-                case AttributeEnum.MagicAtt:
-                    total = CalTotal(AttributeEnum.MagicAtt, AttributeEnum.AttIncrea, AttributeEnum.MagicAttIncrea);
-                    total = CalMulTotal(total, AttributeEnum.MulAttr, AttributeEnum.MulAttrMagic);
-                    break;
-                case AttributeEnum.SpiritAtt:
-                    total = CalTotal(AttributeEnum.SpiritAtt, AttributeEnum.AttIncrea, AttributeEnum.SpiritAttIncrea);
-                    total = CalMulTotal(total, AttributeEnum.MulAttr, AttributeEnum.MulAttrSpirit);
-                    break;
-                case AttributeEnum.Def:
-                    total = CalTotal(AttributeEnum.Def, AttributeEnum.DefIncrea);
-                    total = CalMulTotal(total, AttributeEnum.MulDef);
-                    break;
-                case AttributeEnum.SecondExp:
-                    total = CalTotal(AttributeEnum.SecondExp, AttributeEnum.ExpIncrea);
-                    break;
-                case AttributeEnum.SecondGold:
-                    total = CalTotal(AttributeEnum.SecondGold, AttributeEnum.GoldIncrea);
-                    break;
-                default:
-                    total = CalTotal(attrType);
-                    break;
-            }
-
-            return total;
+            return GetTotalAttrDouble(attrType, true);
         }
 
-        public double GetAttackAttrDouble(AttributeEnum attrType)
+        public double GetTotalAttrDouble(AttributeEnum attrType, bool haveBuff)
         {
             double total = 0;
+
             switch (attrType)
             {
                 case AttributeEnum.HP:
-                    total = CalTotal(AttributeEnum.HP, AttributeEnum.HpIncrea) * (CalTotal(AttributeEnum.PanelHp) + 100) / 100;
+                    total = CalTotal(AttributeEnum.HP, haveBuff, AttributeEnum.HpIncrea) * (CalTotal(AttributeEnum.PanelHp, haveBuff) + 100) / 100;
+                    total = CalMulTotal(total, haveBuff, AttributeEnum.MulHp);
                     break;
                 case AttributeEnum.PhyAtt:
-                    total = CalTotal(AttributeEnum.PhyAtt, AttributeEnum.AttIncrea, AttributeEnum.PhyAttIncrea) * (CalTotal(AttributeEnum.PanelPhyAtt) + 100) / 100;
+                    total = CalTotal(AttributeEnum.PhyAtt, haveBuff, AttributeEnum.AttIncrea, AttributeEnum.PhyAttIncrea) * (CalTotal(AttributeEnum.PanelPhyAtt, haveBuff) + 100) / 100;
+                    total = CalMulTotal(total, haveBuff, AttributeEnum.MulAttr, AttributeEnum.MulAttrPhy);
                     break;
                 case AttributeEnum.MagicAtt:
-                    total = CalTotal(AttributeEnum.MagicAtt, AttributeEnum.AttIncrea, AttributeEnum.MagicAttIncrea) * (CalTotal(AttributeEnum.PanelMagicAtt) + 100) / 100;
+                    total = CalTotal(AttributeEnum.MagicAtt, haveBuff, AttributeEnum.AttIncrea, AttributeEnum.MagicAttIncrea) * (CalTotal(AttributeEnum.PanelMagicAtt, haveBuff) + 100) / 100;
+                    total = CalMulTotal(total, haveBuff, AttributeEnum.MulAttr, AttributeEnum.MulAttrMagic);
                     break;
                 case AttributeEnum.SpiritAtt:
-                    total = CalTotal(AttributeEnum.SpiritAtt, AttributeEnum.AttIncrea, AttributeEnum.SpiritAttIncrea) * (CalTotal(AttributeEnum.PanelSpiritAtt) + 100) / 100;
+                    total = CalTotal(AttributeEnum.SpiritAtt, haveBuff, AttributeEnum.AttIncrea, AttributeEnum.SpiritAttIncrea) * (CalTotal(AttributeEnum.PanelSpiritAtt, haveBuff) + 100) / 100;
+                    total = CalMulTotal(total, haveBuff, AttributeEnum.MulAttr, AttributeEnum.MulAttrSpirit);
                     break;
                 case AttributeEnum.Def:
-                    total = CalTotal(AttributeEnum.Def, AttributeEnum.DefIncrea) * (CalTotal(AttributeEnum.PanelDef) + 100) / 100;
+                    total = CalTotal(AttributeEnum.Def, haveBuff, AttributeEnum.DefIncrea) * (CalTotal(AttributeEnum.PanelDef, haveBuff) + 100) / 100;
+                    total = CalMulTotal(total, haveBuff, AttributeEnum.MulDef);
                     break;
                 case AttributeEnum.SecondExp:
-                    total = CalTotal(AttributeEnum.SecondExp, AttributeEnum.ExpIncrea);
+                    total = CalTotal(AttributeEnum.SecondExp, haveBuff, AttributeEnum.ExpIncrea);
                     break;
                 case AttributeEnum.SecondGold:
-                    total = CalTotal(AttributeEnum.SecondGold, AttributeEnum.GoldIncrea);
+                    total = CalTotal(AttributeEnum.SecondGold, haveBuff, AttributeEnum.GoldIncrea);
                     break;
                 default:
-                    total = CalTotal(attrType);
+                    total = CalTotal(attrType, haveBuff);
                     break;
             }
 
@@ -160,7 +131,7 @@ namespace Game
             return StringHelper.FormatNumber(power);
         }
 
-        private double CalTotal(AttributeEnum type, params AttributeEnum[] increaTypes)
+        private double CalTotal(AttributeEnum type, bool haveBuff, params AttributeEnum[] increaTypes)
         {
             double total = 0;
 
@@ -169,7 +140,7 @@ namespace Game
                 total += hp;
             }
 
-            if (BuffDict.ContainsKey(type))
+            if (haveBuff && BuffDict.ContainsKey(type))
             {
                 foreach (var item in BuffDict[type])
                 {
@@ -187,7 +158,7 @@ namespace Game
                     percent += pc;
                 }
 
-                if (BuffDict.ContainsKey(percentType))
+                if (haveBuff && BuffDict.ContainsKey(percentType))
                 {
                     foreach (var item in BuffDict[percentType])
                     {
@@ -199,7 +170,7 @@ namespace Game
             return total * (100.0 + percent) / 100.0;
         }
 
-        private double CalMulTotal(double total, params AttributeEnum[] mulTypes)
+        private double CalMulTotal(double total, bool haveBuff, params AttributeEnum[] mulTypes)
         {
             for (int i = 0; i < mulTypes.Length; i++)
             {
@@ -209,7 +180,7 @@ namespace Game
                     total *= (100.0 + pc) / 100.0;
                 }
 
-                if (BuffDict.ContainsKey(percentType))
+                if (haveBuff && BuffDict.ContainsKey(percentType))
                 {
                     foreach (var item in BuffDict[percentType])
                     {
@@ -219,17 +190,5 @@ namespace Game
             }
             return total;
         }
-
-        //private double CalTotal(AttributeEnum type)
-        //{
-        //    double total = 0;
-
-        //    foreach (double attr in AllAttrDict[type].Values)
-        //    {
-        //        total += attr;
-        //    }
-
-        //    return total;
-        //}
     }
 }

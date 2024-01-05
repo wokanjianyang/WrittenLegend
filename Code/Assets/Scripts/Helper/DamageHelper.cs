@@ -12,7 +12,7 @@ namespace Game
 
             int role = skill.SkillData.SkillConfig.Role;
 
-            double roleAttr = GetRoleAttack(attcher, role) * (100 + skill.AttrIncrea + attcher.GetAttackAttr(AttributeEnum.AurasAttrIncrea)) / 100;  //职业攻击
+            double roleAttr = GetRoleAttack(attcher, role, true) * (100 + skill.AttrIncrea + attcher.GetAttackAttr(AttributeEnum.AurasAttrIncrea)) / 100;  //职业攻击
 
             //防御 = 目标防御 * (100-无视防御)/100
             double def = enemy.GetAttackAttr(AttributeEnum.Def) + attcher.GetAttackAttr(AttributeEnum.DefIgnore);
@@ -71,8 +71,8 @@ namespace Game
 
         public static bool IsMiss(APlayer self, APlayer enemy)
         {
-            double accuracy = self.AttributeBonus.GetAttackAttrDouble(AttributeEnum.Accuracy);
-            double miss = enemy.AttributeBonus.GetAttackAttrDouble(AttributeEnum.Miss);
+            double accuracy = self.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Accuracy);
+            double miss = enemy.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Miss);
 
             double rate = 100 + accuracy - miss;
 
@@ -108,24 +108,24 @@ namespace Game
             return attack;
         }
 
-        public static long GetRoleAttack(AttributeBonus attributeBonus, int role)
+        public static double GetRoleAttack(AttributeBonus attributeBonus, int role, bool haveBuff)
         {
-            long attack = 0;
+            double attack = 0;
             switch (role)
             {
                 case (int)RoleType.Warrior:
                     {
-                        attack = attributeBonus.GetAttackAttr(AttributeEnum.PhyAtt);
+                        attack = attributeBonus.GetTotalAttrDouble(AttributeEnum.PhyAtt, haveBuff);
                         break;
                     }
                 case (int)RoleType.Mage:
                     {
-                        attack = attributeBonus.GetAttackAttr(AttributeEnum.MagicAtt);
+                        attack = attributeBonus.GetTotalAttrDouble(AttributeEnum.MagicAtt, haveBuff);
                         break;
                     }
                 case (int)RoleType.Warlock:
                     {
-                        attack = attributeBonus.GetAttackAttr(AttributeEnum.SpiritAtt);
+                        attack = attributeBonus.GetTotalAttrDouble(AttributeEnum.SpiritAtt, haveBuff);
                         break;
                     }
             }
