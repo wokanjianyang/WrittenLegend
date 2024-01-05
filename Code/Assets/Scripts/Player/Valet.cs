@@ -21,6 +21,10 @@ namespace Game
             this.RuleType = player.RuleType;
 
             this.Init();
+
+            User user = GameProcessor.Inst.User;
+
+            user.EventCenter.AddListener<HeroUpdateSkillEvent>(OnHeroUpdateAllSkillEvent);
         }
 
         private void Init()
@@ -125,6 +129,11 @@ namespace Game
                     }
                 }
             }
+        }
+
+        private void OnHeroUpdateAllSkillEvent(HeroUpdateSkillEvent e)
+        {
+            this.SetSkill();
         }
 
         //public override APlayer CalcEnemy()

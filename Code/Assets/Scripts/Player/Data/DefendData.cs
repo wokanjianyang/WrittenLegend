@@ -64,6 +64,24 @@ namespace Game
             return list;
         }
 
+        public List<int> GetExcludeList()
+        {
+            List<int> list = new List<int>();
+
+            if (Current != null)
+            {
+                foreach (var kv in Current.BuffDict)
+                {
+                    DefendBuffConfig config = DefendBuffConfigCategory.Instance.Get(kv.Value);
+                    if (config.Type != (int)DefendBuffType.Attr)
+                    {
+                        list.Add(config.Id);
+                    }
+                }
+            }
+            return list;
+        }
+
         public List<SkillRuneConfig> GetBuffRuneList(int skillId)
         {
             List<SkillRuneConfig> list = new List<SkillRuneConfig>();

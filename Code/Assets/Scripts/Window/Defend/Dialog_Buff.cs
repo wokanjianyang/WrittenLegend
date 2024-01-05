@@ -52,15 +52,20 @@ public class Dialog_Buff : MonoBehaviour, IBattleLife
 
         if (this.Progress < e.Index)
         {
-            this.Progress = e.Index;
+            User user = GameProcessor.Inst.User;
+            //auto select pre
+            DefendRecord record = user.DefendData.GetCurrentRecord();
+            if (!record.BuffDict.ContainsKey(this.Progress))
+            {
+                record.BuffDict[this.Progress] = selectList[SelectIndex].Id;
+            }
 
+            this.Progress = e.Index;
             this.Txt_Progress.text = "ÃüÔË" + this.Progress + "²ã";
 
-            User user = GameProcessor.Inst.User;
+            List<int> excludeList = user.DefendData.GetExcludeList();
 
-            DefendRecord record = user.DefendData.GetCurrentRecord();
-
-            List<DefendBuffConfig> list = DefendBuffConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
+            List<DefendBuffConfig> list = DefendBuffConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => !excludeList.Contains(m.Id)).ToList();
 
             selectList.Clear();
             for (int i = 0; i < ItemList.Count; i++)
