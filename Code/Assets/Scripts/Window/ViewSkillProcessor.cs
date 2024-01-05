@@ -51,7 +51,7 @@ namespace Game
             user.EventCenter.AddListener<SkillChangePlanEvent>(OnSkillChangePlan);
 
 
-            bookPrefab = Resources.Load<GameObject>("Prefab/Window/Item_Skill");
+            bookPrefab = Resources.Load<GameObject>("Prefab/Window/Item/Item_Skill");
 
             this.AllEquipSkills = this.tran_EquipSkills.GetComponentsInChildren<Com_Skill>();
 

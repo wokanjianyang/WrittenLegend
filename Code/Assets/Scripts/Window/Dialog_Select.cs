@@ -44,7 +44,7 @@ namespace Game
             ItemList.Clear();
 
             GiftPackConfig config = GiftPackConfigCategory.Instance.Get(this.ConfigId);
-            var pref = Resources.Load<GameObject>("Prefab/Window/Select_Item");
+            var pref = Resources.Load<GameObject>("Prefab/Window/Item/Select_Item");
 
             for (int i = 0; i < config.ItemIdList.Length; i++)
             {

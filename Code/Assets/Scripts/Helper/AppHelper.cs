@@ -8,6 +8,8 @@ namespace Game
 {
     public static class AppHelper
     {
+        public static int DefendLevel = 0;
+
         public static string getKey()
         {
 #if UNITY_EDITOR

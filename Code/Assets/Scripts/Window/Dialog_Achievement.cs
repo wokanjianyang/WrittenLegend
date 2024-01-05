@@ -39,7 +39,7 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<ShowAchievementEvent>(this.OnShowAchievement);
             GameProcessor.Inst.EventCenter.AddListener<ActiveAchievementEvent>(OnActiveAchievement);
 
-            ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Item_Achievement");
+            ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Item/Item_Achievement");
 
             Init();
         }

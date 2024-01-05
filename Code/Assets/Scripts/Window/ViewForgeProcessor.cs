@@ -281,7 +281,7 @@ public class ViewForgeProcessor : AViewPage
 
         var firstCompositeList = this.allCompositeDatas.First().Value;
 
-        var compositeItemPrefab = Resources.Load<GameObject>("Prefab/Window/Item_Composite");
+        var compositeItemPrefab = Resources.Load<GameObject>("Prefab/Window/Item/Item_Composite");
         foreach (var config in firstCompositeList)
         {
             var compositeItem = GameObject.Instantiate(compositeItemPrefab);

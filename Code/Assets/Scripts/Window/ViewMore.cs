@@ -29,12 +29,19 @@ namespace Game
         {
             base.OnBattleStart();
 
+            GameProcessor.Inst.EventCenter.AddListener<CloseViewMoreEvent>(this.OnClose);
 
             GameProcessor.Inst.EventCenter.AddListener<EndCopyEvent>(this.OnEndCopy);
             GameProcessor.Inst.EventCenter.AddListener<PhantomEndEvent>(this.OnPhantomEnd);
             GameProcessor.Inst.EventCenter.AddListener<CopyViewCloseEvent>(this.OnCopyViewClose);
             GameProcessor.Inst.EventCenter.AddListener<BossFamilyEndEvent>(this.OnBossFamilyEnd);
+
             GameProcessor.Inst.EventCenter.AddListener<DefendEndEvent>(this.OnDefendEnd);
+        }
+
+        public void OnClose(CloseViewMoreEvent e)
+        {
+            scrollRect.gameObject.SetActive(false);
         }
 
         public void SelectMap(int mapId, int rate)
@@ -113,11 +120,11 @@ namespace Game
             GameProcessor.Inst.EventCenter.Raise(new AnDianStartEvent() { });
         }
 
-        public void StartDefend()
+        public void StartDefend(int level)
         {
             scrollRect.gameObject.SetActive(false);
 
-            GameProcessor.Inst.EventCenter.Raise(new DefendStartEvent() { });
+            GameProcessor.Inst.EventCenter.Raise(new DefendStartEvent());
         }
 
         public void StartHeroPhantom()

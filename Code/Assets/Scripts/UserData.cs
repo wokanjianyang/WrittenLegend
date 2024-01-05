@@ -99,15 +99,27 @@ namespace Game
             if (user.DefendData == null)
             {
                 user.DefendData = new DefendData();
-                user.DefendData.Count.Data = 1;
             }
+            if (!user.DefendData.CountDict.ContainsKey(1))
+            {
+                MagicData data = new MagicData();
+                data.Data = 1;
+                user.DefendData.CountDict[1] = data;
+            }
+            if (!user.DefendData.CountDict.ContainsKey(2))
+            {
+                MagicData data = new MagicData();
+                data.Data = 1;
+                user.DefendData.CountDict[2] = data;
+            }
+
             if (user.HeroPhatomData == null)
             {
                 user.HeroPhatomData = new HeroPhatomData();
                 user.HeroPhatomData.Count.Data = 1;
             }
 
-            user.DefendData.Count.Data = 10;
+            //user.DefendData.Count.Data = 10;
             //user.HeroPhatomData = new HeroPhatomData();
             //user.HeroPhatomData.Count.Data = 1;
             //TEST data

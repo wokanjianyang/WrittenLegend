@@ -12,24 +12,31 @@ namespace Game
 
         public long Ticket { get; set; }
 
-        public MagicData Count { get; set; } = new MagicData();
+        public Dictionary<int, MagicData> CountDict { get; set; } = new Dictionary<int, MagicData>();
 
-        public DefendRecord Current = null;
+        public Dictionary<int, DefendRecord> CurrentDict = new Dictionary<int, DefendRecord>();
 
         public DefendRecord GetCurrentRecord()
         {
+            int level = AppHelper.DefendLevel;
+            CurrentDict.TryGetValue(level, out DefendRecord Current);
+
             if (Current != null && Current.Count.Data <= 0)
             {
                 Current = null;
+                CurrentDict.Remove(level);
             }
 
-            if (Current == null && this.Count.Data > 0)
+            CountDict.TryGetValue(level, out MagicData Count);
+            if (Current == null && Count.Data > 0)
             {
                 Current = new DefendRecord();
                 Current.Progress.Data = 1;
                 Current.Hp.Data = ConfigHelper.DefendHp;
                 Current.Count.Data = 10;
-                this.Count.Data--;
+                CurrentDict[level] = Current;
+
+                Count.Data--;
             }
 
             return Current;
@@ -37,17 +44,24 @@ namespace Game
 
         public void Refresh()
         {
-            this.Current = null;
-            this.Count.Data = 1;
+            CurrentDict.Clear();
+
+            foreach (var Count in CountDict)
+            {
+                Count.Value.Data = 1;
+            }
         }
 
         public void Complete()
         {
-            this.Current = null;
+            this.CurrentDict.Remove(AppHelper.DefendLevel);
         }
 
         public List<DefendBuffConfig> GetBuffList(DefendBuffType type)
         {
+            int level = AppHelper.DefendLevel;
+            CurrentDict.TryGetValue(level, out DefendRecord Current);
+
             List<DefendBuffConfig> list = new List<DefendBuffConfig>();
 
             if (Current != null)
@@ -66,6 +80,9 @@ namespace Game
 
         public List<int> GetExcludeList()
         {
+            int level = AppHelper.DefendLevel;
+            CurrentDict.TryGetValue(level, out DefendRecord Current);
+
             List<int> list = new List<int>();
 
             if (Current != null)

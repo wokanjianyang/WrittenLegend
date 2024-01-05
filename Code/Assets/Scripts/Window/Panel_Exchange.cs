@@ -26,7 +26,7 @@ public class Panel_Exchange : MonoBehaviour
 
     public void Init()
     {
-        ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Exchange_Item");
+        ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Item/Exchange_Item");
 
         List<ExchangeConfig> list = ExchangeConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
 

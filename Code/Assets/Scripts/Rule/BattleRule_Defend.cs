@@ -11,6 +11,7 @@ public class Battle_Defend : ABattleRule
 
     private bool Over = true;
 
+    private int Level = 0;
     private long Progress = 0;
 
     private const int MaxProgress = 100; //
@@ -29,6 +30,7 @@ public class Battle_Defend : ABattleRule
 
         this.Progress = (long)progress;
         this.PauseCount = (long)count;
+        this.Level = AppHelper.DefendLevel;
 
         this.LoadDefend((long)hp);
     }
@@ -71,7 +73,7 @@ public class Battle_Defend : ABattleRule
             //Load All
             for (int i = 0; i < MonsterList.Length; i++)
             {
-                var enemy = new Monster_Defend(this.Progress, MonsterList[i]);
+                var enemy = new Monster_Defend(this.Progress, MonsterList[i], this.Level);
                 GameProcessor.Inst.PlayerManager.LoadMonsterDefend(enemy);
             }
 

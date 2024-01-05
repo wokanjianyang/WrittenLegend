@@ -55,7 +55,7 @@ public class Dialog_Buff : MonoBehaviour, IBattleLife
             User user = GameProcessor.Inst.User;
             //auto select pre
             DefendRecord record = user.DefendData.GetCurrentRecord();
-            if (!record.BuffDict.ContainsKey(this.Progress))
+            if (!record.BuffDict.ContainsKey(this.Progress) && selectList.Count > 0)
             {
                 record.BuffDict[this.Progress] = selectList[SelectIndex].Id;
             }

@@ -20,7 +20,7 @@ public class Dialog_Card : MonoBehaviour
     {
         this.btn_Close.onClick.AddListener(OnClick_Close);
 
-        ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Item_Card");
+        ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Item/Item_Card");
 
         Init();
     }

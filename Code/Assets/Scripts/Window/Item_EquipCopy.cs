@@ -45,17 +45,7 @@ namespace Game
             }
             else if (Type == CopyType.Defend)
             {
-                User user = GameProcessor.Inst.User;
-                DefendRecord record = user.DefendData.GetCurrentRecord();
-
-                if (record == null)
-                {
-                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有了挑战次数", ToastType = ToastTypeEnum.Failure });
-                    return;
-                }
-
-                var vm = this.GetComponentInParent<ViewMore>();
-                vm.StartDefend();
+                GameProcessor.Inst.EventCenter.Raise(new OpenDefendEvent());
             }
             else if (Type == CopyType.HeorPhantom)
             {

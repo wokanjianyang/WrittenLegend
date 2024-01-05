@@ -139,9 +139,12 @@ namespace Game
 
     }
 
+    public class OpenDefendEvent : SDD.Events.Event
+    {
+    }
+
     public class DefendStartEvent : SDD.Events.Event
     {
-
     }
     public class ShowDefendInfoEvent : SDD.Events.Event
     {
@@ -218,6 +221,11 @@ namespace Game
     }
 
     public class AutoStartBossFamily : SDD.Events.Event
+    {
+
+    }
+
+    public class CloseViewMoreEvent : SDD.Events.Event
     {
 
     }

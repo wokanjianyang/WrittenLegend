@@ -21,7 +21,7 @@ public class Dialog_Phantom : MonoBehaviour, IBattleLife
 
     public void OnBattleStart()
     {
-        ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Item_Phantom");
+        ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Item/Item_Phantom");
         GameProcessor.Inst.EventCenter.AddListener<PhantomEvent>(this.OnPhantomEvent);
 
         Init();

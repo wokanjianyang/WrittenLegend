@@ -55,6 +55,7 @@ public class Init : MonoBehaviour
         Dialog_SecondaryConfirmation,
         Dialog_SoulRing,
         Dialog_Achievement,
+        Dialog_Defend,
     }
 
     [LabelText("战斗模式")]
@@ -92,6 +93,7 @@ public class Init : MonoBehaviour
                 WindowTypeEnum.View_BottomNavBar,
                 WindowTypeEnum.Select_Dialog,
                 WindowTypeEnum.Dialog_EquipDetail,
+                WindowTypeEnum.Dialog_Defend,
                 //WindowTypeEnum.Dialog_OfflineExp,
                 WindowTypeEnum.Dialog_Settings,
                 WindowTypeEnum.Map_EquipCopy,

@@ -13,11 +13,14 @@ namespace Game
         MonsterDefendConfig Config { get; set; }
         QualityConfig QualityConfig { get; set; }
 
-        public Monster_Defend(long progress, int quality) : base()
+        private int DefendLevel = 0;
+
+        public Monster_Defend(long progress, int quality, int level) : base()
         {
             this.Progeress = (int)progress;
             this.GroupId = 2;
             this.Quality = quality;
+            this.DefendLevel = level;
 
             this.Config = MonsterDefendConfigCategory.Instance.Get(Progeress);
             this.QualityConfig = QualityConfigCategory.Instance.Get(this.Quality);
@@ -43,20 +46,25 @@ namespace Game
         {
             this.AttributeBonus = new AttributeBonus();
 
-            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, Config.HP * QualityConfig.HpRate);
-            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, Config.PhyAttr * QualityConfig.AttrRate);
-            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, Config.PhyAttr * QualityConfig.AttrRate);
-            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, Config.PhyAttr * QualityConfig.AttrRate);
-            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, Config.Def * QualityConfig.DefRate);
+            double levelRate = Math.Pow(10.0, this.DefendLevel - 1.0);
+            double levelRate1 = 1 + (this.DefendLevel - 1) * 0.5;
 
-            AttributeBonus.SetAttr(AttributeEnum.DamageIncrea, AttributeFrom.HeroBase, Config.DamageIncrea);
-            AttributeBonus.SetAttr(AttributeEnum.DamageResist, AttributeFrom.HeroBase, Config.DamageResist);
-            AttributeBonus.SetAttr(AttributeEnum.CritRate, AttributeFrom.HeroBase, Config.CritRate);
-            AttributeBonus.SetAttr(AttributeEnum.CritDamage, AttributeFrom.HeroBase, Config.CritDamage);
+            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, Config.HP * QualityConfig.HpRate * levelRate);
+            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, Config.PhyAttr * QualityConfig.AttrRate * levelRate);
+            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, Config.PhyAttr * QualityConfig.AttrRate * levelRate);
+            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, Config.PhyAttr * QualityConfig.AttrRate * levelRate);
+            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, Config.Def * QualityConfig.DefRate * levelRate);
+
+            AttributeBonus.SetAttr(AttributeEnum.DamageIncrea, AttributeFrom.HeroBase, Config.DamageIncrea * levelRate1);
+            AttributeBonus.SetAttr(AttributeEnum.DamageResist, AttributeFrom.HeroBase, Config.DamageResist * levelRate1);
+            AttributeBonus.SetAttr(AttributeEnum.CritRate, AttributeFrom.HeroBase, Config.CritRate * levelRate1);
+            AttributeBonus.SetAttr(AttributeEnum.CritDamage, AttributeFrom.HeroBase, Config.CritDamage * levelRate1);
 
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
         }
+
+
 
         private void SetSkill()
         {
@@ -64,7 +72,7 @@ namespace Game
             List<SkillData> list = new List<SkillData>();
             list.Add(new SkillData(9001, (int)SkillPosition.Default)); //增加默认技能
 
-            if (Quality >= 5)
+            if (Quality + this.DefendLevel >= 6)
             {
                 //random model
                 List<PlayerModel> models = PlayerModelCategory.Instance.GetAll().Select(m => m.Value).ToList();

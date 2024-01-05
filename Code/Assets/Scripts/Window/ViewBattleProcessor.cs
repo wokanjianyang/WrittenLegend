@@ -59,7 +59,7 @@ namespace Game
         {
             base.OnBattleStart();
 
-            this.msgPrefab = Resources.Load<GameObject>("Prefab/Window/Item_DropMsg");
+            this.msgPrefab = Resources.Load<GameObject>("Prefab/Window/Item/Item_DropMsg");
 
             GameProcessor.Inst.EventCenter.AddListener<BattleMsgEvent>(this.OnBattleMsgEvent);
  
