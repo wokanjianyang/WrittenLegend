@@ -101,6 +101,7 @@ public class Dialog_Buff : MonoBehaviour, IBattleLife
             GameProcessor.Inst.User.EventCenter.Raise(new HeroUpdateSkillEvent());
         }
 
+        this.SelectIndex = 0;
         this.gameObject.SetActive(false);
     }
 }

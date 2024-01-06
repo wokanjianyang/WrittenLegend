@@ -272,8 +272,9 @@ namespace Game
         //    }
 
         //    //幻神
-        //    List<PhantomConfig> phantoms = PhantomConfigCategory.Instance.GetAll().Select(m=>m.Value).ToList();
-        //    foreach (var kv in phantoms) {
+        //    List<PhantomConfig> phantoms = PhantomConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
+        //    foreach (var kv in phantoms)
+        //    {
         //        user.PhantomRecord[kv.Id] = 15;
         //    }
 
