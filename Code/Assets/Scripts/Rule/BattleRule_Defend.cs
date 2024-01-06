@@ -90,9 +90,10 @@ public class Battle_Defend : ABattleRule
         {
             //check 
             long progess = user.GetAchievementProgeress(AchievementSourceType.Defend);
-            if (progess < this.Progress)
+            long cp = (this.Level - 1) * 100 + this.Progress;
+            if (progess < cp)
             {
-                user.MagicRecord[AchievementSourceType.Defend].Data = this.Progress;
+                user.MagicRecord[AchievementSourceType.Defend].Data = cp;
             }
 
             this.Start = true;

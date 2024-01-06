@@ -22,7 +22,8 @@ namespace Game
             this.Quality = quality;
             this.DefendLevel = level;
 
-            this.Config = MonsterDefendConfigCategory.Instance.Get(Progeress);
+            int id = (level - 1) * 100 + (int)progress;
+            this.Config = MonsterDefendConfigCategory.Instance.Get(id);
             this.QualityConfig = QualityConfigCategory.Instance.Get(this.Quality);
 
             this.Init();

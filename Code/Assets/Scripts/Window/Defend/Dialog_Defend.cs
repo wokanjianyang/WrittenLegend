@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class Dialog_Defend : MonoBehaviour, IBattleLife
 {
+    public Transform Item2;
+
     public Button Btn_Start1;
 
     public Button Btn_Start2;
@@ -19,6 +21,12 @@ public class Dialog_Defend : MonoBehaviour, IBattleLife
     // Start is called before the first frame update
     void Start()
     {
+        long progess = GameProcessor.Inst.User.GetAchievementProgeress(AchievementSourceType.Defend);
+        if (progess >= 100)
+        {
+            Item2.gameObject.SetActive(true);
+        }
+
         Btn_Start1.onClick.AddListener(() => { this.OnClick_Start(1); });
         Btn_Start2.onClick.AddListener(() => { this.OnClick_Start(2); });
 
