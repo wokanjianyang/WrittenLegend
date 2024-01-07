@@ -22,8 +22,9 @@ namespace Game
 
             this.EventCenter.AddListener<HeroLevelUp>(LevelUp);
             this.EventCenter.AddListener<HeroAttrChangeEvent>(HeroAttrChange);
-            User user = GameProcessor.Inst.User;
+            this.EventCenter.AddListener<HeroBuffChangeEvent>(OnHeroBuffChange);
 
+            User user = GameProcessor.Inst.User;
             user.EventCenter.AddListener<HeroUpdateSkillEvent>(OnHeroUpdateAllSkillEvent);
 
         }
@@ -118,7 +119,24 @@ namespace Game
             //回满当前血量
             this.SetAttackSpeed((int)AttributeBonus.GetTotalAttrDouble(AttributeEnum.Speed));
             this.SetMoveSpeed((int)AttributeBonus.GetTotalAttrDouble(AttributeEnum.MoveSpeed));
-            SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
+
+            double maxHP = AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
+            SetHP(maxHP);
+            Debug.Log("Hero Hp:" + StringHelper.FormatNumber(maxHP));
+        }
+
+        private void OnHeroBuffChange(HeroBuffChangeEvent e)
+        {
+            //计算Buff
+            if (RuleType == RuleType.Defend)
+            {
+                List<DefendBuffConfig> buffList = GameProcessor.Inst.User.DefendData.GetBuffList(DefendBuffType.Attr);
+                this.AttributeBonus.SetBuffList(buffList);
+
+                double maxHP = AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
+                SetHP(maxHP);
+                Debug.Log("Hero Hp:" + StringHelper.FormatNumber(maxHP));
+            }
         }
 
         private void SetSkill(User user)

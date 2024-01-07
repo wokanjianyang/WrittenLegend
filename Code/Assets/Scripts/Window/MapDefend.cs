@@ -63,7 +63,6 @@ public class MapDefend : MonoBehaviour, IBattleLife
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有了挑战次数", ToastType = ToastTypeEnum.Failure });
             return;
         }
-        record.Count.Data--;
 
         Dictionary<string, object> param = new Dictionary<string, object>();
         param.Add("progress", record.Progress.Data);

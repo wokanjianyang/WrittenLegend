@@ -87,6 +87,11 @@ namespace Game
 
     }
 
+    public class HeroBuffChangeEvent : SDD.Events.Event
+    { 
+
+    }
+
     public class HeroBagUpdateEvent : SDD.Events.Event
     {
         public List<Item> ItemList { get; set; }

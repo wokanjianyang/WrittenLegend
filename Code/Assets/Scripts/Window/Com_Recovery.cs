@@ -146,7 +146,7 @@ namespace Game
             user.RecoverySetting.DropQuality = dropQuality;
 
             //立即执行一次回收
-            GameProcessor.Inst.EventCenter.Raise(new AutoRecoveryEvent() { });
+            GameProcessor.Inst.EventCenter.Raise(new AutoRecoveryEvent() { RuleType = RuleType.Normal });
 
             TaskHelper.CheckTask(TaskType.Recovery, 1);
 

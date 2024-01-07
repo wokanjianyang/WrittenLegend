@@ -12,6 +12,7 @@ public class Dialog_Buff : MonoBehaviour, IBattleLife
     public Text Txt_Progress;
     public Button btn_Ok;
 
+    private int Level = 0;
     private int Progress = 0;
     private int SelectIndex = 0;
     List<DefendBuffConfig> selectList = new List<DefendBuffConfig>();
@@ -49,15 +50,20 @@ public class Dialog_Buff : MonoBehaviour, IBattleLife
     private void OnShow(DefendBuffSelectEvent e)
     {
         //Debug.Log("DefendBuffSelectEvent");
+        if (e.Level != this.Level)
+        {
+            this.Level = e.Level;
+            this.Progress = 0;
+        }
 
-        if (this.Progress < e.Index)
+        if (this.Progress != e.Index)
         {
             User user = GameProcessor.Inst.User;
             //auto select pre
             DefendRecord record = user.DefendData.GetCurrentRecord();
             if (!record.BuffDict.ContainsKey(this.Progress) && selectList.Count > 0)
             {
-                record.BuffDict[this.Progress] = selectList[SelectIndex].Id;
+                SelectBuff();
             }
 
             this.Progress = e.Index;
@@ -86,22 +92,32 @@ public class Dialog_Buff : MonoBehaviour, IBattleLife
 
     public void OnClick_OK()
     {
+        SelectBuff();
+        this.gameObject.SetActive(false);
+    }
+
+    private void SelectBuff()
+    {
         User user = GameProcessor.Inst.User;
 
         DefendRecord record = user.DefendData.GetCurrentRecord();
 
-        record.BuffDict[this.Progress] = selectList[SelectIndex].Id;
+        DefendBuffConfig config = selectList[SelectIndex];
+
+        record.BuffDict[this.Progress] = config.Id;
+        GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Defend, Message = "您选择了 " + config.Name });
 
         if (selectList[SelectIndex].Type == 1)
         {
-            GameProcessor.Inst.UpdateInfo();
+            GameProcessor.Inst.PlayerManager.GetHero().EventCenter.Raise(new HeroBuffChangeEvent());
         }
         else
         {
             GameProcessor.Inst.User.EventCenter.Raise(new HeroUpdateSkillEvent());
         }
 
+        Log.Debug("您选择了 " + config.Name);
+
         this.SelectIndex = 0;
-        this.gameObject.SetActive(false);
     }
 }

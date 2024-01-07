@@ -54,6 +54,7 @@ namespace Game
     }
     public class AutoRecoveryEvent : SDD.Events.Event
     {
+        public RuleType RuleType { get; set; }
     }
     public class BagUseEvent : SDD.Events.Event
     {
@@ -154,6 +155,7 @@ namespace Game
 
     public class DefendBuffSelectEvent : SDD.Events.Event
     {
+        public int Level { get; set; }
         public int Index { get; set; }
     }
 

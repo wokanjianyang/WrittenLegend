@@ -103,7 +103,7 @@ namespace Game
             //自动回收
             if (items.Count > 0)
             {
-                GameProcessor.Inst.EventCenter.Raise(new AutoRecoveryEvent() { });
+                GameProcessor.Inst.EventCenter.Raise(new AutoRecoveryEvent() { RuleType = RuleType.Normal });
             }
 
             //判断任务

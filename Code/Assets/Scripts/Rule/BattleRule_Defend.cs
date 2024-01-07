@@ -65,7 +65,7 @@ public class Battle_Defend : ABattleRule
 
             if (!GameProcessor.Inst.User.DefendData.GetCurrentRecord().BuffDict.ContainsKey(si))
             {
-                GameProcessor.Inst.EventCenter.Raise(new DefendBuffSelectEvent() { Index = si });
+                GameProcessor.Inst.EventCenter.Raise(new DefendBuffSelectEvent() { Index = si, Level = this.Level });
             }
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Defend, Message = "第" + this.Progress + "波发起了进攻" });

@@ -54,6 +54,7 @@ public class Dialog_Defend : MonoBehaviour, IBattleLife
         AppHelper.DefendLevel = level;
 
         User user = GameProcessor.Inst.User;
+        user.DefendData.BuildCurrent();
         DefendRecord record = user.DefendData.GetCurrentRecord();
 
         if (record == null)
@@ -64,6 +65,7 @@ public class Dialog_Defend : MonoBehaviour, IBattleLife
 
         this.gameObject.SetActive(false);
 
+        record.Count.Data--;
         GameProcessor.Inst.EventCenter.Raise(new CloseViewMoreEvent());
         GameProcessor.Inst.EventCenter.Raise(new DefendStartEvent());
     }

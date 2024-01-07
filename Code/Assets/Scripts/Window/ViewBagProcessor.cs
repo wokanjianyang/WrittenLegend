@@ -411,7 +411,8 @@ namespace Game
             User user = GameProcessor.Inst.User;
             user.ExclusiveIndex = e.Index;
 
-            for (int i = 15; i <= 20; i++) {
+            for (int i = 15; i <= 20; i++)
+            {
                 this.ClearEquipPanelItem(i);
             }
 
@@ -648,6 +649,7 @@ namespace Game
             {
                 GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
                 {
+                    Type = e.RuleType,
                     Message = BattleMsgHelper.BuildAutoRecoveryMessage(recoveryList.Count, refineStone, speicalStone, exclusiveStone, 0, gold)
                 });
             }

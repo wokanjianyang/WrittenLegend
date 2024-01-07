@@ -20,6 +20,13 @@ namespace Game
         {
             int level = AppHelper.DefendLevel;
             CurrentDict.TryGetValue(level, out DefendRecord Current);
+            return Current;
+        }
+
+        public void BuildCurrent()
+        {
+            int level = AppHelper.DefendLevel;
+            CurrentDict.TryGetValue(level, out DefendRecord Current);
 
             if (Current != null && Current.Count.Data <= 0)
             {
@@ -38,8 +45,6 @@ namespace Game
 
                 Count.Data--;
             }
-
-            return Current;
         }
 
         public void Refresh()

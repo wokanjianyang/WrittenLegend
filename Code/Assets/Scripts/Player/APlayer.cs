@@ -75,13 +75,14 @@ namespace Game
             //Debug.Log("PreMaxHp:" + PreMaxHp);
             double rate = this.HP * 1f / PreMaxHp;
             //Debug.Log("rate:" + rate);
+            //Debug.Log("effect maxHp Rate:" + total);
 
             this.AttributeBonus.SetAttr(AttributeEnum.PanelHp, fromId, total);
 
-            double CurrentMaxHp = this.AttributeBonus.GetAttackAttr(AttributeEnum.HP);
+            double CurrentMaxHp = this.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
             //Debug.Log("CurrentMaxHp:" + CurrentMaxHp);
             double currentHp = (long)(CurrentMaxHp * rate);
-            //Debug.Log("currentHp:" + currentHp);
+            Debug.Log("effect MaxHp:" + StringHelper.FormatNumber(currentHp));
             this.HP = currentHp;
 
             this.EventCenter.Raise(new SetPlayerHPEvent { });
