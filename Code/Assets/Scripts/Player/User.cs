@@ -338,6 +338,10 @@ namespace Game
                 {
                     this.TowerNumber += achievementConfig.AttrValue;
                 }
+                else if (achievementConfig.RewardType == (int)AchievementRewardType.Skill)
+                {
+                    this.SkillNumber += achievementConfig.AttrValue;
+                }
             }
 
             this.SuitMax = Math.Max(this.SuitMax, ConfigHelper.SkillSuitMin);

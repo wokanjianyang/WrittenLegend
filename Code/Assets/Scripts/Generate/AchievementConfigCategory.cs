@@ -28,6 +28,7 @@ namespace Game
         Stone = 3,
         SoulRing = 4,
         Tower = 5,
+        Skill = 6,
     }
 
     public enum AchievementSourceType

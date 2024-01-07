@@ -428,9 +428,9 @@
 {"_t":"AchievementConfig","_id":8008,"Name":"天下无敌","Type":8,"Condition":100,"RewardType":2,"AttrId":0,"AttrValue":1,"Memo":"守卫龙城通过{0}层数"},
 {"_t":"AchievementConfig","_id":8009,"Name":"初露锋芒1","Type":8,"Condition":140,"RewardType":1,"AttrId":20,"AttrValue":100,"Memo":"守卫龙城通过困难40层数"},
 {"_t":"AchievementConfig","_id":8010,"Name":"武林新秀1","Type":8,"Condition":150,"RewardType":1,"AttrId":19,"AttrValue":100,"Memo":"守卫龙城通过困难50层数"},
-{"_t":"AchievementConfig","_id":8011,"Name":"声名鹊起1","Type":8,"Condition":160,"RewardType":1,"AttrId":24,"AttrValue":30,"Memo":"守卫龙城通过困难60层数"},
-{"_t":"AchievementConfig","_id":8012,"Name":"过关斩将1","Type":8,"Condition":170,"RewardType":1,"AttrId":7,"AttrValue":10,"Memo":"守卫龙城通过困难70层数"},
+{"_t":"AchievementConfig","_id":8011,"Name":"声名鹊起1","Type":8,"Condition":160,"RewardType":1,"AttrId":24,"AttrValue":100,"Memo":"守卫龙城通过困难60层数"},
+{"_t":"AchievementConfig","_id":8012,"Name":"过关斩将1","Type":8,"Condition":170,"RewardType":1,"AttrId":7,"AttrValue":15,"Memo":"守卫龙城通过困难70层数"},
 {"_t":"AchievementConfig","_id":8013,"Name":"独孤求败1","Type":8,"Condition":180,"RewardType":1,"AttrId":12,"AttrValue":30,"Memo":"守卫龙城通过困难80层数"},
 {"_t":"AchievementConfig","_id":8014,"Name":"武林至尊1","Type":8,"Condition":190,"RewardType":1,"AttrId":13,"AttrValue":30,"Memo":"守卫龙城通过困难90层数"},
-{"_t":"AchievementConfig","_id":8015,"Name":"天下无敌1","Type":8,"Condition":200,"RewardType":3,"AttrId":0,"AttrValue":1,"Memo":"守卫龙城通过困难100层数"},
+{"_t":"AchievementConfig","_id":8015,"Name":"天下无敌1","Type":8,"Condition":200,"RewardType":6,"AttrId":0,"AttrValue":1,"Memo":"守卫龙城通过困难100层数"},
 ]}

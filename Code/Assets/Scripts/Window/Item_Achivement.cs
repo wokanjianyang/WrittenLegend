@@ -61,6 +61,10 @@ public class Item_Achivement : MonoBehaviour
             {
                 Txt_Attr.text = "成就属性:离线闯关寻怪时间 - " + config.AttrValue;
             }
+            else if (config.RewardType == (int)AchievementRewardType.Skill)
+            {
+                Txt_Attr.text = "成就属性:技能出战栏 + " + config.AttrValue;
+            }
 
             Txt_Progress.gameObject.SetActive(false);
             Btn_Active.gameObject.SetActive(false);
