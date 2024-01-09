@@ -7,11 +7,13 @@ using UnityEngine.UI;
 
 namespace Game
 {
-    public class Item_Buff :  Toggle
+    public class Item_Buff : MonoBehaviour
     {
-        public Image Img_Active;
+        //public Image Img_Active;
         public Text Txt_Name;
         public Text Txt_Des;
+
+        public Toggle toggle;
 
         public DefendBuffConfig Config { get; set; }
 

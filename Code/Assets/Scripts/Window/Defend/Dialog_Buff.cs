@@ -14,27 +14,13 @@ public class Dialog_Buff : MonoBehaviour, IBattleLife
 
     private int Level = 0;
     private int Progress = 0;
-    private int SelectIndex = 0;
-    List<DefendBuffConfig> selectList = new List<DefendBuffConfig>();
+    //List<DefendBuffConfig> selectList = new List<DefendBuffConfig>();
 
     public int Order => (int)ComponentOrder.Dialog;
 
     void Awake()
     {
         this.btn_Ok.onClick.AddListener(OnClick_OK);
-
-        for (int i = 0; i < ItemList.Count; i++)
-        {
-            int si = i;
-            ItemList[i].onValueChanged.AddListener((on) =>
-            {
-                if (on)
-                {
-                    SelectItem(si);
-                }
-            });
-        }
-
     }
 
     public void OnBattleStart()
@@ -42,14 +28,10 @@ public class Dialog_Buff : MonoBehaviour, IBattleLife
         GameProcessor.Inst.EventCenter.AddListener<DefendBuffSelectEvent>(this.OnShow);
     }
 
-    private void SelectItem(int index)
-    {
-        this.SelectIndex = index;
-    }
-
     private void OnShow(DefendBuffSelectEvent e)
     {
         //Debug.Log("DefendBuffSelectEvent");
+
         if (e.Level != this.Level)
         {
             this.Level = e.Level;
@@ -61,7 +43,7 @@ public class Dialog_Buff : MonoBehaviour, IBattleLife
             User user = GameProcessor.Inst.User;
             //auto select pre
             DefendRecord record = user.DefendData.GetCurrentRecord();
-            if (!record.BuffDict.ContainsKey(this.Progress) && selectList.Count > 0)
+            if (this.Progress > 0 && !record.BuffDict.ContainsKey(this.Progress))
             {
                 SelectBuff();
             }
@@ -73,17 +55,11 @@ public class Dialog_Buff : MonoBehaviour, IBattleLife
 
             List<DefendBuffConfig> list = DefendBuffConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => !excludeList.Contains(m.Id)).ToList();
 
-            selectList.Clear();
             for (int i = 0; i < ItemList.Count; i++)
             {
                 int k = RandomHelper.RandomNumber(0, list.Count);
-                selectList.Add(list[k]);
+                ItemList[i].SetContent(list[k]);
                 list.RemoveAt(k);
-            }
-
-            for (int i = 0; i < ItemList.Count; i++)
-            {
-                ItemList[i].SetContent(selectList[i]);
             }
         }
 
@@ -102,12 +78,14 @@ public class Dialog_Buff : MonoBehaviour, IBattleLife
 
         DefendRecord record = user.DefendData.GetCurrentRecord();
 
-        DefendBuffConfig config = selectList[SelectIndex];
+        Item_Buff buff = ItemList.Where(m => m.toggle.isOn).FirstOrDefault();
+
+        DefendBuffConfig config = buff.Config;
 
         record.BuffDict[this.Progress] = config.Id;
         GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Defend, Message = "您选择了 " + config.Name });
 
-        if (selectList[SelectIndex].Type == 1)
+        if (config.Type == 1)
         {
             GameProcessor.Inst.PlayerManager.GetHero().EventCenter.Raise(new HeroBuffChangeEvent());
         }
@@ -117,7 +95,5 @@ public class Dialog_Buff : MonoBehaviour, IBattleLife
         }
 
         Log.Debug("您选择了 " + config.Name);
-
-        this.SelectIndex = 0;
     }
 }
