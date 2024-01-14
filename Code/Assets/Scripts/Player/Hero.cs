@@ -122,7 +122,7 @@ namespace Game
 
             double maxHP = AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
             SetHP(maxHP);
-            Debug.Log("Hero Hp:" + StringHelper.FormatNumber(maxHP));
+            //Debug.Log("Hero Hp:" + StringHelper.FormatNumber(maxHP));
         }
 
         private void OnHeroBuffChange(HeroBuffChangeEvent e)
@@ -135,7 +135,7 @@ namespace Game
 
                 double maxHP = AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
                 SetHP(maxHP);
-                Debug.Log("Hero Hp:" + StringHelper.FormatNumber(maxHP));
+                //Debug.Log("Hero Hp:" + StringHelper.FormatNumber(maxHP));
             }
         }
 

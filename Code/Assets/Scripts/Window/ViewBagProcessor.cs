@@ -35,6 +35,7 @@ namespace Game
         [LabelText("设置")]
         public Button btn_Setting;
         public Button btn_Wing;
+        public Button btn_Fashion;
 
         public Dialog_Exclusive ExclusiveDialog;
         public Dialog_Card Dialog_Card;
@@ -75,6 +76,7 @@ namespace Game
             this.Btn_Exclusive.onClick.AddListener(OnExclusive);
             this.btn_Card.onClick.AddListener(OnOpenCard);
             this.btn_Wing.onClick.AddListener(OnOpenWing);
+            this.btn_Fashion.onClick.AddListener(OpenFashion);
         }
 
         // Start is called before the first frame update
@@ -1164,6 +1166,11 @@ namespace Game
         public void OnOpenWing()
         {
             this.Dialog_Wing.gameObject.SetActive(true);
+        }
+
+        public void OpenFashion()
+        {
+            GameProcessor.Inst.EventCenter.Raise(new OpenFashionDialogEvent());
         }
     }
 }

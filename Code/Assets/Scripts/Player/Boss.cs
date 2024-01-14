@@ -136,6 +136,8 @@ namespace Game
         {
             User user = GameProcessor.Inst.User;
 
+           
+
             double rewardModelRate = ModelConfig == null ? 1 : ModelConfig.RewardRate;
             double dropModelRate = ModelConfig == null ? 1 : ModelConfig.DropRate;
 
@@ -156,13 +158,9 @@ namespace Game
             List<KeyValuePair<double, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(Config.MapId, dropRate);
             //ÏÞÊ±½±Àø
             dropList.AddRange(DropLimitHelper.Build((int)DropLimitType.Normal, dropRate));
-            if (ModelConfig == null)
+            if (this.RuleType == RuleType.EquipCopy || this.RuleType == RuleType.BossFamily)
             {
-                dropList.AddRange(DropLimitHelper.Build((int)DropLimitType.EquipCopy, dropRate));
-            }
-            else
-            {
-                //dropList.AddRange(DropLimitHelper.Build((int)DropLimitType.AnDian, dropRate));
+                dropList.AddRange(DropLimitHelper.Build((int)DropLimitType.JieRi, dropRate));
             }
 
             int qualityRate = qualityConfig.QualityRate * (100 + (int)user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea)) / 100;

@@ -51,6 +51,11 @@ namespace Game
                 item = new Item(configId);
                 item.Type = ItemType.Card;
             }
+            else if (type == ItemType.Fashion)
+            {
+                item = new Item(configId);
+                item.Type = ItemType.Fashion;
+            }
 
             item.Count = number;
 

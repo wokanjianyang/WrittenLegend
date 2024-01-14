@@ -320,4 +320,9 @@ namespace Game
     {
         public int Time { get; set; }
     }
+
+    //--------Fashion
+    public class OpenFashionDialogEvent : SDD.Events.Event
+    {
+    }
 }

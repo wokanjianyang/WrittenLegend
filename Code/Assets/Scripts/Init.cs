@@ -56,6 +56,7 @@ public class Init : MonoBehaviour
         Dialog_SoulRing,
         Dialog_Achievement,
         Dialog_Defend,
+        Dialog_Fashion,
     }
 
     [LabelText("战斗模式")]
@@ -104,6 +105,7 @@ public class Init : MonoBehaviour
                 WindowTypeEnum.Map_HeroPhantom,
                 WindowTypeEnum.Dialog_SoulRing,
                 WindowTypeEnum.Dialog_Achievement,
+                WindowTypeEnum.Dialog_Fashion,
             }
         },
         {

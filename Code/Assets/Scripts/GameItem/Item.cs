@@ -89,5 +89,6 @@ namespace Game
         Exclusive = 10,
         Card = 11,
         GiftPackExclusive = 12,
+        Fashion = 13,
     }
 }

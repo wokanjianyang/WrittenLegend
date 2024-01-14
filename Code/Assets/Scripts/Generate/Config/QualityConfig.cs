@@ -102,6 +102,9 @@ namespace Game
 		/// <summary>品质系数</summary>
 		[ProtoMember(9)]
 		public int QualityRate { get; set; }
+		/// <summary>保底系数</summary>
+		[ProtoMember(10)]
+		public int CountRate { get; set; }
 
 	}
 }

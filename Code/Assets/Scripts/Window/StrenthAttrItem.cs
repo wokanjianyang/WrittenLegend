@@ -22,7 +22,7 @@ namespace Game
         // Start is called before the first frame update
         void Start()
         {
-     
+
         }
 
         // Update is called once per frame
@@ -31,11 +31,34 @@ namespace Game
 
         }
 
-        public void SetContent(string name,string attr,string attr_add) {
+        public void SetContent(string name, string attr, string attr_add)
+        {
             this.Txt_Name.text = name;
             this.Txt_Attr.text = attr;
             this.Txt_Attr_Add.text = attr_add;
         }
 
+        public void SetContent(int attrId, long attrBase, long attrRise)
+        {
+            this.Txt_Name.text = StringHelper.FormatAttrValueName(attrId);
+
+            if (attrBase > 0)
+            {
+                this.Txt_Attr.text = StringHelper.FormatAttrValueText(attrId, attrBase);
+            }
+            else
+            {
+                this.Txt_Attr.text = "";
+            }
+
+            if (attrRise > 0)
+            {
+                this.Txt_Attr_Add.text = " + " + StringHelper.FormatAttrValueText(attrId, attrRise);
+            }
+            else
+            {
+                this.Txt_Attr_Add.text = "";
+            }
+        }
     }
 }

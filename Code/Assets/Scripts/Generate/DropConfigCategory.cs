@@ -85,6 +85,11 @@ namespace Game
 
         public static List<Item> BuildDropItem(List<KeyValuePair<double, DropConfig>> dropList, int qualityRate)
         {
+            return BuildDropItem(dropList, qualityRate, null);
+        }
+
+        public static List<Item> BuildDropItem(List<KeyValuePair<double, DropConfig>> dropList, int qualityRate, Dictionary<int, double> rateData)
+        {
             List<Item> list = new List<Item>();
 
             for (int i = 0; i < dropList.Count; i++)
@@ -94,6 +99,12 @@ namespace Game
 
                 if (RandomHelper.RandomResult(rate))
                 {
+                    if (rateData != null && rateData.ContainsKey(config.Id))
+                    {
+                        rateData[config.Id] = 0;
+                        Debug.Log("drop id " + config.Id + " ±£µ×¹éÁã ");
+                    }
+
                     int index = RandomHelper.RandomNumber(0, config.ItemIdList.Length);
                     int configId = config.ItemIdList[index];
 

@@ -114,9 +114,13 @@ namespace Game
 
         public MagicData WingData { get; set; } = new MagicData();
 
+        public Dictionary<int, Dictionary<int, MagicData>> FashionData { get; set; } = new Dictionary<int, Dictionary<int, MagicData>>();
+
         public Dictionary<int, int> AchievementData { get; } = new Dictionary<int, int>();
 
         public Dictionary<int, MagicData> CardData { get; } = new Dictionary<int, MagicData>();
+
+        public Dictionary<int, double> RateData { get; } = new Dictionary<int, double>();
 
         //public Dictionary<string, MagicData> AdData { get; } = new Dictionary<string, MagicData>();
 
@@ -733,6 +737,21 @@ namespace Game
             }
 
             return list;
+        }
+
+        public void AddStartRate(double count)
+        {
+            List<DropLimitConfig> dropLimits = DropLimitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.StartRate > 0).ToList();
+
+            foreach (var config in dropLimits)
+            {
+                int key = config.Id;
+                if (!RateData.ContainsKey(key))
+                {
+                    RateData[key] = 0;
+                }
+                RateData[key] += count;
+            }
         }
     }
 

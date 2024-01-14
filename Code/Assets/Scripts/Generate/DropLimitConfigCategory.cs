@@ -14,6 +14,10 @@ namespace Game
     {
         public static List<KeyValuePair<double, DropConfig>> Build(int type, double rateRise)
         {
+            return Build(type, rateRise, null);
+        }
+        public static List<KeyValuePair<double, DropConfig>> Build(int type, double rateRise, Dictionary<int, double> rateData)
+        {
             List<KeyValuePair<double, DropConfig>> list = new List<KeyValuePair<double, DropConfig>>();
 
             long time = DateTime.Now.Ticks;
@@ -31,6 +35,23 @@ namespace Game
                 {
                     rate = rate / rateRise;
                 }
+
+                if (dropLimit.StartRate > 0 && rateData != null)
+                {
+                    double currentRate = rateData[dropLimit.Id];
+
+                    Debug.Log("Start Rate:" + dropLimit.Id + " ," + currentRate);
+
+                    if (currentRate > dropLimit.StartRate)
+                    {
+                        rate = Math.Max(rate + dropLimit.StartRate - currentRate, 1);
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+
                 list.Add(new KeyValuePair<double, DropConfig>(rate, dropConfig));
             }
 
@@ -41,7 +62,7 @@ namespace Game
     public enum DropLimitType
     {
         Normal = 0,
-        EquipCopy = 1,
+        JieRi = 1,
         AnDian = 2,
         HeroPhatom = 99,
         Defend = 100,

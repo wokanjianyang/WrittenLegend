@@ -40,7 +40,7 @@ namespace Game
             {nameof(AttributeEnum.RestoreHp), "每秒点数回血" },
             {nameof(AttributeEnum.RestoreHpPercent), "每秒上限回血" },
             {nameof(AttributeEnum.QualityIncrea), "品质加成" },
-    
+
 
             {nameof(AttributeEnum.PhyAttIncrea), "物攻加成" },
             {nameof(AttributeEnum.MagicAttIncrea),"魔法加成" },
@@ -48,6 +48,14 @@ namespace Game
 
             {nameof(AttributeEnum.EquipBaseIncrea), "装备基础属性提升" },
             {nameof(AttributeEnum.EquipRandomIncrea), "装备随机属性提升" },
+
+
+            {nameof(AttributeEnum.MulAttr), "攻击(乘法)" },
+            {nameof(AttributeEnum.MulDef),"防御(乘法)" },
+            {nameof(AttributeEnum.MulHp), "生命(乘法)" },
+            {nameof(AttributeEnum.MulAttrPhy), "物攻(乘法)" },
+            {nameof(AttributeEnum.MulAttrMagic),"魔法(乘法)" },
+            {nameof(AttributeEnum.MulAttrSpirit), "道术(乘法)" },
         };
     }
 }

@@ -1,0 +1,11 @@
+{"list":[
+{"_t":"FashionSuitConfig","_id":1,"Name":"战神之力","AttrId":2004,"AttrValue":10,"AttrRise":1,"MaxLevel":10},
+{"_t":"FashionSuitConfig","_id":2,"Name":"恶魔之力","AttrId":2005,"AttrValue":10,"AttrRise":1,"MaxLevel":10},
+{"_t":"FashionSuitConfig","_id":3,"Name":"幽灵之力","AttrId":2006,"AttrValue":10,"AttrRise":1,"MaxLevel":10},
+{"_t":"FashionSuitConfig","_id":1000001,"Name":"神圣怒斩","Part":15,"Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[6,4,8],"Quality":5,"RuneId":14,"SuitId":10010},
+{"_t":"FashionSuitConfig","_id":1000002,"Name":"神圣怒斩","Part":15,"Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[6,4,8],"Quality":5,"RuneId":15,"SuitId":10024},
+{"_t":"FashionSuitConfig","_id":1000003,"Name":"神圣怒斩","Part":15,"Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[6,4,8],"Quality":5,"RuneId":16,"SuitId":10038},
+{"_t":"FashionSuitConfig","_id":1000004,"Name":"神圣噬魂","Part":16,"Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[6,4,8],"Quality":5,"RuneId":14,"SuitId":10010},
+{"_t":"FashionSuitConfig","_id":1000005,"Name":"神圣噬魂","Part":16,"Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[6,4,8],"Quality":5,"RuneId":15,"SuitId":10024},
+{"_t":"FashionSuitConfig","_id":1000006,"Name":"神圣噬魂","Part":16,"Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[6,4,8],"Quality":5,"RuneId":16,"SuitId":10038},
+]}
