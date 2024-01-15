@@ -137,21 +137,21 @@ namespace Game
 
             double dropRate = user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstIncrea) / 350.0;
             dropRate = Math.Min(8, 1 + dropRate);
-            dropRate = dropRate * dropModelRate * qualityConfig.DropRate; //爆率 = 人物爆率*怪物类型爆率*怪物品质爆率
+            double modelRate = dropModelRate * qualityConfig.DropRate;
 
             //Debug.Log("dropRate:" + dropRate);
 
             //生成道具奖励
-            List<KeyValuePair<double, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(Config.MapId, dropRate);
+            List<KeyValuePair<double, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(Config.MapId, dropRate * modelRate);
 
             //限时奖励
-            dropList.AddRange(DropLimitHelper.Build((int)DropLimitType.Normal, dropRate, user.RateData));
+            dropList.AddRange(DropLimitHelper.Build((int)DropLimitType.Normal, dropRate, modelRate, user.RateData));
 
             if (this.RuleType == RuleType.EquipCopy || this.RuleType == RuleType.BossFamily)
             {
-                dropList.AddRange(DropLimitHelper.Build((int)DropLimitType.JieRi, dropRate));
+                dropList.AddRange(DropLimitHelper.Build((int)DropLimitType.JieRi, dropRate, modelRate));
             }
-     
+
             int qualityRate = qualityConfig.QualityRate * (100 + (int)user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea)) / 100;
             List<Item> items = DropHelper.BuildDropItem(dropList, qualityRate, user.RateData);
 

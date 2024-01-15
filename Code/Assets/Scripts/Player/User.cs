@@ -297,6 +297,38 @@ namespace Game
                 }
             }
 
+            //fashion
+            foreach (var kv in FashionData)
+            {
+                int suitId = kv.Key;
+
+                foreach (var fashionItem in kv.Value)
+                {
+                    int itemLevel = fashionItem.Key;
+                    if (itemLevel > 0)
+                    {
+                        int part = fashionItem.Key;
+                        FashionConfig fashionConfig = FashionConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.SuitId == suitId && m.Part == part).FirstOrDefault();
+
+                        for (int i = 0; i < fashionConfig.AttrIdList.Length; i++)
+                        {
+                            int itemValue = fashionConfig.AttrValueList[i] + (itemLevel - 1) * fashionConfig.AttrRiseList[i];
+
+                            AttributeBonus.SetAttr((AttributeEnum)fashionConfig.AttrIdList[i], AttributeFrom.Fashion, suitId * 10000 + part, itemValue);
+                        }
+                    }
+                }
+
+                long suitLevel = kv.Value.Select(m => m.Value.Data).Min();
+                if (suitLevel > 0)
+                {
+                    FashionSuitConfig suitConfig = FashionSuitConfigCategory.Instance.Get(suitId);
+
+                    long suitValue = suitConfig.AttrValue + (suitLevel - 1) * suitConfig.AttrRise;
+                    AttributeBonus.SetAttr((AttributeEnum)suitConfig.AttrId, AttributeFrom.Fashion, suitId, suitValue);
+                }
+            }
+
             //光环
             foreach (var ar in GetAurasList())
             {
@@ -745,7 +777,7 @@ namespace Game
 
             foreach (var config in dropLimits)
             {
-                int key = config.Id;
+                int key = config.DropId;
                 if (!RateData.ContainsKey(key))
                 {
                     RateData[key] = 0;

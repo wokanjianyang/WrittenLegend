@@ -93,30 +93,6 @@ namespace Game
 		/// <summary>MaxLevel</summary>
 		[ProtoMember(6)]
 		public int MaxLevel { get; set; }
-		/// <summary>Part</summary>
-		[ProtoMember(7)]
-		public int Part { get; set; }
-		/// <summary>Type</summary>
-		[ProtoMember(8)]
-		public int Type { get; set; }
-		/// <summary>Level</summary>
-		[ProtoMember(9)]
-		public int Level { get; set; }
-		/// <summary>AttrIdList</summary>
-		[ProtoMember(10)]
-		public int[] AttrIdList { get; set; }
-		/// <summary>AttrValueList</summary>
-		[ProtoMember(11)]
-		public int[] AttrValueList { get; set; }
-		/// <summary>品质</summary>
-		[ProtoMember(12)]
-		public int Quality { get; set; }
-		/// <summary>词条</summary>
-		[ProtoMember(13)]
-		public int RuneId { get; set; }
-		/// <summary>套装</summary>
-		[ProtoMember(14)]
-		public int SuitId { get; set; }
 
 	}
 }

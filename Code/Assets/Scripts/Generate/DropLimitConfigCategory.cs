@@ -12,11 +12,11 @@ namespace Game
 
     public class DropLimitHelper
     {
-        public static List<KeyValuePair<double, DropConfig>> Build(int type, double rateRise)
+        public static List<KeyValuePair<double, DropConfig>> Build(int type, double rateRise, double modelRise)
         {
-            return Build(type, rateRise, null);
+            return Build(type, rateRise, modelRise, null);
         }
-        public static List<KeyValuePair<double, DropConfig>> Build(int type, double rateRise, Dictionary<int, double> rateData)
+        public static List<KeyValuePair<double, DropConfig>> Build(int type, double rateRise, double modelRise, Dictionary<int, double> rateData)
         {
             List<KeyValuePair<double, DropConfig>> list = new List<KeyValuePair<double, DropConfig>>();
 
@@ -28,9 +28,11 @@ namespace Game
 
             foreach (DropLimitConfig dropLimit in drops)
             {
-                DropConfig dropConfig = DropConfigCategory.Instance.Get(dropLimit.DropId);
+                int dropId = dropLimit.DropId;
+                DropConfig dropConfig = DropConfigCategory.Instance.Get(dropId);
 
                 double rate = dropLimit.Rate;
+
                 if (dropLimit.ShareRise > 0)
                 {
                     rate = rate / rateRise;
@@ -38,9 +40,9 @@ namespace Game
 
                 if (dropLimit.StartRate > 0 && rateData != null)
                 {
-                    double currentRate = rateData[dropLimit.Id];
+                    double currentRate = rateData[dropId];
 
-                    Debug.Log("Start Rate:" + dropLimit.Id + " ," + currentRate);
+                    //Debug.Log("Start Rate:" + dropId + " ," + currentRate);
 
                     if (currentRate > dropLimit.StartRate)
                     {
@@ -51,6 +53,8 @@ namespace Game
                         continue;
                     }
                 }
+
+                rate = rate / modelRise;
 
                 list.Add(new KeyValuePair<double, DropConfig>(rate, dropConfig));
             }

@@ -31,6 +31,7 @@ public class DialogFashion : MonoBehaviour, IBattleLife
     private void Awake()
     {
         Btn_Close.onClick.AddListener(OnClick_Close);
+        Btn_Ok.onClick.AddListener(OnClick_Ok);
     }
 
     // Start is called before the first frame update
@@ -102,25 +103,28 @@ public class DialogFashion : MonoBehaviour, IBattleLife
 
     private void ShowItem(ItemFashion currentItem)
     {
+        //套装属性
+        FashionSuitConfig suitConfig = FashionSuitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Id == CurrentSuit).FirstOrDefault();
+
         User user = GameProcessor.Inst.User;
 
         Dictionary<int, MagicData> fs = user.FashionData[CurrentSuit];
 
         int currentLevel = (int)fs[currentItem.Part].Data;
 
-        if (currentLevel > 0)
+        currentItem.SetLevel(currentLevel);
+
+        if (currentLevel >= suitConfig.MaxLevel)
         {
-            Txt_Ok.text = "升级";
+            Txt_Ok.gameObject.SetActive(false);
         }
         else
         {
-            Txt_Ok.text = "激活";
+            Txt_Ok.gameObject.SetActive(true);
+            Txt_Ok.text = currentLevel > 0 ? "升级" : "激活";
         }
 
         int suitLevel = (int)fs.Select(m => m.Value.Data).Min();
-
-        //套装属性
-        FashionSuitConfig suitConfig = FashionSuitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Id == CurrentSuit).FirstOrDefault();
 
         string attrName = StringHelper.FormatAttrValueName(suitConfig.AttrId);
         long ab = 0;
@@ -175,6 +179,47 @@ public class DialogFashion : MonoBehaviour, IBattleLife
 
     public void OnClick_Ok()
     {
+        User user = GameProcessor.Inst.User;
+
+        ItemFashion currentItem = items.Where(m => m.toggle.isOn).FirstOrDefault();
+        Dictionary<int, MagicData> fs = user.FashionData[CurrentSuit];
+
+        int currentLevel = (int)fs[currentItem.Part].Data;
+
+        FashionSuitConfig suitConfig = FashionSuitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Id == CurrentSuit).FirstOrDefault();
+
+        if (currentLevel >= suitConfig.MaxLevel)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "已满级", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
+
+
+        FashionConfig config = currentItem.Config;
+
+        long total = user.Bags.Where(m => m.Item.Type == ItemType.Fashion && m.Item.ConfigId == config.ItemId).Select(m => m.MagicNubmer.Data).Sum();
+
+
+        int needCount = currentLevel + 1;
+
+        if (total < needCount)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = config.Name + "数量不足" + needCount + "个", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
+
+        GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "消耗" + needCount + "个" + config.Name + "升级成功", ToastType = ToastTypeEnum.Success });
+        GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
+        {
+            Type = ItemType.Fashion,
+            ItemId = config.Id,
+            Quantity = needCount
+        });
+
+        fs[currentItem.Part].Data++;
+
+        this.ShowItem(currentItem);
+        GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
     }
 
     public void OnClick_Close()

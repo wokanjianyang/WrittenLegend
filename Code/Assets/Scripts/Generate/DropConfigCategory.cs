@@ -102,7 +102,7 @@ namespace Game
                     if (rateData != null && rateData.ContainsKey(config.Id))
                     {
                         rateData[config.Id] = 0;
-                        Debug.Log("drop id " + config.Id + " ±£µ×¹éÁã ");
+                        //Debug.Log("drop id " + config.Id + " ±£µ×¹éÁã ");
                     }
 
                     int index = RandomHelper.RandomNumber(0, config.ItemIdList.Length);

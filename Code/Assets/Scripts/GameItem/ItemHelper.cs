@@ -33,11 +33,6 @@ namespace Game
             {
                 item = BuildMaterial(configId, number);
             }
-            else if (type == ItemType.GoldPack || type == ItemType.ExpPack || type == ItemType.Ticket)
-            {
-                item = new Item(configId);
-                item.Type = type;
-            }
             else if (type == ItemType.Exclusive)
             {
                 item = ExclusiveHelper.Build(configId);
@@ -46,15 +41,10 @@ namespace Game
             {
                 item = ExclusiveHelper.BuildByPack(configId);
             }
-            else if (type == ItemType.Card)
+            else
             {
                 item = new Item(configId);
-                item.Type = ItemType.Card;
-            }
-            else if (type == ItemType.Fashion)
-            {
-                item = new Item(configId);
-                item.Type = ItemType.Fashion;
+                item.Type = type;
             }
 
             item.Count = number;

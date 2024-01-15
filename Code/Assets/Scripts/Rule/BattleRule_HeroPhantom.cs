@@ -72,7 +72,7 @@ public class BattleRule_HeroPhantom : ABattleRule
 
     private void BuildReward()
     {
-        List<KeyValuePair<double, DropConfig>> dropList = DropLimitHelper.Build((int)DropLimitType.HeroPhatom, 1);
+        List<KeyValuePair<double, DropConfig>> dropList = DropLimitHelper.Build((int)DropLimitType.HeroPhatom, 1, 1);
 
         List<Item> items = DropHelper.BuildDropItem(dropList, 1);
 

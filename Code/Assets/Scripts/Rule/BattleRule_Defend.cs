@@ -127,7 +127,7 @@ public class Battle_Defend : ABattleRule
 
     private void BuildReward()
     {
-        List<KeyValuePair<double, DropConfig>> dropList = DropLimitHelper.Build((int)DropLimitType.Defend, 1);
+        List<KeyValuePair<double, DropConfig>> dropList = DropLimitHelper.Build((int)DropLimitType.Defend, 1, 1);
 
         List<Item> items = DropHelper.BuildDropItem(dropList, 1);
 

@@ -99,6 +99,7 @@ namespace Game
         Exclusive = 11, //◊® Ù
         Card = 12,//Õºº¯
         Wing = 13,
+        Fashion = 14,
         /// <summary>
         /// ≤‚ ‘ Ù–‘
         /// </summary>
