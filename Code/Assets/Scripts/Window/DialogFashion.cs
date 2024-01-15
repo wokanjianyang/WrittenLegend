@@ -194,11 +194,9 @@ public class DialogFashion : MonoBehaviour, IBattleLife
             return;
         }
 
-
         FashionConfig config = currentItem.Config;
 
         long total = user.Bags.Where(m => m.Item.Type == ItemType.Fashion && m.Item.ConfigId == config.ItemId).Select(m => m.MagicNubmer.Data).Sum();
-
 
         int needCount = currentLevel + 1;
 
@@ -208,13 +206,13 @@ public class DialogFashion : MonoBehaviour, IBattleLife
             return;
         }
 
-        GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "消耗" + needCount + "个" + config.Name + "升级成功", ToastType = ToastTypeEnum.Success });
         GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
         {
             Type = ItemType.Fashion,
-            ItemId = config.Id,
+            ItemId = config.ItemId,
             Quantity = needCount
         });
+        GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "消耗" + needCount + "个" + config.Name + "升级成功", ToastType = ToastTypeEnum.Success });
 
         fs[currentItem.Part].Data++;
 

@@ -304,7 +304,7 @@ namespace Game
 
                 foreach (var fashionItem in kv.Value)
                 {
-                    int itemLevel = fashionItem.Key;
+                    long itemLevel = fashionItem.Value.Data;
                     if (itemLevel > 0)
                     {
                         int part = fashionItem.Key;
@@ -312,7 +312,7 @@ namespace Game
 
                         for (int i = 0; i < fashionConfig.AttrIdList.Length; i++)
                         {
-                            int itemValue = fashionConfig.AttrValueList[i] + (itemLevel - 1) * fashionConfig.AttrRiseList[i];
+                            long itemValue = fashionConfig.AttrValueList[i] + (itemLevel - 1) * fashionConfig.AttrRiseList[i];
 
                             AttributeBonus.SetAttr((AttributeEnum)fashionConfig.AttrIdList[i], AttributeFrom.Fashion, suitId * 10000 + part, itemValue);
                         }
