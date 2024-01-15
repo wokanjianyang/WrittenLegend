@@ -119,8 +119,8 @@ namespace Game
                 user.HeroPhatomData.Count.Data = 1;
             }
 
-            user.DefendData.Refresh();
-            user.DefendData.CountDict[1].Data = 10;
+            //user.DefendData.Refresh();
+            //user.DefendData.CountDict[1].Data = 10;
             //user.HeroPhatomData = new HeroPhatomData();
             //user.HeroPhatomData.Count.Data = 1;
             //TEST data
