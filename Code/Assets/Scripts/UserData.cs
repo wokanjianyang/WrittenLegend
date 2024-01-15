@@ -124,7 +124,7 @@ namespace Game
             //user.HeroPhatomData = new HeroPhatomData();
             //user.HeroPhatomData.Count.Data = 1;
             //TEST data
-            //user.MagicGold.Data = 9999999999999; 
+            //user.MagicGold.Data = 200000000000000000; 
             //user.Level = 1;
             //user.MapId = 1010;
             //user.TowerFloor = 59998;
