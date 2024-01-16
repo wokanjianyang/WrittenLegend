@@ -136,10 +136,9 @@ namespace Game
         {
             User user = GameProcessor.Inst.User;
 
-
-
             double rewardModelRate = ModelConfig == null ? 1 : ModelConfig.RewardRate;
             double dropModelRate = ModelConfig == null ? 1 : ModelConfig.DropRate;
+            double countModelRate = ModelConfig == null ? 1 : ModelConfig.CountRate;
 
             long exp = (long)(this.Exp * (100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.ExpIncrea)) / 100 * rewardModelRate);
             long gold = (long)(this.Gold * (100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.GoldIncrea)) / 100 * rewardModelRate);
@@ -148,6 +147,8 @@ namespace Game
             user.AddExpAndGold(exp, gold);
 
             QualityConfig qualityConfig = QualityConfigCategory.Instance.Get(Quality);
+
+            user.AddStartRate(qualityConfig.CountRate * countModelRate);
 
             double dropRate = 1 + user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstIncrea) / 350.0;
             dropRate = Math.Min(8, 1 + dropRate);
