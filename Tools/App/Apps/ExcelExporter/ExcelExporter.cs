@@ -179,9 +179,9 @@ namespace Game
 
                 foreach (string path in Directory.GetFiles(excelDir))
                 {
-                    if (!path.Contains("SkillConfig.xlsx"))
+                    if (!path.Contains("BossConfig.xlsx"))
                     {
-                        //continue;
+                        continue;
                     }
                     ExportExcel(path);
                 }

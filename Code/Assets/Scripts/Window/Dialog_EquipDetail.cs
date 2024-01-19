@@ -493,7 +493,10 @@ namespace Game
                     }
                     break;
                 default:
-                    Log.Debug("未知的类型");
+                    {
+                        tran_NormalAttribute.gameObject.SetActive(true);
+                        tran_NormalAttribute.Find("Title").GetComponent<Text>().text = this.boxItem.Item.ItemConfig.Des;
+                    }
                     break;
             }
 

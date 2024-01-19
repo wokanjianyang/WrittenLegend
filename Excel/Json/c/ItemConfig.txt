@@ -34,6 +34,7 @@
 {"_t":"ItemConfig","_id":4006,"Name":"书页","Type":5,"Des":"每20个升级一级任意技能","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":5,"UseParam":50},
 {"_t":"ItemConfig","_id":4007,"Name":"四格碎片","Type":5,"Des":"升级四格","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":5,"UseParam":0},
 {"_t":"ItemConfig","_id":4008,"Name":"凤凰之羽","Type":5,"Des":"合成或者升级翅膀","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":5,"UseParam":0},
+{"_t":"ItemConfig","_id":4009,"Name":"专属精华","Type":5,"Des":"升级专属","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":5,"UseParam":0},
 {"_t":"ItemConfig","_id":4101,"Name":"图鉴碎片","Type":5,"Des":"兑换万能图鉴的碎片","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":5,"UseParam":0},
 {"_t":"ItemConfig","_id":4102,"Name":"铁矿","Type":5,"Des":"合成专属装备","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":5,"UseParam":0},
 {"_t":"ItemConfig","_id":4103,"Name":"银矿","Type":5,"Des":"合成专属装备","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":5,"UseParam":0},

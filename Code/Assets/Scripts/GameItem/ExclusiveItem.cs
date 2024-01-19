@@ -15,6 +15,10 @@ namespace Game
 
         public int DoubleHitId { get; set; }
 
+        public List<int> RuneConfigIdList { get; set; } = new List<int>();
+
+        public List<int> SuitConfigIdList { get; set; } = new List<int>();
+
         public override int GetQuality()
         {
             return Quality;
@@ -96,6 +100,14 @@ namespace Game
             }
 
             return AttrList;
+        }
+
+        public void Devour(ExclusiveItem exclusive)
+        {
+            this.Level++;
+
+            this.RuneConfigIdList.Add(exclusive.RuneConfigId);
+            this.SuitConfigIdList.Add(exclusive.SuitConfigId);
         }
     }
 }

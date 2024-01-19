@@ -284,4 +284,9 @@
 {"_t":"EquipGroupConfig","_id":562,"Level":650,"Position":5,"AttrIdList":[16,15],"AttrValueList":[85,85],"Memo":""},
 {"_t":"EquipGroupConfig","_id":563,"Level":650,"Position":7,"AttrIdList":[14,15],"AttrValueList":[85,85],"Memo":""},
 {"_t":"EquipGroupConfig","_id":564,"Level":650,"Position":9,"AttrIdList":[14,15],"AttrValueList":[85,85],"Memo":""},
+{"_t":"EquipGroupConfig","_id":701,"Level":700,"Position":1,"AttrIdList":[14,16,15],"AttrValueList":[100,100,100],"Memo":""},
+{"_t":"EquipGroupConfig","_id":702,"Level":700,"Position":3,"AttrIdList":[16,15],"AttrValueList":[100,100],"Memo":""},
+{"_t":"EquipGroupConfig","_id":703,"Level":700,"Position":5,"AttrIdList":[16,15],"AttrValueList":[100,100],"Memo":""},
+{"_t":"EquipGroupConfig","_id":704,"Level":700,"Position":7,"AttrIdList":[14,15],"AttrValueList":[100,100],"Memo":""},
+{"_t":"EquipGroupConfig","_id":705,"Level":700,"Position":9,"AttrIdList":[14,15],"AttrValueList":[100,100],"Memo":""},
 ]}
