@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Game
 {
@@ -12,7 +13,7 @@ namespace Game
 
     public class SkillRuneHelper
     {
-        public static SkillRuneConfig RandomRune(int role, int type, int quality,int level)
+        public static SkillRuneConfig RandomRune(int role, int type, int quality, int level, int maxRuneLevel)
         {
             int skillId = role * 1000;
 
@@ -26,13 +27,18 @@ namespace Game
                 RuneRate = ConfigHelper.RuneRate2;
             }
 
-            int runeMax = RuneRate.Length - 1;
-            if (level < 700 && runeMax == 8)
+            int end = RuneRate.Length - 1;
+            int start = 0;
+            if (level >= 700 && quality >= 5)
             { //700级以下，没有9级词条
-                runeMax = 7;
+                start = 1;
+            }
+            if (maxRuneLevel > 0)
+            {
+                start = end - maxRuneLevel;
             }
 
-            int index = RandomHelper.RandomNumber(0, RuneRate[runeMax]);
+            int index = RandomHelper.RandomNumber(RuneRate[start], RuneRate[end]);
 
             for (int i = 0; i < RuneRate.Length; i++)
             {

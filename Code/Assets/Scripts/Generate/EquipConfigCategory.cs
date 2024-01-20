@@ -12,7 +12,7 @@ namespace Game
 
     public class EquipHelper
     {
-        public static Equip BuildEquip(int configId, int staticQuality, int qualityRate)
+        public static Equip BuildEquip(int configId, int staticQuality, int qualityRate, int maxRuneLevel)
         {
             EquipConfig config = EquipConfigCategory.Instance.Get(configId);
 
@@ -31,7 +31,7 @@ namespace Game
 
             if (runeId == 0 && quality > 2) //随机生成词条
             {
-                SkillRuneConfig runeConfig = SkillRuneHelper.RandomRune(config.Role, 1, quality, config.LevelRequired);
+                SkillRuneConfig runeConfig = SkillRuneHelper.RandomRune(config.Role, 1, quality, config.LevelRequired, maxRuneLevel);
                 runeId = runeConfig.Id;
 
                 if (suitId == 0 && quality > 3)  //随机生成词条
