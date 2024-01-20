@@ -12,7 +12,7 @@ namespace Game
 
     public class SkillRuneHelper
     {
-        public static SkillRuneConfig RandomRune(int role, int type, int quality)
+        public static SkillRuneConfig RandomRune(int role, int type, int quality,int level)
         {
             int skillId = role * 1000;
 
@@ -26,7 +26,13 @@ namespace Game
                 RuneRate = ConfigHelper.RuneRate2;
             }
 
-            int index = RandomHelper.RandomNumber(0, RuneRate[RuneRate.Length - 1]);
+            int runeMax = RuneRate.Length - 1;
+            if (level < 700 && runeMax == 8)
+            { //700级以下，没有9级词条
+                runeMax = 7;
+            }
+
+            int index = RandomHelper.RandomNumber(0, RuneRate[runeMax]);
 
             for (int i = 0; i < RuneRate.Length; i++)
             {

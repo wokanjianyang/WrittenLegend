@@ -32,7 +32,7 @@ namespace Game
                 SkillRuneConfig runeConfig;
                 if (runeId <= 0)
                 {
-                    runeConfig = SkillRuneHelper.RandomRune(role, 2, quality);
+                    runeConfig = SkillRuneHelper.RandomRune(role, 2, quality, 0);
                     runeId = runeConfig.Id;
                 }
                 else
@@ -68,13 +68,16 @@ namespace Game
             return item;
         }
 
-        private static int RandomQuanlity() {
+        private static int RandomQuanlity()
+        {
             int[] rates = { 1, 5, 10, 18, 32 };
 
             int r = RandomHelper.RandomNumber(0, 32);
 
-            for (int i = 0; i < rates.Length; i++){
-                if (r < rates[i]) {
+            for (int i = 0; i < rates.Length; i++)
+            {
+                if (r < rates[i])
+                {
                     return 5 - i;
                 }
             }

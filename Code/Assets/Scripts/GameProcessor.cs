@@ -269,18 +269,18 @@ namespace Game
                 items.AddRange(DropHelper.TowerEquip(fl, equipLevel));
             }
 
-            //items.Add(new Equip(23005501, 23, 15, 5));
-            //items.Add(new Equip(23005502, 23, 15, 5));
-            //items.Add(new Equip(23005503, 23, 15, 5));
-            //items.Add(new Equip(23005504, 23, 15, 5));
-            //items.Add(new Equip(23005505, 16, 10037, 5));
-            //items.Add(new Equip(23005505, 16, 10037, 5));
-            //items.Add(new Equip(23005507, 16, 10037, 5));
-            //items.Add(new Equip(23005507, 16, 10037, 5));
-            //items.Add(new Equip(23005509, 23, 15, 5));
-            //items.Add(new Equip(23005510, 23, 15, 5));
+            //items.Add(new Equip(22005701, 23, 15, 5));
+            //items.Add(new Equip(22005702, 23, 15, 5));
+            //items.Add(new Equip(22005703, 23, 15, 5));
+            //items.Add(new Equip(22005704, 23, 15, 5));
+            //items.Add(new Equip(22005705, 16, 10037, 5));
+            //items.Add(new Equip(22005705, 16, 10037, 5));
+            //items.Add(new Equip(22005707, 16, 10037, 5));
+            //items.Add(new Equip(22005707, 16, 10037, 5));
+            //items.Add(new Equip(22005709, 23, 15, 5));
+            //items.Add(new Equip(22005710, 23, 15, 5));
 
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Equip_Speical_Stone,99999999));
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Wing_Stone,99999999));
 
             long newFloor = User.MagicTowerFloor.Data + offlineFloor;
 

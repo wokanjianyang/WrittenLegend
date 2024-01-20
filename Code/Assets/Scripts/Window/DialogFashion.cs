@@ -116,11 +116,11 @@ public class DialogFashion : MonoBehaviour, IBattleLife
 
         if (currentLevel >= suitConfig.MaxLevel)
         {
-            Txt_Ok.gameObject.SetActive(false);
+            Btn_Ok.gameObject.SetActive(false);
         }
         else
         {
-            Txt_Ok.gameObject.SetActive(true);
+            Btn_Ok.gameObject.SetActive(true);
             Txt_Ok.text = currentLevel > 0 ? "Éý¼¶" : "¼¤»î";
         }
 

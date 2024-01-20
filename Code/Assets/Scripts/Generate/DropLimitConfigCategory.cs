@@ -42,14 +42,15 @@ namespace Game
                 {
                     double currentRate = rateData[dropId];
 
-                    //Debug.Log("Start Rate:" + dropId + " ," + currentRate);
-
                     if (currentRate > dropLimit.StartRate)
                     {
                         rate = Math.Max(rate + dropLimit.StartRate - currentRate, 1);
+
+                        //Debug.Log("Start Drop Rate:" + dropId + " ," + rate);
                     }
                     else
                     {
+                        //Debug.Log("Start Current Rate:" + dropId + " ," + currentRate);
                         continue;
                     }
                 }
