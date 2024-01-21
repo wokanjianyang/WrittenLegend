@@ -39,6 +39,9 @@ public class ViewForgeProcessor : AViewPage
     public Toggle toggle_Exchange;
     public Panel_Exchange PanelExchange;
 
+    public Toggle toggle_Devour;
+    public Panel_Devour PanelDevour;
+
     private Dictionary<string, List<CompositeConfig>> allCompositeDatas = new Dictionary<string, List<CompositeConfig>>();
 
     private void Awake()
@@ -57,6 +60,11 @@ public class ViewForgeProcessor : AViewPage
         this.toggle_Exchange.onValueChanged.AddListener((isOn) =>
         {
             PanelExchange.gameObject.SetActive(isOn);
+        });
+
+        this.toggle_Devour.onValueChanged.AddListener((isOn) =>
+        {
+            PanelDevour.gameObject.SetActive(isOn);
         });
 
         Btn_Refine.onClick.AddListener(OnClick_Refine);
