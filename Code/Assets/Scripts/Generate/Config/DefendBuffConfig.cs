@@ -84,23 +84,26 @@ namespace Game
 		/// <summary>Type</summary>
 		[ProtoMember(3)]
 		public int Type { get; set; }
-		/// <summary>AttrId</summary>
+		/// <summary>MaxCount</summary>
 		[ProtoMember(4)]
+		public int MaxCount { get; set; }
+		/// <summary>AttrId</summary>
+		[ProtoMember(5)]
 		public int AttrId { get; set; }
 		/// <summary>AttrValue</summary>
-		[ProtoMember(5)]
+		[ProtoMember(6)]
 		public int AttrValue { get; set; }
 		/// <summary>SkillId</summary>
-		[ProtoMember(6)]
+		[ProtoMember(7)]
 		public int SkillId { get; set; }
 		/// <summary>RuneId</summary>
-		[ProtoMember(7)]
+		[ProtoMember(8)]
 		public int RuneId { get; set; }
 		/// <summary>Memo</summary>
-		[ProtoMember(8)]
+		[ProtoMember(9)]
 		public string Memo { get; set; }
 		/// <summary>Rate</summary>
-		[ProtoMember(9)]
+		[ProtoMember(10)]
 		public int Rate { get; set; }
 
 	}

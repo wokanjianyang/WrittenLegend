@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Game
 {
@@ -92,12 +93,18 @@ namespace Game
 
             if (Current != null)
             {
-                foreach (var kv in Current.BuffDict)
+                var gp = Current.BuffDict.Select(m => m.Value).GroupBy(m => m);
+                foreach (var g in gp)
                 {
-                    DefendBuffConfig config = DefendBuffConfigCategory.Instance.Get(kv.Value);
-                    if (config.Type != (int)DefendBuffType.Attr)
+                    int buffId = g.Key;
+                    int count = g.Count();
+                    DefendBuffConfig config = DefendBuffConfigCategory.Instance.Get(buffId);
+
+                    if (config.MaxCount <= count)
                     {
                         list.Add(config.Id);
+
+                        Debug.Log("Exclued buff:" + config.Name + " count:" + count);
                     }
                 }
             }
