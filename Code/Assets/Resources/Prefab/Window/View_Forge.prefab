@@ -3521,7 +3521,7 @@ GameObject:
   - component: {fileID: 8740963350944425517}
   - component: {fileID: 3311351339106142490}
   m_Layer: 5
-  m_Name: Toggle_4
+  m_Name: Toggle_Devour
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3588,7 +3588,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 501008246071024387}
   toggleTransition: 1
   graphic: {fileID: 1467197324386867078}
@@ -4269,7 +4269,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u5F85\u5F00\u53D1"
+  m_Text: "\u541E\u566C"
 --- !u!1 &6358234171657883859
 GameObject:
   m_ObjectHideFlags: 0

@@ -104,7 +104,7 @@ namespace Game
                     {
                         list.Add(config.Id);
 
-                        Debug.Log("Exclued buff:" + config.Name + " count:" + count);
+                        //Debug.Log("Exclued buff:" + config.Name + " count:" + count);
                     }
                 }
             }

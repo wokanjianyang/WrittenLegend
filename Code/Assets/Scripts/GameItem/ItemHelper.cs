@@ -86,5 +86,7 @@ namespace Game
         public static int SpecialId_Exclusive_Core = 4009;
 
         public static int SpecialId_Card_Stone = 4101;
+
+        public static int SpecialId_Chunjie = 4106;
     }
 }
