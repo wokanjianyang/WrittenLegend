@@ -106,7 +106,7 @@ namespace Game
             this.btn_Unlock.onClick.AddListener(this.OnClick_Unlock);
 
             this.btn_Select.onClick.AddListener(this.OnClick_Select);
-            this.btn_Deselect.onClick.AddListener(this.OnClick_DeSelect);
+            this.btn_Deselect.onClick.AddListener(this.OnClick_Deselect);
         }
 
         // Update is called once per frame
@@ -135,6 +135,7 @@ namespace Game
             tran_SuitAttribute.gameObject.SetActive(false);
             tran_GroupAttribute.gameObject.SetActive(false);
             tran_DoubleHitAttribute.gameObject.SetActive(false);
+
             this.btn_Equip.gameObject.SetActive(false);
             this.btn_UnEquip.gameObject.SetActive(false);
             this.btn_Learn.gameObject.SetActive(false);
@@ -144,6 +145,8 @@ namespace Game
             this.btn_Forging.gameObject.SetActive(false);
             this.btn_Lock.gameObject.SetActive(false);
             this.btn_Unlock.gameObject.SetActive(false);
+            this.btn_Select.gameObject.SetActive(false);
+            this.btn_Deselect.gameObject.SetActive(false);
 
             // this.transform.position = this.GetBetterPosition(e.Position);
             // this.img_Background.sprite = this.list_BackgroundImgs[this.item.GetQuality() - 1];
@@ -522,7 +525,14 @@ namespace Game
 
             if (this.BoxType == ComBoxType.Exclusive_Devour)
             {
-
+                if (this.equipPositioin <= 0)
+                {
+                    this.btn_Select.gameObject.SetActive(true);
+                }
+                else
+                {
+                    this.btn_Deselect.gameObject.SetActive(true);
+                }
             }
         }
 
@@ -674,7 +684,8 @@ namespace Game
             GameProcessor.Inst.EventCenter.Raise(new ComBoxDeselectEvent()
             {
                 Type = this.BoxType,
-                BoxItem = this.boxItem
+                BoxItem = this.boxItem,
+                Position = this.equipPositioin
             });
         }
     }

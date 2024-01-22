@@ -13,10 +13,6 @@ public class Panel_Devour : MonoBehaviour
 
     public List<SlotBox> slots;
 
-    public SlotBox MainBox;
-
-    public SlotBox SecondBox;
-
     private List<Com_Box> items = new List<Com_Box>();
 
     private const int MaxCount = 36;
@@ -42,7 +38,12 @@ public class Panel_Devour : MonoBehaviour
         {
             var empty = GameObject.Instantiate(emptyPrefab, this.sr_Panel.content);
             empty.name = "Box_" + i;
-            //yield return null;
+        }
+
+        var prefab = Resources.Load<GameObject>("Prefab/Window/Box_Info");
+        for (int i = 0; i < slots.Count; i++)
+        {
+            slots[i].Init(prefab);
         }
     }
 
@@ -94,7 +95,7 @@ public class Panel_Devour : MonoBehaviour
 
     private void OnComBoxSelect(ComBoxSelectEvent e)
     {
-        SlotBox slot = slots.Where(m=>m.GetEquip()==null).FirstOrDefault();
+        SlotBox slot = slots.Where(m => m.GetEquip() == null).FirstOrDefault();
 
         if (slot == null)
         {
@@ -113,14 +114,14 @@ public class Panel_Devour : MonoBehaviour
         comItem.transform.localPosition = Vector3.zero;
         comItem.transform.localScale = Vector3.one;
         comItem.SetBoxId(-1);
-        comItem.SetEquipPosition(1);
+        comItem.SetEquipPosition((int)slot.SlotType);
 
         slot.Equip(comItem);
     }
 
     private void OnComBoxDeselect(ComBoxDeselectEvent e)
     {
-        SlotBox slot = MainBox;
+        SlotBox slot = slots.Where(m => m.SlotType == (SlotType)e.Position).FirstOrDefault();
 
         BoxItem boxItem = e.BoxItem;
 

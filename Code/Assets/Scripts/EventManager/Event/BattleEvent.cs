@@ -29,6 +29,8 @@ namespace Game
     {
         public BoxItem BoxItem { get; set; }
         public ComBoxType Type { get; set; }
+
+        public int Position { get; set; }
     }
 
     public class EquipOneEvent : SDD.Events.Event
