@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Game
 {
-    public class Com_Box : MonoBehaviour,IPointerClickHandler,IPointerDownHandler,IPointerUpHandler
+    public class Com_Box : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler
     {
 
         [Title("物品格")]
@@ -28,6 +28,8 @@ namespace Game
 
         public int EquipPosition { get; private set; }
         public long Count { get; private set; }
+
+        public ComBoxType Type { get; set; } = ComBoxType.Bag;
 
         // Start is called before the first frame update
         void Start()
@@ -57,7 +59,8 @@ namespace Game
                 GameProcessor.Inst.EventCenter.Raise(new ShowEquipDetailEvent()
                 {
                     boxItem = this.BoxItem,
-                    EquipPosition = this.EquipPosition
+                    EquipPosition = this.EquipPosition,
+                    Type = this.Type
                 });
             }
         }
@@ -113,7 +116,7 @@ namespace Game
 
         public void AddStack(long quantity)
         {
-            this.Count+= quantity;
+            this.Count += quantity;
             this.tmp_Count.transform.gameObject.SetActive(this.Count != 1);
             this.tmp_Count.text = this.Count.ToString();
         }
@@ -129,5 +132,16 @@ namespace Game
         {
             this.go_Lock.gameObject.SetActive(isLock);
         }
+
+        public void SetType(ComBoxType type)
+        {
+            this.Type = type;
+        }
+    }
+
+    public enum ComBoxType
+    {
+        Bag = 0,
+        Exclusive_Devour = 1,
     }
 }

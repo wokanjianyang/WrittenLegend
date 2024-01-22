@@ -165,6 +165,11 @@ namespace Game
         神圣倚天 = 19,
         [LabelText("专属6")]
         神圣命运 = 20,
+
+        [LabelText("主专属")]
+        主专属 = 101,
+        [LabelText("副专属")]
+        副专属 = 102,
     }
     public enum ProgressType
     {

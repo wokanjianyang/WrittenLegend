@@ -13,9 +13,22 @@ namespace Game
     {
         //public Vector3 Position { get; set; }
 
+        public ComBoxType Type { get; set; }
         public BoxItem boxItem { get; set; }
 
         public int EquipPosition { get; set; }
+    }
+
+    public class ComBoxSelectEvent : SDD.Events.Event
+    {
+        public BoxItem BoxItem { get; set; }
+        public ComBoxType Type { get; set; }
+    }
+
+    public class ComBoxDeselectEvent : SDD.Events.Event
+    {
+        public BoxItem BoxItem { get; set; }
+        public ComBoxType Type { get; set; }
     }
 
     public class EquipOneEvent : SDD.Events.Event

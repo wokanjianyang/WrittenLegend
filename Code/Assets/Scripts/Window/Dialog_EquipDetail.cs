@@ -73,15 +73,19 @@ namespace Game
 
         [LabelText("锻造")]
         public Button btn_Forging;
-        
+
         [LabelText("锁定装备")]
         public Button btn_Lock;
-                
+
         [LabelText("解除锁定装备")]
         public Button btn_Unlock;
-        
+
+        public Button btn_Select;
+        public Button btn_Deselect;
+
         private BoxItem boxItem;
         private int equipPositioin;
+        private ComBoxType BoxType;
 
         private RectTransform rectTransform;
 
@@ -97,10 +101,12 @@ namespace Game
 
             this.btn_Recovery.onClick.AddListener(this.OnRecovery);
             this.btn_Forging.onClick.AddListener(this.OnForging);
-            
+
             this.btn_Lock.onClick.AddListener(this.OnClick_Lock);
             this.btn_Unlock.onClick.AddListener(this.OnClick_Unlock);
-            
+
+            this.btn_Select.onClick.AddListener(this.OnClick_Select);
+            this.btn_Deselect.onClick.AddListener(this.OnClick_DeSelect);
         }
 
         // Update is called once per frame
@@ -112,7 +118,7 @@ namespace Game
 
         public void OnBattleStart()
         {
-            this.gameObject.SetActive(false); 
+            this.gameObject.SetActive(false);
 
             GameProcessor.Inst.EventCenter.AddListener<ShowEquipDetailEvent>(this.OnShowEquipDetailEvent);
             this.rectTransform = this.transform.GetComponent<RectTransform>();
@@ -143,6 +149,7 @@ namespace Game
             // this.img_Background.sprite = this.list_BackgroundImgs[this.item.GetQuality() - 1];
             this.boxItem = e.boxItem;
             this.equipPositioin = e.EquipPosition;
+            this.BoxType = e.Type;
 
             var titleColor = QualityConfigHelper.GetColor(this.boxItem.Item);
             this.tmp_Title.text = string.Format("<color=#{0}>{1}</color>", titleColor, this.boxItem.Item.Name);
@@ -500,7 +507,7 @@ namespace Game
                     break;
             }
 
-            if (equipPositioin < -1) //道具自选包，不可操作
+            if (equipPositioin < -1 || this.BoxType != ComBoxType.Bag) //不可操作
             {
                 this.btn_Equip.gameObject.SetActive(false);
                 this.btn_UnEquip.gameObject.SetActive(false);
@@ -511,6 +518,11 @@ namespace Game
                 this.btn_Forging.gameObject.SetActive(false);
                 this.btn_Lock.gameObject.SetActive(false);
                 this.btn_Unlock.gameObject.SetActive(false);
+            }
+
+            if (this.BoxType == ComBoxType.Exclusive_Devour)
+            {
+
             }
         }
 
@@ -589,7 +601,7 @@ namespace Game
         private void OnForging()
         {
             this.gameObject.SetActive(false);
-            
+
             GameProcessor.Inst.EventCenter.Raise(new ForgingEvent()
             {
                 BoxItem = this.boxItem,
@@ -604,7 +616,7 @@ namespace Game
         public void OnClick_Lock()
         {
             this.gameObject.SetActive(false);
-            
+
             GameProcessor.Inst.EventCenter.Raise(new EquipLockEvent()
             {
                 BoxItem = this.boxItem,
@@ -615,7 +627,7 @@ namespace Game
         private void OnClick_Unlock()
         {
             this.gameObject.SetActive(false);
-            
+
             GameProcessor.Inst.EventCenter.Raise(new EquipLockEvent()
             {
                 BoxItem = this.boxItem,
@@ -639,6 +651,29 @@ namespace Game
             GameProcessor.Inst.EventCenter.Raise(new BagUseEvent()
             {
                 Quantity = -1,
+                BoxItem = this.boxItem
+            });
+        }
+
+
+        private void OnClick_Select()
+        {
+            this.gameObject.SetActive(false);
+
+            GameProcessor.Inst.EventCenter.Raise(new ComBoxSelectEvent()
+            {
+                Type = this.BoxType,
+                BoxItem = this.boxItem
+            });
+        }
+
+        private void OnClick_Deselect()
+        {
+            this.gameObject.SetActive(false);
+
+            GameProcessor.Inst.EventCenter.Raise(new ComBoxDeselectEvent()
+            {
+                Type = this.BoxType,
                 BoxItem = this.boxItem
             });
         }

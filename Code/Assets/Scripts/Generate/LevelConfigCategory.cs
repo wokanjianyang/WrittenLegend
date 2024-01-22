@@ -10,14 +10,7 @@ namespace Game
 
         public static long GetLevelAttr(long level)
         {
-            long total = 0;
-
-            for (int i = 1; i <= level; i++)
-            {
-                total += i;
-            }
-
-            return total;
+            return level * (level + 1) / 2;
         }
 
         public static long ConvertLevel(long oldLevel,long maxLevel)

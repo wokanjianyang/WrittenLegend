@@ -64,7 +64,7 @@ public class ViewForgeProcessor : AViewPage
 
         this.toggle_Devour.onValueChanged.AddListener((isOn) =>
         {
-            PanelDevour.gameObject.SetActive(isOn);
+            this.ShowDevour(isOn);
         });
 
         Btn_Refine.onClick.AddListener(OnClick_Refine);
@@ -479,6 +479,16 @@ public class ViewForgeProcessor : AViewPage
         GameProcessor.Inst.UpdateInfo();
 
         ShowRefine();
+    }
+
+
+    private void ShowDevour(bool isOn)
+    {
+        PanelDevour.gameObject.SetActive(isOn);
+        if (isOn)
+        {
+            PanelDevour.Load();
+        }
     }
 
     protected override bool CheckPageType(ViewPageType page)

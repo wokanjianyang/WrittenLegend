@@ -124,11 +124,14 @@ namespace Game
 
             List<int> skills = user.GetCurrentSkillList();
 
-            for (int i = 0; i < skills.Count; i++)
-            {
-                SkillData skillData = user.SkillList.Where(m => m.SkillId == skills[i]).FirstOrDefault();
 
-                AllEquipSkills[i].SetItem(skillData);
+            for (int i = 0; i < AllEquipSkills.Length; i++)
+            {
+                if (skills.Count > i)
+                {
+                    SkillData skillData = user.SkillList.Where(m => m.SkillId == skills[i]).FirstOrDefault();
+                    AllEquipSkills[i].SetItem(skillData);
+                }
             }
         }
 
