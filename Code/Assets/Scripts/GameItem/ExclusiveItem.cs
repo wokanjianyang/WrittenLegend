@@ -104,10 +104,10 @@ namespace Game
 
         public void Devour(ExclusiveItem exclusive)
         {
-            this.Level++;
-
             this.RuneConfigIdList.Add(exclusive.RuneConfigId);
             this.SuitConfigIdList.Add(exclusive.SuitConfigId);
+
+            this.Level = this.RuneConfigIdList.Count;
         }
     }
 }

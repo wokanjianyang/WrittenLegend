@@ -103,9 +103,16 @@ namespace Game
                 this.Tag.text = $"<color=#{QualityConfigHelper.GetEquipTagColor(item.Item.IsKeep)}>New</color>";
             }
 
-            if (item.Item.Type == ItemType.Exclusive && item.Item.Level > 0)
+            if (item.Item.Type == ItemType.Exclusive)
             {
-                this.tmp_Count.text = item.Item.Level + "";
+                ExclusiveItem exclusive = item.Item as ExclusiveItem;
+                if (exclusive.RuneConfigIdList.Count > 0)
+                {
+                    Debug.Log("Exclusive Devour");
+
+                    this.tmp_Count.text = exclusive.RuneConfigIdList.Count + "";
+                    this.tmp_Count.gameObject.SetActive(true);
+                }
             }
         }
 

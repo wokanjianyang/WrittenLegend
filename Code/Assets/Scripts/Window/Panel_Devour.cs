@@ -180,12 +180,12 @@ public class Panel_Devour : MonoBehaviour
         {
             if (slots[i].GetEquip() == null)
             {
-                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "请先选择好专属", ToastType = ToastTypeEnum.Failure });
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "请先选择专属", ToastType = ToastTypeEnum.Failure });
                 return;
             }
         }
 
-        if (slots[0].GetEquip().BoxItem.Item.ConfigId != slots[0].GetEquip().BoxItem.Item.ConfigId)
+        if (slots[0].GetEquip().BoxItem.Item.ConfigId != slots[1].GetEquip().BoxItem.Item.ConfigId)
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "主副专属必须是同位置", ToastType = ToastTypeEnum.Failure });
             return;
