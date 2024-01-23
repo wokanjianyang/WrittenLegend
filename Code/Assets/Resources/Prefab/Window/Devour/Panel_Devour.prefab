@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 1173770315352146350}
   - component: {fileID: 3149432457757707321}
   m_Layer: 5
-  m_Name: Button (Legacy)
+  m_Name: Btn_OK
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -860,6 +860,11 @@ MonoBehaviour:
   slots:
   - {fileID: 1938825409828220057}
   - {fileID: 7913745939114553321}
+  Btn_OK: {fileID: 3149432457757707321}
+  CommissionName: {fileID: 0}
+  CommissionCount: {fileID: 0}
+  CommissionName1: {fileID: 0}
+  CommissionCount1: {fileID: 0}
 --- !u!1 &6409764158405614360
 GameObject:
   m_ObjectHideFlags: 0

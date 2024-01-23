@@ -102,6 +102,11 @@ namespace Game
                 this.Tag.gameObject.SetActive(true);
                 this.Tag.text = $"<color=#{QualityConfigHelper.GetEquipTagColor(item.Item.IsKeep)}>New</color>";
             }
+
+            if (item.Item.Type == ItemType.Exclusive && item.Item.Level > 0)
+            {
+                this.tmp_Count.text = item.Item.Level + "";
+            }
         }
 
         public void SetBoxId(int id)

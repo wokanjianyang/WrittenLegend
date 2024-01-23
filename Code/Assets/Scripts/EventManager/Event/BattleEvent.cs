@@ -215,6 +215,12 @@ namespace Game
     {
         public ExchangeConfig Config { get; set; }
     }
+
+    public class ExclusiveDevourEvent : SDD.Events.Event
+    {
+
+    }
+
     public class ExchangeUIFreshEvent : SDD.Events.Event
     {
     }

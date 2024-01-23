@@ -106,6 +106,8 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<EquipLockEvent>(this.OnEquipLockEvent);
             GameProcessor.Inst.EventCenter.AddListener<ExchangeEvent>(this.OnExchangeEvent);
             GameProcessor.Inst.EventCenter.AddListener<ChangeExclusiveEvent>(this.OnChangeExclusiveEvent);
+            GameProcessor.Inst.EventCenter.AddListener<ExclusiveDevourEvent>(this.OnExclusiveDevour);
+
 
             GameProcessor.Inst.StartCoroutine(LoadBox());
         }
@@ -428,6 +430,21 @@ namespace Game
             //Debug.Log("OnChangeExclusiveEvent");
         }
 
+        private void OnExclusiveDevour(ExclusiveDevourEvent e)
+        {
+            for (int i = 0; i < ConfigHelper.Devour_IdList.Length; i++)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
+                {
+                    Type = ItemType.Material,
+                    ItemId = ConfigHelper.Devour_IdList[i],
+                    Quantity = ConfigHelper.Devour_CountList[i]
+                });
+            }
+
+            Item item = null;
+
+        }
 
         private void ChangePlan(int index)
         {
@@ -819,7 +836,8 @@ namespace Game
                 user.Bags.Remove(boxItem);
             }
 
-            Com_Box boxUI = this.items.Find(m => m.boxId == boxItem.BoxId && m.BagType == boxItem.GetBagType());
+            //Com_Box boxUI = this.items.Find(m => m.boxId == boxItem.BoxId && m.BagType == boxItem.GetBagType());
+            Com_Box boxUI = this.items.Find(m => m.BoxItem == boxItem);
             if (boxUI != null) //上线自动回收，可能还没加载
             {
                 boxUI.RemoveStack(quantity);
