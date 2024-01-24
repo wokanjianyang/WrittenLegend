@@ -14,9 +14,13 @@ namespace Game
 
         public const double Def_Rate = 3.0; //防御系数
 
-        public static int[] RuneRate = new int[] { 1, 3, 8, 18, 39, 85, 185 }; //紫色一下装备产生概率
-        public static int[] RuneRate1 = new int[] { 1, 4, 9, 15, 25, 35, 45, 55, 60 }; //橙色装备产生概率 
-        public static int[] RuneRate2 = new int[] { 1, 3, 6, 9, 15, 24, 39, 59 }; //专属产生概率
+        public static int[] RuneRate = new int[] { 1, 3, 8, 18, 39, 85 }; //紫色一下装备产生概率
+        public static int[] RuneRate0 = new int[] { 1, 3, 8 }; //保底塔产生概率
+        public static int[] RuneRate1 = new int[] { 1, 3, 6, 10, 15, 20, 25 }; //0-350橙色装备产生概率 
+        public static int[] RuneRate2 = new int[] { 1, 4, 9, 15, 25, 35, 45, 55 }; //350-650橙色装备产生概率 
+        public static int[] RuneRate3 = new int[] { 1, 4, 9, 15, 25, 35, 45, 55, 60 }; //700以上橙色装备产生概率 
+
+        public static int[] RuneRate99 = new int[] { 1, 3, 6, 9, 15, 24, 39, 59 }; //专属产生概率
 
         public const long PackTime = 1706059194; //打包时间，防止作弊
 

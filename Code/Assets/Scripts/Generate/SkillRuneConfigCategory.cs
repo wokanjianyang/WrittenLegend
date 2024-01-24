@@ -20,31 +20,50 @@ namespace Game
             int[] RuneRate;
             if (type == 1)
             {
-                RuneRate = quality < 5 ? ConfigHelper.RuneRate : ConfigHelper.RuneRate1;
+                RuneRate = ConfigHelper.RuneRate;
+
+                if (maxRuneLevel > 0)
+                {
+                    RuneRate = ConfigHelper.RuneRate0;
+                }
+                else if (quality >= 5)
+                {
+                    if (level <= 300)
+                    {
+                        RuneRate = ConfigHelper.RuneRate1;
+                    }
+                    else if (level <= 650)
+                    {
+                        RuneRate = ConfigHelper.RuneRate2;
+                    }
+                    else
+                    {
+                        RuneRate = ConfigHelper.RuneRate3;
+                    }
+                }
             }
             else
             {
                 RuneRate = ConfigHelper.RuneRate2;
             }
 
-            int end = RuneRate.Length - 1;
-            int start = 0;
-            if (level >= 700 && quality >= 5)
-            { //700级以下，没有9级词条
-                start = 1;
-            }
-            if (maxRuneLevel > 0)
+            int index = RandomHelper.RandomNumber(0, RuneRate[RuneRate.Length - 1]);
+            if (index == 0)
             {
-                start = end - maxRuneLevel;
+                Debug.Log("index:" + index);
             }
-
-            int index = RandomHelper.RandomNumber(RuneRate[start], RuneRate[end]);
 
             for (int i = 0; i < RuneRate.Length; i++)
             {
                 if (index < RuneRate[i])
                 {
                     skillId = skillId + (RuneRate.Length - i);
+
+                    if (index == 0 && RuneRate.Length == 9)
+                    {
+                        Debug.Log("Rune3:" + skillId);
+                    }
+
                     break;
                 }
             }
