@@ -119,6 +119,9 @@ namespace Game
                 user.HeroPhatomData.Count.Data = 1;
             }
 
+            //去掉专属精华
+            user.Bags.RemoveAll(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Exclusive_Core);
+
             //user.DefendData.Refresh();
             //user.DefendData.CountDict[1].Data = 10;
             //user.HeroPhatomData = new HeroPhatomData();

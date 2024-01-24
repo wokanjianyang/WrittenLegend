@@ -14,6 +14,7 @@ namespace Game
     public class ViewBagProcessor : AViewPage
     {
         public List<Toggle> BagToggleList = new List<Toggle>();
+        public List<ScrollRect> BagList = new List<ScrollRect>();
 
         public RectTransform EquipInfoSpecial;
         public List<RectTransform> EquipInfoList = new List<RectTransform>();
@@ -21,8 +22,6 @@ namespace Game
 
         [LabelText("整理")]
         public Button btn_Reset;
-
-        public List<ScrollRect> BagList = new List<ScrollRect>();
 
         [Title("个人信息")]
         [LabelText("魂环")]
