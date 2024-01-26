@@ -63,8 +63,5 @@ namespace Game
             }
             return 1;
         }
-
-        public static int[] Devour_IdList = { ItemHelper.SpecialId_Exclusive_Stone, ItemHelper.SpecialId_Exclusive_Core };
-        public static int[] Devour_CountList = { 100, 1 };
     }
 }

@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1541119868
+CRC: 9359126
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: d55af45bfec9b3a71f1ef2cb0a95d735
+    Hash: 2376c7db35964d958fc0e15171cafd84
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -17,6 +17,7 @@ Assets:
 - Assets/Resources/Config/EquipStrengthConfigCategory.bytes
 - Assets/Resources/Config/SkillSuitConfigCategory.bytes
 - Assets/Resources/Config/SkillEffectConfigCategory.bytes
+- Assets/Resources/Config/ExclusiveDevourConfigCategory.bytes
 - Assets/Resources/Config/QualityConfigCategory.bytes
 - Assets/Resources/Config/LevelConfigCategory.bytes
 - Assets/Resources/Config/PhantomConfigCategory.bytes
@@ -35,6 +36,7 @@ Assets:
 - Assets/Resources/Config/EquipQualityConfigCategory.bytes
 - Assets/Resources/Config/FashionConfigCategory.bytes
 - Assets/Resources/Config/GameAttributeCategory.bytes
+- Assets/Resources/Config/FestiveConfigCategory.bytes
 - Assets/Resources/Config/HeroPhatomConfigCategory.bytes
 - Assets/Resources/Config/BossConfigCategory.bytes
 - Assets/Resources/Config/CompositeConfigCategory.bytes

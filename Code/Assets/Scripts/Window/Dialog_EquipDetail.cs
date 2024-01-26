@@ -250,18 +250,13 @@ namespace Game
 
                         if (equip.SkillRuneConfig != null)
                         {
-                            int index = 0;
-                            tran_SkillAttribute.gameObject.SetActive(true);
-                            tran_SkillAttribute.Find("Title").GetComponent<Text>().text = equip.SkillRuneConfig.Name;
+                            List<int> runeIdList = new List<int>();
+                            if (equip.RuneConfigId > 0)
+                            {
+                                runeIdList.Add(equip.RuneConfigId);
+                            }
 
-                            var child = tran_SkillAttribute.Find(string.Format("Attribute_{0}", index));
-                            child.GetComponent<Text>().text = string.Format(" {0}", equip.SkillRuneConfig.Des);
-                            child.gameObject.SetActive(true);
-
-                            index = 1;
-                            child = tran_SkillAttribute.Find(string.Format("Attribute_{0}", index));
-                            child.GetComponent<Text>().text = string.Format(" 最大生效数量{0}", equip.SkillRuneConfig.Max);
-                            child.gameObject.SetActive(true);
+                            ShowRune(runeIdList);
                         }
 
                         if (equip.SkillSuitConfig != null)
@@ -382,18 +377,16 @@ namespace Game
                         }
                         if (exclusive.SkillRuneConfig != null)
                         {
-                            int index = 0;
-                            tran_SkillAttribute.gameObject.SetActive(true);
-                            tran_SkillAttribute.Find("Title").GetComponent<Text>().text = exclusive.SkillRuneConfig.Name;
-
-                            var child = tran_SkillAttribute.Find(string.Format("Attribute_{0}", index));
-                            child.GetComponent<Text>().text = string.Format(" {0}", exclusive.SkillRuneConfig.Des);
-                            child.gameObject.SetActive(true);
-
-                            index = 1;
-                            child = tran_SkillAttribute.Find(string.Format("Attribute_{0}", index));
-                            child.GetComponent<Text>().text = string.Format(" 最大生效数量{0}", exclusive.SkillRuneConfig.Max);
-                            child.gameObject.SetActive(true);
+                            List<int> runeIdList = new List<int>();
+                            if (exclusive.RuneConfigId > 0)
+                            {
+                                runeIdList.Add(exclusive.RuneConfigId);
+                            }
+                            if (exclusive.RuneConfigIdList.Count > 0)
+                            {
+                                runeIdList.AddRange(exclusive.RuneConfigIdList);
+                            }
+                            ShowRune(runeIdList);
                         }
                         if (exclusive.SkillSuitConfig != null)
                         {
@@ -534,6 +527,25 @@ namespace Game
                     this.btn_Deselect.gameObject.SetActive(true);
                 }
             }
+        }
+
+        private void ShowRune(List<int> runeIdList)
+        {
+            Item_Rune[] runes = tran_SkillAttribute.GetComponentsInChildren<Item_Rune>(true);
+
+            for (int i = 0; i < runes.Length; i++)
+            {
+                if (i < runeIdList.Count)
+                {
+                    runes[i].gameObject.SetActive(true);
+                    runes[i].SetContent(runeIdList[i]);
+                }
+                else
+                {
+                    runes[i].gameObject.SetActive(false);
+                }
+            }
+            tran_SkillAttribute.gameObject.SetActive(true);
         }
 
         private string FormatAttrText(int attr, long val, int percent)

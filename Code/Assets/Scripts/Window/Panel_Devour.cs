@@ -23,6 +23,7 @@ public class Panel_Devour : MonoBehaviour
 
     private bool check = false;
 
+    private ExclusiveDevourConfig config = null;
     // Start is called before the first frame update
     void Awake()
     {
@@ -98,7 +99,7 @@ public class Panel_Devour : MonoBehaviour
             this.items.Add(box);
         }
 
-        this.Check();
+        this.config = null;
     }
 
     private Com_Box CreateBox(BoxItem item, Transform parent)
@@ -140,6 +141,15 @@ public class Panel_Devour : MonoBehaviour
         comItem.SetEquipPosition((int)slot.SlotType);
 
         slot.Equip(comItem);
+
+        int index = slots.IndexOf(slot);
+        if (index == 0)
+        {
+            ExclusiveItem exclusive = boxItem.Item as ExclusiveItem;
+            int level = exclusive.RuneConfigIdList.Count + 1;
+            this.config = ExclusiveDevourConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Level == level).FirstOrDefault();
+            this.Check();
+        }
     }
 
     private void OnComBoxDeselect(ComBoxDeselectEvent e)
@@ -206,13 +216,13 @@ public class Panel_Devour : MonoBehaviour
         }
 
         //²ÄÁÏ
-        for (int i = 0; i < ConfigHelper.Devour_IdList.Length; i++)
+        for (int i = 0; i < config.ItemIdList.Length; i++)
         {
             GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
             {
                 Type = ItemType.Material,
-                ItemId = ConfigHelper.Devour_IdList[i],
-                Quantity = ConfigHelper.Devour_CountList[i]
+                ItemId = config.ItemIdList[i],
+                Quantity = config.ItemCountList[i]
             });
         }
 
@@ -240,8 +250,9 @@ public class Panel_Devour : MonoBehaviour
 
     private void Check()
     {
-        int[] ItemIdList = new int[] { ItemHelper.SpecialId_Exclusive_Stone, ItemHelper.SpecialId_Exclusive_Core };
-        int[] ItemCountList = new int[] { 100, 1 };
+
+        int[] ItemIdList = config.ItemIdList;
+        int[] ItemCountList = config.ItemCountList;
 
         User user = GameProcessor.Inst.User;
 

@@ -92,11 +92,13 @@ namespace Game
         /// </summary>
         public IDictionary<int, long> GetTotalAttrList()
         {
+            int level = RuneConfigIdList.Count + 1;
+
             //根据基础属性和词条属性，计算总属性
             IDictionary<int, long> AttrList = new Dictionary<int, long>();
             foreach (int attrId in BaseAttrList.Keys)
             {
-                AttrList[attrId] = BaseAttrList[attrId];
+                AttrList[attrId] = BaseAttrList[attrId] * level;
             }
 
             return AttrList;

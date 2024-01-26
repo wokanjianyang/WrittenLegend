@@ -48,21 +48,12 @@ namespace Game
             }
 
             int index = RandomHelper.RandomNumber(0, RuneRate[RuneRate.Length - 1]);
-            if (index == 0)
-            {
-                Debug.Log("index:" + index);
-            }
 
             for (int i = 0; i < RuneRate.Length; i++)
             {
                 if (index < RuneRate[i])
                 {
                     skillId = skillId + (RuneRate.Length - i);
-
-                    if (index == 0 && RuneRate.Length == 9)
-                    {
-                        Debug.Log("Rune3:" + skillId);
-                    }
 
                     break;
                 }

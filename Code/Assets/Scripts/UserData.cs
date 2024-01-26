@@ -120,7 +120,7 @@ namespace Game
             }
 
             //去掉专属精华
-            user.Bags.RemoveAll(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Exclusive_Core);
+            user.Bags.RemoveAll(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Exclusive_Heart);
 
             //user.DefendData.Refresh();
             //user.DefendData.CountDict[1].Data = 10;

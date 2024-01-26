@@ -87,6 +87,7 @@
 {"_t":"DropConfig","_id":1001,"Level":0,"Name":"特殊月饼BOSS","Quantity":1,"ItemType":5,"ItemIdList":[4006]},
 {"_t":"DropConfig","_id":1002,"Level":0,"Name":"守沙100书页","Quantity":20,"ItemType":5,"ItemIdList":[4006]},
 {"_t":"DropConfig","_id":1003,"Level":0,"Name":"镜像挑战1羽毛","Quantity":1,"ItemType":5,"ItemIdList":[4008]},
+{"_t":"DropConfig","_id":1004,"Level":0,"Name":"专属之心","Quantity":1,"ItemType":5,"ItemIdList":[4010]},
 {"_t":"DropConfig","_id":2001,"Level":0,"Name":"第一批冠名图鉴","Quantity":1,"ItemType":11,"ItemIdList":[2000001,2000002,2000003,2000004,2000005]},
 {"_t":"DropConfig","_id":2002,"Level":0,"Name":"第一批白绿图鉴","Quantity":1,"ItemType":11,"ItemIdList":[2000100,2000101,2000102,2000103,2000104,2000105,2000106,2000107,2000108,2000109,2000110,2000111,2000112,2000113,2000114,2000115,2000116,2000117,2000118,2000119,2000120]},
 {"_t":"DropConfig","_id":2003,"Level":0,"Name":"第一批蓝紫图鉴","Quantity":1,"ItemType":11,"ItemIdList":[2000121,2000122,2000123,2000124,2000125,2000126,2000127,2000128,2000129]},

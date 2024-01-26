@@ -181,7 +181,7 @@ namespace Game
                 {
                     if (!path.Contains("BossConfig.xlsx"))
                     {
-                        continue;
+                        //continue;
                     }
                     ExportExcel(path);
                 }

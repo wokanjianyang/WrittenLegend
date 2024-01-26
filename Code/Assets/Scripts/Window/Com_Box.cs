@@ -108,8 +108,6 @@ namespace Game
                 ExclusiveItem exclusive = item.Item as ExclusiveItem;
                 if (exclusive.RuneConfigIdList.Count > 0)
                 {
-                    Debug.Log("Exclusive Devour");
-
                     this.tmp_Count.text = exclusive.RuneConfigIdList.Count + "";
                     this.tmp_Count.gameObject.SetActive(true);
                 }
