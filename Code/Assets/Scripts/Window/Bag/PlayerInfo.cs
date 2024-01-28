@@ -44,8 +44,8 @@ namespace Game
 
         [LabelText("SecondGold")]
         public Text SecondGold;
-        [LabelText("RestoreHp")]
-        public Text RestoreHp;
+        [LabelText("Speed")]
+        public Text Speed;
         [LabelText("RestoerHpPercent")]
         public Text RestoerHpPercent;
         [LabelText("CritDamageResist")]
@@ -54,13 +54,13 @@ namespace Game
         // Start is called before the first frame update
         void Start()
         {
-        
+
         }
 
         // Update is called once per frame
         void Update()
         {
-       
+
         }
 
         public void UpdateAttrInfo(User user)
@@ -88,9 +88,9 @@ namespace Game
             SecondGold.text = StringHelper.FormatNumber(user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondGold));
 
             RestoerHpPercent.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.RestoreHpPercent).ToString() + "%";
-            RestoreHp.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.RestoreHp).ToString();
+            Speed.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.Speed).ToString() + "%";
             CritDamageResist.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.CritDamageResist).ToString() + "%";
         }
-        
+
     }
 }

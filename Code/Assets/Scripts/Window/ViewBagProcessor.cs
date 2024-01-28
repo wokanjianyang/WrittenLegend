@@ -13,14 +13,20 @@ namespace Game
 {
     public class ViewBagProcessor : AViewPage
     {
+        [Title("包裹")]
         public List<Toggle> Toggle_Bag_List = new List<Toggle>();
         public List<ScrollRect> Bag_List = new List<ScrollRect>();
         public Button Btn_Reset;
 
+        [Title("方案")]
         public List<Toggle> Toggle_Plan_List = new List<Toggle>();
         public List<RectTransform> Equip_Plan_List = new List<RectTransform>();
         public RectTransform EquipInfoSpecial;
         public Button Btn_ReName;
+        public Transform Tran_Plan;
+        public InputField If_Name;
+        public Button Btn_Ok;
+        public Button Btn_Cancle;
 
 
         [Title("功能按钮")]
@@ -39,6 +45,7 @@ namespace Game
         public Dialog_Wing Dialog_Wing;
 
         public Button Btn_Exclusive;
+
 
         private List<Com_Box> items = new List<Com_Box>();
 
@@ -192,7 +199,7 @@ namespace Game
 
         private void OnSetPlanName()
         {
-
+            this.Tran_Plan.gameObject.SetActive(true);
         }
 
         private void RefreshBag()

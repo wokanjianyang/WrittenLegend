@@ -10,9 +10,8 @@ public class Dialog_Attr : MonoBehaviour, IBattleLife
 {
     public Button btn_Close;
 
-    //List<Item_Card> items = new List<Item_Card>();
+    public int Order => (int)ComponentOrder.Dialog;
 
-    // Start is called before the first frame update
     void Start()
     {
         this.btn_Close.onClick.AddListener(OnClick_Close);
@@ -23,22 +22,17 @@ public class Dialog_Attr : MonoBehaviour, IBattleLife
         GameProcessor.Inst.EventCenter.AddListener<ShowDialogUserAttrEvent>(this.Show);
     }
 
-    private void Init()
-    {
-
-    }
-
     private void Show(ShowDialogUserAttrEvent e)
     {
         this.gameObject.SetActive(true);
-    }
 
-    public int Order => (int)ComponentOrder.Dialog;
+        Item_Attr[] items = this.GetComponentsInChildren<Item_Attr>();
+
+        Debug.Log("Item_Attr :" + items.Length);
+    }
 
     public void OnClick_Close()
     {
         this.gameObject.SetActive(false);
     }
-
-
 }
