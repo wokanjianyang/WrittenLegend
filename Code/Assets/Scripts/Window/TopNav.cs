@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Game
 {
-    public class TopNav : MonoBehaviour,IBattleLife
+    public class TopNav : MonoBehaviour, IBattleLife
     {
         [Title("顶部导航")]
         [LabelText("名称")]
@@ -19,9 +19,16 @@ namespace Game
         [LabelText("金币")]
         public Text tmp_Gold;
 
+        public Button Btn_Setting;
+
         private User user;
 
         public int Order => (int)ComponentOrder.TopNav;
+
+        void Awake()
+        {
+            this.Btn_Setting.onClick.AddListener(this.OnClick_Setting);
+        }
 
         public void OnBattleStart()
         {
@@ -39,16 +46,9 @@ namespace Game
             user.EventCenter.AddListener<SetPlayerNameEvent>(this.OnSetPlayerNameEvent);
         }
 
-        // Start is called before the first frame update
-        void Start()
+        public void OnClick_Setting()
         {
-        
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
+            GameProcessor.Inst.EventCenter.Raise(new DialogSettingEvent() { IsOpen = true });
         }
 
         private void OnSetPlayerLevelEvent(SetPlayerLevelEvent e)
@@ -65,7 +65,7 @@ namespace Game
             this.tmp_Gold.text = $"金币:{goldText}";
             this.tmp_BattlePower.text = $"战力：{user.AttributeBonus.GetPower()}";
         }
-        
+
         private void OnSetPlayerNameEvent(SetPlayerNameEvent e)
         {
             this.tmp_Name.text = e.Name;

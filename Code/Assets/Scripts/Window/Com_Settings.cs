@@ -24,16 +24,11 @@ namespace Game
         [LabelText("兑换")]
         public Button btn_Code;
 
-        [LabelText("确认")]
-        public Button btn_Done;
-
         private const int CHARACTER_LIMIT = 10;
 
         // Start is called before the first frame update
         void Start()
         {
-            this.btn_Done.onClick.AddListener(this.OnClick_Done);
-
             this.btn_ChangeName.onClick.AddListener(this.OnClick_ChangeName);
             this.btn_Code.onClick.AddListener(this.OnClick_Code);
         }
@@ -42,12 +37,6 @@ namespace Game
         void Update()
         {
 
-        }
-
-        public void OnClick_Done()
-        {
-
-            GameProcessor.Inst.EventCenter.Raise(new DialogSettingEvent());
         }
 
         public void OnClick_ChangeName()

@@ -306,6 +306,17 @@ namespace Game
     public class ShowExclusiveEvent : SDD.Events.Event
     {
     }
+
+    public class ShowFestiveDialogEvent : SDD.Events.Event
+    {
+
+    }
+
+    public class ShowDialogUserAttrEvent : SDD.Events.Event
+    {
+
+    }
+
     public class ChangeExclusiveEvent : SDD.Events.Event
     {
         public int Index { get; set; }

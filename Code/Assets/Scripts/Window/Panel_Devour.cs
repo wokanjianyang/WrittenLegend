@@ -129,6 +129,15 @@ public class Panel_Devour : MonoBehaviour
         }
 
         BoxItem boxItem = e.BoxItem;
+        ExclusiveItem exclusive = boxItem.Item as ExclusiveItem;
+
+        int nextLevel = exclusive.GetLevel();
+
+        if (nextLevel > 1)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "专属已经满吞噬了", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
 
         Com_Box boxUI = this.items.Find(m => m.boxId == boxItem.BoxId);
         this.items.Remove(boxUI);
@@ -145,9 +154,8 @@ public class Panel_Devour : MonoBehaviour
         int index = slots.IndexOf(slot);
         if (index == 0)
         {
-            ExclusiveItem exclusive = boxItem.Item as ExclusiveItem;
-            int level = exclusive.RuneConfigIdList.Count + 1;
-            this.config = ExclusiveDevourConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Level == level).FirstOrDefault();
+
+            this.config = ExclusiveDevourConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Level == nextLevel).FirstOrDefault();
             this.Check();
         }
     }

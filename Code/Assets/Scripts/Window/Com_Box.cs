@@ -106,9 +106,9 @@ namespace Game
             if (item.Item.Type == ItemType.Exclusive)
             {
                 ExclusiveItem exclusive = item.Item as ExclusiveItem;
-                if (exclusive.RuneConfigIdList.Count > 0)
+                if (exclusive.GetLevel() > 1)
                 {
-                    this.tmp_Count.text = exclusive.RuneConfigIdList.Count + "";
+                    this.tmp_Count.text = "+" + (exclusive.GetLevel() - 1);
                     this.tmp_Count.gameObject.SetActive(true);
                 }
             }

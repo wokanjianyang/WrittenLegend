@@ -92,7 +92,7 @@ namespace Game
         /// </summary>
         public IDictionary<int, long> GetTotalAttrList()
         {
-            int level = RuneConfigIdList.Count + 1;
+            int level = GetLevel();
 
             //根据基础属性和词条属性，计算总属性
             IDictionary<int, long> AttrList = new Dictionary<int, long>();
@@ -104,12 +104,15 @@ namespace Game
             return AttrList;
         }
 
+        public int GetLevel()
+        {
+            return RuneConfigIdList.Count + 1;
+        }
+
         public void Devour(ExclusiveItem exclusive)
         {
             this.RuneConfigIdList.Add(exclusive.RuneConfigId);
             this.SuitConfigIdList.Add(exclusive.SuitConfigId);
-
-            this.Level = this.RuneConfigIdList.Count;
         }
     }
 }

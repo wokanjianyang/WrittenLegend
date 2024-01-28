@@ -22,23 +22,26 @@ namespace Game
         public Toggle tog_Base;
         public Toggle tog_Other;
 
+        public Button Btn_Close;
+
+        public int Order => (int)ComponentOrder.Dialog;
+
         // Start is called before the first frame update
         void Start()
         {
+            this.Btn_Close.onClick.AddListener(this.OnClick_Close);
         }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-        public int Order => (int)ComponentOrder.Dialog;
 
         public void OnBattleStart()
         {
             this.gameObject.SetActive(false);
 
             GameProcessor.Inst.EventCenter.AddListener<DialogSettingEvent>(this.OnEquipRecoveryEvent);
+        }
+
+        public void OnClick_Close()
+        {
+            this.gameObject.SetActive(false);
         }
 
         private void OnEquipRecoveryEvent(DialogSettingEvent e)

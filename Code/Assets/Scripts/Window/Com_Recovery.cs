@@ -40,9 +40,6 @@ namespace Game
         [LabelText("确认")]
         public Button btn_Done;
 
-        [LabelText("取消")]
-        public Button btn_Cancle;
-
         Toggle[] equipQualityToggles;
         Toggle[] equipRoleToggles;
         Toggle[] exclusiveToggles;
@@ -51,7 +48,6 @@ namespace Game
         void Start()
         {
             this.btn_Done.onClick.AddListener(this.OnClick_Done);
-            this.btn_Cancle.onClick.AddListener(this.OnClick_Cancle);
 
         }
 
@@ -98,11 +94,6 @@ namespace Game
         public void OnClick_Done()
         {
             this.SaveSetting();
-        }
-
-        public void OnClick_Cancle()
-        {
-            GameProcessor.Inst.EventCenter.Raise(new DialogSettingEvent());
         }
 
         private void SaveSetting()

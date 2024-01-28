@@ -263,13 +263,13 @@ namespace Game
                         {
                             int suitCount = user.GetSuitCount(equip.SkillSuitConfig.Id);
 
-                            int index = 0;
-                            tran_SuitAttribute.gameObject.SetActive(true);
-                            tran_SuitAttribute.Find("Title").GetComponent<Text>().text = equip.SkillSuitConfig.Name + string.Format("({0}/{1})", suitCount, user.SuitMax);
+                            List<int> suitIdList = new List<int>();
+                            suitIdList.Add(equip.SkillSuitConfig.Id);
 
-                            var child = tran_SuitAttribute.Find(string.Format("Attribute_{0}", index));
-                            child.GetComponent<Text>().text = string.Format(" {0}", equip.SkillSuitConfig.Des);
-                            child.gameObject.SetActive(true);
+                            List<int> suitCountList = new List<int>();
+                            suitCountList.Add(suitCount);
+
+                            this.ShowSuit(suitIdList, suitCountList, user.SuitMax);
                         }
 
 
@@ -352,6 +352,7 @@ namespace Game
                 case ItemType.Exclusive:
                     {
                         ExclusiveItem exclusive = this.boxItem.Item as ExclusiveItem;
+                        int exclusiveLevel = exclusive.GetLevel();
                         if (exclusive.BaseAttrList != null && exclusive.BaseAttrList.Count > 0)
                         {
                             tran_BaseAttribute.gameObject.SetActive(true);
@@ -366,7 +367,7 @@ namespace Game
 
                                 if (index < BaseAttrList.Count)
                                 {
-                                    child.GetComponent<Text>().text = StringHelper.FormatAttrText(BaseAttrList[index].Key, BaseAttrList[index].Value);
+                                    child.GetComponent<Text>().text = StringHelper.FormatAttrText(BaseAttrList[index].Key, BaseAttrList[index].Value * exclusiveLevel);
                                     child.gameObject.SetActive(true);
                                 }
                                 else
@@ -382,7 +383,7 @@ namespace Game
                             {
                                 runeIdList.Add(exclusive.RuneConfigId);
                             }
-                            if (exclusive.RuneConfigIdList.Count > 0)
+                            if (exclusive.GetLevel() > 1)
                             {
                                 runeIdList.AddRange(exclusive.RuneConfigIdList);
                             }
@@ -390,15 +391,24 @@ namespace Game
                         }
                         if (exclusive.SkillSuitConfig != null)
                         {
-                            int suitCount = user.GetSuitCount(exclusive.SkillSuitConfig.Id);
+                            List<int> suitIdList = new List<int>();
+                            if (exclusive.RuneConfigId > 0)
+                            {
+                                suitIdList.Add(exclusive.SuitConfigId);
+                            }
+                            if (exclusive.GetLevel() > 1)
+                            {
+                                suitIdList.AddRange(exclusive.SuitConfigIdList);
+                            }
 
-                            int index = 0;
-                            tran_SuitAttribute.gameObject.SetActive(true);
-                            tran_SuitAttribute.Find("Title").GetComponent<Text>().text = exclusive.SkillSuitConfig.Name + string.Format("({0}/{1})", suitCount, user.SuitMax);
+                            List<int> suitCountList = new List<int>();
+                            foreach (int suitId in suitIdList)
+                            {
+                                int suitCount = user.GetSuitCount(exclusive.SkillSuitConfig.Id);
+                                suitCountList.Add(suitCount);
+                            }
 
-                            var child = tran_SuitAttribute.Find(string.Format("Attribute_{0}", index));
-                            child.GetComponent<Text>().text = string.Format(" {0}", exclusive.SkillSuitConfig.Des);
-                            child.gameObject.SetActive(true);
+                            ShowSuit(suitIdList, suitCountList, user.SuitMax);
                         }
                         if (exclusive.DoubleHitConfig != null)
                         {
@@ -546,6 +556,25 @@ namespace Game
                 }
             }
             tran_SkillAttribute.gameObject.SetActive(true);
+        }
+
+        private void ShowSuit(List<int> suitIdList, List<int> countList, int max)
+        {
+            Item_Suit[] suits = tran_SuitAttribute.GetComponentsInChildren<Item_Suit>(true);
+
+            for (int i = 0; i < suits.Length; i++)
+            {
+                if (i < suitIdList.Count)
+                {
+                    suits[i].gameObject.SetActive(true);
+                    suits[i].SetContent(suitIdList[i], countList[i], max);
+                }
+                else
+                {
+                    suits[i].gameObject.SetActive(false);
+                }
+            }
+            tran_SuitAttribute.gameObject.SetActive(true);
         }
 
         private string FormatAttrText(int attr, long val, int percent)

@@ -57,6 +57,7 @@ public class Init : MonoBehaviour
         Dialog_Achievement,
         Dialog_Defend,
         Dialog_Fashion,
+        Dialog_Attr
     }
 
     [LabelText("战斗模式")]
@@ -106,6 +107,7 @@ public class Init : MonoBehaviour
                 WindowTypeEnum.Dialog_SoulRing,
                 WindowTypeEnum.Dialog_Achievement,
                 WindowTypeEnum.Dialog_Fashion,
+                WindowTypeEnum.Dialog_Attr,
             }
         },
         {

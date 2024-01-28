@@ -5,12 +5,12 @@ using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class Dialog_FloatButtons : MonoBehaviour, IBattleLife,IPointerDownHandler,IPointerMoveHandler,IPointerUpHandler,IPointerClickHandler
+public class Dialog_FloatButtons : MonoBehaviour, IBattleLife, IPointerDownHandler, IPointerMoveHandler, IPointerUpHandler, IPointerClickHandler
 {
     public Com_Power com_Power;
 
     public Com_AD com_AD;
-    
+
     public Transform Menu;
 
     public Image btn_Power;
@@ -22,7 +22,11 @@ public class Dialog_FloatButtons : MonoBehaviour, IBattleLife,IPointerDownHandle
     private DragEnum dragType;
 
     public Text Txt_Version;
-    
+
+    public Toggle Tg_Expend;
+
+    public Button Btn_Festive;
+
     public enum DragEnum
     {
         None,
@@ -30,16 +34,18 @@ public class Dialog_FloatButtons : MonoBehaviour, IBattleLife,IPointerDownHandle
         Drag,
         Up
     }
-    
+
+    public int Order => (int)ComponentOrder.Dialog;
+
     // Start is called before the first frame update
     void Start()
     {
+        this.Tg_Expend.onValueChanged.AddListener((isOn) =>
+        {
+            Expend(isOn);
+        });
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        this.Btn_Festive.onClick.AddListener(OnClick_Festive);
 
         this.Txt_Version.text = "V" + ConfigHelper.Version + "";
     }
@@ -49,8 +55,22 @@ public class Dialog_FloatButtons : MonoBehaviour, IBattleLife,IPointerDownHandle
         this.gameObject.SetActive(true);
     }
 
-    public int Order => (int)ComponentOrder.Dialog;
+    private void Expend(bool isOn)
+    {
+        if (isOn)
+        {
+            Menu.gameObject.SetActive(true);
+        }
+        else
+        {
+            Menu.gameObject.SetActive(false);
+        }
+    }
 
+    private void OnClick_Festive()
+    {
+        GameProcessor.Inst.EventCenter.Raise(new ShowFestiveDialogEvent());
+    }
 
     private void OnClick_Power()
     {
@@ -95,7 +115,7 @@ public class Dialog_FloatButtons : MonoBehaviour, IBattleLife,IPointerDownHandle
             var pos = this.Menu.position;
             var offset = eventData.position - this.dragStartPosition;
             this.dragStartPosition = eventData.position;
-            this.Menu.position = pos +new Vector3(offset.x,offset.y);
+            this.Menu.position = pos + new Vector3(offset.x, offset.y);
         }
     }
 

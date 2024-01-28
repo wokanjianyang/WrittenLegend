@@ -13,29 +13,27 @@ namespace Game
 {
     public class ViewBagProcessor : AViewPage
     {
-        public List<Toggle> BagToggleList = new List<Toggle>();
-        public List<ScrollRect> BagList = new List<ScrollRect>();
+        public List<Toggle> Toggle_Bag_List = new List<Toggle>();
+        public List<ScrollRect> Bag_List = new List<ScrollRect>();
+        public Button Btn_Reset;
 
+        public List<Toggle> Toggle_Plan_List = new List<Toggle>();
+        public List<RectTransform> Equip_Plan_List = new List<RectTransform>();
         public RectTransform EquipInfoSpecial;
-        public List<RectTransform> EquipInfoList = new List<RectTransform>();
-        public List<Button> Equip_Plan_List = new List<Button>();
+        public Button Btn_ReName;
 
-        [LabelText("整理")]
-        public Button btn_Reset;
 
-        [Title("个人信息")]
-        [LabelText("魂环")]
+        [Title("功能按钮")]
+        public Button Btn_Attr;
+        public Button Btn_Achievement;
+
         public Button btn_SoulRing;
-
-        [LabelText("称号")]
-        public Button btn_PlayerTitle;
-        [LabelText("图鉴")]
-        public Button btn_Card;
-        [LabelText("设置")]
-        public Button btn_Setting;
         public Button btn_Wing;
+        public Button btn_Exclusive;
+        public Button btn_Card;
         public Button btn_Fashion;
 
+        [Title("功能框")]
         public Dialog_Exclusive ExclusiveDialog;
         public Dialog_Card Dialog_Card;
         public Dialog_Wing Dialog_Wing;
@@ -46,20 +44,10 @@ namespace Game
 
         private void Awake()
         {
-
-            for (int i = 0; i < Equip_Plan_List.Count; i++)
+            for (int i = 0; i < Toggle_Bag_List.Count; i++)
             {
                 int index = i;
-                Equip_Plan_List[i].onClick.AddListener(() =>
-                {
-                    ChangePlan(index);
-                });
-            }
-
-            for (int i = 0; i < BagToggleList.Count; i++)
-            {
-                int index = i;
-                BagToggleList[i].onValueChanged.AddListener((isOn) =>
+                Toggle_Bag_List[i].onValueChanged.AddListener((isOn) =>
                 {
                     if (isOn)
                     {
@@ -68,14 +56,17 @@ namespace Game
                 });
             }
 
+            this.Btn_Attr.onClick.AddListener(this.OnClick_Attr);
+            this.Btn_Achievement.onClick.AddListener(this.OnClick_Achievement);
+
             this.btn_SoulRing.onClick.AddListener(this.OnClick_RingSoul);
-            this.btn_PlayerTitle.onClick.AddListener(this.OnClick_PlayerTitle);
-            this.btn_Setting.onClick.AddListener(this.OnClick_Setting);
-            this.btn_Reset.onClick.AddListener(OnRefreshBag);
-            this.Btn_Exclusive.onClick.AddListener(OnExclusive);
-            this.btn_Card.onClick.AddListener(OnOpenCard);
             this.btn_Wing.onClick.AddListener(OnOpenWing);
+            this.Btn_Exclusive.onClick.AddListener(OnExclusive);
             this.btn_Fashion.onClick.AddListener(OpenFashion);
+            this.btn_Card.onClick.AddListener(OnOpenCard);
+
+            this.Btn_Reset.onClick.AddListener(OnRefreshBag);
+            this.Btn_ReName.onClick.AddListener(OnSetPlanName);
         }
 
         // Start is called before the first frame update
@@ -106,6 +97,21 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<ExchangeEvent>(this.OnExchangeEvent);
             GameProcessor.Inst.EventCenter.AddListener<ChangeExclusiveEvent>(this.OnChangeExclusiveEvent);
 
+            int EquipPanelIndex = GameProcessor.Inst.User.EquipPanelIndex;
+            Toggle_Plan_List[EquipPanelIndex].isOn = true;
+
+            for (int i = 0; i < Equip_Plan_List.Count; i++)
+            {
+                int index = i;
+                Toggle_Plan_List[i].onValueChanged.AddListener((isOn) =>
+                {
+                    if (isOn)
+                    {
+                        ChangePlan(index);
+                    }
+                });
+            }
+
             GameProcessor.Inst.StartCoroutine(LoadBox());
         }
 
@@ -123,9 +129,9 @@ namespace Game
             var prefab = Resources.Load<GameObject>("Prefab/Window/Box_Info");
             yield return null;
 
-            for (int i = 0; i < EquipInfoList.Count; i++)
+            for (int i = 0; i < Equip_Plan_List.Count; i++)
             {
-                var EquipInfo = EquipInfoList[i];
+                var EquipInfo = Equip_Plan_List[i];
                 foreach (var slotBox in EquipInfo.GetComponentsInChildren<SlotBox>())
                 {
                     slotBox.Init(prefab);
@@ -164,11 +170,11 @@ namespace Game
             var emptyPrefab = Resources.Load<GameObject>("Prefab/Window/Box_Empty");
             yield return null;
 
-            for (int k = 0; k < BagList.Count; k++)
+            for (int k = 0; k < Bag_List.Count; k++)
             {
                 for (var i = 0; i < ConfigHelper.MaxBagCount; i++)
                 {
-                    var empty = GameObject.Instantiate(emptyPrefab, this.BagList[k].content);
+                    var empty = GameObject.Instantiate(emptyPrefab, this.Bag_List[k].content);
                     empty.name = "Box_" + i;
                     //yield return null;
                 }
@@ -184,6 +190,11 @@ namespace Game
             RefreshBag();
         }
 
+        private void OnSetPlanName()
+        {
+
+        }
+
         private void RefreshBag()
         {
             foreach (Com_Box box in items)
@@ -196,11 +207,11 @@ namespace Game
 
             if (user.Bags != null)
             {
-                for (int i = 0; i < this.BagList.Count; i++)
+                for (int i = 0; i < this.Bag_List.Count; i++)
                 {
                     List<BoxItem> list = user.Bags.Where(m => m.GetBagType() == i).OrderBy(m => m.GetBagSort()).ToList();
 
-                    BuildBag(this.BagList[i], list);
+                    BuildBag(this.Bag_List[i], list);
                 }
             }
         }
@@ -448,15 +459,15 @@ namespace Game
         {
             int position = GameProcessor.Inst.User.EquipPanelIndex;
 
-            for (int i = 0; i < this.EquipInfoList.Count; i++)
+            for (int i = 0; i < this.Equip_Plan_List.Count; i++)
             {
                 if (i == position)
                 {
-                    this.EquipInfoList[i].gameObject.SetActive(true);
+                    this.Equip_Plan_List[i].gameObject.SetActive(true);
                 }
                 else
                 {
-                    this.EquipInfoList[i].gameObject.SetActive(false);
+                    this.Equip_Plan_List[i].gameObject.SetActive(false);
                 }
             }
             GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
@@ -464,15 +475,15 @@ namespace Game
 
         private void ShowBagPanel(int index)
         {
-            for (int i = 0; i < this.BagList.Count; i++)
+            for (int i = 0; i < this.Bag_List.Count; i++)
             {
                 if (i == index)
                 {
-                    this.BagList[i].gameObject.SetActive(true);
+                    this.Bag_List[i].gameObject.SetActive(true);
                 }
                 else
                 {
-                    this.BagList[i].gameObject.SetActive(false);
+                    this.Bag_List[i].gameObject.SetActive(false);
                 }
             }
         }
@@ -866,7 +877,7 @@ namespace Game
                 boxItem.BoxId = lastBoxId;
 
                 var item = this.CreateBox(boxItem);
-                item.transform.SetParent(this.BagList[bagType].content.GetChild(lastBoxId));
+                item.transform.SetParent(this.Bag_List[bagType].content.GetChild(lastBoxId));
                 item.transform.localPosition = Vector3.zero;
                 item.transform.localScale = Vector3.one;
                 item.SetBoxId(lastBoxId);
@@ -911,7 +922,7 @@ namespace Game
 
                 if (Position <= 10)
                 {
-                    slot = EquipInfoList[user.EquipPanelIndex].GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == Position).First();
+                    slot = Equip_Plan_List[user.EquipPanelIndex].GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == Position).First();
                 }
                 else
                 {
@@ -997,7 +1008,7 @@ namespace Game
             {
                 int pi = GameProcessor.Inst.User.EquipPanelIndex;
 
-                var EquipInfo = EquipInfoList[pi];
+                var EquipInfo = Equip_Plan_List[pi];
                 slot = EquipInfo.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
             return slot;
@@ -1018,7 +1029,7 @@ namespace Game
             }
             else
             {
-                var EquipInfo = EquipInfoList[pi];
+                var EquipInfo = Equip_Plan_List[pi];
                 slot = EquipInfo.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
 
@@ -1049,7 +1060,7 @@ namespace Game
 
             if (position <= 10)
             {
-                slot = EquipInfoList[user.EquipPanelIndex].GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+                slot = Equip_Plan_List[user.EquipPanelIndex].GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
             else
             {
@@ -1142,14 +1153,15 @@ namespace Game
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowSoulRingEvent());
         }
-        public void OnClick_PlayerTitle()
+
+        public void OnClick_Attr()
         {
-            GameProcessor.Inst.EventCenter.Raise(new ShowAchievementEvent());
+            GameProcessor.Inst.EventCenter.Raise(new ShowDialogUserAttrEvent());
         }
 
-        public void OnClick_Setting()
+        public void OnClick_Achievement()
         {
-            GameProcessor.Inst.EventCenter.Raise(new DialogSettingEvent() { IsOpen = true });
+            GameProcessor.Inst.EventCenter.Raise(new ShowAchievementEvent());
         }
 
         public void OnExclusive()
