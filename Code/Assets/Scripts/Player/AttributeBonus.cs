@@ -133,15 +133,15 @@ namespace Game
             Dictionary<int, GameAttribute> list = GameAttributeCategory.Instance.GetAll();
 
 
-            foreach (int type in list.Keys)
-            {
-                double attrTotal = GetTotalAttr((AttributeEnum)type);
-                float rate = list[type].PowerCoef;
+            //foreach (int type in list.Keys)
+            //{
+            //    double attrTotal = GetTotalAttr((AttributeEnum)type);
+            //    float rate = list[type].PowerCoef;
 
-                power += attrTotal * rate;
-            }
+            //    power += attrTotal * rate;
+            //}
 
-            Debug.Log("Old Power:" + StringHelper.FormatNumber(power));
+            //Debug.Log("Old Power:" + StringHelper.FormatNumber(power));
 
             double p1 = GetTotalAttrDouble(AttributeEnum.PhyAtt);
             double p2 = GetTotalAttrDouble(AttributeEnum.MagicAtt);
@@ -161,7 +161,7 @@ namespace Game
 
             Debug.Log("New Power:" + StringHelper.FormatNumber(newPower));
 
-            return StringHelper.FormatNumber(power);
+            return StringHelper.FormatNumber(newPower);
         }
 
         private double CalPercent(AttributeEnum type)
