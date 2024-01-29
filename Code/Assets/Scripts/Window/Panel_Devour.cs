@@ -76,7 +76,7 @@ public class Panel_Devour : MonoBehaviour
 
         User user = GameProcessor.Inst.User;
 
-        List<BoxItem> list = user.Bags.Where(m => m.Item.Type == ItemType.Exclusive && m.Item.GetQuality() == 5).ToList();
+        List<BoxItem> list = user.Bags.Where(m => m.Item.Type == ItemType.Exclusive && m.Item.GetQuality() == 5 && !m.Item.IsLock).OrderBy(m => m.Item.ConfigId).ToList();
 
         for (int BoxId = 0; BoxId < list.Count; BoxId++)
         {

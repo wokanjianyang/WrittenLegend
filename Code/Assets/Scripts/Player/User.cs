@@ -478,7 +478,10 @@ namespace Game
             //计算装备的词条加成
             List<SkillRuneConfig> skillList = this.EquipPanelList[EquipPanelIndex].Where(m => m.Value.SkillRuneConfig != null && m.Value.SkillRuneConfig.SkillId == skillId).Select(m => m.Value.SkillRuneConfig).ToList();
 
-            skillList.AddRange(this.ExclusivePanelList[ExclusiveIndex].Select(m => m.Value).Where(m => m.SkillRuneConfig != null && m.SkillRuneConfig.SkillId == skillId).Select(m => m.SkillRuneConfig).ToList());
+            foreach (var ex in this.ExclusivePanelList[ExclusiveIndex].Values)
+            {
+                skillList.AddRange(ex.GetRuneList(skillId));
+            }
 
             if (buffList != null)
             {
@@ -503,10 +506,10 @@ namespace Game
 
             //计算装备的套装加成
             List<SkillSuitConfig> skillList = this.EquipPanelList[EquipPanelIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SkillSuitConfig.SkillId == skillId).Select(m => m.Value.SkillSuitConfig).ToList();
-            var el = this.ExclusivePanelList[ExclusiveIndex].Select(m => m.Value).Where(m => m.SkillSuitConfig != null && m.SkillSuitConfig.SkillId == skillId).Select(m => m.SkillSuitConfig).ToList();
-            if (el.Count > 0)
+
+            foreach (var ex in this.ExclusivePanelList[ExclusiveIndex].Values)
             {
-                skillList.AddRange(el);
+                skillList.AddRange(ex.GetSuitList(skillId));
             }
 
             var suitGroup = skillList.GroupBy(m => m.Id);
@@ -526,8 +529,9 @@ namespace Game
         public int GetSuitCount(int suitId)
         {
             int count = this.EquipPanelList[EquipPanelIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SuitConfigId == suitId).Count();
-            count += this.ExclusivePanelList[ExclusiveIndex].Where(m => m.Value.SuitConfigId == suitId).Count();
-            return Math.Min(count, this.SuitMax);
+            count += this.ExclusivePanelList[ExclusiveIndex].Select(m => m.Value.GetSuitCount(suitId)).Sum();
+
+            return count;
         }
 
         public List<EquipGroupConfig> GetEquipGroups()

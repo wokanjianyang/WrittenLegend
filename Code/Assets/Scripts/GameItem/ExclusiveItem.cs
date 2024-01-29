@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace Game
 {
@@ -102,6 +103,53 @@ namespace Game
             }
 
             return AttrList;
+        }
+
+        public List<SkillRuneConfig> GetRuneList(int skillId)
+        {
+            List<SkillRuneConfig> list = new List<SkillRuneConfig>();
+
+            if (SkillRuneConfig != null && SkillRuneConfig.SkillId == skillId)
+            {
+                list.Add(SkillRuneConfig);
+            }
+
+            for (int i = 0; i < RuneConfigIdList.Count; i++)
+            {
+                SkillRuneConfig config = SkillRuneConfigCategory.Instance.Get(RuneConfigIdList[i]);
+                if (config.SkillId == skillId)
+                {
+                    list.Add(config);
+                }
+            }
+
+            return list;
+        }
+
+        public List<SkillSuitConfig> GetSuitList(int skillId)
+        {
+            List<SkillSuitConfig> list = new List<SkillSuitConfig>();
+
+            if (SkillSuitConfig != null && SkillSuitConfig.SkillId == skillId)
+            {
+                list.Add(SkillSuitConfig);
+            }
+
+            for (int i = 0; i < SuitConfigIdList.Count; i++)
+            {
+                SkillSuitConfig config = SkillSuitConfigCategory.Instance.Get(SuitConfigIdList[i]);
+                if (config.SkillId == skillId)
+                {
+                    list.Add(config);
+                }
+            }
+
+            return list;
+        }
+
+        public int GetSuitCount(int suitId)
+        {
+            return SuitConfigIdList.Where(m => m == suitId).Count() + (SuitConfigId == suitId ? 1 : 0);
         }
 
         public int GetLevel()
