@@ -211,6 +211,11 @@ namespace Game
     public class CompositeUIFreshEvent : SDD.Events.Event
     {
     }
+
+    public class FestiveUIFreshEvent : SDD.Events.Event
+    {
+    }
+
     public class ExchangeEvent : SDD.Events.Event
     {
         public ExchangeConfig Config { get; set; }

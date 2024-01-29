@@ -113,6 +113,19 @@ namespace Game
             return total;
         }
 
+        public double GetBaseAttr(AttributeEnum attrType)
+        {
+            if ((int)attrType < 2001)
+            {
+                return CalTotal(attrType, false);
+            }
+            else
+            {
+                return CalMulTotal(1, false, attrType);
+            }
+        }
+
+
         public string GetPower()
         {
             double power = 0;
@@ -128,7 +141,32 @@ namespace Game
                 power += attrTotal * rate;
             }
 
+            Debug.Log("Old Power:" + power);
+
+            double p1 = GetTotalAttrDouble(AttributeEnum.PhyAtt);
+            double p2 = GetTotalAttrDouble(AttributeEnum.MagicAtt);
+            double p3 = GetTotalAttrDouble(AttributeEnum.SpiritAtt);
+
+            double powerDamage = Math.Max(Math.Max(p1, p2), p3) * CalPercent(AttributeEnum.AurasAttrIncrea);
+            powerDamage *= CalPercent(AttributeEnum.DamageIncrea) * CalPercent(AttributeEnum.AurasDamageIncrea);
+            powerDamage *= (1 + GetTotalAttrDouble(AttributeEnum.Lucky) * 0.1);
+            powerDamage *= Math.Min(GetTotalAttrDouble(AttributeEnum.CritRate), 1) * (GetTotalAttrDouble(AttributeEnum.CritDamage) + 150) / 100;
+
+            double powerDef = GetTotalAttrDouble(AttributeEnum.HP) / 10 + GetTotalAttrDouble(AttributeEnum.Def) * 3;
+            powerDef *= CalPercent(AttributeEnum.DamageResist) * CalPercent(AttributeEnum.AurasDamageResist);
+            powerDamage *= Math.Min(GetTotalAttrDouble(AttributeEnum.CritRateResist), 1) * (GetTotalAttrDouble(AttributeEnum.CritDamageResist) + 100) / 100;
+            powerDef *= CalPercent(AttributeEnum.Miss);
+
+            double newPower = powerDamage + powerDef;
+
+            Debug.Log("New Power:" + newPower);
+
             return StringHelper.FormatNumber(power);
+        }
+
+        private double CalPercent(AttributeEnum type)
+        {
+            return (100 + GetTotalAttrDouble(type)) / 100;
         }
 
         private double CalTotal(AttributeEnum type, bool haveBuff, params AttributeEnum[] increaTypes)

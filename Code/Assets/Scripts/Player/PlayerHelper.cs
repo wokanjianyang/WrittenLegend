@@ -37,18 +37,29 @@ namespace Game
             {nameof(AttributeEnum.GoldIncrea), "金币加成" },
             {nameof(AttributeEnum.SecondExp), "经验收益" },
             {nameof(AttributeEnum.SecondGold), "金币收益" },
-            {nameof(AttributeEnum.RestoreHp), "每秒点数回血" },
-            {nameof(AttributeEnum.RestoreHpPercent), "每秒上限回血" },
+            {nameof(AttributeEnum.RestoreHp), "固定回血" },
+            {nameof(AttributeEnum.RestoreHpPercent), "比例回血" },
             {nameof(AttributeEnum.QualityIncrea), "品质加成" },
-
+            {nameof(AttributeEnum.Miss), "闪避" },
+            {nameof(AttributeEnum.Accuracy), "精准" },
 
             {nameof(AttributeEnum.PhyAttIncrea), "物攻加成" },
             {nameof(AttributeEnum.MagicAttIncrea),"魔法加成" },
             {nameof(AttributeEnum.SpiritAttIncrea), "道术加成" },
 
-            {nameof(AttributeEnum.EquipBaseIncrea), "装备基础属性提升" },
-            {nameof(AttributeEnum.EquipRandomIncrea), "装备随机属性提升" },
+            {nameof(AttributeEnum.EquipBaseIncrea), "装备基础属性" },
+            {nameof(AttributeEnum.EquipRandomIncrea), "装备随机属性" },
 
+            {nameof(AttributeEnum.AurasDamageIncrea), "最终增伤" },
+            {nameof(AttributeEnum.AurasDamageResist), "最终减伤" },
+            {nameof(AttributeEnum.AurasAttrIncrea), "最终攻击" },
+
+            //{nameof(AttributeEnum.PanelAtt), "最终攻击" },
+            //{nameof(AttributeEnum.PanelDef),"最终防御" },
+            //{nameof(AttributeEnum.PanelHp), "最终生命" },
+            //{nameof(AttributeEnum.PanelPhyAtt), "最终物攻" },
+            //{nameof(AttributeEnum.PanelMagicAtt),"最终魔法" },
+            //{nameof(AttributeEnum.PanelSpiritAtt), "最终道术" },
 
             {nameof(AttributeEnum.MulAttr), "攻击(乘法)" },
             {nameof(AttributeEnum.MulDef),"防御(乘法)" },

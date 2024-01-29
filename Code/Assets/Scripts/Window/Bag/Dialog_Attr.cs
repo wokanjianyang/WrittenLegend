@@ -28,7 +28,34 @@ public class Dialog_Attr : MonoBehaviour, IBattleLife
 
         Item_Attr[] items = this.GetComponentsInChildren<Item_Attr>();
 
-        Debug.Log("Item_Attr :" + items.Length);
+        User user = GameProcessor.Inst.User;
+
+        AttributeEnum[] list = new AttributeEnum[] {
+            AttributeEnum.AttIncrea, AttributeEnum.HpIncrea, AttributeEnum.DefIncrea,
+            AttributeEnum.PhyAttIncrea, AttributeEnum.MagicAttIncrea, AttributeEnum.SpiritAttIncrea,
+            //AttributeEnum.PanelHp, AttributeEnum.PanelAtt, AttributeEnum.PanelDef,
+            //AttributeEnum.PanelPhyAtt, AttributeEnum.PanelMagicAtt, AttributeEnum.PanelSpiritAtt,
+            AttributeEnum.MulAttr, AttributeEnum.MulHp, AttributeEnum.MulDef,
+            AttributeEnum.MulAttrPhy, AttributeEnum.MulAttrMagic, AttributeEnum.MulAttrSpirit,
+            AttributeEnum.MoveSpeed, AttributeEnum.DefIgnore, AttributeEnum.Miss,
+            AttributeEnum.AurasDamageResist,   AttributeEnum.AurasDamageResist,AttributeEnum.AurasAttrIncrea,
+        };
+
+        for (int i = 0; i < items.Length; i++)
+        {
+            Item_Attr item = items[i];
+            if (i < list.Length)
+            {
+                item.gameObject.SetActive(true);
+
+                AttributeEnum attrId = list[i];
+                item.SetContent((int)attrId, user.AttributeBonus.GetBaseAttr(attrId));
+            }
+            else
+            {
+                item.gameObject.SetActive(false);
+            }
+        }
     }
 
     public void OnClick_Close()
