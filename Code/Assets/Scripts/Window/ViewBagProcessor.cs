@@ -74,6 +74,8 @@ namespace Game
 
             this.Btn_Reset.onClick.AddListener(OnRefreshBag);
             this.Btn_ReName.onClick.AddListener(OnSetPlanName);
+            this.Btn_Ok.onClick.AddListener(OnPlanNameOK);
+            this.Btn_Cancle.onClick.AddListener(OnPlanNameClose);
         }
 
         // Start is called before the first frame update
@@ -106,6 +108,7 @@ namespace Game
 
             int EquipPanelIndex = GameProcessor.Inst.User.EquipPanelIndex;
             Toggle_Plan_List[EquipPanelIndex].isOn = true;
+            this.InitPlanName();
 
             for (int i = 0; i < Equip_Plan_List.Count; i++)
             {
@@ -200,6 +203,45 @@ namespace Game
         private void OnSetPlanName()
         {
             this.Tran_Plan.gameObject.SetActive(true);
+        }
+
+        private void OnPlanNameOK()
+        {
+            string name = this.If_Name.text.Trim();
+
+            if (name.Length > 2)
+            {
+                name = name.Substring(0, 2);
+            }
+
+            Debug.Log("plan Name:" + name);
+
+            User user = GameProcessor.Inst.User;
+
+            user.PlanNameList[user.EquipPanelIndex] = name;
+
+            this.InitPlanName();
+            this.Tran_Plan.gameObject.SetActive(false);
+        }
+
+        private void InitPlanName()
+        {
+            User user = GameProcessor.Inst.User;
+
+            for (int i = 0; i < Toggle_Plan_List.Count; i++)
+            {
+                user.PlanNameList.TryGetValue(i, out string name);
+                if (name != null)
+                {
+                    Text tt = Toggle_Plan_List[i].GetComponentInChildren<Text>();
+                    tt.text = name;
+                }
+            }
+        }
+
+        private void OnPlanNameClose()
+        {
+            this.Tran_Plan.gameObject.SetActive(false);
         }
 
         private void RefreshBag()

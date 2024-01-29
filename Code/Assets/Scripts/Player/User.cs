@@ -47,6 +47,7 @@ namespace Game
         public IDictionary<int, ExclusiveItem> ExclusiveList { get; set; } = new Dictionary<int, ExclusiveItem>();
 
         public int EquipPanelIndex { get; set; } = 0;
+        public IDictionary<int, string> PlanNameList { get; set; } = new Dictionary<int, string>();
 
         public bool ExclusiveSetting { get; set; } = false;
         public int ExclusiveIndex { get; set; } = 0;

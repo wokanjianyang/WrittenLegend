@@ -6277,14 +6277,14 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1554833683284171639}
   m_TextComponent: {fileID: 5970804080788164783}
   m_Placeholder: {fileID: 7734889614510845612}
-  m_ContentType: 2
+  m_ContentType: 0
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 4
+  m_KeyboardType: 0
   m_LineType: 0
   m_HideMobileInput: 0
-  m_CharacterValidation: 1
-  m_CharacterLimit: 10
+  m_CharacterValidation: 0
+  m_CharacterLimit: 2
   m_OnSubmit:
     m_PersistentCalls:
       m_Calls: []
@@ -10416,7 +10416,7 @@ MonoBehaviour:
   EquipInfoSpecial: {fileID: 8787083947240384703}
   Btn_ReName: {fileID: 3583324886692441211}
   Tran_Plan: {fileID: 5952338303824632663}
-  If_Name: {fileID: 0}
+  If_Name: {fileID: 2338062829958707633}
   Btn_Ok: {fileID: 8035377583033574453}
   Btn_Cancle: {fileID: 3069139622105617099}
   Btn_Attr: {fileID: 5465720191112025361}

@@ -52,5 +52,12 @@ namespace Game
 
             return null;
         }
+
+
+        //获取设备标识符
+        public static string GetDeviceIdentifier()
+        {
+            return SystemInfo.deviceUniqueIdentifier;
+        }
     }
 }

@@ -40,6 +40,7 @@ public class Com_AD : MonoBehaviour, IBattleLife
     public Button Btn_Read3;
     public Button Btn_Read4;
 
+    public Toggle toggle_Fail;
 
     public Toggle toggle_Skip;
     public Text txt_Skip;
@@ -52,7 +53,10 @@ public class Com_AD : MonoBehaviour, IBattleLife
 
     public Text txt_FakeAD;
 
-    private int CD_Time = 60;
+    private int CD_Time = 0;
+
+    private int Time_Success = 30;
+    private int Time_Error = 3;
 
     public int Order => (int)ComponentOrder.Dialog;
 
@@ -159,7 +163,7 @@ public class Com_AD : MonoBehaviour, IBattleLife
             {
                 ADType = (int)ADTypeEnum.ErrorCount,
                 CurrentShowCount = 0,
-                MaxShowCount = 6
+                MaxShowCount = 20
             };
             return false;
         }
@@ -236,8 +240,8 @@ public class Com_AD : MonoBehaviour, IBattleLife
             return;
         }
 
-        if (CheckErrorPlatform())
-        { //无法播放,直接给播白屏
+        if (CheckErrorPlatform() && toggle_Fail.isOn)
+        {   //无法播放,直接给播白屏
             StartCoroutine(ShowFakeAD(() =>
             {
                 RewardAd(type, false);
@@ -278,10 +282,14 @@ public class Com_AD : MonoBehaviour, IBattleLife
                 RewardAd(type, true);
 
                 GameProcessor.Inst.User.AdLastTime = TimeHelper.ClientNowSeconds();
+                this.CD_Time = this.Time_Success;
             }
             else if (code == (int)AdStateEnum.NotSupport || code == (int)AdStateEnum.LoadFail)
             {
                 ErrorAd();
+
+                GameProcessor.Inst.User.AdLastTime = TimeHelper.ClientNowSeconds();
+                this.CD_Time = this.Time_Error;
             }
             else
             {

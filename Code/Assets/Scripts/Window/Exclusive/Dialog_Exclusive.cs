@@ -11,7 +11,8 @@ namespace Game
     {
         public Button Btn_Close;
 
-        public List<Button> Btn_Plan_List = new List<Button>();
+        public List<Toggle> Toggle_Plan_List = new List<Toggle>();
+        //public List<Button> Btn_Plan_List = new List<Button>();
 
         public Toggle toggle;
 
@@ -20,15 +21,6 @@ namespace Game
         void Awake()
         {
             Btn_Close.onClick.AddListener(OnClick_Close);
-
-            for (int i = 0; i < Btn_Plan_List.Count; i++)
-            {
-                int index = i;
-                Btn_Plan_List[i].onClick.AddListener(() =>
-                {
-                    ChangePlan(index);
-                });
-            }
 
             toggle.onValueChanged.AddListener((isOn) =>
             {
@@ -53,6 +45,38 @@ namespace Game
             {
                 items[i].Init(prefab);
             }
+
+            this.InitPlanName();
+
+            for (int i = 0; i < Toggle_Plan_List.Count; i++)
+            {
+                int index = i;
+                Toggle_Plan_List[i].onValueChanged.AddListener((isOn) =>
+                {
+                    if (isOn)
+                    {
+                        ChangePlan(index);
+                    }
+                });
+            }
+        }
+
+        private void InitPlanName()
+        {
+            int ExclusiveIndex = GameProcessor.Inst.User.ExclusiveIndex;
+            Toggle_Plan_List[ExclusiveIndex].isOn = true;
+
+            User user = GameProcessor.Inst.User;
+
+            for (int i = 0; i < Toggle_Plan_List.Count; i++)
+            {
+                user.PlanNameList.TryGetValue(i, out string name);
+                if (name != null)
+                {
+                    Text tt = Toggle_Plan_List[i].GetComponentInChildren<Text>();
+                    tt.text = name;
+                }
+            }
         }
 
         private void ChangePlan(int i)
@@ -63,6 +87,8 @@ namespace Game
         public void OnShowExclusive(ShowExclusiveEvent e)
         {
             this.gameObject.SetActive(true);
+
+            this.InitPlanName();
         }
 
         public void OnClick_Close()

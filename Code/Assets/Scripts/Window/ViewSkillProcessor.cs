@@ -16,7 +16,9 @@ namespace Game
         [LabelText("装载技能")]
         public Transform tran_EquipSkills;
 
-        public List<Button> PlanList;
+        //public List<Button> PlanList;
+
+        public List<Toggle> Toggle_Plan_List = new List<Toggle>();
 
         private Com_Skill[] AllEquipSkills;
 
@@ -26,14 +28,6 @@ namespace Game
 
         void Awake()
         {
-            for (int i = 0; i < PlanList.Count; i++)
-            {
-                int index = i;
-                PlanList[i].onClick.AddListener(() =>
-                {
-                    ChangePlan(index);
-                });
-            }
         }
 
         public override void OnBattleStart()
@@ -57,6 +51,38 @@ namespace Game
 
             this.ShowSkillPanel();
             this.ShowSkillBattle();
+
+            this.InitPlanName();
+
+            for (int i = 0; i < Toggle_Plan_List.Count; i++)
+            {
+                int index = i;
+                Toggle_Plan_List[i].onValueChanged.AddListener((isOn) =>
+                {
+                    if (isOn)
+                    {
+                        ChangePlan(index);
+                    }
+                });
+            }
+        }
+
+        private void InitPlanName()
+        {
+            int SkillPanelIndex = GameProcessor.Inst.User.SkillPanelIndex;
+            Toggle_Plan_List[SkillPanelIndex].isOn = true;
+
+            User user = GameProcessor.Inst.User;
+
+            for (int i = 0; i < Toggle_Plan_List.Count; i++)
+            {
+                user.PlanNameList.TryGetValue(i, out string name);
+                if (name != null)
+                {
+                    Text tt = Toggle_Plan_List[i].GetComponentInChildren<Text>();
+                    tt.text = name;
+                }
+            }
         }
 
         private void ChangePlan(int index)
@@ -167,6 +193,7 @@ namespace Game
         public override void OnOpen()
         {
             base.OnOpen();
+            this.InitPlanName();
         }
     }
 }
