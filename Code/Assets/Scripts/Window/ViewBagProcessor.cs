@@ -214,8 +214,6 @@ namespace Game
                 name = name.Substring(0, 2);
             }
 
-            Debug.Log("plan Name:" + name);
-
             User user = GameProcessor.Inst.User;
 
             user.PlanNameList[user.EquipPanelIndex] = name;

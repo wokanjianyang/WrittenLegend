@@ -141,7 +141,7 @@ namespace Game
                 power += attrTotal * rate;
             }
 
-            Debug.Log("Old Power:" + power);
+            Debug.Log("Old Power:" + StringHelper.FormatNumber(power));
 
             double p1 = GetTotalAttrDouble(AttributeEnum.PhyAtt);
             double p2 = GetTotalAttrDouble(AttributeEnum.MagicAtt);
@@ -157,9 +157,9 @@ namespace Game
             powerDamage *= Math.Min(GetTotalAttrDouble(AttributeEnum.CritRateResist), 1) * (GetTotalAttrDouble(AttributeEnum.CritDamageResist) + 100) / 100;
             powerDef *= CalPercent(AttributeEnum.Miss);
 
-            double newPower = powerDamage + powerDef;
+            double newPower = (powerDamage + powerDef) / 50;
 
-            Debug.Log("New Power:" + newPower);
+            Debug.Log("New Power:" + StringHelper.FormatNumber(newPower));
 
             return StringHelper.FormatNumber(power);
         }
