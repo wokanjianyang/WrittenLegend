@@ -121,7 +121,7 @@ namespace Game
             }
             else
             {
-                return CalMulTotal(1, false, attrType);
+                return CalMulTotal(100, false, attrType) - 100;
             }
         }
 
@@ -157,7 +157,7 @@ namespace Game
             powerDamage *= Math.Min(GetTotalAttrDouble(AttributeEnum.CritRateResist), 1) * (GetTotalAttrDouble(AttributeEnum.CritDamageResist) + 100) / 100;
             powerDef *= CalPercent(AttributeEnum.Miss);
 
-            double newPower = (powerDamage + powerDef) / 50;
+            double newPower = (powerDamage + powerDef) / 20;
 
             Debug.Log("New Power:" + StringHelper.FormatNumber(newPower));
 
