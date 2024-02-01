@@ -10,15 +10,17 @@ using UnityEngine.UI;
 public class Item_Festive : MonoBehaviour
 {
     public Text TargetName;
-    public Text FromName;
-    public Text FromCount;
-    public Text CommissionName;
-    public Text CommissionCount;
+
+    public Text Txt_Title;
+
+    public Text Txt_Cost_Title;
+    public Text Txt_Cost_Content;
+
+    public Text Txt_Limit_Title;
+    public Text Txt_Limit_Content;
 
     public Button Btn_Ok;
 
-    private List<Text> TxtNameList = new List<Text>();
-    private List<Text> TxtCountList = new List<Text>();
 
     private FestiveConfig Config { get; set; }
 
@@ -27,15 +29,7 @@ public class Item_Festive : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        TxtNameList.Add(FromName);
-        TxtNameList.Add(CommissionName);
-
-        TxtCountList.Add(FromCount);
-        TxtCountList.Add(CommissionCount);
-
         Btn_Ok.onClick.AddListener(OnClickOK);
-
-        GameProcessor.Inst.EventCenter.AddListener<FestiveUIFreshEvent>(this.OnUIFresh);
     }
 
     // Update is called once per frame
@@ -51,11 +45,15 @@ public class Item_Festive : MonoBehaviour
 
     private void Init()
     {
-        TargetName.text = Config.TargetName.Insert(2, "\n");
+        User user = GameProcessor.Inst.User;
+        int Count = user.GetFestiveCount(Config.Id);
+
+        TargetName.text = Config.TargetName;
+        Txt_Title.text = Config.Title;
+        Txt_Cost_Content.text = Config.Cost + " ¸ö/´Î";
+        Txt_Limit_Content.text = Count + "/" + Config.Max;
 
         ItemConfig itemConfig = ItemConfigCategory.Instance.Get(ItemHelper.SpecialId_Chunjie);
-        CommissionName.text = itemConfig.Name;
-
     }
 
     private void Check()
@@ -69,7 +67,7 @@ public class Item_Festive : MonoBehaviour
 
         this.check = true;
 
-        int MaxCount = Config.Count;
+        int MaxCount = Config.Max;
 
         long count = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Chunjie).Select(m => m.MagicNubmer.Data).Sum();
 
@@ -81,7 +79,7 @@ public class Item_Festive : MonoBehaviour
             this.check = false;
         }
 
-        CommissionCount.text = string.Format("<color={0}>({1}/{2})</color>", color, count, MaxCount);
+        //CommissionCount.text = string.Format("<color={0}>({1}/{2})</color>", color, count, MaxCount);
     }
 
     public void SetData(FestiveConfig config)

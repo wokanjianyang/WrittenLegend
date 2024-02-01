@@ -57,7 +57,7 @@ public class Init : MonoBehaviour
         Dialog_Achievement,
         Dialog_Defend,
         Dialog_Fashion,
-        Dialog_Attr
+        Dialog_Attr,
     }
 
     [LabelText("战斗模式")]

@@ -34,6 +34,7 @@ namespace Game
         public MagicData MagicExp { get; } = new MagicData();
 
         public MagicData MagicUpExp { get; } = new MagicData();
+
         public MagicData MagicTowerFloor { get; } = new MagicData();
 
         public IDictionary<int, Equip> EquipPanel { get; set; } = new Dictionary<int, Equip>();
@@ -124,6 +125,8 @@ namespace Game
         public Dictionary<int, double> RateData { get; } = new Dictionary<int, double>();
 
         //public Dictionary<string, MagicData> AdData { get; } = new Dictionary<string, MagicData>();
+
+        public IDictionary<int, int> FestiveData { get; set; } = new Dictionary<int, int>();
 
         public bool GameCheat { get; set; } = false;
 
@@ -789,6 +792,16 @@ namespace Game
                 }
                 RateData[key] += count;
             }
+        }
+
+        public int GetFestiveCount(int id)
+        {
+            if (!this.FestiveData.ContainsKey(id))
+            {
+                this.FestiveData[id] = 0;
+            }
+
+            return this.FestiveData[id];
         }
     }
 

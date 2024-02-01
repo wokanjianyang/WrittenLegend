@@ -9,13 +9,18 @@ using UnityEngine.UI;
 
 public class Dialog_Festive : MonoBehaviour
 {
+    public Text Txt_Total;
+
     public ScrollRect sr_Panel;
     private GameObject ItemPrefab;
+
+    public Button Btn_Close;
 
     // Start is called before the first frame update
     void Start()
     {
         this.Init();
+        this.Btn_Close.onClick.AddListener(OnClose);
     }
 
     // Update is called once per frame
@@ -24,9 +29,9 @@ public class Dialog_Festive : MonoBehaviour
 
     }
 
-    public void Init()
+    private void Init()
     {
-        ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Item/Exchange_Item");
+        ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Item/Item_Festive");
 
         List<FestiveConfig> list = FestiveConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
 
@@ -39,6 +44,19 @@ public class Dialog_Festive : MonoBehaviour
             Item_Festive com = Item.GetComponent<Item_Festive>();
             com.SetData(config);
         }
+    }
+
+    public void Open()
+    {
+        long count = GameProcessor.Inst.User.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Chunjie).Select(m => m.MagicNubmer.Data).Sum();
+        this.Txt_Total.text = count + " ¸ö";
+
+        this.gameObject.SetActive(true);
+    }
+
+    private void OnClose()
+    {
+        this.gameObject.SetActive(false);
     }
 }
 

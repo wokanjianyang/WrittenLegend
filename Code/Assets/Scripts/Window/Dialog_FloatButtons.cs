@@ -11,6 +11,8 @@ public class Dialog_FloatButtons : MonoBehaviour, IBattleLife, IPointerDownHandl
 
     public Com_AD com_AD;
 
+    public Dialog_Festive dialog_Festive;
+
     public Transform Menu;
 
     public Image btn_Power;
@@ -69,7 +71,7 @@ public class Dialog_FloatButtons : MonoBehaviour, IBattleLife, IPointerDownHandl
 
     private void OnClick_Festive()
     {
-        GameProcessor.Inst.EventCenter.Raise(new ShowFestiveDialogEvent());
+        this.dialog_Festive.Open();
     }
 
     private void OnClick_Power()
