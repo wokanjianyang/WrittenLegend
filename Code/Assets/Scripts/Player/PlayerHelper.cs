@@ -43,6 +43,10 @@ namespace Game
             {nameof(AttributeEnum.Miss), "闪避" },
             {nameof(AttributeEnum.Accuracy), "精准" },
 
+            {nameof(AttributeEnum.PhyDamage), "物伤加成" },
+            {nameof(AttributeEnum.MagicDamage),"魔伤加成" },
+            {nameof(AttributeEnum.SpiritDamage), "道伤加成" },
+
             {nameof(AttributeEnum.PhyAttIncrea), "物攻加成" },
             {nameof(AttributeEnum.MagicAttIncrea),"魔法加成" },
             {nameof(AttributeEnum.SpiritAttIncrea), "道术加成" },
@@ -61,12 +65,15 @@ namespace Game
             //{nameof(AttributeEnum.PanelMagicAtt),"最终魔法" },
             //{nameof(AttributeEnum.PanelSpiritAtt), "最终道术" },
 
-            {nameof(AttributeEnum.MulAttr), "攻击(乘法)" },
-            {nameof(AttributeEnum.MulDef),"防御(乘法)" },
-            {nameof(AttributeEnum.MulHp), "生命(乘法)" },
-            {nameof(AttributeEnum.MulAttrPhy), "物攻(乘法)" },
-            {nameof(AttributeEnum.MulAttrMagic),"魔法(乘法)" },
-            {nameof(AttributeEnum.MulAttrSpirit), "道术(乘法)" },
+            {nameof(AttributeEnum.MulAttr), "攻击倍率" },
+            {nameof(AttributeEnum.MulDef),"防御倍率" },
+            {nameof(AttributeEnum.MulHp), "生命倍率" },
+            {nameof(AttributeEnum.MulAttrPhy), "物攻倍率" },
+            {nameof(AttributeEnum.MulAttrMagic),"魔法倍率" },
+            {nameof(AttributeEnum.MulAttrSpirit), "道术倍率" },
+            {nameof(AttributeEnum.MulPhyDamageRise), "物伤倍率" },
+            {nameof(AttributeEnum.MulMagicDamageRise),"魔伤倍率" },
+            {nameof(AttributeEnum.MulSpiritDamageRise), "道伤倍率" },
         };
     }
 }

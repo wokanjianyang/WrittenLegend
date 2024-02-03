@@ -21,6 +21,8 @@ public class Dialog_Festive : MonoBehaviour
     {
         this.Init();
         this.Btn_Close.onClick.AddListener(OnClose);
+
+        GameProcessor.Inst.EventCenter.AddListener<FestiveUIFreshEvent>(this.OnFestiveUIFresh);
     }
 
     // Update is called once per frame
@@ -44,6 +46,12 @@ public class Dialog_Festive : MonoBehaviour
             Item_Festive com = Item.GetComponent<Item_Festive>();
             com.SetData(config);
         }
+    }
+
+    private void OnFestiveUIFresh(FestiveUIFreshEvent e)
+    {
+        long count = GameProcessor.Inst.User.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Chunjie).Select(m => m.MagicNubmer.Data).Sum();
+        this.Txt_Total.text = count + " ¸ö";
     }
 
     public void Open()

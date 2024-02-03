@@ -1,10 +1,11 @@
 {"list":[
-{"_t":"DropLimitConfig","_id":1,"Name":"元旦活动","Type":1,"DropId":1001,"Rate":70,"ShareRise":0,"StartRate":0,"StartDate":"2023-12-30","EndDate":"2024-01-02"},
+{"_t":"DropLimitConfig","_id":1,"Name":"春节活动","Type":1,"DropId":1005,"Rate":50,"ShareRise":0,"StartRate":0,"StartDate":"2024-02-01","EndDate":"2024-02-18"},
 {"_t":"DropLimitConfig","_id":100,"Name":"第一批冠名图鉴","Type":0,"DropId":2001,"Rate":30000,"ShareRise":1,"StartRate":0,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
 {"_t":"DropLimitConfig","_id":101,"Name":"第一批白绿图鉴","Type":0,"DropId":2002,"Rate":8000,"ShareRise":1,"StartRate":0,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
 {"_t":"DropLimitConfig","_id":102,"Name":"第一批蓝紫图鉴","Type":0,"DropId":2003,"Rate":15000,"ShareRise":1,"StartRate":0,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
 {"_t":"DropLimitConfig","_id":103,"Name":"第一时装","Type":0,"DropId":3001,"Rate":15000,"ShareRise":0,"StartRate":15000,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
 {"_t":"DropLimitConfig","_id":104,"Name":"专属之心","Type":0,"DropId":1004,"Rate":20000,"ShareRise":0,"StartRate":10000,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
+{"_t":"DropLimitConfig","_id":105,"Name":"龙之图鉴","Type":0,"DropId":2005,"Rate":40000,"ShareRise":1,"StartRate":20000,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
 {"_t":"DropLimitConfig","_id":201,"Name":"守沙100书页","Type":100,"DropId":1002,"Rate":1,"ShareRise":0,"StartRate":0,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
 {"_t":"DropLimitConfig","_id":202,"Name":"守沙图鉴","Type":100,"DropId":2004,"Rate":1,"ShareRise":0,"StartRate":0,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
 {"_t":"DropLimitConfig","_id":203,"Name":"守沙时装","Type":100,"DropId":3002,"Rate":1,"ShareRise":0,"StartRate":0,"StartDate":"2023-10-21","EndDate":"2024-10-21"},

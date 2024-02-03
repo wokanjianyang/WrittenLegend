@@ -465,13 +465,12 @@ namespace Game
                     break;
                 case ItemType.GiftPack:
                     {
-                        var giftPack = this.boxItem.Item as GiftPack;
+                        GiftPack giftPack = this.boxItem.Item as GiftPack;
 
                         tran_NormalAttribute.gameObject.SetActive(true);
                         tran_NormalAttribute.Find("Title").GetComponent<Text>().text = giftPack.Des;
-
-
                         this.btn_Upgrade.gameObject.SetActive(true);
+                        this.btn_UseAll.gameObject.SetActive(true);
                     }
                     break;
                 case ItemType.ExpPack:

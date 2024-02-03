@@ -46,12 +46,12 @@ public class Item_Festive : MonoBehaviour
     private void Init()
     {
         User user = GameProcessor.Inst.User;
-        int Count = user.GetFestiveCount(Config.Id);
+        int MaxCount = user.GetFestiveCount(Config.Id);
 
         TargetName.text = Config.TargetName;
         Txt_Title.text = Config.Title;
         Txt_Cost_Content.text = Config.Cost + " 个/次";
-        Txt_Limit_Content.text = Count + "/" + Config.Max;
+        Txt_Limit_Content.text = MaxCount + "/" + Config.Max;
 
         ItemConfig itemConfig = ItemConfigCategory.Instance.Get(ItemHelper.SpecialId_Chunjie);
     }
@@ -67,19 +67,19 @@ public class Item_Festive : MonoBehaviour
 
         this.check = true;
 
-        int MaxCount = Config.Max;
-
         long count = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Chunjie).Select(m => m.MagicNubmer.Data).Sum();
 
-        string color = "#00FF00";
-
-        if (count < MaxCount)
+        if (count < Config.Cost)
         {
-            color = "#FF0000";
             this.check = false;
         }
 
-        //CommissionCount.text = string.Format("<color={0}>({1}/{2})</color>", color, count, MaxCount);
+        int MaxCount = user.GetFestiveCount(Config.Id);
+        if (MaxCount >= Config.Max)
+        {
+            this.check = false;
+            Btn_Ok.enabled = false;
+        }
     }
 
     public void SetData(FestiveConfig config)
@@ -101,17 +101,37 @@ public class Item_Festive : MonoBehaviour
 
         if (!check)
         {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "材料不足", ToastType = ToastTypeEnum.Failure });
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "材料不足或已达上限", ToastType = ToastTypeEnum.Failure });
             return;
         }
 
+        User user = GameProcessor.Inst.User;
+        user.SaveFestiveCount(Config.Id);
+
+        //材料
+        GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
+        {
+            Type = ItemType.Material,
+            ItemId = ItemHelper.SpecialId_Chunjie,
+            Quantity = Config.Cost
+        });
+
+        Item item = ItemHelper.BuildItem((ItemType)Config.TargetType, Config.TargetId, 1, Config.TargetCount);
+
+        List<Item> list = new List<Item>();
+        list.Add(item);
+        GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = list });
+
+        GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+        {
+            Type = RuleType.Normal,
+            Message = BattleMsgHelper.BuildGiftPackMessage("兑换节日奖励:", 0, 0, list)
+        });
 
         GameProcessor.Inst.EventCenter.Raise(new FestiveUIFreshEvent() { });
-    }
 
-    public void OnUIFresh(FestiveUIFreshEvent e)
-    {
-        this.Check();
+        int MaxCount = user.GetFestiveCount(Config.Id);
+        Txt_Limit_Content.text = MaxCount + "/" + Config.Max;
     }
 }
 

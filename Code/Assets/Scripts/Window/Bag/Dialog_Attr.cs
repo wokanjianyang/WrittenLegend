@@ -33,12 +33,14 @@ public class Dialog_Attr : MonoBehaviour, IBattleLife
         AttributeEnum[] list = new AttributeEnum[] {
             AttributeEnum.AttIncrea, AttributeEnum.HpIncrea, AttributeEnum.DefIncrea,
             AttributeEnum.PhyAttIncrea, AttributeEnum.MagicAttIncrea, AttributeEnum.SpiritAttIncrea,
+            AttributeEnum.MoveSpeed, AttributeEnum.DefIgnore, AttributeEnum.Miss,
+            AttributeEnum.AurasDamageIncrea,   AttributeEnum.AurasDamageResist,AttributeEnum.AurasAttrIncrea,
+
             //AttributeEnum.PanelHp, AttributeEnum.PanelAtt, AttributeEnum.PanelDef,
             //AttributeEnum.PanelPhyAtt, AttributeEnum.PanelMagicAtt, AttributeEnum.PanelSpiritAtt,
             AttributeEnum.MulAttr, AttributeEnum.MulHp, AttributeEnum.MulDef,
             AttributeEnum.MulAttrPhy, AttributeEnum.MulAttrMagic, AttributeEnum.MulAttrSpirit,
-            AttributeEnum.MoveSpeed, AttributeEnum.DefIgnore, AttributeEnum.Miss,
-            AttributeEnum.AurasDamageIncrea,   AttributeEnum.AurasDamageResist,AttributeEnum.AurasAttrIncrea,
+            AttributeEnum.MulPhyDamageRise,   AttributeEnum.MulMagicDamageRise,AttributeEnum.MulSpiritDamageRise,
         };
 
         for (int i = 0; i < items.Length; i++)

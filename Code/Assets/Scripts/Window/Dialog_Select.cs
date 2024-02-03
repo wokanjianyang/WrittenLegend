@@ -52,7 +52,7 @@ namespace Game
 
                 SelectItem item = itemUI.GetComponent<SelectItem>();
 
-                Item newItem = ItemHelper.BuildItem((ItemType)config.ItemTypeList[i], config.ItemIdList[i], 1, config.ItemQuanlityList[i]);
+                Item newItem = ItemHelper.BuildItem((ItemType)config.ItemTypeList[i], config.ItemIdList[i], 1, config.ItemCountList[i]);
 
                 BoxItem boxItem = new BoxItem();
                 boxItem.Item = newItem;

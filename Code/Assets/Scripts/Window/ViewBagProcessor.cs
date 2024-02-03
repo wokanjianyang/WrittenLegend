@@ -333,6 +333,11 @@ namespace Game
                         prefab = Resources.Load<GameObject>("Prefab/Window/Box_Orange");
                     }
                     break;
+                case 6:
+                    {
+                        prefab = Resources.Load<GameObject>("Prefab/Window/Box6");
+                    }
+                    break;
                     //}
             }
 
@@ -834,7 +839,20 @@ namespace Game
             }
             else if (boxItem.Item.Type == ItemType.GiftPack)
             {
-                //GameProcessor.Inst.EventCenter.Raise(new ShowSelect());
+                GiftPack giftPack = boxItem.Item as GiftPack;
+                GiftPackConfig pc = giftPack.Config;
+
+                List<Item> items = new List<Item>();
+                for (int i = 0; i < pc.ItemIdList.Length; i++)
+                {
+                    Item item = ItemHelper.BuildItem((ItemType)pc.ItemTypeList[i], pc.ItemIdList[i], 1, (int)(quantity * pc.ItemCountList[i]));
+                    this.AddBoxItem(item);
+                    items.Add(item);
+                }
+                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+                {
+                    Message = BattleMsgHelper.BuildGiftPackMessage("礼包奖励:", 0, 0, items)
+                });
             }
             else if (boxItem.Item.Type == ItemType.Ticket)
             {

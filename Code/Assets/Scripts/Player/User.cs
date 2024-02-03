@@ -803,6 +803,14 @@ namespace Game
 
             return this.FestiveData[id];
         }
+
+        public void SaveFestiveCount(int configId)
+        {
+            if (this.FestiveData.ContainsKey(configId))
+            {
+                this.FestiveData[configId]++;
+            }
+        }
     }
 
     public enum UserChangeType

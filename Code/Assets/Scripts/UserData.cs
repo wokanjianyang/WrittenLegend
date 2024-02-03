@@ -143,7 +143,7 @@ namespace Game
 
         public static void Save(bool andTemp = false)
         {
-            if (GameProcessor.Inst == null)
+            if (GameProcessor.Inst == null || GameProcessor.Inst.User == null)
             {
                 return;
             }

@@ -99,6 +99,9 @@ namespace Game
 		/// <summary>TargetId</summary>
 		[ProtoMember(8)]
 		public int TargetId { get; set; }
+		/// <summary>TargetCount</summary>
+		[ProtoMember(9)]
+		public int TargetCount { get; set; }
 
 	}
 }

@@ -52,17 +52,22 @@ namespace Game
 
             if (this.BoxItem.Item.Type == ItemType.GiftPack)
             {
-                GameProcessor.Inst.EventCenter.Raise(new ShowSelectEvent() { boxItem = this.BoxItem });
-            }
-            else
-            {
-                GameProcessor.Inst.EventCenter.Raise(new ShowEquipDetailEvent()
+                GiftPack giftPack = this.BoxItem.Item as GiftPack;
+
+                if (giftPack.Config.GiftType == 1)  //自选包;
                 {
-                    boxItem = this.BoxItem,
-                    EquipPosition = this.EquipPosition,
-                    Type = this.Type
-                });
+                    GameProcessor.Inst.EventCenter.Raise(new ShowSelectEvent() { boxItem = this.BoxItem });
+                    return;
+                }
             }
+
+            GameProcessor.Inst.EventCenter.Raise(new ShowEquipDetailEvent()
+            {
+                boxItem = this.BoxItem,
+                EquipPosition = this.EquipPosition,
+                Type = this.Type
+            });
+
         }
 
         public void OnPointerUp(PointerEventData eventData)

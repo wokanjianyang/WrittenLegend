@@ -78,6 +78,10 @@ namespace Game
         MulAttrPhy = 2004,
         MulAttrMagic = 2005,
         MulAttrSpirit = 2006,
+
+        MulPhyDamageRise = 2007,
+        MulMagicDamageRise = 2008,
+        MulSpiritDamageRise = 2009,
     }
 
     /// <summary>

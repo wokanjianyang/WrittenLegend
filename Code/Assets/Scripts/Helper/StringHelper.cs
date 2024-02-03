@@ -64,6 +64,7 @@ namespace Game
             string unit = "";
 
             List<int> percents = ConfigHelper.PercentAttrIdList.ToList();
+            //List<int> rates = ConfigHelper.RateAttrIdList.ToList();
 
             if (percents.Contains(attrId))
             {

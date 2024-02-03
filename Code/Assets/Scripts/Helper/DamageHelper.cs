@@ -52,6 +52,11 @@ namespace Game
 
             attack = attack * SkillDamage / 100;
 
+            //职业伤害倍率(物伤倍率，法伤倍率，道伤倍率)
+            double roleDamageMulRate = GetRoleDamageMulRate(attcher, role, true);
+            //Debug.Log("roleDamageMulRate:" + roleDamageMulRate);
+            attack *= 1 + roleDamageMulRate / 100;
+
             //承受者的易伤
             long ExtraDamage = enemy.GetAttackAttr(AttributeEnum.ExtraDamage);
             attack = attack * (100 + ExtraDamage) / 100;
@@ -106,6 +111,27 @@ namespace Game
             attack += attributeBonus.GetAttackAttr(AttributeEnum.AllDamage);
 
             return attack;
+        }
+
+        public static double GetRoleDamageMulRate(AttributeBonus attributeBonus, int role, bool haveBuff)
+        {
+            switch (role)
+            {
+                case (int)RoleType.Warrior:
+                    {
+                        return attributeBonus.CalMulTotal(haveBuff, AttributeEnum.MulPhyDamageRise);
+                    }
+                case (int)RoleType.Mage:
+                    {
+                        return attributeBonus.CalMulTotal(haveBuff, AttributeEnum.MulMagicDamageRise);
+                    }
+                case (int)RoleType.Warlock:
+                    {
+                        return attributeBonus.CalMulTotal(haveBuff, AttributeEnum.MulSpiritDamageRise);
+                    }
+            }
+
+            return 1;
         }
 
         public static double GetRoleAttack(AttributeBonus attributeBonus, int role, bool haveBuff)

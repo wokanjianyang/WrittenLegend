@@ -20,18 +20,18 @@ namespace Game
             for (int i = 0; i < config.ItemIdList.Length; i++)
             {
                 int itemId = config.ItemIdList[i];
-                int quanlity = config.ItemQuanlityList[i];
+                int count = config.ItemCountList[i];
                 ItemType type = (ItemType)config.ItemTypeList[i];
 
                 Item item = null;
 
                 if (type == ItemType.Gold)
                 {
-                    gold = quanlity;
+                    gold = count;
                 }
                 else
                 {
-                    item = ItemHelper.BuildItem(type, itemId, 1, quanlity);
+                    item = ItemHelper.BuildItem(type, itemId, 1, count);
                 }
 
                 if (item != null)

@@ -81,23 +81,23 @@ namespace Game
             {
                 case AttributeEnum.HP:
                     total = CalTotal(AttributeEnum.HP, haveBuff, AttributeEnum.HpIncrea) * (CalTotal(AttributeEnum.PanelHp, haveBuff) + 100) / 100;
-                    total = CalMulTotal(total, haveBuff, AttributeEnum.MulHp);
+                    total *= 1 + CalMulTotal(haveBuff, AttributeEnum.MulHp) / 100;
                     break;
                 case AttributeEnum.PhyAtt:
                     total = CalTotal(AttributeEnum.PhyAtt, haveBuff, AttributeEnum.AttIncrea, AttributeEnum.PhyAttIncrea) * (CalTotal(AttributeEnum.PanelPhyAtt, haveBuff) + 100) / 100;
-                    total = CalMulTotal(total, haveBuff, AttributeEnum.MulAttr, AttributeEnum.MulAttrPhy);
+                    total *= 1 + CalMulTotal(haveBuff, AttributeEnum.MulAttr, AttributeEnum.MulAttrPhy) / 100;
                     break;
                 case AttributeEnum.MagicAtt:
                     total = CalTotal(AttributeEnum.MagicAtt, haveBuff, AttributeEnum.AttIncrea, AttributeEnum.MagicAttIncrea) * (CalTotal(AttributeEnum.PanelMagicAtt, haveBuff) + 100) / 100;
-                    total = CalMulTotal(total, haveBuff, AttributeEnum.MulAttr, AttributeEnum.MulAttrMagic);
+                    total *= 1 + CalMulTotal(haveBuff, AttributeEnum.MulAttr, AttributeEnum.MulAttrMagic) / 100;
                     break;
                 case AttributeEnum.SpiritAtt:
                     total = CalTotal(AttributeEnum.SpiritAtt, haveBuff, AttributeEnum.AttIncrea, AttributeEnum.SpiritAttIncrea) * (CalTotal(AttributeEnum.PanelSpiritAtt, haveBuff) + 100) / 100;
-                    total = CalMulTotal(total, haveBuff, AttributeEnum.MulAttr, AttributeEnum.MulAttrSpirit);
+                    total *= 1 + CalMulTotal(haveBuff, AttributeEnum.MulAttr, AttributeEnum.MulAttrSpirit) / 100;
                     break;
                 case AttributeEnum.Def:
                     total = CalTotal(AttributeEnum.Def, haveBuff, AttributeEnum.DefIncrea) * (CalTotal(AttributeEnum.PanelDef, haveBuff) + 100) / 100;
-                    total = CalMulTotal(total, haveBuff, AttributeEnum.MulDef);
+                    total *= 1 + CalMulTotal(haveBuff, AttributeEnum.MulDef);
                     break;
                 case AttributeEnum.SecondExp:
                     total = CalTotal(AttributeEnum.SecondExp, haveBuff, AttributeEnum.ExpIncrea);
@@ -106,7 +106,14 @@ namespace Game
                     total = CalTotal(AttributeEnum.SecondGold, haveBuff, AttributeEnum.GoldIncrea);
                     break;
                 default:
-                    total = CalTotal(attrType, haveBuff);
+                    if ((int)attrType < 2001)
+                    {
+                        total = CalTotal(attrType, haveBuff);
+                    }
+                    else
+                    {
+                        total = CalMulTotal(haveBuff, attrType);
+                    }
                     break;
             }
 
@@ -121,7 +128,7 @@ namespace Game
             }
             else
             {
-                return CalMulTotal(100, false, attrType) - 100;
+                return CalMulTotal(false, attrType);
             }
         }
 
@@ -159,7 +166,7 @@ namespace Game
 
             double newPower = (powerDamage + powerDef) / 20;
 
-            Debug.Log("New Power:" + StringHelper.FormatNumber(newPower));
+            //Debug.Log("New Power:" + StringHelper.FormatNumber(newPower));
 
             return StringHelper.FormatNumber(newPower);
         }
@@ -208,8 +215,10 @@ namespace Game
             return total * (100.0 + percent) / 100.0;
         }
 
-        private double CalMulTotal(double total, bool haveBuff, params AttributeEnum[] mulTypes)
+        public double CalMulTotal(bool haveBuff, params AttributeEnum[] mulTypes)
         {
+            double total = 100;
+
             for (int i = 0; i < mulTypes.Length; i++)
             {
                 AttributeEnum percentType = mulTypes[i];
@@ -226,7 +235,8 @@ namespace Game
                     }
                 }
             }
-            return total;
+
+            return total - 100;
         }
     }
 }
