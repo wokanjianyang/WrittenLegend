@@ -59,7 +59,7 @@ namespace Game
             return FormatAttrValueName(attrId) + FormatAttrValueText(attrId, val);
         }
 
-        public static string FormatAttrValueText(int attrId, long val)
+        public static string FormatAttrValueText(int attrId, double val)
         {
             string unit = "";
 

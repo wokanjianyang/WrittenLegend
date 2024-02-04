@@ -51,7 +51,7 @@ public class Dialog_Attr : MonoBehaviour, IBattleLife
                 item.gameObject.SetActive(true);
 
                 AttributeEnum attrId = list[i];
-                item.SetContent((int)attrId, user.AttributeBonus.GetBaseAttr(attrId));
+                item.SetContent((int)attrId, user.AttributeBonus.GetTotalAttrDouble(attrId));
             }
             else
             {

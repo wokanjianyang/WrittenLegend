@@ -1,5 +1,5 @@
 {"list":[
-{"_t":"DropLimitConfig","_id":1,"Name":"春节活动","Type":1,"DropId":1005,"Rate":50,"ShareRise":0,"StartRate":0,"StartDate":"2024-02-01","EndDate":"2024-02-18"},
+{"_t":"DropLimitConfig","_id":1,"Name":"春节活动","Type":1,"DropId":1005,"Rate":50,"ShareRise":0,"StartRate":0,"StartDate":"2024-02-07","EndDate":"2024-02-17"},
 {"_t":"DropLimitConfig","_id":100,"Name":"第一批冠名图鉴","Type":0,"DropId":2001,"Rate":30000,"ShareRise":1,"StartRate":0,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
 {"_t":"DropLimitConfig","_id":101,"Name":"第一批白绿图鉴","Type":0,"DropId":2002,"Rate":8000,"ShareRise":1,"StartRate":0,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
 {"_t":"DropLimitConfig","_id":102,"Name":"第一批蓝紫图鉴","Type":0,"DropId":2003,"Rate":15000,"ShareRise":1,"StartRate":0,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
