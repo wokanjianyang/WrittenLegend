@@ -10,7 +10,7 @@ namespace Game
 
         public const long Max_Level_Refine = 250; //最大精练等级
 
-        public const long Max_Floor = 11000000; //最大闯关
+        public const long Max_Floor = 13000000; //最大闯关
 
         public const double Def_Rate = 3.0; //防御系数
 
@@ -22,9 +22,9 @@ namespace Game
 
         public static int[] RuneRate99 = new int[] { 1, 3, 6, 9, 15, 24, 39, 59 }; //专属产生概率
 
-        public const long PackTime = 1706059194; //打包时间，防止作弊
+        public const long PackTime = 1707038308; //打包时间，防止作弊
 
-        public const long PackEndTime = 1707095994; //超过此时间,游戏不能使用，需要更新
+        public const long PackEndTime = 1708766308; //超过此时间,游戏不能使用，需要更新
 
         public const long MaxOfflineTime = 3600 * 24;  //最长离线时间
 
@@ -49,7 +49,7 @@ namespace Game
 
         public const int SkillNumber = 5;
 
-        public const int FastFloor = 5000000;
+        public const int FastFloor = 6000000;
 
         public const float DelayShowTime = 0.75f;
         //public const float SkillAnimaTime = 0.75f;

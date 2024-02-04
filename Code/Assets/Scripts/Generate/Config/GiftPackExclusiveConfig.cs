@@ -78,20 +78,23 @@ namespace Game
 		/// <summary>ID</summary>
 		[ProtoMember(1)]
 		public int Id { get; set; }
-		/// <summary>ExclusiveId</summary>
+		/// <summary>Type</summary>
 		[ProtoMember(2)]
+		public int Type { get; set; }
+		/// <summary>ExclusiveId</summary>
+		[ProtoMember(3)]
 		public int ExclusiveId { get; set; }
 		/// <summary>Quality</summary>
-		[ProtoMember(3)]
+		[ProtoMember(4)]
 		public int Quality { get; set; }
 		/// <summary>RuneId</summary>
-		[ProtoMember(4)]
+		[ProtoMember(5)]
 		public int RuneId { get; set; }
 		/// <summary>SuitId</summary>
-		[ProtoMember(5)]
+		[ProtoMember(6)]
 		public int SuitId { get; set; }
 		/// <summary>DoubeId</summary>
-		[ProtoMember(6)]
+		[ProtoMember(7)]
 		public int DoubeId { get; set; }
 
 	}

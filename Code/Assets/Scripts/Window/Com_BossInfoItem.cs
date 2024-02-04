@@ -53,6 +53,11 @@ public class Com_BossInfoItem : MonoBehaviour
         this.bossConfig = bossConfig;
 
         txt_MapName.text = mapConfig.Name;
+        if (mapConfig.Memo != "")
+        {
+            txt_MapName.text += "(" + mapConfig.Memo + ")";
+        }
+
         txt_BossName.text = bossConfig.Name;
 
         if (GameProcessor.Inst.isTimeError || GameProcessor.Inst.isCheckError)

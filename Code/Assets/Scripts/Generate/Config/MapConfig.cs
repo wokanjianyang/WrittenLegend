@@ -93,17 +93,20 @@ namespace Game
 		/// <summary>怪物最大等级</summary>
 		[ProtoMember(6)]
 		public int MonsterLevelMax { get; set; }
-		/// <summary>地图Id掉落</summary>
+		/// <summary>Memo</summary>
 		[ProtoMember(7)]
+		public string Memo { get; set; }
+		/// <summary>地图Id掉落</summary>
+		[ProtoMember(8)]
 		public int[] DropIdList { get; set; }
 		/// <summary>掉落概率列表</summary>
-		[ProtoMember(8)]
+		[ProtoMember(9)]
 		public int[] DropRateList { get; set; }
 		/// <summary>BossId</summary>
-		[ProtoMember(9)]
+		[ProtoMember(10)]
 		public int BoosId { get; set; }
 		/// <summary>刷新间隔分钟</summary>
-		[ProtoMember(10)]
+		[ProtoMember(11)]
 		public int BossInterval { get; set; }
 
 	}
