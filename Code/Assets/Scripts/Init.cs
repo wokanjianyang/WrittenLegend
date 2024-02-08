@@ -49,6 +49,7 @@ public class Init : MonoBehaviour
 
         Select_Dialog,
         Dialog_EquipDetail,
+        Dialog_Exclusive_Detail,
         Dialog_OfflineExp,
         Dialog_Settings,
         Dialog_FloatButtons,
@@ -95,6 +96,7 @@ public class Init : MonoBehaviour
                 WindowTypeEnum.View_BottomNavBar,
                 WindowTypeEnum.Select_Dialog,
                 WindowTypeEnum.Dialog_EquipDetail,
+                WindowTypeEnum.Dialog_Exclusive_Detail,
                 WindowTypeEnum.Dialog_Defend,
                 //WindowTypeEnum.Dialog_OfflineExp,
                 WindowTypeEnum.Dialog_Settings,

@@ -1,3 +1,8 @@
 {"list":[
 {"_t":"ExclusiveDevourConfig","_id":1,"Level":1,"ItemIdList":[4005,4010],"ItemCountList":[150,30]},
+{"_t":"ExclusiveDevourConfig","_id":2,"Level":2,"ItemIdList":[4005,4010],"ItemCountList":[300,60]},
+{"_t":"ExclusiveDevourConfig","_id":3,"Level":3,"ItemIdList":[4005,4010],"ItemCountList":[600,120]},
+{"_t":"ExclusiveDevourConfig","_id":4,"Level":4,"ItemIdList":[4005,4010],"ItemCountList":[1200,240]},
+{"_t":"ExclusiveDevourConfig","_id":5,"Level":5,"ItemIdList":[4005,4010],"ItemCountList":[2400,480]},
+{"_t":"ExclusiveDevourConfig","_id":6,"Level":6,"ItemIdList":[4005,4010],"ItemCountList":[4800,960]},
 ]}

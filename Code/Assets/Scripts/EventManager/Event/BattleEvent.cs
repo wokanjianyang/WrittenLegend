@@ -9,6 +9,14 @@ namespace Game
         public ViewPageType Page { get; set; }
     }
 
+    public class ShowExclusiveCardEvent : SDD.Events.Event
+    {
+        public ComBoxType Type { get; set; }
+        public BoxItem boxItem { get; set; }
+
+        public int EquipPosition { get; set; }
+    }
+
     public class ShowEquipDetailEvent : SDD.Events.Event
     {
         //public Vector3 Position { get; set; }

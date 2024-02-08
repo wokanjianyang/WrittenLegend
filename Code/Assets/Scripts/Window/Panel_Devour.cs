@@ -39,6 +39,11 @@ public class Panel_Devour : MonoBehaviour
         GameProcessor.Inst.EventCenter.AddListener<ComBoxDeselectEvent>(this.OnComBoxDeselect);
     }
 
+    void OnEnable()
+    {
+        this.Load();
+    }
+
     public void Init()
     {
         var emptyPrefab = Resources.Load<GameObject>("Prefab/Window/Box_Empty");
@@ -77,7 +82,7 @@ public class Panel_Devour : MonoBehaviour
         User user = GameProcessor.Inst.User;
 
         List<BoxItem> list = user.Bags.Where(m => m.Item.Type == ItemType.Exclusive && m.Item.GetQuality() == 5 && !m.Item.IsLock).OrderBy(m => m.Item.ConfigId).ToList();
-
+        Debug.Log("es:" + list.Count);
         for (int BoxId = 0; BoxId < list.Count; BoxId++)
         {
             if (BoxId >= MaxCount)

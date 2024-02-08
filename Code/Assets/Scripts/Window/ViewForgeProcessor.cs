@@ -485,10 +485,6 @@ public class ViewForgeProcessor : AViewPage
     private void ShowDevour(bool isOn)
     {
         PanelDevour.gameObject.SetActive(isOn);
-        if (isOn)
-        {
-            PanelDevour.Load();
-        }
     }
 
     protected override bool CheckPageType(ViewPageType page)

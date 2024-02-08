@@ -60,6 +60,16 @@ namespace Game
                     return;
                 }
             }
+            else if (this.BoxItem.Item.Type == ItemType.Exclusive)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowExclusiveCardEvent()
+                {
+                    boxItem = this.BoxItem,
+                    EquipPosition = this.EquipPosition,
+                    Type = this.Type
+                });
+                return;
+            }
 
             GameProcessor.Inst.EventCenter.Raise(new ShowEquipDetailEvent()
             {
