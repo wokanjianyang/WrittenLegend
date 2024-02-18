@@ -12,4 +12,5 @@
 {"_t":"GiftPackConfig","_id":11,"Name":"恶魔时装包","GiftType":0,"LevelRequired":0,"ItemTypeList":[13,13,13,13,13,13,13,13],"ItemIdList":[3000009,3000010,3000011,3000012,3000013,3000014,3000015,3000016],"ItemCountList":[1,1,1,1,1,1,1,1],"Des":"恶魔时装一套"},
 {"_t":"GiftPackConfig","_id":12,"Name":"幽灵时装包","GiftType":0,"LevelRequired":0,"ItemTypeList":[13,13,13,13,13,13,13,13],"ItemIdList":[3000017,3000018,3000019,3000020,3000021,3000022,3000023,3000024],"ItemCountList":[1,1,1,1,1,1,1,1],"Des":"幽灵时装一套"},
 {"_t":"GiftPackConfig","_id":13,"Name":"专属自选包7","GiftType":1,"LevelRequired":0,"ItemTypeList":[12,12,12,12,12,12],"ItemIdList":[701,702,703,704,705,706],"ItemCountList":[1,1,1,1,1,1],"Des":"节日冰咆哮专属自选包"},
+{"_t":"GiftPackConfig","_id":14,"Name":"2024春节盖楼专属","GiftType":1,"LevelRequired":0,"ItemTypeList":[12,12,12,12,12,12],"ItemIdList":[801,802,803,804,805,806],"ItemCountList":[1,1,1,1,1,1],"Des":"2024春节盖楼专属自选包"},
 ]}
