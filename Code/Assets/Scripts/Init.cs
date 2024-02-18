@@ -152,9 +152,11 @@ public class Init : MonoBehaviour
         //Log.Debug("Init bugly sdk done");
         //BuglyAgent.SetScene(0);
 
-        InitTapSDK();
+        //InitTapSDK();
 
-        AsyncTapAccount();
+        //AsyncTapAccount();
+
+        AsyncStartAsync();
     }
 
 
@@ -274,28 +276,28 @@ public class Init : MonoBehaviour
         BuglyAgent.PrintLog(LogSeverity.LogInfo, "Init the bugly sdk");
     }
 
-    private void InitTapSDK()
-    {
-        var config = new TapConfig.Builder()
-            .ClientID("hljkzf86szjm1drye1") // 必须，开发者中心对应 Client ID
-            .ClientToken("wmXYPPVmuLxj71r9FJOEafO5XudtQ3Qry6LjMy0W") // 必须，开发者中心对应 Client Token
-            .ServerURL("https://hljkzf86.cloud.tds1.tapapis.cn") // 必须，开发者中心 > 你的游戏 > 游戏服务 > 基本信息 > 域名配置 > API
-            .RegionType(RegionType.CN) // 非必须，CN 表示中国大陆，IO 表示其他国家或地区
-            .ConfigBuilder();
-        TapBootstrap.Init(config);
+    //private void InitTapSDK()
+    //{
+    //    var config = new TapConfig.Builder()
+    //        .ClientID("hljkzf86szjm1drye1") // 必须，开发者中心对应 Client ID
+    //        .ClientToken("wmXYPPVmuLxj71r9FJOEafO5XudtQ3Qry6LjMy0W") // 必须，开发者中心对应 Client Token
+    //        .ServerURL("https://hljkzf86.cloud.tds1.tapapis.cn") // 必须，开发者中心 > 你的游戏 > 游戏服务 > 基本信息 > 域名配置 > API
+    //        .RegionType(RegionType.CN) // 非必须，CN 表示中国大陆，IO 表示其他国家或地区
+    //        .ConfigBuilder();
+    //    TapBootstrap.Init(config);
 
 
-    }
+    //}
 
-    private async Task AsyncTapAccount()
-    {
-        var currentUser = await TDSUser.GetCurrent();
+    //private async Task AsyncTapAccount()
+    //{
+    //    var currentUser = await TDSUser.GetCurrent();
 
-        if (null != currentUser)
-        {
-            UserData.tapAccount = currentUser.ObjectId;
-        }
+    //    if (null != currentUser)
+    //    {
+    //        UserData.tapAccount = currentUser.ObjectId;
+    //    }
 
-        AsyncStartAsync();
-    }
+    //    AsyncStartAsync();
+    //}
 }
