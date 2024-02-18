@@ -53,8 +53,10 @@ namespace Game
 
             //职业伤害倍率(物伤加成，法伤加成，道伤加成)
             double roleDamageRise = GetRoleDamageAttackRise(attcher, role, true);
-            //Debug.Log("roleDamageMulRate:" + roleDamageMulRate);
-            attack *= 1 + roleDamageRise / 100;
+
+            //Debug.Log("roleDamageRise:" + roleDamageRise);
+
+            attack *= (1 + roleDamageRise / 100);
 
             //承受者的易伤
             long ExtraDamage = enemy.GetAttackAttr(AttributeEnum.ExtraDamage);

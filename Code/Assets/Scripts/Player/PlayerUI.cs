@@ -184,7 +184,7 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
     {
         if (this.com_Progress != null)
         {
-            this.com_Progress.SetProgress(this.SelfPlayer.HP, SelfPlayer.AttributeBonus.GetAttackAttr(AttributeEnum.HP));
+            this.com_Progress.SetProgress(this.SelfPlayer.HP, SelfPlayer.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
         }
     }
 
@@ -258,7 +258,7 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
             this.image_Background.color = temp;
         }
     }
-    
+
 
     public void OnPointerClick(PointerEventData eventData)
     {

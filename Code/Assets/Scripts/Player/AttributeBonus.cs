@@ -100,16 +100,17 @@ namespace Game
                     total *= 1 + CalMulTotal(haveBuff, AttributeEnum.MulDef);
                     break;
                 case AttributeEnum.PhyDamage:
-                    total = CalTotal(AttributeEnum.PhyDamage, haveBuff) / 100;
-                    total *= 1 + CalMulTotal(haveBuff, AttributeEnum.MulPhyDamageRise);
+                    total = 100 + CalTotal(AttributeEnum.PhyDamage, haveBuff);
+                    total = total * (1 + CalMulTotal(haveBuff, AttributeEnum.MulPhyDamageRise) / 100) - 100;
+                    break;
                     break;
                 case AttributeEnum.MagicDamage:
-                    total = CalTotal(AttributeEnum.MagicDamage, haveBuff) / 100;
-                    total *= 1 + CalMulTotal(haveBuff, AttributeEnum.MulMagicDamageRise);
+                    total = 100 + CalTotal(AttributeEnum.MagicDamage, haveBuff);
+                    total = total * (1 + CalMulTotal(haveBuff, AttributeEnum.MulMagicDamageRise) / 100) - 100;
                     break;
                 case AttributeEnum.SpiritDamage:
-                    total = CalTotal(AttributeEnum.SpiritDamage, haveBuff) / 100;
-                    total *= 1 + CalMulTotal(haveBuff, AttributeEnum.MulSpiritDamageRise);
+                    total = 100 + CalTotal(AttributeEnum.SpiritDamage, haveBuff);
+                    total = total * (1 + CalMulTotal(haveBuff, AttributeEnum.MulSpiritDamageRise) / 100) - 100;
                     break;
                 case AttributeEnum.SecondExp:
                     total = CalTotal(AttributeEnum.SecondExp, haveBuff, AttributeEnum.ExpIncrea);
