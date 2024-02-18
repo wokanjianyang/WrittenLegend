@@ -49,13 +49,12 @@ namespace Game
 
             //技能伤害加成
             long SkillDamage = GetSkillDamage(attcher, role);
-
             attack = attack * SkillDamage / 100;
 
-            //职业伤害倍率(物伤倍率，法伤倍率，道伤倍率)
-            double roleDamageMulRate = GetRoleDamageMulRate(attcher, role, true);
+            //职业伤害倍率(物伤加成，法伤加成，道伤加成)
+            double roleDamageRise = GetRoleDamageAttackRise(attcher, role, true);
             //Debug.Log("roleDamageMulRate:" + roleDamageMulRate);
-            attack *= 1 + roleDamageMulRate / 100;
+            attack *= 1 + roleDamageRise / 100;
 
             //承受者的易伤
             long ExtraDamage = enemy.GetAttackAttr(AttributeEnum.ExtraDamage);
@@ -93,41 +92,41 @@ namespace Game
             {
                 case (int)RoleType.Warrior:
                     {
-                        attack += attributeBonus.GetAttackAttr(AttributeEnum.PhyDamage);
+                        attack += attributeBonus.GetAttackAttr(AttributeEnum.SkillPhyDamage);
                         break;
                     }
                 case (int)RoleType.Mage:
                     {
-                        attack += attributeBonus.GetAttackAttr(AttributeEnum.MagicDamage);
+                        attack += attributeBonus.GetAttackAttr(AttributeEnum.SkillMagicDamage);
                         break;
                     }
                 case (int)RoleType.Warlock:
                     {
-                        attack += attributeBonus.GetAttackAttr(AttributeEnum.SpiritDamage);
+                        attack += attributeBonus.GetAttackAttr(AttributeEnum.SkillSpiritDamage);
                         break;
                     }
             }
 
-            attack += attributeBonus.GetAttackAttr(AttributeEnum.AllDamage);
+            attack += attributeBonus.GetAttackAttr(AttributeEnum.SkillAllDamage);
 
             return attack;
         }
 
-        public static double GetRoleDamageMulRate(AttributeBonus attributeBonus, int role, bool haveBuff)
+        public static double GetRoleDamageAttackRise(AttributeBonus attributeBonus, int role, bool haveBuff)
         {
             switch (role)
             {
                 case (int)RoleType.Warrior:
                     {
-                        return attributeBonus.CalMulTotal(haveBuff, AttributeEnum.MulPhyDamageRise);
+                        return attributeBonus.GetTotalAttrDouble(AttributeEnum.PhyDamage, haveBuff);
                     }
                 case (int)RoleType.Mage:
                     {
-                        return attributeBonus.CalMulTotal(haveBuff, AttributeEnum.MulMagicDamageRise);
+                        return attributeBonus.GetTotalAttrDouble(AttributeEnum.MagicDamage, haveBuff);
                     }
                 case (int)RoleType.Warlock:
                     {
-                        return attributeBonus.CalMulTotal(haveBuff, AttributeEnum.MulSpiritDamageRise);
+                        return attributeBonus.GetTotalAttrDouble(AttributeEnum.SpiritDamage, haveBuff);
                     }
             }
 

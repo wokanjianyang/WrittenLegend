@@ -37,10 +37,12 @@ public class Dialog_Attr : MonoBehaviour, IBattleLife
             AttributeEnum.AurasDamageIncrea,   AttributeEnum.AurasDamageResist,AttributeEnum.AurasAttrIncrea,
 
             //AttributeEnum.PanelHp, AttributeEnum.PanelAtt, AttributeEnum.PanelDef,
-            //AttributeEnum.PanelPhyAtt, AttributeEnum.PanelMagicAtt, AttributeEnum.PanelSpiritAtt,
+            AttributeEnum.PhyDamage,  AttributeEnum.MulPhyDamageRise,
+            AttributeEnum.MagicDamage,AttributeEnum.MulMagicDamageRise,
+            AttributeEnum.SpiritDamage,AttributeEnum.MulSpiritDamageRise,
+
             AttributeEnum.MulAttr, AttributeEnum.MulHp, AttributeEnum.MulDef,
             AttributeEnum.MulAttrPhy, AttributeEnum.MulAttrMagic, AttributeEnum.MulAttrSpirit,
-            AttributeEnum.MulPhyDamageRise,   AttributeEnum.MulMagicDamageRise,AttributeEnum.MulSpiritDamageRise,
         };
 
         for (int i = 0; i < items.Length; i++)
@@ -51,7 +53,7 @@ public class Dialog_Attr : MonoBehaviour, IBattleLife
                 item.gameObject.SetActive(true);
 
                 AttributeEnum attrId = list[i];
-                item.SetContent((int)attrId, user.AttributeBonus.GetTotalAttrDouble(attrId));
+                item.SetContent((int)attrId, user.AttributeBonus.GetBaseAttr(attrId));
             }
             else
             {

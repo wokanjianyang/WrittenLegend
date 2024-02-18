@@ -43,6 +43,9 @@ namespace Game
         DefIgnore = 30,//无视防御
         Miss = 31, //闪避
         Accuracy = 32, //精准
+        PhyDamage = 33, //物伤加成
+        MagicDamage = 34,//魔伤加成
+        SpiritDamage = 35, //道伤加成
 
         WarriorSkillPercent = 41, //战士技能百分比系数
         WarriorSkillDamage = 42, //战士技能固定系数
@@ -58,10 +61,10 @@ namespace Game
         EquipBaseIncrea = 101, //装备基础属性百分比
         EquipRandomIncrea = 102, //装备随机属性百分比
 
-        PhyDamage = 302, //物理伤害
-        MagicDamage = 303,//魔法伤害
-        SpiritDamage = 304, //道术伤害
-        AllDamage = 305, //所有伤害加成
+        SkillPhyDamage = 302, //物理伤害
+        SkillMagicDamage = 303,//魔法伤害
+        SkillSpiritDamage = 304, //道术伤害
+        SkillAllDamage = 305, //所有伤害加成
 
         ExtraDamage = 401,//额外伤害
 
