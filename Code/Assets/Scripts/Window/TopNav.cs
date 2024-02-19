@@ -44,6 +44,7 @@ namespace Game
             user.EventCenter.AddListener<SetPlayerLevelEvent>(this.OnSetPlayerLevelEvent);
             user.EventCenter.AddListener<UserInfoUpdateEvent>(this.OnHeroInfoUpdateEvent);
             user.EventCenter.AddListener<SetPlayerNameEvent>(this.OnSetPlayerNameEvent);
+            user.EventCenter.AddListener<UserAttrChangeEvent>(this.OnShowPower);
         }
 
         public void OnClick_Setting()
@@ -63,6 +64,11 @@ namespace Game
             string goldText = gold > 100000000 ? StringHelper.FormatNumber(gold) : gold + "";
 
             this.tmp_Gold.text = $"金币:{goldText}";
+            //
+        }
+
+        private void OnShowPower(UserAttrChangeEvent e)
+        {
             this.tmp_BattlePower.text = $"战力：{user.AttributeBonus.GetPower()}";
         }
 

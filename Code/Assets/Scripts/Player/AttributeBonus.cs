@@ -148,29 +148,31 @@ namespace Game
 
         public string GetPower()
         {
-            double power = 0;
-
-            Dictionary<int, GameAttribute> list = GameAttributeCategory.Instance.GetAll();
-
-
-            //foreach (int type in list.Keys)
-            //{
-            //    double attrTotal = GetTotalAttr((AttributeEnum)type);
-            //    float rate = list[type].PowerCoef;
-
-            //    power += attrTotal * rate;
-            //}
-
-            //Debug.Log("Old Power:" + StringHelper.FormatNumber(power));
-
             double p1 = GetTotalAttrDouble(AttributeEnum.PhyAtt);
             double p2 = GetTotalAttrDouble(AttributeEnum.MagicAtt);
             double p3 = GetTotalAttrDouble(AttributeEnum.SpiritAtt);
 
-            double powerDamage = Math.Max(Math.Max(p1, p2), p3) * CalPercent(AttributeEnum.AurasAttrIncrea);
+            int role = 1;
+            double powerDamage = p1;
+
+            if (p2 > powerDamage)
+            {
+                role = 2;
+                powerDamage = p2;
+            }
+            if (p3 > powerDamage)
+            {
+                role = 3;
+                powerDamage = p3;
+            }
+
+            powerDamage *= CalPercent(AttributeEnum.AurasAttrIncrea);
             powerDamage *= CalPercent(AttributeEnum.DamageIncrea) * CalPercent(AttributeEnum.AurasDamageIncrea);
             powerDamage *= (1 + GetTotalAttrDouble(AttributeEnum.Lucky) * 0.1);
             powerDamage *= Math.Min(GetTotalAttrDouble(AttributeEnum.CritRate), 1) * (GetTotalAttrDouble(AttributeEnum.CritDamage) + 150) / 100;
+
+            double roleDamageRise = DamageHelper.GetRoleDamageAttackRise(this, role, true);
+            powerDamage *= (1 + roleDamageRise / 100);
 
             double powerDef = GetTotalAttrDouble(AttributeEnum.HP) / 10 + GetTotalAttrDouble(AttributeEnum.Def) * 3;
             powerDef *= CalPercent(AttributeEnum.DamageResist) * CalPercent(AttributeEnum.AurasDamageResist);

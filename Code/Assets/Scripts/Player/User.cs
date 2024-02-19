@@ -696,7 +696,7 @@ namespace Game
         }
         public void AddExpAndGold(long exp, long gold)
         {
-            if (this.MagicGold.Data < 0)
+            if (this.MagicGold.Data < 0 || this.MagicGold.Data >= 8223372036854775807)
             {
                 return;
             }
