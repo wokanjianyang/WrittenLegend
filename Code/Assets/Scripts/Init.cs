@@ -10,9 +10,6 @@ using DG.Tweening;
 using System.Threading.Tasks;
 using SA.Android.App;
 using CodeStage.AntiCheat.Detectors;
-
-using TapTap.Bootstrap;
-using TapTap.Common;
 using System.Text;
 
 public class Init : MonoBehaviour

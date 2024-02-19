@@ -6,7 +6,6 @@ using SA.Android.Utilities;
 using System.Linq;
 using Game.Data;
 using System.IO;
-using TapTap.Bootstrap;
 using System.Threading.Tasks;
 using UnityEngine.Networking;
 using System.Text;

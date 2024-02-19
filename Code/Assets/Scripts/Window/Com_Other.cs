@@ -11,10 +11,7 @@ using static UnityEngine.UI.Dropdown;
 using System;
 using SA.Android.App;
 using System.Threading.Tasks;
-using TapTap.Bootstrap;
 using UnityEngine.Networking;
-
-using TapTap.Common;
 
 namespace Game
 {
