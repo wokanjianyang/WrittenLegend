@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8239728426353924802}
   - component: {fileID: 7152766013765283049}
-  - component: {fileID: 6538573977676049020}
   - component: {fileID: 3657975802858437437}
   m_Layer: 5
   m_Name: Item3
@@ -49,23 +48,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1292261309907322533}
   m_CullTransparentMesh: 1
---- !u!114 &6538573977676049020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1292261309907322533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 585ed8f123a3e7941b5deca0a14c09ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  txt_BossName: {fileID: 357557330137133318}
-  txt_MapName: {fileID: 0}
-  txt_Time: {fileID: 0}
-  btn_Start: {fileID: 6192054338576527594}
-  txt_Start: {fileID: 3211950322913865908}
 --- !u!114 &3657975802858437437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1330,7 +1312,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toggle_Auto: {fileID: 6146499640473477407}
   BtnStartList:
-  - {fileID: 0}
   - {fileID: 6531063652104499487}
   - {fileID: 780826299085156133}
   - {fileID: 6192054338576527594}
@@ -1467,7 +1448,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2506460138842868940}
   - component: {fileID: 1099363745340395859}
-  - component: {fileID: 593122334319021561}
   - component: {fileID: 4922567057177178183}
   m_Layer: 5
   m_Name: Item2
@@ -1506,23 +1486,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6311349138314911190}
   m_CullTransparentMesh: 1
---- !u!114 &593122334319021561
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6311349138314911190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 585ed8f123a3e7941b5deca0a14c09ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  txt_BossName: {fileID: 5771451427845093311}
-  txt_MapName: {fileID: 0}
-  txt_Time: {fileID: 0}
-  btn_Start: {fileID: 780826299085156133}
-  txt_Start: {fileID: 6955221642840523484}
 --- !u!114 &4922567057177178183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1563,7 +1526,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3442499371972405537}
   - component: {fileID: 2401466786223552362}
-  - component: {fileID: 1310303076826816625}
   - component: {fileID: 4266467360900464471}
   m_Layer: 5
   m_Name: Item1
@@ -1602,23 +1564,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6790959128456547573}
   m_CullTransparentMesh: 1
---- !u!114 &1310303076826816625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6790959128456547573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 585ed8f123a3e7941b5deca0a14c09ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  txt_BossName: {fileID: 2987884488996427164}
-  txt_MapName: {fileID: 0}
-  txt_Time: {fileID: 0}
-  btn_Start: {fileID: 6531063652104499487}
-  txt_Start: {fileID: 8406440902411535575}
 --- !u!114 &4266467360900464471
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -24,9 +24,10 @@ public class Dialog_BossFamily : MonoBehaviour, IBattleLife
             GameProcessor.Inst.EquipBossFamily_Auto = isOn;
         });
 
-        for(int i = 0; i < BtnStartList.Count; i++)
+        for (int i = 0; i < BtnStartList.Count; i++)
         {
-            BtnStartList[i].onClick.AddListener(this.OnClick_Start);
+            int index = i + 1;
+            BtnStartList[i].onClick.AddListener(() => this.OnClick_Start(index));
         }
 
 
@@ -49,10 +50,10 @@ public class Dialog_BossFamily : MonoBehaviour, IBattleLife
         this.gameObject.SetActive(true);
     }
 
-    private void OnClick_Start()
+    private void OnClick_Start(int index)
     {
         var vm = this.GetComponentInParent<ViewMore>();
-        vm.StartBossFamily();
+        vm.StartBossFamily(index);
     }
 
     public void OnClick_Close()

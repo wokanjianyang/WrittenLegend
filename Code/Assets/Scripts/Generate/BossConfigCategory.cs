@@ -12,9 +12,9 @@ namespace Game
 
     public class BossHelper
     {
-        public static Boss BuildBoss(int bossId, int mapId, RuleType ruleType, int count, int modelId)
+        public static Boss BuildBoss(int bossId, int mapId, RuleType ruleType, int rewarCount, int modelId)
         {
-            Boss boss = new Boss(bossId, mapId, ruleType, count, modelId);
+            Boss boss = new Boss(bossId, mapId, ruleType, rewarCount, modelId);
             return boss;
         }
     }

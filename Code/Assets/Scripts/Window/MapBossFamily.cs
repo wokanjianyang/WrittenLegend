@@ -20,6 +20,7 @@ public class MapBossFamily : MonoBehaviour, IBattleLife
     private List<Text> msgPool = new List<Text>();
 
     private long MapTime = 0;
+    private int MapLevel = 0;
 
     public int Order => (int)ComponentOrder.BattleRule;
 
@@ -45,6 +46,7 @@ public class MapBossFamily : MonoBehaviour, IBattleLife
 
     public void OnBossFamilyStart(BossFamilyStartEvent e)
     {
+        this.MapLevel = e.Level;
         StartCopy();
     }
 
@@ -72,13 +74,15 @@ public class MapBossFamily : MonoBehaviour, IBattleLife
         StartCopy();
     }
 
-    private void StartCopy() {
+    private void StartCopy()
+    {
         this.gameObject.SetActive(true);
 
         this.MapTime = TimeHelper.ClientNowSeconds();
 
         Dictionary<string, object> param = new Dictionary<string, object>();
         param.Add("MapTime", MapTime);
+        param.Add("MapLevel", this.MapLevel);
 
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {

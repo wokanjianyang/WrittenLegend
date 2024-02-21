@@ -74,7 +74,7 @@ namespace Game
             scrollRect.gameObject.SetActive(true);
         }
 
-        public void StartBossFamily()
+        public void StartBossFamily(int level)
         {
             User user = GameProcessor.Inst.User;
 
@@ -100,7 +100,7 @@ namespace Game
 
             scrollRect.gameObject.SetActive(false);
 
-            GameProcessor.Inst.EventCenter.Raise(new BossFamilyStartEvent() { });
+            GameProcessor.Inst.EventCenter.Raise(new BossFamilyStartEvent() { Level = level });
         }
 
         public void OnBossFamilyEnd(BossFamilyEndEvent e)
