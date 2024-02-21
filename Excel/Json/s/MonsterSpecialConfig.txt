@@ -1,3 +1,4 @@
 {"list":[
-{"_t":"MonsterSpecialConfig","_id":10001,"MapId":0,"Name":"玉兔","Attr":1000,"Def":0,"HP":50,"DropIdList":[1001],"DropRateList":[1],"BuildRate":1000},
+{"_t":"MonsterSpecialConfig","_id":10001,"MapLevel":2,"Name":"玉兔","Attr":1000,"Def":0,"HP":30,"DropIdList":[1001],"DropRateList":[1],"BuildRate":800},
+{"_t":"MonsterSpecialConfig","_id":10002,"MapLevel":3,"Name":"幼龙","Attr":1000,"Def":0,"HP":30,"DropIdList":[1000],"DropRateList":[1],"BuildRate":1200},
 ]}

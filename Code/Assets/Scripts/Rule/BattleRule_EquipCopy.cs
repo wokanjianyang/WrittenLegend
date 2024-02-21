@@ -54,13 +54,12 @@ public class BattleRule_EquipCopy : ABattleRule
         }
 
         //Ôö¼ÓÓñÍÃ
-        if (MapId > ConfigHelper.MapStartId)
+        MapConfig mapConfig = MapConfigCategory.Instance.Get(MapId);
+
+        List<MonsterSpecialConfig> configs = MonsterSpecialConfigCategory.Instance.GetAll().Values.Where(m => m.MapLevel == mapConfig.Level).ToList();
+        foreach (MonsterSpecialConfig config in configs)
         {
-            List<MonsterSpecialConfig> configs = MonsterSpecialConfigCategory.Instance.GetAll().Values.ToList();
-            foreach (MonsterSpecialConfig config in configs)
-            {
-                GameProcessor.Inst.PlayerManager.LoadMonster(new Monster_Specail(config.Id, MapRate, RuleType.EquipCopy));
-            }
+            GameProcessor.Inst.PlayerManager.LoadMonster(new Monster_Specail(config.Id, MapRate, RuleType.EquipCopy));
         }
 
         TaskHelper.CheckTask(TaskType.ToCopy, 1);

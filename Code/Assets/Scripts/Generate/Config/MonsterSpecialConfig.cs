@@ -78,9 +78,9 @@ namespace Game
 		/// <summary>ID</summary>
 		[ProtoMember(1)]
 		public int Id { get; set; }
-		/// <summary>MapId</summary>
+		/// <summary>MapLevel</summary>
 		[ProtoMember(2)]
-		public int MapId { get; set; }
+		public int MapLevel { get; set; }
 		/// <summary>Name</summary>
 		[ProtoMember(3)]
 		public string Name { get; set; }
