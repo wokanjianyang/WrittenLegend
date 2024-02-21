@@ -18,13 +18,21 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
     public Toggle toggle_Auto;
     public Toggle toggle_Hide;
 
+    public List<Toggle> tgLevelList;
+    private int LevelCount = 35; //每个难度多少个
+    private int ShowCount = 10; //隐藏的时候显示多少个
+    private int Level = 0;
+
     List<Com_BossInfoItem> items = new List<Com_BossInfoItem>();
+
+    private void Awake()
+    {
+        this.Init();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        //this.gameObject.SetActive(false);
-
         toggle_Rate.onValueChanged.AddListener((isOn) =>
         {
             GameProcessor.Inst.EquipCopySetting_Rate = isOn;
@@ -37,8 +45,17 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
 
         toggle_Hide.onValueChanged.AddListener((isOn) =>
         {
-            this.ShowItem(isOn);
+            this.Show();
         });
+
+        for (int i = 0; i < tgLevelList.Count; i++)
+        {
+            int index = i;
+            tgLevelList[i].onValueChanged.AddListener((isOn) =>
+            {
+                this.ChangeLevel(index);
+            });
+        }
     }
 
     void Update()
@@ -52,26 +69,23 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
         GameProcessor.Inst.EventCenter.AddListener<BossInfoEvent>(this.OnBossInfoEvent);
     }
 
-    public int Order => (int)ComponentOrder.Dialog;
-
-    private void OnBossInfoEvent(BossInfoEvent e)
+    private void Init()
     {
-        this.gameObject.SetActive(true);
+        List<MapConfig> list = MapConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
 
-        this.UpadateItem();
-
-        this.ShowItem(toggle_Hide.isOn);
+        foreach (MapConfig config in list)
+        {
+            BuildItem(config);
+        }
     }
-
-    private void BuildItem(int MapId)
+    private void BuildItem(MapConfig config)
     {
-        MapConfig mapConfig = MapConfigCategory.Instance.Get(MapId);
-        BossConfig bossConfig = BossConfigCategory.Instance.Get(mapConfig.BoosId);
+        BossConfig bossConfig = BossConfigCategory.Instance.Get(config.BoosId);
 
         var item = GameObject.Instantiate(ItemPrefab);
         var com = item.GetComponent<Com_BossInfoItem>();
 
-        com.SetContent(mapConfig, bossConfig);
+        com.SetContent(config, bossConfig);
 
         item.transform.SetParent(this.sr_Boss.content);
         item.transform.localScale = Vector3.one;
@@ -79,23 +93,47 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
         items.Add(com);
     }
 
-    public void UpadateItem()
+
+    private void ChangeLevel(int level)
     {
-        User user = GameProcessor.Inst.User;
+        this.Level = level;
+        this.Show();
+    }
 
-        List<int> list = MapConfigCategory.Instance.GetAll().Select(m=>m.Value.Id).ToList();
-
-        foreach (int MapId in list)
+    private void Show()
+    {
+        foreach (var item in items)
         {
-            if (MapId <= user.MapId)
-            {
-                var item = items.Where(m => m.mapConfig.Id == MapId).FirstOrDefault();
-                if (item == null)
-                {
-                    BuildItem(MapId);
-                }
-            }
+            item.gameObject.SetActive(false);
         }
+
+        int MapId = GameProcessor.Inst.User.MapId;
+        int count = MapConfigCategory.Instance.GetAll().Where(m => m.Value.Id <= MapId).Count();
+
+        int startIndex = Level * LevelCount;
+        int endIndex = startIndex + Math.Min(LevelCount, count - startIndex) - 1;
+
+        int j = 0;
+        for (int i = endIndex; i >= startIndex; i--)
+        {
+            if (j < ShowCount)
+            {
+                items[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                items[i].gameObject.SetActive(!toggle_Hide.isOn);
+            }
+            j++;
+        }
+    }
+
+    public int Order => (int)ComponentOrder.Dialog;
+
+    private void OnBossInfoEvent(BossInfoEvent e)
+    {
+        this.gameObject.SetActive(true);
+        this.Show();
     }
 
     private void RefeshTime()
@@ -141,22 +179,6 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
         txt_boss_count.text = user.MagicCopyTikerCount.Data + "";
         long refeshTime = ConfigHelper.CopyTicketCd - dieTime;
         txt_boss_time.text = TimeSpan.FromSeconds(refeshTime).ToString(@"hh\:mm\:ss");
-    }
-
-    private void ShowItem(bool hide)
-    {
-        int hideCount = items.Count - 10;
-
-        for (int i = 0; i < items.Count; i++)
-        {
-            if (i < hideCount)
-            {
-                items[i].gameObject.SetActive(!hide);
-            }
-            else {
-                items[i].gameObject.SetActive(true);
-            }
-        }
     }
 
     public void OnClick_Close()

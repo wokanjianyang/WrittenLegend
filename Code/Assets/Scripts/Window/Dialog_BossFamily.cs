@@ -10,7 +10,7 @@ public class Dialog_BossFamily : MonoBehaviour, IBattleLife
 {
     public Toggle toggle_Auto;
 
-    public Button btn_Start;
+    public List<Button> BtnStartList;
 
     public Button btn_FullScreen;
 
@@ -24,7 +24,12 @@ public class Dialog_BossFamily : MonoBehaviour, IBattleLife
             GameProcessor.Inst.EquipBossFamily_Auto = isOn;
         });
 
-        btn_Start.onClick.AddListener(this.OnClick_Start);
+        for(int i = 0; i < BtnStartList.Count; i++)
+        {
+            BtnStartList[i].onClick.AddListener(this.OnClick_Start);
+        }
+
+
         btn_FullScreen.onClick.AddListener(this.OnClick_Close);
     }
 
