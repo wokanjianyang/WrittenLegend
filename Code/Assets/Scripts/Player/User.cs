@@ -190,6 +190,8 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, levelAttr + 10);
             AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, levelAttr / 5 + 1);
 
+            //AttributeBonus.SetAttr(AttributeEnum.QualityIncrea, AttributeFrom.HeroBase+1, 1000000000);
+
             //设置升级属性
             SetUpExp();
 
@@ -223,6 +225,18 @@ namespace Game
                 for (int i = 0; i < item.AttrIdList.Length; i++)
                 {
                     AttributeBonus.SetAttr((AttributeEnum)item.AttrIdList[i], AttributeFrom.EquipSuit, item.Position, item.AttrValueList[i]);
+                }
+            }
+
+            //装备红色属性
+            for (int role = 1; role <= 3; role++)
+            {
+                KeyValuePair<int, List<EquipRedConfig>> redDict = GetEquipRedCount(role);
+                int redLevel = redDict.Key;
+                List<EquipRedConfig> redConfigs = redDict.Value;
+                foreach (EquipRedConfig redConfig in redConfigs)
+                {
+                    AttributeBonus.SetAttr((AttributeEnum)redConfig.AttrId, AttributeFrom.EquipRed, 1, redConfig.AttrValue + redConfig.AttrRise * redLevel);
                 }
             }
 
@@ -556,6 +570,20 @@ namespace Game
             }
 
             return list;
+        }
+
+        public KeyValuePair<int, List<EquipRedConfig>> GetEquipRedCount(int role)
+        {
+            List<Equip> equips = this.EquipPanelList[EquipPanelIndex].Select(m => m.Value).Where(m => m.GetQuality() == 6 && m.EquipConfig.Role == role).ToList();
+
+            int count = equips.Count;
+
+            int minLevel = equips.Select(m => m.Level).Min();
+            int redLevel = (minLevel - 750) / 50;
+
+            List<EquipRedConfig> list = EquipRedConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Role == role && m.Count <= count).ToList();
+
+            return new KeyValuePair<int, List<EquipRedConfig>>(redLevel, list);
         }
 
         public EquipSuit GetEquipSuit(EquipConfig config)

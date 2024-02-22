@@ -91,7 +91,7 @@ namespace Game
                     }
                     else
                     {
-                        AttributeBase = AttributeBase * 2;
+                        AttributeBase = AttributeBase * (Quality - 4);
                     }
                 }
                 BaseAttrList.Add(EquipConfig.BaseArray[i], AttributeBase);

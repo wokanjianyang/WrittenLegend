@@ -65,6 +65,7 @@ namespace Game
         SkillMagicDamage = 303,//魔法伤害
         SkillSpiritDamage = 304, //道术伤害
         SkillAllDamage = 305, //所有伤害加成
+        SkillValetCount = 306, //召唤数量+1
 
         ExtraDamage = 401,//额外伤害
 
@@ -85,6 +86,9 @@ namespace Game
         MulPhyDamageRise = 2007,
         MulMagicDamageRise = 2008,
         MulSpiritDamageRise = 2009,
+
+        MulDamageIncrea = 2010,
+        MulDamageResist = 2011,
     }
 
     /// <summary>
@@ -107,6 +111,7 @@ namespace Game
         Card = 12,//图鉴
         Wing = 13,
         Fashion = 14,
+        EquipRed = 15, //装备套装
         /// <summary>
         /// 测试属性
         /// </summary>

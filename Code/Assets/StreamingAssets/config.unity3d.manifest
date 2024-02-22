@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2711053825
+CRC: 2713621751
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 56dd0ecbe7dda9e5d1ddf59cd7b6e0da
+    Hash: 995b83e7506243a14e7ba26a443692fb
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -48,6 +48,7 @@ Assets:
 - Assets/Resources/Config/SoulRingAttrConfigCategory.bytes
 - Assets/Resources/Config/CardConfigCategory.bytes
 - Assets/Resources/Config/MapConfigCategory.bytes
+- Assets/Resources/Config/EquipRedConfigCategory.bytes
 - Assets/Resources/Config/TaskConfigCategory.bytes
 - Assets/Resources/Config/ValetModelConfigCategory.bytes
 - Assets/Resources/Config/AchievementConfigCategory.bytes

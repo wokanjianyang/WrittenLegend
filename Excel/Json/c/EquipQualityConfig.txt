@@ -4,4 +4,5 @@
 {"_t":"EquipQualityConfig","_id":3,"RandomNum":3,"AttrIdList":[15],"AttrValueList":[5]},
 {"_t":"EquipQualityConfig","_id":4,"RandomNum":4,"AttrIdList":[15,14],"AttrValueList":[7,2]},
 {"_t":"EquipQualityConfig","_id":5,"RandomNum":5,"AttrIdList":[15,14,16],"AttrValueList":[10,5,5]},
+{"_t":"EquipQualityConfig","_id":6,"RandomNum":6,"AttrIdList":[15,14,16],"AttrValueList":[20,10,10]},
 ]}

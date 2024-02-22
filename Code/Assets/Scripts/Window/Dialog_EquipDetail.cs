@@ -49,8 +49,8 @@ namespace Game
         [LabelText("普通道具属性")]
         public Transform tran_NormalAttribute;
 
-        [LabelText("追击属性")]
-        public Transform tran_DoubleHitAttribute;
+        [LabelText("红装属性")]
+        public Transform tran_RedAttribute;
 
         [Title("导航")]
         [LabelText("穿戴")]
@@ -134,7 +134,7 @@ namespace Game
             tran_SkillAttribute.gameObject.SetActive(false);
             tran_SuitAttribute.gameObject.SetActive(false);
             tran_GroupAttribute.gameObject.SetActive(false);
-            tran_DoubleHitAttribute.gameObject.SetActive(false);
+            tran_RedAttribute.gameObject.SetActive(false);
 
             this.btn_Equip.gameObject.SetActive(false);
             this.btn_UnEquip.gameObject.SetActive(false);
@@ -349,106 +349,6 @@ namespace Game
                     }
                     break;
 
-                case ItemType.Exclusive:
-                    {
-                        ExclusiveItem exclusive = this.boxItem.Item as ExclusiveItem;
-                        int exclusiveLevel = exclusive.GetLevel();
-                        if (exclusive.BaseAttrList != null && exclusive.BaseAttrList.Count > 0)
-                        {
-                            tran_BaseAttribute.gameObject.SetActive(true);
-                            tran_BaseAttribute.Find("Title").GetComponent<Text>().text = "[基础属性]";
-                            tran_BaseAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.boxItem.Item.Level);
-
-                            var BaseAttrList = exclusive.BaseAttrList.ToList();
-
-                            for (int index = 0; index < 6; index++)
-                            {
-                                var child = tran_BaseAttribute.Find(string.Format("Attribute_{0}", index));
-
-                                if (index < BaseAttrList.Count)
-                                {
-                                    child.GetComponent<Text>().text = StringHelper.FormatAttrText(BaseAttrList[index].Key, BaseAttrList[index].Value * exclusiveLevel);
-                                    child.gameObject.SetActive(true);
-                                }
-                                else
-                                {
-                                    child.gameObject.SetActive(false);
-                                }
-                            }
-                        }
-                        if (exclusive.SkillRuneConfig != null)
-                        {
-                            List<int> runeIdList = new List<int>();
-                            if (exclusive.RuneConfigId > 0)
-                            {
-                                runeIdList.Add(exclusive.RuneConfigId);
-                            }
-                            if (exclusive.GetLevel() > 1)
-                            {
-                                runeIdList.AddRange(exclusive.RuneConfigIdList);
-                            }
-                            ShowRune(runeIdList);
-                        }
-                        if (exclusive.SkillSuitConfig != null)
-                        {
-                            List<int> suitIdList = new List<int>();
-                            if (exclusive.RuneConfigId > 0)
-                            {
-                                suitIdList.Add(exclusive.SuitConfigId);
-                            }
-                            if (exclusive.GetLevel() > 1)
-                            {
-                                suitIdList.AddRange(exclusive.SuitConfigIdList);
-                            }
-
-                            List<int> suitCountList = new List<int>();
-                            foreach (int suitId in suitIdList)
-                            {
-                                int suitCount = user.GetSuitCount(exclusive.SkillSuitConfig.Id);
-                                suitCountList.Add(suitCount);
-                            }
-
-                            ShowSuit(suitIdList, suitCountList, user.SuitMax);
-                        }
-                        if (exclusive.DoubleHitConfig != null)
-                        {
-                            tran_DoubleHitAttribute.gameObject.SetActive(true);
-                            var child = tran_DoubleHitAttribute.Find(string.Format("Attribute_{0}", 0));
-                            child.GetComponent<Text>().text = string.Format(" {0}", exclusive.DoubleHitConfig.Des);
-                            child.gameObject.SetActive(true);
-                        }
-                        if (exclusive.ExclusiveConfig.Type > 0)
-                        {
-                            tran_GroupAttribute.gameObject.SetActive(true);
-
-                            ExclusiveSuit exclusiveSuit = user.GetExclusiveSuit(exclusive.ExclusiveConfig);
-
-                            tran_GroupAttribute.Find("Title").GetComponent<Text>().text = string.Format("[套装属性] ({0}/6)   增加一个上阵技能栏", exclusiveSuit.ActiveCount);
-
-                            for (int index = 0; index < 3; index++)
-                            {
-                                var nameChild = tran_GroupAttribute.Find(string.Format("Name_{0}", index));
-                                nameChild.gameObject.SetActive(true);
-
-                                ExclusiveSuitItem suitItem1 = exclusiveSuit.ItemList[index * 2];
-                                string groupColor = QualityConfigHelper.GetEquipGroupColor(suitItem1.Active);
-                                nameChild.GetComponent<Text>().text = string.Format("<color=#{0}>{1}</color>", groupColor, suitItem1.Name);
-
-                                var attrChild = tran_GroupAttribute.Find(string.Format("Attribute_{0}", index));
-                                attrChild.gameObject.SetActive(true);
-                                ExclusiveSuitItem suitItem2 = exclusiveSuit.ItemList[index * 2 + 1];
-                                groupColor = QualityConfigHelper.GetEquipGroupColor(suitItem2.Active);
-                                attrChild.GetComponent<Text>().text = string.Format("<color=#{0}>{1}</color>", groupColor, suitItem2.Name);
-                            }
-                        }
-
-                        this.btn_Recovery.gameObject.SetActive(this.boxItem.BoxId != -1 && !this.boxItem.Item.IsLock);
-                        this.btn_Equip.gameObject.SetActive(this.boxItem.BoxId != -1);
-                        this.btn_UnEquip.gameObject.SetActive(this.boxItem.BoxId == -1);
-                        this.btn_Lock.gameObject.SetActive(!this.boxItem.Item.IsLock);
-                        this.btn_Unlock.gameObject.SetActive(this.boxItem.Item.IsLock);
-                    }
-                    break;
                 case ItemType.SkillBox://技能书
                     {
                         var skillBox = this.boxItem.Item as SkillBook;

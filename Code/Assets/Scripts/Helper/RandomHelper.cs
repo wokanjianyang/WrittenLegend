@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using Random = System.Random;
 
 namespace Game
@@ -52,25 +53,32 @@ namespace Game
             }
         }
 
-        public static int RandomEquipQuality(int level, int qualityRate)
+        public static int RandomEquipQuality(int level, double riseRate)
         {
-            qualityRate = qualityRate <= 0 ? 1 : qualityRate;
-            int rate = Math.Max(1, 100000 / qualityRate);
+            riseRate = riseRate <= 0 ? 1 : riseRate;
+            int rate = Math.Max(1, (int)(10000000 / riseRate));
+
+            Debug.Log("rise Rate:" + riseRate + " final rate:" + rate);
+
             int rd = random.Next(1, rate + 1);
 
-            if (level >= 200 && rd < 3) //200级以上，有概率掉落橙色
+            if (level >= 750 && rd <= 1)
+            {
+                return 6;
+            }
+            else if (level >= 200 && rd < 300) //200级以上，有概率掉落橙色
             {
                 return 5;
             }
-            else if (rd < 200)
+            else if (rd < 20000)
             {
                 return 4;
             }
-            else if (rd < 2000)
+            else if (rd < 200000)
             {
                 return 3;
             }
-            else if (rd < 10000)
+            else if (rd < 1000000)
             {
                 return 2;
             }
@@ -161,10 +169,11 @@ namespace Game
             return array[RandomNumber(0, array.Length)];
         }
 
-        public static List<T> RandomList<T>(List<T> list, int size) {
+        public static List<T> RandomList<T>(List<T> list, int size)
+        {
             List<T> rs = new List<T>();
 
-   
+
 
             return rs;
         }
