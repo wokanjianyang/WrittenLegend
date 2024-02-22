@@ -336,10 +336,16 @@ namespace Game
                                 }
                             }
                         }
-                        else
+
+                        if (equip.GetQuality() >= 6)
                         {
-                            tran_GroupAttribute.gameObject.SetActive(false);
+                            tran_RedAttribute.gameObject.SetActive(true);
+
+                            EquipRed red = user.GetEquipRedConfig(equip.EquipConfig.Role);
+
+                            this.ShowRed(red);
                         }
+
 
                         this.btn_Equip.gameObject.SetActive(this.boxItem.BoxId != -1);
                         this.btn_UnEquip.gameObject.SetActive(this.boxItem.BoxId == -1);
@@ -435,6 +441,17 @@ namespace Game
                 {
                     this.btn_Deselect.gameObject.SetActive(true);
                 }
+            }
+        }
+
+        private void ShowRed(EquipRed red)
+        {
+            Item_Equip_Red[] reds = tran_RedAttribute.GetComponentsInChildren<Item_Equip_Red>(true);
+
+            for (int i = 0; i < reds.Length; i++)
+            {
+                reds[i].gameObject.SetActive(true);
+                reds[i].SetContent(red.Count, red.Level, red.List[i]);
             }
         }
 
