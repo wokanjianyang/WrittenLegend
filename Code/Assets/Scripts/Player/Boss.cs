@@ -126,6 +126,13 @@ namespace Game
             }
         }
 
+        private void SetSkillNew()
+        {
+            int position = this.MapId % 5 + 1;
+
+
+        }
+
         private void MakeReward(DeadRewarddEvent dead)
         {
             //Log.Info("Boss :" + this.ToString() + " dead");
