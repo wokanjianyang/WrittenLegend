@@ -8,6 +8,7 @@
 {"_t":"SkillModelConfig","_id":7,"ModelName":"烈火","ModelTime":0.3,"ScaleType":1},
 {"_t":"SkillModelConfig","_id":8,"ModelName":"武力盾","ModelTime":0.75,"ScaleType":1},
 {"_t":"SkillModelConfig","_id":9,"ModelName":"开天斩","ModelTime":0.5,"ScaleType":0},
+{"_t":"SkillModelConfig","_id":10,"ModelName":"彻地钉","ModelTime":0.3,"ScaleType":1},
 {"_t":"SkillModelConfig","_id":2001,"ModelName":"小火球","ModelTime":0.3,"ScaleType":1},
 {"_t":"SkillModelConfig","_id":2002,"ModelName":"雷电术","ModelTime":0.5,"ScaleType":1},
 {"_t":"SkillModelConfig","_id":2003,"ModelName":"火墙","ModelTime":1,"ScaleType":1},

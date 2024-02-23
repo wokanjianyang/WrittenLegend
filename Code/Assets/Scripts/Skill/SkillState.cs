@@ -9,8 +9,8 @@ namespace Game
         public SkillPanel SkillPanel { get; set; }
         public APlayer SelfPlayer { get; set; }
 
-        public int Priority {  get; }
-        public long LastUseTime { get; private set; } =0;
+        public int Priority { get; }
+        public long LastUseTime { get; private set; } = 0;
 
         public int UserCount { get; set; } = 0;
 
@@ -35,7 +35,11 @@ namespace Game
                 isShow = false;
             }
 
-            if (skillPanel.SkillData.SkillConfig.Type == (int)SkillType.Attack)
+            if (skillPanel.SkillData.SkillConfig.Id == 1010)
+            {
+                this.skillLogic = new Skill_Chediding(player, skillPanel, isShow);
+            }
+            else if (skillPanel.SkillData.SkillConfig.Type == (int)SkillType.Attack)
             {
                 if (skillPanel.SkillData.SkillConfig.CastType == ((int)AttackCastType.Single))
                 {
@@ -97,6 +101,12 @@ namespace Game
         {
             this.LastUseTime = TimeHelper.ClientNowSeconds();
             this.skillLogic.Do();
+        }
+
+        public void Do(double baseHp)
+        {
+            this.LastUseTime = TimeHelper.ClientNowSeconds();
+            this.skillLogic.Do(baseHp);
         }
 
         public void SetLastUseTime(long time)

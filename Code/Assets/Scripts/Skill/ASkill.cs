@@ -27,6 +27,10 @@ namespace Game
             this.SkillPanel = skill;
         }
         abstract public void Do();
+        public virtual void Do(double baseHp)
+        {
+
+        }
 
         public void DoEffect(APlayer enemy, APlayer self, double damage, long rolePercent, EffectData data)
         {

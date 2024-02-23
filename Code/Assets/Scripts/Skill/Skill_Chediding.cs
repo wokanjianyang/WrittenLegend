@@ -21,8 +21,11 @@ namespace Game
 
         public override void Do()
         {
-            double baseHp = 0;
 
+        }
+
+        public override void Do(double baseHp)
+        {
             List<Vector3Int> playCells = GetPlayCells();
 
             this.skillGraphic?.PlayAnimation(playCells);
@@ -95,5 +98,7 @@ namespace Game
         {
             return GameProcessor.Inst.MapData.GetAttackRangeCell(SelfPlayer.Cell, SelfPlayer.Cell, SkillPanel);
         }
+
+
     }
 }

@@ -44,6 +44,8 @@ namespace Game
 
         public override void Do()
         {
+            double baseHp = 0;
+
             List<Vector3Int> playCells = GetPlayCells();
             this.skillGraphic?.PlayAnimation(playCells);
 
@@ -65,13 +67,18 @@ namespace Game
                     {
                         if (effect.Config.Priority < 0)
                         {
-                            DoEffect(enemy, this.SelfPlayer, 0, 0, effect); 
+                            DoEffect(enemy, this.SelfPlayer, 0, 0, effect);
                         }
                     }
 
                     var dr = DamageHelper.CalcDamage(SelfPlayer.AttributeBonus, enemy.AttributeBonus, SkillPanel);
                     dr.FromId = attackData.Tid;
                     enemy.OnHit(dr);
+
+                    if (enemy.ID == SelfPlayer.Enemy.ID)
+                    {
+                        baseHp = dr.Damage;
+                    }
 
                     //if (this.SelfPlayer.Camp == PlayerType.Valet)
                     //{
@@ -88,9 +95,19 @@ namespace Game
                         {
                             double total = dr.Damage * effect.Percent / 100;
                             //Debug.Log("restor:" + total);
-                            DoEffect(enemy, this.SelfPlayer, total,0, effect);
+                            DoEffect(enemy, this.SelfPlayer, total, 0, effect);
                         }
                     }
+                }
+            }
+
+            if (SkillPanel.SkillData.SkillConfig.Role == (int)RoleType.Warrior)
+            {
+                //do Chediding
+                SkillState skillChediding = SelfPlayer.SelectSkillList.Where(m => m.SkillPanel.SkillId == 1010).FirstOrDefault();
+                if (skillChediding != null && baseHp > 0 && RandomHelper.RandomNumber(1, 6) <= 1)
+                {
+                    skillChediding.Do(baseHp);
                 }
             }
         }

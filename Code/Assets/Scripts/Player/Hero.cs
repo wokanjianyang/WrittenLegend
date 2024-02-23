@@ -152,10 +152,15 @@ namespace Game
 
             if (RuleType == RuleType.Defend)
             {
+                List<int> ids = user.GetCurrentSkillList();
+
                 List<DefendBuffConfig> buffList = user.DefendData.GetBuffList(DefendBuffType.Skill);
                 foreach (DefendBuffConfig config in buffList)
                 {
-                    list.Add(new SkillData(config.SkillId, (int)SkillPosition.Default));
+                    if (!ids.Contains(config.SkillId))
+                    {
+                        list.Add(new SkillData(config.SkillId, (int)SkillPosition.Default));
+                    }
                 }
             }
 
