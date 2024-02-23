@@ -14,9 +14,14 @@ namespace Game
 
         public void SetContent(int count, int redLevel, EquipRedConfig config)
         {
-            this.Txt_Name.text = (redLevel) + "½×ºì×°" + string.Format("({0}/{1})", count, config.Count);
 
-            this.Txt_Des.text = "10%¹¥»÷";
+            string color = count >= config.Count ? "FF0000" : "CCCCCC";
+
+            string name = (redLevel) + "½×ºì×°" + string.Format("({0}/{1})", count, config.Count);
+
+            this.Txt_Name.text = string.Format("<color=#{0}>{1}</color>", color, name);
+
+            this.Txt_Des.text = string.Format("<color=#{0}>{1}</color>", color, StringHelper.FormatAttrText(config.AttrId, config.AttrValue + (redLevel - 1) * config.AttrRise, "+"));
         }
     }
 }

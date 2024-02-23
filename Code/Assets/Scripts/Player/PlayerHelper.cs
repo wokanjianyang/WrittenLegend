@@ -63,7 +63,7 @@ namespace Game
             //{nameof(AttributeEnum.PanelHp), "最终生命" },
             //{nameof(AttributeEnum.PanelPhyAtt), "最终物攻" },
             //{nameof(AttributeEnum.PanelMagicAtt),"最终魔法" },
-            //{nameof(AttributeEnum.PanelSpiritAtt), "最终道术" },
+            {nameof(AttributeEnum.SkillValetCount), "召唤数量" },
 
             {nameof(AttributeEnum.MulAttr), "攻击倍率" },
             {nameof(AttributeEnum.MulDef),"防御倍率" },
@@ -74,6 +74,8 @@ namespace Game
             {nameof(AttributeEnum.MulPhyDamageRise), "物伤倍率" },
             {nameof(AttributeEnum.MulMagicDamageRise),"魔伤倍率" },
             {nameof(AttributeEnum.MulSpiritDamageRise), "道伤倍率" },
+            {nameof(AttributeEnum.MulDamageIncrea), "增伤倍率" },
+            {nameof(AttributeEnum.MulDamageResist),"减伤倍率" },
         };
     }
 }

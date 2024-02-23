@@ -11,7 +11,7 @@ namespace Game
         public Skill_Valet(APlayer player, SkillPanel skillPanel, bool isShow) : base(player, skillPanel)
         {
             this.skillGraphic = null;
-            MaxValet = skillPanel.EnemyMax;
+            MaxValet = skillPanel.EnemyMax + (int)GameProcessor.Inst.User.AttributeBonus.GetAttackAttr(AttributeEnum.SkillValetCount);
         }
 
         public override bool IsCanUse()
@@ -37,7 +37,7 @@ namespace Game
             // ValetList.Clear();
 
             var valets = GameProcessor.Inst.PlayerManager.GetValets(SelfPlayer, this.SkillPanel);
-            
+
             //创造新的
             for (int i = valets.Count; i < MaxValet; i++)
             {

@@ -190,7 +190,8 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, levelAttr + 10);
             AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, levelAttr / 5 + 1);
 
-            AttributeBonus.SetAttr(AttributeEnum.QualityIncrea, AttributeFrom.HeroBase+1, 1000000000);
+            //AttributeBonus.SetAttr(AttributeEnum.QualityIncrea, AttributeFrom.Test + 1, 1000000000);
+            //AttributeBonus.SetAttr(AttributeEnum.MulAttr, AttributeFrom.Test + 1, 100000);
 
             //设置升级属性
             SetUpExp();
@@ -234,7 +235,10 @@ namespace Game
                 EquipRed red = GetEquipRedConfig(role);
                 foreach (EquipRedConfig redConfig in red.List)
                 {
-                    AttributeBonus.SetAttr((AttributeEnum)redConfig.AttrId, AttributeFrom.EquipRed, 1, redConfig.AttrValue + redConfig.AttrRise * red.Level);
+                    if (red.Count >= redConfig.Count)
+                    {
+                        AttributeBonus.SetAttr((AttributeEnum)redConfig.AttrId, AttributeFrom.EquipRed, 1, redConfig.AttrValue + redConfig.AttrRise * (red.Level - 1));
+                    }
                 }
             }
 
@@ -576,7 +580,7 @@ namespace Game
 
             int count = equips.Count;
 
-            int redLevel = 0;
+            int redLevel = 1;
             if (equips.Count > 0)
             {
                 int minLevel = equips.Select(m => m.Level).Min();
