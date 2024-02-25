@@ -90,5 +90,6 @@ namespace Game
         Card = 11,
         GiftPackExclusive = 12,
         Fashion = 13,
+        Holidom = 14,
     }
 }

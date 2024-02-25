@@ -23,10 +23,4 @@
 {"_t":"FashionConfig","_id":22,"ItemId":3000022,"Name":"幽灵之戒","Part":6,"SuitId":3,"AttrIdList":[14,16,15,28],"AttrValueList":[5,5,5,5],"AttrRiseList":[5,5,5,5]},
 {"_t":"FashionConfig","_id":23,"ItemId":3000023,"Name":"幽灵之带","Part":7,"SuitId":3,"AttrIdList":[14,16,15,28],"AttrValueList":[5,5,5,5],"AttrRiseList":[5,5,5,5]},
 {"_t":"FashionConfig","_id":24,"ItemId":3000024,"Name":"幽灵之靴","Part":8,"SuitId":3,"AttrIdList":[14,16,15,28],"AttrValueList":[5,5,5,5],"AttrRiseList":[5,5,5,5]},
-{"_t":"FashionConfig","_id":1000001,"Name":"神圣怒斩","Part":15,"Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[6,4,8],"Quality":5,"RuneId":14,"SuitId":10010},
-{"_t":"FashionConfig","_id":1000002,"Name":"神圣怒斩","Part":15,"Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[6,4,8],"Quality":5,"RuneId":15,"SuitId":10024},
-{"_t":"FashionConfig","_id":1000003,"Name":"神圣怒斩","Part":15,"Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[6,4,8],"Quality":5,"RuneId":16,"SuitId":10038},
-{"_t":"FashionConfig","_id":1000004,"Name":"神圣噬魂","Part":16,"Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[6,4,8],"Quality":5,"RuneId":14,"SuitId":10010},
-{"_t":"FashionConfig","_id":1000005,"Name":"神圣噬魂","Part":16,"Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[6,4,8],"Quality":5,"RuneId":15,"SuitId":10024},
-{"_t":"FashionConfig","_id":1000006,"Name":"神圣噬魂","Part":16,"Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[6,4,8],"Quality":5,"RuneId":16,"SuitId":10038},
 ]}

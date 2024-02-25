@@ -99,18 +99,6 @@ namespace Game
 		/// <summary>AttrRiseList</summary>
 		[ProtoMember(8)]
 		public int[] AttrRiseList { get; set; }
-		/// <summary>Type</summary>
-		[ProtoMember(9)]
-		public int Type { get; set; }
-		/// <summary>Level</summary>
-		[ProtoMember(10)]
-		public int Level { get; set; }
-		/// <summary>品质</summary>
-		[ProtoMember(11)]
-		public int Quality { get; set; }
-		/// <summary>词条</summary>
-		[ProtoMember(12)]
-		public int RuneId { get; set; }
 
 	}
 }

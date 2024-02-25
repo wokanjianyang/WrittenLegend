@@ -7,32 +7,32 @@ namespace Game
 {
     [ProtoContract]
     [Config]
-    public partial class PlayerModelCategory : ProtoObject, IMerge
+    public partial class BossModelCategory : ProtoObject, IMerge
     {
-        public static PlayerModelCategory Instance;
+        public static BossModelCategory Instance;
 		
         [ProtoIgnore]
         [BsonIgnore]
-        private Dictionary<int, PlayerModel> dict = new Dictionary<int, PlayerModel>();
+        private Dictionary<int, BossModel> dict = new Dictionary<int, BossModel>();
 		
         [BsonElement]
         [ProtoMember(1)]
-        private List<PlayerModel> list = new List<PlayerModel>();
+        private List<BossModel> list = new List<BossModel>();
 		
-        public PlayerModelCategory()
+        public BossModelCategory()
         {
             Instance = this;
         }
         
         public void Merge(object o)
         {
-            PlayerModelCategory s = o as PlayerModelCategory;
+            BossModelCategory s = o as BossModelCategory;
             this.list.AddRange(s.list);
         }
 		
         public override void EndInit()
         {
-            foreach (PlayerModel config in list)
+            foreach (BossModel config in list)
             {
                 config.EndInit();
                 this.dict.Add(config.Id, config);
@@ -40,13 +40,13 @@ namespace Game
             this.AfterEndInit();
         }
 		
-        public PlayerModel Get(int id)
+        public BossModel Get(int id)
         {
-            this.dict.TryGetValue(id, out PlayerModel item);
+            this.dict.TryGetValue(id, out BossModel item);
 
             if (item == null)
             {
-                throw new Exception($"配置找不到，配置表名: {nameof (PlayerModel)}，配置id: {id}");
+                throw new Exception($"配置找不到，配置表名: {nameof (BossModel)}，配置id: {id}");
             }
 
             return item;
@@ -57,12 +57,12 @@ namespace Game
             return this.dict.ContainsKey(id);
         }
 
-        public Dictionary<int, PlayerModel> GetAll()
+        public Dictionary<int, BossModel> GetAll()
         {
             return this.dict;
         }
 
-        public PlayerModel GetOne()
+        public BossModel GetOne()
         {
             if (this.dict == null || this.dict.Count <= 0)
             {
@@ -73,7 +73,7 @@ namespace Game
     }
 
     [ProtoContract]
-	public partial class PlayerModel: ProtoObject, IConfig
+	public partial class BossModel: ProtoObject, IConfig
 	{
 		/// <summary>ID</summary>
 		[ProtoMember(1)]
@@ -81,26 +81,23 @@ namespace Game
 		/// <summary>Name</summary>
 		[ProtoMember(2)]
 		public string Name { get; set; }
-		/// <summary>Type</summary>
-		[ProtoMember(3)]
-		public int Type { get; set; }
 		/// <summary>AttrList</summary>
-		[ProtoMember(4)]
+		[ProtoMember(3)]
 		public int[] AttrList { get; set; }
 		/// <summary>AttrValueList</summary>
-		[ProtoMember(5)]
+		[ProtoMember(4)]
 		public long[] AttrValueList { get; set; }
 		/// <summary>SkillList</summary>
-		[ProtoMember(6)]
+		[ProtoMember(5)]
 		public int[] SkillList { get; set; }
 		/// <summary>Rune</summary>
-		[ProtoMember(7)]
+		[ProtoMember(6)]
 		public int Rune { get; set; }
 		/// <summary>Suit</summary>
-		[ProtoMember(8)]
+		[ProtoMember(7)]
 		public int Suit { get; set; }
 		/// <summary>Desc</summary>
-		[ProtoMember(9)]
+		[ProtoMember(8)]
 		public string Desc { get; set; }
 
 	}

@@ -78,33 +78,33 @@ namespace Game
 		/// <summary>Id</summary>
 		[ProtoMember(1)]
 		public int Id { get; set; }
-		/// <summary>Name</summary>
+		/// <summary>ItemId</summary>
 		[ProtoMember(2)]
-		public string Name { get; set; }
-		/// <summary>AttrId</summary>
+		public int ItemId { get; set; }
+		/// <summary>Name</summary>
 		[ProtoMember(3)]
+		public string Name { get; set; }
+		/// <summary>MapId</summary>
+		[ProtoMember(4)]
+		public int MapId { get; set; }
+		/// <summary>AttrId</summary>
+		[ProtoMember(5)]
 		public int AttrId { get; set; }
 		/// <summary>AttrValue</summary>
-		[ProtoMember(4)]
-		public int AttrValue { get; set; }
-		/// <summary>LevelIncrea</summary>
-		[ProtoMember(5)]
-		public int LevelIncrea { get; set; }
-		/// <summary>MaxLevel</summary>
 		[ProtoMember(6)]
-		public int MaxLevel { get; set; }
-		/// <summary>StoneNumber</summary>
+		public long AttrValue { get; set; }
+		/// <summary>RiseAttr</summary>
 		[ProtoMember(7)]
-		public int StoneNumber { get; set; }
-		/// <summary>Quality</summary>
+		public int RiseAttr { get; set; }
+		/// <summary>MaxLevel</summary>
 		[ProtoMember(8)]
-		public int Quality { get; set; }
-		/// <summary>RiseLevel</summary>
+		public int MaxLevel { get; set; }
+		/// <summary>StartRate</summary>
 		[ProtoMember(9)]
-		public int RiseLevel { get; set; }
-		/// <summary>RiseNumber</summary>
+		public int StartRate { get; set; }
+		/// <summary>Rate</summary>
 		[ProtoMember(10)]
-		public int RiseNumber { get; set; }
+		public int Rate { get; set; }
 		/// <summary>Des</summary>
 		[ProtoMember(11)]
 		public string Des { get; set; }

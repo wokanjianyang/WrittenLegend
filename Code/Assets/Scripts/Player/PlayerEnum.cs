@@ -87,8 +87,8 @@ namespace Game
         MulMagicDamageRise = 2008,
         MulSpiritDamageRise = 2009,
 
-        MulDamageIncrea = 2010,
-        MulDamageResist = 2011,
+        MulDamageIncrea = 2010,  //ÔöÉË±¶ÂÊ
+        MulDamageResist = 2011, //¼õÉË±¶ÂÊ
     }
 
     /// <summary>

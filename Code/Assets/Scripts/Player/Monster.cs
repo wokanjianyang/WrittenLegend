@@ -141,6 +141,8 @@ namespace Game
 
             user.AddStartRate(qualityConfig.CountRate * countModelRate);
 
+            Item holidom = user.AddHalidom(this.Config.MapId, qualityConfig.CountRate * countModelRate);
+
             double dropRate = user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstIncrea) / 350.0;
             dropRate = Math.Min(8, 1 + dropRate);
             double modelRate = dropModelRate * qualityConfig.DropRate;
@@ -160,6 +162,10 @@ namespace Game
 
             int qualityRate = qualityConfig.QualityRate * (100 + (int)user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea)) / 100;
             List<Item> items = DropHelper.BuildDropItem(dropList, qualityRate, user.RateData);
+            if (holidom != null)
+            {
+                items.Add(holidom);
+            }
 
             if (items.Count > 0)
             {

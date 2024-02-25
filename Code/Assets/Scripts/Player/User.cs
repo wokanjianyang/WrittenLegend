@@ -124,6 +124,8 @@ namespace Game
 
         public Dictionary<int, double> RateData { get; } = new Dictionary<int, double>();
 
+        public Dictionary<int, double> RateHalidomData { get; } = new Dictionary<int, double>();
+
         //public Dictionary<string, MagicData> AdData { get; } = new Dictionary<string, MagicData>();
 
         public IDictionary<int, int> FestiveData { get; set; } = new Dictionary<int, int>();
@@ -832,6 +834,36 @@ namespace Game
                 }
                 RateData[key] += count;
             }
+        }
+
+        public Item AddHalidom(int mapId, double count)
+        {
+            HalidomConfig config = HalidomConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.MapId == mapId).FirstOrDefault();
+
+            if (config != null)
+            {
+                int key = config.Id;
+
+                if (!RateHalidomData.ContainsKey(key))
+                {
+                    RateHalidomData[key] = 0;
+                }
+                RateHalidomData[key] += count;
+
+                if (RateHalidomData[key] >= config.StartRate)
+                {
+                    double rate = config.Rate + config.StartRate - RateHalidomData[key];
+
+                    if (RandomHelper.RandomResult(rate))
+                    {
+                        RateHalidomData[key] = 0;
+                        Item item = ItemHelper.BuildItem(ItemType.Holidom, config.Id, 6, 1);
+                        return item;
+                    }
+                }
+            }
+
+            return null;
         }
 
         public int GetFestiveCount(int id)
