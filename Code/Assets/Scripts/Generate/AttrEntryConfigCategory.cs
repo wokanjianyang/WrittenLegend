@@ -22,15 +22,7 @@ namespace Game
 
             long attrValue = 0;
 
-            if (config.Type == 1)
-            {  //按基础属性计算
-                long baseValue = EquipConfigCategory.Instance.GetAll().Where(m => m.Value.LevelRequired == level && m.Value.Part == 1).First().Value.AttributeBase[0];
-                attrValue = baseValue * config.MaxValue / 100;
-            }
-            else if (config.Type == 2)
-            {
-                attrValue = RandomHelper.RandomNumber(config.MinValue, config.MaxValue + 1);
-            }
+            attrValue = RandomHelper.RandomNumber(config.MinValue, config.MaxValue + 1);
 
             return new KeyValuePair<int, long>(config.AttrId, attrValue);
         }
