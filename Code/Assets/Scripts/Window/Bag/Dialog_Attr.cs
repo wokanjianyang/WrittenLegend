@@ -43,6 +43,8 @@ public class Dialog_Attr : MonoBehaviour, IBattleLife
 
             AttributeEnum.MulAttr, AttributeEnum.MulHp, AttributeEnum.MulDef,
             AttributeEnum.MulAttrPhy, AttributeEnum.MulAttrMagic, AttributeEnum.MulAttrSpirit,
+
+            AttributeEnum.MulDamageIncrea, AttributeEnum.MulDamageResist,
         };
 
         for (int i = 0; i < items.Length; i++)

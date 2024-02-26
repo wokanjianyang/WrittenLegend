@@ -77,12 +77,12 @@ namespace Game
         PanelDef = 1005, //面板防御
         PanelAtt = 1006,//面板攻击
 
-        MulAttr = 2001,
-        MulDef = 2002,
-        MulHp = 2003,
-        MulAttrPhy = 2004,
-        MulAttrMagic = 2005,
-        MulAttrSpirit = 2006,
+        MulAttr = 2001,  //攻击倍率
+        MulDef = 2002,  //防御倍率
+        MulHp = 2003,  //生命倍率
+        MulAttrPhy = 2004, //物攻倍率
+        MulAttrMagic = 2005,  //法功倍率
+        MulAttrSpirit = 2006,  //道术倍率
 
         MulPhyDamageRise = 2007,
         MulMagicDamageRise = 2008,

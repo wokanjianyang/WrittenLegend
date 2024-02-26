@@ -38,6 +38,7 @@ namespace Game
         public Button btn_Exclusive;
         public Button btn_Card;
         public Button btn_Fashion;
+        public Button btn_Halidom;
 
         [Title("功能框")]
         public Dialog_Exclusive ExclusiveDialog;

@@ -27,7 +27,7 @@ namespace Game
             {
                 List<int> excludeList = GetExcludeList(rsList);
 
-                var fcList = configs.Where(m => !excludeList.Contains(m.Id)).ToList(); 
+                var fcList = configs.Where(m => !excludeList.Contains(m.Id)).ToList();
 
                 int rd = RandomHelper.RandomNumber(0, fcList.Count);
 
@@ -49,7 +49,7 @@ namespace Game
 
             foreach (AttrEntryConfig config in list)
             {
-                int count = rsList.Where(m => m.Key == config.Id).Count();
+                int count = rsList.Where(m => m.Key == config.AttrId).Count();
 
                 if (count >= config.MaxCount)
                 {
