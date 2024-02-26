@@ -96,15 +96,24 @@ namespace Game
 		/// <summary>PartList</summary>
 		[ProtoMember(7)]
 		public int[] PartList { get; set; }
-		/// <summary>MinLevel</summary>
+		/// <summary>StartLevel</summary>
 		[ProtoMember(8)]
-		public int MinLevel { get; set; }
-		/// <summary>MaxLevel</summary>
+		public int StartLevel { get; set; }
+		/// <summary>EndLevel</summary>
 		[ProtoMember(9)]
-		public int MaxLevel { get; set; }
-		/// <summary>MaxQuality</summary>
+		public int EndLevel { get; set; }
+		/// <summary>StartQuality</summary>
 		[ProtoMember(10)]
-		public int MaxQuality { get; set; }
+		public int StartQuality { get; set; }
+		/// <summary>EndQuality</summary>
+		[ProtoMember(11)]
+		public int EndQuality { get; set; }
+		/// <summary>MaxCount</summary>
+		[ProtoMember(12)]
+		public int MaxCount { get; set; }
+		/// <summary>Role</summary>
+		[ProtoMember(13)]
+		public int Role { get; set; }
 
 	}
 }

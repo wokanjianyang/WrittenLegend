@@ -1,30 +1,64 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Game
 {
 
     public partial class AttrEntryConfigCategory
     {
-        public KeyValuePair<int, long> Build(int part, int level, int quality)
+        public List<KeyValuePair<int, long>> Build(int part, int level, int quality, int role)
         {
-            List<AttrEntryConfig> configs = list.FindAll(m => m.PartList.Contains(part) && m.MinLevel <= level && level <= m.MaxLevel && quality <= m.MaxQuality);
+            List<KeyValuePair<int, long>> rsList = new List<KeyValuePair<int, long>>();
+
+            List<AttrEntryConfig> configs = list.FindAll(m =>
+            m.PartList.Contains(part)
+            && m.StartLevel <= level && level <= m.EndLevel
+            && m.StartQuality <= quality && quality <= m.EndQuality
+            && (m.Role == role || m.Role == 0));
 
             if (configs.Count <= 0)
             {
-                return new KeyValuePair<int, long>(0, 0);
+                return rsList;
             }
 
-            int rd = RandomHelper.RandomNumber(0, configs.Count);
+            for (int i = 0; i < quality; i++)
+            {
+                List<int> excludeList = GetExcludeList(rsList);
 
-            AttrEntryConfig config = configs[rd];
+                var fcList = configs.Where(m => !excludeList.Contains(m.Id)).ToList(); 
 
-            long attrValue = 0;
+                int rd = RandomHelper.RandomNumber(0, fcList.Count);
 
-            attrValue = RandomHelper.RandomNumber(config.MinValue, config.MaxValue + 1);
+                AttrEntryConfig config = fcList[rd];
 
-            return new KeyValuePair<int, long>(config.AttrId, attrValue);
+                long attrValue = 0;
+
+                attrValue = RandomHelper.RandomNumber(config.MinValue, config.MaxValue + 1);
+
+                rsList.Add(new KeyValuePair<int, long>(config.AttrId, attrValue));
+            }
+
+            return rsList;
+        }
+
+        private List<int> GetExcludeList(List<KeyValuePair<int, long>> rsList)
+        {
+            List<int> excludeList = new List<int>();
+
+            foreach (AttrEntryConfig config in list)
+            {
+                int count = rsList.Where(m => m.Key == config.Id).Count();
+
+                if (count >= config.MaxCount)
+                {
+                    excludeList.Add(config.Id);
+
+                    Debug.Log("Exclued id :" + config.Id + " count:" + count);
+                }
+            }
+            return excludeList;
         }
     }
 }

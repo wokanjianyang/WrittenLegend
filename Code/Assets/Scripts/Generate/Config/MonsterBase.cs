@@ -81,35 +81,38 @@ namespace Game
 		/// <summary>所属地图</summary>
 		[ProtoMember(2)]
 		public int MapId { get; set; }
-		/// <summary>名称</summary>
+		/// <summary>Layer</summary>
 		[ProtoMember(3)]
+		public int Layer { get; set; }
+		/// <summary>名称</summary>
+		[ProtoMember(4)]
 		public string Name { get; set; }
 		/// <summary>攻击</summary>
-		[ProtoMember(4)]
+		[ProtoMember(5)]
 		public string Attr { get; set; }
 		/// <summary>防御</summary>
-		[ProtoMember(5)]
+		[ProtoMember(6)]
 		public string Def { get; set; }
 		/// <summary>生命</summary>
-		[ProtoMember(6)]
+		[ProtoMember(7)]
 		public string HP { get; set; }
 		/// <summary>DamageIncrea</summary>
-		[ProtoMember(7)]
+		[ProtoMember(8)]
 		public int DamageIncrea { get; set; }
 		/// <summary>DamageResist</summary>
-		[ProtoMember(8)]
+		[ProtoMember(9)]
 		public int DamageResist { get; set; }
 		/// <summary>CritRate</summary>
-		[ProtoMember(9)]
+		[ProtoMember(10)]
 		public int CritRate { get; set; }
 		/// <summary>CritDamage</summary>
-		[ProtoMember(10)]
+		[ProtoMember(11)]
 		public int CritDamage { get; set; }
 		/// <summary>经验</summary>
-		[ProtoMember(11)]
+		[ProtoMember(12)]
 		public long Exp { get; set; }
 		/// <summary>掉落金币</summary>
-		[ProtoMember(12)]
+		[ProtoMember(13)]
 		public long Gold { get; set; }
 
 	}

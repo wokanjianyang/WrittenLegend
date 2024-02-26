@@ -81,9 +81,9 @@ namespace Game
 		/// <summary>所属地图</summary>
 		[ProtoMember(2)]
 		public int MapId { get; set; }
-		/// <summary>Level</summary>
+		/// <summary>Layer</summary>
 		[ProtoMember(3)]
-		public int Level { get; set; }
+		public int Layer { get; set; }
 		/// <summary>名称</summary>
 		[ProtoMember(4)]
 		public string Name { get; set; }

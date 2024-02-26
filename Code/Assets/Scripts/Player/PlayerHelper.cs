@@ -64,6 +64,7 @@ namespace Game
             //{nameof(AttributeEnum.PanelPhyAtt), "最终物攻" },
             //{nameof(AttributeEnum.PanelMagicAtt),"最终魔法" },
             {nameof(AttributeEnum.SkillValetCount), "召唤数量" },
+            {nameof(AttributeEnum.SkillValetSpeed), "宠物攻速" },
 
             {nameof(AttributeEnum.MulAttr), "攻击倍率" },
             {nameof(AttributeEnum.MulDef),"防御倍率" },

@@ -16,6 +16,8 @@ namespace Game
         public RuleType RuleType = RuleType.Normal;
         public string Name { get; set; }
 
+        public string Title { get; set; }
+
         public long Level { get; set; }
         public double HP { get; set; }
         public int Quality { get; set; }

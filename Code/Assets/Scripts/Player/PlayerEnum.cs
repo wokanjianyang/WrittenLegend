@@ -66,6 +66,7 @@ namespace Game
         SkillSpiritDamage = 304, //道术伤害
         SkillAllDamage = 305, //所有伤害加成
         SkillValetCount = 306, //召唤数量+1
+        SkillValetSpeed = 307, //攻击速度
 
         ExtraDamage = 401,//额外伤害
 

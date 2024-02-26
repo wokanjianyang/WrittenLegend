@@ -108,6 +108,9 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.MagicDamage, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.MagicDamage));
             AttributeBonus.SetAttr(AttributeEnum.SpiritDamage, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.SpiritDamage));
 
+            AttributeBonus.SetAttr(AttributeEnum.SkillValetCount, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.SkillValetCount));
+            AttributeBonus.SetAttr(AttributeEnum.SkillValetSpeed, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.SkillValetSpeed));
+
             this.AurasList = new List<AAuras>();
             foreach (var ac in user.GetAurasList())
             {

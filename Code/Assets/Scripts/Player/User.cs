@@ -124,8 +124,6 @@ namespace Game
 
         public Dictionary<int, double> RateData { get; } = new Dictionary<int, double>();
 
-        public Dictionary<int, double> RateHalidomData { get; } = new Dictionary<int, double>();
-
         //public Dictionary<string, MagicData> AdData { get; } = new Dictionary<string, MagicData>();
 
         public IDictionary<int, int> FestiveData { get; set; } = new Dictionary<int, int>();
@@ -836,34 +834,43 @@ namespace Game
             }
         }
 
-        public Item AddHalidom(int mapId, double count)
+        public List<Item> AddMapStartRate(List<DropLimitConfig> mapLimits, double count)
         {
-            HalidomConfig config = HalidomConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.MapId == mapId).FirstOrDefault();
+            List<Item> list = new List<Item>();
 
-            if (config != null)
+            foreach (DropLimitConfig limitConfig in mapLimits)
             {
-                int key = config.Id;
+                int key = limitConfig.Id;
 
-                if (!RateHalidomData.ContainsKey(key))
+                if (!RateData.ContainsKey(key))
                 {
-                    RateHalidomData[key] = 0;
+                    RateData[key] = 0;
                 }
-                RateHalidomData[key] += count;
+                RateData[key] += count;
 
-                if (RateHalidomData[key] >= config.StartRate)
+                Debug.Log("Map Limit Drop: " + key + " :" + RateData[key]);
+
+                if (RateData[key] >= limitConfig.StartRate)
                 {
-                    double rate = config.Rate + config.StartRate - RateHalidomData[key];
+                    double rate = limitConfig.Rate + limitConfig.StartRate - RateData[key];
 
                     if (RandomHelper.RandomResult(rate))
                     {
-                        RateHalidomData[key] = 0;
-                        Item item = ItemHelper.BuildItem(ItemType.Holidom, config.Id, 6, 1);
-                        return item;
+                        RateData[key] = 0;
+
+                        DropConfig dropConfig = DropConfigCategory.Instance.Get(limitConfig.DropId);
+
+                        int index = RandomHelper.RandomNumber(0, dropConfig.ItemIdList.Length);
+                        int configId = dropConfig.ItemIdList[index];
+
+                        Item item = ItemHelper.BuildItem((ItemType)dropConfig.ItemType, configId, 1, dropConfig.Quantity);
+
+                        list.Add(item);
                     }
                 }
             }
 
-            return null;
+            return list;
         }
 
         public int GetFestiveCount(int id)

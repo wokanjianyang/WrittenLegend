@@ -8,7 +8,7 @@ namespace Game
 
     public partial class SkillRuneConfigCategory
     {
-
+        
     }
 
     public class SkillRuneHelper
@@ -65,6 +65,21 @@ namespace Game
             index = RandomHelper.RandomNumber(0, list.Count);
 
             return list[index];
+        }
+
+
+        public static List<SkillRune> GetAllRune(int skillId)
+        {
+            List<SkillRune> runeList = new List<SkillRune>();
+
+            List<SkillRuneConfig> runeConfigs = SkillRuneConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.SkillId == skillId).OrderBy(m => m.Id).ToList();
+
+            foreach (SkillRuneConfig config in runeConfigs)
+            {
+                SkillRune skillRune = new SkillRune(config.Id, 4);
+                runeList.Add(skillRune);
+            }
+            return runeList;
         }
     }
 }

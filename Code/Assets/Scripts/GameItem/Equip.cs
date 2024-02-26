@@ -18,6 +18,8 @@ namespace Game
 
         public int Quality { get; set; }
 
+        public int Layer { get; set; } = 1;
+
         public override int GetQuality()
         {
             return Quality;
@@ -89,9 +91,13 @@ namespace Game
                     {
                         AttributeBase = AttributeBase * (Quality * 20 + 20) / 100;
                     }
-                    else
+                    else if (Quality == 5)
                     {
-                        AttributeBase = AttributeBase * (Quality - 4);
+                        AttributeBase = AttributeBase * 2;
+                    }
+                    else if (Quality == 6)
+                    {
+                        AttributeBase = AttributeBase * 2 * (Layer);
                     }
                 }
                 BaseAttrList.Add(EquipConfig.BaseArray[i], AttributeBase);
@@ -115,14 +121,7 @@ namespace Game
             //根据品质,生成随机属性
             if (EquipConfig.RandomAttr == 0 && Part <= 10)
             {
-                for (int i = 0; i < Quality; i++)
-                {
-                    var ra = AttrEntryConfigCategory.Instance.Build(this.Part, this.Level, this.Quality);
-                    if (ra.Key > 0)
-                    {
-                        this.AttrEntryList.Add(ra);
-                    }
-                }
+                this.AttrEntryList.AddRange(AttrEntryConfigCategory.Instance.Build(this.Part, this.Level, this.Quality, this.EquipConfig.Role));
             }
 
             if (RuneConfigId > 0 && Part <= 10)

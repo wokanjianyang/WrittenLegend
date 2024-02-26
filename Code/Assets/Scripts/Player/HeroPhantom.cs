@@ -126,13 +126,8 @@ namespace Game
                 return runeList;
             }
 
-            List<SkillRuneConfig> runeConfigs = SkillRuneConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.SkillId == skillId).OrderBy(m => m.Id).ToList();
+            runeList = SkillRuneHelper.GetAllRune(skillId);
 
-            foreach (SkillRuneConfig config in runeConfigs)
-            {
-                SkillRune skillRune = new SkillRune(config.Id, 4);
-                runeList.Add(skillRune);
-            }
             return runeList;
         }
 
@@ -145,12 +140,7 @@ namespace Game
                 return suitList;
             }
 
-            List<SkillSuitConfig> suitConfigs = SkillSuitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.SkillId == skillId).OrderBy(m => m.Id).ToList();
-            foreach (SkillSuitConfig config in suitConfigs)
-            {
-                SkillSuit suit = new SkillSuit(config.Id);
-                suitList.Add(suit);
-            }
+            suitList = SkillSuitHelper.GetAllSuit(skillId);
 
             return suitList;
         }

@@ -47,16 +47,22 @@ namespace Game
             this.Camp = PlayerType.Enemy;
             this.ModelType = MondelType.Boss;
 
-            string modelName = ModelConfig?.Name + "·";
-
-            this.Name = modelName + Config.Name;
+            this.Name = Config.Name;
             this.Level = (Config.MapId - 999) * 100;
             this.Exp = Config.Exp;
             this.Gold = Config.Gold;
 
 
             this.SetAttr();  //设置属性值
-            this.SetSkill(); //设置技能
+
+            if (this.Config.Layer <= 2)
+            {
+                this.SetSkill(); //设置技能
+            }
+            else
+            {
+                this.SetSkillNew();
+            }
 
             base.Load();
             this.Logic.SetData(null); //设置UI
@@ -97,7 +103,7 @@ namespace Game
             if (Config.ModelType == 0)
             {
                 //random model
-                List<PlayerModel> models = PlayerModelCategory.Instance.GetAll().Select(m => m.Value).ToList();
+                List<PlayerModel> models = PlayerModelCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Layer == 0).ToList();
                 int index = RandomHelper.RandomNumber(0, models.Count);
                 PlayerModel model = models[index];
 
@@ -128,9 +134,53 @@ namespace Game
 
         private void SetSkillNew()
         {
+            List<SkillData> list = new List<SkillData>();
+
+            PlayerModel model = null;
+
             int position = this.MapId % 5 + 1;
 
+            List<PlayerModel> models = PlayerModelCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Layer == Config.Layer && m.Quality == 5).ToList();
 
+            if (models.Count > 0)
+            {
+                int index = RandomHelper.RandomNumber(0, models.Count);
+                model = models[index];
+                if (model.SkillList != null)
+                {
+                    for (int i = 0; i < model.SkillList.Length; i++)
+                    {
+                        list.Add(new SkillData(model.SkillList[i], i)); //增加默认技能
+                    }
+                }
+                this.Title = Config.Name;
+            }
+
+            list.Add(new SkillData(9001, (int)SkillPosition.Default)); //增加默认技能
+
+            foreach (SkillData skillData in list)
+            {
+                List<SkillRune> runeList = new List<SkillRune>();
+                List<SkillSuit> suitList = new List<SkillSuit>();
+
+                if (model != null)
+                {
+                    if (model.Rune == 1)
+                    {
+                        runeList = SkillRuneHelper.GetAllRune(skillData.SkillId);
+                    }
+
+                    if (model.Suit == 1)
+                    {
+                        suitList = SkillSuitHelper.GetAllSuit(skillData.SkillId);
+                    }
+                }
+
+                SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, false);
+
+                SkillState skill = new SkillState(this, skillPanel, skillData.Position, 0);
+                SelectSkillList.Add(skill);
+            }
         }
 
         private void MakeReward(DeadRewarddEvent dead)
@@ -172,13 +222,18 @@ namespace Game
             //限时奖励
             dropList.AddRange(DropLimitHelper.Build((int)DropLimitType.Normal, dropRate, modelRate, user.RateData));
 
+            List<Item> items = new List<Item>();
+
             if (this.RuleType == RuleType.EquipCopy || this.RuleType == RuleType.BossFamily)
             {
                 dropList.AddRange(DropLimitHelper.Build((int)DropLimitType.JieRi, dropRate, modelRate));
+
+                List<DropLimitConfig> mapLimits = DropLimitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.MapId == this.Config.MapId).ToList();
+                items.AddRange(user.AddMapStartRate(mapLimits, qualityConfig.CountRate * countModelRate));
             }
 
             int qualityRate = qualityConfig.QualityRate * (100 + (int)user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea)) / 100;
-            List<Item> items = DropHelper.BuildDropItem(dropList, qualityRate, user.RateData);
+            items.AddRange(DropHelper.BuildDropItem(dropList, qualityRate, user.RateData));
 
             int mapIndex = Config.MapId - ConfigHelper.MapStartId;
             int quantity = mapIndex / 10 + 1 + user.SoulRingNumber;

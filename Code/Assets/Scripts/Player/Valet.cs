@@ -46,7 +46,9 @@ namespace Game
 
         private void SetAttr()
         {
-            this.SetAttackSpeed(ModelConfig.SpeedRate);
+            int sp = (int)this.Master.AttributeBonus.GetAttackAttr(AttributeEnum.SkillValetSpeed);
+
+            this.SetAttackSpeed(ModelConfig.SpeedRate + sp);
 
             int role = SkillPanel.SkillData.SkillConfig.Role;
 

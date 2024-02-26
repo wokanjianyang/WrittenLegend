@@ -10,7 +10,7 @@ public class Battle_BossFamily : ABattleRule
     private bool Start = false;
 
     private long MapTime = 0;
-    private int MapLevel = 1;
+    private int MapLayer = 1;
 
     private List<int> QualityList;
 
@@ -24,12 +24,12 @@ public class Battle_BossFamily : ABattleRule
         param.TryGetValue("MapLevel", out object mapLevel);
 
         this.MapTime = (long)mapTime;
-        this.MapLevel = (int)mapLevel;
+        this.MapLayer = (int)mapLevel;
         this.Start = true;
 
         QualityList = new List<int>();
 
-        List<BossConfig> list = BossConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Level == MapLevel).ToList();
+        List<BossConfig> list = BossConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Layer == MapLayer).ToList();
 
         for (int i = 0; i < list.Count; i++)
         {
