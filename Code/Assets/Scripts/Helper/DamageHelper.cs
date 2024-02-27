@@ -63,7 +63,7 @@ namespace Game
             attack *= (1 + mdi / 100);
 
             //减伤倍率
-            double mdr = attcher.CalMulDamageResist(true);
+            double mdr = enemy.CalMulDamageResist(true);
             attack *= (1 - mdr / 100);
 
             //承受者的易伤

@@ -280,10 +280,6 @@ namespace Game
             //items.Add(new Equip(22005709, 23, 15, 5));
             //items.Add(new Equip(22005710, 23, 15, 5));
 
-            items.Add(ItemHelper.BuildItem(ItemType.SkillBox, 1010, 1, 1));
-            items.Add(ItemHelper.BuildItem(ItemType.SkillBox, 2010, 1, 1));
-            items.Add(ItemHelper.BuildItem(ItemType.SkillBox, 3010, 1, 1));
-
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Core,100));
 
             long newFloor = User.MagicTowerFloor.Data + offlineFloor;

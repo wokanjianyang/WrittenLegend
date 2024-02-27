@@ -865,7 +865,7 @@ namespace Game
 
                 if (RateData[key] >= limitConfig.StartRate)
                 {
-                    double rate = limitConfig.Rate + limitConfig.StartRate - RateData[key];
+                    double rate = Math.Max(limitConfig.Rate + limitConfig.StartRate - RateData[key], 1);
 
                     if (RandomHelper.RandomResult(rate))
                     {

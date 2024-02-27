@@ -68,7 +68,7 @@ namespace Game
         }
 
 
-        public static List<SkillRune> GetAllRune(int skillId)
+        public static List<SkillRune> GetAllRune(int skillId,int runeCount)
         {
             List<SkillRune> runeList = new List<SkillRune>();
 
@@ -76,7 +76,7 @@ namespace Game
 
             foreach (SkillRuneConfig config in runeConfigs)
             {
-                SkillRune skillRune = new SkillRune(config.Id, 4);
+                SkillRune skillRune = new SkillRune(config.Id, runeCount);
                 runeList.Add(skillRune);
             }
             return runeList;

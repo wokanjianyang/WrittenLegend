@@ -76,7 +76,7 @@ namespace Game
                 unit = "%";
             }
 
-            if (val > 10000000)
+            if (val >= 10000000)
             {
                 nt = StringHelper.FormatNumber(val);
             }

@@ -69,6 +69,7 @@ namespace Game
         Normal = 0,
         JieRi = 1,
         AnDian = 2,
+        Map=98,
         HeroPhatom = 99,
         Defend = 100,
     }

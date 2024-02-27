@@ -126,7 +126,7 @@ namespace Game
                 return runeList;
             }
 
-            runeList = SkillRuneHelper.GetAllRune(skillId);
+            runeList = SkillRuneHelper.GetAllRune(skillId, 4);
 
             return runeList;
         }

@@ -165,12 +165,12 @@ namespace Game
 
                 if (model != null)
                 {
-                    if (model.Rune == 1)
+                    if (model.Rune > 0)
                     {
-                        runeList = SkillRuneHelper.GetAllRune(skillData.SkillId);
+                        runeList = SkillRuneHelper.GetAllRune(skillData.SkillId,model.Rune);
                     }
 
-                    if (model.Suit == 1)
+                    if (model.Suit > 0)
                     {
                         suitList = SkillSuitHelper.GetAllSuit(skillData.SkillId);
                     }
