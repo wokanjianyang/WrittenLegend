@@ -35,10 +35,11 @@ namespace Game
         public const int CopyTicketMax = 200; //副本最大次数
         public const int CopyTicketFirstCount = 100; //副本离线和新号最多多少次
 
-        public static int[] PercentAttrIdList = { 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 23, 24, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 41, 43, 45, 201, 202, 203, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009,2010,2011 };
+        public static int[] PercentAttrIdList = { 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 23, 24, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 41, 43, 45, 201, 202, 203, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011 };
 
         public static int[] RateAttrIdList = { 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009 };
 
+        public static string[] LayerNameList = { "黄", "玄", "地", "天", "荒", "洪", "宙", "宇", };
 
         public const int MapStartId = 1000;
 

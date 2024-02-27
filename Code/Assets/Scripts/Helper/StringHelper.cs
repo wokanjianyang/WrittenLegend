@@ -65,6 +65,7 @@ namespace Game
 
         public static string FormatAttrValueText(int attrId, double val)
         {
+            string nt = "";
             string unit = "";
 
             List<int> percents = ConfigHelper.PercentAttrIdList.ToList();
@@ -75,7 +76,16 @@ namespace Game
                 unit = "%";
             }
 
-            return val.ToString("F4") + unit;
+            if (val > 10000000)
+            {
+                nt = StringHelper.FormatNumber(val);
+            }
+            else
+            {
+                nt = val.ToString("0.####");
+            }
+
+            return nt + unit;
         }
 
         public static string Fmt(this string text, params object[] args)

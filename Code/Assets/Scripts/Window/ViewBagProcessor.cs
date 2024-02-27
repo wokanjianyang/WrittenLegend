@@ -44,6 +44,7 @@ namespace Game
         public Dialog_Exclusive ExclusiveDialog;
         public Dialog_Card Dialog_Card;
         public Dialog_Wing Dialog_Wing;
+        public Dialog_Halidom Dialog_Halidom;
 
         public Button Btn_Exclusive;
 
@@ -72,6 +73,7 @@ namespace Game
             this.Btn_Exclusive.onClick.AddListener(OnExclusive);
             this.btn_Fashion.onClick.AddListener(OpenFashion);
             this.btn_Card.onClick.AddListener(OnOpenCard);
+            this.btn_Halidom.onClick.AddListener(OnOpenHalidom);
 
             this.Btn_Reset.onClick.AddListener(OnRefreshBag);
             this.Btn_ReName.onClick.AddListener(OnSetPlanName);
@@ -1238,6 +1240,11 @@ namespace Game
         public void OnOpenCard()
         {
             this.Dialog_Card.gameObject.SetActive(true);
+        }
+
+        public void OnOpenHalidom()
+        {
+            this.Dialog_Halidom.gameObject.SetActive(true);
         }
 
         public void OnOpenWing()

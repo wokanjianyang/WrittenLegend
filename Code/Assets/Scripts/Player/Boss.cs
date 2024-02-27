@@ -153,7 +153,7 @@ namespace Game
                         list.Add(new SkillData(model.SkillList[i], i)); //增加默认技能
                     }
                 }
-                this.Title = Config.Name;
+                this.Title = model.Name;
             }
 
             list.Add(new SkillData(9001, (int)SkillPosition.Default)); //增加默认技能

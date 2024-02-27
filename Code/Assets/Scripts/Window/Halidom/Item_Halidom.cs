@@ -76,15 +76,15 @@ namespace Game
             if (level > 0)
             {
                 long val = config.AttrValue + (level - 1) * config.RiseAttr;
-                this.Txt_Level.text = $"{level}级";
+                this.Txt_Level.text = ConfigHelper.LayerNameList[level - 1] + "阶";
                 this.Txt_Attr_Current.text = StringHelper.FormatAttrText(config.AttrId, val);
-                this.Txt_Attr_Rise.text = "升级增加:" + StringHelper.FormatAttrValueText(config.AttrId, config.RiseAttr);
+                this.Txt_Attr_Rise.text = "升阶增加:" + StringHelper.FormatAttrValueText(config.AttrId, config.RiseAttr);
             }
             else
             {
 
                 this.Txt_Level.text = "未激活";
-                this.Txt_Attr_Current.text = " ???? ";
+                this.Txt_Attr_Current.text = StringHelper.FormatAttrValueName(config.AttrId);
                 this.Txt_Attr_Rise.text = "激活增加:" + StringHelper.FormatAttrValueText(config.AttrId, config.AttrValue);
             }
         }

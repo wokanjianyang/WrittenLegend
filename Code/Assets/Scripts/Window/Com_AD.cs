@@ -211,8 +211,29 @@ public class Com_AD : MonoBehaviour, IBattleLife
         return true;
     }
 
+    public void DisableButton()
+    {
+        Btn_Read1.gameObject.SetActive(false);
+        Btn_Read2.gameObject.SetActive(false);
+        Btn_Read3.gameObject.SetActive(false);
+        Btn_Read4.gameObject.SetActive(false);
+    }
+
+    public IEnumerator EnableButton()
+    {
+        yield return new WaitForSeconds(3f);
+
+        Btn_Read1.gameObject.SetActive(true);
+        Btn_Read2.gameObject.SetActive(true);
+        Btn_Read3.gameObject.SetActive(true);
+        Btn_Read4.gameObject.SetActive(true);
+    }
+
     private void ReadAd(int type)
     {
+        DisableButton();
+        GameProcessor.Inst.StartCoroutine(EnableButton());
+
         //
         if (!CheckCount(type))
         {
@@ -307,7 +328,7 @@ public class Com_AD : MonoBehaviour, IBattleLife
 
         var data = user.ADShowData?.GetADShowStatus((ADTypeEnum)type);
 
-        if (data.CurrentShowCount >= data.MaxShowCount)
+        if (data.CurrentShowCount >= 6)
         {
             return;
         }
