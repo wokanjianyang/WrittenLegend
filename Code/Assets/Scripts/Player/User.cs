@@ -122,6 +122,8 @@ namespace Game
 
         public Dictionary<int, MagicData> CardData { get; } = new Dictionary<int, MagicData>();
 
+        public Dictionary<int, MagicData> HalidomData { get; } = new Dictionary<int, MagicData>();
+
         public Dictionary<int, double> RateData { get; } = new Dictionary<int, double>();
 
         //public Dictionary<string, MagicData> AdData { get; } = new Dictionary<string, MagicData>();
@@ -346,6 +348,17 @@ namespace Game
 
                     long suitValue = suitConfig.AttrValue + (suitLevel - 1) * suitConfig.AttrRise;
                     AttributeBonus.SetAttr((AttributeEnum)suitConfig.AttrId, AttributeFrom.Fashion, suitId, suitValue);
+                }
+            }
+
+            //Halidom
+            foreach (var sp in this.HalidomData)
+            {
+                if (sp.Value.Data > 0)
+                {
+                    HalidomConfig halidomConfig = HalidomConfigCategory.Instance.Get(sp.Key);
+                    long halidomAttr = halidomConfig.AttrValue + (sp.Value.Data - 1) * halidomConfig.RiseAttr;
+                    AttributeBonus.SetAttr((AttributeEnum)halidomConfig.AttrId, AttributeFrom.Halidom, sp.Key, halidomAttr);
                 }
             }
 

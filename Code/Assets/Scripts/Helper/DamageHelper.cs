@@ -58,6 +58,14 @@ namespace Game
 
             attack *= (1 + roleDamageRise / 100);
 
+            //增伤倍率
+            double mdi = attcher.GetAttackAttr(AttributeEnum.MulDamageIncrea);
+            attack *= (1 + mdi / 100);
+
+            //减伤倍率
+            double mdr = attcher.CalMulDamageResist(true);
+            attack *= (1 - mdr / 100);
+
             //承受者的易伤
             long ExtraDamage = enemy.GetAttackAttr(AttributeEnum.ExtraDamage);
             attack = attack * (100 + ExtraDamage) / 100;

@@ -75,7 +75,7 @@ namespace Game
                 unit = "%";
             }
 
-            return val + unit;
+            return val.ToString("F4") + unit;
         }
 
         public static string Fmt(this string text, params object[] args)

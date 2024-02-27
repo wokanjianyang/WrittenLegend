@@ -110,9 +110,10 @@ namespace Game
         Achivement = 10, //成就
         Exclusive = 11, //专属
         Card = 12,//图鉴
-        Wing = 13,
-        Fashion = 14,
+        Wing = 13, //翅膀
+        Fashion = 14, //时装
         EquipRed = 15, //装备套装
+        Halidom = 16, //遗物
         /// <summary>
         /// 测试属性
         /// </summary>
