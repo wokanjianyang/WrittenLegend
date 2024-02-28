@@ -17,10 +17,10 @@ namespace Game
         public int SuitConfigId { get; set; }
 
         public int Quality { get; set; }
-
         public int Layer { get; set; } = 1;
-
         public int Seed { get; set; }
+        public int FreshCount { get; set; }
+        public long FreshDate { get; set; }
 
         public override int GetQuality()
         {
@@ -120,12 +120,6 @@ namespace Game
                 }
             }
 
-            //根据品质,生成随机属性
-            if (EquipConfig.RandomAttr == 0 && Part <= 10)
-            {
-                this.AttrEntryList.AddRange(AttrEntryConfigCategory.Instance.Build(this.Part, this.Level, this.Quality, this.EquipConfig.Role));
-            }
-
             if (RuneConfigId > 0 && Part <= 10)
             {
                 SkillRuneConfig = SkillRuneConfigCategory.Instance.Get(RuneConfigId);
@@ -140,6 +134,12 @@ namespace Game
         public void Init()
         {
             this.Seed = RandomHelper.RandomNumber(1, 10000000);
+
+            //根据品质,生成随机属性
+            if (EquipConfig.RandomAttr == 0 && Part <= 10)
+            {
+                this.AttrEntryList.AddRange(AttrEntryConfigCategory.Instance.Build(this.Part, this.Level, this.Quality, this.EquipConfig.Role));
+            }
         }
 
         /// <summary>

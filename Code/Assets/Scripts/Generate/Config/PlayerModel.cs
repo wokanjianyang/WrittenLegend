@@ -84,26 +84,29 @@ namespace Game
 		/// <summary>Layer</summary>
 		[ProtoMember(3)]
 		public int Layer { get; set; }
-		/// <summary>Quality</summary>
+		/// <summary>MapId</summary>
 		[ProtoMember(4)]
+		public int MapId { get; set; }
+		/// <summary>Quality</summary>
+		[ProtoMember(5)]
 		public int Quality { get; set; }
 		/// <summary>AttrList</summary>
-		[ProtoMember(5)]
+		[ProtoMember(6)]
 		public int[] AttrList { get; set; }
 		/// <summary>AttrValueList</summary>
-		[ProtoMember(6)]
+		[ProtoMember(7)]
 		public long[] AttrValueList { get; set; }
 		/// <summary>SkillList</summary>
-		[ProtoMember(7)]
+		[ProtoMember(8)]
 		public int[] SkillList { get; set; }
 		/// <summary>Rune</summary>
-		[ProtoMember(8)]
+		[ProtoMember(9)]
 		public int Rune { get; set; }
 		/// <summary>Suit</summary>
-		[ProtoMember(9)]
+		[ProtoMember(10)]
 		public int Suit { get; set; }
 		/// <summary>Desc</summary>
-		[ProtoMember(10)]
+		[ProtoMember(11)]
 		public string Desc { get; set; }
 
 	}

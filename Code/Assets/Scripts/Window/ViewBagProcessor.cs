@@ -641,7 +641,7 @@ namespace Game
                     }
 
                     int RecoveryItemId = equip.EquipConfig.RecoveryItemId;
-                    if (equip.Layer >= 3 && equip.GetQuality() >= 5 && RecoveryItemId > 0)
+                    if (equip.GetQuality() >= 5 && RecoveryItemId > 0)
                     {
                         if (!recoveryDict.ContainsKey(RecoveryItemId))
                         {

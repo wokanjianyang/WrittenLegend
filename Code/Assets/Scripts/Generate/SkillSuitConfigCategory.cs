@@ -18,7 +18,7 @@ namespace Game
             return list[index];
         }
 
-        public static List<SkillSuit> GetAllSuit(int skillId)
+        public static List<SkillSuit> GetAllSuit(int skillId,int suitCount)
         {
             List<SkillSuit> suitList = new List<SkillSuit>();
 
@@ -26,7 +26,10 @@ namespace Game
             foreach (SkillSuitConfig config in suitConfigs)
             {
                 SkillSuit suit = new SkillSuit(config.Id);
-                suitList.Add(suit);
+                if (suitList.Count < suitCount)
+                {
+                    suitList.Add(suit);
+                }
             }
 
             return suitList;

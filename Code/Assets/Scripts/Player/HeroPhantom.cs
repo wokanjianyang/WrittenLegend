@@ -140,7 +140,7 @@ namespace Game
                 return suitList;
             }
 
-            suitList = SkillSuitHelper.GetAllSuit(skillId);
+            suitList = SkillSuitHelper.GetAllSuit(skillId, 4);
 
             return suitList;
         }

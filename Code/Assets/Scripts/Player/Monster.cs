@@ -9,6 +9,7 @@ namespace Game
 {
     public class Monster : APlayer
     {
+        public int MapId;
         public int MonsterId;
         MonsterBase Config { get; set; }
         QualityConfig QualityConfig { get; set; }
@@ -25,8 +26,9 @@ namespace Game
 
         private int RewardRate;
 
-        public Monster(int monsterId, int quality, int rewarRate, int modelId, RuleType ruleType) : base()
+        public Monster(int mapId,int monsterId, int quality, int rewarRate, int modelId, RuleType ruleType) : base()
         {
+            this.MapId = mapId;
             this.MonsterId = monsterId;
             this.GroupId = 2;
             this.Quality = quality;
@@ -123,7 +125,8 @@ namespace Game
 
             PlayerModel model = null;
 
-            List<PlayerModel> models = PlayerModelCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Layer == Config.Layer && m.Quality == Quality).ToList();
+            List<PlayerModel> models = PlayerModelCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Layer == Config.Layer && m.Quality == Quality
+            && (m.MapId == 0 || m.MapId == MapId)).ToList();
 
             if (models.Count > 0)
             {
@@ -155,7 +158,7 @@ namespace Game
 
                     if (model.Suit > 0)
                     {
-                        suitList = SkillSuitHelper.GetAllSuit(skillData.SkillId);
+                        suitList = SkillSuitHelper.GetAllSuit(skillData.SkillId,model.Suit);
                     }
                 }
 

@@ -140,7 +140,8 @@ namespace Game
 
             int position = this.MapId % 5 + 1;
 
-            List<PlayerModel> models = PlayerModelCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Layer == Config.Layer && m.Quality == 5).ToList();
+            List<PlayerModel> models = PlayerModelCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Layer == Config.Layer && m.Quality == 5
+            && (m.MapId==0 || m.MapId==MapId)).ToList();
 
             if (models.Count > 0)
             {
@@ -172,7 +173,7 @@ namespace Game
 
                     if (model.Suit > 0)
                     {
-                        suitList = SkillSuitHelper.GetAllSuit(skillData.SkillId);
+                        suitList = SkillSuitHelper.GetAllSuit(skillData.SkillId, model.Suit);
                     }
                 }
 
