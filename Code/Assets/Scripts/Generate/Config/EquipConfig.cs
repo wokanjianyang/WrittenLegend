@@ -114,6 +114,9 @@ namespace Game
 		/// <summary>Role</summary>
 		[ProtoMember(13)]
 		public int Role { get; set; }
+		/// <summary>RecoveryItemId</summary>
+		[ProtoMember(14)]
+		public int RecoveryItemId { get; set; }
 
 	}
 }

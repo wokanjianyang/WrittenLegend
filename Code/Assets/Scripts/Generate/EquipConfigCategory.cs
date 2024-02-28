@@ -41,6 +41,7 @@ namespace Game
             }
 
             Equip equip = new Equip(configId, runeId, suitId, quality);
+            equip.Init();
 
             equip.Count = 1;
             return equip;

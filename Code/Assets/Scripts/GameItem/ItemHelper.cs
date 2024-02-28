@@ -85,6 +85,7 @@ namespace Game
         public static int SpecialId_Wing_Stone = 4008;
         public static int SpecialId_Exclusive_Core = 4009;
         public static int SpecialId_Exclusive_Heart = 4010;
+        public static int SpecialId_Red_Stone = 4011;
 
         public static int SpecialId_Card_Stone = 4101;
 

@@ -98,29 +98,20 @@ namespace Game
             return drops;
         }
 
-        public static string BuildAutoRecoveryMessage(int equipQuantity, int refineStone, int speicalStone, int exclusiveStone, int cardStone, long gold)
+        public static string BuildAutoRecoveryMessage(int equipQuantity, List<Item> itemList, long gold)
         {
             string message = "回收" + equipQuantity + "件装备，获得";
-            if (refineStone > 0)
+
+            foreach (Item item in itemList)
             {
-                message += refineStone + "个装备精炼石，";
+                message += item.Count + "个" + item.ItemConfig.Name + "，";
             }
-            if (exclusiveStone > 0)
-            {
-                message += exclusiveStone + "个装备专属洗练石，";
-            }
-            if (speicalStone > 0)
-            {
-                message += speicalStone + "个四格碎片，";
-            }
-            if (cardStone > 0)
-            {
-                message += cardStone + "个图鉴碎片，";
-            }
+
             if (gold > 0)
             {
                 message += StringHelper.FormatNumber(gold) + "金币";
             }
+
             return message;
         }
 

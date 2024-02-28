@@ -20,6 +20,8 @@ namespace Game
 
         public int Layer { get; set; } = 1;
 
+        public int Seed { get; set; }
+
         public override int GetQuality()
         {
             return Quality;
@@ -133,6 +135,11 @@ namespace Game
             {
                 SkillSuitConfig = SkillSuitConfigCategory.Instance.Get(SuitConfigId);
             }
+        }
+
+        public void Init()
+        {
+            this.Seed = RandomHelper.RandomNumber(1, 10000000);
         }
 
         /// <summary>
