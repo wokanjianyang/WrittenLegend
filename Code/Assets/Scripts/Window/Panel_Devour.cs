@@ -208,11 +208,11 @@ public class Panel_Devour : MonoBehaviour
             }
         }
 
-        if (slots[0].GetEquip().BoxItem.Item.ConfigId != slots[1].GetEquip().BoxItem.Item.ConfigId)
-        {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "主副专属必须是同位置", ToastType = ToastTypeEnum.Failure });
-            return;
-        }
+        //if (slots[0].GetEquip().BoxItem.Item.ConfigId != slots[1].GetEquip().BoxItem.Item.ConfigId)
+        //{
+        //    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "主副专属必须是同位置", ToastType = ToastTypeEnum.Failure });
+        //    return;
+        //}
 
         if (!check)
         {
