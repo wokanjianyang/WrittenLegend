@@ -20,6 +20,7 @@ namespace Game
         public GameObject go_Lock;
 
         public Text Tag;
+        public Text Layer;
 
         public BoxItem BoxItem { get; private set; }
         public int boxId { get; private set; }
@@ -131,8 +132,17 @@ namespace Game
                 ExclusiveItem exclusive = item.Item as ExclusiveItem;
                 if (exclusive.GetLevel() > 1)
                 {
-                    this.tmp_Count.text = "+" + (exclusive.GetLevel() - 1);
-                    this.tmp_Count.gameObject.SetActive(true);
+                    this.Layer.text = ConfigHelper.LayerChinaList[(exclusive.GetLevel() - 1)] + "阶"; ;
+                    this.Layer.gameObject.SetActive(true);
+                }
+            }
+            else if (item.Item.Type == ItemType.Equip)
+            {
+                Equip equip = item.Item as Equip;
+                if (equip.GetQuality() > 5)
+                {
+                    this.Layer.text = ConfigHelper.LayerChinaList[equip.Layer] + "阶";
+                    this.Layer.gameObject.SetActive(true);
                 }
             }
         }
