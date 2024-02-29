@@ -117,10 +117,6 @@ namespace Game
                 user.HeroPhatomData = new HeroPhatomData();
                 user.HeroPhatomData.Count.Data = 1;
             }
-            foreach (var kv in user.HalidomData)
-            {
-                kv.Value.Data = 1;
-            }
 
             //去掉专属精华
             user.Bags.RemoveAll(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Chunjie);

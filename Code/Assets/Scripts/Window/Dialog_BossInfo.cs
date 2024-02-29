@@ -118,7 +118,6 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
             this.SelectLayer = this.MaxLayer;
         }
 
-        Debug.Log("MapId:" + MapId + " Max Layer:" + MaxLayer);
         for (int i = 0; i < tgLevelList.Count; i++)
         {
             if (i <= MaxLayer)
@@ -135,8 +134,6 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
 
         int startIndex = this.SelectLayer * LevelCount;
         int endIndex = startIndex + Math.Min(LevelCount, count - startIndex) - 1;
-
-        Debug.Log("startIndex:" + startIndex + " endIndex:" + endIndex);
 
         int j = 0;
         for (int i = endIndex; i >= startIndex; i--)

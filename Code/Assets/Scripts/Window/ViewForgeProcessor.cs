@@ -107,6 +107,8 @@ public class ViewForgeProcessor : AViewPage
 
         User user = GameProcessor.Inst.User;
 
+        long MaxLevel = Math.Min((user.MagicLevel.Data / 5000 + 1) * 5000, ConfigHelper.Max_Level);
+
         foreach (var box in StrengthenEquiList)
         {
             int position = ((int)box.SlotType);
@@ -134,7 +136,7 @@ public class ViewForgeProcessor : AViewPage
 
         long levelAttr = LevelConfigCategory.GetLevelAttr(nextLevel);
 
-        if (feeConfig == null || nextLevel > ConfigHelper.Max_Level)
+        if (feeConfig == null || nextLevel > MaxLevel)
         {
             Txt_Fee.text = "已满级";
             Btn_Strengthen.gameObject.SetActive(false);
@@ -361,6 +363,9 @@ public class ViewForgeProcessor : AViewPage
     private void ShowRefine()
     {
         User user = GameProcessor.Inst.User;
+
+        long MaxLevel = Math.Min((user.MagicLevel.Data / 5000 + 1) * 25, ConfigHelper.Max_Level_Refine);
+
         foreach (var box in Refine_EquiList)
         {
             int position = ((int)box.SlotType);
@@ -387,7 +392,7 @@ public class ViewForgeProcessor : AViewPage
         long nextLevel = refineData.Data + 1;
         EquipRefineConfig nextConfig = EquipRefineConfigCategory.Instance.GetByLevel(nextLevel);
 
-        if (nextConfig == null || nextLevel > ConfigHelper.Max_Level_Refine)
+        if (nextConfig == null || nextLevel > MaxLevel)
         {
             Refine_Txt_Fee.text = "已满级";
             Btn_Refine.gameObject.SetActive(false);
