@@ -37,8 +37,8 @@ public class Battle_BossFamily : ABattleRule
             QualityList.Add(bossId);
             QualityList.Add(bossId);
             QualityList.Add(bossId);
-            //QualityList.Add(bossId);
-            //QualityList.Add(bossId);
+            QualityList.Add(bossId);
+            QualityList.Add(bossId);
         }
 
         TaskHelper.CheckTask(TaskType.ToCopy, 1);
