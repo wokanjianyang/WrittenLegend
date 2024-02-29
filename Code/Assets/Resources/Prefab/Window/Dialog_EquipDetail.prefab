@@ -294,7 +294,7 @@ GameObject:
   - component: {fileID: 8213209462421327221}
   - component: {fileID: 2450443492606598705}
   m_Layer: 5
-  m_Name: RandomAttribute
+  m_Name: Rt_RandomAttribute
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1781,7 +1781,7 @@ GameObject:
   - component: {fileID: 4142596566561316319}
   - component: {fileID: 6390623977306311002}
   m_Layer: 5
-  m_Name: RedAttribute
+  m_Name: Rt_RedAttribute
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3078,7 +3078,7 @@ GameObject:
   - component: {fileID: 3547982545964923949}
   - component: {fileID: 6679929918979956924}
   m_Layer: 5
-  m_Name: BaseAttribute
+  m_Name: Rt_BaseAttribute
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3246,7 +3246,7 @@ GameObject:
   - component: {fileID: 4387636697012585756}
   - component: {fileID: 1602520424779942541}
   m_Layer: 5
-  m_Name: QualityAttribute
+  m_Name: Rt_QualityAttribute
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4976,7 +4976,7 @@ GameObject:
   - component: {fileID: 3480680805819882498}
   - component: {fileID: 4414932483355353163}
   m_Layer: 5
-  m_Name: GroupAttribute
+  m_Name: Rt_GroupAttribute
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5316,7 +5316,7 @@ GameObject:
   - component: {fileID: 5257086892609447094}
   - component: {fileID: 1259016962360291935}
   m_Layer: 5
-  m_Name: HideAttribute
+  m_Name: Rt_HideAttribute
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5721,7 +5721,7 @@ GameObject:
   - component: {fileID: 1112844091525058776}
   - component: {fileID: 1249945063288254271}
   m_Layer: 5
-  m_Name: NormalAttribute
+  m_Name: Rt_NormalAttribute
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6047,7 +6047,7 @@ GameObject:
   - component: {fileID: 6478426342687677437}
   - component: {fileID: 5971244224024133104}
   m_Layer: 5
-  m_Name: SuitAttribute
+  m_Name: Rt_SuitAttribute
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6980,7 +6980,7 @@ GameObject:
   - component: {fileID: 7097560320367945165}
   - component: {fileID: 3877167187126371918}
   m_Layer: 5
-  m_Name: SkillAttribute
+  m_Name: Rt_SkillAttribute
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

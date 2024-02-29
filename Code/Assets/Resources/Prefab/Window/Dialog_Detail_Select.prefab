@@ -646,9 +646,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8900284681530860510}
   - component: {fileID: 4700570627691751315}
-  - component: {fileID: 189231835701407817}
+  - component: {fileID: 6738605107819262903}
   m_Layer: 5
-  m_Name: Select_Dialog
+  m_Name: Dialog_Detail_Select
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -691,7 +691,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TouchIgnore: 0
---- !u!114 &189231835701407817
+--- !u!114 &6738605107819262903
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

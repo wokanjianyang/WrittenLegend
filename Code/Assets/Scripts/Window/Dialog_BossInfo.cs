@@ -21,7 +21,9 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
     public List<Toggle> tgLevelList;
     private int LevelCount = 35; //每个难度多少个
     private int ShowCount = 10; //隐藏的时候显示多少个
-    private int Level = 0;
+
+    private int MaxLayer = -1;
+    private int SelectLayer = -1;
 
     List<Com_BossInfoItem> items = new List<Com_BossInfoItem>();
 
@@ -94,9 +96,9 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
     }
 
 
-    private void ChangeLevel(int level)
+    private void ChangeLevel(int layer)
     {
-        this.Level = level;
+        this.SelectLayer = layer;
         this.Show();
     }
 
@@ -108,10 +110,33 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
         }
 
         int MapId = GameProcessor.Inst.User.MapId;
+
+        if (this.MaxLayer < 0)
+        {
+            this.MaxLayer = (MapId - ConfigHelper.MapStartId) / 35;
+            tgLevelList[MaxLayer].isOn = true;
+            this.SelectLayer = this.MaxLayer;
+        }
+
+        Debug.Log("MapId:" + MapId + " Max Layer:" + MaxLayer);
+        for (int i = 0; i < tgLevelList.Count; i++)
+        {
+            if (i <= MaxLayer)
+            {
+                tgLevelList[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                tgLevelList[i].gameObject.SetActive(false);
+            }
+        }
+
         int count = MapConfigCategory.Instance.GetAll().Where(m => m.Value.Id <= MapId).Count();
 
-        int startIndex = Level * LevelCount;
+        int startIndex = this.SelectLayer * LevelCount;
         int endIndex = startIndex + Math.Min(LevelCount, count - startIndex) - 1;
+
+        Debug.Log("startIndex:" + startIndex + " endIndex:" + endIndex);
 
         int j = 0;
         for (int i = endIndex; i >= startIndex; i--)

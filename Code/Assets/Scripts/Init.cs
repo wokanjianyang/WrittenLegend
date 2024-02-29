@@ -44,7 +44,8 @@ public class Init : MonoBehaviour
         Map_Defend,
         Map_HeroPhantom,
 
-        Select_Dialog,
+        Dialog_Detail,
+        Dialog_Detail_Select,
         Dialog_EquipDetail,
         Dialog_Exclusive_Detail,
         Dialog_OfflineExp,
@@ -91,7 +92,8 @@ public class Init : MonoBehaviour
             {
                 WindowTypeEnum.View_TopStatu,
                 WindowTypeEnum.View_BottomNavBar,
-                WindowTypeEnum.Select_Dialog,
+                WindowTypeEnum.Dialog_Detail_Select,
+                WindowTypeEnum.Dialog_Detail,
                 WindowTypeEnum.Dialog_EquipDetail,
                 WindowTypeEnum.Dialog_Exclusive_Detail,
                 WindowTypeEnum.Dialog_Defend,

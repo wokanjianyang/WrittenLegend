@@ -10,7 +10,7 @@ using Game.Data;
 
 namespace Game
 {
-    public class Card_Exclusive : MonoBehaviour, IBattleLife
+    public class Dialog_Detail_Exclusive : MonoBehaviour, IBattleLife
     {
         [LabelText("名称")]
         public Text tmp_Title;

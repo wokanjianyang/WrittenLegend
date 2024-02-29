@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Game
 {
-    public class Dialog_Select : MonoBehaviour, IBattleLife
+    public class Dialog_Detail_Select : MonoBehaviour, IBattleLife
     {
         public Button Btn_Close;
         public Button Btn_OK;

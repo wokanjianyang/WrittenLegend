@@ -9,6 +9,12 @@ namespace Game
         public ViewPageType Page { get; set; }
     }
 
+    public class ShowDetailEvent : SDD.Events.Event
+    {
+        public ComBoxType Type { get; set; }
+        public BoxItem boxItem { get; set; }
+    }
+
     public class ShowExclusiveCardEvent : SDD.Events.Event
     {
         public ComBoxType Type { get; set; }

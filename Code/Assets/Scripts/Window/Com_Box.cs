@@ -70,14 +70,22 @@ namespace Game
                 });
                 return;
             }
+            else if (this.BoxItem.Item.Type == ItemType.Equip)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowEquipDetailEvent()
+                {
+                    boxItem = this.BoxItem,
+                    EquipPosition = this.EquipPosition,
+                    Type = this.Type
+                });
+                return;
+            }
 
-            GameProcessor.Inst.EventCenter.Raise(new ShowEquipDetailEvent()
+            GameProcessor.Inst.EventCenter.Raise(new ShowDetailEvent()
             {
                 boxItem = this.BoxItem,
-                EquipPosition = this.EquipPosition,
                 Type = this.Type
             });
-
         }
 
         public void OnPointerUp(PointerEventData eventData)

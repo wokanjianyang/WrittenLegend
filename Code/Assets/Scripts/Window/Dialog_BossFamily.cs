@@ -47,6 +47,20 @@ public class Dialog_BossFamily : MonoBehaviour, IBattleLife
 
     private void OnOpenBossFamily(OpenBossFamilyEvent e)
     {
+        int layer = (GameProcessor.Inst.User.MapId - ConfigHelper.MapStartId) / 35;
+
+        for (int i = 0; i < BtnStartList.Count; i++)
+        {
+            if (i <= layer)
+            {
+                BtnStartList[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                BtnStartList[i].gameObject.SetActive(false);
+            }
+        }
+
         this.gameObject.SetActive(true);
     }
 

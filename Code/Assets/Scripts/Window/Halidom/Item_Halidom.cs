@@ -38,7 +38,7 @@ namespace Game
             {
                 int rise = (int)halidomData.Data * 1;
 
-                long total = user.Bags.Where(m => m.Item.Type == ItemType.Halidom && m.Item.ConfigId == Config.Id).Select(m => m.MagicNubmer.Data).Sum();
+                long total = user.Bags.Where(m => m.Item.Type == ItemType.Halidom && m.Item.ConfigId == Config.ItemId).Select(m => m.MagicNubmer.Data).Sum();
                 int upNumber = 1 + rise;
 
                 if (total < upNumber)
@@ -50,8 +50,8 @@ namespace Game
                 GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "消耗" + upNumber + "个" + Config.Name + "升级成功", ToastType = ToastTypeEnum.Success });
                 GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
                 {
-                    Type = ItemType.Card,
-                    ItemId = Config.Id,
+                    Type = ItemType.Halidom,
+                    ItemId = Config.ItemId,
                     Quantity = upNumber
                 });
 

@@ -662,7 +662,8 @@ namespace Game
                 {
                     gold += box.Item.ItemConfig.Price * ((int)box.MagicNubmer.Data);
                 }
-                UseBoxItem(box, 1);
+
+                UseBoxItem(box, box.MagicNubmer.Data);
             }
 
             if (gold > 0)
