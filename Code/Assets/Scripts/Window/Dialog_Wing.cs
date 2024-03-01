@@ -53,7 +53,7 @@ public class Dialog_Wing : MonoBehaviour, IBattleLife
         User user = GameProcessor.Inst.User;
         long currentLevel = user.WingData.Data;
 
-        Debug.Log("currentLevel show:"+ currentLevel);
+        Debug.Log("currentLevel show:" + currentLevel);
 
         this.txt_Level.text = "µÈ¼¶:" + currentLevel;
         if (currentLevel > 0)
@@ -102,22 +102,18 @@ public class Dialog_Wing : MonoBehaviour, IBattleLife
             {
                 attrItem.gameObject.SetActive(true);
 
-                string attrName = StringHelper.FormatAttrValueName(showConfig.AttrIdList[i]);
-                string attrBase = "";
-                string attrAdd = "";
-
-                long ab = 0;
+                long attrBase = 0;
+                long attrAdd = 0;
 
                 if (currentConfig != null)
                 {
-                    attrBase = StringHelper.FormatAttrValueText(currentConfig.AttrIdList[i], currentConfig.AttrValueList[i]);
-                    ab = currentConfig.AttrValueList[i];
+                    attrBase = currentConfig.AttrValueList[i];
                 }
                 if (nextConfig != null)
                 {
-                    attrAdd = " + " + StringHelper.FormatAttrValueText(nextConfig.AttrIdList[i], nextConfig.AttrValueList[i] - ab);
+                    attrAdd = nextConfig.AttrValueList[i] - attrBase;
                 }
-                attrItem.SetContent(attrName, attrBase, attrAdd);
+                attrItem.SetContent(showConfig.AttrIdList[i], attrBase, attrAdd);
             }
         }
     }

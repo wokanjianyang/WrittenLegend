@@ -31,13 +31,6 @@ namespace Game
 
         }
 
-        public void SetContent(string name, string attr, string attr_add)
-        {
-            this.Txt_Name.text = name;
-            this.Txt_Attr.text = attr;
-            this.Txt_Attr_Add.text = attr_add;
-        }
-
         public void SetContent(int attrId, long attrBase, long attrRise)
         {
             this.Txt_Name.text = StringHelper.FormatAttrValueName(attrId);

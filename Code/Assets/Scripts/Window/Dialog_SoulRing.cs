@@ -280,22 +280,18 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
             {
                 attrItem.gameObject.SetActive(true);
 
-                string attrName = StringHelper.FormatAttrValueName(showConfig.AttrIdList[i]);
-                string attrBase = "";
-                string attrAdd = "";
-
-                long ab = 0;
+                long attrBase = 0;
+                long attrAdd = 0;
 
                 if (currentConfig != null)
                 {
-                    attrBase = StringHelper.FormatAttrValueText(currentConfig.AttrIdList[i], currentConfig.AttrValueList[i]);
-                    ab = currentConfig.AttrValueList[i];
+                    attrBase = currentConfig.AttrValueList[i];
                 }
                 if (nextConfig != null)
                 {
-                    attrAdd = " + " + StringHelper.FormatAttrValueText(nextConfig.AttrIdList[i], nextConfig.AttrValueList[i] - ab);
+                    attrAdd = nextConfig.AttrValueList[i] - attrBase;
                 }
-                attrItem.SetContent(attrName, attrBase, attrAdd);
+                attrItem.SetContent(showConfig.AttrIdList[i], attrBase, attrAdd);
             }
         }
     }

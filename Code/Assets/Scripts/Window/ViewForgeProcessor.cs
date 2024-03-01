@@ -158,11 +158,10 @@ public class ViewForgeProcessor : AViewPage
             {
                 int attrId = config.AttrList[i];
 
-                string attrAdd = config.AttrValueList[i] * nextLevel + "";
-                string attrCurrent = config.AttrValueList[i] * levelAttr + "";
-                string attrName = PlayerHelper.PlayerAttributeMap[((AttributeEnum)attrId).ToString()];
+                long attrAdd = config.AttrValueList[i] * nextLevel;
+                long attrCurrent = config.AttrValueList[i] * levelAttr;
 
-                AttrList[i].SetContent(attrName, attrCurrent, attrAdd);
+                AttrList[i].SetContent(attrId, attrCurrent, attrAdd);
                 AttrList[i].gameObject.SetActive(true);
             }
             else
@@ -415,12 +414,10 @@ public class ViewForgeProcessor : AViewPage
             long currentAttrValue = currentConfig == null ? 0 : currentConfig.BaseAttrPercent;
             long nextAttrValue = nextConfig == null ? 0 : nextConfig.BaseAttrPercent;
 
-            string attrName = PlayerHelper.PlayerAttributeMap[AttributeEnum.EquipBaseIncrea.ToString()];
-            string attrCurrent = currentAttrValue == 0 ? "" : currentAttrValue + "%";
-            string attrAdd = "+" + (nextAttrValue - currentAttrValue) + "%";
+            long attrRise = nextAttrValue - currentAttrValue;
 
             Refine_Attr_Base.gameObject.SetActive(true);
-            Refine_Attr_Base.SetContent(attrName, attrCurrent, attrAdd);
+            Refine_Attr_Base.SetContent((int)AttributeEnum.EquipBaseIncrea, currentAttrValue, attrRise);
         }
 
         if (nextConfig != null && nextConfig.QualityAttrPercent > 0)
@@ -428,12 +425,10 @@ public class ViewForgeProcessor : AViewPage
             long currentAttrValue = currentConfig == null ? 0 : currentConfig.QualityAttrPercent;
             long nextAttrValue = nextConfig == null ? 0 : nextConfig.QualityAttrPercent;
 
-            string attrName = PlayerHelper.PlayerAttributeMap[AttributeEnum.EquipRandomIncrea.ToString()];
-            string attrCurrent = currentAttrValue == 0 ? "" : currentAttrValue + "%";
-            string attrAdd = "+" + (nextAttrValue - currentAttrValue) + "%";
+            long attrRise = nextAttrValue - currentAttrValue;
 
             Refine_Attr_Quality.gameObject.SetActive(true);
-            Refine_Attr_Quality.SetContent(attrName, attrCurrent, attrAdd);
+            Refine_Attr_Quality.SetContent((int)AttributeEnum.EquipRandomIncrea, currentAttrValue, attrRise);
         }
     }
     private void OnEquipRefineSelectEvent(EquipRefineSelectEvent e)
