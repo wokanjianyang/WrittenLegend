@@ -363,7 +363,7 @@ public class ViewForgeProcessor : AViewPage
     {
         User user = GameProcessor.Inst.User;
 
-        long MaxLevel = user.GetLimitLevel() * 5000 * 25 + 50;
+        long MaxLevel = user.GetLimitLevel() * 25 + 50;
 
         foreach (var box in Refine_EquiList)
         {
