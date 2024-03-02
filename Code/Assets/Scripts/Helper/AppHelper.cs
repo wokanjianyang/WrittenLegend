@@ -57,7 +57,11 @@ namespace Game
         //获取设备标识符
         public static string GetDeviceIdentifier()
         {
-            return SystemInfo.deviceUniqueIdentifier;
+            string s = SystemInfo.deviceUniqueIdentifier;
+            s = EncryptionHelper.Md5(s);
+            s = s.Substring(0, 10).ToUpper();
+
+            return s;
         }
     }
 }

@@ -20,6 +20,7 @@ namespace Game
 
         public int ID { get; set; }
 
+        public string DeviceId { get; set; } = "";
         public string Name { get; set; }
 
         public long DataDate { get; set; } = 0;
@@ -84,6 +85,11 @@ namespace Game
         public IDictionary<string, bool> GiftList { get; set; } = new Dictionary<string, bool>();
 
         public Dictionary<int, long> VersionLog { get; } = new Dictionary<int, long>();
+
+        public long GetLimitLevel()
+        {
+            return this.MagicLevel.Data / 5000 + 1;
+        }
 
         public long LastOut { get; set; }
 

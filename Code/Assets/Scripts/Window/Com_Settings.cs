@@ -136,9 +136,15 @@ namespace Game
                 return;
             }
 
-            if (UserData.tapAccount == "")
+            //if (UserData.tapAccount == "")
+            //{
+            //    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "请先在其他设置里面,绑定Tap帐号", ToastType = ToastTypeEnum.Failure });
+            //    return;
+            //}
+
+            if (user.DeviceId == "")
             {
-                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "请先在其他设置里面,绑定Tap帐号", ToastType = ToastTypeEnum.Failure });
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "存档Id错误", ToastType = ToastTypeEnum.Failure });
                 return;
             }
 
@@ -150,7 +156,40 @@ namespace Game
                 return;
             }
 
-            user.AdData.SaveCode(code);
+            if (config.Type == 99)
+            {
+                user.AdData.SaveCode(code);
+            }
+            else {
+                List<Item> items = new List<Item>();
+
+                for (int i = 0; i < config.ItemTypeList.Count(); i++)
+                {
+                    int quantity = 1;
+                    if (config.ItemQuanlityList != null && config.ItemQuanlityList.Count() > i)
+                    {
+                        quantity = config.ItemQuanlityList[i];
+                    }
+
+                    ItemType type = (ItemType)config.ItemTypeList[i];
+
+                    if (type == ItemType.Gold)
+                    {
+                        user.AddExpAndGold(0, 100000000L * quantity);
+                    }
+                    else
+                    {
+                        Item item = ItemHelper.BuildItem(type, config.ItemIdList[i], 0, quantity);
+                        items.Add(item);
+                    }
+                }
+
+                user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+
+                user.GiftList[code] = true;
+            }
+
+   
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "兑换成功", ToastType = ToastTypeEnum.Success });
         }
 

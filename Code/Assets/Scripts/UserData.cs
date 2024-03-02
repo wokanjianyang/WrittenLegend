@@ -19,7 +19,7 @@ namespace Game
         static string tempName = "temp.json"; //文件名
 
         public static long StartTime = 0;
-        public static string tapAccount = "";
+        //public static string tapAccount = "";
 
         public static User Load()
         {
@@ -118,8 +118,13 @@ namespace Game
                 user.HeroPhatomData.Count.Data = 1;
             }
 
+            if (user.DeviceId == "")
+            {
+                user.DeviceId = AppHelper.GetDeviceIdentifier();
+            }
+
             //去掉专属精华
-            user.Bags.RemoveAll(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Chunjie);
+            //user.Bags.RemoveAll(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Chunjie);
 
             //user.DefendData.Refresh();
             //user.DefendData.CountDict[1].Data = 10;
@@ -186,6 +191,28 @@ namespace Game
                     writer.Write(str_json);
                 }
             }
+        }
+
+        public static string getBackupPath()
+        {
+            // 构建要读取的文件路径
+            string folderPath = Path.Combine(Application.persistentDataPath + "/../..", "fulljoblegend");
+
+            if (!File.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+
+            }
+
+            string filePath = Path.Combine(folderPath, fileName);             //文件路径
+
+            if (!File.Exists(filePath))
+            {
+                //创建文件
+                File.Create(filePath).Dispose();
+            }
+
+            return filePath;
         }
 
         public static string getSavePath()

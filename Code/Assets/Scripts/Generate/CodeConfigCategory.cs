@@ -10,8 +10,9 @@ namespace Game
         public CodeConfig GetSpeicalConfig(string code)
         {
             string skey = AppHelper.getKey();
+            string account = GameProcessor.Inst.User.DeviceId;
 
-            string realCode = EncryptionHelper.AesDecrypt(code, UserData.tapAccount);
+            string realCode = EncryptionHelper.AesDecrypt(code, account);
 
             realCode = EncryptionHelper.AesDecrypt(realCode, skey);
 

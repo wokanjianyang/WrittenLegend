@@ -107,7 +107,7 @@ public class ViewForgeProcessor : AViewPage
 
         User user = GameProcessor.Inst.User;
 
-        long MaxLevel = Math.Min((user.MagicLevel.Data / 5000 + 1) * 5000, ConfigHelper.Max_Level);
+        long MaxLevel = user.GetLimitLevel() * 5000 + 10000;
 
         foreach (var box in StrengthenEquiList)
         {
@@ -363,7 +363,7 @@ public class ViewForgeProcessor : AViewPage
     {
         User user = GameProcessor.Inst.User;
 
-        long MaxLevel = Math.Min((user.MagicLevel.Data / 5000 + 1) * 25, ConfigHelper.Max_Level_Refine);
+        long MaxLevel = user.GetLimitLevel() * 5000 * 25 + 50;
 
         foreach (var box in Refine_EquiList)
         {

@@ -12,6 +12,8 @@ using System;
 using SA.Android.App;
 using System.Threading.Tasks;
 using UnityEngine.Networking;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace Game
 {
@@ -26,7 +28,8 @@ namespace Game
         public Text txt_Name;
         public Text txt_Desc;
 
-        public Text txt_Account;
+        public Text Txt_Device;
+        public Text Txt_Account;
         public Button btn_Change;
 
 
@@ -40,19 +43,76 @@ namespace Game
 
             this.btn_Change.onClick.AddListener(this.OnClick_Change);
 
-            this.btn_Query.onClick.AddListener(this.OnClick_Query);
+            //this.btn_Query.onClick.AddListener(this.OnClick_Query);
             this.btn_Save.onClick.AddListener(this.OnClick_Save);
             this.btn_Load.onClick.AddListener(this.OnClick_Load);
 
-            this.CheckProgress();
+            //this.CheckProgress();
 
             //AsyncLoginTap();
 
+
+        }
+
+        public void Init()
+        {
+            tog_Monster_Skill.isOn = GameProcessor.Inst.User.ShowMonsterSkill;
+
+            string id = GameProcessor.Inst.User.DeviceId;
+            //this.txt_Account.text = "设备Id:" + id;
+
+            this.Txt_Account.text = "设备Id:" + GameProcessor.Inst.User.DeviceId;
+            this.Txt_Device.text = "设备Id:" + AppHelper.GetDeviceIdentifier();
         }
 
         public void ShowSkill(bool show)
         {
             GameProcessor.Inst.User.ShowMonsterSkill = show;
+        }
+
+        public void Save()
+        {
+
+            string filePath = UserData.getBackupPath();
+
+            var user = GameProcessor.Inst.User;
+            user.LastOut = TimeHelper.ClientNowSeconds();
+
+            //序列化
+            string str_json = JsonConvert.SerializeObject(user, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
+
+            if (str_json.Length <= 0)
+            {
+                return;
+            }
+
+            //加密
+            str_json = EncryptionHelper.AesEncrypt(str_json);
+
+            using (StreamWriter writer = new StreamWriter(filePath))
+            {
+                // 写入要保存的内容
+                writer.Write(str_json);
+            }
+        }
+
+        public void OnClick_Change()
+        {
+            //AsyncLoginTap1();
+        }
+
+        public void OnClick_Load()
+        {
+            GameProcessor.Inst.SetGameOver(PlayerType.Hero);
+            //this.loadData();
+        }
+
+        public void OnClick_Save()
+        {
+            //saveData();
         }
 
         private void CheckProgress()
@@ -97,20 +157,9 @@ namespace Game
         //}
 
         // Update is called once per frame
-        void Update()
-        {
 
-        }
 
-        public void Init()
-        {
-            tog_Monster_Skill.isOn = GameProcessor.Inst.User.ShowMonsterSkill;
-        }
 
-        public void OnClick_Change()
-        {
-            //AsyncLoginTap1();
-        }
 
         //private async Task AsyncLoginTap1()
         //{
@@ -143,19 +192,16 @@ namespace Game
         //    }    // 头像
         //}
 
-        public void OnClick_Query()
-        {
-            this.queryData();
-        }
+        //public void OnClick_Query()
+        //{
+        //    this.queryData();
+        //}
 
-        async Task queryData()
-        {
-        }
+        //async Task queryData()
+        //{
+        //}
 
-        public void OnClick_Save()
-        {
-            //saveData();
-        }
+
 
         //async Task saveData()
         //{
@@ -204,11 +250,7 @@ namespace Game
         //    this.CheckProgress();
         //}
 
-        public void OnClick_Load()
-        {
-            GameProcessor.Inst.SetGameOver(PlayerType.Hero);
-            //this.loadData();
-        }
+
 
         //private async Task loadData()
         //{

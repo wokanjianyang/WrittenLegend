@@ -91,5 +91,7 @@ namespace Game
         GiftPackExclusive = 12,
         Fashion = 13,
         Halidom = 14,
+
+        Ad = 99,
     }
 }
