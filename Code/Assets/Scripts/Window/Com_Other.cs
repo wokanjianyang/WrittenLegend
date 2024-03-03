@@ -61,7 +61,7 @@ namespace Game
             string id = GameProcessor.Inst.User.DeviceId;
             //this.txt_Account.text = "设备Id:" + id;
 
-            this.Txt_Account.text = "设备Id:" + GameProcessor.Inst.User.DeviceId;
+            this.Txt_Account.text = "存档Id:" + GameProcessor.Inst.User.DeviceId;
             this.Txt_Device.text = "设备Id:" + AppHelper.GetDeviceIdentifier();
         }
 

@@ -64,29 +64,27 @@ namespace Game
                 user.MagicCopyTikerCount.Data = ConfigHelper.CopyTicketFirstCount;
                 user.SaveLimit = 5;
                 user.LoadLimit = 5;
-
-                user.EquipPanelList[0] = new Dictionary<int, Equip>();
-                user.EquipPanelList[1] = new Dictionary<int, Equip>();
-                user.EquipPanelList[2] = new Dictionary<int, Equip>();
-                user.EquipPanelList[3] = new Dictionary<int, Equip>();
-                user.EquipPanelList[4] = new Dictionary<int, Equip>();
             }
 
-            if (user.ExclusivePanelList.Count == 0)
+            if (user.EquipPanelList.Count < 7)
             {
-                user.ExclusivePanelList[0] = new Dictionary<int, ExclusiveItem>();
-                user.ExclusivePanelList[1] = new Dictionary<int, ExclusiveItem>();
-                user.ExclusivePanelList[2] = new Dictionary<int, ExclusiveItem>();
-                user.ExclusivePanelList[3] = new Dictionary<int, ExclusiveItem>();
-                user.ExclusivePanelList[4] = new Dictionary<int, ExclusiveItem>();
-
-                if (user.ExclusiveList.Count > 0)
+                for (int i = 0; i < 7; i++)
                 {
-                    foreach (var kv in user.ExclusiveList)
+                    if (!user.EquipPanelList.ContainsKey(i))
                     {
-                        user.ExclusivePanelList[0].Add(kv);
+                        user.EquipPanelList[i] = new Dictionary<int, Equip>();
                     }
-                    user.ExclusiveList.Clear();
+                }
+            }
+
+            if (user.ExclusivePanelList.Count < 7)
+            {
+                for (int i = 0; i < 7; i++)
+                {
+                    if (!user.ExclusivePanelList.ContainsKey(i))
+                    {
+                        user.ExclusivePanelList[i] = new Dictionary<int, ExclusiveItem>();
+                    }
                 }
             }
 

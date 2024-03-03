@@ -132,7 +132,7 @@ namespace Game
 
         public Dictionary<int, double> RateData { get; } = new Dictionary<int, double>();
 
-        //public Dictionary<string, MagicData> AdData { get; } = new Dictionary<string, MagicData>();
+        public Dictionary<int, double> RateLimitData { get; } = new Dictionary<int, double>();
 
         public IDictionary<int, int> FestiveData { get; set; } = new Dictionary<int, int>();
 
@@ -840,7 +840,7 @@ namespace Game
 
         public void AddStartRate(double count)
         {
-            List<DropLimitConfig> dropLimits = DropLimitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.StartRate > 0).ToList();
+            List<DropLimitConfig> dropLimits = DropLimitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.StartRate > 0 && m.Type == (int)DropLimitType.Normal).ToList();
 
             foreach (var config in dropLimits)
             {
@@ -861,21 +861,21 @@ namespace Game
             {
                 int key = limitConfig.Id;
 
-                if (!RateData.ContainsKey(key))
+                if (!RateLimitData.ContainsKey(key))
                 {
-                    RateData[key] = 0;
+                    RateLimitData[key] = 0;
                 }
-                RateData[key] += count;
+                RateLimitData[key] += count;
 
-                Debug.Log("Map Limit Drop: " + key + " :" + RateData[key]);
+                //Debug.Log("Map Limit Drop: " + key + " :" + RateLimitData[key]);
 
-                if (RateData[key] >= limitConfig.StartRate)
+                if (RateLimitData[key] >= limitConfig.StartRate)
                 {
-                    double rate = Math.Max(limitConfig.Rate + limitConfig.StartRate - RateData[key], 1);
+                    double rate = Math.Max(limitConfig.Rate + limitConfig.StartRate - RateLimitData[key], 1);
 
                     if (RandomHelper.RandomResult(rate))
                     {
-                        RateData[key] = 0;
+                        RateLimitData[key] = 0;
 
                         DropConfig dropConfig = DropConfigCategory.Instance.Get(limitConfig.DropId);
 
