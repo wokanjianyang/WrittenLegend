@@ -4175,6 +4175,8 @@ MonoBehaviour:
   - {fileID: 2284670315504266105}
   - {fileID: 377136523423109393}
   - {fileID: 8696062612173971929}
+  - {fileID: 1549916091765203267}
+  - {fileID: 948861609598458600}
 --- !u!222 &78341615544346128
 CanvasRenderer:
   m_ObjectHideFlags: 0
