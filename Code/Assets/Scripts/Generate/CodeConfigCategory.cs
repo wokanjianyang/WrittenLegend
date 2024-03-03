@@ -10,7 +10,7 @@ namespace Game
         public CodeConfig GetSpeicalConfig(string code)
         {
             string skey = AppHelper.getKey();
-            string account = GameProcessor.Inst.User.DeviceId;
+            string account = EncryptionHelper.Md5(GameProcessor.Inst.User.DeviceId);
 
             string realCode = EncryptionHelper.AesDecrypt(code, account);
 
@@ -19,6 +19,18 @@ namespace Game
             CodeConfig config = CodeConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.code == realCode).FirstOrDefault();
 
             return config;
+        }
+
+        public string BuildSpecicalCode(string baseCode,string account)
+        {
+            string skey = AppHelper.getKey();
+            account = EncryptionHelper.Md5(account);
+
+            string code = EncryptionHelper.AesEncrypt(baseCode, skey);
+
+            code = EncryptionHelper.AesEncrypt(code, account);
+
+            return code;
         }
     }
 

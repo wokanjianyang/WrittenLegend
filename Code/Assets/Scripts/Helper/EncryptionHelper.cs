@@ -41,9 +41,9 @@ namespace Game
                 }
                 return Convert.ToBase64String(encryptedBytes);
             }
-            catch
+            catch(Exception ex)
             {
-
+                
             }
 
             return "";

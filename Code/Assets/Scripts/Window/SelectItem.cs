@@ -46,11 +46,24 @@ namespace Game
         {
             if (this.BoxItem == null) return;
 
-            GameProcessor.Inst.EventCenter.Raise(new ShowEquipDetailEvent()
+            if (this.BoxItem.Item.Type == ItemType.Exclusive)
             {
-                boxItem = this.BoxItem,
-                EquipPosition = -2
-            });
+                GameProcessor.Inst.EventCenter.Raise(new ShowExclusiveCardEvent()
+                {
+                    boxItem = this.BoxItem,
+                    EquipPosition = -2,
+                    Type = ComBoxType.Bag,
+                });
+                return;
+            }
+            else
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowEquipDetailEvent()
+                {
+                    boxItem = this.BoxItem,
+                    EquipPosition = -2
+                });
+            }
         }
     }
 }

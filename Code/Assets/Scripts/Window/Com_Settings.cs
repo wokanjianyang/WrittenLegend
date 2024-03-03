@@ -31,6 +31,8 @@ namespace Game
         {
             this.btn_ChangeName.onClick.AddListener(this.OnClick_ChangeName);
             this.btn_Code.onClick.AddListener(this.OnClick_Code);
+
+            //Debug.Log("sc:" + CodeConfigCategory.Instance.BuildSpecicalCode("djk309d!43", "0AF588B5A9"));
         }
 
         // Update is called once per frame
