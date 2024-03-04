@@ -319,9 +319,12 @@ namespace Game
             if (WingData.Data > 0)
             {
                 WingConfig wingConfig = WingConfigCategory.Instance.GetByLevel(WingData.Data);
+                long riseLevel = WingData.Data - wingConfig.StartLevel;
                 for (int i = 0; i < wingConfig.AttrIdList.Length; i++)
                 {
-                    AttributeBonus.SetAttr((AttributeEnum)wingConfig.AttrIdList[i], AttributeFrom.Wing, wingConfig.AttrValueList[i]);
+                    long wingValue = wingConfig.AttrValueList[i] = wingConfig.AttrRiseList[i] * riseLevel;
+
+                    AttributeBonus.SetAttr((AttributeEnum)wingConfig.AttrIdList[i], AttributeFrom.Wing, wingValue);
                 }
             }
 

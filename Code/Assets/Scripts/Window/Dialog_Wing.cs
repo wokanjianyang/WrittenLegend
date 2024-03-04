@@ -53,7 +53,9 @@ public class Dialog_Wing : MonoBehaviour, IBattleLife
         User user = GameProcessor.Inst.User;
         long currentLevel = user.WingData.Data;
 
-        Debug.Log("currentLevel show:" + currentLevel);
+        //Debug.Log("currentLevel show:" + currentLevel);
+
+        long MaxLevel = user.GetLimitLevel() * 2 + 30;
 
         this.txt_Level.text = "等级:" + currentLevel;
         if (currentLevel > 0)
@@ -70,7 +72,7 @@ public class Dialog_Wing : MonoBehaviour, IBattleLife
         WingConfig currentConfig = WingConfigCategory.Instance.GetByLevel(currentLevel);
         WingConfig nextConfig = WingConfigCategory.Instance.GetByLevel(currentLevel + 1);
 
-        if (nextConfig == null)
+        if (nextConfig == null || currentLevel >= MaxLevel)
         {
             this.Btn_Strong.gameObject.SetActive(false);
             this.txt_Fee.text = "已满级";
@@ -79,13 +81,15 @@ public class Dialog_Wing : MonoBehaviour, IBattleLife
         {
             //Fee
             long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_Wing_Stone);
-            if (nextConfig != null)
-            {
-                string color = materialCount >= nextConfig.Fee ? "#FFFF00" : "#FF0000";
 
-                txt_Fee.gameObject.SetActive(true);
-                txt_Fee.text = string.Format("<color={0}>{1}</color>", color, "需要:" + nextConfig.Fee + " 凤凰之羽");
-            }
+            long riseLevel = (currentLevel + 1 - nextConfig.StartLevel);
+            long fee = nextConfig.Fee + riseLevel * nextConfig.Fee;
+
+            string color = materialCount >= fee ? "#FFFF00" : "#FF0000";
+
+            txt_Fee.gameObject.SetActive(true);
+            txt_Fee.text = string.Format("<color={0}>{1}</color>", color, "需要:" + fee + " 凤凰之羽");
+
         }
 
         WingConfig showConfig = currentConfig == null ? nextConfig : currentConfig;

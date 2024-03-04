@@ -9,7 +9,7 @@ namespace Game
     {
         public WingConfig GetByLevel(long level)
         {
-            var config = WingConfigCategory.Instance.GetAll().Where(m => m.Value.Level == level).Select(m => m.Value).FirstOrDefault();
+            var config = WingConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.StartLevel <= level && level <= m.EndLevel).FirstOrDefault();
             return config;
         }
     }
