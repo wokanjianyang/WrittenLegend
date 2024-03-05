@@ -52,7 +52,7 @@ public class Dialog_Wing : MonoBehaviour, IBattleLife
     {
         User user = GameProcessor.Inst.User;
         long currentLevel = user.WingData.Data;
-
+        long nextLevel = currentLevel + 1;
         //Debug.Log("currentLevel show:" + currentLevel);
 
         long MaxLevel = user.GetLimitLevel() * 2 + 30;
@@ -70,7 +70,7 @@ public class Dialog_Wing : MonoBehaviour, IBattleLife
         }
 
         WingConfig currentConfig = WingConfigCategory.Instance.GetByLevel(currentLevel);
-        WingConfig nextConfig = WingConfigCategory.Instance.GetByLevel(currentLevel + 1);
+        WingConfig nextConfig = WingConfigCategory.Instance.GetByLevel(nextLevel);
 
         if (nextConfig == null || currentLevel >= MaxLevel)
         {
@@ -81,10 +81,7 @@ public class Dialog_Wing : MonoBehaviour, IBattleLife
         {
             //Fee
             long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_Wing_Stone);
-
-            long riseLevel = (currentLevel + 1 - nextConfig.StartLevel);
-            long fee = nextConfig.Fee + riseLevel * nextConfig.Fee;
-
+            long fee = nextConfig.GetFee(nextLevel);
             string color = materialCount >= fee ? "#FFFF00" : "#FF0000";
 
             txt_Fee.gameObject.SetActive(true);
@@ -92,7 +89,7 @@ public class Dialog_Wing : MonoBehaviour, IBattleLife
 
         }
 
-        WingConfig showConfig = currentConfig == null ? nextConfig : currentConfig;
+        WingConfig showConfig = nextConfig == null ? currentConfig : nextConfig;
 
         for (int i = 0; i < AttrList.Count; i++)
         {
@@ -105,19 +102,8 @@ public class Dialog_Wing : MonoBehaviour, IBattleLife
             else
             {
                 attrItem.gameObject.SetActive(true);
-
-                long attrBase = 0;
-                long attrAdd = 0;
-
-                if (currentConfig != null)
-                {
-                    attrBase = currentConfig.AttrValueList[i];
-                }
-                if (nextConfig != null)
-                {
-                    attrAdd = nextConfig.AttrValueList[i] - attrBase;
-                }
-                attrItem.SetContent(showConfig.AttrIdList[i], attrBase, attrAdd);
+                long attrBase = currentConfig == null ? 0 : currentConfig.GetAttr(i, currentLevel);
+                attrItem.SetContent(showConfig.AttrIdList[i], attrBase, showConfig.AttrRiseList[i]);
             }
         }
     }
@@ -127,31 +113,33 @@ public class Dialog_Wing : MonoBehaviour, IBattleLife
         User user = GameProcessor.Inst.User;
 
         long currentLevel = user.WingData.Data;
+        long nextLevel = currentLevel + 1;
 
         long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_Wing_Stone);
 
-        WingConfig nextConfig = WingConfigCategory.Instance.GetByLevel(currentLevel + 1);
+        WingConfig nextConfig = WingConfigCategory.Instance.GetByLevel(nextLevel);
+        long fee = nextConfig.GetFee(nextLevel);
 
-        if (materialCount < nextConfig.Fee)
+        if (materialCount < fee)
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的材料", ToastType = ToastTypeEnum.Failure });
             return;
         }
 
-        user.WingData.Data = currentLevel + 1;
+        user.WingData.Data = nextLevel;
 
         GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
         {
             Type = ItemType.Material,
             ItemId = ItemHelper.SpecialId_Wing_Stone,
-            Quantity = nextConfig.Fee
+            Quantity = fee
         });
 
         Show();
 
         GameProcessor.Inst.UpdateInfo();
 
-        Debug.Log("OnStrong :" + user.WingData.Data);
+        //Debug.Log("OnStrong :" + user.WingData.Data);
     }
 
     public void OnClick_Close()

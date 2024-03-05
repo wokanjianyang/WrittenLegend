@@ -316,14 +316,13 @@ namespace Game
             }
 
             //翅膀
-            if (WingData.Data > 0)
+            long wingLevel = WingData.Data;
+            if (wingLevel > 0)
             {
-                WingConfig wingConfig = WingConfigCategory.Instance.GetByLevel(WingData.Data);
-                long riseLevel = WingData.Data - wingConfig.StartLevel;
+                WingConfig wingConfig = WingConfigCategory.Instance.GetByLevel(wingLevel);
                 for (int i = 0; i < wingConfig.AttrIdList.Length; i++)
                 {
-                    long wingValue = wingConfig.AttrValueList[i] = wingConfig.AttrRiseList[i] * riseLevel;
-
+                    long wingValue = wingConfig.GetAttr(i, wingLevel);
                     AttributeBonus.SetAttr((AttributeEnum)wingConfig.AttrIdList[i], AttributeFrom.Wing, wingValue);
                 }
             }

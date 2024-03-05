@@ -13,4 +13,21 @@ namespace Game
             return config;
         }
     }
+
+    public partial class WingConfig
+    {
+        public long GetFee(long level)
+        {
+            long riseLevel = (level - this.StartLevel);
+            long fee = this.Fee + riseLevel * this.Fee;
+            return fee;
+        }
+
+        public long GetAttr(int index, long level)
+        {
+            long riseLevel = (level - this.StartLevel);
+            long attr = this.AttrValueList[index] + riseLevel * this.AttrRiseList[index];
+            return attr;
+        }
+    }
 }
