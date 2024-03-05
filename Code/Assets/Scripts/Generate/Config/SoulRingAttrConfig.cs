@@ -81,29 +81,38 @@ namespace Game
 		/// <summary>Sid</summary>
 		[ProtoMember(2)]
 		public int Sid { get; set; }
-		/// <summary>Level</summary>
+		/// <summary>StartLevel</summary>
 		[ProtoMember(3)]
-		public int Level { get; set; }
-		/// <summary>AttrIdList</summary>
+		public int StartLevel { get; set; }
+		/// <summary>EndLevel</summary>
 		[ProtoMember(4)]
+		public int EndLevel { get; set; }
+		/// <summary>AttrIdList</summary>
+		[ProtoMember(5)]
 		public int[] AttrIdList { get; set; }
 		/// <summary>AttrValueList</summary>
-		[ProtoMember(5)]
-		public long[] AttrValueList { get; set; }
-		/// <summary>AurasId</summary>
 		[ProtoMember(6)]
+		public long[] AttrValueList { get; set; }
+		/// <summary>AttrRiseList</summary>
+		[ProtoMember(7)]
+		public long[] AttrRiseList { get; set; }
+		/// <summary>AurasId</summary>
+		[ProtoMember(8)]
 		public int AurasId { get; set; }
 		/// <summary>AurasLevel</summary>
-		[ProtoMember(7)]
+		[ProtoMember(9)]
 		public int AurasLevel { get; set; }
 		/// <summary>Fee</summary>
-		[ProtoMember(8)]
+		[ProtoMember(10)]
 		public int Fee { get; set; }
+		/// <summary>RiseFee</summary>
+		[ProtoMember(11)]
+		public int RiseFee { get; set; }
 		/// <summary>LockMemo</summary>
-		[ProtoMember(9)]
+		[ProtoMember(12)]
 		public string LockMemo { get; set; }
 		/// <summary>AurasMemo</summary>
-		[ProtoMember(10)]
+		[ProtoMember(13)]
 		public string AurasMemo { get; set; }
 
 	}

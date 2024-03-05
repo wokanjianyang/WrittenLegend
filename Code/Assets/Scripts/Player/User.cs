@@ -307,10 +307,12 @@ namespace Game
             {
                 if (sl.Value.Data > 0)
                 {
-                    SoulRingAttrConfig ringConfig = SoulRingConfigCategory.Instance.GetAttrConfig(sl.Key, sl.Value.Data);
+                    long srLevel = sl.Value.Data;
+
+                    SoulRingAttrConfig ringConfig = SoulRingConfigCategory.Instance.GetAttrConfig(sl.Key, srLevel);
                     for (int i = 0; i < ringConfig.AttrIdList.Length; i++)
                     {
-                        AttributeBonus.SetAttr((AttributeEnum)ringConfig.AttrIdList[i], AttributeFrom.SoulRing, sl.Key, ringConfig.AttrValueList[i]);
+                        AttributeBonus.SetAttr((AttributeEnum)ringConfig.AttrIdList[i], AttributeFrom.SoulRing, sl.Key, ringConfig.GetAttr(i, srLevel));
                     }
                 }
             }

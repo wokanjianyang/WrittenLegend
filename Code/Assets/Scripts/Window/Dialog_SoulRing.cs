@@ -190,7 +190,7 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
 
         if (currentConfig != null && currentConfig.AurasId > 0)
         {
-            AurasConfig aurasConfig = AurasConfigCategory.Instance.Get(currentConfig.AurasId);
+            AurasAttrConfig aurasConfig = AurasAttrConfigCategory.Instance.Get(currentConfig.AurasId);
 
             //激活Auras
             ringAuras.isOn = true;
@@ -201,10 +201,6 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
             ringAuras.isOn = false;
             aurasName.text = "未激活";
         }
-    }
-
-    private void InitRingSkill() { 
-
     }
 
     private void ShowSoulRing(int sid)
@@ -256,10 +252,11 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
         long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_SoulRingShard);
         if (nextConfig != null)
         {
-            string color = materialCount >= nextConfig.Fee ? "#FFFF00" : "#FF0000";
+            long fee = nextConfig.GetFee(currentLevel + 1);
+            string color = materialCount >= fee ? "#FFFF00" : "#FF0000";
 
             Fee.gameObject.SetActive(true);
-            Fee.text = string.Format("<color={0}>{1}</color>", color, "需要:" + nextConfig.Fee + " 魂环碎片");
+            Fee.text = string.Format("<color={0}>{1}</color>", color, "需要:" + fee + " 魂环碎片");
         }
 
         SoulRingAttrConfig showConfig = currentConfig == null ? nextConfig : currentConfig;
@@ -280,23 +277,16 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
             {
                 attrItem.gameObject.SetActive(true);
 
-                long attrBase = 0;
-                long attrAdd = 0;
+                long attrBase = currentConfig == null ? 0 : currentConfig.GetAttr(i, currentLevel);
+                long attrRise = nextConfig==null?0: nextConfig.AttrRiseList[i];
 
-                if (currentConfig != null)
-                {
-                    attrBase = currentConfig.AttrValueList[i];
-                }
-                if (nextConfig != null)
-                {
-                    attrAdd = nextConfig.AttrValueList[i] - attrBase;
-                }
-                attrItem.SetContent(showConfig.AttrIdList[i], attrBase, attrAdd);
+                attrItem.SetContent(showConfig.AttrIdList[i], attrBase, attrRise);
             }
         }
     }
 
-    public void OnShowSoulRingEvent(ShowSoulRingEvent e) {
+    public void OnShowSoulRingEvent(ShowSoulRingEvent e)
+    {
         this.gameObject.SetActive(true);
     }
 
@@ -317,7 +307,9 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
         SoulRingAttrConfig currentConfig = SoulRingConfigCategory.Instance.GetAttrConfig(this.Sid, currentLevel);
         SoulRingAttrConfig nextConfig = SoulRingConfigCategory.Instance.GetAttrConfig(this.Sid, currentLevel + 1);
 
-        if (materialCount < nextConfig.Fee)
+        long fee = nextConfig.GetFee(currentLevel + 1);
+
+        if (materialCount < fee)
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的材料", ToastType = ToastTypeEnum.Failure });
             return;
@@ -333,7 +325,7 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
         {
             Type = ItemType.Material,
             ItemId = ItemHelper.SpecialId_SoulRingShard,
-            Quantity = nextConfig.Fee
+            Quantity = fee
         });
 
         GameProcessor.Inst.UpdateInfo();

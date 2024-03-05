@@ -96,6 +96,12 @@ namespace Game
 		/// <summary>Rise</summary>
 		[ProtoMember(7)]
 		public int Rise { get; set; }
+		/// <summary>Name</summary>
+		[ProtoMember(8)]
+		public string Name { get; set; }
+		/// <summary>Memo</summary>
+		[ProtoMember(9)]
+		public string Memo { get; set; }
 
 	}
 }
