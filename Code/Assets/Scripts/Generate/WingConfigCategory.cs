@@ -25,6 +25,11 @@ namespace Game
 
         public long GetAttr(int index, long level)
         {
+            if (index >= this.AttrValueList.Length)
+            {
+                return 0;
+            }
+
             long riseLevel = (level - this.StartLevel);
             long attr = this.AttrValueList[index] + riseLevel * this.AttrRiseList[index];
             return attr;
