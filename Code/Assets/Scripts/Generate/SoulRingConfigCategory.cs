@@ -17,9 +17,10 @@ namespace Game
 
     public partial class SoulRingAttrConfig
     {
-        public long GetFee(long level) {
+        public long GetFee(long level)
+        {
             long riseLevel = (level - this.StartLevel);
-            long fee = this.Fee + riseLevel * this.Fee;
+            long fee = this.Fee + riseLevel * this.RiseFee;
             return fee;
         }
 
@@ -33,6 +34,12 @@ namespace Game
             long riseLevel = (level - this.StartLevel);
             long attr = this.AttrValueList[index] + riseLevel * this.AttrRiseList[index];
             return attr;
+        }
+
+        public long GetAurasLevel(long level)
+        {
+            long riseLevel = (level - this.StartLevel);
+            return this.AurasLevel + riseLevel;
         }
     }
 }

@@ -11,40 +11,16 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
 {
     public Text Fee;
 
-    public Toggle Ring1;
-    public Toggle Ring2;
-    public Toggle Ring3;
-    public Toggle Ring4;
-    public Toggle Ring5;
-    public Toggle Ring6;
-    public Toggle Ring7;
-    public Toggle Ring8;
-
     public Button Btn_Full;
     public Button Btn_Active;
     public Button Btn_Strong;
 
-    public StrenthAttrItem Atrr1;
-    public StrenthAttrItem Atrr2;
-    public StrenthAttrItem Atrr3;
-    public StrenthAttrItem Atrr4;
-    public StrenthAttrItem Atrr5;
-
     public Text LockLevel;
     public Text LockMemo;
 
-    public Toggle RingSkill1;
-    public Toggle RingSkill2;
-    public Toggle RingSkill3;
-    public Toggle RingSkill4;
-    public Toggle RingSkill5;
-    public Toggle RingSkill6;
-    public Toggle RingSkill7;
-    public Toggle RingSkill8;
-
-    List<Toggle> RingList = new List<Toggle>();
-    List<Toggle> RingSkillList = new List<Toggle>();
-    List<StrenthAttrItem> AttrList = new List<StrenthAttrItem>();
+    public List<Toggle> RingList = new List<Toggle>();
+    public List<Toggle> RingSkillList = new List<Toggle>();
+    public List<StrenthAttrItem> AttrList = new List<StrenthAttrItem>();
 
     private int Sid = 0;
 
@@ -57,69 +33,15 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
         Btn_Active.onClick.AddListener(OnStrong);
         Btn_Strong.onClick.AddListener(OnStrong);
 
-        RingList.Add(Ring1);
-        RingList.Add(Ring2);
-        RingList.Add(Ring3);
-        RingList.Add(Ring4);
-        RingList.Add(Ring5);
-        RingList.Add(Ring6);
-        RingList.Add(Ring7);
-        RingList.Add(Ring8);
-
-        RingSkillList.Add(RingSkill1);
-        RingSkillList.Add(RingSkill2);
-        RingSkillList.Add(RingSkill3);
-        RingSkillList.Add(RingSkill4);
-        RingSkillList.Add(RingSkill5);
-        RingSkillList.Add(RingSkill6);
-        RingSkillList.Add(RingSkill7);
-        RingSkillList.Add(RingSkill8);
-
-        AttrList.Add(Atrr1);
-        AttrList.Add(Atrr2);
-        AttrList.Add(Atrr3);
-        AttrList.Add(Atrr4);
-        AttrList.Add(Atrr5);
-
-        Ring1.onValueChanged.AddListener((isOn) =>
+        for (int i = 0; i < RingList.Count; i++)
         {
-            if (isOn) { ShowSoulRing(1); }
-        });
+            int index = i + 1;
 
-        Ring2.onValueChanged.AddListener((isOn) =>
-        {
-            if (isOn) { ShowSoulRing(2); }
-        });
-
-        Ring3.onValueChanged.AddListener((isOn) =>
-        {
-            if (isOn) { ShowSoulRing(3); }
-        });
-
-        Ring4.onValueChanged.AddListener((isOn) =>
-        {
-            if (isOn) { ShowSoulRing(4); }
-        });
-
-        Ring5.onValueChanged.AddListener((isOn) =>
-        {
-            if (isOn) { ShowSoulRing(5); }
-        });
-
-        Ring6.onValueChanged.AddListener((isOn) =>
-        {
-            if (isOn) { ShowSoulRing(6); }
-        });
-
-        Ring7.onValueChanged.AddListener((isOn) =>
-        {
-            if (isOn) { ShowSoulRing(7); }
-        });
-
-        Ring8.onValueChanged.AddListener((isOn) =>
-        {
-            if (isOn) { ShowSoulRing(8); }
-        });
+            RingList[i].onValueChanged.AddListener((isOn) =>
+            {
+                if (isOn) { ShowSoulRing(index); }
+            });
+        }
 
         Init();
     }
@@ -220,13 +142,15 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
         SoulRingAttrConfig currentConfig = SoulRingConfigCategory.Instance.GetAttrConfig(sid, currentLevel);
         SoulRingAttrConfig nextConfig = SoulRingConfigCategory.Instance.GetAttrConfig(sid, currentLevel + 1);
 
+
         if (currentConfig == null && nextConfig == null)
         {
             return; //Î´ÅäÖÃµÄ
         }
 
+        long MaxLevel = user.GetLimitLevel() * 2 + 25;
 
-        if (nextConfig == null)
+        if (nextConfig == null || currentLevel >= MaxLevel || currentLevel >= nextConfig.EndLevel)
         {
             //ÂúÁË
             Btn_Strong.gameObject.SetActive(false);
@@ -261,8 +185,17 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
 
         SoulRingAttrConfig showConfig = currentConfig == null ? nextConfig : currentConfig;
 
-        LockLevel.text = showConfig.LockMemo;
-        LockMemo.text = showConfig.AurasMemo;
+        long aurasLevel = showConfig.GetAurasLevel(currentLevel);
+        long aurasAttr = 0;
+
+        if (currentConfig != null && currentConfig.AurasId > 0)
+        {
+            AurasAttrConfig aurasAttrConfig = AurasAttrConfigCategory.Instance.GetConfig(currentConfig.AurasId);
+            aurasAttr = aurasAttrConfig.GetAttr(aurasLevel);
+        }
+
+        LockLevel.text = string.Format(showConfig.LockMemo, aurasLevel);
+        LockMemo.text = string.Format(showConfig.AurasMemo, aurasAttr);
 
         //Attr
         for (int i = 0; i < AttrList.Count; i++)
@@ -278,7 +211,7 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
                 attrItem.gameObject.SetActive(true);
 
                 long attrBase = currentConfig == null ? 0 : currentConfig.GetAttr(i, currentLevel);
-                long attrRise = nextConfig==null?0: nextConfig.AttrRiseList[i];
+                long attrRise = nextConfig == null ? 0 : nextConfig.AttrRiseList[i];
 
                 attrItem.SetContent(showConfig.AttrIdList[i], attrBase, attrRise);
             }

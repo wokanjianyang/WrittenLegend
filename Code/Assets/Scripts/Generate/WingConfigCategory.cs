@@ -19,7 +19,7 @@ namespace Game
         public long GetFee(long level)
         {
             long riseLevel = (level - this.StartLevel);
-            long fee = this.Fee + riseLevel * this.Fee;
+            long fee = this.Fee + riseLevel * this.FeeRise;
             return fee;
         }
 
