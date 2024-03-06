@@ -26,7 +26,7 @@ namespace Game
 
         public long GetLevelUpExp()
         {
-            long rate = 9999999;
+            long rate = 50;
 
             long tempLevel = MagicLevel.Data;
 
@@ -51,10 +51,10 @@ namespace Game
                 rate = 50;
             }
 
-            if (tempLevel >= SkillConfig.MaxLevel)
-            {
-                rate = 9999999;
-            }
+            //if (tempLevel >= SkillConfig.MaxLevel)
+            //{
+            //    rate = 9999999;
+            //}
 
             return rate * SkillConfig.Exp;
         }
@@ -68,8 +68,10 @@ namespace Game
 
         public void AddExp(long exp)
         {
+            User user = GameProcessor.Inst.User;
+
             this.MagicExp.Data += exp;
-            while (this.MagicExp.Data >= GetLevelUpExp() && this.MagicLevel.Data < SkillConfig.MaxLevel)
+            if (this.MagicExp.Data >= GetLevelUpExp() && this.MagicLevel.Data < SkillConfig.GetMaxLevel(user.GetLimitLevel()))
             {
                 var upExp = GetLevelUpExp();
                 this.MagicLevel.Data++;

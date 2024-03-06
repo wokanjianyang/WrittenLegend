@@ -157,7 +157,7 @@ namespace Game
             for (int i = 0; i < skillIdList.Count; i++)
             {
                 SkillData skillData = new SkillData(skillIdList[i], i);
-                skillData.MagicLevel.Data = skillData.SkillConfig.MaxLevel * Scale / 10;
+                skillData.MagicLevel.Data = skillData.SkillConfig.GetMaxLevel(user.GetLimitLevel()) * Scale / 10;
                 list.Add(skillData);
             }
             list.Add(new SkillData(9001, (int)SkillPosition.Default)); //增加默认技能

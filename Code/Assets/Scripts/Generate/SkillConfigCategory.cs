@@ -9,7 +9,11 @@ namespace Game
     {
     }
 
-    public class SkillHelper
+    public partial class SkillConfig
     {
+        public long GetMaxLevel(long level)
+        {
+            return this.MaxLevel + this.RiseMaxLevel * level;
+        }
     }
 }
