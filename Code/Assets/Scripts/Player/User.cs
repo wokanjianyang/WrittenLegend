@@ -376,9 +376,7 @@ namespace Game
             foreach (var ar in GetAurasList())
             {
                 AurasAttrConfig config = AurasAttrConfigCategory.Instance.Get(ar.Key);
-                int arValue = config.AttrValue + (ar.Value - 1) * config.Rise;
-                //Debug.Log("auras value :" + arValue);
-                AttributeBonus.SetAttr((AttributeEnum)config.AttrId, AttributeFrom.Auras, arValue);
+                AttributeBonus.SetAttr((AttributeEnum)config.AttrId, AttributeFrom.Auras, config.GetAttr(ar.Value));
             }
 
             this.SuitMax = ConfigHelper.SkillSuitMax;
