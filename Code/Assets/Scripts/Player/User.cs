@@ -136,6 +136,10 @@ namespace Game
 
         public IDictionary<int, int> FestiveData { get; set; } = new Dictionary<int, int>();
 
+        public List<Miner> MinerList { get; set; } = new List<Miner>();
+
+        public Dictionary<int, MagicData> MetalData { get; } = new Dictionary<int, MagicData>();
+
         public bool GameCheat { get; set; } = false;
 
         [JsonIgnore]
@@ -326,6 +330,19 @@ namespace Game
                 {
                     long wingValue = wingConfig.GetAttr(i, wingLevel);
                     AttributeBonus.SetAttr((AttributeEnum)wingConfig.AttrIdList[i], AttributeFrom.Wing, wingValue);
+                }
+            }
+
+            //矿石
+            foreach (var kv in MetalData)
+            {
+                long level = kv.Value.Data;
+
+                if (level > 0)
+                {
+                    MetalConfig metalConfig = MetalConfigCategory.Instance.Get(kv.Key);
+
+                    AttributeBonus.SetAttr((AttributeEnum)metalConfig.AttrId, AttributeFrom.Metal, kv.Key, metalConfig.GetAttr(level));
                 }
             }
 

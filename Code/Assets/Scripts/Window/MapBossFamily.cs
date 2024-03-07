@@ -69,6 +69,12 @@ public class MapBossFamily : MonoBehaviour, IBattleLife
             Quantity = 1
         });
 
+        long newTicket = user.GetMaterialCount(ItemHelper.SpecialId_Boss_Ticket);
+        if (newTicket >= bossTicket)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new CheckGameCheatEvent());
+        }
+
         user.MagicRecord[AchievementSourceType.BossFamily].Data++;
 
         StartCopy();

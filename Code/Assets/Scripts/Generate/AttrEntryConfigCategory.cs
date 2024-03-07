@@ -55,7 +55,7 @@ namespace Game
                 {
                     excludeList.Add(config.Id);
 
-                    Debug.Log("Exclued id :" + config.Id + " count:" + count);
+                    //Debug.Log("Exclued id :" + config.Id + " count:" + count);
                 }
             }
             return excludeList;

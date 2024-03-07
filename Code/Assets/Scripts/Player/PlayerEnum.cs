@@ -114,6 +114,7 @@ namespace Game
         Fashion = 14, //时装
         EquipRed = 15, //装备套装
         Halidom = 16, //遗物
+        Metal = 17,//矿石
         /// <summary>
         /// 测试属性
         /// </summary>

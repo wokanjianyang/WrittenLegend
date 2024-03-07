@@ -8,15 +8,17 @@ namespace Game
     public class Item
     {
         public int Count { get; set; }
-        
+
         public bool IsLock { get; set; }
         public bool IsNew { get; set; } = true;
         public bool IsKeep { get; set; } = false;
 
-        protected Item() { 
+        protected Item()
+        {
 
         }
-        public Item(int configId) {
+        public Item(int configId)
+        {
             this.ConfigId = configId;
             ItemConfig = ItemConfigCategory.Instance.Get(this.ConfigId);
 
@@ -91,6 +93,7 @@ namespace Game
         GiftPackExclusive = 12,
         Fashion = 13,
         Halidom = 14,
+        Metal = 15,
 
         Ad = 99,
     }

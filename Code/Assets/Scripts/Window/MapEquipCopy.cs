@@ -1,5 +1,6 @@
 using Game;
 using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -57,7 +58,14 @@ public class MapEquipCopy : MonoBehaviour, IBattleLife
     {
         User user = GameProcessor.Inst.User;
 
-        user.MagicCopyTikerCount.Data -= rate;
+        long oldData = user.MagicCopyTikerCount.Data;
+
+        user.MagicCopyTikerCount.Data -= Math.Abs(rate);
+
+        long newData = user.MagicCopyTikerCount.Data;
+        if (newData >= oldData) {
+            GameProcessor.Inst.EventCenter.Raise(new CheckGameCheatEvent());
+        }
 
         MapConfig config = MapConfigCategory.Instance.Get(this.CopyMapId);
         txt_FloorName.text = config.Name;

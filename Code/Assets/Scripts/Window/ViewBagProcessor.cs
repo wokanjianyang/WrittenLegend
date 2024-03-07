@@ -439,7 +439,7 @@ namespace Game
 
             long count = list.Select(m => m.MagicNubmer.Data).Sum();
 
-            long useCount = e.Quantity;
+            long useCount = Math.Abs(e.Quantity);
 
             foreach (BoxItem boxItem in list)
             {
