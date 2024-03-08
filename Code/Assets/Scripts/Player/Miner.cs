@@ -27,13 +27,13 @@ public class Miner
         Debug.Log("init seed :" + Seed);
     }
 
-    public void InlineBuild()
+    public MineConfig InlineBuild()
     {
         System.Random random = new System.Random(this.Seed);
 
         List<MineConfig> mines = MineConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
 
-        int min = mines.Select(m => m.EndRate).Min();
+        int min = mines.Select(m => m.StartRate).Min();
         int max = mines.Select(m => m.EndRate).Max();
 
         int ns = random.Next(min, max + 1);
@@ -42,8 +42,7 @@ public class Miner
 
         MineConfig mine = mines.Where(m => m.StartRate <= ns && ns <= m.EndRate).FirstOrDefault();
 
-        string message = "¿ó¹¤" + Name + " ÍÚµ½ÁË" + mine.Name;
-        Debug.Log("seed :" + Seed + "mine:" + mine.Name);
+        return mine;
     }
 
     public void OfflineBuild()

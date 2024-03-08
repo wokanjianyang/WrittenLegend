@@ -63,6 +63,11 @@ namespace Game
         public RuleType Type { get; set; } = RuleType.Normal;
     }
 
+    public class MineMsgEvent : SDD.Events.Event
+    {
+        public string Message { get; set; }
+    }
+
     public class SkillBookLearnEvent : SDD.Events.Event
     {
         public BoxItem BoxItem { get; set; }
@@ -197,6 +202,11 @@ namespace Game
     {
         public int MapId { get; set; }
     }
+
+    public class OpenMineEvent : SDD.Events.Event
+    {
+    }
+
 
     public class ChangeFloorEvent : SDD.Events.Event
     {

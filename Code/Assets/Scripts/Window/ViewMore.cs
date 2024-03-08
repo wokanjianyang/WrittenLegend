@@ -21,6 +21,8 @@ namespace Game
 
         public Dialog_BossFamily BossFamily;
 
+        public Dialog_Mine MineDialog;
+
         void Start()
         {
         }
@@ -35,6 +37,8 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<PhantomEndEvent>(this.OnPhantomEnd);
             GameProcessor.Inst.EventCenter.AddListener<CopyViewCloseEvent>(this.OnCopyViewClose);
             GameProcessor.Inst.EventCenter.AddListener<BossFamilyEndEvent>(this.OnBossFamilyEnd);
+
+            GameProcessor.Inst.EventCenter.AddListener<OpenMineEvent>(this.OpenMine);
 
             GameProcessor.Inst.EventCenter.AddListener<DefendEndEvent>(this.OnDefendEnd);
         }
@@ -132,6 +136,11 @@ namespace Game
             scrollRect.gameObject.SetActive(false);
 
             GameProcessor.Inst.EventCenter.Raise(new HeroPhatomStartEvent() { });
+        }
+
+        private void OpenMine(OpenMineEvent e)
+        {
+            MineDialog.gameObject.SetActive(true);
         }
 
         protected override bool CheckPageType(ViewPageType page)

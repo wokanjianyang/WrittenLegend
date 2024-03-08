@@ -23,6 +23,9 @@ namespace Game
         public PlayerManager PlayerManager;
 
         private ABattleRule BattleRule;
+
+        private BattleRule_Mine MineRule;
+
         public Transform PlayerRoot { get; private set; }
 
         public Transform EffectRoot { get; private set; }
@@ -394,6 +397,7 @@ namespace Game
             if (isLoadMap)
             {
                 this.BattleRule?.OnUpdate();
+                this.MineRule?.OnUpdate();
             }
 
             //计算泡点经验
@@ -410,6 +414,10 @@ namespace Game
                 saveTime = ct;
                 UserData.Save();
             }
+        }
+
+        public void LoadMin() {
+            this.MineRule = new BattleRule_Mine();
         }
 
         public void LoadMap(RuleType ruleType, Transform map, Dictionary<string, object> param)

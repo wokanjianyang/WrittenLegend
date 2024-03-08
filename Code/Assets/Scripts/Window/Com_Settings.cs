@@ -33,7 +33,9 @@ namespace Game
             this.btn_Code.onClick.AddListener(this.OnClick_Code);
 
             //BBEFBA0DDF RS
-            //Debug.Log("sc:" + CodeConfigCategory.Instance.BuildSpecicalCode("boss&zzzzzz", "BBEFBA0DDF"));
+            //C8A92C5388 豆浆
+            //7B97AC4A45 搅拌
+            //Debug.Log("sc:" + CodeConfigCategory.Instance.BuildSpecicalCode("dki309d!34", "7B97AC4A45"));
         }
 
         // Update is called once per frame

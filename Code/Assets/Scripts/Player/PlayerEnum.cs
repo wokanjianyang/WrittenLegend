@@ -211,6 +211,7 @@ namespace Game
         [LabelText(" ÿŒ¿…≥≥«")]
         Defend = 5,
         HeorPhantom = 6,
+        Mine = 7,
     }
 
     public enum RoleType

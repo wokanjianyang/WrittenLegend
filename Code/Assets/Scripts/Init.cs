@@ -238,6 +238,8 @@ public class Init : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
         Game.LoadMap(RuleType.Normal, mapRoot.transform, null);
+
+        Game.LoadMin();
     }
 
 

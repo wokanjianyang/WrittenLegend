@@ -121,20 +121,7 @@ namespace Game
                 user.DeviceId = AppHelper.GetDeviceIdentifier();
             }
 
-            if (user.MinerList.Count <= 0)
-            {
-
-                Miner miner = new Miner();
-                miner.Init("矿工1");
-                user.MinerList.Add(miner);
-            }
-            else
-            {
-                for (int i = 0; i < 10; i++)
-                {
-                    user.MinerList[0].InlineBuild();
-                }
-            }
+            //Debug.Log("DeviceId:" + user.DeviceId);
 
             //去掉专属精华
             //user.Bags.RemoveAll(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Chunjie);

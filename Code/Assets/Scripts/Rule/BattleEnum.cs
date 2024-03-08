@@ -33,6 +33,7 @@ namespace Game
         AnDian,
         Defend,
         HeroPhantom,
+        Mine,
     }
 
     public enum ComponentOrder

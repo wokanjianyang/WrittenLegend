@@ -62,6 +62,10 @@ namespace Game
                 var vm = this.GetComponentInParent<ViewMore>();
                 vm.StartHeroPhantom();
             }
+            else if (Type == CopyType.Mine)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new OpenMineEvent());
+            }
         }
     }
 }
