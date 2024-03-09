@@ -12,13 +12,13 @@ namespace Game
 
     public class DropLimitHelper
     {
-        public static List<KeyValuePair<double, DropConfig>> Build(int type, double rateRise, double modelRise)
+        public static List<Item> Build(int type, double rateRise, double modelRise, int dzRate, int qualityRate)
         {
-            return Build(type, rateRise, modelRise, null);
+            return Build(type, rateRise, modelRise, null, dzRate, qualityRate);
         }
-        public static List<KeyValuePair<double, DropConfig>> Build(int type, double rateRise, double modelRise, Dictionary<int, double> rateData)
+        public static List<Item> Build(int type, double rateRise, double modelRise, Dictionary<int, double> rateData, int dzRate, int qualityRate)
         {
-            List<KeyValuePair<double, DropConfig>> list = new List<KeyValuePair<double, DropConfig>>();
+            List<Item> list = new List<Item>();
 
             long time = DateTime.Now.Ticks;
 
@@ -40,7 +40,7 @@ namespace Game
 
                 if (dropLimit.StartRate > 0 && rateData != null)
                 {
-                    double currentRate = rateData[dropId];
+                    double currentRate = rateData[dropLimit.Id];
 
                     if (currentRate > dropLimit.StartRate)
                     {
@@ -57,7 +57,26 @@ namespace Game
 
                 rate = rate / modelRise;
 
-                list.Add(new KeyValuePair<double, DropConfig>(rate, dropConfig));
+
+                if (RandomHelper.RandomResult(rate))
+                {
+                    if (rateData != null && rateData.ContainsKey(dropLimit.Id))
+                    {
+                        rateData[dropLimit.Id] = 0;
+                        //Debug.Log("drop id " + config.Id + " ±£µ×¹éÁã ");
+                    }
+
+                    int index = RandomHelper.RandomNumber(0, dropConfig.ItemIdList.Length);
+                    int configId = dropConfig.ItemIdList[index];
+
+                    if (dropLimit.ShareDz <= 0)
+                    {
+                        dzRate = 1;
+                    }
+
+                    Item item = ItemHelper.BuildItem((ItemType)dropConfig.ItemType, configId, qualityRate, dropConfig.Quantity * dzRate);
+                    list.Add(item);
+                }
             }
 
             return list;
@@ -69,7 +88,7 @@ namespace Game
         Normal = 0,
         JieRi = 1,
         AnDian = 2,
-        Map=98,
+        Map = 98,
         HeroPhatom = 99,
         Defend = 100,
     }

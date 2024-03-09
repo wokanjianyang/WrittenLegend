@@ -240,9 +240,16 @@ public class Com_AD : MonoBehaviour, IBattleLife
             return;
         }
 
+        User user = GameProcessor.Inst.User;
+
+        if (user.IsDz())
+        {
+            RewardAd(type, true);
+            return;
+        }
+
         if (toggle_Skip.isOn)
         {
-            User user = GameProcessor.Inst.User;
             int skipCount = user.AdData.GetSkipCount();
 
             if (skipCount > 0)
@@ -322,9 +329,10 @@ public class Com_AD : MonoBehaviour, IBattleLife
 
     public void RewardAd(int type, bool real)
     {
-        int rate = real ? 2 : 1;
-
         User user = GameProcessor.Inst.User;
+
+        int rate = real ? 2 : 1;
+        int dzRate = user.GetDzRate();
 
         var data = user.ADShowData?.GetADShowStatus((ADTypeEnum)type);
 
@@ -343,16 +351,16 @@ public class Com_AD : MonoBehaviour, IBattleLife
         switch (type)
         {
             case 1:
-                RewardExpAndGold(rate);
+                RewardExpAndGold(rate * dzRate);
                 break;
             case 2:
-                RewardBossTicket(rate);
+                RewardBossTicket(rate * dzRate);
                 break;
             case 3:
-                RewardCopyTicket(rate);
+                RewardCopyTicket(rate * dzRate);
                 break;
             case 4:
-                RewardStone(rate);
+                RewardStone(rate * dzRate);
                 break;
             default:
                 break;
@@ -360,11 +368,11 @@ public class Com_AD : MonoBehaviour, IBattleLife
 
         if (real)
         {
-            user.Record.AddRecord(RecordType.AdReal, 1);
+            user.Record.AddRecord(RecordType.AdReal, 1 * dzRate);
         }
         else
         {
-            user.Record.AddRecord(RecordType.AdVirtual, 1);
+            user.Record.AddRecord(RecordType.AdVirtual, 1 * dzRate);
         }
 
         this.UpdateAdData();

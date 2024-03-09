@@ -141,7 +141,7 @@ namespace Game
             int position = this.MapId % 5 + 1;
 
             List<PlayerModel> models = PlayerModelCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Layer == Config.Layer && m.Quality == 5
-            && (m.MapId==0 || m.MapId==MapId)).ToList();
+            && (m.MapId == 0 || m.MapId == MapId)).ToList();
 
             if (models.Count > 0)
             {
@@ -168,7 +168,7 @@ namespace Game
                 {
                     if (model.Rune > 0)
                     {
-                        runeList = SkillRuneHelper.GetAllRune(skillData.SkillId,model.Rune);
+                        runeList = SkillRuneHelper.GetAllRune(skillData.SkillId, model.Rune);
                     }
 
                     if (model.Suit > 0)
@@ -213,21 +213,19 @@ namespace Game
             user.AddStartRate(qualityConfig.CountRate * countModelRate);
 
             double dropRate = 1 + user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstIncrea) / 350.0;
-            dropRate = Math.Min(8, 1 + dropRate);
+            dropRate = Math.Min(8, 1 + dropRate) * user.GetDzRate();
             double modelRate = dropModelRate * qualityConfig.DropRate;
 
-
+            List<Item> items = new List<Item>();
             //生成道具奖励 ,爆率 = 人物爆率*怪物类型爆率*怪物品质爆率
             List<KeyValuePair<double, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(Config.MapId, dropRate * modelRate);
 
             //限时奖励
-            dropList.AddRange(DropLimitHelper.Build((int)DropLimitType.Normal, dropRate, modelRate, user.RateData));
-
-            List<Item> items = new List<Item>();
+            items.AddRange(DropLimitHelper.Build((int)DropLimitType.Normal, dropRate, modelRate, user.RateData, user.GetDzRate(), 1));
 
             if (this.RuleType == RuleType.EquipCopy || this.RuleType == RuleType.BossFamily)
             {
-                dropList.AddRange(DropLimitHelper.Build((int)DropLimitType.JieRi, dropRate, modelRate));
+                items.AddRange(DropLimitHelper.Build((int)DropLimitType.JieRi, dropRate, modelRate, 1, 1));
 
                 List<DropLimitConfig> mapLimits = DropLimitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.MapId == this.Config.MapId).ToList();
                 items.AddRange(user.AddMapStartRate(mapLimits, qualityConfig.CountRate * countModelRate));
@@ -239,7 +237,7 @@ namespace Game
             int mapIndex = Config.MapId - ConfigHelper.MapStartId;
             int quantity = mapIndex / 10 + 1 + user.SoulRingNumber;
 
-            items.Add(ItemHelper.BuildSoulRingShard(quantity * 2));
+            items.Add(ItemHelper.BuildSoulRingShard(quantity * 2 * user.GetDzRate()));
 
             if (items.Count > 0)
             {

@@ -72,9 +72,9 @@ public class BattleRule_HeroPhantom : ABattleRule
 
     private void BuildReward()
     {
-        List<KeyValuePair<double, DropConfig>> dropList = DropLimitHelper.Build((int)DropLimitType.HeroPhatom, 1, 1);
+        User user = GameProcessor.Inst.User;
 
-        List<Item> items = DropHelper.BuildDropItem(dropList, 1);
+        List<Item> items = DropLimitHelper.Build((int)DropLimitType.HeroPhatom, 1, 1, user.GetDzRate(), 1);
 
         if (items.Count > 0)
         {

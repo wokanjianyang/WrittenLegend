@@ -178,10 +178,12 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
         long dieTime = now - user.CopyTicketTime;
 
 
-        if (dieTime >= ConfigHelper.CopyTicketCd)
+        int CopyTicketCd = user.IsDz() ? 3 * 60 : ConfigHelper.CopyTicketCd;
+
+        if (dieTime >= CopyTicketCd)
         {
-            int count = (int)(dieTime / ConfigHelper.CopyTicketCd);
-            user.CopyTicketTime += count * ConfigHelper.CopyTicketCd;
+            int count = (int)(dieTime / CopyTicketCd);
+            user.CopyTicketTime += count * CopyTicketCd;
 
             if (count >= ConfigHelper.CopyTicketFirstCount)  //离线最高可以获取100次
             {
@@ -199,7 +201,7 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
 
         //显示倒计时
         txt_boss_count.text = user.MagicCopyTikerCount.Data + "";
-        long refeshTime = ConfigHelper.CopyTicketCd - dieTime;
+        long refeshTime = CopyTicketCd - dieTime;
         txt_boss_time.text = TimeSpan.FromSeconds(refeshTime).ToString(@"hh\:mm\:ss");
     }
 

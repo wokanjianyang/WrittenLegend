@@ -96,14 +96,17 @@ namespace Game
 		/// <summary>享受爆率加成</summary>
 		[ProtoMember(7)]
 		public int ShareRise { get; set; }
-		/// <summary>起始爆率</summary>
+		/// <summary>ShareDz</summary>
 		[ProtoMember(8)]
+		public int ShareDz { get; set; }
+		/// <summary>起始爆率</summary>
+		[ProtoMember(9)]
 		public int StartRate { get; set; }
 		/// <summary>开始日期</summary>
-		[ProtoMember(9)]
+		[ProtoMember(10)]
 		public string StartDate { get; set; }
 		/// <summary>结束日期</summary>
-		[ProtoMember(10)]
+		[ProtoMember(11)]
 		public string EndDate { get; set; }
 
 	}

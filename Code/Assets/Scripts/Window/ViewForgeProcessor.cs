@@ -195,7 +195,7 @@ public class ViewForgeProcessor : AViewPage
 
         user.MagicEquipStrength[SelectPosition].Data++;
 
-        user.AddExpAndGold(0, -fee);
+        user.SubGold(fee);
 
         GameProcessor.Inst.UpdateInfo();
 
@@ -243,7 +243,7 @@ public class ViewForgeProcessor : AViewPage
         {
             user.MagicEquipStrength[SelectPosition].Data += sl;
 
-            user.AddExpAndGold(0, -feeTotal);
+            user.SubGold(feeTotal);
 
             GameProcessor.Inst.UpdateInfo();
 

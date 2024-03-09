@@ -115,6 +115,8 @@ namespace Game
         EquipRed = 15, //装备套装
         Halidom = 16, //遗物
         Metal = 17,//矿石
+
+        Dingzhi = 98,
         /// <summary>
         /// 测试属性
         /// </summary>

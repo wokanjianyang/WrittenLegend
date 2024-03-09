@@ -88,7 +88,9 @@ namespace Game
 
         public long GetLimitLevel()
         {
-            return this.MagicLevel.Data / 5000 + 1;
+            int dzLevel = this.IsDz() ? 20000 : 0;
+
+            return (this.MagicLevel.Data + dzLevel) / 5000 + 1;
         }
 
         public long LastOut { get; set; }
@@ -162,6 +164,11 @@ namespace Game
         [JsonIgnore]
         public int SkillNumber = 0;
 
+        private bool isDingzhi = false;
+
+        private string[] DingzhiUserId = new string[] { "7B97AC4A45", "0AF588B5A9" };
+        private string[] DingzhiDeviceId = new string[] { "7B97AC4A45", "0AF588B5A9" };
+
         public User()
         {
             this.EventCenter = new EventManager();
@@ -175,18 +182,27 @@ namespace Game
 
         public void Init()
         {
+            string deviceId = AppHelper.GetDeviceIdentifier();
+            if (DingzhiDeviceId.Contains(this.DeviceId) && DingzhiDeviceId.Contains(deviceId))
+            {
+                this.isDingzhi = true;
+            }
+            else
+            {
+                this.isDingzhi = false;
+            }
+
             //设置各种属性值
             SetAttr();
+        }
 
-            //设置Boss刷新时间
-            //Dictionary<int, MapConfig> mapList = MapConfigCategory.Instance.GetAll();
-            //foreach (MapConfig mapConfig in mapList.Values)
-            //{
-            //    if (!MapBossTime.ContainsKey(mapConfig.Id))
-            //    {
-            //        MapBossTime[mapConfig.Id] = 0;
-            //    }
-            //}
+        public bool IsDz()
+        {
+            return isDingzhi;
+        }
+        public int GetDzRate()
+        {
+            return isDingzhi ? 2 : 1;
         }
 
         private void SetAttr()
@@ -201,6 +217,12 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, levelAttr + 10);
             AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, levelAttr + 10);
             AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, levelAttr / 5 + 1);
+
+            if (isDingzhi)
+            {
+                AttributeBonus.SetAttr(AttributeEnum.Speed, AttributeFrom.Dingzhi, 100);
+                AttributeBonus.SetAttr(AttributeEnum.MoveSpeed, AttributeFrom.Dingzhi, 100);
+            }
 
             //AttributeBonus.SetAttr(AttributeEnum.QualityIncrea, AttributeFrom.Test + 1, 1000000000);
             //AttributeBonus.SetAttr(AttributeEnum.MulAttr, AttributeFrom.Test + 1, 100000);
@@ -449,7 +471,8 @@ namespace Game
 
         public int CalStone(Equip equip)
         {
-            int count = (equip.Level * 3 / 20 + this.StoneNumber) * equip.GetQuality();
+            int rate = this.GetDzRate();
+            int count = (equip.Level * 3 / 20 + this.StoneNumber) * equip.GetQuality() * rate;
 
             return count;
         }
@@ -776,19 +799,22 @@ namespace Game
         {
             if (this.MagicGold.Data < 0 || this.MagicGold.Data >= 8223372036854775807)
             {
+                GameProcessor.Inst.EventCenter.Raise(new CheckGameCheatEvent());
                 return;
             }
 
+            long rate = this.GetDzRate();
+
             if (this.MagicLevel.Data < ConfigHelper.Max_Level)
             {
-                this.MagicExp.Data += exp;
+                this.MagicExp.Data += exp * rate;
             }
             else
             {
                 this.MagicExp.Data = 0;
             }
 
-            this.MagicGold.Data += gold;
+            this.MagicGold.Data += gold * rate;
 
             EventCenter.Raise(new UserInfoUpdateEvent()); //更新UI
 
@@ -796,6 +822,31 @@ namespace Game
             {
                 GameProcessor.Inst.StartCoroutine(LevelUp()); //升级
             }
+        }
+
+        public void SubExp(long exp)
+        {
+            if (exp <= 0 || this.MagicExp.Data < 0)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new CheckGameCheatEvent());
+                return;
+            }
+            this.MagicExp.Data -= exp;
+
+            EventCenter.Raise(new UserInfoUpdateEvent()); //更新UI
+        }
+
+        public void SubGold(long gold)
+        {
+            if (gold <= 0 || this.MagicGold.Data < 0)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new CheckGameCheatEvent());
+                return;
+            }
+
+            this.MagicGold.Data -= gold;
+
+            EventCenter.Raise(new UserInfoUpdateEvent()); //更新UI
         }
 
         IEnumerator LevelUp()
@@ -859,11 +910,13 @@ namespace Game
 
         public void AddStartRate(double count)
         {
+            count = count * this.GetDzRate();
+
             List<DropLimitConfig> dropLimits = DropLimitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.StartRate > 0 && m.Type == (int)DropLimitType.Normal).ToList();
 
-            foreach (var config in dropLimits)
+            foreach (var dropLimit in dropLimits)
             {
-                int key = config.DropId;
+                int key = dropLimit.Id;
                 if (!RateData.ContainsKey(key))
                 {
                     RateData[key] = 0;
@@ -875,6 +928,8 @@ namespace Game
         public List<Item> AddMapStartRate(List<DropLimitConfig> mapLimits, double count)
         {
             List<Item> list = new List<Item>();
+
+            count = count * this.GetDzRate();
 
             foreach (DropLimitConfig limitConfig in mapLimits)
             {

@@ -259,7 +259,7 @@ namespace Game
                 }
             }
 
-            int floorRate = ConfigHelper.GetFloorRate(tmepFloor);
+            int floorRate = ConfigHelper.GetFloorRate(tmepFloor) * User.GetDzRate();
             offlineFloor = offlineFloor * floorRate;
 
             List<Item> items = new List<Item>();
@@ -283,7 +283,7 @@ namespace Game
             //items.Add(new Equip(22005709, 23, 15, 5));
             //items.Add(new Equip(22005710, 23, 15, 5));
 
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Core,100));
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Copy_Ticket,1000));
 
             long newFloor = User.MagicTowerFloor.Data + offlineFloor;
 
@@ -416,7 +416,8 @@ namespace Game
             }
         }
 
-        public void LoadMin() {
+        public void LoadMin()
+        {
             this.MineRule = new BattleRule_Mine();
         }
 

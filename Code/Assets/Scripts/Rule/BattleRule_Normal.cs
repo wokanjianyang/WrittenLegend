@@ -67,7 +67,7 @@ namespace Game
 
             TowerConfig config = TowerConfigCategory.Instance.GetByFloor(user.MagicTowerFloor.Data);
 
-            int floorRate = ConfigHelper.GetFloorRate(user.MagicTowerFloor.Data);
+            int floorRate = ConfigHelper.GetFloorRate(user.MagicTowerFloor.Data) * user.GetDzRate();
 
             MonsterTowerHelper.GetTowerSecond(user.MagicTowerFloor.Data, out long secondExp, out long secondGold);
 
