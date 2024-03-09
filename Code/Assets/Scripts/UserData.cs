@@ -126,6 +126,20 @@ namespace Game
             //去掉专属精华
             //user.Bags.RemoveAll(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Chunjie);
 
+            if (!user.isClear)
+            {
+                user.Bags.RemoveAll(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Exclusive_Heart);
+
+                Item item = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Heart, 8);
+                BoxItem boxItem = new BoxItem();
+                boxItem.Item = item;
+                boxItem.MagicNubmer.Data = Math.Max(1, item.Count);
+                boxItem.BoxId = -1;
+                user.Bags.Add(boxItem);
+
+                user.isClear = true;
+            }
+
             //user.DefendData.Refresh();
             //user.DefendData.CountDict[1].Data = 10;
             //user.HeroPhatomData = new HeroPhatomData();

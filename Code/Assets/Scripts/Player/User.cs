@@ -144,6 +144,8 @@ namespace Game
 
         public bool GameCheat { get; set; } = false;
 
+        public bool isClear { get; set; } = false;
+
         [JsonIgnore]
         public IDictionary<int, int> EquipRecord { get; set; } = new Dictionary<int, int>();
 
@@ -166,8 +168,8 @@ namespace Game
 
         private bool isDingzhi = false;
 
-        private string[] DingzhiUserId = new string[] { "7B97AC4A45", "0AF588B5A9" };
-        private string[] DingzhiDeviceId = new string[] { "7B97AC4A45", "0AF588B5A9" };
+        private string[] DingzhiUserId = new string[] { "7B97AC4A45", "0AF588B5A9", "A99597B885" };
+        private string[] DingzhiDeviceId = new string[] { "7B97AC4A45", "0AF588B5A9", "A99597B885" };
 
         public User()
         {
@@ -183,7 +185,7 @@ namespace Game
         public void Init()
         {
             string deviceId = AppHelper.GetDeviceIdentifier();
-            if (DingzhiDeviceId.Contains(this.DeviceId) && DingzhiDeviceId.Contains(deviceId))
+            if (DingzhiUserId.Contains(this.DeviceId) && DingzhiDeviceId.Contains(deviceId))
             {
                 this.isDingzhi = true;
             }
