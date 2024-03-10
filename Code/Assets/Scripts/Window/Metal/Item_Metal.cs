@@ -34,13 +34,23 @@ namespace Game
         {
             this.Config = config;
 
+            if (level <= 0)
+            {
+                this.gameObject.SetActive(false);
+                return;
+            }
+            else
+            {
+                this.gameObject.SetActive(true);
+            }
+
             this.Txt_Name.text = string.Format("<color=#{0}>{1}</color>", QualityConfigHelper.GetQualityColor(Config.Quality), config.Name);
             this.Txt_Level.text = $"{level}个";
 
 
             long rate = this.Config.GetRate(level);
             long val = config.GetAttr(level);
-            long rp = config.GetRatePower(level);
+            long nr = config.GetNextRate(level);
 
             this.Txt_Attr_Current.text = StringHelper.FormatAttrText(config.AttrId, val);
             this.Txt_Attr_Rise.text = "单个属性:" + StringHelper.FormatAttrValueText(config.AttrId, config.AttrValue * rate);
@@ -48,7 +58,7 @@ namespace Game
             if (Config.RisePower > 0)
             {
                 this.Txt_RisePower.gameObject.SetActive(true);
-                this.Txt_RisePower.text = "满" + rp + "个" + "单个属性\n再提高" + config.RisePower + "倍";
+                this.Txt_RisePower.text = "满" + nr + "个" + "单个属性\n再提高" + config.RisePower + "倍";
             }
             else
             {

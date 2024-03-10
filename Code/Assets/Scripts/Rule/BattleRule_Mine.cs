@@ -59,7 +59,7 @@ public class BattleRule_Mine
 
                 message += ",矿物等级为:" + md[key].Data;
 
-                Debug.Log(message);
+                //Debug.Log(message);
 
                 GameProcessor.Inst.EventCenter.Raise(new MineMsgEvent() { Message = message });
             }

@@ -23,6 +23,11 @@ public class Dialog_Metal : MonoBehaviour
         ItemPrefab = Resources.Load<GameObject>("Prefab/Window/More/Item_Metal");
 
         this.Init();
+
+        Debug.Log(Math.Pow(10, 1));
+        Debug.Log(Math.Pow(10, 2));
+        Debug.Log(Math.Log(10, 3));
+        Debug.Log(Math.Pow(10, 4));
     }
 
     public void Init()

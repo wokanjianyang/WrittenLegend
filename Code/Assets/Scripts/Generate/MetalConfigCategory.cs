@@ -12,12 +12,12 @@ namespace Game
 
     public partial class MetalConfig
     {
-        public long GetRatePower(long level)
+        public long GetNextRate(long level)
         {
             if (this.RisePower > 0)
             {
-                int p = (int)Math.Log(this.RiseLog, level);
-                return (long)Math.Pow(this.RisePower, p + 1);
+                long p = (long)Math.Log(level, this.RiseLog);
+                return (long)Math.Pow(this.RiseLog, p + 1);
             }
 
             return 0;
@@ -27,7 +27,7 @@ namespace Game
         {
             if (this.RisePower > 0)
             {
-                int p = (int)Math.Log(this.RiseLog, level);
+                long p = (long)Math.Log(level, this.RiseLog);
                 return (long)Math.Pow(this.RisePower, p);
             }
 
