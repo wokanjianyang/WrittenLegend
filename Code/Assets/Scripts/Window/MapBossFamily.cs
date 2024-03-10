@@ -21,6 +21,7 @@ public class MapBossFamily : MonoBehaviour, IBattleLife
 
     private long MapTime = 0;
     private int MapLevel = 0;
+    private int MapRate = 0;
 
     public int Order => (int)ComponentOrder.BattleRule;
 
@@ -47,6 +48,7 @@ public class MapBossFamily : MonoBehaviour, IBattleLife
     public void OnBossFamilyStart(BossFamilyStartEvent e)
     {
         this.MapLevel = e.Level;
+        this.MapRate = e.Rate;
         StartCopy();
     }
 
@@ -56,7 +58,7 @@ public class MapBossFamily : MonoBehaviour, IBattleLife
 
         long bossTicket = user.GetMaterialCount(ItemHelper.SpecialId_Boss_Ticket);
 
-        if (bossTicket <= 0)
+        if (bossTicket <= this.MapRate)
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的BOSS挑战卷", ToastType = ToastTypeEnum.Failure });
             return;
@@ -66,7 +68,7 @@ public class MapBossFamily : MonoBehaviour, IBattleLife
         {
             Type = ItemType.Material,
             ItemId = ItemHelper.SpecialId_Boss_Ticket,
-            Quantity = 1
+            Quantity = this.MapRate
         });
 
         long newTicket = user.GetMaterialCount(ItemHelper.SpecialId_Boss_Ticket);
@@ -75,7 +77,7 @@ public class MapBossFamily : MonoBehaviour, IBattleLife
             GameProcessor.Inst.EventCenter.Raise(new CheckGameCheatEvent());
         }
 
-        user.MagicRecord[AchievementSourceType.BossFamily].Data++;
+        user.MagicRecord[AchievementSourceType.BossFamily].Data += this.MapRate;
 
         StartCopy();
     }
@@ -89,6 +91,7 @@ public class MapBossFamily : MonoBehaviour, IBattleLife
         Dictionary<string, object> param = new Dictionary<string, object>();
         param.Add("MapTime", MapTime);
         param.Add("MapLevel", this.MapLevel);
+        param.Add("MapRate", this.MapRate);
 
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {

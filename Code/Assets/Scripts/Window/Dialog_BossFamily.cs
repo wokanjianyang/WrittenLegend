@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class Dialog_BossFamily : MonoBehaviour, IBattleLife
 {
+    public Toggle toggle_Rate;
     public Toggle toggle_Auto;
 
     public List<Button> BtnStartList;
@@ -30,6 +31,15 @@ public class Dialog_BossFamily : MonoBehaviour, IBattleLife
             BtnStartList[i].onClick.AddListener(() => this.OnClick_Start(index));
         }
 
+        User user = GameProcessor.Inst.User;
+        if (user.IsDz())
+        {
+            toggle_Rate.gameObject.SetActive(true);
+        }
+        else
+        {
+            toggle_Rate.gameObject.SetActive(false);
+        }
 
         btn_FullScreen.onClick.AddListener(this.OnClick_Close);
     }
@@ -66,8 +76,10 @@ public class Dialog_BossFamily : MonoBehaviour, IBattleLife
 
     private void OnClick_Start(int index)
     {
+        int rate = toggle_Rate.isOn ? 5 : 1;
+
         var vm = this.GetComponentInParent<ViewMore>();
-        vm.StartBossFamily(index);
+        vm.StartBossFamily(index, rate);
     }
 
     public void OnClick_Close()

@@ -11,6 +11,7 @@ public class Battle_BossFamily : ABattleRule
 
     private long MapTime = 0;
     private int MapLayer = 1;
+    private int MapRate = 1;
 
     private List<int> QualityList;
 
@@ -22,9 +23,11 @@ public class Battle_BossFamily : ABattleRule
     {
         param.TryGetValue("MapTime", out object mapTime);
         param.TryGetValue("MapLevel", out object mapLevel);
+        param.TryGetValue("MapRate", out object mapRate);
 
         this.MapTime = (long)mapTime;
         this.MapLayer = (int)mapLevel;
+        this.MapRate = (int)mapRate;
         this.Start = true;
 
         QualityList = new List<int>();
@@ -58,7 +61,7 @@ public class Battle_BossFamily : ABattleRule
                 if (QualityList.Count > 0)
                 {
                     BossConfig bossConfig = BossConfigCategory.Instance.Get(QualityList[0]);
-                    GameProcessor.Inst.PlayerManager.LoadMonster(BossHelper.BuildBoss(bossConfig.Id, bossConfig.MapId, RuleType.BossFamily, 2, 0));
+                    GameProcessor.Inst.PlayerManager.LoadMonster(BossHelper.BuildBoss(bossConfig.Id, bossConfig.MapId, RuleType.BossFamily, 2 * this.MapRate, 0));
 
                     QualityList.RemoveAt(0);
                 }

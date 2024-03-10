@@ -78,15 +78,14 @@ namespace Game
             scrollRect.gameObject.SetActive(true);
         }
 
-        public void StartBossFamily(int level)
+        public void StartBossFamily(int level, int rate)
         {
             User user = GameProcessor.Inst.User;
 
             long bossTicket = user.GetMaterialCount(ItemHelper.SpecialId_Boss_Ticket);
 
-            if (bossTicket <= 0)
+            if (bossTicket < rate)
             {
-
                 GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的BOSS挑战卷", ToastType = ToastTypeEnum.Failure });
                 return;
             }
@@ -97,14 +96,14 @@ namespace Game
             {
                 Type = ItemType.Material,
                 ItemId = ItemHelper.SpecialId_Boss_Ticket,
-                Quantity = 1
+                Quantity = rate
             });
 
-            user.MagicRecord[AchievementSourceType.BossFamily].Data++;
+            user.MagicRecord[AchievementSourceType.BossFamily].Data += rate;
 
             scrollRect.gameObject.SetActive(false);
 
-            GameProcessor.Inst.EventCenter.Raise(new BossFamilyStartEvent() { Level = level });
+            GameProcessor.Inst.EventCenter.Raise(new BossFamilyStartEvent() { Level = level, Rate = rate });
         }
 
         public void OnBossFamilyEnd(BossFamilyEndEvent e)

@@ -147,6 +147,7 @@ namespace Game
     public class BossFamilyStartEvent : SDD.Events.Event
     {
         public int Level { get; set; }
+        public int Rate { get; set; }
     }
 
     public class BossFamilyEndEvent : SDD.Events.Event

@@ -32,10 +32,11 @@ namespace Game
             this.btn_ChangeName.onClick.AddListener(this.OnClick_ChangeName);
             this.btn_Code.onClick.AddListener(this.OnClick_Code);
 
+            //0AF588B5A9 Self
             //BBEFBA0DDF RS
             //C8A92C5388 豆浆
             //7B97AC4A45 搅拌
-            Debug.Log("sc:" + CodeConfigCategory.Instance.BuildSpecicalCode("xy309d!99", "7B97AC4A45"));
+            Debug.Log("sc:" + CodeConfigCategory.Instance.BuildSpecicalCode("io&zkd163", "0AF588B5A9"));
         }
 
         // Update is called once per frame
