@@ -504,6 +504,7 @@ namespace Game
             }
 
             GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
+            GameProcessor.Inst.User.EventCenter.Raise(new SkillChangePlanEvent());
 
             //Debug.Log("OnChangeExclusiveEvent");
         }
