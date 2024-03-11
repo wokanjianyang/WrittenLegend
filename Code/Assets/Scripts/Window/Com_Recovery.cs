@@ -43,7 +43,7 @@ namespace Game
         Toggle[] equipQualityToggles;
         Toggle[] equipRoleToggles;
         Toggle[] exclusiveToggles;
-
+        public Toggle[] skillToggles;
         // Start is called before the first frame update
         void Start()
         {
@@ -82,6 +82,12 @@ namespace Game
                 equipRoleToggles[skillBookRole - 1].isOn = setting.EquipRole[skillBookRole];
             }
 
+            foreach (var kp in setting.SkillReserveQuanlity)
+            {
+                skillToggles[kp.Key - 3].isOn = kp.Value; //紫色开始
+            }
+
+
             if_EquipLevel.text = setting.EquipLevel.ToString();
             if_Exp.text = setting.ExpTotal.ToString();
             if_Gold.text = setting.GoldTotal.ToString();
@@ -119,6 +125,11 @@ namespace Game
             for (var i = 0; i < equipRoleToggles.Length; i++)
             {
                 user.RecoverySetting.SetEquipRole(i + 1, equipRoleToggles[i].isOn);
+            }
+
+            for (int i = 0; i < skillToggles.Length; i++)
+            {
+                user.RecoverySetting.SkillReserveQuanlity[i + 3] = skillToggles[i].isOn;
             }
 
             int.TryParse(if_Exp.text, out int exp);

@@ -121,24 +121,16 @@ namespace Game
                 user.DeviceId = AppHelper.GetDeviceIdentifier();
             }
 
+            if (user.RecoverySetting.SkillReserveQuanlity.Count() == 0)
+            {
+                user.RecoverySetting.SkillReserveQuanlity[3] = true;
+                user.RecoverySetting.SkillReserveQuanlity[4] = true;
+            }
+
             //Debug.Log("DeviceId:" + user.DeviceId);
 
             //去掉专属精华
             //user.Bags.RemoveAll(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Chunjie);
-
-            if (!user.isClear)
-            {
-                user.Bags.RemoveAll(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Exclusive_Heart);
-
-                Item item = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Heart, 8);
-                BoxItem boxItem = new BoxItem();
-                boxItem.Item = item;
-                boxItem.MagicNubmer.Data = Math.Max(1, item.Count);
-                boxItem.BoxId = -1;
-                user.Bags.Add(boxItem);
-
-                user.isClear = true;
-            }
 
             //user.DefendData.Refresh();
             //user.DefendData.CountDict[1].Data = 10;

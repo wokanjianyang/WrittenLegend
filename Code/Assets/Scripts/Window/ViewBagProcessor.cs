@@ -441,6 +441,11 @@ namespace Game
 
             long useCount = Math.Abs(e.Quantity);
 
+            if (count < useCount)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new CheckGameCheatEvent());
+            }
+
             foreach (BoxItem boxItem in list)
             {
                 long boxUseCount = Math.Min(boxItem.MagicNubmer.Data, useCount);
@@ -465,6 +470,16 @@ namespace Game
                     break;
                 }
             }
+
+
+            List<BoxItem> newList = user.Bags.Where(m => m.Item.Type == e.Type && m.Item.ConfigId == e.ItemId).ToList();
+
+            long newCount = newList.Select(m => m.MagicNubmer.Data).Sum();
+            if (newCount >= count)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new CheckGameCheatEvent());
+            }
+
         }
 
         private void OnSelectGift(SelectGiftEvent e)

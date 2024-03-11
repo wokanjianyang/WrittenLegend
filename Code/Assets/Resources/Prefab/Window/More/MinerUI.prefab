@@ -85,9 +85,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2346607969130359185}
-  - component: {fileID: 2346607969130359190}
+  - component: {fileID: 622230400999492089}
   m_Layer: 5
-  m_Name: MinerEffect
+  m_Name: MinerUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -114,7 +114,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 178, y: 111}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2346607969130359190
+--- !u!114 &622230400999492089
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,10 +123,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 2346607969130359184}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c146ead82574646866d0b63059c6be4, type: 3}
+  m_Script: {fileID: 11500000, guid: 57e3e33a93e97e24294b0fb258a424f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   EffectPath: UI/Miner
-  Loop: 1
   img_Effect: {fileID: 2346607968788309467}
-  NeedReSize: 0

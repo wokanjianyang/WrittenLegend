@@ -15,8 +15,11 @@ public class Dialog_Mine : MonoBehaviour, IBattleLife
     public Button Btn_Add;
     public Button Btn_Info;
 
-    public ScrollRect sr_BattleMsg;
+    public Transform Tf_Miner;
+    private GameObject Pab_Miner;
+    List<MinerUI> miners = new List<MinerUI>();
 
+    public ScrollRect sr_BattleMsg;
     private GameObject msgPrefab;
     private int msgId = 0;
     private List<Text> msgPool = new List<Text>();
@@ -24,6 +27,11 @@ public class Dialog_Mine : MonoBehaviour, IBattleLife
     public Dialog_Metal DialogMetal;
 
     public int Order => (int)ComponentOrder.BattleRule;
+
+    void Awake()
+    {
+        this.Pab_Miner = Resources.Load<GameObject>("Prefab/Window/More/MinerUI");
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -39,7 +47,6 @@ public class Dialog_Mine : MonoBehaviour, IBattleLife
     public void OnBattleStart()
     {
         this.msgPrefab = Resources.Load<GameObject>("Prefab/Window/Item/Item_DropMsg");
-
         GameProcessor.Inst.EventCenter.AddListener<MineMsgEvent>(this.ShowMsg);
     }
 
@@ -58,6 +65,18 @@ public class Dialog_Mine : MonoBehaviour, IBattleLife
         else
         {
             this.Btn_Add.gameObject.SetActive(false);
+        }
+
+        for (int i = 0; i < user.MinerList.Count; i++)
+        {
+            var item = GameObject.Instantiate(Pab_Miner);
+
+            MinerUI com = item.GetComponentInChildren<MinerUI>();
+
+            item.transform.SetParent(this.Tf_Miner);
+            item.transform.localScale = Vector3.one;
+
+            miners.Add(com);
         }
     }
 

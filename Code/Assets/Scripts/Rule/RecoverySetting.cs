@@ -8,6 +8,7 @@ namespace Game
     {
         public Dictionary<int, bool> EquipQuanlity { get; private set; } = new Dictionary<int, bool>();
         public Dictionary<int, bool> ExclusiveQuanlity { get; private set; } = new Dictionary<int, bool>();
+        public Dictionary<int, bool> SkillReserveQuanlity { get; private set; } = new Dictionary<int, bool>();
 
         public int EquipLevel { get; set; } = 0;
 
@@ -57,6 +58,7 @@ namespace Game
             {
                 Equip equip = item as Equip;
                 int role = equip.EquipConfig.Role;
+                int qality = equip.GetQuality();
 
                 if (GoldTotal > 0)
                 {
@@ -111,7 +113,7 @@ namespace Game
                 if (equip.SkillSuitConfig != null)
                 {
                     int c = GameProcessor.Inst.User.SkillList.Where(m => m.SkillId == equip.SkillSuitConfig.SkillId && m.Recovery).Count();
-                    if (c == 1 && item.Level >= EquipLevel)
+                    if (c == 1 && item.Level >= EquipLevel && SkillReserveQuanlity[qality])
                     {
                         item.IsKeep = true;
                         return false;
