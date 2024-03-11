@@ -123,8 +123,8 @@ namespace Game
 
             if (user.RecoverySetting.SkillReserveQuanlity.Count() == 0)
             {
-                user.RecoverySetting.SkillReserveQuanlity[3] = true;
                 user.RecoverySetting.SkillReserveQuanlity[4] = true;
+                user.RecoverySetting.SkillReserveQuanlity[5] = true;
             }
 
             //Debug.Log("DeviceId:" + user.DeviceId);

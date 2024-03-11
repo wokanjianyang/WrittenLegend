@@ -45,6 +45,9 @@ namespace Game
         Toggle[] exclusiveToggles;
         public Toggle[] skillToggles;
         // Start is called before the first frame update
+
+        private int startQuality = 4; 
+
         void Start()
         {
             this.btn_Done.onClick.AddListener(this.OnClick_Done);
@@ -84,7 +87,7 @@ namespace Game
 
             foreach (var kp in setting.SkillReserveQuanlity)
             {
-                skillToggles[kp.Key - 3].isOn = kp.Value; //紫色开始
+                skillToggles[kp.Key - startQuality].isOn = kp.Value; //紫色开始
             }
 
 
@@ -129,7 +132,7 @@ namespace Game
 
             for (int i = 0; i < skillToggles.Length; i++)
             {
-                user.RecoverySetting.SkillReserveQuanlity[i + 3] = skillToggles[i].isOn;
+                user.RecoverySetting.SkillReserveQuanlity[i + startQuality] = skillToggles[i].isOn;
             }
 
             int.TryParse(if_Exp.text, out int exp);
