@@ -34,17 +34,15 @@ public class Miner
             return null;
         }
 
-        System.Random random = new System.Random(this.Seed);
-
         List<MineConfig> mines = MineConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
 
         int min = mines.Select(m => m.StartRate).Min();
         int max = mines.Select(m => m.EndRate).Max();
 
-        int nextSeed = random.Next(min, max + 1);
+        int nextSeed = RandomHelper.RandomNumber(this.Seed, min, max + 1);
 
         this.Seed = nextSeed;
-        this.BirthDay = nowSecond + RandomHelper.RandomNumber(0, 20);
+        this.BirthDay = nowSecond + RandomHelper.RandomNumber(this.Seed, 0, 20);
 
         MineConfig mine = mines.Where(m => m.StartRate <= nextSeed && nextSeed <= m.EndRate).FirstOrDefault();
 
