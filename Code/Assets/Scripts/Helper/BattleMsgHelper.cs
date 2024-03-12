@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Game
@@ -191,6 +192,15 @@ namespace Game
         public static string BuildTimeErrorMessage()
         {
             string message = $"时间不正确,没有收益，请校准自己的时间 ";
+            return message;
+        }
+
+        public static string BuildMinerMessage(Miner miner, MetalConfig config, long level)
+        {
+            string message = DateTime.Now.ToString("yyyy年MM月dd日 HH:mm:ss") + " 矿工" + miner.Name + " 挖到了";
+            message += $"<color=#{QualityConfigHelper.GetQualityColor(config.Quality)}>[{config.Name}]</color>";
+            message += ",矿物等级为:" + level;
+
             return message;
         }
     }

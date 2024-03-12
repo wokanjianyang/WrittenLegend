@@ -46,7 +46,7 @@ namespace Game
         public Toggle[] skillToggles;
         // Start is called before the first frame update
 
-        private int startQuality = 4; 
+        private int startQuality = 4;
 
         void Start()
         {
@@ -85,9 +85,9 @@ namespace Game
                 equipRoleToggles[skillBookRole - 1].isOn = setting.EquipRole[skillBookRole];
             }
 
-            foreach (var kp in setting.SkillReserveQuanlity)
+            for (int i = 0; i < skillToggles.Length; i++)
             {
-                skillToggles[kp.Key - startQuality].isOn = kp.Value; //紫色开始
+                skillToggles[i].isOn = setting.SkillReserveQuanlity[i + startQuality];//紫色开始
             }
 
 

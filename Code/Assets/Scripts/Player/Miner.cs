@@ -27,8 +27,13 @@ public class Miner
         Debug.Log("init seed :" + Seed);
     }
 
-    public MineConfig InlineBuild()
+    public MineConfig InlineBuild(long nowSecond)
     {
+        if (this.BirthDay >= nowSecond)
+        {
+            return null;
+        }
+
         System.Random random = new System.Random(this.Seed);
 
         List<MineConfig> mines = MineConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
@@ -36,11 +41,12 @@ public class Miner
         int min = mines.Select(m => m.StartRate).Min();
         int max = mines.Select(m => m.EndRate).Max();
 
-        int ns = random.Next(min, max + 1);
+        int nextSeed = random.Next(min, max + 1);
 
-        this.Seed = ns;
+        this.Seed = nextSeed;
+        this.BirthDay = nowSecond + RandomHelper.RandomNumber(0, 20);
 
-        MineConfig mine = mines.Where(m => m.StartRate <= ns && ns <= m.EndRate).FirstOrDefault();
+        MineConfig mine = mines.Where(m => m.StartRate <= nextSeed && nextSeed <= m.EndRate).FirstOrDefault();
 
         return mine;
     }

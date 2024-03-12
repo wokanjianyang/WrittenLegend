@@ -14,6 +14,7 @@ public class Dialog_Mine : MonoBehaviour, IBattleLife
     public Button Btn_Close;
     public Button Btn_Add;
     public Button Btn_Info;
+    public Text Txt_Info;
 
     public Transform Tf_Miner;
     private GameObject Pab_Miner;
@@ -61,10 +62,12 @@ public class Dialog_Mine : MonoBehaviour, IBattleLife
         if (user.MinerList.Count < maxCount)
         {
             this.Btn_Add.gameObject.SetActive(true);
+            this.Txt_Info.gameObject.SetActive(false);
         }
         else
         {
             this.Btn_Add.gameObject.SetActive(false);
+            this.Txt_Info.gameObject.SetActive(true);
         }
 
         for (int i = 0; i < user.MinerList.Count; i++)

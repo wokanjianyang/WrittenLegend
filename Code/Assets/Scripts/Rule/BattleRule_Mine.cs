@@ -13,7 +13,7 @@ public class BattleRule_Mine
     {
         this.currentRoundTime += Time.unscaledDeltaTime;
 
-        if (this.currentRoundTime >= 5)
+        if (this.currentRoundTime >= 1)
         {
             this.currentRoundTime = 0;
 
@@ -40,28 +40,27 @@ public class BattleRule_Mine
             {
                 miner.BirthDay = nt;
             }
-            else if (nt - miner.BirthDay >= 60)
+            else if (nt - miner.BirthDay >= 50)
             {
-                miner.BirthDay += RandomHelper.RandomNumber(50, 70);
+                MineConfig config = miner.InlineBuild(nt);
 
-                MineConfig config = miner.InlineBuild();
-
-                string message = DateTime.Now.ToString("yyyy年MM月dd日 HH:mm:ss") + " 矿工" + miner.Name + " 挖到了" + config.Name;
-
-                var md = user.MetalData;
-                int key = config.Id;
-                if (!md.ContainsKey(key))
+                if (config != null)
                 {
-                    md[key] = new Game.Data.MagicData();
+                    var md = user.MetalData;
+                    int key = config.Id;
+                    if (!md.ContainsKey(key))
+                    {
+                        md[key] = new Game.Data.MagicData();
+                    }
+
+                    md[key].Data += 1;
+
+                    MetalConfig metalConfig = MetalConfigCategory.Instance.Get(config.Id);
+                    //Debug.Log(message);
+                    string message = BattleMsgHelper.BuildMinerMessage(miner, metalConfig, md[key].Data);
+
+                    GameProcessor.Inst.EventCenter.Raise(new MineMsgEvent() { Message = message });
                 }
-
-                md[key].Data += 1;
-
-                message += ",矿物等级为:" + md[key].Data;
-
-                //Debug.Log(message);
-
-                GameProcessor.Inst.EventCenter.Raise(new MineMsgEvent() { Message = message });
             }
         }
     }
