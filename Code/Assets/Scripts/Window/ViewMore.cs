@@ -21,10 +21,20 @@ namespace Game
 
         public Dialog_BossFamily BossFamily;
 
+        public Item_EquipCopy MineItem;
         public Dialog_Mine MineDialog;
 
         void Start()
         {
+            long level = GameProcessor.Inst.User.MagicLevel.Data;
+            if (level > 60000)
+            {
+                MineItem.gameObject.SetActive(true);
+            }
+            else
+            {
+                MineItem.gameObject.SetActive(false);
+            }
         }
 
         public override void OnBattleStart()

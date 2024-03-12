@@ -547,6 +547,7 @@ MonoBehaviour:
   BossInfo: {fileID: 8057023221139036908}
   Phantom: {fileID: 4175719671730531879}
   BossFamily: {fileID: 69471015554011593}
+  MineItem: {fileID: 685271912785026367}
   MineDialog: {fileID: 2106805135474309869}
 --- !u!222 &7198626478367842758
 CanvasRenderer:
@@ -1270,6 +1271,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a148f9a7b8963d14f9d15ac46a060fb4, type: 3}
+--- !u!114 &685271912785026367 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1314360016101029638, guid: a148f9a7b8963d14f9d15ac46a060fb4, type: 3}
+  m_PrefabInstance: {fileID: 1999343508677667385}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88dab96125209d849820b05ef8121e05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7081665578821776848 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8788837374395113449, guid: a148f9a7b8963d14f9d15ac46a060fb4, type: 3}
