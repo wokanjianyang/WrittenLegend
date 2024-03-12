@@ -97,7 +97,7 @@ public class Init : MonoBehaviour
                 WindowTypeEnum.Dialog_EquipDetail,
                 WindowTypeEnum.Dialog_Exclusive_Detail,
                 WindowTypeEnum.Dialog_Defend,
-                //WindowTypeEnum.Dialog_OfflineExp,
+                WindowTypeEnum.Dialog_OfflineExp,
                 WindowTypeEnum.Dialog_Settings,
                 WindowTypeEnum.Map_EquipCopy,
                 WindowTypeEnum.Map_Phantom,

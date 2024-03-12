@@ -1,72 +1,179 @@
 using Sirenix.OdinInspector;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 namespace Game
 {
-    public class Dialog_OfflineExp : MonoBehaviour, IBattleLife
+    public class Dialog_OfflineExp : MonoBehaviour
     {
         [LabelText("离线奖励提示")]
-        public Text tmp_Msg;
+        public Text Txt_Msg;
 
         [LabelText("领取按钮")]
-        public Button btn_GetOfflineExp;
-
-        private long offlineSecond = 0;
+        public Button Btn_OK;
 
         // Start is called before the first frame update
         void Start()
         {
 
-            this.btn_GetOfflineExp.onClick.AddListener(this.OnClick_GetOfflineExp);
+            this.Btn_OK.onClick.AddListener(this.OnClick_OK);
         }
 
         // Update is called once per frame
         void Update()
         {
-        
+
         }
         public int Order => (int)ComponentOrder.Dialog;
 
-        public void OnBattleStart()
+
+        private void OnClick_OK()
         {
             this.gameObject.SetActive(false);
-
-            //if (GameProcessor.Inst.User.LastOut > 0)
-            //{
-            //    long offlineSecond = GameProcessor.Inst.CurrentTimeSecond - GameProcessor.Inst.User.LastOut;
-            //    if (offlineSecond > 0)
-            //    {
-            //        this.OnShowOfflineExpEvent(offlineSecond);
-            //    }
-            //}
+            //Time.timeScale = 1;
         }
 
-        private void OnClick_GetOfflineExp()
-        {
-            this.gameObject.SetActive(false);
-        }
-        private void OnShowOfflineExpEvent(long os)
+        public void ShowOffline()
         {
             User user = GameProcessor.Inst.User;
 
-            this.offlineSecond = os;
-            this.gameObject.SetActive(true);
-            var ticks = os * TimeSpan.TicksPerSecond;
-            var dateTime = new DateTime(ticks);
-            var t = dateTime.ToString("F");
+            long currentTick = TimeHelper.ClientNowSeconds();
+            long offlineTime = currentTick - user.SecondExpTick;
 
-            var offlineExp = 1 * os;
+            long offlineFloor = 0;
+            long rewardExp = 0;
+            long rewardGold = 0;
+            long tmepFloor = user.MagicTowerFloor.Data;
 
-            this.tmp_Msg.text = string.Format("本次离线时间:{0}\n奖励离线经验: {1}", t, offlineExp);
-
-
-            user.MagicExp.Data += offlineExp;
-            user.EventCenter.Raise(new HeroChangeEvent
+            long tempTime = Math.Min(offlineTime, ConfigHelper.MaxOfflineTime);
+            while (tempTime > 0 && tmepFloor < ConfigHelper.Max_Floor)
             {
-                Type = UserChangeType.LevelUp
-            });
+                tmepFloor = user.MagicTowerFloor.Data + offlineFloor + 100;
+
+                TowerConfig config = TowerConfigCategory.Instance.GetByFloor(tmepFloor); //quick
+
+                AttributeBonus offlineHero = user.AttributeBonus;
+                AttributeBonus offlineTower = MonsterTowerHelper.BuildOffline(tmepFloor);
+
+                SkillPanel sp = new SkillPanel(new SkillData(9001, (int)SkillPosition.Default), new List<SkillRune>(), new List<SkillSuit>(), false);
+
+                int roundHeroToTower = DamageHelper.CalcAttackRound(offlineHero, offlineTower, sp);
+                int roundTowerToHero = DamageHelper.CalcAttackRound(offlineTower, offlineHero, sp);
+
+                if (roundHeroToTower > roundTowerToHero)
+                {
+                    //fail
+                    tempTime = 0;
+                }
+                else
+                {
+                    long floorTime = roundHeroToTower + (5 - user.TowerNumber); //5s find monster - achievement time
+                    floorTime = Math.Max(floorTime, 1);
+                    long maxFloor = Math.Min(tempTime / floorTime, 100);
+
+                    offlineFloor += maxFloor;
+                    rewardExp += maxFloor * config.Exp;
+                    rewardGold += maxFloor * config.Gold;
+                    tempTime -= Math.Max(maxFloor, 1) * floorTime;
+                }
+            }
+
+            int floorRate = ConfigHelper.GetFloorRate(tmepFloor) * user.GetDzRate();
+            offlineFloor = offlineFloor * floorRate;
+
+            List<Item> items = new List<Item>();
+            for (int i = 0; i < offlineFloor; i++)
+            {
+                long fl = user.MagicTowerFloor.Data + i;
+
+                int equipLevel = Math.Max(10, (user.MapId - ConfigHelper.MapStartId) * 10);
+
+                items.AddRange(DropHelper.TowerEquip(fl, equipLevel));
+            }
+
+            //items.Add(new Equip(22005701, 23, 15, 5));
+            //items.Add(new Equip(22005702, 23, 15, 5));
+            //items.Add(new Equip(22005703, 23, 15, 5));
+            //items.Add(new Equip(22005704, 23, 15, 5));
+            //items.Add(new Equip(22005705, 16, 10037, 5));
+            //items.Add(new Equip(22005705, 16, 10037, 5));
+            //items.Add(new Equip(22005707, 16, 10037, 5));
+            //items.Add(new Equip(22005707, 16, 10037, 5));
+            //items.Add(new Equip(22005709, 23, 15, 5));
+            //items.Add(new Equip(22005710, 23, 15, 5));
+
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Copy_Ticket,1000));
+
+            long newFloor = user.MagicTowerFloor.Data + offlineFloor;
+
+            user.MagicTowerFloor.Data = Math.Min(newFloor, ConfigHelper.Max_Floor);
+
+            long exp = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp) * (offlineTime / 5) + rewardExp;
+            long gold = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondGold) * (offlineTime / 5) + rewardGold;
+
+            user.AddExpAndGold(exp, gold);
+            user.SecondExpTick = currentTick;
+
+            foreach (var item in items)
+            {
+                BoxItem boxItem = new BoxItem();
+                boxItem.Item = item;
+                boxItem.MagicNubmer.Data = Math.Max(1, item.Count);
+                boxItem.BoxId = -1;
+                user.Bags.Add(boxItem);
+            }
+
+            string OfflineMessage = BattleMsgHelper.BuildOfflineMessage(offlineTime, offlineFloor, exp, gold, items.Count);
+            //Debug.Log(OfflineMessage);
+
+            //检查
+            DateTime saveDate = new DateTime(user.DataDate);
+            if (saveDate.Day < DateTime.Now.Day || saveDate.Month < DateTime.Now.Month || saveDate.Year < DateTime.Now.Year)
+            {
+                user.SaveLimit = 5;
+                user.LoadLimit = 5;
+                user.DefendData.Refresh();
+                user.HeroPhatomData.Refresh();
+
+                user.DataDate = DateTime.Now.Ticks;
+                //保存到Tap
+            }
+
+            //miner
+            Dictionary<int, long> offlineMetal = new Dictionary<int, long>();
+            foreach (var miner in user.MinerList)
+            {
+                miner.OfflineBuild(offlineTime, offlineMetal);
+            }
+
+            OfflineMessage += $"\n";
+            foreach (var kp in offlineMetal)
+            {
+                var md = user.MetalData;
+                int key = kp.Key;
+                if (!md.ContainsKey(key))
+                {
+                    md[key] = new Game.Data.MagicData();
+                }
+
+                md[key].Data += kp.Value;
+
+                MetalConfig metalConfig = MetalConfigCategory.Instance.Get(key);
+
+                OfflineMessage += $"<color=#{QualityConfigHelper.GetQualityColor(metalConfig.Quality)}>[{metalConfig.Name}]</color>" + kp.Value + "个";
+            }
+
+
+            UserData.Save();
+
+            this.gameObject.SetActive(true);
+
+            this.Txt_Msg.text = OfflineMessage;
+
+            //Time.timeScale = 0;
         }
     }
 }

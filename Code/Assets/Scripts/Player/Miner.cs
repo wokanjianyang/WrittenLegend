@@ -51,9 +51,34 @@ public class Miner
         return mine;
     }
 
-    public void OfflineBuild()
+    public void OfflineBuild(long time, Dictionary<int, long> offlineMetal)
     {
+        long count = time / 60;
 
+        for (int i = 0; i < count; i++)
+        {
+            System.Random random = new System.Random(this.Seed);
+
+            List<MineConfig> mines = MineConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
+
+            int min = mines.Select(m => m.StartRate).Min();
+            int max = mines.Select(m => m.EndRate).Max();
+
+            int nextSeed = random.Next(min, max + 1);
+            this.Seed = nextSeed;
+
+            MineConfig mine = mines.Where(m => m.StartRate <= nextSeed && nextSeed <= m.EndRate).FirstOrDefault();
+            int key = mine.Id;
+
+            if (!offlineMetal.ContainsKey(key))
+            {
+                offlineMetal[key] = 0;
+            }
+
+            offlineMetal[key]++;
+        }
+
+        this.BirthDay += count * 60 + 30;
     }
 
 }

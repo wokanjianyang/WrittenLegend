@@ -156,12 +156,26 @@ namespace Game
                 isTimeError = true;
             }
 
-            //计算离线
-            if (User.SecondExpTick > 0)
+            if (isTimeError)
             {
-                OfflineReward();
+                OfflineMessage = BattleMsgHelper.BuildTimeErrorMessage();
+                return;
             }
 
+
+            Dialog_OfflineExp offlineExp = Canvas.FindObjectOfType<Dialog_OfflineExp>(true);
+
+            offlineExp.ShowOffline();
+            ////计算离线
+            //if (User.SecondExpTick > 0)
+            //{
+            //    OfflineReward();
+            //}
+
+            this.Run();
+        }
+
+        public void Run() {
             var coms = Canvas.FindObjectsOfType<MonoBehaviour>(true);
             var battleComs = coms.Where(com => com is IBattleLife).Select(com => com as IBattleLife).ToList();
             battleComs.Sort((a, b) =>
@@ -208,120 +222,6 @@ namespace Game
             }
 
             this.User.AdData.Check();
-        }
-
-        private void OfflineReward()
-        {
-            if (isTimeError)
-            {
-                OfflineMessage = BattleMsgHelper.BuildTimeErrorMessage();
-                return;
-            }
-
-            long currentTick = TimeHelper.ClientNowSeconds();
-            long offlineTime = currentTick - User.SecondExpTick;
-
-            long offlineFloor = 0;
-            long rewardExp = 0;
-            long rewardGold = 0;
-            long tmepFloor = User.MagicTowerFloor.Data;
-
-            long tempTime = Math.Min(offlineTime, ConfigHelper.MaxOfflineTime);
-            while (tempTime > 0 && tmepFloor < ConfigHelper.Max_Floor)
-            {
-                tmepFloor = User.MagicTowerFloor.Data + offlineFloor + 100;
-
-                TowerConfig config = TowerConfigCategory.Instance.GetByFloor(tmepFloor); //quick
-
-                AttributeBonus offlineHero = User.AttributeBonus;
-                AttributeBonus offlineTower = MonsterTowerHelper.BuildOffline(tmepFloor);
-
-                SkillPanel sp = new SkillPanel(new SkillData(9001, (int)SkillPosition.Default), new List<SkillRune>(), new List<SkillSuit>(), false);
-
-                int roundHeroToTower = DamageHelper.CalcAttackRound(offlineHero, offlineTower, sp);
-                int roundTowerToHero = DamageHelper.CalcAttackRound(offlineTower, offlineHero, sp);
-
-                if (roundHeroToTower > roundTowerToHero)
-                {
-                    //fail
-                    tempTime = 0;
-                }
-                else
-                {
-                    long floorTime = roundHeroToTower + (5 - User.TowerNumber); //5s find monster - achievement time
-                    floorTime = Math.Max(floorTime, 1);
-                    long maxFloor = Math.Min(tempTime / floorTime, 100);
-
-                    offlineFloor += maxFloor;
-                    rewardExp += maxFloor * config.Exp;
-                    rewardGold += maxFloor * config.Gold;
-                    tempTime -= Math.Max(maxFloor, 1) * floorTime;
-                }
-            }
-
-            int floorRate = ConfigHelper.GetFloorRate(tmepFloor) * User.GetDzRate();
-            offlineFloor = offlineFloor * floorRate;
-
-            List<Item> items = new List<Item>();
-            for (int i = 0; i < offlineFloor; i++)
-            {
-                long fl = User.MagicTowerFloor.Data + i;
-
-                int equipLevel = Math.Max(10, (User.MapId - ConfigHelper.MapStartId) * 10);
-
-                items.AddRange(DropHelper.TowerEquip(fl, equipLevel));
-            }
-
-            //items.Add(new Equip(22005701, 23, 15, 5));
-            //items.Add(new Equip(22005702, 23, 15, 5));
-            //items.Add(new Equip(22005703, 23, 15, 5));
-            //items.Add(new Equip(22005704, 23, 15, 5));
-            //items.Add(new Equip(22005705, 16, 10037, 5));
-            //items.Add(new Equip(22005705, 16, 10037, 5));
-            //items.Add(new Equip(22005707, 16, 10037, 5));
-            //items.Add(new Equip(22005707, 16, 10037, 5));
-            //items.Add(new Equip(22005709, 23, 15, 5));
-            //items.Add(new Equip(22005710, 23, 15, 5));
-
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Copy_Ticket,1000));
-
-            long newFloor = User.MagicTowerFloor.Data + offlineFloor;
-
-            User.MagicTowerFloor.Data = Math.Min(newFloor, ConfigHelper.Max_Floor);
-
-            long exp = User.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp) * (offlineTime / 5) + rewardExp;
-            long gold = User.AttributeBonus.GetTotalAttr(AttributeEnum.SecondGold) * (offlineTime / 5) + rewardGold;
-
-            User.AddExpAndGold(exp, gold);
-            User.SecondExpTick = currentTick;
-
-
-            foreach (var item in items)
-            {
-                BoxItem boxItem = new BoxItem();
-                boxItem.Item = item;
-                boxItem.MagicNubmer.Data = Math.Max(1, item.Count);
-                boxItem.BoxId = -1;
-                User.Bags.Add(boxItem);
-            }
-
-            OfflineMessage = BattleMsgHelper.BuildOfflineMessage(offlineTime, offlineFloor, exp, gold, items.Count);
-            //Debug.Log(OfflineMessage);
-
-            //检查
-            DateTime saveDate = new DateTime(User.DataDate);
-            if (saveDate.Day < DateTime.Now.Day || saveDate.Month < DateTime.Now.Month || saveDate.Year < DateTime.Now.Year)
-            {
-                User.SaveLimit = 5;
-                User.LoadLimit = 5;
-                User.DefendData.Refresh();
-                User.HeroPhatomData.Refresh();
-
-                User.DataDate = DateTime.Now.Ticks;
-                //保存到Tap
-            }
-
-            UserData.Save();
         }
 
         private void SecondRewarod()
