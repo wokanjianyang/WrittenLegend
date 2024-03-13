@@ -100,6 +100,7 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<EquipOneEvent>(this.OnEquipOneEvent);
             GameProcessor.Inst.EventCenter.AddListener<SkillBookLearnEvent>(this.OnSkillBookLearn);
             GameProcessor.Inst.EventCenter.AddListener<RecoveryEvent>(this.OnRecoveryEvent);
+            GameProcessor.Inst.EventCenter.AddListener<LoseEvent>(this.OnLoseEvent);
             GameProcessor.Inst.EventCenter.AddListener<AutoRecoveryEvent>(this.OnAutoRecoveryEvent);
             GameProcessor.Inst.EventCenter.AddListener<BagUseEvent>(this.OnBagUseEvent);
             GameProcessor.Inst.EventCenter.AddListener<CompositeEvent>(this.OnCompositeEvent);
@@ -615,6 +616,29 @@ namespace Game
             List<BoxItem> recoveryList = new List<BoxItem>();
             recoveryList.Add(e.BoxItem);
             this.Recovery(recoveryList, RuleType.Normal);
+        }
+
+        private void OnLoseEvent(LoseEvent e)
+        {
+            User user = GameProcessor.Inst.User;
+
+            BoxItem boxItem = e.BoxItem;
+
+            if (boxItem == null)
+            {
+                //Log.Debug("此物品已经被使用了");
+                return;
+            }
+
+            user.Bags.Remove(boxItem);
+
+            //Com_Box boxUI = this.items.Find(m => m.boxId == boxItem.BoxId && m.BagType == boxItem.GetBagType());
+            Com_Box boxUI = this.items.Find(m => m.BoxItem == boxItem);
+            if (boxUI != null) //上线自动回收，可能还没加载
+            {
+                this.items.Remove(boxUI);
+                GameObject.Destroy(boxUI.gameObject);
+            }
         }
 
         private void OnAutoRecoveryEvent(AutoRecoveryEvent e)

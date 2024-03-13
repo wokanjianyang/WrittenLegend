@@ -77,6 +77,12 @@ namespace Game
     {
         public BoxItem BoxItem { get; set; }
     }
+
+    public class LoseEvent : SDD.Events.Event
+    {
+        public BoxItem BoxItem { get; set; }
+    }
+
     public class ForgingEvent : SDD.Events.Event
     {
         public BoxItem BoxItem { get; set; }

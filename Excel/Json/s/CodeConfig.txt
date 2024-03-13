@@ -106,6 +106,6 @@
 {"_t":"CodeConfig","_id":21028,"Type":1,"code":"io&zkd161","ItemTypeList":[5],"ItemIdList":[4004],"ItemQuanlityList":[2800]},
 {"_t":"CodeConfig","_id":21029,"Type":1,"code":"io&zkd162","ItemTypeList":[5],"ItemIdList":[4004],"ItemQuanlityList":[2900]},
 {"_t":"CodeConfig","_id":21030,"Type":1,"code":"io&zkd163","ItemTypeList":[5],"ItemIdList":[4004],"ItemQuanlityList":[3000]},
-{"_t":"CodeConfig","_id":21031,"Type":1,"code":"io&zkd164","ItemTypeList":[5],"ItemIdList":[4004],"ItemQuanlityList":[10000]},
+{"_t":"CodeConfig","_id":21031,"Type":1,"code":"io&zkd1644","ItemTypeList":[5],"ItemIdList":[4004],"ItemQuanlityList":[10000]},
 {"_t":"CodeConfig","_id":21999,"Type":1,"code":"bozs&zaaa","ItemTypeList":[5,9],"ItemIdList":[4004,4003],"ItemQuanlityList":[666,6666]},
 ]}

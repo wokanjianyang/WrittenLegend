@@ -20,6 +20,7 @@ namespace Game
         public Button Btn_Recovery;
         public Button Btn_Use;
         public Button Btn_UseAll;
+        public Button Btn_Lose;
 
         public Button Btn_Learn;
         public Button Btn_Close;
@@ -31,6 +32,7 @@ namespace Game
         void Start()
         {
             this.Btn_Recovery.onClick.AddListener(this.OnRecovery);
+            this.Btn_Lose.onClick.AddListener(this.OnLose);
             this.Btn_Use.onClick.AddListener(this.OnUse);
             this.Btn_UseAll.onClick.AddListener(this.OnUseAll);
 
@@ -57,6 +59,7 @@ namespace Game
             this.gameObject.SetActive(true);
 
             this.Btn_Recovery.gameObject.SetActive(false);
+            this.Btn_Lose.gameObject.SetActive(true);
             this.Btn_Use.gameObject.SetActive(false);
             this.Btn_UseAll.gameObject.SetActive(false);
             this.Btn_Learn.gameObject.SetActive(false);
@@ -107,7 +110,8 @@ namespace Game
                     break;
                 case ItemType.Card:
                     {
-                        Btn_Recovery.gameObject.SetActive(true);
+                        this.Btn_Recovery.gameObject.SetActive(true);
+                        this.Btn_Lose.gameObject.SetActive(false);
                     }
                     break;
                 default:
@@ -132,6 +136,31 @@ namespace Game
             {
                 BoxItem = this.boxItem,
             });
+        }
+
+        private void OnLose()
+        {
+            if (this.boxItem.Item.IsLock)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "锁定的不能丢弃", ToastType = ToastTypeEnum.Failure });
+                return;
+            }
+
+            if (this.Btn_Recovery.IsActive())
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "能回收的不能丢弃", ToastType = ToastTypeEnum.Failure });
+                return;
+            }
+
+            this.gameObject.SetActive(false);
+
+            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("不会有任何收益,是否确认丢弃道具？", true, () =>
+            {
+                GameProcessor.Inst.EventCenter.Raise(new LoseEvent()
+                {
+                    BoxItem = this.boxItem,
+                });
+            }, null);
         }
 
         private void OnUse()
