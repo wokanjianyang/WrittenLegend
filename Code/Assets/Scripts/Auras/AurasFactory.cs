@@ -10,7 +10,7 @@ namespace Game
 
 
 
-        public static AAuras BuildAuras(APlayer player, int atid, int level)
+        public static AAuras BuildAuras(APlayer player, int atid, long level)
         {
             AAuras auras = null;
 

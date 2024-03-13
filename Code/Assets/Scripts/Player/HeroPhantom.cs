@@ -101,12 +101,12 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.MagicDamage, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.MagicDamage));
             AttributeBonus.SetAttr(AttributeEnum.SpiritDamage, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.SpiritDamage));
 
-            this.AurasList = new List<AAuras>();
-            foreach (var ac in user.GetAurasList())
-            {
-                AAuras auras = AurasFactory.BuildAuras(this, ac.Key, ac.Value);
-                this.AurasList.Add(auras);
-            }
+            //this.AurasList = new List<AAuras>();
+            //foreach (var ac in user.GetAurasList())
+            //{
+            //    AAuras auras = AurasFactory.BuildAuras(this, ac.Key, ac.Value);
+            //    this.AurasList.Add(auras);
+            //}
 
             if (user.SoulRingData.Count > 0)
             {

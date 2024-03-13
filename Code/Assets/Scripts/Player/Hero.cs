@@ -114,12 +114,12 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.SkillValetCount, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.SkillValetCount));
             AttributeBonus.SetAttr(AttributeEnum.SkillValetSpeed, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.SkillValetSpeed));
 
-            this.AurasList = new List<AAuras>();
-            foreach (var ac in user.GetAurasList())
-            {
-                AAuras auras = AurasFactory.BuildAuras(this, ac.Key, ac.Value);
-                this.AurasList.Add(auras);
-            }
+            //this.AurasList = new List<AAuras>();
+            //foreach (var ac in user.GetAurasList())
+            //{
+            //    AAuras auras = AurasFactory.BuildAuras(this, ac.Key, ac.Value);
+            //    this.AurasList.Add(auras);
+            //}
 
             if (user.SoulRingData.Count > 0)
             {

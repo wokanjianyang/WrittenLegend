@@ -416,8 +416,9 @@ namespace Game
             //光环
             foreach (var ar in GetAurasList())
             {
+                AurasAttrConfig aurasAttrConfig = AurasAttrConfigCategory.Instance.GetConfig(ar.Key);
                 AurasAttrConfig config = AurasAttrConfigCategory.Instance.Get(ar.Key);
-                AttributeBonus.SetAttr((AttributeEnum)config.AttrId, AttributeFrom.Auras, config.GetAttr(ar.Value));
+                AttributeBonus.SetAttr((AttributeEnum)config.AttrId, AttributeFrom.Auras, aurasAttrConfig.GetAttr(ar.Value));
             }
 
             this.SuitMax = ConfigHelper.SkillSuitMax;
@@ -728,19 +729,20 @@ namespace Game
             return suit;
         }
 
-        public Dictionary<int, int> GetAurasList()
+        public Dictionary<int, long> GetAurasList()
         {
-            Dictionary<int, int> list = new Dictionary<int, int>();
+            Dictionary<int, long> list = new Dictionary<int, long>();
 
             foreach (var sl in SoulRingData)
             {
                 if (sl.Value.Data > 0)
                 {
-                    SoulRingAttrConfig ringConfig = SoulRingConfigCategory.Instance.GetAttrConfig(sl.Key, sl.Value.Data);
+                    long soulLevel = sl.Value.Data;
+                    SoulRingAttrConfig ringConfig = SoulRingConfigCategory.Instance.GetAttrConfig(sl.Key, soulLevel);
 
                     if (ringConfig.AurasId > 0)
                     {
-                        list.Add(ringConfig.AurasId, ringConfig.AurasLevel);
+                        list.Add(ringConfig.AurasId, ringConfig.GetAurasLevel(soulLevel));
                     }
                 }
             }
