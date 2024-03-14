@@ -10,7 +10,6 @@
 {"_t":"DropLimitConfig","_id":107,"Name":"第一批绿图鉴","Type":0,"StartMapId":1035,"EndMapId":1099,"DropId":2007,"StartRate":0,"Rate":20000,"ShareRise":1,"ShareDz":0,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
 {"_t":"DropLimitConfig","_id":108,"Name":"第二批蓝图鉴","Type":0,"StartMapId":1035,"EndMapId":1099,"DropId":2008,"StartRate":0,"Rate":30000,"ShareRise":1,"ShareDz":0,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
 {"_t":"DropLimitConfig","_id":109,"Name":"第二批紫图鉴","Type":0,"StartMapId":1035,"EndMapId":1099,"DropId":2009,"StartRate":0,"Rate":40000,"ShareRise":1,"ShareDz":0,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
-{"_t":"DropLimitConfig","_id":110,"Name":"第二时装","Type":0,"StartMapId":1070,"EndMapId":1099,"DropId":3002,"StartRate":0,"Rate":100000,"ShareRise":1,"ShareDz":0,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
 {"_t":"DropLimitConfig","_id":201,"Name":"守沙100书页","Type":100,"StartMapId":0,"EndMapId":0,"DropId":1002,"StartRate":0,"Rate":1,"ShareRise":0,"ShareDz":1,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
 {"_t":"DropLimitConfig","_id":202,"Name":"守沙图鉴","Type":100,"StartMapId":0,"EndMapId":0,"DropId":2004,"StartRate":0,"Rate":1,"ShareRise":0,"ShareDz":1,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
 {"_t":"DropLimitConfig","_id":203,"Name":"守沙时装","Type":100,"StartMapId":0,"EndMapId":0,"DropId":3001,"StartRate":0,"Rate":1,"ShareRise":0,"ShareDz":1,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
