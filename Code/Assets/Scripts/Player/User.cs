@@ -913,64 +913,64 @@ namespace Game
             return list;
         }
 
-        public void AddStartRate(int mapId, double count)
-        {
-            count = count * this.GetDzRate();
+        //public void AddStartRate(int mapId, double count)
+        //{
+        //    count = count * this.GetDzRate();
 
-            List<DropLimitConfig> dropLimits = DropLimitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.StartRate > 0
-            && m.Type == (int)DropLimitType.Normal && m.StartMapId <= mapId && mapId <= m.EndMapId).ToList();
+        //    List<DropLimitConfig> dropLimits = DropLimitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.StartRate > 0
+        //    && m.Type == (int)DropLimitType.Normal && m.StartMapId <= mapId && mapId <= m.EndMapId).ToList();
 
-            foreach (var dropLimit in dropLimits)
-            {
-                int key = dropLimit.Id;
-                if (!RateData.ContainsKey(key))
-                {
-                    RateData[key] = 0;
-                }
-                RateData[key] += count;
-            }
-        }
+        //    foreach (var dropLimit in dropLimits)
+        //    {
+        //        int key = dropLimit.Id;
+        //        if (!RateData.ContainsKey(key))
+        //        {
+        //            RateData[key] = 0;
+        //        }
+        //        RateData[key] += count;
+        //    }
+        //}
 
-        public List<Item> AddMapStartRate(List<DropLimitConfig> mapLimits, double count)
-        {
-            List<Item> list = new List<Item>();
+        //public List<Item> AddMapStartRate(List<DropLimitConfig> mapLimits, double count)
+        //{
+        //    List<Item> list = new List<Item>();
 
-            count = count * this.GetDzRate();
+        //    count = count * this.GetDzRate();
 
-            foreach (DropLimitConfig limitConfig in mapLimits)
-            {
-                int key = limitConfig.Id;
+        //    foreach (DropLimitConfig limitConfig in mapLimits)
+        //    {
+        //        int key = limitConfig.Id;
 
-                if (!RateLimitData.ContainsKey(key))
-                {
-                    RateLimitData[key] = 0;
-                }
-                RateLimitData[key] += count;
+        //        if (!RateLimitData.ContainsKey(key))
+        //        {
+        //            RateLimitData[key] = 0;
+        //        }
+        //        RateLimitData[key] += count;
 
-                //Debug.Log("Map Limit Drop: " + key + " :" + RateLimitData[key]);
+        //        //Debug.Log("Map Limit Drop: " + key + " :" + RateLimitData[key]);
 
-                if (RateLimitData[key] >= limitConfig.StartRate)
-                {
-                    double rate = Math.Max(limitConfig.Rate + limitConfig.StartRate - RateLimitData[key], 1);
+        //        if (RateLimitData[key] >= limitConfig.StartRate)
+        //        {
+        //            double rate = Math.Max(limitConfig.Rate + limitConfig.StartRate - RateLimitData[key], 1);
 
-                    if (RandomHelper.RandomResult(rate))
-                    {
-                        RateLimitData[key] = 0;
+        //            if (RandomHelper.RandomResult(rate))
+        //            {
+        //                RateLimitData[key] = 0;
 
-                        DropConfig dropConfig = DropConfigCategory.Instance.Get(limitConfig.DropId);
+        //                DropConfig dropConfig = DropConfigCategory.Instance.Get(limitConfig.DropId);
 
-                        int index = RandomHelper.RandomNumber(0, dropConfig.ItemIdList.Length);
-                        int configId = dropConfig.ItemIdList[index];
+        //                int index = RandomHelper.RandomNumber(0, dropConfig.ItemIdList.Length);
+        //                int configId = dropConfig.ItemIdList[index];
 
-                        Item item = ItemHelper.BuildItem((ItemType)dropConfig.ItemType, configId, 1, dropConfig.Quantity);
+        //                Item item = ItemHelper.BuildItem((ItemType)dropConfig.ItemType, configId, 1, dropConfig.Quantity);
 
-                        list.Add(item);
-                    }
-                }
-            }
+        //                list.Add(item);
+        //            }
+        //        }
+        //    }
 
-            return list;
-        }
+        //    return list;
+        //}
 
         public int GetFestiveCount(int id)
         {

@@ -28,7 +28,7 @@ public class BattleRule_Mine
 
     private void BuildReward()
     {
-        Debug.Log("Mine Build Reward ");
+        //Debug.Log("Mine Build Reward ");
 
         User user = GameProcessor.Inst.User;
 

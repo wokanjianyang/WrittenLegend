@@ -15,11 +15,6 @@ namespace Game
     {
         public static List<Item> Build(int type, int mapId, double rateRise, double modelRise, int qualityRate)
         {
-            return Build(type, mapId, rateRise, modelRise, null, qualityRate);
-        }
-
-        public static List<Item> Build(int type, int mapId, double rateRise, double modelRise, Dictionary<int, double> rateData, int qualityRate)
-        {
             User user = GameProcessor.Inst.User;
 
             List<Item> list = new List<Item>();
@@ -43,7 +38,10 @@ namespace Game
                     user.DropDataList.Add(dropData);
                 }
 
-                
+                if (dropData.Number > 0)
+                {
+                    Debug.Log("Map Limit Drop: " + dropLimitId + " :" + dropData.Number);
+                }
 
                 double rate = dropLimit.Rate;
 
@@ -52,13 +50,13 @@ namespace Game
                     rate = rate / rateRise;
                 }
 
-                if (dropLimit.StartRate > 0 && rateData != null)
+                if (dropLimit.StartRate > 0) //有保底机制的
                 {
-                    double currentRate = rateData[dropLimit.Id];
+                    dropData.Number += modelRise * dzRate;
 
-                    if (currentRate > dropLimit.StartRate)
+                    if (dropData.Number > dropLimit.StartRate)
                     {
-                        rate = Math.Max(rate + dropLimit.StartRate - currentRate, 1);
+                        rate = Math.Max(rate + dropLimit.StartRate - dropData.Number, 1);
 
                         //Debug.Log("Start Drop Rate:" + dropId + " ," + rate);
                     }
@@ -71,14 +69,9 @@ namespace Game
 
                 rate = rate / modelRise;
 
-
                 if (RandomHelper.RandomResult(rate))
                 {
-                    if (rateData != null && rateData.ContainsKey(dropLimit.Id))
-                    {
-                        rateData[dropLimit.Id] = 0;
-                        //Debug.Log("drop id " + config.Id + " 保底归零 ");
-                    }
+                    dropData.Number = 0;
 
                     int dropId = dropLimit.DropId;
                     DropConfig dropConfig = DropConfigCategory.Instance.Get(dropId);

@@ -93,18 +93,18 @@ namespace Game
 		/// <summary>掉落Id</summary>
 		[ProtoMember(6)]
 		public int DropId { get; set; }
-		/// <summary>掉落概率</summary>
+		/// <summary>起始爆率</summary>
 		[ProtoMember(7)]
+		public int StartRate { get; set; }
+		/// <summary>掉落概率</summary>
+		[ProtoMember(8)]
 		public int Rate { get; set; }
 		/// <summary>享受爆率加成</summary>
-		[ProtoMember(8)]
+		[ProtoMember(9)]
 		public int ShareRise { get; set; }
 		/// <summary>ShareDz</summary>
-		[ProtoMember(9)]
-		public int ShareDz { get; set; }
-		/// <summary>起始爆率</summary>
 		[ProtoMember(10)]
-		public int StartRate { get; set; }
+		public int ShareDz { get; set; }
 		/// <summary>开始日期</summary>
 		[ProtoMember(11)]
 		public string StartDate { get; set; }

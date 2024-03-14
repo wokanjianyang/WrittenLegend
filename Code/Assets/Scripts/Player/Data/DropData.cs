@@ -10,7 +10,7 @@ namespace Game.Data
     {
         public int DropLimitId { get; set; }
 
-        public int Number { get; set; } = 0;
+        public double Number { get; set; } = 0;
 
         public int Seed { get; set; } = 0;
 

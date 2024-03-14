@@ -221,13 +221,13 @@ namespace Game
             List<KeyValuePair<double, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(Config.MapId, dropRate * modelRate);
 
             //ÏÞÊ±½±Àø
-            items.AddRange(DropLimitHelper.Build((int)DropLimitType.Normal, this.MapId, dropRate, modelRate, user.RateData, user.GetDzRate(), 1));
+            items.AddRange(DropLimitHelper.Build((int)DropLimitType.Normal, this.MapId, dropRate, modelRate, 1));
 
             if (this.RuleType == RuleType.EquipCopy || this.RuleType == RuleType.BossFamily)
             {
-                items.AddRange(DropLimitHelper.Build((int)DropLimitType.JieRi, this.MapId, dropRate, modelRate, 1, 1));
+                items.AddRange(DropLimitHelper.Build((int)DropLimitType.JieRi, this.MapId, dropRate, modelRate, 1));
 
-                items.AddRange(DropLimitHelper.Build((int)DropLimitType.Map, this.MapId, dropRate, modelRate, user.RateData, user.GetDzRate(), 1));
+                items.AddRange(DropLimitHelper.Build((int)DropLimitType.Map, this.MapId, dropRate, modelRate, 1));
 
                 //List<DropLimitConfig> mapLimits = DropLimitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.MapId == this.Config.MapId).ToList();
                 //items.AddRange(user.AddMapStartRate(mapLimits, qualityConfig.CountRate * countModelRate));
