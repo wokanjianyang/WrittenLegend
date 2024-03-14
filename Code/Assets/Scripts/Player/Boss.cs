@@ -210,7 +210,7 @@ namespace Game
 
             QualityConfig qualityConfig = QualityConfigCategory.Instance.Get(Quality);
 
-            user.AddStartRate(qualityConfig.CountRate * countModelRate);
+            //user.AddStartRate(this.MapId, qualityConfig.CountRate * countModelRate);
 
             double dropRate = 1 + user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstIncrea) / 350.0;
             dropRate = Math.Min(8, 1 + dropRate) * user.GetDzRate();
@@ -221,14 +221,16 @@ namespace Game
             List<KeyValuePair<double, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(Config.MapId, dropRate * modelRate);
 
             //ÏÞÊ±½±Àø
-            items.AddRange(DropLimitHelper.Build((int)DropLimitType.Normal, dropRate, modelRate, user.RateData, user.GetDzRate(), 1));
+            items.AddRange(DropLimitHelper.Build((int)DropLimitType.Normal, this.MapId, dropRate, modelRate, user.RateData, user.GetDzRate(), 1));
 
             if (this.RuleType == RuleType.EquipCopy || this.RuleType == RuleType.BossFamily)
             {
-                items.AddRange(DropLimitHelper.Build((int)DropLimitType.JieRi, dropRate, modelRate, 1, 1));
+                items.AddRange(DropLimitHelper.Build((int)DropLimitType.JieRi, this.MapId, dropRate, modelRate, 1, 1));
 
-                List<DropLimitConfig> mapLimits = DropLimitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.MapId == this.Config.MapId).ToList();
-                items.AddRange(user.AddMapStartRate(mapLimits, qualityConfig.CountRate * countModelRate));
+                items.AddRange(DropLimitHelper.Build((int)DropLimitType.Map, this.MapId, dropRate, modelRate, user.RateData, user.GetDzRate(), 1));
+
+                //List<DropLimitConfig> mapLimits = DropLimitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.MapId == this.Config.MapId).ToList();
+                //items.AddRange(user.AddMapStartRate(mapLimits, qualityConfig.CountRate * countModelRate));
             }
 
             int qualityRate = qualityConfig.QualityRate * (100 + (int)user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea)) / 100;

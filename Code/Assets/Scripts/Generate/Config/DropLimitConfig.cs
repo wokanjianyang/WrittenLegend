@@ -84,29 +84,32 @@ namespace Game
 		/// <summary>Type</summary>
 		[ProtoMember(3)]
 		public int Type { get; set; }
-		/// <summary>MapId</summary>
+		/// <summary>StartMapId</summary>
 		[ProtoMember(4)]
-		public int MapId { get; set; }
-		/// <summary>掉落Id</summary>
+		public int StartMapId { get; set; }
+		/// <summary>EndMapId</summary>
 		[ProtoMember(5)]
+		public int EndMapId { get; set; }
+		/// <summary>掉落Id</summary>
+		[ProtoMember(6)]
 		public int DropId { get; set; }
 		/// <summary>掉落概率</summary>
-		[ProtoMember(6)]
+		[ProtoMember(7)]
 		public int Rate { get; set; }
 		/// <summary>享受爆率加成</summary>
-		[ProtoMember(7)]
+		[ProtoMember(8)]
 		public int ShareRise { get; set; }
 		/// <summary>ShareDz</summary>
-		[ProtoMember(8)]
+		[ProtoMember(9)]
 		public int ShareDz { get; set; }
 		/// <summary>起始爆率</summary>
-		[ProtoMember(9)]
+		[ProtoMember(10)]
 		public int StartRate { get; set; }
 		/// <summary>开始日期</summary>
-		[ProtoMember(10)]
+		[ProtoMember(11)]
 		public string StartDate { get; set; }
 		/// <summary>结束日期</summary>
-		[ProtoMember(11)]
+		[ProtoMember(12)]
 		public string EndDate { get; set; }
 
 	}

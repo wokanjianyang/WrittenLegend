@@ -132,6 +132,7 @@ namespace Game
 
         public Dictionary<int, MagicData> HalidomData { get; } = new Dictionary<int, MagicData>();
 
+        public List<DropData> DropDataList { get; } = new List<DropData>();
         public Dictionary<int, double> RateData { get; } = new Dictionary<int, double>();
 
         public Dictionary<int, double> RateLimitData { get; } = new Dictionary<int, double>();
@@ -912,11 +913,12 @@ namespace Game
             return list;
         }
 
-        public void AddStartRate(double count)
+        public void AddStartRate(int mapId, double count)
         {
             count = count * this.GetDzRate();
 
-            List<DropLimitConfig> dropLimits = DropLimitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.StartRate > 0 && m.Type == (int)DropLimitType.Normal).ToList();
+            List<DropLimitConfig> dropLimits = DropLimitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.StartRate > 0
+            && m.Type == (int)DropLimitType.Normal && m.StartMapId <= mapId && mapId <= m.EndMapId).ToList();
 
             foreach (var dropLimit in dropLimits)
             {

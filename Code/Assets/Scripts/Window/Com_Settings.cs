@@ -37,7 +37,7 @@ namespace Game
             //C8A92C5388 豆浆
             //7B97AC4A45 搅拌
             //Debug.Log("sc:" + CodeConfigCategory.Instance.BuildSpecicalCode("io&zkd153", "C8A92C5388"));
-            Debug.Log("sc:" + CodeConfigCategory.Instance.BuildSpecicalCode("io&zkd1644", "905A621CD2"));
+            //Debug.Log("sc:" + CodeConfigCategory.Instance.BuildSpecicalCode("io&zkd1644", "905A621CD2"));
         }
 
         // Update is called once per frame

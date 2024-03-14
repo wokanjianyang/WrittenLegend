@@ -74,7 +74,7 @@ public class BattleRule_HeroPhantom : ABattleRule
     {
         User user = GameProcessor.Inst.User;
 
-        List<Item> items = DropLimitHelper.Build((int)DropLimitType.HeroPhatom, 1, 1, user.GetDzRate(), 1);
+        List<Item> items = DropLimitHelper.Build((int)DropLimitType.HeroPhatom, 0, 1, 1, user.GetDzRate(), 1);
 
         if (items.Count > 0)
         {
