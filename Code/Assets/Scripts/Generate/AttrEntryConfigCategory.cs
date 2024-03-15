@@ -8,7 +8,7 @@ namespace Game
 
     public partial class AttrEntryConfigCategory
     {
-        public List<KeyValuePair<int, long>> Build(int part, int level, int quality, int role)
+        public List<KeyValuePair<int, long>> Build(int part, int level, int quality, int role, int seed)
         {
             List<KeyValuePair<int, long>> rsList = new List<KeyValuePair<int, long>>();
 
@@ -29,13 +29,13 @@ namespace Game
 
                 var fcList = configs.Where(m => !excludeList.Contains(m.Id)).ToList();
 
-                int rd = RandomHelper.RandomNumber(0, fcList.Count);
+                int rd = RandomHelper.RandomNumber(seed, 0, fcList.Count);
 
                 AttrEntryConfig config = fcList[rd];
 
                 long attrValue = 0;
 
-                attrValue = RandomHelper.RandomNumber(config.MinValue, config.MaxValue + 1);
+                attrValue = RandomHelper.RandomNumber(seed, config.MinValue, config.MaxValue + 1);
 
                 rsList.Add(new KeyValuePair<int, long>(config.AttrId, attrValue));
             }

@@ -13,6 +13,8 @@ namespace Game
         public bool IsNew { get; set; } = true;
         public bool IsKeep { get; set; } = false;
 
+        public int Seed { get; set; } = -1;
+
         protected Item()
         {
 
@@ -35,6 +37,11 @@ namespace Game
         {
             get;
             set;
+        }
+
+        public void RefreshSeed()
+        {
+            this.Seed = AppHelper.RefreshSeed(this.Seed);
         }
 
         [JsonIgnore]

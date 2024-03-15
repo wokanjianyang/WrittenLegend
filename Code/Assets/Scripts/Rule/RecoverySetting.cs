@@ -141,7 +141,26 @@ namespace Game
             }
             else if (item.Type == ItemType.Exclusive)
             {
-                if (ExclusiveQuanlity.GetValueOrDefault(item.GetQuality(), false))
+                ExclusiveItem exclusive = item as ExclusiveItem;
+
+                int qality = exclusive.GetQuality();
+
+                if (exclusive.GetLevel() > 1)
+                {
+                    return false;
+                }
+
+                if (exclusive.SkillSuitConfig != null)
+                {
+                    int c = GameProcessor.Inst.User.SkillList.Where(m => m.SkillId == exclusive.SkillSuitConfig.SkillId && m.Recovery).Count();
+                    if (c == 1 && SkillReserveQuanlity[qality])
+                    {
+                        item.IsKeep = true;
+                        return false;
+                    }
+                }
+
+                if (ExclusiveQuanlity.GetValueOrDefault(qality, false))
                 {
                     return true;
                 }

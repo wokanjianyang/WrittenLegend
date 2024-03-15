@@ -53,7 +53,7 @@ namespace Game
                     fourLevel = 2;
                 }
                 int rd = RandomHelper.RandomNumber(1, 5);
-                items.Add(ItemHelper.BuildEquip(rd * 100 + fourLevel, 1, 1, 0));
+                items.Add(ItemHelper.BuildEquip(rd * 100 + fourLevel, 1, 1, 0, fourLevel));
             }
 
             if (fl % 30 == 0)
@@ -76,7 +76,7 @@ namespace Game
                 {
                     int index = RandomHelper.RandomNumber(0, ids.Length);
 
-                    Item item = ItemHelper.BuildEquip(ids[index], quality, 1, 2);  //固定词条
+                    Item item = ItemHelper.BuildEquip(ids[index], quality, 1, 2, index);  //固定词条
                     list.Add(item);
                 }
             }

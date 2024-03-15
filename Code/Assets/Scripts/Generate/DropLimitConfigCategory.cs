@@ -72,11 +72,13 @@ namespace Game
                 if (RandomHelper.RandomResult(rate))
                 {
                     dropData.Number = 0;
+                    dropData.Seed = AppHelper.RefreshSeed(dropData.Seed);
+
 
                     int dropId = dropLimit.DropId;
                     DropConfig dropConfig = DropConfigCategory.Instance.Get(dropId);
 
-                    int index = RandomHelper.RandomNumber(0, dropConfig.ItemIdList.Length);
+                    int index = RandomHelper.RandomNumber(dropData.Seed, 0, dropConfig.ItemIdList.Length);
                     int configId = dropConfig.ItemIdList[index];
 
                     if (dropLimit.ShareDz <= 0)
@@ -84,7 +86,7 @@ namespace Game
                         dzRate = 1;
                     }
 
-                    Item item = ItemHelper.BuildItem((ItemType)dropConfig.ItemType, configId, qualityRate, dropConfig.Quantity * dzRate);
+                    Item item = ItemHelper.BuildItem((ItemType)dropConfig.ItemType, configId, qualityRate, dropConfig.Quantity * dzRate, dropData.Seed);
                     list.Add(item);
                 }
             }

@@ -88,6 +88,11 @@ namespace Game
             }
         }
 
+        public void Init(int seed)
+        {
+            this.Seed = seed;
+        }
+
         /// <summary>
         /// 属性列表
         /// </summary>

@@ -8,18 +8,23 @@ namespace Game
 {
     public class ItemHelper
     {
-        public static Equip BuildEquip(int configId, int staticQuality, int qualityRate, int MaxRuneLevel)
+        public static Equip BuildEquip(int configId, int staticQuality, int qualityRate, int MaxRuneLevel, int seed)
         {
-            return EquipHelper.BuildEquip(configId, staticQuality, qualityRate, MaxRuneLevel);
+            return EquipHelper.BuildEquip(configId, staticQuality, qualityRate, MaxRuneLevel, seed);
         }
 
         public static Item BuildItem(ItemType type, int configId, int qualityRate, int number)
+        {
+            return BuildItem(type, configId, qualityRate, number, -1);
+        }
+
+        public static Item BuildItem(ItemType type, int configId, int qualityRate, int number, int seed)
         {
             Item item = null;
 
             if (type == ItemType.Equip)
             {
-                item = EquipHelper.BuildEquip(configId, 0, qualityRate, 0);
+                item = EquipHelper.BuildEquip(configId, 0, qualityRate, 0, seed);
             }
             else if (type == ItemType.SkillBox)
             {
@@ -35,7 +40,7 @@ namespace Game
             }
             else if (type == ItemType.Exclusive)
             {
-                item = ExclusiveHelper.Build(configId);
+                item = ExclusiveHelper.Build(configId, seed);
             }
             else if (type == ItemType.GiftPackExclusive)
             {

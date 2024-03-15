@@ -12,7 +12,7 @@ namespace Game
 
     public class EquipHelper
     {
-        public static Equip BuildEquip(int configId, int staticQuality, int qualityRate, int maxRuneLevel)
+        public static Equip BuildEquip(int configId, int staticQuality, int qualityRate, int maxRuneLevel,int seed)
         {
             EquipConfig config = EquipConfigCategory.Instance.Get(configId);
 
@@ -41,7 +41,7 @@ namespace Game
             }
 
             Equip equip = new Equip(configId, runeId, suitId, quality);
-            equip.Init();
+            equip.Init(seed);
 
             equip.Count = 1;
             return equip;

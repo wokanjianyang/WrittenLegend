@@ -18,7 +18,6 @@ namespace Game
 
         public int Quality { get; set; }
         public int Layer { get; set; } = 1;
-        public int Seed { get; set; }
         public int FreshCount { get; set; }
         public long FreshDate { get; set; }
 
@@ -131,15 +130,24 @@ namespace Game
             }
         }
 
-        public void Init()
+        public void Init(int seed)
         {
-            this.Seed = RandomHelper.RandomNumber(1, 10000000);
+            this.Seed = seed;
 
             //根据品质,生成随机属性
             if (EquipConfig.RandomAttr == 0 && Part <= 10)
             {
-                this.AttrEntryList.AddRange(AttrEntryConfigCategory.Instance.Build(this.Part, this.Level, this.Quality, this.EquipConfig.Role));
+                this.AttrEntryList.AddRange(AttrEntryConfigCategory.Instance.Build(this.Part, this.Level, this.Quality, this.EquipConfig.Role, this.Seed));
             }
+        }
+
+        public List<KeyValuePair<int, long>> Refesh()
+        {
+            this.RefreshSeed();
+
+            List<KeyValuePair<int, long>> keyValues = AttrEntryConfigCategory.Instance.Build(this.Part, this.Level, this.Quality, this.EquipConfig.Role, this.Seed);
+
+            return keyValues;
         }
 
         /// <summary>

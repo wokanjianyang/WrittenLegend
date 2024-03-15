@@ -4,7 +4,7 @@ namespace Game
 {
     public class ConfigHelper
     {
-        public const int Version = 204;
+        public const int Version = 205;
 
         public const long Max_Level = 60000; //最大人物等级和强化等级
 
@@ -24,9 +24,9 @@ namespace Game
 
         public static int[] RuneRate99 = new int[] { 1, 3, 6, 9, 15, 24, 39, 59 }; //专属产生概率
 
-        public const long PackTime = 1709774345; //打包时间，防止作弊
+        public const long PackTime = 1710493147; //打包时间，防止作弊
 
-        public const long PackEndTime = 1711502345; //超过此时间,游戏不能使用，需要更新
+        public const long PackEndTime = 1711529947; //超过此时间,游戏不能使用，需要更新
 
         public const long MaxOfflineTime = 3600 * 24;  //最长离线时间
 

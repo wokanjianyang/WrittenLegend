@@ -22,7 +22,7 @@ namespace Game.Data
 
         public void Init(int startSeed)
         {
-            this.Seed = RandomHelper.RandomNumber(startSeed, 0, int.MaxValue - 100000000);
+            this.Seed = AppHelper.RefreshSeed(startSeed);
         }
     }
 }

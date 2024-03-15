@@ -12,7 +12,7 @@ namespace Game
 
     public class ExclusiveHelper
     {
-        public static ExclusiveItem Build(int configId)
+        public static ExclusiveItem Build(int configId, int seed)
         {
             ExclusiveConfig config = ExclusiveConfigCategory.Instance.Get(configId);
 
@@ -53,6 +53,7 @@ namespace Game
             }
 
             ExclusiveItem item = new ExclusiveItem(configId, runeId, suitId, quality, dhId);
+            item.Init(seed);
 
             item.Count = 1;
             return item;

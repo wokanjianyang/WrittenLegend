@@ -63,5 +63,10 @@ namespace Game
 
             return s;
         }
+
+        public static int RefreshSeed(int seed)
+        {
+            return RandomHelper.RandomNumber(seed, 1, int.MaxValue - 1);
+        }
     }
 }
