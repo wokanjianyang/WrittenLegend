@@ -54,16 +54,18 @@ namespace Game
                 return false;
             }
 
+            int qality = item.GetQuality();
+            SkillReserveQuanlity.TryGetValue(qality, out bool rq);
+
             if (item.Type == ItemType.Equip)
             {
                 Equip equip = item as Equip;
                 int role = equip.EquipConfig.Role;
-                int qality = equip.GetQuality();
 
                 if (GoldTotal > 0)
                 {
                     long gt = equip.AttrEntryList.Where(m => m.Key == (int)AttributeEnum.GoldIncrea).Select(m => m.Value).Sum();
-                    if (gt >= GoldTotal)
+                    if (gt >= GoldTotal && rq)
                     {
                         item.IsKeep = true;
                         return false;
@@ -73,7 +75,7 @@ namespace Game
                 if (ExpTotal > 0)
                 {
                     long et = equip.AttrEntryList.Where(m => m.Key == (int)AttributeEnum.ExpIncrea).Select(m => m.Value).Sum();
-                    if (et >= ExpTotal)
+                    if (et >= ExpTotal && rq)
                     {
                         item.IsKeep = true;
                         return false;
@@ -83,7 +85,7 @@ namespace Game
                 if (LuckyTotal > 0)
                 {
                     long lucky = equip.AttrEntryList.Where(m => m.Key == (int)AttributeEnum.Lucky).Select(m => m.Value).Sum();
-                    if (lucky >= LuckyTotal)
+                    if (lucky >= LuckyTotal && rq)
                     {
                         item.IsKeep = true;
                         return false;
@@ -93,7 +95,7 @@ namespace Game
                 if (DropRate > 0)
                 {
                     long rateTotal = equip.AttrEntryList.Where(m => m.Key == (int)AttributeEnum.BurstIncrea).Select(m => m.Value).Sum();
-                    if (rateTotal >= DropRate)
+                    if (rateTotal >= DropRate && rq)
                     {
                         item.IsKeep = true;
                         return false;
@@ -103,7 +105,7 @@ namespace Game
                 if (DropQuality > 0)
                 {
                     long qualityTotal = equip.AttrEntryList.Where(m => m.Key == (int)AttributeEnum.QualityIncrea).Select(m => m.Value).Sum();
-                    if (qualityTotal >= DropQuality)
+                    if (qualityTotal >= DropQuality && rq)
                     {
                         item.IsKeep = true;
                         return false;
@@ -113,7 +115,7 @@ namespace Game
                 if (equip.SkillSuitConfig != null)
                 {
                     int c = GameProcessor.Inst.User.SkillList.Where(m => m.SkillId == equip.SkillSuitConfig.SkillId && m.Recovery).Count();
-                    if (c == 1 && item.Level >= EquipLevel && SkillReserveQuanlity[qality])
+                    if (c == 1 && item.Level >= EquipLevel && rq)
                     {
                         item.IsKeep = true;
                         return false;
@@ -143,8 +145,6 @@ namespace Game
             {
                 ExclusiveItem exclusive = item as ExclusiveItem;
 
-                int qality = exclusive.GetQuality();
-
                 if (exclusive.GetLevel() > 1)
                 {
                     return false;
@@ -153,7 +153,7 @@ namespace Game
                 if (exclusive.SkillSuitConfig != null)
                 {
                     int c = GameProcessor.Inst.User.SkillList.Where(m => m.SkillId == exclusive.SkillSuitConfig.SkillId && m.Recovery).Count();
-                    if (c == 1 && SkillReserveQuanlity[qality])
+                    if (c == 1 && rq)
                     {
                         item.IsKeep = true;
                         return false;

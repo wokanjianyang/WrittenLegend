@@ -42,6 +42,11 @@ public class ViewForgeProcessor : AViewPage
     public Toggle toggle_Devour;
     public Panel_Devour PanelDevour;
 
+    public Toggle toggle_Refresh;
+
+
+    public Toggle toggle_Grade;
+
     private Dictionary<string, List<CompositeConfig>> allCompositeDatas = new Dictionary<string, List<CompositeConfig>>();
 
     private void Awake()

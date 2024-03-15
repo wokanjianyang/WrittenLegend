@@ -76,28 +76,34 @@ namespace Game
         public double GetTotalAttrDouble(AttributeEnum attrType, bool haveBuff)
         {
             double total = 0;
+            double mr = 1;
 
             switch (attrType)
             {
                 case AttributeEnum.HP:
                     total = CalTotal(AttributeEnum.HP, haveBuff, AttributeEnum.HpIncrea) * (CalTotal(AttributeEnum.PanelHp, haveBuff) + 100) / 100;
-                    total *= 1 + CalMulTotal(haveBuff, AttributeEnum.MulHp) / 100;
+                    mr = 1 + CalMulTotal(haveBuff, AttributeEnum.MulHp) / 100;
+                    total *= mr;
                     break;
                 case AttributeEnum.PhyAtt:
                     total = CalTotal(AttributeEnum.PhyAtt, haveBuff, AttributeEnum.AttIncrea, AttributeEnum.PhyAttIncrea) * (CalTotal(AttributeEnum.PanelPhyAtt, haveBuff) + 100) / 100;
-                    total *= 1 + CalMulTotal(haveBuff, AttributeEnum.MulAttr, AttributeEnum.MulAttrPhy) / 100;
+                    mr = 1 + CalMulTotal(haveBuff, AttributeEnum.MulAttr, AttributeEnum.MulAttrPhy) / 100;
+                    total *= mr;
                     break;
                 case AttributeEnum.MagicAtt:
                     total = CalTotal(AttributeEnum.MagicAtt, haveBuff, AttributeEnum.AttIncrea, AttributeEnum.MagicAttIncrea) * (CalTotal(AttributeEnum.PanelMagicAtt, haveBuff) + 100) / 100;
-                    total *= 1 + CalMulTotal(haveBuff, AttributeEnum.MulAttr, AttributeEnum.MulAttrMagic) / 100;
+                    mr = 1 + CalMulTotal(haveBuff, AttributeEnum.MulAttr, AttributeEnum.MulAttrMagic) / 100;
+                    total *= mr;
                     break;
                 case AttributeEnum.SpiritAtt:
                     total = CalTotal(AttributeEnum.SpiritAtt, haveBuff, AttributeEnum.AttIncrea, AttributeEnum.SpiritAttIncrea) * (CalTotal(AttributeEnum.PanelSpiritAtt, haveBuff) + 100) / 100;
-                    total *= 1 + CalMulTotal(haveBuff, AttributeEnum.MulAttr, AttributeEnum.MulAttrSpirit) / 100;
+                    mr = 1 + CalMulTotal(haveBuff, AttributeEnum.MulAttr, AttributeEnum.MulAttrSpirit) / 100;
+                    total *= mr;
                     break;
                 case AttributeEnum.Def:
                     total = CalTotal(AttributeEnum.Def, haveBuff, AttributeEnum.DefIncrea) * (CalTotal(AttributeEnum.PanelDef, haveBuff) + 100) / 100;
-                    total *= 1 + CalMulTotal(haveBuff, AttributeEnum.MulDef);
+                    mr = 1 + CalMulTotal(haveBuff, AttributeEnum.MulDef) / 100;
+                    total *= mr;
                     break;
                 case AttributeEnum.PhyDamage:
                     total = 100 + CalTotal(AttributeEnum.PhyDamage, haveBuff);

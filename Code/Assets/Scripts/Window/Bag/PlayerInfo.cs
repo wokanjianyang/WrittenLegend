@@ -65,12 +65,15 @@ namespace Game
 
         public void UpdateAttrInfo(User user)
         {
-            HP.text = StringHelper.FormatNumber(user.AttributeBonus.GetTotalAttr(AttributeEnum.HP));
-            PhyAtt.text = StringHelper.FormatNumber(user.AttributeBonus.GetTotalAttr(AttributeEnum.PhyAtt));
-            SpiritAtt.text = StringHelper.FormatNumber(user.AttributeBonus.GetTotalAttr(AttributeEnum.SpiritAtt));
-            MagicAtt.text = StringHelper.FormatNumber(user.AttributeBonus.GetTotalAttr(AttributeEnum.MagicAtt));
+            double hp = user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
+            HP.text = StringHelper.FormatNumber(user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
+            PhyAtt.text = StringHelper.FormatNumber(user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.PhyAtt));
+            SpiritAtt.text = StringHelper.FormatNumber(user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.SpiritAtt));
+            MagicAtt.text = StringHelper.FormatNumber(user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.MagicAtt));
+            double def = user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Def);
+            Def.text = StringHelper.FormatNumber(user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Def));
+
             Lucky.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.Lucky).ToString();
-            Def.text = StringHelper.FormatNumber(user.AttributeBonus.GetTotalAttr(AttributeEnum.Def));
             LevelExp.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.Exp).ToString();
             DamageIncrea.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.DamageIncrea).ToString() + "%";
             DamageResist.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.DamageResist).ToString() + "%";

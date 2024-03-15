@@ -773,7 +773,7 @@ GameObject:
   - component: {fileID: 500063488168391883}
   - component: {fileID: 3270742827527112015}
   - component: {fileID: 1238226694481284155}
-  - component: {fileID: 3536907924449963707}
+  - component: {fileID: 2207914260270569601}
   m_Layer: 5
   m_Name: Panel_Devour
   m_TagString: Untagged
@@ -844,7 +844,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3536907924449963707
+--- !u!114 &2207914260270569601
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -853,7 +853,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5609592698472184792}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e1f1def358d5244d9134e3ad0a2d2b4, type: 3}
+  m_Script: {fileID: 11500000, guid: 124b561d21a9f9349ab7fc9d9275c743, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sr_Panel: {fileID: 1325481444794462779}
