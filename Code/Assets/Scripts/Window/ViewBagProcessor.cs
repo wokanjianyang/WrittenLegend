@@ -757,7 +757,12 @@ namespace Game
             User user = GameProcessor.Inst.User;
 
             BoxItem boxItem = e.BoxItem;
-            long quantity = e.Quantity == -1 ? boxItem.MagicNubmer.Data : e.Quantity;
+            long quantity = e.Quantity <= 0 ? boxItem.MagicNubmer.Data : e.Quantity;
+
+            if (quantity <= 0)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new CheckGameCheatEvent());
+            }
 
             if (boxItem.Item.Type == ItemType.Ticket && boxItem.Item.ConfigId == ItemHelper.SpecialId_Copy_Ticket)
             {

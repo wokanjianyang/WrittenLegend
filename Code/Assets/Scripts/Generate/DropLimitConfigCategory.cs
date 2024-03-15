@@ -40,7 +40,7 @@ namespace Game
 
                 if (dropData.Number > 0)
                 {
-                    Debug.Log("Map Limit Drop: " + dropLimitId + " :" + dropData.Number);
+                    //Debug.Log("Map Limit Drop: " + dropLimitId + " :" + dropData.Number);
                 }
 
                 double rate = dropLimit.Rate;

@@ -49,6 +49,8 @@ namespace Game
             long tmepFloor = user.MagicTowerFloor.Data;
 
             long tempTime = Math.Min(offlineTime, ConfigHelper.MaxOfflineTime);
+            long mineTime = tempTime;
+
             while (tempTime > 0 && tmepFloor < ConfigHelper.Max_Floor)
             {
                 tmepFloor = user.MagicTowerFloor.Data + offlineFloor + 100;
@@ -146,7 +148,7 @@ namespace Game
             Dictionary<int, long> offlineMetal = new Dictionary<int, long>();
             foreach (var miner in user.MinerList)
             {
-                miner.OfflineBuild(offlineTime, offlineMetal);
+                miner.OfflineBuild(mineTime, offlineMetal);
             }
 
             OfflineMessage += $"\n";

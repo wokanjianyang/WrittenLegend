@@ -76,7 +76,7 @@ public class Miner
             offlineMetal[key]++;
         }
 
-        this.BirthDay += count * 60 + 30;
+        this.BirthDay += TimeHelper.ClientNowSeconds();
     }
 
 }
