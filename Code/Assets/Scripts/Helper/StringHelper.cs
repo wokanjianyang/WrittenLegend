@@ -44,10 +44,10 @@ namespace Game
             return hexAsBytes;
         }
 
-        public static string FormatPhantomText(int rewardId, int number)
-        {
-            return FormatAttrValueName(rewardId) + "+" + FormatAttrValueText(rewardId, number);
-        }
+        //public static string FormatPhantomText(int rewardId, int number)
+        //{
+        //    return FormatAttrValueName(rewardId) + "+" + FormatAttrValueText(rewardId, number);
+        //}
 
         public static string FormatAttrValueName(int attrId)
         {

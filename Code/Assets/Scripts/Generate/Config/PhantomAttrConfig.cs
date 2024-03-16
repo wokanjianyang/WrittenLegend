@@ -81,50 +81,56 @@ namespace Game
 		/// <summary>PhId</summary>
 		[ProtoMember(2)]
 		public int PhId { get; set; }
-		/// <summary>Level</summary>
+		/// <summary>StartLevel</summary>
 		[ProtoMember(3)]
-		public int Level { get; set; }
-		/// <summary>Attr</summary>
+		public int StartLevel { get; set; }
+		/// <summary>EndLevel</summary>
 		[ProtoMember(4)]
-		public long Attr { get; set; }
-		/// <summary>Def</summary>
+		public int EndLevel { get; set; }
+		/// <summary>Attr</summary>
 		[ProtoMember(5)]
-		public long Def { get; set; }
-		/// <summary>Hp</summary>
+		public double Attr { get; set; }
+		/// <summary>Def</summary>
 		[ProtoMember(6)]
-		public long Hp { get; set; }
-		/// <summary>DamageIncrea</summary>
+		public double Def { get; set; }
+		/// <summary>Hp</summary>
 		[ProtoMember(7)]
+		public double Hp { get; set; }
+		/// <summary>DamageIncrea</summary>
+		[ProtoMember(8)]
 		public long DamageIncrea { get; set; }
 		/// <summary>DamageResist</summary>
-		[ProtoMember(8)]
+		[ProtoMember(9)]
 		public long DamageResist { get; set; }
 		/// <summary>CritRate</summary>
-		[ProtoMember(9)]
+		[ProtoMember(10)]
 		public long CritRate { get; set; }
 		/// <summary>CritDamage</summary>
-		[ProtoMember(10)]
-		public int CritDamage { get; set; }
-		/// <summary>AttrIncreaRate</summary>
 		[ProtoMember(11)]
-		public int AttrIncreaRate { get; set; }
-		/// <summary>ResistType</summary>
+		public int CritDamage { get; set; }
+		/// <summary>AttrRise</summary>
 		[ProtoMember(12)]
+		public double AttrRise { get; set; }
+		/// <summary>AttrAdvanceRise</summary>
+		[ProtoMember(13)]
+		public double AttrAdvanceRise { get; set; }
+		/// <summary>ResistType</summary>
+		[ProtoMember(14)]
 		public int ResistType { get; set; }
 		/// <summary>RewardId</summary>
-		[ProtoMember(13)]
+		[ProtoMember(15)]
 		public int RewardId { get; set; }
 		/// <summary>RewardBase</summary>
-		[ProtoMember(14)]
-		public int RewardBase { get; set; }
-		/// <summary>RewardIncrea</summary>
-		[ProtoMember(15)]
-		public int RewardIncrea { get; set; }
-		/// <summary>SkillIdList</summary>
 		[ProtoMember(16)]
+		public int RewardBase { get; set; }
+		/// <summary>RewardRise</summary>
+		[ProtoMember(17)]
+		public int RewardRise { get; set; }
+		/// <summary>SkillIdList</summary>
+		[ProtoMember(18)]
 		public int[] SkillIdList { get; set; }
 		/// <summary>PhanSkillIdList</summary>
-		[ProtoMember(17)]
+		[ProtoMember(19)]
 		public int[] PhanSkillIdList { get; set; }
 
 	}

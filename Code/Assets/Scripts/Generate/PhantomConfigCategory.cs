@@ -9,18 +9,33 @@ namespace Game
     {
         public PhantomAttrConfig GetAttrConfig(int phid, int level)
         {
-            var list = PhantomAttrConfigCategory.Instance.GetAll().Where(m => m.Value.PhId == phid && m.Value.Level == level).Select(m => m.Value).ToList();
-
-            if (list.Count == 1)
-            {
-                return list[0];
-            }
-            else
-            {
-                return null;
-            }
+            PhantomAttrConfig config = PhantomAttrConfigCategory.Instance.GetAll().Select(m => m.Value)
+                .Where(m => m.PhId == phid && m.StartLevel <= level && level <= m.EndLevel).FirstOrDefault();
+            return config;
         }
     }
 
-    
+    public partial class PhantomAttrConfig
+    {
+        public double GetAttrRate(int level)
+        {
+            double rate = 1;
+            for (int i = 1; i < level; i++)
+            {
+                rate *= this.AttrRise;
+            }
+
+            return rate;
+        }
+
+        public double GetAttrAdvanceRate(int level)
+        {
+            return (level - 1) * this.AttrAdvanceRise; ;
+        }
+
+        public int GetRewardAttr(int level)
+        {
+            return this.RewardBase + (level - 1) * this.RewardRise;
+        }
+    }
 }

@@ -37,10 +37,8 @@ public class Dialog_Phantom : MonoBehaviour, IBattleLife
             var com = item.GetComponentInChildren<Item_Phantom>();
 
             items.Add(com);
-
-            com.SetContent(configs[i], 0);
+            com.SetContent(configs[i], 1);
             com.gameObject.SetActive(false);
-
 
             item.transform.SetParent(this.sr_Boss.content);
             item.transform.localScale = Vector3.one;

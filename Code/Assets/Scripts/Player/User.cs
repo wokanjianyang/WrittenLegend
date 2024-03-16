@@ -324,10 +324,12 @@ namespace Game
             //幻神属性
             foreach (var sp in PhantomRecord)
             {
-                PhantomAttrConfig phantomAttrConfig = PhantomConfigCategory.Instance.GetAttrConfig(sp.Key, sp.Value - 1);
-                if (phantomAttrConfig != null)
+                int phLevel = sp.Value - 1;
+                if (phLevel > 0)
                 {
-                    AttributeBonus.SetAttr((AttributeEnum)phantomAttrConfig.RewardId, AttributeFrom.Phantom, phantomAttrConfig.RewardBase);
+                    PhantomAttrConfig phantomAttrConfig = PhantomConfigCategory.Instance.GetAttrConfig(sp.Key, phLevel);
+                    int phAttr = phantomAttrConfig.GetRewardAttr(phLevel);
+                    AttributeBonus.SetAttr((AttributeEnum)phantomAttrConfig.RewardId, AttributeFrom.Phantom, phAttr);
                 }
             }
 

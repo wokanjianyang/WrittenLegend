@@ -81,9 +81,15 @@ public class Monster_Phantom : APlayer
 
     private void SetAttr()
     {
-        long attr = attrConfig.Attr;
-        long hp = attrConfig.Hp;
-        long def = attrConfig.Def;
+        double attrRate = this.attrConfig.GetAttrRate(Layer);
+        double advanceRate = this.attrConfig.GetAttrAdvanceRate(Layer);
+
+        //Debug.Log("attrRate:" + attrRate);
+        //Debug.Log("advanceRate:" + advanceRate);
+
+        double attr = attrConfig.Attr * attrRate;
+        double hp = attrConfig.Hp * attrRate;
+        double def = attrConfig.Def * attrRate;
 
 
         AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp);
@@ -92,10 +98,10 @@ public class Monster_Phantom : APlayer
         AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr);
         AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, def);
 
-        AttributeBonus.SetAttr(AttributeEnum.CritRate, AttributeFrom.HeroBase, attrConfig.CritRate);
-        AttributeBonus.SetAttr(AttributeEnum.CritDamage, AttributeFrom.HeroBase, attrConfig.CritDamage);
-        AttributeBonus.SetAttr(AttributeEnum.DamageIncrea, AttributeFrom.HeroBase, attrConfig.DamageIncrea);
-        AttributeBonus.SetAttr(AttributeEnum.DamageResist, AttributeFrom.HeroBase, attrConfig.DamageResist);
+        AttributeBonus.SetAttr(AttributeEnum.CritRate, AttributeFrom.HeroBase, attrConfig.CritRate + advanceRate);
+        AttributeBonus.SetAttr(AttributeEnum.CritDamage, AttributeFrom.HeroBase, attrConfig.CritDamage + advanceRate);
+        AttributeBonus.SetAttr(AttributeEnum.DamageIncrea, AttributeFrom.HeroBase, attrConfig.DamageIncrea + advanceRate);
+        AttributeBonus.SetAttr(AttributeEnum.DamageResist, AttributeFrom.HeroBase, attrConfig.DamageResist + advanceRate);
 
         double MaxHP = AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
         double CurrentHp = Percent * MaxHP / 10;

@@ -1036,8 +1036,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -263, y: -35}
-  m_SizeDelta: {x: 218, y: 51}
+  m_AnchoredPosition: {x: -297, y: -39.5}
+  m_SizeDelta: {x: 150, y: 51}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4330472688592090475
 CanvasRenderer:
@@ -5397,8 +5397,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -150, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -167.04874, y: 0}
+  m_SizeDelta: {x: 234.0975, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4107187632213594860
 CanvasRenderer:
@@ -5433,7 +5433,7 @@ MonoBehaviour:
     m_FontSize: 33
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 3
     m_MaxSize: 40
     m_Alignment: 3
     m_AlignByGeometry: 0
@@ -5441,7 +5441,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u4FDD\u7559\u989C\u8272\uFF1A"
+  m_Text: "\u4FDD\u7559\u751F\u6548\u989C\u8272\uFF1A"
 --- !u!1 &3671257816246207036
 GameObject:
   m_ObjectHideFlags: 0
@@ -6718,7 +6718,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u88C5\u5907\u4FDD\u7559\u8BBE\u7F6E"
+  m_Text: "\u4FDD\u7559\u8BBE\u7F6E"
 --- !u!1 &4456655013913116521
 GameObject:
   m_ObjectHideFlags: 0
@@ -8500,8 +8500,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 420, y: 0}
-  m_SizeDelta: {x: 450, y: 50}
+  m_AnchoredPosition: {x: 400.0876, y: 0}
+  m_SizeDelta: {x: 586.1752, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8803705727112553869
 CanvasRenderer:
@@ -8533,10 +8533,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 33
+    m_FontSize: 24
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 3
     m_AlignByGeometry: 0
@@ -8544,7 +8544,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u89C4\u5219\uFF1A\u7B26\u5408\u4EFB\u610F\u6761\u4EF6\u5219\u56DE\u6536"
+  m_Text: "\u89C4\u5219\uFF1A\u7B26\u5408\u56DE\u6536\u6761\u4EF6\uFF0C\u4E14\u4E0D\u7B26\u5408\u4FDD\u7559\u6761\u4EF6\uFF0C\u5219\u56DE\u6536\u3002"
 --- !u!1 &5412419617754049194
 GameObject:
   m_ObjectHideFlags: 0
@@ -11889,8 +11889,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -245, y: 376}
-  m_SizeDelta: {x: 218, y: 51}
+  m_AnchoredPosition: {x: -297, y: 388}
+  m_SizeDelta: {x: 150, y: 51}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6655619590555569722
 CanvasRenderer:
@@ -13037,7 +13037,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u88C5\u5907\u81EA\u52A8\u56DE\u6536"
+  m_Text: "\u56DE\u6536\u8BBE\u7F6E"
 --- !u!1 &8155035074850508419
 GameObject:
   m_ObjectHideFlags: 0
@@ -13473,8 +13473,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 453, y: -0.5}
-  m_SizeDelta: {x: 450, y: 50}
+  m_AnchoredPosition: {x: 408.12115, y: 0.5}
+  m_SizeDelta: {x: 626.2425, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4921508856018485178
 CanvasRenderer:
@@ -13506,10 +13506,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 33
+    m_FontSize: 24
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 3
     m_AlignByGeometry: 0
@@ -13517,7 +13517,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u89C4\u5219\uFF1A\u7B26\u5408\u4EFB\u610F\u6761\u4EF6\u5219\u4FDD\u7559"
+  m_Text: "\u89C4\u5219\uFF1A\u7B26\u5408\u4FDD\u7559\u989C\u8272\uFF0C\u4E14\u7B26\u5408\u5176\u4ED6\u4EFB\u610F\u4FDD\u7559\u6761\u4EF6\uFF0C\u5C31\u4E0D\u56DE\u6536\u3002"
 --- !u!1 &8796545926126903508
 GameObject:
   m_ObjectHideFlags: 0

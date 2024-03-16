@@ -13,7 +13,7 @@ namespace Game
         public Text Txt_Attr_Current;
 
         public int ConfigId { get; set; }
-        private bool can = false;
+        private PhantomAttrConfig Config;
 
         // Start is called before the first frame update
         void Start()
@@ -29,44 +29,41 @@ namespace Game
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (can)
-            {
-                var vm = this.GetComponentInParent<ViewMore>();
-                vm.SelectPhantomMap(ConfigId);
-            }
-            else
+            User user = GameProcessor.Inst.User;
+            user.PhantomRecord.TryGetValue(ConfigId, out int phLevel);
+
+            if (phLevel > this.Config.EndLevel)
             {
                 GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "已经通关了", ToastType = ToastTypeEnum.Failure });
                 return;
             }
+
+            var vm = this.GetComponentInParent<ViewMore>();
+            vm.SelectPhantomMap(ConfigId);
         }
 
         public void SetContent(PhantomConfig config, int level)
         {
             this.ConfigId = config.Id;
-
             PhantomAttrConfig currentConfig = PhantomConfigCategory.Instance.GetAttrConfig(config.Id, level - 1);
+
+            PhantomAttrConfig nextConfig = PhantomConfigCategory.Instance.GetAttrConfig(config.Id, level);
+
+            this.Config = nextConfig == null ? currentConfig : nextConfig;
 
             this.Txt_Name.text = config.Name;
             this.Txt_Level.text = $"({level}转)";
 
-            if (currentConfig != null)
+            if (level > 1)
             {
-                this.Txt_Attr_Current.text = StringHelper.FormatPhantomText(currentConfig.RewardId, currentConfig.RewardBase);
-                this.Txt_Attr_Rise.text = StringHelper.FormatPhantomText(currentConfig.RewardId, currentConfig.RewardIncrea);
+                this.Txt_Attr_Current.text = StringHelper.FormatAttrText(Config.RewardId, Config.GetRewardAttr(level - 1));
+            }
+            else
+            {
+                this.Txt_Attr_Current.text = "未激活";
             }
 
-            PhantomAttrConfig nextConfig = PhantomConfigCategory.Instance.GetAttrConfig(config.Id, level);
-            if (nextConfig != null)
-            {
-                can = true;
-
-                if (level == 1)
-                {
-                    this.Txt_Attr_Current.text = StringHelper.FormatPhantomText(nextConfig.RewardId, 0);
-                    this.Txt_Attr_Rise.text = StringHelper.FormatPhantomText(nextConfig.RewardId, nextConfig.RewardBase);
-                }
-            }
+            this.Txt_Attr_Rise.text = StringHelper.FormatAttrText(Config.RewardId, Config.RewardRise, "+");
         }
     }
 }
