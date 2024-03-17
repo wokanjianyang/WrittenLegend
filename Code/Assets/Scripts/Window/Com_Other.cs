@@ -112,7 +112,7 @@ namespace Game
 
         public void OnClick_Save()
         {
-            //saveData();
+            saveData();
         }
 
         private void CheckProgress()
@@ -203,54 +203,86 @@ namespace Game
 
 
 
-        //async Task saveData()
-        //{
-        //    User user = GameProcessor.Inst.User;
-        //    btn_Save.gameObject.SetActive(false);
+        async Task saveData()
+        {
+            User user = GameProcessor.Inst.User;
+            btn_Save.gameObject.SetActive(false);
 
-        //    if (user.SaveLimit <= 0)
-        //    {
-        //        this.txt_Name.text = "今天存档次数已满";
-        //        return;
-        //    }
+            if (user.SaveLimit <= 0)
+            {
+                this.txt_Name.text = "今天存档次数已满";
+                return;
+            }
 
-        //    this.txt_Name.text = "存档中......";
-
-        //    //先删除旧存档
-        //    var collection = await TapGameSave.GetCurrentUserGameSaves();
-
-        //    foreach (var oldGameSave in collection)
-        //    {
-        //        await oldGameSave.Delete();
-        //    }
-
-        //    //再存储新档
-        //    user.DataProgeress++;
-        //    user.SaveLimit--;
-        //    UserData.Save(true);
-
-        //    string filePath = UserData.getTempPath();
-        //    DateTime time = DateTime.Now.ToLocalTime();
-
-        //    var gameSave = new TapGameSave
-        //    {
-        //        Name = "UserData",
-        //        Summary = user.Name,
-        //        ModifiedAt = time,
-        //        PlayedTime = 60000L, // ms
-        //        ProgressValue = user.DataProgeress,
-        //        //CoverFilePath = "", // jpg/png
-        //        GameFilePath = filePath,
-        //    };
-
-        //    var res = await gameSave.Save();
-
-        //    this.txt_Name.text = res.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss");
-
-        //    this.CheckProgress();
-        //}
+            this.txt_Name.text = "存档中......";
 
 
+            //再存储新档
+            StartCoroutine(Updata());
+
+
+            this.CheckProgress();
+        }
+
+        public static IEnumerator UnityWebRequestPost()
+        {
+            string url = "http://127.0.0.1:11111/public/save";
+
+            using (UnityWebRequest www = UnityWebRequest.Post(url, "{}"))
+            {
+
+                www.SetRequestHeader("Content-Type", "application/json;charset=utf-8");
+
+                string filePath = UserData.getSavePath();
+                byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+
+                www.uploadHandler = new UploadHandlerRaw(fileBytes);
+                yield return www.SendWebRequest();
+                if (www.result == UnityWebRequest.Result.ProtocolError || www.result == UnityWebRequest.Result.ConnectionError)
+                {
+                    Debug.LogError($"发起网络请求失败： 确认过闸接口 -{www.error}");
+                }
+                else
+                {
+                    Debug.Log(www.downloadHandler.text);
+                }
+            }
+        }
+
+        private IEnumerator Updata()
+        {
+            string url = "http://127.0.0.1:11111/public/save";
+
+            // 读取文件
+            string filePath = UserData.getSavePath();
+            byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+
+            Debug.Log("fileBytes:" + fileBytes.Length);
+
+            WWWForm form = new WWWForm();
+            form.AddBinaryData("file", System.IO.File.ReadAllBytes(filePath), "file.bin", "application/octet-stream");
+
+            using (UnityWebRequest www = UnityWebRequest.Post(url, form))
+            {
+                // 设置uploadHandler
+                www.uploadHandler = new UploadHandlerRaw(form.data);
+                //www.SetRequestHeader("Content-Type", "multipart/form-data; boundary=" + form.boundary);
+
+                // 发送请求并等待
+                yield return www.SendWebRequest();
+
+                if (www.result != UnityWebRequest.Result.Success)
+                {
+                    Debug.Log("Upload Error:" + www.error);
+                }
+                else
+                {
+                    Debug.Log("Upload complete! Server response: " + www.downloadHandler.text);
+                }
+
+                www.Dispose();
+            }
+        }
 
         //private async Task loadData()
         //{

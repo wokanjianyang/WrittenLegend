@@ -134,6 +134,20 @@ namespace ET
 
             BuildHelper.Build(BuildType.Release, PlatformType.Android, BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, opa, true, true, true, "Taptap版", true);
         }
+        [MenuItem("开发工具/生成正式包QQ版")]
+        public static void BuildReleaseQQ()
+        {
+            PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);
+            PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64;
+            PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel26;
+            PlayerSettings.applicationIdentifier = "com.fulljoblegend.android";
+            PlayerSettings.Android.useCustomKeystore = true;
+            EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
+            var opa = BuildOptions.CompressWithLz4HC;
+
+            BuildHelper.Build(BuildType.Release, PlatformType.Android, BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, opa, true, true, true, "QQ版", true);
+        }
+
 
         [MenuItem("开发工具/生成正式包Taptap版和兼容版")]
         public static void BuildReleaseAll()
