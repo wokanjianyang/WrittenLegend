@@ -38,6 +38,14 @@ namespace Game
 
         public void ShowOffline()
         {
+
+            //0AF588B5A9 Self 905A621CD2 gs
+            //BBEFBA0DDF RS
+            //C8A92C5388 ¶¹½¬
+            //7B97AC4A45 ½Á°è
+            //Debug.Log("sc:" + CodeConfigCategory.Instance.BuildSpecicalCode("io&zkd153", "C8A92C5388"));
+            //Debug.Log("sc:" + CodeConfigCategory.Instance.BuildSpecicalCode("!xyfubent050", "0AF588B5A9"));
+
             User user = GameProcessor.Inst.User;
 
             long currentTick = TimeHelper.ClientNowSeconds();
