@@ -156,6 +156,8 @@ namespace Game
                 return;
             }
 
+            user.GiftList[code] = true;
+
             if (config.Type == 99)
             {
                 user.AdData.SaveCode(code);
@@ -185,11 +187,8 @@ namespace Game
                 }
 
                 user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
-
-                user.GiftList[code] = true;
             }
 
-   
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "兑换成功", ToastType = ToastTypeEnum.Success });
         }
 

@@ -39,12 +39,11 @@ public class Miner
         int min = mines.Select(m => m.StartRate).Min();
         int max = mines.Select(m => m.EndRate).Max();
 
-        int nextSeed = RandomHelper.RandomNumber(this.Seed, min, max + 1);
+        int ward = RandomHelper.RandomNumber(this.Seed, min, max + 1);
+        MineConfig mine = mines.Where(m => m.StartRate <= ward && ward <= m.EndRate).FirstOrDefault();
 
-        this.Seed = nextSeed;
+        this.Seed = AppHelper.RefreshSeed(this.Seed);
         this.BirthDay = nowSecond + RandomHelper.RandomNumber(this.Seed, 0, 20);
-
-        MineConfig mine = mines.Where(m => m.StartRate <= nextSeed && nextSeed <= m.EndRate).FirstOrDefault();
 
         return mine;
     }
@@ -62,10 +61,8 @@ public class Miner
             int min = mines.Select(m => m.StartRate).Min();
             int max = mines.Select(m => m.EndRate).Max();
 
-            int nextSeed = random.Next(min, max + 1);
-            this.Seed = nextSeed;
-
-            MineConfig mine = mines.Where(m => m.StartRate <= nextSeed && nextSeed <= m.EndRate).FirstOrDefault();
+            int ward = RandomHelper.RandomNumber(this.Seed, min, max + 1);
+            MineConfig mine = mines.Where(m => m.StartRate <= ward && ward <= m.EndRate).FirstOrDefault();
             int key = mine.Id;
 
             if (!offlineMetal.ContainsKey(key))
@@ -74,6 +71,7 @@ public class Miner
             }
 
             offlineMetal[key]++;
+            this.Seed = AppHelper.RefreshSeed(this.Seed);
         }
 
         this.BirthDay += TimeHelper.ClientNowSeconds();

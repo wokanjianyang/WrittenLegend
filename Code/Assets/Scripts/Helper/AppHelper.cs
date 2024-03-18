@@ -64,13 +64,15 @@ namespace Game
             return s;
         }
 
-        public static int InitSeed() {
+        public static int InitSeed()
+        {
             return RandomHelper.RandomNumber(1, int.MaxValue - 1);
         }
 
         public static int RefreshSeed(int seed)
         {
-            return RandomHelper.RandomNumber(seed, 1, int.MaxValue - 1);
+            int todaySeed = seed + TimeHelper.TodaySeed();
+            return RandomHelper.RandomNumber(todaySeed, 1, int.MaxValue - 1);
         }
     }
 }
