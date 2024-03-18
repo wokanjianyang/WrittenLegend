@@ -19,6 +19,7 @@ namespace Game
 
         public Button Btn_Recovery;
         public Button Btn_Use;
+        public Button Btn_Use_Batch;
         public Button Btn_UseAll;
         public Button Btn_Lose;
 
@@ -28,13 +29,21 @@ namespace Game
         private BoxItem boxItem;
         private ComBoxType BoxType;
 
+        public Transform tf_Count;
+        public InputField if_Count;
+        public Button Btn_Confirm;
+        public Button Btn_Cancle;
+
         // Start is called before the first frame update
         void Start()
         {
             this.Btn_Recovery.onClick.AddListener(this.OnRecovery);
             this.Btn_Lose.onClick.AddListener(this.OnLose);
             this.Btn_Use.onClick.AddListener(this.OnUse);
+            this.Btn_Use_Batch.onClick.AddListener(this.OnUseBatch);
             this.Btn_UseAll.onClick.AddListener(this.OnUseAll);
+            this.Btn_Confirm.onClick.AddListener(this.OnConfirm);
+            this.Btn_Cancle.onClick.AddListener(this.OnCancle);
 
             this.Btn_Learn.onClick.AddListener(this.OnLearnSkill);
             this.Btn_Close.onClick.AddListener(this.OnClick_Close);
@@ -63,6 +72,10 @@ namespace Game
             this.Btn_Use.gameObject.SetActive(false);
             this.Btn_UseAll.gameObject.SetActive(false);
             this.Btn_Learn.gameObject.SetActive(false);
+            this.Btn_Use_Batch.gameObject.SetActive(false);
+            this.tf_Count.gameObject.SetActive(false);
+            this.if_Count.text = "";
+
 
             this.boxItem = e.boxItem;
             this.BoxType = e.Type;
@@ -86,6 +99,7 @@ namespace Game
 
                         this.Btn_Learn.gameObject.SetActive(isLearn);
                         this.Btn_Use.gameObject.SetActive(!isLearn);
+                        this.Btn_Use_Batch.gameObject.SetActive(!isLearn);
                         this.Btn_UseAll.gameObject.SetActive(!isLearn);
                     }
                     break;
@@ -100,12 +114,13 @@ namespace Game
                 case ItemType.Ticket:
                     {
                         this.Btn_Use.gameObject.SetActive(true);
+                        this.Btn_Use_Batch.gameObject.SetActive(true);
                         this.Btn_UseAll.gameObject.SetActive(true);
                     }
                     break;
                 case ItemType.Material:
                     {
-
+                        this.Btn_Lose.gameObject.SetActive(true);
                     }
                     break;
                 case ItemType.Card:
@@ -173,6 +188,44 @@ namespace Game
                 BoxItem = this.boxItem
             });
         }
+
+        private void OnUseBatch()
+        {
+            this.tf_Count.gameObject.SetActive(true);
+
+            long count = this.boxItem.MagicNubmer.Data;
+            if_Count.placeholder.GetComponent<Text>().text = "最大输入" + count;
+        }
+
+        private void OnConfirm()
+        {
+            this.tf_Count.gameObject.SetActive(false);
+            this.gameObject.SetActive(false);
+
+            int.TryParse(if_Count.text, out int quantity);
+
+            long count = this.boxItem.MagicNubmer.Data;
+            if (quantity > count)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "数量超出了最大值", ToastType = ToastTypeEnum.Failure });
+                return;
+            }
+
+            if (quantity > 0)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new BagUseEvent()
+                {
+                    Quantity = quantity,
+                    BoxItem = this.boxItem
+                });
+            }
+        }
+
+        private void OnCancle()
+        {
+            this.tf_Count.gameObject.SetActive(false);
+        }
+
         private void OnUseAll()
         {
             this.gameObject.SetActive(false);

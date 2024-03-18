@@ -764,7 +764,7 @@ namespace Game
                 GameProcessor.Inst.EventCenter.Raise(new CheckGameCheatEvent());
             }
 
-            if (boxItem.Item.Type == ItemType.Ticket && boxItem.Item.ConfigId == ItemHelper.SpecialId_Copy_Ticket)
+            if (boxItem.Item.Type == ItemType.Ticket && boxItem.Item.ConfigId == ItemHelper.SpecialId_Copy_Ticket && e.Quantity == -1)
             {
                 if (user.MagicCopyTikerCount.Data >= ConfigHelper.CopyTicketMax)
                 {

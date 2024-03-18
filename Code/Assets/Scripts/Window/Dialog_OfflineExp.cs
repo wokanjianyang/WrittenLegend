@@ -159,8 +159,11 @@ namespace Game
                 miner.OfflineBuild(mineTime, offlineMetal);
             }
 
+            var sortedDict = offlineMetal.OrderBy(kvp => kvp.Key).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+
+
             OfflineMessage += $"\n";
-            foreach (var kp in offlineMetal)
+            foreach (var kp in sortedDict)
             {
                 var md = user.MetalData;
                 int key = kp.Key;
