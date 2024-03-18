@@ -9,7 +9,6 @@ public class Monster_Specail : APlayer
 {
     MonsterSpecialConfig config;
     private int RewardRate = 1;
-    RuleType RuleType = RuleType.Normal;
 
     public Monster_Specail(int id, int rate, RuleType ruleType)
     {

@@ -140,6 +140,104 @@ namespace Game
             }
         }
 
+
+        private void saveData()
+        {
+            User user = GameProcessor.Inst.User;
+            btn_Save.gameObject.SetActive(false);
+
+            if (user.SaveLimit <= 0)
+            {
+                this.txt_Name.text = "今天存档次数已满";
+                return;
+            }
+
+            this.txt_Name.text = "存档中......";
+
+
+            //再存储新档
+            StartCoroutine(Upload(
+                () => { this.txt_Name.text = "存档成功."; },
+                () => { this.txt_Name.text = "存档失败."; }
+                ));
+
+
+            this.CheckProgress();
+        }
+
+        public static IEnumerator UnityWebRequestPost()
+        {
+            string url = "http://127.0.0.1:11111/public/save";
+
+
+            using (UnityWebRequest www = UnityWebRequest.Post(url, "{}"))
+            {
+
+                //www.SetRequestHeader("Content-Type", "application/json;charset=utf-8");
+
+                string filePath = UserData.getSavePath();
+                byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+
+                www.uploadHandler = new UploadHandlerRaw(fileBytes);
+                yield return www.SendWebRequest();
+                if (www.result == UnityWebRequest.Result.ProtocolError || www.result == UnityWebRequest.Result.ConnectionError)
+                {
+                    Debug.LogError($"发起网络请求失败： 确认过闸接口 -{www.error}");
+                }
+                else
+                {
+                    Debug.Log(www.downloadHandler.text);
+                }
+            }
+        }
+
+        private IEnumerator Upload(Action successAction, Action failAction)
+        {
+            string url = "http://127.0.0.1:11111/public/save";
+
+            // 读取文件
+            string filePath = UserData.getSavePath();
+            byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+
+            Debug.Log("fileBytes:" + fileBytes.Length);
+
+            WWWForm form = new WWWForm();
+            form.AddField("data", "{'id':123}");
+            form.AddBinaryData("file", System.IO.File.ReadAllBytes(filePath), "file.bin", "application/octet-stream");
+
+            using (UnityWebRequest www = UnityWebRequest.Post(url, form))
+            {
+                // 设置uploadHandler
+                www.timeout = 10;
+                www.uploadHandler = new UploadHandlerRaw(form.data);
+                //www.SetRequestHeader("Content-Type", "multipart/form-data; boundary=" + form.boundary);
+
+                www.disposeDownloadHandlerOnDispose = true;
+                www.disposeUploadHandlerOnDispose = true;
+
+                // 发送请求并等待
+                yield return www.SendWebRequest();
+
+                if (www.result != UnityWebRequest.Result.Success)
+                {
+                    Debug.Log("Upload Error:" + www.error);
+
+                    //this.txt_Name.text = "存档失败!!!";
+                    failAction?.Invoke();
+                }
+                else
+                {
+                    Debug.Log("Upload complete! Server response: " + www.downloadHandler.text);
+
+                    successAction?.Invoke();
+                    //this.txt_Name.text = "存档成功。";
+                }
+
+
+                www.Dispose();
+            }
+        }
+
         //private async Task AsyncLoginTap()
         //{
         //    var currentUser = await TDSUser.GetCurrent();
@@ -200,90 +298,6 @@ namespace Game
         //async Task queryData()
         //{
         //}
-
-
-
-        async Task saveData()
-        {
-            User user = GameProcessor.Inst.User;
-            btn_Save.gameObject.SetActive(false);
-
-            if (user.SaveLimit <= 0)
-            {
-                this.txt_Name.text = "今天存档次数已满";
-                return;
-            }
-
-            this.txt_Name.text = "存档中......";
-
-
-            //再存储新档
-            StartCoroutine(Updata());
-
-
-            this.CheckProgress();
-        }
-
-        public static IEnumerator UnityWebRequestPost()
-        {
-            string url = "http://127.0.0.1:11111/public/save";
-
-            using (UnityWebRequest www = UnityWebRequest.Post(url, "{}"))
-            {
-
-                www.SetRequestHeader("Content-Type", "application/json;charset=utf-8");
-
-                string filePath = UserData.getSavePath();
-                byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
-
-                www.uploadHandler = new UploadHandlerRaw(fileBytes);
-                yield return www.SendWebRequest();
-                if (www.result == UnityWebRequest.Result.ProtocolError || www.result == UnityWebRequest.Result.ConnectionError)
-                {
-                    Debug.LogError($"发起网络请求失败： 确认过闸接口 -{www.error}");
-                }
-                else
-                {
-                    Debug.Log(www.downloadHandler.text);
-                }
-            }
-        }
-
-        private IEnumerator Updata()
-        {
-            string url = "http://127.0.0.1:11111/public/save";
-
-            // 读取文件
-            string filePath = UserData.getSavePath();
-            byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
-
-            Debug.Log("fileBytes:" + fileBytes.Length);
-
-            WWWForm form = new WWWForm();
-            form.AddBinaryData("file", System.IO.File.ReadAllBytes(filePath), "file.bin", "application/octet-stream");
-
-            using (UnityWebRequest www = UnityWebRequest.Post(url, form))
-            {
-                // 设置uploadHandler
-                www.uploadHandler = new UploadHandlerRaw(form.data);
-                //www.SetRequestHeader("Content-Type", "multipart/form-data; boundary=" + form.boundary);
-
-                // 发送请求并等待
-                yield return www.SendWebRequest();
-
-                if (www.result != UnityWebRequest.Result.Success)
-                {
-                    Debug.Log("Upload Error:" + www.error);
-                }
-                else
-                {
-                    Debug.Log("Upload complete! Server response: " + www.downloadHandler.text);
-                }
-
-                www.Dispose();
-            }
-        }
-
         //private async Task loadData()
         //{
         //    User user = GameProcessor.Inst.User;
