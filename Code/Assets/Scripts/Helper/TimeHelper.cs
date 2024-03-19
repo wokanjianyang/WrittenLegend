@@ -26,6 +26,12 @@ namespace Game
             return (int)((DateTime.Today.Ticks - epoch) / 10000000);
         }
 
+        public static int WeekSeed()
+        {
+            DateTime week = DateTime.Today.AddDays(1 - Convert.ToInt32(DateTime.Today.DayOfWeek.ToString("d")));
+            return (int)((week.Ticks - epoch) / 10000000);
+        }
+
         public static long Now()
         {
             return ClientNow();

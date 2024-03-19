@@ -14,6 +14,11 @@ namespace Game
     {
         public static ExclusiveItem Build(int configId, int seed)
         {
+            if (seed < 0)
+            {
+                seed = AppHelper.InitSeed();
+            }
+
             ExclusiveConfig config = ExclusiveConfigCategory.Instance.Get(configId);
 
             int quality = config.Quality;
@@ -42,7 +47,7 @@ namespace Game
 
                 if (suitId <= 0 && quality >= 4)
                 {
-                    suitId = SkillSuitHelper.RandomSuit(runeConfig.SkillId).Id;
+                    suitId = SkillSuitHelper.RandomSuit(seed, runeConfig.SkillId).Id;
                 }
             }
 

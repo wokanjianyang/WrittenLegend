@@ -13,7 +13,7 @@ namespace Game
 
     public class DropLimitHelper
     {
-        public static List<Item> Build(int type, int mapId, double rateRise, double modelRise, int qualityRate)
+        public static List<Item> Build(int type, int mapId, double rateRise, double modelRise, int qualityRate,double countRise)
         {
             User user = GameProcessor.Inst.User;
 
@@ -52,7 +52,7 @@ namespace Game
 
                 if (dropLimit.StartRate > 0) //有保底机制的
                 {
-                    dropData.Number += modelRise * dzRate;
+                    dropData.Number += countRise * dzRate;
 
                     if (dropData.Number > dropLimit.StartRate)
                     {
@@ -72,7 +72,7 @@ namespace Game
                 if (RandomHelper.RandomResult(rate))
                 {
                     dropData.Number = 0;
-                    dropData.Seed = AppHelper.RefreshSeed(dropData.Seed);
+                    dropData.Seed = AppHelper.RefreshWeekSeed(dropData.Seed);
 
 
                     int dropId = dropLimit.DropId;

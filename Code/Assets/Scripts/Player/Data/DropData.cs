@@ -22,7 +22,7 @@ namespace Game.Data
 
         public void Init(int startSeed)
         {
-            this.Seed = AppHelper.RefreshSeed(startSeed);
+            this.Seed = AppHelper.RefreshDaySeed(startSeed);
         }
     }
 }

@@ -8,12 +8,12 @@ namespace Game
 
     public partial class SkillRuneConfigCategory
     {
-        
+
     }
 
     public class SkillRuneHelper
     {
-        public static SkillRuneConfig RandomRune(int role, int type, int quality, int level, int maxRuneLevel)
+        public static SkillRuneConfig RandomRune(int seed, int role, int type, int quality, int level)
         {
             int skillId = role * 1000;
 
@@ -21,12 +21,7 @@ namespace Game
             if (type == 1)
             {
                 RuneRate = ConfigHelper.RuneRate;
-
-                if (maxRuneLevel > 0)
-                {
-                    RuneRate = ConfigHelper.RuneRate0;
-                }
-                else if (quality >= 5)
+                if (quality >= 5)
                 {
                     if (level <= 300)
                     {
@@ -47,7 +42,7 @@ namespace Game
                 RuneRate = ConfigHelper.RuneRate2;
             }
 
-            int index = RandomHelper.RandomNumber(0, RuneRate[RuneRate.Length - 1]);
+            int index = RandomHelper.RandomNumber(seed, 0, RuneRate[RuneRate.Length - 1]);
 
             for (int i = 0; i < RuneRate.Length; i++)
             {
@@ -62,13 +57,13 @@ namespace Game
             List<SkillRuneConfig> list = SkillRuneConfigCategory.Instance.GetAll().Select(m => m.Value)
                 .Where(m => m.SkillId == skillId && m.Type == 1).ToList();
 
-            index = RandomHelper.RandomNumber(0, list.Count);
+            index = RandomHelper.RandomNumber(seed, 0, list.Count);
 
             return list[index];
         }
 
 
-        public static List<SkillRune> GetAllRune(int skillId,int runeCount)
+        public static List<SkillRune> GetAllRune(int skillId, int runeCount)
         {
             List<SkillRune> runeList = new List<SkillRune>();
 

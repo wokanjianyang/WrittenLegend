@@ -71,7 +71,17 @@ namespace Game
 
         public static int RefreshSeed(int seed)
         {
+            return RandomHelper.RandomNumber(seed, 1, int.MaxValue - 1);
+        }
+
+        public static int RefreshDaySeed(int seed)
+        {
             int todaySeed = seed + TimeHelper.TodaySeed();
+            return RandomHelper.RandomNumber(todaySeed, 1, int.MaxValue - 1);
+        }
+
+        public static int RefreshWeekSeed(int seed) {
+            int todaySeed = seed + TimeHelper.WeekSeed();
             return RandomHelper.RandomNumber(todaySeed, 1, int.MaxValue - 1);
         }
     }

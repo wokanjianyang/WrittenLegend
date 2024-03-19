@@ -12,8 +12,13 @@ namespace Game
 
     public class EquipHelper
     {
-        public static Equip BuildEquip(int configId, int staticQuality, int qualityRate, int maxRuneLevel, int seed)
+        public static Equip BuildEquip(int configId, int staticQuality, int qualityRate, int seed)
         {
+            if (seed < 0)
+            {
+                seed = AppHelper.InitSeed();
+            }
+
             EquipConfig config = EquipConfigCategory.Instance.Get(configId);
 
             int runeId = config.RuneId;
@@ -22,7 +27,7 @@ namespace Game
 
             if (config.Quality == 0)  //随机生成品质
             {
-                quality = RandomHelper.RandomEquipQuality(config.LevelRequired, qualityRate);
+                quality = RandomHelper.RandomEquipQuality(seed, config.LevelRequired, qualityRate);
             }
             if (staticQuality > 0)
             {
@@ -31,20 +36,17 @@ namespace Game
 
             if (runeId == 0 && quality > 2) //随机生成词条
             {
-                SkillRuneConfig runeConfig = SkillRuneHelper.RandomRune(config.Role, 1, quality, config.LevelRequired, maxRuneLevel);
+                SkillRuneConfig runeConfig = SkillRuneHelper.RandomRune(seed, config.Role, 1, quality, config.LevelRequired);
                 runeId = runeConfig.Id;
 
-                if (suitId == 0 && quality > 3)  //随机生成词条
+                if (suitId == 0 && quality > 3)  //随机生成套装
                 {
-                    suitId = SkillSuitHelper.RandomSuit(runeConfig.SkillId).Id;
+                    suitId = SkillSuitHelper.RandomSuit(seed, runeConfig.SkillId).Id;
                 }
             }
 
             Equip equip = new Equip(configId, runeId, suitId, quality);
-            if (seed < 0)
-            {
-                seed = AppHelper.InitSeed();
-            }
+
             equip.Init(seed);
 
             equip.Count = 1;

@@ -8,9 +8,9 @@ namespace Game
 {
     public class ItemHelper
     {
-        public static Equip BuildEquip(int configId, int staticQuality, int qualityRate, int MaxRuneLevel, int seed)
+        public static Equip BuildEquip(int configId, int staticQuality, int qualityRate, int seed)
         {
-            return EquipHelper.BuildEquip(configId, staticQuality, qualityRate, MaxRuneLevel, seed);
+            return EquipHelper.BuildEquip(configId, staticQuality, qualityRate, seed);
         }
 
         public static Item BuildItem(ItemType type, int configId, int qualityRate, int number)
@@ -24,7 +24,7 @@ namespace Game
 
             if (type == ItemType.Equip)
             {
-                item = EquipHelper.BuildEquip(configId, 0, qualityRate, 0, seed);
+                item = EquipHelper.BuildEquip(configId, 0, qualityRate, seed);
             }
             else if (type == ItemType.SkillBox)
             {

@@ -10,15 +10,16 @@ namespace Game
 
     }
 
-    public class SkillSuitHelper {
-        public static SkillSuitConfig RandomSuit(int skillId)
+    public class SkillSuitHelper
+    {
+        public static SkillSuitConfig RandomSuit(int seed, int skillId)
         {
             List<SkillSuitConfig> list = SkillSuitConfigCategory.Instance.GetAll().Where(m => m.Value.SkillId == skillId).Select(m => m.Value).ToList();
-            int index = RandomHelper.RandomNumber(0, list.Count);
+            int index = RandomHelper.RandomNumber(seed, 0, list.Count);
             return list[index];
         }
 
-        public static List<SkillSuit> GetAllSuit(int skillId,int suitCount)
+        public static List<SkillSuit> GetAllSuit(int skillId, int suitCount)
         {
             List<SkillSuit> suitList = new List<SkillSuit>();
 
