@@ -112,7 +112,10 @@ namespace Game
 
         public void OnClick_Save()
         {
+
             saveData();
+
+
         }
 
         private void CheckProgress()
@@ -154,13 +157,19 @@ namespace Game
 
             this.txt_Name.text = "存档中......";
 
+            try
+            {
 
-            //再存储新档
-            StartCoroutine(Upload(
-                () => { this.txt_Name.text = "存档成功."; },
-                () => { this.txt_Name.text = "存档失败."; }
-                ));
-
+                //再存储新档
+                StartCoroutine(Upload(
+                        () => { this.txt_Name.text = "存档成功."; },
+                        () => { this.txt_Name.text = "存档失败."; }
+                        ));
+            }
+            catch (Exception ex)
+            {
+                this.txt_Name.text = "存档失败，请稍等一会重试...";
+            }
 
             this.CheckProgress();
         }
@@ -201,41 +210,71 @@ namespace Game
 
             Debug.Log("fileBytes:" + fileBytes.Length);
 
-            WWWForm form = new WWWForm();
-            form.AddField("data", "{'id':123}");
-            form.AddBinaryData("file", System.IO.File.ReadAllBytes(filePath), "file.bin", "application/octet-stream");
+            //WWWForm form = new WWWForm();
+            //form.AddField("data", "{'id':123}");
+            //form.AddBinaryData("file", fileBytes, "file.bin", "application/octet-stream");
 
-            using (UnityWebRequest www = UnityWebRequest.Post(url, form))
+            using (var request = UnityWebRequest.Post(url, "POST"))
             {
-                // 设置uploadHandler
-                www.timeout = 10;
-                www.uploadHandler = new UploadHandlerRaw(form.data);
-                //www.SetRequestHeader("Content-Type", "multipart/form-data; boundary=" + form.boundary);
-
-                www.disposeDownloadHandlerOnDispose = true;
-                www.disposeUploadHandlerOnDispose = true;
-
-                // 发送请求并等待
-                yield return www.SendWebRequest();
-
-                if (www.result != UnityWebRequest.Result.Success)
+                using (var uh = new UploadHandlerRaw(fileBytes))
                 {
-                    Debug.Log("Upload Error:" + www.error);
 
-                    //this.txt_Name.text = "存档失败!!!";
-                    failAction?.Invoke();
+                    request.uploadHandler.Dispose();
+                    request.uploadHandler = uh;
+                    yield return request.SendWebRequest();
+
+                    if (request.result != UnityWebRequest.Result.Success)
+                    {
+                        Debug.Log("Upload Error:" + request.error);
+
+                        //this.txt_Name.text = "存档失败!!!";
+                        failAction?.Invoke();
+                    }
+                    else
+                    {
+                        Debug.Log("Upload complete! Server response: " + request.downloadHandler.text);
+
+                        successAction?.Invoke();
+                        //this.txt_Name.text = "存档成功。";
+                    }
                 }
-                else
-                {
-                    Debug.Log("Upload complete! Server response: " + www.downloadHandler.text);
-
-                    successAction?.Invoke();
-                    //this.txt_Name.text = "存档成功。";
-                }
-
-
-                www.Dispose();
             }
+
+            //using (UnityWebRequest www = UnityWebRequest.Post(url, form))
+            //{
+            //    // 设置uploadHandler
+            //    www.timeout = 10;
+            //    www.uploadHandler = new UploadHandlerRaw(form.data);
+            //    //www.SetRequestHeader("Content-Type", "multipart/form-data; boundary=" + form.boundary);
+
+            //    //www.disposeDownloadHandlerOnDispose = true;
+            //    //www.disposeUploadHandlerOnDispose = true;
+
+            //    // 发送请求并等待
+            //    yield return www.SendWebRequest();
+
+
+
+
+            //    if (www.result != UnityWebRequest.Result.Success)
+            //    {
+            //        Debug.Log("Upload Error:" + www.error);
+
+            //        //this.txt_Name.text = "存档失败!!!";
+            //        failAction?.Invoke();
+            //    }
+            //    else
+            //    {
+            //        Debug.Log("Upload complete! Server response: " + www.downloadHandler.text);
+
+            //        successAction?.Invoke();
+            //        //this.txt_Name.text = "存档成功。";
+            //    }
+
+            //    www.Dispose();
+            //    www.uploadHandler.Dispose();
+            //    www.downloadHandler.Dispose();
+            //}
         }
 
         //private async Task AsyncLoginTap()
