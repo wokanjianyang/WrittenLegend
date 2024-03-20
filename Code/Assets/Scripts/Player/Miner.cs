@@ -74,7 +74,7 @@ public class Miner
             this.Seed = AppHelper.RefreshWeekSeed(this.Seed);
         }
 
-        this.BirthDay += TimeHelper.ClientNowSeconds();
+        this.BirthDay = TimeHelper.ClientNowSeconds();
     }
 
 }
