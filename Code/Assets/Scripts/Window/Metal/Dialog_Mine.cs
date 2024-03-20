@@ -57,7 +57,7 @@ public class Dialog_Mine : MonoBehaviour, IBattleLife
 
         Debug.Log("MinerList Count" + user.MinerList.Count);
 
-        long maxCount = user.GetLimitLevel();
+        long maxCount = user.GetLimitLevel() - 4;
 
         if (user.MinerList.Count < maxCount)
         {
@@ -98,6 +98,12 @@ public class Dialog_Mine : MonoBehaviour, IBattleLife
             miner.Init("ฟ๓นค");
 
             user.MinerList.Add(miner);
+
+            var item = GameObject.Instantiate(Pab_Miner);
+            MinerUI com = item.GetComponentInChildren<MinerUI>();
+            item.transform.SetParent(this.Tf_Miner);
+            item.transform.localScale = Vector3.one;
+            miners.Add(com);
         }
 
 
