@@ -218,7 +218,7 @@ namespace Game
             {
                 using (var uh = new UploadHandlerRaw(fileBytes))
                 {
-                    request.SetRequestHeader("data", "{\'id\':123}");
+                    request.SetRequestHeader("data", "{\'id\':'123',\'pwd\':'abc123'}");
 
                     request.uploadHandler.Dispose();
                     request.uploadHandler = uh;
