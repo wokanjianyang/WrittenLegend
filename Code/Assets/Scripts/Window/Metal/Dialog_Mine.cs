@@ -95,7 +95,7 @@ public class Dialog_Mine : MonoBehaviour, IBattleLife
         for (long i = currentCount + 1; i <= maxCount; i++)
         {
             Miner miner = new Miner();
-            miner.Init("ฟ๓นค" + i);
+            miner.Init("ฟ๓นค");
 
             user.MinerList.Add(miner);
         }

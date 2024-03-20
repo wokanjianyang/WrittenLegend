@@ -804,6 +804,10 @@ namespace Game
         }
         public void AddExpAndGold(long exp, long gold)
         {
+            if (this.MagicGold.Data >= 8223372036854775807 / 3) {
+                return;
+            }
+
             if (this.MagicGold.Data < 0 || this.MagicGold.Data >= 8223372036854775807)
             {
                 GameProcessor.Inst.EventCenter.Raise(new CheckGameCheatEvent());

@@ -197,7 +197,7 @@ namespace Game
 
         public static string BuildMinerMessage(Miner miner, MetalConfig config, long level)
         {
-            string message = DateTime.Now.ToString("yyyy年MM月dd日 HH:mm:ss") + " 矿工" + miner.Name + " 挖到了";
+            string message = DateTime.Now.ToString("yyyy年MM月dd日 HH:mm:ss") + " 矿工" + " 挖到了";
             message += $"<color=#{QualityConfigHelper.GetQualityColor(config.Quality)}>[{config.Name}]</color>";
             message += ",矿物等级为:" + level;
 
