@@ -75,14 +75,14 @@ namespace Game
             return SendRequest("save_user_file", bytes, successAction, failAction);
         }
 
-        public static IEnumerator DownData(Action<string> successAction, Action failAction)
+        public static IEnumerator DownData(Action<byte[]> successAction, Action failAction)
         {
             string url = home + "down_user_file";
 
             using (var request = UnityWebRequest.Post(url, "POST"))
             {
                 string path = UserData.getSavePath();
-                using (var dh = new DownloadHandlerFile(path))
+                using (var db = new DownloadHandlerBuffer())
                 {
                     string account = GameProcessor.Inst.User.DeviceId;
                     string deviceId = AppHelper.GetDeviceIdentifier();
@@ -95,7 +95,7 @@ namespace Game
                     request.SetRequestHeader("sign", sign);
 
                     request.downloadHandler.Dispose();
-                    request.downloadHandler = dh;
+                    request.downloadHandler = db;
                     yield return request.SendWebRequest();
 
                     if (request.result != UnityWebRequest.Result.Success)
@@ -105,8 +105,8 @@ namespace Game
                     }
                     else
                     {
-                        Debug.Log("Down complete! Server response: " + request.downloadHandler.text);
-                        successAction?.Invoke(request.downloadHandler.text);
+                        byte[] data = ((DownloadHandlerBuffer)request.downloadHandler).data;
+                        successAction?.Invoke(data);
                     }
                 }
             }

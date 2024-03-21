@@ -22,11 +22,10 @@ namespace Game
         [LabelText("显示怪物技能特效")]
         public Toggle tog_Monster_Skill;
 
-        public Button btn_Query;
-        public Button btn_Save;
-        public Button btn_Load;
+        //public Button btn_Query;
+
         public Text txt_Name;
-        public Text txt_Desc;
+        //public Text txt_Desc;
 
         public Text Txt_Device;
         public Text Txt_Account;
@@ -35,6 +34,8 @@ namespace Game
         public InputField If_Pwd;
         public Button btn_Change;
 
+        public Button btn_Save;
+        public Button btn_Load;
 
         // Start is called before the first frame update
         void Start()
@@ -134,6 +135,8 @@ namespace Game
             StartCoroutine(NetworkHelper.CreateAccount(key,
                  (string resultText) =>
                  {
+                     Debug.Log("resultText:" + resultText);
+
                      Dictionary<string, string> result = JsonConvert.DeserializeObject<Dictionary<string, string>>(resultText);
 
                      if (result["code"] == "200")
@@ -142,6 +145,7 @@ namespace Game
                          UserData.Save();
 
                          this.If_Pwd.gameObject.SetActive(false);
+                         this.Txt_Pwd.gameObject.SetActive(true);
                          this.Txt_Pwd.text = "绑定成功,绑定码为:" + key;
                      }
                      else
@@ -152,7 +156,7 @@ namespace Game
                  () =>
                  {
                      this.btn_Change.gameObject.SetActive(true);
-                     GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "网络错误", ToastType = ToastTypeEnum.Failure });
+                     this.txt_Name.text = "网络错误.";
                  }
                  ));
         }
@@ -173,7 +177,7 @@ namespace Game
         {
             User user = GameProcessor.Inst.User;
 
-            txt_Desc.text = "今天剩余存档次数:" + user.SaveLimit + ",读档次数:" + user.LoadLimit;
+            //txt_Desc.text = "今天剩余存档次数:" + user.SaveLimit + ",读档次数:" + user.LoadLimit;
 
             if (user.SaveLimit <= 0)
             {
@@ -242,35 +246,50 @@ namespace Game
             this.CheckProgress();
         }
 
-        public static IEnumerator UnityWebRequestPost()
-        {
-            string url = "http://127.0.0.1:11111/public/save";
-
-
-            using (UnityWebRequest www = UnityWebRequest.Post(url, "{}"))
-            {
-
-                //www.SetRequestHeader("Content-Type", "application/json;charset=utf-8");
-
-                string filePath = UserData.getSavePath();
-                byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
-
-                www.uploadHandler = new UploadHandlerRaw(fileBytes);
-                yield return www.SendWebRequest();
-                if (www.result == UnityWebRequest.Result.ProtocolError || www.result == UnityWebRequest.Result.ConnectionError)
-                {
-                    Debug.LogError($"发起网络请求失败： 确认过闸接口 -{www.error}");
-                }
-                else
-                {
-                    Debug.Log(www.downloadHandler.text);
-                }
-            }
-        }
 
         private void loadData()
         {
+            User user = GameProcessor.Inst.User;
+            btn_Load.gameObject.SetActive(false);
 
+            this.txt_Name.text = "读档中......";
+
+            try
+            {
+                //再存储新档
+                StartCoroutine(NetworkHelper.DownData(
+                        (byte[] bytes) =>
+                        {
+                            Time.timeScale = 0;
+
+                            Debug.Log("bytes:" + bytes.Length);
+
+                            string filePath = UserData.getSavePath();             //文件路径
+
+                            using (StreamWriter writer = new StreamWriter(filePath))
+                            {
+                                // 写入要保存的内容
+                                writer.Write(bytes);
+                            }
+
+                            this.txt_Name.text = "读档成功，重启再进游戏";
+
+                            GameProcessor.Inst.Init(UserData.StartTime);
+                            GameProcessor.Inst.User.DataDate = DateTime.Now.Ticks;
+                            UserData.Save();
+
+                            Application.Quit();
+                        },
+                        () =>
+                        {
+                            this.txt_Name.text = "读档失败.";
+                        }
+                        ));
+            }
+            catch (Exception ex)
+            {
+                this.txt_Name.text = "读档失败，请稍等一会重试...";
+            }
         }
     }
 }
