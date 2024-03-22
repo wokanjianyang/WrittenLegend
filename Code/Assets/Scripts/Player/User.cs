@@ -21,7 +21,8 @@ namespace Game
         public int ID { get; set; }
 
         public string DeviceId { get; set; } = "";
-        public string Pwd { get; set; } = "";
+
+        public string Account { get; set; } = "";
         public string Name { get; set; }
 
         public long DataDate { get; set; } = 0;

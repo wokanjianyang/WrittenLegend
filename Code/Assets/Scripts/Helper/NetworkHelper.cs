@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Game.Data;
+using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
@@ -56,21 +58,27 @@ namespace Game
             return code;
         }
 
-        public static IEnumerator CreateAccount(string account, Action<string> successAction, Action failAction)
+        public static IEnumerator CreateAccount(string account, string pwd, Action<WebResultWrapper> successAction, Action failAction)
         {
-            byte[] bytes = new System.Text.UTF8Encoding().GetBytes(account);
+            Dictionary<string, string> dict = new Dictionary<string, string>();
+            dict.Add("account", account);
+            dict.Add("pwd", pwd);
+
+            string param = JsonConvert.SerializeObject(dict);
+
+            byte[] bytes = new System.Text.UTF8Encoding().GetBytes(param);
 
             return SendRequest("create_user", bytes, successAction, failAction);
         }
 
-        public static IEnumerator UpdateInfo(string data, Action<string> successAction, Action failAction)
+        public static IEnumerator UpdateInfo(string data, Action<WebResultWrapper> successAction, Action failAction)
         {
             byte[] bytes = new System.Text.UTF8Encoding().GetBytes(data);
 
             return SendRequest("update_info", bytes, successAction, failAction);
         }
 
-        public static IEnumerator UploadData(byte[] bytes, Action<string> successAction, Action failAction)
+        public static IEnumerator UploadData(byte[] bytes, Action<WebResultWrapper> successAction, Action failAction)
         {
             return SendRequest("save_user_file", bytes, successAction, failAction);
         }
@@ -84,14 +92,14 @@ namespace Game
                 string path = UserData.getSavePath();
                 using (var db = new DownloadHandlerBuffer())
                 {
-                    string account = GameProcessor.Inst.User.DeviceId;
+                    string account = GameProcessor.Inst.User.Account;
+                    string fileId = GameProcessor.Inst.User.DeviceId;
                     string deviceId = AppHelper.GetDeviceIdentifier();
-                    string key = GameProcessor.Inst.User.Pwd;
                     string sign = BuildSign();
 
                     request.SetRequestHeader("account", account);
+                    request.SetRequestHeader("fileId", fileId);
                     request.SetRequestHeader("deviceId", deviceId);
-                    request.SetRequestHeader("key", key);
                     request.SetRequestHeader("sign", sign);
 
                     request.downloadHandler.Dispose();
@@ -112,7 +120,7 @@ namespace Game
             }
         }
 
-        public static IEnumerator SendRequest(string ac, byte[] bytes, Action<string> successAction, Action failAction)
+        public static IEnumerator SendRequest(string ac, byte[] bytes, Action<WebResultWrapper> successAction, Action failAction)
         {
             string url = home + ac;
 
@@ -120,14 +128,14 @@ namespace Game
             {
                 using (var uh = new UploadHandlerRaw(bytes))
                 {
-                    string account = GameProcessor.Inst.User.DeviceId;
+                    string account = GameProcessor.Inst.User.Account;
                     string deviceId = AppHelper.GetDeviceIdentifier();
-                    string key = GameProcessor.Inst.User.Pwd;
+                    string fileId = GameProcessor.Inst.User.DeviceId;
                     string sign = BuildSign();
 
                     request.SetRequestHeader("account", account);
                     request.SetRequestHeader("deviceId", deviceId);
-                    request.SetRequestHeader("key", key);
+                    request.SetRequestHeader("fileId", fileId);
                     request.SetRequestHeader("sign", sign);
 
                     request.uploadHandler.Dispose();
@@ -142,7 +150,10 @@ namespace Game
                     else
                     {
                         Debug.Log("Upload complete! Server response: " + request.downloadHandler.text);
-                        successAction?.Invoke(request.downloadHandler.text);
+
+                        WebResultWrapper result = JsonConvert.DeserializeObject<WebResultWrapper>(request.downloadHandler.text);
+
+                        successAction?.Invoke(result);
                     }
                 }
             }

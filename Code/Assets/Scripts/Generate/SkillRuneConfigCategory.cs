@@ -54,6 +54,8 @@ namespace Game
                 }
             }
 
+            //seed = AppHelper.RefreshSeed(seed);
+
             List<SkillRuneConfig> list = SkillRuneConfigCategory.Instance.GetAll().Select(m => m.Value)
                 .Where(m => m.SkillId == skillId && m.Type == 1).ToList();
 

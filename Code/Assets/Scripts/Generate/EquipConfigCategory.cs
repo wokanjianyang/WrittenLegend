@@ -14,7 +14,7 @@ namespace Game
     {
         public static Equip BuildEquip(int configId, int staticQuality, int qualityRate, int seed)
         {
-            if (seed < 0)
+            if (seed <= 0)
             {
                 seed = AppHelper.InitSeed();
             }

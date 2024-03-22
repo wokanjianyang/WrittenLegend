@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using UnityEngine.Networking;
 using System.IO;
 using Newtonsoft.Json;
+using Game.Data;
 
 namespace Game
 {
@@ -24,13 +25,14 @@ namespace Game
 
         //public Button btn_Query;
 
-        public Text txt_Name;
-        //public Text txt_Desc;
+        public Text txt_Info;
+        public Text txt_Memo;
 
-        public Text Txt_Device;
-        public Text Txt_Account;
+        public Text Txt_DeviceId;
+        public Text Txt_FileId;
 
-        public Text Txt_Pwd;
+        public Transform Tf_Login;
+        public InputField If_Account;
         public InputField If_Pwd;
         public Button btn_Change;
 
@@ -46,15 +48,20 @@ namespace Game
             });
 
             this.btn_Change.onClick.AddListener(this.OnClick_Change);
-
-            //this.btn_Query.onClick.AddListener(this.OnClick_Query);
             this.btn_Save.onClick.AddListener(this.OnClick_Save);
             this.btn_Load.onClick.AddListener(this.OnClick_Load);
 
             //this.CheckProgress();
 
             //AsyncLoginTap();
-
+            if (ConfigHelper.Channel == ConfigHelper.Channel_Tap)
+            {
+                this.Tf_Login.gameObject.SetActive(false);
+                this.btn_Save.gameObject.SetActive(false);
+                this.btn_Load.gameObject.SetActive(false);
+                this.txt_Info.gameObject.SetActive(false);
+                this.txt_Memo.gameObject.SetActive(false);
+            }
 
         }
 
@@ -64,27 +71,32 @@ namespace Game
 
             User user = GameProcessor.Inst.User;
 
-            string key = user.Pwd;
+            string account = user.Account;
             //this.txt_Account.text = "设备Id:" + id;
 
-            if (key == "")
+            if (account == "")
             {
-                this.If_Pwd.gameObject.SetActive(true);
-                this.btn_Change.gameObject.SetActive(true);
+                this.Tf_Login.gameObject.SetActive(true);
 
-                this.Txt_Pwd.gameObject.SetActive(false);
+                this.btn_Save.gameObject.SetActive(false);
+                this.btn_Load.gameObject.SetActive(false);
+                this.txt_Memo.gameObject.SetActive(false);
             }
             else
             {
-                this.If_Pwd.gameObject.SetActive(false);
-                this.btn_Change.gameObject.SetActive(false);
+                this.Tf_Login.gameObject.SetActive(false);
 
-                this.Txt_Pwd.gameObject.SetActive(true);
-                this.Txt_Pwd.text = "绑定成功,绑定码为:" + key;
+                this.btn_Save.gameObject.SetActive(true);
+                this.btn_Load.gameObject.SetActive(true);
+                this.txt_Memo.gameObject.SetActive(true);
+                this.txt_Memo.text = "您已经绑定了存档,您的存档帐号为:" + account + ".\n"
+                    + "如果您需要切换设备，则在新设备输入同样的帐号和密码,\n"
+                    + "再点击绑定，新设备就可以读取存档了。\n"
+                    + "请不要一个存档绑定太多设备，会导致封号无法使用云存档。\n";
             }
 
-            this.Txt_Account.text = "存档Id:" + user.DeviceId;
-            this.Txt_Device.text = "设备Id:" + AppHelper.GetDeviceIdentifier();
+            this.Txt_FileId.text = "存档Id:" + user.DeviceId;
+            this.Txt_DeviceId.text = "设备Id:" + AppHelper.GetDeviceIdentifier();
         }
 
         public void ShowSkill(bool show)
@@ -123,43 +135,56 @@ namespace Game
 
         public void OnClick_Change()
         {
-            string key = If_Pwd.text;
-            if (key.Length < 6 || key.Length > 10)
+            string account = If_Account.text;
+            if (account.Length < 6 || account.Length > 10)
             {
-                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "请输入6-10个字符", ToastType = ToastTypeEnum.Failure });
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "帐号请输入6-10个字符", ToastType = ToastTypeEnum.Failure });
+                return;
+            }
+
+            string pwd = If_Pwd.text;
+            if (pwd.Length < 6 || pwd.Length > 10)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "密码请输入6-10个字符", ToastType = ToastTypeEnum.Failure });
                 return;
             }
 
             this.btn_Change.gameObject.SetActive(false);
+            this.txt_Info.text = "绑定中...";
 
-            StartCoroutine(NetworkHelper.CreateAccount(key,
-                 (string resultText) =>
+            StartCoroutine(NetworkHelper.CreateAccount(account, pwd,
+                 (WebResultWrapper result) =>
                  {
-                     Debug.Log("resultText:" + resultText);
-
-                     Dictionary<string, string> result = JsonConvert.DeserializeObject<Dictionary<string, string>>(resultText);
-
-                     if (result["code"] == "200")
+                     if (result.Code == StatusMessage.OK)
                      {
-                         GameProcessor.Inst.User.Pwd = key;
+                         GameProcessor.Inst.User.Account = account;
                          UserData.Save();
 
-                         this.If_Pwd.gameObject.SetActive(false);
-                         this.Txt_Pwd.gameObject.SetActive(true);
-                         this.Txt_Pwd.text = "绑定成功,绑定码为:" + key;
+                         this.Tf_Login.gameObject.SetActive(false);
+
+                         this.btn_Save.gameObject.SetActive(true);
+                         this.btn_Load.gameObject.SetActive(true);
+                         this.txt_Memo.gameObject.SetActive(true);
+                         this.txt_Memo.text = "您已经绑定了存档,您的存档帐号为:" + account + ".\n"
+                           + "如果您需要切换设备，则在新设备输入同样的帐号和密码,\n"
+                           + "再点击绑定，新设备就可以读取存档了。\n"
+                           + "请不要一个存档绑定太多设备，会导致封号无法使用云存档。\n";
                      }
                      else
                      {
-                         this.txt_Name.text = "绑定失败.";
+                         this.btn_Change.gameObject.SetActive(true);
                      }
+
+                     this.txt_Info.text = result.Msg;
                  },
                  () =>
                  {
                      this.btn_Change.gameObject.SetActive(true);
-                     this.txt_Name.text = "网络错误.";
+                     this.txt_Info.text = "网络错误.";
                  }
                  ));
         }
+
 
         public void OnClick_Load()
         {
@@ -205,11 +230,11 @@ namespace Game
 
             if (user.SaveLimit <= 0)
             {
-                this.txt_Name.text = "今天存档次数已满";
+                this.txt_Info.text = "今天存档次数已满";
                 return;
             }
 
-            this.txt_Name.text = "存档中......";
+            this.txt_Info.text = "存档中......";
 
             try
             {
@@ -219,28 +244,29 @@ namespace Game
 
                 //再存储新档
                 StartCoroutine(NetworkHelper.UploadData(bytes,
-                        (string resultText) =>
+                        (WebResultWrapper result) =>
                         {
-                            Dictionary<string, string> result = JsonConvert.DeserializeObject<Dictionary<string, string>>(resultText);
-
-                            if (result["code"] == "200")
+                            if (result.Code == StatusMessage.OK)
                             {
-                                this.txt_Name.text = "存档成功.";
+                                this.txt_Info.text = "存档成功.";
                             }
                             else
                             {
-                                this.txt_Name.text = "存档失败.";
+                                this.txt_Info.text = "存档失败.";
                             }
+
+                            btn_Load.gameObject.SetActive(true);
                         },
                         () =>
                         {
-                            this.txt_Name.text = "存档失败.";
+                            btn_Load.gameObject.SetActive(true);
+                            this.txt_Info.text = "存档失败.";
                         }
                         ));
             }
             catch (Exception ex)
             {
-                this.txt_Name.text = "存档失败，请稍等一会重试...";
+                this.txt_Info.text = "存档失败，请稍等一会重试...";
             }
 
             this.CheckProgress();
@@ -252,7 +278,7 @@ namespace Game
             User user = GameProcessor.Inst.User;
             btn_Load.gameObject.SetActive(false);
 
-            this.txt_Name.text = "读档中......";
+            this.txt_Info.text = "读档中......";
 
             try
             {
@@ -262,19 +288,23 @@ namespace Game
                         {
                             Time.timeScale = 0;
 
-                            Debug.Log("bytes:" + bytes.Length);
-
-                            string filePath = UserData.getSavePath();             //文件路径
-
-                            using (StreamWriter writer = new StreamWriter(filePath))
+                            if (bytes == null)
                             {
-                                // 写入要保存的内容
-                                writer.Write(bytes);
+                                this.txt_Info.text = "读档失败,还没有存档或者其他错误.";
+                                return;
                             }
 
-                            this.txt_Name.text = "读档成功，重启再进游戏";
+                            Debug.Log("bytes:" + bytes.Length);
+
+                            string str_json = Encoding.UTF8.GetString(bytes);
+                            Debug.Log(Encoding.UTF8.GetString(bytes));
+
+
+                            this.txt_Info.text = "读取存档成功,请退出重进";
+                            UserData.SaveData(str_json, false);
 
                             GameProcessor.Inst.Init(UserData.StartTime);
+
                             GameProcessor.Inst.User.DataDate = DateTime.Now.Ticks;
                             UserData.Save();
 
@@ -282,13 +312,14 @@ namespace Game
                         },
                         () =>
                         {
-                            this.txt_Name.text = "读档失败.";
+                            btn_Load.gameObject.SetActive(true);
+                            this.txt_Info.text = "读档失败.";
                         }
                         ));
             }
             catch (Exception ex)
             {
-                this.txt_Name.text = "读档失败，请稍等一会重试...";
+                this.txt_Info.text = "读档失败，请稍等一会重试...";
             }
         }
     }
