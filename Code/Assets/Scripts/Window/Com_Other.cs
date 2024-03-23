@@ -148,35 +148,6 @@ namespace Game
             GameProcessor.Inst.User.ShowMonsterSkill = show;
         }
 
-        public void Save()
-        {
-
-            string filePath = UserData.getBackupPath();
-
-            var user = GameProcessor.Inst.User;
-            user.LastOut = TimeHelper.ClientNowSeconds();
-
-            //序列化
-            string str_json = JsonConvert.SerializeObject(user, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.Auto
-            });
-
-            if (str_json.Length <= 0)
-            {
-                return;
-            }
-
-            //加密
-            str_json = EncryptionHelper.AesEncrypt(str_json);
-
-            using (StreamWriter writer = new StreamWriter(filePath))
-            {
-                // 写入要保存的内容
-                writer.Write(str_json);
-            }
-        }
-
         public void OnClick_Change()
         {
             string account = If_Account.text;

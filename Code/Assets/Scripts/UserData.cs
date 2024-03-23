@@ -199,28 +199,6 @@ namespace Game
             //}
         }
 
-        public static string getBackupPath()
-        {
-            // 构建要读取的文件路径
-            string folderPath = Path.Combine(Application.persistentDataPath + "/../..", "fulljoblegend");
-
-            if (!File.Exists(folderPath))
-            {
-                Directory.CreateDirectory(folderPath);
-
-            }
-
-            string filePath = Path.Combine(folderPath, fileName);             //文件路径
-
-            if (!File.Exists(filePath))
-            {
-                //创建文件
-                File.Create(filePath).Dispose();
-            }
-
-            return filePath;
-        }
-
         public static string getSavePath()
         {
             string folderPath = Path.Combine(Application.persistentDataPath, savePath); //文件夹路径
@@ -239,40 +217,6 @@ namespace Game
             }
 
             return filePath;
-        }
-
-        public static string getTempPath()
-        {
-            string folderPath = Path.Combine(Application.persistentDataPath, savePath); //文件夹路径
-
-            if (!File.Exists(folderPath))
-            {
-                Directory.CreateDirectory(folderPath);
-            }
-
-            string filePath = Path.Combine(folderPath, tempName);             //文件路径
-
-            if (!File.Exists(filePath))
-            {
-                //创建文件
-                File.Create(filePath).Dispose();
-            }
-
-            return filePath;
-        }
-
-        public static void Clear()
-        {
-            string str_json = "";
-
-            //创建一个空白文件
-            string filePath = getSavePath();             //文件路径
-
-            using (StreamWriter writer = new StreamWriter(filePath))
-            {
-                // 写入要保存的内容
-                writer.Write(str_json);
-            }
         }
 
         //public static void TestFull(User user)
