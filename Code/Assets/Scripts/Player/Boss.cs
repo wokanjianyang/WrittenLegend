@@ -235,7 +235,7 @@ namespace Game
             }
 
             int qualityRate = qualityConfig.QualityRate * (100 + (int)user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea)) / 100;
-            items.AddRange(DropHelper.BuildDropItem(dropList, qualityRate, user.RateData));
+            items.AddRange(DropHelper.BuildDropItem(dropList, qualityRate));
 
             int mapIndex = Config.MapId - ConfigHelper.MapStartId;
             int quantity = mapIndex / 10 + 1 + user.SoulRingNumber;

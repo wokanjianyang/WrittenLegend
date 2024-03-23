@@ -42,7 +42,14 @@ namespace Game
                 RuneRate = ConfigHelper.RuneRate2;
             }
 
-            int index = RandomHelper.RandomNumber(seed, 0, RuneRate[RuneRate.Length - 1]);
+            int mx = RuneRate[RuneRate.Length - 1];
+            int index = RandomHelper.RandomNumber(seed, 0, mx);
+
+            if (quality >= 5)
+            {
+                Debug.Log("seed:" + seed + "max" + mx + " result" + index);
+            }
+
 
             for (int i = 0; i < RuneRate.Length; i++)
             {

@@ -225,7 +225,7 @@ namespace Game
             }
 
             int qualityRate = qualityConfig.QualityRate * (100 + (int)user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea)) / 100;
-            items.AddRange(DropHelper.BuildDropItem(dropList, qualityRate, user.RateData));
+            items.AddRange(DropHelper.BuildDropItem(dropList, qualityRate));
 
             if (items.Count > 0)
             {

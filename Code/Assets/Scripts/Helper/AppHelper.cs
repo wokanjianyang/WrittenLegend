@@ -66,7 +66,7 @@ namespace Game
 
         public static int InitSeed()
         {
-            return RandomHelper.RandomNumber(1, int.MaxValue - 1);
+            return RandomHelper.RandomNumber(13, 2147483647);
         }
 
         public static int RefreshSeed(int seed)

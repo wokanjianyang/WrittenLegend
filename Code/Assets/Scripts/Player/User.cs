@@ -135,9 +135,6 @@ namespace Game
         public Dictionary<int, MagicData> HalidomData { get; } = new Dictionary<int, MagicData>();
 
         public List<DropData> DropDataList { get; } = new List<DropData>();
-        public Dictionary<int, double> RateData { get; } = new Dictionary<int, double>();
-
-        public Dictionary<int, double> RateLimitData { get; } = new Dictionary<int, double>();
 
         public IDictionary<int, int> FestiveData { get; set; } = new Dictionary<int, int>();
 
