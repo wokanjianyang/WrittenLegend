@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using SA.CrossPlatform.UI;
 using UnityEngine;
 using zFramework.Internal;
+using Newtonsoft.Json;
 
 namespace Game
 {
@@ -101,6 +102,20 @@ namespace Game
         }
 
 
+        public void LoadInit(string json)
+        {
+            string str_json = EncryptionHelper.AesDecrypt(json);
+            //Debug.Log(str_json);
+
+            //反序列化
+            this.User = JsonConvert.DeserializeObject<User>(str_json, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
+
+            this.User.LoadTicketTime = TimeHelper.ClientNowSeconds();
+            this.User.DataDate = DateTime.Now.Ticks;
+        }
 
         public void Init(long currentTimeSecond)
         {
@@ -175,7 +190,8 @@ namespace Game
             this.Run();
         }
 
-        public void Run() {
+        public void Run()
+        {
             var coms = Canvas.FindObjectsOfType<MonoBehaviour>(true);
             var battleComs = coms.Where(com => com is IBattleLife).Select(com => com as IBattleLife).ToList();
             battleComs.Sort((a, b) =>

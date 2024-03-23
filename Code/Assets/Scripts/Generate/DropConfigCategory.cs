@@ -76,7 +76,7 @@ namespace Game
                 {
                     int index = RandomHelper.RandomNumber(0, ids.Length);
 
-                    Item item = ItemHelper.BuildEquip(ids[index], quality, 1, AppHelper.RefreshDaySeed(seed));  //固定词条
+                    Item item = ItemHelper.BuildEquip(ids[index], quality, 1, AppHelper.RefreshSeed(seed));  //固定词条
                     list.Add(item);
                 }
             }

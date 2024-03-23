@@ -72,7 +72,7 @@ namespace Game
                 if (RandomHelper.RandomResult(rate))
                 {
                     dropData.Number = 0;
-                    dropData.Seed = AppHelper.RefreshWeekSeed(dropData.Seed);
+                    dropData.Seed = AppHelper.RefreshSeed(dropData.Seed);
 
 
                     int dropId = dropLimit.DropId;

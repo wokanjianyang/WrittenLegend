@@ -43,7 +43,15 @@ namespace Game
             }
 
             int mx = RuneRate[RuneRate.Length - 1];
-            int index = RandomHelper.RandomNumber(seed, 0, mx);
+            int index = 0;
+            if (seed > 0)
+            {
+                index = RandomHelper.RandomNumber(seed, 0, mx);
+            }
+            else
+            {
+                index = RandomHelper.RandomNumber(0, mx);
+            }
 
             if (quality >= 5)
             {

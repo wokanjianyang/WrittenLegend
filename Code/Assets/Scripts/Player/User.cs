@@ -27,8 +27,6 @@ namespace Game
 
         public long DataDate { get; set; } = 0;
         public int DataProgeress { get; set; } = 0;
-        public int SaveLimit { get; set; } = 0;
-        public int LoadLimit { get; set; } = 0;
 
         public MagicData MagicLevel { get; } = new MagicData();
 
@@ -106,6 +104,10 @@ namespace Game
 
         //副本次数记录
         public long CopyTicketTime { get; set; } = 0;
+
+        public long SaveTicketTime { get; set; } = 0;
+
+        public long LoadTicketTime { get; set; } = 0;
 
         public MagicData MagicCopyTikerCount { get; } = new MagicData();
 

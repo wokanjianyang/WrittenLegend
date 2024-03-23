@@ -14,10 +14,10 @@ namespace Game
     {
         public static ExclusiveItem Build(int configId, int seed)
         {
-            if (seed < 0)
-            {
-                seed = AppHelper.InitSeed();
-            }
+            //if (seed < 0)
+            //{
+            //    seed = AppHelper.InitSeed();
+            //}
 
             ExclusiveConfig config = ExclusiveConfigCategory.Instance.Get(configId);
 

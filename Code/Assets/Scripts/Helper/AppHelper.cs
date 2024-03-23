@@ -3,6 +3,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.IO;
 using UnityEngine;
+using Random = System.Random;
 
 namespace Game
 {
@@ -66,23 +67,24 @@ namespace Game
 
         public static int InitSeed()
         {
-            return RandomHelper.RandomNumber(13, 2147483647);
+            return RandomHelper.RandomNumber(1, 123456789); ;
         }
 
         public static int RefreshSeed(int seed)
         {
-            return RandomHelper.RandomNumber(seed, 1, int.MaxValue - 1);
+            return seed + 1;
         }
 
-        public static int RefreshDaySeed(int seed)
-        {
-            int todaySeed = seed + TimeHelper.TodaySeed();
-            return RandomHelper.RandomNumber(todaySeed, 1, int.MaxValue - 1);
-        }
+        //public static int RefreshDaySeed(int seed)
+        //{
+        //    int todaySeed = seed + TimeHelper.TodaySeed();
+        //    return seed + todaySeed + 1;
+        //}
 
-        public static int RefreshWeekSeed(int seed) {
-            int todaySeed = seed + TimeHelper.WeekSeed();
-            return RandomHelper.RandomNumber(todaySeed, 1, int.MaxValue - 1);
-        }
+        //public static int RefreshWeekSeed(int seed)
+        //{
+        //    int weekSeed = seed + TimeHelper.WeekSeed();
+        //    return seed + weekSeed + 1;
+        //}
     }
 }

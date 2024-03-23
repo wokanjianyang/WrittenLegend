@@ -143,8 +143,6 @@ namespace Game
             DateTime saveDate = new DateTime(user.DataDate);
             if (saveDate.Day < DateTime.Now.Day || saveDate.Month < DateTime.Now.Month || saveDate.Year < DateTime.Now.Year)
             {
-                user.SaveLimit = 5;
-                user.LoadLimit = 5;
                 user.DefendData.Refresh();
                 user.HeroPhatomData.Refresh();
 

@@ -15,7 +15,15 @@ namespace Game
         public static SkillSuitConfig RandomSuit(int seed, int skillId)
         {
             List<SkillSuitConfig> list = SkillSuitConfigCategory.Instance.GetAll().Where(m => m.Value.SkillId == skillId).Select(m => m.Value).ToList();
-            int index = RandomHelper.RandomNumber(seed, 0, list.Count);
+            int index = 0;
+            if (seed > 0)
+            {
+                index = RandomHelper.RandomNumber(seed, 0, list.Count);
+            }
+            else
+            {
+                index = RandomHelper.RandomNumber(0, list.Count);
+            }
             return list[index];
         }
 

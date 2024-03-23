@@ -14,10 +14,10 @@ namespace Game
     {
         public static Equip BuildEquip(int configId, int staticQuality, int qualityRate, int seed)
         {
-            if (seed <= 0)
-            {
-                seed = AppHelper.InitSeed();
-            }
+            //if (seed <= 0)
+            //{
+            //    seed = AppHelper.InitSeed();
+            //}
 
             EquipConfig config = EquipConfigCategory.Instance.Get(configId);
 
@@ -27,7 +27,7 @@ namespace Game
 
             if (config.Quality == 0)  //随机生成品质
             {
-                quality = RandomHelper.RandomEquipQuality(seed, config.LevelRequired, qualityRate);
+                quality = RandomHelper.RandomEquipQuality(config.LevelRequired, qualityRate);
             }
             if (staticQuality > 0)
             {

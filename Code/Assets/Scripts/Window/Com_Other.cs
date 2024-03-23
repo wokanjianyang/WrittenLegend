@@ -37,7 +37,9 @@ namespace Game
         public Button btn_Change;
 
         public Button btn_Save;
+        public Text Txt_Save;
         public Button btn_Load;
+        public Text Txt_Load;
 
         // Start is called before the first frame update
         void Start()
@@ -62,7 +64,49 @@ namespace Game
                 this.txt_Info.gameObject.SetActive(false);
                 this.txt_Memo.gameObject.SetActive(false);
             }
+            Show();
+        }
 
+        float currentRoundTime = 0;
+        private void Update()
+        {
+            this.currentRoundTime += Time.unscaledDeltaTime;
+            if (this.currentRoundTime >= 1)
+            {
+                Show();
+            }
+        }
+
+        private void Show()
+        {
+            User user = GameProcessor.Inst.User;
+
+            long now = TimeHelper.ClientNowSeconds();
+            long cdSaveTime = now - user.SaveTicketTime;
+            if (cdSaveTime > 3600)
+            {
+                btn_Save.gameObject.SetActive(true);
+                Txt_Save.gameObject.SetActive(false);
+            }
+            else
+            {
+                btn_Save.gameObject.SetActive(false);
+                Txt_Save.gameObject.SetActive(true);
+                Txt_Save.text = TimeSpan.FromSeconds(3600 - cdSaveTime).ToString(@"hh\:mm\:ss");
+            }
+
+            long cdLoadTime = now - user.LoadTicketTime;
+            if (cdLoadTime > 3600)
+            {
+                btn_Load.gameObject.SetActive(true);
+                Txt_Load.gameObject.SetActive(false);
+            }
+            else
+            {
+                btn_Load.gameObject.SetActive(false);
+                Txt_Load.gameObject.SetActive(true);
+                Txt_Load.text = TimeSpan.FromSeconds(3600 - cdSaveTime).ToString(@"hh\:mm\:ss");
+            }
         }
 
         public void Init()
@@ -198,49 +242,19 @@ namespace Game
             saveData();
         }
 
-        private void CheckProgress()
-        {
-            User user = GameProcessor.Inst.User;
-
-            //txt_Desc.text = "今天剩余存档次数:" + user.SaveLimit + ",读档次数:" + user.LoadLimit;
-
-            if (user.SaveLimit <= 0)
-            {
-                this.btn_Save.gameObject.SetActive(false);
-            }
-            else
-            {
-                this.btn_Save.gameObject.SetActive(true);
-            }
-
-            if (user.LoadLimit <= 0)
-            {
-                this.btn_Load.gameObject.SetActive(false);
-            }
-            else
-            {
-                this.btn_Load.gameObject.SetActive(true);
-            }
-        }
-
         private void saveData()
         {
             User user = GameProcessor.Inst.User;
+            user.SaveTicketTime = TimeHelper.ClientNowSeconds();
             btn_Save.gameObject.SetActive(false);
-
-            if (user.SaveLimit <= 0)
-            {
-                this.txt_Info.text = "今天存档次数已满";
-                return;
-            }
 
             this.txt_Info.text = "存档中......";
 
             try
             {
-
-                string filePath = UserData.getSavePath();
-                byte[] bytes = System.IO.File.ReadAllBytes(filePath);
+                string str_json = JsonConvert.SerializeObject(user, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
+                str_json = EncryptionHelper.AesEncrypt(str_json);
+                byte[] bytes = Encoding.UTF8.GetBytes(str_json);
 
                 //再存储新档
                 StartCoroutine(NetworkHelper.UploadData(bytes,
@@ -253,14 +267,14 @@ namespace Game
                             else
                             {
                                 this.txt_Info.text = "存档失败.";
+                                user.SaveTicketTime = TimeHelper.ClientNowSeconds() - 3600;
                             }
-
-                            btn_Load.gameObject.SetActive(true);
                         },
                         () =>
                         {
                             btn_Load.gameObject.SetActive(true);
                             this.txt_Info.text = "存档失败.";
+                            user.SaveTicketTime = TimeHelper.ClientNowSeconds() - 3600;
                         }
                         ));
             }
@@ -268,14 +282,14 @@ namespace Game
             {
                 this.txt_Info.text = "存档失败，请稍等一会重试...";
             }
-
-            this.CheckProgress();
         }
 
 
         private void loadData()
         {
             User user = GameProcessor.Inst.User;
+            user.LoadTicketTime = TimeHelper.ClientNowSeconds();
+
             btn_Load.gameObject.SetActive(false);
 
             this.txt_Info.text = "读档中......";
@@ -294,25 +308,19 @@ namespace Game
                                 return;
                             }
 
-                            Debug.Log("bytes:" + bytes.Length);
-
                             string str_json = Encoding.UTF8.GetString(bytes);
-                            Debug.Log(Encoding.UTF8.GetString(bytes));
-
 
                             this.txt_Info.text = "读取存档成功,请退出重进";
-                            UserData.SaveData(str_json, false);
+      
+                            GameProcessor.Inst.LoadInit(str_json);
 
-                            GameProcessor.Inst.Init(UserData.StartTime);
-
-                            GameProcessor.Inst.User.DataDate = DateTime.Now.Ticks;
                             UserData.Save();
-
                             Application.Quit();
                         },
                         () =>
                         {
                             btn_Load.gameObject.SetActive(true);
+                            user.LoadTicketTime = TimeHelper.ClientNowSeconds() - 3600;
                             this.txt_Info.text = "读档失败.";
                         }
                         ));

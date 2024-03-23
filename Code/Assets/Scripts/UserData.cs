@@ -37,6 +37,8 @@ namespace Game
 
                 str_json = EncryptionHelper.AesDecrypt(str_json);
 
+                //Debug.Log(str_json);
+
                 //反序列化
                 user = JsonConvert.DeserializeObject<User>(str_json, new JsonSerializerSettings
                 {
@@ -62,8 +64,6 @@ namespace Game
                 user.MapId = ConfigHelper.MapStartId;
                 user.MagicGold.Data = 0;
                 user.MagicCopyTikerCount.Data = ConfigHelper.CopyTicketFirstCount;
-                user.SaveLimit = 5;
-                user.LoadLimit = 5;
             }
 
             if (user.EquipPanelList.Count < 7)
@@ -188,15 +188,15 @@ namespace Game
                 writer.Write(str_json);
             }
 
-            if (andTemp)
-            {
-                string tempPath = getTempPath();
-                using (StreamWriter writer = new StreamWriter(tempPath))
-                {
-                    // 写入要保存的内容
-                    writer.Write(str_json);
-                }
-            }
+            //if (andTemp)
+            //{
+            //    string tempPath = getTempPath();
+            //    using (StreamWriter writer = new StreamWriter(tempPath))
+            //    {
+            //        // 写入要保存的内容
+            //        writer.Write(str_json);
+            //    }
+            //}
         }
 
         public static string getBackupPath()
