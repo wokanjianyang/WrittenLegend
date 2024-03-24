@@ -43,7 +43,7 @@ public class Miner
         MineConfig mine = mines.Where(m => m.StartRate <= ward && ward <= m.EndRate).FirstOrDefault();
 
         this.Seed = AppHelper.RefreshSeed(this.Seed);
-        this.BirthDay = nowSecond + RandomHelper.RandomNumber(this.Seed, 0, 20);
+        this.BirthDay = nowSecond + RandomHelper.RandomNumber(0, 20);
 
         return mine;
     }
@@ -72,7 +72,7 @@ public class Miner
             this.Seed = AppHelper.RefreshSeed(this.Seed);
         }
 
-        this.BirthDay = TimeHelper.ClientNowSeconds();
+        this.BirthDay = TimeHelper.ClientNowSeconds() + RandomHelper.RandomNumber(0, 20); ;
     }
 
 }

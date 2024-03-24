@@ -53,12 +53,6 @@ namespace Game
                 index = RandomHelper.RandomNumber(0, mx);
             }
 
-            if (quality >= 5)
-            {
-                Debug.Log("seed:" + seed + "max" + mx + " result" + index);
-            }
-
-
             for (int i = 0; i < RuneRate.Length; i++)
             {
                 if (index < RuneRate[i])
