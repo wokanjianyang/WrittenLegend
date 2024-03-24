@@ -75,16 +75,16 @@ namespace Game
             return seed + 1;
         }
 
-        //public static int RefreshDaySeed(int seed)
-        //{
-        //    int todaySeed = seed + TimeHelper.TodaySeed();
-        //    return seed + todaySeed + 1;
-        //}
+        public static int RefreshDaySeed(int seed)
+        {
+            int todaySeed = seed + TimeHelper.TodaySeed();
+            return RandomHelper.RandomNumber(todaySeed, 1, int.MaxValue - 1);
+        }
 
-        //public static int RefreshWeekSeed(int seed)
-        //{
-        //    int weekSeed = seed + TimeHelper.WeekSeed();
-        //    return seed + weekSeed + 1;
-        //}
+        public static int RefreshWeekSeed(int seed)
+        {
+            int todaySeed = seed + TimeHelper.WeekSeed();
+            return RandomHelper.RandomNumber(todaySeed, 1, int.MaxValue - 1);
+        }
     }
 }

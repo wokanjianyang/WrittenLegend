@@ -25,7 +25,7 @@ namespace Game
 
             for (int i = 0; i < quality; i++)
             {
-                seed = AppHelper.RefreshSeed(seed);
+                seed = AppHelper.RefreshDaySeed(seed);
 
                 List<int> excludeList = GetExcludeList(rsList);
 
@@ -37,7 +37,7 @@ namespace Game
 
                 long attrValue = 0;
 
-                seed = AppHelper.RefreshSeed(seed);
+                seed = AppHelper.RefreshDaySeed(seed);
                 attrValue = RandomHelper.RandomNumber(seed, config.MinValue, config.MaxValue + 1);
 
                 rsList.Add(new KeyValuePair<int, long>(config.AttrId, attrValue));

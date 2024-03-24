@@ -37,7 +37,7 @@ namespace Game
                 SkillRuneConfig runeConfig;
                 if (runeId <= 0)
                 {
-                    runeConfig = SkillRuneHelper.RandomRune(seed, 2, quality, 0, 0);
+                    runeConfig = SkillRuneHelper.RandomRune(seed, role, quality, 0, 0);
                     runeId = runeConfig.Id;
                 }
                 else
@@ -58,6 +58,10 @@ namespace Game
             }
 
             ExclusiveItem item = new ExclusiveItem(configId, runeId, suitId, quality, dhId);
+            if (seed < 0)
+            {
+                seed = AppHelper.InitSeed();
+            }
             item.Init(seed);
 
             item.Count = 1;

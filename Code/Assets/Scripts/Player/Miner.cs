@@ -54,8 +54,6 @@ public class Miner
 
         for (int i = 0; i < count; i++)
         {
-            System.Random random = new System.Random(this.Seed);
-
             List<MineConfig> mines = MineConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
 
             int min = mines.Select(m => m.StartRate).Min();

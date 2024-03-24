@@ -46,7 +46,10 @@ namespace Game
             }
 
             Equip equip = new Equip(configId, runeId, suitId, quality);
-
+            if (seed < 0)
+            {
+                seed = AppHelper.InitSeed();
+            }
             equip.Init(seed);
 
             equip.Count = 1;
