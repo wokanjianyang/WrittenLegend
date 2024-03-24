@@ -59,21 +59,28 @@ namespace Game
             if (ConfigHelper.Channel == ConfigHelper.Channel_Tap)
             {
                 this.Tf_Login.gameObject.SetActive(false);
-                this.btn_Save.gameObject.SetActive(false);
-                this.btn_Load.gameObject.SetActive(false);
                 this.txt_Info.gameObject.SetActive(false);
                 this.txt_Memo.gameObject.SetActive(false);
+
+                this.btn_Save.gameObject.SetActive(false);
+                this.btn_Load.gameObject.SetActive(false);
             }
-            Show();
+            else
+            {
+                Show();
+            }
         }
 
         float currentRoundTime = 0;
         private void Update()
         {
-            this.currentRoundTime += Time.unscaledDeltaTime;
-            if (this.currentRoundTime >= 1)
+            if (ConfigHelper.Channel != ConfigHelper.Channel_Tap)
             {
-                Show();
+                this.currentRoundTime += Time.unscaledDeltaTime;
+                if (this.currentRoundTime >= 1)
+                {
+                    Show();
+                }
             }
         }
 

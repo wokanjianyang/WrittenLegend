@@ -93,6 +93,12 @@ namespace Game
             return (this.MagicLevel.Data + dzLevel) / 5000 + 1;
         }
 
+        public long GetLimitMineCount()
+        {
+            int dz = this.IsDz() ? 1 : 0;
+            return GetLimitLevel() - 4 + dz;
+        }
+
         public long LastOut { get; set; }
 
         private bool isInLevelUp;
@@ -805,10 +811,6 @@ namespace Game
         }
         public void AddExpAndGold(long exp, long gold)
         {
-            if (this.MagicGold.Data >= 8223372036854775807 / 3) {
-                return;
-            }
-
             if (this.MagicGold.Data < 0 || this.MagicGold.Data >= 8223372036854775807)
             {
                 GameProcessor.Inst.EventCenter.Raise(new CheckGameCheatEvent());
@@ -817,16 +819,26 @@ namespace Game
 
             long rate = this.GetDzRate();
 
-            if (this.MagicLevel.Data < ConfigHelper.Max_Level)
+            if (exp > 0)
             {
-                this.MagicExp.Data += exp * rate;
-            }
-            else
-            {
-                this.MagicExp.Data = 0;
+                if (this.MagicLevel.Data < ConfigHelper.Max_Level)
+                {
+                    this.MagicExp.Data += exp * rate;
+                }
+                else
+                {
+                    this.MagicExp.Data = 0;
+                }
             }
 
-            this.MagicGold.Data += gold * rate;
+            if (gold > 0)
+            {
+                if (this.MagicGold.Data < 8223372036854775807 / 3)
+                {
+                    this.MagicGold.Data += gold * rate;
+                }
+
+            }
 
             EventCenter.Raise(new UserInfoUpdateEvent()); //更新UI
 

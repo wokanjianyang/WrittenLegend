@@ -57,7 +57,7 @@ public class Dialog_Mine : MonoBehaviour, IBattleLife
 
         Debug.Log("MinerList Count" + user.MinerList.Count);
 
-        long maxCount = user.GetLimitLevel() - 4;
+        long maxCount = user.GetLimitMineCount();
 
         if (user.MinerList.Count < maxCount)
         {
@@ -90,7 +90,7 @@ public class Dialog_Mine : MonoBehaviour, IBattleLife
         User user = GameProcessor.Inst.User;
 
         long currentCount = user.MinerList.Count;
-        long maxCount = user.GetLimitLevel() - 4;
+        long maxCount = user.GetLimitMineCount();
 
         for (long i = currentCount + 1; i <= maxCount; i++)
         {
