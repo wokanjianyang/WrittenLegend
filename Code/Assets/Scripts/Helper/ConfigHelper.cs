@@ -4,7 +4,7 @@ namespace Game
 {
     public class ConfigHelper
     {
-        public const int Channel = 1; //Tap 1 QQ 2
+        public const int Channel = 2; //Tap 1 QQ 2
 
         public const int Channel_Tap = 1;
 

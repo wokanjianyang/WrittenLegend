@@ -188,17 +188,35 @@ namespace Game
                 writer.Write(str_json);
             }
 
-            //if (andTemp)
-            //{
-            //    string tempPath = getTempPath();
-            //    using (StreamWriter writer = new StreamWriter(tempPath))
-            //    {
-            //        // 写入要保存的内容
-            //        writer.Write(str_json);
-            //    }
-            //}
+            if (andTemp)
+            {
+                string tempPath = getTempPath();
+                using (StreamWriter writer = new StreamWriter(tempPath))
+                {
+                    // 写入要保存的内容
+                    writer.Write(str_json);
+                }
+            }
         }
+        public static string getTempPath()
+        {
+            string folderPath = Path.Combine(Application.persistentDataPath, savePath); //文件夹路径
 
+            if (!File.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+
+            string filePath = Path.Combine(folderPath, tempName);             //文件路径
+
+            if (!File.Exists(filePath))
+            {
+                //创建文件
+                File.Create(filePath).Dispose();
+            }
+
+            return filePath;
+        }
         public static string getSavePath()
         {
             string folderPath = Path.Combine(Application.persistentDataPath, savePath); //文件夹路径

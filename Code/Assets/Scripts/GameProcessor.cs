@@ -102,19 +102,27 @@ namespace Game
         }
 
 
-        public void LoadInit(string json)
+        public bool LoadInit(string json)
         {
             string str_json = EncryptionHelper.AesDecrypt(json);
             //Debug.Log(str_json);
 
             //反序列化
-            this.User = JsonConvert.DeserializeObject<User>(str_json, new JsonSerializerSettings
+            User user = JsonConvert.DeserializeObject<User>(str_json, new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.Auto
             });
 
-            this.User.LoadTicketTime = TimeHelper.ClientNowSeconds();
-            this.User.DataDate = DateTime.Now.Ticks;
+            if (user != null)
+            {
+                this.User = user;
+                this.User.LoadTicketTime = TimeHelper.ClientNowSeconds();
+                this.User.DataDate = DateTime.Now.Ticks;
+
+                return true;
+            }
+
+            return false;
         }
 
         public void Init(long currentTimeSecond)

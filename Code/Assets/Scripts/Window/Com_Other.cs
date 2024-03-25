@@ -288,11 +288,17 @@ namespace Game
 
                             string str_json = Encoding.UTF8.GetString(bytes);
 
-                            this.txt_Info.text = "读取存档成功,请退出重进";
-      
-                            GameProcessor.Inst.LoadInit(str_json);
 
-                            UserData.Save();
+
+                            if (GameProcessor.Inst.LoadInit(str_json))
+                            {
+                                this.txt_Info.text = "读取存档成功,请退出重进";
+                                UserData.Save();
+                            }
+                            else
+                            {
+                                this.txt_Info.text = "读取失败,存档损坏,取消读档,请退出重进";
+                            }
                             Application.Quit();
                         },
                         () =>

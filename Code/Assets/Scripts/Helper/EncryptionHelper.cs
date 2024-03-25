@@ -44,7 +44,7 @@ namespace Game
             }
             catch(Exception ex)
             {
-                
+                Debug.Log(ex);
             }
 
             return "";
