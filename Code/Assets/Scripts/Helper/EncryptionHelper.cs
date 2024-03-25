@@ -2,6 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using System.IO;
+using UnityEngine;
 
 namespace Game
 {
@@ -83,9 +84,9 @@ namespace Game
                 }
                 return plainText;
             }
-            catch
+            catch(Exception ex)
             {
-
+                Debug.Log(ex);
             }
 
             return "";

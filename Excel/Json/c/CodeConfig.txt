@@ -49,6 +49,7 @@
 {"_t":"CodeConfig","_id":11000,"Type":1,"code":"yueling1","ItemTypeList":[4],"ItemIdList":[9],"ItemQuanlityList":[]},
 {"_t":"CodeConfig","_id":11001,"Type":1,"code":"yueling2","ItemTypeList":[4],"ItemIdList":[9],"ItemQuanlityList":[]},
 {"_t":"CodeConfig","_id":11002,"Type":1,"code":"yueling3","ItemTypeList":[4],"ItemIdList":[9],"ItemQuanlityList":[]},
+{"_t":"CodeConfig","_id":11003,"Type":1,"code":"yumao","ItemTypeList":[5],"ItemIdList":[4008],"ItemQuanlityList":[600]},
 {"_t":"CodeConfig","_id":20001,"Type":1,"code":"!xyfubenx001","ItemTypeList":[9],"ItemIdList":[4003],"ItemQuanlityList":[1000]},
 {"_t":"CodeConfig","_id":20002,"Type":1,"code":"!xyfubenx002","ItemTypeList":[9],"ItemIdList":[4003],"ItemQuanlityList":[2000]},
 {"_t":"CodeConfig","_id":20003,"Type":1,"code":"!xyfubenx003","ItemTypeList":[9],"ItemIdList":[4003],"ItemQuanlityList":[3000]},
