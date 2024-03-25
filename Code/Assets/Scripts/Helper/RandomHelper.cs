@@ -136,6 +136,11 @@ namespace Game
 
         public static int RandomNumber(int seed, int lower, int upper)
         {
+            if (seed <= 0)
+            {
+                return RandomNumber(lower, upper);
+            }
+
             Random sd = new Random(seed);
             int value = sd.Next(lower, upper);
             return value;
