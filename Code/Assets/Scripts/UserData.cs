@@ -17,6 +17,7 @@ namespace Game
         static string savePath = "user";
         static string fileName = "data.json"; //文件名
         static string tempName = "temp.json"; //文件名
+        static string ppKey = "key";
 
         public static long StartTime = 0;
         //public static string tapAccount = "";
@@ -30,12 +31,23 @@ namespace Game
 
             if (System.IO.File.Exists(filePath))
             {
+                //PlayerPrefs.DeleteAll();
+                string key = PlayerPrefs.GetString(ppKey);
+
                 //读取文件
                 System.IO.StreamReader sr = new System.IO.StreamReader(filePath);
                 string str_json = sr.ReadToEnd();
                 sr.Close();
+                int size = str_json.Length;
 
-                str_json = EncryptionHelper.AesDecrypt(str_json);
+                if (key == "")
+                {
+                    str_json = EncryptionHelper.AesDecrypt(str_json);
+                }
+                else
+                {
+                    str_json = EncryptionHelper.AesDecrypt(str_json, key);
+                }
 
                 //Debug.Log(str_json);
 
@@ -46,10 +58,10 @@ namespace Game
                 });
                 //Debug.Log("成功读取");
 
-                if (user != null && user.VersionLog.Count <= 0)
+                if (user == null && size > 1000)
                 {
-                    //老版本,直接销存档
-                    //user = null;
+                    Debug.Log("读取错误,此处应该读取备份");
+                    return null;
                 }
             }
 
@@ -144,6 +156,7 @@ namespace Game
             //user.PhantomRecord.Clear();
             //user.Exp = 999999999999;
             //TestFull(user);
+            user.AdData.CodeDict.Clear();
 
             //记录版号
             user.VersionLog[ConfigHelper.Version] = TimeHelper.ClientNowSeconds();
@@ -171,8 +184,13 @@ namespace Game
                 return;
             }
 
+
+            string key = Guid.NewGuid().ToString().Substring(0, 16);
+            Debug.Log("save key" + key);
+            PlayerPrefs.SetString(ppKey, key);
+
             //加密
-            str_json = EncryptionHelper.AesEncrypt(str_json);
+            str_json = EncryptionHelper.AesEncrypt(str_json, key);
 
             //
             SaveData(str_json, andTemp);

@@ -90,6 +90,7 @@ namespace Game
 
             long now = TimeHelper.ClientNowSeconds();
             long cdSaveTime = now - user.SaveTicketTime;
+            cdSaveTime = 3700;
             if (cdSaveTime > 3600)
             {
                 btn_Save.gameObject.SetActive(true);
@@ -103,6 +104,7 @@ namespace Game
             }
 
             long cdLoadTime = now - user.LoadTicketTime;
+            cdLoadTime = 3700;
             if (cdLoadTime > 3600)
             {
                 btn_Load.gameObject.SetActive(true);
@@ -232,10 +234,16 @@ namespace Game
             {
                 string str_json = JsonConvert.SerializeObject(user, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
                 str_json = EncryptionHelper.AesEncrypt(str_json);
+
+                string md5 = EncryptionHelper.Md5(str_json);
+                Debug.Log("save md5:" + md5);
                 byte[] bytes = Encoding.UTF8.GetBytes(str_json);
 
+                Dictionary<string, string> headers = new Dictionary<string, string>();
+                headers.Add("md5", md5);
+
                 //再存储新档
-                StartCoroutine(NetworkHelper.UploadData(bytes,
+                StartCoroutine(NetworkHelper.UploadData(bytes, headers,
                         (WebResultWrapper result) =>
                         {
                             if (result.Code == StatusMessage.OK)
@@ -274,40 +282,41 @@ namespace Game
 
             try
             {
-                //再存储新档
+
                 StartCoroutine(NetworkHelper.DownData(
-                        (byte[] bytes) =>
-                        {
-                            Time.timeScale = 0;
+                  (byte[] bytes) =>
+                  {
+                      Time.timeScale = 0;
 
-                            if (bytes == null)
-                            {
-                                this.txt_Info.text = "读档失败,还没有存档或者其他错误.";
-                                return;
-                            }
+                      if (bytes == null)
+                      {
+                          this.txt_Info.text = "读档失败,还没有存档或者其他错误.";
+                          return;
+                      }
 
-                            string str_json = Encoding.UTF8.GetString(bytes);
+                      string str_json = Encoding.UTF8.GetString(bytes);
+                      string md5 = EncryptionHelper.Md5(str_json);
+                      Debug.Log("load md5:" + md5);
+                      str_json = EncryptionHelper.AesDecrypt(str_json);
 
-
-
-                            if (GameProcessor.Inst.LoadInit(str_json))
-                            {
-                                this.txt_Info.text = "读取存档成功,请退出重进";
-                                UserData.Save();
-                            }
-                            else
-                            {
-                                this.txt_Info.text = "读取失败,存档损坏,取消读档,请退出重进";
-                            }
-                            Application.Quit();
-                        },
-                        () =>
-                        {
-                            btn_Load.gameObject.SetActive(true);
-                            user.LoadTicketTime = TimeHelper.ClientNowSeconds() - 3600;
-                            this.txt_Info.text = "读档失败.";
-                        }
-                        ));
+                      if (GameProcessor.Inst.LoadInit(str_json))
+                      {
+                          this.txt_Info.text = "读取存档成功,请退出重进";
+                          UserData.Save();
+                      }
+                      else
+                      {
+                          this.txt_Info.text = "读取失败,存档损坏,取消读档,请退出重进";
+                      }
+                      Application.Quit();
+                  },
+                  () =>
+                  {
+                      btn_Load.gameObject.SetActive(true);
+                      user.LoadTicketTime = TimeHelper.ClientNowSeconds() - 3600;
+                      this.txt_Info.text = "读档失败.";
+                  }
+                  ));
             }
             catch (Exception ex)
             {

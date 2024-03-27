@@ -102,9 +102,8 @@ namespace Game
         }
 
 
-        public bool LoadInit(string json)
+        public bool LoadInit(string str_json)
         {
-            string str_json = EncryptionHelper.AesDecrypt(json);
             //Debug.Log(str_json);
 
             //反序列化
@@ -137,6 +136,10 @@ namespace Game
 
             //启动就加载用户存档
             this.User = UserData.Load();
+            if (this.User == null)
+            {
+                //加载失败
+            }
 
             this.User.Init();
 

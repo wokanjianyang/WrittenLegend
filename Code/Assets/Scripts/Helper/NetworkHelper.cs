@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -12,9 +13,9 @@ namespace Game
 {
     public static class NetworkHelper
     {
-        //private static string home = "http://127.0.0.1:11111/public/";
-        private static string home = "http://47.120.73.196/public/";
-        
+        private static string home = "http://127.0.0.1:11111/public/";
+        //private static string home = "http://47.120.73.196/public/";
+
 
         public static string[] GetAddressIPs()
         {
@@ -55,7 +56,8 @@ namespace Game
             string skey = AppHelper.getKey();
 
             string code = EncryptionHelper.AesEncrypt(deviceId, skey);
-            code = EncryptionHelper.AesEncrypt(code, account);
+
+            code = EncryptionHelper.Md5(code + account);
 
             return code;
         }
@@ -80,9 +82,14 @@ namespace Game
             return SendRequest("update_info", bytes, successAction, failAction);
         }
 
-        public static IEnumerator UploadData(byte[] bytes, Action<WebResultWrapper> successAction, Action failAction)
+        public static IEnumerator UploadData(byte[] bytes, Dictionary<string, string> headers, Action<WebResultWrapper> successAction, Action failAction)
         {
-            return SendRequest("save_user_file", bytes, successAction, failAction);
+            return SendRequest("save_user_file", bytes, headers, successAction, failAction);
+        }
+
+        public static IEnumerator GetDownParam(Action<WebResultWrapper> successAction, Action failAction)
+        {
+            return SendRequest("get_user_file", Encoding.UTF8.GetBytes(""), successAction, failAction);
         }
 
         public static IEnumerator DownData(Action<byte[]> successAction, Action failAction)
@@ -122,9 +129,13 @@ namespace Game
             }
         }
 
-        public static IEnumerator SendRequest(string ac, byte[] bytes, Action<WebResultWrapper> successAction, Action failAction)
+        public static IEnumerator SendRequest(string action, byte[] bytes, Action<WebResultWrapper> successAction, Action failAction)
         {
-            string url = home + ac;
+            return SendRequest(action, bytes, null, successAction, failAction);
+        }
+        public static IEnumerator SendRequest(string action, byte[] bytes, Dictionary<string, string> headers, Action<WebResultWrapper> successAction, Action failAction)
+        {
+            string url = home + action;
 
             using (var request = UnityWebRequest.Post(url, "POST"))
             {
@@ -139,6 +150,14 @@ namespace Game
                     request.SetRequestHeader("deviceId", deviceId);
                     request.SetRequestHeader("fileId", fileId);
                     request.SetRequestHeader("sign", sign);
+
+                    if (headers != null)
+                    {
+                        foreach (var header in headers)
+                        {
+                            request.SetRequestHeader(header.Key, header.Value);
+                        }
+                    }
 
                     request.uploadHandler.Dispose();
                     request.uploadHandler = uh;
