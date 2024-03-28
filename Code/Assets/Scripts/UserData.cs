@@ -158,7 +158,7 @@ namespace Game
             //user.PhantomRecord.Clear();
             //user.Exp = 999999999999;
             //TestFull(user);
-            user.AdData.CodeDict.Clear();
+            //user.AdData.CodeDict.Clear();
 
             //记录版号
             user.VersionLog[ConfigHelper.Version] = TimeHelper.ClientNowSeconds();
