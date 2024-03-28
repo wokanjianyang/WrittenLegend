@@ -99,7 +99,9 @@ namespace Game
             return GetLimitLevel() - 4 + dz;
         }
 
-        public long LastOut { get; set; }
+        public long LastUploadTime { get; set; }
+
+        public long LastSaveTime { get; set; }
 
         private bool isInLevelUp;
 
@@ -759,6 +761,15 @@ namespace Game
             return list;
         }
 
+        public void SetAchievementProgeress(AchievementSourceType type, long count) {
+            if (!this.MagicRecord.ContainsKey(type))
+            {
+                this.MagicRecord[type] = new MagicData();
+            }
+
+            this.MagicRecord[type].Data += count;
+        }
+
         public long GetAchievementProgeress(AchievementSourceType type)
         {
             long progress = 0;
@@ -795,6 +806,14 @@ namespace Game
                     }
 
                     progress = this.MagicRecord[AchievementSourceType.BossFamily].Data;
+                    break;
+                case AchievementSourceType.EquipCopy:
+                    if (!this.MagicRecord.ContainsKey(AchievementSourceType.EquipCopy))
+                    {
+                        this.MagicRecord[AchievementSourceType.EquipCopy] = new MagicData();
+                    }
+
+                    progress = this.MagicRecord[AchievementSourceType.EquipCopy].Data;
                     break;
                 case AchievementSourceType.Defend:
                     {

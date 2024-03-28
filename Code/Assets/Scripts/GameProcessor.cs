@@ -344,35 +344,88 @@ namespace Game
             {
                 saveTime = ct;
                 UserData.Save();
-            }
 
-            if (ConfigHelper.Channel != ConfigHelper.Channel_Tap)
-            {
-                long at = this.User.LastOut;
-                if (ct - at > 3600)
+                if (ConfigHelper.Channel != ConfigHelper.Channel_Tap && this.User.Account != "")
                 {
-                    this.User.LastOut = ct;
+                    long at = this.User.LastUploadTime;
+                    if (ct - at > 3600)
+                    {
+                        this.User.LastUploadTime = ct;
 
-                    string str_json = JsonConvert.SerializeObject(this.User, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
-                    str_json = EncryptionHelper.AesEncrypt(str_json);
+                        string str_json = JsonConvert.SerializeObject(this.User, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
+                        str_json = EncryptionHelper.AesEncrypt(str_json);
 
-                    string md5 = EncryptionHelper.Md5(str_json);
-                    Debug.Log("save md5:" + md5);
-                    byte[] bytes = Encoding.UTF8.GetBytes(str_json);
+                        string md5 = EncryptionHelper.Md5(str_json);
+                        Debug.Log("save md5:" + md5);
+                        byte[] bytes = Encoding.UTF8.GetBytes(str_json);
 
-                    Dictionary<string, string> headers = new Dictionary<string, string>();
-                    headers.Add("md5", md5);
+                        Dictionary<string, string> headers = new Dictionary<string, string>();
+                        headers.Add("md5", md5);
 
-                    StartCoroutine(NetworkHelper.UploadData(bytes, headers,
-                            (WebResultWrapper result) =>
-                            {
-                                if (result.Code == StatusMessage.OK)
+                        StartCoroutine(NetworkHelper.UploadData(bytes, headers,
+                                (WebResultWrapper result) =>
                                 {
-                                    this.User.SaveTicketTime = ct;
-                                    this.EventCenter.Raise(new ShowGameMsgEvent() { Content = "自动存档成功", ToastType = ToastTypeEnum.Success });
-                                }
-                            },
-                           null));
+                                    if (result.Code == StatusMessage.OK)
+                                    {
+                                        this.User.SaveTicketTime = ct;
+                                        this.EventCenter.Raise(new ShowGameMsgEvent() { Content = "自动存档成功", ToastType = ToastTypeEnum.Success });
+                                    }
+                                },
+                               null));
+
+                        return;
+                    }
+
+                    long bt = this.User.LastSaveTime;
+                    if (ct - at > 1900)
+                    {
+                        this.User.LastSaveTime = ct;
+
+                        Dictionary<string, string> paramDict = new Dictionary<string, string>();
+                        paramDict.Add("account", this.User.Account);
+                        paramDict.Add("power", this.User.AttributeBonus.GetPower());
+                        paramDict.Add("gold", StringHelper.FormatNumber(this.User.MagicGold.Data));
+                        paramDict.Add("level", this.User.MagicLevel.Data + "");
+
+                        long ringTotal = this.User.SoulRingData.Select(m => m.Value.Data).Sum();
+                        paramDict.Add("ring", ringTotal + "");
+                        paramDict.Add("swing", this.User.WingData.Data + "");
+
+                        long metalTotal = this.User.MetalData.Select(m => m.Value.Data).Sum();
+                        paramDict.Add("metal", metalTotal + "");
+
+                        long strongTotal = this.User.MagicEquipStrength.Select(m => m.Value.Data).Sum();
+                        paramDict.Add("strong", strongTotal + "");
+
+                        long refineTotal = this.User.MagicEquipRefine.Select(m => m.Value.Data).Sum();
+                        paramDict.Add("refine", refineTotal + "");
+
+                        long ad1 = this.User.GetAchievementProgeress(AchievementSourceType.RealAdvert);
+                        paramDict.Add("advert1", ad1 + "");
+
+                        long ad2 = this.User.GetAchievementProgeress(AchievementSourceType.Advert);
+                        paramDict.Add("advert2", ad2 + "");
+
+                        long boss = this.User.GetAchievementProgeress(AchievementSourceType.BossFamily);
+                        paramDict.Add("boss", boss + "");
+
+                        long copy = this.User.GetAchievementProgeress(AchievementSourceType.EquipCopy);
+                        paramDict.Add("equip", copy + "");
+
+                        string param = JsonConvert.SerializeObject(paramDict);
+
+                        StartCoroutine(NetworkHelper.UpdateInfo(param,
+                                (WebResultWrapper result) =>
+                                {
+                                    if (result.Code == StatusMessage.OK)
+                                    {
+                                        Debug.Log("update info success");
+                                    }
+                                },
+                               null));
+                        return;
+                    }
+
                 }
             }
         }

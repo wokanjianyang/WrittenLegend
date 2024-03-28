@@ -13,8 +13,8 @@ namespace Game
 {
     public static class NetworkHelper
     {
-        //private static string home = "http://127.0.0.1:11111/public/";
-        private static string home = "http://47.120.73.196/public/";
+        private static string home = "http://127.0.0.1:11111/public/";
+        //private static string home = "http://47.120.73.196/public/";
 
 
         public static string[] GetAddressIPs()

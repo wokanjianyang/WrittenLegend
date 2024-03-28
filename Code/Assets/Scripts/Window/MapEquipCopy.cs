@@ -50,7 +50,7 @@ public class MapEquipCopy : MonoBehaviour, IBattleLife
         GameProcessor.Inst.EventCenter.AddListener<ShowCopyInfoEvent>(this.OnShowCopyInfoEvent);
         GameProcessor.Inst.EventCenter.AddListener<BattleLoseEvent>(this.OnBattleLoseEvent);
         GameProcessor.Inst.EventCenter.AddListener<AutoStartCopyEvent>(this.OnAutoStartCopyEvent);
-        
+
         //ShowMapInfo();
         this.gameObject.SetActive(false);
     }
@@ -62,8 +62,11 @@ public class MapEquipCopy : MonoBehaviour, IBattleLife
 
         user.MagicCopyTikerCount.Data -= Math.Abs(rate);
 
+        user.SetAchievementProgeress(AchievementSourceType.EquipCopy, rate);
+
         long newData = user.MagicCopyTikerCount.Data;
-        if (newData >= oldData) {
+        if (newData >= oldData)
+        {
             GameProcessor.Inst.EventCenter.Raise(new CheckGameCheatEvent());
         }
 
