@@ -34,13 +34,15 @@ namespace Game
                 //PlayerPrefs.DeleteAll();
                 string key = PlayerPrefs.GetString(ppKey);
 
+                Debug.Log("key:" + key);
+
                 //读取文件
                 System.IO.StreamReader sr = new System.IO.StreamReader(filePath);
                 string str_json = sr.ReadToEnd();
                 sr.Close();
                 int size = str_json.Length;
 
-                if (key == "")
+                if (key == "" && ConfigHelper.Version == 208)
                 {
                     str_json = EncryptionHelper.AesDecrypt(str_json);
                 }
@@ -171,7 +173,7 @@ namespace Game
                 return;
             }
             var user = GameProcessor.Inst.User;
-            user.LastOut = TimeHelper.ClientNowSeconds();
+            //user.LastOut = TimeHelper.ClientNowSeconds();
 
             //序列化
             string str_json = JsonConvert.SerializeObject(user, new JsonSerializerSettings

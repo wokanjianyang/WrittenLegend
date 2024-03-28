@@ -46,6 +46,7 @@
 {"_t":"ItemConfig","_id":4104,"Name":"废弃","Type":5,"Des":"废弃道具","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":5,"UseParam":0},
 {"_t":"ItemConfig","_id":4105,"Name":"废弃","Type":5,"Des":"废弃道具","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":5,"UseParam":0},
 {"_t":"ItemConfig","_id":4106,"Name":"鞭炮","Type":5,"Des":"春节活动材料，兑换其他道具","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":5,"UseParam":0},
+{"_t":"ItemConfig","_id":4107,"Name":"纸鸢","Type":5,"Des":"清明活动材料，兑换其他道具","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":5,"UseParam":0},
 {"_t":"ItemConfig","_id":4201,"Name":"1阶橙装精华","Type":5,"Des":"升级或洗练1阶红装","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":5,"UseParam":0},
 {"_t":"ItemConfig","_id":4202,"Name":"2阶橙装精华","Type":5,"Des":"升级或洗练2阶红装","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":5,"UseParam":0},
 {"_t":"ItemConfig","_id":4203,"Name":"3阶橙装精华","Type":5,"Des":"升级或洗练3阶红装","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":5,"UseParam":0},

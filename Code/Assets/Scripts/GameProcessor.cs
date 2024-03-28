@@ -10,6 +10,8 @@ using SA.CrossPlatform.UI;
 using UnityEngine;
 using zFramework.Internal;
 using Newtonsoft.Json;
+using System.Text;
+using Game.Data;
 
 namespace Game
 {
@@ -138,6 +140,8 @@ namespace Game
             this.User = UserData.Load();
             if (this.User == null)
             {
+                StartCoroutine(this.AutoExitApp(true));
+                return;
                 //加载失败
             }
 
@@ -340,6 +344,36 @@ namespace Game
             {
                 saveTime = ct;
                 UserData.Save();
+            }
+
+            if (ConfigHelper.Channel != ConfigHelper.Channel_Tap)
+            {
+                long at = this.User.LastOut;
+                if (ct - at > 3600)
+                {
+                    this.User.LastOut = ct;
+
+                    string str_json = JsonConvert.SerializeObject(this.User, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
+                    str_json = EncryptionHelper.AesEncrypt(str_json);
+
+                    string md5 = EncryptionHelper.Md5(str_json);
+                    Debug.Log("save md5:" + md5);
+                    byte[] bytes = Encoding.UTF8.GetBytes(str_json);
+
+                    Dictionary<string, string> headers = new Dictionary<string, string>();
+                    headers.Add("md5", md5);
+
+                    StartCoroutine(NetworkHelper.UploadData(bytes, headers,
+                            (WebResultWrapper result) =>
+                            {
+                                if (result.Code == StatusMessage.OK)
+                                {
+                                    this.User.SaveTicketTime = ct;
+                                    this.EventCenter.Raise(new ShowGameMsgEvent() { Content = "自动存档成功", ToastType = ToastTypeEnum.Success });
+                                }
+                            },
+                           null));
+                }
             }
         }
 
