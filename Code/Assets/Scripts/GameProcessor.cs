@@ -132,10 +132,10 @@ namespace Game
                 saveTime = ct;
                 UserData.Save();
 
-                if (ConfigHelper.Channel != ConfigHelper.Channel_Tap && this.User.Account != "")
+                if (ConfigHelper.Channel != ConfigHelper.Channel_Tap && this.User.Account != "" && this.User.SaveTicketTime > 0)
                 {
                     long at = this.User.LastUploadTime;
-                    if (ct - at > 3600 && this.User.SaveTicketTime > 0)
+                    if (ct - at > 3600 )
                     {
                         this.User.LastUploadTime = ct;
 
