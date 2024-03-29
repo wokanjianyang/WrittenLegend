@@ -252,7 +252,7 @@ namespace Game
                             }
                             else
                             {
-                                this.txt_Info.text = "存档失败.";
+                                this.txt_Info.text = "存档失败." + result.Msg;
                                 user.SaveTicketTime = TimeHelper.ClientNowSeconds() - 3600;
                             }
                         },

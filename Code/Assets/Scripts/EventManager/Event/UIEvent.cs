@@ -42,6 +42,11 @@ namespace Game
 
     }
 
+    public class NewVersionEvent : SDD.Events.Event
+    {
+        public int Version { get; set; }
+    }
+
     public class PlayerDeadEvent : SDD.Events.Event
     {
         public int RoundNum { get; set; }

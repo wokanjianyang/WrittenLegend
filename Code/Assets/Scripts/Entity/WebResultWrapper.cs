@@ -15,6 +15,8 @@ namespace Game.Data
 
         public string Msg { get; set; }
 
+        public int Version { get; set; }
+
         public JObject Data { get; set; }
     }
 

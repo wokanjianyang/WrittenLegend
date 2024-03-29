@@ -10,6 +10,8 @@ namespace Game.Data
     public class StatusMessage
     {
         public static int OK = 200;
+
+        public static int BlackList = 302;
     }
 
 

@@ -43,8 +43,8 @@ namespace Game.Data
             if (Text != md5)
             {
                 //数据校检失败
-                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "您已经修改了存档", ToastType = ToastTypeEnum.Failure });
-                GameProcessor.Inst.isCheckError = true;
+                //GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "您已经修改了存档", ToastType = ToastTypeEnum.Failure });
+                //GameProcessor.Inst.isCheckError = true;
                 return false;
             }
 

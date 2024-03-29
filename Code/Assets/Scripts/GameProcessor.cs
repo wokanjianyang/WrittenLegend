@@ -104,6 +104,120 @@ namespace Game
         }
 
 
+        void Update()
+        {
+            this.ShowNextToast();
+
+            if (this.IsGameOver())
+            {
+                return;
+            }
+            if (isLoadMap)
+            {
+                this.BattleRule?.OnUpdate();
+                this.MineRule?.OnUpdate();
+            }
+
+            //计算泡点经验
+            SecondRewarod();
+
+            //每分钟存档一次
+            long ct = TimeHelper.ClientNowSeconds();
+            if (saveTime == 0)
+            {
+                saveTime = ct;
+            }
+            if (ct - saveTime > 60)
+            {
+                saveTime = ct;
+                UserData.Save();
+
+                if (ConfigHelper.Channel != ConfigHelper.Channel_Tap && this.User.Account != "")
+                {
+                    long at = this.User.LastUploadTime;
+                    if (ct - at > 3600 && this.User.SaveTicketTime > 0)
+                    {
+                        this.User.LastUploadTime = ct;
+
+                        string str_json = JsonConvert.SerializeObject(this.User, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
+                        str_json = EncryptionHelper.AesEncrypt(str_json);
+
+                        string md5 = EncryptionHelper.Md5(str_json);
+                        Debug.Log("save md5:" + md5);
+                        byte[] bytes = Encoding.UTF8.GetBytes(str_json);
+
+                        Dictionary<string, string> headers = new Dictionary<string, string>();
+                        headers.Add("md5", md5);
+
+                        StartCoroutine(NetworkHelper.UploadData(bytes, headers,
+                                (WebResultWrapper result) =>
+                                {
+                                    if (result.Code == StatusMessage.OK)
+                                    {
+                                        this.User.SaveTicketTime = ct;
+                                        this.EventCenter.Raise(new ShowGameMsgEvent() { Content = "自动存档成功", ToastType = ToastTypeEnum.Success });
+                                    }
+
+                                },
+                               null));
+
+                        return;
+                    }
+
+                    long bt = this.User.LastSaveTime;
+                    if (ct - at > 1900)
+                    {
+                        this.User.LastSaveTime = ct;
+
+                        Dictionary<string, string> paramDict = new Dictionary<string, string>();
+                        paramDict.Add("account", this.User.Account);
+                        paramDict.Add("power", this.User.AttributeBonus.GetPower());
+                        paramDict.Add("gold", StringHelper.FormatNumber(this.User.MagicGold.Data));
+                        paramDict.Add("level", this.User.MagicLevel.Data + "");
+
+                        long ringTotal = this.User.SoulRingData.Select(m => m.Value.Data).Sum();
+                        paramDict.Add("ring", ringTotal + "");
+                        paramDict.Add("swing", this.User.WingData.Data + "");
+
+                        long metalTotal = this.User.MetalData.Select(m => m.Value.Data).Sum();
+                        paramDict.Add("metal", metalTotal + "");
+
+                        long strongTotal = this.User.MagicEquipStrength.Select(m => m.Value.Data).Sum();
+                        paramDict.Add("strong", strongTotal + "");
+
+                        long refineTotal = this.User.MagicEquipRefine.Select(m => m.Value.Data).Sum();
+                        paramDict.Add("refine", refineTotal + "");
+
+                        long ad1 = this.User.GetAchievementProgeress(AchievementSourceType.RealAdvert);
+                        paramDict.Add("advert1", ad1 + "");
+
+                        long ad2 = this.User.GetAchievementProgeress(AchievementSourceType.Advert);
+                        paramDict.Add("advert2", ad2 + "");
+
+                        long boss = this.User.GetAchievementProgeress(AchievementSourceType.BossFamily);
+                        paramDict.Add("boss", boss + "");
+
+                        long copy = this.User.GetAchievementProgeress(AchievementSourceType.EquipCopy);
+                        paramDict.Add("equip", copy + "");
+
+                        string param = JsonConvert.SerializeObject(paramDict);
+
+                        StartCoroutine(NetworkHelper.UpdateInfo(param,
+                                (WebResultWrapper result) =>
+                                {
+                                    if (result.Code == StatusMessage.OK)
+                                    {
+                                        Debug.Log("update info success");
+                                    }
+                                },
+                               null));
+                        return;
+                    }
+
+                }
+            }
+        }
+
         public bool LoadInit(string str_json)
         {
             //Debug.Log(str_json);
@@ -140,7 +254,7 @@ namespace Game
             this.User = UserData.Load();
             if (this.User == null)
             {
-                StartCoroutine(this.AutoExitApp(true));
+                StartCoroutine(this.AutoExitApp(ExitType.LoadError));
                 return;
                 //加载失败
             }
@@ -186,21 +300,11 @@ namespace Game
                 isTimeError = true;
             }
 
-            if (isTimeError)
+            if (!isTimeError && !isCheckError && !isVersionError)
             {
-                OfflineMessage = BattleMsgHelper.BuildTimeErrorMessage();
-                return;
+                Dialog_OfflineExp offlineExp = Canvas.FindObjectOfType<Dialog_OfflineExp>(true);
+                offlineExp.ShowOffline();
             }
-
-
-            Dialog_OfflineExp offlineExp = Canvas.FindObjectOfType<Dialog_OfflineExp>(true);
-
-            offlineExp.ShowOffline();
-            ////计算离线
-            //if (User.SecondExpTick > 0)
-            //{
-            //    OfflineReward();
-            //}
 
             this.Run();
         }
@@ -233,23 +337,27 @@ namespace Game
             this.EventCenter.AddListener<EndCopyEvent>(this.OnEndCopy);
             this.EventCenter.AddListener<BossFamilyEndEvent>(this.OnEndBossFamily);
             this.EventCenter.AddListener<CheckGameCheatEvent>(CheckGameCheat);
-
+            this.EventCenter.AddListener<NewVersionEvent>(NewVersion);
 
             ShowVideoAd += OnShowVideoAd;
 
             this.UIRoot_Top = GameObject.Find("Canvas/UIRoot/Top").transform;
             this.barragePrefab = Resources.Load<GameObject>("Prefab/Dialog/Toast");
 
-            if (isTimeError || isCheckError || isVersionError)
+            if (isTimeError)
             {
-                StartCoroutine(this.AutoExitApp(true));
+                StartCoroutine(this.AutoExitApp(ExitType.Time));
                 return;
             }
-
-            if (User.GameCheat)
+            if (isVersionError)
             {
-                //StartCoroutine(this.AutoExitApp(false));
-                //return;
+                StartCoroutine(this.AutoExitApp(ExitType.Version));
+                return;
+            }
+            if (isCheckError || User.GameCheat)
+            {
+                StartCoroutine(this.AutoExitApp(ExitType.Change));
+                return;
             }
 
             this.User.AdData.Check();
@@ -315,119 +423,6 @@ namespace Game
                 }
             }
 
-        }
-
-        void Update()
-        {
-            this.ShowNextToast();
-
-            if (this.IsGameOver())
-            {
-                return;
-            }
-            if (isLoadMap)
-            {
-                this.BattleRule?.OnUpdate();
-                this.MineRule?.OnUpdate();
-            }
-
-            //计算泡点经验
-            SecondRewarod();
-
-            //每分钟存档一次
-            long ct = TimeHelper.ClientNowSeconds();
-            if (saveTime == 0)
-            {
-                saveTime = ct;
-            }
-            if (ct - saveTime > 60)
-            {
-                saveTime = ct;
-                UserData.Save();
-
-                if (ConfigHelper.Channel != ConfigHelper.Channel_Tap && this.User.Account != "")
-                {
-                    long at = this.User.LastUploadTime;
-                    if (ct - at > 3600)
-                    {
-                        this.User.LastUploadTime = ct;
-
-                        string str_json = JsonConvert.SerializeObject(this.User, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
-                        str_json = EncryptionHelper.AesEncrypt(str_json);
-
-                        string md5 = EncryptionHelper.Md5(str_json);
-                        Debug.Log("save md5:" + md5);
-                        byte[] bytes = Encoding.UTF8.GetBytes(str_json);
-
-                        Dictionary<string, string> headers = new Dictionary<string, string>();
-                        headers.Add("md5", md5);
-
-                        StartCoroutine(NetworkHelper.UploadData(bytes, headers,
-                                (WebResultWrapper result) =>
-                                {
-                                    if (result.Code == StatusMessage.OK)
-                                    {
-                                        this.User.SaveTicketTime = ct;
-                                        this.EventCenter.Raise(new ShowGameMsgEvent() { Content = "自动存档成功", ToastType = ToastTypeEnum.Success });
-                                    }
-                                },
-                               null));
-
-                        return;
-                    }
-
-                    long bt = this.User.LastSaveTime;
-                    if (ct - at > 1900)
-                    {
-                        this.User.LastSaveTime = ct;
-
-                        Dictionary<string, string> paramDict = new Dictionary<string, string>();
-                        paramDict.Add("account", this.User.Account);
-                        paramDict.Add("power", this.User.AttributeBonus.GetPower());
-                        paramDict.Add("gold", StringHelper.FormatNumber(this.User.MagicGold.Data));
-                        paramDict.Add("level", this.User.MagicLevel.Data + "");
-
-                        long ringTotal = this.User.SoulRingData.Select(m => m.Value.Data).Sum();
-                        paramDict.Add("ring", ringTotal + "");
-                        paramDict.Add("swing", this.User.WingData.Data + "");
-
-                        long metalTotal = this.User.MetalData.Select(m => m.Value.Data).Sum();
-                        paramDict.Add("metal", metalTotal + "");
-
-                        long strongTotal = this.User.MagicEquipStrength.Select(m => m.Value.Data).Sum();
-                        paramDict.Add("strong", strongTotal + "");
-
-                        long refineTotal = this.User.MagicEquipRefine.Select(m => m.Value.Data).Sum();
-                        paramDict.Add("refine", refineTotal + "");
-
-                        long ad1 = this.User.GetAchievementProgeress(AchievementSourceType.RealAdvert);
-                        paramDict.Add("advert1", ad1 + "");
-
-                        long ad2 = this.User.GetAchievementProgeress(AchievementSourceType.Advert);
-                        paramDict.Add("advert2", ad2 + "");
-
-                        long boss = this.User.GetAchievementProgeress(AchievementSourceType.BossFamily);
-                        paramDict.Add("boss", boss + "");
-
-                        long copy = this.User.GetAchievementProgeress(AchievementSourceType.EquipCopy);
-                        paramDict.Add("equip", copy + "");
-
-                        string param = JsonConvert.SerializeObject(paramDict);
-
-                        StartCoroutine(NetworkHelper.UpdateInfo(param,
-                                (WebResultWrapper result) =>
-                                {
-                                    if (result.Code == StatusMessage.OK)
-                                    {
-                                        Debug.Log("update info success");
-                                    }
-                                },
-                               null));
-                        return;
-                    }
-
-                }
-            }
         }
 
         public void LoadMin()
@@ -542,7 +537,15 @@ namespace Game
             {
                 User.GameCheat = true;
             }
-            StartCoroutine(this.AutoExitApp(false));
+            StartCoroutine(this.AutoExitApp(ExitType.Change));
+        }
+        public void NewVersion(NewVersionEvent e)
+        {
+            if (User != null)
+            {
+                User.VersionLog[e.Version] = TimeHelper.ClientNowSeconds();
+            }
+            StartCoroutine(this.AutoExitApp(ExitType.Version));
         }
 
         private void OnEndCopy(EndCopyEvent e)
@@ -734,15 +737,6 @@ namespace Game
             this.isGameOver = false;
 
             //Debug.Log("StartGame");
-
-            if (GameProcessor.Inst.OfflineMessage != "")
-            {
-                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
-                {
-                    Message = GameProcessor.Inst.OfflineMessage
-                });
-                GameProcessor.Inst.OfflineMessage = "";
-            }
         }
 
         private IEnumerator AutoResurrection()
@@ -860,18 +854,30 @@ namespace Game
         }
 
 
-        private IEnumerator AutoExitApp(bool type)
+        private IEnumerator AutoExitApp(ExitType type)
         {
-            string text = "后自动关闭游戏,请更新";
+            string text = "";
 
-            if (!type)
+            switch (type)
             {
-                text = "后自动关闭游戏,请不要作弊";
-            }
-
-            if (isVersionError)
-            {
-                text = "后自动关闭游戏,请不要降版本";
+                case ExitType.Version:
+                    text = "后自动关闭游戏,请更新";
+                    break;
+                case ExitType.Change:
+                    text = "后自动关闭游戏,请不要作弊";
+                    break;
+                case ExitType.LoadError:
+                    text = "后自动关闭游戏,读档失败";
+                    break;
+                case ExitType.BlackList:
+                    text = "后自动关闭游戏,您的账号是黑名单";
+                    break;
+                case ExitType.Time:
+                    text = "后自动关闭游戏,没有得到正确的时间";
+                    break;
+                default:
+                    text = "后自动关闭游戏";
+                    break;
             }
 
             GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("5S" + text, false, null, null);

@@ -51,13 +51,14 @@ namespace Game
         public static string BuildSign()
         {
             string deviceId = AppHelper.GetDeviceIdentifier();
-            string account = GameProcessor.Inst.User.DeviceId;
-
+            string fileId = GameProcessor.Inst.User.DeviceId;
             string skey = AppHelper.getKey();
 
             string code = EncryptionHelper.AesEncrypt(deviceId, skey);
+            Debug.Log("code:" + code);
 
-            code = EncryptionHelper.Md5(code + account);
+            code = EncryptionHelper.Md5(code + fileId);
+            Debug.Log("code:" + code);
 
             return code;
         }
@@ -173,6 +174,15 @@ namespace Game
                         Debug.Log("Upload complete! Server response: " + request.downloadHandler.text);
 
                         WebResultWrapper result = JsonConvert.DeserializeObject<WebResultWrapper>(request.downloadHandler.text);
+
+                        if (result.Code == StatusMessage.BlackList)
+                        {
+                            GameProcessor.Inst.EventCenter.Raise(new CheckGameCheatEvent());
+                        }
+                        if (result.Version > ConfigHelper.Version)
+                        {
+                            GameProcessor.Inst.EventCenter.Raise(new NewVersionEvent() { Version = result.Version });
+                        }
 
                         successAction?.Invoke(result);
                     }
