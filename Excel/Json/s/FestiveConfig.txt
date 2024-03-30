@@ -11,5 +11,5 @@
 {"_t":"FestiveConfig","_id":114,"ItemId":4200,"Cost":100,"Max":5,"Title":"兑换图鉴龙之秘1个","TargetName":"龙之秘","TargetType":11,"TargetId":1999997,"TargetCount":1},
 {"_t":"FestiveConfig","_id":115,"ItemId":4200,"Cost":100,"Max":10,"Title":"兑换四格碎片1000个","TargetName":"四格碎片","TargetType":5,"TargetId":4007,"TargetCount":1000},
 {"_t":"FestiveConfig","_id":116,"ItemId":4200,"Cost":100,"Max":20,"Title":"兑换图鉴碎片1000个","TargetName":"图鉴碎片","TargetType":5,"TargetId":4101,"TargetCount":1000},
-{"_t":"FestiveConfig","_id":199,"ItemId":4200,"Cost":1,"Max":9999,"Title":"兑换书页1个","TargetName":"书页","TargetType":5,"TargetId":4006,"TargetCount":1},
+{"_t":"FestiveConfig","_id":199,"ItemId":4200,"Cost":100,"Max":4999,"Title":"兑换书页100个","TargetName":"书页","TargetType":5,"TargetId":4006,"TargetCount":100},
 ]}

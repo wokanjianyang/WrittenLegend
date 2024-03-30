@@ -44,7 +44,7 @@ namespace Game
 
         private bool isLoadMap = false;
         private long saveTime = 0;
-        public string OfflineMessage = "";
+        private long onlineTime = 0;
 
         // public bool RefreshSkill = false; //是否要刷新技能
         public bool isTimeError = false;
@@ -129,13 +129,16 @@ namespace Game
             }
             if (ct - saveTime > 60)
             {
+                onlineTime++;
                 saveTime = ct;
                 UserData.Save();
 
-                if (ConfigHelper.Channel != ConfigHelper.Channel_Tap && this.User.Account != "" && this.User.SaveTicketTime > 0)
+                Debug.Log("onlineTime:"+ onlineTime);
+
+                if (ConfigHelper.Channel != ConfigHelper.Channel_Tap && this.User.Account != "" && this.User.SaveTicketTime > 0 && onlineTime > 10)
                 {
                     long at = this.User.LastUploadTime;
-                    if (ct - at > 3600 )
+                    if (ct - at > 3600)
                     {
                         this.User.LastUploadTime = ct;
 
