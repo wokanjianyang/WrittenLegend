@@ -12,7 +12,7 @@ namespace Game
 
         //public MagicData VirtualCount { get; set; } = new MagicData();
 
-        private static int Total = 360;
+
 
         public Dictionary<string, AdRecord> CodeDict { get; } = new Dictionary<string, AdRecord>();
 
@@ -30,13 +30,13 @@ namespace Game
 
         public int GetSkipCount()
         {
-            return (int)(CodeDict.Select(m => m.Value).Where(m => m.Check && m.Count.Data < Total)
-                .Select(m => Total - m.Count.Data).Sum());
+            return (int)(CodeDict.Select(m => m.Value).Where(m => m.Check && m.Count.Data < m.Total)
+                .Select(m => m.Total - m.Count.Data).Sum());
         }
 
         public void Use()
         {
-            AdRecord record = CodeDict.Select(m => m.Value).Where(m => m.Check && m.Count.Data < Total).FirstOrDefault();
+            AdRecord record = CodeDict.Select(m => m.Value).Where(m => m.Check && m.Count.Data < m.Total).FirstOrDefault();
             if (record != null)
             {
                 record.Count.Data++;
@@ -46,14 +46,22 @@ namespace Game
 
         public void Check()
         {
-            List<AdRecord> records = CodeDict.Select(m => m.Value).Where(m => m.Count.Data < Total).ToList();
+            List<AdRecord> records = CodeDict.Select(m => m.Value).ToList();
 
             foreach (AdRecord record in records)
             {
                 CodeConfig config = CodeConfigCategory.Instance.GetSpeicalConfig(record.Code);
                 if (config != null)
                 {
-                    record.Check = true;
+                    record.Total = config.ItemQuanlityList[0];
+                    if (record.Total > record.Count.Data)
+                    {
+                        record.Check = true;
+                    }
+                    else
+                    {
+                        record.Check = false;
+                    }
                 }
                 else
                 {
@@ -81,5 +89,7 @@ namespace Game
         //public MagicData Total { get; set; }
 
         public bool Check = false;
+
+        public int Total = 0;
     }
 }
