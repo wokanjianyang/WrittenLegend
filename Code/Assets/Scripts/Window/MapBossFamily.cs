@@ -58,8 +58,9 @@ public class MapBossFamily : MonoBehaviour, IBattleLife
 
         long bossTicket = user.GetMaterialCount(ItemHelper.SpecialId_Boss_Ticket);
 
-        if (bossTicket <= this.MapRate)
+        if (bossTicket < this.MapRate)
         {
+            Debug.Log("Boss MapRate:" + this.MapRate);
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的BOSS挑战卷", ToastType = ToastTypeEnum.Failure });
             return;
         }
