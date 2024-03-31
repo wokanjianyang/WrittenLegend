@@ -55,19 +55,16 @@ namespace Game
 
             //this.CheckProgress();
 
+            this.Init();
+
             //AsyncLoginTap();
             if (ConfigHelper.Channel == ConfigHelper.Channel_Tap)
             {
                 this.Tf_Login.gameObject.SetActive(false);
-                this.txt_Info.gameObject.SetActive(false);
                 this.txt_Memo.gameObject.SetActive(false);
 
                 this.btn_Save.gameObject.SetActive(false);
                 this.btn_Load.gameObject.SetActive(false);
-            }
-            else
-            {
-                Show();
             }
         }
 
@@ -77,8 +74,9 @@ namespace Game
             if (ConfigHelper.Channel != ConfigHelper.Channel_Tap)
             {
                 this.currentRoundTime += Time.unscaledDeltaTime;
-                if (this.currentRoundTime >= 1)
+                if (this.currentRoundTime >= 0.2)
                 {
+                    this.currentRoundTime = 0;
                     Show();
                 }
             }
@@ -90,7 +88,6 @@ namespace Game
 
             long now = TimeHelper.ClientNowSeconds();
             long cdSaveTime = now - user.SaveTicketTime;
-            cdSaveTime = 3700;
             if (cdSaveTime > 3600)
             {
                 btn_Save.gameObject.SetActive(true);
@@ -104,7 +101,6 @@ namespace Game
             }
 
             long cdLoadTime = now - user.LoadTicketTime;
-            cdLoadTime = 3700;
             if (cdLoadTime > 3600)
             {
                 btn_Load.gameObject.SetActive(true);
@@ -114,12 +110,13 @@ namespace Game
             {
                 btn_Load.gameObject.SetActive(false);
                 Txt_Load.gameObject.SetActive(true);
-                Txt_Load.text = TimeSpan.FromSeconds(3600 - cdSaveTime).ToString(@"hh\:mm\:ss");
+                Txt_Load.text = TimeSpan.FromSeconds(3600 - cdLoadTime).ToString(@"hh\:mm\:ss");
             }
         }
 
         public void Init()
         {
+            Debug.Log("Other init");
             tog_Monster_Skill.isOn = GameProcessor.Inst.User.ShowMonsterSkill;
 
             User user = GameProcessor.Inst.User;
@@ -150,6 +147,8 @@ namespace Game
 
             this.Txt_FileId.text = "存档Id:" + user.DeviceId;
             this.Txt_DeviceId.text = "设备Id:" + AppHelper.GetDeviceIdentifier();
+
+            this.Show();
         }
 
         public void ShowSkill(bool show)
