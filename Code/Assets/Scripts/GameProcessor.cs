@@ -168,7 +168,7 @@ namespace Game
                     }
 
                     long bt = this.User.LastSaveTime;
-                    if (ct - at > 1900)
+                    if (ct - bt > 1900)
                     {
                         this.User.LastSaveTime = ct;
 
