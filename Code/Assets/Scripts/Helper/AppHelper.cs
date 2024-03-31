@@ -87,7 +87,7 @@ namespace Game
                 return RandomHelper.RandomNumber(1, int.MaxValue - 1);
             }
 
-            int todaySeed = seed + TimeHelper.TodaySeed();
+            int todaySeed = Math.Abs(seed + TimeHelper.TodaySeed());
             return RandomHelper.RandomNumber(todaySeed, 1, int.MaxValue - 1);
         }
 
@@ -98,7 +98,7 @@ namespace Game
                 return RandomHelper.RandomNumber(1, int.MaxValue - 1);
             }
 
-            int todaySeed = seed + TimeHelper.WeekSeed();
+            int todaySeed = Math.Abs(seed + TimeHelper.WeekSeed());
             return RandomHelper.RandomNumber(todaySeed, 1, int.MaxValue - 1);
         }
     }

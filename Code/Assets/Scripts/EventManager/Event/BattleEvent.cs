@@ -39,6 +39,11 @@ namespace Game
         public ComBoxType Type { get; set; }
     }
 
+    public class RefershSelectEvent : SDD.Events.Event
+    {
+        public Equip Equip { get; set; }
+    }
+
     public class ComBoxDeselectEvent : SDD.Events.Event
     {
         public BoxItem BoxItem { get; set; }

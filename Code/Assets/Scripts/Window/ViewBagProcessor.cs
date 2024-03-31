@@ -445,6 +445,7 @@ namespace Game
             if (count < useCount)
             {
                 GameProcessor.Inst.EventCenter.Raise(new CheckGameCheatEvent());
+                throw new Exception();
             }
 
             foreach (BoxItem boxItem in list)

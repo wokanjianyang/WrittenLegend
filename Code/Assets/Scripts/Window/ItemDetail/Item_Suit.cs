@@ -19,5 +19,12 @@ namespace Game
             this.Txt_Name.text = config.Name + string.Format("({0}/{1})", count, max); ;
             this.Txt_Des.text = config.Des;
         }
+
+        public void SetContent(int suitId)
+        {
+            SkillSuitConfig config = SkillSuitConfigCategory.Instance.Get(suitId);
+            this.Txt_Name.text = config.Name;
+            this.Txt_Des.text = config.Des;
+        }
     }
 }

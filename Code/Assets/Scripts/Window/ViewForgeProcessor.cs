@@ -43,9 +43,10 @@ public class ViewForgeProcessor : AViewPage
     public Panel_Devour PanelDevour;
 
     public Toggle toggle_Refresh;
-
+    public Panel_Refresh PanelRefresh;
 
     public Toggle toggle_Grade;
+    //public Panel_Grade PanelGrade;
 
     private Dictionary<string, List<CompositeConfig>> allCompositeDatas = new Dictionary<string, List<CompositeConfig>>();
 
@@ -70,6 +71,16 @@ public class ViewForgeProcessor : AViewPage
         this.toggle_Devour.onValueChanged.AddListener((isOn) =>
         {
             this.ShowDevour(isOn);
+        });
+
+        this.toggle_Refresh.onValueChanged.AddListener((isOn) =>
+        {
+            this.ShowRefresh(isOn);
+        });
+
+        this.toggle_Grade.onValueChanged.AddListener((isOn) =>
+        {
+            this.ShowGrade(isOn);
         });
 
         Btn_Refine.onClick.AddListener(OnClick_Refine);
@@ -490,6 +501,16 @@ public class ViewForgeProcessor : AViewPage
     private void ShowDevour(bool isOn)
     {
         PanelDevour.gameObject.SetActive(isOn);
+    }
+
+    private void ShowRefresh(bool isOn)
+    {
+        PanelRefresh.gameObject.SetActive(isOn);
+    }
+
+    private void ShowGrade(bool isOn)
+    {
+        //PanelGrade.gameObject.SetActive(isOn);
     }
 
     protected override bool CheckPageType(ViewPageType page)

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
+using System;
 
 namespace Game
 {
@@ -18,8 +19,8 @@ namespace Game
 
         public int Quality { get; set; }
         public int Layer { get; set; } = 1;
-        public int FreshCount { get; set; }
-        public long FreshDate { get; set; }
+        public int RefreshCount { get; set; }
+        public long RefreshDate { get; set; }
 
         public override int GetQuality()
         {
@@ -130,6 +131,38 @@ namespace Game
             }
         }
 
+        public void CheckReFreshCount()
+        {
+            long tk = DateTime.Today.Ticks;
+            if (this.RefreshDate < tk)
+            {
+                this.RefreshDate = tk;
+                this.RefreshCount = ConfigHelper.EquipRefreshCount;
+            }
+        }
+
+        public void Refesh()
+        {
+            int tempSeed = AppHelper.RefreshSeed(this.Seed);
+            Debug.Log("tempSeed" + tempSeed);
+            List<KeyValuePair<int, long>> keyValues = AttrEntryConfigCategory.Instance.Build(this.Part, this.Level, this.Quality, this.EquipConfig.Role, tempSeed);
+
+            SkillRuneConfig runeConfig = SkillRuneHelper.RandomRune(tempSeed, this.EquipConfig.Role, 1, this.Quality, this.Level);
+
+            SkillSuitConfig suitConfig = SkillSuitHelper.RandomSuit(tempSeed, runeConfig.SkillId);
+
+
+            this.Seed = tempSeed;
+            this.AttrEntryList.Clear();
+            this.AttrEntryList.AddRange(keyValues);
+
+            this.RuneConfigId = runeConfig.Id;
+            this.SuitConfigId = suitConfig.Id;
+
+            this.SkillRuneConfig = runeConfig;
+            this.SkillSuitConfig = suitConfig;
+        }
+
         public void Init(int seed)
         {
             this.Seed = seed;
@@ -139,15 +172,6 @@ namespace Game
             {
                 this.AttrEntryList.AddRange(AttrEntryConfigCategory.Instance.Build(this.Part, this.Level, this.Quality, this.EquipConfig.Role, this.Seed));
             }
-        }
-
-        public List<KeyValuePair<int, long>> Refesh()
-        {
-            this.RefreshSeed();
-
-            List<KeyValuePair<int, long>> keyValues = AttrEntryConfigCategory.Instance.Build(this.Part, this.Level, this.Quality, this.EquipConfig.Role, this.Seed);
-
-            return keyValues;
         }
 
         /// <summary>

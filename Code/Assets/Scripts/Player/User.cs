@@ -38,7 +38,7 @@ namespace Game
 
         public MagicData MagicTowerFloor { get; } = new MagicData();
 
-        public IDictionary<int, Equip> EquipPanel { get; set; } = new Dictionary<int, Equip>();
+        //public IDictionary<int, Equip> EquipPanel { get; set; } = new Dictionary<int, Equip>();
 
         public IDictionary<int, IDictionary<int, Equip>> EquipPanelList { get; set; } = new Dictionary<int, IDictionary<int, Equip>>();
 

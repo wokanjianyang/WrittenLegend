@@ -63,6 +63,8 @@ namespace Game
         public const float PvpRate = 200;
         public const float ValetPvpRate = 30;
 
+        public const int EquipRefreshCount = 10;
+
         public static int GetFloorRate(long floor)
         {
             if (floor > 100 && floor < FastFloor)

@@ -95,5 +95,8 @@ namespace Game
         public static int SpecialId_Card_Stone = 4101;
 
         public static int SpecialId_Chunjie = 4107;
+
+        public static int[] SpecailEquipRefreshId = { 4201, 4202, 4203, 4204, 4205, 4206, 4207 };
+        public static int[] SpecailEquipRefreshCount = { 10, 15, 20, 25, 30, 35, 40 };
     }
 }

@@ -11,32 +11,37 @@ public class Panel_Refresh : MonoBehaviour
 {
     public ScrollRect sr_Panel;
 
-    public List<SlotBox> slots;
+    private List<ItemRefresh> items = new List<ItemRefresh>();
 
+    public RefreshAttr AttrOld;
+    public RefreshAttr AttrNew;
+
+    public Text txt_Total;
+    public Text TxtCostName;
+    public Text TxtCostCount;
+
+    public Button Btn_Refesh;
     public Button Btn_OK;
-    public List<Text> TxtCommissionNameList;
-    public List<Text> TxtCommissionCountList;
+    public Button Btn_Cancle;
 
-    private List<Com_Box> items = new List<Com_Box>();
+    private const int MaxCount = 10; //10件装备
 
-    private const int MaxCount = 36;
+    Equip SelectEquip;
 
-    private bool check = false;
-
-    private ExclusiveDevourConfig config = null;
     // Start is called before the first frame update
     void Awake()
     {
         this.Init();
 
+        this.Btn_Refesh.onClick.AddListener(OnClickReferesh);
         this.Btn_OK.onClick.AddListener(OnClickOK);
+        this.Btn_Cancle.onClick.AddListener(OnClickCancle);
     }
 
     // Update is called once per frame
     void Start()
     {
-        GameProcessor.Inst.EventCenter.AddListener<ComBoxSelectEvent>(this.OnComBoxSelect);
-        GameProcessor.Inst.EventCenter.AddListener<ComBoxDeselectEvent>(this.OnComBoxDeselect);
+        GameProcessor.Inst.EventCenter.AddListener<RefershSelectEvent>(this.OnSelect);
     }
 
     void OnEnable()
@@ -53,69 +58,60 @@ public class Panel_Refresh : MonoBehaviour
             var empty = GameObject.Instantiate(emptyPrefab, this.sr_Panel.content);
             empty.name = "Box_" + i;
         }
-
-        var prefab = Resources.Load<GameObject>("Prefab/Window/Box_Info");
-        for (int i = 0; i < slots.Count; i++)
-        {
-            slots[i].Init(prefab);
-        }
     }
 
-    public void Load()
+    private void Load()
     {
-        foreach (SlotBox slot in slots)
-        {
-            Com_Box comItem = slot.GetEquip();
-            if (comItem != null)
-            {
-                slot.UnEquip();
-                GameObject.Destroy(comItem.gameObject);
-            }
-        }
+        //把之前的卸载
+        this.SelectEquip = null;
 
-        foreach (var cb in items)
+        foreach (ItemRefresh cb in items)
         {
             GameObject.Destroy(cb.gameObject);
         }
         items.Clear();
 
         User user = GameProcessor.Inst.User;
-
-        List<BoxItem> list = user.Bags.Where(m => m.Item.Type == ItemType.Exclusive && m.Item.GetQuality() == 5 && !m.Item.IsLock).OrderBy(m => m.Item.ConfigId).ToList();
-        Debug.Log("es:" + list.Count);
-        for (int BoxId = 0; BoxId < list.Count; BoxId++)
+        if (user == null)
         {
-            if (BoxId >= MaxCount)
-            {
-                return;
-            }
+            return;
+        }
+
+        IDictionary<int, Equip> dict = user.EquipPanelList[user.EquipPanelIndex];
+
+        for (int BoxId = 0; BoxId < MaxCount; BoxId++)
+        {
+            int postion = BoxId + 1;
 
             var bagBox = this.sr_Panel.content.GetChild(BoxId);
-            if (bagBox == null)
+            if (bagBox == null || !dict.ContainsKey(postion))
             {
-                return;
+                continue;
             }
 
-            BoxItem item = list[BoxId];
-            item.BoxId = BoxId;
+            Equip equip = dict[postion];
 
-            Com_Box box = this.CreateBox(item, bagBox);
-            box.SetBoxId(BoxId);
+            ItemRefresh box = this.CreateBox(equip, bagBox);
             this.items.Add(box);
         }
 
-        this.config = null;
+        AttrOld.gameObject.SetActive(false);
+        AttrNew.gameObject.SetActive(false);
+
+        this.Btn_Refesh.gameObject.SetActive(false);
+        this.Btn_OK.gameObject.SetActive(false);
+        this.Btn_Cancle.gameObject.SetActive(false);
     }
 
-    private Com_Box CreateBox(BoxItem item, Transform parent)
+    private ItemRefresh CreateBox(Equip equip, Transform parent)
     {
-        GameObject prefab = Resources.Load<GameObject>("Prefab/Window/Box_Orange");
+        ToggleGroup toggleGroup = sr_Panel.GetComponent<ToggleGroup>();
+
+        GameObject prefab = Resources.Load<GameObject>("Prefab/Window/Forge/Item_Refresh");
 
         var go = GameObject.Instantiate(prefab);
-        var comItem = go.GetComponent<Com_Box>();
-        comItem.SetBoxId(item.BoxId);
-        comItem.SetItem(item);
-        comItem.SetType(ComBoxType.Exclusive_Devour);
+        ItemRefresh comItem = go.GetComponent<ItemRefresh>();
+        comItem.Init(equip, toggleGroup);
 
         comItem.transform.SetParent(parent);
         comItem.transform.localPosition = Vector3.zero;
@@ -124,169 +120,102 @@ public class Panel_Refresh : MonoBehaviour
         return comItem;
     }
 
-    private void OnComBoxSelect(ComBoxSelectEvent e)
+    private void OnSelect(RefershSelectEvent e)
     {
-        SlotBox slot = slots.Where(m => m.GetEquip() == null).FirstOrDefault();
+        this.SelectEquip = e.Equip;
+        this.Show();
+    }
 
-        if (slot == null)
+    private void Show()
+    {
+        AttrOld.gameObject.SetActive(true);
+        AttrOld.Show(SelectEquip.AttrEntryList, SelectEquip.RuneConfigId, SelectEquip.SuitConfigId);
+        AttrNew.gameObject.SetActive(false);
+
+        this.Btn_OK.gameObject.SetActive(false);
+        this.Btn_Cancle.gameObject.SetActive(false);
+
+        SelectEquip.CheckReFreshCount();
+        if (SelectEquip.RefreshCount > 0)
         {
+            this.Btn_Refesh.gameObject.SetActive(true);
+        }
+        else
+        {
+            this.Btn_Refesh.gameObject.SetActive(false);
+        }
+
+        this.txt_Total.text = "今日剩余洗练次数：" + SelectEquip.RefreshCount + "次";
+        int specialId = ItemHelper.SpecailEquipRefreshId[SelectEquip.Layer - 1];
+        int upCount = ItemHelper.SpecailEquipRefreshCount[SelectEquip.Layer - 1];
+
+        ItemConfig refreshConfig = ItemConfigCategory.Instance.Get(specialId);
+        this.TxtCostName.text = refreshConfig.Name;
+
+        User user = GameProcessor.Inst.User;
+        long stoneTotal = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == specialId).Select(m => m.MagicNubmer.Data).Sum();
+
+        string color = stoneTotal >= upCount ? "#11FF11" : "#FF0000";
+        this.TxtCostCount.text = string.Format("<color={0}>{1}/{2}</color>", color, stoneTotal, upCount);
+    }
+
+    public void OnClickReferesh()
+    {
+        int specialId = ItemHelper.SpecailEquipRefreshId[SelectEquip.Layer - 1];
+        int upCount = ItemHelper.SpecailEquipRefreshCount[SelectEquip.Layer - 1];
+
+        User user = GameProcessor.Inst.User;
+
+        long stoneTotal = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == specialId).Select(m => m.MagicNubmer.Data).Sum();
+        if (stoneTotal < upCount)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "您的洗练石不足" + upCount + "个", ToastType = ToastTypeEnum.Failure });
             return;
         }
 
-        BoxItem boxItem = e.BoxItem;
-        ExclusiveItem exclusive = boxItem.Item as ExclusiveItem;
+        this.Btn_Refesh.gameObject.SetActive(false);
+        this.Btn_OK.gameObject.SetActive(true);
+        this.Btn_Cancle.gameObject.SetActive(true);
 
-        int nextLevel = exclusive.GetLevel();
-
-        if (nextLevel > 1)
+        GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
         {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "专属已经满吞噬了", ToastType = ToastTypeEnum.Failure });
-            return;
-        }
+            Type = ItemType.Material,
+            ItemId = specialId,
+            Quantity = upCount
+        });
 
-        Com_Box boxUI = this.items.Find(m => m.boxId == boxItem.BoxId);
-        this.items.Remove(boxUI);
-        GameObject.Destroy(boxUI.gameObject);
+        int tempSeed = AppHelper.RefreshSeed(SelectEquip.Seed);
 
-        boxItem.BoxId = -1;
+        List<KeyValuePair<int, long>> keyValues = AttrEntryConfigCategory.Instance.Build(SelectEquip.Part, SelectEquip.Level, SelectEquip.Quality, SelectEquip.EquipConfig.Role, tempSeed);
 
-        Com_Box comItem = this.CreateBox(boxItem, slot.transform);
-        comItem.SetBoxId(-1);
-        comItem.SetEquipPosition((int)slot.SlotType);
+        SkillRuneConfig runeConfig = SkillRuneHelper.RandomRune(tempSeed, SelectEquip.EquipConfig.Role, 1, SelectEquip.Quality, SelectEquip.Level);
 
-        slot.Equip(comItem);
+        int suitId = SkillSuitHelper.RandomSuit(tempSeed, runeConfig.SkillId).Id;
 
-        int index = slots.IndexOf(slot);
-        if (index == 0)
-        {
+        AttrNew.gameObject.SetActive(true);
+        AttrNew.Show(keyValues, runeConfig.Id, suitId);
 
-            this.config = ExclusiveDevourConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Level == nextLevel).FirstOrDefault();
-            this.Check();
-        }
-    }
+        SelectEquip.RefreshCount--;
+        this.txt_Total.text = "今日剩余洗练次数：" + SelectEquip.RefreshCount + "次";
 
-    private void OnComBoxDeselect(ComBoxDeselectEvent e)
-    {
-        SlotBox slot = slots.Where(m => m.SlotType == (SlotType)e.Position).FirstOrDefault();
 
-        BoxItem boxItem = e.BoxItem;
-
-        Com_Box comItem = slot.GetEquip();
-        slot.UnEquip();
-        GameObject.Destroy(comItem.gameObject);
-
-        //装备移动到包裹里面
-        int BoxId = GetNextBoxId();
-        boxItem.BoxId = BoxId;
-
-        var bagBox = this.sr_Panel.content.GetChild(BoxId);
-        Com_Box box = this.CreateBox(boxItem, bagBox);
-        box.SetBoxId(BoxId);
-        this.items.Add(box);
-    }
-
-    public int GetNextBoxId()
-    {
-        for (int boxId = 0; boxId < MaxCount; boxId++)
-        {
-            if (this.items.Find(m => m.boxId == boxId) == null)
-            {
-                return boxId;
-            }
-        }
-        return -1;
+        stoneTotal = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == specialId).Select(m => m.MagicNubmer.Data).Sum();
+        string color = stoneTotal >= upCount ? "#11FF11" : "#FF0000";
+        this.TxtCostCount.text = string.Format("<color={0}>{1}/{2}</color>", color, stoneTotal, upCount);
     }
 
     public void OnClickOK()
     {
-        for (int i = 0; i < slots.Count; i++)
-        {
-            if (slots[i].GetEquip() == null)
-            {
-                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "请先选择专属", ToastType = ToastTypeEnum.Failure });
-                return;
-            }
-        }
+        this.SelectEquip.Refesh();
 
-        //if (slots[0].GetEquip().BoxItem.Item.ConfigId != slots[1].GetEquip().BoxItem.Item.ConfigId)
-        //{
-        //    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "主副专属必须是同位置", ToastType = ToastTypeEnum.Failure });
-        //    return;
-        //}
-
-        if (!check)
-        {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "材料不足", ToastType = ToastTypeEnum.Failure });
-            return;
-        }
-
-        this.Check();
-
-        if (!check)
-        {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "材料不足", ToastType = ToastTypeEnum.Failure });
-            return;
-        }
-
-        //材料
-        for (int i = 0; i < config.ItemIdList.Length; i++)
-        {
-            GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
-            {
-                Type = ItemType.Material,
-                ItemId = config.ItemIdList[i],
-                Quantity = config.ItemCountList[i]
-            });
-        }
-
-        for (int i = 0; i < slots.Count; i++)
-        {
-            GameProcessor.Inst.EventCenter.Raise(new BagUseEvent()
-            {
-                Quantity = 1,
-                BoxItem = slots[i].GetEquip().BoxItem
-            });
-        }
-
-        ExclusiveItem main = slots[0].GetEquip().BoxItem.Item as ExclusiveItem;
-        ExclusiveItem second = slots[1].GetEquip().BoxItem.Item as ExclusiveItem;
-
-        main.Devour(second);
-
-        List<Item> list = new List<Item>();
-        list.Add(main);
-        GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = list });
-
-        this.Load();
-        GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "吞噬成功", ToastType = ToastTypeEnum.Success });
+        this.Show();
     }
 
-    private void Check()
+    public void OnClickCancle()
     {
+        this.SelectEquip.RefreshSeed();
 
-        int[] ItemIdList = config.ItemIdList;
-        int[] ItemCountList = config.ItemCountList;
-
-        User user = GameProcessor.Inst.User;
-
-        this.check = true;
-
-        for (int i = 0; i < ItemIdList.Length; i++)
-        {
-            int MaxCount = ItemCountList[i];
-
-            long count = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemIdList[i]).Select(m => m.MagicNubmer.Data).Sum();
-
-            string color = "#00FF00";
-
-            if (count < MaxCount)
-            {
-                color = "#FF0000";
-                this.check = false;
-            }
-
-            TxtCommissionCountList[i].text = string.Format("<color={0}>({1}/{2})</color>", color, count, MaxCount);
-        }
+        this.Show();
     }
 }
 
