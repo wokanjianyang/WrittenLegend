@@ -2312,7 +2312,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 8375913891565756645}
   toggleTransition: 1
   graphic: {fileID: 1695544465270540343}
@@ -4831,7 +4831,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 8402775626346931497}
   toggleTransition: 1
   graphic: {fileID: 5569276698556824191}
