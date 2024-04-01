@@ -444,8 +444,8 @@ namespace Game
 
             if (count < useCount)
             {
-                GameProcessor.Inst.EventCenter.Raise(new CheckGameCheatEvent());
                 throw new Exception();
+                //GameProcessor.Inst.EventCenter.Raise(new CheckGameCheatEvent());
             }
 
             foreach (BoxItem boxItem in list)
@@ -479,7 +479,8 @@ namespace Game
             long newCount = newList.Select(m => m.MagicNubmer.Data).Sum();
             if (newCount >= count)
             {
-                GameProcessor.Inst.EventCenter.Raise(new CheckGameCheatEvent());
+                throw new Exception();
+                //GameProcessor.Inst.EventCenter.Raise(new CheckGameCheatEvent());
             }
 
         }
@@ -762,7 +763,8 @@ namespace Game
 
             if (quantity <= 0)
             {
-                GameProcessor.Inst.EventCenter.Raise(new CheckGameCheatEvent());
+                throw new Exception();
+                //GameProcessor.Inst.EventCenter.Raise(new CheckGameCheatEvent());
             }
 
             if (boxItem.Item.Type == ItemType.Ticket && boxItem.Item.ConfigId == ItemHelper.SpecialId_Copy_Ticket && e.Quantity == -1)
