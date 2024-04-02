@@ -102,6 +102,9 @@ namespace Game
 		/// <summary>Memo</summary>
 		[ProtoMember(9)]
 		public string Memo { get; set; }
+		/// <summary>Sort</summary>
+		[ProtoMember(10)]
+		public int Sort { get; set; }
 
 	}
 }

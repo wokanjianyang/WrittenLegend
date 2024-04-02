@@ -137,5 +137,6 @@ namespace Game
         ToCopy = 4, //挑战副本
         Recovery = 5, //设置回收
         SkillBook = 6, //设置回收
+        BindAccount = 7, //绑定帐号
     }
 }

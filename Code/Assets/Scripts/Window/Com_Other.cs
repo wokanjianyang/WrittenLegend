@@ -149,6 +149,8 @@ namespace Game
             this.Txt_DeviceId.text = "设备Id:" + AppHelper.GetDeviceIdentifier();
 
             this.Show();
+
+            TaskHelper.CheckTask(TaskType.BindAccount, 1);
         }
 
         public void ShowSkill(bool show)
