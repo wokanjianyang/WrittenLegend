@@ -94,7 +94,7 @@ namespace Game
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
             {
-                Message = BattleMsgHelper.BuildTaskRewardMessage(config.RewardExp, config.RewardGold, items)
+                Message = BattleMsgHelper.BuildGiftPackMessage("完成任务奖励:", config.RewardExp, config.RewardGold, items)
             });
 
             user.TaskId = user.TaskId + 1;
@@ -102,6 +102,6 @@ namespace Game
             Init();
         }
 
- 
+
     }
 }

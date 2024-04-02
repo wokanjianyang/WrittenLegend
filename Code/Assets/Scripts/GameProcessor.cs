@@ -145,7 +145,7 @@ namespace Game
 
                 Debug.Log("onlineTime:"+ onlineTime);
 
-                if (ConfigHelper.Channel != ConfigHelper.Channel_Tap && this.User.Account != "" && this.User.SaveTicketTime > 0 && onlineTime > 20)
+                if (this.User.Account != "" && this.User.SaveTicketTime > 0 && onlineTime > 20)
                 {
                     long at = this.User.LastUploadTime;
                     if (ct - at > 3600)

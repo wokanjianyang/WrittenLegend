@@ -118,7 +118,7 @@ namespace Game
 
         public static string BuildGiftPackMessage(string src, long exp, long gold, List<Item> items)
         {
-            string message = $"<color=#{QualityConfigHelper.GetQualityColor(4)}> {src}奖励";
+            string message = $"<color=#{QualityConfigHelper.GetQualityColor(4)}> {src}";
             if (exp > 0)
             {
                 message += $"经验{StringHelper.FormatNumber(exp)}";
@@ -170,17 +170,6 @@ namespace Game
         public static string BuildGiftPackMessage(List<Item> items)
         {
             string message = "礼包获取:";
-            foreach (var drop in items)
-            {
-                message += $"<color=#{QualityConfigHelper.GetColor(drop)}>[{drop.Name}]</color>";
-            }
-
-            return message;
-        }
-
-        public static string BuildTaskRewardMessage(long exp, long gold, List<Item> items)
-        {
-            string message = $"获得任务奖励:经验 {exp},金币 {gold} ";
             foreach (var drop in items)
             {
                 message += $"<color=#{QualityConfigHelper.GetColor(drop)}>[{drop.Name}]</color>";

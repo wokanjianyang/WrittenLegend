@@ -15,11 +15,13 @@ namespace Game
         [LabelText("¡Ï»°∞¥≈•")]
         public Button Btn_OK;
 
+        public Button Btn_Close;
+
         // Start is called before the first frame update
         void Start()
         {
-
             this.Btn_OK.onClick.AddListener(this.OnClick_OK);
+            this.Btn_Close.onClick.AddListener(this.OnClick_OK);
         }
 
         // Update is called once per frame
@@ -35,6 +37,7 @@ namespace Game
             this.gameObject.SetActive(false);
             //Time.timeScale = 1;
         }
+        
 
         public void ShowOffline()
         {
