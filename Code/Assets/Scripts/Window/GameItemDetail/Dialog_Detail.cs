@@ -84,7 +84,10 @@ namespace Game
             this.Txt_Title.text = string.Format("<color=#{0}>{1}</color>", titleColor, this.boxItem.Item.Name);
 
             string color = "green";
-            Txt_Memo.text = this.boxItem.Item.ItemConfig.Des;
+            if (this.boxItem.Item.ItemConfig != null)
+            {
+                Txt_Memo.text = this.boxItem.Item.ItemConfig.Des;
+            }
             Txt_NeedLevel.text = string.Format("<color={0}>需要等级{1}</color>", color, this.boxItem.Item.Level);
 
             User user = GameProcessor.Inst.User;
@@ -106,6 +109,7 @@ namespace Game
                 case ItemType.GiftPack:
                     {
                         GiftPack giftPack = this.boxItem.Item as GiftPack;
+                        Txt_Memo.text = giftPack.Des;
                         this.Btn_Use.gameObject.SetActive(true);
                     }
                     break;

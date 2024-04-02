@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3371009593
+CRC: 1472175287
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 57e2bf34c0cf32756433ce8c6cd95cbc
+    Hash: 1ad2749dcbfd89c4dca99c179c3bbe6c
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -54,6 +54,7 @@ Assets:
 - Assets/Resources/Config/AchievementConfigCategory.bytes
 - Assets/Resources/Config/AurasConfigCategory.bytes
 - Assets/Resources/Config/ExclusiveConfigCategory.bytes
+- Assets/Resources/Config/EquipGradeConfigCategory.bytes
 - Assets/Resources/Config/MonsterModelConfigCategory.bytes
 - Assets/Resources/Config/HalidomConfigCategory.bytes
 - Assets/Resources/Config/SkillDoubleHitConfigCategory.bytes
