@@ -15,55 +15,106 @@ namespace Game
     public class UserData
     {
         static string savePath = "user";
+
         static string fileName = "data.json"; //文件名
-        static string tempName = "temp.json"; //文件名
         static string ppKey = "key";
+
+        static string[] BackKeyList = { "key1", "key2", "key3" };
+        static string backPath = "back";
+        static string[] BackFileName = { "back1.json", "back2.json", "back3.json" };
 
         public static long StartTime = 0;
         //public static string tapAccount = "";
+
+
+        public static string GetBackKey(int index)
+        {
+            return BackKeyList[index] + "" + ConfigHelper.Channel;
+        }
+
+        public static User LoadByKey(int index)
+        {
+            Debug.Log("读取备份文件:" + index);
+
+            string filePath = GetBackPath(index);
+            //Debug.Log("备份路径:" + index + " " + filePath);
+            string backKey = GetBackKey(index);
+            string key = PlayerPrefs.GetString(backKey);
+            //Debug.Log("备份Key:" + index + " " + key);
+
+            if (key == "")
+            {
+                return null;
+            }
+
+            //读取文件
+            StreamReader sr = new StreamReader(filePath);
+            string str_json = sr.ReadToEnd();
+            sr.Close();
+
+            if (str_json.Length <= 0)
+            {
+                return null;
+            }
+            //Debug.Log("备份str_json:" + index + " " + str_json);
+
+            str_json = EncryptionHelper.AesDecrypt(str_json, key);
+
+            //Debug.Log("备份json:" + index + " " + str_json);
+
+            User user = JsonConvert.DeserializeObject<User>(str_json, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
+
+            return user;
+        }
 
         public static User Load()
         {
             User user = null;
 
-            string filePath = getSavePath();
-            Debug.Log($"存档路径：{filePath}");
+            string filePath = GetSavePath();
+            //Debug.Log($"存档路径：{filePath}");
 
             if (System.IO.File.Exists(filePath))
             {
                 //PlayerPrefs.DeleteAll();
                 string key = PlayerPrefs.GetString(ppKey);
 
-                Debug.Log("key:" + key);
-
                 //读取文件
                 System.IO.StreamReader sr = new System.IO.StreamReader(filePath);
                 string str_json = sr.ReadToEnd();
                 sr.Close();
-                int size = str_json.Length;
 
-                if (key == "" && ConfigHelper.Version == 208)
+                if (str_json.Length > 0)
                 {
-                    str_json = EncryptionHelper.AesDecrypt(str_json);
+                    if (key == "" && ConfigHelper.Version <= 209)
+                    {
+                        str_json = EncryptionHelper.AesDecrypt(str_json);
+                    }
+                    else
+                    {
+                        str_json = EncryptionHelper.AesDecrypt(str_json, key);
+                    }
+
+                    user = JsonConvert.DeserializeObject<User>(str_json, new JsonSerializerSettings
+                    {
+                        TypeNameHandling = TypeNameHandling.Auto
+                    });
+                    //Debug.Log("成功读取");
                 }
-                else
-                {
-                    str_json = EncryptionHelper.AesDecrypt(str_json, key);
-                }
 
-                //Debug.Log(str_json);
-
-                //反序列化
-                user = JsonConvert.DeserializeObject<User>(str_json, new JsonSerializerSettings
+                if (user == null)
                 {
-                    TypeNameHandling = TypeNameHandling.Auto
-                });
-                //Debug.Log("成功读取");
-
-                if (user == null && size > 1000)
-                {
-                    Debug.Log("读取错误,此处应该读取备份");
-                    return null;
+                    for (int i = 0; i < BackKeyList.Length; i++)
+                    {
+                        user = LoadByKey(i);
+                        if (user != null)
+                        {
+                            break;
+                        }
+                    }
                 }
             }
 
@@ -166,7 +217,7 @@ namespace Game
             return user;
         }
 
-        public static void Save(bool andTemp = false)
+        public static void Save()
         {
             if (GameProcessor.Inst == null || GameProcessor.Inst.User == null)
             {
@@ -186,58 +237,63 @@ namespace Game
                 return;
             }
 
-
             string key = Guid.NewGuid().ToString().Substring(0, 16);
-            Debug.Log("save key" + key);
+            //Debug.Log("save key" + key);
             PlayerPrefs.SetString(ppKey, key);
 
             //加密
             str_json = EncryptionHelper.AesEncrypt(str_json, key);
 
-            //
-            SaveData(str_json, andTemp);
-        }
-
-        public static void SaveData(string str_json, bool andTemp)
-        {
-            string filePath = getSavePath();             //文件路径
+            string filePath = GetSavePath();             //文件路径
 
             using (StreamWriter writer = new StreamWriter(filePath))
             {
                 // 写入要保存的内容
                 writer.Write(str_json);
             }
-
-            if (andTemp)
-            {
-                string tempPath = getTempPath();
-                using (StreamWriter writer = new StreamWriter(tempPath))
-                {
-                    // 写入要保存的内容
-                    writer.Write(str_json);
-                }
-            }
         }
-        public static string getTempPath()
+
+        public static void SaveBack(int index)
         {
-            string folderPath = Path.Combine(Application.persistentDataPath, savePath); //文件夹路径
-
-            if (!File.Exists(folderPath))
+            if (GameProcessor.Inst == null || GameProcessor.Inst.User == null)
             {
-                Directory.CreateDirectory(folderPath);
+                return;
+            }
+            var user = GameProcessor.Inst.User;
+            //user.LastOut = TimeHelper.ClientNowSeconds();
+
+            //序列化
+            string str_json = JsonConvert.SerializeObject(user, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
+
+            if (str_json.Length <= 0)
+            {
+                return;
             }
 
-            string filePath = Path.Combine(folderPath, tempName);             //文件路径
+            //Debug.Log("save back " + index);
 
-            if (!File.Exists(filePath))
+            string pk = GetBackKey(index);
+            string pv = Guid.NewGuid().ToString().Substring(0, 16);
+
+            PlayerPrefs.SetString(pk, pv);
+            //Debug.Log("back pp: " + pk + " " + pv);
+
+            //加密
+            str_json = EncryptionHelper.AesEncrypt(str_json, pv);
+
+            string filePath = GetBackPath(index);             //文件路径
+            //Debug.Log("back filePath: " + filePath);
+            using (StreamWriter writer = new StreamWriter(filePath))
             {
-                //创建文件
-                File.Create(filePath).Dispose();
+                // 写入要保存的内容
+                writer.Write(str_json);
             }
-
-            return filePath;
         }
-        public static string getSavePath()
+
+        public static string GetSavePath()
         {
             string folderPath = Path.Combine(Application.persistentDataPath, savePath); //文件夹路径
 
@@ -247,6 +303,27 @@ namespace Game
             }
 
             string filePath = Path.Combine(folderPath, fileName);             //文件路径
+
+            if (!File.Exists(filePath))
+            {
+                //创建文件
+                File.Create(filePath).Dispose();
+            }
+
+            return filePath;
+        }
+
+        public static string GetBackPath(int index)
+        {
+            string folderPath = Path.Combine(Application.persistentDataPath, backPath); //文件夹路径
+
+            if (!File.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+
+            string backFileName = BackFileName[index];
+            string filePath = Path.Combine(folderPath, backFileName);             //文件路径
 
             if (!File.Exists(filePath))
             {

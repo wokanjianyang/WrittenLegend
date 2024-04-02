@@ -55,10 +55,10 @@ namespace Game
             string skey = AppHelper.getKey();
 
             string code = EncryptionHelper.AesEncrypt(deviceId, skey);
-            Debug.Log("code:" + code);
+            //Debug.Log("code:" + code);
 
             code = EncryptionHelper.Md5(code + fileId);
-            Debug.Log("code:" + code);
+            //Debug.Log("code:" + code);
 
             return code;
         }
@@ -99,7 +99,6 @@ namespace Game
 
             using (var request = UnityWebRequest.Post(url, "POST"))
             {
-                string path = UserData.getSavePath();
                 using (var db = new DownloadHandlerBuffer())
                 {
                     string account = GameProcessor.Inst.User.Account;
@@ -145,12 +144,14 @@ namespace Game
                     string account = GameProcessor.Inst.User.Account;
                     string deviceId = AppHelper.GetDeviceIdentifier();
                     string fileId = GameProcessor.Inst.User.DeviceId;
+                    string level = GameProcessor.Inst.User.MagicLevel.Data + "";
                     string sign = BuildSign();
 
                     request.SetRequestHeader("account", account);
                     request.SetRequestHeader("deviceId", deviceId);
                     request.SetRequestHeader("fileId", fileId);
                     request.SetRequestHeader("sign", sign);
+                    request.SetRequestHeader("level", level);
 
                     if (headers != null)
                     {

@@ -58,28 +58,28 @@ namespace Game
             this.Init();
 
             //AsyncLoginTap();
-            if (ConfigHelper.Channel == ConfigHelper.Channel_Tap)
-            {
-                this.Tf_Login.gameObject.SetActive(false);
-                this.txt_Memo.gameObject.SetActive(false);
+            //if (ConfigHelper.Channel == ConfigHelper.Channel_Tap)
+            //{
+            //    this.Tf_Login.gameObject.SetActive(false);
+            //    this.txt_Memo.gameObject.SetActive(false);
 
-                this.btn_Save.gameObject.SetActive(false);
-                this.btn_Load.gameObject.SetActive(false);
-            }
+            //    this.btn_Save.gameObject.SetActive(false);
+            //    this.btn_Load.gameObject.SetActive(false);
+            //}
         }
 
         float currentRoundTime = 0;
         private void Update()
         {
-            if (ConfigHelper.Channel != ConfigHelper.Channel_Tap)
+            //if (ConfigHelper.Channel != ConfigHelper.Channel_Tap)
+            //{
+            this.currentRoundTime += Time.unscaledDeltaTime;
+            if (this.currentRoundTime >= 1.0)
             {
-                this.currentRoundTime += Time.unscaledDeltaTime;
-                if (this.currentRoundTime >= 0.2)
-                {
-                    this.currentRoundTime = 0;
-                    Show();
-                }
+                this.currentRoundTime = 0;
+                Show();
             }
+            //}
         }
 
         private void Show()
