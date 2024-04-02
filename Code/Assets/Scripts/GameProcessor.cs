@@ -367,7 +367,7 @@ namespace Game
                 StartCoroutine(this.AutoExitApp(ExitType.Version));
                 return;
             }
-            if (isCheckError || User.GameCheat)
+            if (isCheckError || User.GameDoCheat)
             {
                 StartCoroutine(this.AutoExitApp(ExitType.Change));
                 return;
@@ -548,7 +548,7 @@ namespace Game
         {
             if (User != null)
             {
-                User.GameCheat = true;
+                User.GameDoCheat = true;
             }
             StartCoroutine(this.AutoExitApp(ExitType.Change));
         }
