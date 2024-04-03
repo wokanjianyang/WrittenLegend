@@ -37,7 +37,7 @@ namespace Game
             this.gameObject.SetActive(false);
             //Time.timeScale = 1;
         }
-        
+
 
         public void ShowOffline()
         {
@@ -118,7 +118,18 @@ namespace Game
             //items.Add(new Equip(22005709, 23, 15, 5));
             //items.Add(new Equip(22005710, 23, 15, 5));
 
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Copy_Ticket,1000));
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Copy_Ticket, 3600));
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, 450));
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Wing_Stone, 300));
+
+            //items.Add(ItemHelper.BuildItem(ItemType.Card, 2000006, 10, 5));
+            //items.Add(ItemHelper.BuildItem(ItemType.Card, 2000007, 10, 5));
+            //items.Add(ItemHelper.BuildItem(ItemType.Card, 2000008, 10, 5));
+            //items.Add(ItemHelper.BuildItem(ItemType.Card, 2000009, 10, 5));
+            //items.Add(ItemHelper.BuildItem(ItemType.Card, 2000010, 10, 5));
+
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 13, 1, 1));
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 14, 1, 1));
 
             long newFloor = user.MagicTowerFloor.Data + offlineFloor;
 
@@ -179,7 +190,6 @@ namespace Game
 
                 OfflineMessage += $"<color=#{QualityConfigHelper.GetQualityColor(metalConfig.Quality)}>[{metalConfig.Name}]</color>" + kp.Value + "¸ö";
             }
-
 
             UserData.Save();
 

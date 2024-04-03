@@ -178,7 +178,7 @@ namespace Game
 
         private bool isDingzhi = false;
 
-        private string[] DingzhiUserId = new string[] { "7B97AC4A45", "0AF588B5A9", "A99597B885" };
+        private string[] DingzhiUserId = new string[] { "7B97AC4A45" }; //, "0AF588B5A9", "A99597B885"
         private string[] DingzhiDeviceId = new string[] { "7B97AC4A45", "0AF588B5A9", "A99597B885" };
 
         public User()

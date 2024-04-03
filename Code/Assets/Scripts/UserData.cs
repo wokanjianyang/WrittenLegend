@@ -211,6 +211,11 @@ namespace Game
             //TestFull(user);
             //user.AdData.CodeDict.Clear();
 
+            //补偿
+            //user.MagicLevel.Data = 30000;
+            //user.Record.AddRecord(RecordType.AdReal, 360);
+
+
             //记录版号
             user.VersionLog[ConfigHelper.Version] = TimeHelper.ClientNowSeconds();
 
