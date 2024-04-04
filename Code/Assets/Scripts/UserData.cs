@@ -244,18 +244,31 @@ namespace Game
 
             string key = Guid.NewGuid().ToString().Substring(0, 16);
             //Debug.Log("save key" + key);
-            PlayerPrefs.SetString(ppKey, key);
+
 
             //加密
             str_json = EncryptionHelper.AesEncrypt(str_json, key);
 
             string filePath = GetSavePath();             //文件路径
 
-            using (StreamWriter writer = new StreamWriter(filePath))
+            try
             {
-                // 写入要保存的内容
-                writer.Write(str_json);
+                File.WriteAllText(filePath, str_json);
+                PlayerPrefs.SetString(ppKey, key);
+
+                Debug.Log("saved successfully.");
             }
+            catch (Exception ex)
+            {
+
+                Debug.Log("saved Error." + ex.Message);
+            }
+
+            //using (StreamWriter writer = new StreamWriter(filePath))
+            //{
+            //    // 写入要保存的内容
+            //    writer.Write(str_json);
+            //}
         }
 
         public static void SaveBack(int index)
@@ -282,20 +295,30 @@ namespace Game
 
             string pk = GetBackKey(index);
             string pv = Guid.NewGuid().ToString().Substring(0, 16);
-
-            PlayerPrefs.SetString(pk, pv);
             //Debug.Log("back pp: " + pk + " " + pv);
 
             //加密
             str_json = EncryptionHelper.AesEncrypt(str_json, pv);
 
             string filePath = GetBackPath(index);             //文件路径
-            //Debug.Log("back filePath: " + filePath);
-            using (StreamWriter writer = new StreamWriter(filePath))
+
+            try
             {
-                // 写入要保存的内容
-                writer.Write(str_json);
+                File.WriteAllText(filePath, str_json);
+                PlayerPrefs.SetString(pk, pv);
+
+                Debug.Log("save back successfully.");
             }
+            catch (Exception ex)
+            {
+                Debug.Log("saved back Error." + ex.Message);
+            }
+            //Debug.Log("back filePath: " + filePath);
+            //using (StreamWriter writer = new StreamWriter(filePath))
+            //{
+            //    // 写入要保存的内容
+            //    writer.Write(str_json);
+            //}
         }
 
         public static string GetSavePath()

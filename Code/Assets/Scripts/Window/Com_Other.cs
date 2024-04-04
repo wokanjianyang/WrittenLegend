@@ -53,19 +53,7 @@ namespace Game
             this.btn_Save.onClick.AddListener(this.OnClick_Save);
             this.btn_Load.onClick.AddListener(this.OnClick_Load);
 
-            //this.CheckProgress();
-
             this.Init();
-
-            //AsyncLoginTap();
-            //if (ConfigHelper.Channel == ConfigHelper.Channel_Tap)
-            //{
-            //    this.Tf_Login.gameObject.SetActive(false);
-            //    this.txt_Memo.gameObject.SetActive(false);
-
-            //    this.btn_Save.gameObject.SetActive(false);
-            //    this.btn_Load.gameObject.SetActive(false);
-            //}
         }
 
         float currentRoundTime = 0;
@@ -85,6 +73,11 @@ namespace Game
         private void Show()
         {
             User user = GameProcessor.Inst.User;
+            string account = user.Account;
+            if (account == "")
+            {
+                return;
+            }
 
             long now = TimeHelper.ClientNowSeconds();
             long cdSaveTime = now - user.SaveTicketTime;
