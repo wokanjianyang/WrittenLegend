@@ -143,7 +143,7 @@ namespace Game
                     UserData.SaveBack(index);
                 }
 
-                Debug.Log("onlineTime:"+ onlineTime);
+                Debug.Log("onlineTime:" + onlineTime);
 
                 if (this.User.Account != "" && this.User.SaveTicketTime > 0 && onlineTime > 20)
                 {
@@ -313,7 +313,7 @@ namespace Game
                 isTimeError = true;
             }
 
-            if (!isTimeError && !isCheckError && !isVersionError)
+            if (!isTimeError && !isCheckError && !isVersionError && User.SecondExpTick > 0)
             {
                 Dialog_OfflineExp offlineExp = Canvas.FindObjectOfType<Dialog_OfflineExp>(true);
                 offlineExp.ShowOffline();
