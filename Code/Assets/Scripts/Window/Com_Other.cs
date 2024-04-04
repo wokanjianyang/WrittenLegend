@@ -81,7 +81,7 @@ namespace Game
 
             long now = TimeHelper.ClientNowSeconds();
             long cdSaveTime = now - user.SaveTicketTime;
-            if (cdSaveTime > 3600)
+            if (cdSaveTime > 1800)
             {
                 btn_Save.gameObject.SetActive(true);
                 Txt_Save.gameObject.SetActive(false);
@@ -94,7 +94,7 @@ namespace Game
             }
 
             long cdLoadTime = now - user.LoadTicketTime;
-            if (cdLoadTime > 3600)
+            if (cdLoadTime > 1800)
             {
                 btn_Load.gameObject.SetActive(true);
                 Txt_Load.gameObject.SetActive(false);
