@@ -27,7 +27,7 @@ namespace Game
         void Start()
         {
             long level = GameProcessor.Inst.User.MagicLevel.Data;
-            if (level > 10000)
+            if (level > 20000)
             {
                 MineItem.gameObject.SetActive(true);
             }
