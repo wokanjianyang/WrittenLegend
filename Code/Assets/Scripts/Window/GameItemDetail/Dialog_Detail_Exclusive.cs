@@ -169,7 +169,7 @@ namespace Game
                 List<int> suitCountList = new List<int>();
                 foreach (int suitId in suitIdList)
                 {
-                    int suitCount = user.GetSuitCount(exclusive.SkillSuitConfig.Id);
+                    int suitCount = user.GetSuitCount(suitId);
                     suitCountList.Add(suitCount);
                 }
 

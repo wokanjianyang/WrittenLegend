@@ -44,6 +44,11 @@ namespace Game
         public Equip Equip { get; set; }
     }
 
+    public class GradeSelectEvent : SDD.Events.Event
+    {
+        public Equip Equip { get; set; }
+    }
+
     public class ComBoxDeselectEvent : SDD.Events.Event
     {
         public BoxItem BoxItem { get; set; }

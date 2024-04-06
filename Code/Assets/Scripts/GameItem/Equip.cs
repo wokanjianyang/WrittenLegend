@@ -210,5 +210,10 @@ namespace Game
             }
             return AttrList;
         }
+
+        public void Grade()
+        {
+            this.Layer++;
+        }
     }
 }

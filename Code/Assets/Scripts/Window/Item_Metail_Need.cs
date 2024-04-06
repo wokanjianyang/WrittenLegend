@@ -13,9 +13,6 @@ namespace Game
         public Text Txt_Name;
         public Text Txt_Count;
 
-        private int MetailId = 0;
-        private int UpCount = 0;
-
         // Start is called before the first frame update
         void Awake()
         {
@@ -28,22 +25,16 @@ namespace Game
 
         }
 
-        public void Init(int metailId, int upCount)
+        public void SetContent(int metailId, int upCount)
         {
-            this.MetailId = metailId;
-
             ItemConfig config = ItemConfigCategory.Instance.Get(metailId);
-
             this.Txt_Name.text = config.Name;
-        }
 
-        public void Refesh()
-        {
             User user = GameProcessor.Inst.User;
-            long stoneTotal = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == MetailId).Select(m => m.MagicNubmer.Data).Sum();
+            long stoneTotal = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == metailId).Select(m => m.MagicNubmer.Data).Sum();
 
-            string color = stoneTotal >= UpCount ? "#11FF11" : "#FF0000";
-            this.Txt_Count.text = string.Format("<color={0}>{1}/{2}</color>", color, stoneTotal, UpCount);
+            string color = stoneTotal >= upCount ? "#11FF11" : "#FF0000";
+            this.Txt_Count.text = string.Format("<color={0}>{1}/{2}</color>", color, stoneTotal, upCount);
         }
     }
 }

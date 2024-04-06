@@ -122,10 +122,10 @@ namespace Game
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, 450));
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Wing_Stone, 300));
 
-            //items.Add(ItemHelper.BuildItem(ItemType.Card, 2000006, 10, 5));
-            //items.Add(ItemHelper.BuildItem(ItemType.Card, 2000007, 10, 5));
-            //items.Add(ItemHelper.BuildItem(ItemType.Card, 2000008, 10, 5));
-            //items.Add(ItemHelper.BuildItem(ItemType.Card, 2000009, 10, 5));
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Stone, 1000));
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Heart, 100));
+          
+
             //items.Add(ItemHelper.BuildItem(ItemType.Card, 2000010, 10, 5));
 
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 13, 1, 1));
