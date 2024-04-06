@@ -180,8 +180,8 @@ namespace Game
 
         private bool isDingzhi = false;
 
-        private string[] DingzhiUserId = new string[] { "7B97AC4A45" }; //, "0AF588B5A9", "A99597B885"
-        private string[] DingzhiDeviceId = new string[] { "7B97AC4A45", "0AF588B5A9", "A99597B885" };
+        private string[] DingzhiUserId = new string[] { "7B97AC4A45", "0AF588B5A9", "A99597B885" }; //
+        private string[] DingzhiAccount = new string[] { "lucky1500", "lxp146" };
 
         public User()
         {
@@ -196,8 +196,7 @@ namespace Game
 
         public void Init()
         {
-            string deviceId = AppHelper.GetDeviceIdentifier();
-            if (DingzhiUserId.Contains(this.DeviceId) && DingzhiDeviceId.Contains(deviceId))
+            if (DingzhiUserId.Contains(this.DeviceId) && DingzhiAccount.Contains(Account))
             {
                 this.isDingzhi = true;
             }
@@ -763,7 +762,8 @@ namespace Game
             return list;
         }
 
-        public void SetAchievementProgeress(AchievementSourceType type, long count) {
+        public void SetAchievementProgeress(AchievementSourceType type, long count)
+        {
             if (!this.MagicRecord.ContainsKey(type))
             {
                 this.MagicRecord[type] = new MagicData();
