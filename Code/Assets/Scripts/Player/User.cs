@@ -115,6 +115,8 @@ namespace Game
 
         public long SaveTicketTime { get; set; } = 0;
 
+        public long SaveTickeTimeHand { get; set; } = 0;
+
         public long LoadTicketTime { get; set; } = 0;
 
         public MagicData MagicCopyTikerCount { get; } = new MagicData();

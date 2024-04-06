@@ -41,6 +41,8 @@ namespace Game
         public Button btn_Load;
         public Text Txt_Load;
 
+        private const int CdTime = 1800;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -80,8 +82,8 @@ namespace Game
             }
 
             long now = TimeHelper.ClientNowSeconds();
-            long cdSaveTime = now - user.SaveTicketTime;
-            if (cdSaveTime > 1800)
+            long cdSaveTime = now - user.SaveTickeTimeHand;
+            if (cdSaveTime > CdTime)
             {
                 btn_Save.gameObject.SetActive(true);
                 Txt_Save.gameObject.SetActive(false);
@@ -90,11 +92,11 @@ namespace Game
             {
                 btn_Save.gameObject.SetActive(false);
                 Txt_Save.gameObject.SetActive(true);
-                Txt_Save.text = TimeSpan.FromSeconds(3600 - cdSaveTime).ToString(@"hh\:mm\:ss");
+                Txt_Save.text = TimeSpan.FromSeconds(CdTime - cdSaveTime).ToString(@"hh\:mm\:ss");
             }
 
             long cdLoadTime = now - user.LoadTicketTime;
-            if (cdLoadTime > 1800)
+            if (cdLoadTime > CdTime)
             {
                 btn_Load.gameObject.SetActive(true);
                 Txt_Load.gameObject.SetActive(false);
@@ -103,7 +105,7 @@ namespace Game
             {
                 btn_Load.gameObject.SetActive(false);
                 Txt_Load.gameObject.SetActive(true);
-                Txt_Load.text = TimeSpan.FromSeconds(3600 - cdLoadTime).ToString(@"hh\:mm\:ss");
+                Txt_Load.text = TimeSpan.FromSeconds(CdTime - cdLoadTime).ToString(@"hh\:mm\:ss");
             }
         }
 
@@ -219,7 +221,7 @@ namespace Game
         private void saveData()
         {
             User user = GameProcessor.Inst.User;
-            user.SaveTicketTime = TimeHelper.ClientNowSeconds();
+            user.SaveTickeTimeHand = TimeHelper.ClientNowSeconds();
             btn_Save.gameObject.SetActive(false);
 
             this.txt_Info.text = "存档中......";
@@ -247,14 +249,14 @@ namespace Game
                             else
                             {
                                 this.txt_Info.text = "存档失败." + result.Msg;
-                                user.SaveTicketTime = TimeHelper.ClientNowSeconds() - 3600;
+                                user.SaveTickeTimeHand = TimeHelper.ClientNowSeconds() - CdTime;
                             }
                         },
                         () =>
                         {
                             btn_Load.gameObject.SetActive(true);
                             this.txt_Info.text = "存档失败.";
-                            user.SaveTicketTime = TimeHelper.ClientNowSeconds() - 3600;
+                            user.SaveTickeTimeHand = TimeHelper.ClientNowSeconds() - CdTime;
                         }
                         ));
             }
@@ -307,7 +309,7 @@ namespace Game
                   () =>
                   {
                       btn_Load.gameObject.SetActive(true);
-                      user.LoadTicketTime = TimeHelper.ClientNowSeconds() - 3600;
+                      user.LoadTicketTime = TimeHelper.ClientNowSeconds() - CdTime;
                       this.txt_Info.text = "读档失败.";
                   }
                   ));
