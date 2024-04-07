@@ -148,11 +148,20 @@ namespace Game
                 this.RefreshDate = tk;
                 this.RefreshCount = ConfigHelper.EquipRefreshCount;
             }
+
+            if (this.RuneSeed <= 0)
+            {
+                this.RuneSeed = AppHelper.InitSeed();
+            }
+            if (this.SuitSeed <= 0)
+            {
+                this.SuitSeed = AppHelper.InitSeed();
+            }
         }
 
         public void Refesh()
         {
-            int tempSeed = AppHelper.RefreshDaySeed(this.Seed);
+            int tempSeed = AppHelper.RefreshSeed(this.Seed);
             int tempRuneSeed = AppHelper.RefreshSeed1(this.RuneSeed);
             int tempSuitSeed = AppHelper.RefreshSeed(this.SuitSeed);
             //Debug.Log("tempSeed" + tempSeed);
@@ -177,6 +186,8 @@ namespace Game
         public void Init(int seed)
         {
             this.Seed = seed;
+            this.RuneSeed = AppHelper.InitSeed();
+            this.SuitSeed = AppHelper.InitSeed();
 
             //根据品质,生成随机属性
             if (EquipConfig.RandomAttr == 0 && Part <= 10)
