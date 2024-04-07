@@ -79,6 +79,15 @@ namespace Game
 
             return seed + 1;
         }
+        public static int RefreshSeed1(int seed)
+        {
+            if (seed <= 0)
+            {
+                return RandomHelper.RandomNumber(1, int.MaxValue - 1);
+            }
+
+            return seed - 1;
+        }
 
         public static int RefreshDaySeed(int seed)
         {

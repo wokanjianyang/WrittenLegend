@@ -13,7 +13,7 @@ namespace Game
 
     public class SkillRuneHelper
     {
-        public static SkillRuneConfig RandomRune(int seed, int role, int type, int quality, int level)
+        public static SkillRuneConfig RandomRune(int seed,int indexSeed, int role, int type, int quality, int level)
         {
             int skillId = role * 1000;
 
@@ -60,7 +60,7 @@ namespace Game
             List<SkillRuneConfig> list = SkillRuneConfigCategory.Instance.GetAll().Select(m => m.Value)
                 .Where(m => m.SkillId == skillId && m.Type == 1).ToList();
 
-            index = RandomHelper.RandomNumber(seed, 0, list.Count);
+            index = RandomHelper.RandomNumber(indexSeed, 0, list.Count);
 
             return list[index];
         }

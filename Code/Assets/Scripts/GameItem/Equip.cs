@@ -19,6 +19,8 @@ namespace Game
 
         public int Quality { get; set; }
         public int Layer { get; set; } = 1;
+        public int RuneSeed { get; set; }
+        public int SuitSeed { get; set; }
         public int RefreshCount { get; set; }
         public long RefreshDate { get; set; }
 
@@ -150,13 +152,15 @@ namespace Game
 
         public void Refesh()
         {
-            int tempSeed = AppHelper.RefreshSeed(this.Seed);
-            Debug.Log("tempSeed" + tempSeed);
+            int tempSeed = AppHelper.RefreshDaySeed(this.Seed);
+            int tempRuneSeed = AppHelper.RefreshSeed1(this.RuneSeed);
+            int tempSuitSeed = AppHelper.RefreshSeed(this.SuitSeed);
+            //Debug.Log("tempSeed" + tempSeed);
             List<KeyValuePair<int, long>> keyValues = AttrEntryConfigCategory.Instance.Build(this.Part, this.Level, this.Quality, this.EquipConfig.Role, tempSeed);
 
-            SkillRuneConfig runeConfig = SkillRuneHelper.RandomRune(tempSeed, this.EquipConfig.Role, 1, this.Quality, this.Level);
+            SkillRuneConfig runeConfig = SkillRuneHelper.RandomRune(tempSeed, tempRuneSeed, this.EquipConfig.Role, 1, this.Quality, this.Level);
 
-            SkillSuitConfig suitConfig = SkillSuitHelper.RandomSuit(tempSeed, runeConfig.SkillId);
+            SkillSuitConfig suitConfig = SkillSuitHelper.RandomSuit(tempSuitSeed, runeConfig.SkillId);
 
 
             this.Seed = tempSeed;

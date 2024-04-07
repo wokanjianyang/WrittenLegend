@@ -190,12 +190,15 @@ public class Panel_Refresh : MonoBehaviour
         });
 
         int tempSeed = AppHelper.RefreshSeed(SelectEquip.Seed);
+        int tempRuneSeed = AppHelper.RefreshSeed1(SelectEquip.RuneSeed);
+        int tempSuitSeed = AppHelper.RefreshSeed(SelectEquip.SuitSeed);
+
 
         List<KeyValuePair<int, long>> keyValues = AttrEntryConfigCategory.Instance.Build(SelectEquip.Part, SelectEquip.Level, SelectEquip.Quality, SelectEquip.EquipConfig.Role, tempSeed);
 
-        SkillRuneConfig runeConfig = SkillRuneHelper.RandomRune(tempSeed, SelectEquip.EquipConfig.Role, 1, SelectEquip.Quality, SelectEquip.Level);
+        SkillRuneConfig runeConfig = SkillRuneHelper.RandomRune(tempSeed, tempRuneSeed, SelectEquip.EquipConfig.Role, 1, SelectEquip.Quality, SelectEquip.Level);
 
-        int suitId = SkillSuitHelper.RandomSuit(tempSeed, runeConfig.SkillId).Id;
+        int suitId = SkillSuitHelper.RandomSuit(tempSuitSeed, runeConfig.SkillId).Id;
 
         AttrNew.gameObject.SetActive(true);
         AttrNew.Show(keyValues, runeConfig.Id, suitId);
