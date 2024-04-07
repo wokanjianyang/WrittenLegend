@@ -64,8 +64,8 @@
 {"_t":"AttrEntryConfig","_id":9,"AttrId":2001,"Type":1,"Desc":"攻击倍率","MinValue":1,"MaxValue":3,"PartList":[1,2,3,4,5,7,9,10],"StartLevel":750,"EndLevel":1050,"StartQuality":6,"EndQuality":6,"MaxCount":1,"Role":0},
 {"_t":"AttrEntryConfig","_id":10,"AttrId":2002,"Type":1,"Desc":"防御加成","MinValue":1,"MaxValue":3,"PartList":[1,2,3,4,5,7,9,10],"StartLevel":750,"EndLevel":1050,"StartQuality":6,"EndQuality":6,"MaxCount":1,"Role":0},
 {"_t":"AttrEntryConfig","_id":11,"AttrId":2003,"Type":1,"Desc":"生命倍率","MinValue":1,"MaxValue":3,"PartList":[1,2,3,4,5,7,9,10],"StartLevel":750,"EndLevel":1050,"StartQuality":6,"EndQuality":6,"MaxCount":1,"Role":0},
-{"_t":"AttrEntryConfig","_id":12,"AttrId":18,"Type":1,"Desc":"经验加成","MinValue":25,"MaxValue":50,"PartList":[1,2,3,4,5,7,9,10],"StartLevel":750,"EndLevel":1050,"StartQuality":6,"EndQuality":6,"MaxCount":2,"Role":0},
-{"_t":"AttrEntryConfig","_id":13,"AttrId":19,"Type":1,"Desc":"爆率加成","MinValue":25,"MaxValue":50,"PartList":[1,2,3,4,5,7,9,10],"StartLevel":750,"EndLevel":1050,"StartQuality":6,"EndQuality":6,"MaxCount":2,"Role":0},
-{"_t":"AttrEntryConfig","_id":14,"AttrId":20,"Type":1,"Desc":"金币加成","MinValue":25,"MaxValue":50,"PartList":[1,2,3,4,5,7,9,10],"StartLevel":750,"EndLevel":1050,"StartQuality":6,"EndQuality":6,"MaxCount":2,"Role":0},
-{"_t":"AttrEntryConfig","_id":15,"AttrId":24,"Type":1,"Desc":"品质加成","MinValue":25,"MaxValue":50,"PartList":[1,2,3,4,5,7,9,10],"StartLevel":750,"EndLevel":1050,"StartQuality":6,"EndQuality":6,"MaxCount":2,"Role":0},
+{"_t":"AttrEntryConfig","_id":12,"AttrId":18,"Type":1,"Desc":"经验加成","MinValue":25,"MaxValue":50,"PartList":[1,2,3,4,5,7,9,10],"StartLevel":750,"EndLevel":1050,"StartQuality":6,"EndQuality":6,"MaxCount":6,"Role":0},
+{"_t":"AttrEntryConfig","_id":13,"AttrId":19,"Type":1,"Desc":"爆率加成","MinValue":25,"MaxValue":50,"PartList":[1,2,3,4,5,7,9,10],"StartLevel":750,"EndLevel":1050,"StartQuality":6,"EndQuality":6,"MaxCount":6,"Role":0},
+{"_t":"AttrEntryConfig","_id":14,"AttrId":20,"Type":1,"Desc":"金币加成","MinValue":25,"MaxValue":50,"PartList":[1,2,3,4,5,7,9,10],"StartLevel":750,"EndLevel":1050,"StartQuality":6,"EndQuality":6,"MaxCount":6,"Role":0},
+{"_t":"AttrEntryConfig","_id":15,"AttrId":24,"Type":1,"Desc":"品质加成","MinValue":25,"MaxValue":50,"PartList":[1,2,3,4,5,7,9,10],"StartLevel":750,"EndLevel":1050,"StartQuality":6,"EndQuality":6,"MaxCount":6,"Role":0},
 ]}
