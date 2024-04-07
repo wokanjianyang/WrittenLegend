@@ -91,6 +91,11 @@ public class Panel_Refresh : MonoBehaviour
 
             Equip equip = dict[postion];
 
+            if (equip.GetQuality() < 6)
+            {
+                continue;
+            }
+
             ItemRefresh box = this.CreateBox(equip, bagBox);
             this.items.Add(box);
         }
@@ -146,7 +151,7 @@ public class Panel_Refresh : MonoBehaviour
         }
 
         this.txt_Total.text = "今日剩余洗练次数：" + SelectEquip.RefreshCount + "次";
-        int specialId = ItemHelper.SpecailEquipRefreshId[SelectEquip.Layer - 1];
+        int specialId = ItemHelper.SpecailEquipRefreshId;
         int upCount = ItemHelper.SpecailEquipRefreshCount[SelectEquip.Layer - 1];
 
         ItemConfig refreshConfig = ItemConfigCategory.Instance.Get(specialId);
@@ -161,7 +166,7 @@ public class Panel_Refresh : MonoBehaviour
 
     public void OnClickReferesh()
     {
-        int specialId = ItemHelper.SpecailEquipRefreshId[SelectEquip.Layer - 1];
+        int specialId = ItemHelper.SpecailEquipRefreshId;
         int upCount = ItemHelper.SpecailEquipRefreshCount[SelectEquip.Layer - 1];
 
         User user = GameProcessor.Inst.User;

@@ -82,7 +82,7 @@ public class Panel_Grade : MonoBehaviour
 
             Equip equip = dict[postion];
 
-            if (equip.GetQuality() != 6 && equip.Layer >= 7)
+            if (equip.GetQuality() < 6 || equip.Layer >= 7)
             {
                 continue;
             }

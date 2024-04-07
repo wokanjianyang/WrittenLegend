@@ -116,17 +116,20 @@ namespace Game
             {
                 long AttributeBase = EquipConfig.AttributeBase[i];
 
-                if (Quality <= 4)
+                if (this.Part <= 10)
                 {
-                    AttributeBase = AttributeBase * (Quality * 20 + 20) / 100;
-                }
-                else if (Quality == 5)
-                {
-                    AttributeBase = AttributeBase * 2;
-                }
-                else if (Quality == 6)
-                {
-                    AttributeBase = AttributeBase * (Layer);
+                    if (Quality <= 4)
+                    {
+                        AttributeBase = AttributeBase * (Quality * 20 + 20) / 100;
+                    }
+                    else if (Quality == 5)
+                    {
+                        AttributeBase = AttributeBase * 2;
+                    }
+                    else if (Quality == 6)
+                    {
+                        AttributeBase = AttributeBase * (Layer);
+                    }
                 }
 
                 BaseAttrList.Add(EquipConfig.BaseArray[i], AttributeBase);
