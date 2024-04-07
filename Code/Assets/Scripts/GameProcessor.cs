@@ -245,7 +245,7 @@ namespace Game
             {
                 this.User = user;
                 this.User.LoadTicketTime = TimeHelper.ClientNowSeconds();
-                this.User.DataDate = DateTime.Now.Ticks;
+                //this.User.DataDate = DateTime.Now.Ticks;
 
                 return true;
             }

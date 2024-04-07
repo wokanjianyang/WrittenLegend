@@ -92,7 +92,7 @@ namespace Game
 		public long AttrValue { get; set; }
 		/// <summary>RiseAttr</summary>
 		[ProtoMember(6)]
-		public int RiseAttr { get; set; }
+		public long RiseAttr { get; set; }
 		/// <summary>MaxLevel</summary>
 		[ProtoMember(7)]
 		public int MaxLevel { get; set; }

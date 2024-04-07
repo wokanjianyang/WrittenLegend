@@ -178,21 +178,23 @@ namespace Game
                             }
                         }
 
-                        if (equip.BaseAttrList != null && equip.BaseAttrList.Count > 0)
+                        IDictionary<int, long> BaseAttrList = equip.GetBaseAttrList();
+
+                        if (BaseAttrList != null && BaseAttrList.Count > 0)
                         {
                             tran_BaseAttribute.gameObject.SetActive(true);
                             tran_BaseAttribute.Find("Title").GetComponent<Text>().text = "[基础属性]";
                             tran_BaseAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.boxItem.Item.Level);
 
-                            var BaseAttrList = equip.BaseAttrList.ToList();
+                            var btList = BaseAttrList.ToList();
 
                             for (int index = 0; index < 6; index++)
                             {
                                 var child = tran_BaseAttribute.Find(string.Format("Attribute_{0}", index));
 
-                                if (index < BaseAttrList.Count)
+                                if (index < btList.Count())
                                 {
-                                    child.GetComponent<Text>().text = FormatAttrText(BaseAttrList[index].Key, BaseAttrList[index].Value, basePercent);
+                                    child.GetComponent<Text>().text = FormatAttrText(btList[index].Key, btList[index].Value, basePercent);
                                     child.gameObject.SetActive(true);
                                 }
                                 else

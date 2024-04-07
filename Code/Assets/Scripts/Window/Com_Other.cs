@@ -36,6 +36,7 @@ namespace Game
         public InputField If_Pwd;
         public Button btn_Change;
 
+        public Text Txt_Save_Auto;
         public Button btn_Save;
         public Text Txt_Save;
         public Button btn_Load;
@@ -79,6 +80,16 @@ namespace Game
             if (account == "")
             {
                 return;
+            }
+
+            long autoTime = user.SaveTicketTime;
+            if (autoTime > 0)
+            {
+                Txt_Save_Auto.text = "自动存档时间:" + TimeHelper.SecondsToDate(autoTime).ToString("G");
+            }
+            else
+            {
+                Txt_Save_Auto.text = "还没有自动存档";
             }
 
             long now = TimeHelper.ClientNowSeconds();
@@ -140,6 +151,7 @@ namespace Game
                     + "请不要一个存档绑定太多设备，会导致封号无法使用云存档。\n";
             }
 
+            this.Txt_Save_Auto.text = "";
             this.Txt_FileId.text = "存档Id:" + user.DeviceId;
             this.Txt_DeviceId.text = "设备Id:" + AppHelper.GetDeviceIdentifier();
 
@@ -186,6 +198,7 @@ namespace Game
                          this.btn_Load.gameObject.SetActive(true);
                          this.txt_Memo.gameObject.SetActive(true);
                          this.txt_Memo.text = "您已经绑定了存档,您的存档帐号为:" + account + ".\n"
+                            + "如果从未保存过,请务必先点击保存按钮,以防止丢失存档\n"
                            + "如果您需要切换设备，则在新设备输入同样的帐号和密码,\n"
                            + "再点击绑定，新设备就可以读取存档了。\n"
                            + "请不要一个存档绑定太多设备，会导致封号无法使用云存档。\n";

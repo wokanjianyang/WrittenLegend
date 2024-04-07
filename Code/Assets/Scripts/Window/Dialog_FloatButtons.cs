@@ -47,9 +47,16 @@ public class Dialog_FloatButtons : MonoBehaviour, IBattleLife, IPointerDownHandl
             Expend(isOn);
         });
 
-        this.Btn_Festive.onClick.AddListener(OnClick_Festive);
-
         this.Txt_Version.text = "V" + ConfigHelper.Version + "";
+
+        if (!ConfigHelper.ShowFestive)
+        {
+            this.Btn_Festive.gameObject.SetActive(false);
+        }
+        else
+        {
+            this.Btn_Festive.onClick.AddListener(OnClick_Festive);
+        }
     }
 
     public void OnBattleStart()

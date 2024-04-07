@@ -42,11 +42,11 @@ namespace Game
         [JsonIgnore]
         public int Part { get; set; }
 
-        [JsonIgnore]
-        /// <summary>
-        /// 基础属性
-        /// </summary>
-        public IDictionary<int, long> BaseAttrList { get; set; }
+        //[JsonIgnore]
+        ///// <summary>
+        ///// 基础属性
+        ///// </summary>
+        //public IDictionary<int, long> BaseAttrList { get; set; }
 
         [JsonIgnore]
         /// <summary>
@@ -83,28 +83,6 @@ namespace Game
             Gold = EquipConfig.Price;
             Quality = quality;
 
-            BaseAttrList = new Dictionary<int, long>();
-            for (int i = 0; i < EquipConfig.AttributeBase.Length; i++)
-            {
-                long AttributeBase = EquipConfig.AttributeBase[i];
-                if (EquipConfig.Quality == 0)  //随机品质装备 40%,60%,80%,100%
-                {
-                    if (Quality <= 4)
-                    {
-                        AttributeBase = AttributeBase * (Quality * 20 + 20) / 100;
-                    }
-                    else if (Quality == 5)
-                    {
-                        AttributeBase = AttributeBase * 2;
-                    }
-                    else if (Quality == 6)
-                    {
-                        AttributeBase = AttributeBase * 2 * (Layer);
-                    }
-                }
-                BaseAttrList.Add(EquipConfig.BaseArray[i], AttributeBase);
-            }
-
             QualityAttrList = new Dictionary<int, long>();
             if (Quality > 0 && Part <= 10)
             {
@@ -129,6 +107,32 @@ namespace Game
             {
                 SkillSuitConfig = SkillSuitConfigCategory.Instance.Get(SuitConfigId);
             }
+        }
+
+        public IDictionary<int, long> GetBaseAttrList()
+        {
+            IDictionary<int, long> BaseAttrList = new Dictionary<int, long>();
+            for (int i = 0; i < EquipConfig.AttributeBase.Length; i++)
+            {
+                long AttributeBase = EquipConfig.AttributeBase[i];
+
+                if (Quality <= 4)
+                {
+                    AttributeBase = AttributeBase * (Quality * 20 + 20) / 100;
+                }
+                else if (Quality == 5)
+                {
+                    AttributeBase = AttributeBase * 2;
+                }
+                else if (Quality == 6)
+                {
+                    AttributeBase = AttributeBase * (Layer);
+                }
+
+                BaseAttrList.Add(EquipConfig.BaseArray[i], AttributeBase);
+            }
+
+            return BaseAttrList;
         }
 
         public void CheckReFreshCount()
@@ -189,6 +193,8 @@ namespace Game
             }
 
             //根据基础属性和词条属性，计算总属性
+            IDictionary<int, long> BaseAttrList = this.GetBaseAttrList();
+
             IDictionary<int, long> AttrList = new Dictionary<int, long>();
             foreach (int attrId in BaseAttrList.Keys)
             {
