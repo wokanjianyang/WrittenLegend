@@ -42,7 +42,8 @@ namespace Game
         public Button btn_Load;
         public Text Txt_Load;
 
-        private const int CdTime = 1800;
+        private const int CdSaveTime = 1800;
+        private const int CdLoadTime = 7200;
 
         // Start is called before the first frame update
         void Start()
@@ -94,7 +95,7 @@ namespace Game
 
             long now = TimeHelper.ClientNowSeconds();
             long cdSaveTime = now - user.SaveTickeTimeHand;
-            if (cdSaveTime > CdTime)
+            if (cdSaveTime > CdSaveTime)
             {
                 btn_Save.gameObject.SetActive(true);
                 Txt_Save.gameObject.SetActive(false);
@@ -103,11 +104,11 @@ namespace Game
             {
                 btn_Save.gameObject.SetActive(false);
                 Txt_Save.gameObject.SetActive(true);
-                Txt_Save.text = TimeSpan.FromSeconds(CdTime - cdSaveTime).ToString(@"hh\:mm\:ss");
+                Txt_Save.text = TimeSpan.FromSeconds(CdSaveTime - cdSaveTime).ToString(@"hh\:mm\:ss");
             }
 
             long cdLoadTime = now - user.LoadTicketTime;
-            if (cdLoadTime > CdTime)
+            if (cdLoadTime > CdLoadTime)
             {
                 btn_Load.gameObject.SetActive(true);
                 Txt_Load.gameObject.SetActive(false);
@@ -116,7 +117,7 @@ namespace Game
             {
                 btn_Load.gameObject.SetActive(false);
                 Txt_Load.gameObject.SetActive(true);
-                Txt_Load.text = TimeSpan.FromSeconds(CdTime - cdLoadTime).ToString(@"hh\:mm\:ss");
+                Txt_Load.text = TimeSpan.FromSeconds(CdLoadTime - cdLoadTime).ToString(@"hh\:mm\:ss");
             }
         }
 
@@ -262,14 +263,14 @@ namespace Game
                             else
                             {
                                 this.txt_Info.text = "存档失败." + result.Msg;
-                                user.SaveTickeTimeHand = TimeHelper.ClientNowSeconds() - CdTime;
+                                user.SaveTickeTimeHand = TimeHelper.ClientNowSeconds() - CdSaveTime;
                             }
                         },
                         () =>
                         {
                             btn_Load.gameObject.SetActive(true);
                             this.txt_Info.text = "存档失败.";
-                            user.SaveTickeTimeHand = TimeHelper.ClientNowSeconds() - CdTime;
+                            user.SaveTickeTimeHand = TimeHelper.ClientNowSeconds() - CdSaveTime;
                         }
                         ));
             }
@@ -322,7 +323,7 @@ namespace Game
                   () =>
                   {
                       btn_Load.gameObject.SetActive(true);
-                      user.LoadTicketTime = TimeHelper.ClientNowSeconds() - CdTime;
+                      user.LoadTicketTime = TimeHelper.ClientNowSeconds() - CdLoadTime;
                       this.txt_Info.text = "读档失败.";
                   }
                   ));

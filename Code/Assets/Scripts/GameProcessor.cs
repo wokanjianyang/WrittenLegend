@@ -143,7 +143,7 @@ namespace Game
                     UserData.SaveBack(index);
                 }
 
-                Debug.Log("onlineTime:" + onlineTime);
+                //Debug.Log("onlineTime:" + onlineTime);
 
                 if (this.User.Account != "" && this.User.SaveTicketTime > 0 && onlineTime > 20)
                 {
