@@ -16,8 +16,6 @@ public class MapPhantom : MonoBehaviour, IBattleLife
     [LabelText("ÍË³ö")]
     public Button btn_Exit;
 
-    private bool isViewMapShowing = false;
-
     private GameObject msgPrefab;
     private List<Text> msgPool = new List<Text>();
     private int msgId = 0;
