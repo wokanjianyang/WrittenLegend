@@ -86,7 +86,7 @@ namespace Game
             long autoTime = user.SaveTicketTime;
             if (autoTime > 0)
             {
-                Txt_Save_Auto.text = "自动存档时间:" + TimeHelper.SecondsToDate(autoTime).ToString("G");
+                Txt_Save_Auto.text = "自动存档时间:" + TimeHelper.SecondsToDate(autoTime).AddHours(8).ToString("G");
             }
             else
             {
