@@ -44,6 +44,35 @@ namespace Game
 
         }
 
+        void OnEnable()
+        {
+            this.ShowName();
+        }
+
+        private void ShowName() {
+            if (this.BoxItem != null)
+            {
+                if (BoxItem.Item.Type == ItemType.Exclusive)
+                {
+                    ExclusiveItem exclusive = BoxItem.Item as ExclusiveItem;
+                    if (exclusive.GetLevel() > 1)
+                    {
+                        this.Layer.text = ConfigHelper.LayerChinaList[(exclusive.GetLevel() - 1)] + "阶"; ;
+                        this.Layer.gameObject.SetActive(true);
+                    }
+                }
+                else if (BoxItem.Item.Type == ItemType.Equip)
+                {
+                    Equip equip = BoxItem.Item as Equip;
+                    if (equip.GetQuality() > 5)
+                    {
+                        this.Layer.text = ConfigHelper.LayerChinaList[equip.Layer] + "阶";
+                        this.Layer.gameObject.SetActive(true);
+                    }
+                }
+            }
+        }
+
         public void OnPointerClick(PointerEventData eventData)
         {
             if (this.BoxItem == null) return;
@@ -127,24 +156,7 @@ namespace Game
                 this.Tag.text = $"<color=#{QualityConfigHelper.GetEquipTagColor(item.Item.IsKeep)}>New</color>";
             }
 
-            if (item.Item.Type == ItemType.Exclusive)
-            {
-                ExclusiveItem exclusive = item.Item as ExclusiveItem;
-                if (exclusive.GetLevel() > 1)
-                {
-                    this.Layer.text = ConfigHelper.LayerChinaList[(exclusive.GetLevel() - 1)] + "阶"; ;
-                    this.Layer.gameObject.SetActive(true);
-                }
-            }
-            else if (item.Item.Type == ItemType.Equip)
-            {
-                Equip equip = item.Item as Equip;
-                if (equip.GetQuality() > 5)
-                {
-                    this.Layer.text = ConfigHelper.LayerChinaList[equip.Layer] + "阶";
-                    this.Layer.gameObject.SetActive(true);
-                }
-            }
+            this.ShowName();
         }
 
         public void SetBoxId(int id)

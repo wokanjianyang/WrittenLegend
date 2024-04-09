@@ -466,7 +466,8 @@ public class ViewForgeProcessor : AViewPage
         User user = GameProcessor.Inst.User;
         user.MagicEquipRefine.TryGetValue(Refine_Position, out MagicData refineData);
 
-        if (refineData.Data >= 350)
+        long MaxLevel = user.GetLimitLevel() * 25 + 50;
+        if (refineData.Data >= MaxLevel)
         {
             //
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "精练等级满级了", ToastType = ToastTypeEnum.Failure });
