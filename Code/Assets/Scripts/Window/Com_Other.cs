@@ -146,10 +146,7 @@ namespace Game
                 this.btn_Save.gameObject.SetActive(true);
                 this.btn_Load.gameObject.SetActive(true);
                 this.txt_Memo.gameObject.SetActive(true);
-                this.txt_Memo.text = "您已经绑定了存档,您的存档帐号为:" + account + ".\n"
-                    + "如果您需要切换设备，则在新设备输入同样的帐号和密码,\n"
-                    + "再点击绑定，新设备就可以读取存档了。\n"
-                    + "请不要一个存档绑定太多设备，会导致封号无法使用云存档。\n";
+                this.txt_Memo.text = buildMeme(account);
             }
 
             this.Txt_Save_Auto.text = "";
@@ -198,11 +195,7 @@ namespace Game
                          this.btn_Save.gameObject.SetActive(true);
                          this.btn_Load.gameObject.SetActive(true);
                          this.txt_Memo.gameObject.SetActive(true);
-                         this.txt_Memo.text = "您已经绑定了存档,您的存档帐号为:" + account + ".\n"
-                            + "如果从未保存过,请务必先点击保存按钮,以防止丢失存档\n"
-                           + "如果您需要切换设备，则在新设备输入同样的帐号和密码,\n"
-                           + "再点击绑定，新设备就可以读取存档了。\n"
-                           + "请不要一个存档绑定太多设备，会导致封号无法使用云存档。\n";
+                         this.txt_Memo.text = buildMeme(account);
                      }
                      else
                      {
@@ -219,6 +212,15 @@ namespace Game
                  ));
         }
 
+        private string buildMeme(string account)
+        {
+            return "您已经绑定了帐号,您的存档帐号为:" + account + "\n"
+                                + "第一次绑定,请务必先点击保存按钮,以防丢档。\n"
+                               + "如果您需要换设备，请在新设备输入帐号和密码，\n"
+                               + "再点击绑定，最后点击读取存档。\n"
+                               + "一天读档最多次数为5次。\n"
+                               + "请不要一个存档绑定太多设备，会导致封号。\n";
+        }
 
         public void OnClick_Load()
         {
@@ -306,8 +308,15 @@ namespace Game
                       }
 
                       string str_json = Encoding.UTF8.GetString(bytes);
-                      string md5 = EncryptionHelper.Md5(str_json);
-                      Debug.Log("load md5:" + md5);
+
+                      if (str_json.Length < 100)
+                      {
+                          WebResultWrapper result = JsonConvert.DeserializeObject<WebResultWrapper>(str_json);
+                          this.txt_Info.text = result.Msg;
+                          user.LoadTicketTime = TimeHelper.ClientNowSeconds() - CdLoadTime + 10;
+                          return;
+                      }
+
                       str_json = EncryptionHelper.AesDecrypt(str_json);
 
                       if (GameProcessor.Inst.LoadInit(str_json, account))
@@ -318,13 +327,15 @@ namespace Game
                       else
                       {
                           this.txt_Info.text = "读取失败,存档损坏,取消读档,请退出重进";
+                          user.LoadTicketTime = TimeHelper.ClientNowSeconds() - CdLoadTime + 10;
+
                       }
                       Application.Quit();
                   },
                   () =>
                   {
                       btn_Load.gameObject.SetActive(true);
-                      user.LoadTicketTime = TimeHelper.ClientNowSeconds() - CdLoadTime;
+                      user.LoadTicketTime = TimeHelper.ClientNowSeconds() - CdLoadTime + 10;
                       this.txt_Info.text = "读档失败.";
                   }
                   ));

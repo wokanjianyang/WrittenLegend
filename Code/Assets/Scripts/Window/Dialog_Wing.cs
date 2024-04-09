@@ -24,8 +24,6 @@ public class Dialog_Wing : MonoBehaviour, IBattleLife
 
     List<StrenthAttrItem> AttrList = new List<StrenthAttrItem>();
 
-    private int Sid = 0;
-
     public int Order => (int)ComponentOrder.Dialog;
 
     // Start is called before the first frame update
