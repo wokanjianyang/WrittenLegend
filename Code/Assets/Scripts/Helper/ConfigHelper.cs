@@ -18,7 +18,7 @@ namespace Game
 
         public const long Max_Level = 80000; //最大人物等级和强化等级
 
-        public const long Max_Level_Refine = 350; //最大精练等级
+        //public const long Max_Level_Refine = 350; //最大精练等级
 
         public const long Max_Floor = 18000000; //最大闯关
 

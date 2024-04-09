@@ -289,6 +289,7 @@ namespace Game
             btn_Load.gameObject.SetActive(false);
 
             this.txt_Info.text = "读档中......";
+            string account = user.Account;
 
             try
             {
@@ -309,7 +310,7 @@ namespace Game
                       Debug.Log("load md5:" + md5);
                       str_json = EncryptionHelper.AesDecrypt(str_json);
 
-                      if (GameProcessor.Inst.LoadInit(str_json))
+                      if (GameProcessor.Inst.LoadInit(str_json, account))
                       {
                           this.txt_Info.text = "读取存档成功,请退出重进";
                           UserData.Save();

@@ -231,7 +231,7 @@ namespace Game
             }
         }
 
-        public bool LoadInit(string str_json)
+        public bool LoadInit(string str_json, string account)
         {
             //Debug.Log(str_json);
 
@@ -244,6 +244,7 @@ namespace Game
             if (user != null)
             {
                 this.User = user;
+                this.User.Account = account;
                 this.User.LoadTicketTime = TimeHelper.ClientNowSeconds();
                 //this.User.DataDate = DateTime.Now.Ticks;
 

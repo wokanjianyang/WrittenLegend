@@ -249,7 +249,7 @@ namespace Game
                 EquipRefineConfig refineConfig = null;
                 if (MagicEquipRefine.TryGetValue(kvp.Key, out MagicData refineData))
                 {
-                    refineConfig = EquipRefineConfigCategory.Instance.GetByLevel(Math.Min(refineData.Data, ConfigHelper.Max_Level_Refine));
+                    refineConfig = EquipRefineConfigCategory.Instance.GetByLevel(refineData.Data);
                 }
 
                 foreach (var a in kvp.Value.GetTotalAttrList(refineConfig))
