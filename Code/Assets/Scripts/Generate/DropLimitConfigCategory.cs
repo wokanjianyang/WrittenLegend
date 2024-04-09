@@ -13,7 +13,7 @@ namespace Game
 
     public class DropLimitHelper
     {
-        public static List<Item> Build(int type, int mapId, double rateRise, double modelRise, int qualityRate,double countRise)
+        public static List<Item> Build(int type, int mapId, double rateRise, double modelRise, int qualityRate, double countRise)
         {
             User user = GameProcessor.Inst.User;
 
@@ -65,6 +65,10 @@ namespace Game
                         //Debug.Log("Start Current Rate:" + dropId + " ," + currentRate);
                         continue;
                     }
+                }
+                if (dropLimitId == 2005 && modelRise > 10)
+                {
+                    modelRise = 10;
                 }
 
                 rate = rate / modelRise;
