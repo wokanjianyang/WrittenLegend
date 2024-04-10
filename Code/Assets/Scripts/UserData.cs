@@ -77,45 +77,52 @@ namespace Game
             string filePath = GetSavePath();
             //Debug.Log($"存档路径：{filePath}");
 
-            if (System.IO.File.Exists(filePath))
+            try
             {
-                //PlayerPrefs.DeleteAll();
-                string key = PlayerPrefs.GetString(ppKey);
-
-                //读取文件
-                System.IO.StreamReader sr = new System.IO.StreamReader(filePath);
-                string str_json = sr.ReadToEnd();
-                sr.Close();
-
-                if (str_json.Length > 0)
+                if (System.IO.File.Exists(filePath))
                 {
-                    if (key == "" && ConfigHelper.Version <= 209)
-                    {
-                        str_json = EncryptionHelper.AesDecrypt(str_json);
-                    }
-                    else
-                    {
-                        str_json = EncryptionHelper.AesDecrypt(str_json, key);
-                    }
+                    //PlayerPrefs.DeleteAll();
+                    string key = PlayerPrefs.GetString(ppKey);
 
-                    user = JsonConvert.DeserializeObject<User>(str_json, new JsonSerializerSettings
-                    {
-                        TypeNameHandling = TypeNameHandling.Auto
-                    });
-                    //Debug.Log("成功读取");
-                }
+                    //读取文件
+                    System.IO.StreamReader sr = new System.IO.StreamReader(filePath);
+                    string str_json = sr.ReadToEnd();
+                    sr.Close();
 
-                if (user == null)
-                {
-                    for (int i = 0; i < BackKeyList.Length; i++)
+                    if (str_json.Length > 0)
                     {
-                        user = LoadByKey(i);
-                        if (user != null)
+                        if (key == "" && ConfigHelper.Version <= 209)
                         {
-                            break;
+                            str_json = EncryptionHelper.AesDecrypt(str_json);
+                        }
+                        else
+                        {
+                            str_json = EncryptionHelper.AesDecrypt(str_json, key);
+                        }
+
+                        user = JsonConvert.DeserializeObject<User>(str_json, new JsonSerializerSettings
+                        {
+                            TypeNameHandling = TypeNameHandling.Auto
+                        });
+                        //Debug.Log("成功读取");
+                    }
+
+                    if (user == null)
+                    {
+                        for (int i = 0; i < BackKeyList.Length; i++)
+                        {
+                            user = LoadByKey(i);
+                            if (user != null)
+                            {
+                                break;
+                            }
                         }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                Debug.Log(ex.Message);
             }
 
             if (user == null)
