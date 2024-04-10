@@ -214,12 +214,14 @@ namespace Game
 
         private string buildMeme(string account)
         {
+            string name = ConfigHelper.Channel == ConfigHelper.Channel_Tap ? "TAP" : "QQ";
             return "您已经绑定了帐号,您的存档帐号为:" + account + "\n"
                                 + "第一次绑定,请务必先点击保存按钮,以防丢档。\n"
                                + "如果您需要换设备，请在新设备输入帐号和密码，\n"
                                + "再点击绑定，最后点击读取存档。\n"
                                + "一天读档最多次数为5次。\n"
-                               + "请不要一个存档绑定太多设备，会导致封号。\n";
+                               + "请不要一个存档绑定太多设备，会导致封号。\n" + name;
+            
         }
 
         public void OnClick_Load()

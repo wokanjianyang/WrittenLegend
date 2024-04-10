@@ -130,6 +130,9 @@ namespace ET
             PlayerSettings.applicationIdentifier = "com.fulljoblegend.android";
             PlayerSettings.Android.useCustomKeystore = true;
             EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
+
+            PlayerSettings.SetScriptingDefineSymbolsForGroup(BuildTargetGroup.Standalone, "IS_TAPTAP"); //ODIN_INSPECTOR;EASY_MOBILE;EASY_MOBILE_PRO;
+
             var opa = BuildOptions.CompressWithLz4HC;
 
             BuildHelper.Build(BuildType.Release, PlatformType.Android, BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, opa, true, true, true, "Taptap版", true);
@@ -236,6 +239,10 @@ namespace ET
                     FileHelper.CleanDirectory("Assets/StreamingAssets/");
                     FileHelper.CopyDirectory(fold, "Assets/StreamingAssets/");
                 }
+
+                PlayerSettings.SetScriptingDefineSymbolsForGroup(BuildTargetGroup.Standalone, "");
+                string sl = PlayerSettings.GetScriptingDefineSymbolsForGroup(BuildTargetGroup.Standalone);
+                Debug.Log(sl);
 
                 if (isBuildExe)
                 {

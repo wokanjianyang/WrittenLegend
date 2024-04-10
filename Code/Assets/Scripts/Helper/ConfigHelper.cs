@@ -4,7 +4,11 @@ namespace Game
 {
     public class ConfigHelper
     {
+#if IS_TAPTAP
+        public const int Channel = 1; //Tap 1 QQ 2
+#else
         public const int Channel = 2; //Tap 1 QQ 2
+#endif
 
         public const int Channel_Tap = 1;
 
@@ -12,9 +16,9 @@ namespace Game
 
         public const bool ShowFestive = false;
 
-        public const long PackTime = 1712479884; //打包时间，防止作弊
+        public const long PackTime = 1712738444; //打包时间，防止作弊
 
-        public const long PackEndTime = 1714207884; //超过此时间,游戏不能使用，需要更新
+        public const long PackEndTime = 1714034444; //超过此时间,游戏不能使用，需要更新
 
         public const long Max_Level = 80000; //最大人物等级和强化等级
 
