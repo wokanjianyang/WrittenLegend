@@ -306,6 +306,7 @@ namespace Game
                       if (bytes == null)
                       {
                           this.txt_Info.text = "读档失败,还没有存档或者其他错误.";
+                          user.LoadTicketTime = TimeHelper.ClientNowSeconds() - CdLoadTime + 10;
                           return;
                       }
 
