@@ -131,7 +131,7 @@ namespace ET
             PlayerSettings.Android.useCustomKeystore = true;
             EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
 
-            PlayerSettings.SetScriptingDefineSymbolsForGroup(BuildTargetGroup.Standalone, "IS_TAPTAP"); //ODIN_INSPECTOR;EASY_MOBILE;EASY_MOBILE_PRO;
+            PlayerSettings.SetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup, "IS_TAPTAP"); //ODIN_INSPECTOR;EASY_MOBILE;EASY_MOBILE_PRO;
 
             var opa = BuildOptions.CompressWithLz4HC;
 
@@ -147,6 +147,8 @@ namespace ET
             PlayerSettings.Android.useCustomKeystore = true;
             EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
             var opa = BuildOptions.CompressWithLz4HC;
+
+            PlayerSettings.SetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup, "");
 
             BuildHelper.Build(BuildType.Release, PlatformType.Android, BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, opa, true, true, true, "QQ版", true);
         }
@@ -240,10 +242,6 @@ namespace ET
                     FileHelper.CopyDirectory(fold, "Assets/StreamingAssets/");
                 }
 
-                PlayerSettings.SetScriptingDefineSymbolsForGroup(BuildTargetGroup.Standalone, "");
-                string sl = PlayerSettings.GetScriptingDefineSymbolsForGroup(BuildTargetGroup.Standalone);
-                Debug.Log(sl);
-
                 if (isBuildExe)
                 {
 
@@ -253,6 +251,12 @@ namespace ET
                     };
                     UnityEngine.Debug.Log("start build exe");
                     BuildPipeline.BuildPlayer(levels, $"../{buildType.ToString()}/{exeName}", buildTarget, buildOptions);
+
+                    string sds = PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
+                    Debug.Log("sds:" + sds);
+                    PlayerSettings.SetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup, "");
+                    Debug.Log("reset sds:" + sds);
+
                     UnityEngine.Debug.Log("finish build exe");
                     ret = true;
                     if (buildType == BuildType.Release && isAddVersionNum)
