@@ -34,6 +34,7 @@ namespace Game
         Defend,
         HeroPhantom,
         Mine,
+        Infinite,
     }
 
     public enum ComponentOrder

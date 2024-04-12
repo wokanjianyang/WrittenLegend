@@ -215,6 +215,12 @@ namespace Game
 
     }
 
+    public class ShowInfiniteInfoEvent : SDD.Events.Event
+    {
+        public long Count { get; set; }
+        public long PauseCount { get; set; }
+    }
+
     public class ChangeMapEvent : SDD.Events.Event
     {
         public int MapId { get; set; }
