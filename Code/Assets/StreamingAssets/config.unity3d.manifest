@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 393797685
+CRC: 4084191472
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 859f096217703953803487886b5e2444
+    Hash: dcf4dcb986d7604f48aa4b02660f81ad
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -26,11 +26,12 @@ Assets:
 - Assets/Resources/Config/EquipRefineConfigCategory.bytes
 - Assets/Resources/Config/FashionSuitConfigCategory.bytes
 - Assets/Resources/Config/GiftPackExclusiveConfigCategory.bytes
+- Assets/Resources/Config/ArtifactConfigCategory.bytes
 - Assets/Resources/Config/AurasAttrConfigCategory.bytes
 - Assets/Resources/Config/EquipGroupConfigCategory.bytes
-- Assets/Resources/Config/MonsterBaseCategory.bytes
 - Assets/Resources/Config/AttrEntryConfigCategory.bytes
 - Assets/Resources/Config/EquipConfigCategory.bytes
+- Assets/Resources/Config/MonsterBaseCategory.bytes
 - Assets/Resources/Config/ItemConfigCategory.bytes
 - Assets/Resources/Config/MonsterDefendConfigCategory.bytes
 - Assets/Resources/Config/EquipQualityConfigCategory.bytes
@@ -57,7 +58,9 @@ Assets:
 - Assets/Resources/Config/EquipGradeConfigCategory.bytes
 - Assets/Resources/Config/MonsterModelConfigCategory.bytes
 - Assets/Resources/Config/HalidomConfigCategory.bytes
+- Assets/Resources/Config/InfiniteConfigCategory.bytes
 - Assets/Resources/Config/SkillDoubleHitConfigCategory.bytes
+- Assets/Resources/Config/InfiniteDropConfigCategory.bytes
 - Assets/Resources/Config/PhantomAttrConfigCategory.bytes
 - Assets/Resources/Config/MonsterSpecialConfigCategory.bytes
 - Assets/Resources/Config/ExchangeConfigCategory.bytes

@@ -483,6 +483,9 @@ namespace Game
                     autoHero = false;
                     this.BattleRule = new BattleRule_HeroPhantom(param);
                     break;
+                case RuleType.Infinite:
+                    this.BattleRule = new BattleRule_Infinite(param);
+                    break;
             }
 
             if (autoHero)

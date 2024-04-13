@@ -214,6 +214,7 @@ namespace Game
         Defend = 5,
         HeorPhantom = 6,
         Mine = 7,
+        Infinite =8,
     }
 
     public enum RoleType

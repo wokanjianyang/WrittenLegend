@@ -5,14 +5,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class Battle_Infinite : ABattleRule
+public class BattleRule_Infinite : ABattleRule
 {
     private bool Start = true;
 
     private bool Over = true;
 
     private int Level = 0;
-    private long Progress = 0;
+    private long Progress = 1;
 
     private const int MaxProgress = 1000; //
 
@@ -22,7 +22,7 @@ public class Battle_Infinite : ABattleRule
 
     protected override RuleType ruleType => RuleType.Infinite;
 
-    public Battle_Infinite(Dictionary<string, object> param)
+    public BattleRule_Infinite(Dictionary<string, object> param)
     {
         param.TryGetValue("progress", out object progress);
         param.TryGetValue("count", out object count);
@@ -47,6 +47,8 @@ public class Battle_Infinite : ABattleRule
 
         if (enemys.Count <= 0 && this.Progress <= MaxProgress && this.Start)
         {
+            this.Progress++;
+
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Defend, Message = "第" + this.Progress + "波发起了进攻" });
 
             //Load All

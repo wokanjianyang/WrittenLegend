@@ -43,6 +43,7 @@ public class Init : MonoBehaviour
         Map_AnDian,
         Map_Defend,
         Map_HeroPhantom,
+        Map_Infinite,
 
         Dialog_Detail,
         Dialog_Detail_Select,
@@ -105,6 +106,7 @@ public class Init : MonoBehaviour
                 WindowTypeEnum.Map_AnDian,
                 WindowTypeEnum.Map_Defend,
                 WindowTypeEnum.Map_HeroPhantom,
+                WindowTypeEnum.Map_Infinite,
                 WindowTypeEnum.Dialog_SoulRing,
                 WindowTypeEnum.Dialog_Achievement,
                 WindowTypeEnum.Dialog_Fashion,

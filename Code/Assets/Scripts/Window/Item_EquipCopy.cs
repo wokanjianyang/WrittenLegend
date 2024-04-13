@@ -62,6 +62,21 @@ namespace Game
                 var vm = this.GetComponentInParent<ViewMore>();
                 vm.StartHeroPhantom();
             }
+            else if (Type == CopyType.Infinite)
+            {
+                User user = GameProcessor.Inst.User;
+
+                InfiniteRecord record = user.InfiniteData.GetCurrentRecord();
+
+                if (record == null)
+                {
+                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "今天挑战已经通关了", ToastType = ToastTypeEnum.Failure });
+                    return;
+                }
+
+                var vm = this.GetComponentInParent<ViewMore>();
+                vm.StartInfinite();
+            }
             else if (Type == CopyType.Mine)
             {
                 GameProcessor.Inst.EventCenter.Raise(new OpenMineEvent());

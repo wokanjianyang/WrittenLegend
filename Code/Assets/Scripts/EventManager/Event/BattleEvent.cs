@@ -404,6 +404,10 @@ namespace Game
     {
         public int Time { get; set; }
     }
+    //------Infinite
+    public class InfiniteStartEvent : SDD.Events.Event
+    {
+    }
 
     //--------Fashion
     public class OpenFashionDialogEvent : SDD.Events.Event

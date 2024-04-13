@@ -27,8 +27,10 @@ namespace Game
 
         private void Init()
         {
+            QualityConfig qualityConfig = QualityConfigCategory.Instance.Get(this.Quality);
+
             this.Camp = PlayerType.Enemy;
-            this.Name = "";
+            this.Name = "无尽守卫" + qualityConfig.MonsterTitle;
             this.Level = Progeress * 100;
 
             this.SetAttr();  //设置属性值
@@ -79,7 +81,16 @@ namespace Game
 
             list.Add(new SkillData(9001, (int)SkillPosition.Default)); //add default skill
 
+            foreach (SkillData skillData in list)
+            {
+                List<SkillRune> runeList = SkillRuneHelper.GetAllRune(skillData.SkillId, this.Quality);
+                List<SkillSuit> suitList = SkillSuitHelper.GetAllSuit(skillData.SkillId, this.Quality);
 
+                SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, false);
+
+                SkillState skill = new SkillState(this, skillPanel, skillData.Position, 0);
+                SelectSkillList.Add(skill);
+            }
         }
     }
 }

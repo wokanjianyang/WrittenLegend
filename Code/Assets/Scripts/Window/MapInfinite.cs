@@ -37,15 +37,15 @@ public class MapInfinite : MonoBehaviour, IBattleLife
         this.msgPrefab = Resources.Load<GameObject>("Prefab/Window/Item/Item_DropMsg");
 
         GameProcessor.Inst.EventCenter.AddListener<BattleMsgEvent>(this.OnBattleMsgEvent);
-        GameProcessor.Inst.EventCenter.AddListener<ShowDefendInfoEvent>(this.OnShowDefendInfo);
-        GameProcessor.Inst.EventCenter.AddListener<DefendStartEvent>(this.OnDefendStart);
+        GameProcessor.Inst.EventCenter.AddListener<ShowInfiniteInfoEvent>(this.OnShowInfo);
+        GameProcessor.Inst.EventCenter.AddListener<InfiniteStartEvent>(this.OnInfiniteStart);
         GameProcessor.Inst.EventCenter.AddListener<BattleLoseEvent>(this.OnBattleLoseEvent);
 
         this.gameObject.SetActive(false);
     }
 
 
-    public void OnDefendStart(DefendStartEvent e)
+    public void OnInfiniteStart(InfiniteStartEvent e)
     {
         StartCopy();
     }
@@ -66,19 +66,18 @@ public class MapInfinite : MonoBehaviour, IBattleLife
 
         Dictionary<string, object> param = new Dictionary<string, object>();
         param.Add("progress", record.Progress.Data);
-        param.Add("hp", record.Hp.Data);
         param.Add("count", record.Count.Data);
 
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {
             GameProcessor.Inst.OnDestroy();
-            GameProcessor.Inst.LoadMap(RuleType.Defend, this.transform, param);
+            GameProcessor.Inst.LoadMap(RuleType.Infinite, this.transform, param);
         });
     }
 
-    public void OnShowDefendInfo(ShowDefendInfoEvent e)
+    public void OnShowInfo(ShowInfiniteInfoEvent e)
     {
-        Txt_Count.text = "进攻波数：" + e.Count;
+        Txt_Count.text = "挑战波数：" + e.Count;
         PauseCount = e.PauseCount;
     }
 

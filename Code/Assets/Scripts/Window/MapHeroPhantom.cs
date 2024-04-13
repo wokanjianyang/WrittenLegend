@@ -45,6 +45,9 @@ public class MapHeroPhantom : MonoBehaviour, IBattleLife
     {
         this.gameObject.SetActive(true);
 
+        User user = GameProcessor.Inst.User;
+        InfiniteRecord record = user.InfiniteData.GetCurrentRecord();
+
         this.MapTime = TimeHelper.ClientNowSeconds();
         Dictionary<string, object> param = new Dictionary<string, object>();
         param.Add("MapTime", MapTime);

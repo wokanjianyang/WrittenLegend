@@ -147,6 +147,13 @@ namespace Game
             GameProcessor.Inst.EventCenter.Raise(new HeroPhatomStartEvent() { });
         }
 
+        public void StartInfinite()
+        {
+            scrollRect.gameObject.SetActive(false);
+
+            GameProcessor.Inst.EventCenter.Raise(new InfiniteStartEvent() { });
+        }
+
         private void OpenMine(OpenMineEvent e)
         {
             MineDialog.gameObject.SetActive(true);
