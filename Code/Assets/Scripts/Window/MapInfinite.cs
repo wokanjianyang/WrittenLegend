@@ -83,7 +83,7 @@ public class MapInfinite : MonoBehaviour, IBattleLife
 
     private void OnBattleMsgEvent(BattleMsgEvent e)
     {
-        if (e.Type != RuleType.Defend)
+        if (e.Type != RuleType.Infinite)
         {
             return;
         }

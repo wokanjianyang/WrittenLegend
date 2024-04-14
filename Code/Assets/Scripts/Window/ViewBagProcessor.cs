@@ -1174,6 +1174,10 @@ namespace Game
                     {
                         //TODO
                     }
+                    else if (newItem.Type == ItemType.Artifact)
+                    {
+                        //user.MetalData
+                    }
                     else
                     {
                         AddBoxItem(newItem);

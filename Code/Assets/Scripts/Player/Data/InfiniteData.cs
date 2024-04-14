@@ -17,6 +17,8 @@ namespace Game
 
         public InfiniteRecord Current { get; set; }
 
+        public List<List<int>> DropList = new List<List<int>>();
+
         public InfiniteRecord GetCurrentRecord()
         {
             long nt = DateTime.Today.Ticks;
@@ -26,12 +28,27 @@ namespace Game
                 Current = new InfiniteRecord();
                 Current.Progress.Data = 1;
                 Current.Count.Data = 10;
+
+                this.BuildRate();
             }
 
             return Current;
         }
 
-        public void BuildCurrent()
+        public int GetDropId(int level)
+        {
+            if (this.DropList.Count < 2)
+            {
+                for (int i = DropList.Count; i < 2; i++)
+                {
+                    DropList.Add(InfiniteDropConfigCategory.Instance.GetAllDropIdList());
+                }
+            }
+
+            return DropList[0][level - 1];
+        }
+
+        private void BuildRate()
         {
 
         }
@@ -39,6 +56,9 @@ namespace Game
         public void Complete()
         {
             this.Current = null;
+            DropList.RemoveAt(0);
+
+            this.BuildRate();
         }
     }
 
@@ -47,7 +67,5 @@ namespace Game
         public MagicData Progress { get; set; } = new MagicData();
 
         public MagicData Count { get; set; } = new MagicData();
-
-        public Dictionary<int, int> DropDict = new Dictionary<int, int>();
     }
 }

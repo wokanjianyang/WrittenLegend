@@ -11,7 +11,6 @@ public class BattleRule_Infinite : ABattleRule
 
     private bool Over = true;
 
-    private int Level = 0;
     private long Progress = 1;
 
     private const int MaxProgress = 1000; //
@@ -47,9 +46,7 @@ public class BattleRule_Infinite : ABattleRule
 
         if (enemys.Count <= 0 && this.Progress <= MaxProgress && this.Start)
         {
-            this.Progress++;
-
-            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Defend, Message = "第" + this.Progress + "波发起了进攻" });
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Infinite, Message = "第" + this.Progress + "波发起了进攻" });
 
             //Load All
             for (int i = 0; i < MonsterList.Length; i++)
@@ -69,24 +66,14 @@ public class BattleRule_Infinite : ABattleRule
 
         if (enemys.Count <= 0 && !this.Start)
         {
-            //check 
-            long progess = user.GetAchievementProgeress(AchievementSourceType.Defend);
-            long cp = (this.Level - 1) * 100 + this.Progress;
-            if (progess < cp)
-            {
-                user.MagicRecord[AchievementSourceType.Defend].Data = cp;
-            }
-
             this.Start = true;
-
-            BuildReward(this.Progress);
 
             this.Progress++;
 
-            DefendRecord record = user.DefendData.GetCurrentRecord();
-
+            InfiniteRecord record = user.InfiniteData.GetCurrentRecord();
             record.Progress.Data = this.Progress;
 
+            BuildReward(this.Progress);
 
             return;
         }
@@ -94,14 +81,9 @@ public class BattleRule_Infinite : ABattleRule
         if (this.Progress > MaxProgress && this.Over)
         {
             this.Over = false;
-
-            user.DefendData.Complete();
-
-
-            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Defend, Message = "守卫成功" });
-
+            user.InfiniteData.Complete();
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Defend, Message = "无尽闯关成功，您就是神！！！" });
             GameProcessor.Inst.CloseBattle(RuleType.Defend, 0);
-
             return;
         }
     }
@@ -121,12 +103,10 @@ public class BattleRule_Infinite : ABattleRule
         List<KeyValuePair<double, DropConfig>> dropList = new List<KeyValuePair<double, DropConfig>>();
 
         //掉落道具
-        List<InfiniteDropConfig> infinites = InfiniteDropConfigCategory.Instance.GetLevelList(level);
-        foreach (InfiniteDropConfig config in infinites)
-        {
-            DropConfig dropConfig = DropConfigCategory.Instance.Get(config.DropId);
-            dropList.Add(new KeyValuePair<double, DropConfig>(config.Rate, dropConfig));
-        }
+        int dropId = user.InfiniteData.GetDropId((int)level);
+        DropConfig dropConfig = DropConfigCategory.Instance.Get(dropId);
+
+        dropList.Add(new KeyValuePair<double, DropConfig>(1, dropConfig));
 
         List<Item> items = DropHelper.BuildDropItem(dropList, 1);
 
