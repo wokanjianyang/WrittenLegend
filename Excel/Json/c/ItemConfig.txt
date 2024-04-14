@@ -236,4 +236,7 @@
 {"_t":"ItemConfig","_id":50000046,"Name":"七阶戒指升阶石","Type":5,"Des":"六阶红色戒指升级七阶的材料","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":6,"UseParam":0},
 {"_t":"ItemConfig","_id":50000047,"Name":"七阶腰带升阶石","Type":5,"Des":"六阶红色腰带升级七阶的材料","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":6,"UseParam":0},
 {"_t":"ItemConfig","_id":50000048,"Name":"七阶靴子升阶石","Type":5,"Des":"六阶红色靴子升级七阶的材料","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":6,"UseParam":0},
+{"_t":"ItemConfig","_id":60000000,"Name":"触龙之心","Type":14,"Des":"激活或者升级对应遗物","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":6,"UseParam":0},
+{"_t":"ItemConfig","_id":60000001,"Name":"白猪之心","Type":14,"Des":"激活或者升级对应遗物","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":6,"UseParam":0},
+{"_t":"ItemConfig","_id":60000002,"Name":"猪王之心","Type":14,"Des":"激活或者升级对应遗物","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":6,"UseParam":0},
 ]}

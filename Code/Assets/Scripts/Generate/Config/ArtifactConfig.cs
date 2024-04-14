@@ -78,20 +78,23 @@ namespace Game
 		/// <summary>Id</summary>
 		[ProtoMember(1)]
 		public int Id { get; set; }
-		/// <summary>Name</summary>
+		/// <summary>ItemId</summary>
 		[ProtoMember(2)]
+		public int ItemId { get; set; }
+		/// <summary>Name</summary>
+		[ProtoMember(3)]
 		public string Name { get; set; }
 		/// <summary>Type</summary>
-		[ProtoMember(3)]
+		[ProtoMember(4)]
 		public int Type { get; set; }
 		/// <summary>AttrValue</summary>
-		[ProtoMember(4)]
+		[ProtoMember(5)]
 		public long AttrValue { get; set; }
 		/// <summary>MaxCount</summary>
-		[ProtoMember(5)]
+		[ProtoMember(6)]
 		public int MaxCount { get; set; }
 		/// <summary>Des</summary>
-		[ProtoMember(6)]
+		[ProtoMember(7)]
 		public string Des { get; set; }
 
 	}

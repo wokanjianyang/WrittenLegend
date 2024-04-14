@@ -1,8 +1,8 @@
 {"list":[
-{"_t":"InfiniteDropConfig","_id":1,"DropId":220000,"Name":"副本劵","Rate":10,"StartRate":1,"EndRate":10,"StartLevel":1,"EndLevel":1000000,"Max":1},
-{"_t":"InfiniteDropConfig","_id":2,"DropId":220001,"Name":"Boss劵","Rate":10,"StartRate":11,"EndRate":20,"StartLevel":1,"EndLevel":1000000,"Max":1},
-{"_t":"InfiniteDropConfig","_id":3,"DropId":220002,"Name":"四格碎片","Rate":10000,"StartRate":21,"EndRate":10020,"StartLevel":1,"EndLevel":1000000,"Max":1},
-{"_t":"InfiniteDropConfig","_id":4,"DropId":220003,"Name":"图鉴碎片","Rate":10000,"StartRate":10021,"EndRate":20020,"StartLevel":1,"EndLevel":1000000,"Max":1},
+{"_t":"InfiniteDropConfig","_id":1,"DropId":220000,"Name":"副本劵","Rate":10,"StartRate":1,"EndRate":10,"StartLevel":1,"EndLevel":1000000,"Max":100},
+{"_t":"InfiniteDropConfig","_id":2,"DropId":220001,"Name":"Boss劵","Rate":10,"StartRate":11,"EndRate":20,"StartLevel":1,"EndLevel":1000000,"Max":20},
+{"_t":"InfiniteDropConfig","_id":3,"DropId":220002,"Name":"四格碎片","Rate":10000,"StartRate":21,"EndRate":10020,"StartLevel":1,"EndLevel":1000000,"Max":1000},
+{"_t":"InfiniteDropConfig","_id":4,"DropId":220003,"Name":"图鉴碎片","Rate":10000,"StartRate":10021,"EndRate":20020,"StartLevel":1,"EndLevel":1000000,"Max":1000},
 {"_t":"InfiniteDropConfig","_id":7,"DropId":2001,"Name":"橙色图鉴","Rate":100,"StartRate":1,"EndRate":100,"StartLevel":500,"EndLevel":10000,"Max":1},
 {"_t":"InfiniteDropConfig","_id":8,"DropId":2000,"Name":"沙城图鉴","Rate":100,"StartRate":101,"EndRate":200,"StartLevel":500,"EndLevel":10000,"Max":1},
 {"_t":"InfiniteDropConfig","_id":9,"DropId":2006,"Name":"红色图鉴","Rate":100,"StartRate":201,"EndRate":300,"StartLevel":500,"EndLevel":10000,"Max":1},

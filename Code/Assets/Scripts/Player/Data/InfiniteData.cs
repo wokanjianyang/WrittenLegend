@@ -45,6 +45,8 @@ namespace Game
                 }
             }
 
+            Debug.Log(DropList[0]);
+
             return DropList[0][level - 1];
         }
 

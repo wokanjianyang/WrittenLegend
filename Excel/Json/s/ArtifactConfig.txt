@@ -1,2 +1,4 @@
 {"list":[
+{"_t":"ArtifactConfig","_id":1,"ItemId":50000000,"Name":"BOSS杀手","Type":1,"AttrValue":1,"MaxCount":4,"Des":"BOSS之家挑战，可以增加一倍倍率"},
+{"_t":"ArtifactConfig","_id":2,"ItemId":50000001,"Name":"BOSS契约","Type":1,"AttrValue":1,"MaxCount":4,"Des":"广告的BOSS门票收益+1"},
 ]}
