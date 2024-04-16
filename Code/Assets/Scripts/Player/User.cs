@@ -148,6 +148,8 @@ namespace Game
 
         public Dictionary<int, MagicData> HalidomData { get; } = new Dictionary<int, MagicData>();
 
+        public Dictionary<int, MagicData> ArtifactData { get; } = new Dictionary<int, MagicData>();
+
         public List<DropData> DropDataList { get; } = new List<DropData>();
 
         public IDictionary<int, int> FestiveData { get; set; } = new Dictionary<int, int>();
@@ -955,64 +957,26 @@ namespace Game
             return list;
         }
 
-        //public void AddStartRate(int mapId, double count)
-        //{
-        //    count = count * this.GetDzRate();
+        public int GetArtifactLevel(int artifactId)
+        {
+            if (!this.ArtifactData.ContainsKey(artifactId))
+            {
+                ArtifactData[artifactId] = new MagicData();
+            }
 
-        //    List<DropLimitConfig> dropLimits = DropLimitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.StartRate > 0
-        //    && m.Type == (int)DropLimitType.Normal && m.StartMapId <= mapId && mapId <= m.EndMapId).ToList();
+            return (int)ArtifactData[artifactId].Data;
+        }
 
-        //    foreach (var dropLimit in dropLimits)
-        //    {
-        //        int key = dropLimit.Id;
-        //        if (!RateData.ContainsKey(key))
-        //        {
-        //            RateData[key] = 0;
-        //        }
-        //        RateData[key] += count;
-        //    }
-        //}
+        public void SaveArtifactLevel(int itemId, int level)
+        {
+            int artifactId = ArtifactConfigCategory.Instance.GetByItemId(itemId).Id;
 
-        //public List<Item> AddMapStartRate(List<DropLimitConfig> mapLimits, double count)
-        //{
-        //    List<Item> list = new List<Item>();
-
-        //    count = count * this.GetDzRate();
-
-        //    foreach (DropLimitConfig limitConfig in mapLimits)
-        //    {
-        //        int key = limitConfig.Id;
-
-        //        if (!RateLimitData.ContainsKey(key))
-        //        {
-        //            RateLimitData[key] = 0;
-        //        }
-        //        RateLimitData[key] += count;
-
-        //        //Debug.Log("Map Limit Drop: " + key + " :" + RateLimitData[key]);
-
-        //        if (RateLimitData[key] >= limitConfig.StartRate)
-        //        {
-        //            double rate = Math.Max(limitConfig.Rate + limitConfig.StartRate - RateLimitData[key], 1);
-
-        //            if (RandomHelper.RandomResult(rate))
-        //            {
-        //                RateLimitData[key] = 0;
-
-        //                DropConfig dropConfig = DropConfigCategory.Instance.Get(limitConfig.DropId);
-
-        //                int index = RandomHelper.RandomNumber(0, dropConfig.ItemIdList.Length);
-        //                int configId = dropConfig.ItemIdList[index];
-
-        //                Item item = ItemHelper.BuildItem((ItemType)dropConfig.ItemType, configId, 1, dropConfig.Quantity);
-
-        //                list.Add(item);
-        //            }
-        //        }
-        //    }
-
-        //    return list;
-        //}
+            if (!this.ArtifactData.ContainsKey(artifactId))
+            {
+                ArtifactData[artifactId] = new MagicData();
+            }
+            ArtifactData[artifactId].Data += level;
+        }
 
         public int GetFestiveCount(int id)
         {

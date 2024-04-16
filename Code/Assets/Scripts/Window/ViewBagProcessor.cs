@@ -1177,6 +1177,7 @@ namespace Game
                     else if (newItem.Type == ItemType.Artifact)
                     {
                         //user.MetalData
+                        user.SaveArtifactLevel(newItem.ConfigId, newItem.Count);
                     }
                     else
                     {

@@ -28,8 +28,6 @@ namespace Game
                 Current = new InfiniteRecord();
                 Current.Progress.Data = 1;
                 Current.Count.Data = 10;
-
-                this.BuildRate();
             }
 
             return Current;
@@ -45,22 +43,17 @@ namespace Game
                 }
             }
 
-            Debug.Log(DropList[0]);
+            Debug.Log("infinite drop1:" + DropList[0].ListToString());
+            Debug.Log("infinite drop2:" + DropList[1].ListToString());
 
             return DropList[0][level - 1];
         }
 
-        private void BuildRate()
-        {
-
-        }
 
         public void Complete()
         {
             this.Current = null;
             DropList.RemoveAt(0);
-
-            this.BuildRate();
         }
     }
 

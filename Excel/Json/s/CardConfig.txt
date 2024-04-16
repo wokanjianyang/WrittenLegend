@@ -1,4 +1,6 @@
 {"list":[
+{"_t":"CardConfig","_id":1999993,"Stage":0,"Name":"龙之血","AttrId":2003,"AttrValue":1,"LevelIncrea":1,"StoneNumber":0,"Quality":6,"RiseLevel":10,"RiseNumber":1,"Des":"生命倍率"},
+{"_t":"CardConfig","_id":1999994,"Stage":0,"Name":"龙之御","AttrId":2002,"AttrValue":1,"LevelIncrea":1,"StoneNumber":0,"Quality":6,"RiseLevel":10,"RiseNumber":1,"Des":"防御倍率"},
 {"_t":"CardConfig","_id":1999995,"Stage":0,"Name":"龙之力","AttrId":2007,"AttrValue":1,"LevelIncrea":1,"StoneNumber":0,"Quality":6,"RiseLevel":10,"RiseNumber":1,"Des":"物伤倍率"},
 {"_t":"CardConfig","_id":1999996,"Stage":0,"Name":"龙之智","AttrId":2008,"AttrValue":1,"LevelIncrea":1,"StoneNumber":0,"Quality":6,"RiseLevel":10,"RiseNumber":1,"Des":"法伤倍率"},
 {"_t":"CardConfig","_id":1999997,"Stage":0,"Name":"龙之秘","AttrId":2009,"AttrValue":1,"LevelIncrea":1,"StoneNumber":0,"Quality":6,"RiseLevel":10,"RiseNumber":1,"Des":"道伤倍率"},

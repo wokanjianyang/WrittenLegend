@@ -87,20 +87,17 @@ namespace Game
 		/// <summary>Rate</summary>
 		[ProtoMember(4)]
 		public int Rate { get; set; }
-		/// <summary>StartRate</summary>
-		[ProtoMember(5)]
-		public int StartRate { get; set; }
-		/// <summary>EndRate</summary>
-		[ProtoMember(6)]
-		public int EndRate { get; set; }
 		/// <summary>StartLevel</summary>
-		[ProtoMember(7)]
+		[ProtoMember(5)]
 		public int StartLevel { get; set; }
 		/// <summary>EndLevel</summary>
-		[ProtoMember(8)]
+		[ProtoMember(6)]
 		public int EndLevel { get; set; }
+		/// <summary>RateLevel</summary>
+		[ProtoMember(7)]
+		public int RateLevel { get; set; }
 		/// <summary>Max</summary>
-		[ProtoMember(9)]
+		[ProtoMember(8)]
 		public int Max { get; set; }
 
 	}
