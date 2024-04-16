@@ -26,14 +26,14 @@ namespace Game
         private int RandomDropId(List<InfiniteDropConfig> dropConfigs)
         {
             int total = dropConfigs.Select(m => m.Rate).Sum();
-            int rd = RandomHelper.RandomNumber(0, dropConfigs.Count);
+            int rd = RandomHelper.RandomNumber(1, total + 1);
 
             int endRate = 0;
             for (int i = 0; i < dropConfigs.Count; i++)
             {
                 endRate += dropConfigs[i].Rate;
 
-                if (rd < endRate)
+                if (rd <= endRate)
                 {
                     return dropConfigs[i].DropId;
                 }
@@ -50,7 +50,7 @@ namespace Game
 
             foreach (InfiniteDropConfig config in configs)
             {
-                int total = excludeList.Select(m => m == config.DropId).Count();
+                int total = excludeList.Where(m => m == config.DropId).Count();
 
                 if (config.DropId >= 180001 && config.DropId <= 180100) //ÉñÆ÷
                 {
