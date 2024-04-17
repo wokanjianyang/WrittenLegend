@@ -204,8 +204,8 @@ namespace Game
                 user.RecoverySetting.SkillReserveQuanlity[5] = true;
             }
 
-            user.InfiniteData = new InfiniteData();
-            user.InfiniteData.Ticket = 0;
+            //user.InfiniteData = new InfiniteData();
+            //user.InfiniteData.Ticket = 0;
             //Debug.Log("DeviceId:" + user.DeviceId);
 
             //去掉专属精华

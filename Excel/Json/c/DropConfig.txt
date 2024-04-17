@@ -156,6 +156,8 @@
 {"_t":"DropConfig","_id":180011,"Level":0,"Name":"昊天神锤","Quantity":1,"ItemType":18,"ItemIdList":[180011]},
 {"_t":"DropConfig","_id":180012,"Level":0,"Name":"天外神石","Quantity":1,"ItemType":18,"ItemIdList":[180012]},
 {"_t":"DropConfig","_id":180013,"Level":0,"Name":"金蛟剪","Quantity":1,"ItemType":18,"ItemIdList":[180013]},
+{"_t":"DropConfig","_id":180014,"Level":0,"Name":"精练契约","Quantity":1,"ItemType":18,"ItemIdList":[180014]},
+{"_t":"DropConfig","_id":180015,"Level":0,"Name":"财富契约","Quantity":1,"ItemType":18,"ItemIdList":[180015]},
 {"_t":"DropConfig","_id":220000,"Level":0,"Name":"副本劵","Quantity":1,"ItemType":9,"ItemIdList":[4003]},
 {"_t":"DropConfig","_id":220001,"Level":0,"Name":"Boss劵","Quantity":1,"ItemType":5,"ItemIdList":[4004]},
 {"_t":"DropConfig","_id":220002,"Level":0,"Name":"四格碎片","Quantity":20,"ItemType":5,"ItemIdList":[4007]},

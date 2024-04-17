@@ -9,10 +9,9 @@ namespace Game
 {
     public class Item_Artifact : MonoBehaviour
     {
-        public Text Txt_Attr_Rise;
         public Text Txt_Name;
         public Text Txt_Level;
-        public Text Txt_Attr_Current;
+        public Text Txt_Des;
 
         public ArtifactConfig Config { get; set; }
 
@@ -36,8 +35,7 @@ namespace Game
             this.Txt_Name.text = string.Format("<color=#{0}>{1}</color>", QualityConfigHelper.GetQualityColor(6), config.Name);
 
             this.Txt_Level.text = level + "个";
-            this.Txt_Attr_Current.text = config.Des;
-            this.Txt_Attr_Rise.text = config.Des;
+            this.Txt_Des.text = config.Des;
         }
     }
 }

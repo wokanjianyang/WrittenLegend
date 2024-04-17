@@ -43,8 +43,7 @@ namespace Game
                 }
             }
 
-            Debug.Log("infinite drop1:" + DropList[0].ListToString());
-            Debug.Log("infinite drop2:" + DropList[1].ListToString());
+            //Debug.Log("infinite drop1-100:" + DropList[0][99]);
 
             return DropList[0][level - 1];
         }

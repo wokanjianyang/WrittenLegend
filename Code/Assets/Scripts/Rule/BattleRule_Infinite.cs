@@ -118,7 +118,7 @@ public class BattleRule_Infinite : ABattleRule
         GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
         {
             Type = RuleType.Infinite,
-            Message = BattleMsgHelper.BuildRewardMessage("ÎÞ¾¡´³¹Ø½±Àø:", exp, gold, items)
+            Message = BattleMsgHelper.BuildRewardMessage("ÎÞ¾¡´³¹Ø" + level + "½±Àø:", exp, gold, items)
         });
     }
 

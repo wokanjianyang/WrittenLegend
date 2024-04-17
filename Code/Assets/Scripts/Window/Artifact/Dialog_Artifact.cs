@@ -19,6 +19,8 @@ public class Dialog_Artifact : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("artifact start");
+
         this.btn_Close.onClick.AddListener(OnClick_Close);
 
         ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Item/Item_Artifact");
@@ -40,17 +42,25 @@ public class Dialog_Artifact : MonoBehaviour
             int key = configs[i].Id;
 
             com.SetContent(configs[i], 0);
+            com.gameObject.SetActive(false);
 
             item.transform.SetParent(this.sr_Boss.content);
             item.transform.localScale = Vector3.one;
 
             items.Add(com);
         }
+
+        this.Show();
     }
 
     public void Show()
     {
         this.gameObject.SetActive(true);
+
+        if (this.items.Count <= 0)
+        {
+            return;
+        }
 
         List<ArtifactConfig> configs = ArtifactConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
 

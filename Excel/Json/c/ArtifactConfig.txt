@@ -1,5 +1,5 @@
 {"list":[
-{"_t":"ArtifactConfig","_id":1,"ItemId":180001,"Name":"BOSS杀手","Type":1,"AttrValue":1,"MaxCount":4,"DropRate":1,"Des":"BOSS之家挑战，可以增加一倍倍率"},
+{"_t":"ArtifactConfig","_id":1,"ItemId":180001,"Name":"BOSS杀手","Type":1,"AttrValue":1,"MaxCount":4,"DropRate":1,"Des":"挑战BOSS之家，可以倍率+1"},
 {"_t":"ArtifactConfig","_id":2,"ItemId":180002,"Name":"BOSS契约","Type":1,"AttrValue":1,"MaxCount":4,"DropRate":4,"Des":"广告的BOSS劵收益+1"},
 {"_t":"ArtifactConfig","_id":3,"ItemId":180003,"Name":"命运沙漏","Type":1,"AttrValue":1,"MaxCount":800,"DropRate":100,"Des":"装备副本CD时间-1S"},
 {"_t":"ArtifactConfig","_id":4,"ItemId":180004,"Name":"副本契约","Type":1,"AttrValue":1,"MaxCount":8,"DropRate":8,"Des":"广告的副本劵收益+1"},

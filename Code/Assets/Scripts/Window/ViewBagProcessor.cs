@@ -43,9 +43,10 @@ namespace Game
 
         [Title("功能框")]
         public Dialog_Exclusive ExclusiveDialog;
-        public Dialog_Card Dialog_Card;
-        public Dialog_Wing Dialog_Wing;
-        public Dialog_Halidom Dialog_Halidom;
+        public Dialog_Card DialogCard;
+        public Dialog_Wing DialogWing;
+        public Dialog_Halidom DialogHalidom;
+        public Dialog_Artifact DialogArtifact;
 
         public Button Btn_Exclusive;
 
@@ -1224,22 +1225,22 @@ namespace Game
 
         public void OnOpenCard()
         {
-            this.Dialog_Card.gameObject.SetActive(true);
+            this.DialogCard.gameObject.SetActive(true);
         }
 
         public void OnOpenHalidom()
         {
-            this.Dialog_Halidom.gameObject.SetActive(true);
+            this.DialogHalidom.gameObject.SetActive(true);
         }
 
         public void OnOpenArtifact()
         {
-
+            this.DialogArtifact.Show();
         }
 
         public void OnOpenWing()
         {
-            this.Dialog_Wing.gameObject.SetActive(true);
+            this.DialogWing.gameObject.SetActive(true);
         }
 
         public void OpenFashion()
