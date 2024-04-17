@@ -68,13 +68,12 @@ public class BattleRule_Infinite : ABattleRule
         {
             this.Start = true;
 
-            this.Progress++;
-
             InfiniteRecord record = user.InfiniteData.GetCurrentRecord();
             record.Progress.Data = this.Progress;
 
             BuildReward(this.Progress);
 
+            this.Progress++;
             return;
         }
 

@@ -135,9 +135,6 @@ namespace Game
 
         private IEnumerator LoadBox()
         {
-            //先回收,再加载
-            this.FirstRecovery();
-
             User user = GameProcessor.Inst.User;
             user.EventCenter.AddListener<HeroBagUpdateEvent>(this.OnHeroBagUpdateEvent);
 
@@ -196,6 +193,9 @@ namespace Game
                     //yield return null;
                 }
             }
+
+            //先回收,再加载
+            this.FirstRecovery();
 
             RefreshBag();
 
