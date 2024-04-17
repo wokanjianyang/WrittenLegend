@@ -39,6 +39,7 @@ namespace Game
         public Button btn_Card;
         public Button btn_Fashion;
         public Button btn_Halidom;
+        public Button btn_Artifact;
 
         [Title("功能框")]
         public Dialog_Exclusive ExclusiveDialog;
@@ -74,6 +75,7 @@ namespace Game
             this.btn_Fashion.onClick.AddListener(OpenFashion);
             this.btn_Card.onClick.AddListener(OnOpenCard);
             this.btn_Halidom.onClick.AddListener(OnOpenHalidom);
+            this.btn_Artifact.onClick.AddListener(OnOpenArtifact);
 
             this.Btn_Reset.onClick.AddListener(OnRefreshBag);
             this.Btn_ReName.onClick.AddListener(OnSetPlanName);
@@ -1228,6 +1230,11 @@ namespace Game
         public void OnOpenHalidom()
         {
             this.Dialog_Halidom.gameObject.SetActive(true);
+        }
+
+        public void OnOpenArtifact()
+        {
+
         }
 
         public void OnOpenWing()
