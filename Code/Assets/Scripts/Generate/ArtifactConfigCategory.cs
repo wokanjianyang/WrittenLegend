@@ -35,6 +35,7 @@ namespace Game
         FashionLimit = 13,
         EquipStoneAd = 14,
         ExpGoldAd = 15,
+        WingLimit = 16,
     }
 
 }

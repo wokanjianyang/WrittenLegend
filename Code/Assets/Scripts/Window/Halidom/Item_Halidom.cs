@@ -33,8 +33,9 @@ namespace Game
             User user = GameProcessor.Inst.User;
 
             MagicData halidomData = user.HalidomData[Config.Id];
+            int maxLevel = user.GetHolidomLimit();
 
-            if (halidomData.Data < Config.MaxLevel)
+            if (halidomData.Data < maxLevel)
             {
                 int rise = (int)halidomData.Data * 1;
 

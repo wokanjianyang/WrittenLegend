@@ -120,7 +120,7 @@ namespace Game
 
             User user = GameProcessor.Inst.User;
 
-            if (this.SkillPanel.SkillData.MagicLevel.Data >= this.SkillPanel.SkillData.SkillConfig.GetMaxLevel(user.GetLimitLevel()))
+            if (this.SkillPanel.SkillData.MagicLevel.Data >= user.GetSkillLimit(this.SkillPanel.SkillData.SkillConfig))
             {
                 this.Btn_UpLevel.gameObject.SetActive(false);
             }
@@ -196,7 +196,7 @@ namespace Game
 
             SkillData skill = this.SkillPanel.SkillData;
 
-            if (skill.MagicLevel.Data >= skill.SkillConfig.GetMaxLevel(user.GetLimitLevel()))
+            if (skill.MagicLevel.Data >= user.GetSkillLimit(this.SkillPanel.SkillData.SkillConfig))
             {
                 GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "技能已经满级了" });
                 return;

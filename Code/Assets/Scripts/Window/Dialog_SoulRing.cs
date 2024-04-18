@@ -148,7 +148,7 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
             return; //Î´ÅäÖÃµÄ
         }
 
-        long MaxLevel = user.GetLimitLevel() * 2 + 25;
+        long MaxLevel = user.GetSoulRingLimit();
 
         if (nextConfig == null || currentLevel >= MaxLevel || currentLevel >= nextConfig.EndLevel)
         {

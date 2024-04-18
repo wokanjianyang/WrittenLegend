@@ -123,7 +123,7 @@ public class ViewForgeProcessor : AViewPage
 
         User user = GameProcessor.Inst.User;
 
-        long MaxLevel = user.GetLimitLevel() * 5000 + 10000;
+        long MaxLevel = user.GetStrengthLimit();
 
         foreach (var box in StrengthenEquiList)
         {
@@ -379,7 +379,7 @@ public class ViewForgeProcessor : AViewPage
     {
         User user = GameProcessor.Inst.User;
 
-        long MaxLevel = user.GetLimitLevel() * 25 + 50;
+        long MaxLevel = user.GetRefineLimit();
 
         foreach (var box in Refine_EquiList)
         {
@@ -466,7 +466,7 @@ public class ViewForgeProcessor : AViewPage
         User user = GameProcessor.Inst.User;
         user.MagicEquipRefine.TryGetValue(Refine_Position, out MagicData refineData);
 
-        long MaxLevel = user.GetLimitLevel() * 25 + 50;
+        long MaxLevel = user.GetRefineLimit();
         if (refineData.Data >= MaxLevel)
         {
             //

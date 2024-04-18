@@ -137,8 +137,9 @@ public class Panel_Devour : MonoBehaviour
         ExclusiveItem exclusive = boxItem.Item as ExclusiveItem;
 
         int nextLevel = exclusive.GetLevel();
+        int maxLevel = GameProcessor.Inst.User.GetExclusiveLimit();
 
-        if (nextLevel > 1)
+        if (nextLevel >= maxLevel)
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "专属已经满吞噬了", ToastType = ToastTypeEnum.Failure });
             return;

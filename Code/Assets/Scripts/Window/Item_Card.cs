@@ -34,7 +34,7 @@ namespace Game
 
             MagicData cardData = user.CardData[Config.Id];
 
-            long maxLevel = user.GetLimitLevel() * Config.RiseLevel;
+            long maxLevel = user.GetCardLimit(Config);
 
             if (cardData.Data < maxLevel)
             {

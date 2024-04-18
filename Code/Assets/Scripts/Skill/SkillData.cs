@@ -71,7 +71,7 @@ namespace Game
             User user = GameProcessor.Inst.User;
 
             this.MagicExp.Data += exp;
-            while (this.MagicExp.Data >= GetLevelUpExp() && this.MagicLevel.Data < SkillConfig.GetMaxLevel(user.GetLimitLevel()))
+            while (this.MagicExp.Data >= GetLevelUpExp() && this.MagicLevel.Data < user.GetSkillLimit(SkillConfig))
             {
                 var upExp = GetLevelUpExp();
                 this.MagicLevel.Data++;

@@ -108,10 +108,65 @@ namespace Game
             return (this.MagicLevel.Data + dzLevel) / 5000 + 1;
         }
 
+        public int GetSkillLimit(SkillConfig skillConfig)
+        {
+            long limit = skillConfig.MaxLevel + skillConfig.RiseMaxLevel * GetLimitLevel();
+            limit = limit * (1 + GetArtifactValue(ArtifactType.SkillLimit) / 100);
+            return (int)limit;
+        }
+
+        public int GetSoulRingLimit()
+        {
+            long limit = GetLimitLevel() * 2 + 25;
+            limit = limit + GetArtifactValue(ArtifactType.SoulRingLimit);
+            return (int)limit;
+        }
+
+        public int GetWingLimit()
+        {
+            long limit = GetLimitLevel() * 2 + 30;
+            limit = limit + GetArtifactValue(ArtifactType.WingLimit);
+            return (int)limit;
+        }
+
+        public int GetStrengthLimit()
+        {
+            long limit = GetLimitLevel() * 5000 + 10000;
+            limit = limit + GetArtifactValue(ArtifactType.StrengthLimit);
+            return (int)limit;
+        }
+
+        public int GetRefineLimit()
+        {
+            long limit = GetLimitLevel() * 25 + 50;
+            limit = limit + GetArtifactValue(ArtifactType.RefintLimit);
+            return (int)limit;
+        }
+
+        public int GetExclusiveLimit()
+        {
+            long limit = 2 + GetArtifactValue(ArtifactType.ExclusiveLimit);
+            return (int)limit;
+        }
+
+        public int GetHolidomLimit()
+        {
+            long limit = 4 + GetArtifactValue(ArtifactType.HolidomLimit);
+            return (int)limit;
+        }
+
+        public int GetCardLimit(CardConfig cardConfig)
+        {
+            long limit = cardConfig.RiseLevel * GetLimitLevel();
+            limit = limit * (1 + GetArtifactValue(ArtifactType.CardLimit) / 100);
+            return (int)limit;
+        }
+
         public long GetLimitMineCount()
         {
             int dz = this.IsDz() ? 1 : 0;
-            return GetLimitLevel() - 4 + dz;
+            int limit = GetArtifactValue(ArtifactType.MineCount);
+            return GetLimitLevel() - 4 + dz + limit;
         }
 
         public long LastUploadTime { get; set; }
