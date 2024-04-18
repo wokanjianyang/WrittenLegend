@@ -39,6 +39,10 @@ namespace Game
             {
                 this.skillLogic = new Skill_Chediding(player, skillPanel, isShow);
             }
+            if (skillPanel.SkillData.SkillConfig.Id == 2010)
+            {
+                this.skillLogic = new Skill_Duplication(player, skillPanel, isShow);
+            }
             else if (skillPanel.SkillData.SkillConfig.Type == (int)SkillType.Attack)
             {
                 if (skillPanel.SkillData.SkillConfig.CastType == ((int)AttackCastType.Single))

@@ -24,6 +24,8 @@ namespace Game
 
         public bool IsHide { get; set; } = false;
 
+        public long BirthDay { get; set; } = 0;
+
         public float MoveSpeed { get; private set; } = 1;
         public float AttckSpeed { get; private set; } = 1;
 

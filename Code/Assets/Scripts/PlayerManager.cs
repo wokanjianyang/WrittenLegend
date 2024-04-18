@@ -123,6 +123,33 @@ namespace Game
             this.AllPlayers.Add(player);
         }
 
+        public void LoadDuplication(APlayer maseter, APlayer duplication)
+        {
+            var centerCell = maseter.Cell;
+            var tempCells = GameProcessor.Inst.MapData.AllCells.ToList();
+            var allPlayerCells = GameProcessor.Inst.PlayerManager.GetAllPlayers().Select(p => p.Cell).ToList();
+            tempCells.RemoveAll(p => allPlayerCells.Contains(p));
+
+            tempCells = tempCells.OrderBy(m => Mathf.Abs(m.x - centerCell.x) + Mathf.Abs(m.y - centerCell.y) + Mathf.Abs(m.z - centerCell.z)).ToList();
+
+            if (tempCells.Count > 0)
+            {
+                var bornCell = tempCells[0];
+
+                var coms = duplication.Transform.GetComponents<MonoBehaviour>();
+                foreach (var com in coms)
+                {
+                    if (com is IPlayer _com)
+                    {
+                        _com.SetParent(duplication);
+                    }
+                }
+
+                duplication.SetPosition(bornCell, true);
+                this.AddPlayer(duplication);
+            }
+        }
+
         public APlayer GetPlayer(int id)
         {
             return this.AllPlayers.FirstOrDefault(p => p.IsSurvice && p.ID == id);
