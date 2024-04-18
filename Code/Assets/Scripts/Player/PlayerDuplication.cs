@@ -80,6 +80,10 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.MagicDamage, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.MagicDamage) * rate);
             AttributeBonus.SetAttr(AttributeEnum.SpiritDamage, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.SpiritDamage) * rate);
 
+            AttributeBonus.SetAttr(AttributeEnum.MulDamageIncrea, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.MulDamageIncrea) * rate);
+            AttributeBonus.SetAttr(AttributeEnum.MulDamageResist, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.MulDamageResist) * rate);
+
+
             this.RingType = Master.RingType;
 
             //回满当前血量
@@ -93,7 +97,7 @@ namespace Game
             {
                 SkillState mss = Master.SelectSkillList[i];
 
-                if (mss.SkillPanel.SkillId != SkillPanel.SkillId) //not loop
+                if (mss.SkillPanel.SkillId != SkillPanel.SkillId && mss.SkillPanel.SkillData.SkillConfig.Type != (int)SkillType.Valet) //not loop
                 {
                     SkillState skill = new SkillState(this, mss.SkillPanel, mss.Position, 0);
                     SelectSkillList.Add(skill);
@@ -104,9 +108,14 @@ namespace Game
         public override float DoEvent()
         {
             long now = TimeHelper.ClientNowSeconds();
-            if (now - BirthDay >= Life) //auto dead
+            long lf = now - BirthDay;
+            //Debug.Log("life:" + lf);
+            if (lf >= Life) //auto dead
             {
                 this.HP = 0;
+
+                GameProcessor.Inst.PlayerManager.RemoveDeadPlayers(this);
+
                 return 999f;
             }
             else

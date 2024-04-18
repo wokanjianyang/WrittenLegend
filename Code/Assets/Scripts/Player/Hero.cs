@@ -212,6 +212,10 @@ namespace Game
                         AttributeBonus.SetAttr(AttributeEnum.WarlockSkillDamage, attrKey, skillPanel.Damage);
                     }
                 }
+                else if (skillData.SkillId == 3010)
+                {
+                    AttributeBonus.SetAttr(AttributeEnum.InheritAdvance, AttributeFrom.Skill, skillPanel.Percent);
+                }
             }
 
             InitDoubleHitSkill(user);
