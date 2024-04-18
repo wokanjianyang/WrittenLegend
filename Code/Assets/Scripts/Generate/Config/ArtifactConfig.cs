@@ -89,7 +89,7 @@ namespace Game
 		public int Type { get; set; }
 		/// <summary>AttrValue</summary>
 		[ProtoMember(5)]
-		public long AttrValue { get; set; }
+		public int AttrValue { get; set; }
 		/// <summary>MaxCount</summary>
 		[ProtoMember(6)]
 		public int MaxCount { get; set; }

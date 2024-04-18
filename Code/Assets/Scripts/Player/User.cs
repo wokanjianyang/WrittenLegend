@@ -88,6 +88,19 @@ namespace Game
 
         public Dictionary<int, long> VersionLog { get; } = new Dictionary<int, long>();
 
+        public int GetArtifactValue(ArtifactType type)
+        {
+            List<ArtifactConfig> list = ArtifactConfigCategory.Instance.GetListByType(type);
+
+            int total = 0;
+            foreach (ArtifactConfig config in list)
+            {
+                total += this.GetArtifactLevel(config.Id) * config.AttrValue;
+            }
+
+            return total;
+        }
+
         public long GetLimitLevel()
         {
             int dzLevel = this.IsDz() ? 20000 : 0;
