@@ -42,8 +42,9 @@ namespace Game
         public const int MaxBagCount = 210;  // 包裹数量
 
         public const int CopyTicketCd = 900; //15分钟
+        public const int CopyTicketCdMin = 90; //15分钟
 
-        public const int CopyTicketMax = 200; //副本最大次数
+        public const int CopyTicketMax = 500; //副本最大次数
         public const int CopyTicketFirstCount = 100; //副本离线和新号最多多少次
 
         public static int[] PercentAttrIdList = { 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 23, 24, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 41, 43, 45,101,102, 201, 202, 203, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011 };

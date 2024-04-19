@@ -178,7 +178,12 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
         long dieTime = now - user.CopyTicketTime;
 
 
-        int CopyTicketCd = user.IsDz() ? 3 * 60 : ConfigHelper.CopyTicketCd;
+        int CopyTicketCd = ConfigHelper.CopyTicketCd - user.GetArtifactValue(ArtifactType.EquipTicketCd);
+        if (user.IsDz())
+        {
+            CopyTicketCd = CopyTicketCd / 5;
+        }
+        CopyTicketCd = Math.Max(CopyTicketCd, ConfigHelper.CopyTicketCdMin);
 
         if (dieTime >= CopyTicketCd)
         {

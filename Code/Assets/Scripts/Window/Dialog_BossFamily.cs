@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class Dialog_BossFamily : MonoBehaviour, IBattleLife
 {
+    public Text TxtRate;
     public Toggle toggle_Rate;
     public Toggle toggle_Auto;
 
@@ -16,6 +17,7 @@ public class Dialog_BossFamily : MonoBehaviour, IBattleLife
     public Button btn_FullScreen;
 
     public int Order => (int)ComponentOrder.Dialog;
+    private int Rate = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -32,8 +34,15 @@ public class Dialog_BossFamily : MonoBehaviour, IBattleLife
         }
 
         User user = GameProcessor.Inst.User;
+        this.Rate = user.GetArtifactValue(ArtifactType.BossBattleRate) + 1;
         if (user.IsDz())
         {
+            this.Rate = 5;
+        }
+
+        if (this.Rate > 1)
+        {
+            TxtRate.text = this.Rate + "±∂ÃÙ’Ω";
             toggle_Rate.gameObject.SetActive(true);
         }
         else
@@ -76,7 +85,7 @@ public class Dialog_BossFamily : MonoBehaviour, IBattleLife
 
     private void OnClick_Start(int index)
     {
-        int rate = toggle_Rate.isOn ? 5 : 1;
+        int rate = toggle_Rate.isOn ? this.Rate : 1;
 
         var vm = this.GetComponentInParent<ViewMore>();
         vm.StartBossFamily(index, rate);

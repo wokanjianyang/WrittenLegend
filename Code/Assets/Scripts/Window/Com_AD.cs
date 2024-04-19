@@ -396,8 +396,13 @@ public class Com_AD : MonoBehaviour, IBattleLife
         long gold = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondGold);
         long exp = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp);
 
+        int atRate = user.GetArtifactValue(ArtifactType.ExpGoldAd);
+
         gold = gold * 2160 * rate; //3小时/5 = 2160
         exp = exp * 2160 * rate; //3小时/5 = 2160
+
+        gold = gold + gold / 100 * atRate;
+        exp = exp + exp / 100 * atRate;
 
         user.AddExpAndGold(exp, gold);
         GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
@@ -410,7 +415,9 @@ public class Com_AD : MonoBehaviour, IBattleLife
     {
         User user = GameProcessor.Inst.User;
 
-        Item item = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, rate * 4);
+        int atRate = user.GetArtifactValue(ArtifactType.BossTicketAd);
+
+        Item item = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, rate * (4 + atRate));
 
         List<Item> items = new List<Item>();
         items.Add(item);
@@ -429,7 +436,10 @@ public class Com_AD : MonoBehaviour, IBattleLife
     private void RewardCopyTicket(int rate)
     {
         User user = GameProcessor.Inst.User;
-        user.MagicCopyTikerCount.Data += 8 * rate;
+
+        int atRate = user.GetArtifactValue(ArtifactType.EquipTicketAd);
+
+        user.MagicCopyTikerCount.Data += (8 + atRate) * rate;
 
         GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
         {
@@ -440,9 +450,12 @@ public class Com_AD : MonoBehaviour, IBattleLife
     private void RewardStone(int rate)
     {
         User user = GameProcessor.Inst.User;
+        int atRate = user.GetArtifactValue(ArtifactType.EquipStoneAd);
 
         int MapNo = (user.MapId - ConfigHelper.MapStartId + 1);
         int stoneRate = (MapNo / 5) + 1;
+
+        stoneRate = stoneRate + stoneRate * atRate / 100;
 
         int refineStone = 600 * MapNo * stoneRate * rate;
         Item item = ItemHelper.BuildRefineStone(refineStone);

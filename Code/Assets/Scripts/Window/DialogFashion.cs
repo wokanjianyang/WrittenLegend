@@ -186,9 +186,11 @@ public class DialogFashion : MonoBehaviour, IBattleLife
 
         int currentLevel = (int)fs[currentItem.Part].Data;
 
+        int atLevel = user.GetArtifactValue(ArtifactType.FashionLimit);
+
         FashionSuitConfig suitConfig = FashionSuitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Id == CurrentSuit).FirstOrDefault();
 
-        if (currentLevel >= suitConfig.MaxLevel)
+        if (currentLevel >= suitConfig.MaxLevel + atLevel)
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "ÒÑÂú¼¶", ToastType = ToastTypeEnum.Failure });
             return;
