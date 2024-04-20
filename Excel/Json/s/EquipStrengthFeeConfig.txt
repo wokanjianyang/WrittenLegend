@@ -22,4 +22,8 @@
 {"_t":"EquipStrengthFeeConfig","_id":21,"StartLevel":75001,"EndLevel":80000,"Fee":4000},
 {"_t":"EquipStrengthFeeConfig","_id":22,"StartLevel":80001,"EndLevel":85000,"Fee":4500},
 {"_t":"EquipStrengthFeeConfig","_id":23,"StartLevel":85001,"EndLevel":90000,"Fee":5000},
+{"_t":"EquipStrengthFeeConfig","_id":24,"StartLevel":90001,"EndLevel":95000,"Fee":5750},
+{"_t":"EquipStrengthFeeConfig","_id":25,"StartLevel":95001,"EndLevel":100000,"Fee":6500},
+{"_t":"EquipStrengthFeeConfig","_id":26,"StartLevel":100001,"EndLevel":110000,"Fee":7500},
+{"_t":"EquipStrengthFeeConfig","_id":27,"StartLevel":110001,"EndLevel":120000,"Fee":8500},
 ]}

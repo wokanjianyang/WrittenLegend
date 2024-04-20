@@ -235,7 +235,8 @@ public class ViewForgeProcessor : AViewPage
 
         EquipStrengthFeeConfig config = EquipStrengthFeeConfigCategory.Instance.GetByLevel(nextLevel);
 
-        long maxLevel = config.EndLevel - nextLevel + 1;
+        int LimitLevel = user.GetStrengthLimit();
+        long maxLevel = Math.Min(config.EndLevel, LimitLevel) - nextLevel + 1;
 
         long sl = 0;
         long feeTotal = 0;
