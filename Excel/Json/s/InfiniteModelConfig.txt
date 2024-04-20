@@ -1,0 +1,6 @@
+{"list":[
+{"_t":"InfiniteModelConfig","_id":1,"Name":"血牛","AttrIdList":[1],"AttrValueList":[500],"Role":0},
+{"_t":"InfiniteModelConfig","_id":2,"Name":"坦克","AttrIdList":[1],"AttrValueList":[500],"Role":0},
+{"_t":"InfiniteModelConfig","_id":3,"Name":"力士","AttrIdList":[1],"AttrValueList":[500],"Role":0},
+{"_t":"InfiniteModelConfig","_id":4,"Name":"刺客","AttrIdList":[1],"AttrValueList":[500],"Role":0},
+]}

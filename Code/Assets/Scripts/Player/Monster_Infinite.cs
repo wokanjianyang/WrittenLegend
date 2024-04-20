@@ -44,15 +44,17 @@ namespace Game
         {
             this.AttributeBonus = new AttributeBonus();
 
-            double hp = Double.Parse(Config.HP);
-            double attr = Double.Parse(Config.Attr);
-            double def = Double.Parse(Config.Def);
+            int riseLevel = this.Progeress - Config.StartLevel;
+
+            double hp = Double.Parse(Config.HP) + Double.Parse(Config.RiseHp) * riseLevel;
+            double attr = Double.Parse(Config.Attr) + Double.Parse(Config.RiseAttr) * riseLevel;
+            double def = Double.Parse(Config.Def) + Double.Parse(Config.RiseDef) * riseLevel;
 
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp * QualityConfig.HpRate);
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr * QualityConfig.AttrRate);
             AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr * QualityConfig.AttrRate);
             AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr * QualityConfig.AttrRate);
-            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, def * QualityConfig.DefRate);
+            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, def); //* QualityConfig.DefRate
 
             AttributeBonus.SetAttr(AttributeEnum.DamageIncrea, AttributeFrom.HeroBase, Config.DamageIncrea);
             AttributeBonus.SetAttr(AttributeEnum.DamageResist, AttributeFrom.HeroBase, Config.DamageResist);
@@ -76,7 +78,7 @@ namespace Game
             {
                 int skillId = rdList[i];
                 SkillData skillData = new SkillData(skillId, i);
-                skillData.MagicLevel.Data = this.Progeress;
+                skillData.MagicLevel.Data = this.Progeress * skillData.SkillConfig.MaxLevel / 100;
                 list.Add(skillData);
             }
 
