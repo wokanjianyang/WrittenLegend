@@ -54,6 +54,8 @@ namespace Game
 
             double roleAttr = Master.GetRoleAttack(role, false) * (100 + SkillPanel.AttrIncrea) / 100; //职业攻击
 
+            double masterHp = Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
+
             double InheritIncrea = (SkillPanel.InheritIncrea + ModelConfig.AdvanceRate) / 100.0;
             double InheritAdvance = this.Master.AttributeBonus.GetAttackAttr(AttributeEnum.InheritAdvance) / 100.0;
 
@@ -62,11 +64,12 @@ namespace Game
 
             //技能系数
             double baseAttr = roleAttr * (SkillPanel.Percent + Master.GetRolePercent(role) + InheritIncrea) / 100 + SkillPanel.Damage + Master.GetRoleDamage(role);  // *百分比系数 + 固定数值
+            double baseHp = masterHp * (SkillPanel.Percent + Master.GetRolePercent(role) + InheritIncrea) / 100 + SkillPanel.Damage + Master.GetRoleDamage(role);
 
             double pr = RuleType == RuleType.HeroPhantom ? ConfigHelper.PvpRate : 1;
 
             this.AttributeBonus = new AttributeBonus();
-            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, baseAttr * ModelConfig.HpRate * pr / 100);
+            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, baseHp * ModelConfig.HpRate * pr / 100);
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroPanel, baseAttr * ModelConfig.AttrRate / 100);
             AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroPanel, baseAttr * ModelConfig.AttrRate / 100);
             AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroPanel, baseAttr * ModelConfig.AttrRate / 100);

@@ -160,7 +160,7 @@
 {"_t":"DropConfig","_id":180015,"Level":0,"Name":"财富契约","Quantity":1,"ItemType":18,"ItemIdList":[180015]},
 {"_t":"DropConfig","_id":220000,"Level":0,"Name":"副本劵","Quantity":1,"ItemType":9,"ItemIdList":[4003]},
 {"_t":"DropConfig","_id":220001,"Level":0,"Name":"Boss劵","Quantity":1,"ItemType":5,"ItemIdList":[4004]},
-{"_t":"DropConfig","_id":220002,"Level":0,"Name":"四格碎片","Quantity":20,"ItemType":5,"ItemIdList":[4007]},
+{"_t":"DropConfig","_id":220002,"Level":0,"Name":"四格碎片","Quantity":50,"ItemType":5,"ItemIdList":[4007]},
 {"_t":"DropConfig","_id":220003,"Level":0,"Name":"图鉴碎片","Quantity":20,"ItemType":5,"ItemIdList":[4101]},
 {"_t":"DropConfig","_id":220011,"Level":0,"Name":"神器","Quantity":1,"ItemType":15,"ItemIdList":[1]},
 {"_t":"DropConfig","_id":220012,"Level":0,"Name":"10介技能","Quantity":1,"ItemType":3,"ItemIdList":[1010,2010,3010]},

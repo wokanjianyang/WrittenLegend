@@ -78,7 +78,7 @@ namespace Game
             List<SkillSuit> effectSuitList = suitList.Where(m => m.EffectId > 0).ToList();
 
             int levelPercent = ((int)skillData.MagicLevel.Data - 1) * skillData.SkillConfig.LevelPercent;
-            long levelDamage = skillData.MagicLevel.Data * 1000;
+            long levelDamage = skillData.MagicLevel.Data * 0;
 
             long runeDamage = baseRuneList.Select(m => m.Damage).Sum() * skillData.MagicLevel.Data;
             long suitDamage = baseSuitList.Select(m => m.Damage).Sum() * skillData.MagicLevel.Data;
@@ -153,7 +153,7 @@ namespace Game
 
             if (isPlayer)
             {
-                Desc = string.Format(SkillData.SkillConfig.Des, EnemyMax, Percent, Duration, Row, Column);
+                Desc = string.Format(SkillData.SkillConfig.Des, EnemyMax, Percent, Duration, Row, Column, Damage);
             }
 
             //技能的特效
