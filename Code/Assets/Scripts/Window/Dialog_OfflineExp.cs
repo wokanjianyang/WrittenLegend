@@ -125,7 +125,7 @@ namespace Game
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Stone, 1000));
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Heart, 100));
 
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Red_Stone, 100));
+            items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_EquipRefineStone, 999999999));
 
             //items.Add(ItemHelper.BuildItem(ItemType.Card, 2000010, 10, 5));
 
