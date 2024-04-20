@@ -39,7 +39,8 @@ namespace Game
             {
                 for (int i = DropList.Count; i < 2; i++)
                 {
-                    DropList.Add(InfiniteDropConfigCategory.Instance.GetAllDropIdList());
+                    var list = InfiniteDropConfigCategory.Instance.GetAllDropIdList();
+                    DropList.Add(list);
                 }
             }
 
