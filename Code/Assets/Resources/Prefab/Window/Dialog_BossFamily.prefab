@@ -1551,6 +1551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 363a164db81b16c48a67200a182c5bfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TxtRate: {fileID: 6660516426415079977}
   toggle_Rate: {fileID: 731781851749286121}
   toggle_Auto: {fileID: 6146499640473477407}
   BtnStartList:
@@ -1928,7 +1929,7 @@ GameObject:
   - component: {fileID: 4056063969518997359}
   - component: {fileID: 6660516426415079977}
   m_Layer: 5
-  m_Name: Label
+  m_Name: Txt_Rate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

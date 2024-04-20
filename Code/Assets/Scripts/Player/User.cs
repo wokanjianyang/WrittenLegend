@@ -158,7 +158,7 @@ namespace Game
         public int GetCardLimit(CardConfig cardConfig)
         {
             long limit = cardConfig.RiseLevel * GetLimitLevel();
-            limit = limit * (1 + GetArtifactValue(ArtifactType.CardLimit) / 100);
+            limit = limit * (100 + GetArtifactValue(ArtifactType.CardLimit)) / 100;
             return (int)limit;
         }
 
