@@ -185,12 +185,15 @@ namespace Game
         {
             int upCount = 20;
 
+            int metailId = this.SkillPanel.SkillData.SkillConfig.UpItemId;
+
             User user = GameProcessor.Inst.User;
-            long total = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Moon_Cake).Select(m => m.MagicNubmer.Data).Sum();
+            long total = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == metailId).Select(m => m.MagicNubmer.Data).Sum();
 
             if (total < upCount)
             {
-                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "月饼数量不足20个" });
+                ItemConfig itemConfig = ItemConfigCategory.Instance.Get(metailId);
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = itemConfig.Name + "数量不足" + upCount + "个" });
                 return;
             }
 

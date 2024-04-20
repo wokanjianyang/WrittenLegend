@@ -165,6 +165,9 @@ namespace Game
 		/// <summary>升级经验</summary>
 		[ProtoMember(30)]
 		public int Exp { get; set; }
+		/// <summary>UpItemId</summary>
+		[ProtoMember(31)]
+		public int UpItemId { get; set; }
 
 	}
 }
