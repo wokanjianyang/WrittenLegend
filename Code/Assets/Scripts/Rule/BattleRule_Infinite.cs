@@ -66,14 +66,15 @@ public class BattleRule_Infinite : ABattleRule
 
         if (enemys.Count <= 0 && !this.Start)
         {
-            this.Start = true;
+            long cp = this.Progress;
 
+            this.Progress++;
             InfiniteRecord record = user.InfiniteData.GetCurrentRecord();
             record.Progress.Data = this.Progress;
 
-            BuildReward(this.Progress);
+            BuildReward(cp);
 
-            this.Progress++;
+            this.Start = true;
             return;
         }
 

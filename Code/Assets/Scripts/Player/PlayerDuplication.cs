@@ -45,7 +45,7 @@ namespace Game
         {
             this.AttributeBonus = new AttributeBonus();
 
-            double rate = SkillPanel.Percent / 100;
+            double rate = SkillPanel.Percent / 100.0;
 
             this.SetAttackSpeed((int)(Master.AttributeBonus.GetTotalAttr(AttributeEnum.Speed) * rate));
             this.SetMoveSpeed((int)(Master.AttributeBonus.GetTotalAttr(AttributeEnum.MoveSpeed) * rate));
