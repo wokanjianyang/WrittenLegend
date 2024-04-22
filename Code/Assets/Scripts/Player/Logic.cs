@@ -71,7 +71,7 @@ namespace Game
 
             //BattleAttributeMap.Clear();
 
-            SelfPlayer.HP = SelfPlayer.AttributeBonus.GetAttackAttr(AttributeEnum.HP);
+            SelfPlayer.HP = SelfPlayer.AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP);
             this.SelfPlayer.EventCenter.Raise(new SetPlayerHPEvent { });
             //this.SelfPlayer.SetPosition(GameProcessor.Inst.PlayerManager.RandomCell(this.SelfPlayer.Cell));
         }
@@ -140,7 +140,7 @@ namespace Game
                 return;
             }
 
-            long maxHp = this.SelfPlayer.AttributeBonus.GetAttackAttr(AttributeEnum.HP);
+            double maxHp = this.SelfPlayer.AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP);
 
             if (maxHp <= currentHP)
             {

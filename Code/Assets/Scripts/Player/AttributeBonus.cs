@@ -68,6 +68,11 @@ namespace Game
             return (long)GetTotalAttrDouble(attrType);
         }
 
+        public double GetAttackDoubleAttr(AttributeEnum attrType)
+        {
+            return GetTotalAttrDouble(attrType);
+        }
+
         public double GetTotalAttrDouble(AttributeEnum attrType)
         {
             return GetTotalAttrDouble(attrType, true);

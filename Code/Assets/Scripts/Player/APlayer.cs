@@ -75,7 +75,7 @@ namespace Game
         private Dictionary<int, int> SkillUseRoundCache = new Dictionary<int, int>();
         public void ChangeMaxHp(int fromId, double total)
         {
-            double PreMaxHp = this.AttributeBonus.GetAttackAttr(AttributeEnum.HP);
+            double PreMaxHp = this.AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP);
             //Debug.Log("PreMaxHp:" + PreMaxHp);
             double rate = this.HP * 1f / PreMaxHp;
             //Debug.Log("rate:" + rate);
@@ -274,7 +274,7 @@ namespace Game
         {
             //回血
             double restoreHp = AttributeBonus.GetAttackAttr(AttributeEnum.RestoreHp) +
-                AttributeBonus.GetAttackAttr(AttributeEnum.RestoreHpPercent) * AttributeBonus.GetAttackAttr(AttributeEnum.HP) / 100;
+                AttributeBonus.GetAttackAttr(AttributeEnum.RestoreHpPercent) * AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP) / 100;
             if (restoreHp > 0)
             {
                 this.OnRestore(this.ID, ((long)restoreHp));

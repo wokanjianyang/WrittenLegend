@@ -281,7 +281,7 @@ namespace Game
 
         public override float AttackLogic()
         {
-            //Debug.Log("ÉúÃü:" + AttributeBonus.GetAttackAttr(AttributeEnum.HP));
+            //Debug.Log("ÉúÃü:" + AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP));
             //Debug.Log("¼õÉË:"+AttributeBonus.GetAttackAttr(AttributeEnum.DamageResist)+" ÔöÉË:"+ AttributeBonus.GetAttackAttr(AttributeEnum.DamageIncrea));
 
             //Debug.Log("Ë²ÒÆÄ§·¨ÉËº¦:" + AttributeBonus.GetAttackAttr(AttributeEnum.MagicDamage));

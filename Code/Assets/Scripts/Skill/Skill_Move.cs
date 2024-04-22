@@ -27,7 +27,7 @@ namespace Game
                 Content = SkillPanel.SkillData.SkillConfig.Name
             });
 
-            bool isLoss = this.SelfPlayer.HP < this.SelfPlayer.AttributeBonus.GetAttackAttr(AttributeEnum.HP); //是否损失了血量
+            bool isLoss = this.SelfPlayer.HP < this.SelfPlayer.AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP); //是否损失了血量
 
             //是否被控制？
             if (this.SelfPlayer.GetIsPause() || isLoss)
