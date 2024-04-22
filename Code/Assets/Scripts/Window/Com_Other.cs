@@ -83,10 +83,10 @@ namespace Game
                 return;
             }
 
-            long autoTime = user.SaveTicketTime;
+            long autoTime = Math.Max(user.SaveTicketTime, user.LastSaveTime);
             if (autoTime > 0)
             {
-                Txt_Save_Auto.text = "自动存档时间:" + TimeHelper.SecondsToDate(autoTime).AddHours(8).ToString("G");
+                Txt_Save_Auto.text = "最后存档时间:" + TimeHelper.SecondsToDate(autoTime).AddHours(8).ToString("G");
             }
             else
             {
@@ -221,7 +221,7 @@ namespace Game
                                + "再点击绑定，最后点击读取存档。\n"
                                + "一天读档最多次数为5次。\n"
                                + "请不要一个存档绑定太多设备，会导致封号。\n" + name;
-            
+
         }
 
         public void OnClick_Load()

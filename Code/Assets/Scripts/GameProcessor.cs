@@ -145,10 +145,10 @@ namespace Game
 
                 //Debug.Log("onlineTime:" + onlineTime);
 
-                if (this.User.Account != "" && this.User.SaveTicketTime > 0 && onlineTime > 20)
+                if (this.User.Account != "" && this.User.SaveTicketTime > 0 && onlineTime > 10)
                 {
                     long at = this.User.LastUploadTime;
-                    if (ct - at > 3600)
+                    if (ct - at > 1800)
                     {
                         this.User.LastUploadTime = ct;
 
@@ -156,7 +156,6 @@ namespace Game
                         str_json = EncryptionHelper.AesEncrypt(str_json);
 
                         string md5 = EncryptionHelper.Md5(str_json);
-                        Debug.Log("save md5:" + md5);
                         byte[] bytes = Encoding.UTF8.GetBytes(str_json);
 
                         Dictionary<string, string> headers = new Dictionary<string, string>();
@@ -178,7 +177,7 @@ namespace Game
                     }
 
                     long bt = this.User.LastSaveTime;
-                    if (ct - bt > 1900)
+                    if (ct - bt > 900)
                     {
                         this.User.LastSaveTime = ct;
 

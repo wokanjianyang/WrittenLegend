@@ -11,7 +11,11 @@ namespace Game
     {
         public int Progeress;
         InfiniteConfig Config { get; set; }
-        QualityConfig QualityConfig { get; set; }
+        InfiniteModelConfig ModelConfig { get; set; }
+
+        private double[] HpRate = { 1, 2.5, 5, 7.5, 10 };
+        private double[] DefRate = { 1, 2, 3, 4, 5 };
+        private double[] AttrRate = { 1, 1.25, 1.5, 1.75, 2 };
 
         public Monster_Infinite(long progress, int quality) : base()
         {
@@ -20,7 +24,8 @@ namespace Game
             this.Quality = quality;
 
             this.Config = InfiniteConfigCategory.Instance.GetByLevel(progress);
-            this.QualityConfig = QualityConfigCategory.Instance.Get(this.Quality);
+
+            this.ModelConfig = InfiniteModelConfigCategory.Instance.RandomConfig();
 
             this.Init();
         }
@@ -30,7 +35,7 @@ namespace Game
             QualityConfig qualityConfig = QualityConfigCategory.Instance.Get(this.Quality);
 
             this.Camp = PlayerType.Enemy;
-            this.Name = "无尽守卫" + qualityConfig.MonsterTitle;
+            this.Name = ModelConfig.Name + qualityConfig.MonsterTitle;
             this.Level = Progeress * 100;
 
             this.SetAttr();  //设置属性值
@@ -50,11 +55,11 @@ namespace Game
             double attr = Double.Parse(Config.Attr) + Double.Parse(Config.RiseAttr) * riseLevel;
             double def = Double.Parse(Config.Def) + Double.Parse(Config.RiseDef) * riseLevel;
 
-            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp * QualityConfig.HpRate);
-            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr * QualityConfig.AttrRate);
-            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr * QualityConfig.AttrRate);
-            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr * QualityConfig.AttrRate);
-            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, def); //* QualityConfig.DefRate
+            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp * HpRate[Quality - 1]);
+            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr * AttrRate[Quality - 1]);
+            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr * AttrRate[Quality - 1]);
+            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr * AttrRate[Quality - 1]);
+            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, def * DefRate[Quality - 1]);
 
             AttributeBonus.SetAttr(AttributeEnum.DamageIncrea, AttributeFrom.HeroBase, Config.DamageIncrea);
             AttributeBonus.SetAttr(AttributeEnum.DamageResist, AttributeFrom.HeroBase, Config.DamageResist);
