@@ -13,9 +13,7 @@ public class BattleRule_Infinite : ABattleRule
 
     private long Progress = 1;
 
-    private const int MaxProgress = 1000; //
-
-    private long PauseCount = 0;
+    private const int MaxProgress = 400; //
 
     private int[] MonsterList = new int[] { 5, 4, 4, 3, 3, 3, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1 };
 
@@ -27,7 +25,6 @@ public class BattleRule_Infinite : ABattleRule
         param.TryGetValue("count", out object count);
 
         this.Progress = (long)progress;
-        this.PauseCount = (long)count;
     }
 
     public override void DoMapLogic(int roundNum)
@@ -44,6 +41,8 @@ public class BattleRule_Infinite : ABattleRule
             return;
         }
 
+        User user = GameProcessor.Inst.User;
+
         if (enemys.Count <= 0 && this.Progress <= MaxProgress && this.Start)
         {
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Infinite, Message = "第" + this.Progress + "波发起了进攻" });
@@ -55,14 +54,13 @@ public class BattleRule_Infinite : ABattleRule
                 GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
             }
 
-            GameProcessor.Inst.EventCenter.Raise(new ShowInfiniteInfoEvent() { Count = Progress, PauseCount = PauseCount });
+            InfiniteRecord record = user.InfiniteData.GetCurrentRecord();
+            GameProcessor.Inst.EventCenter.Raise(new ShowInfiniteInfoEvent() { Count = Progress, PauseCount = record.Count.Data });
 
             this.Start = false;
 
             return;
         }
-
-        User user = GameProcessor.Inst.User;
 
         if (enemys.Count <= 0 && !this.Start)
         {
@@ -82,8 +80,8 @@ public class BattleRule_Infinite : ABattleRule
         {
             this.Over = false;
             user.InfiniteData.Complete();
-            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Defend, Message = "无尽闯关成功，您就是神！！！" });
-            GameProcessor.Inst.CloseBattle(RuleType.Defend, 0);
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Infinite, Message = "无尽闯关成功，您就是神！！！" });
+            GameProcessor.Inst.CloseBattle(RuleType.Infinite, 0);
             return;
         }
     }
@@ -127,8 +125,22 @@ public class BattleRule_Infinite : ABattleRule
         var hero = GameProcessor.Inst.PlayerManager.GetHero();
         if (hero.HP == 0)
         {
-            GameProcessor.Inst.SetGameOver(PlayerType.Enemy);
-            GameProcessor.Inst.HeroDie(RuleType.Defend, 0);
+            User user = GameProcessor.Inst.User;
+            InfiniteRecord record = user.InfiniteData.GetCurrentRecord();
+            record.Count.Data--;
+
+            if (record.Count.Data > 0)
+            {
+                GameProcessor.Inst.SetGameOver(PlayerType.Enemy);
+                GameProcessor.Inst.HeroDie(RuleType.Infinite, 0);
+            }
+            else
+            {
+                this.Over = false;
+                user.InfiniteData.Complete();
+                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Infinite, Message = "无尽闯关失败，请明天再来" });
+                GameProcessor.Inst.CloseBattle(RuleType.Infinite, 0);
+            }
         }
     }
 }

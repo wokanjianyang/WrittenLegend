@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class MapInfinite : MonoBehaviour, IBattleLife
 {
 
+    public Text Txt_Level;
     public Text Txt_Count;
 
     public ScrollRect sr_BattleMsg;
@@ -22,7 +23,6 @@ public class MapInfinite : MonoBehaviour, IBattleLife
     private List<Text> msgPool = new List<Text>();
 
     private long MapTime = 0;
-    private long PauseCount = 0;
 
     public int Order => (int)ComponentOrder.BattleRule;
 
@@ -64,6 +64,8 @@ public class MapInfinite : MonoBehaviour, IBattleLife
             return;
         }
 
+        record.Count.Data--;
+
         Dictionary<string, object> param = new Dictionary<string, object>();
         param.Add("progress", record.Progress.Data);
         param.Add("count", record.Count.Data);
@@ -77,8 +79,8 @@ public class MapInfinite : MonoBehaviour, IBattleLife
 
     public void OnShowInfo(ShowInfiniteInfoEvent e)
     {
-        Txt_Count.text = "挑战波数：" + e.Count;
-        PauseCount = e.PauseCount;
+        Txt_Level.text = "挑战波数：" + e.Count;
+        Txt_Count.text = "重生次数：" + e.PauseCount;
     }
 
     private void OnBattleMsgEvent(BattleMsgEvent e)
@@ -115,7 +117,7 @@ public class MapInfinite : MonoBehaviour, IBattleLife
 
     private void OnBattleLoseEvent(BattleLoseEvent e)
     {
-        if (e.Time == MapTime && e.Type == RuleType.Defend)
+        if (e.Time == MapTime && e.Type == RuleType.Infinite)
         {
             this.Exit();
         }
@@ -123,7 +125,7 @@ public class MapInfinite : MonoBehaviour, IBattleLife
 
     private void OnClick_Exit()
     {
-        GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("还剩" + PauseCount + "次退出次数,是否退出？", true, () =>
+        GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("退出会消耗一次重生次数,是否退出？", true, () =>
           {
               this.Exit();
           }, null);

@@ -27,7 +27,7 @@ namespace Game
                 Ticket = nt;
                 Current = new InfiniteRecord();
                 Current.Progress.Data = 1;
-                Current.Count.Data = 10;
+                Current.Count.Data = 100;
             }
 
             return Current;
