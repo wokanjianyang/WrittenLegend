@@ -92,8 +92,8 @@ public class BattleRule_Infinite : ABattleRule
 
         User user = GameProcessor.Inst.User;
 
-        long exp = (long)(rewardConfig.Exp * (100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.ExpIncrea)) / 100);
-        long gold = (long)(rewardConfig.Gold * (100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.GoldIncrea)) / 100);
+        long exp = (long)rewardConfig.Exp;
+        long gold = (long)rewardConfig.Gold;
 
         //增加经验,金币
         user.AddExpAndGold(exp, gold);
@@ -128,6 +128,7 @@ public class BattleRule_Infinite : ABattleRule
             User user = GameProcessor.Inst.User;
             InfiniteRecord record = user.InfiniteData.GetCurrentRecord();
             record.Count.Data--;
+            GameProcessor.Inst.EventCenter.Raise(new ShowInfiniteInfoEvent() { Count = Progress, PauseCount = record.Count.Data });
 
             if (record.Count.Data > 0)
             {

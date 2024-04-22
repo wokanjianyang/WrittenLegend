@@ -56,7 +56,7 @@ namespace Game
 
             double InheritIncrea = (SkillPanel.InheritIncrea + ModelConfig.AdvanceRate) / 100.0;
             double InheritAdvance = this.Master.AttributeBonus.GetAttackAttr(AttributeEnum.InheritAdvance) / 100.0;
-            double valteHp = this.Master.AttributeBonus.GetAttackAttr(AttributeEnum.SkillValetHp) / 100.0;
+            double valteHp = 1 + this.Master.AttributeBonus.GetAttackAttr(AttributeEnum.SkillValetHp) / 100.0;
 
             Debug.Log("valet InheritIncrea:" + InheritIncrea);
             Debug.Log("valet InheritAdvance:" + InheritAdvance);
