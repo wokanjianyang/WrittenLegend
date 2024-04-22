@@ -12,7 +12,7 @@ namespace Game
 
         public const int Channel_Tap = 1;
 
-        public const int Version = 210;
+        public const int Version = 211;
 
         public const bool ShowFestive = false;
 

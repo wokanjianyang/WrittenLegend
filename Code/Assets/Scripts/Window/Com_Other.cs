@@ -83,7 +83,7 @@ namespace Game
                 return;
             }
 
-            long autoTime = Math.Max(user.SaveTicketTime, user.LastSaveTime);
+            long autoTime = Math.Max(user.SaveTicketTime, user.SaveTickeTimeHand);
             if (autoTime > 0)
             {
                 Txt_Save_Auto.text = "最后存档时间:" + TimeHelper.SecondsToDate(autoTime).AddHours(8).ToString("G");

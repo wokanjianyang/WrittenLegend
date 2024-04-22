@@ -145,7 +145,7 @@ namespace Game
 
                 //Debug.Log("onlineTime:" + onlineTime);
 
-                if (this.User.Account != "" && this.User.SaveTicketTime > 0 && onlineTime > 10)
+                if (this.User.Account != "" && this.User.SaveTickeTimeHand > 0 && onlineTime > 10)
                 {
                     long at = this.User.LastUploadTime;
                     if (ct - at > 1800)
