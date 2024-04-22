@@ -117,14 +117,13 @@ namespace Game
 
 
             ExclusiveItem exclusive = this.boxItem.Item as ExclusiveItem;
-            int exclusiveLevel = exclusive.GetLevel();
-            if (exclusive.BaseAttrList != null && exclusive.BaseAttrList.Count > 0)
+
+            var BaseAttrList = exclusive.GetBaseAttrList().ToList();
+            if (BaseAttrList != null && BaseAttrList.Count > 0)
             {
                 tran_BaseAttribute.gameObject.SetActive(true);
                 tran_BaseAttribute.Find("Title").GetComponent<Text>().text = "[基础属性]";
                 tran_BaseAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.boxItem.Item.Level);
-
-                var BaseAttrList = exclusive.BaseAttrList.ToList();
 
                 for (int index = 0; index < 6; index++)
                 {
@@ -132,7 +131,7 @@ namespace Game
 
                     if (index < BaseAttrList.Count)
                     {
-                        child.GetComponent<Text>().text = StringHelper.FormatAttrText(BaseAttrList[index].Key, BaseAttrList[index].Value * exclusiveLevel);
+                        child.GetComponent<Text>().text = StringHelper.FormatAttrText(BaseAttrList[index].Key, BaseAttrList[index].Value);
                         child.gameObject.SetActive(true);
                     }
                     else

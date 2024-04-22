@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1456943880
+CRC: 3344705833
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 3b239b4e252ee60cb088c745a91c391c
+    Hash: 5785e3c1a6c054142433b180a2c6d083
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -26,6 +26,7 @@ Assets:
 - Assets/Resources/Config/EquipRefineConfigCategory.bytes
 - Assets/Resources/Config/FashionSuitConfigCategory.bytes
 - Assets/Resources/Config/GiftPackExclusiveConfigCategory.bytes
+- Assets/Resources/Config/ExclusiveAttrConfigCategory.bytes
 - Assets/Resources/Config/ArtifactConfigCategory.bytes
 - Assets/Resources/Config/AurasAttrConfigCategory.bytes
 - Assets/Resources/Config/EquipGroupConfigCategory.bytes

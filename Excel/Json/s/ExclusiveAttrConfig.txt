@@ -1,0 +1,14 @@
+{"list":[
+{"_t":"ExclusiveAttrConfig","_id":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[6,4,8]},
+{"_t":"ExclusiveAttrConfig","_id":2,"Level":2,"AttrIdList":[14,16,15],"AttrValueList":[20,15,30]},
+{"_t":"ExclusiveAttrConfig","_id":3,"Level":3,"AttrIdList":[14,16,15,2003],"AttrValueList":[60,40,80,2]},
+{"_t":"ExclusiveAttrConfig","_id":4,"Level":4,"AttrIdList":[14,16,15,2003],"AttrValueList":[200,120,300,4]},
+{"_t":"ExclusiveAttrConfig","_id":5,"Level":5,"AttrIdList":[14,16,15,2003,2002],"AttrValueList":[600,400,800,8,5]},
+{"_t":"ExclusiveAttrConfig","_id":6,"Level":6,"AttrIdList":[14,16,15,2003,2002,2011],"AttrValueList":[2000,1500,3000,16,10,1]},
+{"_t":"ExclusiveAttrConfig","_id":1000001,"Name":"神圣怒斩","Part":15,"Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[6,4,8],"Quality":5,"RuneId":14,"SuitId":10010},
+{"_t":"ExclusiveAttrConfig","_id":1000002,"Name":"神圣怒斩","Part":15,"Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[6,4,8],"Quality":5,"RuneId":15,"SuitId":10024},
+{"_t":"ExclusiveAttrConfig","_id":1000003,"Name":"神圣怒斩","Part":15,"Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[6,4,8],"Quality":5,"RuneId":16,"SuitId":10038},
+{"_t":"ExclusiveAttrConfig","_id":1000004,"Name":"神圣噬魂","Part":16,"Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[6,4,8],"Quality":5,"RuneId":14,"SuitId":10010},
+{"_t":"ExclusiveAttrConfig","_id":1000005,"Name":"神圣噬魂","Part":16,"Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[6,4,8],"Quality":5,"RuneId":15,"SuitId":10024},
+{"_t":"ExclusiveAttrConfig","_id":1000006,"Name":"神圣噬魂","Part":16,"Type":1,"Level":1,"AttrIdList":[14,16,15],"AttrValueList":[6,4,8],"Quality":5,"RuneId":16,"SuitId":10038},
+]}

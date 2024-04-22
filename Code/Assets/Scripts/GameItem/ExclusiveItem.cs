@@ -40,13 +40,6 @@ namespace Game
         [JsonIgnore]
         public int Part { get; set; }
 
-        [JsonIgnore]
-        /// <summary>
-        /// 基础属性
-        /// </summary>
-        public IDictionary<int, long> BaseAttrList { get; set; }
-
-
         public ExclusiveItem(int configId, int runeConfigId, int suitConfigId, int quality, int doubleHitId)
         {
             this.Type = ItemType.Exclusive;
@@ -63,14 +56,6 @@ namespace Game
             Part = ExclusiveConfig.Part;
             Gold = 0;
             Quality = quality;
-
-            BaseAttrList = new Dictionary<int, long>();
-            for (int i = 0; i < ExclusiveConfig.AttrIdList.Length; i++)
-            {
-                long attrValue = ExclusiveConfig.AttrValueList[i] * Quality;
-
-                BaseAttrList.Add(ExclusiveConfig.AttrIdList[i], attrValue);
-            }
 
             if (RuneConfigId > 0)
             {
@@ -98,16 +83,22 @@ namespace Game
         /// </summary>
         public IDictionary<int, long> GetTotalAttrList()
         {
+            return this.GetBaseAttrList();
+        }
+
+        public IDictionary<int, long> GetBaseAttrList()
+        {
             int level = GetLevel();
 
-            //根据基础属性和词条属性，计算总属性
-            IDictionary<int, long> AttrList = new Dictionary<int, long>();
-            foreach (int attrId in BaseAttrList.Keys)
+            IDictionary<int, long> BaseAttrList = new Dictionary<int, long>();
+
+            ExclusiveAttrConfig attrConfig = ExclusiveAttrConfigCategory.Instance.GetByLevel(level);
+            for (int i = 0; i < attrConfig.AttrIdList.Length; i++)
             {
-                AttrList[attrId] = BaseAttrList[attrId] * level;
+                BaseAttrList.Add(attrConfig.AttrIdList[i], attrConfig.AttrValueList[i] * Quality);
             }
 
-            return AttrList;
+            return BaseAttrList;
         }
 
         public List<SkillRuneConfig> GetRuneList(int skillId)
