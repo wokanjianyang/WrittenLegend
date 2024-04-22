@@ -453,7 +453,7 @@ public class Com_AD : MonoBehaviour, IBattleLife
         int atRate = user.GetArtifactValue(ArtifactType.EquipStoneAd);
 
         int MapNo = (user.MapId - ConfigHelper.MapStartId + 1);
-        int stoneRate = (MapNo / 5) + 1;
+        int stoneRate = (MapNo / 2) + 1;
 
         stoneRate = stoneRate + stoneRate * atRate / 100;
 

@@ -58,8 +58,8 @@ namespace Game
             double InheritAdvance = this.Master.AttributeBonus.GetAttackAttr(AttributeEnum.InheritAdvance) / 100.0;
             double valteHp = 1 + this.Master.AttributeBonus.GetAttackAttr(AttributeEnum.SkillValetHp) / 100.0;
 
-            Debug.Log("valet InheritIncrea:" + InheritIncrea);
-            Debug.Log("valet InheritAdvance:" + InheritAdvance);
+            //Debug.Log("valet InheritIncrea:" + InheritIncrea);
+            //Debug.Log("valet InheritAdvance:" + InheritAdvance);
 
             //技能系数
             double baseAttr = roleAttr * (SkillPanel.Percent + Master.GetRolePercent(role) + InheritIncrea) / 100 + SkillPanel.Damage + Master.GetRoleDamage(role);  // *百分比系数 + 固定数值
