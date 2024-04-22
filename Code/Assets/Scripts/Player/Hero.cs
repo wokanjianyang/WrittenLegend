@@ -215,7 +215,7 @@ namespace Game
                 else if (skillData.SkillId == 3010)
                 {
                     AttributeBonus.SetAttr(AttributeEnum.InheritAdvance, AttributeFrom.Skill, skillPanel.Percent);
-                    AttributeBonus.SetAttr(AttributeEnum.InheritIncrea, AttributeFrom.Skill, skillPanel.Damage);
+                    AttributeBonus.SetAttr(AttributeEnum.SkillValetHp, AttributeFrom.Skill, skillPanel.Damage);
                 }
             }
 

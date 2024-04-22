@@ -163,7 +163,7 @@
 {"_t":"DropConfig","_id":220002,"Level":0,"Name":"四格碎片","Quantity":50,"ItemType":5,"ItemIdList":[4007]},
 {"_t":"DropConfig","_id":220003,"Level":0,"Name":"图鉴碎片","Quantity":20,"ItemType":5,"ItemIdList":[4101]},
 {"_t":"DropConfig","_id":220011,"Level":0,"Name":"神器","Quantity":1,"ItemType":15,"ItemIdList":[1]},
-{"_t":"DropConfig","_id":220012,"Level":0,"Name":"10介技能","Quantity":1,"ItemType":3,"ItemIdList":[1010,2010,3010]},
+{"_t":"DropConfig","_id":220012,"Level":0,"Name":"10介技能","Quantity":1,"ItemType":3,"ItemIdList":[1010]},
 {"_t":"DropConfig","_id":220013,"Level":0,"Name":"高级书页","Quantity":1,"ItemType":5,"ItemIdList":[4102]},
 {"_t":"DropConfig","_id":101,"Level":0,"Name":"4件套装备","Quantity":1,"ItemType":2,"ItemIdList":[101,201,301,401]},
 {"_t":"DropConfig","_id":102,"Level":0,"Name":"4件套装备2","Quantity":1,"ItemType":2,"ItemIdList":[102,202,302,402]},

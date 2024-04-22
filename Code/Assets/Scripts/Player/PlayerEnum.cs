@@ -68,6 +68,7 @@ namespace Game
         SkillAllDamage = 305, //所有伤害加成
         SkillValetCount = 306, //召唤数量+1
         SkillValetSpeed = 307, //攻击速度
+        SkillValetHp = 308, //生命加成
 
         ExtraDamage = 401,//额外伤害
 

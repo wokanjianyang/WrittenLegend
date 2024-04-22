@@ -1,6 +1,12 @@
 {"list":[
-{"_t":"InfiniteModelConfig","_id":1,"Name":"血牛","AttrIdList":[1],"AttrValueList":[500],"Role":0},
-{"_t":"InfiniteModelConfig","_id":2,"Name":"坦克","AttrIdList":[1],"AttrValueList":[500],"Role":0},
-{"_t":"InfiniteModelConfig","_id":3,"Name":"力士","AttrIdList":[1],"AttrValueList":[500],"Role":0},
-{"_t":"InfiniteModelConfig","_id":4,"Name":"刺客","AttrIdList":[1],"AttrValueList":[500],"Role":0},
+{"_t":"InfiniteModelConfig","_id":1,"Name":"血量","AttrIdList":[2003],"AttrValueList":[1000]},
+{"_t":"InfiniteModelConfig","_id":2,"Name":"防御","AttrIdList":[2002],"AttrValueList":[1000]},
+{"_t":"InfiniteModelConfig","_id":3,"Name":"攻击","AttrIdList":[2001],"AttrValueList":[200]},
+{"_t":"InfiniteModelConfig","_id":4,"Name":"闪避","AttrIdList":[31],"AttrValueList":[50]},
+{"_t":"InfiniteModelConfig","_id":5,"Name":"速度","AttrIdList":[6],"AttrValueList":[200]},
+{"_t":"InfiniteModelConfig","_id":6,"Name":"精准","AttrIdList":[32],"AttrValueList":[50]},
+{"_t":"InfiniteModelConfig","_id":7,"Name":"坦克","AttrIdList":[2003,2002],"AttrValueList":[1000,1000]},
+{"_t":"InfiniteModelConfig","_id":8,"Name":"战士","AttrIdList":[2003,2001],"AttrValueList":[1000,200]},
+{"_t":"InfiniteModelConfig","_id":9,"Name":"刺客","AttrIdList":[2001,6],"AttrValueList":[200,200]},
+{"_t":"InfiniteModelConfig","_id":10,"Name":"影舞者","AttrIdList":[31,32],"AttrValueList":[50,50]},
 ]}

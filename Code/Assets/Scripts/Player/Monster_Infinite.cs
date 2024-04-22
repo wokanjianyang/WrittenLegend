@@ -93,6 +93,33 @@ namespace Game
 
                 SkillState skill = new SkillState(this, skillPanel, skillData.Position, 0);
                 SelectSkillList.Add(skill);
+
+                //职业专精技能的属性
+                if (skillData.SkillConfig.Type == (int)SkillType.Expert)
+                {
+                    int attrKey = (int)AttributeFrom.Skill * 10000 + skillData.SkillId;
+
+                    if (skillData.SkillConfig.Role == (int)RoleType.Warrior)
+                    {
+                        AttributeBonus.SetAttr(AttributeEnum.WarriorSkillPercent, attrKey, skillPanel.Percent);
+                        AttributeBonus.SetAttr(AttributeEnum.WarriorSkillDamage, attrKey, skillPanel.Damage);
+                    }
+                    else if (skillData.SkillConfig.Role == (int)RoleType.Mage)
+                    {
+                        AttributeBonus.SetAttr(AttributeEnum.MageSkillPercent, attrKey, skillPanel.Percent);
+                        AttributeBonus.SetAttr(AttributeEnum.MageSkillDamage, attrKey, skillPanel.Damage);
+                    }
+                    else if (skillData.SkillConfig.Role == (int)RoleType.Warlock)
+                    {
+                        AttributeBonus.SetAttr(AttributeEnum.WarlockSkillPercent, attrKey, skillPanel.Percent);
+                        AttributeBonus.SetAttr(AttributeEnum.WarlockSkillDamage, attrKey, skillPanel.Damage);
+                    }
+                }
+                else if (skillData.SkillId == 3010)
+                {
+                    AttributeBonus.SetAttr(AttributeEnum.InheritAdvance, AttributeFrom.Skill, skillPanel.Percent);
+                    AttributeBonus.SetAttr(AttributeEnum.SkillValetHp, AttributeFrom.Skill, skillPanel.Damage);
+                }
             }
         }
     }

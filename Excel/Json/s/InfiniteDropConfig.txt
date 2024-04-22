@@ -8,7 +8,7 @@
 {"_t":"InfiniteDropConfig","_id":7,"DropId":2006,"Name":"红色图鉴","Rate":4,"StartLevel":150,"EndLevel":10000,"RateLevel":1,"Max":20},
 {"_t":"InfiniteDropConfig","_id":8,"DropId":3001,"Name":"一期时装","Rate":10,"StartLevel":1,"EndLevel":10000,"RateLevel":1,"Max":50},
 {"_t":"InfiniteDropConfig","_id":9,"DropId":3002,"Name":"二期时装","Rate":10,"StartLevel":200,"EndLevel":10000,"RateLevel":1,"Max":50},
-{"_t":"InfiniteDropConfig","_id":10,"DropId":220012,"Name":"10介技能","Rate":10,"StartLevel":250,"EndLevel":250,"RateLevel":1,"Max":1},
+{"_t":"InfiniteDropConfig","_id":10,"DropId":220012,"Name":"彻地钉","Rate":30,"StartLevel":250,"EndLevel":250,"RateLevel":1,"Max":1},
 {"_t":"InfiniteDropConfig","_id":11,"DropId":220013,"Name":"高级书页","Rate":10,"StartLevel":1,"EndLevel":10000,"RateLevel":1,"Max":50},
 {"_t":"InfiniteDropConfig","_id":101,"DropId":180001,"Name":"BOSS杀手","Rate":100,"StartLevel":1,"EndLevel":10000,"RateLevel":100,"Max":1},
 {"_t":"InfiniteDropConfig","_id":102,"DropId":180002,"Name":"BOSS契约","Rate":400,"StartLevel":1,"EndLevel":10000,"RateLevel":100,"Max":1},
