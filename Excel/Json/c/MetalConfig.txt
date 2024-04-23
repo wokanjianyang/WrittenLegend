@@ -19,6 +19,6 @@
 {"_t":"MetalConfig","_id":18,"Name":"橄榄石","AttrId":2005,"AttrValue":1,"RiseAttr":1,"RiseLog":0,"RisePower":0,"MaxLevel":100,"Quality":6,"Des":"法术倍率"},
 {"_t":"MetalConfig","_id":19,"Name":"星叶石","AttrId":2006,"AttrValue":1,"RiseAttr":1,"RiseLog":0,"RisePower":0,"MaxLevel":100,"Quality":6,"Des":"道术倍率"},
 {"_t":"MetalConfig","_id":20,"Name":"方解石","AttrId":2004,"AttrValue":1,"RiseAttr":1,"RiseLog":0,"RisePower":0,"MaxLevel":100,"Quality":6,"Des":"攻击倍率"},
-{"_t":"MetalConfig","_id":21,"Name":"黑蠗石","AttrId":2010,"AttrValue":1,"RiseAttr":1,"RiseLog":0,"RisePower":0,"MaxLevel":100,"Quality":6,"Des":"增伤倍率"},
+{"_t":"MetalConfig","_id":21,"Name":"黑曜石","AttrId":2010,"AttrValue":1,"RiseAttr":1,"RiseLog":0,"RisePower":0,"MaxLevel":100,"Quality":6,"Des":"增伤倍率"},
 {"_t":"MetalConfig","_id":22,"Name":"金刚石","AttrId":2011,"AttrValue":1,"RiseAttr":1,"RiseLog":0,"RisePower":0,"MaxLevel":100,"Quality":6,"Des":"减伤倍率"},
 ]}

@@ -220,7 +220,7 @@ namespace Game
 
         public List<DropData> DropDataList { get; } = new List<DropData>();
 
-        public IDictionary<int, int> FestiveData { get; set; } = new Dictionary<int, int>();
+        public IDictionary<int, int> FestiveData_51 { get; set; } = new Dictionary<int, int>();
 
         public List<Miner> MinerList { get; set; } = new List<Miner>();
 
@@ -1048,19 +1048,19 @@ namespace Game
 
         public int GetFestiveCount(int id)
         {
-            if (!this.FestiveData.ContainsKey(id))
+            if (!this.FestiveData_51.ContainsKey(id))
             {
-                this.FestiveData[id] = 0;
+                this.FestiveData_51[id] = 0;
             }
 
-            return this.FestiveData[id];
+            return this.FestiveData_51[id];
         }
 
         public void SaveFestiveCount(int configId)
         {
-            if (this.FestiveData.ContainsKey(configId))
+            if (this.FestiveData_51.ContainsKey(configId))
             {
-                this.FestiveData[configId]++;
+                this.FestiveData_51[configId]++;
             }
         }
     }
