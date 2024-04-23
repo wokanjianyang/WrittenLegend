@@ -22,12 +22,18 @@ namespace Game
         public InfiniteRecord GetCurrentRecord()
         {
             long nt = DateTime.Today.Ticks;
+            Debug.Log("nt:" + nt + "  Ticket:" + Ticket);
             if (nt > Ticket)
             {
                 Ticket = nt;
                 Current = new InfiniteRecord();
                 Current.Progress.Data = 1;
                 Current.Count.Data = 100;
+
+                if (this.DropList.Count > 0)
+                {
+                    DropList.RemoveAt(0);
+                }
             }
 
             return Current;
@@ -45,6 +51,7 @@ namespace Game
             }
 
             //Debug.Log("infinite drop1-100:" + DropList[0][99]);
+            //Debug.Log("drop:" + DropList[0][99] + "," + DropList[0][199] + "," + DropList[0][299]);
 
             return DropList[0][level - 1];
         }
@@ -53,7 +60,6 @@ namespace Game
         public void Complete()
         {
             this.Current = null;
-            DropList.RemoveAt(0);
         }
     }
 
