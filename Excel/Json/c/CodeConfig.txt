@@ -54,6 +54,7 @@
 {"_t":"CodeConfig","_id":11003,"Type":1,"code":"yumao11","ItemTypeList":[5],"ItemIdList":[4008],"ItemQuanlityList":[600]},
 {"_t":"CodeConfig","_id":11004,"Type":1,"code":"yumao12","ItemTypeList":[5],"ItemIdList":[4008],"ItemQuanlityList":[600]},
 {"_t":"CodeConfig","_id":11005,"Type":1,"code":"yumao13","ItemTypeList":[5],"ItemIdList":[4008],"ItemQuanlityList":[600]},
+{"_t":"CodeConfig","_id":11010,"Type":1,"code":"chediding","ItemTypeList":[3],"ItemIdList":[1010],"ItemQuanlityList":[1]},
 {"_t":"CodeConfig","_id":11801,"Type":1,"code":"bsss1","ItemTypeList":[18],"ItemIdList":[180001],"ItemQuanlityList":[1]},
 {"_t":"CodeConfig","_id":11802,"Type":1,"code":"bsss2","ItemTypeList":[18],"ItemIdList":[180001],"ItemQuanlityList":[1]},
 {"_t":"CodeConfig","_id":11803,"Type":1,"code":"bsss3","ItemTypeList":[18],"ItemIdList":[180001],"ItemQuanlityList":[1]},

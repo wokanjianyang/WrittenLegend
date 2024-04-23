@@ -151,7 +151,7 @@ public class DialogFashion : MonoBehaviour, IBattleLife
 
                 if (currentLevel > 0)
                 {
-                    ab1 = config.AttrRiseList[i] * (currentLevel - 1);
+                    ab1 = config.AttrRiseList[i] * (currentLevel);
                 }
                 else
                 {
