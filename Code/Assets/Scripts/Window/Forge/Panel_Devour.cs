@@ -82,7 +82,7 @@ public class Panel_Devour : MonoBehaviour
         User user = GameProcessor.Inst.User;
 
         List<BoxItem> list = user.Bags.Where(m => m.Item.Type == ItemType.Exclusive && m.Item.GetQuality() == 5 && !m.Item.IsLock).OrderBy(m => m.Item.ConfigId).ToList();
-        Debug.Log("es:" + list.Count);
+        //Debug.Log("es:" + list.Count);
         for (int BoxId = 0; BoxId < list.Count; BoxId++)
         {
             if (BoxId >= MaxCount)
@@ -126,7 +126,18 @@ public class Panel_Devour : MonoBehaviour
 
     private void OnComBoxSelect(ComBoxSelectEvent e)
     {
-        SlotBox slot = slots.Where(m => m.GetEquip() == null).FirstOrDefault();
+        SlotBox slot = null;
+        int type = 0;
+
+        for (int i = 0; i < slots.Count; i++)
+        {
+            if (slots[i].GetEquip() == null)
+            {
+                slot = slots[i];
+                type = i;
+                break;
+            }
+        }
 
         if (slot == null)
         {
@@ -135,6 +146,12 @@ public class Panel_Devour : MonoBehaviour
 
         BoxItem boxItem = e.BoxItem;
         ExclusiveItem exclusive = boxItem.Item as ExclusiveItem;
+
+        if (type == 1 && exclusive.GetLevel() > 1)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "副专属不能为升阶过的", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
 
         int nextLevel = exclusive.GetLevel();
         int maxLevel = GameProcessor.Inst.User.GetExclusiveLimit();
