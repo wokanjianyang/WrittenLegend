@@ -211,6 +211,15 @@ namespace Game
             //去掉专属精华
             //user.Bags.RemoveAll(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Chunjie);
 
+            //List<BoxItem> items = user.Bags.Where(m => m.Item.Type == ItemType.Equip && m.Item.ConfigId >= 21105801 && m.Item.ConfigId <= 21105810).ToList();
+            //List<BoxItem> items = user.Bags.Where(m => m.Item.Type == ItemType.Equip && m.Item.ConfigId >= 22105801 && m.Item.ConfigId <= 22105810).ToList();
+            //List<BoxItem> items = user.Bags.Where(m => m.Item.Type == ItemType.Equip && m.Item.ConfigId >= 23105801 && m.Item.ConfigId <= 23105810).ToList();
+            //Debug.Log("items:" + items.Count);
+            //foreach (var item in items) {
+            //    Equip equip = item.Item as Equip;
+            //    equip.ConfigId -= 1000000;
+            //}
+
             //user.Bags.RemoveAll(m => m.Item.Type != 0);
 
             //user.DefendData.Refresh();
