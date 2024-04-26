@@ -29,7 +29,7 @@ namespace Game
 
         private void Init()
         {
-            this.Camp = Master.Camp;
+            this.Camp = PlayerType.Duplication;
             this.Level = Master.Level;
             this.ModelType = Master.ModelType;
             this.Name = "·ÖÉí" + "(" + Master.Name + ")";

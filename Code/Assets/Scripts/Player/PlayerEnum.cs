@@ -132,6 +132,7 @@ namespace Game
         Valet,
         Defend,
         HeroPhatom,
+        Duplication,
     }
 
     public enum MondelType

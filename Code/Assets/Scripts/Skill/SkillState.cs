@@ -35,13 +35,25 @@ namespace Game
                 isShow = false;
             }
 
-            if (skillPanel.SkillData.SkillConfig.Id == 1010)
+            if (skillPanel.SkillId == 1010)
             {
                 this.skillLogic = new Skill_Chediding(player, skillPanel, isShow);
             }
-            if (skillPanel.SkillData.SkillConfig.Id == 2010)
+            else if (skillPanel.SkillId == 2010)
             {
                 this.skillLogic = new Skill_Duplication(player, skillPanel, isShow);
+            }
+            else if (skillPanel.SkillId == 1008)
+            {
+                this.skillLogic = new Skill_Huti(player, skillPanel, isShow);
+            }
+            else if (skillPanel.SkillId == 2008)
+            {
+                this.skillLogic = new Skill_Move(player, skillPanel, isShow);
+            }
+            else if (skillPanel.SkillId == 3008)
+            {
+                this.skillLogic = new Skill_Yinshen(player, skillPanel, isShow);
             }
             else if (skillPanel.SkillData.SkillConfig.Type == (int)SkillType.Attack)
             {
@@ -73,18 +85,6 @@ namespace Game
             else if (skillPanel.SkillData.SkillConfig.Type == (int)SkillType.Expert)
             {
                 this.skillLogic = new Skill_Expert(player, skillPanel, isShow);
-            }
-            else if (skillPanel.SkillData.SkillConfig.Type == 1008)
-            {
-                this.skillLogic = new Skill_Huti(player, skillPanel, isShow);
-            }
-            else if (skillPanel.SkillData.SkillConfig.Type == 2008)
-            {
-                this.skillLogic = new Skill_Move(player, skillPanel, isShow);
-            }
-            else if (skillPanel.SkillData.SkillConfig.Type == 3008)
-            {
-                this.skillLogic = new Skill_Yinshen(player, skillPanel, isShow);
             }
             else if (skillPanel.SkillData.SkillConfig.Type == (int)SkillType.Yeman)
             {
