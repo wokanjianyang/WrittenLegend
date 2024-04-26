@@ -186,14 +186,16 @@ namespace Game
             int upCount = 20;
 
             int metailId = this.SkillPanel.SkillData.SkillConfig.UpItemId;
+            ItemConfig itemConfig = ItemConfigCategory.Instance.Get(metailId);
 
             User user = GameProcessor.Inst.User;
             long total = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == metailId).Select(m => m.MagicNubmer.Data).Sum();
 
+            //Debug.Log("max skill level:" + user.GetSkillLimit(this.SkillPanel.SkillData.SkillConfig));
+
             if (total < upCount)
             {
-                ItemConfig itemConfig = ItemConfigCategory.Instance.Get(metailId);
-                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = itemConfig.Name + "数量不足" + upCount + "个" });
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = itemConfig.Name + "数量不足" + upCount + "个", ToastType = ToastTypeEnum.Failure });
                 return;
             }
 
@@ -205,18 +207,19 @@ namespace Game
                 return;
             }
 
-            skill.MagicLevel.Data++;
-
-            SkillPanel skillPanel = new SkillPanel(skill, user.GetRuneList(skill.SkillId, null), user.GetSuitList(skill.SkillId), true);
-            this.SetItem(skillPanel);
-
             GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
             {
                 Type = ItemType.Material,
-                ItemId = ItemHelper.SpecialId_Moon_Cake,
+                ItemId = metailId,
                 Quantity = upCount
             });
 
+            skill.MagicLevel.Data++;
+            SkillPanel skillPanel = new SkillPanel(skill, user.GetRuneList(skill.SkillId, null), user.GetSuitList(skill.SkillId), true);
+            this.SetItem(skillPanel);
+
+
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "消耗" + upCount + "个" + itemConfig.Name + "升级成功", ToastType = ToastTypeEnum.Success });
         }
     }
 }
