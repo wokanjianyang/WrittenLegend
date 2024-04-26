@@ -85,7 +85,7 @@ namespace Game
 
             double CurrentMaxHp = this.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
             //Debug.Log("CurrentMaxHp:" + CurrentMaxHp);
-            double currentHp = (long)(CurrentMaxHp * rate);
+            double currentHp = CurrentMaxHp * rate;
             //Debug.Log("effect MaxHp:" + StringHelper.FormatNumber(currentHp));
             this.HP = currentHp;
 
