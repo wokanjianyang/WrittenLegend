@@ -11,6 +11,8 @@ namespace Game
 {
     public class User
     {
+        public bool OldVerionFlag { get; set; } = false;
+
         public long Essence { get; set; }
         public int LastCityId { get; set; }
 

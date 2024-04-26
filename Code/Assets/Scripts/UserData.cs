@@ -204,6 +204,16 @@ namespace Game
                 user.RecoverySetting.SkillReserveQuanlity[5] = true;
             }
 
+            if (!user.OldVerionFlag)
+            {
+                user.OldVerionFlag = true;
+                SkillData cdd = user.SkillList.Where(m => m.SkillId == 1010).FirstOrDefault();
+                if (cdd != null)
+                {
+                    cdd.MagicLevel.Data = 1;
+                }
+            }
+
             //user.InfiniteData = new InfiniteData();
             //user.InfiniteData.Ticket = 0;
             //Debug.Log("DeviceId:" + user.DeviceId);

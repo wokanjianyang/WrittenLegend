@@ -120,7 +120,7 @@ namespace Game
 
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Copy_Ticket, 3600));
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, 450));
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Wing_Stone, 300));
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Wing_Stone, 999));
 
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Stone, 1000));
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Heart, 100));
@@ -129,6 +129,8 @@ namespace Game
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Red_Stone, 87));
 
             //items.Add(ItemHelper.BuildItem(ItemType.Card, 2000010, 10, 5));
+
+            //user.SaveArtifactLevel(180005, 10);
 
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 13, 1, 1));
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 14, 1, 1));
