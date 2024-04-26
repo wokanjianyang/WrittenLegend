@@ -351,12 +351,12 @@ namespace Game
             //装备红色属性
             for (int role = 1; role <= 3; role++)
             {
-                EquipRed red = GetEquipRedConfig(role);
-                foreach (EquipRedConfig redConfig in red.List)
+                EquipRedSuit red = GetEquipRedConfig(role);
+                foreach (EquipRedItem redItem in red.List)
                 {
-                    if (red.Count >= redConfig.Count)
+                    if (redItem.Level >= 0)
                     {
-                        AttributeBonus.SetAttr((AttributeEnum)redConfig.AttrId, AttributeFrom.EquipRed, 1, redConfig.AttrValue + redConfig.AttrRise * (red.Level - 1));
+                        AttributeBonus.SetAttr((AttributeEnum)(redItem.Config.AttrId), AttributeFrom.EquipRed, 1, redItem.Config.AttrValue + redItem.Config.AttrRise * (redItem.Level - 1));
                     }
                 }
             }
@@ -723,26 +723,33 @@ namespace Game
             return list;
         }
 
-        public EquipRed GetEquipRedConfig(int role)
+        public EquipRedSuit GetEquipRedConfig(int role)
         {
             List<Equip> equips = this.EquipPanelList[EquipPanelIndex].Select(m => m.Value).Where(m => m.GetQuality() == 6 && m.EquipConfig.Role == role).ToList();
+            List<int> layers = equips.Select(m => m.Layer).OrderByDescending(m => m).ToList();
 
-            int count = equips.Count;
-
-            int redLevel = 1;
-            if (equips.Count > 0)
-            {
-                int minLevel = equips.Select(m => m.Level).Min();
-                redLevel = (minLevel - 700) / 50;
-            }
+            Debug.Log("red layers:" + layers.ListToString());
 
             List<EquipRedConfig> list = EquipRedConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Role == role).ToList();
 
-            EquipRed red = new EquipRed();
+            List<EquipRedItem> redList = new List<EquipRedItem>();
 
-            red.Count = equips.Count;
-            red.Level = redLevel;
-            red.List = list;
+            for (int i = 0; i < list.Count; i++)
+            {
+                EquipRedConfig config = list[i];
+
+                int redLevel = layers.Count >= config.Count ? layers[config.Count - 1] : 0;
+
+                EquipRedItem redItem = new EquipRedItem();
+                redItem.Level = redLevel;
+                redItem.Count = layers.Where(m => m >= redLevel).Count();
+                redItem.Config = config;
+
+                redList.Add(redItem);
+            }
+
+            EquipRedSuit red = new EquipRedSuit();
+            red.List = redList;
 
             return red;
         }

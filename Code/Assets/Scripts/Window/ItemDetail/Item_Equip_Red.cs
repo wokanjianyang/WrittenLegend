@@ -1,5 +1,6 @@
 using Game.Data;
 using Sirenix.OdinInspector;
+using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -12,16 +13,19 @@ namespace Game
         public Text Txt_Name;
         public Text Txt_Des;
 
-        public void SetContent(int count, int redLevel, EquipRedConfig config)
+        public void SetContent(EquipRedItem redItem)
         {
+            string color = redItem.Count >= redItem.Config.Count ? "FF0000" : "CCCCCC";
 
-            string color = count >= config.Count ? "FF0000" : "CCCCCC";
+            int showLevel = Math.Max(1, redItem.Level);
 
-            string name = (redLevel) + "½×ºì×°" + string.Format("({0}/{1})", count, config.Count);
+            string name = ConfigHelper.LayerChinaList[showLevel] + "½×ºì×°" + string.Format("({0}/{1})", redItem.Count, redItem.Config.Count);
 
             this.Txt_Name.text = string.Format("<color=#{0}>{1}</color>", color, name);
 
-            this.Txt_Des.text = string.Format("<color=#{0}>{1}</color>", color, StringHelper.FormatAttrText(config.AttrId, config.AttrValue + (redLevel - 1) * config.AttrRise, "+"));
+            int attr = redItem.Config.AttrValue + (showLevel - 1) * redItem.Config.AttrRise;
+
+            this.Txt_Des.text = string.Format("<color=#{0}>{1}</color>", color, StringHelper.FormatAttrText(redItem.Config.AttrId, attr, "+"));
         }
     }
 }

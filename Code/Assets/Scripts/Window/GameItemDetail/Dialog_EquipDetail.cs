@@ -344,7 +344,7 @@ namespace Game
                         {
                             tran_RedAttribute.gameObject.SetActive(true);
 
-                            EquipRed red = user.GetEquipRedConfig(equip.EquipConfig.Role);
+                            EquipRedSuit red = user.GetEquipRedConfig(equip.EquipConfig.Role);
 
                             this.ShowRed(red);
                         }
@@ -447,14 +447,14 @@ namespace Game
             }
         }
 
-        private void ShowRed(EquipRed red)
+        private void ShowRed(EquipRedSuit redSuit)
         {
             Item_Equip_Red[] reds = tran_RedAttribute.GetComponentsInChildren<Item_Equip_Red>(true);
 
             for (int i = 0; i < reds.Length; i++)
             {
                 reds[i].gameObject.SetActive(true);
-                reds[i].SetContent(red.Count, red.Level, red.List[i]);
+                reds[i].SetContent(redSuit.List[i]);
             }
         }
 
