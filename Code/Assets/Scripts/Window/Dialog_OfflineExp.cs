@@ -126,6 +126,7 @@ namespace Game
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Heart, 100));
 
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_EquipRefineStone, 999999999));
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Red_Stone, 87));
 
             //items.Add(ItemHelper.BuildItem(ItemType.Card, 2000010, 10, 5));
 
@@ -271,11 +272,11 @@ namespace Game
             //定制红
             List<Equip> list = new List<Equip>();
 
-            ////武器 品质1，幸运5,护体
+            //武器 品质1，幸运5,护体
             //Equip equip1 = new Equip(21105801, 21, 13, 6);
             //List<KeyValuePair<int, long>> AttrEntryList1 = new List<KeyValuePair<int, long>>();
-            //AttrEntryList1.Add(new KeyValuePair<int, long>(24, 50));
-            //AttrEntryList1.Add(new KeyValuePair<int, long>(7, 8));
+            //AttrEntryList1.Add(new KeyValuePair<int, long>(2001, 3));
+            //AttrEntryList1.Add(new KeyValuePair<int, long>(2004, 3));
             //AttrEntryList1.Add(new KeyValuePair<int, long>(7, 8));
             //AttrEntryList1.Add(new KeyValuePair<int, long>(7, 8));
             //AttrEntryList1.Add(new KeyValuePair<int, long>(7, 8));
@@ -287,8 +288,8 @@ namespace Game
             ////项链  品质1，幸运5，护体
             //Equip equip2 = new Equip(21105803, 21, 13, 6);
             //List<KeyValuePair<int, long>> AttrEntryList2 = new List<KeyValuePair<int, long>>();
-            //AttrEntryList2.Add(new KeyValuePair<int, long>(24, 50));
-            //AttrEntryList2.Add(new KeyValuePair<int, long>(7, 8));
+            //AttrEntryList2.Add(new KeyValuePair<int, long>(2001, 3));
+            //AttrEntryList2.Add(new KeyValuePair<int, long>(2004, 3));
             //AttrEntryList2.Add(new KeyValuePair<int, long>(7, 8));
             //AttrEntryList2.Add(new KeyValuePair<int, long>(7, 8));
             //AttrEntryList2.Add(new KeyValuePair<int, long>(7, 8));
@@ -300,8 +301,8 @@ namespace Game
             ////衣服 护体
             //Equip equip3 = new Equip(21105802, 21, 13, 6);
             //List<KeyValuePair<int, long>> AttrEntryList3 = new List<KeyValuePair<int, long>>();
-            //AttrEntryList3.Add(new KeyValuePair<int, long>(24, 50));
-            //AttrEntryList3.Add(new KeyValuePair<int, long>(19, 50));
+            //AttrEntryList3.Add(new KeyValuePair<int, long>(33, 10));
+            //AttrEntryList3.Add(new KeyValuePair<int, long>(33, 10));
             //AttrEntryList3.Add(new KeyValuePair<int, long>(2011, 1));
             //AttrEntryList3.Add(new KeyValuePair<int, long>(2004, 3));
             //AttrEntryList3.Add(new KeyValuePair<int, long>(2003, 3));
@@ -313,8 +314,8 @@ namespace Game
             ////头盔 护体
             //Equip equip4 = new Equip(21105804, 21, 13, 6);
             //List<KeyValuePair<int, long>> AttrEntryList4 = new List<KeyValuePair<int, long>>();
-            //AttrEntryList4.Add(new KeyValuePair<int, long>(24, 50));
-            //AttrEntryList4.Add(new KeyValuePair<int, long>(19, 50));
+            //AttrEntryList4.Add(new KeyValuePair<int, long>(33, 10));
+            //AttrEntryList4.Add(new KeyValuePair<int, long>(33, 10));
             //AttrEntryList4.Add(new KeyValuePair<int, long>(2011, 1));
             //AttrEntryList4.Add(new KeyValuePair<int, long>(2004, 3));
             //AttrEntryList4.Add(new KeyValuePair<int, long>(2003, 3));
@@ -326,8 +327,8 @@ namespace Game
             ////手镯 武力精通
             //Equip equip5 = new Equip(21105805, 10022, 7, 6);
             //List<KeyValuePair<int, long>> AttrEntryList5 = new List<KeyValuePair<int, long>>();
-            //AttrEntryList5.Add(new KeyValuePair<int, long>(24, 50));
-            //AttrEntryList5.Add(new KeyValuePair<int, long>(19, 50));
+            //AttrEntryList5.Add(new KeyValuePair<int, long>(33, 10));
+            //AttrEntryList5.Add(new KeyValuePair<int, long>(33, 10));
             //AttrEntryList5.Add(new KeyValuePair<int, long>(2011, 1));
             //AttrEntryList5.Add(new KeyValuePair<int, long>(2004, 3));
             //AttrEntryList5.Add(new KeyValuePair<int, long>(2003, 3));
@@ -339,8 +340,8 @@ namespace Game
             ////手镯 武力精通
             //Equip equip6 = new Equip(21105805, 10022, 7, 6);
             //List<KeyValuePair<int, long>> AttrEntryList6 = new List<KeyValuePair<int, long>>();
-            //AttrEntryList6.Add(new KeyValuePair<int, long>(24, 50));
-            //AttrEntryList6.Add(new KeyValuePair<int, long>(19, 50));
+            //AttrEntryList6.Add(new KeyValuePair<int, long>(33, 10));
+            //AttrEntryList6.Add(new KeyValuePair<int, long>(33, 10));
             //AttrEntryList6.Add(new KeyValuePair<int, long>(2011, 1));
             //AttrEntryList6.Add(new KeyValuePair<int, long>(2004, 3));
             //AttrEntryList6.Add(new KeyValuePair<int, long>(2003, 3));
@@ -350,51 +351,51 @@ namespace Game
             //list.Add(equip6);
 
 
-            //戒指 武力盾
-            Equip equip7 = new Equip(21105807, 14, 10009, 6);
-            List<KeyValuePair<int, long>> AttrEntryList7 = new List<KeyValuePair<int, long>>();
-            AttrEntryList7.Add(new KeyValuePair<int, long>(24, 50));
-            AttrEntryList7.Add(new KeyValuePair<int, long>(19, 50));
-            AttrEntryList7.Add(new KeyValuePair<int, long>(2002, 3));
-            AttrEntryList7.Add(new KeyValuePair<int, long>(2004, 3));
-            AttrEntryList7.Add(new KeyValuePair<int, long>(2003, 3));
-            AttrEntryList7.Add(new KeyValuePair<int, long>(2001, 3));
-            equip7.AttrEntryList = AttrEntryList7;
-            equip7.Layer = 2;
-            list.Add(equip7);
+            ////戒指 武力盾
+            //Equip equip7 = new Equip(21105807, 14, 10009, 6);
+            //List<KeyValuePair<int, long>> AttrEntryList7 = new List<KeyValuePair<int, long>>();
+            //AttrEntryList7.Add(new KeyValuePair<int, long>(33, 10));
+            //AttrEntryList7.Add(new KeyValuePair<int, long>(33, 10));
+            //AttrEntryList7.Add(new KeyValuePair<int, long>(2002, 3));
+            //AttrEntryList7.Add(new KeyValuePair<int, long>(2004, 3));
+            //AttrEntryList7.Add(new KeyValuePair<int, long>(2003, 3));
+            //AttrEntryList7.Add(new KeyValuePair<int, long>(2001, 3));
+            //equip7.AttrEntryList = AttrEntryList7;
+            //equip7.Layer = 2;
+            //list.Add(equip7);
 
-            //戒指 武力盾
-            Equip equip8 = new Equip(21105807, 14, 10009, 6);
-            List<KeyValuePair<int, long>> AttrEntryList8 = new List<KeyValuePair<int, long>>();
-            AttrEntryList8.Add(new KeyValuePair<int, long>(24, 50));
-            AttrEntryList8.Add(new KeyValuePair<int, long>(19, 50));
-            AttrEntryList8.Add(new KeyValuePair<int, long>(2002, 3));
-            AttrEntryList8.Add(new KeyValuePair<int, long>(2004, 3));
-            AttrEntryList8.Add(new KeyValuePair<int, long>(2003, 3));
-            AttrEntryList8.Add(new KeyValuePair<int, long>(2001, 3));
-            equip8.AttrEntryList = AttrEntryList8;
-            equip8.Layer = 2;
-            list.Add(equip8);
+            ////戒指 武力盾
+            //Equip equip8 = new Equip(21105807, 14, 10009, 6);
+            //List<KeyValuePair<int, long>> AttrEntryList8 = new List<KeyValuePair<int, long>>();
+            //AttrEntryList8.Add(new KeyValuePair<int, long>(33, 10));
+            //AttrEntryList8.Add(new KeyValuePair<int, long>(33, 10));
+            //AttrEntryList8.Add(new KeyValuePair<int, long>(2002, 3));
+            //AttrEntryList8.Add(new KeyValuePair<int, long>(2004, 3));
+            //AttrEntryList8.Add(new KeyValuePair<int, long>(2003, 3));
+            //AttrEntryList8.Add(new KeyValuePair<int, long>(2001, 3));
+            //equip8.AttrEntryList = AttrEntryList8;
+            //equip8.Layer = 2;
+            //list.Add(equip8);
 
 
-            //腰带 武力盾
-            Equip equip9 = new Equip(21105809, 14, 10010, 6);
-            List<KeyValuePair<int, long>> AttrEntryList9 = new List<KeyValuePair<int, long>>();
-            AttrEntryList9.Add(new KeyValuePair<int, long>(24, 50));
-            AttrEntryList9.Add(new KeyValuePair<int, long>(19, 50));
-            AttrEntryList9.Add(new KeyValuePair<int, long>(2002, 3));
-            AttrEntryList9.Add(new KeyValuePair<int, long>(2004, 3));
-            AttrEntryList9.Add(new KeyValuePair<int, long>(2003, 3));
-            AttrEntryList9.Add(new KeyValuePair<int, long>(2001, 3));
-            equip9.AttrEntryList = AttrEntryList9;
-            equip9.Layer = 2;
-            list.Add(equip9);
+            ////腰带 武力盾
+            //Equip equip9 = new Equip(21105809, 14, 10010, 6);
+            //List<KeyValuePair<int, long>> AttrEntryList9 = new List<KeyValuePair<int, long>>();
+            //AttrEntryList9.Add(new KeyValuePair<int, long>(33, 10));
+            //AttrEntryList9.Add(new KeyValuePair<int, long>(33, 10));
+            //AttrEntryList9.Add(new KeyValuePair<int, long>(2002, 3));
+            //AttrEntryList9.Add(new KeyValuePair<int, long>(2004, 3));
+            //AttrEntryList9.Add(new KeyValuePair<int, long>(2003, 3));
+            //AttrEntryList9.Add(new KeyValuePair<int, long>(2001, 3));
+            //equip9.AttrEntryList = AttrEntryList9;
+            //equip9.Layer = 2;
+            //list.Add(equip9);
 
             ////鞋子 武力盾
             //Equip equip10 = new Equip(21105810, 10021, 10010, 6);
             //List<KeyValuePair<int, long>> AttrEntryList10 = new List<KeyValuePair<int, long>>();
-            //AttrEntryList10.Add(new KeyValuePair<int, long>(24, 50));
-            //AttrEntryList10.Add(new KeyValuePair<int, long>(19, 50));
+            //AttrEntryList10.Add(new KeyValuePair<int, long>(33, 10));
+            //AttrEntryList10.Add(new KeyValuePair<int, long>(33, 10));
             //AttrEntryList10.Add(new KeyValuePair<int, long>(2011, 1));
             //AttrEntryList10.Add(new KeyValuePair<int, long>(2004, 3));
             //AttrEntryList10.Add(new KeyValuePair<int, long>(2003, 3));
