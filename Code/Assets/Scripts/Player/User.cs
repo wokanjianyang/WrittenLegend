@@ -316,23 +316,23 @@ namespace Game
             SetUpExp();
 
             //装备属性
-            foreach (var kvp in EquipPanelList[EquipPanelIndex])
+            foreach (KeyValuePair<int, Equip> kvp in EquipPanelList[EquipPanelIndex])
             {
-                EquipRefineConfig refineConfig = null;
+                long refineLevel = 0;
                 if (MagicEquipRefine.TryGetValue(kvp.Key, out MagicData refineData))
                 {
-                    refineConfig = EquipRefineConfigCategory.Instance.GetByLevel(refineData.Data);
+                    refineLevel = refineData.Data;
                 }
 
-                foreach (var a in kvp.Value.GetTotalAttrList(refineConfig))
+                foreach (KeyValuePair<int, long> a in kvp.Value.GetTotalAttrList(refineLevel))
                 {
                     AttributeBonus.SetAttr((AttributeEnum)a.Key, AttributeFrom.EquipBase, kvp.Key, a.Value);
                 }
             }
 
-            foreach (var kvp in EquipPanelSpecial)
+            foreach (KeyValuePair<int, Equip> kvp in EquipPanelSpecial)
             {
-                foreach (var a in kvp.Value.GetTotalAttrList(null))
+                foreach (KeyValuePair<int, long> a in kvp.Value.GetTotalAttrList(0))
                 {
                     AttributeBonus.SetAttr((AttributeEnum)a.Key, AttributeFrom.EquipBase, kvp.Key, a.Value);
                 }

@@ -11,5 +11,10 @@
         {
             return (float)(degrees * System.Math.PI / 180);
         }
+
+        public static long GetSequence1(long level)
+        {
+            return level * (level + 1) / 2;
+        }
     }
 }

@@ -166,15 +166,16 @@ namespace Game
                     {
                         Equip equip = this.boxItem.Item as Equip;
 
-                        int basePercent = 0;
-                        int qualityPercent = 0;
+                        long basePercent = 0;
+                        long qualityPercent = 0;
                         if (user.MagicEquipRefine.TryGetValue(equipPositioin, out MagicData refineData))
                         {
-                            EquipRefineConfig refineConfig = EquipRefineConfigCategory.Instance.GetByLevel(refineData.Data);
-                            if (refineConfig != null)
+                            long refineLevel = refineData.Data;
+                            if (refineLevel > 0)
                             {
-                                basePercent = refineConfig.BaseAttrPercent;
-                                qualityPercent = refineConfig.QualityAttrPercent;
+                                EquipRefineConfig refineConfig = EquipRefineConfigCategory.Instance.GetByLevel(refineLevel);
+                                basePercent = refineConfig.GetBaseAttrPercent(refineLevel);
+                                qualityPercent = refineConfig.GetQualityAttrPercent(refineLevel);
                             }
                         }
 
@@ -495,7 +496,7 @@ namespace Game
             tran_SuitAttribute.gameObject.SetActive(true);
         }
 
-        private string FormatAttrText(int attr, long val, int percent)
+        private string FormatAttrText(int attr, long val, long percent)
         {
             string unit = "";
 

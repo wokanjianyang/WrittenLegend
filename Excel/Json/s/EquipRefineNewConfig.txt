@@ -1,0 +1,16 @@
+{"list":[
+{"_t":"EquipRefineNewConfig","_id":1,"StartLevel":1,"EndLevel":49,"Fee":0,"RiseFee":10},
+{"_t":"EquipRefineNewConfig","_id":2,"StartLevel":50,"EndLevel":99,"Fee":0,"RiseFee":20},
+{"_t":"EquipRefineNewConfig","_id":3,"StartLevel":100,"EndLevel":149,"Fee":0,"RiseFee":30},
+{"_t":"EquipRefineNewConfig","_id":4,"StartLevel":150,"EndLevel":199,"Fee":0,"RiseFee":40},
+{"_t":"EquipRefineNewConfig","_id":5,"StartLevel":200,"EndLevel":249,"Fee":0,"RiseFee":50},
+{"_t":"EquipRefineNewConfig","_id":6,"StartLevel":250,"EndLevel":299,"Fee":0,"RiseFee":60},
+{"_t":"EquipRefineNewConfig","_id":7,"StartLevel":300,"EndLevel":349,"Fee":0,"RiseFee":70},
+{"_t":"EquipRefineNewConfig","_id":8,"StartLevel":350,"EndLevel":375,"Fee":4400000,"RiseFee":100000},
+{"_t":"EquipRefineNewConfig","_id":9,"StartLevel":376,"EndLevel":400,"Fee":7000000,"RiseFee":200000},
+{"_t":"EquipRefineNewConfig","_id":10,"StartLevel":401,"EndLevel":425,"Fee":12000000,"RiseFee":300000},
+{"_t":"EquipRefineNewConfig","_id":11,"StartLevel":426,"EndLevel":450,"Fee":19500000,"RiseFee":400000},
+{"_t":"EquipRefineNewConfig","_id":12,"StartLevel":451,"EndLevel":475,"Fee":29500000,"RiseFee":500000},
+{"_t":"EquipRefineNewConfig","_id":13,"StartLevel":476,"EndLevel":500,"Fee":42000000,"RiseFee":600000},
+{"_t":"EquipRefineNewConfig","_id":14,"StartLevel":501,"EndLevel":501,"Fee":57000000,"RiseFee":700000},
+]}

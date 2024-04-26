@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2322976997
+CRC: 1942368771
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 1b591d162e44ad52bd3de98688efb0f3
+    Hash: d850ad999280600aecd08c25de3033e9
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -60,6 +60,7 @@ Assets:
 - Assets/Resources/Config/EquipGradeConfigCategory.bytes
 - Assets/Resources/Config/MonsterModelConfigCategory.bytes
 - Assets/Resources/Config/HalidomConfigCategory.bytes
+- Assets/Resources/Config/EquipRefineNewConfigCategory.bytes
 - Assets/Resources/Config/InfiniteConfigCategory.bytes
 - Assets/Resources/Config/SkillDoubleHitConfigCategory.bytes
 - Assets/Resources/Config/InfiniteDropConfigCategory.bytes

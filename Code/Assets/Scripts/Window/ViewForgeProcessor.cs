@@ -403,9 +403,10 @@ public class ViewForgeProcessor : AViewPage
 
         user.MagicEquipRefine.TryGetValue(Refine_Position, out MagicData refineData);
 
-        EquipRefineConfig currentConfig = EquipRefineConfigCategory.Instance.GetByLevel(refineData.Data);
+        long currentLevel = refineData.Data;
+        EquipRefineConfig currentConfig = EquipRefineConfigCategory.Instance.GetByLevel(currentLevel);
 
-        long nextLevel = refineData.Data + 1;
+        long nextLevel = currentLevel + 1;
         EquipRefineConfig nextConfig = EquipRefineConfigCategory.Instance.GetByLevel(nextLevel);
 
         if (nextConfig == null || nextLevel > MaxLevel)
@@ -417,19 +418,19 @@ public class ViewForgeProcessor : AViewPage
         {
             var materialCount = user.GetMaterialCount(ItemHelper.SpecialId_EquipRefineStone);
 
-            string color = materialCount >= nextConfig.Fee ? "#FFFF00" : "#FF0000";
+            string color = materialCount >= nextConfig.GetFee(nextLevel) ? "#FFFF00" : "#FF0000";
 
-            Refine_Txt_Fee.text = string.Format("<color={0}>{1}</color>", color, nextConfig.Fee);
+            Refine_Txt_Fee.text = string.Format("<color={0}>{1}</color>", color, nextConfig.GetFee(nextLevel));
             Btn_Refine.gameObject.SetActive(true);
         }
 
         Refine_Attr_Base.gameObject.SetActive(false);
         Refine_Attr_Quality.gameObject.SetActive(false);
 
-        if (nextConfig != null && nextConfig.BaseAttrPercent > 0)
+        if (nextConfig != null && nextConfig.GetBaseAttrPercent(nextLevel) > 0)
         {
-            long currentAttrValue = currentConfig == null ? 0 : currentConfig.BaseAttrPercent;
-            long nextAttrValue = nextConfig == null ? 0 : nextConfig.BaseAttrPercent;
+            long currentAttrValue = currentConfig == null ? 0 : currentConfig.GetBaseAttrPercent(currentLevel);
+            long nextAttrValue = nextConfig == null ? 0 : nextConfig.GetBaseAttrPercent(nextLevel);
 
             long attrRise = nextAttrValue - currentAttrValue;
 
@@ -437,10 +438,10 @@ public class ViewForgeProcessor : AViewPage
             Refine_Attr_Base.SetContent((int)AttributeEnum.EquipBaseIncrea, currentAttrValue, attrRise);
         }
 
-        if (nextConfig != null && nextConfig.QualityAttrPercent > 0)
+        if (nextConfig != null && nextConfig.GetQualityAttrPercent(nextLevel) > 0)
         {
-            long currentAttrValue = currentConfig == null ? 0 : currentConfig.QualityAttrPercent;
-            long nextAttrValue = nextConfig == null ? 0 : nextConfig.QualityAttrPercent;
+            long currentAttrValue = currentConfig == null ? 0 : currentConfig.GetQualityAttrPercent(currentLevel);
+            long nextAttrValue = nextConfig == null ? 0 : nextConfig.GetQualityAttrPercent(nextLevel);
 
             long attrRise = nextAttrValue - currentAttrValue;
 
@@ -475,11 +476,12 @@ public class ViewForgeProcessor : AViewPage
             return;
         }
 
-        EquipRefineConfig config = EquipRefineConfigCategory.Instance.GetByLevel(refineData.Data + 1);
+        long refineLevel = refineData.Data + 1;
+        EquipRefineConfig config = EquipRefineConfigCategory.Instance.GetByLevel(refineLevel);
 
         var materialCount = user.GetMaterialCount(ItemHelper.SpecialId_EquipRefineStone);
 
-        if (materialCount < config.Fee)
+        if (materialCount < config.GetFee(refineLevel))
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的精炼石", ToastType = ToastTypeEnum.Failure });
             return;
@@ -491,7 +493,7 @@ public class ViewForgeProcessor : AViewPage
         {
             Type = ItemType.Material,
             ItemId = ItemHelper.SpecialId_EquipRefineStone,
-            Quantity = config.Fee
+            Quantity = config.GetFee(refineLevel)
         });
 
         GameProcessor.Inst.UpdateInfo();

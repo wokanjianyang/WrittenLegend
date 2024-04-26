@@ -405,5 +405,15 @@ namespace Game
 
             return list;
         }
+
+        private void Test()
+        {
+            for (int i = 1; i <= 501; i++)
+            {
+                EquipRefineConfig oldConfig = EquipRefineConfigCategory.Instance.GetByLevel(i);
+            }
+
+            Debug.Log(" Test Over ");
+        }
     }
 }

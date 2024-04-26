@@ -199,15 +199,16 @@ namespace Game
         /// <summary>
         /// 属性列表
         /// </summary>
-        public IDictionary<int, long> GetTotalAttrList(EquipRefineConfig refineConfig)
+        public IDictionary<int, long> GetTotalAttrList(long level)
         {
             long basePercent = 100;
             long qualityPercent = 100;
 
-            if (refineConfig != null)
+            if (level > 0)
             {
-                basePercent += refineConfig.BaseAttrPercent;
-                qualityPercent += refineConfig.QualityAttrPercent;
+                EquipRefineConfig refineConfig = EquipRefineConfigCategory.Instance.GetByLevel(level);
+                basePercent += refineConfig.GetBaseAttrPercent(level);
+                qualityPercent += refineConfig.GetQualityAttrPercent(level);
             }
 
             //根据基础属性和词条属性，计算总属性
