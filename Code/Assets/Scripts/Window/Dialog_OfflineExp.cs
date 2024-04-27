@@ -555,30 +555,30 @@ namespace Game
             //¶¨ÖÆºì
             List<ExclusiveItem> list = new List<ExclusiveItem>();
 
-            //À×µç
-            ExclusiveItem exclusive1 = new ExclusiveItem(1, 8, 10017, 5, 1);
-            exclusive1.RuneConfigIdList.Add(8);
-            exclusive1.RuneConfigIdList.Add(8);
-            exclusive1.SuitConfigIdList.Add(10017);
-            exclusive1.SuitConfigIdList.Add(10017);
-            exclusive1.Count = 1;
-            list.Add(exclusive1);
+            ////À×µç
+            //ExclusiveItem exclusive1 = new ExclusiveItem(1, 8, 10017, 5, 1);
+            //exclusive1.RuneConfigIdList.Add(8);
+            //exclusive1.RuneConfigIdList.Add(8);
+            //exclusive1.SuitConfigIdList.Add(10017);
+            //exclusive1.SuitConfigIdList.Add(10017);
+            //exclusive1.Count = 1;
+            //list.Add(exclusive1);
 
-            //À×µç
-            ExclusiveItem exclusive2 = new ExclusiveItem(2, 12, 10018, 5, 1);
-            exclusive2.RuneConfigIdList.Add(12);
-            exclusive2.RuneConfigIdList.Add(12);
-            exclusive2.SuitConfigIdList.Add(10018);
-            exclusive2.SuitConfigIdList.Add(10018);
-            exclusive2.Count = 1;
-            list.Add(exclusive2);
+            ////À×µç
+            //ExclusiveItem exclusive2 = new ExclusiveItem(2, 12, 10018, 5, 1);
+            //exclusive2.RuneConfigIdList.Add(12);
+            //exclusive2.RuneConfigIdList.Add(12);
+            //exclusive2.SuitConfigIdList.Add(10018);
+            //exclusive2.SuitConfigIdList.Add(10018);
+            //exclusive2.Count = 1;
+            //list.Add(exclusive2);
 
             //±ùÅØÏø
             ExclusiveItem exclusive3 = new ExclusiveItem(3, 5, 6, 5, 1);
             exclusive3.RuneConfigIdList.Add(5);
             exclusive3.RuneConfigIdList.Add(5);
             exclusive3.SuitConfigIdList.Add(6);
-            exclusive3.SuitConfigIdList.Add(6);
+            exclusive3.SuitConfigIdList.Add(10027);
             exclusive3.Count = 1;
             list.Add(exclusive3);
 
@@ -587,27 +587,27 @@ namespace Game
             exclusive4.RuneConfigIdList.Add(18);
             exclusive4.RuneConfigIdList.Add(18);
             exclusive4.SuitConfigIdList.Add(11);
-            exclusive4.SuitConfigIdList.Add(11);
+            exclusive4.SuitConfigIdList.Add(10027);
             exclusive4.Count = 1;
             list.Add(exclusive4);
 
-            //ÒþÉí+ Ë²ÒÆ
-            ExclusiveItem exclusive5 = new ExclusiveItem(5, 23, 15, 5, 2);
-            exclusive5.RuneConfigIdList.Add(23);
-            exclusive5.RuneConfigIdList.Add(22);
-            exclusive5.SuitConfigIdList.Add(15);
-            exclusive5.SuitConfigIdList.Add(14);
-            exclusive5.Count = 1;
-            list.Add(exclusive5);
+            ////ÒþÉí+ Ë²ÒÆ
+            //ExclusiveItem exclusive5 = new ExclusiveItem(5, 23, 15, 5, 2);
+            //exclusive5.RuneConfigIdList.Add(23);
+            //exclusive5.RuneConfigIdList.Add(22);
+            //exclusive5.SuitConfigIdList.Add(15);
+            //exclusive5.SuitConfigIdList.Add(14);
+            //exclusive5.Count = 1;
+            //list.Add(exclusive5);
 
-            //ÁÒ»ð
-            ExclusiveItem exclusive6 = new ExclusiveItem(6, 22, 14, 5, 2);
-            exclusive6.RuneConfigIdList.Add(22);
-            exclusive6.RuneConfigIdList.Add(22);
-            exclusive6.SuitConfigIdList.Add(14);
-            exclusive6.SuitConfigIdList.Add(14);
-            exclusive6.Count = 1;
-            list.Add(exclusive6);
+            ////ÁÒ»ð
+            //ExclusiveItem exclusive6 = new ExclusiveItem(6, 22, 14, 5, 2);
+            //exclusive6.RuneConfigIdList.Add(22);
+            //exclusive6.RuneConfigIdList.Add(22);
+            //exclusive6.SuitConfigIdList.Add(14);
+            //exclusive6.SuitConfigIdList.Add(14);
+            //exclusive6.Count = 1;
+            //list.Add(exclusive6);
 
             return list;
         }
