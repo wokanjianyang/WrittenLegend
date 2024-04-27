@@ -118,8 +118,8 @@ namespace Game
             //items.Add(new Equip(22005709, 23, 15, 5));
             //items.Add(new Equip(22005710, 23, 15, 5));
 
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Copy_Ticket, 3600));
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, 450));
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Copy_Ticket, 125000));
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, 12500));
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Wing_Stone, 999));
 
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Stone, 1000));
@@ -135,8 +135,8 @@ namespace Game
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 13, 1, 1));
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 14, 1, 1));
 
-            //items.AddRange(AddRedEquip());
-            //items.AddRange(AddExclusive());
+            //items.AddRange(AddRedEquip1());
+            //items.AddRange(AddExclusive1());
 
             long newFloor = user.MagicTowerFloor.Data + offlineFloor;
 
@@ -409,6 +409,207 @@ namespace Game
             return list;
         }
 
+        private List<Equip> AddRedEquip1()
+        {
+            //定制红
+            List<Equip> list = new List<Equip>();
+
+            //武器 倍率，幸运4,爆裂
+            Equip equip1 = new Equip(22105801, 10047, 10021, 6);
+            List<KeyValuePair<int, long>> AttrEntryList1 = new List<KeyValuePair<int, long>>();
+            AttrEntryList1.Add(new KeyValuePair<int, long>(2001, 3));
+            AttrEntryList1.Add(new KeyValuePair<int, long>(2005, 3));
+            AttrEntryList1.Add(new KeyValuePair<int, long>(7, 8));
+            AttrEntryList1.Add(new KeyValuePair<int, long>(7, 8));
+            AttrEntryList1.Add(new KeyValuePair<int, long>(7, 8));
+            AttrEntryList1.Add(new KeyValuePair<int, long>(7, 8));
+            equip1.AttrEntryList = AttrEntryList1;
+            equip1.Layer = 2;
+            list.Add(equip1);
+
+            //项链  倍率，幸运4，爆裂
+            Equip equip2 = new Equip(22105803, 3, 10021, 6);
+            List<KeyValuePair<int, long>> AttrEntryList2 = new List<KeyValuePair<int, long>>();
+            AttrEntryList2.Add(new KeyValuePair<int, long>(2001, 3));
+            AttrEntryList2.Add(new KeyValuePair<int, long>(2005, 3));
+            AttrEntryList2.Add(new KeyValuePair<int, long>(7, 8));
+            AttrEntryList2.Add(new KeyValuePair<int, long>(7, 8));
+            AttrEntryList2.Add(new KeyValuePair<int, long>(7, 8));
+            AttrEntryList2.Add(new KeyValuePair<int, long>(7, 8));
+            equip2.AttrEntryList = AttrEntryList2;
+            equip2.Layer = 2;
+            list.Add(equip2);
+
+            //衣服 爆裂
+            Equip equip3 = new Equip(22105802, 3, 10022, 6);
+            List<KeyValuePair<int, long>> AttrEntryList3 = new List<KeyValuePair<int, long>>();
+            AttrEntryList3.Add(new KeyValuePair<int, long>(34, 10));
+            AttrEntryList3.Add(new KeyValuePair<int, long>(2002, 3));
+            AttrEntryList3.Add(new KeyValuePair<int, long>(2011, 1));
+            AttrEntryList3.Add(new KeyValuePair<int, long>(2005, 3));
+            AttrEntryList3.Add(new KeyValuePair<int, long>(2003, 3));
+            AttrEntryList3.Add(new KeyValuePair<int, long>(2001, 3));
+            equip3.AttrEntryList = AttrEntryList3;
+            equip3.Layer = 2;
+            list.Add(equip3);
+
+            //头盔 爆裂
+            Equip equip4 = new Equip(22105804, 3, 10022, 6);
+            List<KeyValuePair<int, long>> AttrEntryList4 = new List<KeyValuePair<int, long>>();
+            AttrEntryList4.Add(new KeyValuePair<int, long>(34, 10));
+            AttrEntryList4.Add(new KeyValuePair<int, long>(2002, 3));
+            AttrEntryList4.Add(new KeyValuePair<int, long>(2011, 1));
+            AttrEntryList4.Add(new KeyValuePair<int, long>(2005, 3));
+            AttrEntryList4.Add(new KeyValuePair<int, long>(2003, 3));
+            AttrEntryList4.Add(new KeyValuePair<int, long>(2001, 3));
+            equip4.AttrEntryList = AttrEntryList4;
+            equip4.Layer = 2;
+            list.Add(equip4);
+
+            //手镯 法力精通
+            Equip equip5 = new Equip(22105805, 10049, 8, 6);
+            List<KeyValuePair<int, long>> AttrEntryList5 = new List<KeyValuePair<int, long>>();
+            AttrEntryList5.Add(new KeyValuePair<int, long>(34, 10));
+            AttrEntryList5.Add(new KeyValuePair<int, long>(2002, 3));
+            AttrEntryList5.Add(new KeyValuePair<int, long>(2011, 1));
+            AttrEntryList5.Add(new KeyValuePair<int, long>(2005, 3));
+            AttrEntryList5.Add(new KeyValuePair<int, long>(2003, 3));
+            AttrEntryList5.Add(new KeyValuePair<int, long>(2001, 3));
+            equip5.AttrEntryList = AttrEntryList5;
+            equip5.Layer = 2;
+            list.Add(equip5);
+
+            //手镯 法力精通
+            Equip equip6 = new Equip(22105805, 10049, 8, 6);
+            List<KeyValuePair<int, long>> AttrEntryList6 = new List<KeyValuePair<int, long>>();
+            AttrEntryList6.Add(new KeyValuePair<int, long>(34, 10));
+            AttrEntryList6.Add(new KeyValuePair<int, long>(2002, 3));
+            AttrEntryList6.Add(new KeyValuePair<int, long>(2011, 1));
+            AttrEntryList6.Add(new KeyValuePair<int, long>(2005, 3));
+            AttrEntryList6.Add(new KeyValuePair<int, long>(2003, 3));
+            AttrEntryList6.Add(new KeyValuePair<int, long>(2001, 3));
+            equip6.AttrEntryList = AttrEntryList6;
+            equip6.Layer = 2;
+            list.Add(equip6);
+
+
+            //戒指 魔法盾
+            Equip equip7 = new Equip(22105807, 15, 10023, 6);
+            List<KeyValuePair<int, long>> AttrEntryList7 = new List<KeyValuePair<int, long>>();
+            AttrEntryList7.Add(new KeyValuePair<int, long>(34, 10));
+            AttrEntryList7.Add(new KeyValuePair<int, long>(34, 10));
+            AttrEntryList7.Add(new KeyValuePair<int, long>(2002, 3));
+            AttrEntryList7.Add(new KeyValuePair<int, long>(2005, 3));
+            AttrEntryList7.Add(new KeyValuePair<int, long>(2003, 3));
+            AttrEntryList7.Add(new KeyValuePair<int, long>(2001, 3));
+            equip7.AttrEntryList = AttrEntryList7;
+            equip7.Layer = 2;
+            list.Add(equip7);
+
+            //戒指 魔法盾
+            Equip equip8 = new Equip(22105807, 15, 10023, 6);
+            List<KeyValuePair<int, long>> AttrEntryList8 = new List<KeyValuePair<int, long>>();
+            AttrEntryList8.Add(new KeyValuePair<int, long>(34, 10));
+            AttrEntryList8.Add(new KeyValuePair<int, long>(34, 10));
+            AttrEntryList8.Add(new KeyValuePair<int, long>(2002, 3));
+            AttrEntryList8.Add(new KeyValuePair<int, long>(2005, 3));
+            AttrEntryList8.Add(new KeyValuePair<int, long>(2003, 3));
+            AttrEntryList8.Add(new KeyValuePair<int, long>(2001, 3));
+            equip8.AttrEntryList = AttrEntryList8;
+            equip8.Layer = 2;
+            list.Add(equip8);
+
+
+            //腰带 魔法盾
+            Equip equip9 = new Equip(22105809, 15, 10024, 6);
+            List<KeyValuePair<int, long>> AttrEntryList9 = new List<KeyValuePair<int, long>>();
+            AttrEntryList9.Add(new KeyValuePair<int, long>(34, 10));
+            AttrEntryList9.Add(new KeyValuePair<int, long>(34, 10));
+            AttrEntryList9.Add(new KeyValuePair<int, long>(2002, 3));
+            AttrEntryList9.Add(new KeyValuePair<int, long>(2005, 3));
+            AttrEntryList9.Add(new KeyValuePair<int, long>(2003, 3));
+            AttrEntryList9.Add(new KeyValuePair<int, long>(2001, 3));
+            equip9.AttrEntryList = AttrEntryList9;
+            equip9.Layer = 2;
+            list.Add(equip9);
+
+            //鞋子 魔法盾
+            Equip equip10 = new Equip(22105810, 10048, 10024, 6);
+            List<KeyValuePair<int, long>> AttrEntryList10 = new List<KeyValuePair<int, long>>();
+            AttrEntryList10.Add(new KeyValuePair<int, long>(34, 10));
+            AttrEntryList10.Add(new KeyValuePair<int, long>(2002, 3));
+            AttrEntryList10.Add(new KeyValuePair<int, long>(2011, 1));
+            AttrEntryList10.Add(new KeyValuePair<int, long>(2005, 3));
+            AttrEntryList10.Add(new KeyValuePair<int, long>(2003, 3));
+            AttrEntryList10.Add(new KeyValuePair<int, long>(2001, 3));
+            equip10.AttrEntryList = AttrEntryList10;
+            equip10.Layer = 2;
+            list.Add(equip10);
+
+            return list;
+        }
+
+        private List<ExclusiveItem> AddExclusive1()
+        {
+            //定制红
+            List<ExclusiveItem> list = new List<ExclusiveItem>();
+
+            //雷电
+            ExclusiveItem exclusive1 = new ExclusiveItem(1, 8, 10017, 5, 1);
+            exclusive1.RuneConfigIdList.Add(8);
+            exclusive1.RuneConfigIdList.Add(8);
+            exclusive1.SuitConfigIdList.Add(10017);
+            exclusive1.SuitConfigIdList.Add(10017);
+            exclusive1.Count = 1;
+            list.Add(exclusive1);
+
+            //雷电
+            ExclusiveItem exclusive2 = new ExclusiveItem(2, 12, 10018, 5, 1);
+            exclusive2.RuneConfigIdList.Add(12);
+            exclusive2.RuneConfigIdList.Add(12);
+            exclusive2.SuitConfigIdList.Add(10018);
+            exclusive2.SuitConfigIdList.Add(10018);
+            exclusive2.Count = 1;
+            list.Add(exclusive2);
+
+            //冰咆哮
+            ExclusiveItem exclusive3 = new ExclusiveItem(3, 5, 6, 5, 1);
+            exclusive3.RuneConfigIdList.Add(5);
+            exclusive3.RuneConfigIdList.Add(5);
+            exclusive3.SuitConfigIdList.Add(6);
+            exclusive3.SuitConfigIdList.Add(11);
+            exclusive3.Count = 1;
+            list.Add(exclusive3);
+
+            //冰咆哮+隐身
+            ExclusiveItem exclusive4 = new ExclusiveItem(4, 18, 11, 5, 3);
+            exclusive4.RuneConfigIdList.Add(10015);
+            exclusive4.RuneConfigIdList.Add(10015);
+            exclusive4.SuitConfigIdList.Add(10005);
+            exclusive4.SuitConfigIdList.Add(10005);
+            exclusive4.Count = 1;
+            list.Add(exclusive4);
+
+            //隐身+ 瞬移
+            ExclusiveItem exclusive5 = new ExclusiveItem(5, 23, 15, 5, 3);
+            exclusive5.RuneConfigIdList.Add(23);
+            exclusive5.RuneConfigIdList.Add(22);
+            exclusive5.SuitConfigIdList.Add(15);
+            exclusive5.SuitConfigIdList.Add(14);
+            exclusive5.Count = 1;
+            list.Add(exclusive5);
+
+            //烈火
+            ExclusiveItem exclusive6 = new ExclusiveItem(6, 22, 14, 5, 3);
+            exclusive6.RuneConfigIdList.Add(22);
+            exclusive6.RuneConfigIdList.Add(22);
+            exclusive6.SuitConfigIdList.Add(14);
+            exclusive6.SuitConfigIdList.Add(14);
+            exclusive6.Count = 1;
+            list.Add(exclusive6);
+
+            return list;
+        }
         private void Test()
         {
             for (int i = 1; i <= 501; i++)

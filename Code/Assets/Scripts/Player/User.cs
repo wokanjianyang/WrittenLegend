@@ -285,11 +285,11 @@ namespace Game
 
         public bool IsDz()
         {
-            return isDingzhi;
+            return false;
         }
         public int GetDzRate()
         {
-            return isDingzhi ? 2 : 1;
+            return 1;  //isDingzhi ? 2 : 1;
         }
 
         private void SetAttr()
