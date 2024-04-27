@@ -130,6 +130,7 @@ namespace Game
 
             //items.Add(ItemHelper.BuildItem(ItemType.Card, 2000010, 10, 5));
 
+            //user.SaveArtifactLevel(180001, 4);
             //user.SaveArtifactLevel(180005, 10);
 
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 13, 1, 1));
@@ -577,21 +578,21 @@ namespace Game
             exclusive3.RuneConfigIdList.Add(5);
             exclusive3.RuneConfigIdList.Add(5);
             exclusive3.SuitConfigIdList.Add(6);
-            exclusive3.SuitConfigIdList.Add(11);
+            exclusive3.SuitConfigIdList.Add(6);
             exclusive3.Count = 1;
             list.Add(exclusive3);
 
             //±ùÅØÏø+ÒþÉí
-            ExclusiveItem exclusive4 = new ExclusiveItem(4, 18, 11, 5, 3);
-            exclusive4.RuneConfigIdList.Add(10015);
-            exclusive4.RuneConfigIdList.Add(10015);
-            exclusive4.SuitConfigIdList.Add(10005);
-            exclusive4.SuitConfigIdList.Add(10005);
+            ExclusiveItem exclusive4 = new ExclusiveItem(4, 18, 11, 5, 2);
+            exclusive4.RuneConfigIdList.Add(18);
+            exclusive4.RuneConfigIdList.Add(18);
+            exclusive4.SuitConfigIdList.Add(11);
+            exclusive4.SuitConfigIdList.Add(11);
             exclusive4.Count = 1;
             list.Add(exclusive4);
 
             //ÒþÉí+ Ë²ÒÆ
-            ExclusiveItem exclusive5 = new ExclusiveItem(5, 23, 15, 5, 3);
+            ExclusiveItem exclusive5 = new ExclusiveItem(5, 23, 15, 5, 2);
             exclusive5.RuneConfigIdList.Add(23);
             exclusive5.RuneConfigIdList.Add(22);
             exclusive5.SuitConfigIdList.Add(15);
@@ -600,7 +601,7 @@ namespace Game
             list.Add(exclusive5);
 
             //ÁÒ»ð
-            ExclusiveItem exclusive6 = new ExclusiveItem(6, 22, 14, 5, 3);
+            ExclusiveItem exclusive6 = new ExclusiveItem(6, 22, 14, 5, 2);
             exclusive6.RuneConfigIdList.Add(22);
             exclusive6.RuneConfigIdList.Add(22);
             exclusive6.SuitConfigIdList.Add(14);
