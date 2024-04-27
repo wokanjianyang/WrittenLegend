@@ -22,7 +22,7 @@ namespace Game
         public InfiniteRecord GetCurrentRecord()
         {
             long nt = DateTime.Today.Ticks;
-            Debug.Log("nt:" + nt + "  Ticket:" + Ticket);
+            //Debug.Log("nt:" + nt + "  Ticket:" + Ticket);
             if (nt > Ticket)
             {
                 Ticket = nt;

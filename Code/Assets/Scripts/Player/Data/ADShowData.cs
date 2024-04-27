@@ -26,9 +26,8 @@ namespace Game.Data
     [Serializable]
     public class ADShowData
     {
-        public int LastShowADMonth = 0;
-        public int LastShowADDay = 0;
-        public int LastShowYear = 0;
+        public long LastTicket = 0;
+
         public List<ADData> ADDatas;
 
         public ADShowData()
@@ -38,9 +37,8 @@ namespace Game.Data
 
         public void Reset()
         {
-            this.LastShowADMonth = DateTime.Now.Month;
-            this.LastShowADDay = DateTime.Now.Day;
-            this.LastShowYear = DateTime.Now.Year;
+            this.LastTicket = DateTime.Today.Ticks;
+
 
             ADDatas = new List<ADData>();
             ADDatas.Add(new ADData()
@@ -77,8 +75,7 @@ namespace Game.Data
 
         public bool CheckDate()
         {
-
-            return this.LastShowADDay < DateTime.Now.Day || this.LastShowADMonth < DateTime.Now.Month || this.LastShowYear < DateTime.Now.Year;
+            return this.LastTicket < DateTime.Today.Ticks;
         }
 
         public ADData GetADShowStatus(ADTypeEnum adType)

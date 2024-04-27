@@ -11,7 +11,7 @@ public class BattleRule_Infinite : ABattleRule
 
     private bool Over = true;
 
-    private long Progress = 1;
+    //private long Progress = 1;
 
     private const int MaxProgress = 400; //
 
@@ -21,10 +21,10 @@ public class BattleRule_Infinite : ABattleRule
 
     public BattleRule_Infinite(Dictionary<string, object> param)
     {
-        param.TryGetValue("progress", out object progress);
+        //param.TryGetValue("progress", out object progress);
         param.TryGetValue("count", out object count);
 
-        this.Progress = (long)progress;
+        //this.Progress = (long)progress;
     }
 
     public override void DoMapLogic(int roundNum)
@@ -42,20 +42,23 @@ public class BattleRule_Infinite : ABattleRule
         }
 
         User user = GameProcessor.Inst.User;
+        InfiniteRecord record = user.InfiniteData.GetCurrentRecord();
 
-        if (enemys.Count <= 0 && this.Progress <= MaxProgress && this.Start)
+        long currentProgres = record.Progress.Data;
+
+        if (enemys.Count <= 0 && currentProgres <= MaxProgress && this.Start)
         {
-            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Infinite, Message = "第" + this.Progress + "波发起了进攻" });
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Infinite, Message = "第" + currentProgres + "波发起了进攻" });
 
             //Load All
             for (int i = 0; i < MonsterList.Length; i++)
             {
-                var enemy = new Monster_Infinite(this.Progress, MonsterList[i]);
+                var enemy = new Monster_Infinite(currentProgres, MonsterList[i]);
                 GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
             }
 
-            InfiniteRecord record = user.InfiniteData.GetCurrentRecord();
-            GameProcessor.Inst.EventCenter.Raise(new ShowInfiniteInfoEvent() { Count = Progress, PauseCount = record.Count.Data });
+
+            GameProcessor.Inst.EventCenter.Raise(new ShowInfiniteInfoEvent() { Count = currentProgres, PauseCount = record.Count.Data });
 
             this.Start = false;
 
@@ -64,19 +67,15 @@ public class BattleRule_Infinite : ABattleRule
 
         if (enemys.Count <= 0 && !this.Start)
         {
-            long cp = this.Progress;
+            record.Progress.Data++;
 
-            this.Progress++;
-            InfiniteRecord record = user.InfiniteData.GetCurrentRecord();
-            record.Progress.Data = this.Progress;
-
-            BuildReward(cp);
+            BuildReward(currentProgres);
 
             this.Start = true;
             return;
         }
 
-        if (this.Progress > MaxProgress && this.Over)
+        if (currentProgres > MaxProgress && this.Over)
         {
             this.Over = false;
             user.InfiniteData.Complete();
@@ -128,7 +127,7 @@ public class BattleRule_Infinite : ABattleRule
             User user = GameProcessor.Inst.User;
             InfiniteRecord record = user.InfiniteData.GetCurrentRecord();
             record.Count.Data--;
-            GameProcessor.Inst.EventCenter.Raise(new ShowInfiniteInfoEvent() { Count = Progress, PauseCount = record.Count.Data });
+            GameProcessor.Inst.EventCenter.Raise(new ShowInfiniteInfoEvent() { Count = record.Progress.Data, PauseCount = record.Count.Data });
 
             if (record.Count.Data > 0)
             {
