@@ -270,15 +270,6 @@ namespace Game
 
         public void Init()
         {
-            if (DingzhiUserId.Contains(this.DeviceId) && DingzhiAccount.Contains(Account))
-            {
-                this.isDingzhi = true;
-            }
-            else
-            {
-                this.isDingzhi = false;
-            }
-
             //设置各种属性值
             SetAttr();
         }
