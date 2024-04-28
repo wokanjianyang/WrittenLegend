@@ -347,7 +347,7 @@ namespace Game
                 EquipRedSuit red = GetEquipRedConfig(role);
                 foreach (EquipRedItem redItem in red.List)
                 {
-                    if (redItem.Level >= 0)
+                    if (redItem.Level > 0)
                     {
                         AttributeBonus.SetAttr((AttributeEnum)(redItem.Config.AttrId), AttributeFrom.EquipRed, 1, redItem.Config.AttrValue + redItem.Config.AttrRise * (redItem.Level - 1));
                     }
@@ -721,7 +721,7 @@ namespace Game
             List<Equip> equips = this.EquipPanelList[EquipPanelIndex].Select(m => m.Value).Where(m => m.GetQuality() == 6 && m.EquipConfig.Role == role).ToList();
             List<int> layers = equips.Select(m => m.Layer).OrderByDescending(m => m).ToList();
 
-            Debug.Log("red layers:" + layers.ListToString());
+            //Debug.Log("red layers:" + layers.ListToString());
 
             List<EquipRedConfig> list = EquipRedConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Role == role).ToList();
 
