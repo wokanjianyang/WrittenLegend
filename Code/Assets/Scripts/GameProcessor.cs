@@ -201,6 +201,9 @@ namespace Game
                         long refineTotal = this.User.MagicEquipRefine.Select(m => m.Value.Data).Sum();
                         paramDict.Add("refine", refineTotal + "");
 
+                        long artifactTotal = this.User.ArtifactData.Select(m => m.Value.Data).Sum();
+                        paramDict.Add("artifact", artifactTotal + "");
+
                         long ad1 = this.User.GetAchievementProgeress(AchievementSourceType.RealAdvert);
                         paramDict.Add("advert1", ad1 + "");
 
