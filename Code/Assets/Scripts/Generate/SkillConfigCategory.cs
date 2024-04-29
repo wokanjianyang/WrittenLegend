@@ -7,7 +7,7 @@ namespace Game
 
     public partial class SkillConfigCategory
     {
-        private int[] exclusiveList = new int[] { 3004, 3007 };
+        private int[] exclusiveList = new int[] { 3004, 3007, 1005, 2005, 3005 };
         public List<int> RandomList(int count)
         {
             List<int> rdList = new List<int>();

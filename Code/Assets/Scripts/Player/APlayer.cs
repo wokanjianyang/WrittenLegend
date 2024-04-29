@@ -274,10 +274,10 @@ namespace Game
         {
             //回血
             double restoreHp = AttributeBonus.GetAttackAttr(AttributeEnum.RestoreHp) +
-                AttributeBonus.GetAttackAttr(AttributeEnum.RestoreHpPercent) * AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP) / 100;
+                 AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP) / 100.0 * AttributeBonus.GetAttackAttr(AttributeEnum.RestoreHpPercent);
             if (restoreHp > 0)
             {
-                this.OnRestore(this.ID, ((long)restoreHp));
+                this.OnRestore(this.ID, restoreHp);
             }
         }
 
