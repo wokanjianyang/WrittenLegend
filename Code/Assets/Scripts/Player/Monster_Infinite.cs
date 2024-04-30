@@ -22,6 +22,7 @@ namespace Game
             this.Progeress = (int)progress;
             this.GroupId = 2;
             this.Quality = quality;
+            this.RuleType = RuleType.Infinite;
 
             this.Config = InfiniteConfigCategory.Instance.GetByLevel(progress);
 

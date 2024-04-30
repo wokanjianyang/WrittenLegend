@@ -13,7 +13,6 @@ namespace Game
     {
         public int ID { get; set; }
 
-        public RuleType RuleType = RuleType.Normal;
         public string Name { get; set; }
 
         public string Title { get; set; }
@@ -34,10 +33,11 @@ namespace Game
         [JsonIgnore]
         public PlayerType Camp { get; set; }
 
-        public int RingType { get; set; } = 0;
-
-        [JsonIgnore]
         public MondelType ModelType { get; set; } = MondelType.Nomal;
+
+        public RuleType RuleType = RuleType.Normal;
+
+        public int RingType { get; set; } = 0;
 
         [JsonIgnore]
         public Vector3Int Cell { get; set; }
@@ -506,6 +506,11 @@ namespace Game
 
         public void OnRestore(int fromId, double hp)
         {
+            if (this.RuleType == RuleType.Infinite && this.Camp == PlayerType.Enemy) //无尽的怪不能回血
+            {
+                return;
+            }
+
             this.Logic.OnRestore(hp);
         }
 
