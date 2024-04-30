@@ -212,8 +212,7 @@ namespace Game
 
             //user.AddStartRate(this.MapId, qualityConfig.CountRate * countModelRate);
 
-            double dropRate = 1 + user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstIncrea) / 350.0;
-            dropRate = Math.Min(8, 1 + dropRate) * user.GetDzRate();
+            double dropRate = 1 + user.GetRealDropRate();
             double modelRate = dropModelRate * qualityConfig.DropRate;
             double countRate = countModelRate * qualityConfig.CountRate;
 

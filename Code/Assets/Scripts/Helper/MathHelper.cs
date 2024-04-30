@@ -16,5 +16,27 @@
         {
             return level * (level + 1) / 2;
         }
+
+        public static double ConvertionDropRate(long rate)
+        {
+            double r = 0;
+
+            for (int i = 1; i < 1000; i++)
+            {
+                int pr = i * 100;
+
+                if (rate >= pr)
+                {
+                    r += 1;
+                }
+                else
+                {
+                    r += rate * 1.0 / pr;
+                    break;
+                }
+                rate -= pr;
+            }
+            return r;
+        }
     }
 }

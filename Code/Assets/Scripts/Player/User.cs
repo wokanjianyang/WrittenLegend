@@ -1063,6 +1063,16 @@ namespace Game
                 this.FestiveData_51[configId]++;
             }
         }
+
+        public double GetRealDropRate()
+        {
+            long dropRate = this.AttributeBonus.GetTotalAttr(AttributeEnum.BurstIncrea);
+
+            double realRate = MathHelper.ConvertionDropRate(dropRate);
+            Debug.Log("realRate:" + realRate);
+
+            return realRate;
+        }
     }
 
     public enum UserChangeType
