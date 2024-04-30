@@ -9,6 +9,14 @@ namespace Game
 
     public partial class DropLimitConfigCategory
     {
+        public List<DropLimitConfig> GetByMapId(int type, int mapId)
+        {
+            long time = DateTime.Now.Ticks;
+
+            List<DropLimitConfig> drops = this.list.Where(m => m.Type == type && m.StartMapId <= mapId && mapId <= m.EndMapId
+            && DateTime.Parse(m.StartDate).Ticks <= time && time <= DateTime.Parse(m.EndDate).Ticks).ToList();
+            return drops;
+        }
     }
 
     public class DropLimitHelper

@@ -38,5 +38,14 @@
             }
             return r;
         }
+
+        public static int CalOfflineDropCount(long killRecord, long killCount, double rate)
+        {
+            int oldCount = (int)(killRecord / rate);
+
+            int newCount = (int)((killRecord + killCount) / rate);
+
+            return newCount - oldCount;
+        }
     }
 }

@@ -7,17 +7,18 @@ namespace Game
 
     public partial class MonsterBaseCategory
     {
-
-    }
-
-    public class MonsterHelper
-    {
-        public static Monster BuildMonster(MapConfig mapConfig, int quality, int rate, int modelId, RuleType ruleType)
+        public Monster BuildMonster(MapConfig mapConfig, int quality, int rate, int modelId, RuleType ruleType)
         {
-            MonsterBase config = MonsterBaseCategory.Instance.GetAll().Where(m => m.Value.MapId == mapConfig.Id).First().Value;
+            MonsterBase config = this.GetByMapId(mapConfig.Id);
 
             Monster enemy = new Monster(mapConfig.Id, config.Id, quality, rate, modelId, ruleType);
             return enemy;
         }
+
+        public MonsterBase GetByMapId(int MapId)
+        {
+            return this.list.Where(m => m.MapId == MapId).First();
+        }
     }
+
 }

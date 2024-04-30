@@ -54,12 +54,17 @@ namespace Game
             long currentTick = TimeHelper.ClientNowSeconds();
             long offlineTime = currentTick - user.SecondExpTick;
 
+            long tempTime = Math.Min(offlineTime, ConfigHelper.MaxOfflineTime);
+            List<Item> items = new List<Item>();
+            string OfflineMessage = "";
+
+            items.AddRange(BuildOfflineAndian(user, tempTime, ref OfflineMessage));
+
             long offlineFloor = 0;
             long rewardExp = 0;
             long rewardGold = 0;
             long tmepFloor = user.MagicTowerFloor.Data;
 
-            long tempTime = Math.Min(offlineTime, ConfigHelper.MaxOfflineTime);
             long mineTime = tempTime;
 
             while (tempTime > 0 && tmepFloor < ConfigHelper.Max_Floor)
@@ -97,7 +102,7 @@ namespace Game
             int floorRate = ConfigHelper.GetFloorRate(tmepFloor) * user.GetDzRate();
             offlineFloor = offlineFloor * floorRate;
 
-            List<Item> items = new List<Item>();
+
             for (int i = 0; i < offlineFloor; i++)
             {
                 long fl = user.MagicTowerFloor.Data + i;
@@ -158,7 +163,7 @@ namespace Game
                 user.Bags.Add(boxItem);
             }
 
-            string OfflineMessage = BattleMsgHelper.BuildOfflineMessage(offlineTime, offlineFloor, exp, gold, items.Count);
+            OfflineMessage += BattleMsgHelper.BuildOfflineMessage(offlineTime, offlineFloor, exp, gold, items.Count);
             //Debug.Log(OfflineMessage);
 
             //检查
@@ -206,6 +211,107 @@ namespace Game
             this.Txt_Msg.text = OfflineMessage;
 
             //Time.timeScale = 0;
+        }
+
+        private void BuildOfflineTower(long offlineTime)
+        {
+
+        }
+
+        private List<Item> BuildOfflineAndian(User user, long offlineTime, ref string message)
+        {
+            List<Item> itemList = new List<Item>();
+
+            long killCount = (long)(offlineTime * 2.5);
+
+            long killRecord = user.MagicKillRecord.Data;
+
+            double lossRate = 1.1; //损失系数,只有 1/1.1 倍的掉落收益
+
+            double realRate = user.GetRealDropRate();
+            int mapId = 1050;
+
+            MapConfig mapConfig = MapConfigCategory.Instance.Get(mapId);
+
+            MonsterBase monster = MonsterBaseCategory.Instance.GetByMapId(mapId);
+
+            for (int i = 0; i < mapConfig.DropIdList.Count(); i++)
+            {
+                int dropId = mapConfig.DropIdList[i];
+                DropConfig dropConfig = DropConfigCategory.Instance.Get(dropId);
+
+                double dropRate = Math.Max(lossRate, mapConfig.DropRateList[i] * lossRate / realRate);
+
+                int dropCount = MathHelper.CalOfflineDropCount(killRecord, killCount, dropRate);
+
+                if (dropCount > 0)
+                {
+                    if (dropConfig.ItemType == (int)ItemType.Equip)
+                    { //Auto Recovery
+                        int refineStone = dropCount * 5;
+                        itemList.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_EquipRefineStone, refineStone));
+                        message += ",掉落装备转化为" + dropCount + "个精炼石";
+                    }
+                    else if (dropConfig.ItemType == (int)ItemType.Exclusive)
+                    {
+                        int exclusiveStone = dropCount * 5;
+                        itemList.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Stone, exclusiveStone));
+
+                        message += ",掉落专属转化为" + dropCount + "个专属精华";
+                    }
+                    else
+                    {
+                        for (int d = 0; d < dropCount; d++)
+                        {
+                            int di = RandomHelper.RandomNumber(0, dropConfig.ItemIdList.Length);
+                            itemList.Add(ItemHelper.BuildItem((ItemType)dropConfig.ItemType, dropConfig.ItemIdList[di], 1, 1));
+                        }
+                        message += ",掉落" + dropCount + "个" + dropConfig.Name;
+                    }
+                }
+            }
+
+            List<DropLimitConfig> limits = DropLimitConfigCategory.Instance.GetByMapId((int)DropLimitType.Map, mapId);
+            for (int i = 0; i < limits.Count(); i++)
+            {
+                DropLimitConfig limitConfig = limits[i];
+
+                int dropCount = 0;
+
+                if (dropCount > 0)
+                {
+                    DropConfig dropConfig = DropConfigCategory.Instance.Get(limitConfig.DropId);
+
+                    if (dropConfig.ItemType == (int)ItemType.Equip)
+                    {   //Auto Recovery
+                        message += ",掉落" + dropCount + "个" + limitConfig.Name;
+
+                        for (int d = 0; d < dropCount; d++)
+                        {
+                            int di = RandomHelper.RandomNumber(0, dropConfig.ItemIdList.Length);
+                            itemList.Add(ItemHelper.BuildEquip(dropConfig.ItemIdList[di], 1, 1, (int)killRecord));
+                        }
+                    }
+                    else
+                    {
+                        for (int d = 0; d < dropCount; d++)
+                        {
+                            int di = RandomHelper.RandomNumber(0, dropConfig.ItemIdList.Length);
+                            itemList.Add(ItemHelper.BuildItem((ItemType)dropConfig.ItemType, dropConfig.ItemIdList[di], 1, 1));
+                        }
+                    }
+                    message += ",掉落" + dropCount + "个" + limitConfig.Name;
+                }
+            }
+
+            user.MagicKillRecord.Data += killCount;
+
+            return itemList;
+        }
+
+        private void BuildOfflineMine()
+        {
+
         }
 
         private List<ExclusiveItem> AddExclusive()
@@ -620,5 +726,11 @@ namespace Game
 
             Debug.Log(" Test Over ");
         }
+    }
+
+    public enum OfflineType
+    {
+        Tower = 1,
+        Andian = 2,
     }
 }

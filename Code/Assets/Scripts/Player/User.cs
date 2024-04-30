@@ -40,6 +40,8 @@ namespace Game
 
         public MagicData MagicTowerFloor { get; } = new MagicData();
 
+        public MagicData MagicKillRecord { get; } = new MagicData();
+
         //public IDictionary<int, Equip> EquipPanel { get; set; } = new Dictionary<int, Equip>();
 
         public IDictionary<int, IDictionary<int, Equip>> EquipPanelList { get; set; } = new Dictionary<int, IDictionary<int, Equip>>();
@@ -231,6 +233,7 @@ namespace Game
         public bool GameDoCheat { get; set; } = false;
 
         public bool isClear { get; set; } = false;
+
 
         [JsonIgnore]
         public IDictionary<int, int> EquipRecord { get; set; } = new Dictionary<int, int>();

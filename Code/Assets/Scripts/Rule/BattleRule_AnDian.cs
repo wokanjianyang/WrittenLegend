@@ -61,7 +61,7 @@ public class Battle_AnDian : ABattleRule
                 quality = 2;
             }
 
-            var enemy = MonsterHelper.BuildMonster(mapConfig, quality, 1, 1,RuleType.AnDian);
+            var enemy = MonsterBaseCategory.Instance.BuildMonster(mapConfig, quality, 1, 1,RuleType.AnDian);
             GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
         }
         else
