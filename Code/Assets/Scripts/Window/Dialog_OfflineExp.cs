@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using Game.Data;
 
 namespace Game
 {
@@ -58,7 +59,7 @@ namespace Game
             List<Item> items = new List<Item>();
             string OfflineMessage = "";
 
-            items.AddRange(BuildOfflineAndian(user, tempTime, ref OfflineMessage));
+            //items.AddRange(BuildOfflineAndian(user, tempTime, ref OfflineMessage));
 
             long offlineFloor = 0;
             long rewardExp = 0;
@@ -124,8 +125,8 @@ namespace Game
             //items.Add(new Equip(22005710, 23, 15, 5));
 
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Copy_Ticket, 125000));
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, 12500));
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Wing_Stone, 999));
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, 300));
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Wing_Stone, 1200));
 
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Stone, 1000));
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Heart, 100));
@@ -137,6 +138,8 @@ namespace Game
 
             //user.SaveArtifactLevel(180001, 4);
             //user.SaveArtifactLevel(180005, 10);
+
+            //user.Record.AddRecord(RecordType.AdReal, -800);
 
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 13, 1, 1));
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 14, 1, 1));

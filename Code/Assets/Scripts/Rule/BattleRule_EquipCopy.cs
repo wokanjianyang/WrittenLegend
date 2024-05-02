@@ -89,7 +89,7 @@ public class BattleRule_EquipCopy : ABattleRule
                 {
                     if (QualityList[0] < 5)
                     {
-                        var enemy = MonsterHelper.BuildMonster(mapConfig, QualityList[0], MapRate, 0, RuleType.EquipCopy);
+                        var enemy = MonsterBaseCategory.Instance.BuildMonster(mapConfig, QualityList[0], MapRate, 0, RuleType.EquipCopy);
                         GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
                     }
                     else
