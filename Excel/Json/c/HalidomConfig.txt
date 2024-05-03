@@ -25,7 +25,7 @@
 {"_t":"HalidomConfig","_id":40000074,"ItemId":40000074,"Name":"梦魇花朵","AttrId":2001,"AttrValue":5,"RiseAttr":5,"MaxLevel":4,"Des":"攻击倍率"},
 {"_t":"HalidomConfig","_id":40000075,"ItemId":40000075,"Name":"梦魇冰晶","AttrId":1,"AttrValue":5000000000,"RiseAttr":5000000000,"MaxLevel":4,"Des":"生命基础"},
 {"_t":"HalidomConfig","_id":40000076,"ItemId":40000076,"Name":"梦魇蝠翼","AttrId":15,"AttrValue":200,"RiseAttr":200,"MaxLevel":4,"Des":"生命比例"},
-{"_t":"HalidomConfig","_id":40000077,"ItemId":40000077,"Name":"梦魇魂火","AttrId":2003,"AttrValue":25,"RiseAttr":5,"MaxLevel":4,"Des":"生命倍率"},
+{"_t":"HalidomConfig","_id":40000077,"ItemId":40000077,"Name":"梦魇魂火","AttrId":2003,"AttrValue":25,"RiseAttr":25,"MaxLevel":4,"Des":"生命倍率"},
 {"_t":"HalidomConfig","_id":40000078,"ItemId":40000078,"Name":"梦魇腐肉","AttrId":5,"AttrValue":500000000,"RiseAttr":500000000,"MaxLevel":4,"Des":"防御基础"},
 {"_t":"HalidomConfig","_id":40000079,"ItemId":40000079,"Name":"梦魇蛇胆","AttrId":16,"AttrValue":200,"RiseAttr":200,"MaxLevel":4,"Des":"防御比例"},
 ]}

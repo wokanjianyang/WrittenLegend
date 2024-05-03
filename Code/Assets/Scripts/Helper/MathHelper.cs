@@ -1,4 +1,6 @@
-﻿namespace Game
+﻿using UnityEngine;
+
+namespace Game
 {
     public static class MathHelper
     {
@@ -46,6 +48,13 @@
             int newCount = (int)((killRecord + killCount) / rate);
 
             return newCount - oldCount;
+        }
+
+        public static int CalRefineStone(int equipLevel, int riseStone)
+        {
+            int count = (equipLevel * 3 / 20 + riseStone);
+            //Debug.Log("RefineStone:" + count);
+            return count;
         }
     }
 }

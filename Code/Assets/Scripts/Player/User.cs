@@ -1072,7 +1072,7 @@ namespace Game
             long dropRate = this.AttributeBonus.GetTotalAttr(AttributeEnum.BurstIncrea);
 
             double realRate = MathHelper.ConvertionDropRate(dropRate);
-            Debug.Log("realRate:" + realRate);
+            //Debug.Log("realRate:" + realRate);
 
             return realRate;
         }

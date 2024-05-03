@@ -1,4 +1,4 @@
-using Sirenix.OdinInspector;
+ï»¿using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,10 +10,10 @@ namespace Game
 {
     public class Dialog_OfflineExp : MonoBehaviour
     {
-        [LabelText("ÀëÏß½±ÀøÌáÊ¾")]
+        [LabelText("ç¦»çº¿å¥–åŠ±æç¤º")]
         public Text Txt_Msg;
 
-        [LabelText("ÁìÈ¡°´Å¥")]
+        [LabelText("é¢†å–æŒ‰é’®")]
         public Button Btn_OK;
 
         public Button Btn_Close;
@@ -39,34 +39,141 @@ namespace Game
             //Time.timeScale = 1;
         }
 
+        private void TestSend(User user)
+        {
+            List<Item> items = new List<Item>();
+
+            //items.Add(new Equip(22005701, 23, 15, 5));
+            //items.Add(new Equip(22005702, 23, 15, 5));
+            //items.Add(new Equip(22005703, 23, 15, 5));
+            //items.Add(new Equip(22005704, 23, 15, 5));
+            //items.Add(new Equip(22005705, 16, 10037, 5));
+            //items.Add(new Equip(22005705, 16, 10037, 5));
+            //items.Add(new Equip(22005707, 16, 10037, 5));
+            //items.Add(new Equip(22005707, 16, 10037, 5));
+            //items.Add(new Equip(22005709, 23, 15, 5));
+            //items.Add(new Equip(22005710, 23, 15, 5));
+
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Copy_Ticket, 125000));
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, 300));
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Wing_Stone, 1200));
+
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Stone, 1000));
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Heart, 100));
+
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_EquipRefineStone, 999999999));
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Red_Stone, 87));
+
+            //items.Add(ItemHelper.BuildItem(ItemType.Card, 2000010, 10, 5));
+
+            //user.SaveArtifactLevel(180001, 4);
+            //user.SaveArtifactLevel(180005, 10);
+
+            //user.Record.AddRecord(RecordType.AdReal, -800);
+
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 13, 1, 1));
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 14, 1, 1));
+
+            //items.AddRange(AddRedEquip1());
+            //items.AddRange(AddExclusive1());
+
+            foreach (var item in items)
+            {
+                BoxItem boxItem = new BoxItem();
+                boxItem.Item = item;
+                boxItem.MagicNubmer.Data = Math.Max(1, item.Count);
+                boxItem.BoxId = -1;
+                user.Bags.Add(boxItem);
+            }
+        }
 
         public void ShowOffline()
         {
-
-            //0AF588B5A9 Self 905A621CD2 gs
-            //BBEFBA0DDF RS
-            //C8A92C5388 ¶¹½¬
-            //7B97AC4A45 ½Á°è
-            //Debug.Log("sc:" + CodeConfigCategory.Instance.BuildSpecicalCode("io&zkd153", "C8A92C5388"));
-            //Debug.Log("sc:" + CodeConfigCategory.Instance.BuildSpecicalCode("!xyfubent050", "0AF588B5A9"));
-
             User user = GameProcessor.Inst.User;
 
             long currentTick = TimeHelper.ClientNowSeconds();
             long offlineTime = currentTick - user.SecondExpTick;
 
             long tempTime = Math.Min(offlineTime, ConfigHelper.MaxOfflineTime);
+
             List<Item> items = new List<Item>();
-            string OfflineMessage = "";
-
-            //items.AddRange(BuildOfflineAndian(user, tempTime, ref OfflineMessage));
-
-            long offlineFloor = 0;
             long rewardExp = 0;
             long rewardGold = 0;
-            long tmepFloor = user.MagicTowerFloor.Data;
 
-            long mineTime = tempTime;
+            string OfflineMessage = "ç¦»çº¿æ—¶é—´" + offlineTime + "S";
+            if (tempTime < offlineTime)
+            {
+                OfflineMessage += "ï¼Œå®é™…è®¡ç®—" + tempTime + "S)";
+            }
+            OfflineMessage += "\n";
+
+            //ç¦»çº¿æš—æ®¿
+            //items.AddRange(BuildOfflineAndian(user, tempTime, ref OfflineMessage));
+
+            //ç¦»çº¿é—¯å…³
+            items.AddRange(BuildOfflineTower(user, tempTime, ref rewardExp, ref rewardGold, ref OfflineMessage));
+
+            //ç¦»çº¿ç»éªŒï¼Œé‡‘å¸
+            long exp = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp) * (offlineTime / 5);
+            long gold = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondGold) * (offlineTime / 5);
+
+            OfflineMessage += "\nç¦»çº¿ç§’æ”¶é‡‘å¸" + StringHelper.FormatNumber(gold) + "ï¼Œç»éªŒ" + StringHelper.FormatNumber(exp) + "\n";
+
+            //ç¦»çº¿æŒ–çŸ¿
+            this.BuildOfflineMine(user, tempTime, ref OfflineMessage);
+
+            //æµ‹è¯•é“å…·
+            this.TestSend(user);
+
+            user.AddExpAndGold(exp + rewardExp, gold + rewardGold);
+            user.SecondExpTick = currentTick;
+
+            foreach (var item in items)
+            {
+                BoxItem boxItem = user.Bags.Find(m => !m.IsFull() && m.Item.Type == item.Type && m.Item.ConfigId == item.ConfigId);  //Í¬
+
+                if (boxItem != null)
+                {
+                    boxItem.AddStack(item.Count);
+                }
+                else
+                {
+                    boxItem = new BoxItem();
+                    boxItem.Item = item;
+                    boxItem.MagicNubmer.Data = Math.Max(1, item.Count);
+                    boxItem.BoxId = -1;
+                    user.Bags.Add(boxItem);
+                }
+            }
+
+            //æ£€æŸ¥
+            DateTime saveDate = new DateTime(user.DataDate);
+            if (saveDate.Day < DateTime.Now.Day || saveDate.Month < DateTime.Now.Month || saveDate.Year < DateTime.Now.Year)
+            {
+                user.DefendData.Refresh();
+                user.HeroPhatomData.Refresh();
+
+                user.DataDate = DateTime.Now.Ticks;
+                //ä¿å­˜åˆ°Tap
+            }
+
+            UserData.Save();
+
+            this.gameObject.SetActive(true);
+
+            this.Txt_Msg.text = OfflineMessage;
+
+            //Time.timeScale = 0;
+        }
+
+        private List<Item> BuildOfflineTower(User user, long tempTime, ref long totalExp, ref long totalGold, ref string message)
+        {
+            List<Item> itemList = new List<Item>();
+
+            long offlineFloor = 0;
+            long tmepFloor = user.MagicTowerFloor.Data;
+            long rewardExp = 0;
+            long rewardGold = 0;
 
             while (tempTime > 0 && tmepFloor < ConfigHelper.Max_Floor)
             {
@@ -103,140 +210,63 @@ namespace Game
             int floorRate = ConfigHelper.GetFloorRate(tmepFloor) * user.GetDzRate();
             offlineFloor = offlineFloor * floorRate;
 
-
             for (int i = 0; i < offlineFloor; i++)
             {
                 long fl = user.MagicTowerFloor.Data + i;
 
                 int equipLevel = Math.Max(10, (user.MapId - ConfigHelper.MapStartId) * 10);
 
-                items.AddRange(DropHelper.TowerEquip(fl, equipLevel));
+                itemList.AddRange(DropHelper.TowerEquip(fl, equipLevel));
             }
-
-            //items.Add(new Equip(22005701, 23, 15, 5));
-            //items.Add(new Equip(22005702, 23, 15, 5));
-            //items.Add(new Equip(22005703, 23, 15, 5));
-            //items.Add(new Equip(22005704, 23, 15, 5));
-            //items.Add(new Equip(22005705, 16, 10037, 5));
-            //items.Add(new Equip(22005705, 16, 10037, 5));
-            //items.Add(new Equip(22005707, 16, 10037, 5));
-            //items.Add(new Equip(22005707, 16, 10037, 5));
-            //items.Add(new Equip(22005709, 23, 15, 5));
-            //items.Add(new Equip(22005710, 23, 15, 5));
-
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Copy_Ticket, 125000));
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, 300));
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Wing_Stone, 1200));
-
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Stone, 1000));
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Heart, 100));
-
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_EquipRefineStone, 999999999));
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Red_Stone, 87));
-
-            //items.Add(ItemHelper.BuildItem(ItemType.Card, 2000010, 10, 5));
-
-            //user.SaveArtifactLevel(180001, 4);
-            //user.SaveArtifactLevel(180005, 10);
-
-            //user.Record.AddRecord(RecordType.AdReal, -800);
-
-            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 13, 1, 1));
-            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 14, 1, 1));
-
-            //items.AddRange(AddRedEquip1());
-            //items.AddRange(AddExclusive1());
 
             long newFloor = user.MagicTowerFloor.Data + offlineFloor;
-
             user.MagicTowerFloor.Data = Math.Min(newFloor, ConfigHelper.Max_Floor);
 
-            long exp = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp) * (offlineTime / 5) + rewardExp;
-            long gold = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondGold) * (offlineTime / 5) + rewardGold;
+            message += "\nç¦»çº¿é—¯å…³äº†" + offlineFloor + "å±‚";
+            message += "ï¼Œè·å¾—è£…å¤‡" + itemList.Count + "ä»¶ï¼Œé‡‘å¸" + StringHelper.FormatNumber(rewardGold) + "ï¼Œç»éªŒ" + StringHelper.FormatNumber(rewardExp);
+            message += "\n";
 
-            user.AddExpAndGold(exp, gold);
-            user.SecondExpTick = currentTick;
+            totalExp += rewardExp;
+            totalGold += rewardGold;
 
-            foreach (var item in items)
-            {
-                BoxItem boxItem = new BoxItem();
-                boxItem.Item = item;
-                boxItem.MagicNubmer.Data = Math.Max(1, item.Count);
-                boxItem.BoxId = -1;
-                user.Bags.Add(boxItem);
-            }
-
-            OfflineMessage += BattleMsgHelper.BuildOfflineMessage(offlineTime, offlineFloor, exp, gold, items.Count);
-            //Debug.Log(OfflineMessage);
-
-            //¼ì²é
-            DateTime saveDate = new DateTime(user.DataDate);
-            if (saveDate.Day < DateTime.Now.Day || saveDate.Month < DateTime.Now.Month || saveDate.Year < DateTime.Now.Year)
-            {
-                user.DefendData.Refresh();
-                user.HeroPhatomData.Refresh();
-
-                user.DataDate = DateTime.Now.Ticks;
-                //±£´æµ½Tap
-            }
-
-            //miner
-            Dictionary<int, long> offlineMetal = new Dictionary<int, long>();
-            foreach (var miner in user.MinerList)
-            {
-                miner.OfflineBuild(mineTime, offlineMetal);
-            }
-
-            var sortedDict = offlineMetal.OrderBy(kvp => kvp.Key).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-
-
-            OfflineMessage += $"\n";
-            foreach (var kp in sortedDict)
-            {
-                var md = user.MetalData;
-                int key = kp.Key;
-                if (!md.ContainsKey(key))
-                {
-                    md[key] = new Game.Data.MagicData();
-                }
-
-                md[key].Data += kp.Value;
-
-                MetalConfig metalConfig = MetalConfigCategory.Instance.Get(key);
-
-                OfflineMessage += $"<color=#{QualityConfigHelper.GetQualityColor(metalConfig.Quality)}>[{metalConfig.Name}]</color>" + kp.Value + "¸ö";
-            }
-
-            UserData.Save();
-
-            this.gameObject.SetActive(true);
-
-            this.Txt_Msg.text = OfflineMessage;
-
-            //Time.timeScale = 0;
-        }
-
-        private void BuildOfflineTower(long offlineTime)
-        {
-
+            return itemList;
         }
 
         private List<Item> BuildOfflineAndian(User user, long offlineTime, ref string message)
         {
+            offlineTime = 86400;
+
+            MonsterModelConfig modelConfig = MonsterModelConfigCategory.Instance.Get(1); //æš—æ®¿
+
             List<Item> itemList = new List<Item>();
 
             long killCount = (long)(offlineTime * 2.5);
 
             long killRecord = user.MagicKillRecord.Data;
 
-            double lossRate = 1.1; //ËğÊ§ÏµÊı,Ö»ÓĞ 1/1.1 ±¶µÄµôÂäÊÕÒæ
+            double lossRate = 1.1; //æŸå¤±ç³»æ•°,åªæœ‰ 1/1.1 å€çš„æ‰è½æ”¶ç›Š
 
-            double realRate = user.GetRealDropRate();
-            int mapId = 1050;
+            double realRate = user.GetRealDropRate() * modelConfig.DropRate;
+            double qualityRate = (100 + (int)user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea)) / 100;
+            double realQualityRate = 1 + Math.Log(qualityRate, 13);
+
+            //Debug.Log("realRate:" + realRate);
+            //Debug.Log("qualityRate:" + qualityRate);
+            //Debug.Log("realQualityRate:" + realQualityRate);
+
+            int mapId = 1070;
 
             MapConfig mapConfig = MapConfigCategory.Instance.Get(mapId);
 
+
             MonsterBase monster = MonsterBaseCategory.Instance.GetByMapId(mapId);
+
+            //Debug.Log("monster:" + monster.Name);
+
+            message += "\n------------æœªçŸ¥æš—æ®¿ç¦»çº¿------------";
+            message += "\nä¸€å…±ç¦»çº¿å‡»æ€äº†" + killCount + "ä¸ªæ€ªç‰©";
+
+            int skillBox = 0;
 
             for (int i = 0; i < mapConfig.DropIdList.Count(); i++)
             {
@@ -250,17 +280,40 @@ namespace Game
                 if (dropCount > 0)
                 {
                     if (dropConfig.ItemType == (int)ItemType.Equip)
-                    { //Auto Recovery
-                        int refineStone = dropCount * 5;
-                        itemList.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_EquipRefineStone, refineStone));
-                        message += ",µôÂä×°±¸×ª»¯Îª" + dropCount + "¸ö¾«Á¶Ê¯";
+                    {   //Auto Recovery
+                        if (dropConfig.Id <= 110)
+                        {
+                            //å››æ ¼
+                            int layer = dropConfig.Id - 100;
+                            int baseQuantity = (int)(Math.Pow(2, layer));
+                            int speicaStone = dropCount * baseQuantity;
+                            itemList.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Equip_Speical_Stone, speicaStone));
+                            message += ",è·å¾—" + speicaStone + "ä¸ªå››æ ¼ç¢ç‰‡ ";
+
+                            //Debug.Log(dropCount + "ä¸ªå››æ ¼->" + speicaStone + "ä¸ªå››æ ¼ç¢ç‰‡");
+                        }
+                        else
+                        {
+                            int refineStone = (int)(dropCount * MathHelper.CalRefineStone(mapConfig.DropLevel, user.StoneNumber) * realQualityRate);
+                            itemList.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_EquipRefineStone, refineStone));
+                            message += ",è·å¾—" + StringHelper.FormatNumber(refineStone) + "ä¸ªç²¾ç‚¼çŸ³";
+
+                            //Debug.Log(dropCount + "ä¸ªè£…å¤‡->" + refineStone + "ä¸ªç²¾ç‚¼çŸ³");
+                        }
                     }
                     else if (dropConfig.ItemType == (int)ItemType.Exclusive)
                     {
-                        int exclusiveStone = dropCount * 5;
+                        int exclusiveStone = (int)(dropCount * realQualityRate);
                         itemList.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Stone, exclusiveStone));
 
-                        message += ",µôÂä×¨Êô×ª»¯Îª" + dropCount + "¸ö×¨Êô¾«»ª";
+                        message += ",è·å¾—" + dropCount + "ä¸ªä¸“å±ç²¾å";
+
+                        //Debug.Log(dropCount + "ä¸ªä¸“å±->" + exclusiveStone + "ä¸ªä¸“å±ç²¾å");
+                    }
+                    else if (dropConfig.ItemType == (int)ItemType.SkillBox)
+                    {
+                        skillBox += dropCount * dropConfig.Level / 50;
+
                     }
                     else
                     {
@@ -269,10 +322,14 @@ namespace Game
                             int di = RandomHelper.RandomNumber(0, dropConfig.ItemIdList.Length);
                             itemList.Add(ItemHelper.BuildItem((ItemType)dropConfig.ItemType, dropConfig.ItemIdList[di], 1, 1));
                         }
-                        message += ",µôÂä" + dropCount + "¸ö" + dropConfig.Name;
+                        message += ",æ‰è½" + dropCount + "ä¸ª" + dropConfig.Name;
                     }
                 }
             }
+
+            //-------ä¹¦é¡µæ±‡æ€»-----------
+            itemList.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Moon_Cake, skillBox));
+            message += ",è·å¾—" + skillBox + "ä¸ªä¹¦é¡µ";
 
             List<DropLimitConfig> limits = DropLimitConfigCategory.Instance.GetByMapId((int)DropLimitType.Map, mapId);
             for (int i = 0; i < limits.Count(); i++)
@@ -287,7 +344,7 @@ namespace Game
 
                     if (dropConfig.ItemType == (int)ItemType.Equip)
                     {   //Auto Recovery
-                        message += ",µôÂä" + dropCount + "¸ö" + limitConfig.Name;
+                        message += ",æ‰è½" + dropCount + "ä¸ª" + limitConfig.Name;
 
                         for (int d = 0; d < dropCount; d++)
                         {
@@ -303,26 +360,52 @@ namespace Game
                             itemList.Add(ItemHelper.BuildItem((ItemType)dropConfig.ItemType, dropConfig.ItemIdList[di], 1, 1));
                         }
                     }
-                    message += ",µôÂä" + dropCount + "¸ö" + limitConfig.Name;
+                    message += ",æ‰è½" + dropCount + "ä¸ª" + limitConfig.Name;
                 }
             }
 
             user.MagicKillRecord.Data += killCount;
 
+            message += "\n------------æœªçŸ¥æš—æ®¿ç¦»çº¿------------";
+
             return itemList;
         }
 
-        private void BuildOfflineMine()
+        private void BuildOfflineMine(User user, long mineTime, ref string message)
         {
+            //miner
+            Dictionary<int, long> offlineMetal = new Dictionary<int, long>();
+            foreach (var miner in user.MinerList)
+            {
+                miner.OfflineBuild(mineTime, offlineMetal);
+            }
 
+            var sortedDict = offlineMetal.OrderBy(kvp => kvp.Key).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+
+            message += $"\nç¦»çº¿æŒ–çŸ¿æ”¶ç›Š";
+            foreach (var kp in sortedDict)
+            {
+                var md = user.MetalData;
+                int key = kp.Key;
+                if (!md.ContainsKey(key))
+                {
+                    md[key] = new Game.Data.MagicData();
+                }
+
+                md[key].Data += kp.Value;
+
+                MetalConfig metalConfig = MetalConfigCategory.Instance.Get(key);
+
+                message += $"<color=#{QualityConfigHelper.GetQualityColor(metalConfig.Quality)}>[{metalConfig.Name}]</color>" + kp.Value + "ä¸ª";
+            }
         }
 
         private List<ExclusiveItem> AddExclusive()
         {
-            //¶¨ÖÆºì
+            //å®šåˆ¶çº¢
             List<ExclusiveItem> list = new List<ExclusiveItem>();
 
-            //´ÌÉ±
+            //åˆºæ€
             //ExclusiveItem exclusive1 = new ExclusiveItem(1, 9, 10, 5, 1);
             //exclusive1.RuneConfigIdList.Add(10010);
             //exclusive1.RuneConfigIdList.Add(10010);
@@ -331,7 +414,7 @@ namespace Game
             //exclusive1.Count = 1;
             //list.Add(exclusive1);
 
-            ////´ÌÉ±
+            ////åˆºæ€
             //ExclusiveItem exclusive2 = new ExclusiveItem(2, 9, 10, 5, 1);
             //exclusive2.RuneConfigIdList.Add(10010);
             //exclusive2.RuneConfigIdList.Add(10010);
@@ -340,7 +423,7 @@ namespace Game
             //exclusive2.Count = 1;
             //list.Add(exclusive2);
 
-            ////±ùÅØÏø
+            ////å†°å’†å“®
             //ExclusiveItem exclusive3 = new ExclusiveItem(3, 5, 6, 5, 1);
             //exclusive3.RuneConfigIdList.Add(5);
             //exclusive3.RuneConfigIdList.Add(5);
@@ -349,7 +432,7 @@ namespace Game
             //exclusive3.Count = 1;
             //list.Add(exclusive3);
 
-            ////±ùÅØÏø+°ëÔÂ
+            ////å†°å’†å“®+åŠæœˆ
             //ExclusiveItem exclusive4 = new ExclusiveItem(4, 18, 11, 5, 1);
             //exclusive4.RuneConfigIdList.Add(10015);
             //exclusive4.RuneConfigIdList.Add(10015);
@@ -358,7 +441,7 @@ namespace Game
             //exclusive4.Count = 1;
             //list.Add(exclusive4);
 
-            ////°ëÔÂ+ ÁÒ»ğ
+            ////åŠæœˆ+ çƒˆç«
             //ExclusiveItem exclusive5 = new ExclusiveItem(5, 10027, 10013, 5, 1);
             //exclusive5.RuneConfigIdList.Add(10015);
             //exclusive5.RuneConfigIdList.Add(10015);
@@ -367,7 +450,7 @@ namespace Game
             //exclusive5.Count = 1;
             //list.Add(exclusive5);
 
-            //ÁÒ»ğ
+            //çƒˆç«
             ExclusiveItem exclusive6 = new ExclusiveItem(6, 19, 10013, 5, 1);
             exclusive6.RuneConfigIdList.Add(19);
             exclusive6.RuneConfigIdList.Add(19);
@@ -381,10 +464,10 @@ namespace Game
 
         private List<Equip> AddRedEquip()
         {
-            //¶¨ÖÆºì
+            //å®šåˆ¶çº¢
             List<Equip> list = new List<Equip>();
 
-            //ÎäÆ÷ Æ·ÖÊ1£¬ĞÒÔË5,»¤Ìå
+            //æ­¦å™¨ å“è´¨1ï¼Œå¹¸è¿5,æŠ¤ä½“
             //Equip equip1 = new Equip(21105801, 21, 13, 6);
             //List<KeyValuePair<int, long>> AttrEntryList1 = new List<KeyValuePair<int, long>>();
             //AttrEntryList1.Add(new KeyValuePair<int, long>(2001, 3));
@@ -397,7 +480,7 @@ namespace Game
             //equip1.Layer = 2;
             //list.Add(equip1);
 
-            ////ÏîÁ´  Æ·ÖÊ1£¬ĞÒÔË5£¬»¤Ìå
+            ////é¡¹é“¾  å“è´¨1ï¼Œå¹¸è¿5ï¼ŒæŠ¤ä½“
             //Equip equip2 = new Equip(21105803, 21, 13, 6);
             //List<KeyValuePair<int, long>> AttrEntryList2 = new List<KeyValuePair<int, long>>();
             //AttrEntryList2.Add(new KeyValuePair<int, long>(2001, 3));
@@ -410,7 +493,7 @@ namespace Game
             //equip2.Layer = 2;
             //list.Add(equip2);
 
-            ////ÒÂ·ş »¤Ìå
+            ////è¡£æœ æŠ¤ä½“
             //Equip equip3 = new Equip(21105802, 21, 13, 6);
             //List<KeyValuePair<int, long>> AttrEntryList3 = new List<KeyValuePair<int, long>>();
             //AttrEntryList3.Add(new KeyValuePair<int, long>(33, 10));
@@ -423,7 +506,7 @@ namespace Game
             //equip3.Layer = 2;
             //list.Add(equip3);
 
-            ////Í·¿ø »¤Ìå
+            ////å¤´ç›” æŠ¤ä½“
             //Equip equip4 = new Equip(21105804, 21, 13, 6);
             //List<KeyValuePair<int, long>> AttrEntryList4 = new List<KeyValuePair<int, long>>();
             //AttrEntryList4.Add(new KeyValuePair<int, long>(33, 10));
@@ -436,7 +519,7 @@ namespace Game
             //equip4.Layer = 2;
             //list.Add(equip4);
 
-            ////ÊÖïí ÎäÁ¦¾«Í¨
+            ////æ‰‹é•¯ æ­¦åŠ›ç²¾é€š
             //Equip equip5 = new Equip(21105805, 10022, 7, 6);
             //List<KeyValuePair<int, long>> AttrEntryList5 = new List<KeyValuePair<int, long>>();
             //AttrEntryList5.Add(new KeyValuePair<int, long>(33, 10));
@@ -449,7 +532,7 @@ namespace Game
             //equip5.Layer = 2;
             //list.Add(equip5);
 
-            ////ÊÖïí ÎäÁ¦¾«Í¨
+            ////æ‰‹é•¯ æ­¦åŠ›ç²¾é€š
             //Equip equip6 = new Equip(21105805, 10022, 7, 6);
             //List<KeyValuePair<int, long>> AttrEntryList6 = new List<KeyValuePair<int, long>>();
             //AttrEntryList6.Add(new KeyValuePair<int, long>(33, 10));
@@ -463,7 +546,7 @@ namespace Game
             //list.Add(equip6);
 
 
-            ////½äÖ¸ ÎäÁ¦¶Ü
+            ////æˆ’æŒ‡ æ­¦åŠ›ç›¾
             //Equip equip7 = new Equip(21105807, 14, 10009, 6);
             //List<KeyValuePair<int, long>> AttrEntryList7 = new List<KeyValuePair<int, long>>();
             //AttrEntryList7.Add(new KeyValuePair<int, long>(33, 10));
@@ -476,7 +559,7 @@ namespace Game
             //equip7.Layer = 2;
             //list.Add(equip7);
 
-            ////½äÖ¸ ÎäÁ¦¶Ü
+            ////æˆ’æŒ‡ æ­¦åŠ›ç›¾
             //Equip equip8 = new Equip(21105807, 14, 10009, 6);
             //List<KeyValuePair<int, long>> AttrEntryList8 = new List<KeyValuePair<int, long>>();
             //AttrEntryList8.Add(new KeyValuePair<int, long>(33, 10));
@@ -490,7 +573,7 @@ namespace Game
             //list.Add(equip8);
 
 
-            ////Ñü´ø ÎäÁ¦¶Ü
+            ////è…°å¸¦ æ­¦åŠ›ç›¾
             //Equip equip9 = new Equip(21105809, 14, 10010, 6);
             //List<KeyValuePair<int, long>> AttrEntryList9 = new List<KeyValuePair<int, long>>();
             //AttrEntryList9.Add(new KeyValuePair<int, long>(33, 10));
@@ -503,7 +586,7 @@ namespace Game
             //equip9.Layer = 2;
             //list.Add(equip9);
 
-            ////Ğ¬×Ó ÎäÁ¦¶Ü
+            ////é‹å­ æ­¦åŠ›ç›¾
             //Equip equip10 = new Equip(21105810, 10021, 10010, 6);
             //List<KeyValuePair<int, long>> AttrEntryList10 = new List<KeyValuePair<int, long>>();
             //AttrEntryList10.Add(new KeyValuePair<int, long>(33, 10));
@@ -521,10 +604,10 @@ namespace Game
 
         private List<Equip> AddRedEquip1()
         {
-            //¶¨ÖÆºì
+            //å®šåˆ¶çº¢
             List<Equip> list = new List<Equip>();
 
-            //ÎäÆ÷ ±¶ÂÊ£¬ĞÒÔË4,±¬ÁÑ
+            //æ­¦å™¨ å€ç‡ï¼Œå¹¸è¿4,çˆ†è£‚
             Equip equip1 = new Equip(22105801, 10047, 10021, 6);
             List<KeyValuePair<int, long>> AttrEntryList1 = new List<KeyValuePair<int, long>>();
             AttrEntryList1.Add(new KeyValuePair<int, long>(2001, 3));
@@ -537,7 +620,7 @@ namespace Game
             equip1.Layer = 2;
             list.Add(equip1);
 
-            //ÏîÁ´  ±¶ÂÊ£¬ĞÒÔË4£¬±¬ÁÑ
+            //é¡¹é“¾  å€ç‡ï¼Œå¹¸è¿4ï¼Œçˆ†è£‚
             Equip equip2 = new Equip(22105803, 3, 10021, 6);
             List<KeyValuePair<int, long>> AttrEntryList2 = new List<KeyValuePair<int, long>>();
             AttrEntryList2.Add(new KeyValuePair<int, long>(2001, 3));
@@ -550,7 +633,7 @@ namespace Game
             equip2.Layer = 2;
             list.Add(equip2);
 
-            //ÒÂ·ş ±¬ÁÑ
+            //è¡£æœ çˆ†è£‚
             Equip equip3 = new Equip(22105802, 3, 10022, 6);
             List<KeyValuePair<int, long>> AttrEntryList3 = new List<KeyValuePair<int, long>>();
             AttrEntryList3.Add(new KeyValuePair<int, long>(34, 10));
@@ -563,7 +646,7 @@ namespace Game
             equip3.Layer = 2;
             list.Add(equip3);
 
-            //Í·¿ø ±¬ÁÑ
+            //å¤´ç›” çˆ†è£‚
             Equip equip4 = new Equip(22105804, 3, 10022, 6);
             List<KeyValuePair<int, long>> AttrEntryList4 = new List<KeyValuePair<int, long>>();
             AttrEntryList4.Add(new KeyValuePair<int, long>(34, 10));
@@ -576,7 +659,7 @@ namespace Game
             equip4.Layer = 2;
             list.Add(equip4);
 
-            //ÊÖïí ·¨Á¦¾«Í¨
+            //æ‰‹é•¯ æ³•åŠ›ç²¾é€š
             Equip equip5 = new Equip(22105805, 10049, 8, 6);
             List<KeyValuePair<int, long>> AttrEntryList5 = new List<KeyValuePair<int, long>>();
             AttrEntryList5.Add(new KeyValuePair<int, long>(34, 10));
@@ -589,7 +672,7 @@ namespace Game
             equip5.Layer = 2;
             list.Add(equip5);
 
-            //ÊÖïí ·¨Á¦¾«Í¨
+            //æ‰‹é•¯ æ³•åŠ›ç²¾é€š
             Equip equip6 = new Equip(22105805, 10049, 8, 6);
             List<KeyValuePair<int, long>> AttrEntryList6 = new List<KeyValuePair<int, long>>();
             AttrEntryList6.Add(new KeyValuePair<int, long>(34, 10));
@@ -603,7 +686,7 @@ namespace Game
             list.Add(equip6);
 
 
-            //½äÖ¸ Ä§·¨¶Ü
+            //æˆ’æŒ‡ é­”æ³•ç›¾
             Equip equip7 = new Equip(22105807, 15, 10023, 6);
             List<KeyValuePair<int, long>> AttrEntryList7 = new List<KeyValuePair<int, long>>();
             AttrEntryList7.Add(new KeyValuePair<int, long>(34, 10));
@@ -616,7 +699,7 @@ namespace Game
             equip7.Layer = 2;
             list.Add(equip7);
 
-            //½äÖ¸ Ä§·¨¶Ü
+            //æˆ’æŒ‡ é­”æ³•ç›¾
             Equip equip8 = new Equip(22105807, 15, 10023, 6);
             List<KeyValuePair<int, long>> AttrEntryList8 = new List<KeyValuePair<int, long>>();
             AttrEntryList8.Add(new KeyValuePair<int, long>(34, 10));
@@ -630,7 +713,7 @@ namespace Game
             list.Add(equip8);
 
 
-            //Ñü´ø Ä§·¨¶Ü
+            //è…°å¸¦ é­”æ³•ç›¾
             Equip equip9 = new Equip(22105809, 15, 10024, 6);
             List<KeyValuePair<int, long>> AttrEntryList9 = new List<KeyValuePair<int, long>>();
             AttrEntryList9.Add(new KeyValuePair<int, long>(34, 10));
@@ -643,7 +726,7 @@ namespace Game
             equip9.Layer = 2;
             list.Add(equip9);
 
-            //Ğ¬×Ó Ä§·¨¶Ü
+            //é‹å­ é­”æ³•ç›¾
             Equip equip10 = new Equip(22105810, 10048, 10024, 6);
             List<KeyValuePair<int, long>> AttrEntryList10 = new List<KeyValuePair<int, long>>();
             AttrEntryList10.Add(new KeyValuePair<int, long>(34, 10));
@@ -661,10 +744,10 @@ namespace Game
 
         private List<ExclusiveItem> AddExclusive1()
         {
-            //¶¨ÖÆºì
+            //å®šåˆ¶çº¢
             List<ExclusiveItem> list = new List<ExclusiveItem>();
 
-            ////À×µç
+            ////é›·ç”µ
             //ExclusiveItem exclusive1 = new ExclusiveItem(1, 8, 10017, 5, 1);
             //exclusive1.RuneConfigIdList.Add(8);
             //exclusive1.RuneConfigIdList.Add(8);
@@ -673,7 +756,7 @@ namespace Game
             //exclusive1.Count = 1;
             //list.Add(exclusive1);
 
-            ////À×µç
+            ////é›·ç”µ
             //ExclusiveItem exclusive2 = new ExclusiveItem(2, 12, 10018, 5, 1);
             //exclusive2.RuneConfigIdList.Add(12);
             //exclusive2.RuneConfigIdList.Add(12);
@@ -682,7 +765,7 @@ namespace Game
             //exclusive2.Count = 1;
             //list.Add(exclusive2);
 
-            //±ùÅØÏø
+            //å†°å’†å“®
             ExclusiveItem exclusive3 = new ExclusiveItem(3, 5, 6, 5, 1);
             exclusive3.RuneConfigIdList.Add(5);
             exclusive3.RuneConfigIdList.Add(5);
@@ -691,7 +774,7 @@ namespace Game
             exclusive3.Count = 1;
             list.Add(exclusive3);
 
-            //±ùÅØÏø+ÒşÉí
+            //å†°å’†å“®+éšèº«
             ExclusiveItem exclusive4 = new ExclusiveItem(4, 18, 11, 5, 2);
             exclusive4.RuneConfigIdList.Add(18);
             exclusive4.RuneConfigIdList.Add(18);
@@ -700,7 +783,7 @@ namespace Game
             exclusive4.Count = 1;
             list.Add(exclusive4);
 
-            ////ÒşÉí+ Ë²ÒÆ
+            ////éšèº«+ ç¬ç§»
             //ExclusiveItem exclusive5 = new ExclusiveItem(5, 23, 15, 5, 2);
             //exclusive5.RuneConfigIdList.Add(23);
             //exclusive5.RuneConfigIdList.Add(22);
@@ -709,7 +792,7 @@ namespace Game
             //exclusive5.Count = 1;
             //list.Add(exclusive5);
 
-            ////ÁÒ»ğ
+            ////çƒˆç«
             //ExclusiveItem exclusive6 = new ExclusiveItem(6, 22, 14, 5, 2);
             //exclusive6.RuneConfigIdList.Add(22);
             //exclusive6.RuneConfigIdList.Add(22);

@@ -102,14 +102,17 @@ namespace Game
 		/// <summary>Memo</summary>
 		[ProtoMember(9)]
 		public string Memo { get; set; }
-		/// <summary>地图Id掉落</summary>
+		/// <summary>DropLevel</summary>
 		[ProtoMember(10)]
+		public int DropLevel { get; set; }
+		/// <summary>地图Id掉落</summary>
+		[ProtoMember(11)]
 		public int[] DropIdList { get; set; }
 		/// <summary>DropRateList</summary>
-		[ProtoMember(11)]
+		[ProtoMember(12)]
 		public int[] DropRateList { get; set; }
 		/// <summary>BossId</summary>
-		[ProtoMember(12)]
+		[ProtoMember(13)]
 		public int BoosId { get; set; }
 
 	}
