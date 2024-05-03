@@ -107,11 +107,16 @@ namespace Game
             }
             OfflineMessage += "\n";
 
-            //离线暗殿
-            //items.AddRange(BuildOfflineAndian(user, tempTime, ref OfflineMessage));
-
-            //离线闯关
-            items.AddRange(BuildOfflineTower(user, tempTime, ref rewardExp, ref rewardGold, ref OfflineMessage));
+            if (user.OffLineMapId > 0)
+            {
+                //离线暗殿
+                items.AddRange(BuildOfflineAndian(user, tempTime, ref rewardExp, ref rewardGold, ref OfflineMessage));
+            }
+            else
+            {
+                //离线闯关
+                items.AddRange(BuildOfflineTower(user, tempTime, ref rewardExp, ref rewardGold, ref OfflineMessage));
+            }
 
             //离线经验，金币
             long exp = user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp) * (offlineTime / 5);
@@ -232,7 +237,7 @@ namespace Game
             return itemList;
         }
 
-        private List<Item> BuildOfflineAndian(User user, long offlineTime, ref string message)
+        private List<Item> BuildOfflineAndian(User user, long offlineTime, ref long rewardExp, ref long rewardGold, ref string message)
         {
             offlineTime = 86400;
 

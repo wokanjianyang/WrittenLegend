@@ -14,6 +14,8 @@ public class MapBossFamily : MonoBehaviour, IBattleLife
     [LabelText("退出")]
     public Button btn_Exit;
 
+    public Button btn_Stop;
+    public Text txt_Stop;
 
     private GameObject msgPrefab;
     private int msgId = 0;
@@ -29,6 +31,7 @@ public class MapBossFamily : MonoBehaviour, IBattleLife
     void Start()
     {
         this.btn_Exit.onClick.AddListener(this.OnClick_Exit);
+        this.btn_Stop.onClick.AddListener(this.OnClick_Stop);
     }
 
     public void OnBattleStart()
@@ -86,6 +89,13 @@ public class MapBossFamily : MonoBehaviour, IBattleLife
     private void StartCopy()
     {
         this.gameObject.SetActive(true);
+        if (GameProcessor.Inst.EquipBossFamily_Auto)
+        {
+            txt_Stop.text = "自动中...";
+        }
+        else {
+            txt_Stop.text = "不自动";
+        }
 
         this.MapTime = TimeHelper.ClientNowSeconds();
 
@@ -152,6 +162,19 @@ public class MapBossFamily : MonoBehaviour, IBattleLife
          {
              this.Exit();
          }, null);
+    }
+    private void OnClick_Stop()
+    {
+        if (GameProcessor.Inst.EquipBossFamily_Auto)
+        {
+            GameProcessor.Inst.EquipBossFamily_Auto = false;
+            txt_Stop.text = "不自动";
+        }
+        else
+        {
+            GameProcessor.Inst.EquipBossFamily_Auto = true;
+            txt_Stop.text = "自动中...";
+        }
     }
 
     private void Exit()

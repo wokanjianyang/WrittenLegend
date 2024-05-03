@@ -16,6 +16,9 @@ public class MapEquipCopy : MonoBehaviour, IBattleLife
     [LabelText("地图名称")]
     public Text txt_FloorName;
 
+    public Button btn_Stop;
+    public Text txt_Stop;
+
     public Text TxtMc1;
 
     public Text TxtMc2;
@@ -39,6 +42,7 @@ public class MapEquipCopy : MonoBehaviour, IBattleLife
     void Start()
     {
         this.btn_Exit.onClick.AddListener(this.OnClick_Exit);
+        this.btn_Stop.onClick.AddListener(this.OnClick_Stop);
     }
 
     public void OnBattleStart()
@@ -76,8 +80,17 @@ public class MapEquipCopy : MonoBehaviour, IBattleLife
 
     public void OnStartCopy(StartCopyEvent e)
     {
-        this.CopyMapId = e.MapId;
         this.gameObject.SetActive(true);
+        if (GameProcessor.Inst.EquipBossFamily_Auto)
+        {
+            txt_Stop.text = "自动中...";
+        }
+        else
+        {
+            txt_Stop.text = "不自动";
+        }
+
+        this.CopyMapId = e.MapId;
         this.MapTime = TimeHelper.ClientNowSeconds();
 
         Dictionary<string, object> param = new Dictionary<string, object>();
@@ -178,6 +191,21 @@ public class MapEquipCopy : MonoBehaviour, IBattleLife
             this.Exit();
         }
     }
+
+    private void OnClick_Stop()
+    {
+        if (GameProcessor.Inst.EquipCopySetting_Auto)
+        {
+            GameProcessor.Inst.EquipCopySetting_Auto = false;
+            txt_Stop.text = "不自动";
+        }
+        else
+        {
+            GameProcessor.Inst.EquipCopySetting_Auto = true;
+            txt_Stop.text = "自动中...";
+        }
+    }
+
 
     private void OnClick_Exit()
     {

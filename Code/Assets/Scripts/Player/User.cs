@@ -30,6 +30,8 @@ namespace Game
         public long DataDate { get; set; } = 0;
         public int DataProgeress { get; set; } = 0;
 
+        public int OffLineMapId { get; set; }
+
         public MagicData MagicLevel { get; } = new MagicData();
 
         public MagicData MagicGold { get; } = new MagicData();

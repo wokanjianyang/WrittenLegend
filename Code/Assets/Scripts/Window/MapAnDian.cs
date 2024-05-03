@@ -12,6 +12,9 @@ public class MapAnDian : MonoBehaviour, IBattleLife
     public Button btn_Level;
     public Text txt_Btn_Level;
 
+    public Button btn_Offline;
+    public Text txt_Offline;
+
     public ScrollRect sr_BattleMsg;
 
     [LabelText("退出")]
@@ -31,6 +34,7 @@ public class MapAnDian : MonoBehaviour, IBattleLife
     {
         this.btn_Exit.onClick.AddListener(this.OnClick_Exit);
         this.btn_Level.onClick.AddListener(this.OnClick_Level);
+        this.btn_Offline.onClick.AddListener(this.OnClick_Offline);
     }
 
     public void OnBattleStart()
@@ -56,7 +60,9 @@ public class MapAnDian : MonoBehaviour, IBattleLife
         this.gameObject.SetActive(true);
         this.MapTime = TimeHelper.ClientNowSeconds();
 
-        int MapId = Math.Max(GameProcessor.Inst.User.MapId - 1, ConfigHelper.MapStartId);
+        User user = GameProcessor.Inst.User;
+
+        int MapId = Math.Max(user.MapId - 1, ConfigHelper.MapStartId);
 
         Dictionary<string, object> param = new Dictionary<string, object>();
         param.Add("MapTime", MapTime);
@@ -68,6 +74,15 @@ public class MapAnDian : MonoBehaviour, IBattleLife
             GameProcessor.Inst.LoadMap(RuleType.AnDian, this.transform, param);
             ShowLevel();
         });
+
+        if (user.OffLineMapId > 0)
+        {
+            txt_Offline.text = "离线暗殿";
+        }
+        else
+        {
+            txt_Offline.text = "离线闯关";
+        }
     }
 
     public void OnShowAnDianInfo(ShowAnDianInfoEvent e)
@@ -134,7 +149,23 @@ public class MapAnDian : MonoBehaviour, IBattleLife
         txt_Btn_Level.text = "难度：" + Level;
         GameProcessor.Inst.EventCenter.Raise(new AnDianChangeLevel() { Level = this.Level });
     }
-       
+
+    private void OnClick_Offline()
+    {
+        User user = GameProcessor.Inst.User;
+        Debug.Log("OffLineMapId:" + user.OffLineMapId);
+        if (user.OffLineMapId > 0)
+        {
+            user.OffLineMapId = 0;
+            txt_Offline.text = "离线闯关";
+        }
+        else
+        {
+            user.OffLineMapId = user.MapId + 1 - Level;
+            txt_Offline.text = "离线暗殿";
+        }
+    }
+
     private void Exit()
     {
         GameProcessor.Inst.OnDestroy();

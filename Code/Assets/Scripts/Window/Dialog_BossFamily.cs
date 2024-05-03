@@ -53,9 +53,9 @@ public class Dialog_BossFamily : MonoBehaviour, IBattleLife
         btn_FullScreen.onClick.AddListener(this.OnClick_Close);
     }
 
-    void Update()
+    void OnEnable()
     {
-
+        this.toggle_Auto.isOn = GameProcessor.Inst.EquipBossFamily_Auto;
     }
 
     public void OnBattleStart()

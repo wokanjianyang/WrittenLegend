@@ -60,6 +60,11 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
         }
     }
 
+    void OnEnable()
+    {
+        this.toggle_Auto.isOn = GameProcessor.Inst.EquipCopySetting_Auto;
+    }
+
     void Update()
     {
         RefeshTime();
