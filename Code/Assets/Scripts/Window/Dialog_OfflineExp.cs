@@ -239,15 +239,12 @@ namespace Game
 
         private List<Item> BuildOfflineAndian(User user, long offlineTime, ref long rewardExp, ref long rewardGold, ref string message)
         {
-            offlineTime = 86400;
-
             MonsterModelConfig modelConfig = MonsterModelConfigCategory.Instance.Get(1); //暗殿
 
             List<Item> itemList = new List<Item>();
 
             long killCount = (long)(offlineTime * 2.5);
-
-            long killRecord = user.MagicKillRecord.Data;
+            //long realKillCount = (long)(killCount * modelConfig.CountRate);
 
             double lossRate = 1.1; //损失系数,只有 1/1.1 倍的掉落收益
 
@@ -259,17 +256,23 @@ namespace Game
             //Debug.Log("qualityRate:" + qualityRate);
             //Debug.Log("realQualityRate:" + realQualityRate);
 
-            int mapId = 1070;
+            int mapId = user.OffLineMapId;
 
             MapConfig mapConfig = MapConfigCategory.Instance.Get(mapId);
 
-
             MonsterBase monster = MonsterBaseCategory.Instance.GetByMapId(mapId);
+
+            long gold = (long)(monster.Gold * killCount * modelConfig.RewardRate * ((100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.GoldIncrea)) / 100));
+            long exp = (long)(monster.Exp * killCount * modelConfig.RewardRate * ((100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.ExpIncrea)) / 100));
 
             //Debug.Log("monster:" + monster.Name);
 
-            message += "\n------------未知暗殿离线------------";
-            message += "\n一共离线击杀了" + killCount + "个怪物";
+            message += "\n离线未知暗殿(" + mapConfig.Name + ")，击杀了" + killCount + "个怪物，获得";
+
+            message += "，金币" + StringHelper.FormatNumber(gold) + "，经验" + StringHelper.FormatNumber(exp);
+
+            rewardExp += exp;
+            rewardGold += gold;
 
             int skillBox = 0;
 
@@ -280,6 +283,7 @@ namespace Game
 
                 double dropRate = Math.Max(lossRate, mapConfig.DropRateList[i] * lossRate / realRate);
 
+                double killRecord = user.GetKillRecord(dropId);
                 int dropCount = MathHelper.CalOfflineDropCount(killRecord, killCount, dropRate);
 
                 if (dropCount > 0)
@@ -293,7 +297,7 @@ namespace Game
                             int baseQuantity = (int)(Math.Pow(2, layer));
                             int speicaStone = dropCount * baseQuantity;
                             itemList.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Equip_Speical_Stone, speicaStone));
-                            message += ",获得" + speicaStone + "个四格碎片 ";
+                            message += $"，<color=#{QualityConfigHelper.GetQualityColor(3)}>[{"四格碎片"}]</color>" + speicaStone + "个";
 
                             //Debug.Log(dropCount + "个四格->" + speicaStone + "个四格碎片");
                         }
@@ -301,7 +305,7 @@ namespace Game
                         {
                             int refineStone = (int)(dropCount * MathHelper.CalRefineStone(mapConfig.DropLevel, user.StoneNumber) * realQualityRate);
                             itemList.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_EquipRefineStone, refineStone));
-                            message += ",获得" + StringHelper.FormatNumber(refineStone) + "个精炼石";
+                            message += $"，<color=#{QualityConfigHelper.GetQualityColor(3)}>[{"精炼石"}]</color>" + StringHelper.FormatNumber(refineStone) + "个";
 
                             //Debug.Log(dropCount + "个装备->" + refineStone + "个精炼石");
                         }
@@ -310,8 +314,7 @@ namespace Game
                     {
                         int exclusiveStone = (int)(dropCount * realQualityRate);
                         itemList.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Stone, exclusiveStone));
-
-                        message += ",获得" + dropCount + "个专属精华";
+                        message += $"，<color=#{QualityConfigHelper.GetQualityColor(3)}>[{"专属碎片"}]</color>" + dropCount + "个";
 
                         //Debug.Log(dropCount + "个专属->" + exclusiveStone + "个专属精华");
                     }
@@ -327,21 +330,39 @@ namespace Game
                             int di = RandomHelper.RandomNumber(0, dropConfig.ItemIdList.Length);
                             itemList.Add(ItemHelper.BuildItem((ItemType)dropConfig.ItemType, dropConfig.ItemIdList[di], 1, 1));
                         }
-                        message += ",掉落" + dropCount + "个" + dropConfig.Name;
+                        message += $"，<color=#{QualityConfigHelper.GetQualityColor(6)}>[{dropConfig.Name}]</color>" + dropCount + "个";
                     }
                 }
+
+                user.SaveKillRecord(dropId, killCount);
             }
 
             //-------书页汇总-----------
-            itemList.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Moon_Cake, skillBox));
-            message += ",获得" + skillBox + "个书页";
+            if (skillBox > 0)
+            {
+                itemList.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Moon_Cake, skillBox));
+                message += $"，<color=#{QualityConfigHelper.GetQualityColor(3)}>[{"书页"}]</color>" + skillBox + "个";
+            }
 
             List<DropLimitConfig> limits = DropLimitConfigCategory.Instance.GetByMapId((int)DropLimitType.Map, mapId);
+
+            int cardCount = 0;
+            int fashionCount = 0;
+
+            string limitMessage = "";
             for (int i = 0; i < limits.Count(); i++)
             {
                 DropLimitConfig limitConfig = limits[i];
+                int dropId = limitConfig.DropId;
+                //Debug.Log("drop Limit Id:" + limitConfig.DropId);
 
-                int dropCount = 0;
+                double dr = limitConfig.ShareRise > 0 ? realRate : 1 * modelConfig.CountRate; //吃爆率用爆率，不吃爆率用数量
+                double dropRate = Math.Max(lossRate, (limitConfig.StartRate + limitConfig.Rate) * lossRate / dr);
+
+                //Debug.Log("dropRate:" + dropRate);
+
+                double killRecord = user.GetKillRecord(dropId);
+                int dropCount = MathHelper.CalOfflineDropCount(killRecord, killCount, dropRate);
 
                 if (dropCount > 0)
                 {
@@ -349,12 +370,12 @@ namespace Game
 
                     if (dropConfig.ItemType == (int)ItemType.Equip)
                     {   //Auto Recovery
-                        message += ",掉落" + dropCount + "个" + limitConfig.Name;
+                        //message += "," + dropCount + "个" + limitConfig.Name;
 
                         for (int d = 0; d < dropCount; d++)
                         {
                             int di = RandomHelper.RandomNumber(0, dropConfig.ItemIdList.Length);
-                            itemList.Add(ItemHelper.BuildEquip(dropConfig.ItemIdList[di], 1, 1, (int)killRecord));
+                            itemList.Add(ItemHelper.BuildEquip(dropConfig.ItemIdList[di], 0, 1, (int)killRecord));
                         }
                     }
                     else
@@ -365,13 +386,38 @@ namespace Game
                             itemList.Add(ItemHelper.BuildItem((ItemType)dropConfig.ItemType, dropConfig.ItemIdList[di], 1, 1));
                         }
                     }
-                    message += ",掉落" + dropCount + "个" + limitConfig.Name;
+
+                    if (dropConfig.ItemType == (int)ItemType.Card)
+                    {
+                        cardCount += dropCount;
+                    }
+                    else if (dropConfig.ItemType == (int)ItemType.Fashion)
+                    {
+                        fashionCount += dropCount;
+                    }
+                    else
+                    {
+                        int q = limitConfig.Id > 1000 ? 6 : 5;
+
+                        limitMessage += $"，<color=#{QualityConfigHelper.GetQualityColor(q)}>[{limitConfig.Name}]</color>" + dropCount + "个";
+                    }
+
+                    //Debug.Log("drop limit " + killRecord + "-" + (killRecord + killCount) + " 掉落" + dropCount + "个" + limitConfig.Name);
                 }
+
+                user.SaveKillRecord(dropId, killCount);
             }
 
-            user.MagicKillRecord.Data += killCount;
+            if (cardCount > 0)
+            {
+                message += $"，<color=#{QualityConfigHelper.GetQualityColor(4)}>[{"图鉴"}]</color>" + cardCount + "个";
+            }
+            if (fashionCount > 0)
+            {
+                message += $"，<color=#{QualityConfigHelper.GetQualityColor(5)}>[{"时装"}]</color>" + fashionCount + "个";
+            }
 
-            message += "\n------------未知暗殿离线------------";
+            message += limitMessage + "\n";
 
             return itemList;
         }
@@ -815,7 +861,7 @@ namespace Game
                 EquipRefineConfig oldConfig = EquipRefineConfigCategory.Instance.GetByLevel(i);
             }
 
-            Debug.Log(" Test Over ");
+            //Debug.Log(" Test Over ");
         }
     }
 

@@ -153,7 +153,6 @@ public class MapAnDian : MonoBehaviour, IBattleLife
     private void OnClick_Offline()
     {
         User user = GameProcessor.Inst.User;
-        Debug.Log("OffLineMapId:" + user.OffLineMapId);
         if (user.OffLineMapId > 0)
         {
             user.OffLineMapId = 0;
@@ -161,9 +160,11 @@ public class MapAnDian : MonoBehaviour, IBattleLife
         }
         else
         {
-            user.OffLineMapId = user.MapId + 1 - Level;
+            user.OffLineMapId = user.MapId - 10 + Level;
             txt_Offline.text = "¿Îœﬂ∞µµÓ";
         }
+        //Debug.Log("MapId:" + user.MapId);
+        //Debug.Log("OffLineMapId:" + user.OffLineMapId);
     }
 
     private void Exit()

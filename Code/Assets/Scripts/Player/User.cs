@@ -42,7 +42,7 @@ namespace Game
 
         public MagicData MagicTowerFloor { get; } = new MagicData();
 
-        public MagicData MagicKillRecord { get; } = new MagicData();
+        public IDictionary<int, double> KillRecord { get; } = new Dictionary<int, double>();
 
         //public IDictionary<int, Equip> EquipPanel { get; set; } = new Dictionary<int, Equip>();
 
@@ -1077,6 +1077,26 @@ namespace Game
             //Debug.Log("realRate:" + realRate);
 
             return realRate;
+        }
+
+        public double GetKillRecord(int dropId)
+        {
+            if (!KillRecord.ContainsKey(dropId))
+            {
+                KillRecord[dropId] = 0;
+            }
+
+            return KillRecord[dropId];
+        }
+
+        public void SaveKillRecord(int dropId, double kc)
+        {
+            if (!KillRecord.ContainsKey(dropId))
+            {
+                KillRecord[dropId] = 0;
+            }
+
+            KillRecord[dropId] += kc;
         }
     }
 

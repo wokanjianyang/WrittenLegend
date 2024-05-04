@@ -41,7 +41,7 @@ namespace Game
             return r;
         }
 
-        public static int CalOfflineDropCount(long killRecord, long killCount, double rate)
+        public static int CalOfflineDropCount(double killRecord, double killCount, double rate)
         {
             int oldCount = (int)(killRecord / rate);
 
