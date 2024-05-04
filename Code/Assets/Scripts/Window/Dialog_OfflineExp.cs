@@ -135,19 +135,26 @@ namespace Game
 
             foreach (var item in items)
             {
-                BoxItem boxItem = user.Bags.Find(m => !m.IsFull() && m.Item.Type == item.Type && m.Item.ConfigId == item.ConfigId);  //ͬ
-
-                if (boxItem != null)
+                if (item.Type == ItemType.Card || item.Type == ItemType.Fashion || (item.Type == ItemType.Material && item.ConfigId == ItemHelper.SpecialId_Card_Stone))
                 {
-                    boxItem.AddStack(item.Count);
+                    user.SaveItemMeterialCount(item.ConfigId, item.Count);
                 }
                 else
                 {
-                    boxItem = new BoxItem();
-                    boxItem.Item = item;
-                    boxItem.MagicNubmer.Data = Math.Max(1, item.Count);
-                    boxItem.BoxId = -1;
-                    user.Bags.Add(boxItem);
+                    BoxItem boxItem = user.Bags.Find(m => !m.IsFull() && m.Item.Type == item.Type && m.Item.ConfigId == item.ConfigId);  //ͬ
+
+                    if (boxItem != null)
+                    {
+                        boxItem.AddStack(item.Count);
+                    }
+                    else
+                    {
+                        boxItem = new BoxItem();
+                        boxItem.Item = item;
+                        boxItem.MagicNubmer.Data = Math.Max(1, item.Count);
+                        boxItem.BoxId = -1;
+                        user.Bags.Add(boxItem);
+                    }
                 }
             }
 

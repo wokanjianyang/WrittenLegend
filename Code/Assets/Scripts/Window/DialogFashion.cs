@@ -167,9 +167,20 @@ public class DialogFashion : MonoBehaviour, IBattleLife
             }
         }
 
-        long total = user.Bags.Where(m => m.Item.Type == ItemType.Fashion && m.Item.ConfigId == config.ItemId).Select(m => m.MagicNubmer.Data).Sum();
+        long total = user.GetItemMeterialCount(config.ItemId);
+
         string color = total >= currentLevel + 1 ? "#FFFF00" : "#FF0000";
-        Txt_Fee.text = string.Format("<color={0}>{1}</color>", color, currentItem.Config.Name + " * " + (currentLevel + 1));
+
+        Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2}", color, currentItem.Config.Name + " * " + (currentLevel + 1), total);
+
+        if (total >= currentLevel + 1)
+        {
+            Btn_Ok.gameObject.SetActive(true);
+        }
+        else
+        {
+            Btn_Ok.gameObject.SetActive(false);
+        }
     }
 
     private void OpenFashionDialog(OpenFashionDialogEvent e)
@@ -198,7 +209,7 @@ public class DialogFashion : MonoBehaviour, IBattleLife
 
         FashionConfig config = currentItem.Config;
 
-        long total = user.Bags.Where(m => m.Item.Type == ItemType.Fashion && m.Item.ConfigId == config.ItemId).Select(m => m.MagicNubmer.Data).Sum();
+        long total = user.GetItemMeterialCount(config.ItemId);
 
         int needCount = currentLevel + 1;
 
@@ -208,13 +219,7 @@ public class DialogFashion : MonoBehaviour, IBattleLife
             return;
         }
 
-        GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
-        {
-            Type = ItemType.Fashion,
-            ItemId = config.ItemId,
-            Quantity = needCount
-        });
-        GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "消耗" + needCount + "个" + config.Name + "升级成功", ToastType = ToastTypeEnum.Success });
+        user.UseItemMeterialCount(config.ItemId, needCount);
 
         fs[currentItem.Part].Data++;
 

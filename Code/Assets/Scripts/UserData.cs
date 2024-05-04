@@ -214,6 +214,18 @@ namespace Game
                 }
             }
 
+            List<BoxItem> cfList = user.Bags.Where(m => m.Item.Type == ItemType.Card || m.Item.Type == ItemType.Fashion
+            || (m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Card_Stone)).ToList();
+            if (cfList.Count > 0)
+            {
+                foreach (BoxItem cf in cfList)
+                {
+                    user.SaveItemMeterialCount(cf.Item.ConfigId, cf.MagicNubmer.Data);
+                }
+
+                user.Bags.RemoveAll(m => m.Item.Type == ItemType.Card || m.Item.Type == ItemType.Fashion || (m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Card_Stone));
+            }
+
             //user.KillRecord.Clear();
 
             //user.InfiniteData = new InfiniteData();

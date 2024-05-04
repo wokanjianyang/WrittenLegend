@@ -13,7 +13,7 @@ namespace Game
         public Text Txt_Name;
         public Text Txt_Level;
         public Text Txt_Attr_Current;
-
+        public Text Txt_Fee;
         public CardConfig Config { get; set; }
 
         // Start is called before the first frame update
@@ -32,91 +32,90 @@ namespace Game
         {
             User user = GameProcessor.Inst.User;
 
-            MagicData cardData = user.CardData[Config.Id];
-
             long maxLevel = user.GetCardLimit(Config);
+            long cardLevel = user.GetCardLevel(Config.Id);
 
-            if (cardData.Data < maxLevel)
+            if (cardLevel < maxLevel)
             {
-                int rise = (int)cardData.Data / Config.RiseLevel * Config.RiseNumber;
+                long rise = cardLevel / Config.RiseLevel * Config.RiseNumber;
+
+                int itemId = Config.Id;
+                long upNumber = 1 + rise;
 
                 if (Config.StoneNumber > 0)
                 {
-                    //使用碎片升级的
-                    long stoneTotal = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Card_Stone).Select(m => m.MagicNubmer.Data).Sum();
-
-                    int upNumber = Config.StoneNumber + rise;
-
-                    if (stoneTotal < upNumber)
-                    {
-                        GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "您的图鉴碎片不足" + upNumber + "个", ToastType = ToastTypeEnum.Failure });
-                        return;
-                    }
-
-                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "消耗" + upNumber + "个图鉴碎片升级成功", ToastType = ToastTypeEnum.Success });
-
-                    GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
-                    {
-                        Type = ItemType.Material,
-                        ItemId = ItemHelper.SpecialId_Card_Stone,
-                        Quantity = upNumber
-                    });
-                    cardData.Data++;
-                    this.SetContent(this.Config, cardData.Data);
-                    GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
+                    itemId = ItemHelper.SpecialId_Card_Stone;
+                    upNumber = Config.StoneNumber + rise;
                 }
-                else
+
+                long total = user.GetItemMeterialCount(itemId);
+
+                if (total < upNumber)
                 {
-                    //使用卡片升级的
-                    long total = user.Bags.Where(m => m.Item.Type == ItemType.Card && m.Item.ConfigId == Config.Id).Select(m => m.MagicNubmer.Data).Sum();
-                    int upNumber = 1 + rise;
-
-                    if (total < upNumber)
-                    {
-                        GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "对应的图鉴数量不足", ToastType = ToastTypeEnum.Failure });
-                        return;
-                    }
-
-                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "消耗" + upNumber + "个" + Config.Name + "升级成功", ToastType = ToastTypeEnum.Success });
-                    GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
-                    {
-                        Type = ItemType.Card,
-                        ItemId = Config.Id,
-                        Quantity = upNumber
-                    });
-
-                    cardData.Data++;
-                    this.SetContent(this.Config, cardData.Data);
-                    GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
+                    //GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "您的材料不足", ToastType = ToastTypeEnum.Failure });
+                    return;
                 }
+
+                user.UseItemMeterialCount(itemId, upNumber);
+                user.SaveCardLevel(Config.Id);
+
+                this.Show();
+
+
+                GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
             }
             else
             {
-                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "已经满级了", ToastType = ToastTypeEnum.Failure });
+                //GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "已经满级了", ToastType = ToastTypeEnum.Failure });
                 return;
             }
         }
 
-        public void SetContent(CardConfig config, long level)
+        private void Show()
         {
-            this.Config = config;
+            User user = GameProcessor.Inst.User;
 
-            this.Txt_Name.text = string.Format("<color=#{0}>{1}</color>", QualityConfigHelper.GetQualityColor(Config.Quality), config.Name);
+            long cardLevel = user.GetCardLevel(Config.Id);
 
-            if (level > 0)
+
+            if (cardLevel > 0)
             {
-                long val = config.AttrValue + (level - 1) * config.LevelIncrea;
-                this.Txt_Level.text = $"{level}级";
-                this.Txt_Attr_Current.text = StringHelper.FormatAttrText(config.AttrId, val);
-                this.Txt_Attr_Rise.text = "升级增加:" + StringHelper.FormatAttrValueText(config.AttrId, config.LevelIncrea);
+                long val = Config.AttrValue + (cardLevel - 1) * Config.LevelIncrea;
+                this.Txt_Level.text = $"{cardLevel}级";
+                this.Txt_Attr_Current.text = StringHelper.FormatAttrText(Config.AttrId, val);
+                this.Txt_Attr_Rise.text = "升级增加:" + StringHelper.FormatAttrValueText(Config.AttrId, Config.LevelIncrea);
             }
             else
             {
-
                 this.Txt_Level.text = "未激活";
                 this.Txt_Attr_Current.text = " ???? ";
-                this.Txt_Attr_Rise.text = "激活增加:" + StringHelper.FormatAttrValueText(config.AttrId, config.AttrValue);
+                this.Txt_Attr_Rise.text = "激活增加:" + StringHelper.FormatAttrValueText(Config.AttrId, Config.AttrValue);
             }
+
+            long rise = cardLevel / Config.RiseLevel * Config.RiseNumber;
+
+            int itemId = Config.Id;
+            long upNumber = 1 + rise;
+
+            if (Config.StoneNumber > 0)
+            {
+                itemId = ItemHelper.SpecialId_Card_Stone;
+                upNumber = Config.StoneNumber + rise;
+            }
+
+            long total = user.GetItemMeterialCount(itemId);
+
+            string color = total >= upNumber ? "#FFFF00" : "#FF0000";
+
+            Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2}", color, upNumber, total);
+        }
+
+        public void SetContent(CardConfig config)
+        {
+            this.Config = config;
+            this.Txt_Name.text = string.Format("<color=#{0}>{1}</color>", QualityConfigHelper.GetQualityColor(Config.Quality), config.Name);
+
+            this.Show();
         }
     }
 }

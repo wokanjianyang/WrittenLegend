@@ -43,19 +43,12 @@ public class Dialog_Card : MonoBehaviour
 
         List<CardConfig> configs = CardConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
 
-        User user = GameProcessor.Inst.User;
-
         for (int i = 0; i < configs.Count; i++)
         {
             var item = GameObject.Instantiate(ItemPrefab);
             var com = item.GetComponentInChildren<Item_Card>();
 
-            if (!user.CardData.ContainsKey(configs[i].Id))
-            {
-                user.CardData[configs[i].Id] = new Game.Data.MagicData();
-            }
-
-            com.SetContent(configs[i], user.CardData[configs[i].Id].Data);
+            com.SetContent(configs[i]);
 
             item.transform.SetParent(this.sr_Boss.content);
             item.transform.localScale = Vector3.one;

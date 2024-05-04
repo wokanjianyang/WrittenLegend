@@ -215,6 +215,7 @@ namespace Game
         public MagicData WingData { get; set; } = new MagicData();
 
         public Dictionary<int, Dictionary<int, MagicData>> FashionData { get; set; } = new Dictionary<int, Dictionary<int, MagicData>>();
+        public Dictionary<int, MagicData> ItemMeterialData { get; } = new Dictionary<int, MagicData>();
 
         public Dictionary<int, int> AchievementData { get; } = new Dictionary<int, int>();
 
@@ -1097,6 +1098,51 @@ namespace Game
             }
 
             KillRecord[dropId] += kc;
+        }
+
+        public long GetItemMeterialCount(int configId)
+        {
+            if (!ItemMeterialData.ContainsKey(configId))
+            {
+                ItemMeterialData[configId] = new MagicData();
+            }
+
+            return ItemMeterialData[configId].Data;
+        }
+
+        public void SaveItemMeterialCount(int configId, long count)
+        {
+            if (!ItemMeterialData.ContainsKey(configId))
+            {
+                ItemMeterialData[configId] = new MagicData();
+            }
+
+            ItemMeterialData[configId].Data += count;
+        }
+
+        public void UseItemMeterialCount(int configId, long count)
+        {
+            if (ItemMeterialData[configId].Data < count || count <= 0)
+            {
+                throw new Exception("数值错误");
+            }
+
+            ItemMeterialData[configId].Data -= count;
+        }
+
+        public long GetCardLevel(int cardId)
+        {
+            if (!CardData.ContainsKey(cardId))
+            {
+                CardData[cardId] = new MagicData();
+            }
+
+            return CardData[cardId].Data;
+        }
+
+        public void SaveCardLevel(int cardId)
+        {
+            CardData[cardId].Data++;
         }
     }
 

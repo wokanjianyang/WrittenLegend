@@ -1182,6 +1182,10 @@ namespace Game
                         //user.MetalData
                         user.SaveArtifactLevel(newItem.ConfigId, newItem.Count);
                     }
+                    else if (newItem.Type == ItemType.Card || newItem.Type == ItemType.Fashion || (newItem.Type == ItemType.Material && newItem.ConfigId == ItemHelper.SpecialId_Card_Stone))
+                    {
+                        user.SaveItemMeterialCount(newItem.ConfigId, newItem.Count);
+                    }
                     else
                     {
                         AddBoxItem(newItem);
