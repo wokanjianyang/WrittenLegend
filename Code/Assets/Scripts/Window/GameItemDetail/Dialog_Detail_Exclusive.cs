@@ -46,6 +46,8 @@ namespace Game
         [LabelText("解除锁定装备")]
         public Button btn_Unlock;
 
+        public Button btn_Restore;
+
         public Button btn_Select;
         public Button btn_Deselect;
 
@@ -61,6 +63,7 @@ namespace Game
             this.btn_Equip.onClick.AddListener(this.OnEquip);
             this.btn_UnEquip.onClick.AddListener(this.OnUnEquip);
             this.btn_Recovery.onClick.AddListener(this.OnRecovery);
+            this.btn_Restore.onClick.AddListener(this.OnClick_Restore);
 
             this.btn_Lock.onClick.AddListener(this.OnClick_Lock);
             this.btn_Unlock.onClick.AddListener(this.OnClick_Unlock);
@@ -101,6 +104,7 @@ namespace Game
             this.btn_Unlock.gameObject.SetActive(false);
             this.btn_Select.gameObject.SetActive(false);
             this.btn_Deselect.gameObject.SetActive(false);
+            this.btn_Restore.gameObject.SetActive(false);
 
             // this.transform.position = this.GetBetterPosition(e.Position);
             // this.img_Background.sprite = this.list_BackgroundImgs[this.item.GetQuality() - 1];
@@ -206,7 +210,16 @@ namespace Game
                 }
             }
 
-            this.btn_Recovery.gameObject.SetActive(this.boxItem.BoxId != -1 && !this.boxItem.Item.IsLock);
+            int level = exclusive.GetLevel();
+            if (level > 1)
+            {
+                this.btn_Restore.gameObject.SetActive(this.boxItem.BoxId != -1 && !this.boxItem.Item.IsLock);
+            }
+            else
+            {
+                this.btn_Recovery.gameObject.SetActive(this.boxItem.BoxId != -1 && !this.boxItem.Item.IsLock);
+            }
+
             this.btn_Equip.gameObject.SetActive(this.boxItem.BoxId != -1);
             this.btn_UnEquip.gameObject.SetActive(this.boxItem.BoxId == -1);
             this.btn_Lock.gameObject.SetActive(!this.boxItem.Item.IsLock);
@@ -219,6 +232,7 @@ namespace Game
                 this.btn_Recovery.gameObject.SetActive(false);
                 this.btn_Lock.gameObject.SetActive(false);
                 this.btn_Unlock.gameObject.SetActive(false);
+                this.btn_Restore.gameObject.SetActive(false);
             }
 
             if (this.BoxType == ComBoxType.Exclusive_Devour)
@@ -272,29 +286,6 @@ namespace Game
             tran_SuitAttribute.gameObject.SetActive(true);
         }
 
-        private string FormatAttrText(int attr, long val, int percent)
-        {
-            string unit = "";
-
-            List<int> percents = ConfigHelper.PercentAttrIdList.ToList().ToList(); ;
-
-            if (percents.Contains(attr))
-            {
-                unit = "%";
-            }
-
-            string refineText = "";
-            long refineAttr = val * percent / 100;
-            if (refineAttr > 0)
-            {
-                refineText = "+" + StringHelper.FormatNumber(refineAttr);
-            }
-
-            string text = StringHelper.FormatNumber(val) + refineText + unit + PlayerHelper.PlayerAttributeMap[((AttributeEnum)attr).ToString()];
-
-            return text;
-        }
-
         private void OnEquip()
         {
             this.gameObject.SetActive(false);
@@ -332,6 +323,26 @@ namespace Game
             {
                 BoxItem = this.boxItem,
             });
+        }
+
+        private void OnClick_Restore()
+        {
+            if (this.boxItem.Item.IsLock)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "锁定的不能重生", ToastType = ToastTypeEnum.Failure });
+                return;
+            }
+
+            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("重生只能得到80%的材料，和对应的专属。是否确认？", true,
+                () =>
+                {
+                    this.gameObject.SetActive(false);
+
+
+                }, () =>
+                {
+
+                });
         }
 
         public void OnClick_Close()
