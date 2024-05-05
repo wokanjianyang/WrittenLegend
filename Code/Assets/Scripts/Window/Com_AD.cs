@@ -438,12 +438,13 @@ public class Com_AD : MonoBehaviour, IBattleLife
         User user = GameProcessor.Inst.User;
 
         int atRate = user.GetArtifactValue(ArtifactType.EquipTicketAd);
+        int atCount = (8 + atRate) * rate;
 
-        user.MagicCopyTikerCount.Data += (8 + atRate) * rate;
+        user.MagicCopyTikerCount.Data += atCount;
 
         GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
         {
-            Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励-副本次数:" + (8 * rate) + "次", 0, 0, null)
+            Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励-副本次数:" + atCount + "次", 0, 0, null)
         });
     }
 
