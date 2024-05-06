@@ -103,6 +103,7 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<EquipOneEvent>(this.OnEquipOneEvent);
             GameProcessor.Inst.EventCenter.AddListener<SkillBookLearnEvent>(this.OnSkillBookLearn);
             GameProcessor.Inst.EventCenter.AddListener<RecoveryEvent>(this.OnRecoveryEvent);
+            GameProcessor.Inst.EventCenter.AddListener<RestoreEvent>(this.OnRestoreEvent);
             GameProcessor.Inst.EventCenter.AddListener<LoseEvent>(this.OnLoseEvent);
             GameProcessor.Inst.EventCenter.AddListener<AutoRecoveryEvent>(this.OnAutoRecoveryEvent);
             GameProcessor.Inst.EventCenter.AddListener<BagUseEvent>(this.OnBagUseEvent);
@@ -621,6 +622,44 @@ namespace Game
             List<BoxItem> recoveryList = new List<BoxItem>();
             recoveryList.Add(e.BoxItem);
             this.Recovery(recoveryList, RuleType.Normal);
+        }
+
+        private void OnRestoreEvent(RestoreEvent e)
+        {
+            User user = GameProcessor.Inst.User;
+
+            BoxItem boxItem = e.BoxItem;
+
+            ExclusiveItem oldExclusive = boxItem.Item as ExclusiveItem;
+
+            List<Item> newList = new List<Item>();
+            ExclusiveItem exclusive = new ExclusiveItem(oldExclusive.ConfigId, oldExclusive.RuneConfigId, oldExclusive.SuitConfigId, oldExclusive.Quality, oldExclusive.DoubleHitId);
+            newList.Add(exclusive);
+            for (int i = 0; i < oldExclusive.RuneConfigIdList.Count; i++)
+            {
+                ExclusiveItem item = new ExclusiveItem(oldExclusive.ConfigId, oldExclusive.RuneConfigIdList[i], oldExclusive.SuitConfigIdList[i], oldExclusive.Quality, oldExclusive.DoubleHitId);
+                newList.Add(item);
+            }
+
+            Dictionary<int, int> useMeterial = ExclusiveDevourConfigCategory.Instance.GetUseList(oldExclusive.GetLevel());
+            foreach (KeyValuePair<int, int> kv in useMeterial)
+            {
+                int mc = Math.Max(1, (int)(kv.Value * 0.8));
+                Item item = ItemHelper.BuildMaterial(kv.Key, mc);
+                newList.Add(item);
+            }
+
+            //销毁旧的
+            user.Bags.Remove(boxItem);
+            Com_Box boxUI = this.items.Find(m => m.BoxItem == boxItem);
+            if (boxUI != null) //上线自动回收，可能还没加载
+            {
+                this.items.Remove(boxUI);
+                GameObject.Destroy(boxUI.gameObject);
+            }
+
+            //生成新的
+            user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = newList });
         }
 
         private void OnLoseEvent(LoseEvent e)

@@ -72,11 +72,11 @@ namespace Game
             return null;
         }
 
-        public static Item BuildMaterial(int configId, int quanlity)
+        public static Item BuildMaterial(int configId, int count)
         {
             Item item = new Item(configId);
             item.Type = ItemType.Material;
-            item.Count = quanlity;
+            item.Count = count;
             return item;
         }
 

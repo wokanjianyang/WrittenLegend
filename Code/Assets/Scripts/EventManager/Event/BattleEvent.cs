@@ -88,6 +88,11 @@ namespace Game
         public BoxItem BoxItem { get; set; }
     }
 
+    public class RestoreEvent : SDD.Events.Event
+    {
+        public BoxItem BoxItem { get; set; }
+    }
+
     public class LoseEvent : SDD.Events.Event
     {
         public BoxItem BoxItem { get; set; }

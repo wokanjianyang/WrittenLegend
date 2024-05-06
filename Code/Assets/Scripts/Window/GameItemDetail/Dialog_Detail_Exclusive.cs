@@ -337,8 +337,10 @@ namespace Game
                 () =>
                 {
                     this.gameObject.SetActive(false);
-
-
+                    GameProcessor.Inst.EventCenter.Raise(new RestoreEvent()
+                    {
+                        BoxItem = this.boxItem,
+                    });
                 }, () =>
                 {
 
