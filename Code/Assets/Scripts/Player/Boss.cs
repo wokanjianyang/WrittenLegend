@@ -222,15 +222,11 @@ namespace Game
 
             //ÏÞÊ±½±Àø
             items.AddRange(DropLimitHelper.Build((int)DropLimitType.Normal, this.MapId, dropRate, modelRate, 1, countRate));
+            items.AddRange(DropLimitHelper.Build((int)DropLimitType.Map, this.MapId, dropRate, modelRate, 1, countRate));
 
             if (this.RuleType == RuleType.EquipCopy || this.RuleType == RuleType.BossFamily)
             {
                 items.AddRange(DropLimitHelper.Build((int)DropLimitType.JieRi, this.MapId, dropRate, modelRate, 1, countRate));
-
-                items.AddRange(DropLimitHelper.Build((int)DropLimitType.Map, this.MapId, dropRate, modelRate, 1, countRate));
-
-                //List<DropLimitConfig> mapLimits = DropLimitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.MapId == this.Config.MapId).ToList();
-                //items.AddRange(user.AddMapStartRate(mapLimits, qualityConfig.CountRate * countModelRate));
             }
 
             int qualityRate = qualityConfig.QualityRate * (100 + (int)user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea)) / 100;

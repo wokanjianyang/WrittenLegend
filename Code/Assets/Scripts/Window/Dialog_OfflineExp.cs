@@ -263,7 +263,8 @@ namespace Game
             //Debug.Log("qualityRate:" + qualityRate);
             //Debug.Log("realQualityRate:" + realQualityRate);
 
-            int mapId = user.OffLineMapId;
+            int mapId = Math.Max(MapConfigCategory.Instance.GetMinMapId(), user.OffLineMapId);
+            mapId = Math.Min(MapConfigCategory.Instance.GetMaxMapId(), mapId);
 
             MapConfig mapConfig = MapConfigCategory.Instance.Get(mapId);
 
