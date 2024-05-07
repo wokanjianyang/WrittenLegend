@@ -27,6 +27,8 @@ public class MapAnDian : MonoBehaviour, IBattleLife
     private long MapTime = 0;
     private int Level = 1;
 
+    private int MaxLevel = 10;
+
     public int Order => (int)ComponentOrder.BattleRule;
 
     // Start is called before the first frame update
@@ -140,7 +142,7 @@ public class MapAnDian : MonoBehaviour, IBattleLife
 
     private void OnClick_Level()
     {
-        Level = (Level % 10) + 1;
+        Level = (Level % MaxLevel) + 1;
         ShowLevel();
     }
 
@@ -160,8 +162,18 @@ public class MapAnDian : MonoBehaviour, IBattleLife
         }
         else
         {
-            user.OffLineMapId = user.MapId - 10 + Level;
-            txt_Offline.text = "离线暗殿";
+            int offLineMapId = user.MapId - MaxLevel;
+            int maxMapId = MapConfigCategory.Instance.GetMaxMapId();
+            if (offLineMapId < ConfigHelper.MapStartId || offLineMapId > maxMapId)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "请先通关副本", ToastType = ToastTypeEnum.Failure });
+                return;
+            }
+            else
+            {
+                user.OffLineMapId = offLineMapId;
+                txt_Offline.text = "离线暗殿";
+            }
         }
         //Debug.Log("MapId:" + user.MapId);
         //Debug.Log("OffLineMapId:" + user.OffLineMapId);
