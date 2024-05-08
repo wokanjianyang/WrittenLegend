@@ -187,7 +187,7 @@ namespace Game
 
     public class AnDianChangeLevel : SDD.Events.Event
     {
-        public int Level { get; set; }
+        public int MapId { get; set; }
     }
 
 

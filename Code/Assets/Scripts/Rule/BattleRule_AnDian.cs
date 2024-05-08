@@ -9,7 +9,6 @@ public class Battle_AnDian : ABattleRule
 {
     private int MapId = 0;
 
-    private int Level = 1;
     private int Count = 1;
     protected override RuleType ruleType => RuleType.AnDian;
 
@@ -25,7 +24,7 @@ public class Battle_AnDian : ABattleRule
 
     public void OnAnDianChangeLevel(AnDianChangeLevel e)
     {
-        this.Level = e.Level;
+        this.MapId = e.MapId;
     }
 
     public override void DoMapLogic(int roundNum)
@@ -41,9 +40,7 @@ public class Battle_AnDian : ABattleRule
             return;
         }
 
-        int tempMapId = Math.Max(MapId - 10 + Level, ConfigHelper.MapStartId);
-
-        MapConfig mapConfig = MapConfigCategory.Instance.Get(tempMapId);
+        MapConfig mapConfig = MapConfigCategory.Instance.Get(MapId);
 
         if (Count % 500 != 0)
         {
@@ -61,7 +58,7 @@ public class Battle_AnDian : ABattleRule
                 quality = 2;
             }
 
-            var enemy = MonsterBaseCategory.Instance.BuildMonster(mapConfig, quality, 1, 1,RuleType.AnDian);
+            var enemy = MonsterBaseCategory.Instance.BuildMonster(mapConfig, quality, 1, 1, RuleType.AnDian);
             GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
         }
         else

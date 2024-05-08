@@ -63,8 +63,7 @@ public class MapAnDian : MonoBehaviour, IBattleLife
         this.MapTime = TimeHelper.ClientNowSeconds();
 
         User user = GameProcessor.Inst.User;
-
-        int MapId = Math.Max(user.MapId - 1, ConfigHelper.MapStartId);
+        int MapId = GetLevelMapId(user.MapId, Level);
 
         Dictionary<string, object> param = new Dictionary<string, object>();
         param.Add("MapTime", MapTime);
@@ -79,7 +78,8 @@ public class MapAnDian : MonoBehaviour, IBattleLife
 
         if (user.OffLineMapId > 0)
         {
-            txt_Offline.text = "离线暗殿";
+            MapConfig mapConfig = MapConfigCategory.Instance.Get(user.OffLineMapId);
+            txt_Offline.text = "离线" + mapConfig.Name;
         }
         else
         {
@@ -149,7 +149,10 @@ public class MapAnDian : MonoBehaviour, IBattleLife
     private void ShowLevel()
     {
         txt_Btn_Level.text = "难度：" + Level;
-        GameProcessor.Inst.EventCenter.Raise(new AnDianChangeLevel() { Level = this.Level });
+
+        User user = GameProcessor.Inst.User;
+        int offLineMapId = GetLevelMapId(user.MapId, Level);
+        GameProcessor.Inst.EventCenter.Raise(new AnDianChangeLevel() { MapId = offLineMapId });
     }
 
     private void OnClick_Offline()
@@ -162,21 +165,26 @@ public class MapAnDian : MonoBehaviour, IBattleLife
         }
         else
         {
-            int offLineMapId = user.MapId - MaxLevel;
-            int maxMapId = MapConfigCategory.Instance.GetMaxMapId();
-            if (offLineMapId < ConfigHelper.MapStartId || offLineMapId > maxMapId)
-            {
-                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "请先通关副本", ToastType = ToastTypeEnum.Failure });
-                return;
-            }
-            else
-            {
-                user.OffLineMapId = offLineMapId;
-                txt_Offline.text = "离线暗殿";
-            }
+            int offLineMapId = GetLevelMapId(user.MapId, Level);
+            user.OffLineMapId = offLineMapId;
+
+            MapConfig mapConfig = MapConfigCategory.Instance.Get(user.OffLineMapId);
+            txt_Offline.text = "离线" + mapConfig.Name;
+
         }
         //Debug.Log("MapId:" + user.MapId);
         //Debug.Log("OffLineMapId:" + user.OffLineMapId);
+    }
+
+    private int GetLevelMapId(int useMapdId, int level)
+    {
+        Debug.Log("useMapdId:" + useMapdId);
+        int mapId = useMapdId - MaxLevel + Level;
+
+        mapId = Math.Max(mapId, MapConfigCategory.Instance.GetMinMapId());
+        mapId = Math.Min(mapId, MapConfigCategory.Instance.GetMaxMapId());
+
+        return mapId;
     }
 
     private void Exit()
