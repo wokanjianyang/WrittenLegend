@@ -14,13 +14,13 @@ namespace Game
 
         public const int Version = 213;
 
-        public const bool ShowFestive = true;
+        public const bool ShowFestive = false;
 
-        public const long PackTime = 1714268195; //打包时间，防止作弊
+        public const long PackTime = 1715303570; //打包时间，防止作弊
 
-        public const long PackEndTime = 1716860195; //超过此时间,游戏不能使用，需要更新
+        public const long PackEndTime = 1717895570; //超过此时间,游戏不能使用，需要更新
 
-        public const long Max_Level = 80000; //最大人物等级和强化等级
+        public const long Max_Level = 120000; //最大人物等级和强化等级
 
         //public const long Max_Level_Refine = 350; //最大精练等级
 

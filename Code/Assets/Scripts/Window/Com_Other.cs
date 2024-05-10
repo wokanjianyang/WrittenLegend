@@ -53,9 +53,12 @@ namespace Game
                 this.ShowSkill(isOn);
             });
 
-            this.btn_Change.onClick.AddListener(this.OnClick_Change);
-            this.btn_Save.onClick.AddListener(this.OnClick_Save);
-            this.btn_Load.onClick.AddListener(this.OnClick_Load);
+            if (ConfigHelper.Channel != ConfigHelper.Channel_Tap)
+            {
+                this.btn_Change.onClick.AddListener(this.OnClick_Change);
+                this.btn_Save.onClick.AddListener(this.OnClick_Save);
+                this.btn_Load.onClick.AddListener(this.OnClick_Load);
+            }
 
             this.Init();
         }
@@ -76,6 +79,11 @@ namespace Game
 
         private void Show()
         {
+            if (ConfigHelper.Channel == ConfigHelper.Channel_Tap)
+            {
+                return;
+            }
+
             User user = GameProcessor.Inst.User;
             string account = user.Account;
             if (account == "")

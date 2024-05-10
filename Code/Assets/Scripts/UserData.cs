@@ -204,16 +204,6 @@ namespace Game
                 user.RecoverySetting.SkillReserveQuanlity[5] = true;
             }
 
-            if (!user.OldVerionFlag)
-            {
-                user.OldVerionFlag = true;
-                SkillData cdd = user.SkillList.Where(m => m.SkillId == 1010).FirstOrDefault();
-                if (cdd != null)
-                {
-                    cdd.MagicLevel.Data = 1;
-                }
-            }
-
             List<BoxItem> cfList = user.Bags.Where(m => m.Item.Type == ItemType.Card || m.Item.Type == ItemType.Fashion
             || (m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Card_Stone)).ToList();
             if (cfList.Count > 0)
