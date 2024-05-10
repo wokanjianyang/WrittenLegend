@@ -139,22 +139,33 @@ namespace Game
             string account = user.Account;
             //this.txt_Account.text = "设备Id:" + id;
 
-            if (account == "")
+            if (ConfigHelper.Channel == ConfigHelper.Channel_Tap)
             {
-                this.Tf_Login.gameObject.SetActive(true);
-
+                this.Tf_Login.gameObject.SetActive(false);
                 this.btn_Save.gameObject.SetActive(false);
                 this.btn_Load.gameObject.SetActive(false);
                 this.txt_Memo.gameObject.SetActive(false);
             }
             else
             {
-                this.Tf_Login.gameObject.SetActive(false);
 
-                this.btn_Save.gameObject.SetActive(true);
-                this.btn_Load.gameObject.SetActive(true);
-                this.txt_Memo.gameObject.SetActive(true);
-                this.txt_Memo.text = buildMeme(account);
+                if (account == "")
+                {
+                    this.Tf_Login.gameObject.SetActive(true);
+
+                    this.btn_Save.gameObject.SetActive(false);
+                    this.btn_Load.gameObject.SetActive(false);
+                    this.txt_Memo.gameObject.SetActive(false);
+                }
+                else
+                {
+                    this.Tf_Login.gameObject.SetActive(false);
+
+                    this.btn_Save.gameObject.SetActive(true);
+                    this.btn_Load.gameObject.SetActive(true);
+                    this.txt_Memo.gameObject.SetActive(true);
+                    this.txt_Memo.text = buildMeme(account);
+                }
             }
 
             this.Txt_Save_Auto.text = "";
