@@ -75,7 +75,7 @@ namespace Game
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 14, 1, 1));
 
             //items.AddRange(AddRedEquip1());
-            //items.AddRange(AddExclusive1());
+            //items.AddRange(AddExclusive2());
 
             foreach (var item in items)
             {
@@ -825,22 +825,22 @@ namespace Game
             //list.Add(exclusive2);
 
             //冰咆哮
-            ExclusiveItem exclusive3 = new ExclusiveItem(3, 5, 6, 5, 1);
-            exclusive3.RuneConfigIdList.Add(5);
-            exclusive3.RuneConfigIdList.Add(5);
-            exclusive3.SuitConfigIdList.Add(6);
-            exclusive3.SuitConfigIdList.Add(10027);
-            exclusive3.Count = 1;
-            list.Add(exclusive3);
+            //ExclusiveItem exclusive3 = new ExclusiveItem(3, 5, 6, 5, 1);
+            //exclusive3.RuneConfigIdList.Add(5);
+            //exclusive3.RuneConfigIdList.Add(5);
+            //exclusive3.SuitConfigIdList.Add(6);
+            //exclusive3.SuitConfigIdList.Add(10027);
+            //exclusive3.Count = 1;
+            //list.Add(exclusive3);
 
             //冰咆哮+隐身
-            ExclusiveItem exclusive4 = new ExclusiveItem(4, 18, 11, 5, 2);
-            exclusive4.RuneConfigIdList.Add(18);
-            exclusive4.RuneConfigIdList.Add(18);
-            exclusive4.SuitConfigIdList.Add(11);
-            exclusive4.SuitConfigIdList.Add(10027);
-            exclusive4.Count = 1;
-            list.Add(exclusive4);
+            //ExclusiveItem exclusive4 = new ExclusiveItem(4, 18, 11, 5, 2);
+            //exclusive4.RuneConfigIdList.Add(18);
+            //exclusive4.RuneConfigIdList.Add(18);
+            //exclusive4.SuitConfigIdList.Add(11);
+            //exclusive4.SuitConfigIdList.Add(10027);
+            //exclusive4.Count = 1;
+            //list.Add(exclusive4);
 
             ////隐身+ 瞬移
             //ExclusiveItem exclusive5 = new ExclusiveItem(5, 23, 15, 5, 2);
@@ -862,6 +862,45 @@ namespace Game
 
             return list;
         }
+
+        private List<ExclusiveItem> AddExclusive2()
+        {
+            //定制红
+            List<ExclusiveItem> list = new List<ExclusiveItem>();
+
+            //刺杀
+            ExclusiveItem exclusive1 = new ExclusiveItem(1, 10010, 10, 5, 1);
+            exclusive1.Count = 1;
+            list.Add(exclusive1);
+
+            //刺杀
+            ExclusiveItem exclusive2 = new ExclusiveItem(2, 10010, 10, 5, 1);
+            exclusive2.Count = 1;
+            list.Add(exclusive2);
+
+            ////刺杀
+            ExclusiveItem exclusive3 = new ExclusiveItem(3, 10010, 10, 5, 1);
+            exclusive3.Count = 1;
+            list.Add(exclusive3);
+
+            //盾
+            ExclusiveItem exclusive4 = new ExclusiveItem(4, 14, 10009, 5, 2);
+            exclusive4.Count = 1;
+            list.Add(exclusive4);
+
+            //盾
+            ExclusiveItem exclusive5 = new ExclusiveItem(5, 14, 10009, 5, 2);
+            exclusive5.Count = 1;
+            list.Add(exclusive5);
+
+            //盾
+            ExclusiveItem exclusive6 = new ExclusiveItem(6, 14, 10009, 5, 2);
+            exclusive6.Count = 1;
+            list.Add(exclusive6);
+
+            return list;
+        }
+
         private void Test()
         {
             for (int i = 1; i <= 501; i++)
