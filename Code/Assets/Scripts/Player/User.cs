@@ -1075,7 +1075,7 @@ namespace Game
             double realRate = MathHelper.ConvertionDropRate(dropRate);
             //Debug.Log("realRate:" + realRate);
 
-            return realRate;
+            return 1 + realRate;
         }
 
         public double GetKillRecord(int dropId)
