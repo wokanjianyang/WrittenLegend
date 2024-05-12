@@ -55,8 +55,8 @@ namespace Game
             //items.Add(new Equip(22005710, 23, 15, 5));
 
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Copy_Ticket, 125000));
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, 300));
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Wing_Stone, 1200));
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, 1500));
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Wing_Stone, 1800));
 
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Stone, 1000));
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Heart, 100));
@@ -65,6 +65,8 @@ namespace Game
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Red_Stone, 87));
 
             //items.Add(ItemHelper.BuildItem(ItemType.Card, 2000010, 10, 5));
+
+            //items.Add(ItemHelper.BuildItem(ItemType.SkillBox, 1010, 1, 1));
 
             //user.SaveArtifactLevel(180001, 4);
             //user.SaveArtifactLevel(180005, 10);
