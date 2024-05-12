@@ -9,10 +9,13 @@ using UnityEngine.UI;
 public class Dialog_Defend : MonoBehaviour, IBattleLife
 {
     public Transform Item2;
+    public Transform Item3;
 
     public Button Btn_Start1;
 
     public Button Btn_Start2;
+
+    public Button Btn_Start3;
 
     public Button btn_FullScreen;
 
@@ -26,9 +29,13 @@ public class Dialog_Defend : MonoBehaviour, IBattleLife
         {
             Item2.gameObject.SetActive(true);
         }
+        if (progess >= 200) {
+            Item3.gameObject.SetActive(true);
+        }
 
         Btn_Start1.onClick.AddListener(() => { this.OnClick_Start(1); });
         Btn_Start2.onClick.AddListener(() => { this.OnClick_Start(2); });
+        Btn_Start3.onClick.AddListener(() => { this.OnClick_Start(3); });
 
         btn_FullScreen.onClick.AddListener(this.OnClick_Close);
     }

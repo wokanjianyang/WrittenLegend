@@ -35,6 +35,13 @@ namespace Game
                 CurrentDict.Remove(level);
             }
 
+            if (!CountDict.ContainsKey(level))
+            {
+                MagicData data = new MagicData();
+                data.Data = 1;
+                CountDict[level] = data;
+            }
+
             CountDict.TryGetValue(level, out MagicData Count);
             if (Current == null && Count.Data > 0)
             {
