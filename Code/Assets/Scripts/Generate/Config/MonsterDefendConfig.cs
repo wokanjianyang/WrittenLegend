@@ -80,7 +80,7 @@ namespace Game
 		public int Id { get; set; }
 		/// <summary>所属地图</summary>
 		[ProtoMember(2)]
-		public int MapId { get; set; }
+		public int Layer { get; set; }
 		/// <summary>名称</summary>
 		[ProtoMember(3)]
 		public string Name { get; set; }

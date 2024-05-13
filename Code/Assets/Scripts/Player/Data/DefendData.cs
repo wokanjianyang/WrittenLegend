@@ -17,6 +17,8 @@ namespace Game
 
         public Dictionary<int, DefendRecord> CurrentDict = new Dictionary<int, DefendRecord>();
 
+        public Dictionary<int, List<List<int>>> DropDict = new Dictionary<int, List<List<int>>>();
+
         public DefendRecord GetCurrentRecord()
         {
             int level = AppHelper.DefendLevel;
@@ -68,6 +70,30 @@ namespace Game
         public void Complete()
         {
             this.CurrentDict.Remove(AppHelper.DefendLevel);
+        }
+
+        public int GetDropId(int layer, int progress)
+        {
+            if (!DropDict.ContainsKey(layer))
+            {
+                DropDict[layer] = new List<List<int>>();
+            }
+
+            List<List<int>> DropList = DropDict[layer];
+
+            if (DropList.Count < 2)
+            {
+                for (int i = DropList.Count; i < 2; i++)
+                {
+                    var list = DefendDropConfigCategory.Instance.GetAllDropIdList(layer);
+                    DropList.Add(list);
+                }
+            }
+
+            //Debug.Log("infinite drop1-100:" + DropList[0][99]);
+            //Debug.Log("drop:" + DropList[0][99] + "," + DropList[0][199] + "," + DropList[0][299]);
+
+            return DropList[0][progress - 1];
         }
 
         public List<DefendBuffConfig> GetBuffList(DefendBuffType type)

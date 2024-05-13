@@ -73,8 +73,16 @@ public class Battle_Defend : ABattleRule
             //Load All
             for (int i = 0; i < MonsterList.Length; i++)
             {
-                var enemy = new Monster_Defend(this.Progress, MonsterList[i], this.Level);
-                GameProcessor.Inst.PlayerManager.LoadMonsterDefend(enemy);
+                if (Level <= 2)
+                {
+                    var enemy = new Monster_Defend(this.Progress, MonsterList[i], this.Level);
+                    GameProcessor.Inst.PlayerManager.LoadMonsterDefend(enemy);
+                }
+                else
+                {
+                    var enemy = new Monster_DefendNew(this.Level, this.Progress, MonsterList[i]);
+                    GameProcessor.Inst.PlayerManager.LoadMonsterDefend(enemy);
+                }
             }
 
             GameProcessor.Inst.EventCenter.Raise(new ShowDefendInfoEvent() { Count = Progress, PauseCount = PauseCount });
@@ -104,6 +112,11 @@ public class Battle_Defend : ABattleRule
             record.Progress.Data = this.Progress;
             record.Hp.Data = (long)defendPlayer.HP;
 
+            if (this.Level >= 3)
+            {
+                this.BuildRewardNew();
+            }
+
             return;
         }
 
@@ -124,12 +137,45 @@ public class Battle_Defend : ABattleRule
             return;
         }
     }
+    private void BuildRewardNew()
+    {
+        DefendConfig rewardConfig = DefendConfigCategory.Instance.GetByLayerAndLevel(this.Level, (int)this.Progress);
+
+        User user = GameProcessor.Inst.User;
+
+        long exp = (long)rewardConfig.Exp;
+        long gold = (long)rewardConfig.Gold;
+
+        //增加经验,金币
+        user.AddExpAndGold(exp, gold);
+
+        List<KeyValuePair<double, DropConfig>> dropList = new List<KeyValuePair<double, DropConfig>>();
+
+        //掉落道具
+        int dropId = user.DefendData.GetDropId(this.Level, (int)this.Progress);
+        DropConfig dropConfig = DropConfigCategory.Instance.Get(dropId);
+
+        dropList.Add(new KeyValuePair<double, DropConfig>(1, dropConfig));
+
+        List<Item> items = DropHelper.BuildDropItem(dropList, 1);
+
+        if (items.Count > 0)
+        {
+            user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+        }
+
+        GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+        {
+            Type = RuleType.Infinite,
+            Message = BattleMsgHelper.BuildRewardMessage("守卫沙城" + this.Progress + "奖励:", exp, gold, items)
+        });
+    }
 
     private void BuildReward()
     {
         User user = GameProcessor.Inst.User;
 
-        List<Item> items = DropLimitHelper.Build((int)DropLimitType.Defend, 0, 1, 1, 1,1);
+        List<Item> items = DropLimitHelper.Build((int)DropLimitType.Defend, 0, 1, 1, 1, 1);
 
         if (items.Count > 0)
         {

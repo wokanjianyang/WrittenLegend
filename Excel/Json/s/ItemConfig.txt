@@ -278,4 +278,7 @@
 {"_t":"ItemConfig","_id":180013,"Name":"金蛟剪","Type":18,"Des":"激活或者升级对应法宝","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":6,"UseParam":0},
 {"_t":"ItemConfig","_id":180014,"Name":"精练契约","Type":18,"Des":"激活或者升级对应法宝","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":6,"UseParam":0},
 {"_t":"ItemConfig","_id":180015,"Name":"财富契约","Type":18,"Des":"激活或者升级对应法宝","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":6,"UseParam":0},
+{"_t":"ItemConfig","_id":180016,"Name":"天使之翼","Type":18,"Des":"激活或者升级对应法宝","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":6,"UseParam":0},
+{"_t":"ItemConfig","_id":180017,"Name":"分解机","Type":18,"Des":"激活或者升级对应法宝","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":6,"UseParam":0},
+{"_t":"ItemConfig","_id":180018,"Name":"灵魂之引","Type":18,"Des":"激活或者升级对应法宝","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":6,"UseParam":0},
 ]}

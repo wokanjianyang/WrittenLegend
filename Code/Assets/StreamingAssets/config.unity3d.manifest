@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1891127106
+CRC: 1317300471
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: df6eb8a6a2ae0a0e2545e1b904c17820
+    Hash: 7bf2de3351dfbd085daf313b555b3fa0
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -21,8 +21,9 @@ Assets:
 - Assets/Resources/Config/QualityConfigCategory.bytes
 - Assets/Resources/Config/LevelConfigCategory.bytes
 - Assets/Resources/Config/PhantomConfigCategory.bytes
-- Assets/Resources/Config/SoulRingConfigCategory.bytes
+- Assets/Resources/Config/DefendDropConfigCategory.bytes
 - Assets/Resources/Config/DropConfigCategory.bytes
+- Assets/Resources/Config/SoulRingConfigCategory.bytes
 - Assets/Resources/Config/EquipRefineConfigCategory.bytes
 - Assets/Resources/Config/FashionSuitConfigCategory.bytes
 - Assets/Resources/Config/GiftPackExclusiveConfigCategory.bytes
@@ -51,6 +52,7 @@ Assets:
 - Assets/Resources/Config/SoulRingAttrConfigCategory.bytes
 - Assets/Resources/Config/CardConfigCategory.bytes
 - Assets/Resources/Config/MapConfigCategory.bytes
+- Assets/Resources/Config/DefendConfigCategory.bytes
 - Assets/Resources/Config/EquipRedConfigCategory.bytes
 - Assets/Resources/Config/TaskConfigCategory.bytes
 - Assets/Resources/Config/ValetModelConfigCategory.bytes
