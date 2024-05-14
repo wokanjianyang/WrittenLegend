@@ -761,12 +761,13 @@ namespace Game
 
         private IEnumerator AutoResurrection()
         {
-            for (int i = 0; i < 10; i++)
+            int cd = ConfigHelper.AutoResurrectionTime;
+            for (int i = 0; i < cd; i++)
             {
                 PlayerManager.GetHero().EventCenter.Raise(new ShowMsgEvent()
                 {
                     Type = MsgType.Normal,
-                    Content = $"{(10 - i)}秒后复活"
+                    Content = $"{(cd - i)}秒后复活"
                 });
                 yield return new WaitForSeconds(1f);
             }
@@ -776,12 +777,13 @@ namespace Game
 
         private IEnumerator AutoExitMap(RuleType ruleType, long time)
         {
-            for (int i = 0; i < 5; i++)
+            int cd = ConfigHelper.AutoExitMapTime;
+            for (int i = 0; i < cd; i++)
             {
                 PlayerManager.GetHero().EventCenter.Raise(new ShowMsgEvent()
                 {
                     Type = MsgType.Normal,
-                    Content = $"{(5 - i)}秒后退出"
+                    Content = $"{(cd - i)}秒后退出"
                 });
                 yield return new WaitForSeconds(1f);
             }
@@ -809,7 +811,7 @@ namespace Game
 
         private void AutoEquipCopy()
         {
-            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("5S后自动挑战装备副本", true,
+            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke(ConfigHelper.AutoStartMapTime + "S后自动挑战装备副本", true,
             () =>
             {
                 StopCoroutine(ie_autoStartCopy);
@@ -823,9 +825,10 @@ namespace Game
         }
         private IEnumerator ShowAutoStartCopy()
         {
-            for (int i = 0; i < 5; i++)
+            int cd = ConfigHelper.AutoStartMapTime;
+            for (int i = 0; i < 2; i++)
             {
-                this.EventCenter.Raise(new SecondaryConfirmTextEvent() { Text = $"{(5 - i)}秒后自动挑战副本" });
+                this.EventCenter.Raise(new SecondaryConfirmTextEvent() { Text = $"{(cd - i)}秒后自动挑战副本" });
                 yield return new WaitForSeconds(1f);
             }
 
@@ -842,7 +845,7 @@ namespace Game
 
         private void AutoBossFamily()
         {
-            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("5S后自动挑战BOSS之家", true,
+            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke(ConfigHelper.AutoStartMapTime + "S后自动挑战BOSS之家", true,
             () =>
             {
                 StopCoroutine(ie_autoBossFamily);
@@ -857,9 +860,10 @@ namespace Game
 
         private IEnumerator ShowAutoStartBossFamily()
         {
-            for (int i = 0; i < 5; i++)
+            int cd = ConfigHelper.AutoStartMapTime;
+            for (int i = 0; i < cd; i++)
             {
-                this.EventCenter.Raise(new SecondaryConfirmTextEvent() { Text = $"{(5 - i)}秒后自动挑战BOSS之家" });
+                this.EventCenter.Raise(new SecondaryConfirmTextEvent() { Text = $"{(cd - i)}秒后自动挑战BOSS之家" });
                 yield return new WaitForSeconds(1f);
             }
 

@@ -189,19 +189,14 @@ public class Panel_Refresh : MonoBehaviour
             Quantity = upCount
         });
 
-        int tempSeed = AppHelper.RefreshSeed(SelectEquip.Seed);
-        int tempRuneSeed = AppHelper.RefreshSeed1(SelectEquip.RuneSeed);
-        int tempSuitSeed = AppHelper.RefreshSeed(SelectEquip.SuitSeed);
+        List<KeyValuePair<int, long>> keyValues = SelectEquip.Data.GetAttrList();
 
+        int runeId = SelectEquip.Data.GetRuneId();
 
-        List<KeyValuePair<int, long>> keyValues = AttrEntryConfigCategory.Instance.Build(SelectEquip.Part, SelectEquip.Level, SelectEquip.Quality, SelectEquip.EquipConfig.Role, tempSeed);
-
-        SkillRuneConfig runeConfig = SkillRuneHelper.RandomRune(tempSeed, tempRuneSeed, SelectEquip.EquipConfig.Role, 1, SelectEquip.Quality, SelectEquip.Level);
-
-        int suitId = SkillSuitHelper.RandomSuit(tempSuitSeed, runeConfig.SkillId).Id;
+        int suitId = SelectEquip.Data.GetSuitId();
 
         AttrNew.gameObject.SetActive(true);
-        AttrNew.Show(keyValues, runeConfig.Id, suitId);
+        AttrNew.Show(keyValues, runeId, suitId);
 
         SelectEquip.RefreshCount--;
         this.txt_Total.text = "今日剩余洗练次数：" + SelectEquip.RefreshCount + "次";
@@ -214,14 +209,14 @@ public class Panel_Refresh : MonoBehaviour
 
     public void OnClickOK()
     {
-        this.SelectEquip.Refesh();
+        this.SelectEquip.Refesh(true);
 
         this.Show();
     }
 
     public void OnClickCancle()
     {
-        this.SelectEquip.RefreshSeed();
+        this.SelectEquip.Refesh(false);
 
         this.Show();
     }

@@ -16,6 +16,7 @@ namespace Game
 
         public int Part;
         public FashionConfig Config;
+        private long Level;
 
         // Start is called before the first frame update
         void Awake()
@@ -25,9 +26,19 @@ namespace Game
         }
 
         // Update is called once per frame
-        void Update()
+        void OnEnable()
         {
+            if (Config != null)
+            {
+                Check();
+            }
+        }
 
+        private void Check() {
+            User user = GameProcessor.Inst.User;
+            long total = user.GetItemMeterialCount(Config.ItemId);
+            string color = total >= Level + 1 ? "#FFFF00" : "#FF0000";
+            Txt_Name.text = string.Format("<color={0}>{1}</color>", color, Config.Name);
         }
 
         public void Init(int part,FashionConfig config)
@@ -41,6 +52,7 @@ namespace Game
 
         public void SetLevel(long level)
         {
+            this.Level = level;
             if (level > 0)
             {
                 Txt_Level.text = level + "";
@@ -49,6 +61,8 @@ namespace Game
             {
                 Txt_Level.text = "";
             }
+
+            Check();
         }
     }
 }

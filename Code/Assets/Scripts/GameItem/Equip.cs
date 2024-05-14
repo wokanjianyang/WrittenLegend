@@ -24,6 +24,8 @@ namespace Game
         public int RefreshCount { get; set; }
         public long RefreshDate { get; set; }
 
+        public EquipData Data { get; set; } = new EquipData();
+
         public override int GetQuality()
         {
             return Quality;
@@ -43,12 +45,6 @@ namespace Game
 
         [JsonIgnore]
         public int Part { get; set; }
-
-        //[JsonIgnore]
-        ///// <summary>
-        ///// 基础属性
-        ///// </summary>
-        //public IDictionary<int, long> BaseAttrList { get; set; }
 
         [JsonIgnore]
         /// <summary>
@@ -159,40 +155,41 @@ namespace Game
             }
         }
 
-        public void Refesh()
+        public void Refesh(bool save)
         {
-            int tempSeed = AppHelper.RefreshSeed(this.Seed);
-            int tempRuneSeed = AppHelper.RefreshSeed1(this.RuneSeed);
-            int tempSuitSeed = AppHelper.RefreshSeed(this.SuitSeed);
-            //Debug.Log("tempSeed" + tempSeed);
-            List<KeyValuePair<int, long>> keyValues = AttrEntryConfigCategory.Instance.Build(this.Part, this.Level, this.Quality, this.EquipConfig.Role, tempSeed);
+            if (this.Data == null)
+            {
+                this.Data = new EquipData();
+                this.Data.Refresh(this.Part, this.Level, this.Quality, this.EquipConfig.Role);
+            }
 
-            SkillRuneConfig runeConfig = SkillRuneHelper.RandomRune(tempSeed, tempRuneSeed, this.EquipConfig.Role, 1, this.Quality, this.Level);
+            if (save)
+            {
+                this.AttrEntryList.Clear();
+                this.AttrEntryList.AddRange(Data.GetAttrList());
 
-            SkillSuitConfig suitConfig = SkillSuitHelper.RandomSuit(tempSuitSeed, runeConfig.SkillId);
+                this.RuneConfigId = Data.GetRuneId();
+                this.SuitConfigId = Data.GetSuitId();
 
+                this.SkillRuneConfig = SkillRuneConfigCategory.Instance.Get(RuneConfigId);
+                this.SkillSuitConfig = SkillSuitConfigCategory.Instance.Get(SuitConfigId);
+            }
 
-            this.Seed = tempSeed;
-            this.AttrEntryList.Clear();
-            this.AttrEntryList.AddRange(keyValues);
-
-            this.RuneConfigId = runeConfig.Id;
-            this.SuitConfigId = suitConfig.Id;
-
-            this.SkillRuneConfig = runeConfig;
-            this.SkillSuitConfig = suitConfig;
+            Data.Refresh(this.Part, this.Level, this.Quality, this.EquipConfig.Role);
         }
 
         public void Init(int seed)
         {
-            this.Seed = seed;
-            this.RuneSeed = AppHelper.InitSeed();
-            this.SuitSeed = AppHelper.InitSeed();
-
             //根据品质,生成随机属性
             if (EquipConfig.RandomAttr == 0 && Part <= 10)
             {
-                this.AttrEntryList.AddRange(AttrEntryConfigCategory.Instance.Build(this.Part, this.Level, this.Quality, this.EquipConfig.Role, this.Seed));
+                this.AttrEntryList.AddRange(AttrEntryConfigCategory.Instance.Build(this.Part, this.Level, this.Quality, this.EquipConfig.Role, seed));
+            }
+
+            if (this.Part <= 10 && this.Quality >= 6)
+            {
+                this.Data = new EquipData();
+                this.Data.Refresh(this.Part, this.Level, this.Quality, this.EquipConfig.Role);
             }
         }
 
