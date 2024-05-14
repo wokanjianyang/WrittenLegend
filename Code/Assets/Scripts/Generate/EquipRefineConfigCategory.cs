@@ -47,6 +47,11 @@ namespace Game
         {
             return Math.Max(0, level - 49);
         }
+
+        public long GetStengthPercent(long level)
+        {
+            return Math.Max(0, level - 399);
+        }
     }
 
 }
