@@ -10,9 +10,9 @@ namespace Game
 
     public class EquipData
     {
-        List<List<KeyValuePair<int, long>>> AttrList = new List<List<KeyValuePair<int, long>>>();
-        List<int> RuneIdList = new List<int>();
-        List<int> SuitIdList = new List<int>();
+        public List<List<KeyValuePair<int, long>>> AttrList = new List<List<KeyValuePair<int, long>>>();
+        public List<int> RuneIdList = new List<int>();
+        public List<int> SuitIdList = new List<int>();
 
         public List<KeyValuePair<int, long>> GetAttrList()
         {

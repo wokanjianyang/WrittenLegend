@@ -128,6 +128,7 @@ public class Panel_Refresh : MonoBehaviour
     private void OnSelect(RefershSelectEvent e)
     {
         this.SelectEquip = e.Equip;
+
         this.Show();
     }
 

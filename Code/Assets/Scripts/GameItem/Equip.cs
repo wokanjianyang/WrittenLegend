@@ -153,16 +153,16 @@ namespace Game
             {
                 this.SuitSeed = AppHelper.InitSeed();
             }
-        }
 
-        public void Refesh(bool save)
-        {
-            if (this.Data == null)
+            if (this.Data == null || this.Data.RuneIdList.Count == 0)
             {
                 this.Data = new EquipData();
                 this.Data.Refresh(this.Part, this.Level, this.Quality, this.EquipConfig.Role);
             }
+        }
 
+        public void Refesh(bool save)
+        {
             if (save)
             {
                 this.AttrEntryList.Clear();
