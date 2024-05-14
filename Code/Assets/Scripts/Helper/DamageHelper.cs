@@ -15,8 +15,8 @@ namespace Game
             double roleAttr = GetRoleAttack(attcher, role, true) * (100 + skill.AttrIncrea + attcher.GetAttackAttr(AttributeEnum.AurasAttrIncrea)) / 100;  //职业攻击
 
             //防御 = 目标防御 * (100-无视防御)/100
-            double def = enemy.GetAttackAttr(AttributeEnum.Def) + attcher.GetAttackAttr(AttributeEnum.DefIgnore);
-            int ignoreDef = Math.Min(skill.IgnoreDef, 100);
+            double def = enemy.GetAttackDoubleAttr(AttributeEnum.Def);
+            long ignoreDef = Math.Min(skill.IgnoreDef + attcher.GetAttackAttr(AttributeEnum.DefIgnore), 100);
             def = def * (100 - ignoreDef) / 100;
 
             double defRate = def * ConfigHelper.Def_Rate / (def * ConfigHelper.Def_Rate + roleAttr);

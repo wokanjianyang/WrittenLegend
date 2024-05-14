@@ -104,6 +104,11 @@ public class Battle_Defend : ABattleRule
                 user.MagicRecord[AchievementSourceType.Defend].Data = cp;
             }
 
+            if (this.Level >= 3)
+            {
+                this.BuildRewardNew();
+            }
+
             this.Start = true;
             this.Progress++;
 
@@ -111,11 +116,6 @@ public class Battle_Defend : ABattleRule
 
             record.Progress.Data = this.Progress;
             record.Hp.Data = (long)defendPlayer.HP;
-
-            if (this.Level >= 3)
-            {
-                this.BuildRewardNew();
-            }
 
             return;
         }

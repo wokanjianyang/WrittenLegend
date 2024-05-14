@@ -338,17 +338,16 @@ namespace Game
                                     }
                                 }
                             }
+
+                            if (equip.GetQuality() >= 6)
+                            {
+                                tran_RedAttribute.gameObject.SetActive(true);
+
+                                EquipRedSuit red = user.GetEquipRedConfig(equip.EquipConfig.Role);
+
+                                this.ShowRed(red);
+                            }
                         }
-
-                        if (equip.GetQuality() >= 6)
-                        {
-                            tran_RedAttribute.gameObject.SetActive(true);
-
-                            EquipRedSuit red = user.GetEquipRedConfig(equip.EquipConfig.Role);
-
-                            this.ShowRed(red);
-                        }
-
 
                         this.btn_Equip.gameObject.SetActive(this.boxItem.BoxId != -1);
                         this.btn_UnEquip.gameObject.SetActive(this.boxItem.BoxId == -1);
