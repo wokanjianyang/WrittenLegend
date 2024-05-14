@@ -166,7 +166,7 @@ public class Battle_Defend : ABattleRule
 
         GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
         {
-            Type = RuleType.Infinite,
+            Type = RuleType.Defend,
             Message = BattleMsgHelper.BuildRewardMessage(" ÿŒ¿…≥≥«" + this.Progress + "Ω±¿¯:", exp, gold, items)
         });
     }
