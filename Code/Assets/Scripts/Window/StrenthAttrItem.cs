@@ -31,13 +31,20 @@ namespace Game
 
         }
 
-        public void SetContent(int attrId, long attrBase, long attrRise)
+        public void SetContent(int attrId, long attrBase, long percent, long attrRise)
         {
             this.Txt_Name.text = StringHelper.FormatAttrValueName(attrId);
 
             if (attrBase > 0)
             {
-                this.Txt_Attr.text = StringHelper.FormatAttrValueText(attrId, attrBase);
+                string attrText = StringHelper.FormatAttrValueText(attrId, attrBase);
+                if (percent > 0)
+                {
+                    long pb = attrBase / 100 * percent;
+                    attrText += "(" + StringHelper.FormatAttrValueText(attrId, pb) + ")";
+                }
+
+                this.Txt_Attr.text = attrText;
             }
             else
             {
@@ -52,6 +59,11 @@ namespace Game
             {
                 this.Txt_Attr_Add.text = "";
             }
+        }
+
+        public void SetContent(int attrId, long attrBase, long attrRise)
+        {
+            this.SetContent(attrId, attrBase, 0, attrRise);
         }
     }
 }

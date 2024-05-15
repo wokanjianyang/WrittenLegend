@@ -28,4 +28,9 @@
 {"_t":"HalidomConfig","_id":40000077,"ItemId":40000077,"Name":"梦魇魂火","AttrId":2003,"AttrValue":25,"RiseAttr":25,"MaxLevel":4,"Des":"生命倍率"},
 {"_t":"HalidomConfig","_id":40000078,"ItemId":40000078,"Name":"梦魇腐肉","AttrId":5,"AttrValue":500000000,"RiseAttr":500000000,"MaxLevel":4,"Des":"防御基础"},
 {"_t":"HalidomConfig","_id":40000079,"ItemId":40000079,"Name":"梦魇蛇胆","AttrId":16,"AttrValue":200,"RiseAttr":200,"MaxLevel":4,"Des":"防御比例"},
+{"_t":"HalidomConfig","_id":40000080,"ItemId":40000080,"Name":"梦魇狼爪","AttrId":12,"AttrValue":15,"RiseAttr":15,"MaxLevel":4,"Des":"伤害增加"},
+{"_t":"HalidomConfig","_id":40000081,"ItemId":40000081,"Name":"梦魇虫皮","AttrId":14,"AttrValue":200,"RiseAttr":200,"MaxLevel":4,"Des":"攻击比例"},
+{"_t":"HalidomConfig","_id":40000082,"ItemId":40000082,"Name":"梦魇鹰羽","AttrId":2004,"AttrValue":6,"RiseAttr":6,"MaxLevel":4,"Des":"物攻倍率"},
+{"_t":"HalidomConfig","_id":40000083,"ItemId":40000083,"Name":"梦魇虫角","AttrId":2005,"AttrValue":6,"RiseAttr":6,"MaxLevel":4,"Des":"法术倍率"},
+{"_t":"HalidomConfig","_id":40000084,"ItemId":40000084,"Name":"梦魇蜈膏","AttrId":2006,"AttrValue":6,"RiseAttr":6,"MaxLevel":4,"Des":"道术倍率"},
 ]}

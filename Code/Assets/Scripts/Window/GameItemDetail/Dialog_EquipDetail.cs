@@ -168,15 +168,13 @@ namespace Game
 
                         long basePercent = 0;
                         long qualityPercent = 0;
-                        if (user.MagicEquipRefine.TryGetValue(equipPositioin, out MagicData refineData))
+
+                        long refineLevel = user.GetRefineLevel(equipPositioin);
+                        if (refineLevel > 0)
                         {
-                            long refineLevel = refineData.Data;
-                            if (refineLevel > 0)
-                            {
-                                EquipRefineConfig refineConfig = EquipRefineConfigCategory.Instance.GetByLevel(refineLevel);
-                                basePercent = refineConfig.GetBaseAttrPercent(refineLevel);
-                                qualityPercent = refineConfig.GetQualityAttrPercent(refineLevel);
-                            }
+                            EquipRefineConfig refineConfig = EquipRefineConfigCategory.Instance.GetByLevel(refineLevel);
+                            basePercent = refineConfig.GetBaseAttrPercent(refineLevel);
+                            qualityPercent = refineConfig.GetQualityAttrPercent(refineLevel);
                         }
 
                         IDictionary<int, long> BaseAttrList = equip.GetBaseAttrList();

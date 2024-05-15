@@ -61,6 +61,7 @@ namespace Game
 
         EquipBaseIncrea = 101, //装备基础属性百分比
         EquipRandomIncrea = 102, //装备随机属性百分比
+        EquipStrengthIncrea = 103, //装备强化属性百分比
 
         SkillPhyDamage = 302, //物理伤害
         SkillMagicDamage = 303,//魔法伤害

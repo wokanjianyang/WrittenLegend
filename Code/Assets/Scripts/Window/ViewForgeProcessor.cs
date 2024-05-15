@@ -9,32 +9,15 @@ using UnityEngine.UI;
 
 public class ViewForgeProcessor : AViewPage
 {
-    public Toggle toggle_Strengthen;
-    public Transform tran_EquiList;
-    public Transform tran_AttrList;
-    public Text Txt_Fee;
-    public Button Btn_Strengthen;
-    public Button Btn_Strengthen_Batch;
-    private StrenthAttrItem[] AttrList;
-    private StrenthBox[] StrengthenEquiList;
-    private int SelectPosition = 1;
-
     public Toggle toggle_Compound;
     public ScrollRect sr_Left;
     public ScrollRect sr_Right;
 
-    public Transform Refine;
     public Toggle toggle_Refine;
-    public Transform Refine_Tran_EquiList;
-    public Transform Refine_Tran_AttrList;
-    public Text Refine_Txt_Fee;
-    public Button Btn_Refine;
+    public Panel_Refine PanelRefine;
 
-    public StrenthAttrItem Refine_Attr_Base;
-    public StrenthAttrItem Refine_Attr_Quality;
-
-    private RefineBox[] Refine_EquiList;
-    private int Refine_Position = 1;
+    public Toggle toggle_Strengthen;
+    public Panel_Strengthen PanelStrengthen;
 
     public Toggle toggle_Exchange;
     public Panel_Exchange PanelExchange;
@@ -52,15 +35,14 @@ public class ViewForgeProcessor : AViewPage
 
     private void Awake()
     {
-        Btn_Strengthen.onClick.AddListener(OnClick_Strengthen);
-        Btn_Strengthen_Batch.onClick.AddListener(OnClick_Strengthen_Batch);
+        this.toggle_Strengthen.onValueChanged.AddListener((isOn) =>
+        {
+            this.ShowStrengthen(isOn);
+        });
 
         this.toggle_Refine.onValueChanged.AddListener((isOn) =>
         {
-            if (isOn)
-            {
-                this.ShowRefine();
-            }
+            this.ShowRefine(isOn);
         });
 
         this.toggle_Exchange.onValueChanged.AddListener((isOn) =>
@@ -82,198 +64,25 @@ public class ViewForgeProcessor : AViewPage
         {
             this.ShowGrade(isOn);
         });
-
-        Btn_Refine.onClick.AddListener(OnClick_Refine);
-
-        Refine.gameObject.SetActive(false);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        this.ShowStrengthInfo();
+        this.ShowStrengthen(true);
     }
 
     public override void OnBattleStart()
     {
         base.OnBattleStart();
 
-        GameProcessor.Inst.EventCenter.AddListener<EquipStrengthSelectEvent>(this.OnEquipStrengthSelectEvent);
         GameProcessor.Inst.EventCenter.AddListener<ChangeCompositeTypeEvent>(this.OnChangeCompositeTypeEvent);
         //GameProcessor.Inst.EventCenter.AddListener<CompositeUIFreshEvent>(this.OnCompositeUIFreshEvent);
-        GameProcessor.Inst.EventCenter.AddListener<EquipRefineSelectEvent>(this.OnEquipRefineSelectEvent);
-
     }
 
-    private void OnEquipStrengthSelectEvent(EquipStrengthSelectEvent e)
+    private void ShowStrengthen(bool isOn)
     {
-        List<StrenthBox> list = StrengthenEquiList.Where(m => m.Active).ToList();
-        foreach (var oldBox in list)
-        {
-            oldBox.SeSelect(false);
-        }
-        this.SelectPosition = e.Position;
-
-        this.ShowStrengthInfo();
-    }
-
-    private void ShowStrengthInfo()
-    {
-        //Log.Debug("ShowStrengthInfo");
-
-        User user = GameProcessor.Inst.User;
-
-        long MaxLevel = user.GetStrengthLimit();
-
-        foreach (var box in StrengthenEquiList)
-        {
-            int position = ((int)box.SlotType);
-
-            if (user.MagicEquipStrength.TryGetValue(position, out MagicData strenthTemp))
-            {
-                box.SetLevel(strenthTemp.Data);
-            }
-            else
-            {
-                user.MagicEquipStrength[position] = new MagicData();
-            }
-        }
-
-        long nextLevel = 1;
-
-        if (user.MagicEquipStrength.TryGetValue(SelectPosition, out MagicData strengthData))
-        {
-            nextLevel = strengthData.Data + 1;
-        }
-
-        EquipStrengthConfig config = EquipStrengthConfigCategory.Instance.GetByPositioin(SelectPosition);
-
-        EquipStrengthFeeConfig feeConfig = EquipStrengthFeeConfigCategory.Instance.GetByLevel(nextLevel);
-
-        long levelAttr = LevelConfigCategory.GetLevelAttr(nextLevel);
-
-        if (feeConfig == null || nextLevel > MaxLevel)
-        {
-            Txt_Fee.text = "已满级";
-            Btn_Strengthen.gameObject.SetActive(false);
-            Btn_Strengthen_Batch.gameObject.SetActive(false);
-        }
-        else
-        {
-            long fee = levelAttr * feeConfig.Fee;
-            string color = user.MagicGold.Data >= fee ? "#FFFF00" : "#FF0000";
-            Txt_Fee.text = string.Format("<color={0}>{1}</color>", color, StringHelper.FormatNumber(fee));
-
-            Btn_Strengthen.gameObject.SetActive(true);
-            Btn_Strengthen_Batch.gameObject.SetActive(true);
-        }
-
-        for (int i = 0; i < AttrList.Length; i++)
-        {
-            if (i < config.AttrList.Length)
-            {
-                int attrId = config.AttrList[i];
-
-                long attrAdd = config.AttrValueList[i] * nextLevel;
-                long attrCurrent = config.AttrValueList[i] * levelAttr;
-
-                AttrList[i].SetContent(attrId, attrCurrent, attrAdd);
-                AttrList[i].gameObject.SetActive(true);
-            }
-            else
-            {
-                AttrList[i].gameObject.SetActive(false);
-            }
-        }
-    }
-
-    private void OnClick_Strengthen()
-    {
-        User user = GameProcessor.Inst.User;
-
-        long nextLevel = 1;
-
-        if (user.MagicEquipStrength.TryGetValue(SelectPosition, out MagicData strengthData))
-        {
-            nextLevel = strengthData.Data + 1;
-        }
-
-        EquipStrengthFeeConfig config = EquipStrengthFeeConfigCategory.Instance.GetByLevel(nextLevel);
-
-        long levelAttr = LevelConfigCategory.GetLevelAttr(nextLevel);
-        long fee = levelAttr * config.Fee;
-
-        if (user.MagicGold.Data < fee)
-        {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的金币", ToastType = ToastTypeEnum.Failure });
-            return;
-        }
-
-        user.MagicEquipStrength[SelectPosition].Data++;
-
-        user.SubGold(fee);
-
-        GameProcessor.Inst.UpdateInfo();
-
-        ShowStrengthInfo();
-
-        TaskHelper.CheckTask(TaskType.Strength, 1);
-
-        GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "强化成功", ToastType = ToastTypeEnum.Success });
-    }
-
-    private void OnClick_Strengthen_Batch()
-    {
-        User user = GameProcessor.Inst.User;
-
-        long nextLevel = 1;
-
-        if (user.MagicEquipStrength.TryGetValue(SelectPosition, out MagicData strengthData))
-        {
-            nextLevel = strengthData.Data + 1;
-        }
-
-        EquipStrengthFeeConfig config = EquipStrengthFeeConfigCategory.Instance.GetByLevel(nextLevel);
-
-        int LimitLevel = user.GetStrengthLimit();
-        long maxLevel = Math.Min(config.EndLevel, LimitLevel) - nextLevel + 1;
-
-        long sl = 0;
-        long feeTotal = 0;
-
-        for (int i = 0; i < maxLevel; i++)
-        {
-            long levelAttr = LevelConfigCategory.GetLevelAttr(nextLevel + i);
-            long fee = levelAttr * config.Fee;
-
-            if (feeTotal + fee > user.MagicGold.Data)
-            {
-                break;
-            }
-
-            feeTotal += fee;
-            sl++;
-        }
-
-
-        if (sl > 0)
-        {
-            user.MagicEquipStrength[SelectPosition].Data += sl;
-
-            user.SubGold(feeTotal);
-
-            GameProcessor.Inst.UpdateInfo();
-
-            ShowStrengthInfo();
-
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "一键强化成功", ToastType = ToastTypeEnum.Success });
-
-            TaskHelper.CheckTask(TaskType.Strength, 1);
-        }
-        else
-        {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "金币不够", ToastType = ToastTypeEnum.Failure });
-        }
+        PanelStrengthen.gameObject.SetActive(isOn);
     }
 
     // Composite
@@ -376,131 +185,10 @@ public class ViewForgeProcessor : AViewPage
 
 
     // Refine
-    private void ShowRefine()
+    private void ShowRefine(bool isOn)
     {
-        User user = GameProcessor.Inst.User;
-
-        long MaxLevel = user.GetRefineLimit();
-
-        foreach (var box in Refine_EquiList)
-        {
-            int position = ((int)box.SlotType);
-
-            if (user.MagicEquipRefine.TryGetValue(position, out MagicData refineTemp))
-            {
-                box.SetLevel(refineTemp.Data);
-            }
-            else
-            {
-                user.MagicEquipRefine[position] = new MagicData();
-            }
-
-            if (position == Refine_Position)
-            {
-                box.SeSelect(true);
-            }
-        }
-
-        user.MagicEquipRefine.TryGetValue(Refine_Position, out MagicData refineData);
-
-        long currentLevel = refineData.Data;
-        EquipRefineConfig currentConfig = EquipRefineConfigCategory.Instance.GetByLevel(currentLevel);
-
-        long nextLevel = currentLevel + 1;
-        EquipRefineConfig nextConfig = EquipRefineConfigCategory.Instance.GetByLevel(nextLevel);
-
-        if (nextConfig == null || nextLevel > MaxLevel)
-        {
-            Refine_Txt_Fee.text = "已满级";
-            Btn_Refine.gameObject.SetActive(false);
-        }
-        else
-        {
-            var materialCount = user.GetMaterialCount(ItemHelper.SpecialId_EquipRefineStone);
-
-            string color = materialCount >= nextConfig.GetFee(nextLevel) ? "#FFFF00" : "#FF0000";
-
-            Refine_Txt_Fee.text = string.Format("<color={0}>{1}</color>", color, nextConfig.GetFee(nextLevel));
-            Btn_Refine.gameObject.SetActive(true);
-        }
-
-        Refine_Attr_Base.gameObject.SetActive(false);
-        Refine_Attr_Quality.gameObject.SetActive(false);
-
-        if (nextConfig != null && nextConfig.GetBaseAttrPercent(nextLevel) > 0)
-        {
-            long currentAttrValue = currentConfig == null ? 0 : currentConfig.GetBaseAttrPercent(currentLevel);
-            long nextAttrValue = nextConfig == null ? 0 : nextConfig.GetBaseAttrPercent(nextLevel);
-
-            long attrRise = nextAttrValue - currentAttrValue;
-
-            Refine_Attr_Base.gameObject.SetActive(true);
-            Refine_Attr_Base.SetContent((int)AttributeEnum.EquipBaseIncrea, currentAttrValue, attrRise);
-        }
-
-        if (nextConfig != null && nextConfig.GetQualityAttrPercent(nextLevel) > 0)
-        {
-            long currentAttrValue = currentConfig == null ? 0 : currentConfig.GetQualityAttrPercent(currentLevel);
-            long nextAttrValue = nextConfig == null ? 0 : nextConfig.GetQualityAttrPercent(nextLevel);
-
-            long attrRise = nextAttrValue - currentAttrValue;
-
-            Refine_Attr_Quality.gameObject.SetActive(true);
-            Refine_Attr_Quality.SetContent((int)AttributeEnum.EquipRandomIncrea, currentAttrValue, attrRise);
-        }
+        PanelRefine.gameObject.SetActive(isOn);
     }
-    private void OnEquipRefineSelectEvent(EquipRefineSelectEvent e)
-    {
-        if (e.Position == Refine_Position)
-        {
-            return;
-        }
-
-        //̬
-        RefineBox oldBox = Refine_EquiList.Where(m => ((int)m.SlotType) == Refine_Position).First();
-        oldBox.SeSelect(false);
-
-        this.Refine_Position = e.Position;
-        ShowRefine();
-    }
-    private void OnClick_Refine()
-    {
-        User user = GameProcessor.Inst.User;
-        user.MagicEquipRefine.TryGetValue(Refine_Position, out MagicData refineData);
-
-        long MaxLevel = user.GetRefineLimit();
-        if (refineData.Data >= MaxLevel)
-        {
-            //
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "精练等级满级了", ToastType = ToastTypeEnum.Failure });
-            return;
-        }
-
-        long refineLevel = refineData.Data + 1;
-        EquipRefineConfig config = EquipRefineConfigCategory.Instance.GetByLevel(refineLevel);
-
-        var materialCount = user.GetMaterialCount(ItemHelper.SpecialId_EquipRefineStone);
-
-        if (materialCount < config.GetFee(refineLevel))
-        {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的精炼石", ToastType = ToastTypeEnum.Failure });
-            return;
-        }
-
-        user.MagicEquipRefine[Refine_Position].Data++;
-
-        GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
-        {
-            Type = ItemType.Material,
-            ItemId = ItemHelper.SpecialId_EquipRefineStone,
-            Quantity = config.GetFee(refineLevel)
-        });
-
-        GameProcessor.Inst.UpdateInfo();
-
-        ShowRefine();
-    }
-
 
     private void ShowDevour(bool isOn)
     {
@@ -525,17 +213,6 @@ public class ViewForgeProcessor : AViewPage
     public override void OnInit()
     {
         base.OnInit();
-
-        //var equipList = tran_EquiList.GetComponentsInChildren<SlotBox>();
-
-        AttrList = tran_AttrList.GetComponentsInChildren<StrenthAttrItem>();
-        foreach (var attrTxt in AttrList)
-        {
-            attrTxt.gameObject.SetActive(false);
-        }
-        StrengthenEquiList = tran_EquiList.GetComponentsInChildren<StrenthBox>();
-
-        Refine_EquiList = Refine_Tran_EquiList.GetComponentsInChildren<RefineBox>();
 
         this.InitComposite();
     }

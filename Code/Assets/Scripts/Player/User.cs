@@ -62,7 +62,6 @@ namespace Game
 
         public IDictionary<int, MagicData> MagicEquipStrength { get; set; } = new Dictionary<int, MagicData>();
 
-        public IDictionary<int, int> EquipRefine { get; set; } = new Dictionary<int, int>();
         public IDictionary<int, MagicData> MagicEquipRefine { get; set; } = new Dictionary<int, MagicData>();
 
         public RecoverySetting RecoverySetting { get; set; } = new RecoverySetting();
@@ -315,11 +314,7 @@ namespace Game
             //装备属性
             foreach (KeyValuePair<int, Equip> kvp in EquipPanelList[EquipPanelIndex])
             {
-                long refineLevel = 0;
-                if (MagicEquipRefine.TryGetValue(kvp.Key, out MagicData refineData))
-                {
-                    refineLevel = refineData.Data;
-                }
+                long refineLevel = GetRefineLevel(kvp.Key);
 
                 foreach (KeyValuePair<int, long> a in kvp.Value.GetTotalAttrList(refineLevel))
                 {
@@ -361,10 +356,13 @@ namespace Game
             //强化属性
             foreach (var sp in this.MagicEquipStrength)
             {
-                EquipStrengthConfig strengthConfig = EquipStrengthConfigCategory.Instance.GetByPositioin(sp.Key);
+                int position = sp.Key;
+                EquipStrengthConfig strengthConfig = EquipStrengthConfigCategory.Instance.GetByPositioin(position);
                 for (int i = 0; i < strengthConfig.AttrList.Length; i++)
                 {
                     long strenthAttr = LevelConfigCategory.GetLevelAttr(sp.Value.Data);
+                    double strenthPercetn = this.GetRefineStrenthPercetn(position) / 100.0 + 1;
+                    strenthAttr = (long)(strenthAttr * strenthPercetn);
                     AttributeBonus.SetAttr((AttributeEnum)strengthConfig.AttrList[i], AttributeFrom.EquiStrong, sp.Key, strenthAttr * strengthConfig.AttrValueList[i]);
                 }
             }
@@ -855,17 +853,9 @@ namespace Game
             switch (type)
             {
                 case AchievementSourceType.Advert:
-                    if (!this.MagicRecord.ContainsKey(AchievementSourceType.Advert))
-                    {
-                        this.MagicRecord[AchievementSourceType.Advert] = new MagicData();
-                    }
                     progress = this.Record.GetRecord((int)RecordType.AdVirtual) + this.Record.GetRecord((int)RecordType.AdReal) * 2;
                     break;
                 case AchievementSourceType.RealAdvert:
-                    if (!this.MagicRecord.ContainsKey(AchievementSourceType.RealAdvert))
-                    {
-                        this.MagicRecord[AchievementSourceType.RealAdvert] = new MagicData();
-                    }
                     progress = this.Record.GetRecord((int)RecordType.AdReal);
                     break;
                 case AchievementSourceType.Strong:
@@ -878,34 +868,24 @@ namespace Game
                     progress = this.MagicLevel.Data;
                     break;
                 case AchievementSourceType.BossFamily:
-                    if (!this.MagicRecord.ContainsKey(AchievementSourceType.BossFamily))
-                    {
-                        this.MagicRecord[AchievementSourceType.BossFamily] = new MagicData();
-                    }
-
-                    progress = this.MagicRecord[AchievementSourceType.BossFamily].Data;
-                    break;
                 case AchievementSourceType.EquipCopy:
-                    if (!this.MagicRecord.ContainsKey(AchievementSourceType.EquipCopy))
-                    {
-                        this.MagicRecord[AchievementSourceType.EquipCopy] = new MagicData();
-                    }
-
-                    progress = this.MagicRecord[AchievementSourceType.EquipCopy].Data;
-                    break;
                 case AchievementSourceType.Defend:
+                case AchievementSourceType.Infinite:
+                default:
                     {
-                        if (!this.MagicRecord.ContainsKey(AchievementSourceType.Defend))
+                        if (!this.MagicRecord.ContainsKey(type))
                         {
-                            this.MagicRecord[AchievementSourceType.Defend] = new MagicData();
+                            this.MagicRecord[type] = new MagicData();
                         }
-                        progress = this.MagicRecord[AchievementSourceType.Defend].Data;
+                        progress = this.MagicRecord[type].Data;
                     }
                     break;
             }
 
             return progress;
         }
+
+
         public void AddExpAndGold(long exp, long gold)
         {
             if (this.MagicGold.Data < 0 || this.MagicGold.Data >= 8223372036854775807)
@@ -1141,6 +1121,40 @@ namespace Game
         public void SaveCardLevel(int cardId)
         {
             CardData[cardId].Data++;
+        }
+
+        public long GetStrengthLevel(int position)
+        {
+            if (!MagicEquipStrength.ContainsKey(position))
+            {
+                MagicEquipStrength[position] = new MagicData();
+            }
+
+            return MagicEquipStrength[position].Data;
+        }
+
+        public long GetRefineLevel(int position)
+        {
+            if (!MagicEquipRefine.ContainsKey(position))
+            {
+                MagicEquipRefine[position] = new MagicData();
+            }
+
+            return MagicEquipRefine[position].Data;
+        }
+
+        public long GetRefineStrenthPercetn(int position)
+        {
+            long refineLevel = GetRefineLevel(position);
+
+            if (refineLevel <= 0)
+            {
+                return 0;
+            }
+
+            long percent = EquipRefineConfigCategory.Instance.GetByLevel(refineLevel).GetStengthPercent(refineLevel);
+
+            return percent;
         }
     }
 

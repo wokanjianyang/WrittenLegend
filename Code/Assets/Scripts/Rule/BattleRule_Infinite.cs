@@ -67,6 +67,12 @@ public class BattleRule_Infinite : ABattleRule
 
         if (enemys.Count <= 0 && !this.Start)
         {
+            long progess = user.GetAchievementProgeress(AchievementSourceType.Infinite);
+            if (progess < currentProgres)
+            {
+                user.MagicRecord[AchievementSourceType.Infinite].Data = currentProgres;
+            }
+
             record.Progress.Data++;
 
             BuildReward(currentProgres);
