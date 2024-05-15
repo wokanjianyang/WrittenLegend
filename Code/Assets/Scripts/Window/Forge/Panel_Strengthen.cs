@@ -58,7 +58,7 @@ public class Panel_Strengthen : MonoBehaviour
             int position = i + 1;
             long level = user.GetStrengthLevel(position);
 
-            items[i].Init(position, level, toggleGroup);
+            items[i].Init(1, position, level, toggleGroup);
         }
     }
 

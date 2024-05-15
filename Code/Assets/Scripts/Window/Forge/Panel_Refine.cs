@@ -50,7 +50,7 @@ public class Panel_Refine : MonoBehaviour
             int position = i + 1;
             long level = user.GetRefineLevel(position);
 
-            items[i].Init(position, level, toggleGroup);
+            items[i].Init(2,position, level, toggleGroup);
         }
     }
 

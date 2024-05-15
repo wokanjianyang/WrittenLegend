@@ -14,6 +14,7 @@ namespace Game
         public Text Txt_Level;
         public Toggle toggle;
 
+        private int Type = 1;
         private int Position = -1;
 
         // Start is called before the first frame update
@@ -32,8 +33,9 @@ namespace Game
             });
         }
 
-        public void Init(int position, long level, ToggleGroup group)
+        public void Init(int type, int position, long level, ToggleGroup group)
         {
+            this.Type = type;
             this.Position = position;
             Txt_Name.text = ((SlotType)position).ToString();
             Txt_Level.text = level + "";
@@ -51,10 +53,14 @@ namespace Game
         {
             if (isOn)
             {
-                GameProcessor.Inst.EventCenter.Raise(new EquipRefineSelectEvent()
+                if (Type == 1)
                 {
-                    Position = this.Position
-                });
+                    GameProcessor.Inst.EventCenter.Raise(new EquipStrengthSelectEvent() { Position = this.Position });
+                }
+                else if (Type == 2)
+                {
+                    GameProcessor.Inst.EventCenter.Raise(new EquipRefineSelectEvent() { Position = this.Position });
+                }
             }
         }
     }
