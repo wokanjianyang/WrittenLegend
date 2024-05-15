@@ -115,12 +115,12 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
         }
 
         int MapId = GameProcessor.Inst.User.MapId;
+        this.MaxLayer = (MapId - ConfigHelper.MapStartId) / 35;
 
-        if (this.MaxLayer < 0)
+        if (this.SelectLayer < 0)
         {
-            this.MaxLayer = (MapId - ConfigHelper.MapStartId) / 35;
-            tgLevelList[MaxLayer].isOn = true;
             this.SelectLayer = this.MaxLayer;
+            tgLevelList[SelectLayer].isOn = true;
         }
 
         for (int i = 0; i < tgLevelList.Count; i++)
