@@ -173,7 +173,12 @@ namespace Game
         {
             string src;
 
-            if (val.Length > 17)
+            if (val.Length > 21)
+            {
+                unit = "垓" + unit;
+                src = val.Substring(0, val.Length - 20);
+            }
+            else if (val.Length > 17)
             {
                 unit = "京" + unit;
                 src = val.Substring(0, val.Length - 16);
