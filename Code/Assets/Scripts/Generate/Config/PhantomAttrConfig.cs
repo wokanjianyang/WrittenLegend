@@ -89,48 +89,57 @@ namespace Game
 		public int EndLevel { get; set; }
 		/// <summary>Attr</summary>
 		[ProtoMember(5)]
-		public double Attr { get; set; }
+		public string Attr { get; set; }
 		/// <summary>Def</summary>
 		[ProtoMember(6)]
-		public double Def { get; set; }
+		public string Def { get; set; }
 		/// <summary>Hp</summary>
 		[ProtoMember(7)]
-		public double Hp { get; set; }
-		/// <summary>DamageIncrea</summary>
+		public string Hp { get; set; }
+		/// <summary>AttrRise</summary>
 		[ProtoMember(8)]
+		public double AttrRise { get; set; }
+		/// <summary>DamageIncrea</summary>
+		[ProtoMember(9)]
 		public long DamageIncrea { get; set; }
 		/// <summary>DamageResist</summary>
-		[ProtoMember(9)]
+		[ProtoMember(10)]
 		public long DamageResist { get; set; }
 		/// <summary>CritRate</summary>
-		[ProtoMember(10)]
+		[ProtoMember(11)]
 		public long CritRate { get; set; }
 		/// <summary>CritDamage</summary>
-		[ProtoMember(11)]
-		public int CritDamage { get; set; }
-		/// <summary>AttrRise</summary>
 		[ProtoMember(12)]
-		public double AttrRise { get; set; }
+		public int CritDamage { get; set; }
 		/// <summary>AttrAdvanceRise</summary>
 		[ProtoMember(13)]
 		public double AttrAdvanceRise { get; set; }
 		/// <summary>ResistType</summary>
 		[ProtoMember(14)]
 		public int ResistType { get; set; }
-		/// <summary>RewardId</summary>
+		/// <summary>AttrIdList</summary>
 		[ProtoMember(15)]
+		public int[] AttrIdList { get; set; }
+		/// <summary>AttrValueList</summary>
+		[ProtoMember(16)]
+		public int[] AttrValueList { get; set; }
+		/// <summary>AttrRiseList</summary>
+		[ProtoMember(17)]
+		public double[] AttrRiseList { get; set; }
+		/// <summary>RewardId</summary>
+		[ProtoMember(18)]
 		public int RewardId { get; set; }
 		/// <summary>RewardBase</summary>
-		[ProtoMember(16)]
+		[ProtoMember(19)]
 		public int RewardBase { get; set; }
 		/// <summary>RewardRise</summary>
-		[ProtoMember(17)]
+		[ProtoMember(20)]
 		public int RewardRise { get; set; }
 		/// <summary>SkillIdList</summary>
-		[ProtoMember(18)]
+		[ProtoMember(21)]
 		public int[] SkillIdList { get; set; }
 		/// <summary>PhanSkillIdList</summary>
-		[ProtoMember(19)]
+		[ProtoMember(22)]
 		public int[] PhanSkillIdList { get; set; }
 
 	}

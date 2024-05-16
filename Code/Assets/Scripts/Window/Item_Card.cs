@@ -23,9 +23,9 @@ namespace Game
         }
 
         // Update is called once per frame
-        void Update()
+        void OnEnable()
         {
-
+            this.Show();
         }
 
         public void OnPointerClick(PointerEventData eventData)

@@ -13,6 +13,7 @@ public class Monster_Phantom : APlayer
     PhantomAttrConfig attrConfig;
     int Layer = 0;
     int Percent = 10;
+    int HpPercent = 9;
 
     public Monster_Phantom(int id, int layer, bool real, int percent)
     {
@@ -69,8 +70,8 @@ public class Monster_Phantom : APlayer
 
         foreach (SkillData skillData in list)
         {
-            List<SkillRune> runeList = new List<SkillRune>();
-            List<SkillSuit> suitList = new List<SkillSuit>();
+            List<SkillRune> runeList = SkillRuneHelper.GetAllRune(skillData.SkillConfig.Id, 4);
+            List<SkillSuit> suitList = SkillSuitHelper.GetAllSuit(skillData.SkillConfig.Id, 4);
 
             SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, false);
 
@@ -87,9 +88,9 @@ public class Monster_Phantom : APlayer
         //Debug.Log("attrRate:" + attrRate);
         //Debug.Log("advanceRate:" + advanceRate);
 
-        double attr = attrConfig.Attr * attrRate;
-        double hp = attrConfig.Hp * attrRate;
-        double def = attrConfig.Def * attrRate;
+        double attr = Double.Parse(attrConfig.Attr) * attrRate;
+        double hp = Double.Parse(attrConfig.Hp) * attrRate;
+        double def = Double.Parse(attrConfig.Def) * attrRate;
 
 
         AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp);
@@ -102,6 +103,14 @@ public class Monster_Phantom : APlayer
         AttributeBonus.SetAttr(AttributeEnum.CritDamage, AttributeFrom.HeroBase, attrConfig.CritDamage + advanceRate);
         AttributeBonus.SetAttr(AttributeEnum.DamageIncrea, AttributeFrom.HeroBase, attrConfig.DamageIncrea + advanceRate);
         AttributeBonus.SetAttr(AttributeEnum.DamageResist, AttributeFrom.HeroBase, attrConfig.DamageResist + advanceRate);
+
+        for (int i = 0; i < attrConfig.AttrIdList.Length; i++)
+        {
+            int attrId = attrConfig.AttrIdList[i];
+            double attrValue = attrConfig.AttrValueList[i];
+            double attrRise = (Layer - 1) * attrConfig.AttrRiseList[i];
+            AttributeBonus.SetAttr((AttributeEnum)attrId, AttributeFrom.HeroBase, attrValue + attrRise);
+        }
 
         double MaxHP = AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
         double CurrentHp = Percent * MaxHP / 10;
@@ -131,8 +140,6 @@ public class Monster_Phantom : APlayer
         }
 
         double maxHp = this.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
-        int pp = (int)(this.HP * 10 / maxHp);
-
         double maxDamage = maxHp / 10;
         dr.Damage = Math.Min(dr.Damage, maxDamage);
 
@@ -140,8 +147,9 @@ public class Monster_Phantom : APlayer
 
         int nowPercent = (int)(this.HP * 10 / maxHp);
 
-        if (HP > 0 && pp < 10 && pp > nowPercent && Real)  //只有本体，从90%开始,过了每10%的界限
+        if (HP > 0 && HpPercent > nowPercent && Real)  //只有本体，从90%开始,过了每10%的界限
         {
+            HpPercent = nowPercent;
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Phantom, Message = this.Name + "：看我鬼影无踪!" });
             //sepcial logic
             var enemy = new Monster_Phantom(config.Id, Layer, false, nowPercent);

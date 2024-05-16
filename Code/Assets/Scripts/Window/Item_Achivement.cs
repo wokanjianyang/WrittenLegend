@@ -38,40 +38,44 @@ public class Item_Achivement : MonoBehaviour
 
         Txt_Des.text = string.Format(config.Memo, config.Condition);
 
+        string attrText = "";
+
+        if (config.RewardType == 1)
+        {
+            attrText = "成就属性:" + StringHelper.FormatAttrText(config.AttrId, config.AttrValue);
+        }
+        else if (config.RewardType == 2)
+        {
+            attrText = "成就属性:装备技能套装上限 -1";
+        }
+        else if (config.RewardType == 3)
+        {
+            attrText = "成就属性:装备分解精炼石数量 + " + config.AttrValue;
+        }
+        else if (config.RewardType == 4)
+        {
+            attrText = "成就属性:魂环碎片掉落数量 + " + config.AttrValue;
+        }
+        else if (config.RewardType == 5)
+        {
+            attrText = "成就属性:离线闯关寻怪时间 - " + config.AttrValue;
+        }
+        else if (config.RewardType == (int)AchievementRewardType.Skill)
+        {
+            attrText = "成就属性:技能出战栏 + " + config.AttrValue;
+        }
+
+
 
         if (active)
         {
-            if (config.RewardType == 1)
-            {
-                Txt_Attr.text = "成就属性:" + StringHelper.FormatAttrText(config.AttrId, config.AttrValue);
-            }
-            else if (config.RewardType == 2)
-            {
-                Txt_Attr.text = "成就属性:装备技能套装上限 -1";
-            }
-            else if (config.RewardType == 3)
-            {
-                Txt_Attr.text = "成就属性:装备分解精炼石数量 + " + config.AttrValue;
-            }
-            else if (config.RewardType == 4)
-            {
-                Txt_Attr.text = "成就属性:魂环碎片掉落数量 + " + config.AttrValue;
-            }
-            else if (config.RewardType == 5)
-            {
-                Txt_Attr.text = "成就属性:离线闯关寻怪时间 - " + config.AttrValue;
-            }
-            else if (config.RewardType == (int)AchievementRewardType.Skill)
-            {
-                Txt_Attr.text = "成就属性:技能出战栏 + " + config.AttrValue;
-            }
-
+            Txt_Attr.text = string.Format("<color=#{0}>{1}</color>", "FF0000", attrText);
             Txt_Progress.gameObject.SetActive(false);
             Btn_Active.gameObject.SetActive(false);
         }
         else
         {
-            Txt_Attr.text = "成就属性: ？ ？ ？";
+            string.Format("<color=#{0}>{1}</color>", "D8CAB0", attrText);
 
             if (progress >= config.Condition)
             {

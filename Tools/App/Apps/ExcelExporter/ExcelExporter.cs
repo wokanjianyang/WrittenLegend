@@ -572,6 +572,7 @@ namespace Game
                 case "int[]":
                 case "int32[]":
                 case "long[]":
+                case "double[]":
                     {
                         value = value.Replace("{", "").Replace("}", "");
                         return $"[{value}]";
