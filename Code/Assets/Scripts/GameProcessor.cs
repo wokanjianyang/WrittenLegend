@@ -667,11 +667,14 @@ namespace Game
         {
             switch (ruleType)
             {
+
                 case RuleType.EquipCopy:
-                case RuleType.Phantom:
                 case RuleType.BossFamily:
                 case RuleType.HeroPhantom:
-                    ie_autoExitKey = StartCoroutine(this.AutoExitMap(ruleType, time));
+                    ie_autoExitKey = StartCoroutine(this.AutoExitMap(ruleType, time, ConfigHelper.AutoExitMapTime));
+                    break;
+                case RuleType.Phantom:
+                    ie_autoExitKey = StartCoroutine(this.AutoExitMap(ruleType, time, 5));
                     break;
                 default:
                     StartCoroutine(this.AutoResurrection());
@@ -681,7 +684,7 @@ namespace Game
 
         public void CloseBattle(RuleType ruleType, long time)
         {
-            ie_autoExitKey = StartCoroutine(this.AutoExitMap(ruleType, time));
+            ie_autoExitKey = StartCoroutine(this.AutoExitMap(ruleType, time, ConfigHelper.AutoExitMapTime));
         }
 
 
@@ -775,9 +778,8 @@ namespace Game
             this.StartGame();
         }
 
-        private IEnumerator AutoExitMap(RuleType ruleType, long time)
+        private IEnumerator AutoExitMap(RuleType ruleType, long time, int cd)
         {
-            int cd = ConfigHelper.AutoExitMapTime;
             for (int i = 0; i < cd; i++)
             {
                 PlayerManager.GetHero().EventCenter.Raise(new ShowMsgEvent()

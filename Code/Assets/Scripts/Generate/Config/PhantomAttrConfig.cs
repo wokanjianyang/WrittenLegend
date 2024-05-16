@@ -122,7 +122,7 @@ namespace Game
 		public int[] AttrIdList { get; set; }
 		/// <summary>AttrValueList</summary>
 		[ProtoMember(16)]
-		public int[] AttrValueList { get; set; }
+		public double[] AttrValueList { get; set; }
 		/// <summary>AttrRiseList</summary>
 		[ProtoMember(17)]
 		public double[] AttrRiseList { get; set; }

@@ -163,5 +163,11 @@ namespace Game
         {
             return page == ViewPageType.View_More;
         }
+
+        public override void OnOpen()
+        {
+            base.OnOpen();
+            scrollRect.gameObject.SetActive(true);
+        }
     }
 }

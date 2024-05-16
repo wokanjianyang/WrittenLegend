@@ -104,12 +104,15 @@ public class Monster_Phantom : APlayer
         AttributeBonus.SetAttr(AttributeEnum.DamageIncrea, AttributeFrom.HeroBase, attrConfig.DamageIncrea + advanceRate);
         AttributeBonus.SetAttr(AttributeEnum.DamageResist, AttributeFrom.HeroBase, attrConfig.DamageResist + advanceRate);
 
-        for (int i = 0; i < attrConfig.AttrIdList.Length; i++)
+        if (attrConfig.AttrIdList != null)
         {
-            int attrId = attrConfig.AttrIdList[i];
-            double attrValue = attrConfig.AttrValueList[i];
-            double attrRise = (Layer - 1) * attrConfig.AttrRiseList[i];
-            AttributeBonus.SetAttr((AttributeEnum)attrId, AttributeFrom.HeroBase, attrValue + attrRise);
+            for (int i = 0; i < attrConfig.AttrIdList.Length; i++)
+            {
+                int attrId = attrConfig.AttrIdList[i];
+                double attrValue = attrConfig.AttrValueList[i];
+                double attrRise = (Layer - 1) * attrConfig.AttrRiseList[i];
+                AttributeBonus.SetAttr((AttributeEnum)attrId, AttributeFrom.HeroBase, attrValue + attrRise);
+            }
         }
 
         double MaxHP = AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
