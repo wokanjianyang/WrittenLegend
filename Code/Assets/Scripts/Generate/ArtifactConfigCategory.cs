@@ -36,6 +36,8 @@ namespace Game
         EquipStoneAd = 14,
         ExpGoldAd = 15,
         WingLimit = 16,
+        RefineStone = 17,
+        SoulStone = 18,
     }
 
 }

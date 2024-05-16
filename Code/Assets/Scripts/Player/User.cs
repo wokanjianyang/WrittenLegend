@@ -98,7 +98,8 @@ namespace Game
             int total = 0;
             foreach (ArtifactConfig config in list)
             {
-                total += this.GetArtifactLevel(config.Id) * config.AttrValue;
+                int artifactLevel = Math.Max(config.MaxCount, this.GetArtifactLevel(config.Id));
+                total += artifactLevel * config.AttrValue;
             }
 
             return total;
@@ -554,9 +555,7 @@ namespace Game
 
         public int CalStone(Equip equip)
         {
-            int rate = this.GetDzRate();
-            int count = (equip.Level * 3 / 20 + this.StoneNumber) * equip.GetQuality() * rate;
-
+            int count = MathHelper.CalRefineStone(equip.Level, this.StoneNumber + this.GetArtifactValue(ArtifactType.RefineStone)) * equip.GetQuality();
             return count;
         }
 

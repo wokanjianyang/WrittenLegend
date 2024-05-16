@@ -233,7 +233,7 @@ namespace Game
             items.AddRange(DropHelper.BuildDropItem(dropList, qualityRate));
 
             int mapIndex = Config.MapId - ConfigHelper.MapStartId;
-            int quantity = mapIndex / 10 + 1 + user.SoulRingNumber;
+            int quantity = mapIndex / 10 + 1 + user.SoulRingNumber + user.GetArtifactValue(ArtifactType.SoulStone);
 
             items.Add(ItemHelper.BuildSoulRingShard(quantity * 2 * user.GetDzRate()));
 
