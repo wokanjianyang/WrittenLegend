@@ -69,13 +69,13 @@ public class Item_Achivement : MonoBehaviour
 
         if (active)
         {
-            Txt_Attr.text = string.Format("<color=#{0}>{1}</color>", "FF0000", attrText);
+            Txt_Attr.text = string.Format("<color=#{0}>{1}</color>", "FFFF00", attrText);
             Txt_Progress.gameObject.SetActive(false);
             Btn_Active.gameObject.SetActive(false);
         }
         else
         {
-            string.Format("<color=#{0}>{1}</color>", "D8CAB0", attrText);
+            Txt_Attr.text = string.Format("<color=#{0}>{1}</color>", "D8CAB0", attrText);
 
             if (progress >= config.Condition)
             {
