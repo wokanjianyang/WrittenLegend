@@ -98,7 +98,7 @@ namespace Game
             int total = 0;
             foreach (ArtifactConfig config in list)
             {
-                int artifactLevel = Math.Max(config.MaxCount, this.GetArtifactLevel(config.Id));
+                int artifactLevel = Math.Min(config.MaxCount, this.GetArtifactLevel(config.Id));
                 total += artifactLevel * config.AttrValue;
             }
 
