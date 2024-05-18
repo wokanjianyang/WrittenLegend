@@ -79,7 +79,7 @@ namespace Game
             if (Quality + this.Layer >= 6)
             {
                 //random model
-                List<PlayerModel> models = PlayerModelCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Layer == 0).ToList();
+                List<PlayerModel> models = PlayerModelCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.StartMapId == 0).ToList();
                 int index = RandomHelper.RandomNumber(0, models.Count);
                 PlayerModel model = models[index];
 

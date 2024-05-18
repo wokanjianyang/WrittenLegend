@@ -125,8 +125,8 @@ namespace Game
 
             PlayerModel model = null;
 
-            List<PlayerModel> models = PlayerModelCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Layer == Config.Layer && m.Quality == Quality
-            && (m.MapId == 0 || m.MapId == MapId)).ToList();
+            List<PlayerModel> models = PlayerModelCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Quality == Quality
+            && m.StartMapId <= MapId && MapId <= m.EndMapId).ToList();
 
             if (models.Count > 0)
             {

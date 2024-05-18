@@ -81,12 +81,12 @@ namespace Game
 		/// <summary>Name</summary>
 		[ProtoMember(2)]
 		public string Name { get; set; }
-		/// <summary>Layer</summary>
+		/// <summary>StartMapId</summary>
 		[ProtoMember(3)]
-		public int Layer { get; set; }
-		/// <summary>MapId</summary>
+		public int StartMapId { get; set; }
+		/// <summary>EndMapId</summary>
 		[ProtoMember(4)]
-		public int MapId { get; set; }
+		public int EndMapId { get; set; }
 		/// <summary>Quality</summary>
 		[ProtoMember(5)]
 		public int Quality { get; set; }

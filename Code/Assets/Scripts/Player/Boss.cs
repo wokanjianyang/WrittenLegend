@@ -103,7 +103,7 @@ namespace Game
             if (Config.ModelType == 0)
             {
                 //random model
-                List<PlayerModel> models = PlayerModelCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Layer == 0).ToList();
+                List<PlayerModel> models = PlayerModelCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.StartMapId == 0).ToList();
                 int index = RandomHelper.RandomNumber(0, models.Count);
                 PlayerModel model = models[index];
 
@@ -140,8 +140,8 @@ namespace Game
 
             int position = this.MapId % 5 + 1;
 
-            List<PlayerModel> models = PlayerModelCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Layer == Config.Layer && m.Quality == 5
-            && (m.MapId == 0 || m.MapId == MapId)).ToList();
+            List<PlayerModel> models = PlayerModelCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Quality == 5
+            && m.StartMapId <= MapId && MapId <= m.EndMapId).ToList();
 
             if (models.Count > 0)
             {
