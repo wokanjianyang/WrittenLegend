@@ -128,10 +128,16 @@ public class BattleRule_Infinite : ABattleRule
     public override void CheckGameResult()
     {
         var hero = GameProcessor.Inst.PlayerManager.GetHero();
-        if (hero.HP == 0)
+        if (hero != null && hero.HP == 0)
         {
             User user = GameProcessor.Inst.User;
             InfiniteRecord record = user.InfiniteData.GetCurrentRecord();
+
+            if (record == null)
+            {
+                return;
+            }
+
             record.Count.Data--;
             GameProcessor.Inst.EventCenter.Raise(new ShowInfiniteInfoEvent() { Count = record.Progress.Data, PauseCount = record.Count.Data });
 
