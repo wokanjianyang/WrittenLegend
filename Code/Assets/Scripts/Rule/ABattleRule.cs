@@ -26,7 +26,7 @@ namespace Game
         {
             get
             {
-                return (int) ComponentOrder.BattleRule;
+                return (int)ComponentOrder.BattleRule;
             }
         }
 
@@ -42,7 +42,8 @@ namespace Game
         //    }
         //}
 
-        virtual public void DoMapLogic(int roundNum) { 
+        virtual public void DoMapLogic(int roundNum)
+        {
 
         }
         public void DoMapCellLogic()
@@ -91,14 +92,14 @@ namespace Game
         virtual public void CheckGameResult()
         {
             var heroCamp = GameProcessor.Inst.PlayerManager.GetHero();
-            if (heroCamp.HP == 0)
+            if (heroCamp != null && heroCamp.HP <= 0)
             {
                 this.currentRoundTime = 0;
 
                 GameProcessor.Inst.SetGameOver(PlayerType.Enemy);
-                
-                Log.Debug($"{(GameProcessor.Inst.winCamp == PlayerType.Hero?"玩家":"怪物")}获胜！！");
-                GameProcessor.Inst.HeroDie(this.ruleType,0);
+
+                Log.Debug($"{(GameProcessor.Inst.winCamp == PlayerType.Hero ? "玩家" : "怪物")}获胜！！");
+                GameProcessor.Inst.HeroDie(this.ruleType, 0);
             }
         }
     }

@@ -77,8 +77,16 @@ public class Dialog_Buff : MonoBehaviour, IBattleLife
         User user = GameProcessor.Inst.User;
 
         DefendRecord record = user.DefendData.GetCurrentRecord();
+        if (record == null)
+        {
+            return;
+        }
 
         Item_Buff buff = ItemList.Where(m => m.toggle.isOn).FirstOrDefault();
+        if (buff == null)
+        {
+            return;
+        }
 
         DefendBuffConfig config = buff.Config;
 

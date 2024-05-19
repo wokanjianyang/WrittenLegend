@@ -42,6 +42,10 @@ namespace Game
             if (rate >= 10)
             {
                 int fr = (int)rate;
+                if (fr < 0)
+                {
+                    fr = 100000;
+                }
                 return random.Next(1, fr + 1) <= 1;
             }
             else
