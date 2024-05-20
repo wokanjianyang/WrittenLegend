@@ -28,7 +28,7 @@
 {"_t":"ItemConfig","_id":3007,"Name":"召唤神兽","Type":3,"Des":"学习或者升级道士技能召唤神兽","Price":100000,"MaxNum":99999999,"LevelRequired":70,"Quality":4,"UseParam":50},
 {"_t":"ItemConfig","_id":3008,"Name":"隐身术","Type":3,"Des":"学习或者升级道士技能隐身术","Price":100000,"MaxNum":99999999,"LevelRequired":80,"Quality":5,"UseParam":50},
 {"_t":"ItemConfig","_id":3009,"Name":"召唤月灵","Type":3,"Des":"学习或者升级道士技能召唤月灵","Price":100000,"MaxNum":99999999,"LevelRequired":80,"Quality":5,"UseParam":500},
-{"_t":"ItemConfig","_id":3010,"Name":"飓风破","Type":3,"Des":"学习或者升级道士技能飓风破","Price":100000,"MaxNum":99999999,"LevelRequired":80,"Quality":6,"UseParam":500},
+{"_t":"ItemConfig","_id":3010,"Name":"无极道体","Type":3,"Des":"学习或者升级道士技能无极道体","Price":100000,"MaxNum":99999999,"LevelRequired":80,"Quality":6,"UseParam":500},
 {"_t":"ItemConfig","_id":4001,"Name":"魂环碎片","Type":5,"Des":"合成魂环的材料","Price":1,"MaxNum":999999999,"LevelRequired":0,"Quality":5,"UseParam":0},
 {"_t":"ItemConfig","_id":4002,"Name":"精炼石","Type":5,"Des":"装备精练材料","Price":1,"MaxNum":999999999,"LevelRequired":0,"Quality":5,"UseParam":0},
 {"_t":"ItemConfig","_id":4003,"Name":"装备副本卷","Type":9,"Des":"装备副本次数+1，全部使用最多一次性使用200张","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":5,"UseParam":0},

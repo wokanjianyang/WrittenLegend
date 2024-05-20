@@ -58,6 +58,8 @@
 {"_t":"CodeConfig","_id":11005,"Type":1,"code":"yumao23","ItemTypeList":[5],"ItemIdList":[4008],"ItemQuanlityList":[1800]},
 {"_t":"CodeConfig","_id":11006,"Type":1,"code":"yumao24","ItemTypeList":[5],"ItemIdList":[4008],"ItemQuanlityList":[2400]},
 {"_t":"CodeConfig","_id":11010,"Type":1,"code":"chediding","ItemTypeList":[3],"ItemIdList":[1010],"ItemQuanlityList":[1]},
+{"_t":"CodeConfig","_id":11011,"Type":1,"code":"fenshenshu","ItemTypeList":[3],"ItemIdList":[2010],"ItemQuanlityList":[1]},
+{"_t":"CodeConfig","_id":11012,"Type":1,"code":"wujidaoti","ItemTypeList":[3],"ItemIdList":[3010],"ItemQuanlityList":[1]},
 {"_t":"CodeConfig","_id":11801,"Type":1,"code":"bsss1","ItemTypeList":[18],"ItemIdList":[180001],"ItemQuanlityList":[1]},
 {"_t":"CodeConfig","_id":11802,"Type":1,"code":"bsss2","ItemTypeList":[18],"ItemIdList":[180001],"ItemQuanlityList":[1]},
 {"_t":"CodeConfig","_id":11803,"Type":1,"code":"bsss3","ItemTypeList":[18],"ItemIdList":[180001],"ItemQuanlityList":[1]},

@@ -70,6 +70,7 @@ namespace Game
             //items.Add(ItemHelper.BuildItem(ItemType.Card, 2000010, 10, 5));
 
             //items.Add(ItemHelper.BuildItem(ItemType.SkillBox, 1010, 1, 1));
+            items.Add(ItemHelper.BuildItem(ItemType.SkillBox, 3010, 1, 1));
 
             //user.SaveArtifactLevel(180001, 4);
             //user.SaveArtifactLevel(180005, 10);
