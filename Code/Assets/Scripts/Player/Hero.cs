@@ -298,7 +298,7 @@ namespace Game
             skill = this.GetSkill(0);
             if (skill != null)
             {  //使用技能
-                //Debug.Log($"{(this.Name)}使用技能:{(skill.SkillPanel.SkillData.SkillConfig.Name)},攻击:" + targets.Count + "个");
+                //Debug.Log($"{(this.Name)}使用技能:{(skill.SkillPanel.SkillData.SkillConfig.Name)}");
                 skill.Do();
                 //this.EventCenter.Raise(new ShowAttackIcon ());
 

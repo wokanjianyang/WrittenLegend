@@ -90,6 +90,7 @@ namespace Game
         Shield = 5,//状态技能
         Expert = 6,//职业专精技能
         Yeman = 7,//野蛮
+        Passive = 8,//被动技能
     }
 
     public enum SkillStatus

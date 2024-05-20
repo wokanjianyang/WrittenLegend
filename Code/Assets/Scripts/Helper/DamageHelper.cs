@@ -90,6 +90,8 @@ namespace Game
 
             double rate = 100 + accuracy - miss;
 
+            rate = Math.Max(rate, 20); //闪避最高80%
+
             //Debug.Log("miss rate:" + rate);
 
             return !RandomHelper.RandomRate((int)rate);
