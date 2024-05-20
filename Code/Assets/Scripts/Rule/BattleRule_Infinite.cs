@@ -13,7 +13,7 @@ public class BattleRule_Infinite : ABattleRule
 
     //private long Progress = 1;
 
-    private const int MaxProgress = 500; //
+    private const int MaxProgress = 600; //
 
     private int[] MonsterList = new int[] { 5, 4, 4, 3, 3, 3, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1 };
 
