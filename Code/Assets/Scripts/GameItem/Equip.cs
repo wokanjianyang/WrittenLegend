@@ -126,7 +126,7 @@ namespace Game
                     }
                     else if (Quality == 6)
                     {
-                        AttributeBase = AttributeBase * (Layer);
+                        AttributeBase = AttributeBase * GetLayerRate(Layer);
                     }
                 }
 
@@ -134,6 +134,16 @@ namespace Game
             }
 
             return BaseAttrList;
+        }
+
+        private int GetLayerRate(int layer)
+        {
+            int b = 2;
+            for (int i = 0; i < layer; i++)
+            {
+                b = b * 2;
+            }
+            return b;
         }
 
         public void CheckReFreshCount()

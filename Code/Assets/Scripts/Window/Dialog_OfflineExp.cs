@@ -54,7 +54,7 @@ namespace Game
             //items.Add(new Equip(22005709, 23, 15, 5));
             //items.Add(new Equip(22005710, 23, 15, 5));
 
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Copy_Ticket, 125000)); //装备卷
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Copy_Ticket, 500)); //装备卷
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, 1500)); //BOSS卷
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Wing_Stone, 1800));  //羽毛
 
@@ -66,6 +66,11 @@ namespace Game
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Red_Stone, 999)); //红装精华
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecailEquipRefreshId, 99999)); //橙装精华
 
+            //items.Add(ItemHelper.BuildMaterial(50000009, 30)); //3介升阶红石头
+            //items.Add(ItemHelper.BuildMaterial(50000011, 30)); //3介升阶红石头
+            //items.Add(ItemHelper.BuildMaterial(50000014, 30)); //3介升阶红石头
+            //items.Add(ItemHelper.BuildMaterial(50000015, 30)); //3介升阶红石头
+            //items.Add(ItemHelper.BuildMaterial(50000016, 30)); //3介升阶红石头
 
             //items.Add(ItemHelper.BuildItem(ItemType.Card, 2000010, 10, 5));
 
