@@ -138,8 +138,8 @@ namespace Game
 
         private int GetLayerRate(int layer)
         {
-            int b = 2;
-            for (int i = 0; i < layer; i++)
+            int b = 1;
+            for (int i = 1; i < layer; i++)
             {
                 b = b * 2;
             }
