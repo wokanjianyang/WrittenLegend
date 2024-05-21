@@ -35,7 +35,6 @@ namespace Game
             {
                 Current = null;
                 CurrentDict.Remove(level);
-                DropDict.Remove(level);
             }
 
             if (!CountDict.ContainsKey(level))
@@ -55,6 +54,14 @@ namespace Game
                 CurrentDict[level] = Current;
 
                 Count.Data--;
+
+                if (DropDict.TryGetValue(level, out List<List<int>> dropList))
+                {
+                    if (dropList.Count > 0)
+                    {
+                        dropList.RemoveAt(0);
+                    }
+                }
             }
         }
 
