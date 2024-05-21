@@ -80,8 +80,6 @@ namespace Game
 
         public HeroPhatomData HeroPhatomData { get; set; }
 
-        public bool isError = false;
-
         /// <summary>
         /// 包裹
         /// </summary>

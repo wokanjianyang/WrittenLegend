@@ -402,18 +402,6 @@ namespace Game
             }
             else
             {
-                if (User.isError)
-                {
-                    if (TimeHelper.ClientNowSeconds() - UserData.StartTime > 60 * 3)
-                    {
-                        if (RandomHelper.RandomNumber(1, 10) > 8)
-                        {
-                            Application.Quit();
-                            this.User = null;
-                        }
-                    }
-                }
-
                 if (TimeHelper.ClientNowSeconds() < (User.SecondExpTick - 60 * 2))
                 {
                     isTimeError = true;

@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3602837709
+CRC: 3692885324
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: f69e6f8dd8d1c482015fe8804e4a0103
+    Hash: 6e9bfed15a310fe7fd1291c7a51de63f
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -23,6 +23,7 @@ Assets:
 - Assets/Resources/Config/PhantomConfigCategory.bytes
 - Assets/Resources/Config/DefendDropConfigCategory.bytes
 - Assets/Resources/Config/DropConfigCategory.bytes
+- Assets/Resources/Config/LegacyMonsterCategory.bytes
 - Assets/Resources/Config/SoulRingConfigCategory.bytes
 - Assets/Resources/Config/EquipRefineConfigCategory.bytes
 - Assets/Resources/Config/FashionSuitConfigCategory.bytes
@@ -66,12 +67,14 @@ Assets:
 - Assets/Resources/Config/InfiniteConfigCategory.bytes
 - Assets/Resources/Config/SkillDoubleHitConfigCategory.bytes
 - Assets/Resources/Config/InfiniteDropConfigCategory.bytes
+- Assets/Resources/Config/LegacyMapConfigCategory.bytes
 - Assets/Resources/Config/PhantomAttrConfigCategory.bytes
 - Assets/Resources/Config/MonsterSpecialConfigCategory.bytes
 - Assets/Resources/Config/ExchangeConfigCategory.bytes
-- Assets/Resources/Config/PlayerModelCategory.bytes
+- Assets/Resources/Config/LegacyConfigCategory.bytes
 - Assets/Resources/Config/SkillModelCategory.bytes
 - Assets/Resources/Config/GiftPackConfigCategory.bytes
+- Assets/Resources/Config/PlayerModelCategory.bytes
 - Assets/Resources/Config/SkillConfigCategory.bytes
 - Assets/Resources/Config/MetalConfigCategory.bytes
 - Assets/Resources/Config/SkillRuneConfigCategory.bytes
