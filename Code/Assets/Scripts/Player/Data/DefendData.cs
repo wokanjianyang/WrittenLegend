@@ -35,6 +35,7 @@ namespace Game
             {
                 Current = null;
                 CurrentDict.Remove(level);
+                DropDict.Remove(level);
             }
 
             if (!CountDict.ContainsKey(level))
