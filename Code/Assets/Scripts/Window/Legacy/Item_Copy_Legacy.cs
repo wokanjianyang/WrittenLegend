@@ -7,14 +7,18 @@ using UnityEngine.UI;
 
 namespace Game
 {
-    public class Item_Legacy : MonoBehaviour, IPointerClickHandler
+    public class Item_Copy_Legacy : MonoBehaviour
     {
-        public Text Txt_Attr_Rise;
         public Text Txt_Name;
         public Text Txt_Level;
-        public Text Txt_Attr_Current;
-        public Text Txt_Fee;
-        public CardConfig Config { get; set; }
+
+        public Text Txt_Fee1;
+        public Text Txt_Fee2;
+        public Text Txt_Fee3;
+
+        public Button Btn_Start;
+
+        private CardConfig Config { get; set; }
 
         // Start is called before the first frame update
         void Start()
@@ -82,14 +86,11 @@ namespace Game
             {
                 long val = Config.AttrValue + (cardLevel - 1) * Config.LevelIncrea;
                 this.Txt_Level.text = $"{cardLevel}级";
-                this.Txt_Attr_Current.text = StringHelper.FormatAttrText(Config.AttrId, val);
-                this.Txt_Attr_Rise.text = "升级增加:" + StringHelper.FormatAttrValueText(Config.AttrId, Config.LevelIncrea);
+   
             }
             else
             {
                 this.Txt_Level.text = "未激活";
-                this.Txt_Attr_Current.text = " ???? ";
-                this.Txt_Attr_Rise.text = "激活增加:" + StringHelper.FormatAttrValueText(Config.AttrId, Config.AttrValue);
             }
 
             long rise = cardLevel / Config.RiseLevel * Config.RiseNumber;
@@ -107,7 +108,7 @@ namespace Game
 
             string color = total >= upNumber ? "#FFFF00" : "#FF0000";
 
-            Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2}", color, upNumber, total);
+            Txt_Fee1.text = string.Format("<color={0}>{1}</color> /{2}", color, upNumber, total);
         }
 
         public void SetContent(CardConfig config)

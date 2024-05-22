@@ -81,6 +81,10 @@ namespace Game
             {
                 GameProcessor.Inst.EventCenter.Raise(new OpenMineEvent());
             }
+            else if (Type == CopyType.Legacy)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new OpenLegacyEvent());
+            }
         }
     }
 }

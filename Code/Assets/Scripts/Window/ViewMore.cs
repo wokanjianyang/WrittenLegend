@@ -21,12 +21,25 @@ namespace Game
 
         public Dialog_BossFamily BossFamily;
 
+        public Item_EquipCopy LegacyItem;
+
         public Item_EquipCopy MineItem;
         public Dialog_Mine MineDialog;
 
         void Start()
         {
-            long level = GameProcessor.Inst.User.MagicLevel.Data;
+        }
+
+        void OnEnable()
+        {
+            User user = GameProcessor.Inst.User;
+
+            if (user == null)
+            {
+                return;
+            }
+
+            long level = user.MagicLevel.Data;
             if (level > 20000)
             {
                 MineItem.gameObject.SetActive(true);
@@ -34,6 +47,16 @@ namespace Game
             else
             {
                 MineItem.gameObject.SetActive(false);
+            }
+
+            int mapId = user.MapId;
+            if (mapId >= 1070)
+            {
+                LegacyItem.gameObject.SetActive(true);
+            }
+            else
+            {
+                LegacyItem.gameObject.SetActive(false);
             }
         }
 

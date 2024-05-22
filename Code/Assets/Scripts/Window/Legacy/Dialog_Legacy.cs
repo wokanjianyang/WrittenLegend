@@ -13,7 +13,7 @@ public class Dialog_Legacy : MonoBehaviour
 
     public Button btn_Close;
 
-    private List<Item_Legacy> items = new List<Item_Legacy>();
+    private List<Item_Copy_Legacy> items = new List<Item_Copy_Legacy>();
 
     public int Order => (int)ComponentOrder.Dialog;
 
@@ -37,7 +37,7 @@ public class Dialog_Legacy : MonoBehaviour
         for (int i = 0; i < configs.Count; i++)
         {
             var item = GameObject.Instantiate(ItemPrefab);
-            var com = item.GetComponentInChildren<Item_Legacy>();
+            var com = item.GetComponentInChildren<Item_Copy_Legacy>();
 
             com.SetContent(configs[i]);
 

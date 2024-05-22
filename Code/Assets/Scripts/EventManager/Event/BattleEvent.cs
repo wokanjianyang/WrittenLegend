@@ -234,6 +234,9 @@ namespace Game
     public class OpenMineEvent : SDD.Events.Event
     {
     }
+    public class OpenLegacyEvent : SDD.Events.Event
+    {
+    }
 
 
     public class ChangeFloorEvent : SDD.Events.Event
