@@ -64,6 +64,10 @@ namespace Game
 
         public IDictionary<int, MagicData> MagicEquipRefine { get; set; } = new Dictionary<int, MagicData>();
 
+        public IDictionary<int, MagicData> LegacyLevel { get; set; } = new Dictionary<int, MagicData>();
+
+        public IDictionary<int, MagicData> LegacyLayer { get; set; } = new Dictionary<int, MagicData>();
+
         public RecoverySetting RecoverySetting { get; set; } = new RecoverySetting();
 
         public bool ShowMonsterSkill { get; set; } = true;
@@ -1138,6 +1142,36 @@ namespace Game
             }
 
             return MagicEquipRefine[position].Data;
+        }
+
+        public long GetLegacyLevel(int id)
+        {
+            if (!LegacyLevel.ContainsKey(id))
+            {
+                LegacyLevel[id] = new MagicData();
+            }
+
+            return LegacyLevel[id].Data;
+        }
+
+        public long GetLegacyLayer(int id)
+        {
+            if (!LegacyLayer.ContainsKey(id))
+            {
+                LegacyLayer[id] = new MagicData();
+            }
+
+            return LegacyLayer[id].Data;
+        }
+
+        public void SaveLegacyLayer(int id, int layer)
+        {
+            if (!LegacyLayer.ContainsKey(id))
+            {
+                LegacyLayer[id] = new MagicData();
+            }
+
+            LegacyLayer[id].Data = layer;
         }
 
         public long GetRefineStrenthPercetn(int position)

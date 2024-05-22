@@ -7,32 +7,32 @@ namespace Game
 {
     [ProtoContract]
     [Config]
-    public partial class LegacyMonsterCategory : ProtoObject, IMerge
+    public partial class LegacyMonsterConfigCategory : ProtoObject, IMerge
     {
-        public static LegacyMonsterCategory Instance;
+        public static LegacyMonsterConfigCategory Instance;
 		
         [ProtoIgnore]
         [BsonIgnore]
-        private Dictionary<int, LegacyMonster> dict = new Dictionary<int, LegacyMonster>();
+        private Dictionary<int, LegacyMonsterConfig> dict = new Dictionary<int, LegacyMonsterConfig>();
 		
         [BsonElement]
         [ProtoMember(1)]
-        private List<LegacyMonster> list = new List<LegacyMonster>();
+        private List<LegacyMonsterConfig> list = new List<LegacyMonsterConfig>();
 		
-        public LegacyMonsterCategory()
+        public LegacyMonsterConfigCategory()
         {
             Instance = this;
         }
         
         public void Merge(object o)
         {
-            LegacyMonsterCategory s = o as LegacyMonsterCategory;
+            LegacyMonsterConfigCategory s = o as LegacyMonsterConfigCategory;
             this.list.AddRange(s.list);
         }
 		
         public override void EndInit()
         {
-            foreach (LegacyMonster config in list)
+            foreach (LegacyMonsterConfig config in list)
             {
                 config.EndInit();
                 this.dict.Add(config.Id, config);
@@ -40,13 +40,13 @@ namespace Game
             this.AfterEndInit();
         }
 		
-        public LegacyMonster Get(int id)
+        public LegacyMonsterConfig Get(int id)
         {
-            this.dict.TryGetValue(id, out LegacyMonster item);
+            this.dict.TryGetValue(id, out LegacyMonsterConfig item);
 
             if (item == null)
             {
-                throw new Exception($"配置找不到，配置表名: {nameof (LegacyMonster)}，配置id: {id}");
+                throw new Exception($"配置找不到，配置表名: {nameof (LegacyMonsterConfig)}，配置id: {id}");
             }
 
             return item;
@@ -57,12 +57,12 @@ namespace Game
             return this.dict.ContainsKey(id);
         }
 
-        public Dictionary<int, LegacyMonster> GetAll()
+        public Dictionary<int, LegacyMonsterConfig> GetAll()
         {
             return this.dict;
         }
 
-        public LegacyMonster GetOne()
+        public LegacyMonsterConfig GetOne()
         {
             if (this.dict == null || this.dict.Count <= 0)
             {
@@ -73,34 +73,37 @@ namespace Game
     }
 
     [ProtoContract]
-	public partial class LegacyMonster: ProtoObject, IConfig
+	public partial class LegacyMonsterConfig: ProtoObject, IConfig
 	{
 		/// <summary>ID</summary>
 		[ProtoMember(1)]
 		public int Id { get; set; }
-		/// <summary>Role</summary>
+		/// <summary>Name</summary>
 		[ProtoMember(2)]
+		public string Name { get; set; }
+		/// <summary>Role</summary>
+		[ProtoMember(3)]
 		public int Role { get; set; }
 		/// <summary>Attr</summary>
-		[ProtoMember(3)]
+		[ProtoMember(4)]
 		public string Attr { get; set; }
 		/// <summary>RiseAttr</summary>
-		[ProtoMember(4)]
+		[ProtoMember(5)]
 		public string RiseAttr { get; set; }
 		/// <summary>Def</summary>
-		[ProtoMember(5)]
+		[ProtoMember(6)]
 		public string Def { get; set; }
 		/// <summary>RiseDef</summary>
-		[ProtoMember(6)]
+		[ProtoMember(7)]
 		public string RiseDef { get; set; }
 		/// <summary>HP</summary>
-		[ProtoMember(7)]
+		[ProtoMember(8)]
 		public string HP { get; set; }
 		/// <summary>RiseHp</summary>
-		[ProtoMember(8)]
+		[ProtoMember(9)]
 		public string RiseHp { get; set; }
 		/// <summary>SkillIdList</summary>
-		[ProtoMember(9)]
+		[ProtoMember(10)]
 		public int[] SkillIdList { get; set; }
 
 	}

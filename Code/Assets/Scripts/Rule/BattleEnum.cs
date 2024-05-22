@@ -35,6 +35,7 @@ namespace Game
         HeroPhantom,
         Mine,
         Infinite,
+        Legacy,
     }
 
     public enum ComponentOrder

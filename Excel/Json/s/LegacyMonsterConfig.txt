@@ -1,0 +1,5 @@
+{"list":[
+{"_t":"LegacyMonsterConfig","_id":1,"Name":"圣战","Role":1,"Attr":"10000000","RiseAttr":"10000000","Def":"10000000","RiseDef":"10000000","HP":"100000000000000","RiseHp":"100000000000000","SkillIdList":[]},
+{"_t":"LegacyMonsterConfig","_id":2,"Name":"法神","Role":2,"Attr":"1000000000","RiseAttr":"1000000000","Def":"2000000000","RiseDef":"2000000000","HP":"20000000000000000","RiseHp":"20000000000000000","SkillIdList":[]},
+{"_t":"LegacyMonsterConfig","_id":3,"Name":"天尊","Role":3,"Attr":"100000000000","RiseAttr":"100000000000","Def":"400000000000","RiseDef":"400000000000","HP":"4000000000000000000","RiseHp":"4000000000000000000","SkillIdList":[]},
+]}
