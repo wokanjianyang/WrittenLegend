@@ -75,7 +75,7 @@ namespace Game
                 long needNumber = Config.PowerList[i] * Layer;
                 long total = powerList[i];
 
-                string color = total >= needNumber ? "#00FF22" : "#FF0022";
+                string color = total >= needNumber ? "#00EE00" : "#EE0000";
 
                 TextPowerList[i].text = PowerNameList[i] + "： " + string.Format("<color={0}>{1}</color> /{2}", color, total, needNumber);
             }

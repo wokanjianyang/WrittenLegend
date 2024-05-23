@@ -113,9 +113,11 @@ public class Monster_Legacy : APlayer
         int layer = LegacyConfigCategory.Instance.GetDropLayer(Layer);
 
         User user = GameProcessor.Inst.User;
+        user.LegacyTikerCount.Data--;
+
         long legacyLayer = user.GetLegacyLayer(dropLegacy.Id);
 
-        string message = "掉落" + dropLegacy.Name + "(" + layer + "阶)";
+        string message = "掉落 " + string.Format("<color=#{0}>{1}</color> ", QualityConfigHelper.GetQualityColor(6), dropLegacy.Name + "(" + layer + "阶) ");
 
         int recoveryStone = 0;
         if (layer > legacyLayer)
@@ -128,7 +130,7 @@ public class Monster_Legacy : APlayer
             {
                 recoveryStone += dropLegacy.GetRecoveryNumber(legacyLayer);
 
-                message += ",并且回收之前的获得" + recoveryStone + "个传世精华";
+                message += ",并且回收之前的获得" + recoveryStone + "个<color=#" + QualityConfigHelper.GetQualityColor(6) + ">传世精华</color>";
             }
         }
         else
