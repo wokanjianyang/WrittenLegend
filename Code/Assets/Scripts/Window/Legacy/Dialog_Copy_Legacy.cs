@@ -10,7 +10,8 @@ public class Dialog_Copy_Legacy : MonoBehaviour
 {
     public Text Txt_Count;
     public Text Txt_Time;
-    public Button btn_Close;
+    public Button Btn_Close;
+    public Button Btn_Info;
 
     public List<Item_Copy_Legacy> ItemList;
 
@@ -19,7 +20,8 @@ public class Dialog_Copy_Legacy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this.btn_Close.onClick.AddListener(OnClick_Close);
+        this.Btn_Close.onClick.AddListener(OnClick_Close);
+        this.Btn_Info.onClick.AddListener(OnClick_Info);
 
         this.Init();
     }
@@ -100,5 +102,10 @@ public class Dialog_Copy_Legacy : MonoBehaviour
     public void OnClick_Close()
     {
         this.gameObject.SetActive(false);
+    }
+
+    public void OnClick_Info()
+    {
+
     }
 }

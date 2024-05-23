@@ -7,6 +7,11 @@ namespace Game
 
     public partial class LegacyConfigCategory
     {
+        public List<LegacyConfig> GetRoleList(int role)
+        {
+            return this.list.Where(m => m.Role == role).ToList();
+        }
+
         public LegacyConfig GetDropItem(int role)
         {
             List<LegacyConfig> dropList = this.list.Where(m => m.Role == role).ToList();

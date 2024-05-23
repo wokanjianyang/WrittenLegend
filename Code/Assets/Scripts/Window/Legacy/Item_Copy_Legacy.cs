@@ -9,14 +9,12 @@ using UnityEngine.UI;
 
 namespace Game
 {
-    public class Item_Copy_Legacy : MonoBehaviour
+    public class Item_Copy_Legacy : MonoBehaviour, IPointerClickHandler
     {
         public Text Txt_Name;
-        public Text Txt_Level;
+        public Text Txt_Info;
 
         public List<Text> TextPowerList;
-
-        public Button Btn_Start;
 
         private LegacyMapConfig Config { get; set; }
         private long Layer = 0;
@@ -25,7 +23,7 @@ namespace Game
         // Start is called before the first frame update
         void Start()
         {
-            Btn_Start.onClick.AddListener(OnClick_Start);
+
         }
 
         // Update is called once per frame
@@ -38,6 +36,7 @@ namespace Game
         {
             this.Config = config;
             this.Txt_Name.text = config.Name;
+            this.Txt_Info.text = "点击挑战," + config.Desc;
 
             this.Show();
         }
@@ -67,7 +66,7 @@ namespace Game
 
             this.Layer = Config.CalMaxLayer(powerList);
 
-            this.Txt_Level.text = $"{ Layer }阶";
+            this.Txt_Name.text = Config.Name + "(" + Layer + "阶)";
 
 
             for (int i = 0; i < Config.PowerList.Length; i++)
@@ -80,7 +79,7 @@ namespace Game
                 TextPowerList[i].text = PowerNameList[i] + "： " + string.Format("<color={0}>{1}</color> /{2}", color, total, needNumber);
             }
         }
-        public void OnClick_Start()
+        public void OnPointerClick(PointerEventData eventData)
         {
             var dialogLegacy = this.GetComponentInParent<Dialog_Copy_Legacy>();
             dialogLegacy.gameObject.SetActive(false);
