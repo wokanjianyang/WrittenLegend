@@ -1,5 +1,7 @@
 using Game.Data;
 using Sirenix.OdinInspector;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -12,18 +14,18 @@ namespace Game
         public Text Txt_Name;
         public Text Txt_Level;
 
-        public Text Txt_Fee1;
-        public Text Txt_Fee2;
-        public Text Txt_Fee3;
+        public List<Text> TextPowerList;
 
         public Button Btn_Start;
 
-        private CardConfig Config { get; set; }
+        private LegacyMapConfig Config { get; set; }
+        private long Layer = 0;
+        private string[] PowerNameList = new string[] { "天之力", "地之力", "人之力" };
 
         // Start is called before the first frame update
         void Start()
         {
-
+            Btn_Start.onClick.AddListener(OnClick_Start);
         }
 
         // Update is called once per frame
@@ -32,91 +34,60 @@ namespace Game
             this.Show();
         }
 
-        public void OnPointerClick(PointerEventData eventData)
+        public void Init(LegacyMapConfig config)
         {
-            User user = GameProcessor.Inst.User;
+            this.Config = config;
+            this.Txt_Name.text = config.Name;
 
-            long maxLevel = user.GetCardLimit(Config);
-            long cardLevel = user.GetCardLevel(Config.Id);
-
-            if (cardLevel < maxLevel)
-            {
-                long rise = cardLevel / Config.RiseLevel * Config.RiseNumber;
-
-                int itemId = Config.Id;
-                long upNumber = 1 + rise;
-
-                if (Config.StoneNumber > 0)
-                {
-                    itemId = ItemHelper.SpecialId_Card_Stone;
-                    upNumber = Config.StoneNumber + rise;
-                }
-
-                long total = user.GetItemMeterialCount(itemId);
-
-                if (total < upNumber)
-                {
-                    //GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "您的材料不足", ToastType = ToastTypeEnum.Failure });
-                    return;
-                }
-
-                user.UseItemMeterialCount(itemId, upNumber);
-                user.SaveCardLevel(Config.Id);
-
-                this.Show();
-
-
-                GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
-            }
-            else
-            {
-                //GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "已经满级了", ToastType = ToastTypeEnum.Failure });
-                return;
-            }
+            this.Show();
         }
 
         private void Show()
         {
             User user = GameProcessor.Inst.User;
 
-            long cardLevel = user.GetCardLevel(Config.Id);
-
-
-            if (cardLevel > 0)
+            if (Config == null || user == null)
             {
-                long val = Config.AttrValue + (cardLevel - 1) * Config.LevelIncrea;
-                this.Txt_Level.text = $"{cardLevel}级";
-   
-            }
-            else
-            {
-                this.Txt_Level.text = "未激活";
+                return;
             }
 
-            long rise = cardLevel / Config.RiseLevel * Config.RiseNumber;
+            long[] powerList = new long[] { 0, 0, 0 };
 
-            int itemId = Config.Id;
-            long upNumber = 1 + rise;
 
-            if (Config.StoneNumber > 0)
+            foreach (KeyValuePair<int, MagicData> kv in user.LegacyLayer)
             {
-                itemId = ItemHelper.SpecialId_Card_Stone;
-                upNumber = Config.StoneNumber + rise;
+                LegacyConfig legacy = LegacyConfigCategory.Instance.Get(kv.Key);
+
+                for (int i = 0; i < legacy.PowerList.Length; i++)
+                {
+                    powerList[i] += kv.Value.Data * legacy.PowerList[i];
+                }
             }
 
-            long total = user.GetItemMeterialCount(itemId);
 
-            string color = total >= upNumber ? "#FFFF00" : "#FF0000";
+            this.Layer = Config.CalMaxLayer(powerList);
 
-            Txt_Fee1.text = string.Format("<color={0}>{1}</color> /{2}", color, upNumber, total);
+            this.Txt_Level.text = $"{ Layer }阶";
+
+
+            for (int i = 0; i < Config.PowerList.Length; i++)
+            {
+                long needNumber = Config.PowerList[i] * Layer;
+                long total = powerList[i];
+
+                string color = total >= needNumber ? "#00FF22" : "#FF0022";
+
+                TextPowerList[i].text = PowerNameList[i] + "： " + string.Format("<color={0}>{1}</color> /{2}", color, total, needNumber);
+            }
         }
-
-        public void SetContent(CardConfig config)
+        public void OnClick_Start()
         {
-            this.Config = config;
-            this.Txt_Name.text = string.Format("<color=#{0}>{1}</color>", QualityConfigHelper.GetQualityColor(Config.Quality), config.Name);
+            var dialogLegacy = this.GetComponentInParent<Dialog_Copy_Legacy>();
+            dialogLegacy.gameObject.SetActive(false);
 
-            this.Show();
+            var vm = this.GetComponentInParent<ViewMore>();
+            vm.StartLegacy(Config.Id, (int)Layer);
         }
+
     }
 }

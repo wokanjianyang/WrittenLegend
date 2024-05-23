@@ -135,7 +135,7 @@ public class MapInfinite : MonoBehaviour, IBattleLife
     {
         GameProcessor.Inst.OnDestroy();
         this.gameObject.SetActive(false);
-        GameProcessor.Inst.EventCenter.Raise(new DefendEndEvent());
+        GameProcessor.Inst.EventCenter.Raise(new InfiniteEndEvent());
         GameProcessor.Inst.SetGameOver(PlayerType.Hero);
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {

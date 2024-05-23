@@ -151,11 +151,6 @@ namespace Game
         public int PhantomId { get; set; }
     }
 
-    public class PhantomEndEvent : SDD.Events.Event
-    {
-        public int PhantomId { get; set; }
-    }
-
     public class ShowPhantomInfoEvent : SDD.Events.Event
     {
         public int Time { get; set; }
@@ -169,11 +164,6 @@ namespace Game
     {
         public int Level { get; set; }
         public int Rate { get; set; }
-    }
-
-    public class BossFamilyEndEvent : SDD.Events.Event
-    {
-
     }
 
     public class AnDianStartEvent : SDD.Events.Event
@@ -224,6 +214,10 @@ namespace Game
     {
         public long Count { get; set; }
         public long PauseCount { get; set; }
+    }
+    public class InfiniteEndEvent : SDD.Events.Event
+    {
+
     }
 
     public class ChangeMapEvent : SDD.Events.Event
@@ -311,11 +305,6 @@ namespace Game
     public class CloseViewMoreEvent : SDD.Events.Event
     {
 
-    }
-
-    public class EndCopyEvent : SDD.Events.Event
-    {
-        public int MapId { get; set; }
     }
 
     public class ShowCopyInfoEvent : SDD.Events.Event
@@ -415,6 +404,22 @@ namespace Game
     //------Infinite
     public class InfiniteStartEvent : SDD.Events.Event
     {
+    }
+
+    //----legacy
+    public class LegacyStartEvent : SDD.Events.Event
+    {
+        public int MapId { get; set; }
+        public int Layer { get; set; }
+    }
+    public class BattlerEndEvent : SDD.Events.Event
+    {
+        public RuleType Type { get; set; }
+    }
+
+    public class ShowLegacyInfoEvent : SDD.Events.Event
+    {
+        public long Count { get; set; }
     }
 
     //--------Fashion

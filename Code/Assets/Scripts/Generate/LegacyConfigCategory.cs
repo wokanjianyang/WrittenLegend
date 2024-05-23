@@ -62,4 +62,19 @@ namespace Game
             return (int)Math.Pow(2, layer - 1) * RecoveryNubmer;
         }
     }
+
+    public partial class LegacyMapConfig
+    {
+        public long CalMaxLayer(long[] powerList)
+        {
+            long layer = powerList[0] / PowerList[0];
+
+            for (int i = 1; i < PowerList.Length; i++)
+            {
+                layer = Math.Min(layer, powerList[i] / PowerList[i]);
+            }
+
+            return layer + 1;
+        }
+    }
 }

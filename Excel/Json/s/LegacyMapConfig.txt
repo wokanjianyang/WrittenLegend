@@ -1,5 +1,5 @@
 {"list":[
-{"_t":"LegacyMapConfig","_id":1,"Name":"传世圣地","Power1":400,"Power2":200,"Power3":200},
-{"_t":"LegacyMapConfig","_id":2,"Name":"传世神域","Power1":200,"Power2":400,"Power3":200},
-{"_t":"LegacyMapConfig","_id":3,"Name":"传世秘境","Power1":200,"Power2":200,"Power3":400},
+{"_t":"LegacyMapConfig","_id":1,"Name":"传世圣地","PowerList":[400,200,200]},
+{"_t":"LegacyMapConfig","_id":2,"Name":"传世神域","PowerList":[200,400,200]},
+{"_t":"LegacyMapConfig","_id":3,"Name":"传世秘境","PowerList":[200,200,400]},
 ]}

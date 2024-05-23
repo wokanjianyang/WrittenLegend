@@ -93,7 +93,8 @@ public class MapBossFamily : MonoBehaviour, IBattleLife
         {
             txt_Stop.text = "自动中...";
         }
-        else {
+        else
+        {
             txt_Stop.text = "不自动";
         }
 
@@ -181,7 +182,7 @@ public class MapBossFamily : MonoBehaviour, IBattleLife
     {
         GameProcessor.Inst.OnDestroy();
         this.gameObject.SetActive(false);
-        GameProcessor.Inst.EventCenter.Raise(new BossFamilyEndEvent());
+        GameProcessor.Inst.EventCenter.Raise(new BattlerEndEvent() { Type = RuleType.BossFamily });
         GameProcessor.Inst.SetGameOver(PlayerType.Hero);
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {

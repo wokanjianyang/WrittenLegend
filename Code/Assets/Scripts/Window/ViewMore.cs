@@ -22,9 +22,12 @@ namespace Game
         public Dialog_BossFamily BossFamily;
 
         public Item_EquipCopy LegacyItem;
+        public Dialog_Copy_Legacy LegacyDialog;
 
         public Item_EquipCopy MineItem;
         public Dialog_Mine MineDialog;
+
+        
 
         void Start()
         {
@@ -65,15 +68,12 @@ namespace Game
             base.OnBattleStart();
 
             GameProcessor.Inst.EventCenter.AddListener<CloseViewMoreEvent>(this.OnClose);
-
-            GameProcessor.Inst.EventCenter.AddListener<EndCopyEvent>(this.OnEndCopy);
-            GameProcessor.Inst.EventCenter.AddListener<PhantomEndEvent>(this.OnPhantomEnd);
             GameProcessor.Inst.EventCenter.AddListener<CopyViewCloseEvent>(this.OnCopyViewClose);
-            GameProcessor.Inst.EventCenter.AddListener<BossFamilyEndEvent>(this.OnBossFamilyEnd);
 
             GameProcessor.Inst.EventCenter.AddListener<OpenMineEvent>(this.OpenMine);
+            GameProcessor.Inst.EventCenter.AddListener<OpenLegacyEvent>(this.OpenLegacy);
 
-            GameProcessor.Inst.EventCenter.AddListener<DefendEndEvent>(this.OnDefendEnd);
+            GameProcessor.Inst.EventCenter.AddListener<BattlerEndEvent>(this.OnBattlerEnd);
         }
 
         public void OnClose(CloseViewMoreEvent e)
@@ -100,15 +100,6 @@ namespace Game
         {
             scrollRect.gameObject.SetActive(false);
             Phantom.gameObject.SetActive(false);
-        }
-
-        public void OnEndCopy(EndCopyEvent e)
-        {
-            scrollRect.gameObject.SetActive(true);
-        }
-        public void OnPhantomEnd(PhantomEndEvent e)
-        {
-            scrollRect.gameObject.SetActive(true);
         }
 
         public void StartBossFamily(int level, int rate)
@@ -139,12 +130,8 @@ namespace Game
             GameProcessor.Inst.EventCenter.Raise(new BossFamilyStartEvent() { Level = level, Rate = rate });
         }
 
-        public void OnBossFamilyEnd(BossFamilyEndEvent e)
-        {
-            scrollRect.gameObject.SetActive(true);
-        }
 
-        public void OnDefendEnd(DefendEndEvent e)
+        public void OnBattlerEnd(BattlerEndEvent e)
         {
             scrollRect.gameObject.SetActive(true);
         }
@@ -180,6 +167,18 @@ namespace Game
         private void OpenMine(OpenMineEvent e)
         {
             MineDialog.gameObject.SetActive(true);
+        }
+
+        private void OpenLegacy(OpenLegacyEvent e)
+        {
+            LegacyDialog.gameObject.SetActive(true);
+        }
+
+        public void StartLegacy(int mapId, int layer)
+        {
+            scrollRect.gameObject.SetActive(false);
+
+            GameProcessor.Inst.EventCenter.Raise(new LegacyStartEvent() { MapId = mapId, Layer = layer });
         }
 
         protected override bool CheckPageType(ViewPageType page)

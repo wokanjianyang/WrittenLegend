@@ -460,9 +460,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Txt_Name: {fileID: 8181858019419231940}
   Txt_Level: {fileID: 3636749429276466863}
-  Txt_Fee1: {fileID: 8978194836048676835}
-  Txt_Fee2: {fileID: 421142394660834756}
-  Txt_Fee3: {fileID: 7376856419543298190}
+  TextPowerList:
+  - {fileID: 8978194836048676835}
+  - {fileID: 421142394660834756}
+  - {fileID: 7376856419543298190}
   Btn_Start: {fileID: 9091500032371214381}
 --- !u!1 &6772530897389458344
 GameObject:

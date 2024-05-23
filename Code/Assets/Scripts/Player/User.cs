@@ -189,6 +189,10 @@ namespace Game
         //副本次数记录
         public long CopyTicketTime { get; set; } = 0;
 
+        public long LegacyTicketTime { get; set; } = 0;
+
+        public MagicData LegacyTikerCount { get; } = new MagicData();
+
         public long SaveTicketTime { get; set; } = 0;
 
         public long SaveTickeTimeHand { get; set; } = 0;

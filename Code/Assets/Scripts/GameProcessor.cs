@@ -351,8 +351,7 @@ namespace Game
             }
 
             this.EventCenter.AddListener<ShowGameMsgEvent>(ShowGameMsg);
-            this.EventCenter.AddListener<EndCopyEvent>(this.OnEndCopy);
-            this.EventCenter.AddListener<BossFamilyEndEvent>(this.OnEndBossFamily);
+            this.EventCenter.AddListener<BattlerEndEvent>(this.OnEndCopy);
             this.EventCenter.AddListener<CheckGameCheatEvent>(CheckGameCheat);
             this.EventCenter.AddListener<NewVersionEvent>(NewVersion);
 
@@ -476,6 +475,9 @@ namespace Game
                 case RuleType.Infinite:
                     this.BattleRule = new BattleRule_Infinite(param);
                     break;
+                case RuleType.Legacy:
+                    this.BattleRule = new BattleRule_Legacy(param);
+                    break;
             }
 
             if (autoHero)
@@ -556,15 +558,7 @@ namespace Game
             StartCoroutine(this.AutoExitApp(ExitType.Version));
         }
 
-        private void OnEndCopy(EndCopyEvent e)
-        {
-            if (ie_autoExitKey != null)
-            {
-                StopCoroutine(ie_autoExitKey);
-            }
-            ie_autoExitKey = null;
-        }
-        private void OnEndBossFamily(BossFamilyEndEvent e)
+        private void OnEndCopy(BattlerEndEvent e)
         {
             if (ie_autoExitKey != null)
             {

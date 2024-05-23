@@ -219,7 +219,7 @@ public class MapEquipCopy : MonoBehaviour, IBattleLife
     {
         GameProcessor.Inst.OnDestroy();
         this.gameObject.SetActive(false);
-        GameProcessor.Inst.EventCenter.Raise(new EndCopyEvent());
+        GameProcessor.Inst.EventCenter.Raise(new BattlerEndEvent() { Type = RuleType.EquipCopy });
         GameProcessor.Inst.SetGameOver(PlayerType.Hero);
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {

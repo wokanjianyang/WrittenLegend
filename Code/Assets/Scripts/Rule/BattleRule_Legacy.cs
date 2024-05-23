@@ -9,7 +9,7 @@ public class BattleRule_Legacy : ABattleRule
 {
     private bool Start = false;
 
-    private int LegacyId = 0;
+    private int MapId = 0;
     private int Layer = 0;
 
     private long MapTime = 0;
@@ -17,12 +17,12 @@ public class BattleRule_Legacy : ABattleRule
 
     public BattleRule_Legacy(Dictionary<string, object> param)
     {
-        param.TryGetValue("MapTime", out object mapTime);
-        param.TryGetValue("LegacyId", out object legacyId);
+        //param.TryGetValue("MapTime", out object mapTime);
+        param.TryGetValue("MapId", out object mapId);
         param.TryGetValue("Layer", out object layer);
 
-        this.MapTime = (long)mapTime;
-        this.LegacyId = (int)legacyId;
+        //this.MapTime = (long)mapTime;
+        this.MapId = (int)mapId;
         this.Layer = (int)layer;
 
         Start = true;
@@ -44,11 +44,11 @@ public class BattleRule_Legacy : ABattleRule
         }
 
         User user = GameProcessor.Inst.User;
-        int LecacyCount = 1;
+        long LecacyCount = user.LegacyTikerCount.Data;
 
         if (LecacyCount > 0)
         {
-            var enemy = new Monster_Legacy(LegacyId, Layer);
+            var enemy = new Monster_Legacy(MapId, Layer);
             GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
         }
         else
@@ -56,7 +56,7 @@ public class BattleRule_Legacy : ABattleRule
             //reward
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Legacy, Message = "您已经没有了挑战次数！" });
 
-            GameOver();
+            //GameOver();
 
             Start = false;
             return;

@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class MapLegacy : MonoBehaviour, IBattleLife
 {
+    public Text Txt_Name;
     public Text Txt_Count;
 
     public ScrollRect sr_BattleMsg;
@@ -21,7 +22,6 @@ public class MapLegacy : MonoBehaviour, IBattleLife
     private List<Text> msgPool = new List<Text>();
 
     private long MapTime = 0;
-    private long PauseCount = 0;
 
     public int Order => (int)ComponentOrder.BattleRule;
 
@@ -36,54 +36,42 @@ public class MapLegacy : MonoBehaviour, IBattleLife
         this.msgPrefab = Resources.Load<GameObject>("Prefab/Window/Item/Item_DropMsg");
 
         GameProcessor.Inst.EventCenter.AddListener<BattleMsgEvent>(this.OnBattleMsgEvent);
-        GameProcessor.Inst.EventCenter.AddListener<ShowDefendInfoEvent>(this.OnShowDefendInfo);
-        GameProcessor.Inst.EventCenter.AddListener<DefendStartEvent>(this.OnDefendStart);
+        GameProcessor.Inst.EventCenter.AddListener<ShowLegacyInfoEvent>(this.OnShowInfo);
+        GameProcessor.Inst.EventCenter.AddListener<LegacyStartEvent>(this.OnStart);
         GameProcessor.Inst.EventCenter.AddListener<BattleLoseEvent>(this.OnBattleLoseEvent);
 
         this.gameObject.SetActive(false);
     }
 
 
-    public void OnDefendStart(DefendStartEvent e)
+    public void OnStart(LegacyStartEvent e)
     {
-        StartCopy();
-    }
+        Debug.Log("LegacyStartEvent");
 
-    private void StartCopy()
-    {
         this.gameObject.SetActive(true);
 
-        User user = GameProcessor.Inst.User;
-
-        DefendRecord record = user.DefendData.GetCurrentRecord();
-
-        if (record == null)
-        {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有了挑战次数", ToastType = ToastTypeEnum.Failure });
-            return;
-        }
-
         Dictionary<string, object> param = new Dictionary<string, object>();
-        param.Add("progress", record.Progress.Data);
-        param.Add("hp", record.Hp.Data);
-        param.Add("count", record.Count.Data);
+        param.Add("MapId", e.MapId);
+        param.Add("Layer", e.Layer);
+
+        LegacyMapConfig mapConfig = LegacyMapConfigCategory.Instance.Get(e.MapId);
+        Txt_Name.text = mapConfig.Name + "(" + e.Layer + "阶)";
 
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {
             GameProcessor.Inst.OnDestroy();
-            GameProcessor.Inst.LoadMap(RuleType.Defend, this.transform, param);
+            GameProcessor.Inst.LoadMap(RuleType.Legacy, this.transform, param);
         });
     }
 
-    public void OnShowDefendInfo(ShowDefendInfoEvent e)
+    public void OnShowInfo(ShowLegacyInfoEvent e)
     {
-        Txt_Count.text = "进攻波数：" + e.Count;
-        PauseCount = e.PauseCount;
+        Txt_Count.text = "剩余挑战次数：" + e.Count;
     }
 
     private void OnBattleMsgEvent(BattleMsgEvent e)
     {
-        if (e.Type != RuleType.Defend)
+        if (e.Type != RuleType.Legacy)
         {
             return;
         }
@@ -123,17 +111,16 @@ public class MapLegacy : MonoBehaviour, IBattleLife
 
     private void OnClick_Exit()
     {
-        GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("还剩" + PauseCount + "次退出次数,是否退出？", true, () =>
-          {
-              this.Exit();
-          }, null);
+        this.Exit();
     }
 
     private void Exit()
     {
         GameProcessor.Inst.OnDestroy();
         this.gameObject.SetActive(false);
-        GameProcessor.Inst.EventCenter.Raise(new DefendEndEvent());
+
+        GameProcessor.Inst.EventCenter.Raise(new BattlerEndEvent() { Type = RuleType.Legacy });
+
         GameProcessor.Inst.SetGameOver(PlayerType.Hero);
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {

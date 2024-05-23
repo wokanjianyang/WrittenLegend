@@ -81,15 +81,9 @@ namespace Game
 		/// <summary>Name</summary>
 		[ProtoMember(2)]
 		public string Name { get; set; }
-		/// <summary>Power1</summary>
+		/// <summary>PowerList</summary>
 		[ProtoMember(3)]
-		public int Power1 { get; set; }
-		/// <summary>Power2</summary>
-		[ProtoMember(4)]
-		public int Power2 { get; set; }
-		/// <summary>Power3</summary>
-		[ProtoMember(5)]
-		public int Power3 { get; set; }
+		public int[] PowerList { get; set; }
 
 	}
 }

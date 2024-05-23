@@ -105,20 +105,14 @@ namespace Game
 		/// <summary>LayerRiseList</summary>
 		[ProtoMember(10)]
 		public int[] LayerRiseList { get; set; }
-		/// <summary>Power1</summary>
+		/// <summary>PowerList</summary>
 		[ProtoMember(11)]
-		public int Power1 { get; set; }
-		/// <summary>Power2</summary>
-		[ProtoMember(12)]
-		public int Power2 { get; set; }
-		/// <summary>Power3</summary>
-		[ProtoMember(13)]
-		public int Power3 { get; set; }
+		public int[] PowerList { get; set; }
 		/// <summary>DropRate</summary>
-		[ProtoMember(14)]
+		[ProtoMember(12)]
 		public int DropRate { get; set; }
 		/// <summary>RecoveryNubmer</summary>
-		[ProtoMember(15)]
+		[ProtoMember(13)]
 		public int RecoveryNubmer { get; set; }
 
 	}
