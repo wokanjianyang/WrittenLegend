@@ -1158,6 +1158,16 @@ namespace Game
             return LegacyLevel[id].Data;
         }
 
+        public void SaveLegacyLevel(int id)
+        {
+            if (!LegacyLevel.ContainsKey(id))
+            {
+                LegacyLevel[id] = new MagicData();
+            }
+
+            LegacyLevel[id].Data++;
+        }
+
         public long GetLegacyLayer(int id)
         {
             if (!LegacyLayer.ContainsKey(id))

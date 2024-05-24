@@ -23,22 +23,13 @@ namespace Game
         {
             Txt_Name.text = "";
             Txt_Level.text = "";
+            Txt_Layer.text = "";
         }
 
         // Update is called once per frame
         void OnEnable()
         {
-            if (Config != null)
-            {
-                Check();
-            }
-        }
 
-        private void Check() {
-            User user = GameProcessor.Inst.User;
-            long total = user.GetItemMeterialCount(Config.ItemId);
-            string color = total >= Level + 1 ? "#FFFF00" : "#FF0000";
-            Txt_Name.text = string.Format("<color={0}>{1}</color>", color, Config.Name);
         }
 
         public void Init(LegacyConfig config)
@@ -47,11 +38,14 @@ namespace Game
 
             Txt_Name.text = config.Name;
             Txt_Level.text = "";
+            Txt_Layer.text = "";
         }
 
-        public void SetLevel(long level)
+        public void SetContent(long layer, long level)
         {
             this.Level = level;
+
+
             if (level > 0)
             {
                 Txt_Level.text = level + "";
@@ -61,7 +55,14 @@ namespace Game
                 Txt_Level.text = "";
             }
 
-            Check();
+            if (layer > 0)
+            {
+                Txt_Layer.text = layer + "½×";
+            }
+            else
+            {
+                Txt_Layer.text = "";
+            }
         }
     }
 }

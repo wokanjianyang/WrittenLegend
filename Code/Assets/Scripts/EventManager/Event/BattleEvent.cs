@@ -422,6 +422,10 @@ namespace Game
         public long Count { get; set; }
     }
 
+    public class OpenLegacyDialogEvent : SDD.Events.Event
+    {
+    }
+
     //--------Fashion
     public class OpenFashionDialogEvent : SDD.Events.Event
     {

@@ -50,7 +50,7 @@ public class Panel_Refine : MonoBehaviour
             int position = i + 1;
             long level = user.GetRefineLevel(position);
 
-            items[i].Init(2,position, level, toggleGroup);
+            items[i].Init(2, position, level, toggleGroup);
         }
     }
 
@@ -84,6 +84,7 @@ public class Panel_Refine : MonoBehaviour
 
         Refine_Attr_Base.gameObject.SetActive(false);
         Refine_Attr_Quality.gameObject.SetActive(false);
+        Refine_Attr_Strenth.gameObject.SetActive(false);
 
         if (nextConfig != null && nextConfig.GetBaseAttrPercent(nextLevel) > 0)
         {
@@ -104,11 +105,14 @@ public class Panel_Refine : MonoBehaviour
 
             Refine_Attr_Quality.gameObject.SetActive(true);
             Refine_Attr_Quality.SetContent((int)AttributeEnum.EquipRandomIncrea, currentAttrValue, attrRise);
+        }
 
-
+        if (nextConfig != null && nextConfig.GetStengthPercent(nextLevel) > 0)
+        {
             long currentStrenthValue = currentConfig == null ? 0 : currentConfig.GetStengthPercent(currentLevel);
             long nextStrenthValue = nextConfig == null ? 0 : nextConfig.GetStengthPercent(nextLevel);
             long strenthRise = nextStrenthValue - currentStrenthValue;
+
             Refine_Attr_Strenth.gameObject.SetActive(true);
             Refine_Attr_Strenth.SetContent((int)AttributeEnum.EquipStrengthIncrea, currentStrenthValue, strenthRise);
         }

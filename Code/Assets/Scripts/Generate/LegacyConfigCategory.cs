@@ -66,6 +66,26 @@ namespace Game
         {
             return (int)Math.Pow(2, layer - 1) * RecoveryNubmer;
         }
+
+        public long GetLevelAttr(int index, long level)
+        {
+            if (level < 1)
+            {
+                return 0;
+            }
+
+            return AttrValueList[index] + AttrRiseList[index] * (level - 1);
+        }
+
+        public long GetLayerAttr(int index, long level)
+        {
+            if (level < 1)
+            {
+                return 0;
+            }
+
+            return LayerValueList[index] + LayerRiseList[index] * (level - 1);
+        }
     }
 
     public partial class LegacyMapConfig

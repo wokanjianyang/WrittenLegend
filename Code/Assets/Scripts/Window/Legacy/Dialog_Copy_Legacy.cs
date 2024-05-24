@@ -106,6 +106,6 @@ public class Dialog_Copy_Legacy : MonoBehaviour
 
     public void OnClick_Info()
     {
-
+        GameProcessor.Inst.EventCenter.Raise(new OpenLegacyDialogEvent());
     }
 }

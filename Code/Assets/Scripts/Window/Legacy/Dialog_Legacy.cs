@@ -12,6 +12,8 @@ public class Dialog_Legacy : MonoBehaviour, IBattleLife
     public List<Toggle> toggles;
     public List<Item_Legacy> items;
 
+    public List<Text> TxtPowerList;
+
     public List<StrenthAttrItem> LayerAttrList;
 
     public List<StrenthAttrItem> LevelAttrList;
@@ -59,27 +61,20 @@ public class Dialog_Legacy : MonoBehaviour, IBattleLife
 
     public void OnBattleStart()
     {
-        GameProcessor.Inst.EventCenter.AddListener<OpenFashionDialogEvent>(this.OpenFashionDialog);
-        //throw new NotImplementedException();
+        GameProcessor.Inst.EventCenter.AddListener<OpenLegacyDialogEvent>(this.OpenDialog);
     }
+
+    private void OpenDialog(OpenLegacyDialogEvent e)
+    {
+        this.gameObject.SetActive(true);
+    }
+
 
     private void ShowSuit(int suitId)
     {
         this.CurrentSuit = suitId;
 
         User user = GameProcessor.Inst.User;
-
-        if (!user.FashionData.ContainsKey(suitId))
-        {
-            Dictionary<int, MagicData> nfs = new Dictionary<int, MagicData>();
-            for (int i = 1; i <= CountMax; i++)
-            {
-                nfs[i] = new MagicData();
-            }
-            user.FashionData[suitId] = nfs;
-        }
-
-        Dictionary<int, MagicData> fs = user.FashionData[suitId];
 
         List<LegacyConfig> configs = LegacyConfigCategory.Instance.GetRoleList(suitId);
 
@@ -90,8 +85,10 @@ public class Dialog_Legacy : MonoBehaviour, IBattleLife
 
             box.Init(config);
 
-            int level = (int)fs[i].Data;
-            box.SetLevel(level);
+            long layer = user.GetLegacyLayer(config.Id);
+            long level = user.GetLegacyLevel(config.Id);
+
+            box.SetContent(layer, level);
         }
 
         Item_Legacy currentItem = items.Where(m => m.toggle.isOn).FirstOrDefault();
@@ -100,51 +97,57 @@ public class Dialog_Legacy : MonoBehaviour, IBattleLife
 
     private void ShowItem(Item_Legacy currentItem)
     {
-        //套装属性
-        FashionSuitConfig suitConfig = FashionSuitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Id == CurrentSuit).FirstOrDefault();
-
         User user = GameProcessor.Inst.User;
 
-        Dictionary<int, MagicData> fs = user.FashionData[CurrentSuit];
+        LegacyConfig config = currentItem.Config;
 
-        long currentLevel = user.GetLegacyLevel(currentItem.Config.Id);
-        long currentLayer = user.GetLegacyLayer(currentItem.Config.Id);
+        long currentLevel = user.GetLegacyLevel(config.Id);
+        long currentLayer = user.GetLegacyLayer(config.Id);
 
-        currentItem.SetLevel(currentLevel);
+        currentItem.SetContent(currentLayer, currentLevel);
 
-        if (currentLevel >= suitConfig.MaxLevel)
+        //layer
+        for (int i = 0; i < LayerAttrList.Count; i++)
         {
-            Btn_Ok.gameObject.SetActive(false);
-        }
-        else
-        {
-            Btn_Ok.gameObject.SetActive(true);
-        }
-
-        int suitLevel = (int)fs.Select(m => m.Value.Data).Min();
-
-        string attrName = StringHelper.FormatAttrValueName(suitConfig.AttrId);
-        long ab = 0;
-        long ar = suitConfig.AttrRise;
-        if (suitLevel > 0)
-        {
-            ab = suitConfig.AttrValue + suitConfig.AttrRise * (suitLevel - 1);
-        }
-        else
-        {
-            ar = suitConfig.AttrValue;
+            if (i < config.LayerIdList.Length)
+            {
+                LayerAttrList[i].gameObject.SetActive(true);
+                LayerAttrList[i].SetContent(config.LayerIdList[i], config.GetLayerAttr(i, currentLayer), 0);
+            }
+            else
+            {
+                LayerAttrList[i].gameObject.SetActive(false);
+            }
         }
 
+        //power
+        for (int i = 0; i < config.PowerList.Length; i++)
+        {
+            TxtPowerList[i].text = config.PowerList[i] * currentLayer + "";
+        }
 
-        //单件属性
+        //level
+        for (int i = 0; i < LevelAttrList.Count; i++)
+        {
+            if (i < config.AttrIdList.Length)
+            {
+                LevelAttrList[i].gameObject.SetActive(true);
+                LevelAttrList[i].SetContent(config.AttrIdList[i], config.GetLevelAttr(i, currentLevel), config.AttrRiseList[i]);
+            }
+            else
+            {
+                LevelAttrList[i].gameObject.SetActive(false);
+            }
+        }
 
         long total = user.GetItemMeterialCount(ItemHelper.SpecialId_Legacy_Stone);
+        long needNumber = 100;
 
-        string color = total >= currentLevel + 1 ? "#FFFF00" : "#FF0000";
+        string color = total >= needNumber + 1 ? "#FFFF00" : "#FF0000";
 
-        Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2}", color, currentItem.Config.Name + " * " + (currentLevel + 1), total);
+        Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2}", color, total, needNumber);
 
-        if (total >= currentLevel + 1)
+        if (total >= needNumber)
         {
             Btn_Ok.gameObject.SetActive(true);
         }
@@ -154,16 +157,29 @@ public class Dialog_Legacy : MonoBehaviour, IBattleLife
         }
     }
 
-    private void OpenFashionDialog(OpenFashionDialogEvent e)
-    {
-        this.gameObject.SetActive(true);
-    }
 
     public void OnClick_Ok()
     {
+        Item_Legacy currentItem = items.Where(m => m.toggle.isOn).FirstOrDefault();
+        LegacyConfig config = currentItem.Config;
+
         User user = GameProcessor.Inst.User;
+        long currentLevel = user.GetLegacyLevel(config.Id);
 
+        long total = user.GetItemMeterialCount(ItemHelper.SpecialId_Legacy_Stone);
+        long needCount = (currentLevel + 1) * 10;
 
+        if (total < needCount)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "材料数量不足" + needCount + "个", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
+
+        user.UseItemMeterialCount(ItemHelper.SpecialId_Legacy_Stone, needCount);
+        user.SaveLegacyLevel(config.Id);
+
+        this.ShowItem(currentItem);
+        GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
     }
 
     public void OnClick_Close()
