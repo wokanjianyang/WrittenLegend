@@ -21,46 +21,6 @@ public class Init : MonoBehaviour
         Bottom,
     }
 
-    public enum WindowTypeEnum
-    {
-        //Top
-        Loading = -1,
-
-        //Bottom
-        View_Map,
-        View_Bag,
-        View_Skill,
-        View_EndlessTower,
-        View_Forge,
-        View_More,
-
-        //Center
-        View_TopStatu,
-        View_BottomNavBar,
-        Map_EquipCopy,
-        Map_Phantom,
-        Map_BossFamily,
-        Map_AnDian,
-        Map_Defend,
-        Map_HeroPhantom,
-        Map_Infinite,
-        Map_Legacy,
-
-        Dialog_Detail,
-        Dialog_Detail_Select,
-        Dialog_EquipDetail,
-        Dialog_Exclusive_Detail,
-        Dialog_OfflineExp,
-        Dialog_Settings,
-        Dialog_FloatButtons,
-        Dialog_SecondaryConfirmation,
-        Dialog_SoulRing,
-        Dialog_Achievement,
-        Dialog_Defend,
-        Dialog_Fashion,
-        Dialog_Attr,
-    }
-
     [LabelText("战斗模式")]
     public RuleType RuleType = RuleType.Normal;
 
@@ -76,68 +36,57 @@ public class Init : MonoBehaviour
     public Transform Center;
     public Transform Top;
 
-    private Dictionary<UILayer, List<WindowTypeEnum>> allWindows = new Dictionary<UILayer, List<WindowTypeEnum>>()
+
+    private Dictionary<UILayer, List<string>> allWindows = new Dictionary<UILayer, List<string>>()
     {
         {
-            UILayer.Bottom, new List<WindowTypeEnum>()
+            UILayer.Bottom, new List<string>()
             {
-                WindowTypeEnum.View_Map,
-                WindowTypeEnum.View_Bag,
-                WindowTypeEnum.View_Skill,
-                WindowTypeEnum.View_EndlessTower,
-                WindowTypeEnum.View_Forge,
-                WindowTypeEnum.View_More
+                "Window/View_Map",
+                "Window/View_Bag",
+                "Window/View_Skill",
+                "Window/View_EndlessTower",
+                "Window/View_Forge",
+                "Window/View_More"
             }
         },
         {
-            UILayer.Center, new List<WindowTypeEnum>()
+            UILayer.Center, new List<string>()
             {
-                WindowTypeEnum.View_TopStatu,
-                WindowTypeEnum.View_BottomNavBar,
-                WindowTypeEnum.Dialog_Detail_Select,
-                WindowTypeEnum.Dialog_Detail,
-                WindowTypeEnum.Dialog_EquipDetail,
-                WindowTypeEnum.Dialog_Exclusive_Detail,
-                WindowTypeEnum.Dialog_Defend,
-                WindowTypeEnum.Dialog_OfflineExp,
-                WindowTypeEnum.Dialog_Settings,
-                WindowTypeEnum.Map_EquipCopy,
-                WindowTypeEnum.Map_Phantom,
-                WindowTypeEnum.Map_BossFamily,
-                WindowTypeEnum.Map_AnDian,
-                WindowTypeEnum.Map_Defend,
-                WindowTypeEnum.Map_HeroPhantom,
-                WindowTypeEnum.Map_Infinite,
-                WindowTypeEnum.Map_Legacy,
+                "Window/View_TopStatu",
+                "Window/View_BottomNavBar",
+                "Window/Dialog_Detail_Select",
+                "Window/Dialog_Detail",
+                "Window/Dialog_EquipDetail",
+                "Window/Dialog_Exclusive_Detail",
+                "Window/Dialog_Defend",
+                "Window/Dialog_OfflineExp",
+                "Window/Dialog_Settings",
+                "Window/Map_EquipCopy",
+                "Window/Map_Phantom",
+                "Window/Map_BossFamily",
+                "Window/Map_AnDian",
+                "Window/Map_Defend",
+                "Window/Map_HeroPhantom",
+                "Window/Map_Infinite",
+                "Window/Map_Legacy",
 
-                WindowTypeEnum.Dialog_SoulRing,
-                WindowTypeEnum.Dialog_Achievement,
-                WindowTypeEnum.Dialog_Fashion,
-                WindowTypeEnum.Dialog_Attr,
+                "Window/Dialog_SoulRing",
+                "Window/Dialog_Achievement",
+                "Window/Dialog_Fashion",
+                "Window/Dialog_Attr",
+                "Window/Legacy/Dialog_Legacy",
             }
         },
         {
-            UILayer.Top, new List<WindowTypeEnum>()
+            UILayer.Top,  new List<string>()
             {
-                WindowTypeEnum.Dialog_FloatButtons,
-                WindowTypeEnum.Loading,
-                WindowTypeEnum.Dialog_SecondaryConfirmation,
+                "Window/Dialog_FloatButtons",
+                "Window/Loading",
+                "Window/Dialog_SecondaryConfirmation",
             }
         }
     };
-
-#if UNITY_EDITOR
-
-    [LabelText("加速")]
-    public float TimeScale = 1;
-
-    private void OnValidate()
-    {
-        //Time.timeScale = this.TimeScale;
-        //DOTween.timeScale = 1f / this.TimeScale;
-    }
-#endif
-
 
     void Awake()
     {
@@ -202,7 +151,7 @@ public class Init : MonoBehaviour
             allWindows.TryGetValue(layer, out var windowTypes);
             foreach (var winType in windowTypes)
             {
-                var request = Resources.LoadAsync<GameObject>($"Prefab/Window/{winType.ToString()}");
+                var request = Resources.LoadAsync<GameObject>($"Prefab/{winType}");
                 yield return request;
                 if (request.asset != null)
                 {
@@ -220,7 +169,7 @@ public class Init : MonoBehaviour
                             break;
                     }
                     win.transform.localPosition = Vector3.zero;
-                    var isLoading = winType == WindowTypeEnum.Loading;
+                    var isLoading = winType == "Window/Loading";
                     if (isLoading)
                     {
                         loadingPage = win;
@@ -229,7 +178,7 @@ public class Init : MonoBehaviour
                 }
                 else
                 {
-                    Log.Error($"窗口：{winType.ToString()}不存在");
+                    Log.Error($"窗口：{winType}不存在");
                 }
             }
         }

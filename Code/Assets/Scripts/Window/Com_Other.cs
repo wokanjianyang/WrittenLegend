@@ -103,6 +103,10 @@ namespace Game
 
             long now = TimeHelper.ClientNowSeconds();
             long cdSaveTime = now - user.SaveTickeTimeHand;
+
+#if UNITY_EDITOR
+            cdSaveTime = 1900;
+#endif
             if (cdSaveTime > CdSaveTime)
             {
                 btn_Save.gameObject.SetActive(true);
@@ -116,6 +120,9 @@ namespace Game
             }
 
             long cdLoadTime = now - user.LoadTicketTime;
+#if UNITY_EDITOR
+            cdLoadTime = 8000;
+#endif
             if (cdLoadTime > CdLoadTime)
             {
                 btn_Load.gameObject.SetActive(true);

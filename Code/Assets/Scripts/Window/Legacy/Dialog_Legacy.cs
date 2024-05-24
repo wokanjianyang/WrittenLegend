@@ -10,6 +10,8 @@ using UnityEngine.UI;
 public class Dialog_Legacy : MonoBehaviour, IBattleLife
 {
     public List<Toggle> toggles;
+
+    public Transform Tran_Item_List;
     public List<Item_Legacy> items;
 
     public List<Text> TxtPowerList;
@@ -33,6 +35,13 @@ public class Dialog_Legacy : MonoBehaviour, IBattleLife
     {
         Btn_Close.onClick.AddListener(OnClick_Close);
         Btn_Ok.onClick.AddListener(OnClick_Ok);
+
+        ToggleGroup toggleGroup = Tran_Item_List.GetComponent<ToggleGroup>();
+
+        for (int i = 0; i < items.Count(); i++)
+        {
+            items[i].Init(toggleGroup);
+        }
     }
 
     // Start is called before the first frame update
@@ -78,12 +87,12 @@ public class Dialog_Legacy : MonoBehaviour, IBattleLife
 
         List<LegacyConfig> configs = LegacyConfigCategory.Instance.GetRoleList(suitId);
 
-        for (int i = 1; i <= configs.Count; i++)
+        for (int i = 0; i < configs.Count; i++)
         {
             LegacyConfig config = configs[i];
-            Item_Legacy box = items[i - 1];
+            Item_Legacy box = items[i];
 
-            box.Init(config);
+            box.Change(config);
 
             long layer = user.GetLegacyLayer(config.Id);
             long level = user.GetLegacyLevel(config.Id);

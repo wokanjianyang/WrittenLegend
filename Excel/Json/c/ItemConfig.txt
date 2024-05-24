@@ -49,6 +49,7 @@
 {"_t":"ItemConfig","_id":4106,"Name":"鞭炮","Type":5,"Des":"春节活动材料，兑换其他道具","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":5,"UseParam":0},
 {"_t":"ItemConfig","_id":4107,"Name":"纸鸢","Type":5,"Des":"清明活动材料，兑换其他道具","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":5,"UseParam":0},
 {"_t":"ItemConfig","_id":4108,"Name":"锄头","Type":5,"Des":"五一活动材料，兑换其他道具","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":5,"UseParam":0},
+{"_t":"ItemConfig","_id":4109,"Name":"传世挑战卷","Type":9,"Des":"传世挑战次数+1","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":5,"UseParam":0},
 {"_t":"ItemConfig","_id":4201,"Name":"橙装精华","Type":5,"Des":"升级或洗练红装","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":5,"UseParam":0},
 {"_t":"ItemConfig","_id":4202,"Name":"橙装精华(废弃)","Type":5,"Des":"升级或洗练红装","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":5,"UseParam":0},
 {"_t":"ItemConfig","_id":6101,"Name":"金币1小时","Type":7,"Des":"1小时金币收益","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":4,"UseParam":1},

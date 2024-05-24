@@ -32,7 +32,12 @@ namespace Game
 
         }
 
-        public void Init(LegacyConfig config)
+        public void Init(ToggleGroup toggleGroup)
+        {
+            toggle.group = toggleGroup;
+        }
+
+        public void Change(LegacyConfig config)
         {
             this.Config = config;
 
