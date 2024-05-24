@@ -39,15 +39,15 @@ namespace Game
 
             int rd = RandomHelper.RandomNumber(1, 101);
 
-            if (rd <= 10)
+            if (rd <= 40)
             {
                 result = layer;
             }
-            else if (rd <= 30)
+            else if (rd <= 70)
             {
                 result = layer - 1;
             }
-            else if (rd <= 60)
+            else if (rd <= 90)
             {
                 result = layer - 2;
             }

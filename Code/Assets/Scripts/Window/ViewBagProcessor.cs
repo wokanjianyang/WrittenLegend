@@ -879,7 +879,15 @@ namespace Game
             }
             else if (boxItem.Item.Type == ItemType.Ticket)
             {
-                user.MagicCopyTikerCount.Data += quantity;
+                if (boxItem.Item.ConfigId == ItemHelper.SpecialId_Copy_Ticket)
+                {
+                    user.MagicCopyTikerCount.Data += quantity;
+                }
+                else if (boxItem.Item.ConfigId == ItemHelper.SpecialId_Legacy_Ticket)
+                {
+                    user.LegacyTikerCount.Data += quantity;
+                }
+
             }
         }
 

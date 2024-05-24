@@ -149,8 +149,8 @@ public class Dialog_Legacy : MonoBehaviour, IBattleLife
             }
         }
 
-        long total = user.GetItemMeterialCount(ItemHelper.SpecialId_Legacy_Stone);
-        long needNumber = 100;
+        long total = user.GetMaterialCount(ItemHelper.SpecialId_Legacy_Stone);
+        long needNumber = GetNeedNumber(currentLevel);
 
         string color = total >= needNumber + 1 ? "#FFFF00" : "#FF0000";
 
@@ -166,6 +166,10 @@ public class Dialog_Legacy : MonoBehaviour, IBattleLife
         }
     }
 
+    private long GetNeedNumber(long level)
+    {
+        return (level + 1) * 5;
+    }
 
     public void OnClick_Ok()
     {
@@ -175,8 +179,8 @@ public class Dialog_Legacy : MonoBehaviour, IBattleLife
         User user = GameProcessor.Inst.User;
         long currentLevel = user.GetLegacyLevel(config.Id);
 
-        long total = user.GetItemMeterialCount(ItemHelper.SpecialId_Legacy_Stone);
-        long needCount = (currentLevel + 1) * 10;
+        long total = user.GetMaterialCount(ItemHelper.SpecialId_Legacy_Stone);
+        long needCount = GetNeedNumber(currentLevel);
 
         if (total < needCount)
         {
@@ -184,7 +188,12 @@ public class Dialog_Legacy : MonoBehaviour, IBattleLife
             return;
         }
 
-        user.UseItemMeterialCount(ItemHelper.SpecialId_Legacy_Stone, needCount);
+        GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
+        {
+            Type = ItemType.Material,
+            ItemId = ItemHelper.SpecialId_Legacy_Stone,
+            Quantity = needCount
+        });
         user.SaveLegacyLevel(config.Id);
 
         this.ShowItem(currentItem);

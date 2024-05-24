@@ -92,6 +92,7 @@ namespace Game
         public static int SpecialId_Exclusive_Heart = 4010;
         public static int SpecialId_Red_Stone = 4011;
         public static int SpecialId_Legacy_Stone = 4012;
+        public static int SpecialId_Legacy_Ticket = 4013;
 
         public static int SpecialId_Card_Stone = 4101;
 

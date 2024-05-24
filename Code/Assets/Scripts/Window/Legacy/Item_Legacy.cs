@@ -53,7 +53,7 @@ namespace Game
 
             if (level > 0)
             {
-                Txt_Level.text = level + "";
+                Txt_Level.text = level + "¼¶";
             }
             else
             {

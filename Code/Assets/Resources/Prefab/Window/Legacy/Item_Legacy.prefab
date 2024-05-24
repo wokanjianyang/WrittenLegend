@@ -91,8 +91,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Txt_Name: {fileID: 5145446972010010552}
-  Txt_Layer: {fileID: 8706349459264097297}
-  Txt_Level: {fileID: 7674113156131010085}
+  Txt_Layer: {fileID: 7674113156131010085}
+  Txt_Level: {fileID: 8706349459264097297}
   toggle: {fileID: 5992272355798385684}
 --- !u!1 &5762241685902485255
 GameObject:
@@ -275,7 +275,7 @@ GameObject:
   - component: {fileID: 4092997521369518373}
   - component: {fileID: 7674113156131010085}
   m_Layer: 5
-  m_Name: Txt_Level
+  m_Name: Txt_Layer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -298,7 +298,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -50, y: -30}
+  m_AnchoredPosition: {x: -60, y: -30}
   m_SizeDelta: {x: 100, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4092997521369518373
@@ -355,7 +355,7 @@ GameObject:
   - component: {fileID: 8519544954979108171}
   - component: {fileID: 8706349459264097297}
   m_Layer: 5
-  m_Name: Txt_Layer
+  m_Name: Txt_Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -378,7 +378,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -50, y: 30}
+  m_AnchoredPosition: {x: -60, y: 30}
   m_SizeDelta: {x: 100, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8519544954979108171

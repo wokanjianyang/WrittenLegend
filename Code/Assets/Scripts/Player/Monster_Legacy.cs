@@ -137,7 +137,7 @@ public class Monster_Legacy : APlayer
         {
             recoveryStone += dropLegacy.GetRecoveryNumber(layer);
 
-            message += ",自动回收获得" + recoveryStone + "个传世精华";
+            message += ",自动回收获得" + recoveryStone + "个<color=#" + QualityConfigHelper.GetQualityColor(6) + ">传世精华</color>";
         }
 
         if (recoveryStone > 0)
