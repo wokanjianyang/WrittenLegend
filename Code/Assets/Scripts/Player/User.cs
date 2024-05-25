@@ -500,6 +500,29 @@ namespace Game
                 }
             }
 
+            //Legacy
+            List<LegacyConfig> legacyConfigs = LegacyConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
+            foreach (LegacyConfig config in legacyConfigs)
+            {
+                long layer = GetLegacyLayer(config.Id);
+                if (layer > 0)
+                {
+                    for (int i = 0; i < config.LayerIdList.Length; i++)
+                    {
+                        AttributeBonus.SetAttr((AttributeEnum)config.LayerIdList[i], AttributeFrom.Legacy, 100 + config.Id, config.GetLayerAttr(i, layer));
+                    }
+                }
+
+                long level = GetLegacyLevel(config.Id);
+                if (level > 0)
+                {
+                    for (int i = 0; i < config.AttrIdList.Length; i++)
+                    {
+                        AttributeBonus.SetAttr((AttributeEnum)config.AttrIdList[i], AttributeFrom.Legacy, config.Id, config.GetLevelAttr(i, level));
+                    }
+                }
+            }
+
             //光环
             foreach (var ar in GetAurasList())
             {

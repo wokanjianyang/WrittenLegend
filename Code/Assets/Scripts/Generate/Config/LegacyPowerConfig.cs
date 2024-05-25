@@ -7,32 +7,32 @@ namespace Game
 {
     [ProtoContract]
     [Config]
-    public partial class LegacyMapConfigCategory : ProtoObject, IMerge
+    public partial class LegacyPowerConfigCategory : ProtoObject, IMerge
     {
-        public static LegacyMapConfigCategory Instance;
+        public static LegacyPowerConfigCategory Instance;
 		
         [ProtoIgnore]
         [BsonIgnore]
-        private Dictionary<int, LegacyMapConfig> dict = new Dictionary<int, LegacyMapConfig>();
+        private Dictionary<int, LegacyPowerConfig> dict = new Dictionary<int, LegacyPowerConfig>();
 		
         [BsonElement]
         [ProtoMember(1)]
-        private List<LegacyMapConfig> list = new List<LegacyMapConfig>();
+        private List<LegacyPowerConfig> list = new List<LegacyPowerConfig>();
 		
-        public LegacyMapConfigCategory()
+        public LegacyPowerConfigCategory()
         {
             Instance = this;
         }
         
         public void Merge(object o)
         {
-            LegacyMapConfigCategory s = o as LegacyMapConfigCategory;
+            LegacyPowerConfigCategory s = o as LegacyPowerConfigCategory;
             this.list.AddRange(s.list);
         }
 		
         public override void EndInit()
         {
-            foreach (LegacyMapConfig config in list)
+            foreach (LegacyPowerConfig config in list)
             {
                 config.EndInit();
                 this.dict.Add(config.Id, config);
@@ -40,13 +40,13 @@ namespace Game
             this.AfterEndInit();
         }
 		
-        public LegacyMapConfig Get(int id)
+        public LegacyPowerConfig Get(int id)
         {
-            this.dict.TryGetValue(id, out LegacyMapConfig item);
+            this.dict.TryGetValue(id, out LegacyPowerConfig item);
 
             if (item == null)
             {
-                throw new Exception($"配置找不到，配置表名: {nameof (LegacyMapConfig)}，配置id: {id}");
+                throw new Exception($"配置找不到，配置表名: {nameof (LegacyPowerConfig)}，配置id: {id}");
             }
 
             return item;
@@ -57,12 +57,12 @@ namespace Game
             return this.dict.ContainsKey(id);
         }
 
-        public Dictionary<int, LegacyMapConfig> GetAll()
+        public Dictionary<int, LegacyPowerConfig> GetAll()
         {
             return this.dict;
         }
 
-        public LegacyMapConfig GetOne()
+        public LegacyPowerConfig GetOne()
         {
             if (this.dict == null || this.dict.Count <= 0)
             {
@@ -73,23 +73,26 @@ namespace Game
     }
 
     [ProtoContract]
-	public partial class LegacyMapConfig: ProtoObject, IConfig
+	public partial class LegacyPowerConfig: ProtoObject, IConfig
 	{
 		/// <summary>ID</summary>
 		[ProtoMember(1)]
 		public int Id { get; set; }
-		/// <summary>Name</summary>
+		/// <summary>MapId</summary>
 		[ProtoMember(2)]
-		public string Name { get; set; }
-		/// <summary>PowerList</summary>
+		public int MapId { get; set; }
+		/// <summary>StartLevel</summary>
 		[ProtoMember(3)]
+		public int StartLevel { get; set; }
+		/// <summary>EndLevel</summary>
+		[ProtoMember(4)]
+		public int EndLevel { get; set; }
+		/// <summary>PowerList</summary>
+		[ProtoMember(5)]
 		public int[] PowerList { get; set; }
 		/// <summary>PowerRiseList</summary>
-		[ProtoMember(4)]
+		[ProtoMember(6)]
 		public int[] PowerRiseList { get; set; }
-		/// <summary>Desc</summary>
-		[ProtoMember(5)]
-		public string Desc { get; set; }
 
 	}
 }

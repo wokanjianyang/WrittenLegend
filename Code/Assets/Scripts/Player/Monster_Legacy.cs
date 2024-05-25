@@ -128,9 +128,11 @@ public class Monster_Legacy : APlayer
             //auto Replace
             if (legacyLayer > 0)
             {
-                recoveryStone += dropLegacy.GetRecoveryNumber(legacyLayer);
+                recoveryStone += dropLegacy.GetRecoveryNumber((int)legacyLayer);
 
                 message += ",并且回收之前的获得" + recoveryStone + "个<color=#" + QualityConfigHelper.GetQualityColor(6) + ">传世精华</color>";
+
+                GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
             }
         }
         else

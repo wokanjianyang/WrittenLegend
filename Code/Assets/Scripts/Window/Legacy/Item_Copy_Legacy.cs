@@ -71,7 +71,12 @@ namespace Game
 
             for (int i = 0; i < Config.PowerList.Length; i++)
             {
-                long needNumber = Config.PowerList[i] * Layer;
+                long needNumber = Config.PowerList[i];
+                if (Layer > 0)
+                {
+                    needNumber += (Layer - 1) * Config.PowerRiseList[i];
+                }
+
                 long total = powerList[i];
 
                 string color = total >= needNumber ? "#00EE00" : "#EE0000";

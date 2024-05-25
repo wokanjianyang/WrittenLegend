@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2538289989
+CRC: 432478831
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 14b1e6f49253eaba4028d83330d835d1
+    Hash: 2fdf5b504c012f2c731c596a39435933
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -75,10 +75,11 @@ Assets:
 - Assets/Resources/Config/LegacyConfigCategory.bytes
 - Assets/Resources/Config/SkillModelCategory.bytes
 - Assets/Resources/Config/GiftPackConfigCategory.bytes
-- Assets/Resources/Config/PlayerModelCategory.bytes
+- Assets/Resources/Config/LegacyPowerConfigCategory.bytes
 - Assets/Resources/Config/SkillConfigCategory.bytes
 - Assets/Resources/Config/MetalConfigCategory.bytes
 - Assets/Resources/Config/SkillRuneConfigCategory.bytes
+- Assets/Resources/Config/PlayerModelCategory.bytes
 - Assets/Resources/Config/DropLimitConfigCategory.bytes
 - Assets/Resources/Config/BossModelCategory.bytes
 - Assets/Resources/Config/EffectConfigCategory.bytes

@@ -46,6 +46,8 @@ public class BattleRule_Legacy : ABattleRule
         User user = GameProcessor.Inst.User;
         long LecacyCount = user.LegacyTikerCount.Data;
 
+        GameProcessor.Inst.EventCenter.Raise(new ShowLegacyInfoEvent() { Count = LecacyCount });
+
         if (LecacyCount > 0)
         {
             var enemy = new Monster_Legacy(MapId, Layer);
@@ -56,7 +58,7 @@ public class BattleRule_Legacy : ABattleRule
             //reward
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Legacy, Message = "您已经没有了挑战次数！" });
 
-            //GameOver();
+            GameOver();
 
             Start = false;
             return;

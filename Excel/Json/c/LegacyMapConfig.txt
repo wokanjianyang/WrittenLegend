@@ -1,5 +1,5 @@
 {"list":[
-{"_t":"LegacyMapConfig","_id":1,"Name":"传世圣地","PowerList":[400,200,200],"Desc":"掉落战士传世装备"},
-{"_t":"LegacyMapConfig","_id":2,"Name":"传世神域","PowerList":[200,400,200],"Desc":"掉落法师传世装备"},
-{"_t":"LegacyMapConfig","_id":3,"Name":"传世秘境","PowerList":[200,200,400],"Desc":"掉落道士传世装备"},
+{"_t":"LegacyMapConfig","_id":1,"Name":"传世圣地","PowerList":[400,200,200],"PowerRiseList":[500,500,500],"Desc":"掉落战士传世装备"},
+{"_t":"LegacyMapConfig","_id":2,"Name":"传世神域","PowerList":[200,400,200],"PowerRiseList":[500,500,500],"Desc":"掉落法师传世装备"},
+{"_t":"LegacyMapConfig","_id":3,"Name":"传世秘境","PowerList":[200,200,400],"PowerRiseList":[500,500,500],"Desc":"掉落道士传世装备"},
 ]}

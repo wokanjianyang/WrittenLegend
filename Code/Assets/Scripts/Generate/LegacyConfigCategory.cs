@@ -62,9 +62,9 @@ namespace Game
 
     public partial class LegacyConfig
     {
-        public int GetRecoveryNumber(long layer)
+        public int GetRecoveryNumber(int layer)
         {
-            return (int)Math.Pow(2, layer - 1) * RecoveryNubmer;
+            return layer * RecoveryNubmer;
         }
 
         public long GetLevelAttr(int index, long level)
@@ -92,11 +92,14 @@ namespace Game
     {
         public long CalMaxLayer(long[] powerList)
         {
-            long layer = powerList[0] / PowerList[0];
+            long layer = 0;
 
             for (int i = 1; i < PowerList.Length; i++)
             {
-                layer = Math.Min(layer, powerList[i] / PowerList[i]);
+                if (powerList[i] > PowerList[i])
+                {
+                    layer = 1 + (powerList[i] - PowerList[i]) / PowerRiseList[i];
+                }
             }
 
             return layer + 1;
