@@ -98,7 +98,7 @@ namespace Game
 
                 GameProcessor.Inst.SetGameOver(PlayerType.Enemy);
 
-                Log.Debug($"{(GameProcessor.Inst.winCamp == PlayerType.Hero ? "玩家" : "怪物")}获胜！！");
+                //Log.Debug($"{(GameProcessor.Inst.winCamp == PlayerType.Hero ? "玩家" : "怪物")}获胜！！");
                 GameProcessor.Inst.HeroDie(this.ruleType, 0);
             }
         }
