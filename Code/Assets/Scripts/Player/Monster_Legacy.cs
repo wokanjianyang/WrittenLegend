@@ -109,10 +109,12 @@ public class Monster_Legacy : APlayer
 
     private void BuildReward()
     {
-        LegacyConfig dropLegacy = LegacyConfigCategory.Instance.GetDropItem(Role);
-        int layer = LegacyConfigCategory.Instance.GetDropLayer(Layer);
-
         User user = GameProcessor.Inst.User;
+
+        int legacyId = user.LegacyData.GetDropId(Role);
+        LegacyConfig dropLegacy = LegacyConfigCategory.Instance.Get(legacyId);
+        int layer = user.LegacyData.GetDropLayer(Role, Layer);
+
         user.LegacyTikerCount.Data--;
 
         long legacyLayer = user.GetLegacyLayer(dropLegacy.Id);

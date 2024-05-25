@@ -82,6 +82,8 @@ namespace Game
 
         public InfiniteData InfiniteData { get; set; }
 
+        public LegacyData LegacyData { get; set; }
+
         public HeroPhatomData HeroPhatomData { get; set; }
 
         /// <summary>

@@ -33,30 +33,30 @@ namespace Game
             return null;
         }
 
-        public int GetDropLayer(int layer)
+        public int GetDropLayer()
         {
-            int result = layer;
+            int result;
 
             int rd = RandomHelper.RandomNumber(1, 101);
 
             if (rd <= 40)
             {
-                result = layer;
+                result = 3;
             }
             else if (rd <= 70)
             {
-                result = layer - 1;
+                result = 2;
             }
             else if (rd <= 90)
             {
-                result = layer - 2;
+                result = 1;
             }
             else
             {
-                result = layer - 3;
+                result = 0;
             }
 
-            return Math.Max(1, result);
+            return result;
         }
     }
 
