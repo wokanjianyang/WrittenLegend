@@ -70,6 +70,6 @@ public class BattleRule_Legacy : ABattleRule
     private void GameOver()
     {
         GameProcessor.Inst.SetGameOver(PlayerType.Enemy);
-        GameProcessor.Inst.HeroDie(RuleType.Legacy, MapTime);
+        GameProcessor.Inst.CloseBattle(RuleType.Legacy, 0);
     }
 }

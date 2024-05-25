@@ -103,7 +103,7 @@ public class MapLegacy : MonoBehaviour, IBattleLife
 
     private void OnBattleLoseEvent(BattleLoseEvent e)
     {
-        if (e.Time == MapTime && e.Type == RuleType.Defend)
+        if (e.Time == MapTime && e.Type == RuleType.Legacy)
         {
             this.Exit();
         }

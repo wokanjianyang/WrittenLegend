@@ -92,13 +92,15 @@ namespace Game
     {
         public long CalMaxLayer(long[] powerList)
         {
-            long layer = 0;
+            long layer = ConfigHelper.Max_Legacy_Level;
 
             for (int i = 1; i < PowerList.Length; i++)
             {
                 if (powerList[i] > PowerList[i])
                 {
-                    layer = 1 + (powerList[i] - PowerList[i]) / PowerRiseList[i];
+                    long ml = 1 + (powerList[i] - PowerList[i]) / PowerRiseList[i];
+
+                    layer = Math.Min(layer, ml);
                 }
             }
 
