@@ -43,7 +43,7 @@ namespace Game
 
         public const int CopyTicketCd = 900; //15分钟
         public const int CopyTicketCdMin = 120; //2分钟
-        public const int LegacyTicketCd = 7200; //1小时 
+        public const int LegacyTicketCd = 10800; //1小时 
 
         public const int CopyTicketMax = 500; //副本最大次数
         public const int CopyTicketFirstCount = 300; //副本离线和新号最多多少次
