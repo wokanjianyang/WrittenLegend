@@ -305,6 +305,7 @@ namespace Game
             {
                 File.WriteAllText(filePath, str_json);
                 PlayerPrefs.SetString(ppKey, key);
+                PlayerPrefs.Save();
 
                 Debug.Log("saved successfully.");
             }
@@ -356,6 +357,7 @@ namespace Game
             {
                 File.WriteAllText(filePath, str_json);
                 PlayerPrefs.SetString(pk, pv);
+                PlayerPrefs.Save();
 
                 Debug.Log("save back successfully.");
             }

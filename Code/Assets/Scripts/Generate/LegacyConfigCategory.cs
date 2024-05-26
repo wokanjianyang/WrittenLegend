@@ -42,7 +42,7 @@ namespace Game
 
             layer = Math.Min(layer, 30);
 
-            if (rd <= 40 - layer)
+            if (rd <= 35 - layer)
             {
                 result = 3;
             }
@@ -97,14 +97,16 @@ namespace Game
         {
             long layer = ConfigHelper.Max_Legacy_Level;
 
-            for (int i = 1; i < PowerList.Length; i++)
+            for (int i = 0; i < PowerList.Length; i++)
             {
+                long ml = 1;
+
                 if (powerList[i] > PowerList[i])
                 {
-                    long ml = 1 + (powerList[i] - PowerList[i]) / PowerRiseList[i];
-
-                    layer = Math.Min(layer, ml);
+                    ml += (powerList[i] - PowerList[i]) / PowerRiseList[i];
                 }
+
+                layer = Math.Min(layer, ml);
             }
 
             return layer + 1;
