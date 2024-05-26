@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Game
 {
@@ -33,21 +34,23 @@ namespace Game
             return null;
         }
 
-        public int GetDropLayer()
+        public int GetDropLayer(int layer)
         {
             int result;
 
             int rd = RandomHelper.RandomNumber(1, 101);
 
-            if (rd <= 40)
+            layer = Math.Min(layer, 30);
+
+            if (rd <= 40 - layer)
             {
                 result = 3;
             }
-            else if (rd <= 70)
+            else if (rd <= 70 - layer)
             {
                 result = 2;
             }
-            else if (rd <= 90)
+            else if (rd <= 90 - layer)
             {
                 result = 1;
             }

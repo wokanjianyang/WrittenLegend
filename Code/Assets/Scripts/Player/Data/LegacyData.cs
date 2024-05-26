@@ -45,11 +45,11 @@ namespace Game
             }
 
             List<int> dropList = DropLayerList[role];
-            if (dropList.Count < 50)
+            if (dropList.Count < 99)
             {
                 for (int i = dropList.Count; i < 100; i++)
                 {
-                    int dropId = LegacyConfigCategory.Instance.GetDropLayer();
+                    int dropId = LegacyConfigCategory.Instance.GetDropLayer(layer);
                     dropList.Add(dropId);
                 }
             }
