@@ -99,11 +99,11 @@ namespace Game
 
             for (int i = 0; i < PowerList.Length; i++)
             {
-                long ml = 1;
+                long ml = 0;
 
                 if (powerList[i] > PowerList[i])
                 {
-                    ml += (powerList[i] - PowerList[i]) / PowerRiseList[i];
+                    ml = 1 + (powerList[i] - PowerList[i]) / PowerRiseList[i];
                 }
 
                 layer = Math.Min(layer, ml);
