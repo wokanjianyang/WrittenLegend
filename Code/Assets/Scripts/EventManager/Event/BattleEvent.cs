@@ -203,6 +203,8 @@ namespace Game
     {
         public long Count { get; set; }
         public long PauseCount { get; set; }
+
+        public long Time { get; set; }
     }
 
     public class ChangeMapEvent : SDD.Events.Event

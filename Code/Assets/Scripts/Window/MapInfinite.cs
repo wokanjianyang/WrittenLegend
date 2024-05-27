@@ -11,6 +11,7 @@ public class MapInfinite : MonoBehaviour, IBattleLife
 
     public Text Txt_Level;
     public Text Txt_Count;
+    public Text Txt_Time;
 
     public ScrollRect sr_BattleMsg;
 
@@ -79,8 +80,20 @@ public class MapInfinite : MonoBehaviour, IBattleLife
 
     public void OnShowInfo(ShowInfiniteInfoEvent e)
     {
-        Txt_Level.text = "挑战波数：" + e.Count;
-        Txt_Count.text = "重生次数：" + e.PauseCount;
+        if (e.Count > 0)
+        {
+            Txt_Level.text = "挑战波数：" + e.Count;
+            Txt_Count.text = "重生次数：" + e.PauseCount;
+        }
+
+        if (e.Time > 0)
+        {
+            Txt_Count.text = e.Time + "S内过关可跳关";
+        }
+        else
+        {
+            Txt_Count.text = "跳关超时";
+        }
     }
 
     private void OnBattleMsgEvent(BattleMsgEvent e)

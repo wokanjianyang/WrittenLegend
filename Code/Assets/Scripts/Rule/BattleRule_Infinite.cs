@@ -14,8 +14,12 @@ public class BattleRule_Infinite : ABattleRule
     //private long Progress = 1;
 
     private const int MaxProgress = 700; //
+    private const int SkipTime = 15;
+    private const int SkipCount = 10;
 
     private int[] MonsterList = new int[] { 5, 4, 4, 3, 3, 3, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1 };
+    private long AttckTime = 0;
+    private long UseTime = 0;
 
     protected override RuleType ruleType => RuleType.Infinite;
 
@@ -34,6 +38,13 @@ public class BattleRule_Infinite : ABattleRule
             return;
         }
 
+        if (!Start)
+        {
+            //倒计时
+            this.UseTime = this.AttckTime + SkipTime - TimeHelper.ClientNowSeconds();
+            GameProcessor.Inst.EventCenter.Raise(new ShowInfiniteInfoEvent() { Time = UseTime });
+        }
+
         var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
 
         if (enemys.Count > 0)
@@ -50,6 +61,8 @@ public class BattleRule_Infinite : ABattleRule
         {
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Infinite, Message = "第" + currentProgres + "波发起了进攻" });
 
+            this.AttckTime = TimeHelper.ClientNowSeconds();
+
             //Load All
             for (int i = 0; i < MonsterList.Length; i++)
             {
@@ -57,8 +70,7 @@ public class BattleRule_Infinite : ABattleRule
                 GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
             }
 
-
-            GameProcessor.Inst.EventCenter.Raise(new ShowInfiniteInfoEvent() { Count = currentProgres, PauseCount = record.Count.Data });
+            GameProcessor.Inst.EventCenter.Raise(new ShowInfiniteInfoEvent() { Count = currentProgres, PauseCount = record.Count.Data, Time = SkipTime });
 
             this.Start = false;
 
@@ -68,14 +80,23 @@ public class BattleRule_Infinite : ABattleRule
         if (enemys.Count <= 0 && !this.Start)
         {
             long progess = user.GetAchievementProgeress(AchievementSourceType.Infinite);
+            long ap = 1;
+            if (UseTime >= 0 && currentProgres < progess)
+            {
+                ap = Math.Min(progess - currentProgres, 10);
+            }
+
             if (progess < currentProgres)
             {
                 user.MagicRecord[AchievementSourceType.Infinite].Data = currentProgres;
             }
 
-            record.Progress.Data++;
+            record.Progress.Data += ap;
 
-            BuildReward(currentProgres);
+            for (int i = 0; i < ap; i++)
+            {
+                BuildReward(currentProgres + i);
+            }
 
             this.Start = true;
             return;
