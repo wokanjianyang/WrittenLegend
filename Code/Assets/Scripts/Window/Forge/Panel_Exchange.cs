@@ -34,6 +34,7 @@ public class Panel_Exchange : MonoBehaviour
         {
             var Item = GameObject.Instantiate(ItemPrefab);
             Item.transform.SetParent(sr_Panel.content);
+            Item.transform.localScale = Vector3.one;
             Item.gameObject.SetActive(true);
 
             Item_Exchange sc = Item.GetComponent<Item_Exchange>();

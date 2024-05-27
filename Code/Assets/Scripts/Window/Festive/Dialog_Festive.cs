@@ -41,6 +41,7 @@ public class Dialog_Festive : MonoBehaviour
         {
             var Item = GameObject.Instantiate(ItemPrefab);
             Item.transform.SetParent(sr_Panel.content);
+            Item.transform.localScale = Vector3.one;
             Item.gameObject.SetActive(true);
 
             Item_Festive com = Item.GetComponent<Item_Festive>();

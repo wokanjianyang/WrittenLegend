@@ -108,6 +108,7 @@ public class ViewForgeProcessor : AViewPage
         {
             var menuItem = GameObject.Instantiate(menuItemPrefab.gameObject);
             menuItem.transform.SetParent(sr_Left.content);
+            menuItem.transform.localScale = Vector3.one;
             menuItem.gameObject.SetActive(true);
 
             var com = menuItem.GetComponent<Com_CompositeMenu>();
@@ -121,6 +122,7 @@ public class ViewForgeProcessor : AViewPage
         {
             var compositeItem = GameObject.Instantiate(compositeItemPrefab);
             compositeItem.transform.SetParent(sr_Right.content);
+            compositeItem.transform.localScale = Vector3.one;
             compositeItem.gameObject.SetActive(true);
 
             var com = compositeItem.GetComponent<Item_Composite>();
