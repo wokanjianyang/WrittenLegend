@@ -117,29 +117,35 @@ namespace Game
 		/// <summary>ResistType</summary>
 		[ProtoMember(14)]
 		public int ResistType { get; set; }
-		/// <summary>AttrIdList</summary>
+		/// <summary>RequireId</summary>
 		[ProtoMember(15)]
+		public int RequireId { get; set; }
+		/// <summary>RequireValue</summary>
+		[ProtoMember(16)]
+		public int RequireValue { get; set; }
+		/// <summary>AttrIdList</summary>
+		[ProtoMember(17)]
 		public int[] AttrIdList { get; set; }
 		/// <summary>AttrValueList</summary>
-		[ProtoMember(16)]
+		[ProtoMember(18)]
 		public double[] AttrValueList { get; set; }
 		/// <summary>AttrRiseList</summary>
-		[ProtoMember(17)]
+		[ProtoMember(19)]
 		public double[] AttrRiseList { get; set; }
 		/// <summary>RewardId</summary>
-		[ProtoMember(18)]
+		[ProtoMember(20)]
 		public int RewardId { get; set; }
 		/// <summary>RewardBase</summary>
-		[ProtoMember(19)]
+		[ProtoMember(21)]
 		public int RewardBase { get; set; }
 		/// <summary>RewardRise</summary>
-		[ProtoMember(20)]
+		[ProtoMember(22)]
 		public int RewardRise { get; set; }
 		/// <summary>SkillIdList</summary>
-		[ProtoMember(21)]
+		[ProtoMember(23)]
 		public int[] SkillIdList { get; set; }
 		/// <summary>PhanSkillIdList</summary>
-		[ProtoMember(22)]
+		[ProtoMember(24)]
 		public int[] PhanSkillIdList { get; set; }
 
 	}
