@@ -101,7 +101,7 @@ namespace Game
             {
                 long ml = 0;
 
-                if (powerList[i] > PowerList[i])
+                if (powerList[i] >= PowerList[i])
                 {
                     ml = 1 + (powerList[i] - PowerList[i]) / PowerRiseList[i];
                 }
