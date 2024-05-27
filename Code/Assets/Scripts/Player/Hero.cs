@@ -168,7 +168,7 @@ namespace Game
                     if (!ids.Contains(config.SkillId))
                     {
                         var sd = new SkillData(config.SkillId, (int)SkillPosition.Default);
-                        sd.MagicLevel.Data = 500;
+                        sd.MagicLevel.Data = 20;
                         list.Add(sd);
                     }
                 }
