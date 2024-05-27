@@ -88,11 +88,11 @@ public class MapInfinite : MonoBehaviour, IBattleLife
 
         if (e.Time > 0)
         {
-            Txt_Count.text = e.Time + "S内过关可跳关";
+            Txt_Time.text = e.Time + "S内过关可跳关";
         }
         else
         {
-            Txt_Count.text = "跳关超时";
+            Txt_Time.text = "跳关超时";
         }
     }
 
