@@ -216,6 +216,9 @@ namespace Game
                         long copy = this.User.GetAchievementProgeress(AchievementSourceType.EquipCopy);
                         paramDict.Add("equip", copy + "");
 
+                        long legacy = this.User.GetAchievementProgeress(AchievementSourceType.Legacy);
+                        paramDict.Add("legacy", legacy + "");
+
                         string param = JsonConvert.SerializeObject(paramDict);
 
                         StartCoroutine(NetworkHelper.UpdateInfo(param,

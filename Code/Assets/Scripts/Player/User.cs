@@ -901,6 +901,7 @@ namespace Game
                 case AchievementSourceType.EquipCopy:
                 case AchievementSourceType.Defend:
                 case AchievementSourceType.Infinite:
+                case AchievementSourceType.Legacy:
                 default:
                     {
                         if (!this.MagicRecord.ContainsKey(type))

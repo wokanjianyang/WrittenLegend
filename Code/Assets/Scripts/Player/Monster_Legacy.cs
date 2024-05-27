@@ -116,6 +116,7 @@ public class Monster_Legacy : APlayer
         int layer = user.LegacyData.GetDropLayer(Role, Layer);
 
         user.LegacyTikerCount.Data--;
+        user.SetAchievementProgeress(AchievementSourceType.Legacy, 1);
 
         long legacyLayer = user.GetLegacyLayer(dropLegacy.Id);
 

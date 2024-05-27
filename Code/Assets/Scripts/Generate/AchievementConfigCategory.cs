@@ -42,5 +42,6 @@ namespace Game
         EquipCopy = 7,
         Defend = 8,
         Infinite = 9,
+        Legacy = 10,
     }
 }
