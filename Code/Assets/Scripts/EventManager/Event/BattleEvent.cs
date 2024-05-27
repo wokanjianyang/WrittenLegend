@@ -180,12 +180,6 @@ namespace Game
         public int MapId { get; set; }
     }
 
-
-    public class AnDianEndEvent : SDD.Events.Event
-    {
-
-    }
-
     public class OpenDefendEvent : SDD.Events.Event
     {
     }
@@ -205,19 +199,10 @@ namespace Game
         public int Index { get; set; }
     }
 
-    public class DefendEndEvent : SDD.Events.Event
-    {
-
-    }
-
     public class ShowInfiniteInfoEvent : SDD.Events.Event
     {
         public long Count { get; set; }
         public long PauseCount { get; set; }
-    }
-    public class InfiniteEndEvent : SDD.Events.Event
-    {
-
     }
 
     public class ChangeMapEvent : SDD.Events.Event
@@ -388,11 +373,6 @@ namespace Game
     }
 
     public class HeroPhatomStartEvent : SDD.Events.Event
-    {
-        public int PhantomId { get; set; }
-    }
-
-    public class HeroPhatomEndEvent : SDD.Events.Event
     {
         public int PhantomId { get; set; }
     }

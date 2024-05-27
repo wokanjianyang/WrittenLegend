@@ -81,7 +81,7 @@ public class MapEquipCopy : MonoBehaviour, IBattleLife
     public void OnStartCopy(StartCopyEvent e)
     {
         this.gameObject.SetActive(true);
-        if (GameProcessor.Inst.EquipBossFamily_Auto)
+        if (GameProcessor.Inst.EquipCopySetting_Auto)
         {
             txt_Stop.text = "×Ô¶¯ÖÐ...";
         }

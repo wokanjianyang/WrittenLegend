@@ -395,7 +395,7 @@ namespace Game
                         for (int d = 0; d < dropCount; d++)
                         {
                             int di = RandomHelper.RandomNumber(0, dropConfig.ItemIdList.Length);
-                            itemList.Add(ItemHelper.BuildEquip(dropConfig.ItemIdList[di], 0, 1, (int)killRecord));
+                            itemList.Add(ItemHelper.BuildEquip(dropConfig.ItemIdList[di], 0, 1, TimeHelper.TodaySeed()));
                         }
                     }
                     else

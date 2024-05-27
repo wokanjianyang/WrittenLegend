@@ -160,11 +160,6 @@ namespace Game
                 }
             }
 
-            if (user.MagicLevel.Data <= 0)
-            {
-                user.MagicLevel.Data = 1;
-            }
-
             if (user.DefendData == null)
             {
                 user.DefendData = new DefendData();
