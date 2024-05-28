@@ -53,7 +53,7 @@ namespace Game
                 this.ShowSkill(isOn);
             });
 
-            if (ConfigHelper.Channel != ConfigHelper.Channel_Tap)
+            if (CheckShow())
             {
                 this.btn_Change.onClick.AddListener(this.OnClick_Change);
                 this.btn_Save.onClick.AddListener(this.OnClick_Save);
@@ -77,9 +77,23 @@ namespace Game
             //}
         }
 
-        private void Show()
+        private bool CheckShow()
         {
             if (ConfigHelper.Channel == ConfigHelper.Channel_Tap)
+            {
+                long time = TimeHelper.ClientNowSeconds();
+                if (time < ConfigHelper.PackTime + 3600 * 24 * 5)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private void Show()
+        {
+            if (!CheckShow())
             {
                 return;
             }
@@ -146,7 +160,7 @@ namespace Game
             string account = user.Account;
             //this.txt_Account.text = "设备Id:" + id;
 
-            if (ConfigHelper.Channel == ConfigHelper.Channel_Tap)
+            if (!CheckShow())
             {
                 this.Tf_Login.gameObject.SetActive(false);
                 this.btn_Save.gameObject.SetActive(false);
