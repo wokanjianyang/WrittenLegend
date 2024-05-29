@@ -16,13 +16,7 @@ public class Dialog_Wing : MonoBehaviour, IBattleLife
     public Button Btn_Active;
     public Button Btn_Strong;
 
-    public StrenthAttrItem Atrr1;
-    public StrenthAttrItem Atrr2;
-    public StrenthAttrItem Atrr3;
-    public StrenthAttrItem Atrr4;
-    public StrenthAttrItem Atrr5;
-
-    List<StrenthAttrItem> AttrList = new List<StrenthAttrItem>();
+    public List<StrenthAttrItem> AtrrList;
 
     public int Order => (int)ComponentOrder.Dialog;
 
@@ -32,12 +26,6 @@ public class Dialog_Wing : MonoBehaviour, IBattleLife
         Btn_Full.onClick.AddListener(OnClick_Close);
         Btn_Active.onClick.AddListener(OnStrong);
         Btn_Strong.onClick.AddListener(OnStrong);
-
-        AttrList.Add(Atrr1);
-        AttrList.Add(Atrr2);
-        AttrList.Add(Atrr3);
-        AttrList.Add(Atrr4);
-        AttrList.Add(Atrr5);
 
         Show();
     }
@@ -89,9 +77,9 @@ public class Dialog_Wing : MonoBehaviour, IBattleLife
 
         WingConfig showConfig = nextConfig == null ? currentConfig : nextConfig;
 
-        for (int i = 0; i < AttrList.Count; i++)
+        for (int i = 0; i < AtrrList.Count; i++)
         {
-            StrenthAttrItem attrItem = AttrList[i];
+            StrenthAttrItem attrItem = AtrrList[i];
 
             if (i >= showConfig.AttrIdList.Length)
             {
