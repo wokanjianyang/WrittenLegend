@@ -18,12 +18,19 @@ namespace Game
 
         public override void Do()
         {
+            this.SelfPlayer.EventCenter.Raise(new ShowMsgEvent()
+            {
+                Type = MsgType.SkillName,
+                Content = SkillPanel.SkillData.SkillConfig.Name
+            });
+
             int percent = this.SkillPanel.Percent;
 
             double maxHp = this.SelfPlayer.AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP);
             double sp = maxHp * percent / 100.0;
 
             this.SelfPlayer.AddSP(sp);
+            this.SelfPlayer.EventCenter.Raise(new SetPlayerHPEvent { });
         }
     }
 }

@@ -40,6 +40,7 @@ namespace Game
         public Button btn_Fashion;
         public Button btn_Halidom;
         public Button btn_Artifact;
+        public Button btn_Ring;
 
         [Title("功能框")]
         public Dialog_Exclusive ExclusiveDialog;

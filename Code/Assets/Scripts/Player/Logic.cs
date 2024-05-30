@@ -99,7 +99,7 @@ namespace Game
                     Content = "-" + StringHelper.FormatNumber(dr.Damage)
                 });
 
-                this.SelfPlayer.EventCenter.Raise(new SetPlayerSPEvent { });
+                this.SelfPlayer.EventCenter.Raise(new SetPlayerHPEvent { });
 
                 return;
             }

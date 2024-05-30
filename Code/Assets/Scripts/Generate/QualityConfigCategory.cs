@@ -70,6 +70,9 @@ namespace Game
                 case MsgType.Effect:
                     color = "E3EA6F";
                     break;
+                case MsgType.SP:
+                    color = "0A2D8";
+                    break;
                 case MsgType.Other:
                     break;
             }

@@ -46,11 +46,11 @@ namespace Game
             {
                 result = 3;
             }
-            else if (rd <= 70 - layer)
+            else if (rd <= 70)
             {
                 result = 2;
             }
-            else if (rd <= 90 - layer)
+            else if (rd <= 90)
             {
                 result = 1;
             }

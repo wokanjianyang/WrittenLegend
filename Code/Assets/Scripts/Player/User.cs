@@ -1228,6 +1228,26 @@ namespace Game
 
             return percent;
         }
+
+        public long GetRingLevel(int ringId)
+        {
+            if (!RingData.ContainsKey(ringId))
+            {
+                RingData[ringId] = new MagicData();
+            }
+
+            return RingData[ringId].Data;
+        }
+
+        public void AddRingLevel(int ringId)
+        {
+            if (!RingData.ContainsKey(ringId))
+            {
+                RingData[ringId] = new MagicData();
+            }
+
+            RingData[ringId].Data++;
+        }
     }
 
     public enum UserChangeType
