@@ -129,6 +129,7 @@ namespace Game
         Other = 5,
         SkillName = 6,
         Miss = 7,
+        SP = 8,
     }
 
     public enum TaskType

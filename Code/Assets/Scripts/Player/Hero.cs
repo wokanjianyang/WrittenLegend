@@ -158,6 +158,21 @@ namespace Game
             List<SkillData> list = user.GetCurrentSkill();
             list.Add(new SkillData(9001, (int)SkillPosition.Default));
 
+            foreach (KeyValuePair<int, Data.MagicData> sp in user.RingData)
+            {
+                long ringLevel = sp.Value.Data;
+                if (ringLevel > 0)
+                {
+                    RingConfig ringConfig = RingConfigCategory.Instance.Get(sp.Key);
+                    if (ringConfig.SkillId > 0)
+                    {
+                        var sd = new SkillData(ringConfig.SkillId, 0);
+                        sd.MagicLevel.Data = ringLevel;
+                        list.Add(sd);
+                    }
+                }
+            }
+
             if (RuleType == RuleType.Defend)
             {
                 List<int> ids = user.GetCurrentSkillList();

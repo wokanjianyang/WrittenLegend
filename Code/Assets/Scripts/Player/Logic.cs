@@ -83,6 +83,27 @@ namespace Game
                 return;
             }
 
+            double currentSP = this.SelfPlayer.SP;
+            if (currentSP > 0)
+            {
+                currentSP -= dr.Damage;
+                if (currentSP <= 0)
+                {
+                    currentSP = 0;
+                }
+                this.SelfPlayer.SetSP(currentSP);
+
+                this.SelfPlayer.EventCenter.Raise(new ShowMsgEvent
+                {
+                    Type = MsgType.SP,
+                    Content = "-" + StringHelper.FormatNumber(dr.Damage)
+                });
+
+                this.SelfPlayer.EventCenter.Raise(new SetPlayerSPEvent { });
+
+                return;
+            }
+
             double currentHP = this.SelfPlayer.HP;
 
             currentHP -= dr.Damage;
@@ -212,13 +233,13 @@ namespace Game
             //BattleAttributeMap[attr] = (float)Convert.ToDouble(value2) + value;
         }
 
-/*        private void SetHP(string hp)
-        {
-            SelfPlayer.EventCenter.Raise(new SetPlayerHPEvent
-            {
-                HP = hp
-            });
-        }*/
+        /*        private void SetHP(string hp)
+                {
+                    SelfPlayer.EventCenter.Raise(new SetPlayerHPEvent
+                    {
+                        HP = hp
+                    });
+                }*/
 
         public APlayer SelfPlayer { get; set; }
         public void SetParent(APlayer player)

@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Game
 {
-    public class Skill_Ring_Ht : ASkill
+    public class Skill_Ring_HT : ASkill
     {
-        public Skill_Ring_Ht(APlayer player, SkillPanel skill, bool isShow) : base(player, skill)
+        public Skill_Ring_HT(APlayer player, SkillPanel skill, bool isShow) : base(player, skill)
         {
             this.skillGraphic = null;
         }
@@ -23,7 +23,7 @@ namespace Game
             double maxHp = this.SelfPlayer.AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP);
             double sp = maxHp * percent / 100.0;
 
-            this.SelfPlayer.SetSp(sp);
+            this.SelfPlayer.AddSP(sp);
         }
     }
 }

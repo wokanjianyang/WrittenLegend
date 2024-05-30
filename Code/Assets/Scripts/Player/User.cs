@@ -42,6 +42,7 @@ namespace Game
 
         public IDictionary<int, double> KillRecord { get; } = new Dictionary<int, double>();
 
+        public Dictionary<int, MagicData> RingData { get; } = new Dictionary<int, MagicData>();
         //public IDictionary<int, Equip> EquipPanel { get; set; } = new Dictionary<int, Equip>();
 
         public IDictionary<int, IDictionary<int, Equip>> EquipPanelList { get; set; } = new Dictionary<int, IDictionary<int, Equip>>();

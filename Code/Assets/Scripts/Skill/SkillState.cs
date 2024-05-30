@@ -55,6 +55,18 @@ namespace Game
             {
                 this.skillLogic = new Skill_Yinshen(player, skillPanel, isShow);
             }
+            else if (skillPanel.SkillId == 4001)
+            {
+                this.skillLogic = new Skill_Ring_FQ(player, skillPanel, isShow);
+            }
+            else if (skillPanel.SkillId == 4002)
+            {
+                this.skillLogic = new Skill_Ring_HT(player, skillPanel, isShow);
+            }
+            else if (skillPanel.SkillId == 4003)
+            {
+                this.skillLogic = new Skill_Ring_FH(player, skillPanel, isShow);
+            }
             else if (skillPanel.SkillData.SkillConfig.Type == (int)SkillType.Attack)
             {
                 if (skillPanel.SkillData.SkillConfig.CastType == ((int)AttackCastType.Single))

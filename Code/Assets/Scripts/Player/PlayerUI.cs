@@ -37,6 +37,9 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
     [LabelText("血条")]
     public Com_Progress com_Progress;
 
+    [LabelText("护盾")]
+    public Com_Progress sp_Progress;
+
     [LabelText("魂环")]
     public Transform SourRingEffect;
 
@@ -104,6 +107,7 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
         this.SelfPlayer.EventCenter.AddListener<SetPlayerNameEvent>(OnSetNameEvent);
         this.SelfPlayer.EventCenter.AddListener<SetPlayerLevelEvent>(OnSetPlayerLevelEvent);
         this.SelfPlayer.EventCenter.AddListener<SetPlayerHPEvent>(OnSetPlayerHPEvent);
+        this.SelfPlayer.EventCenter.AddListener<SetPlayerSPEvent>(OnSetPlayerSPEvent);
         this.SelfPlayer.EventCenter.AddListener<ShowMsgEvent>(OnShowMsgEvent);
         this.SelfPlayer.EventCenter.AddListener<ShowAttackIcon>(OnShowAttackIcon);
 
@@ -118,6 +122,7 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
             this.SelfPlayer.EventCenter.RemoveListener<SetPlayerNameEvent>(OnSetNameEvent);
             this.SelfPlayer.EventCenter.RemoveListener<SetPlayerLevelEvent>(OnSetPlayerLevelEvent);
             this.SelfPlayer.EventCenter.RemoveListener<SetPlayerHPEvent>(OnSetPlayerHPEvent);
+            this.SelfPlayer.EventCenter.RemoveListener<SetPlayerSPEvent>(OnSetPlayerSPEvent);
             this.SelfPlayer.EventCenter.RemoveListener<ShowMsgEvent>(OnShowMsgEvent);
             this.SelfPlayer.EventCenter.RemoveListener<ShowHideEvent>(OnShowHide);
         }
@@ -199,6 +204,22 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
         if (this.com_Progress != null)
         {
             this.com_Progress.SetProgress(this.SelfPlayer.HP, SelfPlayer.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
+        }
+    }
+
+    private void OnSetPlayerSPEvent(SetPlayerSPEvent e)
+    {
+        if (this.sp_Progress != null)
+        {
+            if (SelfPlayer.SP > 0 && SelfPlayer.MaxSP > 0)
+            {
+                this.sp_Progress.gameObject.SetActive(true);
+                this.sp_Progress.SetProgress(this.SelfPlayer.SP, SelfPlayer.MaxSP);
+            }
+            else
+            {
+                this.sp_Progress.gameObject.SetActive(false);
+            }
         }
     }
 

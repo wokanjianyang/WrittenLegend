@@ -18,6 +18,10 @@ namespace Game
         public string Title { get; set; }
 
         public long Level { get; set; }
+
+        public double SP { get; set; }
+
+        public double MaxSP { get; set; }
         public double HP { get; set; }
         public int Quality { get; set; }
 
@@ -517,8 +521,19 @@ namespace Game
         public void SetHP(double hp)
         {
             this.HP = hp;
-
         }
+
+        public void AddSP(double sp)
+        {
+            this.MaxSP = sp;
+            this.SP = sp;
+        }
+        public void SetSP(double sp)
+        {
+            this.SP = sp;
+        }
+
+
 
         public void ShowMiss()
         {
