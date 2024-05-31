@@ -9,7 +9,7 @@ namespace Game
 {
     public class Hero : APlayer
     {
-        private Dictionary<int, long> skillUseCache = new Dictionary<int, long>();
+        private Dictionary<int, float> SkillCDCache = new Dictionary<int, float>();
 
         public List<SkillState> DoubleHitSkillList { get; set; } = new List<SkillState>();
 
@@ -279,7 +279,7 @@ namespace Game
         {
             foreach (var skillState in SelectSkillList)
             {
-                skillUseCache[skillState.SkillPanel.SkillId] = skillState.LastUseTime;
+                SkillCDCache[skillState.SkillPanel.SkillId] = skillState.CD;
             }
 
             var user = GameProcessor.Inst.User;
@@ -288,10 +288,10 @@ namespace Game
 
             foreach (var skillState in SelectSkillList)
             {
-                skillUseCache.TryGetValue(skillState.SkillPanel.SkillId, out long LastUseTime);
-                if (LastUseTime > 0)
+                SkillCDCache.TryGetValue(skillState.SkillPanel.SkillId, out float cd);
+                if (cd > 0)
                 {
-                    skillState.SetLastUseTime(LastUseTime);
+                    skillState.CD = cd;
                 }
             }
         }

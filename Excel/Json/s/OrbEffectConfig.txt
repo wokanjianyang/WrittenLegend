@@ -1,0 +1,3 @@
+{"list":[
+{"_t":"OrbEffectConfig","_id":1,"CD":30,"Name":"麻痹","Type":3,"CalType":0,"SourceAttr":-2,"Priority":1,"TargetType":2,"RunType":1,"TargetAttr":-1,"ExpertRise":0,"LevelRise":0,"Des":"麻痹{2}秒"},
+]}

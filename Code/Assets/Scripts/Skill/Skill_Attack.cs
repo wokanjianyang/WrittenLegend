@@ -49,6 +49,8 @@ namespace Game
             List<Vector3Int> playCells = GetPlayCells();
             this.skillGraphic?.PlayAnimation(playCells);
 
+            SkillState orbState = this.SelfPlayer.GetOrbSkill();
+
             List<AttackData> attackDataCache = GetAllTargets();
             foreach (var attackData in attackDataCache)
             {
@@ -97,6 +99,12 @@ namespace Game
                             //Debug.Log("restor:" + total);
                             DoEffect(enemy, this.SelfPlayer, total, 0, effect);
                         }
+                    }
+
+                    //法球
+                    if (orbState != null)
+                    {
+
                     }
                 }
             }

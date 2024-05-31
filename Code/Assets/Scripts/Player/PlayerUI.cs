@@ -83,6 +83,7 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
 
         if (effectTime > 0.2f)
         {
+            this.SelfPlayer.DoCD(effectTime);
             this.SelfPlayer.DoEffect(effectTime);
             effectTime = 0;
         }

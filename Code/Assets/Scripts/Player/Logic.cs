@@ -129,6 +129,13 @@ namespace Game
 
             if (currentHP <= 0)
             {
+                var skillFuhuo = this.SelfPlayer.GetEnableSkill(4003);
+                if (skillFuhuo != null)
+                {
+                    skillFuhuo.Do();
+                    return;
+                }
+
                 IsSurvice = false;
                 this.SelfPlayer.EventCenter.Raise(new DeadRewarddEvent
                 {

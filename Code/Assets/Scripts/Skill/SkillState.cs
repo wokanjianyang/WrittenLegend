@@ -10,7 +10,7 @@ namespace Game
         public APlayer SelfPlayer { get; set; }
 
         public int Priority { get; }
-        public long LastUseTime { get; private set; } = 0;
+        //public long LastUseTime { get; private set; } = 0;
 
         public int UserCount { get; set; } = 0;
 
@@ -20,6 +20,8 @@ namespace Game
 
         public int Rate { get; private set; } = 0;
 
+        public float CD = 0;
+
 
         public SkillState(APlayer player, SkillPanel skillPanel, int position, int useRound)
         {
@@ -27,7 +29,7 @@ namespace Game
             this.SkillPanel = skillPanel;
             this.Priority = position; // - skillPanel.SkillData.SkillConfig.Priority;
             this.Position = position;
-            this.LastUseTime = useRound;
+            this.CD = 0;
 
             bool isShow = true;
             if (player.Camp == PlayerType.Enemy && !GameProcessor.Inst.User.ShowMonsterSkill)
@@ -114,25 +116,30 @@ namespace Game
 
         public bool IsCanUse(long Now)
         {
-            return (this.LastUseTime == 0 || Now - this.LastUseTime >= this.SkillPanel.CD) && this.skillLogic.IsCanUse();
+            return (this.CD <= 0) && this.skillLogic.IsCanUse();
+        }
+
+        public void RunCD(float time)
+        {
+            this.CD -= time;
         }
 
         public void Do()
         {
-            this.LastUseTime = TimeHelper.ClientNowSeconds();
+            this.CD = SkillPanel.CD;
             this.skillLogic.Do();
         }
 
         public void Do(double baseHp)
         {
-            this.LastUseTime = TimeHelper.ClientNowSeconds();
+            this.CD = SkillPanel.CD;
             this.skillLogic.Do(baseHp);
         }
 
-        public void SetLastUseTime(long time)
-        {
-            this.LastUseTime = time;
-        }
+        //public void SetLastUseTime(long time)
+        //{
+        //    this.LastUseTime = time;
+        //}
 
         public void AddRate(int rate)
         {

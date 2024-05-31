@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1368041557
+CRC: 3745779224
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 209cfb2042368e62fd9d0bd79c75f7ab
+    Hash: 6855c697dd512bc8c718f293c5e9fa5d
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -25,10 +25,11 @@ Assets:
 - Assets/Resources/Config/DefendDropConfigCategory.bytes
 - Assets/Resources/Config/DropConfigCategory.bytes
 - Assets/Resources/Config/LegacyMonsterCategory.bytes
-- Assets/Resources/Config/SoulRingConfigCategory.bytes
+- Assets/Resources/Config/OrbEffectConfigCategory.bytes
 - Assets/Resources/Config/EquipRefineConfigCategory.bytes
 - Assets/Resources/Config/FashionSuitConfigCategory.bytes
 - Assets/Resources/Config/GiftPackExclusiveConfigCategory.bytes
+- Assets/Resources/Config/SoulRingConfigCategory.bytes
 - Assets/Resources/Config/ExclusiveAttrConfigCategory.bytes
 - Assets/Resources/Config/ArtifactConfigCategory.bytes
 - Assets/Resources/Config/AurasAttrConfigCategory.bytes

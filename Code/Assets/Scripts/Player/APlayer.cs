@@ -32,8 +32,6 @@ namespace Game
         public float MoveSpeed { get; private set; } = 1;
         public float AttckSpeed { get; private set; } = 1;
 
-        public List<SkillData> SkillList { get; set; } = new List<SkillData>();
-
         [JsonIgnore]
         public PlayerType Camp { get; set; }
 
@@ -43,10 +41,8 @@ namespace Game
 
         public int RingType { get; set; } = 0;
 
-        [JsonIgnore]
         public Vector3Int Cell { get; set; }
 
-        [JsonIgnore]
         public AttributeBonus AttributeBonus { get; set; }
 
         [JsonIgnore]
@@ -69,14 +65,15 @@ namespace Game
                 return this.Logic.IsSurvice && this.HP > 0;
             }
         }
-        [JsonIgnore]
+
         public List<SkillState> SelectSkillList { get; set; }
 
-        [JsonIgnore]
+        public List<OrbState> OrbList { get; set; }
+
         protected Dictionary<int, List<Effect>> EffectMap = new Dictionary<int, List<Effect>>();
 
-        [JsonIgnore]
-        private Dictionary<int, int> SkillUseRoundCache = new Dictionary<int, int>();
+        //private Dictionary<int, int> SkillUseRoundCache = new Dictionary<int, int>();
+
         public void ChangeMaxHp(int fromId, double total)
         {
             double PreMaxHp = this.AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP);
@@ -140,7 +137,6 @@ namespace Game
             this.UUID = System.Guid.NewGuid().ToString("N");
             this.EventCenter = new EventManager();
             this.AttributeBonus = new AttributeBonus();
-            this.SkillUseRoundCache = new Dictionary<int, int>();
             this.SelectSkillList = new List<SkillState>();
 
             //this.Load();
@@ -224,6 +220,27 @@ namespace Game
             return null;
         }
 
+        public SkillState GetEnableSkill(int skillId)
+        {
+            SkillState state = SelectSkillList.Where(m => m.SkillPanel.SkillId == skillId).FirstOrDefault();
+
+            long now = TimeHelper.ClientNowSeconds();
+
+            if (state.IsCanUse(now))
+            {
+                state.UserCount = state.UserCount + 1;
+                return state;
+            }
+
+            return null;
+        }
+
+        public SkillState GetOrbSkill()
+        {
+            return null;
+        }
+
+
         public bool GetIsPause()
         {
             foreach (List<Effect> list in EffectMap.Values)
@@ -242,6 +259,19 @@ namespace Game
             }
 
             return false;
+        }
+
+        public void DoCD(float time)
+        {
+            foreach (SkillState ss in this.SelectSkillList)
+            {
+                ss.RunCD(time);
+            }
+
+            foreach (OrbState os in this.OrbList)
+            {
+                os.RunCD(time);
+            }
         }
 
         public void DoEffect(float time)
