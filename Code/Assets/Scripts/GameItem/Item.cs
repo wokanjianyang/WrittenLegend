@@ -102,6 +102,7 @@ namespace Game
         Halidom = 14,
 
         Artifact = 18,
+        Ring = 19,
 
         Metal = 98,
         Ad = 99,

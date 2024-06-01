@@ -43,13 +43,13 @@ namespace Game
         {
             List<Item> items = new List<Item>();
 
-            //items.Add(new Equip(22005701, 23, 15, 5));
-            //items.Add(new Equip(22005702, 23, 15, 5));
-            //items.Add(new Equip(22005703, 23, 15, 5));
-            //items.Add(new Equip(22005704, 23, 15, 5));
-            //items.Add(new Equip(22005705, 16, 10037, 5));
-            //items.Add(new Equip(22005705, 16, 10037, 5));
-            //items.Add(new Equip(22005707, 16, 10037, 5));
+            //items.Add(ItemHelper.BuildEquip(21105803, 6,0,0));
+            //items.Add(ItemHelper.BuildEquip(21105804, 6, 0, 0));
+            //items.Add(ItemHelper.BuildEquip(21105805, 6, 0, 0));
+            //items.Add(ItemHelper.BuildEquip(21105805, 6, 0, 0));
+            //items.Add(ItemHelper.BuildEquip(21105807, 6, 0, 0));
+            //items.Add(ItemHelper.BuildEquip(21105807, 6, 0, 0));
+            //items.Add(ItemHelper.BuildEquip(21105809, 6, 0, 0));
             //items.Add(new Equip(22005707, 16, 10037, 5));
             //items.Add(new Equip(22005709, 23, 15, 5));
             //items.Add(new Equip(22005710, 23, 15, 5));

@@ -138,6 +138,7 @@ namespace Game
             this.EventCenter = new EventManager();
             this.AttributeBonus = new AttributeBonus();
             this.SelectSkillList = new List<SkillState>();
+            this.OrbList = new List<OrbState>();
 
             //this.Load();
         }
@@ -226,7 +227,7 @@ namespace Game
 
             long now = TimeHelper.ClientNowSeconds();
 
-            if (state.IsCanUse(now))
+            if (state != null && state.IsCanUse(now))
             {
                 state.UserCount = state.UserCount + 1;
                 return state;

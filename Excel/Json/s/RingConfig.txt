@@ -1,8 +1,8 @@
 {"list":[
-{"_t":"RingConfig","_id":1,"Role":1,"ItemId":7000001,"SkillId":4001,"Name":"麻痹神戒","AttrIdList":[33,2004,2007,2011],"AttrValueList":[10,2,2,1],"AttrRiseList":[10,2,2,1]},
-{"_t":"RingConfig","_id":2,"Role":1,"ItemId":7000002,"SkillId":4002,"Name":"护体神戒","AttrIdList":[33,2004,2007,2011],"AttrValueList":[10,2,2,1],"AttrRiseList":[10,2,2,1]},
-{"_t":"RingConfig","_id":3,"Role":1,"ItemId":7000003,"SkillId":4003,"Name":"复活神戒","AttrIdList":[33,2004,2007,2002],"AttrValueList":[10,2,2,1],"AttrRiseList":[10,2,2,1]},
-{"_t":"RingConfig","_id":4,"Role":1,"ItemId":7000004,"SkillId":0,"Name":"防御神戒","AttrIdList":[33,2004,2007,2003],"AttrValueList":[10,2,2,1],"AttrRiseList":[10,2,2,1]},
-{"_t":"RingConfig","_id":5,"Role":1,"ItemId":7000005,"SkillId":0,"Name":"传送神戒","AttrIdList":[33,2004,2007,2002],"AttrValueList":[10,2,2,1],"AttrRiseList":[10,2,2,1]},
-{"_t":"RingConfig","_id":6,"Role":1,"ItemId":7000006,"SkillId":0,"Name":"护体神戒","AttrIdList":[33,2004,2007,2003],"AttrValueList":[10,2,2,1],"AttrRiseList":[10,2,2,1]},
+{"_t":"RingConfig","_id":1,"Role":1,"ItemId":7000001,"SkillId":4001,"Name":"麻痹神戒","AttrIdList":[33,2004,2007,2011],"AttrValueList":[10,2,2,1],"AttrRiseList":[10,2,2,1],"Desc":"攻击的时候，有10%概率麻痹敌人，内置30秒CD"},
+{"_t":"RingConfig","_id":2,"Role":1,"ItemId":7000002,"SkillId":4002,"Name":"护体神戒","AttrIdList":[33,2004,2007,2011],"AttrValueList":[10,2,2,1],"AttrRiseList":[10,2,2,1],"Desc":"每隔30秒，生成一个护盾"},
+{"_t":"RingConfig","_id":3,"Role":1,"ItemId":7000003,"SkillId":4003,"Name":"复活神戒","AttrIdList":[33,2004,2007,2002],"AttrValueList":[10,2,2,1],"AttrRiseList":[10,2,2,1],"Desc":"死亡的时候复活，CD30秒"},
+{"_t":"RingConfig","_id":4,"Role":1,"ItemId":7000004,"SkillId":0,"Name":"防御神戒","AttrIdList":[33,2004,2007,2003],"AttrValueList":[10,2,2,1],"AttrRiseList":[10,2,2,1],"Desc":"防御神戒"},
+{"_t":"RingConfig","_id":5,"Role":1,"ItemId":7000005,"SkillId":0,"Name":"传送神戒","AttrIdList":[33,2004,2007,2002],"AttrValueList":[10,2,2,1],"AttrRiseList":[10,2,2,1],"Desc":"传送神戒"},
+{"_t":"RingConfig","_id":6,"Role":1,"ItemId":7000006,"SkillId":0,"Name":"护体神戒","AttrIdList":[33,2004,2007,2003],"AttrValueList":[10,2,2,1],"AttrRiseList":[10,2,2,1],"Desc":"护体神戒"},
 ]}

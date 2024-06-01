@@ -99,6 +99,9 @@ namespace Game
 		/// <summary>AttrRiseList</summary>
 		[ProtoMember(8)]
 		public int[] AttrRiseList { get; set; }
+		/// <summary>Desc</summary>
+		[ProtoMember(9)]
+		public string Desc { get; set; }
 
 	}
 }

@@ -7,55 +7,33 @@ using Game.Data;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Dialog_Ring : MonoBehaviour, IBattleLife
+public class Dialog_Ring : MonoBehaviour
 {
-    public List<Toggle> toggles;
-
     public Transform Tran_Item_List;
-    public List<Item_Legacy> items;
+    public List<Item_Ring> items;
 
-    public List<Text> TxtPowerList;
+    public Text Txt_Desc;
 
-    public List<StrenthAttrItem> LayerAttrList;
-
-    public List<StrenthAttrItem> LevelAttrList;
+    public List<StrenthAttrItem> AttrList;
 
     public Text Txt_Fee;
 
     public Button Btn_Ok;
     public Button Btn_Close;
 
-    private int CountMax = 8;
-
     public int Order => (int)ComponentOrder.Dialog;
-
-    private int CurrentSuit = 0;
 
     private void Awake()
     {
         Btn_Close.onClick.AddListener(OnClick_Close);
         Btn_Ok.onClick.AddListener(OnClick_Ok);
 
-        ToggleGroup toggleGroup = Tran_Item_List.GetComponent<ToggleGroup>();
-
-        for (int i = 0; i < items.Count(); i++)
-        {
-            items[i].Init(toggleGroup);
-        }
+        this.Init();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < toggles.Count; i++)
-        {
-            int index = i + 1;
-            toggles[i].onValueChanged.AddListener((isOn) =>
-            {
-                ShowSuit(index);
-            });
-        }
-
         for (int i = 0; i < items.Count; i++)
         {
             var item = items[i];
@@ -65,87 +43,62 @@ public class Dialog_Ring : MonoBehaviour, IBattleLife
             });
         }
 
-        ShowSuit(1);
+        User user = GameProcessor.Inst.User;
+        List<RingConfig> configs = RingConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
+        for (int i = 0; i < configs.Count; i++)
+        {
+            RingConfig config = configs[i];
+            long level = user.GetRingLevel(config.Id);
+            items[i].SetContent(level);
+        }
+
+        Item_Ring currentItem = items.Where(m => m.toggle.isOn).FirstOrDefault();
+        ShowItem(currentItem);
     }
 
-    public void OnBattleStart()
+    private void Init()
     {
-        GameProcessor.Inst.EventCenter.AddListener<OpenLegacyDialogEvent>(this.OpenDialog);
+        ToggleGroup toggleGroup = Tran_Item_List.GetComponent<ToggleGroup>();
+
+        User user = GameProcessor.Inst.User;
+
+        List<RingConfig> configs = RingConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
+
+        for (int i = 0; i < configs.Count; i++)
+        {
+            RingConfig config = configs[i];
+            Item_Ring box = items[i];
+
+            box.Init(toggleGroup, config);
+        }
     }
 
-    private void OpenDialog(OpenLegacyDialogEvent e)
+    public void Show()
     {
         this.gameObject.SetActive(true);
     }
 
-
-    private void ShowSuit(int suitId)
-    {
-        this.CurrentSuit = suitId;
-
-        User user = GameProcessor.Inst.User;
-
-        List<LegacyConfig> configs = LegacyConfigCategory.Instance.GetRoleList(suitId);
-
-        for (int i = 0; i < configs.Count; i++)
-        {
-            LegacyConfig config = configs[i];
-            Item_Legacy box = items[i];
-
-            box.Change(config);
-
-            long layer = user.GetLegacyLayer(config.Id);
-            long level = user.GetLegacyLevel(config.Id);
-
-            box.SetContent(layer, level);
-        }
-
-        Item_Legacy currentItem = items.Where(m => m.toggle.isOn).FirstOrDefault();
-        ShowItem(currentItem);
-    }
-
-    private void ShowItem(Item_Legacy currentItem)
+    private void ShowItem(Item_Ring currentItem)
     {
         User user = GameProcessor.Inst.User;
 
-        LegacyConfig config = currentItem.Config;
+        RingConfig config = currentItem.Config;
 
-        long currentLevel = user.GetLegacyLevel(config.Id);
-        long currentLayer = user.GetLegacyLayer(config.Id);
+        long currentLevel = user.GetRingLevel(config.Id);
 
-        currentItem.SetContent(currentLayer, currentLevel);
+        currentItem.SetContent(currentLevel);
 
-        //layer
-        for (int i = 0; i < LayerAttrList.Count; i++)
-        {
-            if (i < config.LayerIdList.Length)
-            {
-                LayerAttrList[i].gameObject.SetActive(true);
-                LayerAttrList[i].SetContent(config.LayerIdList[i], config.GetLayerAttr(i, currentLayer), 0);
-            }
-            else
-            {
-                LayerAttrList[i].gameObject.SetActive(false);
-            }
-        }
-
-        //power
-        for (int i = 0; i < config.PowerList.Length; i++)
-        {
-            TxtPowerList[i].text = config.PowerList[i] * currentLayer + "";
-        }
-
-        //level
-        for (int i = 0; i < LevelAttrList.Count; i++)
+        //attr
+        for (int i = 0; i < AttrList.Count; i++)
         {
             if (i < config.AttrIdList.Length)
             {
-                LevelAttrList[i].gameObject.SetActive(true);
-                LevelAttrList[i].SetContent(config.AttrIdList[i], config.GetLevelAttr(i, currentLevel), config.AttrRiseList[i]);
+                AttrList[i].gameObject.SetActive(true);
+                AttrList[i].SetContent(config.AttrIdList[i], config.AttrValueList[i], config.AttrRiseList[i]);
             }
             else
             {
-                LevelAttrList[i].gameObject.SetActive(false);
+                AttrList[i].gameObject.SetActive(false);
             }
         }
 
@@ -155,6 +108,7 @@ public class Dialog_Ring : MonoBehaviour, IBattleLife
         string color = total >= needNumber + 1 ? "#FFFF00" : "#FF0000";
 
         Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2}", color, total, needNumber);
+        Txt_Desc.text = config.Desc;
 
         if (total >= needNumber)
         {
@@ -173,8 +127,8 @@ public class Dialog_Ring : MonoBehaviour, IBattleLife
 
     public void OnClick_Ok()
     {
-        Item_Legacy currentItem = items.Where(m => m.toggle.isOn).FirstOrDefault();
-        LegacyConfig config = currentItem.Config;
+        Item_Ring currentItem = items.Where(m => m.toggle.isOn).FirstOrDefault();
+        RingConfig config = currentItem.Config;
 
         User user = GameProcessor.Inst.User;
         long currentLevel = user.GetLegacyLevel(config.Id);

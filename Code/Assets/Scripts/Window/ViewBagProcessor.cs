@@ -48,8 +48,7 @@ namespace Game
         public Dialog_Wing DialogWing;
         public Dialog_Halidom DialogHalidom;
         public Dialog_Artifact DialogArtifact;
-
-        public Button Btn_Exclusive;
+        public Dialog_Ring DialogRing;
 
 
         private List<Com_Box> items = new List<Com_Box>();
@@ -73,11 +72,12 @@ namespace Game
 
             this.btn_SoulRing.onClick.AddListener(this.OnClick_RingSoul);
             this.btn_Wing.onClick.AddListener(OnOpenWing);
-            this.Btn_Exclusive.onClick.AddListener(OnExclusive);
+            this.btn_Exclusive.onClick.AddListener(OnExclusive);
             this.btn_Fashion.onClick.AddListener(OpenFashion);
             this.btn_Card.onClick.AddListener(OnOpenCard);
             this.btn_Halidom.onClick.AddListener(OnOpenHalidom);
             this.btn_Artifact.onClick.AddListener(OnOpenArtifact);
+            this.btn_Ring.onClick.AddListener(OnOpenRing);
 
             this.Btn_Reset.onClick.AddListener(OnRefreshBag);
             this.Btn_ReName.onClick.AddListener(OnSetPlanName);
@@ -1288,6 +1288,10 @@ namespace Game
         public void OnOpenArtifact()
         {
             this.DialogArtifact.Show();
+        }
+
+        public void OnOpenRing() {
+            this.DialogRing.Show();
         }
 
         public void OnOpenWing()
