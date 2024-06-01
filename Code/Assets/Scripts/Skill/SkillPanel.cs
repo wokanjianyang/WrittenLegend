@@ -52,6 +52,13 @@ namespace Game
             this.SkillData = skillData;
             this.SkillId = skillData.SkillId;
 
+            if (runeList == null) {
+                runeList = new List<SkillRune>();
+            }
+            if (suitList == null) {
+                suitList = new List<SkillSuit>();
+            }
+
             if (isPlayer)
             {
                 List<SkillRuneConfig> skillRuneConfigs = SkillRuneConfigCategory.Instance.GetAll().Select(m => m.Value)

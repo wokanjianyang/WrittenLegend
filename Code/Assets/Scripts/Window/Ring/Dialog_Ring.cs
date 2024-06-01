@@ -111,7 +111,19 @@ public class Dialog_Ring : MonoBehaviour
 
         Txt_Metail.text = "ÏûºÄ" + config.Name + "";
         Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2}", color, total, needNumber);
-        Txt_Desc.text = config.Desc;
+
+        if (config.SkillId > 0)
+        {
+            SkillData skillData = new SkillData(config.SkillId, 0);
+            SkillPanel sp = new SkillPanel(skillData, null, null, true);
+
+            Txt_Desc.text = sp.SkillData.SkillConfig.Name + "Lv." + currentLevel + " : " + sp.Desc;
+        }
+        else
+        {
+            Txt_Desc.text = config.Desc;
+        }
+
 
         if (total >= needNumber)
         {

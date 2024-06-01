@@ -115,7 +115,7 @@ namespace Game
 
             if (SelfPlayer.Camp == PlayerType.Hero)
             {
-                //Debug.Log($"{(this.SelfPlayer.Name)} 受到伤害:{(damage)} ,剩余血量:{(currentHP)}");
+                Debug.Log($"{(this.SelfPlayer.Name)} 属性:{(SelfPlayer.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Protect))}");
             }
 
             this.SelfPlayer.SetHP(currentHP);

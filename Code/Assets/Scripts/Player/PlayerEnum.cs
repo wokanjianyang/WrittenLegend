@@ -47,6 +47,7 @@ namespace Game
         MagicDamage = 34,//魔伤加成
         SpiritDamage = 35, //道伤加成
         InheritAdvance = 36, //高级继承
+        Protect = 37,//免疫
 
         WarriorSkillPercent = 41, //战士技能百分比系数
         WarriorSkillDamage = 42, //战士技能固定系数

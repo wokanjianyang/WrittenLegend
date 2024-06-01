@@ -77,6 +77,9 @@ namespace Game
             long lucky = attcher.GetAttackAttr(AttributeEnum.Lucky);
             attack = attack * (lucky * 10 + 100) / 100;
 
+            double protect = enemy.GetAttackAttr(AttributeEnum.Protect);
+            attack = attack * (100 - protect) / 100;
+
             MsgType type = isCrit ? MsgType.Crit : MsgType.Damage;
 
             //强制最少1点伤害

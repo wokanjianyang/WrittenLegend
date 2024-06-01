@@ -56,6 +56,11 @@ namespace Game
             TotalTime += time;
             RunTime += time;
 
+            if (Data.Config.Id == 18)
+            {
+                Debug.Log("免疫时间;" + TotalTime);
+            }
+
             if (RunTime < Interval)
             {
                 return; //还没到触发时间
