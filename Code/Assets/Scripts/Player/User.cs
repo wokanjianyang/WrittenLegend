@@ -1009,6 +1009,12 @@ namespace Game
             MagicUpExp.Data = levelAttr * config.Exp;
         }
 
+        public long GetBagItemCount(int id)
+        {
+            long count = this.Bags.Where(m => m.Item.Type != ItemType.Equip && m.Item.ConfigId == id).Select(m => m.MagicNubmer.Data).Sum();
+            return count;
+        }
+
         public long GetMaterialCount(int id)
         {
             long count = this.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == id).Select(m => m.MagicNubmer.Data).Sum();

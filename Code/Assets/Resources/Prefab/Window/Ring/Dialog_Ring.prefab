@@ -60,7 +60,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a638cc5966cde5841a67588b7fb8976c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toggles: []
   Tran_Item_List: {fileID: 461613421848445663}
   items:
   - {fileID: 1559608014636613857}
@@ -75,9 +74,11 @@ MonoBehaviour:
   - {fileID: 2448318161581279642}
   - {fileID: 2145480336323838421}
   - {fileID: 3804035226951870048}
+  Txt_Metail: {fileID: 1477368282789132297}
   Txt_Fee: {fileID: 4002203676495757698}
   Btn_Ok: {fileID: 7653508256584764188}
   Btn_Close: {fileID: 4395185675068578638}
+  Txt_OK: {fileID: 3774398743788544593}
 --- !u!1 &1279196282459887670
 GameObject:
   m_ObjectHideFlags: 0
@@ -1051,7 +1052,7 @@ GameObject:
   - component: {fileID: 7835513683403953220}
   - component: {fileID: 3774398743788544593}
   m_Layer: 5
-  m_Name: txt_ok
+  m_Name: Txt_ok
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1131,7 +1132,7 @@ GameObject:
   - component: {fileID: 6982986575883818921}
   - component: {fileID: 1477368282789132297}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: Txt_Metail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

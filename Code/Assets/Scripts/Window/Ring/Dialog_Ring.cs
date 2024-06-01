@@ -16,10 +16,12 @@ public class Dialog_Ring : MonoBehaviour
 
     public List<StrenthAttrItem> AttrList;
 
+    public Text Txt_Metail;
     public Text Txt_Fee;
 
     public Button Btn_Ok;
     public Button Btn_Close;
+    public Text Txt_OK;
 
     public int Order => (int)ComponentOrder.Dialog;
 
@@ -102,17 +104,26 @@ public class Dialog_Ring : MonoBehaviour
             }
         }
 
-        long total = user.GetMaterialCount(ItemHelper.SpecialId_Legacy_Stone);
+        long total = user.GetBagItemCount(config.ItemId);
         long needNumber = GetNeedNumber(currentLevel);
 
-        string color = total >= needNumber + 1 ? "#FFFF00" : "#FF0000";
+        string color = total >= needNumber ? "#FFFF00" : "#FF0000";
 
+        Txt_Metail.text = "ÏûºÄ" + config.Name + "";
         Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2}", color, total, needNumber);
         Txt_Desc.text = config.Desc;
 
         if (total >= needNumber)
         {
             Btn_Ok.gameObject.SetActive(true);
+            if (currentLevel <= 0)
+            {
+                Txt_OK.text = "¼¤»î";
+            }
+            else
+            {
+                Txt_OK.text = "Éý¼¶";
+            }
         }
         else
         {
@@ -122,7 +133,7 @@ public class Dialog_Ring : MonoBehaviour
 
     private long GetNeedNumber(long level)
     {
-        return (level + 1) * 5;
+        return (level + 1);
     }
 
     public void OnClick_Ok()
@@ -131,9 +142,9 @@ public class Dialog_Ring : MonoBehaviour
         RingConfig config = currentItem.Config;
 
         User user = GameProcessor.Inst.User;
-        long currentLevel = user.GetLegacyLevel(config.Id);
+        long currentLevel = user.GetRingLevel(config.Id);
 
-        long total = user.GetMaterialCount(ItemHelper.SpecialId_Legacy_Stone);
+        long total = user.GetBagItemCount(config.ItemId);
         long needCount = GetNeedNumber(currentLevel);
 
         if (total < needCount)
@@ -144,11 +155,11 @@ public class Dialog_Ring : MonoBehaviour
 
         GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
         {
-            Type = ItemType.Material,
-            ItemId = ItemHelper.SpecialId_Legacy_Stone,
+            Type = ItemType.Ring,
+            ItemId = config.ItemId,
             Quantity = needCount
         });
-        user.SaveLegacyLevel(config.Id);
+        user.AddRingLevel(config.Id);
 
         this.ShowItem(currentItem);
         GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());

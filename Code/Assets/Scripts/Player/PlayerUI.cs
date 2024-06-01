@@ -35,7 +35,7 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
     public Transform tran_Attack;
 
     [LabelText("血条")]
-    public Com_Progress com_Progress;
+    public HP_Progress hp_Progress;
 
     [LabelText("护盾")]
     public SP_Progress sp_Progress;
@@ -125,7 +125,6 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
             this.SelfPlayer.EventCenter.RemoveListener<ShowMsgEvent>(OnShowMsgEvent);
             this.SelfPlayer.EventCenter.RemoveListener<ShowHideEvent>(OnShowHide);
         }
-        this.com_Progress = null;
     }
 
     private void OnSetBackgroundColorEvent(SetBackgroundColorEvent e)
@@ -200,19 +199,19 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
 
     private void OnSetPlayerHPEvent(SetPlayerHPEvent e)
     {
-        if (this.sp_Progress != null && SelfPlayer.SP > 0 && SelfPlayer.MaxSP > 0)
+        if (SelfPlayer.SP > 0 && SelfPlayer.MaxSP > 0)
         {
             this.sp_Progress.gameObject.SetActive(true);
             this.sp_Progress.SetProgress(this.SelfPlayer.SP, SelfPlayer.MaxSP);
+
+            this.hp_Progress.HideTitle();
         }
         else
         {
             this.sp_Progress.gameObject.SetActive(false);
 
-            if (this.com_Progress != null)
-            {
-                this.com_Progress.SetProgress(this.SelfPlayer.HP, SelfPlayer.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
-            }
+            this.hp_Progress.ShowTitle();
+            this.hp_Progress.SetProgress(this.SelfPlayer.HP, SelfPlayer.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
         }
     }
 
