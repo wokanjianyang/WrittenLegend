@@ -198,11 +198,11 @@ namespace Game
             List<SkillState> list = SelectSkillList.Where(m => m.SkillPanel.SkillData.SkillConfig.Priority >= priority && m.SkillPanel.SkillId != 9001)
                 .OrderBy(m => m.UserCount * 1000 + m.Priority).ToList();
 
-            long now = TimeHelper.ClientNowSeconds();
+            //long now = TimeHelper.ClientNowSeconds();
 
             foreach (SkillState state in list)
             {
-                if (state.IsCanUse(now))
+                if (state.IsCanUse())
                 {
                     state.UserCount = state.UserCount + 1;
                     return state;
@@ -212,7 +212,7 @@ namespace Game
             if (priority == 0)
             {
                 SkillState normal = SelectSkillList.FirstOrDefault(m => m.SkillPanel.SkillId == 9001);
-                if (normal != null && normal.IsCanUse(now))
+                if (normal != null && normal.IsCanUse())
                 {
                     return normal;
                 }
@@ -221,23 +221,17 @@ namespace Game
             return null;
         }
 
-        public SkillState GetEnableSkill(int skillId)
+        public SkillState GetSkillByPriority(int priority)
         {
-            SkillState state = SelectSkillList.Where(m => m.SkillPanel.SkillId == skillId).FirstOrDefault();
+            SkillState state = SelectSkillList.Where(m => m.SkillPanel.SkillData.SkillConfig.Priority == priority).FirstOrDefault();
 
-            long now = TimeHelper.ClientNowSeconds();
 
-            if (state != null && state.IsCanUse(now))
+            if (state != null && state.IsCanUse())
             {
                 state.UserCount = state.UserCount + 1;
                 return state;
             }
 
-            return null;
-        }
-
-        public SkillState GetOrbSkill()
-        {
             return null;
         }
 

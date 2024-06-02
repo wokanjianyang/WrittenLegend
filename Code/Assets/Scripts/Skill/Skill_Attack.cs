@@ -49,7 +49,7 @@ namespace Game
             List<Vector3Int> playCells = GetPlayCells();
             this.skillGraphic?.PlayAnimation(playCells);
 
-            SkillState orbState = this.SelfPlayer.GetOrbSkill();
+            SkillState orbState = this.SelfPlayer.GetSkillByPriority(-100);
 
             List<AttackData> attackDataCache = GetAllTargets();
             foreach (var attackData in attackDataCache)
@@ -70,6 +70,18 @@ namespace Game
                         if (effect.Config.Priority < 0)
                         {
                             DoEffect(enemy, this.SelfPlayer, 0, 0, effect);
+                        }
+                    }
+
+                    if (orbState != null)
+                    {
+                        foreach (EffectData effect in orbState.SkillPanel.EffectIdList.Values)
+                        {
+                            if (effect.Config.Priority < 0)
+                            {
+                                DoEffect(enemy, this.SelfPlayer, 0, 0, effect);
+                                Debug.Log("Run Ring Effect:" + effect.Config.Name);
+                            }
                         }
                     }
 
@@ -104,9 +116,22 @@ namespace Game
                     //法球
                     if (orbState != null)
                     {
-
+                        foreach (EffectData effect in orbState.SkillPanel.EffectIdList.Values)
+                        {
+                            if (effect.Config.Priority >= 0)
+                            {
+                                double total = dr.Damage * effect.Percent / 100;
+                                //Debug.Log("restor:" + total);
+                                DoEffect(enemy, this.SelfPlayer, total, 0, effect);
+                                Debug.Log("Run Ring Effect:" + effect.Config.Name);
+                            }
+                        }
                     }
                 }
+            }
+
+            if (orbState != null) {
+                orbState.Do();
             }
 
             if (SkillPanel.SkillData.SkillConfig.Role == (int)RoleType.Warrior)

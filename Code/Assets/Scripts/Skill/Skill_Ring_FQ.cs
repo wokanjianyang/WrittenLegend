@@ -13,21 +13,16 @@ namespace Game
 
         public override bool IsCanUse()
         {
-            return false;
+            return true;
         }
 
         public override void Do()
         {
-            int percent = this.SkillPanel.Percent;
-            double maxHp = this.SelfPlayer.AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP);
-            double hp = maxHp * percent / 100.0;
-
-            this.SelfPlayer.SetHP(hp);
-
-            foreach (EffectData effect in SkillPanel.EffectIdList.Values)
+            this.SelfPlayer.EventCenter.Raise(new ShowMsgEvent()
             {
-                DoEffect(this.SelfPlayer, this.SelfPlayer, 0, 0, effect);
-            }
+                Type = MsgType.SkillName,
+                Content = SkillPanel.SkillData.SkillConfig.Name
+            });
         }
     }
 }

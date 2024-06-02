@@ -114,7 +114,7 @@ namespace Game
             }
         }
 
-        public bool IsCanUse(long Now)
+        public bool IsCanUse()
         {
             return (this.CD <= 0) && this.skillLogic.IsCanUse();
         }
