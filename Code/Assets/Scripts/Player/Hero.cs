@@ -170,7 +170,7 @@ namespace Game
                         SkillData sd = list.Where(m => m.SkillId == ringConfig.SkillId).FirstOrDefault();
                         if (sd == null)
                         {
-                            new SkillData(ringConfig.SkillId, 0);
+                            sd = new SkillData(ringConfig.SkillId, 0);
                             list.Add(sd);
                         }
 
