@@ -78,9 +78,9 @@ namespace Game
             //items.Add(ItemHelper.BuildItem(ItemType.SkillBox, 1010, 1, 1));
             //items.Add(ItemHelper.BuildItem(ItemType.SkillBox, 3010, 1, 1));
 
-            //items.Add(ItemHelper.BuildItem(ItemType.Ring, 190001, 1, 1));
-            //items.Add(ItemHelper.BuildItem(ItemType.Ring, 190002, 1, 1));
-            //items.Add(ItemHelper.BuildItem(ItemType.Ring, 190003, 1, 1));
+            //items.Add(ItemHelper.BuildItem(ItemType.Ring, 190001, 1, 2));
+            //items.Add(ItemHelper.BuildItem(ItemType.Ring, 190002, 1, 2));
+            //items.Add(ItemHelper.BuildItem(ItemType.Ring, 190003, 1, 2));
 
             //user.SaveArtifactLevel(180001, 4);
             //user.SaveArtifactLevel(180005, 10);
