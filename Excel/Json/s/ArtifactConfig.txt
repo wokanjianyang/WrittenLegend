@@ -17,4 +17,5 @@
 {"_t":"ArtifactConfig","_id":16,"ItemId":180016,"Name":"天使之翼","Type":16,"AttrValue":1,"MaxCount":1,"DropRate":0,"Des":"翅膀上限+1"},
 {"_t":"ArtifactConfig","_id":17,"ItemId":180017,"Name":"分解机","Type":17,"AttrValue":1,"MaxCount":100,"DropRate":100,"Des":"分解精炼石+1"},
 {"_t":"ArtifactConfig","_id":18,"ItemId":180018,"Name":"摄魂瓶","Type":18,"AttrValue":1,"MaxCount":20,"DropRate":20,"Des":"魂环碎片掉落+1"},
+{"_t":"ArtifactConfig","_id":19,"ItemId":180019,"Name":"副本杀手","Type":19,"AttrValue":1,"MaxCount":4,"DropRate":1,"Des":"挑战装备副本，可以倍率+1"},
 ]}

@@ -526,6 +526,20 @@ namespace Game
                 }
             }
 
+            //Ring
+            foreach (var sp in this.RingData)
+            {
+                if (sp.Value.Data > 0)
+                {
+                    RingConfig ringConfig = RingConfigCategory.Instance.Get(sp.Key);
+                    for (int i = 0; i < ringConfig.AttrIdList.Length; i++)
+                    {
+                        AttributeBonus.SetAttr((AttributeEnum)ringConfig.AttrIdList[i], AttributeFrom.Ring, i, ringConfig.GetAttr(i, sp.Value.Data));
+                    }
+                }
+            }
+
+
             //光环
             foreach (var ar in GetAurasList())
             {

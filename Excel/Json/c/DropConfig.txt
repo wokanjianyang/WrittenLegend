@@ -171,6 +171,7 @@
 {"_t":"DropConfig","_id":180016,"Level":0,"Name":"天使之翼","Quantity":1,"ItemType":18,"ItemIdList":[180016]},
 {"_t":"DropConfig","_id":180017,"Level":0,"Name":"分解机","Quantity":1,"ItemType":18,"ItemIdList":[180017]},
 {"_t":"DropConfig","_id":180018,"Level":0,"Name":"摄魂瓶","Quantity":1,"ItemType":18,"ItemIdList":[180018]},
+{"_t":"DropConfig","_id":180019,"Level":0,"Name":"副本杀手","Quantity":1,"ItemType":18,"ItemIdList":[180019]},
 {"_t":"DropConfig","_id":220000,"Level":0,"Name":"副本劵","Quantity":1,"ItemType":9,"ItemIdList":[4003]},
 {"_t":"DropConfig","_id":220001,"Level":0,"Name":"Boss劵","Quantity":1,"ItemType":5,"ItemIdList":[4004]},
 {"_t":"DropConfig","_id":220002,"Level":0,"Name":"四格碎片","Quantity":50,"ItemType":5,"ItemIdList":[4007]},

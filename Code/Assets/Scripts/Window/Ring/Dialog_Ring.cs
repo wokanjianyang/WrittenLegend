@@ -96,7 +96,7 @@ public class Dialog_Ring : MonoBehaviour
             if (i < config.AttrIdList.Length)
             {
                 AttrList[i].gameObject.SetActive(true);
-                AttrList[i].SetContent(config.AttrIdList[i], config.AttrValueList[i], config.AttrRiseList[i]);
+                AttrList[i].SetContent(config.AttrIdList[i], config.GetAttr(i, currentLevel), config.AttrRiseList[i]);
             }
             else
             {
@@ -112,16 +112,17 @@ public class Dialog_Ring : MonoBehaviour
         Txt_Metail.text = "ÏûºÄ" + config.Name + "";
         Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2}", color, total, needNumber);
 
-        if (config.SkillId > 0)
+        if (config.Desc != null && config.Desc.Length > 0)
+        {
+            Txt_Desc.text = config.Desc;
+
+        }
+        else if (config.SkillId > 0)
         {
             SkillData skillData = new SkillData(config.SkillId, 0);
             SkillPanel sp = new SkillPanel(skillData, null, null, true);
 
             Txt_Desc.text = sp.SkillData.SkillConfig.Name + "Lv." + currentLevel + " : " + sp.Desc;
-        }
-        else
-        {
-            Txt_Desc.text = config.Desc;
         }
 
 

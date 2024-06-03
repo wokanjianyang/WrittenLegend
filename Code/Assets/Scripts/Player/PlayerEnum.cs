@@ -120,6 +120,7 @@ namespace Game
         Halidom = 16, //遗物
         Metal = 17,//矿石
         Legacy = 18,//传世
+        Ring = 19,//特戒
 
         Dingzhi = 98,
         /// <summary>

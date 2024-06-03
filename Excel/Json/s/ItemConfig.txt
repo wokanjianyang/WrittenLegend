@@ -74,7 +74,7 @@
 {"_t":"ItemConfig","_id":2000002,"Name":"死神之镰","Type":11,"Des":"激活对应图鉴","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":5,"UseParam":0},
 {"_t":"ItemConfig","_id":2000003,"Name":"落意之剑","Type":11,"Des":"激活对应图鉴","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":5,"UseParam":0},
 {"_t":"ItemConfig","_id":2000004,"Name":"管家之锤","Type":11,"Des":"激活对应图鉴","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":5,"UseParam":0},
-{"_t":"ItemConfig","_id":2000005,"Name":"召唤之书","Type":11,"Des":"激活对应图鉴","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":5,"UseParam":0},
+{"_t":"ItemConfig","_id":2000005,"Name":"致命之书","Type":11,"Des":"激活对应图鉴","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":5,"UseParam":0},
 {"_t":"ItemConfig","_id":2000006,"Name":"龙城攻击","Type":11,"Des":"激活对应图鉴","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":5,"UseParam":0},
 {"_t":"ItemConfig","_id":2000007,"Name":"龙城防御","Type":11,"Des":"激活对应图鉴","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":5,"UseParam":0},
 {"_t":"ItemConfig","_id":2000008,"Name":"龙城生命","Type":11,"Des":"激活对应图鉴","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":5,"UseParam":0},
