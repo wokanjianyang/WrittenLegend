@@ -115,16 +115,20 @@ namespace Game
 
             if (SelfPlayer.Camp == PlayerType.Hero)
             {
-                Debug.Log($"{(this.SelfPlayer.Name)} 属性:{(SelfPlayer.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Protect))}");
+                //Debug.Log($"{(this.SelfPlayer.Name)} 属性:{(SelfPlayer.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Protect))}");
             }
 
             this.SelfPlayer.SetHP(currentHP);
 
-            this.SelfPlayer.EventCenter.Raise(new ShowMsgEvent
+            if (this.SelfPlayer.Camp != PlayerType.Enemy || GameProcessor.Inst.User.ShowMonsterDamage)
             {
-                Type = dr.Type,
-                Content = "-" + StringHelper.FormatNumber(dr.Damage)
-            });
+                this.SelfPlayer.EventCenter.Raise(new ShowMsgEvent
+                {
+                    Type = dr.Type,
+                    Content = "-" + StringHelper.FormatNumber(dr.Damage)
+                });
+            }
+
             this.SelfPlayer.EventCenter.Raise(new SetPlayerHPEvent { });
 
             if (currentHP <= 0)

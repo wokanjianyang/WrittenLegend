@@ -240,13 +240,13 @@ namespace Game
         {
             foreach (List<Effect> list in EffectMap.Values)
             {
-                int mc = list.Where(m => m.Data.Config.Type == (int)EffectType.IgnorePause).Count();
+                int mc = list.Where(m => m.Data.Config.Type == (int)EffectType.IgnorePause && m.Active).Count();
                 if (mc > 0)
                 {
                     return false;
                 }
 
-                int count = list.Where(m => m.Data.Config.Type == (int)EffectType.Pause).Count();
+                int count = list.Where(m => m.Data.Config.Type == (int)EffectType.Pause && m.Active).Count();
                 if (count > 0)
                 {
                     return true;
@@ -272,21 +272,6 @@ namespace Game
         public void DoEffect(float time)
         {
             if (!this.IsSurvice) return;
-
-            //光环
-            //if (this.Camp == PlayerType.Hero)
-            //{
-            //    //Debug.Log("Hero Def:" + this.AttributeBonus.GetTotalAttr(AttributeEnum.Def));
-            //    //Debug.Log("Hero PhyDamage:" + this.AttributeBonus.GetAttackAttr(AttributeEnum.PhyDamage));
-
-            //    if (this.AurasList != null)
-            //    {
-            //        foreach (AAuras auras in this.AurasList)
-            //        {
-            //            auras.Do();
-            //        }
-            //    }
-            //}
 
             //计算buff
             foreach (List<Effect> list in EffectMap.Values)

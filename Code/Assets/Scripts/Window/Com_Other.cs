@@ -22,7 +22,7 @@ namespace Game
     {
         [LabelText("显示怪物技能特效")]
         public Toggle tog_Monster_Skill;
-
+        public Toggle tog_Monster_Damage;
         //public Button btn_Query;
 
         public Text txt_Info;
@@ -51,6 +51,10 @@ namespace Game
             tog_Monster_Skill.onValueChanged.AddListener((isOn) =>
             {
                 this.ShowSkill(isOn);
+            });
+            tog_Monster_Damage.onValueChanged.AddListener((isOn) =>
+            {
+                this.ShowDamage(isOn);
             });
 
             if (CheckShow())
@@ -154,6 +158,7 @@ namespace Game
         {
             Debug.Log("Other init");
             tog_Monster_Skill.isOn = GameProcessor.Inst.User.ShowMonsterSkill;
+            tog_Monster_Damage.isOn = GameProcessor.Inst.User.ShowMonsterDamage;
 
             User user = GameProcessor.Inst.User;
 
@@ -201,6 +206,10 @@ namespace Game
         public void ShowSkill(bool show)
         {
             GameProcessor.Inst.User.ShowMonsterSkill = show;
+        }
+        public void ShowDamage(bool show)
+        {
+            GameProcessor.Inst.User.ShowMonsterDamage = show;
         }
 
         public void OnClick_Change()

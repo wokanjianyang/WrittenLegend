@@ -73,6 +73,8 @@ namespace Game
 
         public bool ShowMonsterSkill { get; set; } = true;
 
+        public bool ShowMonsterDamage { get; set; } = true;
+
         public List<SkillData> SkillList { get; set; } = new List<SkillData>();
 
         public IDictionary<int, List<int>> SkillPanelList { get; set; } = new Dictionary<int, List<int>>();

@@ -80,7 +80,7 @@ namespace Game
                             if (effect.Config.Priority < 0)
                             {
                                 DoEffect(enemy, this.SelfPlayer, 0, 0, effect);
-                                Debug.Log("Run Ring Effect:" + effect.Config.Name);
+                                //Debug.Log("Run Ring Effect:" + effect.Config.Name);
                             }
                         }
                     }
@@ -123,7 +123,7 @@ namespace Game
                                 double total = dr.Damage * effect.Percent / 100;
                                 //Debug.Log("restor:" + total);
                                 DoEffect(enemy, this.SelfPlayer, total, 0, effect);
-                                Debug.Log("Run Ring Effect:" + effect.Config.Name);
+                                //Debug.Log("Run Ring Effect:" + effect.Config.Name);
                             }
                         }
                     }
