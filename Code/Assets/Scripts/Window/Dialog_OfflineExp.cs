@@ -84,7 +84,7 @@ namespace Game
 
             //user.SaveArtifactLevel(180001, 4);
             //user.SaveArtifactLevel(180005, 10);
-            user.SaveArtifactLevel(180019, 1);
+            //user.SaveArtifactLevel(180019, 1);
 
             //user.Record.AddRecord(RecordType.AdReal, -800);
 
