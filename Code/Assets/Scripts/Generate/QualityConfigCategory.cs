@@ -73,6 +73,9 @@ namespace Game
                 case MsgType.SP:
                     color = "0A2D8";
                     break;
+                case MsgType.Ring:
+                    color = "3232AA";
+                    break;
                 case MsgType.Other:
                     break;
             }

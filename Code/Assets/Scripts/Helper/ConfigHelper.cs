@@ -35,7 +35,7 @@ namespace Game
         public static int[] RuneRate2 = new int[] { 1, 4, 9, 15, 25, 35, 45, 55 }; //350-650橙色装备产生概率 
         public static int[] RuneRate3 = new int[] { 1, 4, 9, 15, 25, 35, 45, 55, 60 }; //700以上橙色装备产生概率 
 
-        public static int[] RuneRate99 = new int[] { 1, 3, 6, 9, 15, 24, 39, 59 }; //专属产生概率
+        public static int[] RuneRate99 = new int[] { 1, 3, 6, 9, 15, 24, 39, 59, 85 }; //专属产生概率
 
         public const long MaxOfflineTime = 3600 * 24;  //最长离线时间
 

@@ -20,7 +20,7 @@ namespace Game
         {
             this.SelfPlayer.EventCenter.Raise(new ShowMsgEvent()
             {
-                Type = MsgType.SkillName,
+                Type = MsgType.Ring,
                 Content = SkillPanel.SkillData.SkillConfig.Name
             });
 

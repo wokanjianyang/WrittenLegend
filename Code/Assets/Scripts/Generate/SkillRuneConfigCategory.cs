@@ -13,7 +13,7 @@ namespace Game
 
     public class SkillRuneHelper
     {
-        public static SkillRuneConfig RandomRune(int seed,int indexSeed, int role, int type, int quality, int level)
+        public static SkillRuneConfig RandomRune(int seed, int indexSeed, int role, int type, int quality, int level)
         {
             int skillId = role * 1000;
 
@@ -39,7 +39,7 @@ namespace Game
             }
             else
             {
-                RuneRate = ConfigHelper.RuneRate2;
+                RuneRate = ConfigHelper.RuneRate99;
             }
 
             int mx = RuneRate[RuneRate.Length - 1];

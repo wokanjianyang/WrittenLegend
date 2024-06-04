@@ -130,6 +130,7 @@ namespace Game
         SkillName = 6,
         Miss = 7,
         SP = 8,
+        Ring = 9,
     }
 
     public enum TaskType
