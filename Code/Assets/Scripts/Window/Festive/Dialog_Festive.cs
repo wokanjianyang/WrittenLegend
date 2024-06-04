@@ -9,6 +9,7 @@ using UnityEngine.UI;
 
 public class Dialog_Festive : MonoBehaviour
 {
+    public Text Txt_Title;
     public Text Txt_Total;
 
     public ScrollRect sr_Panel;
@@ -47,6 +48,9 @@ public class Dialog_Festive : MonoBehaviour
             Item_Festive com = Item.GetComponent<Item_Festive>();
             com.SetData(config);
         }
+
+        ItemConfig itemConfig = ItemConfigCategory.Instance.Get(ItemHelper.SpecialId_Chunjie);
+        this.Txt_Title.text = "当前拥有" + itemConfig.Name + "数量：";
     }
 
     private void OnFestiveUIFresh(FestiveUIFreshEvent e)

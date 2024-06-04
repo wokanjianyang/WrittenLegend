@@ -919,6 +919,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ff420cf23f2e6146ab4bc1de86cb528, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Txt_Title: {fileID: 6272183525373193817}
   Txt_Total: {fileID: 900140755043127641}
   sr_Panel: {fileID: 6352046647768520136}
   Btn_Close: {fileID: 1372248669669268840}
