@@ -197,8 +197,7 @@ namespace Game
                 user.LegacyData.GetDropLayer(1, 1);
                 user.LegacyData.GetDropLayer(2, 1);
                 user.LegacyData.GetDropLayer(3, 1);
-            }user.InfiniteData.DropList.Clear();
-            user.InfiniteData.Current.Progress.Data = 1;
+            }
 
             if (user.DeviceId == "")
             {

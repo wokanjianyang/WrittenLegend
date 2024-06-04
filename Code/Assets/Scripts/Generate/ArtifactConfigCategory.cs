@@ -38,6 +38,7 @@ namespace Game
         WingLimit = 16,
         RefineStone = 17,
         SoulStone = 18,
+        EquipBattleRate = 19,
     }
 
 }

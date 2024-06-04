@@ -35,7 +35,10 @@ public class Com_BossInfoItem : MonoBehaviour
 
     private void OnClick_NavigateMap()
     {
-        int ticket = GameProcessor.Inst.EquipCopySetting_Rate ? 5 : 1;
+        User user = GameProcessor.Inst.User;
+        int Rate = user.GetArtifactValue(ArtifactType.EquipBattleRate) + 5;
+
+        int ticket = GameProcessor.Inst.EquipCopySetting_Rate ? Rate : 1;
 
         if (GameProcessor.Inst.User.MagicCopyTikerCount.Data < ticket)
         {

@@ -1947,6 +1947,7 @@ MonoBehaviour:
   sr_Boss: {fileID: 2539121787863522929}
   txt_boss_count: {fileID: 9063891452351133456}
   txt_boss_time: {fileID: 1814872559918043902}
+  TxtRate: {fileID: 1331792868466081579}
   toggle_Rate: {fileID: 2354161218825071770}
   toggle_Auto: {fileID: 6146499640473477407}
   toggle_Hide: {fileID: 6226526607942274918}
@@ -2055,7 +2056,7 @@ GameObject:
   - component: {fileID: 8427930520948918055}
   - component: {fileID: 1331792868466081579}
   m_Layer: 5
-  m_Name: Label
+  m_Name: Txt_Rate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

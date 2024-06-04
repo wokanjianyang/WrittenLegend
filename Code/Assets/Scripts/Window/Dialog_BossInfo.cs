@@ -14,6 +14,7 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
     public Text txt_boss_count;
     public Text txt_boss_time;
 
+    public Text TxtRate;
     public Toggle toggle_Rate;
     public Toggle toggle_Auto;
     public Toggle toggle_Hide;
@@ -24,6 +25,8 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
 
     private int MaxLayer = -1;
     private int SelectLayer = -1;
+
+    private int Rate = 5;
 
     List<Com_BossInfoItem> items = new List<Com_BossInfoItem>();
 
@@ -58,6 +61,11 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
                 this.ChangeLevel(index);
             });
         }
+
+        User user = GameProcessor.Inst.User;
+        this.Rate = user.GetArtifactValue(ArtifactType.EquipBattleRate) + 5;
+
+        TxtRate.text = this.Rate + "±∂ÃÙ’Ω";
     }
 
     void OnEnable()
