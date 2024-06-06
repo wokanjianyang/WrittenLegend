@@ -127,7 +127,7 @@ namespace Game
 
             Recovery.isOn = skillPanel.SkillData.Recovery;
 
-            this.tmp_Level.text = string.Format("LV:{0}", SkillPanel.SkillData.MagicLevel.Data);
+            this.tmp_Level.text = string.Format("LV:{0}", SkillPanel.Level);
             this.tmp_CD.text = string.Format("CD：{0}秒", SkillPanel.CD);
             this.txt_Dis.text = SkillPanel.Dis > 0 ? string.Format("施法距离：{0}格", SkillPanel.Dis) : "施法距离：无";
             this.tmp_Des.text = SkillPanel.Desc;

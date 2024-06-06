@@ -36,6 +36,8 @@ namespace Game
 
         public bool DefinitelyCrit { get; } //必定暴击
 
+        public int Level { get; } //面板等级
+
         public Dictionary<int, EffectData> EffectIdList { get; } = new Dictionary<int, EffectData>(); //特殊效果 
 
         public AttackGeometryType Area { get; }
@@ -52,13 +54,16 @@ namespace Game
             this.SkillData = skillData;
             this.SkillId = skillData.SkillId;
 
-            if (runeList == null) {
+            if (runeList == null)
+            {
                 runeList = new List<SkillRune>();
             }
-            if (suitList == null) {
+            if (suitList == null)
+            {
                 suitList = new List<SkillSuit>();
             }
 
+            long riseLevel = 0;
             if (isPlayer)
             {
                 List<SkillRuneConfig> skillRuneConfigs = SkillRuneConfigCategory.Instance.GetAll().Select(m => m.Value)
@@ -76,6 +81,14 @@ namespace Game
                     int count = suitList.Where(m => m.SkillSuitConfig.Id == config.Id).Count();
                     SuitTextList.Add(new KeyValuePair<string, int>(config.Name, count));
                 }
+
+                User user = GameProcessor.Inst.User;
+                RingConfig ringConfig = RingConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.SkillId == SkillId).FirstOrDefault();
+                if (ringConfig != null)
+                {
+                    long ringLevel = user.GetRingLevel(ringConfig.Id);
+                    riseLevel = ringLevel * ringConfig.RiseSkillLevel;
+                }
             }
 
             List<SkillRune> baseRuneList = runeList.Where(m => m.EffectId == 0).ToList();
@@ -84,7 +97,9 @@ namespace Game
             List<SkillRune> effectRuneList = runeList.Where(m => m.EffectId > 0).ToList();
             List<SkillSuit> effectSuitList = suitList.Where(m => m.EffectId > 0).ToList();
 
-            int levelPercent = ((int)skillData.MagicLevel.Data - 1) * skillData.SkillConfig.LevelPercent;
+            this.Level = (int)(skillData.MagicLevel.Data + riseLevel);
+
+            int levelPercent = (Level - 1) * skillData.SkillConfig.LevelPercent;
             long levelDamage = skillData.MagicLevel.Data * 0;
 
             long runeDamage = baseRuneList.Select(m => m.Damage).Sum() * skillData.MagicLevel.Data;

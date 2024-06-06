@@ -166,15 +166,13 @@ namespace Game
                     RingConfig ringConfig = RingConfigCategory.Instance.Get(sp.Key);
                     if (ringConfig.SkillId > 0)
                     {
-
                         SkillData sd = list.Where(m => m.SkillId == ringConfig.SkillId).FirstOrDefault();
                         if (sd == null)
                         {
                             sd = new SkillData(ringConfig.SkillId, 0);
+                            sd.MagicLevel.Data = 1;
                             list.Add(sd);
                         }
-
-                        sd.MagicLevel.Data += ringLevel * ringConfig.RiseSkillLevel;
                     }
                 }
             }

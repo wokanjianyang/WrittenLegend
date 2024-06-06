@@ -177,6 +177,7 @@ public class Dialog_Ring : MonoBehaviour
 
         this.ShowItem(currentItem);
         GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
+        GameProcessor.Inst.User.EventCenter.Raise(new SkillUpEvent());
     }
 
     public void OnClick_Close()
