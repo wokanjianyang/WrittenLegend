@@ -260,6 +260,15 @@ namespace Game
             //user.MagicLevel.Data = 30000;
             //user.Record.AddRecord(RecordType.AdReal, 360);
 
+            //超出上限的技能
+            //foreach (SkillData skill in user.SkillList)
+            //{
+            //    int lm = user.GetSkillLimit(skill.SkillConfig);
+            //    if (skill.MagicLevel.Data > lm)
+            //    {
+            //        skill.MagicLevel.Data = lm;
+            //    }
+            //}
 
             //记录版号
             user.VersionLog[ConfigHelper.Version] = TimeHelper.ClientNowSeconds();
