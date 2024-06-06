@@ -2,7 +2,7 @@
 {"_t":"RingConfig","_id":1,"Role":1,"ItemId":190001,"SkillId":4001,"RiseSkillLevel":1,"Name":"麻痹戒指","AttrIdList":[14,15,16,2001],"AttrValueList":[200,500,500,5],"AttrRiseList":[200,500,500,5],"Desc":""},
 {"_t":"RingConfig","_id":2,"Role":1,"ItemId":190002,"SkillId":4002,"RiseSkillLevel":1,"Name":"护身戒指","AttrIdList":[14,15,16,2002],"AttrValueList":[200,500,500,5],"AttrRiseList":[200,500,500,5],"Desc":""},
 {"_t":"RingConfig","_id":3,"Role":1,"ItemId":190003,"SkillId":4003,"RiseSkillLevel":1,"Name":"复活戒指","AttrIdList":[14,15,16,2003],"AttrValueList":[200,500,500,5],"AttrRiseList":[200,500,500,5],"Desc":""},
-{"_t":"RingConfig","_id":4,"Role":1,"ItemId":190004,"SkillId":1008,"RiseSkillLevel":20,"Name":"防御戒指","AttrIdList":[14,15,16,2001],"AttrValueList":[200,500,500,5],"AttrRiseList":[200,500,500,5],"Desc":"护体神盾无需上阵，并且等级能额外增加20*戒指等级"},
-{"_t":"RingConfig","_id":5,"Role":1,"ItemId":190005,"SkillId":2008,"RiseSkillLevel":20,"Name":"传送神戒","AttrIdList":[14,15,16,2002],"AttrValueList":[200,500,500,5],"AttrRiseList":[200,500,500,5],"Desc":"瞬息移动无需上阵，并且等级能额外增加20*戒指等级"},
-{"_t":"RingConfig","_id":6,"Role":1,"ItemId":190006,"SkillId":3008,"RiseSkillLevel":20,"Name":"隐身戒指","AttrIdList":[14,15,16,2003],"AttrValueList":[200,500,500,5],"AttrRiseList":[200,500,500,5],"Desc":"隐身术无需上阵，并且等级能额外增加20*戒指等级"},
+{"_t":"RingConfig","_id":4,"Role":1,"ItemId":190004,"SkillId":1008,"RiseSkillLevel":20,"Name":"防御戒指","AttrIdList":[14,15,16,2004],"AttrValueList":[200,500,500,5],"AttrRiseList":[200,500,500,5],"Desc":"护体神盾无需上阵，并且等级能额外增加20*戒指等级"},
+{"_t":"RingConfig","_id":5,"Role":1,"ItemId":190005,"SkillId":2008,"RiseSkillLevel":20,"Name":"传送神戒","AttrIdList":[14,15,16,2005],"AttrValueList":[200,500,500,5],"AttrRiseList":[200,500,500,5],"Desc":"瞬息移动无需上阵，并且等级能额外增加20*戒指等级"},
+{"_t":"RingConfig","_id":6,"Role":1,"ItemId":190006,"SkillId":3008,"RiseSkillLevel":20,"Name":"隐身戒指","AttrIdList":[14,15,16,2006],"AttrValueList":[200,500,500,5],"AttrRiseList":[200,500,500,5],"Desc":"隐身术无需上阵，并且等级能额外增加20*戒指等级"},
 ]}
