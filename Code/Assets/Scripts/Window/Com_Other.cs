@@ -85,13 +85,8 @@ namespace Game
         {
             if (ConfigHelper.Channel == ConfigHelper.Channel_Tap)
             {
-                long time = TimeHelper.ClientNowSeconds();
-                if (time < ConfigHelper.PackTime + 3600 * 24 * 5)
-                {
-                    return false;
-                }
+                return false;
             }
-
             return true;
         }
 
