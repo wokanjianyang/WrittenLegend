@@ -65,5 +65,12 @@ namespace Game
         {
             this.SetContent(attrId, attrBase, 0, attrRise);
         }
+
+        public void SetContent(string name, string bt, string rise)
+        {
+            this.Txt_Name.text = name;
+            this.Txt_Attr.text = bt;
+            this.Txt_Attr_Add.text = rise;
+        }
     }
 }

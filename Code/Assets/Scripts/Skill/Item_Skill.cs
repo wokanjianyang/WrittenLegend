@@ -28,6 +28,7 @@ namespace Game
         public Toggle Recovery;
 
         public Button Btn_UpLevel;
+        public Button Btn_Divine;
 
         List<Text> runeList = new List<Text>();
         List<Text> suitList = new List<Text>();
@@ -44,6 +45,7 @@ namespace Game
 
 
             this.Btn_UpLevel.onClick.AddListener(this.Click_UpLevel);
+            this.Btn_Divine.onClick.AddListener(this.OnClickDivine);
         }
 
         // Update is called once per frame
@@ -83,14 +85,28 @@ namespace Game
             this.Init();
             this.SkillPanel = skillPanel;
 
+            string name = "";
             if (SkillPanel.SkillData.SkillConfig.Name.Length > 2)
             {
-                this.tmp_Name.text = SkillPanel.SkillData.SkillConfig.Name.Insert(2, "\n");
+                name = SkillPanel.SkillData.SkillConfig.Name.Insert(2, "\n");
             }
             else
             {
-                this.tmp_Name.text = SkillPanel.SkillData.SkillConfig.Name;
+                name = SkillPanel.SkillData.SkillConfig.Name;
             }
+
+            string color = skillPanel.DivineLevel > 0 ? "FF0000" : "000000";
+            this.tmp_Name.text = string.Format("<color=#{0}>{1}</color>", color, name);
+
+            if (skillPanel.DivineAttrConfig != null)
+            {
+                this.Btn_Divine.gameObject.SetActive(true);
+            }
+            else
+            {
+                this.Btn_Divine.gameObject.SetActive(false);
+            }
+
 
             for (int i = 0; i < runeList.Count; i++)
             {
@@ -220,6 +236,12 @@ namespace Game
 
 
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "消耗" + upCount + "个" + itemConfig.Name + "升级成功", ToastType = ToastTypeEnum.Success });
+        }
+
+        public void OnClickDivine()
+        {
+
+            GameProcessor.Inst.EventCenter.Raise(new OpenDivineEvent() { SkillId = SkillPanel.SkillId });
         }
     }
 }

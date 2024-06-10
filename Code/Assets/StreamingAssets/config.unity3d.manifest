@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2001235540
+CRC: 1079825059
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: b5f46ad9035b2479b469e0916fc4df96
+    Hash: 642aafd4540dc3df1d83d6ccb137194d
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -29,6 +29,7 @@ Assets:
 - Assets/Resources/Config/EquipRefineConfigCategory.bytes
 - Assets/Resources/Config/FashionSuitConfigCategory.bytes
 - Assets/Resources/Config/GiftPackExclusiveConfigCategory.bytes
+- Assets/Resources/Config/SkillDivineAttrConfigCategory.bytes
 - Assets/Resources/Config/SoulRingConfigCategory.bytes
 - Assets/Resources/Config/ExclusiveAttrConfigCategory.bytes
 - Assets/Resources/Config/ArtifactConfigCategory.bytes
@@ -73,6 +74,7 @@ Assets:
 - Assets/Resources/Config/LegacyMapConfigCategory.bytes
 - Assets/Resources/Config/PhantomAttrConfigCategory.bytes
 - Assets/Resources/Config/MonsterSpecialConfigCategory.bytes
+- Assets/Resources/Config/SkillDivineConfigCategory.bytes
 - Assets/Resources/Config/ExchangeConfigCategory.bytes
 - Assets/Resources/Config/LegacyConfigCategory.bytes
 - Assets/Resources/Config/SkillModelCategory.bytes

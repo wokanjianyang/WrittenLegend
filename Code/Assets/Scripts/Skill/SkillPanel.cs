@@ -49,6 +49,9 @@ namespace Game
 
         public string Desc { get; set; }
 
+        public long DivineLevel = 0;
+        public SkillDivineAttrConfig DivineAttrConfig;
+
         public SkillPanel(SkillData skillData, List<SkillRune> runeList, List<SkillSuit> suitList, bool isPlayer)
         {
             this.SkillData = skillData;
@@ -255,6 +258,11 @@ namespace Game
                 this.DefinitelyCrit = false;
             }
 
+            this.DivineAttrConfig = SkillDivineAttrConfigCategory.Instance.GetBySkillId(SkillId);
+
+            this.DivineLevel = skillData.GetDivineLevel(); ;
+
+
             //TEST skill
             //this.CD = 0;
             //this.Row = 2;
@@ -266,5 +274,14 @@ namespace Game
         {
             return (int)AttributeFrom.Skill * 100000 + effectId * 10;
         }
+
+
+    }
+
+    public enum DivineType
+    {
+        SingleRepeat = 1,
+        DistanceRise = 2,
+        SingleEjection = 3,
     }
 }

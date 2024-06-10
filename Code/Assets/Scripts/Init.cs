@@ -55,13 +55,7 @@ public class Init : MonoBehaviour
             {
                 "Window/View_TopStatu",
                 "Window/View_BottomNavBar",
-                "Window/Dialog_Detail_Select",
-                "Window/Dialog_Detail",
-                "Window/Dialog_EquipDetail",
-                "Window/Dialog_Exclusive_Detail",
-                "Window/Dialog_Defend",
-                "Window/Dialog_OfflineExp",
-                "Window/Dialog_Settings",
+
                 "Window/Map_EquipCopy",
                 "Window/Map_Phantom",
                 "Window/Map_BossFamily",
@@ -71,11 +65,21 @@ public class Init : MonoBehaviour
                 "Window/Map_Infinite",
                 "Window/Map_Legacy",
 
+                "Window/Dialog_Detail_Select",
+                "Window/Dialog_Detail",
+                "Window/Dialog_EquipDetail",
+                "Window/Dialog_Exclusive_Detail",
+                "Window/Dialog_Defend",
+                "Window/Dialog_OfflineExp",
+                "Window/Dialog_Settings",
+
                 "Window/Dialog_SoulRing",
                 "Window/Dialog_Achievement",
                 "Window/Dialog_Fashion",
                 "Window/Dialog_Attr",
                 "Window/Legacy/Dialog_Legacy",
+
+                "Window/Skill/Dialog_Divine",
             }
         },
         {

@@ -412,4 +412,11 @@ namespace Game
     public class OpenFashionDialogEvent : SDD.Events.Event
     {
     }
+
+    //----------Divine
+    public class OpenDivineEvent : SDD.Events.Event
+    {
+        public int SkillId { get; set; }
+    }
+
 }
