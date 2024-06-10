@@ -71,23 +71,24 @@ namespace Game
             }
             else if (skillPanel.SkillData.SkillConfig.Type == (int)SkillType.Attack)
             {
-                if (skillPanel.SkillData.SkillConfig.CastType == ((int)AttackCastType.Single))
+                if (this.SkillPanel.DivineLevel > 0)
                 {
-                    if (this.SkillPanel.DivineLevel > 0)
+                    if (this.SkillPanel.DivineAttrConfig.DamageType == (int)DivineType.SingleRepeat)
                     {
-                        if (this.SkillPanel.DivineAttrConfig.DamageType == (int)DivineType.SingleRepeat)
-                        {
-                            this.skillLogic = new Skill_Attack_Single_Repeat(player, skillPanel, isShow);
-                        }
-                        else if (this.SkillPanel.DivineAttrConfig.DamageType == (int)DivineType.SingleEjection)
-                        {
-                            this.skillLogic = new Skill_Attack_Single_Rejection(player, skillPanel, isShow);
-                        }
+                        this.skillLogic = new Skill_Attack_Single_Repeat(player, skillPanel, isShow);
                     }
-                    else
+                    else if (this.SkillPanel.DivineAttrConfig.DamageType == (int)DivineType.SingleEjection)
                     {
-                        this.skillLogic = new Skill_Attack_Single(player, skillPanel, isShow);
+                        this.skillLogic = new Skill_Attack_Single_Rejection(player, skillPanel, isShow);
                     }
+                    else if (this.SkillPanel.DivineAttrConfig.DamageType == (int)DivineType.DistanceRise)
+                    {
+                        this.skillLogic = new Skill_Attack_Distance_Rise(player, skillPanel, isShow);
+                    }
+                }
+                else if (skillPanel.SkillData.SkillConfig.CastType == ((int)AttackCastType.Single))
+                {
+                    this.skillLogic = new Skill_Attack_Single(player, skillPanel, isShow);
                 }
                 else
                 {

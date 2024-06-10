@@ -32,6 +32,11 @@ namespace Game
 
         }
 
+        public int CalDistance(Vector3Int from, Vector3Int to)
+        {
+            return Math.Abs(from.x - to.x) + Math.Abs(from.y - to.y);
+        }
+
         public void DoEffect(APlayer enemy, APlayer self, double damage, long rolePercent, EffectData data)
         {
             EffectConfig config = data.Config;
