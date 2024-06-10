@@ -73,7 +73,21 @@ namespace Game
             {
                 if (skillPanel.SkillData.SkillConfig.CastType == ((int)AttackCastType.Single))
                 {
-                    this.skillLogic = new Skill_Attack_Single(player, skillPanel, isShow);
+                    if (this.SkillPanel.DivineLevel > 0)
+                    {
+                        if (this.SkillPanel.DivineAttrConfig.DamageType == (int)DivineType.SingleRepeat)
+                        {
+                            this.skillLogic = new Skill_Attack_Single_Repeat(player, skillPanel, isShow);
+                        }
+                        else if (this.SkillPanel.DivineAttrConfig.DamageType == (int)DivineType.SingleEjection)
+                        {
+                            this.skillLogic = new Skill_Attack_Single_Rejection(player, skillPanel, isShow);
+                        }
+                    }
+                    else
+                    {
+                        this.skillLogic = new Skill_Attack_Single(player, skillPanel, isShow);
+                    }
                 }
                 else
                 {
