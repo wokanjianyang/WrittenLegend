@@ -6,20 +6,22 @@ namespace Game
 {
     public class Skill_Attack_Single_Rejection : Skill_Attack
     {
-        public Skill_Attack_Single_Rejection(APlayer player, SkillPanel skill,bool isShow) : base(player, skill)
+        public Skill_Attack_Single_Rejection(APlayer player, SkillPanel skill, bool isShow) : base(player, skill)
         {
             if (isShow)
             {
-                this.skillGraphic = new SkillGraphic_Single(player, skill);
+                this.skillGraphic = new SkillGraphic_Single_Sequence(player, skill);
             }
         }
 
         public override List<AttackData> GetAllTargets()
         {
             List<AttackData> attackDatas = new List<AttackData>();
+            List<Vector3Int> enmeyCells = new List<Vector3Int>();
 
             if (SelfPlayer.Enemy != null)
             {
+                enmeyCells.Add(SelfPlayer.Enemy.Cell);
                 attackDatas.Add(new AttackData()
                 {
                     Tid = SelfPlayer.Enemy.ID,
@@ -28,51 +30,48 @@ namespace Game
                 });
             }
 
-            if (attackDatas.Count >= SkillPanel.EnemyMax)  //如果只能攻击一个，则优先攻击目标
-            {
-                return attackDatas;
-            }
+            long divineMax = SkillPanel.DivineLevel * SkillPanel.DivineAttrConfig.Param;
+            Debug.Log("divineMax:" + divineMax);
 
-            //Debug.Log($"获取技能:{(this.SkillPanel.SkillData.SkillConfig.Name)}施法目标");
 
             //施法中心为自己
-            APlayer target = SelfPlayer;
+            //APlayer target = SelfPlayer;
+            Vector3Int from = SelfPlayer.Cell;
+            Vector3Int to = SelfPlayer.Enemy.Cell;
 
-            List<Vector3Int> allAttackCells = GameProcessor.Inst.MapData.GetAttackRangeCell(SelfPlayer.Cell, SelfPlayer.Enemy.Cell, SkillPanel);
-            allAttackCells.Remove(SelfPlayer.Enemy.Cell);
-
-            //排序，从进到远
-            Vector3Int selfCell = SelfPlayer.Cell;
-            allAttackCells = allAttackCells.OrderBy(m => Mathf.Abs(m.x - selfCell.x) + Mathf.Abs(m.y - selfCell.y) + Mathf.Abs(m.z - selfCell.z)).ToList();
-
-            if (this.SkillPanel.DivineLevel > 0)
+            for (int i = 0; i < divineMax; i++)
             {
-                if (this.SkillPanel.DivineAttrConfig.DamageType == (int)DivineType.SingleRepeat)
-                {
-                    long RepeatMax = SkillPanel.DivineAttrConfig.Param * SkillPanel.DivineLevel;
-                }
-                else if (this.SkillPanel.DivineAttrConfig.DamageType == (int)DivineType.SingleEjection)
-                {
+                List<Vector3Int> allAttackCells = GameProcessor.Inst.MapData.GetAttackRangeCell(from, to, SkillPanel);
+                allAttackCells.RemoveAll(m => enmeyCells.Contains(m));
 
-                }
-            }
-
-            foreach (var cell in allAttackCells)
-            {
-                if (attackDatas.Count >= SkillPanel.EnemyMax)
+                if (allAttackCells.Count <= 0)
                 {
                     break;
                 }
 
-                var enemy = GameProcessor.Inst.PlayerManager.GetPlayer(cell);
-                if (enemy != null && enemy.IsSurvice && enemy.GroupId != SelfPlayer.GroupId) //不会攻击同组成员
+                //排序，从进到远
+                allAttackCells = allAttackCells.OrderBy(m => Mathf.Abs(m.x - to.x) + Mathf.Abs(m.y - to.y) + Mathf.Abs(m.z - to.z)).ToList();
+
+                foreach (var cell in allAttackCells)
                 {
-                    attackDatas.Add(new AttackData()
+                    if (attackDatas.Count > divineMax)
                     {
-                        Tid = enemy.ID,
-                        Cell = cell,
-                        Ratio = 0
-                    });
+                        break;
+                    }
+
+                    var enemy = GameProcessor.Inst.PlayerManager.GetPlayer(cell);
+                    if (enemy != null && enemy.IsSurvice && enemy.GroupId != SelfPlayer.GroupId) //不会攻击同组成员
+                    {
+                        attackDatas.Add(new AttackData()
+                        {
+                            Tid = enemy.ID,
+                            Cell = cell,
+                            Ratio = 0
+                        });
+
+                        from = cell;
+                        enmeyCells.Add(cell);
+                    }
                 }
             }
 

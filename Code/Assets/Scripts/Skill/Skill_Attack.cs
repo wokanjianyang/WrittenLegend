@@ -61,7 +61,7 @@ namespace Game
                     if (DamageHelper.IsMiss(SelfPlayer, enemy))
                     {
                         enemy.ShowMiss();
-                        return;
+                        continue;
                     }
 
                     //先行特效
@@ -130,7 +130,8 @@ namespace Game
                 }
             }
 
-            if (orbState != null) {
+            if (orbState != null)
+            {
                 orbState.Do();
             }
 

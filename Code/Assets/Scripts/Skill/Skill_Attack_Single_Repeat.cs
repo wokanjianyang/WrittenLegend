@@ -81,7 +81,7 @@ namespace Game
 
             SkillState orbState = this.SelfPlayer.GetSkillByPriority(-100);
 
-            int k = 0;
+
             List<AttackData> attackDataCache = GetAllTargets();
 
             if (attackDataCache.Count <= 0)
@@ -89,80 +89,92 @@ namespace Game
                 return;
             }
 
-            for (int i = 0; i < SkillPanel.EnemyMax; i++)
+            int ac = 0;
+            long repeatMax = SkillPanel.DivineLevel * SkillPanel.DivineAttrConfig.Param;
+
+            for (int i = 0; i < repeatMax; i++)
             {
-                var attackData = attackDataCache[k];
-                var enemy = GameProcessor.Inst.PlayerManager.GetPlayer(attackData.Tid);
-
-                if (enemy != null && enemy.IsSurvice)
+                for (int j = 0; j < attackDataCache.Count; j++)
                 {
-                    this.skillGraphic?.PlayAnimation(enemy.Cell);
+                    var attackData = attackDataCache[j];
+                    var enemy = GameProcessor.Inst.PlayerManager.GetPlayer(attackData.Tid);
 
-                    if (DamageHelper.IsMiss(SelfPlayer, enemy))
+                    if (enemy != null && enemy.IsSurvice)
                     {
-                        enemy.ShowMiss();
-                        break;
-                    }
+                        this.skillGraphic?.PlayAnimation(enemy.Cell);
 
-                    //先行特效
-                    foreach (EffectData effect in SkillPanel.EffectIdList.Values)
-                    {
-                        if (effect.Config.Priority < 0)
+                        if (DamageHelper.IsMiss(SelfPlayer, enemy))
                         {
-                            DoEffect(enemy, this.SelfPlayer, 0, 0, effect);
+                            enemy.ShowMiss();
+                            continue;
                         }
-                    }
 
-                    if (orbState != null)
-                    {
-                        foreach (EffectData effect in orbState.SkillPanel.EffectIdList.Values)
+                        //先行特效
+                        foreach (EffectData effect in SkillPanel.EffectIdList.Values)
                         {
                             if (effect.Config.Priority < 0)
                             {
                                 DoEffect(enemy, this.SelfPlayer, 0, 0, effect);
-                                //Debug.Log("Run Ring Effect:" + effect.Config.Name);
                             }
                         }
-                    }
 
-                    var dr = DamageHelper.CalcDamage(SelfPlayer.AttributeBonus, enemy.AttributeBonus, SkillPanel);
-                    dr.FromId = attackData.Tid;
-                    enemy.OnHit(dr);
-
-                    if (enemy.ID == SelfPlayer.Enemy.ID)
-                    {
-                        baseHp = dr.Damage;
-                    }
-
-                    //后行特效
-                    foreach (EffectData effect in SkillPanel.EffectIdList.Values)
-                    {
-                        if (effect.Config.Priority >= 0)
+                        if (orbState != null)
                         {
-                            double total = dr.Damage * effect.Percent / 100;
-                            //Debug.Log("restor:" + total);
-                            DoEffect(enemy, this.SelfPlayer, total, 0, effect);
+                            foreach (EffectData effect in orbState.SkillPanel.EffectIdList.Values)
+                            {
+                                if (effect.Config.Priority < 0)
+                                {
+                                    DoEffect(enemy, this.SelfPlayer, 0, 0, effect);
+                                    //Debug.Log("Run Ring Effect:" + effect.Config.Name);
+                                }
+                            }
                         }
-                    }
 
-                    //法球
-                    if (orbState != null)
-                    {
-                        foreach (EffectData effect in orbState.SkillPanel.EffectIdList.Values)
+                        var dr = DamageHelper.CalcDamage(SelfPlayer.AttributeBonus, enemy.AttributeBonus, SkillPanel);
+                        dr.FromId = attackData.Tid;
+                        enemy.OnHit(dr);
+
+                        if (enemy.ID == SelfPlayer.Enemy.ID)
+                        {
+                            baseHp = dr.Damage;
+                        }
+
+                        //后行特效
+                        foreach (EffectData effect in SkillPanel.EffectIdList.Values)
                         {
                             if (effect.Config.Priority >= 0)
                             {
                                 double total = dr.Damage * effect.Percent / 100;
                                 //Debug.Log("restor:" + total);
                                 DoEffect(enemy, this.SelfPlayer, total, 0, effect);
-                                //Debug.Log("Run Ring Effect:" + effect.Config.Name);
+                            }
+                        }
+
+                        //法球
+                        if (orbState != null)
+                        {
+                            foreach (EffectData effect in orbState.SkillPanel.EffectIdList.Values)
+                            {
+                                if (effect.Config.Priority >= 0)
+                                {
+                                    double total = dr.Damage * effect.Percent / 100;
+                                    //Debug.Log("restor:" + total);
+                                    DoEffect(enemy, this.SelfPlayer, total, 0, effect);
+                                    //Debug.Log("Run Ring Effect:" + effect.Config.Name);
+                                }
                             }
                         }
                     }
-                }
 
-                k = (k + 1) % attackDataCache.Count;
+                    ac++;
+
+                    if (ac >= repeatMax)
+                    {
+                        break;
+                    }
+                }
             }
+
 
 
 

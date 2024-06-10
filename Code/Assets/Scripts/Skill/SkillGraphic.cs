@@ -22,6 +22,10 @@ namespace Game
 
         }
 
+        virtual public void PlayAnimationSequence(List<Vector3Int> cells) { 
+        
+        }
+
         public void PlayAnimation(Vector3Int cell)
         {
             List<Vector3Int> cells = new List<Vector3Int>();
