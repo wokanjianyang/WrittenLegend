@@ -890,6 +890,11 @@ namespace Game
                 }
 
             }
+            else if (boxItem.Item.Type == ItemType.Material && boxItem.Item.ItemConfig.Id == ItemHelper.SpecialId_Level_Stone)
+            {
+                user.MagicLevel.Data += quantity;
+                user.EventCenter.Raise(new UserInfoUpdateEvent());
+            }
         }
 
         private void OnEquipLockEvent(EquipLockEvent e)
@@ -1290,7 +1295,8 @@ namespace Game
             this.DialogArtifact.Show();
         }
 
-        public void OnOpenRing() {
+        public void OnOpenRing()
+        {
             this.DialogRing.Show();
         }
 

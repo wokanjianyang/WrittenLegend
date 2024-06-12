@@ -150,9 +150,21 @@ namespace Game
             int runeInheritIncrea = baseRuneList.Select(m => m.InheritIncrea).Sum();
             int suitInheritIncrea = baseSuitList.Select(m => m.InheritIncrea).Sum();
 
+            int[] divineAttrList = new int[] { 0, 0, 0 };
+
+            foreach (KeyValuePair<int, Data.MagicData> v in skillData.DivineData)
+            {
+                int dil = (int)v.Value.Data;
+                if (dil > 0)
+                {
+                    SkillDivineConfig divineConfig = SkillDivineConfigCategory.Instance.Get(v.Key);
+                    divineAttrList[divineConfig.SkillAttrId - 1] += divineConfig.SkillAttrValue * dil;
+                }
+            }
 
             this.Damage += skillData.SkillConfig.Damage + runeDamage + suitDamage + levelDamage;
             this.Percent += skillData.SkillConfig.Percent + runePercent + suitPercent + levelPercent;
+            this.Percent = this.Percent * (100 + divineAttrList[0]) / 100;
 
             this.IgnoreDef += skillData.SkillConfig.IgnoreDef + runeIgnoreDef + suitIgnoreDef;
             this.Dis += skillData.SkillConfig.Dis + runeDis + suitDis;
@@ -167,8 +179,8 @@ namespace Game
             this.CritDamage = skillData.SkillConfig.CritDamage + runeCritDamage + suitCritDamage;
             this.DamageIncrea = skillData.SkillConfig.DamageIncrea + runeDamageIncrea + suitDamageIncrea;
 
-            this.AttrIncrea = 0 + runeAttrIncrea + suitAttrIncrea;
-            this.FinalIncrea = 0 + runeFinalIncrea + suitFinalIncrea;
+            this.AttrIncrea = 0 + runeAttrIncrea + suitAttrIncrea + divineAttrList[1];
+            this.FinalIncrea = 0 + runeFinalIncrea + suitFinalIncrea + divineAttrList[2];
 
             this.InheritIncrea = skillData.SkillConfig.InheritIncrea + runeInheritIncrea + suitInheritIncrea;
 
