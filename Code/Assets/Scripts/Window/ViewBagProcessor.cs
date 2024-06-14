@@ -892,6 +892,14 @@ namespace Game
             }
             else if (boxItem.Item.Type == ItemType.Material && boxItem.Item.ItemConfig.Id == ItemHelper.SpecialId_Level_Stone)
             {
+                quantity = Math.Min(quantity, user.GetMaxLevel() - user.MagicLevel.Data);
+
+                if (quantity <= 0)
+                {
+                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "已经满级了", ToastType = ToastTypeEnum.Failure });
+                    return;
+                }
+
                 user.MagicLevel.Data += quantity;
                 user.EventCenter.Raise(new UserInfoUpdateEvent());
             }

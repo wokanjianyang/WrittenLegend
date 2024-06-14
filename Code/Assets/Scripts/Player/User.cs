@@ -30,6 +30,8 @@ namespace Game
 
         public int OffLineMapId { get; set; }
 
+        public int Layer { get; set; } = 0;
+
         public MagicData MagicLevel { get; } = new MagicData();
 
         public MagicData MagicGold { get; } = new MagicData();
@@ -1269,6 +1271,11 @@ namespace Game
             }
 
             RingData[ringId].Data++;
+        }
+
+        internal long GetMaxLevel()
+        {
+            return Layer * ConfigHelper.Cycle_Level + ConfigHelper.Max_Level;
         }
     }
 

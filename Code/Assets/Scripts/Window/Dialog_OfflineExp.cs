@@ -93,6 +93,7 @@ namespace Game
             //items.Add(ItemHelper.BuildMaterial(8009, 10)); //神技
             //items.Add(ItemHelper.BuildMaterial(8010, 10)); //神技
 
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Level_Stone, 100000));
 
             //user.SaveArtifactLevel(180001, 4);
             //user.SaveArtifactLevel(180005, 10);

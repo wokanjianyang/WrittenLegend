@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2038375821
+CRC: 2698707349
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 7666406d1b221feb65b08b12a1f149df
+    Hash: ec6afd6025d034325a9e6588ca6cebb1
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -38,12 +38,13 @@ Assets:
 - Assets/Resources/Config/AttrEntryConfigCategory.bytes
 - Assets/Resources/Config/EquipConfigCategory.bytes
 - Assets/Resources/Config/MonsterBaseCategory.bytes
-- Assets/Resources/Config/ItemConfigCategory.bytes
+- Assets/Resources/Config/CycleConfigCategory.bytes
 - Assets/Resources/Config/InfiniteModelConfigCategory.bytes
-- Assets/Resources/Config/MonsterDefendConfigCategory.bytes
+- Assets/Resources/Config/ItemConfigCategory.bytes
 - Assets/Resources/Config/EquipQualityConfigCategory.bytes
 - Assets/Resources/Config/FashionConfigCategory.bytes
 - Assets/Resources/Config/GameAttributeCategory.bytes
+- Assets/Resources/Config/MonsterDefendConfigCategory.bytes
 - Assets/Resources/Config/FestiveConfigCategory.bytes
 - Assets/Resources/Config/HeroPhatomConfigCategory.bytes
 - Assets/Resources/Config/BossConfigCategory.bytes

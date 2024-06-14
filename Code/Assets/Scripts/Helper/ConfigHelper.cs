@@ -22,6 +22,8 @@ namespace Game
 
         public const long Max_Level = 120000; //最大人物等级和强化等级
 
+        public const long Cycle_Level = 10000; //每次轮回增加等级
+
         public const long Max_Legacy_Level = 10; //最大传世副本等级
 
         public const long Max_Floor = 20000000; //最大闯关
