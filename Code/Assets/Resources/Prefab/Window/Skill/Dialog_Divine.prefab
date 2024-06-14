@@ -739,10 +739,10 @@ MonoBehaviour:
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 1
+    m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u9EBB\u75F9\u6212\u6307\u9EBB\u75F9\u6212\u6307\u9EBB\u75F9\u6212\u6307\u9EBB\u75F9\u6212\u6307\u9EBB\u75F9\u6212\u6307\u9EBB\u75F9\u6212\u6307\n\u9EBB\u75F9\u6212\u6307\u9EBB\u75F9\u6212\u6307\u9EBB\u75F9\u6212\u6307\u9EBB\u75F9\u6212\u6307\u9EBB\u75F9\u6212\u6307\u9EBB\u75F9\u6212\u6307"
+  m_Text: "\u9EBB\u75F9\u6212\u6307\u9EBB\u75F9\u6212\u6307\u9EBB\u75F9\u6212\u6307\u9EBB\u75F9\u6212\u6307\u9EBB\u75F9\u6212\u6307\u9EBB\u75F9\u6212\u6307\u9EBB\u75F9\u6212\u6307\u9EBB\u75F9\u6212\u6307\u9EBB\u75F9\u6212\u6307\u9EBB\u75F9\u6212\u6307\u9EBB\u75F9\u6212\u6307\u9EBB\u75F9\u6212\u6307"
 --- !u!1 &6557836418149443643
 GameObject:
   m_ObjectHideFlags: 0
@@ -822,7 +822,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u795E  \u6212"
+  m_Text: "\u795E  \u6280"
 --- !u!1 &6885393624996738605
 GameObject:
   m_ObjectHideFlags: 0
