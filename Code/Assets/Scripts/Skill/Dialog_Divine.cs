@@ -126,7 +126,7 @@ public class Dialog_Divine : MonoBehaviour, IBattleLife
         currentItem.SetContent(currentLevel);
 
         //attr
-        AttrItem.SetContent(formatSkillAttrName(config.SkillAttrId), config.SkillAttrValue * currentLevel + "", config.SkillAttrValue + "");
+        AttrItem.SetContent(formatSkillAttrName(config.SkillAttrId), config.SkillAttrValue * currentLevel + "%", "+" + config.SkillAttrValue + "%");
 
         long total = user.GetBagItemCount(config.ItemId);
         long needNumber = GetNeedNumber(currentLevel);
@@ -136,7 +136,7 @@ public class Dialog_Divine : MonoBehaviour, IBattleLife
         ItemConfig itemConfig = ItemConfigCategory.Instance.Get(config.ItemId);
 
         Txt_Metail.text = "消耗" + itemConfig.Name + "";
-        Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2}", color, total + "%", "+" + needNumber + "%");
+        Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2}", color, total, needNumber);
 
         SkillDivineAttrConfig divineAttrConfig = SkillDivineAttrConfigCategory.Instance.GetBySkillId(this.SkillId);
         Txt_Desc.text = "完成神技所有阶段之后，获得神技效果：" + string.Format(divineAttrConfig.Desc, divineAttrConfig.Param);
