@@ -82,6 +82,18 @@ namespace Game
             //items.Add(ItemHelper.BuildItem(ItemType.Ring, 190002, 1, 2));
             //items.Add(ItemHelper.BuildItem(ItemType.Ring, 190003, 1, 2));
 
+            //items.Add(ItemHelper.BuildMaterial(8001, 10)); //神技
+            //items.Add(ItemHelper.BuildMaterial(8002, 10)); //神技
+            //items.Add(ItemHelper.BuildMaterial(8003, 10)); //神技
+            //items.Add(ItemHelper.BuildMaterial(8004, 10)); //神技
+            //items.Add(ItemHelper.BuildMaterial(8005, 10)); //神技
+            //items.Add(ItemHelper.BuildMaterial(8006, 10)); //神技
+            //items.Add(ItemHelper.BuildMaterial(8007, 10)); //神技
+            //items.Add(ItemHelper.BuildMaterial(8008, 10)); //神技
+            //items.Add(ItemHelper.BuildMaterial(8009, 10)); //神技
+            //items.Add(ItemHelper.BuildMaterial(8010, 10)); //神技
+
+
             //user.SaveArtifactLevel(180001, 4);
             //user.SaveArtifactLevel(180005, 10);
             //user.SaveArtifactLevel(180019, 1);

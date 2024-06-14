@@ -139,7 +139,8 @@ public class Dialog_Divine : MonoBehaviour, IBattleLife
         Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2}", color, total, needNumber);
 
         SkillDivineAttrConfig divineAttrConfig = SkillDivineAttrConfigCategory.Instance.GetBySkillId(this.SkillId);
-        Txt_Desc.text = "完成神技所有阶段之后，获得神技效果：" + string.Format(divineAttrConfig.Desc, divineAttrConfig.Param);
+        long divineMax = currentLevel * divineAttrConfig.Param;
+        Txt_Desc.text = "完成神技所有阶段之后，获得神技效果：" + string.Format(divineAttrConfig.Desc, divineMax);
 
         if (total >= needNumber)
         {
@@ -150,7 +151,7 @@ public class Dialog_Divine : MonoBehaviour, IBattleLife
             }
             else
             {
-                Btn_Ok.gameObject.SetActive(false);
+                Btn_Ok.gameObject.SetActive(true);
                 Txt_OK.text = "升级";
             }
         }
