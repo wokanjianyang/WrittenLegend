@@ -18,6 +18,7 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
     public Toggle toggle_Rate;
     public Toggle toggle_Auto;
     public Toggle toggle_Hide;
+    public Toggle toggle_Spe;
 
     public List<Toggle> tgLevelList;
     private int LevelCount = 35; //每个难度多少个
@@ -47,6 +48,12 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
         {
             GameProcessor.Inst.EquipCopySetting_Auto = isOn;
         });
+
+        toggle_Spe.onValueChanged.AddListener((isOn) =>
+        {
+            GameProcessor.Inst.EquipCopySetting_Spe = isOn;
+        });
+        
 
         toggle_Hide.onValueChanged.AddListener((isOn) =>
         {

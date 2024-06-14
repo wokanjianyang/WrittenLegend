@@ -73,6 +73,7 @@ namespace Game
         //副本临时设置
         public bool EquipCopySetting_Rate = false;
         public bool EquipCopySetting_Auto = false;
+        public bool EquipCopySetting_Spe = true;
         public bool EquipBossFamily_Auto = false;
 
         void Awake()

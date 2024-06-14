@@ -116,6 +116,7 @@ namespace Game
                 case ItemType.ExpPack:
                 case ItemType.GoldPack:
                 case ItemType.Ticket:
+                case ItemType.Material_Usable:
                     {
                         this.Btn_Use.gameObject.SetActive(true);
                         this.Btn_Use_Batch.gameObject.SetActive(true);

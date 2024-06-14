@@ -100,6 +100,7 @@ namespace Game
         GiftPackExclusive = 12,
         Fashion = 13,
         Halidom = 14,
+        Material_Usable = 15,
 
         Artifact = 18,
         Ring = 19,
