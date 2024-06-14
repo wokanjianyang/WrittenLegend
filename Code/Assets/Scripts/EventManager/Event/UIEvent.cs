@@ -15,6 +15,7 @@ namespace Game
 
     public class SetPlayerLevelEvent : SDD.Events.Event
     {
+        public long Cycle { get; set; }
         public long Level { get; set; }
     }
 
@@ -93,7 +94,7 @@ namespace Game
     }
 
     public class HeroBuffChangeEvent : SDD.Events.Event
-    { 
+    {
 
     }
 
