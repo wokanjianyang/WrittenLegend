@@ -14,6 +14,9 @@ namespace Game
         public Text Txt_Level;
         public Toggle toggle;
 
+        public Image image_Background;
+        public Sprite[] list_Backgrounds;
+
         public RingConfig Config;
         private long Level;
 
@@ -36,6 +39,7 @@ namespace Game
 
             Txt_Name.text = config.Name;
             Txt_Level.text = "";
+            this.image_Background.sprite = list_Backgrounds[config.Id - 1];
         }
 
         public void SetContent(long level)

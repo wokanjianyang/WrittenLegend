@@ -820,7 +820,7 @@ namespace Game
 
                 quantity = Math.Min(quantity, ConfigHelper.CopyTicketMax - user.MagicCopyTikerCount.Data);
             }
-            else if (boxItem.Item.ItemConfig.Id == ItemHelper.SpecialId_Level_Stone)
+            else if (boxItem.Item.Type == ItemType.Material_Usable && boxItem.Item.ConfigId == ItemHelper.SpecialId_Level_Stone)
             {
                 quantity = Math.Min(quantity, user.GetMaxLevel() - user.MagicLevel.Data);
 
