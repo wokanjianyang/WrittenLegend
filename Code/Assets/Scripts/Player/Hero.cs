@@ -169,9 +169,13 @@ namespace Game
                         SkillData sd = list.Where(m => m.SkillId == ringConfig.SkillId).FirstOrDefault();
                         if (sd == null)
                         {
-                            sd = new SkillData(ringConfig.SkillId, 0);
-                            sd.MagicLevel.Data = 1;
-                            list.Add(sd);
+                            sd = user.SkillList.Where(m => m.SkillId == ringConfig.SkillId).FirstOrDefault();
+                            if (sd == null)  //没有学习，则默认为1级
+                            {
+                                sd = new SkillData(ringConfig.SkillId, 0);
+                                sd.MagicLevel.Data = 1;
+                            }
+                            list.Add(sd); //没有上阵，则自动上阵
                         }
                     }
                 }

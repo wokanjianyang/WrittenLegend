@@ -33,10 +33,6 @@ namespace Game
             double maxHp = this.SelfPlayer.AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP);
             double hp = maxHp * percent / 100.0;
 
-            Debug.Log("fuhuo percent:" + percent);
-            Debug.Log("fuhuo maxHp:" + maxHp);
-            Debug.Log("fuhuo HP:" + hp);
-
             this.SelfPlayer.SetHP(hp);
             this.SelfPlayer.EventCenter.Raise(new SetPlayerHPEvent { });
         }

@@ -75,7 +75,6 @@ namespace Game
 
         public override void Do()
         {
-            Debug.Log("Do Skill Single_Repeat");
 
             double baseHp = 0;
 

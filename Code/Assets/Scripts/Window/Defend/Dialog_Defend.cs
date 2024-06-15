@@ -25,10 +25,15 @@ public class Dialog_Defend : MonoBehaviour, IBattleLife
     void Start()
     {
         long progess = GameProcessor.Inst.User.GetAchievementProgeress(AchievementSourceType.Defend);
+
+        Item2.gameObject.SetActive(false);
+        Item3.gameObject.SetActive(false);
+
         if (progess >= 100)
         {
             Item2.gameObject.SetActive(true);
         }
+
         if (progess >= 200) {
             Item3.gameObject.SetActive(true);
         }

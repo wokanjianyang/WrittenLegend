@@ -227,7 +227,7 @@ namespace Game
                                 {
                                     if (result.Code == StatusMessage.OK)
                                     {
-                                        Debug.Log("update info success");
+                                        //Debug.Log("update info success");
                                     }
                                 },
                                null));
