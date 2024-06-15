@@ -224,8 +224,8 @@ namespace Game
 
             //user.KillRecord.Clear();
 
-            user.InfiniteData = new InfiniteData();
-            user.InfiniteData.Ticket = 0;
+            //user.InfiniteData = new InfiniteData();
+            //user.InfiniteData.Ticket = 0;
             //Debug.Log("DeviceId:" + user.DeviceId);
 
             //去掉专属精华

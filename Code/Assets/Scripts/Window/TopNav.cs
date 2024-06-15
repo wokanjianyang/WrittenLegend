@@ -64,7 +64,7 @@ namespace Game
             {
                 text += ConfigHelper.LayerChinaList[cycle] + "转";
             }
-            text += StringHelper.FormatNumber(level) + "级";
+            text += level + "级";
 
             return text;
         }
