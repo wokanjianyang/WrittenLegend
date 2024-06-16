@@ -48,7 +48,7 @@ namespace Game
         SpiritDamage = 35, //道伤加成
         InheritAdvance = 36, //高级继承
         Protect = 37,//免疫
-        BurstMul = 38,//免疫
+        BurstMul = 38,//连爆
 
         WarriorSkillPercent = 41, //战士技能百分比系数
         WarriorSkillDamage = 42, //战士技能固定系数
@@ -122,6 +122,7 @@ namespace Game
         Metal = 17,//矿石
         Legacy = 18,//传世
         Ring = 19,//特戒
+        Cycle = 20,//转生
 
         Dingzhi = 98,
         /// <summary>

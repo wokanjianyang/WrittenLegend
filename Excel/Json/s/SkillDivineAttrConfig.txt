@@ -1,5 +1,5 @@
 {"list":[
-{"_t":"SkillDivineAttrConfig","_id":10021,"SkillId":1002,"Name":"神技·刺杀剑法","Desc":"刺杀剑术敌人距离每多一格，所受伤害提高{0}%","DamageType":2,"Param":50},
+{"_t":"SkillDivineAttrConfig","_id":10021,"SkillId":1002,"Name":"神技·刺杀剑法","Desc":"刺杀剑术敌人距离每多一格，所受伤害提高{0}%","DamageType":2,"Param":30},
 {"_t":"SkillDivineAttrConfig","_id":20021,"SkillId":2002,"Name":"神技·雷电术","Desc":"雷电术可以重复攻击同一目标，最多{0}下","DamageType":1,"Param":1},
 {"_t":"SkillDivineAttrConfig","_id":30021,"SkillId":3002,"Name":"神技·火符术","Desc":"火符术可以弹射3格内的其他敌人，最多弹射{0}次，不会重复弹射","DamageType":3,"Param":1},
 ]}

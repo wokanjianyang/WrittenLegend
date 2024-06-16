@@ -32,6 +32,7 @@ namespace Game
         [Title("功能按钮")]
         public Button Btn_Attr;
         public Button Btn_Achievement;
+        public Button Btn_Cycle;
 
         public Button btn_SoulRing;
         public Button btn_Wing;
@@ -49,7 +50,7 @@ namespace Game
         public Dialog_Halidom DialogHalidom;
         public Dialog_Artifact DialogArtifact;
         public Dialog_Ring DialogRing;
-
+        public Dialog_Cycle DialogCycle;
 
         private List<Com_Box> items = new List<Com_Box>();
 
@@ -69,6 +70,7 @@ namespace Game
 
             this.Btn_Attr.onClick.AddListener(this.OnClick_Attr);
             this.Btn_Achievement.onClick.AddListener(this.OnClick_Achievement);
+            this.Btn_Cycle.onClick.AddListener(this.OnClick_Cycle);
 
             this.btn_SoulRing.onClick.AddListener(this.OnClick_RingSoul);
             this.btn_Wing.onClick.AddListener(OnOpenWing);
@@ -831,7 +833,7 @@ namespace Game
                 }
 
                 user.MagicLevel.Data += quantity;
-                user.EventCenter.Raise(new SetPlayerLevelEvent { Cycle = user.Layer, Level = user.MagicLevel.Data });
+                user.EventCenter.Raise(new SetPlayerLevelEvent { Cycle = user.Cycle.Data, Level = user.MagicLevel.Data });
             }
 
             UseBoxItem(boxItem, quantity);
@@ -1283,7 +1285,11 @@ namespace Game
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowAchievementEvent());
         }
+        public void OnClick_Cycle()
+        {
+            this.DialogCycle.gameObject.SetActive(true);
 
+        }
         public void OnExclusive()
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowExclusiveEvent());

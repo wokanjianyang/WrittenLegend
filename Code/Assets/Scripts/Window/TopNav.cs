@@ -38,7 +38,7 @@ namespace Game
 
             this.OnHeroInfoUpdateEvent(null);
 
-            this.tmp_Level.text = formatLevel(user.Layer, user.MagicLevel.Data);
+            this.tmp_Level.text = formatLevel(user.Cycle.Data, user.MagicLevel.Data);
             this.tmp_BattlePower.text = $"战力：{user.AttributeBonus.GetPower()}";
 
             user.EventCenter.AddListener<SetPlayerLevelEvent>(this.OnSetPlayerLevelEvent);
@@ -62,7 +62,7 @@ namespace Game
             string text = "";
             if (cycle > 0)
             {
-                text += ConfigHelper.LayerChinaList[cycle] + "转";
+                text += ConfigHelper.LayerChinaList[cycle] + "转 "; // string.Format("<color=#FF0000>{0}</color>", );
             }
             text += level + "级";
 

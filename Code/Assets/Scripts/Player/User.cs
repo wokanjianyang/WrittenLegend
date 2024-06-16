@@ -30,7 +30,7 @@ namespace Game
 
         public int OffLineMapId { get; set; }
 
-        public int Layer { get; set; } = 0;
+        public MagicData Cycle { get; set; } = new MagicData();
 
         public MagicData MagicLevel { get; } = new MagicData();
 
@@ -324,6 +324,16 @@ namespace Game
 
             //设置升级属性
             SetUpExp();
+
+            //转生属性
+            if (Cycle.Data > 0)
+            {
+                CycleConfig cycleConfig = CycleConfigCategory.Instance.GetByCycle(Cycle.Data);
+                for (int i = 0; i < cycleConfig.AttrIdList.Length; i++)
+                {
+                    AttributeBonus.SetAttr((AttributeEnum)cycleConfig.AttrIdList[i], AttributeFrom.Cycle, i, cycleConfig.AttrValueList[i]);
+                }
+            }
 
             //装备属性
             foreach (KeyValuePair<int, Equip> kvp in EquipPanelList[EquipPanelIndex])
@@ -1011,7 +1021,7 @@ namespace Game
                 SetUpExp();
 
                 EventCenter.Raise(new UserInfoUpdateEvent());
-                EventCenter.Raise(new SetPlayerLevelEvent { Cycle = this.Layer, Level = this.MagicLevel.Data });
+                EventCenter.Raise(new SetPlayerLevelEvent { Cycle = this.Cycle.Data, Level = this.MagicLevel.Data });
                 yield return new WaitForSeconds(0.2f);
             }
             yield return null;
@@ -1275,7 +1285,7 @@ namespace Game
 
         internal long GetMaxLevel()
         {
-            return Layer * ConfigHelper.Cycle_Level + ConfigHelper.Max_Level;
+            return Cycle.Data * ConfigHelper.Cycle_Level + ConfigHelper.Max_Level;
         }
     }
 

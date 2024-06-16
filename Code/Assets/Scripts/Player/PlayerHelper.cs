@@ -42,6 +42,8 @@ namespace Game
             {nameof(AttributeEnum.QualityIncrea), "品质加成" },
             {nameof(AttributeEnum.Miss), "闪避" },
             {nameof(AttributeEnum.Accuracy), "精准" },
+            {nameof(AttributeEnum.Protect), "绝对减伤" },
+            {nameof(AttributeEnum.BurstMul), "多次掉落" },
 
             {nameof(AttributeEnum.PhyDamage), "物伤加成" },
             {nameof(AttributeEnum.MagicDamage),"魔伤加成" },
