@@ -73,7 +73,7 @@ public class Dialog_Cycle : MonoBehaviour
                 long bv = config != null ? config.AttrValueList[i] : 0;
                 long nv = nextConfig != null ? nextConfig.AttrValueList[i] : bv;
 
-                AttrList[i].SetContent(attrId, bv, nv);
+                AttrList[i].SetContent(attrId, bv, nv - bv);
             }
             else
             {
