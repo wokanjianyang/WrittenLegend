@@ -33,9 +33,9 @@
 {"_t":"HalidomConfig","_id":40000082,"ItemId":40000082,"Name":"梦魇鹰羽","AttrId":2004,"AttrValue":6,"RiseAttr":6,"MaxLevel":4,"Des":"物攻倍率"},
 {"_t":"HalidomConfig","_id":40000083,"ItemId":40000083,"Name":"梦魇虫角","AttrId":2005,"AttrValue":6,"RiseAttr":6,"MaxLevel":4,"Des":"法术倍率"},
 {"_t":"HalidomConfig","_id":40000084,"ItemId":40000084,"Name":"梦魇蜈膏","AttrId":2006,"AttrValue":6,"RiseAttr":6,"MaxLevel":4,"Des":"道术倍率"},
-{"_t":"HalidomConfig","_id":40000085,"ItemId":40000085,"Name":"梦魇钳爪","AttrId":15,"AttrValue":300,"RiseAttr":300,"MaxLevel":4,"Des":"生命比例"},
+{"_t":"HalidomConfig","_id":40000085,"ItemId":40000085,"Name":"梦魇虫心","AttrId":15,"AttrValue":300,"RiseAttr":300,"MaxLevel":4,"Des":"生命比例"},
 {"_t":"HalidomConfig","_id":40000086,"ItemId":40000086,"Name":"梦魇龙皮","AttrId":16,"AttrValue":300,"RiseAttr":300,"MaxLevel":4,"Des":"防御比例"},
-{"_t":"HalidomConfig","_id":40000087,"ItemId":40000087,"Name":"梦魇猪皮","AttrId":33,"AttrValue":15,"RiseAttr":15,"MaxLevel":4,"Des":"物伤"},
-{"_t":"HalidomConfig","_id":40000088,"ItemId":40000088,"Name":"梦魇猪心","AttrId":34,"AttrValue":15,"RiseAttr":15,"MaxLevel":4,"Des":"法伤"},
-{"_t":"HalidomConfig","_id":40000089,"ItemId":40000089,"Name":"梦魇蝎皮","AttrId":35,"AttrValue":15,"RiseAttr":15,"MaxLevel":4,"Des":"道伤"},
+{"_t":"HalidomConfig","_id":40000087,"ItemId":40000087,"Name":"梦魇猪皮","AttrId":2002,"AttrValue":25,"RiseAttr":25,"MaxLevel":4,"Des":"防御倍率"},
+{"_t":"HalidomConfig","_id":40000088,"ItemId":40000088,"Name":"梦魇猪心","AttrId":2003,"AttrValue":25,"RiseAttr":25,"MaxLevel":4,"Des":"生命倍率"},
+{"_t":"HalidomConfig","_id":40000089,"ItemId":40000089,"Name":"梦魇蝎皮","AttrId":2011,"AttrValue":10,"RiseAttr":10,"MaxLevel":4,"Des":"减伤倍率"},
 ]}

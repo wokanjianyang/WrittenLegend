@@ -167,7 +167,7 @@ namespace Game
 
                     ac++;
 
-                    if (ac >= repeatMax)
+                    if (ac >= SkillPanel.EnemyMax)
                     {
                         break;
                     }
