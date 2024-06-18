@@ -242,11 +242,11 @@ public class Com_AD : MonoBehaviour, IBattleLife
 
         User user = GameProcessor.Inst.User;
 
-        if (user.IsDz())
-        {
-            RewardAd(type, true);
-            return;
-        }
+        //if (user.IsDz())
+        //{
+        //    RewardAd(type, true);
+        //    return;
+        //}
 
         if (toggle_Skip.isOn)
         {

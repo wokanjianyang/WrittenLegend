@@ -116,9 +116,14 @@ namespace Game
 
         public long GetLimitLevel()
         {
-            int dzLevel = this.IsDz() ? 20000 : 0;
+            long level = this.MagicLevel.Data;
 
-            return (this.MagicLevel.Data + dzLevel) / 5000 + 1;
+            if (this.Cycle.Data > 0)
+            {
+                level = Math.Max(level, ConfigHelper.Max_Level + (this.Cycle.Data - 1) * ConfigHelper.Cycle_Level);
+            }
+
+            return (level) / 5000 + 1;
         }
 
         public int GetSkillLimit(SkillConfig skillConfig)
@@ -177,9 +182,8 @@ namespace Game
 
         public long GetLimitMineCount()
         {
-            int dz = this.IsDz() ? 1 : 0;
             int limit = GetArtifactValue(ArtifactType.MineCount);
-            return GetLimitLevel() - 4 + dz + limit;
+            return GetLimitLevel() - 4  + limit;
         }
 
         public long LastUploadTime { get; set; }
@@ -291,10 +295,10 @@ namespace Game
             SetAttr();
         }
 
-        public bool IsDz()
-        {
-            return false;
-        }
+        //public bool IsDz()
+        //{
+        //    return false;
+        //}
         public int GetDzRate()
         {
             return 1;  //isDingzhi ? 2 : 1;

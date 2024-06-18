@@ -35,10 +35,10 @@ public class Dialog_BossFamily : MonoBehaviour, IBattleLife
 
         User user = GameProcessor.Inst.User;
         this.Rate = user.GetArtifactValue(ArtifactType.BossBattleRate) + 1;
-        if (user.IsDz())
-        {
-            this.Rate = 5;
-        }
+        //if (user.IsDz())
+        //{
+        //    this.Rate = 5;
+        //}
 
         if (this.Rate > 1)
         {
