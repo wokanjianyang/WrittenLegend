@@ -36,11 +36,8 @@ public class Dialog_Halidom : MonoBehaviour
             var item = GameObject.Instantiate(ItemPrefab);
             var com = item.GetComponentInChildren<Item_Halidom>();
 
-            if (!user.HalidomData.ContainsKey(configs[i].Id)) {
-                user.HalidomData[configs[i].Id] = new Game.Data.MagicData();
-            }
-
-            com.SetContent(configs[i], user.HalidomData[configs[i].Id].Data);
+            long level = user.GetHalidomLevel(configs[i].Id);
+            com.SetContent(configs[i], level);
 
             item.transform.SetParent(this.sr_Boss.content);
             item.transform.localScale = Vector3.one;
@@ -48,7 +45,7 @@ public class Dialog_Halidom : MonoBehaviour
     }
 
     public int Order => (int)ComponentOrder.Dialog;
-    
+
     public void OnClick_Close()
     {
         this.gameObject.SetActive(false);

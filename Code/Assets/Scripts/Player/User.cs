@@ -1287,6 +1287,27 @@ namespace Game
             RingData[ringId].Data++;
         }
 
+        public long GetHalidomLevel(int id)
+        {
+            if (!HalidomData.ContainsKey(id))
+            {
+                HalidomData[id] = new MagicData();
+            }
+
+            return HalidomData[id].Data;
+        }
+
+
+        public void SaveHalidom(int id)
+        {
+            if (!HalidomData.ContainsKey(id))
+            {
+                HalidomData[id] = new MagicData();
+            }
+
+            HalidomData[id].Data++;
+        }
+
         internal long GetMaxLevel()
         {
             return Cycle.Data * ConfigHelper.Cycle_Level + ConfigHelper.Max_Level;

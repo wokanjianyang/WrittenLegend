@@ -9,7 +9,7 @@ namespace Game
     {
         public List<int> GetAllDropIdList()
         {
-            int maxLevel = InfiniteConfigCategory.Instance.GetMaxLevel();
+            int maxLevel = 1000;
 
             List<int> rates = new List<int>();
 
