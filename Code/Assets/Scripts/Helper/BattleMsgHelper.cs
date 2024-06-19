@@ -6,36 +6,41 @@ namespace Game
 {
     public class BattleMsgHelper
     {
-        public static string BuildMonsterDeadMessage(APlayer monster, long exp, long gold, List<Item> Drops)
+        //public static string BuildMonsterDeadMessage(APlayer monster, long exp, long gold, List<Item> Drops)
+        //{
+        //    string drops = "";
+        //    if (exp > 0)
+        //    {
+        //        drops += ",经验增加:" + StringHelper.FormatNumber(exp);
+        //    }
+
+        //    if (gold > 0)
+        //    {
+        //        drops += ",金币增加:" + StringHelper.FormatNumber(gold);
+        //    }
+
+        //    if (Drops != null && Drops.Count > 0)
+        //    {
+        //        drops += ",掉落";
+        //        foreach (var drop in Drops)
+        //        {
+        //            drops += $"<color=#{QualityConfigHelper.GetColor(drop)}>[{drop.Name}]</color>";
+        //        }
+        //    }
+
+        //    string message = $"<color=#{QualityConfigHelper.GetQualityColor(monster.Quality)}>[{monster.Name}]</color><color=white>死亡{drops}</color>";
+
+        //    return message;
+        //}
+
+        public static string BuildMonsterDeadMessage(APlayer monster, long exp, long gold, List<Item> Drops, int burstMul)
         {
             string drops = "";
-            if (exp > 0)
+
+            if (burstMul > 0)
             {
-                drops += ",经验增加:" + StringHelper.FormatNumber(exp);
+                drops += "连爆+" + burstMul + ",";
             }
-
-            if (gold > 0)
-            {
-                drops += ",金币增加:" + StringHelper.FormatNumber(gold);
-            }
-
-            if (Drops != null && Drops.Count > 0)
-            {
-                drops += ",掉落";
-                foreach (var drop in Drops)
-                {
-                    drops += $"<color=#{QualityConfigHelper.GetColor(drop)}>[{drop.Name}]</color>";
-                }
-            }
-
-            string message = $"<color=#{QualityConfigHelper.GetQualityColor(monster.Quality)}>[{monster.Name}]</color><color=white>死亡{drops}</color>";
-
-            return message;
-        }
-
-        public static string BuildBossDeadMessage(APlayer monster, long exp, long gold, List<Item> Drops)
-        {
-            string drops = "";
 
             if (exp > 0)
             {

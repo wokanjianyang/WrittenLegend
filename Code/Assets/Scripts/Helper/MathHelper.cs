@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Game
 {
@@ -8,7 +9,7 @@ namespace Game
         {
             return (float)(radians * 180 / System.Math.PI);
         }
-        
+
         public static float DegToRad(float degrees)
         {
             return (float)(degrees * System.Math.PI / 180);
@@ -54,6 +55,29 @@ namespace Game
         {
             int count = (equipLevel * 3 / 20 + riseStone);
             //Debug.Log("RefineStone:" + count);
+            return count;
+        }
+
+        public static int RandomBurstMul(double rs)
+        {
+            if (rs <= 0)
+            {
+                return 0;
+            }
+
+            if (rs >= 300)
+            {
+                return 3;
+            }
+
+            int count = (int)(rs / 100);
+            int rate = (int)(rs - count * 100);
+
+            if (RandomHelper.RandomRate(rate))
+            {
+                count++;
+            }
+
             return count;
         }
     }

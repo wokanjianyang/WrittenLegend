@@ -112,7 +112,7 @@ public class Monster_Specail : APlayer
         GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
         {
             Type = RuleType,
-            Message = BattleMsgHelper.BuildBossDeadMessage(this, 0, 0, items)
+            Message = BattleMsgHelper.BuildMonsterDeadMessage(this, 0, 0, items, 0)
         });
     }
 }

@@ -242,11 +242,19 @@ namespace Game
                 user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
             }
 
+            double rs = user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstMul);
+            int itemCount = MathHelper.RandomBurstMul(rs);
+            if (itemCount > 0)
+            {
+                exp += exp * itemCount;
+                gold += gold * itemCount;
+                items.AddRange(ItemHelper.BurstMul(items, itemCount));
+            }
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
             {
                 Type = RuleType,
-                Message = BattleMsgHelper.BuildBossDeadMessage(this, exp, gold, items)
+                Message = BattleMsgHelper.BuildMonsterDeadMessage(this, exp, gold, items, itemCount)
             });
 
 

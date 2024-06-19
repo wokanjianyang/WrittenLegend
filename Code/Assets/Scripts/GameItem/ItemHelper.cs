@@ -80,6 +80,22 @@ namespace Game
             return item;
         }
 
+        public static IEnumerable<Item> BurstMul(List<Item> items, int count)
+        {
+            List<Item> newList = new List<Item>();
+            for (int c = 0; c < count; c++)
+            {
+                for (int i = 0; i < items.Count; i++)
+                {
+                    Item newItem = ItemHelper.BuildItem(items[i].Type, items[i].ConfigId, items[i].GetQuality(), items[i].Count);
+
+                    newList.Add(newItem);
+                }
+            }
+
+            return newList;
+        }
+
         public static int SpecialId_SoulRingShard = 4001;
         public static int SpecialId_EquipRefineStone = 4002;
         public static int SpecialId_Copy_Ticket = 4003;

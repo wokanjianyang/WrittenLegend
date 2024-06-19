@@ -16,6 +16,7 @@ namespace Game
         private double[] HpRate = { 1, 2.5, 5, 7.5, 10 };
         private double[] DefRate = { 1, 2, 3, 4, 5 };
         private double[] AttrRate = { 1, 1.25, 1.5, 1.75, 2 };
+        private int[] excludeSuitList = { 6 };
 
         public Monster_Infinite(long progress, int quality) : base()
         {
@@ -94,7 +95,7 @@ namespace Game
             foreach (SkillData skillData in list)
             {
                 List<SkillRune> runeList = SkillRuneHelper.GetAllRune(skillData.SkillId, this.Quality);
-                List<SkillSuit> suitList = SkillSuitHelper.GetAllSuit(skillData.SkillId, this.Quality);
+                List<SkillSuit> suitList = SkillSuitHelper.GetAllSuit(skillData.SkillId, this.Quality, excludeSuitList);
 
                 SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, false);
 

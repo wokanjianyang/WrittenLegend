@@ -54,9 +54,9 @@ namespace Game
             //items.Add(new Equip(22005709, 23, 15, 5));
             //items.Add(new Equip(22005710, 23, 15, 5));
 
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Legacy_Ticket, 1000)); //装备卷
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Copy_Ticket, 500)); //装备卷
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, 1500)); //BOSS卷
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Legacy_Ticket, 6000)); //传世卷
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Copy_Ticket, 100000)); //装备卷
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, 3000)); //BOSS卷
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Wing_Stone, 1800));  //羽毛
 
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Stone, 1000)); //专属碎片
@@ -81,23 +81,27 @@ namespace Game
             //items.Add(ItemHelper.BuildItem(ItemType.Ring, 190001, 1, 2));
             //items.Add(ItemHelper.BuildItem(ItemType.Ring, 190002, 1, 2));
             //items.Add(ItemHelper.BuildItem(ItemType.Ring, 190003, 1, 2));
+            //items.Add(ItemHelper.BuildItem(ItemType.Ring, 190004, 1, 2));
+            //items.Add(ItemHelper.BuildItem(ItemType.Ring, 190005, 1, 2));
+            //items.Add(ItemHelper.BuildItem(ItemType.Ring, 190006, 1, 2));
 
-            //items.Add(ItemHelper.BuildMaterial(8001, 10)); //神技
-            //items.Add(ItemHelper.BuildMaterial(8002, 10)); //神技
-            //items.Add(ItemHelper.BuildMaterial(8003, 10)); //神技
-            //items.Add(ItemHelper.BuildMaterial(8004, 10)); //神技
-            //items.Add(ItemHelper.BuildMaterial(8005, 10)); //神技
-            //items.Add(ItemHelper.BuildMaterial(8006, 10)); //神技
-            //items.Add(ItemHelper.BuildMaterial(8007, 10)); //神技
-            //items.Add(ItemHelper.BuildMaterial(8008, 10)); //神技
-            //items.Add(ItemHelper.BuildMaterial(8009, 10)); //神技
-            //items.Add(ItemHelper.BuildMaterial(8010, 10)); //神技
+            //int ic = 3;
+            //items.Add(ItemHelper.BuildMaterial(8001, ic)); //神技
+            //items.Add(ItemHelper.BuildMaterial(8002, ic)); //神技
+            //items.Add(ItemHelper.BuildMaterial(8003, ic)); //神技
+            //items.Add(ItemHelper.BuildMaterial(8004, ic)); //神技
+            //items.Add(ItemHelper.BuildMaterial(8005, ic)); //神技
+            //items.Add(ItemHelper.BuildMaterial(8006, ic)); //神技
+            //items.Add(ItemHelper.BuildMaterial(8007, ic)); //神技
+            //items.Add(ItemHelper.BuildMaterial(8008, ic)); //神技
+            //items.Add(ItemHelper.BuildMaterial(8009, ic)); //神技
+            //items.Add(ItemHelper.BuildMaterial(8010, ic)); //神技
 
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Level_Stone, 100000));
 
-            //user.SaveArtifactLevel(180001, 4);
+            //user.SaveArtifactLevel(180001, 2);
             //user.SaveArtifactLevel(180005, 10);
-            //user.SaveArtifactLevel(180019, 1);
+            //user.SaveArtifactLevel(180007, 1);
 
             //user.Record.AddRecord(RecordType.AdReal, -800);
 
