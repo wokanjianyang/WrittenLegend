@@ -80,14 +80,14 @@ namespace Game
             return item;
         }
 
-        public static IEnumerable<Item> BurstMul(List<Item> items, int count)
+        public static IEnumerable<Item> BurstMul(List<Item> items, int count, int qualityRate)
         {
             List<Item> newList = new List<Item>();
             for (int c = 0; c < count; c++)
             {
                 for (int i = 0; i < items.Count; i++)
                 {
-                    Item newItem = ItemHelper.BuildItem(items[i].Type, items[i].ConfigId, items[i].GetQuality(), items[i].Count);
+                    Item newItem = ItemHelper.BuildItem(items[i].Type, items[i].ConfigId, qualityRate, items[i].Count);
 
                     newList.Add(newItem);
                 }

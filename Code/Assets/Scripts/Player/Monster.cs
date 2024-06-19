@@ -229,7 +229,7 @@ namespace Game
             {
                 exp += exp * itemCount;
                 gold += gold * itemCount;
-                items.AddRange(ItemHelper.BurstMul(items, itemCount));
+                items.AddRange(ItemHelper.BurstMul(items, itemCount, qualityRate));
             }
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()

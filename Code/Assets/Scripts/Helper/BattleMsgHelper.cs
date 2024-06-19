@@ -39,7 +39,7 @@ namespace Game
 
             if (burstMul > 0)
             {
-                drops += "连爆+" + burstMul + ",";
+                drops += "<color=#EE4444>连爆+" + burstMul + "</color>,";
             }
 
             if (exp > 0)
