@@ -495,7 +495,10 @@ namespace Game
         private void OnSelectGift(SelectGiftEvent e)
         {
             UseBoxItem(e.BoxItem, 1);
-            AddBoxItem(e.Item);
+
+            List<Item> items = new List<Item>();
+            items.Add(e.Item);
+            GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
         }
 
         private void OnChangeExclusiveEvent(ChangeExclusiveEvent e)

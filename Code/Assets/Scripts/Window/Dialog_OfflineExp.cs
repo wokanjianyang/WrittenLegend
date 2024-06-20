@@ -106,7 +106,9 @@ namespace Game
             //user.Record.AddRecord(RecordType.AdReal, -800);
 
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 13, 1, 1));
-            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 14, 1, 1));
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 18, 1, 1));
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 19, 1, 1));
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 20, 1, 1));
 
             //items.AddRange(AddRedEquip1());
             //items.AddRange(AddExclusive2());
