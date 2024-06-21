@@ -183,7 +183,7 @@ namespace Game
         public long GetLimitMineCount()
         {
             int limit = GetArtifactValue(ArtifactType.MineCount);
-            return GetLimitLevel() - 4  + limit;
+            return GetLimitLevel() - 4 + limit;
         }
 
         public long LastUploadTime { get; set; }
@@ -1062,7 +1062,7 @@ namespace Game
             return SkillPanelList[SkillPanelIndex];
         }
 
-        public List<SkillData> GetCurrentSkill()
+        public List<SkillData> GetCurrentSkill(List<int> existsList)
         {
             List<int> ids = GetCurrentSkillList();
 
@@ -1072,8 +1072,11 @@ namespace Game
 
             for (int i = 0; i < ids.Count; i++)
             {
-                SkillData skill = SkillList.Where(m => m.SkillId == ids[i]).FirstOrDefault();
-                list.Add(skill);
+                SkillData skill = SkillList.Where(m => m.SkillId == ids[i] && !existsList.Contains(m.SkillId)).FirstOrDefault();
+                if (skill != null)
+                {
+                    list.Add(skill);
+                }
             }
 
             return list;

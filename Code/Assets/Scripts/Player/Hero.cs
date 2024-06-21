@@ -155,9 +155,7 @@ namespace Game
         {
             SelectSkillList = new List<SkillState>();
 
-            List<SkillData> list = user.GetCurrentSkill();
-            list.Add(new SkillData(9001, (int)SkillPosition.Default));
-
+            List<SkillData> list = new List<SkillData>();
             foreach (KeyValuePair<int, Data.MagicData> sp in user.RingData)
             {
                 long ringLevel = sp.Value.Data;
@@ -181,6 +179,12 @@ namespace Game
                 }
             }
 
+            List<int> rids = list.Select(m => m.SkillId).ToList();
+            list.AddRange(user.GetCurrentSkill(rids));
+
+
+            list.Add(new SkillData(9001, (int)SkillPosition.Default));
+
             if (RuleType == RuleType.Defend)
             {
                 List<int> ids = user.GetCurrentSkillList();
@@ -196,6 +200,8 @@ namespace Game
                     }
                 }
             }
+
+            Debug.Log("skill list:" + list.Select(m => m.SkillId).ToList().ListToString());
 
             for (int i = 0; i < list.Count; i++)
             {
