@@ -19,9 +19,13 @@ public class Dialog_Ring : MonoBehaviour
     public Text Txt_Metail;
     public Text Txt_Fee;
 
+    public Toggle Tg_Select;
+
     public Button Btn_Ok;
     public Button Btn_Close;
     public Text Txt_OK;
+
+    private RingConfig CurrentConfig = null;
 
     public int Order => (int)ComponentOrder.Dialog;
 
@@ -29,6 +33,10 @@ public class Dialog_Ring : MonoBehaviour
     {
         Btn_Close.onClick.AddListener(OnClick_Close);
         Btn_Ok.onClick.AddListener(OnClick_Ok);
+        Tg_Select.onValueChanged.AddListener((isOn) =>
+        {
+            ChangeSelect(isOn);
+        });
 
         this.Init();
     }
@@ -85,6 +93,7 @@ public class Dialog_Ring : MonoBehaviour
         User user = GameProcessor.Inst.User;
 
         RingConfig config = currentItem.Config;
+        this.CurrentConfig = config;
 
         long currentLevel = user.GetRingLevel(config.Id);
 
@@ -126,6 +135,8 @@ public class Dialog_Ring : MonoBehaviour
             Txt_Desc.text = sp.SkillData.SkillConfig.Name + "Lv." + currentLevel + " : " + sp.Desc;
         }
 
+        bool select = user.RingSelect.ContainsKey(config.Id);
+        Tg_Select.isOn = select;
 
         if (total >= needNumber)
         {
@@ -143,6 +154,26 @@ public class Dialog_Ring : MonoBehaviour
         {
             Btn_Ok.gameObject.SetActive(false);
         }
+    }
+
+    public void ChangeSelect(bool isOn)
+    {
+        if (CurrentConfig == null)
+        {
+            return;
+        }
+
+        User user = GameProcessor.Inst.User;
+        int key = CurrentConfig.Id;
+        if (isOn)
+        {
+            user.RingSelect[key] = 1;
+        }
+        else
+        {
+            user.RingSelect.Remove(key);
+        }
+
     }
 
     private long GetNeedNumber(long level)
