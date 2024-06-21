@@ -14,9 +14,7 @@ namespace Game
 
         public const int Version = 218;
 
-        public const bool ShowFestive = false;
-
-        public const long PackTime = 1718972729; //打包时间，防止作弊
+        public const long PackTime = 1718419328; //打包时间，防止作弊
 
         public const long PackEndTime = 1721564729; //超过此时间,游戏不能使用，需要更新
 
