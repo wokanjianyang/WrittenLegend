@@ -210,6 +210,8 @@ namespace Game
 
         public long LoadTicketTime { get; set; } = 0;
 
+        public long CreateTime { get; set; } = 0;
+
         public MagicData MagicCopyTikerCount { get; } = new MagicData();
 
         public Dictionary<int, long> MapBossTime { get; } = new Dictionary<int, long>();
