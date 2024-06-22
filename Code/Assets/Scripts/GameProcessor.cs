@@ -76,6 +76,9 @@ namespace Game
         public bool EquipCopySetting_Spe = true;
         public bool EquipBossFamily_Auto = false;
 
+        private long limit1 = 0;
+        private long limit2 = 0;
+
         void Awake()
         {
             if (Inst != null)
@@ -101,7 +104,8 @@ namespace Game
         // Start is called before the first frame update
         void Start()
         {
-
+            limit1 = RandomHelper.RandomNumber(15000, 16000);
+            limit2 = RandomHelper.RandomNumber(30000, 40000);
         }
 
 
@@ -395,30 +399,6 @@ namespace Game
                 return;
             }
 
-            if (User.CreateTime > 0)
-            {
-                //check
-                long day = (DateTime.Now.Second - User.CreateTime) / 86400;
-
-                long total = User.Cycle.Data * ConfigHelper.Max_Level + User.MagicLevel.Data;
-
-                if (day > 0)
-                {
-                    long avgLevel = total / day;
-                    if (avgLevel > 15000)
-                    {
-                        this.EventCenter.Raise(new CheckGameCheatEvent());
-                    }
-                }
-                else
-                {
-                    if (total > 30000)
-                    {
-                        this.EventCenter.Raise(new CheckGameCheatEvent());
-                    }
-                }
-            }
-
             int interval = 5;
             if (User.SecondExpTick == 0)
             {
@@ -447,10 +427,35 @@ namespace Game
                     {
                         User.AddExpAndGold(exp, gold);
 
-                        GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+                        this.EventCenter.Raise(new BattleMsgEvent()
                         {
                             Message = BattleMsgHelper.BuildSecondExpMessage(exp, gold)
                         });
+                    }
+
+                    if (User.CreateTime > 0)
+                    {
+                        //check
+                        long day = (DateTime.Now.Second - User.CreateTime) / 86400;
+
+                        long total = User.Cycle.Data * ConfigHelper.Max_Level + User.MagicLevel.Data;
+
+                        if (day > 0)
+                        {
+                            long avgLevel = total / day;
+
+                            if (avgLevel > limit1)
+                            {
+                                this.EventCenter.Raise(new CheckGameCheatEvent());
+                            }
+                        }
+                        else
+                        {
+                            if (total > limit2)
+                            {
+                                this.EventCenter.Raise(new CheckGameCheatEvent());
+                            }
+                        }
                     }
                 }
             }
