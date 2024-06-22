@@ -67,7 +67,7 @@ namespace Game
                 }
             }
 
-            string message = $"<color=#FFD700>[{monster.Name}]</color><color=white>死亡{drops}</color>";
+            string message = $"<color=#{QualityConfigHelper.GetQualityColor(monster.Quality)}>[{monster.Name}]</color><color=white>死亡{drops}</color>";
 
             return message;
         }
