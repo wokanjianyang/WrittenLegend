@@ -130,8 +130,8 @@ namespace Game
                     break;
                 case ItemType.Card:
                     {
-                        this.Btn_Recovery.gameObject.SetActive(true);
-                        this.Btn_Lose.gameObject.SetActive(false);
+                        //this.Btn_Recovery.gameObject.SetActive(true);
+                        //this.Btn_Lose.gameObject.SetActive(false);
                     }
                     break;
                 default:
@@ -139,6 +139,12 @@ namespace Game
 
                     }
                     break;
+            }
+
+            if (this.boxItem.Item.ItemConfig.RecoveryItemId > 0)
+            {
+                this.Btn_Recovery.gameObject.SetActive(true);
+                this.Btn_Lose.gameObject.SetActive(false);
             }
         }
 

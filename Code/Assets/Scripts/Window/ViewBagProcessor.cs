@@ -715,7 +715,7 @@ namespace Game
 
             foreach (BoxItem box in recoveryList)
             {
-                gold += box.Item.Gold * box.MagicNubmer.Data;
+                //gold += box.Item.Gold * box.MagicNubmer.Data;
 
                 if (box.Item.Type == ItemType.Equip)
                 {
@@ -747,6 +747,12 @@ namespace Game
                 else if (box.Item.Type == ItemType.Card)
                 {
                     cardStone += box.Item.GetQuality() * ((int)box.MagicNubmer.Data);
+                }
+                else if (box.Item.ItemConfig.RecoveryItemId > 0)
+                {
+                    Item item = ItemHelper.BuildMaterial(box.Item.ItemConfig.RecoveryItemId, (int)box.MagicNubmer.Data);
+                    AddBoxItem(item);
+                    itemList.Add(item);
                 }
                 else
                 {
