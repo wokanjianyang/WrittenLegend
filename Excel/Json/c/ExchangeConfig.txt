@@ -5,4 +5,5 @@
 {"_t":"ExchangeConfig","_id":4,"ItemTypeList":[10,5],"ItemIdList":[4,4005],"ItemCountList":[1,150],"ItemQualityList":[5,0],"TargetName":"屠龙自选","TargetType":4,"TargetId":4},
 {"_t":"ExchangeConfig","_id":5,"ItemTypeList":[10,5],"ItemIdList":[5,4005],"ItemCountList":[1,150],"ItemQualityList":[5,0],"TargetName":"倚天自选","TargetType":4,"TargetId":5},
 {"_t":"ExchangeConfig","_id":6,"ItemTypeList":[10,5],"ItemIdList":[6,4005],"ItemCountList":[1,150],"ItemQualityList":[5,0],"TargetName":"命运自选","TargetType":4,"TargetId":6},
+{"_t":"ExchangeConfig","_id":7,"ItemTypeList":[10,5],"ItemIdList":[1,4005],"ItemCountList":[1,300],"ItemQualityList":[5,0],"TargetName":"专属自选8","TargetType":4,"TargetId":21},
 ]}

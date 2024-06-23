@@ -61,4 +61,7 @@
 {"_t":"GiftPackExclusiveConfig","_id":12,"Type":0,"ExclusiveId":6,"Quality":5,"RuneId":14,"SuitId":10009,"DoubeId":3},
 {"_t":"GiftPackExclusiveConfig","_id":13,"Type":0,"ExclusiveId":1,"Quality":5,"RuneId":14,"SuitId":10009,"DoubeId":1},
 {"_t":"GiftPackExclusiveConfig","_id":14,"Type":0,"ExclusiveId":2,"Quality":5,"RuneId":10021,"SuitId":10009,"DoubeId":2},
+{"_t":"GiftPackExclusiveConfig","_id":15,"Type":0,"ExclusiveId":1,"Quality":5,"RuneId":21,"SuitId":13,"DoubeId":1},
+{"_t":"GiftPackExclusiveConfig","_id":16,"Type":0,"ExclusiveId":2,"Quality":5,"RuneId":22,"SuitId":14,"DoubeId":2},
+{"_t":"GiftPackExclusiveConfig","_id":17,"Type":0,"ExclusiveId":3,"Quality":5,"RuneId":23,"SuitId":15,"DoubeId":3},
 ]}

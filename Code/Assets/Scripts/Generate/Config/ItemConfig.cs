@@ -102,6 +102,9 @@ namespace Game
 		/// <summary>使用效果值</summary>
 		[ProtoMember(9)]
 		public int UseParam { get; set; }
+		/// <summary>RecoveryItemId</summary>
+		[ProtoMember(10)]
+		public int RecoveryItemId { get; set; }
 
 	}
 }

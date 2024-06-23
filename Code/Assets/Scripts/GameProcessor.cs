@@ -123,6 +123,11 @@ namespace Game
                 this.MineRule?.OnUpdate();
             }
 
+            if (this.User == null)
+            {
+                return;
+            }
+
             //计算泡点经验
             SecondRewarod();
 
