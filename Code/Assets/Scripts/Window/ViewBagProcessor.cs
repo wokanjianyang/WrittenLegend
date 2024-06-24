@@ -636,23 +636,53 @@ namespace Game
 
             BoxItem boxItem = e.BoxItem;
 
-            ExclusiveItem oldExclusive = boxItem.Item as ExclusiveItem;
-
             List<Item> newList = new List<Item>();
-            ExclusiveItem exclusive = new ExclusiveItem(oldExclusive.ConfigId, oldExclusive.RuneConfigId, oldExclusive.SuitConfigId, oldExclusive.Quality, oldExclusive.DoubleHitId);
-            newList.Add(exclusive);
-            for (int i = 0; i < oldExclusive.RuneConfigIdList.Count; i++)
-            {
-                ExclusiveItem item = new ExclusiveItem(oldExclusive.ConfigId, oldExclusive.RuneConfigIdList[i], oldExclusive.SuitConfigIdList[i], oldExclusive.Quality, oldExclusive.DoubleHitId);
-                newList.Add(item);
-            }
 
-            Dictionary<int, int> useMeterial = ExclusiveDevourConfigCategory.Instance.GetUseList(oldExclusive.GetLevel());
-            foreach (KeyValuePair<int, int> kv in useMeterial)
+            if (boxItem.Item.Type == ItemType.Exclusive)
             {
-                int mc = Math.Max(1, (int)(kv.Value * 0.8));
-                Item item = ItemHelper.BuildMaterial(kv.Key, mc);
-                newList.Add(item);
+                ExclusiveItem oldExclusive = boxItem.Item as ExclusiveItem;
+
+                ExclusiveItem exclusive = new ExclusiveItem(oldExclusive.ConfigId, oldExclusive.RuneConfigId, oldExclusive.SuitConfigId, oldExclusive.Quality, oldExclusive.DoubleHitId);
+                newList.Add(exclusive);
+                for (int i = 0; i < oldExclusive.RuneConfigIdList.Count; i++)
+                {
+                    ExclusiveItem item = new ExclusiveItem(oldExclusive.ConfigId, oldExclusive.RuneConfigIdList[i], oldExclusive.SuitConfigIdList[i], oldExclusive.Quality, oldExclusive.DoubleHitId);
+                    newList.Add(item);
+                }
+
+                Dictionary<int, int> useMeterial = ExclusiveDevourConfigCategory.Instance.GetUseList(oldExclusive.GetLevel());
+                foreach (KeyValuePair<int, int> kv in useMeterial)
+                {
+                    int mc = Math.Max(1, (int)(kv.Value * 0.8));
+                    Item item = ItemHelper.BuildMaterial(kv.Key, mc);
+                    newList.Add(item);
+                }
+            }
+            else if (boxItem.Item.Type == ItemType.Equip)
+            {
+                Equip equip = boxItem.Item as Equip;
+                int layer = equip.Layer;
+
+                int redNumber = 0;
+                for (int l = 1; l < layer; l++)
+                {
+                    EquipGradeConfig config = EquipGradeConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Part == equip.Part && m.Layer == l).FirstOrDefault();
+
+                    Item item = ItemHelper.BuildMaterial(config.MetailId1, config.MetailCount1);
+                    newList.Add(item);
+
+                    redNumber += config.MetailCount;
+                }
+
+                redNumber = redNumber - 1;//损失1
+                if (redNumber > 0)
+                {
+                    Item redItem = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Red_Stone, redNumber);
+                    newList.Add(redItem);
+                }
+
+                equip.Layer = 1;
+                newList.Add(equip);
             }
 
             //销毁旧的
