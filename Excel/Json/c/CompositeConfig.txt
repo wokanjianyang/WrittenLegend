@@ -75,4 +75,5 @@
 {"_t":"CompositeConfig","_id":417,"Type":"魔石","ItemTypeList":[2,5],"ItemIdList":[417,4007],"ItemCountList":[1,131072],"ItemQualityList":[0,0],"TargetName":"魔石十八阶","TargetId":418,"TargetType":2},
 {"_t":"CompositeConfig","_id":418,"Type":"魔石","ItemTypeList":[2,5],"ItemIdList":[418,4007],"ItemCountList":[1,262144],"ItemQualityList":[0,0],"TargetName":"魔石十九阶","TargetId":419,"TargetType":2},
 {"_t":"CompositeConfig","_id":419,"Type":"魔石","ItemTypeList":[2,5],"ItemIdList":[419,4007],"ItemCountList":[1,524288],"ItemQualityList":[0,0],"TargetName":"魔石二十阶","TargetId":420,"TargetType":2},
+{"_t":"CompositeConfig","_id":501,"Type":"其他","ItemTypeList":[5,5],"ItemIdList":[4015,4201],"ItemCountList":[5,10],"ItemQualityList":[0,0],"TargetName":"红装精华","TargetId":4011,"TargetType":5},
 ]}
