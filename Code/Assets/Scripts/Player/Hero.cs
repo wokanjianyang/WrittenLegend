@@ -201,7 +201,7 @@ namespace Game
                 }
             }
 
-            Debug.Log("skill list:" + list.Select(m => m.SkillId).ToList().ListToString());
+            //Debug.Log("skill list:" + list.Select(m => m.SkillId).ToList().ListToString());
 
             for (int i = 0; i < list.Count; i++)
             {

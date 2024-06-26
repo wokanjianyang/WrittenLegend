@@ -4841,6 +4841,7 @@ MonoBehaviour:
   Txt_Version: {fileID: 7129346207473060123}
   Tg_Expend: {fileID: 343605105497106855}
   Btn_Festive: {fileID: 5362460810577782421}
+  Txt_Festive: {fileID: 6424200237076483875}
 --- !u!1 &7232794268411418330
 GameObject:
   m_ObjectHideFlags: 0
@@ -5383,7 +5384,7 @@ GameObject:
   - component: {fileID: 7941150390382953389}
   - component: {fileID: 6424200237076483875}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: txt_festive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

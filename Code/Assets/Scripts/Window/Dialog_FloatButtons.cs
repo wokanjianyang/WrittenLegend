@@ -28,6 +28,7 @@ public class Dialog_FloatButtons : MonoBehaviour, IBattleLife, IPointerDownHandl
     public Toggle Tg_Expend;
 
     public Button Btn_Festive;
+    public Text Txt_Festive;
 
     public enum DragEnum
     {
@@ -58,6 +59,7 @@ public class Dialog_FloatButtons : MonoBehaviour, IBattleLife, IPointerDownHandl
         }
         else
         {
+            this.Txt_Festive.text = dropLimit.Name;
             this.Btn_Festive.onClick.AddListener(OnClick_Festive);
         }
     }

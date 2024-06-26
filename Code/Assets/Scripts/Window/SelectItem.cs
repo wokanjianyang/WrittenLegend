@@ -56,12 +56,19 @@ namespace Game
                 });
                 return;
             }
-            else
+            else if (this.BoxItem.Item.Type == ItemType.Equip)
             {
                 GameProcessor.Inst.EventCenter.Raise(new ShowEquipDetailEvent()
                 {
                     boxItem = this.BoxItem,
                     EquipPosition = -2
+                });
+            }
+            else
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowDetailEvent()
+                {
+                    boxItem = this.BoxItem,
                 });
             }
         }
