@@ -13,6 +13,7 @@
 {"_t":"InfiniteDropConfig","_id":12,"DropId":220014,"Name":"无极道体","Rate":20,"StartLevel":350,"EndLevel":350,"RateLevel":1,"Max":1},
 {"_t":"InfiniteDropConfig","_id":13,"DropId":1006,"Name":"等级丹","Rate":12,"StartLevel":300,"EndLevel":10000,"RateLevel":1,"Max":25},
 {"_t":"InfiniteDropConfig","_id":14,"DropId":1007,"Name":"红装精华","Rate":1,"StartLevel":100,"EndLevel":10000,"RateLevel":3,"Max":2},
+{"_t":"InfiniteDropConfig","_id":15,"DropId":220015,"Name":"分身术","Rate":20,"StartLevel":450,"EndLevel":450,"RateLevel":1,"Max":1},
 {"_t":"InfiniteDropConfig","_id":101,"DropId":180001,"Name":"BOSS杀手","Rate":2000,"StartLevel":1,"EndLevel":10000,"RateLevel":100,"Max":1},
 {"_t":"InfiniteDropConfig","_id":102,"DropId":180002,"Name":"BOSS契约","Rate":4000,"StartLevel":1,"EndLevel":10000,"RateLevel":100,"Max":1},
 {"_t":"InfiniteDropConfig","_id":103,"DropId":180003,"Name":"命运沙漏","Rate":100000,"StartLevel":1,"EndLevel":10000,"RateLevel":100,"Max":10},
