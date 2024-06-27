@@ -305,5 +305,19 @@ namespace Game
 
             return (1 - total) * 100;
         }
+
+        public double CalMulDamageResistAttack()
+        {
+            double total = 1;
+
+            AttributeEnum percentType = AttributeEnum.MulDamageResist;
+
+            foreach (double pc in AllAttrDict[percentType].Values)
+            {
+                total *= (1 - pc / 100);
+            }
+
+            return (1 - total) * 100;
+        }
     }
 }
