@@ -20,6 +20,8 @@ namespace Game
 
         public List<int> SuitConfigIdList { get; set; } = new List<int>();
 
+        public Dictionary<int, int> AttchDict { get; set; } = new Dictionary<int, int>();
+
         public override int GetQuality()
         {
             return Quality;
@@ -89,13 +91,14 @@ namespace Game
         public IDictionary<int, long> GetBaseAttrList()
         {
             int level = GetLevel();
+            int at = AttchDict.Count;
 
             IDictionary<int, long> BaseAttrList = new Dictionary<int, long>();
 
             ExclusiveAttrConfig attrConfig = ExclusiveAttrConfigCategory.Instance.GetByLevel(level);
             for (int i = 0; i < attrConfig.AttrIdList.Length; i++)
             {
-                BaseAttrList.Add(attrConfig.AttrIdList[i], attrConfig.AttrValueList[i] * Quality);
+                BaseAttrList.Add(attrConfig.AttrIdList[i], attrConfig.AttrValueList[i] * Quality + attrConfig.AttchValueList[i] * at);
             }
 
             return BaseAttrList;
@@ -157,6 +160,59 @@ namespace Game
         {
             this.RuneConfigIdList.Add(exclusive.RuneConfigId);
             this.SuitConfigIdList.Add(exclusive.SuitConfigId);
+        }
+
+        public void Attach(ExclusiveItem exclusive)
+        {
+            int runeId = exclusive.RuneConfigId;
+
+            if (!AttchDict.ContainsKey(runeId))
+            {
+                AttchDict[runeId] = 0;
+            }
+
+            AttchDict[runeId]++;
+        }
+
+        public void GetSkillRune(List<SkillRune> runeList, int skillId)
+        {
+            if (SkillRuneConfig != null && SkillRuneConfig.SkillId == skillId)
+            {
+                SkillRune rune = runeList.Where(m => m.SkillRuneConfig.Id == SkillRuneConfig.Id).FirstOrDefault();
+                if (rune == null)
+                {
+                    rune = new SkillRune(SkillRuneConfig.Id, 0);
+                }
+                rune.AddCount(1);
+            }
+
+            for (int i = 0; i < RuneConfigIdList.Count; i++)
+            {
+                SkillRuneConfig config = SkillRuneConfigCategory.Instance.Get(RuneConfigIdList[i]);
+                if (config.SkillId == skillId)
+                {
+                    SkillRune rune = runeList.Where(m => m.SkillRuneConfig.Id == SkillRuneConfig.Id).FirstOrDefault();
+                    if (rune == null)
+                    {
+                        rune = new SkillRune(SkillRuneConfig.Id, 0);
+                    }
+                    rune.AddCount(1);
+                }
+            }
+
+            foreach (KeyValuePair<int, int> kp in AttchDict)
+            {
+                SkillRuneConfig config = SkillRuneConfigCategory.Instance.Get(kp.Key);
+                if (config.SkillId == skillId)
+                {
+                    SkillRune rune = runeList.Where(m => m.SkillRuneConfig.Id == SkillRuneConfig.Id).FirstOrDefault();
+                    if (rune == null)
+                    {
+                        rune = new SkillRune(SkillRuneConfig.Id, 0);
+                    }
+                    rune.AddCount(kp.Value);
+                }
+            }
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ namespace Game
     public class SkillRune
     {
         //生效数量
-        public int AvailableQuantity { get; }
+        public int AvailableQuantity { get; private set; }
 
         public SkillRuneConfig SkillRuneConfig { get; }
 
@@ -32,7 +33,7 @@ namespace Game
         public SkillRune(int runeId, int quantity)
         {
             this.SkillRuneConfig = SkillRuneConfigCategory.Instance.Get(runeId);
-            this.AvailableQuantity = Mathf.Min(quantity, SkillRuneConfig.Max);
+            this.AvailableQuantity = Math.Min(quantity, SkillRuneConfig.Max);
 
             this.Damage = SkillRuneConfig.Damage * AvailableQuantity;
             this.Percent = SkillRuneConfig.Percent * AvailableQuantity;
@@ -54,6 +55,11 @@ namespace Game
             this.InheritIncrea = SkillRuneConfig.InheritIncrea;
 
             this.EffectId = SkillRuneConfig.EffectId;
+        }
+
+        public void AddCount(int count)
+        {
+            this.AvailableQuantity = Math.Min(AvailableQuantity + count, SkillRuneConfig.Max);
         }
     }
 }

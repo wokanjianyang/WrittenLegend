@@ -87,23 +87,26 @@ namespace Game
 		/// <summary>AttrValueList</summary>
 		[ProtoMember(4)]
 		public int[] AttrValueList { get; set; }
-		/// <summary>Name</summary>
+		/// <summary>AttchValueList</summary>
 		[ProtoMember(5)]
+		public int[] AttchValueList { get; set; }
+		/// <summary>Name</summary>
+		[ProtoMember(6)]
 		public string Name { get; set; }
 		/// <summary>Part</summary>
-		[ProtoMember(6)]
+		[ProtoMember(7)]
 		public int Part { get; set; }
 		/// <summary>Type</summary>
-		[ProtoMember(7)]
+		[ProtoMember(8)]
 		public int Type { get; set; }
 		/// <summary>品质</summary>
-		[ProtoMember(8)]
+		[ProtoMember(9)]
 		public int Quality { get; set; }
 		/// <summary>词条</summary>
-		[ProtoMember(9)]
+		[ProtoMember(10)]
 		public int RuneId { get; set; }
 		/// <summary>套装</summary>
-		[ProtoMember(10)]
+		[ProtoMember(11)]
 		public int SuitId { get; set; }
 
 	}
