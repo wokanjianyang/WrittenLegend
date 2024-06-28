@@ -9,7 +9,13 @@ using UnityEngine.UI;
 
 public class ViewForgeProcessor : AViewPage
 {
+    public Toggle toggle_Equip;
+    public Toggle toggle_Exclusive;
     public Toggle toggle_Compound;
+
+    public Transform Nav_Equip;
+    public Transform Nav_Exclusive;
+
     public ScrollRect sr_Left;
     public ScrollRect sr_Right;
 
