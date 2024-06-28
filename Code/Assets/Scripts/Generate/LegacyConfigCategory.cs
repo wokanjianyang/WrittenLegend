@@ -93,9 +93,9 @@ namespace Game
 
     public partial class LegacyMapConfig
     {
-        public long CalMaxLayer(long[] powerList)
+        public long CalMaxLayer(long[] powerList, int extendLevel)
         {
-            long layer = ConfigHelper.Max_Legacy_Level;
+            long layer = ConfigHelper.Max_Legacy_Level + extendLevel;
 
             for (int i = 0; i < PowerList.Length; i++)
             {

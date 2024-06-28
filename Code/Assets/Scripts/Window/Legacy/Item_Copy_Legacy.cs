@@ -63,8 +63,7 @@ namespace Game
                 }
             }
 
-
-            this.Layer = Config.CalMaxLayer(powerList);
+            this.Layer = Config.CalMaxLayer(powerList, user.GetArtifactValue(ArtifactType.LegacyLimit));
 
             this.Txt_Name.text = Config.Name + "(" + Layer + "阶)";
 

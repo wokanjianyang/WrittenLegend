@@ -39,6 +39,7 @@ namespace Game
         RefineStone = 17,
         SoulStone = 18,
         EquipBattleRate = 19,
+        LegacyLimit = 20,
     }
 
 }

@@ -49,7 +49,7 @@ public class Dialog_Cycle : MonoBehaviour
         string color = level >= maxLevel ? "#FFFF00" : "#FF0000";
         Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2}", color, level, maxLevel);
 
-        if (level >= maxLevel)
+        if (level >= maxLevel && cycle < ConfigHelper.Cycle_Max)
         {
             Btn_Ok.gameObject.SetActive(true);
         }
