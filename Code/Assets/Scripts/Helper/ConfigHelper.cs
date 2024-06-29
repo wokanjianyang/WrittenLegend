@@ -30,6 +30,8 @@ namespace Game
 
         public const int FastFloor = 10000000;
 
+        public const long RestoreGold = 10000000000000000L;
+
         public const double Def_Rate = 3.0; //防御系数
 
         public static int[] RuneRate = new int[] { 1, 3, 8, 18, 39, 85 }; //紫色一下装备产生概率

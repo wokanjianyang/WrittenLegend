@@ -454,7 +454,7 @@ namespace Game
                 return;
             }
 
-            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("重生损失一个红装精华，获取其他所有的材料。是否确认？", true,
+            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("重生消耗1京金币，其他材料全额返回。是否确认？", true,
                 () =>
                 {
                     this.gameObject.SetActive(false);

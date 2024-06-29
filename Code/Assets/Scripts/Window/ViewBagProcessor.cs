@@ -634,6 +634,14 @@ namespace Game
         {
             User user = GameProcessor.Inst.User;
 
+            if (user.MagicGold.Data <= ConfigHelper.RestoreGold)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "金币不足1京", ToastType = ToastTypeEnum.Failure });
+                return;
+            }
+
+            user.SubGold(ConfigHelper.RestoreGold);
+
             BoxItem boxItem = e.BoxItem;
 
             List<Item> newList = new List<Item>();
@@ -653,8 +661,8 @@ namespace Game
                 Dictionary<int, int> useMeterial = ExclusiveDevourConfigCategory.Instance.GetUseList(oldExclusive.GetLevel());
                 foreach (KeyValuePair<int, int> kv in useMeterial)
                 {
-                    int mc = Math.Max(1, (int)(kv.Value * 0.8));
-                    Item item = ItemHelper.BuildMaterial(kv.Key, mc);
+                    //int mc = Math.Max(1, (int)(kv.Value * 0.8));
+                    Item item = ItemHelper.BuildMaterial(kv.Key, kv.Value);
                     newList.Add(item);
                 }
             }
@@ -674,7 +682,6 @@ namespace Game
                     redNumber += config.MetailCount;
                 }
 
-                redNumber = redNumber - 1;//损失1
                 if (redNumber > 0)
                 {
                     Item redItem = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Red_Stone, redNumber);

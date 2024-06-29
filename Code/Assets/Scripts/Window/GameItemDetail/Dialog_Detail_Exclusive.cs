@@ -333,7 +333,7 @@ namespace Game
                 return;
             }
 
-            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("重生只能得到80%的材料，和对应的专属。是否确认？", true,
+            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("重生消耗1京金币，其他材料全额返回。是否确认？", true,
                 () =>
                 {
                     this.gameObject.SetActive(false);

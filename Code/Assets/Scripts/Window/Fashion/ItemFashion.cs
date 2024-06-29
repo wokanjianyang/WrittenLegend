@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System;
 
 namespace Game
 {
@@ -34,14 +35,21 @@ namespace Game
             }
         }
 
-        private void Check() {
+        private void Check()
+        {
             User user = GameProcessor.Inst.User;
             long total = user.GetItemMeterialCount(Config.ItemId);
-            string color = total >= Level + 1 ? "#FFFF00" : "#FF0000";
+            int needCount = CalNeedCount((int)Level);
+            string color = total >= needCount ? "#FFFF00" : "#FF0000";
             Txt_Name.text = string.Format("<color={0}>{1}</color>", color, Config.Name);
         }
 
-        public void Init(int part,FashionConfig config)
+        private int CalNeedCount(int currentLevel)
+        {
+            return Math.Min(currentLevel + 1, 20);
+        }
+
+        public void Init(int part, FashionConfig config)
         {
             this.Part = part;
             this.Config = config;

@@ -168,12 +168,13 @@ public class DialogFashion : MonoBehaviour, IBattleLife
         }
 
         long total = user.GetItemMeterialCount(config.ItemId);
+        int needCount = CalNeedCount(currentLevel);
 
-        string color = total >= currentLevel + 1 ? "#FFFF00" : "#FF0000";
+        string color = total >= needCount ? "#FFFF00" : "#FF0000";
 
-        Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2}", color, currentItem.Config.Name + " * " + (currentLevel + 1), total);
+        Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2}", color, currentItem.Config.Name + " * " + needCount, total);
 
-        if (total >= currentLevel + 1)
+        if (total >= needCount)
         {
             Btn_Ok.gameObject.SetActive(true);
         }
@@ -181,6 +182,11 @@ public class DialogFashion : MonoBehaviour, IBattleLife
         {
             Btn_Ok.gameObject.SetActive(false);
         }
+    }
+
+    private int CalNeedCount(int currentLevel)
+    {
+        return Math.Min(currentLevel + 1, 20);
     }
 
     private void OpenFashionDialog(OpenFashionDialogEvent e)
@@ -211,7 +217,7 @@ public class DialogFashion : MonoBehaviour, IBattleLife
 
         long total = user.GetItemMeterialCount(config.ItemId);
 
-        int needCount = currentLevel + 1;
+        int needCount = CalNeedCount(currentLevel);
 
         if (total < needCount)
         {
