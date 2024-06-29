@@ -197,7 +197,7 @@
 {"_t":"DropConfig","_id":220018,"Level":0,"Name":"图鉴碎片","Quantity":30,"ItemType":5,"ItemIdList":[4101]},
 {"_t":"DropConfig","_id":220019,"Level":0,"Name":"四格碎片","Quantity":100,"ItemType":5,"ItemIdList":[4007]},
 {"_t":"DropConfig","_id":220020,"Level":0,"Name":"图鉴碎片","Quantity":40,"ItemType":5,"ItemIdList":[4101]},
-{"_t":"DropConfig","_id":220021,"Level":0,"Name":"传世劵","Quantity":1,"ItemType":5,"ItemIdList":[4013]},
+{"_t":"DropConfig","_id":220021,"Level":0,"Name":"传世劵","Quantity":1,"ItemType":9,"ItemIdList":[4013]},
 {"_t":"DropConfig","_id":101,"Level":0,"Name":"一阶四格","Quantity":1,"ItemType":2,"ItemIdList":[101,201,301,401]},
 {"_t":"DropConfig","_id":102,"Level":0,"Name":"二阶四格","Quantity":1,"ItemType":2,"ItemIdList":[102,202,302,402]},
 {"_t":"DropConfig","_id":103,"Level":0,"Name":"三阶四格","Quantity":1,"ItemType":2,"ItemIdList":[103,203,303,403]},
