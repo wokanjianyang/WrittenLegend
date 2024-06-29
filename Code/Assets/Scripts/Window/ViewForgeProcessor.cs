@@ -13,11 +13,10 @@ public class ViewForgeProcessor : AViewPage
     public Toggle toggle_Exclusive;
     public Toggle toggle_Compound;
 
+    public Panel_Compound PanelCompound;
+
     public Transform Nav_Equip;
     public Transform Nav_Exclusive;
-
-    public ScrollRect sr_Left;
-    public ScrollRect sr_Right;
 
     public Toggle toggle_Refine;
     public Panel_Refine PanelRefine;
@@ -25,22 +24,35 @@ public class ViewForgeProcessor : AViewPage
     public Toggle toggle_Strengthen;
     public Panel_Strengthen PanelStrengthen;
 
-    public Toggle toggle_Exchange;
-    public Panel_Exchange PanelExchange;
-
-    public Toggle toggle_Devour;
-    public Panel_Devour PanelDevour;
-
     public Toggle toggle_Refresh;
     public Panel_Refresh PanelRefresh;
 
     public Toggle toggle_Grade;
     public Panel_Grade PanelGrade;
 
-    private Dictionary<string, List<CompositeConfig>> allCompositeDatas = new Dictionary<string, List<CompositeConfig>>();
+    public Toggle toggle_Exchange;
+    public Panel_Exchange PanelExchange;
+
+    public Toggle toggle_Devour;
+    public Panel_Devour PanelDevour;
+
+    public Toggle toggle_ExclusiveUp;
 
     private void Awake()
     {
+        this.toggle_Equip.onValueChanged.AddListener((isOn) =>
+        {
+            this.Nav_Equip.gameObject.SetActive(isOn);
+        });
+        this.toggle_Exclusive.onValueChanged.AddListener((isOn) =>
+        {
+            this.Nav_Exclusive.gameObject.SetActive(isOn);
+        });
+        this.toggle_Compound.onValueChanged.AddListener((isOn) =>
+        {
+            this.PanelCompound.Show(isOn);
+        });
+
         this.toggle_Strengthen.onValueChanged.AddListener((isOn) =>
         {
             this.ShowStrengthen(isOn);
@@ -82,7 +94,7 @@ public class ViewForgeProcessor : AViewPage
     {
         base.OnBattleStart();
 
-        GameProcessor.Inst.EventCenter.AddListener<ChangeCompositeTypeEvent>(this.OnChangeCompositeTypeEvent);
+        //GameProcessor.Inst.EventCenter.AddListener<ChangeCompositeTypeEvent>(this.OnChangeCompositeTypeEvent);
         //GameProcessor.Inst.EventCenter.AddListener<CompositeUIFreshEvent>(this.OnCompositeUIFreshEvent);
     }
 
@@ -92,49 +104,7 @@ public class ViewForgeProcessor : AViewPage
     }
 
     // Composite
-    private void InitComposite()
-    {
-        var allDatas = CompositeConfigCategory.Instance.GetAll();
-        foreach (var kvp in allDatas)
-        {
-            this.allCompositeDatas.TryGetValue(kvp.Value.Type, out var list);
-            if (list == null)
-            {
-                list = new List<CompositeConfig>();
-            }
 
-            list.Add(kvp.Value);
-
-            this.allCompositeDatas[kvp.Value.Type] = list;
-        }
-
-        var menuItemPrefab = sr_Left.content.GetChild(0);
-        menuItemPrefab.gameObject.SetActive(false);
-        foreach (var kvp in this.allCompositeDatas)
-        {
-            var menuItem = GameObject.Instantiate(menuItemPrefab.gameObject);
-            menuItem.transform.SetParent(sr_Left.content);
-            menuItem.transform.localScale = Vector3.one;
-            menuItem.gameObject.SetActive(true);
-
-            var com = menuItem.GetComponent<Com_CompositeMenu>();
-            com.SetData(kvp.Key);
-        }
-
-        var firstCompositeList = this.allCompositeDatas.First().Value;
-
-        var compositeItemPrefab = Resources.Load<GameObject>("Prefab/Window/Item/Item_Composite");
-        foreach (var config in firstCompositeList)
-        {
-            var compositeItem = GameObject.Instantiate(compositeItemPrefab);
-            compositeItem.transform.SetParent(sr_Right.content);
-            compositeItem.transform.localScale = Vector3.one;
-            compositeItem.gameObject.SetActive(true);
-
-            var com = compositeItem.GetComponent<Item_Composite>();
-            com.SetData(config);
-        }
-    }
 
     //private void ShowComposite() {
     //    for (int i = 0; i < sr_Right.content.childCount; i++)
@@ -146,45 +116,6 @@ public class ViewForgeProcessor : AViewPage
     //        }
     //    }
     //}
-
-    private void OnChangeCompositeTypeEvent(ChangeCompositeTypeEvent e)
-    {
-        var compositeList = this.allCompositeDatas[e.CompositeType];
-
-        var compositeItemPrefab = sr_Right.content.GetChild(0);
-        compositeItemPrefab.gameObject.SetActive(false);
-
-        var total = sr_Right.content.childCount - 1;
-        var max = Mathf.Max(total, compositeList.Count);
-        for (var i = 0; i < max; i++)
-        {
-            if (i < compositeList.Count)
-            {
-                var config = compositeList[i];
-                Item_Composite com = null;
-                if (i < sr_Right.content.childCount - 1)
-                {
-                    com = sr_Right.content.GetChild(i + 1).GetComponent<Item_Composite>();
-                    com.gameObject.SetActive(true);
-                }
-                else
-                {
-                    var compositeItem = GameObject.Instantiate(compositeItemPrefab);
-                    compositeItem.transform.SetParent(sr_Right.content);
-                    compositeItem.gameObject.SetActive(true);
-
-                    com = compositeItem.GetComponent<Item_Composite>();
-                }
-                com.SetData(config);
-            }
-            else
-            {
-                sr_Right.content.GetChild(i + 1).gameObject.SetActive(false);
-            }
-        }
-
-        //sr_Right.horizontalNormalizedPosition = 0;
-    }
 
     //private void OnCompositeUIFreshEvent(CompositeUIFreshEvent e)
     //{
@@ -222,7 +153,7 @@ public class ViewForgeProcessor : AViewPage
     {
         base.OnInit();
 
-        this.InitComposite();
+
     }
 
     public override void OnOpen()
