@@ -197,6 +197,7 @@ namespace Game
                         paramDict.Add("power", this.User.AttributeBonus.GetPower());
                         paramDict.Add("gold", StringHelper.FormatNumber(this.User.MagicGold.Data));
                         paramDict.Add("level", this.User.MagicLevel.Data + "");
+                        paramDict.Add("cycle", this.User.Cycle.Data + "");
 
                         long ringTotal = this.User.SoulRingData.Select(m => m.Value.Data).Sum();
                         paramDict.Add("ring", ringTotal + "");

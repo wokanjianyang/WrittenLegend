@@ -20,6 +20,6 @@
 {"_t":"FestiveConfig","_id":418,"Cost":2000,"Max":1,"Title":"兑换冰咆哮专属自选包1个","TargetName":"专属自选包","TargetType":4,"TargetId":13,"TargetCount":1},
 {"_t":"FestiveConfig","_id":419,"Cost":500,"Max":1,"Title":"兑换8介技能自选包1个","TargetName":"8阶技能自选包","TargetType":4,"TargetId":8,"TargetCount":1},
 {"_t":"FestiveConfig","_id":420,"Cost":1000,"Max":1,"Title":"兑换9介技能自选包1个","TargetName":"9阶技能自选包","TargetType":4,"TargetId":9,"TargetCount":1},
-{"_t":"FestiveConfig","_id":421,"Cost":10000,"Max":1,"Title":"特戒自选","TargetName":"特戒自选","TargetType":4,"TargetId":22,"TargetCount":1},
+{"_t":"FestiveConfig","_id":421,"Cost":30000,"Max":1,"Title":"特戒自选","TargetName":"特戒自选","TargetType":4,"TargetId":22,"TargetCount":1},
 {"_t":"FestiveConfig","_id":422,"Cost":100,"Max":4999,"Title":"兑换书页100个","TargetName":"书页","TargetType":5,"TargetId":4006,"TargetCount":100},
 ]}
