@@ -254,7 +254,7 @@ namespace ET
 
                     string sds = PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
                     Debug.Log("sds:" + sds);
-                    PlayerSettings.SetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup, "");
+                    //PlayerSettings.SetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup, "");
                     Debug.Log("reset sds:" + sds);
 
                     UnityEngine.Debug.Log("finish build exe");

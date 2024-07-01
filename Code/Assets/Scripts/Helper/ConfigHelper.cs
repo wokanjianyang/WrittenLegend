@@ -30,7 +30,7 @@ namespace Game
 
         public const int FastFloor = 10000000;
 
-        public const long RestoreGold = 10000000000000000L;
+        public const long RestoreGold = 5000000000000000L;
 
         public const double Def_Rate = 3.0; //防御系数
 

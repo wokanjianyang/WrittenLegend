@@ -636,7 +636,7 @@ namespace Game
 
             if (user.MagicGold.Data <= ConfigHelper.RestoreGold)
             {
-                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "金币不足1京", ToastType = ToastTypeEnum.Failure });
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "金币不足5000兆", ToastType = ToastTypeEnum.Failure });
                 return;
             }
 

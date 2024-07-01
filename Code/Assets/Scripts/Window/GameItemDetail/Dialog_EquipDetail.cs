@@ -330,15 +330,16 @@ namespace Game
                     //    this.btn_Recovery.gameObject.SetActive(this.boxItem.BoxId != -1 && !this.boxItem.Item.IsLock);
                     //}
                 }
-
-                this.btn_Equip.gameObject.SetActive(this.boxItem.BoxId != -1);
-                this.btn_UnEquip.gameObject.SetActive(this.boxItem.BoxId == -1);
-                this.btn_Recovery.gameObject.SetActive(this.boxItem.BoxId != -1 && !this.boxItem.Item.IsLock);
-                //this.btn_Restore.gameObject.SetActive(this.boxItem.BoxId != -1 && !this.boxItem.Item.IsLock);
-                this.btn_Lock.gameObject.SetActive(!this.boxItem.Item.IsLock);
-                this.btn_Unlock.gameObject.SetActive(this.boxItem.Item.IsLock);
-
             }
+
+
+            this.btn_Equip.gameObject.SetActive(this.boxItem.BoxId != -1);
+            this.btn_UnEquip.gameObject.SetActive(this.boxItem.BoxId == -1);
+            this.btn_Recovery.gameObject.SetActive(this.boxItem.BoxId != -1 && !this.boxItem.Item.IsLock);
+            //this.btn_Restore.gameObject.SetActive(this.boxItem.BoxId != -1 && !this.boxItem.Item.IsLock);
+            this.btn_Lock.gameObject.SetActive(!this.boxItem.Item.IsLock);
+            this.btn_Unlock.gameObject.SetActive(this.boxItem.Item.IsLock);
+
 
             if (equipPositioin < -1 || this.BoxType != ComBoxType.Bag) //不可操作
             {
@@ -454,7 +455,7 @@ namespace Game
                 return;
             }
 
-            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("重生消耗1京金币，其他材料全额返回。是否确认？", true,
+            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("重生消耗5000兆金币，其他材料全额返回。是否确认？", true,
                 () =>
                 {
                     this.gameObject.SetActive(false);
