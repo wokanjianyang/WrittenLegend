@@ -791,10 +791,8 @@ namespace Game
                     AddBoxItem(item);
                     itemList.Add(item);
                 }
-                else
-                {
-                    gold += box.Item.ItemConfig.Price * ((int)box.MagicNubmer.Data);
-                }
+
+                gold += box.Item.ItemConfig.Price * ((int)box.MagicNubmer.Data);
 
                 UseBoxItem(box, box.MagicNubmer.Data);
             }
