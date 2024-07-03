@@ -9,7 +9,7 @@
 {"_t":"DropLimitConfig","_id":107,"Name":"第二批蓝图鉴","Type":98,"StartMapId":1035,"EndMapId":1099,"DropId":2016,"StartRate":0,"Rate":15000,"EndRate":0,"ShareRise":1,"ShareDz":0,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
 {"_t":"DropLimitConfig","_id":108,"Name":"第二批紫图鉴","Type":98,"StartMapId":1035,"EndMapId":1099,"DropId":2017,"StartRate":0,"Rate":20000,"EndRate":0,"ShareRise":1,"ShareDz":0,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
 {"_t":"DropLimitConfig","_id":109,"Name":"第三批白图鉴","Type":98,"StartMapId":1070,"EndMapId":1099,"DropId":2018,"StartRate":0,"Rate":4000,"EndRate":0,"ShareRise":1,"ShareDz":0,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
-{"_t":"DropLimitConfig","_id":110,"Name":"第三批绿图鉴","Type":98,"StartMapId":1070,"EndMapId":1099,"DropId":2019,"StartRate":0,"Rate":80000,"EndRate":0,"ShareRise":1,"ShareDz":0,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
+{"_t":"DropLimitConfig","_id":110,"Name":"第三批绿图鉴","Type":98,"StartMapId":1070,"EndMapId":1099,"DropId":2019,"StartRate":0,"Rate":8000,"EndRate":0,"ShareRise":1,"ShareDz":0,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
 {"_t":"DropLimitConfig","_id":111,"Name":"第三批蓝图鉴","Type":98,"StartMapId":1070,"EndMapId":1099,"DropId":2020,"StartRate":0,"Rate":12000,"EndRate":0,"ShareRise":1,"ShareDz":0,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
 {"_t":"DropLimitConfig","_id":112,"Name":"第三批紫图鉴","Type":98,"StartMapId":1070,"EndMapId":1099,"DropId":2021,"StartRate":0,"Rate":16000,"EndRate":0,"ShareRise":1,"ShareDz":0,"StartDate":"2023-10-21","EndDate":"2024-10-21"},
 {"_t":"DropLimitConfig","_id":201,"Name":"守沙100书页","Type":100,"StartMapId":0,"EndMapId":0,"DropId":1002,"StartRate":0,"Rate":1,"EndRate":0,"ShareRise":0,"ShareDz":1,"StartDate":"2023-10-21","EndDate":"2024-10-21"},

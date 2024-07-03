@@ -776,6 +776,8 @@ namespace Game
                         }
                         recoveryDict[RecoveryItemId] += 1;
                     }
+
+                    gold += equip.EquipConfig.Price;
                 }
                 else if (box.Item.Type == ItemType.Exclusive)
                 {
@@ -791,8 +793,10 @@ namespace Game
                     AddBoxItem(item);
                     itemList.Add(item);
                 }
-
-                gold += box.Item.ItemConfig.Price * ((int)box.MagicNubmer.Data);
+                else
+                {
+                    gold += box.Item.ItemConfig.Price * ((int)box.MagicNubmer.Data);
+                }
 
                 UseBoxItem(box, box.MagicNubmer.Data);
             }

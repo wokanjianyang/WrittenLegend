@@ -189,9 +189,6 @@ namespace Game
             long exp = (long)(this.Exp * (100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.ExpIncrea)) / 100 * rewardModelRate);
             long gold = (long)(this.Gold * (100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.GoldIncrea)) / 100 * rewardModelRate);
 
-            //增加经验,金币
-            user.AddExpAndGold(exp, gold);
-
             QualityConfig qualityConfig = QualityConfigCategory.Instance.Get(Quality);
 
             //user.AddStartRate(this.MapId, qualityConfig.CountRate * countModelRate);
@@ -218,11 +215,6 @@ namespace Game
             int qualityRate = qualityConfig.QualityRate * (100 + (int)user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea)) / 100;
             items.AddRange(DropHelper.BuildDropItem(dropList, qualityRate));
 
-            if (items.Count > 0)
-            {
-                user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
-            }
-
             double rs = user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstMul);
             int itemCount = MathHelper.RandomBurstMul(rs);
             if (itemCount > 0)
@@ -230,6 +222,13 @@ namespace Game
                 exp += exp * itemCount;
                 gold += gold * itemCount;
                 items.AddRange(ItemHelper.BurstMul(items, itemCount, qualityRate));
+            }
+
+            //增加经验,金币
+            user.AddExpAndGold(exp, gold);
+            if (items.Count > 0)
+            {
+                user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
             }
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()

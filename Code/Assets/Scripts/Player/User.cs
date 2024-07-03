@@ -964,7 +964,7 @@ namespace Game
 
             if (exp > 0)
             {
-                if (this.MagicLevel.Data < ConfigHelper.Max_Level)
+                if (this.MagicLevel.Data < GetMaxLevel())
                 {
                     this.MagicExp.Data += exp * rate;
                 }
