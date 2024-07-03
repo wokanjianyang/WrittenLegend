@@ -145,7 +145,7 @@ namespace Game
             {
                 ExclusiveItem exclusive = item as ExclusiveItem;
 
-                if (exclusive.GetLevel() > 1)
+                if (exclusive.GetLayer() > 1)
                 {
                     return false;
                 }

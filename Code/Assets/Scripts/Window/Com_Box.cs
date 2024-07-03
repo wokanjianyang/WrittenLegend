@@ -56,9 +56,9 @@ namespace Game
                 if (BoxItem.Item.Type == ItemType.Exclusive)
                 {
                     ExclusiveItem exclusive = BoxItem.Item as ExclusiveItem;
-                    if (exclusive.GetLevel() > 1)
+                    if (exclusive.GetLayer() > 1)
                     {
-                        this.Layer.text = ConfigHelper.LayerChinaList[(exclusive.GetLevel() - 1)] + "阶"; ;
+                        this.Layer.text = ConfigHelper.LayerChinaList[(exclusive.GetLayer() - 1)] + "阶"; ;
                         this.Layer.gameObject.SetActive(true);
                     }
                 }

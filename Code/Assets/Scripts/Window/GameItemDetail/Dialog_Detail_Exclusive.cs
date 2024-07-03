@@ -151,7 +151,7 @@ namespace Game
                 {
                     runeIdList.Add(exclusive.RuneConfigId);
                 }
-                if (exclusive.GetLevel() > 1)
+                if (exclusive.GetLayer() > 1)
                 {
                     runeIdList.AddRange(exclusive.RuneConfigIdList);
                 }
@@ -164,7 +164,7 @@ namespace Game
                 {
                     suitIdList.Add(exclusive.SuitConfigId);
                 }
-                if (exclusive.GetLevel() > 1)
+                if (exclusive.GetLayer() > 1)
                 {
                     suitIdList.AddRange(exclusive.SuitConfigIdList);
                 }
@@ -210,7 +210,7 @@ namespace Game
                 }
             }
 
-            int level = exclusive.GetLevel();
+            int level = exclusive.GetLayer();
             if (level > 1)
             {
                 this.btn_Restore.gameObject.SetActive(this.boxItem.BoxId != -1 && !this.boxItem.Item.IsLock);

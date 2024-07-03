@@ -90,7 +90,7 @@ namespace Game
 
         public IDictionary<int, long> GetBaseAttrList()
         {
-            int level = GetLevel();
+            int level = GetLayer();
             int at = AttchDict.Count;
 
             IDictionary<int, long> BaseAttrList = new Dictionary<int, long>();
@@ -151,9 +151,13 @@ namespace Game
             return SuitConfigIdList.Where(m => m == suitId).Count() + (SuitConfigId == suitId ? 1 : 0);
         }
 
-        public int GetLevel()
+        public int GetLayer()
         {
             return RuneConfigIdList.Count + 1;
+        }
+
+        public int GetLevel() {
+            return AttchDict.Select(m => m.Value).Sum();
         }
 
         public void Devour(ExclusiveItem exclusive)

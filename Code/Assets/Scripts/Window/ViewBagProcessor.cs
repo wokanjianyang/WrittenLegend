@@ -658,7 +658,7 @@ namespace Game
                     newList.Add(item);
                 }
 
-                Dictionary<int, int> useMeterial = ExclusiveDevourConfigCategory.Instance.GetUseList(oldExclusive.GetLevel());
+                Dictionary<int, int> useMeterial = ExclusiveDevourConfigCategory.Instance.GetUseList(oldExclusive.GetLayer());
                 foreach (KeyValuePair<int, int> kv in useMeterial)
                 {
                     //int mc = Math.Max(1, (int)(kv.Value * 0.8));

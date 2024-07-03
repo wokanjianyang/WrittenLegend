@@ -147,13 +147,13 @@ public class Panel_Devour : MonoBehaviour
         BoxItem boxItem = e.BoxItem;
         ExclusiveItem exclusive = boxItem.Item as ExclusiveItem;
 
-        if (type == 1 && exclusive.GetLevel() > 1)
+        if (type == 1 && exclusive.GetLayer() > 1)
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "副专属不能为升阶过的", ToastType = ToastTypeEnum.Failure });
             return;
         }
 
-        int nextLevel = exclusive.GetLevel();
+        int nextLevel = exclusive.GetLayer();
         int maxLevel = GameProcessor.Inst.User.GetExclusiveLimit();
 
         if (nextLevel >= maxLevel)

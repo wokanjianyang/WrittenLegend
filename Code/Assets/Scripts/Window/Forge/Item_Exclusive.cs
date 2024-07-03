@@ -34,12 +34,30 @@ namespace Game
             });
         }
 
-        public void Init(ExclusiveItem equip, ToggleGroup group)
+        public void Init(ExclusiveItem exclusive, ToggleGroup group)
         {
-            this.item = equip;
+            this.item = exclusive;
 
-            Txt_Name.text = equip.ExclusiveConfig.Name;
-            Txt_Level.text = ConfigHelper.LayerChinaList[equip.GetLevel()] + "½×";
+            Txt_Name.text = exclusive.ExclusiveConfig.Name;
+
+            if (exclusive.GetLayer() > 1)
+            {
+                Txt_Layer.text = ConfigHelper.LayerChinaList[exclusive.GetLayer() - 1] + "½×";
+            }
+            else
+            {
+                Txt_Layer.text = "";
+            }
+
+            int level = exclusive.GetLevel();
+            if (level > 0)
+            {
+                Txt_Level.text = level + "¼¶";
+            }
+            else
+            {
+                Txt_Level.text = "";
+            }
 
             this.toggle.group = group;
         }

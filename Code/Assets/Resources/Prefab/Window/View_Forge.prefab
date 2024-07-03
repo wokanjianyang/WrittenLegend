@@ -6047,6 +6047,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Panel_Exclusive_Up
       objectReference: {fileID: 0}
+    - target: {fileID: 5609592698472184792, guid: 49987fbb6176cae40a383cb961872419, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49987fbb6176cae40a383cb961872419, type: 3}
 --- !u!114 &8215443626341257026 stripped

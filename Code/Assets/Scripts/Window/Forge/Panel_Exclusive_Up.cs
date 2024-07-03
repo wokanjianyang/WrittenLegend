@@ -9,9 +9,17 @@ using UnityEngine.UI;
 
 public class Panel_Exclusive_Up : MonoBehaviour
 {
+    public ScrollRect ds_Panel;
+
     public ScrollRect sr_Panel;
 
     private List<Item_Exclusive> items = new List<Item_Exclusive>();
+
+    private List<Com_Box> sourceList = new List<Com_Box>();
+
+    public List<Text> runeList;
+    public List<Text> suitList;
+
 
     public Button Btn_OK;
 
@@ -44,8 +52,15 @@ public class Panel_Exclusive_Up : MonoBehaviour
 
         for (var i = 0; i < MaxCount; i++)
         {
+            var empty = GameObject.Instantiate(emptyPrefab, this.ds_Panel.content);
+            empty.name = "Des_" + i;
+        }
+
+
+        for (var i = 0; i < 36; i++)
+        {
             var empty = GameObject.Instantiate(emptyPrefab, this.sr_Panel.content);
-            empty.name = "Box_" + i;
+            empty.name = "Src_" + i;
         }
     }
 
@@ -60,6 +75,12 @@ public class Panel_Exclusive_Up : MonoBehaviour
         }
         items.Clear();
 
+        foreach (Com_Box sb in sourceList)
+        {
+            GameObject.Destroy(sb.gameObject);
+        }
+        sourceList.Clear();
+
         User user = GameProcessor.Inst.User;
         if (user == null)
         {
@@ -72,7 +93,7 @@ public class Panel_Exclusive_Up : MonoBehaviour
         {
             int postion = BoxId + 15;
 
-            var bagBox = this.sr_Panel.content.GetChild(BoxId);
+            var bagBox = this.ds_Panel.content.GetChild(BoxId);
             if (bagBox == null || !dict.ContainsKey(postion))
             {
                 continue;
@@ -95,7 +116,7 @@ public class Panel_Exclusive_Up : MonoBehaviour
 
     private Item_Exclusive CreateBox(ExclusiveItem exclusive, Transform parent)
     {
-        ToggleGroup toggleGroup = sr_Panel.GetComponent<ToggleGroup>();
+        ToggleGroup toggleGroup = ds_Panel.GetComponent<ToggleGroup>();
 
         GameObject prefab = Resources.Load<GameObject>("Prefab/Window/Forge/Item_Exclusive");
 
@@ -120,6 +141,48 @@ public class Panel_Exclusive_Up : MonoBehaviour
     private void Show()
     {
         this.Btn_OK.gameObject.SetActive(false);
+
+        List<SkillRuneConfig> rcList = new List<SkillRuneConfig>();
+        rcList.Add(SkillRuneConfigCategory.Instance.Get(SelectExclusive.RuneConfigId));
+
+        for (int i = 0; i < SelectExclusive.RuneConfigIdList.Count; i++)
+        {
+            rcList.Add(SkillRuneConfigCategory.Instance.Get(SelectExclusive.RuneConfigIdList[i]));
+        }
+
+        for (int i = 0; i < runeList.Count; i++)
+        {
+            if (i < rcList.Count)
+            {
+                runeList[i].gameObject.SetActive(true);
+                runeList[i].text = rcList[i].Name;
+            }
+            else
+            {
+                runeList[i].gameObject.SetActive(false);
+            }
+        }
+
+
+        List<SkillSuitConfig> ssList = new List<SkillSuitConfig>();
+        ssList.Add(SkillSuitConfigCategory.Instance.Get(SelectExclusive.SuitConfigId));
+        for (int i = 0; i < SelectExclusive.RuneConfigIdList.Count; i++)
+        {
+            ssList.Add(SkillSuitConfigCategory.Instance.Get(SelectExclusive.SuitConfigIdList[i]));
+        }
+
+        for (int i = 0; i < suitList.Count; i++)
+        {
+            if (i < ssList.Count)
+            {
+                suitList[i].gameObject.SetActive(true);
+                suitList[i].text = ssList[i].Name;
+            }
+            else
+            {
+                suitList[i].gameObject.SetActive(false);
+            }
+        }
 
 
 
