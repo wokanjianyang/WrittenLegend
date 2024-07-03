@@ -37,6 +37,7 @@ public class ViewForgeProcessor : AViewPage
     public Panel_Devour PanelDevour;
 
     public Toggle toggle_ExclusiveUp;
+    public Panel_Exclusive_Up PanelExclusiveUp;
 
     private void Awake()
     {
@@ -82,6 +83,13 @@ public class ViewForgeProcessor : AViewPage
         {
             this.ShowGrade(isOn);
         });
+
+        this.toggle_ExclusiveUp.onValueChanged.AddListener((isOn) =>
+        {
+            PanelExclusiveUp.gameObject.SetActive(isOn);
+        });
+
+
     }
 
     // Start is called before the first frame update
