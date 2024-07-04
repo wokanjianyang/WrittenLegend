@@ -20,7 +20,7 @@ namespace Game
 
         public List<int> SuitConfigIdList { get; set; } = new List<int>();
 
-        public Dictionary<int, int> AttchDict { get; set; } = new Dictionary<int, int>();
+        public Dictionary<int, int> LevelDict { get; set; } = new Dictionary<int, int>();
 
         public override int GetQuality()
         {
@@ -91,7 +91,7 @@ namespace Game
         public IDictionary<int, long> GetBaseAttrList()
         {
             int level = GetLayer();
-            int at = AttchDict.Count;
+            int at = LevelDict.Count;
 
             IDictionary<int, long> BaseAttrList = new Dictionary<int, long>();
 
@@ -157,7 +157,7 @@ namespace Game
         }
 
         public int GetLevel() {
-            return AttchDict.Select(m => m.Value).Sum();
+            return LevelDict.Select(m => m.Value).Sum();
         }
 
         public void Devour(ExclusiveItem exclusive)
@@ -170,12 +170,12 @@ namespace Game
         {
             int runeId = exclusive.RuneConfigId;
 
-            if (!AttchDict.ContainsKey(runeId))
+            if (!LevelDict.ContainsKey(runeId))
             {
-                AttchDict[runeId] = 0;
+                LevelDict[runeId] = 0;
             }
 
-            AttchDict[runeId]++;
+            LevelDict[runeId]++;
         }
 
         public void GetSkillRune(List<SkillRune> runeList, int skillId)
@@ -204,7 +204,7 @@ namespace Game
                 }
             }
 
-            foreach (KeyValuePair<int, int> kp in AttchDict)
+            foreach (KeyValuePair<int, int> kp in LevelDict)
             {
                 SkillRuneConfig config = SkillRuneConfigCategory.Instance.Get(kp.Key);
                 if (config.SkillId == skillId)

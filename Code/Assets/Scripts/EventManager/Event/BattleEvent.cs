@@ -424,4 +424,8 @@ namespace Game
         public int SkillId { get; set; }
     }
 
+    public class ExclusiveUpSelectEvent : SDD.Events.Event
+    {
+        public BoxItem ComBox { get; set; }
+    }
 }

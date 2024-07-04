@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Game
 {
-    public class Com_Box : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler
+    public class Com_Box_Select : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler
     {
 
         [Title("物品格")]
@@ -81,13 +81,7 @@ namespace Game
             this.BoxItem.Item.IsNew = false;
             this.Tag.gameObject.SetActive(false);
 
-            if (this.Type == ComBoxType.Exclusive_Up)
-            {
-                GameProcessor.Inst.EventCenter.Raise(new ExclusiveUpSelectEvent() { ComBox = this.BoxItem });
-                return;
-            }
-
-            else if (this.BoxItem.Item.Type == ItemType.GiftPack)
+            if (this.BoxItem.Item.Type == ItemType.GiftPack)
             {
                 GiftPack giftPack = this.BoxItem.Item as GiftPack;
 
@@ -199,12 +193,5 @@ namespace Game
         {
             this.Type = type;
         }
-    }
-
-    public enum ComBoxType
-    {
-        Bag = 0,
-        Exclusive_Devour = 1,
-        Exclusive_Up = 2,
     }
 }

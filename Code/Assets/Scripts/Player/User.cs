@@ -554,7 +554,7 @@ namespace Game
                     RingConfig ringConfig = RingConfigCategory.Instance.Get(sp.Key);
                     for (int i = 0; i < ringConfig.AttrIdList.Length; i++)
                     {
-                        AttributeBonus.SetAttr((AttributeEnum)ringConfig.AttrIdList[i], AttributeFrom.Ring, i, ringConfig.GetAttr(i, sp.Value.Data));
+                        AttributeBonus.SetAttr((AttributeEnum)ringConfig.AttrIdList[i], AttributeFrom.Ring, sp.Key, ringConfig.GetAttr(i, sp.Value.Data));
                     }
                 }
             }

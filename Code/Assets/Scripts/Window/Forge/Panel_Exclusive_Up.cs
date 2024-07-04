@@ -19,6 +19,10 @@ public class Panel_Exclusive_Up : MonoBehaviour
 
     public List<Text> runeList;
     public List<Text> suitList;
+    public List<Text> levelList;
+
+    public SlotBox SlotDes;
+    public SlotBox SlotSrc;
 
 
     public Button Btn_OK;
@@ -39,6 +43,7 @@ public class Panel_Exclusive_Up : MonoBehaviour
     void Start()
     {
         GameProcessor.Inst.EventCenter.AddListener<ExclusiveUpEvent>(this.OnSelect);
+        GameProcessor.Inst.EventCenter.AddListener<ExclusiveUpSelectEvent>(this.OnSelectMetail);
     }
 
     void OnEnable()
@@ -62,6 +67,10 @@ public class Panel_Exclusive_Up : MonoBehaviour
             var empty = GameObject.Instantiate(emptyPrefab, this.sr_Panel.content);
             empty.name = "Src_" + i;
         }
+
+        var prefab = Resources.Load<GameObject>("Prefab/Window/Box_Info");
+        SlotSrc.Init(prefab);
+        SlotDes.Init(prefab);
     }
 
     private void Load()
@@ -131,11 +140,38 @@ public class Panel_Exclusive_Up : MonoBehaviour
         return comItem;
     }
 
+    private Com_Box CreateBagBox(BoxItem item, Transform parent)
+    {
+        GameObject prefab = Resources.Load<GameObject>("Prefab/Window/Box_Orange");
+
+        var go = GameObject.Instantiate(prefab);
+        var comItem = go.GetComponent<Com_Box>();
+        comItem.SetBoxId(item.BoxId);
+        comItem.SetItem(item);
+        comItem.SetType(ComBoxType.Exclusive_Up);
+
+        comItem.transform.SetParent(parent);
+        comItem.transform.localPosition = Vector3.zero;
+        comItem.transform.localScale = Vector3.one;
+
+        return comItem;
+    }
+
     private void OnSelect(ExclusiveUpEvent e)
     {
         this.SelectExclusive = e.Exclusive;
 
         this.Show();
+    }
+
+    private void OnSelectMetail(ExclusiveUpSelectEvent e)
+    {
+        BoxItem boxItem = e.ComBox;
+        Com_Box comItem = this.CreateBagBox(boxItem, SlotSrc.transform);
+
+        SlotSrc.UnEquip();
+
+        SlotSrc.Equip(comItem);
     }
 
     private void Show()
@@ -184,8 +220,49 @@ public class Panel_Exclusive_Up : MonoBehaviour
             }
         }
 
+        List<int> lvs = SelectExclusive.LevelDict.Select(m => m.Key).ToList();
+        for (int i = 0; i < levelList.Count; i++)
+        {
+            if (i < lvs.Count)
+            {
+                int runeId = lvs[i];
+                SkillRuneConfig config = SkillRuneConfigCategory.Instance.Get(runeId);
+                levelList[i].text = config.Name + " * " + SelectExclusive.LevelDict[runeId];
+            }
+            else
+            {
+                levelList[i].text = "未升级";
+            }
 
+        }
 
+        //选择符合条件的exclusive
+        User user = GameProcessor.Inst.User;
+
+        List<BoxItem> list = user.Bags.Where(m => m.Item.Type == ItemType.Exclusive && m.Item.GetQuality() == 5 && !m.Item.IsLock).ToList();
+        //Debug.Log("es:" + list.Count);
+        int BoxId = 0;
+        for (int i = 0; i < list.Count; i++)
+        {
+            var bagBox = this.sr_Panel.content.GetChild(BoxId);
+            if (bagBox == null)
+            {
+                return;
+            }
+
+            BoxItem item = list[i];
+            ExclusiveItem exclusive = item.Item as ExclusiveItem;
+            if (lvs.Count > 0 && !lvs.Contains(exclusive.RuneConfigId))
+            {
+                continue;
+            }
+
+            Com_Box box = this.CreateBagBox(item, bagBox);
+            box.SetBoxId(BoxId);
+            this.sourceList.Add(box);
+
+            BoxId++;
+        }
     }
 
     public void OnClickOK()
