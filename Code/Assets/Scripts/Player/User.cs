@@ -1019,7 +1019,7 @@ namespace Game
         IEnumerator LevelUp()
         {
 
-            while (this.MagicExp.Data >= this.MagicUpExp.Data && this.MagicLevel.Data < ConfigHelper.Max_Level)
+            while (this.MagicExp.Data >= this.MagicUpExp.Data && this.MagicLevel.Data < GetMaxLevel())
             {
                 MagicExp.Data -= MagicUpExp.Data;
                 this.MagicLevel.Data++;
