@@ -439,10 +439,10 @@ namespace Game
                         });
                     }
 
-                    if (User.CreateTime > 0)
+                    if (User.FirstTime > 0)
                     {
                         //check
-                        long day = (DateTime.Now.Second - User.CreateTime) / 86400;
+                        long day = (TimeHelper.ClientNowSeconds() - User.FirstTime) / 86400;
 
                         long total = User.Cycle.Data * ConfigHelper.Max_Level + User.MagicLevel.Data;
 

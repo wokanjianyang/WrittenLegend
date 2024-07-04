@@ -210,7 +210,7 @@ namespace Game
 
         public long LoadTicketTime { get; set; } = 0;
 
-        public long CreateTime { get; set; } = 0;
+        public long FirstTime { get; set; } = 0;
 
         public MagicData MagicCopyTikerCount { get; } = new MagicData();
 

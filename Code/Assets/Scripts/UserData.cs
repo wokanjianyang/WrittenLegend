@@ -136,7 +136,7 @@ namespace Game
                 user.MapId = ConfigHelper.MapStartId;
                 user.MagicGold.Data = 0;
                 user.MagicCopyTikerCount.Data = ConfigHelper.CopyTicketFirstCount;
-                user.CreateTime = DateTime.Now.Second;
+                user.FirstTime = TimeHelper.ClientNowSeconds();
             }
 
             if (user.EquipPanelList.Count < 7)
