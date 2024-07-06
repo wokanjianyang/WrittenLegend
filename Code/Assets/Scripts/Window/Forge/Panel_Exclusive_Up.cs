@@ -13,9 +13,9 @@ public class Panel_Exclusive_Up : MonoBehaviour
 
     public ScrollRect sr_Panel;
 
-    private List<Item_Exclusive> items = new List<Item_Exclusive>();
+    private List<Box_Select> items = new List<Box_Select>();
 
-    private List<Com_Box> sourceList = new List<Com_Box>();
+    private List<Box_Select> sourceList = new List<Box_Select>();
 
     public List<Text> runeList;
     public List<Text> suitList;
@@ -43,7 +43,7 @@ public class Panel_Exclusive_Up : MonoBehaviour
     void Start()
     {
         GameProcessor.Inst.EventCenter.AddListener<ExclusiveUpEvent>(this.OnSelect);
-        GameProcessor.Inst.EventCenter.AddListener<ExclusiveUpSelectEvent>(this.OnSelectMetail);
+        GameProcessor.Inst.EventCenter.AddListener<BoxSelectEvent>(this.OnBoxSelect);
     }
 
     void OnEnable()
@@ -78,13 +78,13 @@ public class Panel_Exclusive_Up : MonoBehaviour
         //把之前的卸载
         this.SelectExclusive = null;
 
-        foreach (Item_Exclusive cb in items)
+        foreach (Box_Select cb in items)
         {
             GameObject.Destroy(cb.gameObject);
         }
         items.Clear();
 
-        foreach (Com_Box sb in sourceList)
+        foreach (Box_Select sb in sourceList)
         {
             GameObject.Destroy(sb.gameObject);
         }
@@ -115,7 +115,11 @@ public class Panel_Exclusive_Up : MonoBehaviour
                 continue;
             }
 
-            Item_Exclusive box = this.CreateBox(exclusive, bagBox);
+            BoxItem boxItem = new BoxItem();
+            boxItem.Item = exclusive;
+            boxItem.MagicNubmer.Data = 1;
+
+            Box_Select box = PrefabHelper.Instance().CreateBoxSelect(bagBox, boxItem, ComBoxType.Exclusive_Up_Main);
             this.items.Add(box);
         }
 
@@ -123,39 +127,6 @@ public class Panel_Exclusive_Up : MonoBehaviour
         this.Btn_OK.gameObject.SetActive(false);
     }
 
-    private Item_Exclusive CreateBox(ExclusiveItem exclusive, Transform parent)
-    {
-        ToggleGroup toggleGroup = ds_Panel.GetComponent<ToggleGroup>();
-
-        GameObject prefab = Resources.Load<GameObject>("Prefab/Window/Forge/Item_Exclusive");
-
-        var go = GameObject.Instantiate(prefab);
-        Item_Exclusive comItem = go.GetComponent<Item_Exclusive>();
-        comItem.Init(exclusive, toggleGroup);
-
-        comItem.transform.SetParent(parent);
-        comItem.transform.localPosition = Vector3.zero;
-        comItem.transform.localScale = Vector3.one;
-
-        return comItem;
-    }
-
-    private Com_Box CreateBagBox(BoxItem item, Transform parent)
-    {
-        GameObject prefab = Resources.Load<GameObject>("Prefab/Window/Box_Orange");
-
-        var go = GameObject.Instantiate(prefab);
-        var comItem = go.GetComponent<Com_Box>();
-        comItem.SetBoxId(item.BoxId);
-        comItem.SetItem(item);
-        comItem.SetType(ComBoxType.Exclusive_Up);
-
-        comItem.transform.SetParent(parent);
-        comItem.transform.localPosition = Vector3.zero;
-        comItem.transform.localScale = Vector3.one;
-
-        return comItem;
-    }
 
     private void OnSelect(ExclusiveUpEvent e)
     {
@@ -164,14 +135,16 @@ public class Panel_Exclusive_Up : MonoBehaviour
         this.Show();
     }
 
-    private void OnSelectMetail(ExclusiveUpSelectEvent e)
+    private void OnBoxSelect(BoxSelectEvent e)
     {
-        BoxItem boxItem = e.ComBox;
-        Com_Box comItem = this.CreateBagBox(boxItem, SlotSrc.transform);
+        if (e.Type == ComBoxType.Exclusive_Up_Main)
+        {
 
-        SlotSrc.UnEquip();
+        }
+        else if (e.Type == ComBoxType.Exclusive_Devour_Material)
+        {
 
-        SlotSrc.Equip(comItem);
+        }
     }
 
     private void Show()
@@ -257,8 +230,7 @@ public class Panel_Exclusive_Up : MonoBehaviour
                 continue;
             }
 
-            Com_Box box = this.CreateBagBox(item, bagBox);
-            box.SetBoxId(BoxId);
+            Box_Select box = PrefabHelper.Instance().CreateBoxSelect(bagBox, item, ComBoxType.Exclusive_Up_Material);
             this.sourceList.Add(box);
 
             BoxId++;

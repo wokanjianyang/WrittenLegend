@@ -81,7 +81,7 @@ namespace Game
             this.BoxItem.Item.IsNew = false;
             this.Tag.gameObject.SetActive(false);
 
-            if (this.Type == ComBoxType.Exclusive_Up)
+            if (this.Type == ComBoxType.Exclusive_Up_Material)
             {
                 GameProcessor.Inst.EventCenter.Raise(new ExclusiveUpSelectEvent() { ComBox = this.BoxItem });
                 return;
@@ -205,6 +205,9 @@ namespace Game
     {
         Bag = 0,
         Exclusive_Devour = 1,
-        Exclusive_Up = 2,
+        Exclusive_Up_Main = 2,
+        Exclusive_Up_Material = 3,
+        Exclusive_Devour_Main = 4,
+        Exclusive_Devour_Material = 5,
     }
 }
