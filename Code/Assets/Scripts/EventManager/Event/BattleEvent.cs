@@ -426,7 +426,7 @@ namespace Game
 
     public class BoxSelectEvent : SDD.Events.Event
     {
-        public Item Item { get; set; }
+        public BoxItem BoxItem { get; set; }
 
         public ComBoxType Type { get; set; }
     }

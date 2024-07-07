@@ -81,13 +81,7 @@ namespace Game
             this.BoxItem.Item.IsNew = false;
             this.Tag.gameObject.SetActive(false);
 
-            if (this.Type == ComBoxType.Exclusive_Up_Material)
-            {
-                GameProcessor.Inst.EventCenter.Raise(new ExclusiveUpSelectEvent() { ComBox = this.BoxItem });
-                return;
-            }
-
-            else if (this.BoxItem.Item.Type == ItemType.GiftPack)
+            if (this.BoxItem.Item.Type == ItemType.GiftPack)
             {
                 GiftPack giftPack = this.BoxItem.Item as GiftPack;
 
@@ -204,10 +198,11 @@ namespace Game
     public enum ComBoxType
     {
         Bag = 0,
-        Exclusive_Devour = 1,
-        Exclusive_Up_Main = 2,
-        Exclusive_Up_Material = 3,
-        Exclusive_Devour_Main = 4,
-        Exclusive_Devour_Material = 5,
+        Box_Ready = 1,
+        Exclusive_Devour = 2,
+        Exclusive_Up_Main = 3,
+        Exclusive_Up_Material = 4,
+        Exclusive_Devour_Main = 5,
+        Exclusive_Devour_Material = 6,
     }
 }

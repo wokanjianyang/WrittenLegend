@@ -96,23 +96,49 @@ namespace Game
 
             if (this.Type == ComBoxType.Exclusive_Up_Main)
             {
-                GameProcessor.Inst.EventCenter.Raise(new BoxSelectEvent() { Item = this.BoxItem.Item, Type = this.Type });
+                GameProcessor.Inst.EventCenter.Raise(new BoxSelectEvent() { BoxItem = this.BoxItem, Type = this.Type });
                 return;
             }
             else if (this.Type == ComBoxType.Exclusive_Up_Material)
             {
-                GameProcessor.Inst.EventCenter.Raise(new BoxSelectEvent() { Item = this.BoxItem.Item, Type = this.Type });
+                GameProcessor.Inst.EventCenter.Raise(new BoxSelectEvent() { BoxItem = this.BoxItem, Type = this.Type });
                 return;
             }
             else if (this.Type == ComBoxType.Exclusive_Up_Material)
             {
-                GameProcessor.Inst.EventCenter.Raise(new BoxSelectEvent() { Item = this.BoxItem.Item, Type = this.Type });
+                GameProcessor.Inst.EventCenter.Raise(new BoxSelectEvent() { BoxItem = this.BoxItem, Type = this.Type });
                 return;
             }
             else if (this.Type == ComBoxType.Exclusive_Up_Material)
             {
-                GameProcessor.Inst.EventCenter.Raise(new BoxSelectEvent() { Item = this.BoxItem.Item, Type = this.Type });
+                GameProcessor.Inst.EventCenter.Raise(new BoxSelectEvent() { BoxItem = this.BoxItem, Type = this.Type });
                 return;
+            }
+            else if (this.Type == ComBoxType.Box_Ready)
+            {
+                if (this.BoxItem.Item.Type == ItemType.Exclusive)
+                {
+                    GameProcessor.Inst.EventCenter.Raise(new ShowExclusiveCardEvent()
+                    {
+                        boxItem = this.BoxItem,
+                        Type = this.Type
+                    });
+                    return;
+                }
+                else if (this.BoxItem.Item.Type == ItemType.Equip)
+                {
+                    GameProcessor.Inst.EventCenter.Raise(new ShowEquipDetailEvent()
+                    {
+                        boxItem = this.BoxItem,
+                        Type = this.Type
+                    });
+                    return;
+                }
+                else
+                {
+                    GameProcessor.Inst.EventCenter.Raise(new ShowDetailEvent() { boxItem = this.BoxItem, Type = this.Type });
+                    return;
+                }
             }
         }
 

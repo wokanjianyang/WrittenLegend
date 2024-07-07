@@ -21,9 +21,8 @@ public class Panel_Exclusive_Up : MonoBehaviour
     public List<Text> suitList;
     public List<Text> levelList;
 
-    public SlotBox SlotDes;
-    public SlotBox SlotSrc;
-
+    public Box_Ready Box_Ready_Main;
+    public Box_Ready Box_Ready_Material;
 
     public Button Btn_OK;
 
@@ -42,7 +41,6 @@ public class Panel_Exclusive_Up : MonoBehaviour
     // Update is called once per frame
     void Start()
     {
-        GameProcessor.Inst.EventCenter.AddListener<ExclusiveUpEvent>(this.OnSelect);
         GameProcessor.Inst.EventCenter.AddListener<BoxSelectEvent>(this.OnBoxSelect);
     }
 
@@ -62,15 +60,14 @@ public class Panel_Exclusive_Up : MonoBehaviour
         }
 
 
-        for (var i = 0; i < 36; i++)
+        for (var i = 0; i < ConfigHelper.MaxBagCount; i++)
         {
             var empty = GameObject.Instantiate(emptyPrefab, this.sr_Panel.content);
             empty.name = "Src_" + i;
         }
 
-        var prefab = Resources.Load<GameObject>("Prefab/Window/Box_Info");
-        SlotSrc.Init(prefab);
-        SlotDes.Init(prefab);
+        Box_Ready_Main.Init("主专属");
+        Box_Ready_Material.Init("材料专属");
     }
 
     private void Load()
@@ -127,23 +124,18 @@ public class Panel_Exclusive_Up : MonoBehaviour
         this.Btn_OK.gameObject.SetActive(false);
     }
 
-
-    private void OnSelect(ExclusiveUpEvent e)
-    {
-        this.SelectExclusive = e.Exclusive;
-
-        this.Show();
-    }
-
     private void OnBoxSelect(BoxSelectEvent e)
     {
         if (e.Type == ComBoxType.Exclusive_Up_Main)
         {
+            this.SelectExclusive = e.BoxItem.Item as ExclusiveItem;
+            Box_Ready_Main.Up(e.BoxItem);
 
+            this.Show();
         }
         else if (e.Type == ComBoxType.Exclusive_Devour_Material)
         {
-
+            Box_Ready_Material.Up(e.BoxItem);
         }
     }
 
