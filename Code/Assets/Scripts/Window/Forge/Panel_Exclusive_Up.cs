@@ -17,18 +17,18 @@ public class Panel_Exclusive_Up : MonoBehaviour
 
     private List<Box_Select> sourceList = new List<Box_Select>();
 
-    public List<Text> runeList;
-    public List<Text> suitList;
-    public List<Text> levelList;
+    public List<Attr_Exclusive_Up> levelList = new List<Attr_Exclusive_Up>();
 
     public Box_Ready Box_Ready_Main;
     public Box_Ready Box_Ready_Material;
 
     public Button Btn_OK;
 
-    private const int MaxCount = 6; //10件装备
+    private const int MaxMain = 6; //10件装备
+    private const int MaxMaterial = 24;
 
-    ExclusiveItem SelectExclusive;
+    Box_Select SelectMain;
+    Box_Select SelectMaterial;
 
     // Start is called before the first frame update
     void Awake()
@@ -53,14 +53,14 @@ public class Panel_Exclusive_Up : MonoBehaviour
     {
         var emptyPrefab = Resources.Load<GameObject>("Prefab/Window/Box_Empty");
 
-        for (var i = 0; i < MaxCount; i++)
+        for (var i = 0; i < MaxMain; i++)
         {
             var empty = GameObject.Instantiate(emptyPrefab, this.ds_Panel.content);
             empty.name = "Des_" + i;
         }
 
 
-        for (var i = 0; i < ConfigHelper.MaxBagCount; i++)
+        for (var i = 0; i < MaxMaterial; i++)
         {
             var empty = GameObject.Instantiate(emptyPrefab, this.sr_Panel.content);
             empty.name = "Src_" + i;
@@ -73,7 +73,8 @@ public class Panel_Exclusive_Up : MonoBehaviour
     private void Load()
     {
         //把之前的卸载
-        this.SelectExclusive = null;
+        this.SelectMain = null;
+        this.SelectMaterial = null;
 
         foreach (Box_Select cb in items)
         {
@@ -87,6 +88,14 @@ public class Panel_Exclusive_Up : MonoBehaviour
         }
         sourceList.Clear();
 
+        foreach (Attr_Exclusive_Up item in levelList)
+        {
+            item.Clear();
+        }
+
+        Box_Ready_Main.Down();
+        Box_Ready_Material.Down();
+
         User user = GameProcessor.Inst.User;
         if (user == null)
         {
@@ -95,7 +104,7 @@ public class Panel_Exclusive_Up : MonoBehaviour
 
         IDictionary<int, ExclusiveItem> dict = user.ExclusivePanelList[user.ExclusiveIndex];
 
-        for (int BoxId = 0; BoxId < MaxCount; BoxId++)
+        for (int BoxId = 0; BoxId < MaxMain; BoxId++)
         {
             int postion = BoxId + 15;
 
@@ -128,77 +137,43 @@ public class Panel_Exclusive_Up : MonoBehaviour
     {
         if (e.Type == ComBoxType.Exclusive_Up_Main)
         {
-            this.SelectExclusive = e.BoxItem.Item as ExclusiveItem;
-            Box_Ready_Main.Up(e.BoxItem);
+            this.SelectMain = e.Box;
+            Box_Ready_Main.Up(e.Box.BoxItem);
 
-            this.Show();
+            this.ShowMain();
         }
-        else if (e.Type == ComBoxType.Exclusive_Devour_Material)
+        else if (e.Type == ComBoxType.Exclusive_Up_Material)
         {
-            Box_Ready_Material.Up(e.BoxItem);
+            this.SelectMaterial = e.Box;
+            Box_Ready_Material.Up(e.Box.BoxItem);
+
+            this.ShowMaterial();
         }
     }
 
-    private void Show()
+    private void ShowMain()
     {
         this.Btn_OK.gameObject.SetActive(false);
 
-        List<SkillRuneConfig> rcList = new List<SkillRuneConfig>();
-        rcList.Add(SkillRuneConfigCategory.Instance.Get(SelectExclusive.RuneConfigId));
-
-        for (int i = 0; i < SelectExclusive.RuneConfigIdList.Count; i++)
+        foreach (Box_Select sb in sourceList)
         {
-            rcList.Add(SkillRuneConfigCategory.Instance.Get(SelectExclusive.RuneConfigIdList[i]));
+            GameObject.Destroy(sb.gameObject);
         }
+        sourceList.Clear();
 
-        for (int i = 0; i < runeList.Count; i++)
-        {
-            if (i < rcList.Count)
-            {
-                runeList[i].gameObject.SetActive(true);
-                runeList[i].text = rcList[i].Name;
-            }
-            else
-            {
-                runeList[i].gameObject.SetActive(false);
-            }
-        }
-
-
-        List<SkillSuitConfig> ssList = new List<SkillSuitConfig>();
-        ssList.Add(SkillSuitConfigCategory.Instance.Get(SelectExclusive.SuitConfigId));
-        for (int i = 0; i < SelectExclusive.RuneConfigIdList.Count; i++)
-        {
-            ssList.Add(SkillSuitConfigCategory.Instance.Get(SelectExclusive.SuitConfigIdList[i]));
-        }
-
-        for (int i = 0; i < suitList.Count; i++)
-        {
-            if (i < ssList.Count)
-            {
-                suitList[i].gameObject.SetActive(true);
-                suitList[i].text = ssList[i].Name;
-            }
-            else
-            {
-                suitList[i].gameObject.SetActive(false);
-            }
-        }
-
-        List<int> lvs = SelectExclusive.LevelDict.Select(m => m.Key).ToList();
+        ExclusiveItem exclusiveMain = SelectMain.BoxItem.Item as ExclusiveItem;
+        List<int> lvs = exclusiveMain.LevelDict.Select(m => m.Key).ToList();
         for (int i = 0; i < levelList.Count; i++)
         {
             if (i < lvs.Count)
             {
                 int runeId = lvs[i];
-                SkillRuneConfig config = SkillRuneConfigCategory.Instance.Get(runeId);
-                levelList[i].text = config.Name + " * " + SelectExclusive.LevelDict[runeId];
+                levelList[i].SetContent(runeId, exclusiveMain.LevelDict[runeId]);
             }
             else
             {
-                levelList[i].text = "未升级";
+                levelList[i].SetContent(0, 0);
             }
-
         }
 
         //选择符合条件的exclusive
@@ -209,11 +184,12 @@ public class Panel_Exclusive_Up : MonoBehaviour
         int BoxId = 0;
         for (int i = 0; i < list.Count; i++)
         {
-            var bagBox = this.sr_Panel.content.GetChild(BoxId);
-            if (bagBox == null)
+            if (BoxId >= MaxMaterial)
             {
                 return;
             }
+
+            var bagBox = this.sr_Panel.content.GetChild(BoxId);
 
             BoxItem item = list[i];
             ExclusiveItem exclusive = item.Item as ExclusiveItem;
@@ -229,11 +205,38 @@ public class Panel_Exclusive_Up : MonoBehaviour
         }
     }
 
+    private void ShowMaterial()
+    {
+        this.Btn_OK.gameObject.SetActive(true);
+
+        ExclusiveItem exclusiveMaterial = SelectMaterial.BoxItem.Item as ExclusiveItem;
+
+        for (int i = 0; i < levelList.Count; i++)
+        {
+            Attr_Exclusive_Up upItem = levelList[i];
+
+            upItem.SetUp(exclusiveMaterial.RuneConfigId);
+
+            return;
+        }
+
+
+    }
+
     public void OnClickOK()
     {
-        //this.SelectExclusive.Refesh(true);
+        ExclusiveItem exclusiveMain = SelectMain.BoxItem.Item as ExclusiveItem;
+        ExclusiveItem exclusiveMaterial = SelectMaterial.BoxItem.Item as ExclusiveItem;
 
-        this.Show();
+
+        //销毁
+        GameProcessor.Inst.EventCenter.Raise(new BagUseEvent()
+        {
+            Quantity = 1,
+            BoxItem = SelectMaterial.BoxItem
+        });
+
+        exclusiveMain.Up(exclusiveMaterial);
     }
 }
 

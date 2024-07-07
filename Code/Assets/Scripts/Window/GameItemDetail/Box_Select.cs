@@ -96,22 +96,22 @@ namespace Game
 
             if (this.Type == ComBoxType.Exclusive_Up_Main)
             {
-                GameProcessor.Inst.EventCenter.Raise(new BoxSelectEvent() { BoxItem = this.BoxItem, Type = this.Type });
+                GameProcessor.Inst.EventCenter.Raise(new BoxSelectEvent() { Box = this, Type = this.Type });
                 return;
             }
             else if (this.Type == ComBoxType.Exclusive_Up_Material)
             {
-                GameProcessor.Inst.EventCenter.Raise(new BoxSelectEvent() { BoxItem = this.BoxItem, Type = this.Type });
+                GameProcessor.Inst.EventCenter.Raise(new BoxSelectEvent() { Box = this, Type = this.Type });
                 return;
             }
             else if (this.Type == ComBoxType.Exclusive_Up_Material)
             {
-                GameProcessor.Inst.EventCenter.Raise(new BoxSelectEvent() { BoxItem = this.BoxItem, Type = this.Type });
+                GameProcessor.Inst.EventCenter.Raise(new BoxSelectEvent() { Box = this, Type = this.Type });
                 return;
             }
             else if (this.Type == ComBoxType.Exclusive_Up_Material)
             {
-                GameProcessor.Inst.EventCenter.Raise(new BoxSelectEvent() { BoxItem = this.BoxItem, Type = this.Type });
+                GameProcessor.Inst.EventCenter.Raise(new BoxSelectEvent() { Box = this, Type = this.Type });
                 return;
             }
             else if (this.Type == ComBoxType.Box_Ready)

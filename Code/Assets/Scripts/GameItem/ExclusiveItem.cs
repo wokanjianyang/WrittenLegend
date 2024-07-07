@@ -166,7 +166,7 @@ namespace Game
             this.SuitConfigIdList.Add(exclusive.SuitConfigId);
         }
 
-        public void Attach(ExclusiveItem exclusive)
+        public void Up(ExclusiveItem exclusive)
         {
             int runeId = exclusive.RuneConfigId;
 
