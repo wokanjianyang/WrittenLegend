@@ -123,6 +123,11 @@ namespace Game
         public int Quantity { get; set; }
     }
 
+    public class BagRemoveEvent : SDD.Events.Event
+    {
+        public BoxItem BoxItem { get; set; }
+    }
+
     public class ShowTowerWindowEvent : SDD.Events.Event
     {
 

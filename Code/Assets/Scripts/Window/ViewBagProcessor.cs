@@ -110,6 +110,8 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<LoseEvent>(this.OnLoseEvent);
             GameProcessor.Inst.EventCenter.AddListener<AutoRecoveryEvent>(this.OnAutoRecoveryEvent);
             GameProcessor.Inst.EventCenter.AddListener<BagUseEvent>(this.OnBagUseEvent);
+            GameProcessor.Inst.EventCenter.AddListener<BagRemoveEvent>(this.OnBagRemove);
+
             GameProcessor.Inst.EventCenter.AddListener<CompositeEvent>(this.OnCompositeEvent);
             GameProcessor.Inst.EventCenter.AddListener<SystemUseEvent>(this.OnSystemUse);
             GameProcessor.Inst.EventCenter.AddListener<SelectGiftEvent>(this.OnSelectGift);
@@ -955,6 +957,25 @@ namespace Game
             }
 
         }
+
+        private void OnBagRemove(BagRemoveEvent e)
+        {
+            if (GameProcessor.Inst.User.RemoveBagItem(e.BoxItem))
+            {
+                Com_Box boxUI = this.items.Find(m => m.BoxItem == e.BoxItem);
+                if (boxUI != null) //上线自动回收，可能还没加载
+                {
+                    this.items.Remove(boxUI);
+                    GameObject.Destroy(boxUI.gameObject);
+                    boxUI = null;
+                }
+            }
+            else
+            {
+                throw new Exception("道具不存在");
+            }
+        }
+
 
         private void OnEquipLockEvent(EquipLockEvent e)
         {

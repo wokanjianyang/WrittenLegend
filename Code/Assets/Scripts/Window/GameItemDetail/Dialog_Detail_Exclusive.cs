@@ -30,6 +30,9 @@ namespace Game
         [LabelText("追击属性")]
         public Transform tran_DoubleHitAttribute;
 
+        [LabelText("升级词条")]
+        public Transform tran_LevelAttribute;
+
         [Title("导航")]
         [LabelText("穿戴")]
         public Button btn_Equip;
@@ -178,6 +181,11 @@ namespace Game
 
                 ShowSuit(suitIdList, suitCountList, user.SuitMax);
             }
+            if (exclusive.LevelDict.Count > 0)
+            {
+                ShowLevel(exclusive.LevelDict);
+            }
+
             if (exclusive.DoubleHitConfig != null)
             {
                 tran_DoubleHitAttribute.gameObject.SetActive(true);
@@ -284,6 +292,27 @@ namespace Game
                 }
             }
             tran_SuitAttribute.gameObject.SetActive(true);
+        }
+
+        private void ShowLevel(Dictionary<int, int> LevelDict)
+        {
+            Item_Rune_Level[] runes = tran_LevelAttribute.GetComponentsInChildren<Item_Rune_Level>(true);
+
+            List<int> runeIdList = LevelDict.Select(m => m.Key).ToList();
+            for (int i = 0; i < runes.Length; i++)
+            {
+                int runeId = runeIdList[i];
+                if (i < runeIdList.Count)
+                {
+                    runes[i].gameObject.SetActive(true);
+                    runes[i].SetContent(runeId, LevelDict[runeId]);
+                }
+                else
+                {
+                    runes[i].gameObject.SetActive(false);
+                }
+            }
+            tran_SkillAttribute.gameObject.SetActive(true);
         }
 
         private void OnEquip()

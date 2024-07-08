@@ -1317,6 +1317,16 @@ namespace Game
         {
             return Cycle.Data * ConfigHelper.Cycle_Level + ConfigHelper.Max_Level;
         }
+
+        public bool RemoveBagItem(BoxItem boxItem)
+        {
+            if (Bags.Contains(boxItem))
+            {
+                Bags.Remove(boxItem);
+                return true;
+            }
+            return false;
+        }
     }
 
     public enum UserChangeType
