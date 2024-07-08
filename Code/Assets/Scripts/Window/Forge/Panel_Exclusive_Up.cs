@@ -227,14 +227,9 @@ public class Panel_Exclusive_Up : MonoBehaviour
     {
         this.Btn_OK.gameObject.SetActive(false);
 
+
         ExclusiveItem exclusiveMain = SelectMain.BoxItem.Item as ExclusiveItem;
         ExclusiveItem exclusiveMaterial = SelectMaterial.BoxItem.Item as ExclusiveItem;
-
-        Box_Ready_Material.Down(); //销毁已选
-
-        sourceList.Remove(SelectMaterial);//移除包裹
-        GameObject.Destroy(SelectMaterial.gameObject); //销毁包裹
-        SelectMaterial = null;
 
         //销毁
         GameProcessor.Inst.EventCenter.Raise(new BagRemoveEvent()
@@ -242,9 +237,14 @@ public class Panel_Exclusive_Up : MonoBehaviour
             BoxItem = SelectMaterial.BoxItem
         });
 
+        Box_Ready_Material.Down(); //销毁已选
+        sourceList.Remove(SelectMaterial);//移除包裹
+        GameObject.Destroy(SelectMaterial.gameObject); //销毁包裹
+        SelectMaterial = null;
+
         exclusiveMain.Up(exclusiveMaterial);
 
-        this.ShowMaterial();
+        this.ShowMain();
     }
 }
 

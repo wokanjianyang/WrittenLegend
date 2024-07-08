@@ -99,6 +99,7 @@ namespace Game
             tran_SuitAttribute.gameObject.SetActive(false);
             tran_GroupAttribute.gameObject.SetActive(false);
             tran_DoubleHitAttribute.gameObject.SetActive(false);
+            tran_LevelAttribute.gameObject.SetActive(false);
 
             this.btn_Equip.gameObject.SetActive(false);
             this.btn_UnEquip.gameObject.SetActive(false);
@@ -312,7 +313,7 @@ namespace Game
                     runes[i].gameObject.SetActive(false);
                 }
             }
-            tran_SkillAttribute.gameObject.SetActive(true);
+            tran_LevelAttribute.gameObject.SetActive(true);
         }
 
         private void OnEquip()
