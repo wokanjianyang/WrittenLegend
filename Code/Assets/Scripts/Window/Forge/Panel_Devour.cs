@@ -259,9 +259,9 @@ public class Panel_Devour : MonoBehaviour
 
         for (int i = 0; i < slots.Count; i++)
         {
-            GameProcessor.Inst.EventCenter.Raise(new BagUseEvent()
+            //Ïú»Ù
+            GameProcessor.Inst.EventCenter.Raise(new BagRemoveEvent()
             {
-                Quantity = 1,
                 BoxItem = slots[i].GetEquip().BoxItem
             });
         }

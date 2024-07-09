@@ -22,10 +22,17 @@ public class Panel_Exclusive_Up : MonoBehaviour
     public Box_Ready Box_Ready_Main;
     public Box_Ready Box_Ready_Material;
 
+    public List<Text> TxtCommissionNameList;
+    public List<Text> TxtCommissionCountList;
+
     public Button Btn_OK;
 
     private const int MaxMain = 6; //10件装备
     private const int MaxMaterial = 24;
+
+    private bool check = false;
+    private int[] ItemIdList = new int[] { ItemHelper.SpecialId_Exclusive_Stone, ItemHelper.SpecialId_Exclusive_Heart };
+    private int[] ItemCountList = new int[] { 50, 5 };
 
     Box_Select SelectMain;
     Box_Select SelectMaterial;
@@ -161,6 +168,12 @@ public class Panel_Exclusive_Up : MonoBehaviour
         }
         sourceList.Clear();
 
+        for (int i = 0; i < ItemIdList.Length; i++)
+        {
+            string color = "#FF0000";
+            TxtCommissionCountList[i].text = string.Format("<color={0}>({1}/{2})</color>", color, 0, 0);
+        }
+
         ExclusiveItem exclusiveMain = SelectMain.BoxItem.Item as ExclusiveItem;
         List<int> lvs = exclusiveMain.LevelDict.Select(m => m.Key).ToList();
         for (int i = 0; i < levelList.Count; i++)
@@ -207,7 +220,11 @@ public class Panel_Exclusive_Up : MonoBehaviour
 
     private void ShowMaterial()
     {
-        this.Btn_OK.gameObject.SetActive(true);
+        this.Check();
+        if (this.check)
+        {
+            this.Btn_OK.gameObject.SetActive(true);
+        }
 
         ExclusiveItem exclusiveMaterial = SelectMaterial.BoxItem.Item as ExclusiveItem;
 
@@ -219,17 +236,55 @@ public class Panel_Exclusive_Up : MonoBehaviour
 
             return;
         }
-
-
     }
+    private void Check()
+    {
+        User user = GameProcessor.Inst.User;
 
+        this.check = true;
+
+        for (int i = 0; i < ItemIdList.Length; i++)
+        {
+            int MaxCount = ItemCountList[i];
+
+            long count = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemIdList[i]).Select(m => m.MagicNubmer.Data).Sum();
+
+            string color = "#00FF00";
+
+            if (count < MaxCount)
+            {
+                color = "#FF0000";
+                this.check = false;
+            }
+
+            TxtCommissionCountList[i].text = string.Format("<color={0}>({1}/{2})</color>", color, count, MaxCount);
+        }
+    }
     public void OnClickOK()
     {
         this.Btn_OK.gameObject.SetActive(false);
 
+        this.Check();
+
+        if (!check)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "材料不足", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
 
         ExclusiveItem exclusiveMain = SelectMain.BoxItem.Item as ExclusiveItem;
         ExclusiveItem exclusiveMaterial = SelectMaterial.BoxItem.Item as ExclusiveItem;
+
+        //材料
+        for (int i = 0; i < ItemIdList.Length; i++)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
+            {
+                Type = ItemType.Material,
+                ItemId = ItemIdList[i],
+                Quantity = ItemCountList[i]
+            });
+        }
 
         //销毁
         GameProcessor.Inst.EventCenter.Raise(new BagRemoveEvent()
