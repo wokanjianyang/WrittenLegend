@@ -703,25 +703,37 @@ namespace Game
         {
             List<SkillRune> list = new List<SkillRune>();
 
-            //计算装备的词条加成
-            List<SkillRuneConfig> skillList = this.EquipPanelList[EquipPanelIndex].Where(m => m.Value.SkillRuneConfig != null && m.Value.SkillRuneConfig.SkillId == skillId).Select(m => m.Value.SkillRuneConfig).ToList();
+
+            //专属词条
+            Dictionary<int, int> skillDict = new Dictionary<int, int>();
 
             foreach (var ex in this.ExclusivePanelList[ExclusiveIndex].Values)
             {
-                skillList.AddRange(ex.GetRuneList(skillId));
+                ex.GetRuneList(skillId, skillDict);
             }
 
+            //计算装备的词条加成
+            List<int> skillList = this.EquipPanelList[EquipPanelIndex].Where(m => m.Value.SkillRuneConfig != null && m.Value.SkillRuneConfig.SkillId == skillId).Select(m => m.Value.SkillRuneConfig.Id).ToList();
+
+            //buff 词条
             if (buffList != null)
             {
-                skillList.AddRange(buffList);
+                skillList.AddRange(buffList.Select(m => m.Id));
             }
 
-            //按单件分组,词条有堆叠上限
-            var runeGroup = skillList.GroupBy(m => m.Id);
-
-            foreach (IGrouping<int, SkillRuneConfig> runeItem in runeGroup)
+            foreach (int runeId in skillList)
             {
-                SkillRune skillRune = new SkillRune(runeItem.Key, runeItem.Count());
+                if (!skillDict.ContainsKey(runeId))
+                {
+                    skillDict[runeId] = 0;
+                }
+
+                skillDict[runeId] += 1;
+            }
+
+            foreach (var kv in skillDict)
+            {
+                SkillRune skillRune = new SkillRune(kv.Key, kv.Value);
                 list.Add(skillRune);
             }
 

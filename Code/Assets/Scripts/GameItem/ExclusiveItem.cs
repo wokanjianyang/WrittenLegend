@@ -104,25 +104,46 @@ namespace Game
             return BaseAttrList;
         }
 
-        public List<SkillRuneConfig> GetRuneList(int skillId)
+        public void GetRuneList(int skillId, Dictionary<int, int> dict)
         {
-            List<SkillRuneConfig> list = new List<SkillRuneConfig>();
+
+            foreach (var kv in LevelDict)
+            {
+                int runeId = kv.Key;
+                SkillRuneConfig config = SkillRuneConfigCategory.Instance.Get(runeId);
+
+                if (config.SkillId == skillId)
+                {
+                    if (!dict.ContainsKey(runeId))
+                    {
+                        dict[runeId] = 0;
+                    }
+                    dict[runeId] += kv.Value;
+                }
+            }
 
             if (SkillRuneConfig != null && SkillRuneConfig.SkillId == skillId)
             {
-                list.Add(SkillRuneConfig);
+                int runeId = SkillRuneConfig.Id;
+
+                if (!dict.ContainsKey(runeId))
+                {
+                    dict[runeId] = 0;
+                }
+
+                dict[runeId] += 1;
             }
 
             for (int i = 0; i < RuneConfigIdList.Count; i++)
             {
-                SkillRuneConfig config = SkillRuneConfigCategory.Instance.Get(RuneConfigIdList[i]);
-                if (config.SkillId == skillId)
-                {
-                    list.Add(config);
-                }
-            }
+                int runeId = RuneConfigIdList[i];
 
-            return list;
+                if (!dict.ContainsKey(runeId))
+                {
+                    dict[runeId] = 0;
+                }
+                dict[runeId] += 1;
+            }
         }
 
         public List<SkillSuitConfig> GetSuitList(int skillId)
@@ -156,7 +177,8 @@ namespace Game
             return RuneConfigIdList.Count + 1;
         }
 
-        public int GetLevel() {
+        public int GetLevel()
+        {
             return LevelDict.Select(m => m.Value).Sum();
         }
 
