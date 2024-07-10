@@ -80,5 +80,19 @@ namespace Game
 
             return count;
         }
+
+        public static double CalRealResist(double val) {
+            double r = 0;
+
+            while (val > 0)
+            {
+                double temp = Math.Min(val, 70);
+                val = val - temp;
+
+                r += (100 - r) * temp / 100;
+            }
+
+            return r;
+        }
     }
 }

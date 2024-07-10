@@ -90,15 +90,15 @@ namespace Game
 
         public IDictionary<int, long> GetBaseAttrList()
         {
-            int level = GetLayer();
-            int at = LevelDict.Count;
+            int layer = GetLayer();
+            int level = GetLevel();
 
             IDictionary<int, long> BaseAttrList = new Dictionary<int, long>();
 
-            ExclusiveAttrConfig attrConfig = ExclusiveAttrConfigCategory.Instance.GetByLevel(level);
+            ExclusiveAttrConfig attrConfig = ExclusiveAttrConfigCategory.Instance.GetByLevel(layer);
             for (int i = 0; i < attrConfig.AttrIdList.Length; i++)
             {
-                BaseAttrList.Add(attrConfig.AttrIdList[i], attrConfig.AttrValueList[i] * Quality + attrConfig.AttchValueList[i] * at);
+                BaseAttrList.Add(attrConfig.AttrIdList[i], attrConfig.AttrValueList[i] * Quality + attrConfig.AttchValueList[i] * level);
             }
 
             return BaseAttrList;

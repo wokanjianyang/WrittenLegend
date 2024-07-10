@@ -219,10 +219,14 @@ namespace Game
                 }
             }
 
-            int level = exclusive.GetLayer();
-            if (level > 1)
+            int layer = exclusive.GetLayer();
+            int level = exclusive.GetLevel();
+            if (layer > 1 || level > 1)
             {
-                this.btn_Restore.gameObject.SetActive(this.boxItem.BoxId != -1 && !this.boxItem.Item.IsLock);
+                if (level < 1)
+                {
+                    this.btn_Restore.gameObject.SetActive(this.boxItem.BoxId != -1 && !this.boxItem.Item.IsLock);
+                }
             }
             else
             {

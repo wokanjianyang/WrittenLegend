@@ -250,7 +250,7 @@ namespace Game
 
         public Dictionary<int, MagicData> MetalData { get; } = new Dictionary<int, MagicData>();
 
-        public bool GameDoCheat { get; set; } = false;
+        public bool GameDoCheat211 { get; set; } = false;
 
         public bool isClear { get; set; } = false;
 

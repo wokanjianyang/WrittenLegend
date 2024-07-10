@@ -189,6 +189,11 @@ public class Panel_Exclusive_Up : MonoBehaviour
             }
         }
 
+        if (exclusiveMain.GetLevel() >= 99) //最高99级
+        {
+            return;
+        }
+
         //选择符合条件的exclusive
         User user = GameProcessor.Inst.User;
 

@@ -111,7 +111,13 @@ public class Monster_Phantom : APlayer
                 int attrId = attrConfig.AttrIdList[i];
                 double attrValue = attrConfig.AttrValueList[i];
                 double attrRise = (Layer - 1) * attrConfig.AttrRiseList[i];
-                AttributeBonus.SetAttr((AttributeEnum)attrId, AttributeFrom.HeroBase, attrValue + attrRise);
+                double total = attrValue + attrRise;
+                if (attrId == (int)AttributeEnum.MulDamageResist)
+                {
+                    total = MathHelper.CalRealResist(total);
+                }
+
+                AttributeBonus.SetAttr((AttributeEnum)attrId, AttributeFrom.HeroBase, total);
             }
         }
 
