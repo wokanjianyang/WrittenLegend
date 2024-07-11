@@ -57,12 +57,9 @@ namespace Game
                 this.ShowDamage(isOn);
             });
 
-            if (CheckShow())
-            {
-                this.btn_Change.onClick.AddListener(this.OnClick_Change);
-                this.btn_Save.onClick.AddListener(this.OnClick_Save);
-                this.btn_Load.onClick.AddListener(this.OnClick_Load);
-            }
+            this.btn_Change.onClick.AddListener(this.OnClick_Change);
+            this.btn_Save.onClick.AddListener(this.OnClick_Save);
+            this.btn_Load.onClick.AddListener(this.OnClick_Load);
 
             this.Init();
         }

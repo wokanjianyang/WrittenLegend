@@ -21,8 +21,11 @@ public class Dialog_Legacy : MonoBehaviour, IBattleLife
     public List<StrenthAttrItem> LevelAttrList;
 
     public Text Txt_Fee;
+    public Text Txt_Fee2;
 
     public Button Btn_Ok;
+    public Button Btn_Layer_Up;
+
     public Button Btn_Close;
 
     private int CountMax = 8;
@@ -35,6 +38,8 @@ public class Dialog_Legacy : MonoBehaviour, IBattleLife
     {
         Btn_Close.onClick.AddListener(OnClick_Close);
         Btn_Ok.onClick.AddListener(OnClick_Ok);
+        Btn_Layer_Up.onClick.AddListener(OnClick_Layer_Up);
+
 
         ToggleGroup toggleGroup = Tran_Item_List.GetComponent<ToggleGroup>();
 
@@ -154,7 +159,7 @@ public class Dialog_Legacy : MonoBehaviour, IBattleLife
 
         string color = total >= needNumber + 1 ? "#FFFF00" : "#FF0000";
 
-        Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2}", color, total, needNumber);
+        Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2}", color, needNumber, total);
 
         if (total >= needNumber)
         {
@@ -164,6 +169,20 @@ public class Dialog_Legacy : MonoBehaviour, IBattleLife
         {
             Btn_Ok.gameObject.SetActive(false);
         }
+
+        long needLayerNumber = GetNeedLayerNumber(currentLayer, config);
+        color = total >= needLayerNumber + 1 ? "#FFFF00" : "#FF0000";
+        Txt_Fee2.text = string.Format("<color={0}>{1}</color> /{2}", color, needLayerNumber, total);
+
+        if (total >= needLayerNumber)
+        {
+            Btn_Layer_Up.gameObject.SetActive(true);
+        }
+        else
+        {
+            Btn_Layer_Up.gameObject.SetActive(false);
+        }
+
     }
 
     private long GetNeedNumber(long level)
@@ -171,8 +190,16 @@ public class Dialog_Legacy : MonoBehaviour, IBattleLife
         return (level + 1) * 5;
     }
 
+    private long GetNeedLayerNumber(long layer, LegacyConfig config)
+    {
+        return (layer + 1) * 5 * 100 * config.RecoveryNubmer;
+    }
+
     public void OnClick_Ok()
     {
+        Btn_Ok.gameObject.SetActive(false);
+        Btn_Layer_Up.gameObject.SetActive(false);
+
         Item_Legacy currentItem = items.Where(m => m.toggle.isOn).FirstOrDefault();
         LegacyConfig config = currentItem.Config;
 
@@ -195,6 +222,39 @@ public class Dialog_Legacy : MonoBehaviour, IBattleLife
             Quantity = needCount
         });
         user.SaveLegacyLevel(config.Id);
+
+        this.ShowItem(currentItem);
+        GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
+    }
+
+
+    public void OnClick_Layer_Up()
+    {
+        Btn_Ok.gameObject.SetActive(false);
+        Btn_Layer_Up.gameObject.SetActive(false);
+
+        Item_Legacy currentItem = items.Where(m => m.toggle.isOn).FirstOrDefault();
+        LegacyConfig config = currentItem.Config;
+
+        User user = GameProcessor.Inst.User;
+        long currentLayer = user.GetLegacyLayer(config.Id);
+
+        long total = user.GetMaterialCount(ItemHelper.SpecialId_Legacy_Stone);
+        long needCount = GetNeedLayerNumber(currentLayer, config);
+
+        if (total < needCount)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "材料数量不足" + needCount + "个", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
+
+        GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
+        {
+            Type = ItemType.Material,
+            ItemId = ItemHelper.SpecialId_Legacy_Stone,
+            Quantity = needCount
+        });
+        user.SaveLegacyLayer(config.Id, (int)(currentLayer + 1));
 
         this.ShowItem(currentItem);
         GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
