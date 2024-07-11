@@ -1042,6 +1042,12 @@ namespace Game
             }
             else
             {
+                if (user.Bags.Count > ConfigHelper.MaxBagCount * 6)
+                {
+                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "包裹总量已经满了,请清理包裹", ToastType = ToastTypeEnum.Failure });
+                    return;
+                }
+
                 boxItem = new BoxItem();
                 boxItem.Item = newItem;
                 boxItem.MagicNubmer.Data = newItem.Count;
