@@ -137,12 +137,16 @@ namespace Game
             for (int i = 0; i < RuneConfigIdList.Count; i++)
             {
                 int runeId = RuneConfigIdList[i];
+                SkillRuneConfig config = SkillRuneConfigCategory.Instance.Get(runeId);
 
-                if (!dict.ContainsKey(runeId))
+                if (config.SkillId == skillId)
                 {
-                    dict[runeId] = 0;
+                    if (!dict.ContainsKey(runeId))
+                    {
+                        dict[runeId] = 0;
+                    }
+                    dict[runeId] += 1;
                 }
-                dict[runeId] += 1;
             }
         }
 

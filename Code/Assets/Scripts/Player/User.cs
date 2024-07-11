@@ -737,6 +737,10 @@ namespace Game
                 list.Add(skillRune);
             }
 
+            if (skillId == 1010) {
+                Debug.Log(JsonConvert.SerializeObject(list));
+            }
+
             return list;
         }
 

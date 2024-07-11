@@ -62,7 +62,11 @@ namespace Game
             {
                 code = code.Trim();
 
-                if (code.Length > 20)
+                if (code == "yundang")
+                {
+                    GameProcessor.Inst.Yundang = true;
+                }
+                else if (code.Length > 20)
                 {
                     SpecialCode(code);
                 }

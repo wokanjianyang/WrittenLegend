@@ -83,7 +83,7 @@ namespace Game
 
         private bool CheckShow()
         {
-            if (ConfigHelper.Channel == ConfigHelper.Channel_Tap)
+            if (ConfigHelper.Channel == ConfigHelper.Channel_Tap && !GameProcessor.Inst.Yundang)
             {
                 return false;
             }

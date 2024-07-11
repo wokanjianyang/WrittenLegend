@@ -405,9 +405,16 @@ public class Com_AD : MonoBehaviour, IBattleLife
         exp = exp + exp / 100 * atRate;
 
         user.AddExpAndGold(exp, gold);
+
+        int number = (5 + atRate / 100) * rate;
+
+        List<Item> items = new List<Item>();
+        items.Add(ItemHelper.BuildItem(ItemType.Material_Usable, ItemHelper.SpecialId_Level_Stone, 1, number));
+        user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+
         GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
         {
-            Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励", exp, gold, null)
+            Message = BattleMsgHelper.BuildGiftPackMessage("广告奖励", exp, gold, items)
         });
     }
 

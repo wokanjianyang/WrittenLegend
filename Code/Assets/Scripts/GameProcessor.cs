@@ -75,6 +75,7 @@ namespace Game
         public bool EquipCopySetting_Auto = false;
         public bool EquipCopySetting_Spe = true;
         public bool EquipBossFamily_Auto = false;
+        public bool Yundang = false;
 
         private long limit1 = 0;
         private long limit2 = 0;
