@@ -27,7 +27,7 @@ namespace Game
         public Item_EquipCopy MineItem;
         public Dialog_Mine MineDialog;
 
-        
+
 
         void Start()
         {
@@ -43,7 +43,8 @@ namespace Game
             }
 
             long level = user.MagicLevel.Data;
-            if (level > 20000)
+            int mc = user.GetArtifactValue(ArtifactType.MineCount);
+            if (level > 20000 || mc > 0)
             {
                 MineItem.gameObject.SetActive(true);
             }
