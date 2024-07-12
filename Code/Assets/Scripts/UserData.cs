@@ -125,154 +125,160 @@ namespace Game
                 Debug.Log(ex.Message);
             }
 
-            if (user == null)
+            try
             {
-                user = new User();
-                //首次初始化
-                user.MagicLevel.Data = 1;
-                user.MagicExp.Data = 0;
-                user.Name = "传奇";
-                user.MagicTowerFloor.Data = 1;
-                user.MapId = ConfigHelper.MapStartId;
-                user.MagicGold.Data = 0;
-                user.MagicCopyTikerCount.Data = ConfigHelper.CopyTicketFirstCount;
-                user.FirstTime = TimeHelper.ClientNowSeconds();
-            }
-
-            if (user.EquipPanelList.Count < 7)
-            {
-                for (int i = 0; i < 7; i++)
+                if (user == null)
                 {
-                    if (!user.EquipPanelList.ContainsKey(i))
+                    user = new User();
+                    //首次初始化
+                    user.MagicLevel.Data = 1;
+                    user.MagicExp.Data = 0;
+                    user.Name = "传奇";
+                    user.MagicTowerFloor.Data = 1;
+                    user.MapId = ConfigHelper.MapStartId;
+                    user.MagicGold.Data = 0;
+                    user.MagicCopyTikerCount.Data = ConfigHelper.CopyTicketFirstCount;
+                    user.FirstTime = TimeHelper.ClientNowSeconds();
+                }
+
+                if (user.EquipPanelList.Count < 7)
+                {
+                    for (int i = 0; i < 7; i++)
                     {
-                        user.EquipPanelList[i] = new Dictionary<int, Equip>();
+                        if (!user.EquipPanelList.ContainsKey(i))
+                        {
+                            user.EquipPanelList[i] = new Dictionary<int, Equip>();
+                        }
                     }
                 }
-            }
 
-            if (user.ExclusivePanelList.Count < 7)
-            {
-                for (int i = 0; i < 7; i++)
+                if (user.ExclusivePanelList.Count < 7)
                 {
-                    if (!user.ExclusivePanelList.ContainsKey(i))
+                    for (int i = 0; i < 7; i++)
                     {
-                        user.ExclusivePanelList[i] = new Dictionary<int, ExclusiveItem>();
+                        if (!user.ExclusivePanelList.ContainsKey(i))
+                        {
+                            user.ExclusivePanelList[i] = new Dictionary<int, ExclusiveItem>();
+                        }
                     }
                 }
-            }
 
-            if (user.DefendData == null)
-            {
-                user.DefendData = new DefendData();
-            }
-            if (!user.DefendData.CountDict.ContainsKey(1))
-            {
-                MagicData data = new MagicData();
-                data.Data = 1;
-                user.DefendData.CountDict[1] = data;
-            }
-            if (!user.DefendData.CountDict.ContainsKey(2))
-            {
-                MagicData data = new MagicData();
-                data.Data = 1;
-                user.DefendData.CountDict[2] = data;
-            }
-
-            if (user.HeroPhatomData == null)
-            {
-                user.HeroPhatomData = new HeroPhatomData();
-                user.HeroPhatomData.Count.Data = 1;
-            }
-
-            if (user.InfiniteData == null)
-            {
-                user.InfiniteData = new InfiniteData();
-            }
-
-            if (user.LegacyData == null)
-            {
-                user.LegacyData = new LegacyData();
-                user.LegacyData.GetDropId(1);
-                user.LegacyData.GetDropId(2);
-                user.LegacyData.GetDropId(3);
-                user.LegacyData.GetDropLayer(1, 1);
-                user.LegacyData.GetDropLayer(2, 1);
-                user.LegacyData.GetDropLayer(3, 1);
-            }
-
-            if (user.DeviceId == "")
-            {
-                user.DeviceId = AppHelper.GetDeviceIdentifier();
-            }
-
-            if (user.RecoverySetting.SkillReserveQuanlity.Count() == 0)
-            {
-                user.RecoverySetting.SkillReserveQuanlity[4] = true;
-                user.RecoverySetting.SkillReserveQuanlity[5] = true;
-            }
-
-            List<BoxItem> cfList = user.Bags.Where(m => m.Item.Type == ItemType.Card || m.Item.Type == ItemType.Fashion
-            || (m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Card_Stone)).ToList();
-            if (cfList.Count > 0)
-            {
-                foreach (BoxItem cf in cfList)
+                if (user.DefendData == null)
                 {
-                    user.SaveItemMeterialCount(cf.Item.ConfigId, cf.MagicNubmer.Data);
+                    user.DefendData = new DefendData();
+                }
+                if (!user.DefendData.CountDict.ContainsKey(1))
+                {
+                    MagicData data = new MagicData();
+                    data.Data = 1;
+                    user.DefendData.CountDict[1] = data;
+                }
+                if (!user.DefendData.CountDict.ContainsKey(2))
+                {
+                    MagicData data = new MagicData();
+                    data.Data = 1;
+                    user.DefendData.CountDict[2] = data;
                 }
 
-                user.Bags.RemoveAll(m => m.Item.Type == ItemType.Card || m.Item.Type == ItemType.Fashion || (m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Card_Stone));
-            }
-
-            //user.KillRecord.Clear();
-
-            //user.InfiniteData = new InfiniteData();
-            //user.InfiniteData.Ticket = 0;
-            //Debug.Log("DeviceId:" + user.DeviceId);
-
-            //去掉专属精华
-            //user.Bags.RemoveAll(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Chunjie);
-
-            //List<BoxItem> items = user.Bags.Where(m => m.Item.Type == ItemType.Equip && m.Item.ConfigId >= 21105801 && m.Item.ConfigId <= 21105810).ToList();
-            //List<BoxItem> items = user.Bags.Where(m => m.Item.Type == ItemType.Equip && m.Item.ConfigId >= 22105801 && m.Item.ConfigId <= 22105810).ToList();
-            //List<BoxItem> items = user.Bags.Where(m => m.Item.Type == ItemType.Equip && m.Item.ConfigId >= 23105801 && m.Item.ConfigId <= 23105810).ToList();
-            //Debug.Log("items:" + items.Count);
-            //foreach (var item in items) {
-            //    Equip equip = item.Item as Equip;
-            //    equip.ConfigId -= 1000000;
-            //}
-
-            //user.Bags.RemoveAll(m => m.Item.Type != 0);
-
-            //user.DefendData.Refresh();
-            //user.DefendData.CountDict[1].Data = 10;
-            //user.HeroPhatomData = new HeroPhatomData();
-            //user.HeroPhatomData.Count.Data = 1;
-            //TEST data
-            //user.MagicGold.Data = 200000000000000000; 
-            //user.Level = 1;
-            //user.MapId = 1010;
-            //user.TowerFloor = 59998;
-            //user.PhantomRecord.Clear();
-            //user.Exp = 999999999999;
-            //TestFull(user);
-            //user.AdData.CodeDict.Clear();
-
-            //补偿
-            //user.MagicLevel.Data = 30000;
-            //user.Record.AddRecord(RecordType.AdReal, 360);
-
-            //超出上限的技能
-            foreach (SkillData skill in user.SkillList)
-            {
-                int lm = user.GetSkillLimit(skill.SkillConfig);
-                if (skill.MagicLevel.Data > lm)
+                if (user.HeroPhatomData == null)
                 {
-                    skill.MagicLevel.Data = lm;
+                    user.HeroPhatomData = new HeroPhatomData();
+                    user.HeroPhatomData.Count.Data = 1;
                 }
-            }
 
-            //记录版号
-            user.VersionLog[ConfigHelper.Version] = TimeHelper.ClientNowSeconds();
+                if (user.InfiniteData == null)
+                {
+                    user.InfiniteData = new InfiniteData();
+                }
+
+                if (user.LegacyData == null)
+                {
+                    user.LegacyData = new LegacyData();
+                    user.LegacyData.GetDropId(1);
+                    user.LegacyData.GetDropId(2);
+                    user.LegacyData.GetDropId(3);
+                    user.LegacyData.GetDropLayer(1, 1);
+                    user.LegacyData.GetDropLayer(2, 1);
+                    user.LegacyData.GetDropLayer(3, 1);
+                }
+
+                if (user.DeviceId == "")
+                {
+                    user.DeviceId = AppHelper.GetDeviceIdentifier();
+                }
+
+                if (user.RecoverySetting.SkillReserveQuanlity.Count() == 0)
+                {
+                    user.RecoverySetting.SkillReserveQuanlity[4] = true;
+                    user.RecoverySetting.SkillReserveQuanlity[5] = true;
+                }
+
+                List<BoxItem> cfList = user.Bags.Where(m => m.Item.Type == ItemType.Card || m.Item.Type == ItemType.Fashion
+                || (m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Card_Stone)).ToList();
+                if (cfList.Count > 0)
+                {
+                    foreach (BoxItem cf in cfList)
+                    {
+                        user.SaveItemMeterialCount(cf.Item.ConfigId, cf.MagicNubmer.Data);
+                    }
+
+                    user.Bags.RemoveAll(m => m.Item.Type == ItemType.Card || m.Item.Type == ItemType.Fashion || (m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Card_Stone));
+                }
+
+                //user.KillRecord.Clear();
+
+                //user.InfiniteData = new InfiniteData();
+                //user.InfiniteData.Ticket = 0;
+                //Debug.Log("DeviceId:" + user.DeviceId);
+
+                //去掉专属精华
+                //user.Bags.RemoveAll(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Chunjie);
+
+                //List<BoxItem> items = user.Bags.Where(m => m.Item.Type == ItemType.Equip && m.Item.ConfigId >= 21105801 && m.Item.ConfigId <= 21105810).ToList();
+                //List<BoxItem> items = user.Bags.Where(m => m.Item.Type == ItemType.Equip && m.Item.ConfigId >= 22105801 && m.Item.ConfigId <= 22105810).ToList();
+                //List<BoxItem> items = user.Bags.Where(m => m.Item.Type == ItemType.Equip && m.Item.ConfigId >= 23105801 && m.Item.ConfigId <= 23105810).ToList();
+                //Debug.Log("items:" + items.Count);
+                //foreach (var item in items) {
+                //    Equip equip = item.Item as Equip;
+                //    equip.ConfigId -= 1000000;
+                //}
+
+                //user.Bags.RemoveAll(m => m.Item.Type != 0);
+
+                //user.DefendData.Refresh();
+                //user.DefendData.CountDict[1].Data = 10;
+                //user.HeroPhatomData = new HeroPhatomData();
+                //user.HeroPhatomData.Count.Data = 1;
+                //TEST data
+                //user.MagicGold.Data = 200000000000000000; 
+                //user.Level = 1;
+                //user.MapId = 1010;
+                //user.TowerFloor = 59998;
+                //user.PhantomRecord.Clear();
+                //user.Exp = 999999999999;
+                //TestFull(user);
+                //user.AdData.CodeDict.Clear();
+
+                //补偿
+                //user.MagicLevel.Data = 30000;
+                //user.Record.AddRecord(RecordType.AdReal, 360);
+
+                //超出上限的技能
+                foreach (SkillData skill in user.SkillList)
+                {
+                    int lm = user.GetSkillLimit(skill.SkillConfig);
+                    if (skill.MagicLevel.Data > lm)
+                    {
+                        skill.MagicLevel.Data = lm;
+                    }
+                }
+
+                //记录版号
+                user.VersionLog[ConfigHelper.Version] = TimeHelper.ClientNowSeconds();
+            }
+            catch
+            {
+            }
 
             return user;
         }
