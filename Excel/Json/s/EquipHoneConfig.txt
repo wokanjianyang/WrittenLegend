@@ -1,0 +1,17 @@
+{"list":[
+{"_t":"EquipHoneConfig","_id":1,"AttrId":7,"Type":1,"Desc":"幸运","AttrValue":2,"StartValue":8},
+{"_t":"EquipHoneConfig","_id":2,"AttrId":2004,"Type":1,"Desc":"物攻倍率","AttrValue":1,"StartValue":3},
+{"_t":"EquipHoneConfig","_id":3,"AttrId":2005,"Type":1,"Desc":"魔法倍率","AttrValue":1,"StartValue":3},
+{"_t":"EquipHoneConfig","_id":4,"AttrId":2006,"Type":1,"Desc":"道术倍率","AttrValue":1,"StartValue":3},
+{"_t":"EquipHoneConfig","_id":5,"AttrId":33,"Type":1,"Desc":"物伤加成","AttrValue":2,"StartValue":10},
+{"_t":"EquipHoneConfig","_id":6,"AttrId":34,"Type":1,"Desc":"法伤加成","AttrValue":2,"StartValue":10},
+{"_t":"EquipHoneConfig","_id":7,"AttrId":35,"Type":1,"Desc":"道伤加成","AttrValue":2,"StartValue":10},
+{"_t":"EquipHoneConfig","_id":9,"AttrId":2001,"Type":1,"Desc":"攻击倍率","AttrValue":1,"StartValue":3},
+{"_t":"EquipHoneConfig","_id":10,"AttrId":2002,"Type":1,"Desc":"防御倍率","AttrValue":1,"StartValue":3},
+{"_t":"EquipHoneConfig","_id":11,"AttrId":2003,"Type":1,"Desc":"生命倍率","AttrValue":1,"StartValue":3},
+{"_t":"EquipHoneConfig","_id":12,"AttrId":18,"Type":1,"Desc":"经验加成","AttrValue":10,"StartValue":50},
+{"_t":"EquipHoneConfig","_id":13,"AttrId":19,"Type":1,"Desc":"爆率加成","AttrValue":10,"StartValue":50},
+{"_t":"EquipHoneConfig","_id":14,"AttrId":20,"Type":1,"Desc":"金币加成","AttrValue":10,"StartValue":50},
+{"_t":"EquipHoneConfig","_id":15,"AttrId":24,"Type":1,"Desc":"品质加成","AttrValue":10,"StartValue":50},
+{"_t":"EquipHoneConfig","_id":16,"AttrId":2011,"Type":1,"Desc":"减伤倍率","AttrValue":1,"StartValue":1},
+]}

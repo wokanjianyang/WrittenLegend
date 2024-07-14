@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1262210879
+CRC: 241215631
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: d9ec85c38a9999c836e30c83d243477f
+    Hash: 1622ed590bbc25b92d0f0ff092513d4f
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -61,6 +61,7 @@ Assets:
 - Assets/Resources/Config/DefendConfigCategory.bytes
 - Assets/Resources/Config/EquipRedConfigCategory.bytes
 - Assets/Resources/Config/TaskConfigCategory.bytes
+- Assets/Resources/Config/EquipHoneConfigCategory.bytes
 - Assets/Resources/Config/ValetModelConfigCategory.bytes
 - Assets/Resources/Config/AchievementConfigCategory.bytes
 - Assets/Resources/Config/AurasConfigCategory.bytes

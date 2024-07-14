@@ -196,6 +196,9 @@ public class Panel_Grade : MonoBehaviour
         }
 
         this.SelectEquip.Grade();
+
+        GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
+
         this.Load();
     }
 

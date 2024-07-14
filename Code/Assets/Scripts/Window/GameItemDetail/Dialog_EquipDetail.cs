@@ -192,7 +192,10 @@ namespace Game
 
                     if (index < AttrEntryList.Count)
                     {
-                        child.GetComponent<Text>().text = FormatAttrText(AttrEntryList[index].Key, AttrEntryList[index].Value, qualityPercent);
+                        int attrId = AttrEntryList[index].Key;
+                        long attrHoneVal = equip.GetHoneValue(attrId);
+
+                        child.GetComponent<Text>().text = FormatAttrText(attrId, AttrEntryList[index].Value + attrHoneVal, qualityPercent);
                         child.gameObject.SetActive(true);
                     }
                     else

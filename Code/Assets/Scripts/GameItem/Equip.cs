@@ -24,6 +24,8 @@ namespace Game
         public int RefreshCount { get; set; }
         public long RefreshDate { get; set; }
 
+        public Dictionary<int, int> HoneList { get; set; } = new Dictionary<int, int>();
+
         public EquipData Data { get; set; } = new EquipData();
 
         public override int GetQuality()
@@ -230,10 +232,10 @@ namespace Game
             for (int i = 0; i < AttrEntryList.Count; i++)
             {
                 int attrId = AttrEntryList[i].Key;
-                long attrValue = AttrEntryList[i].Value * qualityPercent / 100;
+                long attrTotalValue = AttrEntryList[i].Value + GetHoneValue(attrId);
+                long attrRiseValue = attrTotalValue * qualityPercent / 100;
 
-                AttrList.TryGetValue(attrId, out long val);
-                AttrList[attrId] = val + attrValue;
+                AttrList[attrId] = attrTotalValue + attrRiseValue;
             }
 
             foreach (int attrId in QualityAttrList.Keys)
@@ -246,6 +248,38 @@ namespace Game
         public void Grade()
         {
             this.Layer++;
+        }
+
+        public void Hone(int attrId)
+        {
+            if (!HoneList.ContainsKey(attrId))
+            {
+                HoneList[attrId] = 0;
+            }
+
+            HoneList[attrId]++;
+        }
+
+        public int GetHoneLevel(int attrId)
+        {
+            if (HoneList.ContainsKey(attrId))
+            {
+                return HoneList[attrId];
+            }
+            return 0;
+        }
+
+        public int GetHoneValue(int attrId)
+        {
+            int level = GetHoneLevel(attrId);
+
+            if (level > 0)
+            {
+                EquipHoneConfig config = EquipHoneConfigCategory.Instance.GetByAttrId(attrId);
+                return level * config.AttrValue;
+            }
+
+            return 0;
         }
     }
 }
