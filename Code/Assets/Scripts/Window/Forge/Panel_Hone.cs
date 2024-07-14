@@ -193,6 +193,8 @@ public class Panel_Hone : MonoBehaviour
         int attrId = SelectEquip.AttrEntryList[SelectAttrIndex].Key;
         long attrVal = SelectEquip.AttrEntryList[SelectAttrIndex].Value;
 
+        int MaxLevel = EquipHoneConfigCategory.Instance.GetMaxLevel(attrId, attrVal, SelectEquip.Layer);
+
         int honeLevel = SelectEquip.GetHoneLevel(attrId);
 
         int needCount = GetNeedNumber(honeLevel);
@@ -209,6 +211,11 @@ public class Panel_Hone : MonoBehaviour
         else
         {
             Btn_OK.gameObject.SetActive(true);
+        }
+
+        if (honeLevel >= MaxLevel)
+        {
+            Btn_OK.gameObject.SetActive(false);
         }
 
         Txt_Fee.text = string.Format("<color={0}>({1}/{2})</color>", color, needCount, count);

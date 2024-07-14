@@ -193,9 +193,11 @@ namespace Game
                     if (index < AttrEntryList.Count)
                     {
                         int attrId = AttrEntryList[index].Key;
+                        long attrBaseValue = AttrEntryList[index].Value;
                         long attrHoneVal = equip.GetHoneValue(attrId);
+                        long attrRiseValue = (attrBaseValue + attrHoneVal) * qualityPercent / 100;
 
-                        child.GetComponent<Text>().text = FormatAttrText(attrId, AttrEntryList[index].Value + attrHoneVal, qualityPercent);
+                        child.GetComponent<Text>().text = FormatEquipAttrText(attrId, attrBaseValue, attrHoneVal, attrRiseValue);
                         child.gameObject.SetActive(true);
                     }
                     else
@@ -423,6 +425,34 @@ namespace Game
             }
 
             string text = StringHelper.FormatNumber(val) + refineText + unit + PlayerHelper.PlayerAttributeMap[((AttributeEnum)attr).ToString()];
+
+            return text;
+        }
+
+        private string FormatEquipAttrText(int attrId, long baseValue, long riseValue, long percentValue)
+        {
+            string unit = "";
+
+            List<int> percents = ConfigHelper.PercentAttrIdList.ToList().ToList(); ;
+
+            if (percents.Contains(attrId))
+            {
+                unit = "%";
+            }
+
+            string text = baseValue + "";
+            if (riseValue > 0)
+            {
+                text = "(" + baseValue + "+" + riseValue + ")";
+            }
+
+            if (percentValue > 0)
+            {
+                text += "+" + percentValue;
+            }
+
+
+            text = text + unit + PlayerHelper.PlayerAttributeMap[((AttributeEnum)attrId).ToString()];
 
             return text;
         }

@@ -48,7 +48,17 @@ namespace Game
             long total = honeLvel * config.AttrValue;
 
             Txt_Base.text = attrName + StringHelper.FormatAttrValueText(attrId, attrValue) + "+" + StringHelper.FormatAttrValueText(attrId, total);
-            Txt_Rise.text = "+ " + config.AttrValue + "%";
+
+            int MaxLevel = EquipHoneConfigCategory.Instance.GetMaxLevel(attrId, attrValue, layer);
+
+            if (honeLvel >= MaxLevel)
+            {
+                Txt_Rise.text = "已满,请提升装备等阶";
+            }
+            else
+            {
+                Txt_Rise.text = "+ " + config.AttrValue + "%";
+            }
 
         }
 
