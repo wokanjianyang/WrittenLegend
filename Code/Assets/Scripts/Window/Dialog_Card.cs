@@ -112,7 +112,7 @@ public class Dialog_Card : MonoBehaviour
             if (upLevel > 0)
             {
                 user.UseItemMeterialCount(config.Id, useNumber);
-                user.SaveCardLevel(config.Id, upLevel);
+                user.SaveCardLevel(itemId, upLevel);
 
                 GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = config.Name + "使用" + useNumber + "个材料成功提升" + upLevel + "级", ToastType = ToastTypeEnum.Success });
             }

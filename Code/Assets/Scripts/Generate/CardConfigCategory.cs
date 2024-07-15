@@ -25,9 +25,9 @@ namespace Game
                 if (tempUpNumber <= materialNubmer)
                 {
                     upLevel++;
+                    currentLevel++;
                     useNumber += tempUpNumber;
                 }
-
                 materialNubmer -= tempUpNumber;
             }
 
@@ -69,7 +69,7 @@ namespace Game
             long newTotal = 0;
             long oldTotal = 0;
 
-            for (int i = 0; i <= currentLevel; i++)
+            for (int i = 0; i < currentLevel; i++)
             {
                 newTotal += CalNewUpNumber(i);
                 oldTotal += CalOldUpNumber(i);

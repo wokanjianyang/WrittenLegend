@@ -1,5 +1,6 @@
 using Game.Data;
 using Sirenix.OdinInspector;
+using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -40,7 +41,9 @@ namespace Game
 
             if (cardLevel < maxLevel)
             {
-                long rise = cardLevel / Config.RiseLevel * Config.RiseNumber;
+                //long rise = cardLevel / Config.RiseLevel * Config.RiseNumber;
+                long rise = Math.Min(cardLevel / Config.RiseLevel, 10);
+                rise = rise * Config.RiseNumber;
 
                 int itemId = Config.Id;
                 long upNumber = 1 + rise;
@@ -95,7 +98,9 @@ namespace Game
                 this.Txt_Attr_Rise.text = "激活增加:" + StringHelper.FormatAttrValueText(Config.AttrId, Config.AttrValue);
             }
 
-            long rise = cardLevel / Config.RiseLevel * Config.RiseNumber;
+            //long rise = cardLevel / Config.RiseLevel * Config.RiseNumber;
+            long rise = Math.Min(cardLevel / Config.RiseLevel, 10);
+            rise = rise * Config.RiseNumber;
 
             int itemId = Config.Id;
             long upNumber = 1 + rise;
