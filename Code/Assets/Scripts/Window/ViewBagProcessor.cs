@@ -935,13 +935,14 @@ namespace Game
                 for (int i = 0; i < pc.ItemIdList.Length; i++)
                 {
                     Item item = ItemHelper.BuildItem((ItemType)pc.ItemTypeList[i], pc.ItemIdList[i], 1, (int)(quantity * pc.ItemCountList[i]));
-                    this.AddBoxItem(item);
+                    //this.AddBoxItem(item);
                     items.Add(item);
                 }
                 GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
                 {
                     Message = BattleMsgHelper.BuildGiftPackMessage("礼包奖励:", 0, 0, items)
                 });
+                user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
             }
             else if (boxItem.Item.Type == ItemType.Ticket)
             {

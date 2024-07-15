@@ -207,23 +207,39 @@ namespace Game
                     user.DeviceId = AppHelper.GetDeviceIdentifier();
                 }
 
-                if (user.RecoverySetting.SkillReserveQuanlity.Count() == 0)
-                {
-                    user.RecoverySetting.SkillReserveQuanlity[4] = true;
-                    user.RecoverySetting.SkillReserveQuanlity[5] = true;
-                }
+                //List<BoxItem> cfList = user.Bags.Where(m => m.Item.Type == ItemType.Card || m.Item.Type == ItemType.Fashion
+                //|| (m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Card_Stone)).ToList();
+                //if (cfList.Count > 0)
+                //{
+                //    foreach (BoxItem cf in cfList)
+                //    {
+                //        user.SaveItemMeterialCount(cf.Item.ConfigId, cf.MagicNubmer.Data);
+                //    }
 
-                List<BoxItem> cfList = user.Bags.Where(m => m.Item.Type == ItemType.Card || m.Item.Type == ItemType.Fashion
-                || (m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Card_Stone)).ToList();
-                if (cfList.Count > 0)
-                {
-                    foreach (BoxItem cf in cfList)
-                    {
-                        user.SaveItemMeterialCount(cf.Item.ConfigId, cf.MagicNubmer.Data);
-                    }
+                //    user.Bags.RemoveAll(m => m.Item.Type == ItemType.Card || m.Item.Type == ItemType.Fashion || (m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Card_Stone));
+                //}
 
-                    user.Bags.RemoveAll(m => m.Item.Type == ItemType.Card || m.Item.Type == ItemType.Fashion || (m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Card_Stone));
-                }
+                //if (!user.OldCardCheck)
+                //{
+                //    user.OldCardCheck = true;
+
+                //    foreach (var cardKv in user.CardData)
+                //    {
+                //        int cardId = cardKv.Key;
+                //        long cardLevel = cardKv.Value.Data;
+
+                //        CardConfig config = CardConfigCategory.Instance.Get(cardId);
+                //        long returnNumber = config.CalReturnNumber(cardLevel);
+
+                //        int itemId = config.Id;
+                //        if (config.StoneNumber > 0)
+                //        {
+                //            itemId = ItemHelper.SpecialId_Card_Stone;
+                //        }
+
+                //        user.SaveItemMeterialCount(itemId, returnNumber);
+                //    }
+                //}
 
                 //user.KillRecord.Clear();
 
@@ -259,19 +275,8 @@ namespace Game
                 //TestFull(user);
                 //user.AdData.CodeDict.Clear();
 
-                //补偿
-                //user.MagicLevel.Data = 30000;
-                //user.Record.AddRecord(RecordType.AdReal, 360);
-
                 //超出上限的技能
-                foreach (SkillData skill in user.SkillList)
-                {
-                    int lm = user.GetSkillLimit(skill.SkillConfig);
-                    if (skill.MagicLevel.Data > lm)
-                    {
-                        skill.MagicLevel.Data = lm;
-                    }
-                }
+
 
                 //记录版号
                 user.VersionLog[ConfigHelper.Version] = TimeHelper.ClientNowSeconds();

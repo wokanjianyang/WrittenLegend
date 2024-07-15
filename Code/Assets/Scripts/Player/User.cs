@@ -100,6 +100,8 @@ namespace Game
 
         public Dictionary<int, long> VersionLog { get; } = new Dictionary<int, long>();
 
+        public bool OldCardCheck = false;
+
         public int GetArtifactValue(ArtifactType type)
         {
             List<ArtifactConfig> list = ArtifactConfigCategory.Instance.GetListByType(type);
