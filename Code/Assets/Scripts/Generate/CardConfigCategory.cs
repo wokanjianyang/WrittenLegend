@@ -37,31 +37,16 @@ namespace Game
         public long CalNewUpNumber(long currentLevel)
         {
             long rise = Math.Min(currentLevel / RiseLevel, 10);
-            rise = rise * RiseNumber;
+            rise = rise * RiseNumber + StartNubmer;
+            return rise;
 
-            if (StoneNumber > 0)
-            {
-                return rise + StoneNumber;
-            }
-            else
-            {
-                return rise + 1;
-            }
         }
 
         public long CalOldUpNumber(long currentLevel)
         {
             long rise = currentLevel / RiseLevel;
-            rise = rise * RiseNumber;
-
-            if (StoneNumber > 0)
-            {
-                return rise + StoneNumber;
-            }
-            else
-            {
-                return rise + 1;
-            }
+            rise = rise * RiseNumber + StartNubmer;
+            return rise;
         }
 
         public long CalReturnNumber(long currentLevel)

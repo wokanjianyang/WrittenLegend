@@ -93,20 +93,23 @@ namespace Game
 		/// <summary>LevelIncrea</summary>
 		[ProtoMember(6)]
 		public int LevelIncrea { get; set; }
-		/// <summary>StoneNumber</summary>
+		/// <summary>RiseId</summary>
 		[ProtoMember(7)]
-		public int StoneNumber { get; set; }
+		public int RiseId { get; set; }
 		/// <summary>Quality</summary>
 		[ProtoMember(8)]
 		public int Quality { get; set; }
 		/// <summary>RiseLevel</summary>
 		[ProtoMember(9)]
 		public int RiseLevel { get; set; }
-		/// <summary>RiseNumber</summary>
+		/// <summary>StartNubmer</summary>
 		[ProtoMember(10)]
+		public int StartNubmer { get; set; }
+		/// <summary>RiseNumber</summary>
+		[ProtoMember(11)]
 		public int RiseNumber { get; set; }
 		/// <summary>Des</summary>
-		[ProtoMember(11)]
+		[ProtoMember(12)]
 		public string Des { get; set; }
 
 	}

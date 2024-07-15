@@ -41,18 +41,8 @@ namespace Game
 
             if (cardLevel < maxLevel)
             {
-                //long rise = cardLevel / Config.RiseLevel * Config.RiseNumber;
-                long rise = Math.Min(cardLevel / Config.RiseLevel, 10);
-                rise = rise * Config.RiseNumber;
-
-                int itemId = Config.Id;
-                long upNumber = 1 + rise;
-
-                if (Config.StoneNumber > 0)
-                {
-                    itemId = ItemHelper.SpecialId_Card_Stone;
-                    upNumber = Config.StoneNumber + rise;
-                }
+                int itemId = Config.RiseId;
+                long upNumber = Config.CalNewUpNumber(cardLevel);
 
                 long total = user.GetItemMeterialCount(itemId);
 
@@ -98,18 +88,8 @@ namespace Game
                 this.Txt_Attr_Rise.text = "激活增加:" + StringHelper.FormatAttrValueText(Config.AttrId, Config.AttrValue);
             }
 
-            //long rise = cardLevel / Config.RiseLevel * Config.RiseNumber;
-            long rise = Math.Min(cardLevel / Config.RiseLevel, 10);
-            rise = rise * Config.RiseNumber;
-
-            int itemId = Config.Id;
-            long upNumber = 1 + rise;
-
-            if (Config.StoneNumber > 0)
-            {
-                itemId = ItemHelper.SpecialId_Card_Stone;
-                upNumber = Config.StoneNumber + rise;
-            }
+            int itemId = Config.RiseId;
+            long upNumber = Config.CalNewUpNumber(cardLevel);
 
             long total = user.GetItemMeterialCount(itemId);
 

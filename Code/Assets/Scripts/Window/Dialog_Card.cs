@@ -41,6 +41,16 @@ public class Dialog_Card : MonoBehaviour
 
     public void Init()
     {
+        User user = GameProcessor.Inst.User;
+        if (user.Cycle.Data >= 1)
+        {
+            Btn_Batch.gameObject.SetActive(true);
+        }
+        else
+        {
+            Btn_Batch.gameObject.SetActive(false);
+        }
+
         this.gameObject.SetActive(true);
 
         List<CardConfig> configs = CardConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
@@ -97,22 +107,16 @@ public class Dialog_Card : MonoBehaviour
             long cardLevel = cardItem.Value.Data;
 
             CardConfig config = CardConfigCategory.Instance.Get(cardId);
-            int itemId = config.Id;
+            int itemId = config.RiseId;
 
-            if (config.StoneNumber > 0)
-            {
-                itemId = ItemHelper.SpecialId_Card_Stone;
-                continue;
-            }
-
-            long total = user.GetItemMeterialCount(config.Id);
+            long total = user.GetItemMeterialCount(itemId);
 
             long upLevel = config.CalUpLevel(cardLevel, total, out long useNumber);
 
             if (upLevel > 0)
             {
-                user.UseItemMeterialCount(config.Id, useNumber);
-                user.SaveCardLevel(itemId, upLevel);
+                user.UseItemMeterialCount(itemId, useNumber);
+                user.SaveCardLevel(cardId, upLevel);
 
                 GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = config.Name + "使用" + useNumber + "个材料成功提升" + upLevel + "级", ToastType = ToastTypeEnum.Success });
             }
