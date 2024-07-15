@@ -112,6 +112,7 @@ namespace Game
         public static int SpecialId_Level_Stone = 4014;
 
         public static int SpecialId_Card_Stone = 4101;
+        public static int SpecialId_Skil_Advance = 4102;
 
         public static int SpecialId_Chunjie = 4110;
 
