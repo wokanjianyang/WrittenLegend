@@ -60,7 +60,7 @@ namespace Game
                 }
 
                 user.UseItemMeterialCount(itemId, upNumber);
-                user.SaveCardLevel(Config.Id);
+                user.SaveCardLevel(Config.Id, 1);
 
                 this.Show();
 
@@ -74,7 +74,7 @@ namespace Game
             }
         }
 
-        private void Show()
+        public void Show()
         {
             User user = GameProcessor.Inst.User;
 

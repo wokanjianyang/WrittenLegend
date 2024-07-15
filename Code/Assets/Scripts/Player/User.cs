@@ -737,7 +737,8 @@ namespace Game
                 list.Add(skillRune);
             }
 
-            if (skillId == 1010) {
+            if (skillId == 1010)
+            {
                 Debug.Log(JsonConvert.SerializeObject(list));
             }
 
@@ -1209,9 +1210,9 @@ namespace Game
             return CardData[cardId].Data;
         }
 
-        public void SaveCardLevel(int cardId)
+        public void SaveCardLevel(int cardId, long level)
         {
-            CardData[cardId].Data++;
+            CardData[cardId].Data += level;
         }
 
         public long GetStrengthLevel(int position)

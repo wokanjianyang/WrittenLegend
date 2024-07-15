@@ -12,6 +12,7 @@ public class Dialog_Card : MonoBehaviour
     private GameObject ItemPrefab;
 
     public Button btn_Close;
+    public Button Btn_Batch;
 
     private int SelectStage = 0;
     public List<Toggle> toggleStageList = new List<Toggle>();
@@ -22,6 +23,7 @@ public class Dialog_Card : MonoBehaviour
     void Start()
     {
         this.btn_Close.onClick.AddListener(OnClick_Close);
+        this.Btn_Batch.onClick.AddListener(OnClick_Batch);
 
         ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Item/Item_Card");
 
@@ -76,12 +78,47 @@ public class Dialog_Card : MonoBehaviour
             if (this.SelectStage == items[i].Config.Stage)
             {
                 items[i].gameObject.SetActive(true);
+                items[i].Show();
             }
             else
             {
                 items[i].gameObject.SetActive(false);
             }
         }
+    }
+
+    private void OnClick_Batch()
+    {
+        User user = GameProcessor.Inst.User;
+
+        foreach (var cardItem in user.CardData)
+        {
+            int cardId = cardItem.Key;
+            long cardLevel = cardItem.Value.Data;
+
+            CardConfig config = CardConfigCategory.Instance.Get(cardId);
+            int itemId = config.Id;
+
+            if (config.StoneNumber > 0)
+            {
+                itemId = ItemHelper.SpecialId_Card_Stone;
+                continue;
+            }
+
+            long total = user.GetItemMeterialCount(config.Id);
+
+            long upLevel = config.CalUpLevel(cardLevel, total, out long useNumber);
+
+            if (upLevel > 0)
+            {
+                user.UseItemMeterialCount(config.Id, useNumber);
+                user.SaveCardLevel(config.Id, upLevel);
+
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = config.Name + "使用" + useNumber + "个材料成功提升" + upLevel + "级", ToastType = ToastTypeEnum.Success });
+            }
+        }
+
+        this.Show();
     }
 
     public void OnClick_Close()
