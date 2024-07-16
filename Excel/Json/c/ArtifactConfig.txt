@@ -4,7 +4,7 @@
 {"_t":"ArtifactConfig","_id":3,"ItemId":180003,"Name":"命运沙漏","Type":3,"AttrValue":1,"MaxCount":780,"DropRate":100,"Des":"装备副本CD时间-1S"},
 {"_t":"ArtifactConfig","_id":4,"ItemId":180004,"Name":"副本契约","Type":4,"AttrValue":1,"MaxCount":8,"DropRate":8,"Des":"广告的副本劵收益+1"},
 {"_t":"ArtifactConfig","_id":5,"ItemId":180005,"Name":"卖身契","Type":5,"AttrValue":1,"MaxCount":10,"DropRate":1,"Des":"矿工+1"},
-{"_t":"ArtifactConfig","_id":6,"ItemId":180006,"Name":"万界图","Type":6,"AttrValue":10,"MaxCount":20,"DropRate":20,"Des":"所有图鉴上限提高10%"},
+{"_t":"ArtifactConfig","_id":6,"ItemId":180006,"Name":"万界图","Type":6,"AttrValue":10,"MaxCount":100,"DropRate":20,"Des":"所有图鉴上限提高10%"},
 {"_t":"ArtifactConfig","_id":7,"ItemId":180007,"Name":"破限本源","Type":7,"AttrValue":1,"MaxCount":2,"DropRate":1,"Des":"专属等阶上限+1"},
 {"_t":"ArtifactConfig","_id":8,"ItemId":180008,"Name":"魔法书","Type":8,"AttrValue":10,"MaxCount":20,"DropRate":20,"Des":"所有技能上限提高10%"},
 {"_t":"ArtifactConfig","_id":9,"ItemId":180009,"Name":"圣者遗物","Type":9,"AttrValue":1,"MaxCount":4,"DropRate":1,"Des":"遗物等阶上限+1"},

@@ -16,7 +16,7 @@
 {"_t":"GiftPackConfig","_id":15,"Name":"圣战时装包","GiftType":0,"LevelRequired":0,"ItemTypeList":[13,13,13,13,13,13,13,13],"ItemIdList":[3000025,3000026,3000027,3000028,3000029,3000030,3000031,3000032],"ItemCountList":[1,1,1,1,1,1,1,1],"Des":"圣战时装包"},
 {"_t":"GiftPackConfig","_id":16,"Name":"法神时装包","GiftType":0,"LevelRequired":0,"ItemTypeList":[13,13,13,13,13,13,13,13],"ItemIdList":[3000033,3000034,3000035,3000036,3000037,3000038,3000039,3000040],"ItemCountList":[1,1,1,1,1,1,1,1],"Des":"法神时装包"},
 {"_t":"GiftPackConfig","_id":17,"Name":"天尊时装包","GiftType":0,"LevelRequired":0,"ItemTypeList":[13,13,13,13,13,13,13,13],"ItemIdList":[3000041,3000042,3000043,3000044,3000045,3000046,3000047,3000048],"ItemCountList":[1,1,1,1,1,1,1,1],"Des":"天尊时装包"},
-{"_t":"GiftPackConfig","_id":18,"Name":"法宝自选","GiftType":1,"LevelRequired":0,"ItemTypeList":[18,18,18,18,18,18],"ItemIdList":[180007,180009,180001,180002,180004,180005],"ItemCountList":[1,1,1,1,1,1,1,1],"Des":"法宝自选包"},
+{"_t":"GiftPackConfig","_id":18,"Name":"法宝自选","GiftType":1,"LevelRequired":0,"ItemTypeList":[18,18,18,18,18,18],"ItemIdList":[180007,180009,180001,180002,180004,180005],"ItemCountList":[1,1,1,1,1,1,1,1],"Des":"特殊法宝自选"},
 {"_t":"GiftPackConfig","_id":19,"Name":"神技自选1","GiftType":1,"LevelRequired":0,"ItemTypeList":[5,5,5,5,5],"ItemIdList":[8001,8002,8003,8004,8005],"ItemCountList":[1,1,1,1,1,1,1,1],"Des":"神技自选1"},
 {"_t":"GiftPackConfig","_id":20,"Name":"神技自选2","GiftType":1,"LevelRequired":0,"ItemTypeList":[5,5,5,5,5],"ItemIdList":[8006,8007,8008,8009,8010],"ItemCountList":[1,1,1,1,1,1,1,1],"Des":"神技自选2"},
 {"_t":"GiftPackConfig","_id":21,"Name":"专属自选8","GiftType":1,"LevelRequired":0,"ItemTypeList":[12,12,12],"ItemIdList":[15,16,17],"ItemCountList":[1,1,1],"Des":"护体，瞬移，隐身专属自选"},
@@ -27,4 +27,7 @@
 {"_t":"GiftPackConfig","_id":103,"Name":"冰咆哮4件套","GiftType":0,"LevelRequired":0,"ItemTypeList":[12,12,12,12,5,5],"ItemIdList":[803,804,705,706,4005,4010],"ItemCountList":[1,1,1,1,300,60],"Des":"冰咆哮4件套"},
 {"_t":"GiftPackConfig","_id":104,"Name":"道力盾4件套","GiftType":0,"LevelRequired":0,"ItemTypeList":[12,12,12,12,5,5],"ItemIdList":[18,19,20,21,4005,4010],"ItemCountList":[1,1,1,1,300,60],"Des":"道力盾4件套"},
 {"_t":"GiftPackConfig","_id":105,"Name":"月灵4件套","GiftType":0,"LevelRequired":0,"ItemTypeList":[12,12,12,12,5,5],"ItemIdList":[22,23,24,25,4005,4010],"ItemCountList":[1,1,1,1,300,60],"Des":"月灵4件套"},
+{"_t":"GiftPackConfig","_id":106,"Name":"大佬礼包1","GiftType":1,"LevelRequired":0,"ItemTypeList":[5,5,5,5,5,5],"ItemIdList":[4014,4012,4001,4011,4012,4010],"ItemCountList":[50,2000,10000000,4,200,50],"Des":"经验丹0.5K,传世精华2k,魂环碎片1KW,红装精华3,高级书页200个,专属之心50个"},
+{"_t":"GiftPackConfig","_id":107,"Name":"大佬礼包2","GiftType":1,"LevelRequired":0,"ItemTypeList":[18,18,18,18,18,18],"ItemIdList":[180005,180006,180018,180002,180004,180008],"ItemCountList":[1,1,1,1,1,1,1,1],"Des":"普通法宝自选"},
+{"_t":"GiftPackConfig","_id":108,"Name":"大佬礼包3","GiftType":1,"LevelRequired":0,"ItemTypeList":[18,18,18,18,18,18],"ItemIdList":[180007,180009,180001,180002,180004,180019],"ItemCountList":[1,1,1,1,1,1,1,1],"Des":"特殊法宝自选"},
 ]}
