@@ -51,9 +51,6 @@ namespace Game
 
         public Button btn_Restore;
 
-        public Button btn_Select;
-        public Button btn_Deselect;
-
         public Button Btn_Close;
 
         private BoxItem boxItem;
@@ -70,9 +67,6 @@ namespace Game
 
             this.btn_Lock.onClick.AddListener(this.OnClick_Lock);
             this.btn_Unlock.onClick.AddListener(this.OnClick_Unlock);
-
-            this.btn_Select.onClick.AddListener(this.OnClick_Select);
-            this.btn_Deselect.onClick.AddListener(this.OnClick_Deselect);
 
             this.Btn_Close.onClick.AddListener(this.OnClick_Close);
         }
@@ -106,8 +100,6 @@ namespace Game
             this.btn_Recovery.gameObject.SetActive(false);
             this.btn_Lock.gameObject.SetActive(false);
             this.btn_Unlock.gameObject.SetActive(false);
-            this.btn_Select.gameObject.SetActive(false);
-            this.btn_Deselect.gameObject.SetActive(false);
             this.btn_Restore.gameObject.SetActive(false);
 
             // this.transform.position = this.GetBetterPosition(e.Position);
@@ -246,18 +238,6 @@ namespace Game
                 this.btn_Lock.gameObject.SetActive(false);
                 this.btn_Unlock.gameObject.SetActive(false);
                 this.btn_Restore.gameObject.SetActive(false);
-            }
-
-            if (this.BoxType == ComBoxType.Exclusive_Devour)
-            {
-                if (this.equipPositioin <= 0)
-                {
-                    this.btn_Select.gameObject.SetActive(true);
-                }
-                else
-                {
-                    this.btn_Deselect.gameObject.SetActive(true);
-                }
             }
         }
 

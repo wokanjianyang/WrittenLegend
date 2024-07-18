@@ -211,6 +211,10 @@ public class Panel_Exclusive_Up : MonoBehaviour
 
             BoxItem item = list[i];
             ExclusiveItem exclusive = item.Item as ExclusiveItem;
+            if (exclusive.GetLayer() > 1)
+            {
+                continue;
+            }
             if (lvs.Count > 0 && !lvs.Contains(exclusive.RuneConfigId))
             {
                 continue;

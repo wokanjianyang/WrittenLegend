@@ -9,21 +9,31 @@ using UnityEngine.UI;
 
 public class Panel_Devour : MonoBehaviour
 {
+    public ScrollRect ds_Panel;
+
     public ScrollRect sr_Panel;
 
-    public List<SlotBox> slots;
+    private List<Box_Select> mainList = new List<Box_Select>();
 
-    public Button Btn_OK;
+    private List<Box_Select> sourceList = new List<Box_Select>();
+
+    public Box_Ready Box_Ready_Main;
+    public Box_Ready Box_Ready_Material;
+
     public List<Text> TxtCommissionNameList;
     public List<Text> TxtCommissionCountList;
 
-    private List<Com_Box> items = new List<Com_Box>();
+    public Button Btn_OK;
 
-    private const int MaxCount = 36;
+    private const int MaxMain = 6; //10件装备
+    private const int MaxMaterial = 24;
 
     private bool check = false;
-
     private ExclusiveDevourConfig config = null;
+
+    Box_Select SelectMain;
+    Box_Select SelectMaterial;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -35,8 +45,7 @@ public class Panel_Devour : MonoBehaviour
     // Update is called once per frame
     void Start()
     {
-        GameProcessor.Inst.EventCenter.AddListener<ComBoxSelectEvent>(this.OnComBoxSelect);
-        GameProcessor.Inst.EventCenter.AddListener<ComBoxDeselectEvent>(this.OnComBoxDeselect);
+        GameProcessor.Inst.EventCenter.AddListener<BoxSelectEvent>(this.OnBoxSelect);
     }
 
     void OnEnable()
@@ -48,247 +57,183 @@ public class Panel_Devour : MonoBehaviour
     {
         var emptyPrefab = Resources.Load<GameObject>("Prefab/Window/Box_Empty");
 
-        for (var i = 0; i < MaxCount; i++)
+        for (var i = 0; i < MaxMain; i++)
+        {
+            var empty = GameObject.Instantiate(emptyPrefab, this.ds_Panel.content);
+            empty.name = "Des_" + i;
+        }
+
+
+        for (var i = 0; i < MaxMaterial; i++)
         {
             var empty = GameObject.Instantiate(emptyPrefab, this.sr_Panel.content);
-            empty.name = "Box_" + i;
+            empty.name = "Src_" + i;
         }
 
-        var prefab = Resources.Load<GameObject>("Prefab/Window/Box_Info");
-        for (int i = 0; i < slots.Count; i++)
-        {
-            slots[i].Init(prefab);
-        }
+        Box_Ready_Main.Init("主专属");
+        Box_Ready_Material.Init("材料专属");
     }
 
-    public void Load()
+    private void Load()
     {
-        foreach (SlotBox slot in slots)
-        {
-            Com_Box comItem = slot.GetEquip();
-            if (comItem != null)
-            {
-                slot.UnEquip();
-                GameObject.Destroy(comItem.gameObject);
-            }
-        }
+        //把之前的卸载
+        this.SelectMain = null;
+        this.SelectMaterial = null;
 
-        foreach (var cb in items)
+        foreach (Box_Select cb in mainList)
         {
             GameObject.Destroy(cb.gameObject);
         }
-        items.Clear();
+        mainList.Clear();
+
+        foreach (Box_Select sb in sourceList)
+        {
+            GameObject.Destroy(sb.gameObject);
+        }
+        sourceList.Clear();
+
+        Box_Ready_Main.Down();
+        Box_Ready_Material.Down();
 
         User user = GameProcessor.Inst.User;
-
-        List<BoxItem> list = user.Bags.Where(m => m.Item.Type == ItemType.Exclusive && m.Item.GetQuality() == 5 && !m.Item.IsLock).OrderBy(m => m.Item.ConfigId).ToList();
-        //Debug.Log("es:" + list.Count);
-        for (int BoxId = 0; BoxId < list.Count; BoxId++)
+        if (user == null)
         {
-            if (BoxId >= MaxCount)
+            return;
+        }
+
+        int maxLevel = user.GetExclusiveLimit();
+
+        IDictionary<int, ExclusiveItem> dict = user.ExclusivePanelList[user.ExclusiveIndex];
+
+        for (int BoxId = 0; BoxId < MaxMain; BoxId++)
+        {
+            int postion = BoxId + 15;
+
+            var bagBox = this.ds_Panel.content.GetChild(BoxId);
+            if (bagBox == null || !dict.ContainsKey(postion))
+            {
+                continue;
+            }
+
+            ExclusiveItem exclusive = dict[postion];
+
+            if (exclusive.GetQuality() < 5 || exclusive.GetLayer() >= maxLevel)
+            {
+                continue;
+            }
+
+            BoxItem boxItem = new BoxItem();
+            boxItem.Item = exclusive;
+            boxItem.MagicNubmer.Data = 1;
+
+            Box_Select box = PrefabHelper.Instance().CreateBoxSelect(bagBox, boxItem, ComBoxType.Exclusive_Devour_Main);
+            this.mainList.Add(box);
+        }
+
+        for (int i = 0; i < TxtCommissionCountList.Count; i++)
+        {
+            TxtCommissionCountList[i].text = string.Format("<color={0}>({1}/{2})</color>", "#FF0000", 0, 0);
+        }
+
+        this.Btn_OK.gameObject.SetActive(false);
+    }
+
+    private void OnBoxSelect(BoxSelectEvent e)
+    {
+        if (e.Type == ComBoxType.Exclusive_Devour_Main)
+        {
+            ExclusiveItem exclusiveMain = e.Box.BoxItem.Item as ExclusiveItem;
+
+            int maxLevel = GameProcessor.Inst.User.GetExclusiveLimit();
+
+            if (exclusiveMain.GetLayer() >= maxLevel)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "已经满阶了", ToastType = ToastTypeEnum.Failure });
+                return;
+            }
+
+            this.SelectMain = e.Box;
+            Box_Ready_Main.Up(e.Box.BoxItem);
+            this.ShowMain();
+        }
+        else if (e.Type == ComBoxType.Exclusive_Devour_Material)
+        {
+            this.SelectMaterial = e.Box;
+            Box_Ready_Material.Up(e.Box.BoxItem);
+
+            this.ShowMaterial();
+        }
+    }
+
+    private void ShowMain()
+    {
+        this.Btn_OK.gameObject.SetActive(false);
+
+        foreach (Box_Select sb in sourceList)
+        {
+            GameObject.Destroy(sb.gameObject);
+        }
+        sourceList.Clear();
+
+        ExclusiveItem exclusiveMain = SelectMain.BoxItem.Item as ExclusiveItem;
+
+        int nextLevel = exclusiveMain.GetLayer();
+        this.config = ExclusiveDevourConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Level == nextLevel).FirstOrDefault();
+
+        this.Check();
+        int maxLevel = GameProcessor.Inst.User.GetExclusiveLimit();
+
+        if (exclusiveMain.GetLevel() >= maxLevel) //不能超过上限
+        {
+            return;
+        }
+
+        //选择符合条件的exclusive
+        User user = GameProcessor.Inst.User;
+
+        List<BoxItem> list = user.Bags.Where(m => m.Item.Type == ItemType.Exclusive && m.Item.GetQuality() == 5 && !m.Item.IsLock).ToList();
+        //Debug.Log("es:" + list.Count);
+        int BoxId = 0;
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (BoxId >= MaxMaterial)
             {
                 return;
             }
 
             var bagBox = this.sr_Panel.content.GetChild(BoxId);
-            if (bagBox == null)
+
+            BoxItem item = list[i];
+            ExclusiveItem exclusive = item.Item as ExclusiveItem;
+            if (exclusive.GetLayer() > 1 || exclusive.GetLevel() > 0)
             {
-                return;
+                continue;
             }
 
-            BoxItem item = list[BoxId];
-            item.BoxId = BoxId;
+            Box_Select box = PrefabHelper.Instance().CreateBoxSelect(bagBox, item, ComBoxType.Exclusive_Devour_Material);
+            this.sourceList.Add(box);
 
-            Com_Box box = this.CreateBox(item, bagBox);
-            box.SetBoxId(BoxId);
-            this.items.Add(box);
+            BoxId++;
         }
-
-        this.config = null;
     }
 
-    private Com_Box CreateBox(BoxItem item, Transform parent)
+    private void ShowMaterial()
     {
-        GameObject prefab = Resources.Load<GameObject>("Prefab/Window/Box_Orange");
+        if (this.check)
+        {
+            this.Btn_OK.gameObject.SetActive(true);
+        }
 
-        var go = GameObject.Instantiate(prefab);
-        var comItem = go.GetComponent<Com_Box>();
-        comItem.SetBoxId(item.BoxId);
-        comItem.SetItem(item);
-        comItem.SetType(ComBoxType.Exclusive_Devour);
-
-        comItem.transform.SetParent(parent);
-        comItem.transform.localPosition = Vector3.zero;
-        comItem.transform.localScale = Vector3.one;
-
-        return comItem;
+        ExclusiveItem exclusiveMaterial = SelectMaterial.BoxItem.Item as ExclusiveItem;
     }
-
-    private void OnComBoxSelect(ComBoxSelectEvent e)
-    {
-        SlotBox slot = null;
-        int type = 0;
-
-        for (int i = 0; i < slots.Count; i++)
-        {
-            if (slots[i].GetEquip() == null)
-            {
-                slot = slots[i];
-                type = i;
-                break;
-            }
-        }
-
-        if (slot == null)
-        {
-            return;
-        }
-
-        BoxItem boxItem = e.BoxItem;
-        ExclusiveItem exclusive = boxItem.Item as ExclusiveItem;
-
-        if (type == 1 && exclusive.GetLayer() > 1)
-        {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "副专属不能为升阶过的", ToastType = ToastTypeEnum.Failure });
-            return;
-        }
-
-        int nextLevel = exclusive.GetLayer();
-        int maxLevel = GameProcessor.Inst.User.GetExclusiveLimit();
-
-        if (nextLevel >= maxLevel)
-        {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "专属已经满吞噬了", ToastType = ToastTypeEnum.Failure });
-            return;
-        }
-
-        Com_Box boxUI = this.items.Find(m => m.boxId == boxItem.BoxId);
-        this.items.Remove(boxUI);
-        GameObject.Destroy(boxUI.gameObject);
-
-        boxItem.BoxId = -1;
-
-        Com_Box comItem = this.CreateBox(boxItem, slot.transform);
-        comItem.SetBoxId(-1);
-        comItem.SetEquipPosition((int)slot.SlotType);
-
-        slot.Equip(comItem);
-
-        int index = slots.IndexOf(slot);
-        if (index == 0)
-        {
-
-            this.config = ExclusiveDevourConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Level == nextLevel).FirstOrDefault();
-            this.Check();
-        }
-    }
-
-    private void OnComBoxDeselect(ComBoxDeselectEvent e)
-    {
-        SlotBox slot = slots.Where(m => m.SlotType == (SlotType)e.Position).FirstOrDefault();
-
-        BoxItem boxItem = e.BoxItem;
-
-        Com_Box comItem = slot.GetEquip();
-        slot.UnEquip();
-        GameObject.Destroy(comItem.gameObject);
-
-        //装备移动到包裹里面
-        int BoxId = GetNextBoxId();
-        boxItem.BoxId = BoxId;
-
-        var bagBox = this.sr_Panel.content.GetChild(BoxId);
-        Com_Box box = this.CreateBox(boxItem, bagBox);
-        box.SetBoxId(BoxId);
-        this.items.Add(box);
-    }
-
-    public int GetNextBoxId()
-    {
-        for (int boxId = 0; boxId < MaxCount; boxId++)
-        {
-            if (this.items.Find(m => m.boxId == boxId) == null)
-            {
-                return boxId;
-            }
-        }
-        return -1;
-    }
-
-    public void OnClickOK()
-    {
-        for (int i = 0; i < slots.Count; i++)
-        {
-            if (slots[i].GetEquip() == null)
-            {
-                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "请先选择专属", ToastType = ToastTypeEnum.Failure });
-                return;
-            }
-        }
-
-        //if (slots[0].GetEquip().BoxItem.Item.ConfigId != slots[1].GetEquip().BoxItem.Item.ConfigId)
-        //{
-        //    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "主副专属必须是同位置", ToastType = ToastTypeEnum.Failure });
-        //    return;
-        //}
-
-        if (!check)
-        {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "材料不足", ToastType = ToastTypeEnum.Failure });
-            return;
-        }
-
-        this.Check();
-
-        if (!check)
-        {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "材料不足", ToastType = ToastTypeEnum.Failure });
-            return;
-        }
-
-        //材料
-        for (int i = 0; i < config.ItemIdList.Length; i++)
-        {
-            GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
-            {
-                Type = ItemType.Material,
-                ItemId = config.ItemIdList[i],
-                Quantity = config.ItemCountList[i]
-            });
-        }
-
-        for (int i = 0; i < slots.Count; i++)
-        {
-            //销毁
-            GameProcessor.Inst.EventCenter.Raise(new BagRemoveEvent()
-            {
-                BoxItem = slots[i].GetEquip().BoxItem
-            });
-        }
-
-        ExclusiveItem main = slots[0].GetEquip().BoxItem.Item as ExclusiveItem;
-        ExclusiveItem second = slots[1].GetEquip().BoxItem.Item as ExclusiveItem;
-
-        main.Devour(second);
-
-        List<Item> list = new List<Item>();
-        list.Add(main);
-        GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = list });
-
-        this.Load();
-        GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "吞噬成功", ToastType = ToastTypeEnum.Success });
-    }
-
     private void Check()
     {
-
-        int[] ItemIdList = config.ItemIdList;
-        int[] ItemCountList = config.ItemCountList;
-
         User user = GameProcessor.Inst.User;
 
         this.check = true;
 
+        int[] ItemIdList = config.ItemIdList;
+        int[] ItemCountList = config.ItemCountList;
         for (int i = 0; i < ItemIdList.Length; i++)
         {
             int MaxCount = ItemCountList[i];
@@ -305,6 +250,49 @@ public class Panel_Devour : MonoBehaviour
 
             TxtCommissionCountList[i].text = string.Format("<color={0}>({1}/{2})</color>", color, count, MaxCount);
         }
+    }
+    public void OnClickOK()
+    {
+        this.Btn_OK.gameObject.SetActive(false);
+
+        this.Check();
+
+        if (!check)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "材料不足", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
+
+        ExclusiveItem exclusiveMain = SelectMain.BoxItem.Item as ExclusiveItem;
+        ExclusiveItem exclusiveMaterial = SelectMaterial.BoxItem.Item as ExclusiveItem;
+
+        //材料
+        int[] ItemIdList = config.ItemIdList;
+        int[] ItemCountList = config.ItemCountList;
+        for (int i = 0; i < ItemIdList.Length; i++)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
+            {
+                Type = ItemType.Material,
+                ItemId = ItemIdList[i],
+                Quantity = ItemCountList[i]
+            });
+        }
+
+        //销毁
+        GameProcessor.Inst.EventCenter.Raise(new BagRemoveEvent()
+        {
+            BoxItem = SelectMaterial.BoxItem
+        });
+
+        Box_Ready_Material.Down(); //销毁已选
+        sourceList.Remove(SelectMaterial);//移除包裹
+        GameObject.Destroy(SelectMaterial.gameObject); //销毁包裹
+        SelectMaterial = null;
+
+        exclusiveMain.Devour(exclusiveMaterial);
+
+        this.Load();
     }
 }
 

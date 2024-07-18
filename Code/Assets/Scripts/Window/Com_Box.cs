@@ -204,7 +204,6 @@ namespace Game
     {
         Bag = 0,
         Box_Ready = 1,
-        Exclusive_Devour = 2,
         Exclusive_Up_Main = 3,
         Exclusive_Up_Material = 4,
         Exclusive_Devour_Main = 5,

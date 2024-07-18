@@ -104,12 +104,12 @@ namespace Game
                 GameProcessor.Inst.EventCenter.Raise(new BoxSelectEvent() { Box = this, Type = this.Type });
                 return;
             }
-            else if (this.Type == ComBoxType.Exclusive_Up_Material)
+            else if (this.Type == ComBoxType.Exclusive_Devour_Main)
             {
                 GameProcessor.Inst.EventCenter.Raise(new BoxSelectEvent() { Box = this, Type = this.Type });
                 return;
             }
-            else if (this.Type == ComBoxType.Exclusive_Up_Material)
+            else if (this.Type == ComBoxType.Exclusive_Devour_Material)
             {
                 GameProcessor.Inst.EventCenter.Raise(new BoxSelectEvent() { Box = this, Type = this.Type });
                 return;
