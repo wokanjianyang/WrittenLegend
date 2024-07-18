@@ -1229,6 +1229,10 @@ namespace Game
 
         public long GetRefineLevel(int position)
         {
+            if (position > 10)
+            {
+                return -100;
+            }
             if (!MagicEquipRefine.ContainsKey(position))
             {
                 MagicEquipRefine[position] = new MagicData();
