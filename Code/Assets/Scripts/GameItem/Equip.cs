@@ -238,14 +238,14 @@ namespace Game
             {
                 int attrId = AttrEntryList[i].Key;
                 long attrTotalValue = AttrEntryList[i].Value + GetHoneValue(attrId);
-                long attrRiseValue = attrTotalValue * qualityPercent / 100;
+                attrTotalValue = attrTotalValue * qualityPercent / 100;
 
                 if (!AttrList.ContainsKey(attrId))
                 {
                     AttrList[attrId] = 0;
                 }
 
-                AttrList[attrId] += attrTotalValue + attrRiseValue;
+                AttrList[attrId] += attrTotalValue;
             }
 
             foreach (int attrId in QualityAttrList.Keys)
