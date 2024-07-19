@@ -30,7 +30,6 @@ namespace Game
                 if (tempUpNumber <= materialNubmer)
                 {
                     upLevel++;
-                    currentLevel++;
                     useNumber += tempUpNumber;
                 }
 
