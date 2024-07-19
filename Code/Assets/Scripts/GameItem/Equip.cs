@@ -226,7 +226,12 @@ namespace Game
             IDictionary<int, long> AttrList = new Dictionary<int, long>();
             foreach (int attrId in BaseAttrList.Keys)
             {
-                AttrList[attrId] = BaseAttrList[attrId] * basePercent / 100;
+                if (!AttrList.ContainsKey(attrId))
+                {
+                    AttrList[attrId] = 0;
+                }
+
+                AttrList[attrId] += BaseAttrList[attrId] * basePercent / 100;
             }
 
             for (int i = 0; i < AttrEntryList.Count; i++)
@@ -235,13 +240,25 @@ namespace Game
                 long attrTotalValue = AttrEntryList[i].Value + GetHoneValue(attrId);
                 long attrRiseValue = attrTotalValue * qualityPercent / 100;
 
-                AttrList[attrId] = attrTotalValue + attrRiseValue;
+                if (!AttrList.ContainsKey(attrId))
+                {
+                    AttrList[attrId] = 0;
+                }
+
+                AttrList[attrId] += attrTotalValue + attrRiseValue;
             }
 
             foreach (int attrId in QualityAttrList.Keys)
             {
-                AttrList[attrId] = QualityAttrList[attrId];
+                if (!AttrList.ContainsKey(attrId))
+                {
+                    AttrList[attrId] = 0;
+                }
+
+                AttrList[attrId] += QualityAttrList[attrId];
             }
+
+            Debug.Log(JsonConvert.SerializeObject(AttrList));
             return AttrList;
         }
 
