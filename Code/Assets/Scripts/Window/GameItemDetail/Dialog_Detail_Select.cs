@@ -11,6 +11,7 @@ namespace Game
     {
         public Button Btn_Close;
         public Button Btn_OK;
+        public Button Btn_Query;
 
         public RectTransform Container;
         public ToggleGroup toggleGroup;
@@ -18,7 +19,7 @@ namespace Game
         private BoxItem boxItem;
         private int ConfigId;
 
-        private List<SelectItem> ItemList = new List<SelectItem>();
+        private List<Gift_Item> ItemList = new List<Gift_Item>();
 
         public int Order => (int)ComponentOrder.Dialog;
 
@@ -26,6 +27,7 @@ namespace Game
         {
             Btn_Close.onClick.AddListener(OnClick_Close);
             Btn_OK.onClick.AddListener(OnClick_OK);
+            Btn_Query.onClick.AddListener(OnClick_Query);
         }
 
 
@@ -44,13 +46,14 @@ namespace Game
             ItemList.Clear();
 
             GiftPackConfig config = GiftPackConfigCategory.Instance.Get(this.ConfigId);
-            var pref = Resources.Load<GameObject>("Prefab/Window/Item/Select_Item");
+            var pref = Resources.Load<GameObject>("Prefab/Window/GameItem/Gift_Item");
 
             for (int i = 0; i < config.ItemIdList.Length; i++)
             {
                 var itemUI = GameObject.Instantiate(pref, Container);
+                itemUI.transform.localScale = Vector3.one;
 
-                SelectItem item = itemUI.GetComponent<SelectItem>();
+                Gift_Item item = itemUI.GetComponent<Gift_Item>();
 
                 Item newItem = ItemHelper.BuildItem((ItemType)config.ItemTypeList[i], config.ItemIdList[i], 1, config.ItemCountList[i]);
 
@@ -81,7 +84,7 @@ namespace Game
 
         public void OnClick_OK()
         {
-            SelectItem select = ItemList.Where(m => m.Tg_Bg.isOn).FirstOrDefault();
+            Gift_Item select = ItemList.Where(m => m.toggle.isOn).FirstOrDefault();
 
             if (select == null)
             {
@@ -97,6 +100,42 @@ namespace Game
             });
 
             this.gameObject.SetActive(false);
+        }
+
+        public void OnClick_Query()
+        {
+            Gift_Item select = ItemList.Where(m => m.toggle.isOn).FirstOrDefault();
+            if (select == null)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "请先选择一个道具", ToastType = ToastTypeEnum.Failure });
+                return;
+            }
+
+            if (select.BoxItem.Item.Type == ItemType.Exclusive)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowExclusiveCardEvent()
+                {
+                    boxItem = select.BoxItem,
+                    EquipPosition = -2,
+                    Type = ComBoxType.Bag,
+                });
+                return;
+            }
+            else if (select.BoxItem.Item.Type == ItemType.Equip)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowEquipDetailEvent()
+                {
+                    boxItem = select.BoxItem,
+                    EquipPosition = -2
+                });
+            }
+            else
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowDetailEvent()
+                {
+                    boxItem = select.BoxItem,
+                });
+            }
         }
     }
 }

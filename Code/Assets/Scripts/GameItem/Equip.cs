@@ -258,7 +258,6 @@ namespace Game
                 AttrList[attrId] += QualityAttrList[attrId];
             }
 
-            Debug.Log(JsonConvert.SerializeObject(AttrList));
             return AttrList;
         }
 

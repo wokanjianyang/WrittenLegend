@@ -109,9 +109,11 @@ public class Dialog_Card : MonoBehaviour
             CardConfig config = CardConfigCategory.Instance.Get(cardId);
             int itemId = config.RiseId;
 
+            long limitLevel = user.GetCardLimit(config);
+
             long total = user.GetItemMeterialCount(itemId);
 
-            long upLevel = config.CalUpLevel(cardLevel, total, out long useNumber);
+            long upLevel = config.CalUpLevel(cardLevel, total, limitLevel, out long useNumber);
 
             if (upLevel > 0)
             {

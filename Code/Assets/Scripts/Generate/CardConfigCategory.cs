@@ -13,7 +13,7 @@ namespace Game
     public partial class CardConfig
     {
 
-        public long CalUpLevel(long currentLevel, long materialNubmer, out long useNumber)
+        public long CalUpLevel(long currentLevel, long materialNubmer,long limitLevel, out long useNumber)
         {
             useNumber = 0;
             long upLevel = 0;
@@ -28,6 +28,12 @@ namespace Game
                     currentLevel++;
                     useNumber += tempUpNumber;
                 }
+
+                if (currentLevel + upLevel >= limitLevel)
+                {
+                    break;
+                }
+
                 materialNubmer -= tempUpNumber;
             }
 

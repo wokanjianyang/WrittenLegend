@@ -46,6 +46,15 @@ namespace Game
             this.EquipRole[role] = check;
         }
 
+        public bool GetSkillReserveQuanlity(int quanlity)
+        {
+            if (!SkillReserveQuanlity.ContainsKey(quanlity)) {
+                SkillReserveQuanlity[quanlity] = false;
+            }
+
+            return SkillReserveQuanlity[quanlity];
+        }
+
 
         public bool CheckRecovery(Item item)
         {

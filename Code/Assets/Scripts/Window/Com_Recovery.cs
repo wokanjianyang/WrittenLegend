@@ -87,7 +87,7 @@ namespace Game
 
             for (int i = 0; i < skillToggles.Length; i++)
             {
-                skillToggles[i].isOn = setting.SkillReserveQuanlity[i + startQuality];//紫色开始
+                skillToggles[i].isOn = setting.GetSkillReserveQuanlity(i + startQuality);//紫色开始
             }
 
 
