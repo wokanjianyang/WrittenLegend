@@ -77,9 +77,6 @@ namespace Game
         public bool EquipBossFamily_Auto = false;
         public bool Yundang = false;
 
-        private long limit1 = 0;
-        private long limit2 = 0;
-
         void Awake()
         {
             if (Inst != null)
@@ -105,8 +102,7 @@ namespace Game
         // Start is called before the first frame update
         void Start()
         {
-            limit1 = RandomHelper.RandomNumber(15000, 16000);
-            limit2 = RandomHelper.RandomNumber(30000, 40000);
+
         }
 
 
@@ -438,31 +434,6 @@ namespace Game
                         {
                             Message = BattleMsgHelper.BuildSecondExpMessage(exp, gold)
                         });
-                    }
-
-                    if (User.FirstTime > 0)
-                    {
-                        //check
-                        long day = (TimeHelper.ClientNowSeconds() - User.FirstTime) / 86400;
-
-                        long total = User.Cycle.Data * ConfigHelper.Max_Level + User.MagicLevel.Data;
-
-                        if (day > 0)
-                        {
-                            long avgLevel = total / day;
-
-                            if (avgLevel > limit1)
-                            {
-                                this.EventCenter.Raise(new CheckGameCheatEvent());
-                            }
-                        }
-                        else
-                        {
-                            if (total > limit2)
-                            {
-                                this.EventCenter.Raise(new CheckGameCheatEvent());
-                            }
-                        }
                     }
                 }
             }

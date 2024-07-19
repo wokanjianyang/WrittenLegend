@@ -106,6 +106,9 @@ namespace Game
 
             //user.Record.AddRecord(RecordType.AdReal, -800);
 
+            //user.SaveItemMeterialCount(1999994, 100000);
+            //user.SaveItemMeterialCount(ItemHelper.SpecialId_Card_Stone, 10000000);
+            //user.Cycle.Data = 2;
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 13, 1, 1));
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 18, 1, 1));
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 19, 1, 1));
