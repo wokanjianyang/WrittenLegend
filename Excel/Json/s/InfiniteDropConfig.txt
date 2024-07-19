@@ -20,7 +20,7 @@
 {"_t":"InfiniteDropConfig","_id":103,"DropId":180003,"Name":"命运沙漏","Rate":100000,"StartLevel":1,"EndLevel":10000,"RateLevel":100,"Max":10},
 {"_t":"InfiniteDropConfig","_id":104,"DropId":180004,"Name":"副本契约","Rate":8000,"StartLevel":1,"EndLevel":10000,"RateLevel":100,"Max":1},
 {"_t":"InfiniteDropConfig","_id":105,"DropId":180005,"Name":"卖身契","Rate":3000,"StartLevel":1,"EndLevel":10000,"RateLevel":100,"Max":1},
-{"_t":"InfiniteDropConfig","_id":106,"DropId":180006,"Name":"万界图","Rate":20000,"StartLevel":1,"EndLevel":10000,"RateLevel":100,"Max":1},
+{"_t":"InfiniteDropConfig","_id":106,"DropId":180006,"Name":"万界图","Rate":30000,"StartLevel":1,"EndLevel":10000,"RateLevel":100,"Max":1},
 {"_t":"InfiniteDropConfig","_id":107,"DropId":180007,"Name":"破限本源","Rate":2000,"StartLevel":1,"EndLevel":10000,"RateLevel":100,"Max":1},
 {"_t":"InfiniteDropConfig","_id":108,"DropId":180008,"Name":"魔法书","Rate":20000,"StartLevel":1,"EndLevel":10000,"RateLevel":100,"Max":2},
 {"_t":"InfiniteDropConfig","_id":109,"DropId":180009,"Name":"圣者遗物","Rate":3000,"StartLevel":1,"EndLevel":10000,"RateLevel":100,"Max":1},

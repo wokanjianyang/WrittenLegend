@@ -219,27 +219,21 @@ namespace Game
                 //    user.Bags.RemoveAll(m => m.Item.Type == ItemType.Card || m.Item.Type == ItemType.Fashion || (m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Card_Stone));
                 //}
 
-                //if (!user.OldCardCheck)
-                //{
-                //    user.OldCardCheck = true;
+                if (!user.OldCardCheck)
+                {
+                    user.OldCardCheck = true;
 
-                //    foreach (var cardKv in user.CardData)
-                //    {
-                //        int cardId = cardKv.Key;
-                //        long cardLevel = cardKv.Value.Data;
+                    foreach (var cardKv in user.CardData)
+                    {
+                        int cardId = cardKv.Key;
+                        long cardLevel = cardKv.Value.Data;
 
-                //        CardConfig config = CardConfigCategory.Instance.Get(cardId);
-                //        long returnNumber = config.CalReturnNumber(cardLevel);
+                        CardConfig config = CardConfigCategory.Instance.Get(cardId);
+                        long returnNumber = config.CalReturnNumber(cardLevel);
 
-                //        int itemId = config.Id;
-                //        if (config.StoneNumber > 0)
-                //        {
-                //            itemId = ItemHelper.SpecialId_Card_Stone;
-                //        }
-
-                //        user.SaveItemMeterialCount(itemId, returnNumber);
-                //    }
-                //}
+                        user.SaveItemMeterialCount(config.RiseId, returnNumber);
+                    }
+                }
 
                 //user.KillRecord.Clear();
 

@@ -12,7 +12,7 @@ namespace Game
 
         public const int Channel_Tap = 1;
 
-        public const int Version = 221;
+        public const int Version = 222;
 
         public const long PackTime = 1720678483; //打包时间，防止作弊
 
@@ -22,7 +22,7 @@ namespace Game
 
         public const long Cycle_Level = 10000; //每次轮回增加等级
 
-        public const long Cycle_Max = 3;
+        public const long Cycle_Max = 4;
 
         public const long Max_Legacy_Level = 10; //最大传世副本等级
 
@@ -51,7 +51,7 @@ namespace Game
 
         public const int CopyTicketMax = 500; //副本最大次数
         public const int CopyTicketFirstCount = 300; //副本离线和新号最多多少次
-        public const int LegacyTiketMax = 40; //传世挑战最大次数
+        public const int LegacyTiketMax = 50; //传世挑战最大次数
 
         public static int[] PercentAttrIdList = { 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 23, 24, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 41, 43, 45, 101, 102, 103, 201, 202, 203, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011 };
 
