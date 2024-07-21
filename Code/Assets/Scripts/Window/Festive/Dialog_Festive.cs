@@ -1,5 +1,6 @@
 using Game;
 using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class Dialog_Festive : MonoBehaviour
 {
     public Text Txt_Title;
     public Text Txt_Total;
+    public Text Txt_Time;
 
     public ScrollRect sr_Panel;
     private GameObject ItemPrefab;
@@ -51,6 +53,12 @@ public class Dialog_Festive : MonoBehaviour
 
         ItemConfig itemConfig = ItemConfigCategory.Instance.Get(ItemHelper.SpecialId_Chunjie);
         this.Txt_Title.text = "当前拥有" + itemConfig.Name + "数量：";
+
+        DropLimitConfig dropLimit = DropLimitConfigCategory.Instance.Get(1);
+        string startTime = DateTime.Parse(dropLimit.StartDate).ToString("M月d日");
+        string endTime = DateTime.Parse(dropLimit.EndDate).AddDays(-1).ToString("M月d日");
+
+        this.Txt_Time.text = string.Format("活动持续时间 {0}00:00  到 {1}23:59  ", startTime, endTime);
     }
 
     private void OnFestiveUIFresh(FestiveUIFreshEvent e)
