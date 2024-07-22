@@ -139,6 +139,9 @@ namespace Game
                     user.MagicGold.Data = 0;
                     user.MagicCopyTikerCount.Data = ConfigHelper.CopyTicketFirstCount;
                     user.FirstTime = TimeHelper.ClientNowSeconds();
+
+                    user.RecoverySetting.SkillReserveQuanlity[4] = true;
+                    user.RecoverySetting.SkillReserveQuanlity[5] = true;
                 }
 
                 if (user.EquipPanelList.Count < 7)
