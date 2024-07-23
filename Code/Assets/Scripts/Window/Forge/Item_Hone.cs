@@ -62,6 +62,11 @@ namespace Game
 
         }
 
+        public void SetSelect()
+        {
+            this.toggle.isOn = true;
+        }
+
         public void Clear()
         {
             this.toggle.isOn = false;

@@ -72,7 +72,7 @@ public class Panel_Hone : MonoBehaviour
     {
         //把之前的卸载
         this.SelectEquip = null;
-        this.SelectAttrIndex = 0;
+        //this.SelectAttrIndex = 0;
 
         foreach (Item_Forge_Main cb in mainList)
         {

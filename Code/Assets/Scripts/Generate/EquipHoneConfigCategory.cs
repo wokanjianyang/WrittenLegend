@@ -24,7 +24,7 @@ namespace Game
 
         public int GetNeedNumber(int honeLevel)
         {
-            return honeLevel + 3;
+            return honeLevel + 5;
         }
 
         public int GetTotalNeedNumber(int honeLevel)
