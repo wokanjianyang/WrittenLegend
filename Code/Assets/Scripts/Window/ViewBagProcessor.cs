@@ -729,6 +729,7 @@ namespace Game
                 }
 
                 equip.Layer = 1;
+                equip.HoneList = new Dictionary<int, int>();
                 newList.Add(equip);
 
                 if (haveCount < newList.Count)

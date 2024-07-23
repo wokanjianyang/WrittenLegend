@@ -237,7 +237,7 @@ namespace Game
             for (int i = 0; i < AttrEntryList.Count; i++)
             {
                 int attrId = AttrEntryList[i].Key;
-                long attrTotalValue = AttrEntryList[i].Value + GetHoneValue(attrId);
+                long attrTotalValue = AttrEntryList[i].Value + GetHoneValue(i);
                 attrTotalValue = attrTotalValue * qualityPercent / 100;
 
                 if (!AttrList.ContainsKey(attrId))
@@ -266,28 +266,29 @@ namespace Game
             this.Layer++;
         }
 
-        public void Hone(int attrId)
+        public void Hone(int index)
         {
-            if (!HoneList.ContainsKey(attrId))
+            if (!HoneList.ContainsKey(index))
             {
-                HoneList[attrId] = 0;
+                HoneList[index] = 0;
             }
 
-            HoneList[attrId]++;
+            HoneList[index]++;
         }
 
-        public int GetHoneLevel(int attrId)
+        public int GetHoneLevel(int index)
         {
-            if (HoneList.ContainsKey(attrId))
+            if (HoneList.ContainsKey(index))
             {
-                return HoneList[attrId];
+                return HoneList[index];
             }
             return 0;
         }
 
-        public int GetHoneValue(int attrId)
+        public int GetHoneValue(int index)
         {
-            int level = GetHoneLevel(attrId);
+            int level = GetHoneLevel(index);
+            int attrId = this.AttrEntryList[index].Key;
 
             if (level > 0)
             {

@@ -153,7 +153,7 @@ public class Panel_Hone : MonoBehaviour
             int attrId = SelectEquip.AttrEntryList[i].Key;
             long attrVal = SelectEquip.AttrEntryList[i].Value;
 
-            int honeLevel = SelectEquip.GetHoneLevel(attrId);
+            int honeLevel = SelectEquip.GetHoneLevel(i);
 
             honeList[i].SetItem(attrId, attrVal, honeLevel, SelectEquip.Layer);
         }
@@ -195,7 +195,7 @@ public class Panel_Hone : MonoBehaviour
 
         int MaxLevel = EquipHoneConfigCategory.Instance.GetMaxLevel(attrId, attrVal, SelectEquip.Layer);
 
-        int honeLevel = SelectEquip.GetHoneLevel(attrId);
+        int honeLevel = SelectEquip.GetHoneLevel(SelectAttrIndex);
 
         int needCount = GetNeedNumber(honeLevel);
         long count = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Red_Stone).Select(m => m.MagicNubmer.Data).Sum();
@@ -230,9 +230,7 @@ public class Panel_Hone : MonoBehaviour
     {
         Btn_OK.gameObject.SetActive(false);
 
-        int attrId = SelectEquip.AttrEntryList[SelectAttrIndex].Key;
-
-        int honeLevel = SelectEquip.GetHoneLevel(attrId);
+        int honeLevel = SelectEquip.GetHoneLevel(SelectAttrIndex);
 
         int needCount = GetNeedNumber(honeLevel);
 
@@ -243,7 +241,7 @@ public class Panel_Hone : MonoBehaviour
             Quantity = needCount
         });
 
-        SelectEquip.Hone(attrId);
+        SelectEquip.Hone(SelectAttrIndex);
 
         GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
 
