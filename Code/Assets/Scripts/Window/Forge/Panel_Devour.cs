@@ -117,7 +117,7 @@ public class Panel_Devour : MonoBehaviour
 
             ExclusiveItem exclusive = dict[postion];
 
-            if (exclusive.GetQuality() < 5 || exclusive.GetLayer() >= maxLevel)
+            if (exclusive.GetQuality() < 5) //|| exclusive.GetLayer() >= maxLevel
             {
                 continue;
             }

@@ -1081,6 +1081,11 @@ namespace Game
             }
             else
             {
+                boxItem = new BoxItem();
+                boxItem.Item = newItem;
+                boxItem.MagicNubmer.Data = newItem.Count;
+                boxItem.BoxId = -1;
+
                 int bagType = boxItem.GetBagType();
                 int idleCount = user.GetBagIdleCount(bagType);
 
@@ -1090,13 +1095,7 @@ namespace Game
                     return;
                 }
 
-                boxItem = new BoxItem();
-                boxItem.Item = newItem;
-                boxItem.MagicNubmer.Data = newItem.Count;
-                boxItem.BoxId = -1;
                 user.Bags.Add(boxItem);
-
-
 
                 int lastBoxId = GetNextBoxId(bagType);
                 if (lastBoxId < 0)

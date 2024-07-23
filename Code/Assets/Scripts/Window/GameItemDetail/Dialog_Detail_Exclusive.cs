@@ -213,12 +213,9 @@ namespace Game
 
             int layer = exclusive.GetLayer();
             int level = exclusive.GetLevel();
-            if (layer > 1 || level > 1)
+            if (layer > 1 || level >= 1)
             {
-                if (level < 1)
-                {
-                    this.btn_Restore.gameObject.SetActive(this.boxItem.BoxId != -1 && !this.boxItem.Item.IsLock);
-                }
+                this.btn_Restore.gameObject.SetActive(this.boxItem.BoxId != -1 && !this.boxItem.Item.IsLock);
             }
             else
             {
