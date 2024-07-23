@@ -682,6 +682,15 @@ namespace Game
                         ExclusiveItem item = new ExclusiveItem(oldExclusive.ConfigId, runeId, suitId, oldExclusive.Quality, oldExclusive.DoubleHitId);
                         newList.Add(item);
                     }
+
+                    int[] ItemIdList = new int[] { ItemHelper.SpecialId_Exclusive_Stone, ItemHelper.SpecialId_Exclusive_Heart };
+                    int[] ItemCountList = new int[] { 50, 5 };
+
+                    for (int i = 0; i < ItemIdList.Length; i++)
+                    {
+                        Item item = ItemHelper.BuildMaterial(ItemIdList[i], ItemCountList[i] * runeLevel);
+                        newList.Add(item);
+                    }
                 }
 
                 if (haveCount < newList.Count)
