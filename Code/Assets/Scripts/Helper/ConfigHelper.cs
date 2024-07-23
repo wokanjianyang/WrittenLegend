@@ -43,7 +43,8 @@ namespace Game
 
         public const long MaxOfflineTime = 3600 * 24;  //最长离线时间
 
-        public const int MaxBagCount = 210;  // 包裹数量
+        //public const int MaxBagCount = 210;  // 包裹数量
+        public static int[] BagCount = new int[] { 100, 100, 100, 350, 350 };
 
         public const int CopyTicketCd = 900; //15分钟
         public const int CopyTicketCdMin = 120; //2分钟

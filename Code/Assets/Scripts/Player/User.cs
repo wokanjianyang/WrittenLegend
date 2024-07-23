@@ -1346,6 +1346,11 @@ namespace Game
             }
             return false;
         }
+
+        public int GetBagIdleCount(int index)
+        {
+            return ConfigHelper.BagCount[index] - this.Bags.Where(m => m.GetBagType() == index).Count();
+        }
     }
 
     public enum UserChangeType

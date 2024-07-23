@@ -223,7 +223,7 @@ public class Panel_Hone : MonoBehaviour
 
     private int GetNeedNumber(int honeLevel)
     {
-        return honeLevel + 3;
+        return EquipHoneConfigCategory.Instance.GetNeedNumber(honeLevel);
     }
 
     public void OnClickOK()

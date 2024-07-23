@@ -21,6 +21,21 @@ namespace Game
 
             return replayLevel + layer;
         }
+
+        public int GetNeedNumber(int honeLevel)
+        {
+            return honeLevel + 3;
+        }
+
+        public int GetTotalNeedNumber(int honeLevel)
+        {
+            int total = 0;
+            for (int i = 0; i < honeLevel; i++)
+            {
+                total += GetNeedNumber(i);
+            }
+            return total;
+        }
     }
 
 

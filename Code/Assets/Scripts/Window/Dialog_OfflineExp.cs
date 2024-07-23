@@ -56,7 +56,7 @@ namespace Game
 
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Legacy_Ticket, 2000)); //传世卷
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Copy_Ticket, 100000)); //装备卷
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, 22500)); //BOSS卷
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, 5000)); //BOSS卷
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Wing_Stone, 1800));  //羽毛
 
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Stone, 1000)); //专属碎片
@@ -113,6 +113,10 @@ namespace Game
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 18, 1, 1));
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 19, 1, 1));
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 20, 1, 1));
+
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 106, 1, 5));
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 107, 1, 1));
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 108, 1, 1));
 
             //items.AddRange(AddRedEquip1());
             //items.AddRange(AddExclusive2());
