@@ -192,7 +192,7 @@ namespace Game
 
             for (int k = 0; k < Bag_List.Count; k++)
             {
-                for (var i = 0; i < ConfigHelper.MaxBagCount; i++)
+                for (var i = 0; i < ConfigHelper.BagCount[k]; i++)
                 {
                     var empty = GameObject.Instantiate(emptyPrefab, this.Bag_List[k].content);
                     empty.name = "Box_" + i;
@@ -269,18 +269,19 @@ namespace Game
             {
                 for (int i = 0; i < this.Bag_List.Count; i++)
                 {
-                    List<BoxItem> list = user.Bags.Where(m => m.GetBagType() == i).OrderBy(m => m.GetBagSort()).ToList();
-
-                    BuildBag(this.Bag_List[i], list);
+                    BuildBag(i);
                 }
             }
         }
 
-        private void BuildBag(ScrollRect bagRect, List<BoxItem> list)
+        private void BuildBag(int index)
         {
+            ScrollRect bagRect = this.Bag_List[index];
+            List<BoxItem> list = GameProcessor.Inst.User.Bags.Where(m => m.GetBagType() == index).OrderBy(m => m.GetBagSort()).ToList();
+
             for (int BoxId = 0; BoxId < list.Count; BoxId++)
             {
-                if (BoxId + 1 > ConfigHelper.MaxBagCount)
+                if (BoxId + 1 > ConfigHelper.BagCount[index])
                 {
                     return;
                 }
@@ -634,17 +635,18 @@ namespace Game
 
         private void OnRestoreEvent(RestoreEvent e)
         {
+            BoxItem boxItem = e.BoxItem;
+            int bagType = boxItem.GetBagType();
+
             User user = GameProcessor.Inst.User;
+
+            int haveCount = user.GetBagIdleCount(bagType);
 
             if (user.MagicGold.Data <= ConfigHelper.RestoreGold)
             {
                 GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "金币不足5000兆", ToastType = ToastTypeEnum.Failure });
                 return;
             }
-
-            user.SubGold(ConfigHelper.RestoreGold);
-
-            BoxItem boxItem = e.BoxItem;
 
             List<Item> newList = new List<Item>();
 
@@ -667,11 +669,32 @@ namespace Game
                     Item item = ItemHelper.BuildMaterial(kv.Key, kv.Value);
                     newList.Add(item);
                 }
+
+                foreach (var kv in oldExclusive.LevelDict)
+                {
+                    int runeId = kv.Key;
+                    int runeLevel = kv.Value;
+                    SkillRuneConfig runeConfig = SkillRuneConfigCategory.Instance.Get(runeId);
+                    int suitId = SkillSuitHelper.RandomSuit(0, runeConfig.SkillId).Id;
+
+                    for (int i = 0; i < runeLevel; i++)
+                    {
+                        ExclusiveItem item = new ExclusiveItem(oldExclusive.ConfigId, runeId, suitId, oldExclusive.Quality, oldExclusive.DoubleHitId);
+                        newList.Add(item);
+                    }
+                }
+
+                if (haveCount < newList.Count)
+                {
+                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "请保留" + newList.Count + "个包裹空额", ToastType = ToastTypeEnum.Failure });
+                    return;
+                }
             }
             else if (boxItem.Item.Type == ItemType.Equip)
             {
                 Equip equip = boxItem.Item as Equip;
                 int layer = equip.Layer;
+
 
                 int redNumber = 0;
                 for (int l = 1; l < layer; l++)
@@ -683,6 +706,12 @@ namespace Game
 
                     redNumber += config.MetailCount;
                 }
+                foreach (var kv in equip.HoneList)
+                {
+                    int honeLevel = kv.Value;
+                    redNumber += EquipHoneConfigCategory.Instance.GetTotalNeedNumber(honeLevel);
+                }
+
 
                 if (redNumber > 0)
                 {
@@ -692,7 +721,16 @@ namespace Game
 
                 equip.Layer = 1;
                 newList.Add(equip);
+
+                if (haveCount < newList.Count)
+                {
+                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "请保留" + newList.Count + "个包裹空额", ToastType = ToastTypeEnum.Failure });
+                    return;
+                }
             }
+
+            //Fee
+            user.SubGold(ConfigHelper.RestoreGold);
 
             //销毁旧的
             user.Bags.Remove(boxItem);
@@ -1043,7 +1081,10 @@ namespace Game
             }
             else
             {
-                if (user.Bags.Count > ConfigHelper.MaxBagCount * 6)
+                int bagType = boxItem.GetBagType();
+                int idleCount = user.GetBagIdleCount(bagType);
+
+                if (idleCount < 1)
                 {
                     GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "包裹总量已经满了,请清理包裹", ToastType = ToastTypeEnum.Failure });
                     return;
@@ -1055,7 +1096,7 @@ namespace Game
                 boxItem.BoxId = -1;
                 user.Bags.Add(boxItem);
 
-                int bagType = boxItem.GetBagType();
+
 
                 int lastBoxId = GetNextBoxId(bagType);
                 if (lastBoxId < 0)
@@ -1336,7 +1377,7 @@ namespace Game
 
         public int GetNextBoxId(int bagType)
         {
-            int maxNum = ConfigHelper.MaxBagCount;
+            int maxNum = ConfigHelper.BagCount[bagType];
             for (int boxId = 0; boxId < maxNum; boxId++)
             {
                 if (this.items.Find(m => m.boxId == boxId && m.BagType == bagType) == null)
