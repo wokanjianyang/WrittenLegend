@@ -7,7 +7,22 @@ namespace Game
 
     public partial class RingConfigCategory
     {
+        public long ConvertOldToNew(long level)
+        {
+            long total = 0;
 
+            for (int i = 0; i < level; i++)
+            {
+                total += GetOldNeedNumber(level);
+            }
+
+            return total;
+        }
+
+        private long GetOldNeedNumber(long level)
+        {
+            return Math.Min(level + 1, 3);
+        }
     }
 
     public partial class RingConfig {

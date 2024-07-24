@@ -138,7 +138,7 @@ namespace Game
                     user.MapId = ConfigHelper.MapStartId;
                     user.MagicGold.Data = 0;
                     user.MagicCopyTikerCount.Data = ConfigHelper.CopyTicketFirstCount;
-                    user.FirstTime = TimeHelper.ClientNowSeconds();
+                    user.First_Create_Time = TimeHelper.ClientNowSeconds();
 
                     user.RecoverySetting.SkillReserveQuanlity[4] = true;
                     user.RecoverySetting.SkillReserveQuanlity[5] = true;
@@ -222,21 +222,19 @@ namespace Game
                 //    user.Bags.RemoveAll(m => m.Item.Type == ItemType.Card || m.Item.Type == ItemType.Fashion || (m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Card_Stone));
                 //}
 
-                if (!user.OldCardCheck)
-                {
-                    user.OldCardCheck = true;
+                //if (!user.OldRingCheck)
+                //{
+                //    user.OldRingCheck = true;
 
-                    foreach (var cardKv in user.CardData)
-                    {
-                        int cardId = cardKv.Key;
-                        long cardLevel = cardKv.Value.Data;
+                //    foreach (var ringKv in user.RingData)
+                //    {
+                //        int ringId = ringKv.Key;
+                //        long ringLevel = ringKv.Value.Data;
+                //        long newLevel = RingConfigCategory.Instance.ConvertOldToNew(ringLevel);
 
-                        CardConfig config = CardConfigCategory.Instance.Get(cardId);
-                        long returnNumber = config.CalReturnNumber(cardLevel);
-
-                        user.SaveItemMeterialCount(config.RiseId, returnNumber);
-                    }
-                }
+                //        ringKv.Value.Data = newLevel;
+                //    }
+                //}
 
                 //user.KillRecord.Clear();
 

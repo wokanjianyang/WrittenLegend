@@ -101,6 +101,7 @@ namespace Game
         public Dictionary<int, long> VersionLog { get; } = new Dictionary<int, long>();
 
         public bool OldCardCheck = false;
+        public bool OldRingCheck = false;
 
         public int GetArtifactValue(ArtifactType type)
         {
@@ -212,7 +213,7 @@ namespace Game
 
         public long LoadTicketTime { get; set; } = 0;
 
-        public long FirstTime { get; set; } = 0;
+        public long First_Create_Time { get; set; } = 0;
 
         public MagicData MagicCopyTikerCount { get; } = new MagicData();
 

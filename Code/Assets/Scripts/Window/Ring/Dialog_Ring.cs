@@ -178,7 +178,7 @@ public class Dialog_Ring : MonoBehaviour
 
     private long GetNeedNumber(long level)
     {
-        return Math.Min(level + 1, 3);
+        return 1;
     }
 
     public void OnClick_Ok()
