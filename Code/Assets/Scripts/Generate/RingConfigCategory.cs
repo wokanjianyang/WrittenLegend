@@ -13,7 +13,7 @@ namespace Game
 
             for (int i = 0; i < level; i++)
             {
-                total += GetOldNeedNumber(level);
+                total += GetOldNeedNumber(i);
             }
 
             return total;
