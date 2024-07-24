@@ -51,6 +51,8 @@ namespace Game
                 }
             }
 
+            GameProcessor.Inst.Phantom_Auto_Id = this.Config.Id;
+
             var vm = this.GetComponentInParent<ViewMore>();
             vm.SelectPhantomMap(ConfigId);
         }

@@ -9,6 +9,8 @@ using UnityEngine.UI;
 public class Dialog_Phantom : MonoBehaviour, IBattleLife
 {
     public ScrollRect sr_Boss;
+    public Toggle toggle_Auto;
+
     private GameObject ItemPrefab;
 
     List<Item_Phantom> items = new List<Item_Phantom>();
@@ -16,7 +18,10 @@ public class Dialog_Phantom : MonoBehaviour, IBattleLife
     // Start is called before the first frame update
     void Start()
     {
-
+        toggle_Auto.onValueChanged.AddListener((isOn) =>
+        {
+            GameProcessor.Inst.Phantom_Auto = isOn;
+        });
     }
 
     public void OnBattleStart()

@@ -43,7 +43,6 @@ public class MapPhantom : MonoBehaviour, IBattleLife
         this.gameObject.SetActive(false);
     }
 
-
     public void OnPhantomStart(PhantomStartEvent e)
     {
         this.PhantomId = e.PhantomId;

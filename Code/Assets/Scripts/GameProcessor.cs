@@ -69,12 +69,16 @@ namespace Game
         private Coroutine ie_autoExitKey = null;
         private Coroutine ie_autoStartCopy = null;
         private Coroutine ie_autoBossFamily = null;
+        private Coroutine ie_autoPhatom = null;
 
         //副本临时设置
         public bool EquipCopySetting_Rate = false;
         public bool EquipCopySetting_Auto = false;
         public bool EquipCopySetting_Spe = true;
         public bool EquipBossFamily_Auto = false;
+        public bool Phantom_Auto = false;
+        public int Phantom_Auto_Id = 0;
+
         public bool Yundang = false;
 
         void Awake()
@@ -808,6 +812,10 @@ namespace Game
                     this.AutoBossFamily();
                 }
             }
+            else if (ruleType == RuleType.Phantom && Phantom_Auto)
+            {
+                this.AutoPhantom();
+            }
         }
 
         private void AutoEquipCopy()
@@ -858,7 +866,6 @@ namespace Game
 
             ie_autoBossFamily = StartCoroutine(this.ShowAutoStartBossFamily());
         }
-
         private IEnumerator ShowAutoStartBossFamily()
         {
             int cd = ConfigHelper.AutoStartMapTime;
@@ -878,6 +885,38 @@ namespace Game
             this.EventCenter.Raise(new AutoStartBossFamily());
         }
 
+        private void AutoPhantom()
+        {
+            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke(ConfigHelper.AutoStartMapTime + "S后自动幻影挑战", true,
+            () =>
+            {
+                StopCoroutine(ie_autoPhatom);
+                AutoStartBossFamily();
+            }, () =>
+            {
+                StopCoroutine(ie_autoPhatom);
+            });
+
+            ie_autoPhatom = StartCoroutine(this.ShowAutoStartPhantom());
+        }
+        private IEnumerator ShowAutoStartPhantom()
+        {
+            int cd = ConfigHelper.AutoStartMapTime;
+            for (int i = 0; i < cd; i++)
+            {
+                this.EventCenter.Raise(new SecondaryConfirmTextEvent() { Text = $"{(cd - i)}S后自动幻影挑战" });
+                yield return new WaitForSeconds(1f);
+            }
+
+            this.EventCenter.Raise(new SecondaryConfirmCloseEvent());
+
+            AutoStartPhantom();
+        }
+        private void AutoStartPhantom()
+        {
+            this.EventCenter.Raise(new CopyViewCloseEvent());
+            this.EventCenter.Raise(new PhantomStartEvent() { PhantomId = Phantom_Auto_Id });
+        }
 
         private IEnumerator AutoExitApp(ExitType type)
         {
