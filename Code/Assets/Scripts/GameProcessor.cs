@@ -227,8 +227,11 @@ namespace Game
                         long legacy = this.User.GetAchievementProgeress(AchievementSourceType.Legacy);
                         paramDict.Add("legacy", legacy + "");
 
-                        string createTime = new DateTime(this.User.First_Create_Time).ToString("yyyy-MM-dd");
-                        paramDict.Add("createTime", createTime + "");
+                        if (this.User.First_Create_Time > 0)
+                        {
+                            string createTime = TimeHelper.SecondsToDate(this.User.First_Create_Time).ToString("yyyy-MM-dd");
+                            paramDict.Add("accountTime", createTime + "");
+                        }
 
                         string param = JsonConvert.SerializeObject(paramDict);
 
