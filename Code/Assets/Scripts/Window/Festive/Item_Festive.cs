@@ -20,7 +20,7 @@ public class Item_Festive : MonoBehaviour
     public Text Txt_Limit_Content;
 
     public Button Btn_Ok;
-
+    private bool auto = true;
 
     private FestiveConfig Config { get; set; }
 
@@ -79,6 +79,15 @@ public class Item_Festive : MonoBehaviour
         {
             this.check = false;
             Btn_Ok.enabled = false;
+
+            if (auto)
+            {
+                this.gameObject.SetActive(false);
+            }
+            else
+            {
+                this.gameObject.SetActive(true);
+            }
         }
     }
 
@@ -132,6 +141,15 @@ public class Item_Festive : MonoBehaviour
 
         int MaxCount = user.GetFestiveCount(Config.Id);
         Txt_Limit_Content.text = MaxCount + "/" + Config.Max;
+
+        this.Check();
+    }
+
+    public void ChangeAuto(bool isOn)
+    {
+        this.auto = isOn;
+
+        this.Check();
     }
 }
 

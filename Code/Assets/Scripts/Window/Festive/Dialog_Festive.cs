@@ -19,11 +19,18 @@ public class Dialog_Festive : MonoBehaviour
 
     public Button Btn_Close;
 
+    private List<Item_Festive> itemList = new List<Item_Festive>();
+    public Toggle Toggle_Auto;
+
     // Start is called before the first frame update
     void Start()
     {
         this.Init();
         this.Btn_Close.onClick.AddListener(OnClose);
+        Toggle_Auto.onValueChanged.AddListener((isOn) =>
+        {
+            this.ChangeAuto(isOn);
+        });
 
         GameProcessor.Inst.EventCenter.AddListener<FestiveUIFreshEvent>(this.OnFestiveUIFresh);
     }
@@ -49,6 +56,8 @@ public class Dialog_Festive : MonoBehaviour
 
             Item_Festive com = Item.GetComponent<Item_Festive>();
             com.SetData(config);
+
+            itemList.Add(com);
         }
 
         ItemConfig itemConfig = ItemConfigCategory.Instance.Get(ItemHelper.SpecialId_Chunjie);
@@ -59,6 +68,13 @@ public class Dialog_Festive : MonoBehaviour
         string endTime = DateTime.Parse(dropLimit.EndDate).AddDays(-1).ToString("M月d日");
 
         this.Txt_Time.text = string.Format("活动持续时间 {0}00:00  到 {1}23:59  ", startTime, endTime);
+    }
+
+    private void ChangeAuto(bool isOn) {
+
+        foreach (Item_Festive item in itemList) {
+            item.ChangeAuto(isOn);
+        }
     }
 
     private void OnFestiveUIFresh(FestiveUIFreshEvent e)
