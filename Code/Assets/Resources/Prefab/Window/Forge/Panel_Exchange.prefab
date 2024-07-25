@@ -226,7 +226,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u5151\u6362\u7269\u54C1\u9700\u8981\u7B26\u5408\u989C\u8272\uFF0C\u5E76\u4E14\u4E0D\u80FD\u9501\u5B9A"
+  m_Text: "\u6CA1\u9501\u5B9A\u7684\u6A59\u8272\u4E13\u5C5E+\u5BF9\u5E94\u6750\u6599"
 --- !u!1 &4775054271488460620
 GameObject:
   m_ObjectHideFlags: 0

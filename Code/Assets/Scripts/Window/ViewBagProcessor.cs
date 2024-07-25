@@ -405,22 +405,15 @@ namespace Game
         private void OnExchangeEvent(ExchangeEvent e)
         {
             ExchangeConfig Config = e.Config;
-            for (int i = 0; i < Config.ItemIdList.Length; i++)
+            for (int i = 0; i <= 1; i++)
             {
-                ItemType type = (ItemType)(Config.ItemTypeList[i]);
-                int configId = Config.ItemIdList[i];
-                int quality = Config.ItemQualityList[i];
-
-                if (type == ItemType.Exclusive)
+                if (i == 0)
                 {
                     User user = GameProcessor.Inst.User;
-                    BoxItem boxItem = user.Bags.Where(m => m.Item.Type == type && m.Item.ConfigId == configId
-                    && m.Item.GetQuality() >= quality && !m.Item.IsLock).FirstOrDefault();
+                    BoxItem boxItem = user.Bags.Where(m => m.Item.Type == ItemType.Exclusive && m.Item.GetQuality() >= 5 && !m.Item.IsLock).FirstOrDefault();
 
-
-                    GameProcessor.Inst.EventCenter.Raise(new BagUseEvent()
+                    GameProcessor.Inst.EventCenter.Raise(new BagRemoveEvent()
                     {
-                        Quantity = 1,
                         BoxItem = boxItem
                     });
                 }
@@ -428,16 +421,17 @@ namespace Game
                 {
                     GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
                     {
-                        Type = type,
-                        ItemId = configId,
-                        Quantity = Config.ItemCountList[i]
+                        Type = ItemType.Material,
+                        ItemId = Config.ItemId,
+                        Quantity = Config.ItemCount
                     });
                 }
             }
 
+            List<Item> list = new List<Item>();
             Item item = ItemHelper.BuildItem((ItemType)Config.TargetType, Config.TargetId, 5, 1);
-
-            AddBoxItem(item);
+            list.Add(item);
+            GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = list });
 
             GameProcessor.Inst.EventCenter.Raise(new ExchangeUIFreshEvent());
         }

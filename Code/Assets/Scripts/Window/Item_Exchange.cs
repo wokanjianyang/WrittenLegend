@@ -53,21 +53,11 @@ public class Item_Exchange : MonoBehaviour
     {
         TargetName.text = Config.TargetName.Insert(2, "\n");
 
-        for (int i = 0; i < Config.ItemIdList.Length; i++)
-        {
-            string color = QualityConfigHelper.GetQualityColor(Config.ItemQualityList[i]);
+        string color = QualityConfigHelper.GetQualityColor(5);
+        TxtNameList[0].text = string.Format("<color=#{0}>{1}</color>", color, "»Œ“‚≥»◊® Ù");
 
-            if (Config.ItemTypeList[i] == (int)ItemType.Exclusive)
-            {
-                ExclusiveConfig exclusiveConfig = ExclusiveConfigCategory.Instance.Get(Config.ItemIdList[i]);
-                TxtNameList[i].text = string.Format("<color=#{0}>{1}</color>", color, exclusiveConfig.Name); 
-            }
-            else
-            {
-                ItemConfig itemConfig = ItemConfigCategory.Instance.Get(Config.ItemIdList[i]);
-                TxtNameList[i].text = itemConfig.Name;
-            }
-        }
+        ItemConfig itemConfig = ItemConfigCategory.Instance.Get(Config.ItemId);
+        TxtNameList[1].text = string.Format("<color=#{0}>{1}</color>", color, itemConfig.Name);
     }
 
     private void Check()
@@ -81,13 +71,21 @@ public class Item_Exchange : MonoBehaviour
 
         this.check = true;
 
-        for (int i = 0; i < Config.ItemIdList.Length; i++)
+        for (int i = 0; i <= 1; i++)
         {
-            int quality = Config.ItemQualityList[i];
-            int MaxCount = Config.ItemCountList[i];
+            int MaxCount = 1;
+            long count = 0;
 
-            long count = user.Bags.Where(m => (int)m.Item.Type == Config.ItemTypeList[i] && m.Item.ConfigId == Config.ItemIdList[i]
-            && m.Item.GetQuality() >= quality && !m.Item.IsLock).Select(m => m.MagicNubmer.Data).Sum();
+            if (i == 0)
+            {
+                count = user.Bags.Where(m => m.Item.Type == ItemType.Exclusive && m.Item.GetQuality() >= 5 && !m.Item.IsLock).Count();
+                MaxCount = 1;
+            }
+            else
+            {
+                count = user.GetMaterialCount(ItemHelper.SpecialId_Exclusive_Stone);
+                MaxCount = Config.ItemCount;
+            }
 
             string color = "#00FF00";
 

@@ -20,6 +20,7 @@ namespace Game
             Des = Config.Name;
             Level = Config.LevelRequired;
             Gold = 0;
+            MaxNum = 999;
         }
 
         public override int GetQuality()
