@@ -114,7 +114,9 @@ public class MapEquipCopy : MonoBehaviour, IBattleLife
             return;
         }
 
-        int rate = GameProcessor.Inst.EquipCopySetting_Rate ? 5 : 1;
+        User user = GameProcessor.Inst.User;
+        int rl = user.GetArtifactValue(ArtifactType.EquipBattleRate);
+        int rate = GameProcessor.Inst.EquipCopySetting_Rate ? 5 + rl : 1;
 
         this.gameObject.SetActive(true);
         this.MapTime = TimeHelper.ClientNowSeconds();
