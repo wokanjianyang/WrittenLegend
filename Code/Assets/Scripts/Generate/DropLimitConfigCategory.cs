@@ -21,7 +21,7 @@ namespace Game
 
     public class DropLimitHelper
     {
-        public static List<Item> Build(int type, int mapId, double rateRise, double modelRise, int qualityRate, double countRise)
+        public static List<Item> Build(int type, int mapId, double rateRise, double modelRise, int limit, double countRise)
         {
             User user = GameProcessor.Inst.User;
 
@@ -32,7 +32,7 @@ namespace Game
             int dzRate = user.GetDzRate();
 
             List<DropLimitConfig> drops = DropLimitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m =>
-            m.Type == type && m.StartMapId <= mapId && mapId <= m.EndMapId
+            m.Type == type && m.StartMapId <= mapId && mapId <= m.EndMapId && m.Id <= limit
             && DateTime.Parse(m.StartDate).Ticks <= time && time <= DateTime.Parse(m.EndDate).Ticks).ToList();
 
             foreach (DropLimitConfig dropLimit in drops)
@@ -98,7 +98,7 @@ namespace Game
                         dzRate = 1;
                     }
 
-                    Item item = ItemHelper.BuildItem((ItemType)dropConfig.ItemType, configId, qualityRate, dropConfig.Quantity * dzRate, dropData.Seed);
+                    Item item = ItemHelper.BuildItem((ItemType)dropConfig.ItemType, configId, 1, dropConfig.Quantity * dzRate, dropData.Seed);
                     list.Add(item);
                 }
             }

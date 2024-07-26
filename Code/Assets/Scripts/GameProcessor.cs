@@ -891,7 +891,7 @@ namespace Game
             () =>
             {
                 StopCoroutine(ie_autoPhatom);
-                AutoStartBossFamily();
+                AutoStartPhantom();
             }, () =>
             {
                 StopCoroutine(ie_autoPhatom);
