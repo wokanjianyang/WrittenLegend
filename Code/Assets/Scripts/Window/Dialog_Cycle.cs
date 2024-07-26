@@ -49,7 +49,7 @@ public class Dialog_Cycle : MonoBehaviour
         string color = level >= maxLevel ? "#FFFF00" : "#FF0000";
         Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2}", color, level, maxLevel);
 
-        if (level >= maxLevel && cycle < ConfigHelper.Cycle_Max)
+        if (level >= maxLevel && cycle < ConfigHelper.Cycle_Max && user.Account != "")
         {
             Btn_Ok.gameObject.SetActive(true);
         }
@@ -89,7 +89,10 @@ public class Dialog_Cycle : MonoBehaviour
 
         User user = GameProcessor.Inst.User;
 
-        user.MagicLevel.Data = 1;
+        if (user.Account != "")
+        {
+            user.MagicLevel.Data = 1;
+        }
         user.Cycle.Data += 1;
 
         user.EventCenter.Raise(new SetPlayerLevelEvent { Cycle = user.Cycle.Data, Level = user.MagicLevel.Data });
