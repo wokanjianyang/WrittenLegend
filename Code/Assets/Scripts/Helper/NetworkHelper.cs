@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
@@ -61,6 +62,57 @@ namespace Game
             //Debug.Log("code:" + code);
 
             return code;
+        }
+
+        public static string BuildUpdateParam(User user) {
+            Dictionary<string, string> paramDict = new Dictionary<string, string>();
+            paramDict.Add("account", user.Account);
+            paramDict.Add("name", user.Name);
+            paramDict.Add("power", user.AttributeBonus.GetPower());
+            paramDict.Add("gold", StringHelper.FormatNumber(user.MagicGold.Data));
+            paramDict.Add("level", user.MagicLevel.Data + "");
+            paramDict.Add("cycle", user.Cycle.Data + "");
+
+            long ringTotal = user.SoulRingData.Select(m => m.Value.Data).Sum();
+            paramDict.Add("ring", ringTotal + "");
+            paramDict.Add("swing", user.WingData.Data + "");
+
+            long metalTotal = user.MetalData.Select(m => m.Value.Data).Sum();
+            paramDict.Add("metal", metalTotal + "");
+
+            long strongTotal = user.MagicEquipStrength.Select(m => m.Value.Data).Sum();
+            paramDict.Add("strong", strongTotal + "");
+
+            long refineTotal = user.MagicEquipRefine.Select(m => m.Value.Data).Sum();
+            paramDict.Add("refine", refineTotal + "");
+
+            long artifactTotal = user.ArtifactData.Select(m => m.Value.Data).Sum();
+            paramDict.Add("artifact", artifactTotal + "");
+
+            long ad1 = user.GetAchievementProgeress(AchievementSourceType.RealAdvert);
+            paramDict.Add("advert1", ad1 + "");
+
+            long ad2 = user.GetAchievementProgeress(AchievementSourceType.Advert);
+            paramDict.Add("advert2", ad2 + "");
+
+            long boss = user.GetAchievementProgeress(AchievementSourceType.BossFamily);
+            paramDict.Add("boss", boss + "");
+
+            long copy = user.GetAchievementProgeress(AchievementSourceType.EquipCopy);
+            paramDict.Add("equip", copy + "");
+
+            long legacy = user.GetAchievementProgeress(AchievementSourceType.Legacy);
+            paramDict.Add("legacy", legacy + "");
+
+            if (user.First_Create_Time > 0)
+            {
+                string createTime = TimeHelper.SecondsToDate(user.First_Create_Time).ToString("yyyy-MM-dd");
+                paramDict.Add("accountTime", createTime + "");
+            }
+
+            string param = JsonConvert.SerializeObject(paramDict);
+
+            return param;
         }
 
         public static IEnumerator CreateAccount(string account, string pwd, Action<WebResultWrapper> successAction, Action failAction)

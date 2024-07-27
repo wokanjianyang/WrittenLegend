@@ -192,52 +192,7 @@ namespace Game
                     {
                         this.User.LastSaveTime = ct;
 
-                        Dictionary<string, string> paramDict = new Dictionary<string, string>();
-                        paramDict.Add("account", this.User.Account);
-                        paramDict.Add("name", this.User.Name);
-                        paramDict.Add("power", this.User.AttributeBonus.GetPower());
-                        paramDict.Add("gold", StringHelper.FormatNumber(this.User.MagicGold.Data));
-                        paramDict.Add("level", this.User.MagicLevel.Data + "");
-                        paramDict.Add("cycle", this.User.Cycle.Data + "");
-
-                        long ringTotal = this.User.SoulRingData.Select(m => m.Value.Data).Sum();
-                        paramDict.Add("ring", ringTotal + "");
-                        paramDict.Add("swing", this.User.WingData.Data + "");
-
-                        long metalTotal = this.User.MetalData.Select(m => m.Value.Data).Sum();
-                        paramDict.Add("metal", metalTotal + "");
-
-                        long strongTotal = this.User.MagicEquipStrength.Select(m => m.Value.Data).Sum();
-                        paramDict.Add("strong", strongTotal + "");
-
-                        long refineTotal = this.User.MagicEquipRefine.Select(m => m.Value.Data).Sum();
-                        paramDict.Add("refine", refineTotal + "");
-
-                        long artifactTotal = this.User.ArtifactData.Select(m => m.Value.Data).Sum();
-                        paramDict.Add("artifact", artifactTotal + "");
-
-                        long ad1 = this.User.GetAchievementProgeress(AchievementSourceType.RealAdvert);
-                        paramDict.Add("advert1", ad1 + "");
-
-                        long ad2 = this.User.GetAchievementProgeress(AchievementSourceType.Advert);
-                        paramDict.Add("advert2", ad2 + "");
-
-                        long boss = this.User.GetAchievementProgeress(AchievementSourceType.BossFamily);
-                        paramDict.Add("boss", boss + "");
-
-                        long copy = this.User.GetAchievementProgeress(AchievementSourceType.EquipCopy);
-                        paramDict.Add("equip", copy + "");
-
-                        long legacy = this.User.GetAchievementProgeress(AchievementSourceType.Legacy);
-                        paramDict.Add("legacy", legacy + "");
-
-                        if (this.User.First_Create_Time > 0)
-                        {
-                            string createTime = TimeHelper.SecondsToDate(this.User.First_Create_Time).ToString("yyyy-MM-dd");
-                            paramDict.Add("accountTime", createTime + "");
-                        }
-
-                        string param = JsonConvert.SerializeObject(paramDict);
+                        string param = NetworkHelper.BuildUpdateParam(this.User);
 
                         StartCoroutine(NetworkHelper.UpdateInfo(param,
                                 (WebResultWrapper result) =>

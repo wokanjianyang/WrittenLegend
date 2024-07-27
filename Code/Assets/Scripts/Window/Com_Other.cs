@@ -237,6 +237,19 @@ namespace Game
                          this.btn_Load.gameObject.SetActive(true);
                          this.txt_Memo.gameObject.SetActive(true);
                          this.txt_Memo.text = buildMeme(account);
+
+                         //update
+                         string param = NetworkHelper.BuildUpdateParam(GameProcessor.Inst.User);
+                         StartCoroutine(NetworkHelper.UpdateInfo(param,
+                        (WebResultWrapper result) =>
+                        {
+                            if (result.Code == StatusMessage.OK)
+                            {
+                                //Debug.Log("update info success");
+                            }
+                        },
+                       null));
+
                      }
                      else
                      {
