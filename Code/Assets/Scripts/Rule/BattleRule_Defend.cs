@@ -175,7 +175,7 @@ public class Battle_Defend : ABattleRule
     {
         User user = GameProcessor.Inst.User;
 
-        List<Item> items = DropLimitHelper.Build((int)DropLimitType.Defend, 0, 1, 1, 1, 1);
+        List<Item> items = DropLimitHelper.Build((int)DropLimitType.Defend, 0, 1, 1, 9999999, 1);
 
         if (items.Count > 0)
         {
