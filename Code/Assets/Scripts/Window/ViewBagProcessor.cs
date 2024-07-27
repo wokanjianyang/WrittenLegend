@@ -92,10 +92,17 @@ namespace Game
         {
             ShowEquipPanel();
 
-            string account = GameProcessor.Inst.User.Account;
+            User user = GameProcessor.Inst.User;
+
+            string account = user.Account;
             if (account.Length > 0)
             {
                 this.Btn_Cycle.gameObject.SetActive(true);
+            }
+
+            if (user.Cycle.Data <= 0 && user.MagicLevel.Data < ConfigHelper.Max_Level)
+            {
+                this.Btn_Cycle.gameObject.SetActive(false);
             }
         }
 
