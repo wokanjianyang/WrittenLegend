@@ -6,6 +6,6 @@
 {"_t":"EquipRedConfig","_id":5,"Role":2,"Count":6,"AttrId":2005,"AttrValue":20,"AttrRise":5},
 {"_t":"EquipRedConfig","_id":6,"Role":2,"Count":10,"AttrId":30,"AttrValue":10,"AttrRise":1},
 {"_t":"EquipRedConfig","_id":7,"Role":3,"Count":2,"AttrId":306,"AttrValue":1,"AttrRise":0},
-{"_t":"EquipRedConfig","_id":8,"Role":3,"Count":6,"AttrId":307,"AttrValue":50,"AttrRise":10},
+{"_t":"EquipRedConfig","_id":8,"Role":3,"Count":6,"AttrId":307,"AttrValue":50,"AttrRise":20},
 {"_t":"EquipRedConfig","_id":9,"Role":3,"Count":10,"AttrId":17,"AttrValue":10,"AttrRise":1},
 ]}
