@@ -11,6 +11,11 @@ namespace Game
         {
             return this.list.Where(m => m.Cycle == cycle).FirstOrDefault();
         }
+
+        public void Init()
+        {
+            this.list = new List<CycleConfig>();
+        }
     }
 
 

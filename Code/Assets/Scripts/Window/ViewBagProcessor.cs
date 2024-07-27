@@ -67,10 +67,10 @@ namespace Game
                     }
                 });
             }
+            this.Btn_Cycle.gameObject.SetActive(false);
 
             this.Btn_Attr.onClick.AddListener(this.OnClick_Attr);
             this.Btn_Achievement.onClick.AddListener(this.OnClick_Achievement);
-            this.Btn_Cycle.onClick.AddListener(this.OnClick_Cycle);
 
             this.btn_SoulRing.onClick.AddListener(this.OnClick_RingSoul);
             this.btn_Wing.onClick.AddListener(OnOpenWing);
@@ -91,6 +91,12 @@ namespace Game
         void Start()
         {
             ShowEquipPanel();
+
+            string account = GameProcessor.Inst.User.Account;
+            if (account.Length > 0)
+            {
+                this.Btn_Cycle.gameObject.SetActive(true);
+            }
         }
 
         // Update is called once per frame
@@ -133,6 +139,12 @@ namespace Game
                         ChangePlan(index);
                     }
                 });
+            }
+
+            string account = GameProcessor.Inst.User.Account;
+            if (account.Length > 0)
+            {
+                this.Btn_Cycle.onClick.AddListener(this.OnClick_Cycle);
             }
 
             GameProcessor.Inst.StartCoroutine(LoadBox());

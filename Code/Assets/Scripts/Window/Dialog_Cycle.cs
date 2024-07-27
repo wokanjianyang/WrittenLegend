@@ -24,7 +24,6 @@ public class Dialog_Cycle : MonoBehaviour
     private void Awake()
     {
         Btn_Close.onClick.AddListener(OnClick_Close);
-        Btn_Ok.onClick.AddListener(OnClick_Ok);
 
         AttrList = this.GetComponentsInChildren<StrenthAttrItem>();
 
@@ -34,6 +33,11 @@ public class Dialog_Cycle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        string account = GameProcessor.Inst.User.Account;
+        if (account.Length > 0)
+        {
+            Btn_Ok.onClick.AddListener(OnClick_Ok);
+        }
     }
 
     private void Show()
@@ -89,11 +93,19 @@ public class Dialog_Cycle : MonoBehaviour
 
         User user = GameProcessor.Inst.User;
 
+        long level = user.MagicLevel.Data;
+        long cycleLevel = user.GetMaxLevel();
+
+        if (level < cycleLevel)
+        {
+            return;
+        }
+
         if (user.Account != "")
         {
-            user.MagicLevel.Data = 1;
+            user.Cycle.Data += 1;
         }
-        user.Cycle.Data += 1;
+        user.MagicLevel.Data = 1;
 
         user.EventCenter.Raise(new SetPlayerLevelEvent { Cycle = user.Cycle.Data, Level = user.MagicLevel.Data });
         user.EventCenter.Raise(new UserAttrChangeEvent());

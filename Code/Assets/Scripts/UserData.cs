@@ -194,6 +194,11 @@ namespace Game
                     user.InfiniteData = new InfiniteData();
                 }
 
+                if (user.Account == "")
+                {
+                    CycleConfigCategory.Instance.Init();
+                }
+
                 if (user.LegacyData == null)
                 {
                     user.LegacyData = new LegacyData();
