@@ -96,6 +96,7 @@ public class Dialog_Ring : MonoBehaviour
         this.CurrentConfig = config;
 
         long currentLevel = user.GetRingLevel(config.Id);
+        long maxRingLevel = user.GetArtifactValue(ArtifactType.RingLimit) + 15;
 
         currentItem.SetContent(currentLevel);
 
@@ -118,8 +119,16 @@ public class Dialog_Ring : MonoBehaviour
 
         string color = total >= needNumber ? "#FFFF00" : "#FF0000";
 
-        Txt_Metail.text = "消耗" + config.Name + "";
-        Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2}", color, total, needNumber);
+        if (currentLevel < maxRingLevel)
+        {
+            Txt_Metail.text = "消耗" + config.Name + "";
+            Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2}", color, total, needNumber);
+        }
+        else
+        {
+            Txt_Metail.text = "已满级";
+            Txt_Fee.text = "";
+        }
 
         if (config.Desc != null && config.Desc.Length > 0)
         {
@@ -138,7 +147,7 @@ public class Dialog_Ring : MonoBehaviour
         bool select = user.RingSelect.ContainsKey(config.Id);
         Tg_Select.isOn = select;
 
-        if (total >= needNumber)
+        if (total >= needNumber && currentLevel < maxRingLevel)
         {
             Btn_Ok.gameObject.SetActive(true);
             if (currentLevel <= 0)

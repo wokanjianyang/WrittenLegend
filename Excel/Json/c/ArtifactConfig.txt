@@ -18,5 +18,6 @@
 {"_t":"ArtifactConfig","_id":17,"ItemId":180017,"Name":"分解机","Type":17,"AttrValue":1,"MaxCount":100,"DropRate":100,"Des":"分解精炼石+1"},
 {"_t":"ArtifactConfig","_id":18,"ItemId":180018,"Name":"摄魂瓶","Type":18,"AttrValue":1,"MaxCount":20,"DropRate":20,"Des":"魂环碎片掉落+1"},
 {"_t":"ArtifactConfig","_id":19,"ItemId":180019,"Name":"副本杀手","Type":19,"AttrValue":1,"MaxCount":4,"DropRate":1,"Des":"挑战装备副本，可以倍率+1"},
-{"_t":"ArtifactConfig","_id":20,"ItemId":180020,"Name":"传世之源","Type":20,"AttrValue":1,"MaxCount":10,"DropRate":1,"Des":"传世等阶上限+1"},
+{"_t":"ArtifactConfig","_id":20,"ItemId":180020,"Name":"传世之源","Type":20,"AttrValue":1,"MaxCount":15,"DropRate":1,"Des":"传世等阶上限+1"},
+{"_t":"ArtifactConfig","_id":21,"ItemId":180021,"Name":"神戒之源","Type":21,"AttrValue":1,"MaxCount":15,"DropRate":1,"Des":"神戒等级上限+1"},
 ]}
