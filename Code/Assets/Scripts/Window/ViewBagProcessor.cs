@@ -1095,7 +1095,7 @@ namespace Game
 
                 if (idleCount < 1)
                 {
-                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "包裹总量已经满了,请清理包裹", ToastType = ToastTypeEnum.Failure });
+                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "包裹" + (bagType + 1) + "已经满了,请清理包裹", ToastType = ToastTypeEnum.Failure });
                     return;
                 }
 
