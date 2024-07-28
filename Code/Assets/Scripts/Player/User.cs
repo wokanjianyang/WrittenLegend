@@ -1135,11 +1135,15 @@ namespace Game
             return this.FestiveData_81[id];
         }
 
-        public void SaveFestiveCount(int configId)
+        public void SaveFestiveCount(int configId, int count)
         {
             if (this.FestiveData_81.ContainsKey(configId))
             {
-                this.FestiveData_81[configId]++;
+                this.FestiveData_81[configId] += count;
+            }
+            else
+            {
+                this.FestiveData_81[configId] = count;
             }
         }
 

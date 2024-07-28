@@ -1,5 +1,6 @@
 using Game;
 using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -115,17 +116,24 @@ public class Item_Festive : MonoBehaviour
         }
 
         User user = GameProcessor.Inst.User;
-        user.SaveFestiveCount(Config.Id);
+        long total = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Chunjie).Select(m => m.MagicNubmer.Data).Sum();
+
+        int maxCount = Config.Max - user.GetFestiveCount(Config.Id);
+
+        int count = (int)(total / Config.Cost);
+        count = Math.Min(count, maxCount);
+
+        user.SaveFestiveCount(Config.Id, count);
 
         //²ÄÁÏ
         GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
         {
             Type = ItemType.Material,
             ItemId = ItemHelper.SpecialId_Chunjie,
-            Quantity = Config.Cost
+            Quantity = Config.Cost * count
         });
 
-        Item item = ItemHelper.BuildItem((ItemType)Config.TargetType, Config.TargetId, 1, Config.TargetCount);
+        Item item = ItemHelper.BuildItem((ItemType)Config.TargetType, Config.TargetId, 1, Config.TargetCount * count);
 
         List<Item> list = new List<Item>();
         list.Add(item);
