@@ -74,6 +74,9 @@ public class Item_Festive : MonoBehaviour
             this.gameObject.SetActive(false);
             return;
         }
+        else {
+            this.gameObject.SetActive(true);
+        }
 
         this.check = true;
 
@@ -159,7 +162,7 @@ public class Item_Festive : MonoBehaviour
         int MaxCount = user.GetFestiveCount(Config.Id);
         Txt_Limit_Content.text = MaxCount + "/" + Config.Max;
 
-        this.Check();
+        //this.Check();
     }
 
     public void ChangeAuto(bool isOn)
