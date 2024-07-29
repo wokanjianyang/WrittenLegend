@@ -70,9 +70,11 @@ public class Dialog_Festive : MonoBehaviour
         this.Txt_Time.text = string.Format("活动持续时间 {0}00:00  到 {1}23:59  ", startTime, endTime);
     }
 
-    private void ChangeAuto(bool isOn) {
+    private void ChangeAuto(bool isOn)
+    {
 
-        foreach (Item_Festive item in itemList) {
+        foreach (Item_Festive item in itemList)
+        {
             item.ChangeAuto(isOn);
         }
     }
@@ -84,7 +86,7 @@ public class Dialog_Festive : MonoBehaviour
 
         foreach (Item_Festive item in itemList)
         {
-            item.ChangeAuto(isOn);
+            item.ChangeAuto(Toggle_Auto.isOn);
         }
     }
 
