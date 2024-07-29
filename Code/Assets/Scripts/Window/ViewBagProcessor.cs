@@ -42,6 +42,7 @@ namespace Game
         public Button btn_Halidom;
         public Button btn_Artifact;
         public Button btn_Ring;
+        public Button btn_Pill;
 
         [Title("功能框")]
         public Dialog_Exclusive ExclusiveDialog;
@@ -51,6 +52,7 @@ namespace Game
         public Dialog_Artifact DialogArtifact;
         public Dialog_Ring DialogRing;
         public Dialog_Cycle DialogCycle;
+        public Dialog_Pill DialogPill;
 
         private List<Com_Box> items = new List<Com_Box>();
 
@@ -80,6 +82,7 @@ namespace Game
             this.btn_Halidom.onClick.AddListener(OnOpenHalidom);
             this.btn_Artifact.onClick.AddListener(OnOpenArtifact);
             this.btn_Ring.onClick.AddListener(OnOpenRing);
+            this.btn_Pill.onClick.AddListener(OnOpenPill);
 
             this.Btn_Reset.onClick.AddListener(OnRefreshBag);
             this.Btn_ReName.onClick.AddListener(OnSetPlanName);
@@ -1452,6 +1455,11 @@ namespace Game
         public void OnOpenRing()
         {
             this.DialogRing.Show();
+        }
+
+        public void OnOpenPill()
+        {
+            this.DialogPill.gameObject.SetActive(true);
         }
 
         public void OnOpenWing()

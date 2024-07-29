@@ -742,6 +742,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8900284681530860510}
   - component: {fileID: 4700570627691751315}
+  - component: {fileID: 8244299187365205078}
   m_Layer: 5
   m_Name: Dialog_Pill
   m_TagString: Untagged
@@ -786,6 +787,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TouchIgnore: 0
+--- !u!114 &8244299187365205078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5666275668401246167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb551df700f4294ba1bef81034772fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Txt_Fee: {fileID: 4480189533395255886}
+  Txt_Level: {fileID: 1220593206100548186}
+  Txt_Layer: {fileID: 3797666077345836623}
+  Tf_Attr: {fileID: 1266267741591212666}
+  Btn_Close: {fileID: 6779914700175958588}
+  Btn_Active: {fileID: 5195334008731211425}
 --- !u!1 &8172710602515746416
 GameObject:
   m_ObjectHideFlags: 0
