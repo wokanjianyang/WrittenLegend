@@ -26,6 +26,7 @@ public class Item_Festive : MonoBehaviour
     private FestiveConfig Config { get; set; }
 
     private bool check = false;
+    private int CurrentStep = 0;
 
     // Start is called before the first frame update
     void Awake()
@@ -65,6 +66,14 @@ public class Item_Festive : MonoBehaviour
         }
 
         User user = GameProcessor.Inst.User;
+
+        this.CurrentStep = user.GetFestiveStep();
+        if (Config.Step > this.CurrentStep)
+        {
+            this.check = false;
+            this.gameObject.SetActive(false);
+            return;
+        }
 
         this.check = true;
 

@@ -1125,6 +1125,23 @@ namespace Game
             ArtifactData[artifactId].Data += level;
         }
 
+        public int GetFestiveStep()
+        {
+            int currentStep = 99;
+
+            List<FestiveConfig> list = FestiveConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
+            foreach (FestiveConfig config in list)
+            {
+                int max = user.GetFestiveCount(config.Id);
+                if (max < config.Max && config.Step > 0 && config.Step < currentStep)
+                {
+                    currentStep = config.Step;
+                }
+            }
+
+            return currentStep;
+        }
+
         public int GetFestiveCount(int id)
         {
             if (!this.FestiveData_81.ContainsKey(id))

@@ -227,19 +227,19 @@ namespace Game
                 //    user.Bags.RemoveAll(m => m.Item.Type == ItemType.Card || m.Item.Type == ItemType.Fashion || (m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Card_Stone));
                 //}
 
-                //if (!user.OldRingCheck)
-                //{
-                //    user.OldRingCheck = true;
+                if (!user.OldRingCheck)
+                {
+                    user.OldRingCheck = true;
 
-                //    foreach (var ringKv in user.RingData)
-                //    {
-                //        int ringId = ringKv.Key;
-                //        long ringLevel = ringKv.Value.Data;
-                //        long newLevel = RingConfigCategory.Instance.ConvertOldToNew(ringLevel);
+                    foreach (var ringKv in user.RingData)
+                    {
+                        int ringId = ringKv.Key;
+                        long ringLevel = ringKv.Value.Data;
+                        long newLevel = RingConfigCategory.Instance.ConvertOldToNew(ringLevel);
 
-                //        ringKv.Value.Data = newLevel;
-                //    }
-                //}
+                        ringKv.Value.Data = newLevel;
+                    }
+                }
 
                 //user.KillRecord.Clear();
 
