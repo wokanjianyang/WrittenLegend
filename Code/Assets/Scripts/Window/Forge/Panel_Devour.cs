@@ -177,13 +177,13 @@ public class Panel_Devour : MonoBehaviour
 
         ExclusiveItem exclusiveMain = SelectMain.BoxItem.Item as ExclusiveItem;
 
-        int nextLevel = exclusiveMain.GetLayer();
-        this.config = ExclusiveDevourConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Level == nextLevel).FirstOrDefault();
+        int nextLayer = exclusiveMain.GetLayer();
+        this.config = ExclusiveDevourConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Level == nextLayer).FirstOrDefault();
 
         this.Check();
         int maxLevel = GameProcessor.Inst.User.GetExclusiveLimit();
 
-        if (exclusiveMain.GetLevel() >= maxLevel) //不能超过上限
+        if (nextLayer >= maxLevel) //不能超过上限
         {
             return;
         }
