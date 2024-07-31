@@ -7,89 +7,77 @@ using Game.Data;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Dialog_Pill : MonoBehaviour, IBattleLife
+public class Dialog_Pill : MonoBehaviour
 {
     public Text Txt_Fee;
     public Text Txt_Level;
     public Text Txt_Layer;
 
     public Transform Tf_Attr;
+    public Transform Tf_Item;
 
     public Button Btn_Close;
     public Button Btn_Active;
 
-    private List<Item_Pill> ItemList;
-    private List<StrenthAttrItem> AtrrList;
+    private Item_Pill[] ItemList;
+    private StrenthAttrItem[] AtrrList;
 
     public int Order => (int)ComponentOrder.Dialog;
+
+    private string[] PillNameList = new string[]{"手太阴","手阳明","足阳明","足太阴","手少阴","手太阳","足太阳","足少阴","手厥阴","手少阳","足少阳","足厥阴"
+        ,"任脉","督脉","冲脉","带脉","阴跷脉","阳跷脉","阴维脉","阳维脉"};
+
+    void Awake()
+    {
+        ItemList = Tf_Item.GetComponentsInChildren<Item_Pill>();
+        AtrrList = Tf_Attr.GetComponentsInChildren<StrenthAttrItem>();
+
+        Btn_Close.onClick.AddListener(OnClick_Close);
+        Btn_Active.onClick.AddListener(OnStrong);
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        Btn_Close.onClick.AddListener(OnClick_Close);
-        Btn_Active.onClick.AddListener(OnStrong);
-
         Show();
-    }
-
-    public void OnBattleStart()
-    {
     }
 
     private void Show()
     {
         User user = GameProcessor.Inst.User;
-        long currentLevel = user.WingData.Data;
+
+        long currentLevel = user.PillData.Data;
         long nextLevel = currentLevel + 1;
         //Debug.Log("currentLevel show:" + currentLevel);
 
-        long MaxLevel = user.GetWingLimit();
+        long PillLayer = (nextLevel / 100) % 20;
+        long PillLevel = (nextLevel) / (100 * 20);
+        long PillPoint = (currentLevel % 100) / 10 + 1;
 
-        this.Txt_Level.text = "等级:" + currentLevel;
-        if (currentLevel > 0)
-        {
-            this.Btn_Active.gameObject.SetActive(false);
-        }
-        else
-        {
-            this.Btn_Active.gameObject.SetActive(true);
-        }
+        this.Txt_Layer.text = PillNameList[PillLayer];
+        this.Txt_Level.text = ConfigHelper.LayerChinaList[PillLevel] + "阶" + PillPoint + "重";
 
-        WingConfig currentConfig = WingConfigCategory.Instance.GetByLevel(currentLevel);
-        WingConfig nextConfig = WingConfigCategory.Instance.GetByLevel(nextLevel);
+        PillConfig config = PillConfigCategory.Instance.GetByLevel(nextLevel);
 
-        if (nextConfig == null || currentLevel >= MaxLevel)
-        {
-            this.Txt_Fee.text = "已满级";
-        }
-        else
-        {
-            //Fee
-            long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_Wing_Stone);
-            long fee = nextConfig.GetFee(nextLevel);
-            string color = materialCount >= fee ? "#FFFF00" : "#FF0000";
+        //Fee
+        long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_Pill);
 
-            Txt_Fee.gameObject.SetActive(true);
-            Txt_Fee.text = string.Format("<color={0}>{1}</color>", color, "需要:" + fee + " 凤凰之羽");
+        long fee = config.FeeRise * (PillLevel + 1);
 
-        }
+        string color = materialCount >= fee ? "#FFFF00" : "#FF0000";
 
-        WingConfig showConfig = nextConfig == null ? currentConfig : nextConfig;
+        Txt_Fee.gameObject.SetActive(true);
+        Txt_Fee.text = string.Format("<color={0}>{1}</color>", color, "需要:" + fee + " 淬体丹");
 
-        for (int i = 0; i < AtrrList.Count; i++)
+
+        for (int i = 0; i < AtrrList.Length; i++)
         {
             StrenthAttrItem attrItem = AtrrList[i];
 
-            if (i >= showConfig.AttrIdList.Length)
-            {
-                attrItem.gameObject.SetActive(false);
-            }
-            else
-            {
-                attrItem.gameObject.SetActive(true);
-                long attrBase = currentConfig == null ? 0 : currentConfig.GetAttr(i, currentLevel);
-                attrItem.SetContent(showConfig.AttrIdList[i], attrBase, showConfig.AttrRiseList[i]);
-            }
+            attrItem.gameObject.SetActive(true);
+            long attrBase = 0;
+            attrItem.SetContent(14, attrBase, 99);
+
         }
     }
 

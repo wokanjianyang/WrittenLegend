@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 117607936988401149}
   - component: {fileID: 2612737813216221631}
   m_Layer: 5
-  m_Name: Image_2
+  m_Name: Tf_Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -803,6 +803,7 @@ MonoBehaviour:
   Txt_Level: {fileID: 1220593206100548186}
   Txt_Layer: {fileID: 3797666077345836623}
   Tf_Attr: {fileID: 1266267741591212666}
+  Tf_Item: {fileID: 7636261883941808499}
   Btn_Close: {fileID: 6779914700175958588}
   Btn_Active: {fileID: 5195334008731211425}
 --- !u!1 &8172710602515746416

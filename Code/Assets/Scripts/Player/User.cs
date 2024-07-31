@@ -234,6 +234,8 @@ namespace Game
 
         public MagicData WingData { get; set; } = new MagicData();
 
+        public MagicData PillData { get; set; } = new MagicData();
+
         public Dictionary<int, Dictionary<int, MagicData>> FashionData { get; set; } = new Dictionary<int, Dictionary<int, MagicData>>();
         public Dictionary<int, MagicData> ItemMeterialData { get; } = new Dictionary<int, MagicData>();
 

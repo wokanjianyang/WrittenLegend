@@ -100,9 +100,11 @@ namespace Game
 
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Level_Stone, 100000));
 
-            //user.SaveArtifactLevel(180001, 1);
-            //user.SaveArtifactLevel(180005, 10);
-            //user.SaveArtifactLevel(180009, 1);
+            //user.SaveArtifactLevel(180001, 1); //boss杀手
+            //user.SaveArtifactLevel(180005, 10); //卖身契
+            //user.SaveArtifactLevel(180007, 1); //破限
+            //user.SaveArtifactLevel(180009, 1); //圣者
+            //user.SaveArtifactLevel(180019, 1); //副本杀手
 
             //user.Record.AddRecord(RecordType.AdReal, -800);
 
