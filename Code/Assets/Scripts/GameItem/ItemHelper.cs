@@ -110,10 +110,11 @@ namespace Game
         public static int SpecialId_Legacy_Stone = 4012;
         public static int SpecialId_Legacy_Ticket = 4013;
         public static int SpecialId_Level_Stone = 4014;
+        public static int SpecialId_Red_Chip = 4015;
+        public static int SpecialId_Pill = 4016; //¥„ÃÂµ§
 
         public static int SpecialId_Card_Stone = 4101;
         public static int SpecialId_Skil_Advance = 4102;
-        public static int SpecialId_Pill = 4103;
 
         public static int SpecialId_Chunjie = 4111;
 

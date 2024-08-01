@@ -44,6 +44,7 @@
 {"_t":"ItemConfig","_id":4013,"Name":"传世挑战卷","Type":9,"Des":"传世挑战次数+1","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":5,"UseParam":0,"RecoveryItemId":0},
 {"_t":"ItemConfig","_id":4014,"Name":"等级丹","Type":15,"Des":"人物等级+1","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":6,"UseParam":0,"RecoveryItemId":0},
 {"_t":"ItemConfig","_id":4015,"Name":"红装粉尘","Type":5,"Des":"分解红装石头获取，合成红装精华","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":6,"UseParam":0,"RecoveryItemId":0},
+{"_t":"ItemConfig","_id":4016,"Name":"淬体丹","Type":5,"Des":"修炼材料","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":6,"UseParam":0,"RecoveryItemId":0},
 {"_t":"ItemConfig","_id":4101,"Name":"图鉴碎片","Type":5,"Des":"兑换万能图鉴的碎片","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":5,"UseParam":0,"RecoveryItemId":0},
 {"_t":"ItemConfig","_id":4102,"Name":"高级书页","Type":5,"Des":"升级10阶技能","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":5,"UseParam":0,"RecoveryItemId":0},
 {"_t":"ItemConfig","_id":4103,"Name":"废弃","Type":5,"Des":"废弃道具","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":5,"UseParam":0,"RecoveryItemId":0},

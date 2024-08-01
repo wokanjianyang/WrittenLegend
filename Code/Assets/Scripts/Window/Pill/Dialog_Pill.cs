@@ -88,10 +88,10 @@ public class Dialog_Pill : MonoBehaviour
         long currentLevel = user.WingData.Data;
         long nextLevel = currentLevel + 1;
 
-        long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_Wing_Stone);
+        long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_Pill);
 
-        WingConfig nextConfig = WingConfigCategory.Instance.GetByLevel(nextLevel);
-        long fee = nextConfig.GetFee(nextLevel);
+        PillConfig config = PillConfigCategory.Instance.GetByLevel(nextLevel);
+        long fee = config.FeeRise * 1;
 
         if (materialCount < fee)
         {

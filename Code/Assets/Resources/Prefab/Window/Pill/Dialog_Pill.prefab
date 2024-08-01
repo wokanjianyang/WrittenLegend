@@ -843,7 +843,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: -267, y: -431}
-  m_SizeDelta: {x: 40, y: 84}
+  m_SizeDelta: {x: 50, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8876649867579348382
 CanvasRenderer:
@@ -996,7 +996,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 40, y: 84}
+  m_SizeDelta: {x: 30, y: 168}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4799268689944117754
 CanvasRenderer:
@@ -1039,7 +1039,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u4E5D\u4E5D\u9636"
+  m_Text: "\u4E5D\u4E5D\u9636 1\u91CD"
 --- !u!1 &8961190973627204168
 GameObject:
   m_ObjectHideFlags: 0
