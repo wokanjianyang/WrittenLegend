@@ -17,4 +17,7 @@
 {"_t":"LevelConfig","_id":16,"StartLevel":100001,"EndLevel":120000,"Exp":33000},
 {"_t":"LevelConfig","_id":17,"StartLevel":120001,"EndLevel":130000,"Exp":70000},
 {"_t":"LevelConfig","_id":18,"StartLevel":130001,"EndLevel":140000,"Exp":200000},
+{"_t":"LevelConfig","_id":19,"StartLevel":140001,"EndLevel":150000,"Exp":600000},
+{"_t":"LevelConfig","_id":20,"StartLevel":150001,"EndLevel":160000,"Exp":1800000},
+{"_t":"LevelConfig","_id":21,"StartLevel":160001,"EndLevel":170000,"Exp":5400000},
 ]}

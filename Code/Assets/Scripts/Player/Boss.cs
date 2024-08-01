@@ -21,6 +21,7 @@ namespace Game
         public long Exp;
 
         private int RewarCount = 1;
+        private int[] excludeSuitList = { 6 };
 
         public Boss(int bossId, int mapId, RuleType ruleType, int rewarCount, int modelId) : base()
         {
@@ -173,7 +174,7 @@ namespace Game
 
                     if (model.Suit > 0)
                     {
-                        suitList = SkillSuitHelper.GetAllSuit(skillData.SkillId, model.Suit);
+                        suitList = SkillSuitHelper.GetAllSuit(skillData.SkillId, model.Suit, excludeSuitList);
                     }
                 }
 
