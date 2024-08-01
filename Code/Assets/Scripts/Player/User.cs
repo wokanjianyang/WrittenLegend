@@ -100,7 +100,7 @@ namespace Game
 
         public Dictionary<int, long> VersionLog { get; } = new Dictionary<int, long>();
 
-        public bool OldCardCheck = false;
+        public bool OldCJCheck = false;
         public bool OldRingCheck = false;
 
         public int GetArtifactValue(ArtifactType type)

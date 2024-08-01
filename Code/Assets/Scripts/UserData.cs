@@ -227,6 +227,20 @@ namespace Game
                 //    user.Bags.RemoveAll(m => m.Item.Type == ItemType.Card || m.Item.Type == ItemType.Fashion || (m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Card_Stone));
                 //}
 
+                if (!user.OldCJCheck)
+                {
+                    user.OldCJCheck = true;
+
+                    int count = user.GetFestiveCount(99);
+                    if (count > 0)
+                    {
+                        BoxItem shuye = new BoxItem();
+                        shuye.Item = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Moon_Cake, 1);
+                        shuye.MagicNubmer.Data = count * 900;
+                        user.Bags.Add(shuye);
+                    }
+                }
+
                 if (!user.OldRingCheck)
                 {
                     user.OldRingCheck = true;
