@@ -123,6 +123,7 @@ namespace Game
         Legacy = 18,//传世
         Ring = 19,//特戒
         Cycle = 20,//转生
+        Pill = 21,//修炼
 
         Dingzhi = 98,
         /// <summary>

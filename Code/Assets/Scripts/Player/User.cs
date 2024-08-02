@@ -564,6 +564,16 @@ namespace Game
                 }
             }
 
+            //修炼
+            Dictionary<int, long> attrDict = PillConfigCategory.Instance.ParseLevel(PillData.Data);
+            foreach (var kv in attrDict)
+            {
+                if (kv.Value > 0)
+                {
+                    AttributeBonus.SetAttr((AttributeEnum)kv.Key, AttributeFrom.Auras, kv.Value);
+                }
+            }
+
 
             //光环
             foreach (var ar in GetAurasList())
@@ -584,6 +594,8 @@ namespace Game
             {
                 this.SkillNumber += 1;
             }
+
+
 
             //成就
             foreach (int aid in AchievementData.Keys)

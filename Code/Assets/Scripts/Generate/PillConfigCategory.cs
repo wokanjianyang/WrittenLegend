@@ -18,41 +18,19 @@ namespace Game
                 dict[config.AttrId] = 0;
             }
 
-            long layer = (total / 2000);
-            long layerRate = MathHelper.GetSequence1(layer);
-
-            if (layerRate > 0)
+            for (int i = 0; i < total; i++)
             {
-                foreach (PillConfig config in this.list)
-                {
-                    long attrValue = config.AttrTotal * layerRate;
-                    dict[config.AttrId] += attrValue;
-                }
-            }
+                int l = i / 2000;
+                int p = i % 2000;
 
-            long ct = total % 2000;
-            foreach (PillConfig config in this.list)
-            {
-                long level = 0;
-                if (config.Type == 1)
-                {
-                    level = ct / 10;
-                    long position = ct % 10;
-                    if (position < config.Position)
-                    {
-                        level += 1;
-                    }
-                }
-                else
-                {
-                    long position = Math.Min(ct - config.Position, 100);
-                    level = position / 100;
-                }
+                int id = AllList[p];
 
-                long currentLayerRate = MathHelper.GetSequence1(layer + 1);
-                long attrValue = currentLayerRate * level * config.AttrValue;
+                PillConfig config = Get(id);
 
-                dict[config.AttrId] += attrValue;
+                int attrId = config.AttrId;
+                long attrValue = config.AttrValue * (l + 1);
+
+                dict[attrId] += attrValue;
             }
 
             return dict;
@@ -60,12 +38,10 @@ namespace Game
 
         public PillConfig GetByLevel(long level)
         {
-            long p = level % 2000;
-            int type = p % 10 == 0 ? 2 : 1;
-            long position = p / 100 + 1;
+            int p = (int)(level % 2000);
+            int id = this.AllList[p];
 
-            var config = this.list.Where(m => m.Type == type && m.Position == position).FirstOrDefault();
-            return config;
+            return Get(id);
         }
 
         public List<int> AllList

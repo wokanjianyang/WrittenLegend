@@ -4,14 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Game;
 using Game.Data;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Dialog_Pill : MonoBehaviour
 {
     public Text Txt_Fee;
-    public Text Txt_Level;
-    public Text Txt_Layer;
+    public Text Txt_Point_Name;
+    public Text Txt_Level_Name;
 
     public Transform Tf_Attr;
     public Transform Tf_Item;
@@ -47,37 +48,59 @@ public class Dialog_Pill : MonoBehaviour
         User user = GameProcessor.Inst.User;
 
         long currentLevel = user.PillData.Data;
-        long nextLevel = currentLevel + 1;
         //Debug.Log("currentLevel show:" + currentLevel);
 
-        long PillLayer = (nextLevel / 100) % 20;
-        long PillLevel = (nextLevel) / (100 * 20);
-        long PillPoint = (currentLevel % 100) / 10 + 1;
+        long PillLayer = (currentLevel / 2000);
 
-        this.Txt_Layer.text = PillNameList[PillLayer];
-        this.Txt_Level.text = ConfigHelper.LayerChinaList[PillLevel] + "阶" + PillPoint + "重";
+        long p = currentLevel % 2000;
 
-        PillConfig config = PillConfigCategory.Instance.GetByLevel(nextLevel);
+        long PillIndex = p / 100;
+        long PillLevel = (p % 100) / 10 + 1;
+
+        this.Txt_Point_Name.text = PillNameList[PillIndex + 1];
+        this.Txt_Level_Name.text = ConfigHelper.LayerChinaList[PillLayer] + "阶" + PillLevel + "重";
+
+        PillConfig config = PillConfigCategory.Instance.GetByLevel(currentLevel);
 
         //Fee
         long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_Pill);
 
-        long fee = config.FeeRise * (PillLevel + 1);
+        long fee = config.FeeRise * (PillLayer + 1);
 
         string color = materialCount >= fee ? "#FFFF00" : "#FF0000";
 
         Txt_Fee.gameObject.SetActive(true);
-        Txt_Fee.text = string.Format("<color={0}>{1}</color>", color, "需要:" + fee + " 淬体丹");
+        Txt_Fee.text = string.Format("<color={0}>消耗淬体丹:{1}/{2}</color>", color, fee, materialCount);
 
+        Dictionary<int, long> attrDict = PillConfigCategory.Instance.ParseLevel(currentLevel);
 
-        for (int i = 0; i < AtrrList.Length; i++)
+        //Debug.Log(JsonConvert.SerializeObject(attrDict));
+
+        int index = 0;
+        foreach (var kv in attrDict)
         {
-            StrenthAttrItem attrItem = AtrrList[i];
+            StrenthAttrItem attrItem = AtrrList[index++];
 
-            attrItem.gameObject.SetActive(true);
-            long attrBase = 0;
-            attrItem.SetContent(14, attrBase, 99);
+            long rise = 0;
+            if (config.AttrId == kv.Key)
+            {
+                rise = config.AttrValue * (PillLayer + 1);
+            }
 
+            attrItem.SetContent(kv.Key, kv.Value, rise);
+        }
+
+        long itemIndex = currentLevel % 10;
+        for (int i = 0; i < ItemList.Length; i++)
+        {
+            if (i < itemIndex)
+            {
+                ItemList[i].Active(true);
+            }
+            else
+            {
+                ItemList[i].Active(false);
+            }
         }
     }
 
@@ -85,13 +108,13 @@ public class Dialog_Pill : MonoBehaviour
     {
         User user = GameProcessor.Inst.User;
 
-        long currentLevel = user.WingData.Data;
-        long nextLevel = currentLevel + 1;
+        long currentLevel = user.PillData.Data;
+        long PillLayer = (currentLevel / 2000);
 
         long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_Pill);
 
-        PillConfig config = PillConfigCategory.Instance.GetByLevel(nextLevel);
-        long fee = config.FeeRise * 1;
+        PillConfig config = PillConfigCategory.Instance.GetByLevel(currentLevel);
+        long fee = config.FeeRise * (PillLayer + 1);
 
         if (materialCount < fee)
         {
@@ -99,20 +122,18 @@ public class Dialog_Pill : MonoBehaviour
             return;
         }
 
-        user.WingData.Data = nextLevel;
+        user.PillData.Data++;
 
         GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
         {
             Type = ItemType.Material,
-            ItemId = ItemHelper.SpecialId_Wing_Stone,
+            ItemId = ItemHelper.SpecialId_Pill,
             Quantity = fee
         });
 
         Show();
 
-        GameProcessor.Inst.UpdateInfo();
-
-        //Debug.Log("OnStrong :" + user.WingData.Data);
+        user.EventCenter.Raise(new UserAttrChangeEvent());
     }
 
     public void OnClick_Close()
