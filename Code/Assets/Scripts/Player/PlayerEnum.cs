@@ -226,6 +226,7 @@ namespace Game
         Mine = 7,
         Infinite = 8,
         Legacy = 9,
+        Pill,
     }
 
     public enum RoleType

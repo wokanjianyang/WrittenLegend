@@ -27,7 +27,8 @@ namespace Game
         public Item_EquipCopy MineItem;
         public Dialog_Mine MineDialog;
 
-
+        public Item_EquipCopy PillItem;
+        public Map_Dialog_Pill MapDialogPill;
 
         void Start()
         {
