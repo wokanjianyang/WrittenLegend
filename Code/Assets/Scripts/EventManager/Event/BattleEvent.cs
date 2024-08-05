@@ -418,6 +418,13 @@ namespace Game
     {
     }
 
+    //--pill
+    public class ShowPillInfoEvent : SDD.Events.Event
+    {
+        public double Time { get; set; }
+    }
+
+
     //--------Fashion
     public class OpenFashionDialogEvent : SDD.Events.Event
     {

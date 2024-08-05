@@ -6,15 +6,15 @@ using System.Linq;
 namespace Game.Data
 {
 
-    public class MagicData
+    public class MagicDouble
     {
-        private const long MagicRate = 3;
+        private const double MagicRate = 3;
 
-        private const long MagicOff = 10211;
+        private const double MagicOff = 10211;
 
-        private long data;
+        private double data;
 
-        public long Data
+        public double Data
         {
             get
             {

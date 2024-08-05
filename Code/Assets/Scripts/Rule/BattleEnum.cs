@@ -36,6 +36,7 @@ namespace Game
         Mine,
         Infinite,
         Legacy,
+        Pill,
     }
 
     public enum ComponentOrder
