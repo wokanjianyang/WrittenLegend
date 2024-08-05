@@ -545,7 +545,7 @@ namespace Game
 
         private void ShowNextToast()
         {
-            if (Time.realtimeSinceStartup - currentToastShowTime > 0.5f)
+            if (Time.realtimeSinceStartup - currentToastShowTime > 0.2f)
             {
                 if (toastTaskList.Count > 0)
                 {

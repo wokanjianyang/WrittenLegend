@@ -27,7 +27,12 @@ namespace Game
 
         public void RemoveStack(long quantity)
         {
-            this.MagicNubmer.Data -= quantity;
+            this.MagicNubmer.Data -= Math.Abs(quantity);
+
+            if (quantity <= 0)
+            {
+                this.MagicNubmer.Data = 0;
+            }
         }
 
         public bool IsFull()

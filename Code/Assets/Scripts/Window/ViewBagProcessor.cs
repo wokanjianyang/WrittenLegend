@@ -513,11 +513,12 @@ namespace Game
 
         private void OnSelectGift(SelectGiftEvent e)
         {
-            UseBoxItem(e.BoxItem, 1);
-
-            List<Item> items = new List<Item>();
-            items.Add(e.Item);
-            GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+            if (UseBoxItem(e.BoxItem, 1))
+            {
+                List<Item> items = new List<Item>();
+                items.Add(e.Item);
+                GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+            }
         }
 
         private void OnChangeExclusiveEvent(ChangeExclusiveEvent e)
@@ -594,6 +595,17 @@ namespace Game
 
         private void OnEquipOneEvent(EquipOneEvent e)
         {
+            User user = GameProcessor.Inst.User;
+            int type = e.BoxItem.GetBagType();
+            int total = user.GetBagIdleCount(type);
+
+            if (total < 5)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "包裹空额不足了，请先清理包裹", ToastType = ToastTypeEnum.Failure });
+                return;
+            }
+
+
             if (e.IsWear)
             {
                 if (e.BoxItem.Item.Type == ItemType.Exclusive)
@@ -625,14 +637,15 @@ namespace Game
         {
             User user = GameProcessor.Inst.User;
 
-            UseBoxItem(e.BoxItem, 1);
-
-            user.EventCenter.Raise(new HeroUseSkillBookEvent
+            if (UseBoxItem(e.BoxItem, 1))
             {
-                IsLearn = true,
-                BoxItem = e.BoxItem,
-                Quantity = 1,
-            });
+                user.EventCenter.Raise(new HeroUseSkillBookEvent
+                {
+                    IsLearn = true,
+                    BoxItem = e.BoxItem,
+                    Quantity = 1,
+                });
+            }
         }
 
         private void FirstRecovery()
@@ -920,12 +933,39 @@ namespace Game
             BoxItem boxItem = e.BoxItem;
             long quantity = e.Quantity <= 0 ? boxItem.MagicNubmer.Data : e.Quantity;
 
+            if (boxItem.Item.Type == ItemType.Ticket && boxItem.Item.ConfigId == ItemHelper.SpecialId_Copy_Ticket && e.Quantity == -1)
+            {
+                if (user.MagicCopyTikerCount.Data >= ConfigHelper.CopyTicketMax)
+                {
+                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "次数已经满了", ToastType = ToastTypeEnum.Failure });
+                    return;
+                }
+
+                quantity = Math.Min(quantity, ConfigHelper.CopyTicketMax - user.MagicCopyTikerCount.Data);
+            }
+            else if (boxItem.Item.Type == ItemType.Material_Usable && boxItem.Item.ConfigId == ItemHelper.SpecialId_Level_Stone)
+            {
+                quantity = Math.Min(quantity, user.GetMaxLevel() - user.MagicLevel.Data);
+
+                if (quantity <= 0)
+                {
+                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "已经满级了", ToastType = ToastTypeEnum.Failure });
+                    return;
+                }
+            }
+
             if (quantity <= 0)
             {
                 throw new Exception();
                 //GameProcessor.Inst.EventCenter.Raise(new CheckGameCheatEvent());
             }
 
+            if (!UseBoxItem(boxItem, quantity))
+            {
+                return;
+            }
+
+            //use logic
             if (boxItem.Item.Type == ItemType.Ticket && boxItem.Item.ConfigId == ItemHelper.SpecialId_Copy_Ticket && e.Quantity == -1)
             {
                 if (user.MagicCopyTikerCount.Data >= ConfigHelper.CopyTicketMax)
@@ -949,11 +989,7 @@ namespace Game
                 user.MagicLevel.Data += quantity;
                 user.EventCenter.Raise(new SetPlayerLevelEvent { Cycle = user.Cycle.Data, Level = user.MagicLevel.Data });
             }
-
-            UseBoxItem(boxItem, quantity);
-
-            //use logic
-            if (boxItem.Item.Type == ItemType.SkillBox)
+            else if (boxItem.Item.Type == ItemType.SkillBox)
             {
                 user.EventCenter.Raise(new HeroUseSkillBookEvent
                 {
@@ -1055,7 +1091,7 @@ namespace Game
             }
         }
 
-        private void UseBoxItem(BoxItem boxItem, long quantity)
+        private bool UseBoxItem(BoxItem boxItem, long quantity)
         {
             User user = GameProcessor.Inst.User;
 
@@ -1064,28 +1100,31 @@ namespace Game
             if (boxItem == null)
             {
                 //Log.Debug("此物品已经被使用了");
-                return;
+                return false;
             }
 
             boxItem.RemoveStack(quantity);
-
-            //用光了，移除队列
-            if (boxItem.MagicNubmer.Data <= 0)
-            {
-                user.Bags.Remove(boxItem);
-            }
 
             //Com_Box boxUI = this.items.Find(m => m.boxId == boxItem.BoxId && m.BagType == boxItem.GetBagType());
             Com_Box boxUI = this.items.Find(m => m.BoxItem == boxItem);
             if (boxUI != null) //上线自动回收，可能还没加载
             {
                 boxUI.RemoveStack(quantity);
-                if (boxUI.Count <= 0)
+                if (boxItem.MagicNubmer.Data <= 0)
                 {
                     this.items.Remove(boxUI);
                     GameObject.Destroy(boxUI.gameObject);
                 }
             }
+
+            //用光了，移除队列
+            if (boxItem.MagicNubmer.Data <= 0)
+            {
+                user.Bags.Remove(boxItem);
+                boxItem = null;
+            }
+
+            return true;
         }
 
         private void AddBoxItem(Item newItem)
