@@ -31,7 +31,7 @@
 {"_t":"InfiniteDropConfig","_id":110,"DropId":180010,"Name":"无限之魂","Rate":10000,"StartLevel":1,"EndLevel":10000,"RateLevel":100,"Max":1},
 {"_t":"InfiniteDropConfig","_id":111,"DropId":180011,"Name":"昊天神锤","Rate":100000,"StartLevel":1,"EndLevel":10000,"RateLevel":100,"Max":10},
 {"_t":"InfiniteDropConfig","_id":112,"DropId":180012,"Name":"天外神石","Rate":100000,"StartLevel":1,"EndLevel":10000,"RateLevel":100,"Max":10},
-{"_t":"InfiniteDropConfig","_id":113,"DropId":180013,"Name":"金蛟剪","Rate":10000,"StartLevel":1,"EndLevel":10000,"RateLevel":100,"Max":1},
+{"_t":"InfiniteDropConfig","_id":113,"DropId":180013,"Name":"金蛟剪","Rate":50000,"StartLevel":1,"EndLevel":10000,"RateLevel":100,"Max":1},
 {"_t":"InfiniteDropConfig","_id":114,"DropId":180014,"Name":"精练契约","Rate":100000,"StartLevel":1,"EndLevel":10000,"RateLevel":100,"Max":10},
 {"_t":"InfiniteDropConfig","_id":115,"DropId":180015,"Name":"财富契约","Rate":100000,"StartLevel":1,"EndLevel":10000,"RateLevel":100,"Max":10},
 {"_t":"InfiniteDropConfig","_id":120,"DropId":180020,"Name":"传世之源","Rate":10000,"StartLevel":1,"EndLevel":10000,"RateLevel":100,"Max":1},
