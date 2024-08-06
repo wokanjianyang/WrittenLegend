@@ -36,42 +36,41 @@ public class MapPill : MonoBehaviour, IBattleLife
         this.msgPrefab = Resources.Load<GameObject>("Prefab/Window/Item/Item_DropMsg");
 
         GameProcessor.Inst.EventCenter.AddListener<BattleMsgEvent>(this.OnBattleMsgEvent);
-        GameProcessor.Inst.EventCenter.AddListener<ShowLegacyInfoEvent>(this.OnShowInfo);
-        GameProcessor.Inst.EventCenter.AddListener<LegacyStartEvent>(this.OnStart);
+        GameProcessor.Inst.EventCenter.AddListener<ShowPillInfoEvent>(this.OnShowInfo);
+        GameProcessor.Inst.EventCenter.AddListener<PillStartEvent>(this.OnStart);
         GameProcessor.Inst.EventCenter.AddListener<BattleLoseEvent>(this.OnBattleLoseEvent);
 
         this.gameObject.SetActive(false);
     }
 
 
-    public void OnStart(LegacyStartEvent e)
+    public void OnStart(PillStartEvent e)
     {
-        Debug.Log("LegacyStartEvent");
+        Debug.Log("PillStartEvent");
 
         this.gameObject.SetActive(true);
 
         Dictionary<string, object> param = new Dictionary<string, object>();
-        param.Add("MapId", e.MapId);
         param.Add("Layer", e.Layer);
 
-        LegacyMapConfig mapConfig = LegacyMapConfigCategory.Instance.Get(e.MapId);
-        Txt_Name.text = mapConfig.Name + "(" + e.Layer + "阶)";
+        MonsterPillConfig config = MonsterPillConfigCategory.Instance.Get(e.Layer);
+        Txt_Name.text = config.MapName;
 
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {
             GameProcessor.Inst.OnDestroy();
-            GameProcessor.Inst.LoadMap(RuleType.Legacy, this.transform, param);
+            GameProcessor.Inst.LoadMap(RuleType.Pill, this.transform, param);
         });
     }
 
-    public void OnShowInfo(ShowLegacyInfoEvent e)
+    public void OnShowInfo(ShowPillInfoEvent e)
     {
-        Txt_Count.text = "剩余挑战次数：" + e.Count;
+        Txt_Count.text = "剩余挑战时间：" + e.Time;
     }
 
     private void OnBattleMsgEvent(BattleMsgEvent e)
     {
-        if (e.Type != RuleType.Legacy)
+        if (e.Type != RuleType.Pill)
         {
             return;
         }
@@ -103,7 +102,7 @@ public class MapPill : MonoBehaviour, IBattleLife
 
     private void OnBattleLoseEvent(BattleLoseEvent e)
     {
-        if (e.Time == MapTime && e.Type == RuleType.Legacy)
+        if (e.Time == MapTime && e.Type == RuleType.Pill)
         {
             this.Exit();
         }
@@ -119,7 +118,7 @@ public class MapPill : MonoBehaviour, IBattleLife
         GameProcessor.Inst.OnDestroy();
         this.gameObject.SetActive(false);
 
-        GameProcessor.Inst.EventCenter.Raise(new BattlerEndEvent() { Type = RuleType.Legacy });
+        GameProcessor.Inst.EventCenter.Raise(new BattlerEndEvent() { Type = RuleType.Pill });
 
         GameProcessor.Inst.SetGameOver(PlayerType.Hero);
         GameProcessor.Inst.DelayAction(0.1f, () =>

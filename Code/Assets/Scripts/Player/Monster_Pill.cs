@@ -97,5 +97,30 @@ public class Monster_Pill : APlayer
     private void BuildReward()
     {
         User user = GameProcessor.Inst.User;
+
+        List<Item> items = DropLimitHelper.Build((int)DropLimitType.Pill, 0, 1, 1, 9999999, 1);
+
+        foreach (Item item in items)
+        {
+            item.Count *= Layer;
+        }
+
+        if (items.Count > 0)
+        {
+            GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+        }
+
+        double rs = user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstMul);
+        int itemCount = MathHelper.RandomBurstMul(rs);
+        if (itemCount > 0)
+        {
+            items.AddRange(ItemHelper.BurstMul(items, itemCount, 1));
+        }
+
+        GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+        {
+            Type = RuleType,
+            Message = BattleMsgHelper.BuildMonsterDeadMessage(this, 0, 0, items, itemCount)
+        });
     }
 }

@@ -423,6 +423,13 @@ namespace Game
     {
         public double Time { get; set; }
     }
+    public class OpenPillEvent : SDD.Events.Event
+    {
+    }
+    public class PillStartEvent : SDD.Events.Event
+    {
+        public int Layer { get; set; }
+    }
 
 
     //--------Fashion

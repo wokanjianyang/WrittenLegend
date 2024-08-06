@@ -10,6 +10,7 @@ public class Map_Pill_Item : MonoBehaviour
     public Text Txt_Name;
     public Button Btn_Start;
 
+    private MonsterPillConfig Config;
 
     // Start is called before the first frame update
     void Start()
@@ -20,10 +21,16 @@ public class Map_Pill_Item : MonoBehaviour
 
     private void OnClick_NavigateMap()
     {
+        var dialog = this.GetComponentInParent<Map_Dialog_Pill>();
+        dialog.gameObject.SetActive(false);
 
+        var vm = this.GetComponentInParent<ViewMore>();
+        vm.StartPill(Config.Id);
     }
 
-    public void SetContent()
+    public void SetContent(MonsterPillConfig config)
     {
+        this.Config = config;
+        Txt_Name.text = config.MapName;
     }
 }

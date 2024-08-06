@@ -6,7 +6,7 @@ using Game;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Map_Dialog_Pill : MonoBehaviour, IBattleLife
+public class Map_Dialog_Pill : MonoBehaviour
 {
     public int Order => (int)ComponentOrder.Dialog;
 
@@ -15,85 +15,38 @@ public class Map_Dialog_Pill : MonoBehaviour, IBattleLife
 
     public Text Txt_Time;
 
-    private int LevelCount = 35; //每个难度多少个
-    private int ShowCount = 10; //隐藏的时候显示多少个
-
-    private int MaxLayer = -1;
-    private int SelectLayer = -1;
-
-    private int Rate = 5;
-
-    List<Com_BossInfoItem> items = new List<Com_BossInfoItem>();
-
-    private void Awake()
-    {
-        this.Init();
-    }
+    List<Map_Pill_Item> items = new List<Map_Pill_Item>();
 
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    void OnEnable()
-    {
-
-    }
-
-    void Update()
-    {
-
-    }
-
-    public void OnBattleStart()
-    {
-        ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Item/Item_BossInfo");
-        GameProcessor.Inst.EventCenter.AddListener<BossInfoEvent>(this.OnBossInfoEvent);
+        this.Init();
+        //GameProcessor.Inst.EventCenter.AddListener<BossInfoEvent>(this.OnBossInfoEvent);
     }
 
     private void Init()
     {
-        List<MapConfig> list = MapConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
+        ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Pill/Map_Pill_Item");
 
-        foreach (MapConfig config in list)
+        List<MonsterPillConfig> list = MonsterPillConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
+
+        for (int i = 0; i < 10; i++)
         {
-            BuildItem(config);
+            BuildItem(list[i]);
         }
     }
-    private void BuildItem(MapConfig config)
+
+    private void BuildItem(MonsterPillConfig config)
     {
-        BossConfig bossConfig = BossConfigCategory.Instance.Get(config.BoosId);
-
         var item = GameObject.Instantiate(ItemPrefab);
-        var com = item.GetComponent<Com_BossInfoItem>();
+        var com = item.GetComponent<Map_Pill_Item>();
 
-        com.SetContent(config, bossConfig);
+        com.SetContent(config);
 
         item.transform.SetParent(this.sr_Boss.content);
         item.transform.localScale = Vector3.one;
 
         items.Add(com);
-    }
-
-
-    private void ChangeLevel(int layer)
-    {
-        this.SelectLayer = layer;
-        this.Show();
-    }
-
-    private void Show()
-    {
-      
-    }
-
-
-
-    private void OnBossInfoEvent(BossInfoEvent e)
-    {
-        this.gameObject.SetActive(true);
-        this.Show();
     }
 
     public void OnClick_Close()

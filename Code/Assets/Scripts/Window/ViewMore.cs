@@ -74,6 +74,7 @@ namespace Game
 
             GameProcessor.Inst.EventCenter.AddListener<OpenMineEvent>(this.OpenMine);
             GameProcessor.Inst.EventCenter.AddListener<OpenLegacyEvent>(this.OpenLegacy);
+            GameProcessor.Inst.EventCenter.AddListener<OpenPillEvent>(this.OpenPill);
 
             GameProcessor.Inst.EventCenter.AddListener<BattlerEndEvent>(this.OnBattlerEnd);
         }
@@ -182,6 +183,18 @@ namespace Game
 
             GameProcessor.Inst.EventCenter.Raise(new LegacyStartEvent() { MapId = mapId, Layer = layer });
         }
+
+        private void OpenPill(OpenPillEvent e)
+        {
+            MapDialogPill.gameObject.SetActive(true);
+        }
+        public void StartPill(int layer)
+        {
+            scrollRect.gameObject.SetActive(false);
+
+            GameProcessor.Inst.EventCenter.Raise(new PillStartEvent() { Layer = layer });
+        }
+
 
         protected override bool CheckPageType(ViewPageType page)
         {

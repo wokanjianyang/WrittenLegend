@@ -42,8 +42,6 @@ namespace Game
 
         public MagicData MagicTowerFloor { get; } = new MagicData();
 
-        public MagicDouble PillTime { get; set; } = new MagicDouble();
-
         public IDictionary<int, double> KillRecord { get; } = new Dictionary<int, double>();
 
         public Dictionary<int, MagicData> RingData { get; } = new Dictionary<int, MagicData>();
@@ -237,6 +235,8 @@ namespace Game
         public MagicData WingData { get; set; } = new MagicData();
 
         public MagicData PillData { get; set; } = new MagicData();
+
+        public PillTime PillTime { get; set; } = new PillTime();
 
         public Dictionary<int, Dictionary<int, MagicData>> FashionData { get; set; } = new Dictionary<int, Dictionary<int, MagicData>>();
         public Dictionary<int, MagicData> ItemMeterialData { get; } = new Dictionary<int, MagicData>();

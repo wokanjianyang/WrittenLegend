@@ -26,6 +26,9 @@ public class BattleRule_Pill : ABattleRule
         this.Layer = (int)layer;
 
         Start = true;
+
+        User user = GameProcessor.Inst.User;
+        user.PillTime.Time.Data -= 10;
     }
 
     public override void DoMapLogic(int roundNum)
@@ -36,7 +39,7 @@ public class BattleRule_Pill : ABattleRule
         }
 
         User user = GameProcessor.Inst.User;
-        double time = user.PillTime.Data;
+        double time = user.PillTime.Time.Data;
 
         if (time <= 0)
         {
@@ -48,7 +51,7 @@ public class BattleRule_Pill : ABattleRule
             return;
         }
 
-        user.PillTime.Data -= 0.2;
+        user.PillTime.Time.Data -= 0.2;
         GameProcessor.Inst.EventCenter.Raise(new ShowPillInfoEvent() { Time = time });
 
         var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);

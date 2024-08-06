@@ -115,5 +115,6 @@ namespace Game
         Map = 98,
         HeroPhatom = 99,
         Defend = 100,
+        Pill = 101,
     }
 }

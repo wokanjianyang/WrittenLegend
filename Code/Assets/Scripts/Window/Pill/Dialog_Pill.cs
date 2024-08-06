@@ -46,6 +46,7 @@ public class Dialog_Pill : MonoBehaviour
     private void Show()
     {
         User user = GameProcessor.Inst.User;
+        user.PillTime.Check();
 
         long currentLevel = user.PillData.Data;
         //Debug.Log("currentLevel show:" + currentLevel);

@@ -85,6 +85,10 @@ namespace Game
             {
                 GameProcessor.Inst.EventCenter.Raise(new OpenLegacyEvent());
             }
+            else if (Type == CopyType.Pill)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new OpenPillEvent());
+            }
         }
     }
 }
