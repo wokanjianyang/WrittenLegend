@@ -64,6 +64,7 @@ public class Init : MonoBehaviour
                 "Window/Map/Map_HeroPhantom",
                 "Window/Map/Map_Infinite",
                 "Window/Map/Map_Legacy",
+                "Window/Map/Map_Pill",
 
                 "Window/Dialog_Detail_Select",
                 "Window/Dialog_Detail",

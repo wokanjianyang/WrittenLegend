@@ -46,7 +46,6 @@ public class Dialog_Pill : MonoBehaviour
     private void Show()
     {
         User user = GameProcessor.Inst.User;
-        user.PillTime.Check();
 
         long currentLevel = user.PillData.Data;
         //Debug.Log("currentLevel show:" + currentLevel);
@@ -66,7 +65,7 @@ public class Dialog_Pill : MonoBehaviour
         //Fee
         long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_Pill);
 
-        long fee = config.FeeRise * (PillLayer + 1);
+        long fee = GetFee(config, PillLayer);
 
         string color = materialCount >= fee ? "#FFFF00" : "#FF0000";
 
@@ -105,6 +104,11 @@ public class Dialog_Pill : MonoBehaviour
         }
     }
 
+    private long GetFee(PillConfig config, long layer)
+    {
+        return (long)(config.FeeRise * (layer * 0.2 + 1));
+    }
+
     public void OnStrong()
     {
         User user = GameProcessor.Inst.User;
@@ -115,7 +119,7 @@ public class Dialog_Pill : MonoBehaviour
         long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_Pill);
 
         PillConfig config = PillConfigCategory.Instance.GetByLevel(currentLevel);
-        long fee = config.FeeRise * (PillLayer + 1);
+        long fee = GetFee(config, PillLayer);
 
         if (materialCount < fee)
         {

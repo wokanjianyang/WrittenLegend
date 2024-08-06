@@ -4845,7 +4845,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Txt_Name: {fileID: 7312901371376801198}
   Txt_Count: {fileID: 4946193882096997882}
-  sr_BattleMsg: {fileID: 0}
+  sr_BattleMsg: {fileID: 4210970259295789620}
   btn_Exit: {fileID: 2792508447959742123}
 --- !u!1 &4985238892065882634
 GameObject:

@@ -90,11 +90,8 @@ namespace Game
 		/// <summary>AttrValue</summary>
 		[ProtoMember(5)]
 		public int AttrValue { get; set; }
-		/// <summary>AttrTotal</summary>
-		[ProtoMember(6)]
-		public int AttrTotal { get; set; }
 		/// <summary>FeeRise</summary>
-		[ProtoMember(7)]
+		[ProtoMember(6)]
 		public int FeeRise { get; set; }
 
 	}

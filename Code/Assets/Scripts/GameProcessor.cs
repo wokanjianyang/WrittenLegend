@@ -454,6 +454,9 @@ namespace Game
                 case RuleType.Legacy:
                     this.BattleRule = new BattleRule_Legacy(param);
                     break;
+                case RuleType.Pill:
+                    this.BattleRule = new BattleRule_Pill(param);
+                    break;
             }
 
             if (autoHero)

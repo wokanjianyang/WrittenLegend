@@ -18,6 +18,11 @@ namespace Game
 
         public void Check()
         {
+            if (Time == null)
+            {
+                Time = new MagicDouble();
+            }
+
             long nt = DateTime.Today.Ticks;
 
             if (Ticket == 0 || nt > Ticket)

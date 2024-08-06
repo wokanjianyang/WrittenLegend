@@ -26,6 +26,9 @@ public class Map_Dialog_Pill : MonoBehaviour
 
     private void Init()
     {
+        User user = GameProcessor.Inst.User;
+        user.PillTime.Check();
+
         ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Pill/Map_Pill_Item");
 
         List<MonsterPillConfig> list = MonsterPillConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();

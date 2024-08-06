@@ -58,6 +58,7 @@ public class BattleRule_Pill : ABattleRule
 
         int count = MaxQuanlity - enemys.Count;
 
+        Debug.Log("create pill monster:"+count);
         for (int i = 0; i < count; i++)
         {
             var enemy = new Monster_Pill(Layer);

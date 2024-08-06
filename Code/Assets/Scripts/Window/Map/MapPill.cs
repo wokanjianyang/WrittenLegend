@@ -46,7 +46,7 @@ public class MapPill : MonoBehaviour, IBattleLife
 
     public void OnStart(PillStartEvent e)
     {
-        Debug.Log("PillStartEvent");
+        //Debug.Log("PillStartEvent");
 
         this.gameObject.SetActive(true);
 
@@ -65,7 +65,7 @@ public class MapPill : MonoBehaviour, IBattleLife
 
     public void OnShowInfo(ShowPillInfoEvent e)
     {
-        Txt_Count.text = "剩余挑战时间：" + e.Time;
+        Txt_Count.text = "剩余挑战时间：" + (int)(e.Time);
     }
 
     private void OnBattleMsgEvent(BattleMsgEvent e)

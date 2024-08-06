@@ -15,6 +15,7 @@ public class Monster_Pill : APlayer
     {
         this.GroupId = 2;
         this.Layer = layer;
+        this.RuleType = RuleType.Pill;
 
         config = MonsterPillConfigCategory.Instance.Get(this.Layer);
 
@@ -78,15 +79,6 @@ public class Monster_Pill : APlayer
     public override float DoEvent()
     {
         return base.DoEvent();
-    }
-
-    public override void OnHit(DamageResult dr)
-    {
-        double maxHp = this.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
-        double maxDamage = maxHp / 100;
-        dr.Damage = Math.Min(dr.Damage, maxDamage);
-
-        base.OnHit(dr);
     }
 
     private void MakeReward(DeadRewarddEvent dead)
