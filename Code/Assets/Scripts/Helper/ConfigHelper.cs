@@ -83,6 +83,8 @@ namespace Game
         public const int AutoStartMapTime = 2;
         public const int AutoResurrectionTime = 10;
 
+        public const int PillDefaultTime = 60;
+
         public static int GetFloorRate(long floor)
         {
             if (floor > 100 && floor < FastFloor)

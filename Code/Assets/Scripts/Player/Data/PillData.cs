@@ -28,7 +28,7 @@ namespace Game
             if (Ticket == 0 || nt > Ticket)
             {
                 Ticket = nt;
-                Time.Data += 10 * 60;
+                Time.Data += ConfigHelper.PillDefaultTime * 10;
             }
         }
     }

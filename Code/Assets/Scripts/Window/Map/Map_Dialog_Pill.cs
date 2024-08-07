@@ -14,22 +14,28 @@ public class Map_Dialog_Pill : MonoBehaviour
     private GameObject ItemPrefab;
 
     public Text Txt_Time;
+    public Button Btn_Close;
 
     List<Map_Pill_Item> items = new List<Map_Pill_Item>();
 
     // Start is called before the first frame update
     void Start()
     {
+        Btn_Close.onClick.AddListener(OnClick_Close);
         this.Init();
         //GameProcessor.Inst.EventCenter.AddListener<BossInfoEvent>(this.OnBossInfoEvent);
+    }
+
+    void OnEnable()
+    {
+        User user = GameProcessor.Inst.User;
+        Txt_Time.text = (int)user.PillTime.Time.Data + "S";
     }
 
     private void Init()
     {
         User user = GameProcessor.Inst.User;
         user.PillTime.Check();
-
-        Txt_Time.text = (int)user.PillTime.Time.Data + "S";
 
         ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Pill/Map_Pill_Item");
 
@@ -58,6 +64,7 @@ public class Map_Dialog_Pill : MonoBehaviour
 
     public void OnClick_Close()
     {
+        Debug.Log("close pill dialog");
         this.gameObject.SetActive(false);
     }
 }
