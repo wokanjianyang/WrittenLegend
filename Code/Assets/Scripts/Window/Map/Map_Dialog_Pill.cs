@@ -29,11 +29,15 @@ public class Map_Dialog_Pill : MonoBehaviour
         User user = GameProcessor.Inst.User;
         user.PillTime.Check();
 
+        Txt_Time.text = (int)user.PillTime.Time.Data + "S";
+
         ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Pill/Map_Pill_Item");
 
         List<MonsterPillConfig> list = MonsterPillConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
 
-        for (int i = 0; i < 10; i++)
+        long cycle = user.Cycle.Data;
+
+        for (int i = 0; i < cycle; i++)
         {
             BuildItem(list[i]);
         }

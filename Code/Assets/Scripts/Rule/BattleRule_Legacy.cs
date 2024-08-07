@@ -29,7 +29,7 @@ public class BattleRule_Legacy : ABattleRule
     }
 
 
-    public override void DoMapLogic(int roundNum)
+    public override void DoMapLogic(int roundNum, double currentRoundTime)
     {
         if (!Start)
         {

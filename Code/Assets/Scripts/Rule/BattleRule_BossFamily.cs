@@ -47,7 +47,7 @@ public class Battle_BossFamily : ABattleRule
         TaskHelper.CheckTask(TaskType.ToCopy, 1);
     }
 
-    public override void DoMapLogic(int roundNum)
+    public override void DoMapLogic(int roundNum, double currentRoundTime)
     {
         var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
         int bossCount = enemys.Count + QualityList.Count;

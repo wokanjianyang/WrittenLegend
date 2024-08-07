@@ -45,7 +45,7 @@ public class Battle_Defend : ABattleRule
         this.Start = true;
     }
 
-    public override void DoMapLogic(int roundNum)
+    public override void DoMapLogic(int roundNum, double currentRoundTime)
     {
         if (!this.Over)
         {

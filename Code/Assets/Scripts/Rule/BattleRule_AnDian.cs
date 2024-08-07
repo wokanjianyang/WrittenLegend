@@ -27,7 +27,7 @@ public class Battle_AnDian : ABattleRule
         this.MapId = e.MapId;
     }
 
-    public override void DoMapLogic(int roundNum)
+    public override void DoMapLogic(int roundNum, double currentRoundTime)
     {
         if (roundNum % 2 != 0)
         {

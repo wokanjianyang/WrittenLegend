@@ -31,7 +31,7 @@ public class BattleRule_Pill : ABattleRule
         user.PillTime.Time.Data -= 10;
     }
 
-    public override void DoMapLogic(int roundNum)
+    public override void DoMapLogic(int roundNum, double currentRoundTime)
     {
         if (!Start)
         {
@@ -51,14 +51,14 @@ public class BattleRule_Pill : ABattleRule
             return;
         }
 
-        user.PillTime.Time.Data -= 0.2;
+        user.PillTime.Time.Data -= currentRoundTime;
         GameProcessor.Inst.EventCenter.Raise(new ShowPillInfoEvent() { Time = time });
 
         var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
 
         int count = MaxQuanlity - enemys.Count;
 
-        Debug.Log("create pill monster:"+count);
+        Debug.Log("create pill monster:" + count);
         for (int i = 0; i < count; i++)
         {
             var enemy = new Monster_Pill(Layer);

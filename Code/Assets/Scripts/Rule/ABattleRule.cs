@@ -42,7 +42,7 @@ namespace Game
         //    }
         //}
 
-        virtual public void DoMapLogic(int roundNum)
+        virtual public void DoMapLogic(int roundNum,double currentRoundTime)
         {
 
         }
@@ -65,8 +65,8 @@ namespace Game
             this.currentRoundTime += Time.unscaledDeltaTime;
             if (this.currentRoundTime >= roundTime)
             {
+                this.DoMapLogic(roundNum, this.currentRoundTime);
                 this.currentRoundTime = 0;
-                this.DoMapLogic(roundNum);
 
 
                 var roundType = this.roundNum % 5;

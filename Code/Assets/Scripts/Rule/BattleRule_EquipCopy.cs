@@ -68,7 +68,7 @@ public class BattleRule_EquipCopy : ABattleRule
         TaskHelper.CheckTask(TaskType.ToCopy, 1);
     }
 
-    public override void DoMapLogic(int roundNum)
+    public override void DoMapLogic(int roundNum, double currentRoundTime)
     {
         var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
 

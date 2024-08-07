@@ -13,7 +13,7 @@ namespace Game
 
         protected override RuleType ruleType => RuleType.Normal;
 
-        public override void DoMapLogic(int roundNum)
+        public override void DoMapLogic(int roundNum, double currentRoundTime)
         {
             var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
 

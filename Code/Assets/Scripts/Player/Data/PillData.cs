@@ -28,7 +28,7 @@ namespace Game
             if (Ticket == 0 || nt > Ticket)
             {
                 Ticket = nt;
-                Time.Data += 20 * 60;
+                Time.Data += 10 * 60;
             }
         }
     }

@@ -54,6 +54,15 @@ namespace Game
                 MineItem.gameObject.SetActive(false);
             }
 
+            if (user.Cycle.Data > 0)
+            {
+                PillItem.gameObject.SetActive(true);
+            }
+            else
+            {
+                PillItem.gameObject.SetActive(false);
+            }
+
             int mapId = user.MapId;
             if (mapId >= 1070)
             {

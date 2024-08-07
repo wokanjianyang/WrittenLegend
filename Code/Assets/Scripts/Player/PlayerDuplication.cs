@@ -50,13 +50,15 @@ namespace Game
             this.SetAttackSpeed((int)(Master.AttributeBonus.GetTotalAttr(AttributeEnum.Speed)));
             this.SetMoveSpeed((int)(Master.AttributeBonus.GetTotalAttr(AttributeEnum.MoveSpeed)));
 
-            double attr = Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.MagicAtt);
+            double magicAtt = Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.MagicAtt);
+            double phyAtt = Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.PhyAtt);
+            double spiritAtt = Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.SpiritAtt);
 
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
 
-            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroPanel, 1);
-            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroPanel, attr * rate);
-            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroPanel, 1);
+            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroPanel, phyAtt * 0.5);
+            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroPanel, magicAtt * rate);
+            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroPanel, spiritAtt * 0.5);
 
             AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Def));
             AttributeBonus.SetAttr(AttributeEnum.Speed, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttr(AttributeEnum.Speed));

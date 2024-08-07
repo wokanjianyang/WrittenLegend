@@ -107,6 +107,15 @@ namespace Game
             {
                 this.Btn_Cycle.gameObject.SetActive(false);
             }
+
+            if (user.Cycle.Data > 0)
+            {
+                this.btn_Pill.gameObject.SetActive(true);
+            }
+            else
+            {
+                this.btn_Pill.gameObject.SetActive(false);
+            }
         }
 
         // Update is called once per frame
