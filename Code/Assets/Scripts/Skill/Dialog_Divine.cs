@@ -142,7 +142,7 @@ public class Dialog_Divine : MonoBehaviour, IBattleLife
         long divineMax = currentLevel * divineAttrConfig.Param;
         Txt_Desc.text = "完成神技所有阶段之后，获得神技效果：" + string.Format(divineAttrConfig.Desc, divineMax);
 
-        if (total >= needNumber)
+        if (total >= needNumber && currentLevel < 4)
         {
             if (currentLevel <= 0)
             {
