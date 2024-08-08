@@ -21,6 +21,7 @@ public class Dialog_Divine : MonoBehaviour, IBattleLife
 
     public Button Btn_Ok;
     public Button Btn_Close;
+    public Button Btn_Restore;
     public Text Txt_OK;
 
     private int SkillId = 0;
@@ -32,6 +33,7 @@ public class Dialog_Divine : MonoBehaviour, IBattleLife
     {
         Btn_Close.onClick.AddListener(OnClick_Close);
         Btn_Ok.onClick.AddListener(OnClick_Ok);
+        Btn_Restore.onClick.AddListener(OnClick_Restore);
 
         items = this.GetComponentsInChildren<Item_Divine>().ToList();
 
@@ -73,11 +75,18 @@ public class Dialog_Divine : MonoBehaviour, IBattleLife
     private void OnOpenDivine(OpenDivineEvent e)
     {
         this.gameObject.SetActive(true);
+        this.SkillId = e.SkillId;
+
+        this.Show();
+    }
+
+    private void Show()
+    {
+        Btn_Restore.gameObject.SetActive(true);
 
         User user = GameProcessor.Inst.User;
         List<SkillDivineConfig> configs = SkillDivineConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
 
-        this.SkillId = e.SkillId;
         skillData = user.SkillList.Where(m => m.SkillId == SkillId).FirstOrDefault();
 
         for (int i = 0; i < configs.Count; i++)
@@ -195,6 +204,63 @@ public class Dialog_Divine : MonoBehaviour, IBattleLife
         this.ShowItem(currentItem);
         GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
         GameProcessor.Inst.User.EventCenter.Raise(new SkillShowEvent());
+    }
+
+    public void OnClick_Restore()
+    {
+        Btn_Restore.gameObject.SetActive(false);
+
+        User user = GameProcessor.Inst.User;
+
+        if (user.MagicGold.Data <= ConfigHelper.RestoreGold)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "金币不足5000兆", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
+
+        int haveCount = user.GetBagIdleCount(4);
+        if (haveCount < 10)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "材料包裹空格不足10个", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
+
+        GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("重生消耗5000兆金币，其他材料全额返回。是否确认？", true,
+        () =>
+        {
+            this.Restore();
+        }, () =>
+        {
+
+        });
+    }
+
+    private void Restore()
+    {
+        User user = GameProcessor.Inst.User;
+        skillData = user.SkillList.Where(m => m.SkillId == SkillId).FirstOrDefault();
+
+        List<Item> newList = new List<Item>();
+        foreach (var kv in skillData.DivineData)
+        {
+            long level = kv.Value.Data;
+            if (level > 0)
+            {
+                SkillDivineConfig config = SkillDivineConfigCategory.Instance.Get(kv.Key);
+                int count = (int)MathHelper.GetSequence1(level);
+
+                newList.Add(ItemHelper.BuildMaterial(config.ItemId, count));
+                //Debug.Log(kv.Key + " :" + kv.Value);
+            }
+        }
+
+        skillData.DivineData.Clear();
+        user.SubGold(ConfigHelper.RestoreGold);
+
+        //生成新的
+        user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = newList });
+
+        this.Show();
     }
 
     public void OnClick_Close()

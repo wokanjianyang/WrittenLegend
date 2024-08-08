@@ -31,7 +31,7 @@ namespace Game
             }
 
             long divineMax = SkillPanel.DivineLevel * SkillPanel.DivineAttrConfig.Param;
-            Debug.Log("divineMax:" + divineMax);
+            //Debug.Log("divineMax:" + divineMax);
 
 
             //施法中心为自己
