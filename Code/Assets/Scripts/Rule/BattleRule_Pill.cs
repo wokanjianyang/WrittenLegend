@@ -28,7 +28,7 @@ public class BattleRule_Pill : ABattleRule
         Start = true;
 
         User user = GameProcessor.Inst.User;
-        user.PillTime.Time.Data -= 10;
+        user.PillTime.Time.Data -= 3;
     }
 
     public override void DoMapLogic(int roundNum, double currentRoundTime)

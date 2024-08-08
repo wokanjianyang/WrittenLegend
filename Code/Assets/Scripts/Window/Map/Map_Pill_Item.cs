@@ -21,6 +21,14 @@ public class Map_Pill_Item : MonoBehaviour
 
     private void OnClick_NavigateMap()
     {
+        User user = GameProcessor.Inst.User;
+
+        if (user.PillTime.Time.Data < 5)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "挑战时间不足", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
+
         var dialog = this.GetComponentInParent<Map_Dialog_Pill>();
         dialog.gameObject.SetActive(false);
 
