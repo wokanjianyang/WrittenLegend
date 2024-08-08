@@ -11,7 +11,7 @@ public class BattleRule_Pill : ABattleRule
 
     private int Layer = 0;
 
-    private long MapTime = 0;
+    private double MapTime = 0;
 
     private const int MaxQuanlity = 30;
 
@@ -29,6 +29,8 @@ public class BattleRule_Pill : ABattleRule
 
         User user = GameProcessor.Inst.User;
         user.PillTime.Time.Data -= 3;
+
+        MapTime = 0;
     }
 
     public override void DoMapLogic(int roundNum, double currentRoundTime)
@@ -37,6 +39,10 @@ public class BattleRule_Pill : ABattleRule
         {
             return;
         }
+        Debug.Log("create pill currentRoundTime:" + currentRoundTime);
+
+        MapTime += currentRoundTime;
+        Debug.Log("create pill MapTime:" + MapTime);
 
         User user = GameProcessor.Inst.User;
         double time = user.PillTime.Time.Data;
@@ -58,7 +64,7 @@ public class BattleRule_Pill : ABattleRule
 
         int count = MaxQuanlity - enemys.Count;
 
-        Debug.Log("create pill monster:" + count);
+        //Debug.Log("create pill monster:" + count);
         for (int i = 0; i < count; i++)
         {
             var enemy = new Monster_Pill(Layer);
