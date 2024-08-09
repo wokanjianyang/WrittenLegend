@@ -23,6 +23,9 @@ public class Panel_Devour : MonoBehaviour
     public List<Text> TxtCommissionNameList;
     public List<Text> TxtCommissionCountList;
 
+    public List<Item_Rune_Suit> ItemList;
+    public Item_Rune_Suit AddItem;
+
     public Button Btn_OK;
 
     private const int MaxMain = 6; //10件装备
@@ -91,6 +94,12 @@ public class Panel_Devour : MonoBehaviour
             GameObject.Destroy(sb.gameObject);
         }
         sourceList.Clear();
+
+        AddItem.gameObject.SetActive(false);
+        foreach (Item_Rune_Suit item in ItemList)
+        {
+            item.gameObject.SetActive(false);
+        }
 
         Box_Ready_Main.Down();
         Box_Ready_Material.Down();
@@ -188,6 +197,21 @@ public class Panel_Devour : MonoBehaviour
             return;
         }
 
+        ItemList[0].gameObject.SetActive(true);
+        ItemList[0].SetItem(exclusiveMain.RuneConfigId, exclusiveMain.SuitConfigId);
+        for (int i = 1; i < ItemList.Count; i++)
+        {
+            if (i > exclusiveMain.SuitConfigIdList.Count)
+            {
+                ItemList[i].gameObject.SetActive(false);
+            }
+            else
+            {
+                ItemList[i].gameObject.SetActive(true);
+                ItemList[i].SetItem(exclusiveMain.RuneConfigIdList[i - 1], exclusiveMain.SuitConfigIdList[i - 1]);
+            }
+        }
+
         //选择符合条件的exclusive
         User user = GameProcessor.Inst.User;
 
@@ -225,6 +249,9 @@ public class Panel_Devour : MonoBehaviour
         }
 
         ExclusiveItem exclusiveMaterial = SelectMaterial.BoxItem.Item as ExclusiveItem;
+
+        AddItem.gameObject.SetActive(true);
+        AddItem.SetItem(exclusiveMaterial.RuneConfigId, exclusiveMaterial.SuitConfigId);
     }
     private void Check()
     {
