@@ -71,7 +71,7 @@ namespace Game
 
         private void OnHeroInfoUpdateEvent(UserInfoUpdateEvent e)
         {
-            long gold = this.user.MagicGold.Data;
+            double gold = this.user.MagicGold.Data;
 
             string goldText = gold > 100000000 ? StringHelper.FormatNumber(gold) : gold + "";
 

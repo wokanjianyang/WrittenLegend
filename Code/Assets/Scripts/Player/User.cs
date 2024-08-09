@@ -34,7 +34,7 @@ namespace Game
 
         public MagicData MagicLevel { get; } = new MagicData();
 
-        public MagicData MagicGold { get; } = new MagicData();
+        public MagicDouble MagicGold { get; } = new MagicDouble();
 
         public MagicData MagicExp { get; } = new MagicData();
 
