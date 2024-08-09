@@ -28,7 +28,7 @@ namespace Game
                 PillConfig config = Get(id);
 
                 int attrId = config.AttrId;
-                long attrValue = config.AttrValue * (l + 1);
+                long attrValue = config.GetAttr(l);
 
                 dict[attrId] += attrValue;
             }
@@ -69,6 +69,15 @@ namespace Game
 
     public partial class PillConfig
     {
+        public long GetAttr(long layer)
+        {
+            return (int)(this.AttrValue * (layer * 0.1 + 1));
+        }
 
+        public long GetFee(long layer)
+        {
+            return (long)(this.FeeRise * (layer * 0.2 + 1));
+        }
     }
+
 }

@@ -99,7 +99,7 @@ namespace Game
             //items.Add(ItemHelper.BuildMaterial(8009, ic)); //神技
             //items.Add(ItemHelper.BuildMaterial(8010, ic)); //神技
 
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Level_Stone, 100000));
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Pill, 6000000));
 
             //user.SaveArtifactLevel(180001, 1); //boss杀手
             //user.SaveArtifactLevel(180005, 10); //卖身契

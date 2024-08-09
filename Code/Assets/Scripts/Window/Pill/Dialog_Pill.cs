@@ -57,7 +57,7 @@ public class Dialog_Pill : MonoBehaviour
         long PillIndex = p / 100;
         long PillLevel = (p % 100) / 10 + 1;
 
-        this.Txt_Point_Name.text = PillNameList[PillIndex + 1];
+        this.Txt_Point_Name.text = PillNameList[PillIndex];
         this.Txt_Level_Name.text = ConfigHelper.LayerChinaList[PillLayer] + "阶" + PillLevel + "重";
 
         PillConfig config = PillConfigCategory.Instance.GetByLevel(currentLevel);
@@ -65,12 +65,22 @@ public class Dialog_Pill : MonoBehaviour
         //Fee
         long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_Pill);
 
-        long fee = GetFee(config, PillLayer);
+        long fee = config.GetFee(PillLayer);
 
         string color = materialCount >= fee ? "#FFFF00" : "#FF0000";
 
         Txt_Fee.gameObject.SetActive(true);
-        Txt_Fee.text = string.Format("<color={0}>消耗淬体丹:{1}/{2}</color>", color, fee, materialCount);
+
+        if (PillLayer > 10)
+        {
+            Txt_Fee.text = "修炼已满";
+            Btn_Active.gameObject.SetActive(false);
+        }
+        else
+        {
+            Txt_Fee.text = string.Format("<color={0}>消耗淬体丹:{1}/{2}</color>", color, fee, materialCount);
+            Btn_Active.gameObject.SetActive(true);
+        }
 
         Dictionary<int, long> attrDict = PillConfigCategory.Instance.ParseLevel(currentLevel);
 
@@ -84,7 +94,7 @@ public class Dialog_Pill : MonoBehaviour
             long rise = 0;
             if (config.AttrId == kv.Key)
             {
-                rise = config.AttrValue * (PillLayer + 1);
+                rise = config.GetAttr(PillLayer); ;
             }
 
             attrItem.SetContent(kv.Key, kv.Value, rise);
@@ -104,11 +114,6 @@ public class Dialog_Pill : MonoBehaviour
         }
     }
 
-    private long GetFee(PillConfig config, long layer)
-    {
-        return (long)(config.FeeRise * (layer * 0.2 + 1));
-    }
-
     public void OnStrong()
     {
         User user = GameProcessor.Inst.User;
@@ -119,7 +124,7 @@ public class Dialog_Pill : MonoBehaviour
         long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_Pill);
 
         PillConfig config = PillConfigCategory.Instance.GetByLevel(currentLevel);
-        long fee = GetFee(config, PillLayer);
+        long fee = config.GetFee(PillLayer);
 
         if (materialCount < fee)
         {
