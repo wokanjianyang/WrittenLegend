@@ -990,19 +990,17 @@ namespace Game
 
         public void AddExpAndGold(long exp, long gold)
         {
-            if (this.MagicGold.Data < 0 || this.MagicGold.Data >= 8223372036854775807)
+            if (this.MagicGold.Data < 0 || gold >= 8223372036854775807)
             {
                 GameProcessor.Inst.EventCenter.Raise(new CheckGameCheatEvent());
                 return;
             }
 
-            long rate = this.GetDzRate();
-
             if (exp > 0)
             {
                 if (this.MagicLevel.Data < GetMaxLevel())
                 {
-                    this.MagicExp.Data += exp * rate;
+                    this.MagicExp.Data += exp;
                 }
                 else
                 {
@@ -1012,11 +1010,7 @@ namespace Game
 
             if (gold > 0)
             {
-                if (this.MagicGold.Data < 8223372036854775807 / 3)
-                {
-                    this.MagicGold.Data += gold * rate;
-                }
-
+                this.MagicGold.Data += gold;
             }
 
             EventCenter.Raise(new UserInfoUpdateEvent()); //更新UI

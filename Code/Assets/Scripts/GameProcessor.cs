@@ -632,10 +632,8 @@ namespace Game
                 case RuleType.EquipCopy:
                 case RuleType.BossFamily:
                 case RuleType.HeroPhantom:
-                    ie_autoExitKey = StartCoroutine(this.AutoExitMap(ruleType, time, ConfigHelper.AutoExitMapTime));
-                    break;
                 case RuleType.Phantom:
-                    ie_autoExitKey = StartCoroutine(this.AutoExitMap(ruleType, time, 5));
+                    ie_autoExitKey = StartCoroutine(this.AutoExitMap(ruleType, time, ConfigHelper.AutoExitMapTime));
                     break;
                 default:
                     StartCoroutine(this.AutoResurrection());

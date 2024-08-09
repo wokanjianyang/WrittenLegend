@@ -12,4 +12,7 @@
 {"_t":"PhantomConfig","_id":11,"Name":"幻神骷髅王","Desc":""},
 {"_t":"PhantomConfig","_id":12,"Name":"幻神尸王","Desc":""},
 {"_t":"PhantomConfig","_id":13,"Name":"幻神蛇王","Desc":""},
+{"_t":"PhantomConfig","_id":14,"Name":"幻神狼王","Desc":""},
+{"_t":"PhantomConfig","_id":15,"Name":"幻神虫王","Desc":""},
+{"_t":"PhantomConfig","_id":16,"Name":"幻神鹰王","Desc":""},
 ]}
