@@ -11,6 +11,7 @@ namespace Game
     {
         public Text Txt_Name;
         public Text Txt_Level;
+        public Text Txt_Max;
         public Text Txt_Des;
 
         public ArtifactConfig Config { get; set; }
@@ -36,6 +37,7 @@ namespace Game
 
             this.Txt_Level.text = level + "个";
             this.Txt_Des.text = config.Des;
+            this.Txt_Max.text = "最多生效(" + config.MaxCount + ")";
         }
     }
 }
