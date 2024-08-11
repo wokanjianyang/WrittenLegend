@@ -431,6 +431,18 @@ namespace Game
         public int Layer { get; set; }
     }
 
+    //--pill
+    public class ShowBabelInfoEvent : SDD.Events.Event
+    {
+        public long Progress { get; set; }
+    }
+    public class OpenBabelEvent : SDD.Events.Event
+    {
+    }
+    public class BabelStartEvent : SDD.Events.Event
+    {
+
+    }
 
     //--------Fashion
     public class OpenFashionDialogEvent : SDD.Events.Event

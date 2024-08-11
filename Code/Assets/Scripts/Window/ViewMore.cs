@@ -30,6 +30,9 @@ namespace Game
         public Item_EquipCopy PillItem;
         public Map_Dialog_Pill MapDialogPill;
 
+        public Item_EquipCopy PillBabel;
+        public Map_Dialog_Babel MapDialogBabel;
+
         void Start()
         {
         }
@@ -84,6 +87,7 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<OpenMineEvent>(this.OpenMine);
             GameProcessor.Inst.EventCenter.AddListener<OpenLegacyEvent>(this.OpenLegacy);
             GameProcessor.Inst.EventCenter.AddListener<OpenPillEvent>(this.OpenPill);
+            GameProcessor.Inst.EventCenter.AddListener<OpenBabelEvent>(this.OpenBabel);
 
             GameProcessor.Inst.EventCenter.AddListener<BattlerEndEvent>(this.OnBattlerEnd);
         }
@@ -197,6 +201,12 @@ namespace Game
         {
             MapDialogPill.gameObject.SetActive(true);
         }
+
+        private void OpenBabel(OpenBabelEvent e)
+        {
+            MapDialogBabel.gameObject.SetActive(true);
+        }
+
         public void StartPill(int layer)
         {
             scrollRect.gameObject.SetActive(false);

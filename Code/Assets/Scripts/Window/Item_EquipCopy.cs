@@ -89,6 +89,10 @@ namespace Game
             {
                 GameProcessor.Inst.EventCenter.Raise(new OpenPillEvent());
             }
+            else if (Type == CopyType.Babel)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new OpenBabelEvent());
+            }
         }
     }
 }

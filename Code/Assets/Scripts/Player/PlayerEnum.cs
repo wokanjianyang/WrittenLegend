@@ -227,6 +227,7 @@ namespace Game
         Infinite = 8,
         Legacy = 9,
         Pill,
+        Babel,
     }
 
     public enum RoleType
