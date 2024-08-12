@@ -42,6 +42,8 @@ namespace Game
 
         public MagicData MagicTowerFloor { get; } = new MagicData();
 
+        public MagicData BabelData { get; } = new MagicData();
+
         public IDictionary<int, double> KillRecord { get; } = new Dictionary<int, double>();
 
         public Dictionary<int, MagicData> RingData { get; } = new Dictionary<int, MagicData>();
@@ -1382,6 +1384,20 @@ namespace Game
         public int GetBagIdleCount(int index)
         {
             return ConfigHelper.BagCount[index] - this.Bags.Where(m => m.GetBagType() == index).Count();
+        }
+
+        public int GetLimitId()
+        {
+            int limitId = 0;
+
+            if (this.First_Create_Time > 0)
+            {
+                limitId += (int)((TimeHelper.ClientNowSeconds() - this.First_Create_Time) / 86400);
+            }
+
+            limitId += this.Account.Length * 1000;
+
+            return limitId + 1000;
         }
     }
 

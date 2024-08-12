@@ -214,6 +214,12 @@ namespace Game
             GameProcessor.Inst.EventCenter.Raise(new PillStartEvent() { Layer = layer });
         }
 
+        public void StartBabel()
+        {
+            scrollRect.gameObject.SetActive(false);
+
+            GameProcessor.Inst.EventCenter.Raise(new BabelStartEvent() { });
+        }
 
         protected override bool CheckPageType(ViewPageType page)
         {

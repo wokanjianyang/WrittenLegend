@@ -204,7 +204,7 @@ namespace Game
             List<KeyValuePair<double, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(Config.MapId, dropRate * modelRate);
 
             //ÏÞÊ±½±Àø
-            int limit = user.Account.Length * 1000 + 1000;
+            int limit = user.GetLimitId();
             items.AddRange(DropLimitHelper.Build((int)DropLimitType.Normal, this.MapId, dropRate, modelRate, limit, countRate));
             items.AddRange(DropLimitHelper.Build((int)DropLimitType.Map, this.MapId, dropRate, modelRate, limit, countRate));
 
