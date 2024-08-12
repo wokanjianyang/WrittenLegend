@@ -10,10 +10,11 @@ public class Map_Dialog_Babel : MonoBehaviour
 {
     public int Order => (int)ComponentOrder.Dialog;
 
-    public Text Txt_Current;
-    public Text Txt_Next;
-    public Text Txt_Preview;
+    public Text Txt_Floor2;
+    public Text Txt_Floor1;
+    public Text Txt_Floor0;
 
+    public Text Txt_Progress;
     public Text Txt_Reward;
 
     public Button Btn_Start;
@@ -36,9 +37,9 @@ public class Map_Dialog_Babel : MonoBehaviour
         User user = GameProcessor.Inst.User;
         long progress = user.BabelData.Data;
 
-        Txt_Preview.text = progress > 1 ? (progress - 1) + "²ã" : "";
-        Txt_Current.text = progress > 0 ? progress + "²ã" : "";
-        Txt_Next.text = (progress + 1) + "²ã";
+        Txt_Floor2.text = progress > 1 ? (progress - 1) + "²ã" : "";
+        Txt_Floor1.text = progress > 0 ? progress + "²ã" : "";
+        Txt_Floor0.text = (progress + 1) + "²ã";
 
         Txt_Reward.text = "½±Àø:" + "XXXXX";
 
