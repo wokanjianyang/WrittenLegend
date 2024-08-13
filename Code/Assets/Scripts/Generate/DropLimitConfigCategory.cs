@@ -58,20 +58,19 @@ namespace Game
                     rate = rate / rateRise;
                 }
 
-                if (dropLimit.StartRate > 0) //有保底机制的
+                if (dropLimit.StartRate > 0 || dropLimit.EndRate > 0) //有保底机制的
                 {
                     dropData.Number += countRise * dzRate;
 
-                    if (dropData.Number > dropLimit.StartRate)
+                    if (dropData.Number < dropLimit.StartRate)
                     {
-                        rate = Math.Max(rate + dropLimit.StartRate - dropData.Number, 1);
-
-                        //Debug.Log("Start Drop Rate:" + dropId + " ," + rate);
-                    }
-                    else
-                    {
-                        //Debug.Log("Start Current Rate:" + dropId + " ," + currentRate);
                         continue;
+                    }
+
+                    if (dropData.Number >= dropLimit.EndRate)
+                    {
+                        rate = 1;
+                        //Debug.Log("Start Drop Rate:" + dropId + " ," + rate);
                     }
                 }
                 if (dropLimitId == 2005 && modelRise > 10)
