@@ -43,7 +43,7 @@ namespace Game
         {
             var name = this.SplitNameByUTF8(this.if_Name.text.Trim());
             GameProcessor.Inst.User.Name = name;
-            UserData.Save();
+            GameProcessor.Inst.SaveData();
             //设置名称
             GameProcessor.Inst.User.EventCenter.Raise(new SetPlayerNameEvent
             {

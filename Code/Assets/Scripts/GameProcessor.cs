@@ -62,6 +62,8 @@ namespace Game
 
         public ShowAd ShowVideoAd;
 
+        private float currentSaveTime = 0f;
+
         private float currentToastShowTime = 0f;
         private List<ShowGameMsgEvent> toastTaskList = new List<ShowGameMsgEvent>();
         private GameObject barragePrefab;
@@ -143,16 +145,7 @@ namespace Game
                 onlineTime++;
                 saveTime = ct;
 
-                int index = onlineTime % 4;
-
-                if (index == 3)
-                {
-                    UserData.Save();
-                }
-                else
-                {
-                    UserData.SaveBack(index);
-                }
+                this.SaveData();
 
                 //Debug.Log("onlineTime:" + onlineTime);
 
@@ -603,6 +596,25 @@ namespace Game
                     });
                 }
 
+            }
+        }
+
+        public void SaveData()
+        {
+            if (Time.realtimeSinceStartup - currentSaveTime > 3f)
+            {
+                //最近5S前存档了,才会继续存档
+                currentSaveTime = Time.realtimeSinceStartup;
+
+                if (onlineTime % 100 != 99)
+                {
+                    UserData.Save();
+                }
+                else
+                {
+                    int index = (onlineTime / 100) % 3 + 1;
+                    UserData.SaveBack(index);
+                }
             }
         }
 

@@ -247,6 +247,8 @@ public class Panel_Hone : MonoBehaviour
 
         this.Show();
         this.ShowAttr();
+
+        GameProcessor.Inst.SaveData();
     }
 }
 

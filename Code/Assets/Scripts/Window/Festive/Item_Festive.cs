@@ -163,6 +163,7 @@ public class Item_Festive : MonoBehaviour
         Txt_Limit_Content.text = MaxCount + "/" + Config.Max;
 
         //this.Check();
+        GameProcessor.Inst.SaveData();
     }
 
     public void ChangeAuto(bool isOn)

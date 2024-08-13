@@ -264,6 +264,8 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
         GameProcessor.Inst.UpdateInfo();
 
         ShowSoulRing(this.Sid);
+
+        GameProcessor.Inst.SaveData();
     }
 
     public void OnClick_Close()

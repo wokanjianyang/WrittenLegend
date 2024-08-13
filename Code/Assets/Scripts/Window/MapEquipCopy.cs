@@ -68,11 +68,7 @@ public class MapEquipCopy : MonoBehaviour, IBattleLife
 
         user.SetAchievementProgeress(AchievementSourceType.EquipCopy, rate);
 
-        long newData = user.MagicCopyTikerCount.Data;
-        if (newData >= oldData)
-        {
-            GameProcessor.Inst.EventCenter.Raise(new CheckGameCheatEvent());
-        }
+        GameProcessor.Inst.SaveData();
 
         MapConfig config = MapConfigCategory.Instance.Get(this.CopyMapId);
         txt_FloorName.text = config.Name;

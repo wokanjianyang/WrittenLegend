@@ -217,7 +217,7 @@ namespace Game
                 //保存到Tap
             }
 
-            UserData.Save();
+            GameProcessor.Inst.SaveData();
 
             this.gameObject.SetActive(true);
 

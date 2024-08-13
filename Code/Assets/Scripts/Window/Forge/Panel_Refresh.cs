@@ -206,6 +206,8 @@ public class Panel_Refresh : MonoBehaviour
         stoneTotal = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == specialId).Select(m => m.MagicNubmer.Data).Sum();
         string color = stoneTotal >= upCount ? "#11FF11" : "#FF0000";
         this.TxtCostCount.text = string.Format("<color={0}>{1}/{2}</color>", color, stoneTotal, upCount);
+
+        GameProcessor.Inst.SaveData();
     }
 
     public void OnClickOK()

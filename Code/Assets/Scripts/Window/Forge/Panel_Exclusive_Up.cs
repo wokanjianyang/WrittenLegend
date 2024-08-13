@@ -309,6 +309,8 @@ public class Panel_Exclusive_Up : MonoBehaviour
         exclusiveMain.Up(exclusiveMaterial);
 
         this.ShowMain();
+
+        GameProcessor.Inst.SaveData();
     }
 }
 

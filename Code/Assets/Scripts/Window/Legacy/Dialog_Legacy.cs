@@ -225,6 +225,8 @@ public class Dialog_Legacy : MonoBehaviour, IBattleLife
 
         this.ShowItem(currentItem);
         GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
+
+        GameProcessor.Inst.SaveData();
     }
 
 
@@ -258,6 +260,8 @@ public class Dialog_Legacy : MonoBehaviour, IBattleLife
 
         this.ShowItem(currentItem);
         GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
+
+        GameProcessor.Inst.SaveData();
     }
 
     public void OnClick_Close()

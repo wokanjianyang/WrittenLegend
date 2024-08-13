@@ -320,6 +320,8 @@ public class Panel_Devour : MonoBehaviour
         exclusiveMain.Devour(exclusiveMaterial);
 
         this.Load();
+
+        GameProcessor.Inst.SaveData();
     }
 }
 

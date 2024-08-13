@@ -144,6 +144,8 @@ public class Dialog_Pill : MonoBehaviour
         Show();
 
         user.EventCenter.Raise(new UserAttrChangeEvent());
+
+        GameProcessor.Inst.SaveData();
     }
 
     public void OnClick_Close()

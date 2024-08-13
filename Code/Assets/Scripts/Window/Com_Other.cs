@@ -229,7 +229,7 @@ namespace Game
                      if (result.Code == StatusMessage.OK)
                      {
                          GameProcessor.Inst.User.Account = account;
-                         UserData.Save();
+                         GameProcessor.Inst.SaveData();
 
                          this.Tf_Login.gameObject.SetActive(false);
 
@@ -379,7 +379,7 @@ namespace Game
                       if (GameProcessor.Inst.LoadInit(str_json, account))
                       {
                           this.txt_Info.text = "读取存档成功,请退出重进";
-                          UserData.Save();
+                          GameProcessor.Inst.SaveData();;
                       }
                       else
                       {

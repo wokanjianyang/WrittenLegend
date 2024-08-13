@@ -200,6 +200,8 @@ public class Panel_Grade : MonoBehaviour
         GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
 
         this.Load();
+
+        GameProcessor.Inst.SaveData();
     }
 
 }

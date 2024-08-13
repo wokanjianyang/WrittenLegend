@@ -60,6 +60,7 @@ namespace Game
                 this.SetContent(this.Config, halidomData.Data);
                 GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
 
+                GameProcessor.Inst.SaveData();
             }
             else
             {

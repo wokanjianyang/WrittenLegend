@@ -144,6 +144,8 @@ namespace Game
             scrollRect.gameObject.SetActive(false);
 
             GameProcessor.Inst.EventCenter.Raise(new BossFamilyStartEvent() { Level = level, Rate = rate });
+
+            GameProcessor.Inst.SaveData();
         }
 
 

@@ -160,6 +160,8 @@ public class Panel_Refine : MonoBehaviour
         GameProcessor.Inst.UpdateInfo();
 
         ShowRefine();
+
+        GameProcessor.Inst.SaveData();
     }
 
 

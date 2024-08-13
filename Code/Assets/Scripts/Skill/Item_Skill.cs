@@ -236,6 +236,8 @@ namespace Game
 
 
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "消耗" + upCount + "个" + itemConfig.Name + "升级成功", ToastType = ToastTypeEnum.Success });
+
+            GameProcessor.Inst.SaveData();
         }
 
         public void OnClickDivine()

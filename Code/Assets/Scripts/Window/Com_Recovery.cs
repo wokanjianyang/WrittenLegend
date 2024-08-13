@@ -155,7 +155,7 @@ namespace Game
 
             TaskHelper.CheckTask(TaskType.Recovery, 1);
 
-            UserData.Save();
+            GameProcessor.Inst.SaveData();
 
             GameProcessor.Inst.EventCenter.Raise(new DialogSettingEvent());
 

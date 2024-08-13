@@ -125,6 +125,7 @@ public class Dialog_Wing : MonoBehaviour, IBattleLife
 
         GameProcessor.Inst.UpdateInfo();
 
+        GameProcessor.Inst.SaveData();
         //Debug.Log("OnStrong :" + user.WingData.Data);
     }
 
