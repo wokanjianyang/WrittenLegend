@@ -1,0 +1,5 @@
+{"list":[
+{"_t":"MonsterBabelConfig","_id":1,"Level":1,"SkillIdList":[1001]},
+{"_t":"MonsterBabelConfig","_id":2,"Level":10,"SkillIdList":[1011]},
+{"_t":"MonsterBabelConfig","_id":3,"Level":100,"SkillIdList":[1021]},
+]}

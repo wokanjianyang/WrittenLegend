@@ -37,6 +37,7 @@ namespace Game
         Infinite,
         Legacy,
         Pill,
+        Babel,
     }
 
     public enum ComponentOrder

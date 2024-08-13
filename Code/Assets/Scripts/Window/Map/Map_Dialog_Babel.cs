@@ -26,30 +26,32 @@ public class Map_Dialog_Babel : MonoBehaviour
     {
         Btn_Start.onClick.AddListener(OnClick_Start);
         Btn_Close.onClick.AddListener(OnClick_Close);
-
-
-        this.Init();
-        //GameProcessor.Inst.EventCenter.AddListener<BossInfoEvent>(this.OnBossInfoEvent);
     }
 
     void OnEnable()
     {
+        this.Show();
+    }
+
+    private void Show()
+    {
         User user = GameProcessor.Inst.User;
         long progress = user.BabelData.Data;
 
+        long nextProgress = progress + 1;
+
         Txt_Floor2.text = progress > 1 ? (progress - 1) + "²ã" : "";
         Txt_Floor1.text = progress > 0 ? progress + "²ã" : "";
-        Txt_Floor0.text = (progress + 1) + "²ã";
+        Txt_Floor0.text = nextProgress + "²ã";
 
-        Txt_Reward.text = "½±Àø:" + "XXXXX";
+        BabelConfig config = BabelConfigCategory.Instance.GetByProgress(nextProgress);
 
-    }
+        int ItemId = config.GetItemId(nextProgress);
+        int ItemCount = config.GetItemCount(nextProgress);
 
-    private void Init()
-    {
-        User user = GameProcessor.Inst.User;
+        ItemConfig itemConfig = ItemConfigCategory.Instance.Get(ItemId);
 
-
+        Txt_Reward.text = "½±Àø:" + itemConfig.Name + "*" + ItemCount;
     }
 
 
