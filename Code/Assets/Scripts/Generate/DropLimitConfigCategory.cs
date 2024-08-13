@@ -61,7 +61,7 @@ namespace Game
                 if (dropLimit.StartRate > 0 || dropLimit.EndRate > 0) //有保底机制的
                 {
                     dropData.Number += countRise * dzRate;
-
+                    //Debug.Log("Start Drop Rate:" + dropLimit.Id + " ," + dropData.Number);
                     if (dropData.Number < dropLimit.StartRate)
                     {
                         continue;
@@ -70,7 +70,7 @@ namespace Game
                     if (dropData.Number >= dropLimit.EndRate)
                     {
                         rate = 1;
-                        //Debug.Log("Start Drop Rate:" + dropId + " ," + rate);
+                        Debug.Log("Start End Rate:" + dropLimit.Id + " ," + rate);
                     }
                 }
                 if (dropLimitId == 2005 && modelRise > 10)

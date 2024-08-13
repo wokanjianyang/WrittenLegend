@@ -603,6 +603,7 @@ namespace Game
         {
             if (Time.realtimeSinceStartup - currentSaveTime > 3f)
             {
+                Debug.Log("SaveData:" + Time.realtimeSinceStartup);
                 //最近5S前存档了,才会继续存档
                 currentSaveTime = Time.realtimeSinceStartup;
 

@@ -24,6 +24,8 @@ public class Panel_Refresh : MonoBehaviour
     public Button Btn_OK;
     public Button Btn_Cancle;
 
+    private int RefreshCount = 0;
+
     private const int MaxCount = 10; //10¼þ×°±¸
 
     Equip SelectEquip;
@@ -142,7 +144,7 @@ public class Panel_Refresh : MonoBehaviour
         this.Btn_Cancle.gameObject.SetActive(false);
 
         SelectEquip.CheckReFreshCount();
-        if (SelectEquip.RefreshCount > 0)
+        if (SelectEquip.AttrEntryList.Count>0) //SelectEquip.RefreshCount > 0 && 
         {
             this.Btn_Refesh.gameObject.SetActive(true);
         }
@@ -207,7 +209,12 @@ public class Panel_Refresh : MonoBehaviour
         string color = stoneTotal >= upCount ? "#11FF11" : "#FF0000";
         this.TxtCostCount.text = string.Format("<color={0}>{1}/{2}</color>", color, stoneTotal, upCount);
 
-        GameProcessor.Inst.SaveData();
+        RefreshCount++;
+        if (RefreshCount > 10)
+        {
+            RefreshCount = 0;
+            GameProcessor.Inst.SaveData();
+        }
     }
 
     public void OnClickOK()
