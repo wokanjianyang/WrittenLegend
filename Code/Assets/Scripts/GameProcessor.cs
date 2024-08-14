@@ -603,7 +603,7 @@ namespace Game
         {
             if (Time.realtimeSinceStartup - currentSaveTime > 3f)
             {
-                Debug.Log("SaveData:" + Time.realtimeSinceStartup);
+                //Debug.Log("SaveData:" + Time.realtimeSinceStartup);
                 //最近5S前存档了,才会继续存档
                 currentSaveTime = Time.realtimeSinceStartup;
 
@@ -616,6 +616,34 @@ namespace Game
                     int index = (onlineTime / 100) % 3 + 1;
                     UserData.SaveBack(index);
                 }
+            }
+        }
+
+        public void SaveNetData()
+        {
+            try
+            {
+                User user = GameProcessor.Inst.User;
+                string str_json = JsonConvert.SerializeObject(user, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
+                str_json = EncryptionHelper.AesEncrypt(str_json);
+
+                string md5 = EncryptionHelper.Md5(str_json);
+                Debug.Log("save md5:" + md5);
+                byte[] bytes = Encoding.UTF8.GetBytes(str_json);
+
+                Dictionary<string, string> headers = new Dictionary<string, string>();
+                headers.Add("md5", md5);
+
+                //再存储新档
+                StartCoroutine(NetworkHelper.UploadData(bytes, headers,
+                        (
+                            WebResultWrapper result) =>
+                        { },
+                        () => { }));
+            }
+            catch (Exception ex)
+            {
+
             }
         }
 

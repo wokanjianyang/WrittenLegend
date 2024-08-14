@@ -226,6 +226,11 @@ public class Panel_Refresh : MonoBehaviour
             RefreshCount = 0;
             GameProcessor.Inst.SaveData();
         }
+
+        if (user.RedRefreshCount.Data % 200 == 199) {
+
+            GameProcessor.Inst.SaveNetData();
+        }
     }
 
     public void OnClickOK()
