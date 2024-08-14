@@ -289,11 +289,12 @@ namespace Game
         {
             int level = GetHoneLevel(index);
             int attrId = this.AttrEntryList[index].Key;
+            int attrValue = (int)this.AttrEntryList[index].Value;
 
             if (level > 0)
             {
                 EquipHoneConfig config = EquipHoneConfigCategory.Instance.GetByAttrId(attrId);
-                return level * config.AttrValue;
+                return Math.Min(level * config.AttrValue, config.StartValue + Layer * config.AttrValue - attrValue);
             }
 
             return 0;

@@ -17,7 +17,7 @@ namespace Game
         {
             EquipHoneConfig config = GetByAttrId(attrId);
 
-            int replayLevel = (config.StartValue - (int)attrVal) / config.AttrValue;
+            int replayLevel = (int)Math.Ceiling((config.StartValue - (double)attrVal) / config.AttrValue);
 
             return replayLevel + layer;
         }
