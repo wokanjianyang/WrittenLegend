@@ -117,7 +117,7 @@ namespace Game
                 {
                     boxItem = select.BoxItem,
                     EquipPosition = -2,
-                    Type = ComBoxType.Bag,
+                    Type = ComBoxType.Gift,
                 });
                 return;
             }
@@ -126,7 +126,8 @@ namespace Game
                 GameProcessor.Inst.EventCenter.Raise(new ShowEquipDetailEvent()
                 {
                     boxItem = select.BoxItem,
-                    EquipPosition = -2
+                    EquipPosition = -2,
+                    Type = ComBoxType.Gift,
                 });
             }
             else
@@ -134,6 +135,7 @@ namespace Game
                 GameProcessor.Inst.EventCenter.Raise(new ShowDetailEvent()
                 {
                     boxItem = select.BoxItem,
+                    Type = ComBoxType.Gift,
                 });
             }
         }

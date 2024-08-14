@@ -149,6 +149,16 @@ namespace Game
                     this.Btn_Lose.gameObject.SetActive(false);
                 }
             }
+
+            if (this.BoxType != ComBoxType.Bag) //不可操作
+            {
+                this.Btn_Recovery.gameObject.SetActive(false);
+                this.Btn_Lose.gameObject.SetActive(false);
+                this.Btn_Use.gameObject.SetActive(false);
+                this.Btn_UseAll.gameObject.SetActive(false);
+                this.Btn_Learn.gameObject.SetActive(false);
+                this.Btn_Use_Batch.gameObject.SetActive(false);
+            }
         }
 
         private void OnRecovery()

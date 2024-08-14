@@ -208,5 +208,6 @@ namespace Game
         Exclusive_Up_Material = 4,
         Exclusive_Devour_Main = 5,
         Exclusive_Devour_Material = 6,
+        Gift,
     }
 }
