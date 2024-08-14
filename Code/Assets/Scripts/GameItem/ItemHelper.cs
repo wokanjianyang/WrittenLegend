@@ -13,12 +13,12 @@ namespace Game
             return EquipHelper.BuildEquip(configId, staticQuality, qualityRate, seed);
         }
 
-        public static Item BuildItem(ItemType type, int configId, int qualityRate, int number)
+        public static Item BuildItem(ItemType type, int configId, int qualityRate, long number)
         {
             return BuildItem(type, configId, qualityRate, number, -1);
         }
 
-        public static Item BuildItem(ItemType type, int configId, int qualityRate, int number, int seed)
+        public static Item BuildItem(ItemType type, int configId, int qualityRate, long number, int seed)
         {
             Item item = null;
 
@@ -72,7 +72,7 @@ namespace Game
             return null;
         }
 
-        public static Item BuildMaterial(int configId, int count)
+        public static Item BuildMaterial(int configId, long count)
         {
             Item item = new Item(configId);
             item.Type = ItemType.Material;

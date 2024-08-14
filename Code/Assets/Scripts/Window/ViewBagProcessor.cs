@@ -877,7 +877,7 @@ namespace Game
                 }
                 else if (box.Item.ItemConfig.RecoveryItemId > 0)
                 {
-                    Item item = ItemHelper.BuildMaterial(box.Item.ItemConfig.RecoveryItemId, (int)box.MagicNubmer.Data);
+                    Item item = ItemHelper.BuildMaterial(box.Item.ItemConfig.RecoveryItemId, box.MagicNubmer.Data * box.Item.ItemConfig.RecoveryCount);
                     AddBoxItem(item);
                     itemList.Add(item);
                 }
@@ -1428,7 +1428,7 @@ namespace Game
                     else if (newItem.Type == ItemType.Artifact)
                     {
                         //user.MetalData
-                        user.SaveArtifactLevel(newItem.ConfigId, newItem.Count);
+                        user.SaveArtifactLevel(newItem.ConfigId, (int)newItem.Count);
                     }
                     else if (newItem.Type == ItemType.Card || newItem.Type == ItemType.Fashion || (newItem.Type == ItemType.Material && newItem.ConfigId == ItemHelper.SpecialId_Card_Stone))
                     {

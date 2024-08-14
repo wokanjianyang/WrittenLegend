@@ -105,6 +105,9 @@ namespace Game
 		/// <summary>RecoveryItemId</summary>
 		[ProtoMember(10)]
 		public int RecoveryItemId { get; set; }
+		/// <summary>RecoveryCount</summary>
+		[ProtoMember(11)]
+		public int RecoveryCount { get; set; }
 
 	}
 }

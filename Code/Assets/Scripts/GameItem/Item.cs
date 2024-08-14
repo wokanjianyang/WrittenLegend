@@ -7,7 +7,7 @@ namespace Game
 {
     public class Item
     {
-        public int Count { get; set; }
+        public long Count { get; set; }
 
         public bool IsLock { get; set; }
         public bool IsNew { get; set; } = true;

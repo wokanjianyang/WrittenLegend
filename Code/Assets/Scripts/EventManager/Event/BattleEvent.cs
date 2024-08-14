@@ -90,6 +90,7 @@ namespace Game
 
     public class RecoveryEvent : SDD.Events.Event
     {
+        public long Quantity { get; set; }
         public BoxItem BoxItem { get; set; }
     }
 
