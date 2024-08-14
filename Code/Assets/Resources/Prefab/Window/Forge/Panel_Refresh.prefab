@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3263357499856862470
 RectTransform:
   m_ObjectHideFlags: 0
@@ -940,7 +940,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u6D17\u7EC3\u53EA\u80FD\u6D17\u7EC3\u7EA2\u8272\u88C5\u5907\uFF0C\u540C\u65F6\u6D17\u7EC3\u968F\u673A\u5C5E\u6027\u548C\u8BCD\u6761\n\u6BCF\u65E5\u6D17\u7EC3\u6B21\u657010\u6B21\uFF0C\u6BCF\u65E50\u70B9\u56DE\u590D\u81F310\u6B21\u3002"
+  m_Text: "\u6D17\u7EC3\u53EA\u80FD\u6D17\u7EC3\u7EA2\u8272\u88C5\u5907\uFF0C\u540C\u65F6\u6D17\u7EC3\u968F\u673A\u5C5E\u6027\u548C\u8BCD\u6761\n\u6BCF\u65E5\u6BCF\u6D17\u7EC3200\u6B21\uFF0C\u589E\u52A0\u6D88\u8017\uFF0C100\u7CBE\u534E\u5C01\u9876\uFF0C\u6BCF\u65E50\u70B9\u6062\u590D\u6D88\u8017\u3002"
 --- !u!1 &4306570360614059537
 GameObject:
   m_ObjectHideFlags: 0
