@@ -44,6 +44,8 @@ namespace Game
 
         public MagicData BabelData { get; } = new MagicData();
 
+        public MagicData RedRefreshCount { get; } = new MagicData();
+
         public IDictionary<int, double> KillRecord { get; } = new Dictionary<int, double>();
 
         public Dictionary<int, MagicData> RingData { get; } = new Dictionary<int, MagicData>();

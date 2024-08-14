@@ -212,6 +212,7 @@ namespace Game
                 user.DefendData.Refresh();
                 user.HeroPhatomData.Refresh();
                 user.PillTime.Check();
+                user.RedRefreshCount.Data = 0;
 
                 user.DataDate = DateTime.Now.Ticks;
                 //保存到Tap

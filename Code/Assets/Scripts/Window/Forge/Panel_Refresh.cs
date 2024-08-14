@@ -1,5 +1,6 @@
 using Game;
 using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -144,7 +145,7 @@ public class Panel_Refresh : MonoBehaviour
         this.Btn_Cancle.gameObject.SetActive(false);
 
         SelectEquip.CheckReFreshCount();
-        if (SelectEquip.AttrEntryList.Count>0) //SelectEquip.RefreshCount > 0 && 
+        if (SelectEquip.AttrEntryList.Count > 0) //SelectEquip.RefreshCount > 0 && 
         {
             this.Btn_Refesh.gameObject.SetActive(true);
         }
@@ -153,24 +154,34 @@ public class Panel_Refresh : MonoBehaviour
             this.Btn_Refesh.gameObject.SetActive(false);
         }
 
-        this.txt_Total.text = "今日剩余洗练次数：" + SelectEquip.RefreshCount + "次";
+        User user = GameProcessor.Inst.User;
+        this.txt_Total.text = "今日洗练总次数：" + user.RedRefreshCount.Data + "次";
         int specialId = ItemHelper.SpecailEquipRefreshId;
-        int upCount = ItemHelper.SpecailEquipRefreshCount[SelectEquip.Layer - 1];
+        int upCount = GetUpCount();
 
         ItemConfig refreshConfig = ItemConfigCategory.Instance.Get(specialId);
         this.TxtCostName.text = refreshConfig.Name;
 
-        User user = GameProcessor.Inst.User;
+
         long stoneTotal = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == specialId).Select(m => m.MagicNubmer.Data).Sum();
 
         string color = stoneTotal >= upCount ? "#11FF11" : "#FF0000";
         this.TxtCostCount.text = string.Format("<color={0}>{1}/{2}</color>", color, stoneTotal, upCount);
     }
 
+    private int GetUpCount()
+    {
+        long total = GameProcessor.Inst.User.RedRefreshCount.Data;
+        long layer = Math.Min(total / 200 + 1, 10);
+
+        return (int)(layer * 10);
+    }
+
+
     public void OnClickReferesh()
     {
         int specialId = ItemHelper.SpecailEquipRefreshId;
-        int upCount = ItemHelper.SpecailEquipRefreshCount[SelectEquip.Layer - 1];
+        int upCount = GetUpCount();
 
         User user = GameProcessor.Inst.User;
 
@@ -201,8 +212,8 @@ public class Panel_Refresh : MonoBehaviour
         AttrNew.gameObject.SetActive(true);
         AttrNew.Show(keyValues, runeId, suitId);
 
-        SelectEquip.RefreshCount--;
-        this.txt_Total.text = "今日剩余洗练次数：" + SelectEquip.RefreshCount + "次";
+        user.RedRefreshCount.Data++;
+        this.txt_Total.text = "今日洗练总次数：" + user.RedRefreshCount.Data + "次";
 
 
         stoneTotal = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == specialId).Select(m => m.MagicNubmer.Data).Sum();
@@ -210,7 +221,7 @@ public class Panel_Refresh : MonoBehaviour
         this.TxtCostCount.text = string.Format("<color={0}>{1}/{2}</color>", color, stoneTotal, upCount);
 
         RefreshCount++;
-        if (RefreshCount > 10)
+        if (RefreshCount > 7)
         {
             RefreshCount = 0;
             GameProcessor.Inst.SaveData();
