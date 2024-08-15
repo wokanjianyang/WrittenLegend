@@ -7,17 +7,14 @@ using System.Linq;
 
 public class BattleRule_Babel : ABattleRule
 {
-    private bool Start = true;
-
-    private bool Over = true;
+    private bool Start = false;
+    private bool Over = false;
 
     private long Progress = 0;
 
-    private int TimeTotal = 120;
+    private double TimeTotal = 120;
 
     private int[] MonsterList = new int[] { 5, 4, 4, 3, 3, 3, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1 };
-    private long AttckTime = 0;
-    private long UseTime = 0;
 
     protected override RuleType ruleType => RuleType.Infinite;
 
@@ -32,34 +29,44 @@ public class BattleRule_Babel : ABattleRule
 
     public override void DoMapLogic(int roundNum, double currentRoundTime)
     {
-        if (!Start)
+        if (Over)
         {
-            var RealBoss = new Monster_Babel(Progress);  //刷新本体,10代表满血
-            GameProcessor.Inst.PlayerManager.LoadMonster(RealBoss);
-            Start = true;
+            return;
         }
 
-        TimeTotal--;
+        if (!Start)
+        {
+            Start = true;
+            var RealBoss = new Monster_Babel(Progress);  //刷新本体,10代表满血
+            GameProcessor.Inst.PlayerManager.LoadMonster(RealBoss);
+
+            return;
+        }
+
+        TimeTotal -= currentRoundTime;
 
         var hero = GameProcessor.Inst.PlayerManager.GetHero();
         if (hero.HP <= 0)
         {
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Babel, Message = "英雄死亡,挑战失败！" });
-            Start = false;
+            Over = true;
         }
 
         if (TimeTotal <= 0)
         {
+            Over = true;
+
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Babel, Message = "时间超时,挑战失败！" });
-            Start = false;
             GameProcessor.Inst.HeroDie(RuleType.Babel, 0);
             return;
         }
 
         var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
 
-        if (enemys.Count <= 0)
+        if (!Over && enemys.Count <= 0)
         {
+            Over = true;
+
             BuildReward(this.Progress);
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Babel, Message = "第" + Progress + "关挑战成功！" });

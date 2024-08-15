@@ -122,7 +122,7 @@ namespace Game
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 108, 1, 1));
 
             //items.AddRange(AddRedEquip1());
-            //items.AddRange(AddExclusive2());
+            //items.AddRange(AddExclusive1());
 
             foreach (var item in items)
             {
@@ -994,6 +994,18 @@ namespace Game
         {
             //定制红
             List<ExclusiveItem> list = new List<ExclusiveItem>();
+
+            for (int i = 1; i <= 3; i++) {
+                ExclusiveItem exclusive1 = new ExclusiveItem(i, 3, 10021, 5, 1);
+                exclusive1.Count = 1;
+                list.Add(exclusive1);
+            }
+
+            for (int i = 4; i <= 6; i++) {
+                ExclusiveItem exclusive1 = new ExclusiveItem(i, 3, 10022, 5, 1);
+                exclusive1.Count = 1;
+                list.Add(exclusive1);
+            }
 
             ////雷电
             //ExclusiveItem exclusive1 = new ExclusiveItem(1, 8, 10017, 5, 1);
