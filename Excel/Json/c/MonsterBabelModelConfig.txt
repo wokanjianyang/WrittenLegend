@@ -1,0 +1,5 @@
+{"list":[
+{"_t":"MonsterBabelModelConfig","_id":1,"StartLevel":1,"EndLevel":1000,"Type":1,"SkillIdList":[1001]},
+{"_t":"MonsterBabelModelConfig","_id":2,"StartLevel":1,"EndLevel":1000,"Type":2,"SkillIdList":[1011]},
+{"_t":"MonsterBabelModelConfig","_id":3,"StartLevel":1,"EndLevel":1000,"Type":3,"SkillIdList":[1021]},
+]}

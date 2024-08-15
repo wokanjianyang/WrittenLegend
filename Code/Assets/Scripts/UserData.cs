@@ -240,9 +240,19 @@ namespace Game
                 //List<BoxItem> items = user.Bags.Where(m => m.Item.Type == ItemType.Equip && m.Item.ConfigId >= 22105801 && m.Item.ConfigId <= 22105810).ToList();
                 //List<BoxItem> items = user.Bags.Where(m => m.Item.Type == ItemType.Equip && m.Item.ConfigId >= 23105801 && m.Item.ConfigId <= 23105810).ToList();
                 //Debug.Log("items:" + items.Count);
-                //foreach (var item in items) {
-                //    Equip equip = item.Item as Equip;
-                //    equip.ConfigId -= 1000000;
+                //foreach (var item in user.EquipPanelList[3])
+                //{
+                //    //Debug.Log(item.Value.EquipConfig.Name);
+                //    List<KeyValuePair<int, long>> AttrEntryList1 = new List<KeyValuePair<int, long>>();
+                //    AttrEntryList1.Add(new KeyValuePair<int, long>(18, 50));
+                //    AttrEntryList1.Add(new KeyValuePair<int, long>(18, 50));
+                //    AttrEntryList1.Add(new KeyValuePair<int, long>(18, 50));
+                //    AttrEntryList1.Add(new KeyValuePair<int, long>(18, 50));
+                //    AttrEntryList1.Add(new KeyValuePair<int, long>(18, 50));
+                //    AttrEntryList1.Add(new KeyValuePair<int, long>(18, 50));
+
+                //    Equip equip = item.Value;
+                //    equip.AttrEntryList = AttrEntryList1;
                 //}
 
                 //user.Bags.RemoveAll(m => m.Item.Type != 0);

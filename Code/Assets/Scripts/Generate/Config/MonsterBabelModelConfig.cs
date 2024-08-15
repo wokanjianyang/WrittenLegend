@@ -7,32 +7,32 @@ namespace Game
 {
     [ProtoContract]
     [Config]
-    public partial class MonsterBabelConfigCategory : ProtoObject, IMerge
+    public partial class MonsterBabelModelConfigCategory : ProtoObject, IMerge
     {
-        public static MonsterBabelConfigCategory Instance;
+        public static MonsterBabelModelConfigCategory Instance;
 		
         [ProtoIgnore]
         [BsonIgnore]
-        private Dictionary<int, MonsterBabelConfig> dict = new Dictionary<int, MonsterBabelConfig>();
+        private Dictionary<int, MonsterBabelModelConfig> dict = new Dictionary<int, MonsterBabelModelConfig>();
 		
         [BsonElement]
         [ProtoMember(1)]
-        private List<MonsterBabelConfig> list = new List<MonsterBabelConfig>();
+        private List<MonsterBabelModelConfig> list = new List<MonsterBabelModelConfig>();
 		
-        public MonsterBabelConfigCategory()
+        public MonsterBabelModelConfigCategory()
         {
             Instance = this;
         }
         
         public void Merge(object o)
         {
-            MonsterBabelConfigCategory s = o as MonsterBabelConfigCategory;
+            MonsterBabelModelConfigCategory s = o as MonsterBabelModelConfigCategory;
             this.list.AddRange(s.list);
         }
 		
         public override void EndInit()
         {
-            foreach (MonsterBabelConfig config in list)
+            foreach (MonsterBabelModelConfig config in list)
             {
                 config.EndInit();
                 this.dict.Add(config.Id, config);
@@ -40,13 +40,13 @@ namespace Game
             this.AfterEndInit();
         }
 		
-        public MonsterBabelConfig Get(int id)
+        public MonsterBabelModelConfig Get(int id)
         {
-            this.dict.TryGetValue(id, out MonsterBabelConfig item);
+            this.dict.TryGetValue(id, out MonsterBabelModelConfig item);
 
             if (item == null)
             {
-                throw new Exception($"配置找不到，配置表名: {nameof (MonsterBabelConfig)}，配置id: {id}");
+                throw new Exception($"配置找不到，配置表名: {nameof (MonsterBabelModelConfig)}，配置id: {id}");
             }
 
             return item;
@@ -57,12 +57,12 @@ namespace Game
             return this.dict.ContainsKey(id);
         }
 
-        public Dictionary<int, MonsterBabelConfig> GetAll()
+        public Dictionary<int, MonsterBabelModelConfig> GetAll()
         {
             return this.dict;
         }
 
-        public MonsterBabelConfig GetOne()
+        public MonsterBabelModelConfig GetOne()
         {
             if (this.dict == null || this.dict.Count <= 0)
             {
@@ -73,7 +73,7 @@ namespace Game
     }
 
     [ProtoContract]
-	public partial class MonsterBabelConfig: ProtoObject, IConfig
+	public partial class MonsterBabelModelConfig: ProtoObject, IConfig
 	{
 		/// <summary>ID</summary>
 		[ProtoMember(1)]
@@ -84,15 +84,12 @@ namespace Game
 		/// <summary>EndLevel</summary>
 		[ProtoMember(3)]
 		public int EndLevel { get; set; }
-		/// <summary>SkillIdList1</summary>
+		/// <summary>Type</summary>
 		[ProtoMember(4)]
-		public int[] SkillIdList1 { get; set; }
-		/// <summary>SkillIdList2</summary>
+		public int Type { get; set; }
+		/// <summary>SkillIdList</summary>
 		[ProtoMember(5)]
-		public int[] SkillIdList2 { get; set; }
-		/// <summary>SkillIdList3</summary>
-		[ProtoMember(6)]
-		public int[] SkillIdList3 { get; set; }
+		public int[] SkillIdList { get; set; }
 
 	}
 }
