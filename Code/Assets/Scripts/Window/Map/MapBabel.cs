@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class MapBabel : MonoBehaviour, IBattleLife
 {
     public Text Txt_Name;
-    public Text Txt_Count;
+    public Text Txt_Time;
 
     public ScrollRect sr_BattleMsg;
 
@@ -64,7 +64,7 @@ public class MapBabel : MonoBehaviour, IBattleLife
 
     public void OnShowInfo(ShowBabelInfoEvent e)
     {
-        Txt_Count.text = "今日剩余挑战次数：" + (e.Count);
+        Txt_Time.text = "挑战剩余时间：" + (e.Count);
     }
 
     private void OnBattleMsgEvent(BattleMsgEvent e)
