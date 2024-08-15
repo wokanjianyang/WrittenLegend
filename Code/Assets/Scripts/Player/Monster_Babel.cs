@@ -13,11 +13,10 @@ namespace Game
         BabelConfig Config { get; set; }
         MonsterBabelConfig MonsterConfig { get; set; }
 
-        public Monster_Babel(long progress, int quality) : base()
+        public Monster_Babel(long progress) : base()
         {
             this.Progeress = (int)progress;
             this.GroupId = 2;
-            this.Quality = quality;
             this.RuleType = RuleType.Babel;
 
             this.Config = BabelConfigCategory.Instance.GetByProgress(progress);

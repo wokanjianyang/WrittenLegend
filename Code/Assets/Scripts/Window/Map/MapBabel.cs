@@ -46,14 +46,14 @@ public class MapBabel : MonoBehaviour, IBattleLife
 
     public void OnStart(BabelStartEvent e)
     {
-        //Debug.Log("BabelStartEvent");
+        long babel = GameProcessor.Inst.User.BabelData.Data + 1;
 
         this.gameObject.SetActive(true);
 
         Dictionary<string, object> param = new Dictionary<string, object>();
-        param.Add("Progress", e.Progress);
+        param.Add("Progress", babel);
 
-        Txt_Name.text = e.Progress + "²ã";
+        Txt_Name.text = babel + "²ã";
 
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {

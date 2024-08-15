@@ -442,7 +442,7 @@ namespace Game
     }
     public class BabelStartEvent : SDD.Events.Event
     {
-        public long Progress { get; set; }
+
     }
 
     //--------Fashion

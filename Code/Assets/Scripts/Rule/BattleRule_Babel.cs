@@ -11,11 +11,9 @@ public class BattleRule_Babel : ABattleRule
 
     private bool Over = true;
 
-    //private long Progress = 1;
+    private long Progress = 0;
 
-    private const int MaxProgress = 900; //
-    private const int SkipTime = 15;
-    private const int SkipCount = 10;
+    private int TimeTotal = 120;
 
     private int[] MonsterList = new int[] { 5, 4, 4, 3, 3, 3, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1 };
     private long AttckTime = 0;
@@ -26,88 +24,47 @@ public class BattleRule_Babel : ABattleRule
     public BattleRule_Babel(Dictionary<string, object> param)
     {
         //param.TryGetValue("progress", out object progress);
-        param.TryGetValue("count", out object count);
+        param.TryGetValue("progress", out object progress);
 
-        //this.Progress = (long)progress;
+        this.Progress = (long)progress;
+        TimeTotal = 120;
     }
 
     public override void DoMapLogic(int roundNum, double currentRoundTime)
     {
-        if (!this.Over)
-        {
-            return;
-        }
-
         if (!Start)
         {
-            //倒计时
-            this.UseTime = this.AttckTime + SkipTime - TimeHelper.ClientNowSeconds();
-            GameProcessor.Inst.EventCenter.Raise(new ShowInfiniteInfoEvent() { Time = UseTime });
+            var RealBoss = new Monster_Babel(Progress);  //刷新本体,10代表满血
+            GameProcessor.Inst.PlayerManager.LoadMonster(RealBoss);
+            Start = true;
+        }
+
+        TimeTotal--;
+
+        var hero = GameProcessor.Inst.PlayerManager.GetHero();
+        if (hero.HP <= 0)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Babel, Message = "英雄死亡,挑战失败！" });
+            Start = false;
+        }
+
+        if (TimeTotal <= 0)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Babel, Message = "时间超时,挑战失败！" });
+            Start = false;
+            GameProcessor.Inst.HeroDie(RuleType.Babel, 0);
+            return;
         }
 
         var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
 
-        if (enemys.Count > 0)
+        if (enemys.Count <= 0)
         {
-            return;
-        }
+            BuildReward(this.Progress);
 
-        User user = GameProcessor.Inst.User;
-        InfiniteRecord record = user.InfiniteData.GetCurrentRecord();
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Babel, Message = "第" + Progress + "关挑战成功！" });
+            GameProcessor.Inst.CloseBattle(RuleType.Babel, 0);
 
-        long currentProgres = record.Progress.Data;
-
-        if (enemys.Count <= 0 && currentProgres <= MaxProgress && this.Start)
-        {
-            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Infinite, Message = "第" + currentProgres + "波发起了进攻" });
-
-            this.AttckTime = TimeHelper.ClientNowSeconds();
-
-            //Load All
-            for (int i = 0; i < MonsterList.Length; i++)
-            {
-                var enemy = new Monster_Infinite(currentProgres, MonsterList[i]);
-                GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
-            }
-
-            GameProcessor.Inst.EventCenter.Raise(new ShowInfiniteInfoEvent() { Count = currentProgres, PauseCount = record.Count.Data, Time = SkipTime });
-
-            this.Start = false;
-
-            return;
-        }
-
-        if (enemys.Count <= 0 && !this.Start)
-        {
-            long progess = user.GetAchievementProgeress(AchievementSourceType.Infinite);
-            long ap = 1;
-            if (UseTime >= 0 && currentProgres < progess)
-            {
-                ap = Math.Min(progess - currentProgres, 10);
-            }
-
-            if (progess < currentProgres)
-            {
-                user.MagicRecord[AchievementSourceType.Infinite].Data = currentProgres;
-            }
-
-            record.Progress.Data += ap;
-
-            for (int i = 0; i < ap; i++)
-            {
-                BuildReward(currentProgres + i);
-            }
-
-            this.Start = true;
-            return;
-        }
-
-        if (currentProgres > MaxProgress && this.Over)
-        {
-            this.Over = false;
-            user.InfiniteData.Complete();
-            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Infinite, Message = "无尽闯关成功，您就是神！！！" });
-            GameProcessor.Inst.CloseBattle(RuleType.Infinite, 0);
             return;
         }
     }

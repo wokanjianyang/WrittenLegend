@@ -450,6 +450,9 @@ namespace Game
                 case RuleType.Pill:
                     this.BattleRule = new BattleRule_Pill(param);
                     break;
+                case RuleType.Babel:
+                    this.BattleRule = new BattleRule_Babel(param);
+                    break;
             }
 
             if (autoHero)
