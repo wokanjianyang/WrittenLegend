@@ -1396,6 +1396,10 @@ namespace Game
             {
                 limitId += (int)((TimeHelper.ClientNowSeconds() - this.First_Create_Time) / 86400);
             }
+            else
+            {
+                limitId += 2000;
+            }
 
             limitId += this.Account.Length * 1000;
 
