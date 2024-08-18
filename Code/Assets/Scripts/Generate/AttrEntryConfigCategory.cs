@@ -98,5 +98,10 @@ namespace Game
             }
             return excludeList;
         }
+
+        public List<AttrEntryConfig> GetRedAttrList()
+        {
+            return this.list.Where(m => m.Type == 1).ToList();
+        }
     }
 }

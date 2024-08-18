@@ -25,6 +25,12 @@ public class Panel_Refresh : MonoBehaviour
     public Button Btn_OK;
     public Button Btn_Cancle;
 
+    public Button Btn_Setting;
+    public Button Btn_Setting_OK;
+    public Transform Tf_Setting;
+    public Transform Tf_Setting_Item_List;
+    public List<Refresh_Setting_Item> ItemList;
+
     private int RefreshCount = 0;
 
     private const int MaxCount = 10; //10¼þ×°±¸
@@ -39,6 +45,9 @@ public class Panel_Refresh : MonoBehaviour
         this.Btn_Refesh.onClick.AddListener(OnClickReferesh);
         this.Btn_OK.onClick.AddListener(OnClickOK);
         this.Btn_Cancle.onClick.AddListener(OnClickCancle);
+
+        this.Btn_Setting.onClick.AddListener(OnOpenSetting);
+        this.Btn_Setting_OK.onClick.AddListener(OnClickSettingOK);
     }
 
     // Update is called once per frame
@@ -227,7 +236,8 @@ public class Panel_Refresh : MonoBehaviour
             GameProcessor.Inst.SaveData();
         }
 
-        if (user.RedRefreshCount.Data % 200 == 199) {
+        if (user.RedRefreshCount.Data % 200 == 199)
+        {
 
             GameProcessor.Inst.SaveNetData();
         }
@@ -245,6 +255,38 @@ public class Panel_Refresh : MonoBehaviour
         this.SelectEquip.Refesh(false);
 
         this.Show();
+    }
+
+    private void OnOpenSetting()
+    {
+        if (ItemList.Count == 0)
+        {
+            var itemPrefab = Resources.Load<GameObject>("Prefab/Window/Forge/Refresh_Setting_Item");
+
+            List<AttrEntryConfig> attrs = AttrEntryConfigCategory.Instance.GetRedAttrList();
+            for (int i = 0; i < attrs.Count; i++)
+            {
+                var item = GameObject.Instantiate(itemPrefab);
+                item.transform.SetParent(Tf_Setting_Item_List);
+                item.transform.localScale = Vector3.one;
+                item.gameObject.SetActive(true);
+
+
+                var com = item.GetComponent<Refresh_Setting_Item>();
+                com.SetItem(attrs[i].AttrId, 1);
+
+                ItemList.Add(com);
+            }
+        }
+
+        this.Tf_Setting.gameObject.SetActive(true);
+    }
+
+    private void OnClickSettingOK()
+    {
+        this.Tf_Setting.gameObject.SetActive(false);
+
+
     }
 }
 
