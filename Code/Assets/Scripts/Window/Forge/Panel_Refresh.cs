@@ -25,17 +25,27 @@ public class Panel_Refresh : MonoBehaviour
     public Button Btn_OK;
     public Button Btn_Cancle;
 
+    public Button Btn_Auto;
+
     public Button Btn_Setting;
     public Button Btn_Setting_OK;
     public Transform Tf_Setting;
     public Transform Tf_Setting_Item_List;
-    public List<Refresh_Setting_Item> ItemList;
+    private List<Refresh_Setting_Item> ItemList = new List<Refresh_Setting_Item>();
+
+    public Toggle Toggle_Auto;
 
     private int RefreshCount = 0;
 
     private const int MaxCount = 10; //10件装备
 
     Equip SelectEquip;
+
+    //自动强化
+    private bool Auto = false;
+    private int AutoTotal = 0;
+    private int AutoFrequency = 20;
+    private Dictionary<int, int> AutoAttrDict = new Dictionary<int, int>();
 
     // Start is called before the first frame update
     void Awake()
@@ -53,12 +63,59 @@ public class Panel_Refresh : MonoBehaviour
     // Update is called once per frame
     void Start()
     {
+        this.Toggle_Auto.gameObject.SetActive(false);
+
+        Toggle_Auto.onValueChanged.AddListener((isOn) =>
+        {
+            this.Auto = isOn;
+        });
+
         GameProcessor.Inst.EventCenter.AddListener<RefershSelectEvent>(this.OnSelect);
     }
 
     void OnEnable()
     {
         this.Load();
+    }
+
+    private void Update()
+    {
+        if (Auto && SelectEquip != null)
+        {
+            AutoTotal++;
+            if (AutoTotal % AutoFrequency == 0)
+            {
+                //自动洗练
+                if (!DoFrefresh(5))
+                {
+                    Auto = false;
+                }
+
+                //check
+                bool check = true;
+
+                List<KeyValuePair<int, long>> keyValues = SelectEquip.Data.GetAttrList();
+                foreach (var kv in AutoAttrDict)
+                {
+                    int n = keyValues.Where(m => m.Key == kv.Key).Count();
+                    if (n < kv.Value)
+                    {
+                        check = false;
+                        break;
+                    }
+                }
+
+                if (check)
+                {
+                    //success
+                    Auto = false;
+                }
+                else
+                {
+                    this.SelectEquip.Refesh(false);
+                }
+            }
+        }
     }
 
     public void Init()
@@ -186,8 +243,17 @@ public class Panel_Refresh : MonoBehaviour
         return (int)(layer * 10);
     }
 
-
     public void OnClickReferesh()
+    {
+        this.Btn_Refesh.gameObject.SetActive(false);
+        this.Btn_OK.gameObject.SetActive(true);
+        this.Btn_Cancle.gameObject.SetActive(true);
+
+        DoFrefresh(1);
+    }
+
+
+    private bool DoFrefresh(int type)
     {
         int specialId = ItemHelper.SpecailEquipRefreshId;
         int upCount = GetUpCount();
@@ -198,12 +264,8 @@ public class Panel_Refresh : MonoBehaviour
         if (stoneTotal < upCount)
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "您的洗练石不足" + upCount + "个", ToastType = ToastTypeEnum.Failure });
-            return;
+            return false;
         }
-
-        this.Btn_Refesh.gameObject.SetActive(false);
-        this.Btn_OK.gameObject.SetActive(true);
-        this.Btn_Cancle.gameObject.SetActive(true);
 
         GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
         {
@@ -230,17 +292,19 @@ public class Panel_Refresh : MonoBehaviour
         this.TxtCostCount.text = string.Format("<color={0}>{1}/{2}</color>", color, stoneTotal, upCount);
 
         RefreshCount++;
-        if (RefreshCount > 7)
+        if (RefreshCount > 7 * type)
         {
             RefreshCount = 0;
             GameProcessor.Inst.SaveData();
         }
 
-        if (user.RedRefreshCount.Data % 200 == 199)
+        if ((user.RedRefreshCount.Data + 1) % (200 * type) == 0)
         {
 
             GameProcessor.Inst.SaveNetData();
         }
+
+        return true;
     }
 
     public void OnClickOK()
@@ -273,7 +337,7 @@ public class Panel_Refresh : MonoBehaviour
 
 
                 var com = item.GetComponent<Refresh_Setting_Item>();
-                com.SetItem(attrs[i].AttrId, 1);
+                com.SetItem(attrs[i].AttrId);
 
                 ItemList.Add(com);
             }
@@ -284,9 +348,28 @@ public class Panel_Refresh : MonoBehaviour
 
     private void OnClickSettingOK()
     {
+        int total = 0;
+
+        for (int i = 0; i < ItemList.Count; i++)
+        {
+            int count = ItemList[i].GetCount();
+
+            if (count > 0)
+            {
+                AutoAttrDict[ItemList[i].AttrId] = count;
+                total += count;
+            }
+        }
+
+        if (total > 6 || total <= 3)
+        {
+            AutoAttrDict.Clear();
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "设置错误,保留词条总和，必须是4-6之间" });
+            return;
+        }
+
+        this.Toggle_Auto.gameObject.SetActive(true);
         this.Tf_Setting.gameObject.SetActive(false);
-
-
     }
 }
 

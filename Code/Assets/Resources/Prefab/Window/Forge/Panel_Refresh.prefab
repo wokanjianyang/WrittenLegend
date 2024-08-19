@@ -962,7 +962,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u7D2B"
+  m_Text: 
 --- !u!1 &2343222659880902040
 GameObject:
   m_ObjectHideFlags: 0
@@ -2250,11 +2250,12 @@ MonoBehaviour:
   Btn_Refesh: {fileID: 3149432457757707321}
   Btn_OK: {fileID: 2018497513212798251}
   Btn_Cancle: {fileID: 7792829146481017439}
+  Btn_Auto: {fileID: 0}
   Btn_Setting: {fileID: 7104835085141773984}
   Btn_Setting_OK: {fileID: 1123651251309458800}
   Tf_Setting: {fileID: 4469542723194822663}
   Tf_Setting_Item_List: {fileID: 834453749178638299}
-  ItemList: []
+  Toggle_Auto: {fileID: 5184526353448682545}
 --- !u!1 &6677307031218867946
 GameObject:
   m_ObjectHideFlags: 0

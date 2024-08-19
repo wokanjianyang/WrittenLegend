@@ -13,23 +13,25 @@ namespace Game
         public Text Txt_Title;
         public InputField If_Count;
 
+        public int AttrId = 0;
+
         // Update is called once per frame
         void Start()
         {
         }
 
-        public void SetItem(int attrId, int count)
+        public void SetItem(int attrId)
         {
-            Txt_Title.text = StringHelper.FormatAttrValueName(attrId);
+            this.AttrId = attrId;
 
-            if (count > 0)
-            {
-                If_Count.text = count + "";
-            }
-            else
-            {
-                If_Count.text = "";
-            }
+            Txt_Title.text = StringHelper.FormatAttrValueName(attrId);
+            If_Count.text = "";
+        }
+
+        public int GetCount()
+        {
+            int.TryParse(If_Count.text, out int exp);
+            return exp;
         }
     }
 }
