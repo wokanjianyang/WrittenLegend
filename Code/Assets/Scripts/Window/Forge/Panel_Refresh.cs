@@ -67,6 +67,15 @@ public class Panel_Refresh : MonoBehaviour
 
         Toggle_Auto.onValueChanged.AddListener((isOn) =>
         {
+            if (isOn)
+            {
+                this.Btn_Refesh.gameObject.SetActive(false);
+            }
+            else
+            {
+                this.Btn_Refesh.gameObject.SetActive(true);
+            }
+
             this.Auto = isOn;
         });
 
@@ -108,7 +117,12 @@ public class Panel_Refresh : MonoBehaviour
                 if (check)
                 {
                     //success
+                    Toggle_Auto.isOn = false;
                     Auto = false;
+
+                    this.Btn_Refesh.gameObject.SetActive(false);
+                    this.Btn_OK.gameObject.SetActive(true);
+                    this.Btn_Cancle.gameObject.SetActive(true);
                 }
                 else
                 {
@@ -133,6 +147,7 @@ public class Panel_Refresh : MonoBehaviour
     {
         //把之前的卸载
         this.SelectEquip = null;
+        this.Auto = false;
 
         foreach (ItemRefresh cb in items)
         {
@@ -368,6 +383,7 @@ public class Panel_Refresh : MonoBehaviour
             return;
         }
 
+        Toggle_Auto.isOn = false;
         this.Toggle_Auto.gameObject.SetActive(true);
         this.Tf_Setting.gameObject.SetActive(false);
     }
