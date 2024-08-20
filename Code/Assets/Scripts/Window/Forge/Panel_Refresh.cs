@@ -25,7 +25,6 @@ public class Panel_Refresh : MonoBehaviour
     public Button Btn_OK;
     public Button Btn_Cancle;
 
-    public Button Btn_Auto;
 
     public Button Btn_Setting;
     public Button Btn_Setting_OK;
@@ -33,7 +32,8 @@ public class Panel_Refresh : MonoBehaviour
     public Transform Tf_Setting_Item_List;
     private List<Refresh_Setting_Item> ItemList = new List<Refresh_Setting_Item>();
 
-    public Toggle Toggle_Auto;
+    public Button Btn_Auto;
+    public Button Btn_Auto_Close;
 
     private int RefreshCount = 0;
 
@@ -58,27 +58,14 @@ public class Panel_Refresh : MonoBehaviour
 
         this.Btn_Setting.onClick.AddListener(OnOpenSetting);
         this.Btn_Setting_OK.onClick.AddListener(OnClickSettingOK);
+
+        this.Btn_Auto.onClick.AddListener(OnClickAuto);
+        this.Btn_Auto_Close.onClick.AddListener(OnCloseAuto);
     }
 
     // Update is called once per frame
     void Start()
     {
-        this.Toggle_Auto.gameObject.SetActive(false);
-
-        Toggle_Auto.onValueChanged.AddListener((isOn) =>
-        {
-            if (isOn)
-            {
-                this.Btn_Refesh.gameObject.SetActive(false);
-            }
-            else
-            {
-                this.Btn_Refesh.gameObject.SetActive(true);
-            }
-
-            this.Auto = isOn;
-        });
-
         GameProcessor.Inst.EventCenter.AddListener<RefershSelectEvent>(this.OnSelect);
     }
 
@@ -117,10 +104,9 @@ public class Panel_Refresh : MonoBehaviour
                 if (check)
                 {
                     //success
-                    Toggle_Auto.isOn = false;
                     Auto = false;
 
-                    this.Btn_Refesh.gameObject.SetActive(false);
+                    this.Btn_Auto_Close.gameObject.SetActive(false);
                     this.Btn_OK.gameObject.SetActive(true);
                     this.Btn_Cancle.gameObject.SetActive(true);
                 }
@@ -187,6 +173,8 @@ public class Panel_Refresh : MonoBehaviour
         AttrOld.gameObject.SetActive(false);
         AttrNew.gameObject.SetActive(false);
 
+        this.Btn_Auto.gameObject.SetActive(false);
+        this.Btn_Auto_Close.gameObject.SetActive(false);
         this.Btn_Refesh.gameObject.SetActive(false);
         this.Btn_OK.gameObject.SetActive(false);
         this.Btn_Cancle.gameObject.SetActive(false);
@@ -228,10 +216,18 @@ public class Panel_Refresh : MonoBehaviour
         SelectEquip.CheckReFreshCount();
         if (SelectEquip.AttrEntryList.Count > 0) //SelectEquip.RefreshCount > 0 && 
         {
-            this.Btn_Refesh.gameObject.SetActive(true);
+            if (this.AutoAttrDict.Count > 0)
+            {
+                this.Btn_Auto.gameObject.SetActive(true);
+            }
+            else
+            {
+                this.Btn_Refesh.gameObject.SetActive(true);
+            }
         }
         else
         {
+            this.Btn_Auto.gameObject.SetActive(false);
             this.Btn_Refesh.gameObject.SetActive(false);
         }
 
@@ -327,6 +323,15 @@ public class Panel_Refresh : MonoBehaviour
         this.SelectEquip.Refesh(true);
 
         this.Show();
+
+        if (this.AutoAttrDict.Count > 0)
+        {
+            this.Btn_Auto.gameObject.SetActive(true);
+        }
+        else
+        {
+            this.Btn_Refesh.gameObject.SetActive(true);
+        }
     }
 
     public void OnClickCancle()
@@ -334,6 +339,15 @@ public class Panel_Refresh : MonoBehaviour
         this.SelectEquip.Refesh(false);
 
         this.Show();
+
+        if (this.AutoAttrDict.Count > 0)
+        {
+            this.Btn_Auto.gameObject.SetActive(true);
+        }
+        else
+        {
+            this.Btn_Refesh.gameObject.SetActive(true);
+        }
     }
 
     private void OnOpenSetting()
@@ -383,9 +397,23 @@ public class Panel_Refresh : MonoBehaviour
             return;
         }
 
-        Toggle_Auto.isOn = false;
-        this.Toggle_Auto.gameObject.SetActive(true);
+        this.Btn_Auto.gameObject.SetActive(true);
+        this.Btn_Refesh.gameObject.SetActive(false);
         this.Tf_Setting.gameObject.SetActive(false);
+    }
+
+    private void OnClickAuto()
+    {
+        this.Auto = true;
+        this.Btn_Auto.gameObject.SetActive(false);
+        this.Btn_Auto_Close.gameObject.SetActive(true);
+    }
+
+    private void OnCloseAuto()
+    {
+        this.Auto = false;
+        this.Btn_Auto.gameObject.SetActive(true);
+        this.Btn_Auto_Close.gameObject.SetActive(false);
     }
 }
 
