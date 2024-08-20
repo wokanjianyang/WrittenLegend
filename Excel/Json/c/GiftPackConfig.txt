@@ -25,6 +25,8 @@
 {"_t":"GiftPackConfig","_id":24,"Name":"初级法宝自选","GiftType":1,"LevelRequired":0,"ItemTypeList":[18,18,18,18,18,18],"ItemIdList":[180006,180008,180010,180018,180020,180021],"ItemCountList":[1,1,1,1,1,1,1,1],"Des":"初级法宝自选"},
 {"_t":"GiftPackConfig","_id":25,"Name":"高级法宝自选","GiftType":1,"LevelRequired":0,"ItemTypeList":[18,18,18,18,18,18],"ItemIdList":[180001,180002,180004,180019,180005,180009],"ItemCountList":[1,1,1,1,1,1,1,1],"Des":"高级法宝自选"},
 {"_t":"GiftPackConfig","_id":26,"Name":"神技自选","GiftType":1,"LevelRequired":0,"ItemTypeList":[5,5,5,5,5,5,5,5,5,5],"ItemIdList":[8001,8002,8003,8004,8005,8006,8007,8008,8009,8010],"ItemCountList":[1,1,1,1,1,1,1,1,1,1,1],"Des":"神技自选"},
+{"_t":"GiftPackConfig","_id":99,"Name":"法力盾4件套","GiftType":0,"LevelRequired":0,"ItemTypeList":[12,12,12,12,5,5],"ItemIdList":[26,27,28,29,4005,4010],"ItemCountList":[1,1,1,1,300,60],"Des":"法力盾4件套"},
+{"_t":"GiftPackConfig","_id":100,"Name":"雷电6件套","GiftType":0,"LevelRequired":0,"ItemTypeList":[12,12,12,12,12,12,5,5],"ItemIdList":[30,31,32,33,34,35,4005,4010],"ItemCountList":[1,1,1,1,1,1,300,60],"Des":"雷电6件套"},
 {"_t":"GiftPackConfig","_id":101,"Name":"刺杀吸血4件套","GiftType":0,"LevelRequired":0,"ItemTypeList":[12,12,12,12,5,5],"ItemIdList":[7,8,9,10,4005,4010],"ItemCountList":[1,1,1,1,300,60],"Des":"刺杀吸血4件套"},
 {"_t":"GiftPackConfig","_id":102,"Name":"武力盾4件套","GiftType":0,"LevelRequired":0,"ItemTypeList":[12,12,12,12,5,5],"ItemIdList":[11,12,13,14,4005,4010],"ItemCountList":[1,1,1,1,300,60],"Des":"武力盾4件套"},
 {"_t":"GiftPackConfig","_id":103,"Name":"冰咆哮4件套","GiftType":0,"LevelRequired":0,"ItemTypeList":[12,12,12,12,5,5],"ItemIdList":[803,804,705,706,4005,4010],"ItemCountList":[1,1,1,1,300,60],"Des":"冰咆哮4件套"},
