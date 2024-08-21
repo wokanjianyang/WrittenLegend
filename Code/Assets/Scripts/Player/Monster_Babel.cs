@@ -10,18 +10,22 @@ namespace Game
     public class Monster_Babel : APlayer
     {
         public int Progeress;
+        public int Type;
         BabelConfig Config { get; set; }
         MonsterBabelConfig MonsterConfig { get; set; }
 
-        public Monster_Babel(long progress) : base()
+        public Monster_Babel(long progress, int type) : base()
         {
-            this.Progeress = (int)progress;
             this.GroupId = 2;
             this.RuleType = RuleType.Babel;
+            this.Quality = type + 2;
+
+            this.Progeress = (int)progress;
+            this.Type = type;
 
             this.Config = BabelConfigCategory.Instance.GetByProgress(progress);
 
-            this.MonsterConfig = MonsterBabelConfigCategory.Instance.GetByProgress(progress);
+            this.MonsterConfig = MonsterBabelConfigCategory.Instance.GetByProgressAndType(progress, type);
 
             this.Init();
         }
@@ -29,7 +33,7 @@ namespace Game
         private void Init()
         {
             this.Camp = PlayerType.Enemy;
-            this.Name = "通天神卫";
+            this.Name = MonsterConfig.Name;
             this.Level = Progeress * 100;
 
             this.SetAttr();  //设置属性值
@@ -47,14 +51,7 @@ namespace Game
             int riseLevel = this.Progeress - Config.Start;
             double riseRate = Math.Pow(1.01, riseLevel);
 
-            if (Progeress % 100 == 0)
-            {
-                riseRate *= 2;
-            }
-            else if (Progeress % 10 == 0)
-            {
-                riseRate *= 1.5;
-            }
+            riseRate *= MonsterConfig.AttrRate;
 
             double hp = 99900000000;
             double attr = 100000;
@@ -82,7 +79,7 @@ namespace Game
         {
             List<SkillData> list = new List<SkillData>();
 
-            int[] SkillIdList = MonsterConfig.GetSkillIdList(Progeress);
+            int[] SkillIdList = MonsterConfig.SkillIdList;
             for (int i = 0; i < SkillIdList.Length; i++)
             {
                 int skillId = SkillIdList[i];

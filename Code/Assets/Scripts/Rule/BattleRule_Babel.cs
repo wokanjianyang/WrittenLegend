@@ -14,7 +14,9 @@ public class BattleRule_Babel : ABattleRule
 
     private double TimeTotal = 120;
 
-    private int[] MonsterList = new int[] { 5, 4, 4, 3, 3, 3, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1 };
+    private int[] MonsterList1 = new int[] { 1, 1, 1, 1, 1, 1, 1, 1, 2, 2 };
+    private int[] MonsterList2 = new int[] { 1, 1, 1, 1, 2, 2, 2, 2, 2, 2 };
+    private int[] MonsterList3 = new int[] { 2, 2, 2, 2, 2, 2, 3, 3, 3, 3 };
 
     protected override RuleType ruleType => RuleType.Babel;
 
@@ -37,11 +39,18 @@ public class BattleRule_Babel : ABattleRule
         if (!Start)
         {
             Start = true;
-            var RealBoss = new Monster_Babel(Progress);  //刷新本体,10代表满血
-            GameProcessor.Inst.PlayerManager.LoadMonster(RealBoss);
+            int[] types = CalTypes(Progress);
+
+            foreach (int type in types)
+            {
+                var RealBoss = new Monster_Babel(Progress, type);  //刷新本体,10代表满血
+                GameProcessor.Inst.PlayerManager.LoadMonster(RealBoss);
+            }
 
             return;
         }
+
+        User user = GameProcessor.Inst.User;
 
         TimeTotal -= currentRoundTime;
 
@@ -67,12 +76,30 @@ public class BattleRule_Babel : ABattleRule
         {
             Over = true;
 
+            user.BabelData.Data++;
             BuildReward(this.Progress);
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Babel, Message = "第" + Progress + "关挑战成功！" });
             GameProcessor.Inst.CloseBattle(RuleType.Babel, 0);
 
             return;
+        }
+    }
+
+    private int[] CalTypes(long progress)
+    {
+        if (progress % 100 == 0)
+        {
+            return MonsterList3;
+        }
+        else if (progress % 10 == 0)
+        {
+
+            return MonsterList2;
+        }
+        else
+        {
+            return MonsterList1;
         }
     }
 
@@ -86,7 +113,7 @@ public class BattleRule_Babel : ABattleRule
 
         GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
         {
-            Type = RuleType.Infinite,
+            Type = RuleType.Babel,
             Message = BattleMsgHelper.BuildRewardMessage("通天塔奖励:" + progress + "奖励:", 0, 0, items)
         });
     }

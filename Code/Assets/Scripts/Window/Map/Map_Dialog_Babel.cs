@@ -51,7 +51,8 @@ public class Map_Dialog_Babel : MonoBehaviour
 
         ItemConfig itemConfig = ItemConfigCategory.Instance.Get(ItemId);
 
-        Txt_Reward.text = "奖励:" + itemConfig.Name + "*" + ItemCount;
+        Txt_Progress.text = "挑战层数:" + nextProgress + "";
+        Txt_Reward.text = "通过奖励:" + itemConfig.Name + "*" + ItemCount;
     }
 
 
