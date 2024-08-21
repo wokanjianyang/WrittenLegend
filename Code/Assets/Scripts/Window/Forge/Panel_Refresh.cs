@@ -30,10 +30,13 @@ public class Panel_Refresh : MonoBehaviour
     public Button Btn_Setting_OK;
     public Transform Tf_Setting;
     public Transform Tf_Setting_Item_List;
+    public InputField If_Max;
     private List<Refresh_Setting_Item> ItemList = new List<Refresh_Setting_Item>();
 
     public Button Btn_Auto;
     public Button Btn_Auto_Close;
+    private int AutoCount = 0;
+    private int AutoMax = 200;
 
     private int RefreshCount = 0;
 
@@ -87,6 +90,8 @@ public class Panel_Refresh : MonoBehaviour
                     Auto = false;
                 }
 
+                AutoCount++;
+
                 //check
                 bool check = true;
 
@@ -113,6 +118,14 @@ public class Panel_Refresh : MonoBehaviour
                 else
                 {
                     this.SelectEquip.Refesh(false);
+
+                    if (AutoCount >= AutoMax)
+                    {
+                        Auto = false;
+                        this.Btn_Auto_Close.gameObject.SetActive(false);
+                        this.Btn_Auto.gameObject.SetActive(true);
+                        return;
+                    }
                 }
             }
         }
@@ -390,12 +403,15 @@ public class Panel_Refresh : MonoBehaviour
             }
         }
 
-        if (total > 6 || total <= 3)
+        if (total > 6 || total < 3)
         {
             AutoAttrDict.Clear();
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "设置错误,保留词条总和，必须是4-6之间" });
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "设置错误,保留词条总和，必须是3-6之间" });
             return;
         }
+
+        int.TryParse(If_Max.text, out int max);
+        this.AutoMax = max;
 
         this.Btn_Auto.gameObject.SetActive(true);
         this.Btn_Refesh.gameObject.SetActive(false);

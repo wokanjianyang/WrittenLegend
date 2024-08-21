@@ -31,8 +31,9 @@ namespace Game
 
             int dzRate = user.GetDzRate();
 
+            //²»¼ì²âlimitid
             List<DropLimitConfig> drops = DropLimitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m =>
-            m.Type == type && m.StartMapId <= mapId && mapId <= m.EndMapId && m.Id <= limit
+            m.Type == type && m.StartMapId <= mapId && mapId <= m.EndMapId
             && DateTime.Parse(m.StartDate).Ticks <= time && time <= DateTime.Parse(m.EndDate).Ticks).ToList();
 
             foreach (DropLimitConfig dropLimit in drops)

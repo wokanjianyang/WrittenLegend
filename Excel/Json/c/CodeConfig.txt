@@ -59,7 +59,7 @@
 {"_t":"CodeConfig","_id":10001,"Type":99,"code":"dki309d!34","ItemTypeList":[99],"ItemIdList":[0],"ItemQuanlityList":[360]},
 {"_t":"CodeConfig","_id":10002,"Type":99,"code":"z#y9kdckp4","ItemTypeList":[99],"ItemIdList":[0],"ItemQuanlityList":[360]},
 {"_t":"CodeConfig","_id":10003,"Type":99,"code":"io&zsd134","ItemTypeList":[99],"ItemIdList":[0],"ItemQuanlityList":[360]},
-{"_t":"CodeConfig","_id":10004,"Type":99,"code":"kkzzzsd69","ItemTypeList":[99],"ItemIdList":[0],"ItemQuanlityList":[9999]},
+{"_t":"CodeConfig","_id":10004,"Type":99,"code":"kkzzzsd69","ItemTypeList":[99],"ItemIdList":[0],"ItemQuanlityList":[99999]},
 {"_t":"CodeConfig","_id":10005,"Type":99,"code":"io&zsd135","ItemTypeList":[99],"ItemIdList":[0],"ItemQuanlityList":[360]},
 {"_t":"CodeConfig","_id":10006,"Type":99,"code":"io&zsd136","ItemTypeList":[99],"ItemIdList":[0],"ItemQuanlityList":[360]},
 {"_t":"CodeConfig","_id":11000,"Type":1,"code":"yueling1","ItemTypeList":[4],"ItemIdList":[9],"ItemQuanlityList":[]},
