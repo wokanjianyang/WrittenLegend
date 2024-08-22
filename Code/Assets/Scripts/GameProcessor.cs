@@ -72,6 +72,7 @@ namespace Game
         private Coroutine ie_autoStartCopy = null;
         private Coroutine ie_autoBossFamily = null;
         private Coroutine ie_autoPhatom = null;
+        private Coroutine ie_AutoResurrection = null;
 
         //副本临时设置
         public bool EquipCopySetting_Rate = false;
@@ -405,6 +406,11 @@ namespace Game
 
         public void LoadMap(RuleType ruleType, Transform map, Dictionary<string, object> param)
         {
+            if (ie_AutoResurrection != null)
+            {
+                StopCoroutine(ie_AutoResurrection);
+            }
+
             MapData = map.GetComponentInChildren<MapData>();
             MapData.Clear();
 
@@ -680,7 +686,7 @@ namespace Game
                     ie_autoExitKey = StartCoroutine(this.AutoExitMap(ruleType, time, ConfigHelper.AutoExitMapTime));
                     break;
                 default:
-                    StartCoroutine(this.AutoResurrection());
+                    ie_AutoResurrection = StartCoroutine(this.AutoResurrection());
                     break;
             }
         }

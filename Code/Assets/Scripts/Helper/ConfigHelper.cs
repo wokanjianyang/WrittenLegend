@@ -84,7 +84,7 @@ namespace Game
         public const int AutoResurrectionTime = 10;
 
         public const int PillDefaultTime = 60;
-        public const int BabelCount = 500;
+        public const int BabelCount = 300;
 
         public static int GetFloorRate(long floor)
         {

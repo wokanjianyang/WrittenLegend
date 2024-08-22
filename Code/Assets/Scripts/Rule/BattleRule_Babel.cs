@@ -24,9 +24,12 @@ public class BattleRule_Babel : ABattleRule
     public BattleRule_Babel(Dictionary<string, object> param)
     {
         //param.TryGetValue("progress", out object progress);
+        User user = GameProcessor.Inst.User;
 
-        this.Progress = GameProcessor.Inst.User.BabelData.Data + 1;
+        this.Progress = user.BabelData.Data + 1;
         TimeTotal = TimeMax;
+
+        user.BabelCount.Data--;
     }
 
     public override void DoMapLogic(int roundNum, double currentRoundTime)
@@ -51,7 +54,6 @@ public class BattleRule_Babel : ABattleRule
         }
 
         User user = GameProcessor.Inst.User;
-
         TimeTotal -= currentRoundTime;
         GameProcessor.Inst.EventCenter.Raise(new ShowBabelInfoEvent() { Progress = this.Progress, Time = TimeTotal, Count = user.BabelCount.Data });
 
@@ -60,8 +62,9 @@ public class BattleRule_Babel : ABattleRule
         {
             Over = true;
 
+            user.BabelCount.Data--;
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Babel, Message = "挑战失败！" });
-            GameProcessor.Inst.CloseBattle(RuleType.Babel, 0);
+            GameProcessor.Inst.HeroDie(RuleType.Babel, 0);
             return;
         }
 
@@ -123,36 +126,16 @@ public class BattleRule_Babel : ABattleRule
             Type = RuleType.Babel,
             Message = BattleMsgHelper.BuildRewardMessage("通天塔奖励:" + progress + "奖励:", 0, 0, items)
         });
+
+        GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
     }
 
     public override void CheckGameResult()
     {
-        var hero = GameProcessor.Inst.PlayerManager.GetHero();
-        if (hero != null && hero.HP == 0)
-        {
-            User user = GameProcessor.Inst.User;
-            InfiniteRecord record = user.InfiniteData.GetCurrentRecord();
-
-            if (record == null)
-            {
-                return;
-            }
-
-            record.Count.Data--;
-            GameProcessor.Inst.EventCenter.Raise(new ShowInfiniteInfoEvent() { Count = record.Progress.Data, PauseCount = record.Count.Data });
-
-            if (record.Count.Data > 0)
-            {
-                GameProcessor.Inst.SetGameOver(PlayerType.Enemy);
-                GameProcessor.Inst.HeroDie(RuleType.Infinite, 0);
-            }
-            else
-            {
-                this.Over = false;
-                user.InfiniteData.Complete();
-                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Infinite, Message = "无尽闯关失败，请明天再来" });
-                GameProcessor.Inst.CloseBattle(RuleType.Infinite, 0);
-            }
-        }
+        //var hero = GameProcessor.Inst.PlayerManager.GetHero();
+        //if (hero != null && hero.HP == 0)
+        //{
+        //    GameProcessor.Inst.HeroDie(RuleType.Babel, 0);
+        //}
     }
 }

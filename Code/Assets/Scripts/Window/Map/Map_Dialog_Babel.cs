@@ -39,6 +39,11 @@ public class Map_Dialog_Babel : MonoBehaviour
         User user = GameProcessor.Inst.User;
         long progress = user.BabelData.Data;
 
+        if (progress == 0 && user.BabelCount.Data == 0)
+        {
+            user.BabelCount.Data = ConfigHelper.BabelCount;
+        }
+
         long nextProgress = progress + 1;
 
         Txt_Floor2.text = progress > 1 ? (progress - 1) + "²ã" : "";
