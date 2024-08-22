@@ -34,7 +34,7 @@ namespace Game
         {
             this.Camp = PlayerType.Enemy;
             this.Name = MonsterConfig.Name;
-            this.Level = Progeress * 100;
+            this.Level = Progeress;
 
             this.SetAttr();  //设置属性值
             this.SetSkill(); //设置技能

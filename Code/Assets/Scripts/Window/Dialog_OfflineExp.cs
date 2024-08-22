@@ -215,6 +215,7 @@ namespace Game
                 user.HeroPhatomData.Refresh();
                 user.PillTime.Check();
                 user.RedRefreshCount.Data = 0;
+                user.BabelCount.Data = ConfigHelper.BabelCount;
 
                 user.DataDate = DateTime.Now.Ticks;
                 //保存到Tap

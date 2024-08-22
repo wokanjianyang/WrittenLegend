@@ -12,7 +12,7 @@ public class BattleRule_Babel : ABattleRule
 
     private long Progress = 0;
 
-    private double TimeTotal = 120;
+    private double TimeTotal = 180;
 
     private int[] MonsterList1 = new int[] { 1, 1, 1, 1, 1, 1, 1, 1, 2, 2 };
     private int[] MonsterList2 = new int[] { 1, 1, 1, 1, 2, 2, 2, 2, 2, 2 };
@@ -26,7 +26,7 @@ public class BattleRule_Babel : ABattleRule
         param.TryGetValue("Progress", out object progress);
 
         this.Progress = (long)progress;
-        TimeTotal = 120;
+        TimeTotal = 180;
     }
 
     public override void DoMapLogic(int roundNum, double currentRoundTime)
@@ -55,17 +55,11 @@ public class BattleRule_Babel : ABattleRule
         TimeTotal -= currentRoundTime;
 
         var hero = GameProcessor.Inst.PlayerManager.GetHero();
-        if (hero.HP <= 0)
-        {
-            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Babel, Message = "英雄死亡,挑战失败！" });
-            Over = true;
-        }
-
-        if (TimeTotal <= 0)
+        if (hero.HP <= 0 || TimeTotal <= 0)
         {
             Over = true;
 
-            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Babel, Message = "时间超时,挑战失败！" });
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Babel, Message = "挑战失败！" });
             GameProcessor.Inst.HeroDie(RuleType.Babel, 0);
             return;
         }
@@ -74,13 +68,22 @@ public class BattleRule_Babel : ABattleRule
 
         if (!Over && enemys.Count <= 0)
         {
-            Over = true;
+            //Over = true;
 
             user.BabelData.Data++;
+            user.BabelCount.Data--;
             BuildReward(this.Progress);
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Babel, Message = "第" + Progress + "关挑战成功！" });
-            GameProcessor.Inst.CloseBattle(RuleType.Babel, 0);
+
+            if (user.BabelCount.Data <= 0)
+            {
+                GameProcessor.Inst.CloseBattle(RuleType.Babel, 0);
+            }
+            else
+            {
+                Start = false;
+            }
 
             return;
         }

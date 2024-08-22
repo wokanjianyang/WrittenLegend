@@ -43,6 +43,7 @@ namespace Game
         public MagicData MagicTowerFloor { get; } = new MagicData();
 
         public MagicData BabelData { get; } = new MagicData();
+        public MagicData BabelCount { get; } = new MagicData();
 
         public MagicData RedRefreshCount { get; } = new MagicData();
 

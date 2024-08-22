@@ -14,6 +14,7 @@ public class Map_Dialog_Babel : MonoBehaviour
     public Text Txt_Floor1;
     public Text Txt_Floor0;
 
+    public Text Txt_Count;
     public Text Txt_Progress;
     public Text Txt_Reward;
 
@@ -53,6 +54,7 @@ public class Map_Dialog_Babel : MonoBehaviour
 
         Txt_Progress.text = "挑战层数:" + nextProgress + "";
         Txt_Reward.text = "通过奖励:" + itemConfig.Name + "*" + ItemCount;
+        Txt_Count.text = "今日挑战次数:" + user.BabelCount.Data;
     }
 
 
@@ -60,7 +62,7 @@ public class Map_Dialog_Babel : MonoBehaviour
     {
         User user = GameProcessor.Inst.User;
 
-        if (user.PillTime.Time.Data < 5)
+        if (user.BabelCount.Data < 5)
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "挑战次数不足", ToastType = ToastTypeEnum.Failure });
             return;
