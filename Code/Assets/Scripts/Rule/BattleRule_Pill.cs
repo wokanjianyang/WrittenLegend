@@ -39,10 +39,10 @@ public class BattleRule_Pill : ABattleRule
         {
             return;
         }
-        Debug.Log("create pill currentRoundTime:" + currentRoundTime);
+        //Debug.Log("create pill currentRoundTime:" + currentRoundTime);
 
         MapTime += currentRoundTime;
-        Debug.Log("create pill MapTime:" + MapTime);
+        //Debug.Log("create pill MapTime:" + MapTime);
 
         User user = GameProcessor.Inst.User;
         double time = user.PillTime.Time.Data;

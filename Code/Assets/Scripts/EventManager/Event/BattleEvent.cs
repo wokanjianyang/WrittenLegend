@@ -435,6 +435,8 @@ namespace Game
     //--pill
     public class ShowBabelInfoEvent : SDD.Events.Event
     {
+        public long Progress { get; set; }
+        public double Time { get; set; }
         public long Count { get; set; }
     }
     public class OpenBabelEvent : SDD.Events.Event

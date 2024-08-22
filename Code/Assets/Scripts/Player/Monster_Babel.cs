@@ -11,7 +11,7 @@ namespace Game
     {
         public int Progeress;
         public int Type;
-        BabelConfig Config { get; set; }
+
         MonsterBabelConfig MonsterConfig { get; set; }
 
         public Monster_Babel(long progress, int type) : base()
@@ -22,8 +22,6 @@ namespace Game
 
             this.Progeress = (int)progress;
             this.Type = type;
-
-            this.Config = BabelConfigCategory.Instance.GetByProgress(progress);
 
             this.MonsterConfig = MonsterBabelConfigCategory.Instance.GetByProgressAndType(progress, type);
 
@@ -48,14 +46,19 @@ namespace Game
         {
             this.AttributeBonus = new AttributeBonus();
 
-            int riseLevel = this.Progeress - Config.Start;
-            double riseRate = Math.Pow(1.01, riseLevel);
+            //int riseLevel = this.Progeress - Config.Start;
+            double riseRate = Math.Pow(1.003, this.Progeress);
+            //Debug.Log("riseRate:" + riseRate);
 
             riseRate *= MonsterConfig.AttrRate;
 
-            double hp = 99900000000;
-            double attr = 100000;
-            double def = 100000;
+            long day = (TimeHelper.ClientNowSeconds() - 1724083200) / 86400;
+            double dayRate = Math.Pow(0.95, day);
+            Debug.Log("dayRate:" + dayRate);
+
+            double hp = 999000000000000000000000.0 * dayRate;
+            double attr = 300000000000.0 * dayRate;
+            double def = 100000000000000.0 * dayRate;
 
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp * riseRate);
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr * riseRate);
@@ -85,7 +88,7 @@ namespace Game
                 int skillId = SkillIdList[i];
 
                 SkillData skillData = new SkillData(skillId, i);
-                skillData.MagicLevel.Data = this.Progeress * skillData.SkillConfig.MaxLevel / 100;
+                skillData.MagicLevel.Data = skillData.SkillConfig.MaxLevel;
                 list.Add(skillData);
             }
 

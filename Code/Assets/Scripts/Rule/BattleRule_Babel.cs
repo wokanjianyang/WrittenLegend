@@ -12,7 +12,8 @@ public class BattleRule_Babel : ABattleRule
 
     private long Progress = 0;
 
-    private double TimeTotal = 180;
+    private const double TimeMax = 180;
+    private double TimeTotal = 0;
 
     private int[] MonsterList1 = new int[] { 1, 1, 1, 1, 1, 1, 1, 1, 2, 2 };
     private int[] MonsterList2 = new int[] { 1, 1, 1, 1, 2, 2, 2, 2, 2, 2 };
@@ -23,10 +24,9 @@ public class BattleRule_Babel : ABattleRule
     public BattleRule_Babel(Dictionary<string, object> param)
     {
         //param.TryGetValue("progress", out object progress);
-        param.TryGetValue("Progress", out object progress);
 
-        this.Progress = (long)progress;
-        TimeTotal = 180;
+        this.Progress = GameProcessor.Inst.User.BabelData.Data + 1;
+        TimeTotal = TimeMax;
     }
 
     public override void DoMapLogic(int roundNum, double currentRoundTime)
@@ -53,6 +53,7 @@ public class BattleRule_Babel : ABattleRule
         User user = GameProcessor.Inst.User;
 
         TimeTotal -= currentRoundTime;
+        GameProcessor.Inst.EventCenter.Raise(new ShowBabelInfoEvent() { Progress = this.Progress, Time = TimeTotal, Count = user.BabelCount.Data });
 
         var hero = GameProcessor.Inst.PlayerManager.GetHero();
         if (hero.HP <= 0 || TimeTotal <= 0)
@@ -60,7 +61,7 @@ public class BattleRule_Babel : ABattleRule
             Over = true;
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Babel, Message = "ÌôÕ½Ê§°Ü£¡" });
-            GameProcessor.Inst.HeroDie(RuleType.Babel, 0);
+            GameProcessor.Inst.CloseBattle(RuleType.Babel, 0);
             return;
         }
 
@@ -82,8 +83,11 @@ public class BattleRule_Babel : ABattleRule
             }
             else
             {
+                TimeTotal = TimeMax;
                 Start = false;
             }
+
+            this.Progress = GameProcessor.Inst.User.BabelData.Data + 1;
 
             return;
         }

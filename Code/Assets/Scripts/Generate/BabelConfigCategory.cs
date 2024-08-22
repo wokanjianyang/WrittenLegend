@@ -16,39 +16,6 @@ namespace Game
 
     public partial class BabelConfig
     {
-
-        public int GetItemId(long progress)
-        {
-            if (progress % 100 == 0)
-            {
-                return this.ItemId2;
-            }
-            else if (progress % 10 == 0)
-            {
-                return this.ItemId1;
-            }
-            else
-            {
-                return this.ItemId;
-            }
-        }
-
-        public int GetItemCount(long progress)
-        {
-            if (progress % 100 == 0)
-            {
-                return this.ItemCount2;
-            }
-            else if (progress % 10 == 0)
-            {
-                return this.ItemCount1;
-            }
-            else
-            {
-                return this.ItemCount;
-            }
-        }
-
         public Item BuildItem(long progress)
         {
 

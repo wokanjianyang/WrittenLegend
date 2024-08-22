@@ -45,15 +45,11 @@ public class Map_Dialog_Babel : MonoBehaviour
         Txt_Floor1.text = progress > 0 ? progress + "层" : "";
         Txt_Floor0.text = nextProgress + "层";
 
-        BabelConfig config = BabelConfigCategory.Instance.GetByProgress(nextProgress);
-
-        int ItemId = config.GetItemId(nextProgress);
-        int ItemCount = config.GetItemCount(nextProgress);
-
-        ItemConfig itemConfig = ItemConfigCategory.Instance.Get(ItemId);
+        BabelConfig rewardConfig = BabelConfigCategory.Instance.GetByProgress(nextProgress);
+        Item item = rewardConfig.BuildItem(nextProgress);
 
         Txt_Progress.text = "挑战层数:" + nextProgress + "";
-        Txt_Reward.text = "通过奖励:" + itemConfig.Name + "*" + ItemCount;
+        Txt_Reward.text = "通过奖励:" + item.Name + "*" + item.Count;
         Txt_Count.text = "今日挑战次数:" + user.BabelCount.Data;
     }
 
