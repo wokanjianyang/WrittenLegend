@@ -13,7 +13,7 @@ public class BattleRule_Infinite : ABattleRule
 
     //private long Progress = 1;
 
-    private const int MaxProgress = 900; //
+    private const int MaxProgress = 1000; //
     private const int SkipTime = 15;
     private const int SkipCount = 10;
 
