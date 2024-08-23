@@ -46,7 +46,6 @@
 {"_t":"CodeConfig","_id":45,"Type":1,"code":"shy666","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013],"ItemQuanlityList":[666,66,16]},
 {"_t":"CodeConfig","_id":46,"Type":1,"code":"xysj888","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013],"ItemQuanlityList":[888,88,28]},
 {"_t":"CodeConfig","_id":47,"Type":1,"code":"taiji1000","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013],"ItemQuanlityList":[999,99,38]},
-{"_t":"CodeConfig","_id":99,"Type":1,"code":"tt234","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013],"ItemQuanlityList":[2000,200,20]},
 {"_t":"CodeConfig","_id":10001,"Type":99,"code":"dki309d!34","ItemTypeList":[99],"ItemIdList":[0],"ItemQuanlityList":[360]},
 {"_t":"CodeConfig","_id":10002,"Type":99,"code":"z#y9kdckp4","ItemTypeList":[99],"ItemIdList":[0],"ItemQuanlityList":[360]},
 {"_t":"CodeConfig","_id":10003,"Type":99,"code":"io&zsd134","ItemTypeList":[99],"ItemIdList":[0],"ItemQuanlityList":[360]},
