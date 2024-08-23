@@ -14,15 +14,15 @@ namespace Game
 
         public const int Version = 234;
 
-        public const long PackTime = 1723169372; //打包时间，防止作弊
+        public const long PackTime = 1724380196; //打包时间，防止作弊
 
-        public const long PackEndTime = 1724897372; //超过此时间,游戏不能使用，需要更新
+        public const long PackEndTime = 1726972196; //超过此时间,游戏不能使用，需要更新
 
         public const long Max_Level = 120000; //最大人物等级和强化等级
 
         public const long Cycle_Level = 10000; //每次轮回增加等级
 
-        public const long Cycle_Max = 6;
+        public const long Cycle_Max = 7;
 
         public const long Max_Legacy_Level = 10; //最大传世副本等级
 

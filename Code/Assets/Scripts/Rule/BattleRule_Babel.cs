@@ -16,7 +16,7 @@ public class BattleRule_Babel : ABattleRule
     private double TimeTotal = 0;
 
     private int[] MonsterList1 = new int[] { 1, 1, 1, 1, 1, 1, 1, 1, 2, 2 };
-    private int[] MonsterList2 = new int[] { 1, 1, 1, 1, 2, 2, 2, 2, 2, 2 };
+    private int[] MonsterList2 = new int[] { 1, 1, 1, 1, 2, 2, 2, 2, 2, 3 };
     private int[] MonsterList3 = new int[] { 2, 2, 2, 2, 2, 2, 3, 3, 3, 3 };
 
     protected override RuleType ruleType => RuleType.Babel;
