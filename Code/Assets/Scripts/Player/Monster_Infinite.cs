@@ -57,6 +57,8 @@ namespace Game
             double attr = Double.Parse(Config.Attr) + Double.Parse(Config.RiseAttr) * riseLevel;
             double def = Double.Parse(Config.Def) + Double.Parse(Config.RiseDef) * riseLevel;
 
+            //Debug.Log("Progeress:" + this.Progeress + " :" + def);
+
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp * HpRate[Quality - 1]);
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr * AttrRate[Quality - 1]);
             AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr * AttrRate[Quality - 1]);
