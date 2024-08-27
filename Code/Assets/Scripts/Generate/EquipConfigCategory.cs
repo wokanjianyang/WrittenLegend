@@ -60,7 +60,7 @@ namespace Game
         {
             GiftPackEquipConfig config = GiftPackEquipConfigCategory.Instance.Get(configId);
 
-            Equip item = new Equip(config.EquipId, config.RuneId, config.SuitId, 1);
+            Equip item = new Equip(config.EquipId, config.RuneId, config.SuitId, config.Quality);
 
             List<KeyValuePair<int, long>> AttrEntryList = new List<KeyValuePair<int, long>>();
 

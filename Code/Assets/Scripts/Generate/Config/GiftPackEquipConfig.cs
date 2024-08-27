@@ -90,6 +90,9 @@ namespace Game
 		/// <summary>AttrIdList</summary>
 		[ProtoMember(5)]
 		public int[] AttrIdList { get; set; }
+		/// <summary>Quality</summary>
+		[ProtoMember(6)]
+		public int Quality { get; set; }
 
 	}
 }
