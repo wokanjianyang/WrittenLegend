@@ -25,4 +25,5 @@
 {"_t":"WingConfig","_id":24,"StartLevel":51,"EndLevel":60,"AttrIdList":[6,29,15,2003,2002,2001],"AttrValueList":[255,255,2400,21,11,1],"AttrRiseList":[5,5,80,1,1,1],"Fee":215,"FeeRise":5},
 {"_t":"WingConfig","_id":25,"StartLevel":61,"EndLevel":70,"AttrIdList":[6,29,15,2003,2002,2001,2010],"AttrValueList":[305,305,3200,31,21,11,1],"AttrRiseList":[5,5,90,1,1,1,1],"Fee":265,"FeeRise":5},
 {"_t":"WingConfig","_id":26,"StartLevel":71,"EndLevel":80,"AttrIdList":[6,29,15,2003,2002,2001,2010,2011],"AttrValueList":[355,355,4100,41,31,21,11,1],"AttrRiseList":[5,5,100,1,1,1,1,1],"Fee":315,"FeeRise":5},
+{"_t":"WingConfig","_id":27,"StartLevel":81,"EndLevel":90,"AttrIdList":[6,29,15,2003,2002,2001,2010,2011],"AttrValueList":[400,400,5200,52,42,32,22,12],"AttrRiseList":[0,0,200,2,2,2,2,2],"Fee":365,"FeeRise":5},
 ]}

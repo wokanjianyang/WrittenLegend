@@ -38,7 +38,7 @@ namespace Game
 
         public long GetAurasLevel(long level)
         {
-            long riseLevel = (level - this.StartLevel);
+            long riseLevel = (level - this.StartLevel) * AurasRise;
             return this.AurasLevel + riseLevel;
         }
     }
