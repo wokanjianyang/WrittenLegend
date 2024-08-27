@@ -55,5 +55,26 @@ namespace Game
             equip.Count = 1;
             return equip;
         }
+
+        public static Equip BuildByPack(int configId)
+        {
+            GiftPackEquipConfig config = GiftPackEquipConfigCategory.Instance.Get(configId);
+
+            Equip item = new Equip(config.EquipId, config.RuneId, config.SuitId, 1);
+
+            List<KeyValuePair<int, long>> AttrEntryList = new List<KeyValuePair<int, long>>();
+
+            for (int i = 0; i < config.AttrIdList.Length; i++)
+            {
+                int attrId = config.AttrIdList[i];
+                AttrEntryConfig entryConfig = AttrEntryConfigCategory.Instance.GetRedConfig(attrId);
+                AttrEntryList.Add(new KeyValuePair<int, long>(attrId, entryConfig.MaxValue));
+            }
+
+            item.AttrEntryList = AttrEntryList;
+
+            item.Count = 1;
+            return item;
+        }
     }
 }

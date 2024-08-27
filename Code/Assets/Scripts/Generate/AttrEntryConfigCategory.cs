@@ -103,5 +103,10 @@ namespace Game
         {
             return this.list.Where(m => m.Type == 1).ToList();
         }
+
+        public AttrEntryConfig GetRedConfig(int attrId)
+        {
+            return this.list.Where(m => m.Type == 1 && m.AttrId == attrId).FirstOrDefault();
+        }
     }
 }

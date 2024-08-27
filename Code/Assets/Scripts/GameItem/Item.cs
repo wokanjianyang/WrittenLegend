@@ -104,6 +104,7 @@ namespace Game
 
         Artifact = 18,
         Ring = 19,
+        GiftPackEquip = 20,
 
         Metal = 98,
         Ad = 99,

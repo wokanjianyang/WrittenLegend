@@ -35,4 +35,7 @@
 {"_t":"GiftPackConfig","_id":106,"Name":"白银礼包","GiftType":1,"LevelRequired":0,"ItemTypeList":[15,5,5,5,5,5],"ItemIdList":[4014,4012,4001,4011,4102,4010],"ItemCountList":[500,2000,10000000,4,200,50],"Des":"经验丹0.5K,传世精华2k,魂环碎片1KW,红装精华3,高级书页200个,专属之心50个"},
 {"_t":"GiftPackConfig","_id":107,"Name":"黄金礼包","GiftType":1,"LevelRequired":0,"ItemTypeList":[18,18,18,18,18,18],"ItemIdList":[180005,180006,180018,180002,180004,180008],"ItemCountList":[1,1,1,1,1,1,1,1],"Des":"初级法宝自选"},
 {"_t":"GiftPackConfig","_id":108,"Name":"钻石礼包","GiftType":1,"LevelRequired":0,"ItemTypeList":[18,18,18,18,18,18],"ItemIdList":[180007,180009,180001,180002,180004,180019],"ItemCountList":[1,1,1,1,1,1,1,1],"Des":"高级法宝自选"},
+{"_t":"GiftPackConfig","_id":109,"Name":"战士红装","GiftType":1,"LevelRequired":0,"ItemTypeList":[20,20,20,20,20,20,20,20],"ItemIdList":[1,2,3,4,5,6,7,8],"ItemCountList":[1,1,1,1,1,1,1,1,1],"Des":"战士满经验红装自选"},
+{"_t":"GiftPackConfig","_id":110,"Name":"法师红装","GiftType":1,"LevelRequired":0,"ItemTypeList":[20,20,20,20,20,20,20,20],"ItemIdList":[9,10,11,12,13,14,15,16],"ItemCountList":[1,1,1,1,1,1,1,1,1],"Des":"法师满经验红装自选"},
+{"_t":"GiftPackConfig","_id":111,"Name":"道士红装","GiftType":1,"LevelRequired":0,"ItemTypeList":[20,20,20,20,20,20,20,20],"ItemIdList":[17,18,19,20,21,22,23,24],"ItemCountList":[1,1,1,1,1,1,1,1,1],"Des":"道士满经验红装自选"},
 ]}
