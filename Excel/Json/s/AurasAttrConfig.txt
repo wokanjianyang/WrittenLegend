@@ -6,5 +6,5 @@
 {"_t":"AurasAttrConfig","_id":5,"AurasId":5,"Type":1,"AttrId":203,"AttrValue":10,"Rise":1,"Name":"祝福光环","Memo":"友方最终攻击增加{0}%"},
 {"_t":"AurasAttrConfig","_id":6,"AurasId":6,"Type":1,"AttrId":31,"AttrValue":10,"Rise":1,"Name":"闪避光环","Memo":"友方闪避概率增加{0}%"},
 {"_t":"AurasAttrConfig","_id":7,"AurasId":7,"Type":1,"AttrId":2011,"AttrValue":1,"Rise":1,"Name":"减伤光环","Memo":"友方减伤倍率增加{0}%"},
-{"_t":"AurasAttrConfig","_id":8,"AurasId":8,"Type":1,"AttrId":0,"AttrValue":0,"Rise":0,"Name":"未设定","Memo":"未设定"},
+{"_t":"AurasAttrConfig","_id":8,"AurasId":8,"Type":1,"AttrId":32,"AttrValue":1,"Rise":1,"Name":"命中光环","Memo":"友方命中概率增加{0}%"},
 ]}
