@@ -186,7 +186,7 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
         SoulRingAttrConfig showConfig = currentConfig == null ? nextConfig : currentConfig;
 
         long aurasLevel = showConfig.GetAurasLevel(currentLevel);
-        long aurasAttr = 0;
+        double aurasAttr = 0;
 
         if (currentConfig != null && currentConfig.AurasId > 0)
         {

@@ -17,7 +17,7 @@ namespace Game
     public partial class AurasAttrConfig
     {
 
-        public long GetAttr(long level)
+        public double GetAttr(long level)
         {
             long riseLevel = (level - 1);
             return this.AttrValue + riseLevel * this.Rise;
