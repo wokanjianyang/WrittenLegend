@@ -194,7 +194,7 @@ namespace Game
                     user.InfiniteData = new InfiniteData();
                 }
 
-                if (user.Account == "")
+                if (user.GetLimitId() <= 1030)
                 {
                     CycleConfigCategory.Instance.Init();
                 }
