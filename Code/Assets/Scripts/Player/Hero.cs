@@ -248,6 +248,18 @@ namespace Game
                     AttributeBonus.SetAttr(AttributeEnum.InheritAdvance, AttributeFrom.Skill, skillPanel.Percent);
                     AttributeBonus.SetAttr(AttributeEnum.SkillValetHp, AttributeFrom.Skill, skillPanel.Damage);
                 }
+                else if (skillData.SkillId == 1011)
+                {
+
+                }
+                else if (skillData.SkillId == 2011)
+                {
+
+                }
+                else if (skillData.SkillId == 3011)
+                {
+
+                }
             }
 
             InitDoubleHitSkill(user);

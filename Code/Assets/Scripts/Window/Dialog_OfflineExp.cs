@@ -108,6 +108,7 @@ namespace Game
             //user.SaveArtifactLevel(180019, 1); //副本杀手
 
             //user.Record.AddRecord(RecordType.AdReal, -800);
+            //user.MagicGold.Data = 100000000000000000L;//10京金币
 
             //user.SaveItemMeterialCount(1999994, 100000);
             //user.SaveItemMeterialCount(ItemHelper.SpecialId_Card_Stone, 10000000);

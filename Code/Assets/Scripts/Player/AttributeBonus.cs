@@ -12,6 +12,8 @@ namespace Game
 
         private Dictionary<AttributeEnum, List<DefendBuffConfig>> BuffDict = new Dictionary<AttributeEnum, List<DefendBuffConfig>>();
 
+        private Dictionary<AttributeEnum, Dictionary<int, double>> SkillDict = new Dictionary<AttributeEnum, Dictionary<int, double>>();
+
         public AttributeBonus()
         {
             foreach (AttributeEnum item in Enum.GetValues(typeof(AttributeEnum)))
