@@ -42,6 +42,12 @@ namespace Game
             }
         }
 
+        public void SetSkillAttr(AttributeEnum attrType, AttributeFrom attrKey, double attrValue)
+        {
+            int key = (int)attrKey;
+            SkillDict[attrType][key] = attrValue;
+        }
+
         public void SetAttr(AttributeEnum attrType, AttributeFrom attrKey, double attrValue)
         {
             int key = (int)attrKey;
@@ -234,6 +240,10 @@ namespace Game
                 {
                     total += item.AttrValue;
                 }
+                foreach (var item in SkillDict[type])
+                {
+                    total += item.Value;
+                }
             }
 
             double percent = 0;
@@ -251,6 +261,10 @@ namespace Game
                     foreach (var item in BuffDict[percentType])
                     {
                         percent += item.AttrValue;
+                    }
+                    foreach (var item in SkillDict[type])
+                    {
+                        total += item.Value;
                     }
                 }
             }
@@ -276,6 +290,10 @@ namespace Game
                     {
                         total *= (100.0 + item.AttrValue) / 100.0;
                     }
+                    foreach (var item in SkillDict[percentType])
+                    {
+                        total *= (100.0 + item.Value) / 100.0;
+                    }
                 }
             }
 
@@ -300,6 +318,12 @@ namespace Game
                 foreach (var item in BuffDict[percentType])
                 {
                     double fp = Math.Min(70.0, item.AttrValue);
+
+                    total *= (1 - fp / 100);
+                }
+                foreach (var item in SkillDict[percentType])
+                {
+                    double fp = Math.Min(70.0, item.Value);
 
                     total *= (1 - fp / 100);
                 }

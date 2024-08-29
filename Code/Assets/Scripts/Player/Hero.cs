@@ -250,15 +250,18 @@ namespace Game
                 }
                 else if (skillData.SkillId == 1011)
                 {
-
+                    AttributeBonus.SetSkillAttr(AttributeEnum.HP, AttributeFrom.Skill, skillPanel.Percent);
+                    AttributeBonus.SetSkillAttr(AttributeEnum.Protect, AttributeFrom.Skill, skillPanel.Damage);
                 }
                 else if (skillData.SkillId == 2011)
                 {
-
+                    AttributeBonus.SetSkillAttr(AttributeEnum.HP, AttributeFrom.Skill, skillPanel.Percent);
+                    AttributeBonus.SetSkillAttr(AttributeEnum.MulAttrMagic, AttributeFrom.Skill, skillPanel.Damage);
                 }
                 else if (skillData.SkillId == 3011)
                 {
-
+                    AttributeBonus.SetSkillAttr(AttributeEnum.HP, AttributeFrom.Skill, skillPanel.Percent);
+                    AttributeBonus.SetSkillAttr(AttributeEnum.MulAttrPhy, AttributeFrom.Skill, skillPanel.Damage);
                 }
             }
 
