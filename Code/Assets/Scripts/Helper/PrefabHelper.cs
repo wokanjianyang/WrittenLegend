@@ -11,6 +11,7 @@ namespace Game
     {
         private List<GameObject> ComBoxList = new List<GameObject>();
         private GameObject BoxSelectPrefab = null;
+        private GameObject Message_Prefab = null;
 
         private static PrefabHelper instance = null;
 
@@ -35,6 +36,8 @@ namespace Game
             ComBoxList.Add(Resources.Load<GameObject>("Prefab/Window/Box6"));
 
             BoxSelectPrefab = Resources.Load<GameObject>("Prefab/Window/GameItem/BoxSelect");
+
+            Message_Prefab = Resources.Load<GameObject>("Prefab/Dialog/Msg");
         }
 
         public Box_Select CreateBoxSelect(Transform parent, BoxItem item, ComBoxType type)
@@ -48,6 +51,10 @@ namespace Game
             comItem.transform.localScale = Vector3.one;
 
             return comItem;
+        }
+
+        public GameObject MessagePrefab() {
+            return this.Message_Prefab;
         }
     }
 }

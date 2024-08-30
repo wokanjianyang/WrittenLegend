@@ -43,8 +43,6 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
     [LabelText("魂环")]
     public Transform SourRingEffect;
 
-    private GameObject barragePrefab;
-
     private float doTime = 0;
 
     private float effectTime = 0;
@@ -53,13 +51,14 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
 
     private float restoreTime = 0;
 
+    private bool ShowUI = false;
+
     public APlayer SelfPlayer { get; set; }
 
     // Start is called before the first frame update
     void Start()
     {
         this.tran_Info.gameObject.SetActive(true);
-        this.barragePrefab = Resources.Load<GameObject>("Prefab/Dialog/Msg");
         //this.size = this.transform.GetComponent<RectTransform>().sizeDelta;
     }
 
@@ -83,6 +82,7 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
 
         if (effectTime > 0.2f)
         {
+            effectTime = 0;
             try
             {
                 this.SelfPlayer.DoCD(effectTime);
@@ -91,10 +91,9 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
             catch (Exception ex)
             {
             }
-            effectTime = 0;
         }
 
-        if (damageTime > 0.1f)
+        if (ShowUI && damageTime > 0.1f)
         {
             this.damageTime = 0;
             this.ShowNextToast();
@@ -118,6 +117,15 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
         this.SelfPlayer.EventCenter.AddListener<ShowAttackIcon>(OnShowAttackIcon);
 
         this.SelfPlayer.EventCenter.AddListener<ShowHideEvent>(OnShowHide);
+
+        if (!GameProcessor.Inst.User.ShowMonsterDamage && player.Camp != PlayerType.Hero)
+        {
+            ShowUI = false;
+        }
+        else
+        {
+            ShowUI = true;
+        }
     }
 
     public void OnDestroy()
@@ -223,11 +231,6 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
 
     private void OnShowMsgEvent(ShowMsgEvent e)
     {
-
-        if (barragePrefab == null)
-        {
-            return;
-        }
         msgTaskList.Add(e);
     }
 
@@ -244,7 +247,7 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
             var e = msgTaskList[0];
             msgTaskList.RemoveAt(0);
 
-            var msg = GameObject.Instantiate(barragePrefab);
+            var msg = GameObject.Instantiate(PrefabHelper.Instance().MessagePrefab());
             msg.transform.SetParent(this.tran_Barrage);
 
             var msgSize = msg.GetComponent<RectTransform>().sizeDelta;
