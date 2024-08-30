@@ -25,7 +25,7 @@
 {"_t":"PlayerModel","_id":3010,"Name":"皇级","StartMapId":1079,"EndMapId":1079,"Quality":5,"AttrList":[],"AttrValueList":[],"SkillList":[3007,2002],"Rune":4,"Suit":4,"Desc":""},
 {"_t":"PlayerModel","_id":3011,"Name":"皇级","StartMapId":1080,"EndMapId":1080,"Quality":5,"AttrList":[],"AttrValueList":[],"SkillList":[1001,1004,1007],"Rune":4,"Suit":4,"Desc":""},
 {"_t":"PlayerModel","_id":3012,"Name":"皇级","StartMapId":1081,"EndMapId":1081,"Quality":5,"AttrList":[],"AttrValueList":[],"SkillList":[2001,2003,2004],"Rune":4,"Suit":4,"Desc":""},
-{"_t":"PlayerModel","_id":3013,"Name":"皇级","StartMapId":1082,"EndMapId":1082,"Quality":5,"AttrList":[],"AttrValueList":[],"SkillList":[3009,2001,2003],"Rune":4,"Suit":4,"Desc":""},
+{"_t":"PlayerModel","_id":3013,"Name":"皇级","StartMapId":1082,"EndMapId":1082,"Quality":5,"AttrList":[],"AttrValueList":[],"SkillList":[1009,2001,2003],"Rune":4,"Suit":4,"Desc":""},
 {"_t":"PlayerModel","_id":3014,"Name":"皇级","StartMapId":1083,"EndMapId":1083,"Quality":5,"AttrList":[],"AttrValueList":[],"SkillList":[1002,1004,2003],"Rune":4,"Suit":4,"Desc":""},
 {"_t":"PlayerModel","_id":3015,"Name":"皇级","StartMapId":1084,"EndMapId":1084,"Quality":5,"AttrList":[],"AttrValueList":[],"SkillList":[2002,2007,2009],"Rune":4,"Suit":4,"Desc":""},
 {"_t":"PlayerModel","_id":3016,"Name":"皇级","StartMapId":1085,"EndMapId":1104,"Quality":5,"AttrList":[],"AttrValueList":[],"SkillList":[2001,2002,2003,2007,2008],"Rune":4,"Suit":4,"Desc":""},
