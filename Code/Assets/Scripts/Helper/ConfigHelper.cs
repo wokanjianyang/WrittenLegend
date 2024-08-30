@@ -12,7 +12,7 @@ namespace Game
 
         public const int Channel_Tap = 1;
 
-        public const int Version = 234;
+        public const int Version = 235;
 
         public const long PackTime = 1724380196; //打包时间，防止作弊
 
@@ -22,7 +22,7 @@ namespace Game
 
         public const long Cycle_Level = 10000; //每次轮回增加等级
 
-        public const long Cycle_Max = 7;
+        public const long Cycle_Max = 8;
 
         public const long Max_Legacy_Level = 10; //最大传世副本等级
 
