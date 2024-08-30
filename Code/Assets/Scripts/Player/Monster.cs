@@ -225,23 +225,28 @@ namespace Game
                 items.AddRange(ItemHelper.BurstMul(items, itemCount, qualityRate));
             }
 
-            //增加经验,金币
-            user.AddExpAndGold(exp, gold);
-            if (items.Count > 0)
-            {
-                user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
-            }
-
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
             {
                 Type = RuleType,
                 Message = BattleMsgHelper.BuildMonsterDeadMessage(this, exp, gold, items, itemCount)
             });
 
-            //自动回收
+            //先回收
+            List<Item> recoveryList = user.CheckRecovery(items, out long recoveryGold);
+            if (recoveryList.Count > 0)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+                {
+                    Type = RuleType,
+                    Message = BattleMsgHelper.BuildAutoRecoveryMessage(recoveryList.Count, recoveryList, recoveryGold)
+                });
+            }
+
+            //增加经验,金币
+            user.AddExpAndGold(exp, gold + recoveryGold);
             if (items.Count > 0)
             {
-                GameProcessor.Inst.EventCenter.Raise(new AutoRecoveryEvent() { RuleType = this.RuleType });
+                user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
             }
         }
     }

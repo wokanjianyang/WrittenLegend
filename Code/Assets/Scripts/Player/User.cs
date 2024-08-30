@@ -1406,6 +1406,69 @@ namespace Game
 
             return limitId + 1000;
         }
+
+        public List<Item> CheckRecovery(List<Item> items, out long recoveryGold)
+        {
+            List<Item> newList = new List<Item>();
+            recoveryGold = 0;
+
+            List<Item> recoveryList = items.Where(m => RecoverySetting.CheckRecovery(m)).ToList();
+
+            if (recoveryList.Count > 0)
+            {
+                Dictionary<int, int> recoveryDict = new Dictionary<int, int>();
+                recoveryDict[ItemHelper.SpecialId_EquipRefineStone] = 0;
+                recoveryDict[ItemHelper.SpecialId_Equip_Speical_Stone] = 0;
+                recoveryDict[ItemHelper.SpecialId_Exclusive_Stone] = 0;
+
+                foreach (Item item in recoveryList)
+                {
+                    if (item.Type == ItemType.Equip)
+                    {
+                        Equip equip = item as Equip;
+
+                        if (equip.Part <= 10)
+                        {
+                            recoveryDict[ItemHelper.SpecialId_EquipRefineStone] += CalStone(equip);
+                        }
+                        else
+                        {
+                            recoveryDict[ItemHelper.SpecialId_Equip_Speical_Stone] += CalSpecailStone(equip);
+                        }
+
+                        int RecoveryItemId = equip.EquipConfig.RecoveryItemId;
+                        if (equip.GetQuality() >= 5 && RecoveryItemId > 0)
+                        {
+                            if (!recoveryDict.ContainsKey(RecoveryItemId))
+                            {
+                                recoveryDict[RecoveryItemId] = 0;
+                            }
+                            recoveryDict[RecoveryItemId] += 1;
+                        }
+
+                        recoveryGold += equip.EquipConfig.Price;
+                    }
+                    else if (item.Type == ItemType.Exclusive)
+                    {
+                        recoveryDict[ItemHelper.SpecialId_Exclusive_Stone] += item.GetQuality() * 1;
+                    }
+                }
+
+                foreach (var kvp in recoveryDict)
+                {
+                    if (kvp.Value > 0)
+                    {
+                        Item recoveryItem = ItemHelper.BuildMaterial(kvp.Key, kvp.Value);
+                        newList.Add(recoveryItem);
+                    }
+                }
+
+                items.RemoveAll(m => RecoverySetting.CheckRecovery(m));
+                items.AddRange(newList);
+            }
+
+            return newList;
+        }
     }
 
     public enum UserChangeType
