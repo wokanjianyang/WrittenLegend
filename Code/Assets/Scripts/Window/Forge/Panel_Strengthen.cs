@@ -137,7 +137,7 @@ public class Panel_Strengthen : MonoBehaviour
         EquipStrengthFeeConfig config = EquipStrengthFeeConfigCategory.Instance.GetByLevel(nextLevel);
 
         long levelAttr = LevelConfigCategory.GetLevelAttr(nextLevel);
-        long fee = levelAttr * config.Fee;
+        double fee = levelAttr * config.Fee;
 
         if (user.MagicGold.Data < fee)
         {
@@ -173,9 +173,10 @@ public class Panel_Strengthen : MonoBehaviour
 
         int LimitLevel = user.GetStrengthLimit();
         long maxLevel = Math.Min(config.EndLevel, LimitLevel) - nextLevel + 1;
+        maxLevel = Math.Min(maxLevel, 10000);
 
         long sl = 0;
-        long feeTotal = 0;
+        double feeTotal = 0;
 
         for (int i = 0; i < maxLevel; i++)
         {

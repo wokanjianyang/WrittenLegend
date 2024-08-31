@@ -241,6 +241,10 @@ namespace Game
 
         private void OnRefreshBag()
         {
+            User user = GameProcessor.Inst.User;
+            List<BoxItem> recoveryList = user.Bags.Where(m => !m.Item.IsLock && user.RecoverySetting.CheckRecovery(m.Item)).ToList();
+            this.Recovery(recoveryList, RuleType.Normal);
+
             RefreshBag();
         }
 

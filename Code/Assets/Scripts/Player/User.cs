@@ -1038,7 +1038,7 @@ namespace Game
             EventCenter.Raise(new UserInfoUpdateEvent()); //更新UI
         }
 
-        public void SubGold(long gold)
+        public void SubGold(double gold)
         {
             if (gold <= 0 || this.MagicGold.Data < 0)
             {
