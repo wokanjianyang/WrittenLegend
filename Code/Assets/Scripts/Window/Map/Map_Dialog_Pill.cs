@@ -35,7 +35,7 @@ public class Map_Dialog_Pill : MonoBehaviour
     private void Init()
     {
         User user = GameProcessor.Inst.User;
-        user.PillTime.Check();
+        user.PillTime.Check(user.Cycle.Data);
 
         ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Pill/Map_Pill_Item");
 

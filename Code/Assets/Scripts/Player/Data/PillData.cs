@@ -16,7 +16,7 @@ namespace Game
         public MagicDouble Time { get; set; }
 
 
-        public void Check()
+        public void Check(long cycle)
         {
             if (Time == null)
             {
@@ -28,7 +28,12 @@ namespace Game
             if (Ticket == 0 || nt > Ticket)
             {
                 Ticket = nt;
-                if (Time.Data < 6000)
+                if (cycle <= 0)
+                {
+                    Time.Data = 0;
+                }
+
+                if (Time.Data < 6000 && cycle > 0)
                 {
                     Time.Data += ConfigHelper.PillDefaultTime * 10;
                 }

@@ -240,6 +240,10 @@ namespace Game
                 {
                     total += item.AttrValue;
                 }
+
+            }
+            if (haveBuff && SkillDict.ContainsKey(type))
+            {
                 foreach (var item in SkillDict[type])
                 {
                     total += item.Value;
@@ -262,13 +266,16 @@ namespace Game
                     {
                         percent += item.AttrValue;
                     }
+
+                }
+                if (haveBuff && SkillDict.ContainsKey(percentType))
+                {
                     foreach (var item in SkillDict[type])
                     {
                         total += item.Value;
                     }
                 }
             }
-
             return total * (100.0 + percent) / 100.0;
         }
 
@@ -290,6 +297,10 @@ namespace Game
                     {
                         total *= (100.0 + item.AttrValue) / 100.0;
                     }
+
+                }
+                if (haveBuff && SkillDict.ContainsKey(percentType))
+                {
                     foreach (var item in SkillDict[percentType])
                     {
                         total *= (100.0 + item.Value) / 100.0;
@@ -321,6 +332,10 @@ namespace Game
 
                     total *= (1 - fp / 100);
                 }
+
+            }
+            if (haveBuff && SkillDict.ContainsKey(percentType))
+            {
                 foreach (var item in SkillDict[percentType])
                 {
                     double fp = Math.Min(70.0, item.Value);

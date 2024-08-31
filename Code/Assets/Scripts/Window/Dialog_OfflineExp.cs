@@ -214,7 +214,7 @@ namespace Game
             {
                 user.DefendData.Refresh();
                 user.HeroPhatomData.Refresh();
-                user.PillTime.Check();
+                user.PillTime.Check(user.Cycle.Data);
                 user.RedRefreshCount.Data = 0;
                 user.BabelCount.Data = ConfigHelper.BabelCount;
 
