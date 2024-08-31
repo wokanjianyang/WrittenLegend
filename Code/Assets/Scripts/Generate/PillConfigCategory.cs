@@ -76,7 +76,7 @@ namespace Game
 
         public long GetFee(long layer)
         {
-            return (long)(this.FeeRise * (layer * 0.2 + 1));
+            return (long)(this.FeeRise * (layer * 0.5 + 1));
         }
     }
 

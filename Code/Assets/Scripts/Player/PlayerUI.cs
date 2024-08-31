@@ -82,7 +82,6 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
 
         if (effectTime > 0.2f)
         {
-            effectTime = 0;
             try
             {
                 this.SelfPlayer.DoCD(effectTime);
@@ -91,6 +90,7 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
             catch (Exception ex)
             {
             }
+            effectTime = 0;
         }
 
         if (ShowUI && damageTime > 0.1f)
