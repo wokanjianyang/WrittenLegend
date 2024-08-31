@@ -89,7 +89,7 @@ namespace Game
 		public int Layer { get; set; }
 		/// <summary>进入等级要求</summary>
 		[ProtoMember(5)]
-		public int LevelRequired { get; set; }
+		public string LevelRequired { get; set; }
 		/// <summary>周围地图ID</summary>
 		[ProtoMember(6)]
 		public int[] MapAfter { get; set; }

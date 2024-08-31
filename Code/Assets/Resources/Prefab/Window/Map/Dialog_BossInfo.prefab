@@ -111,7 +111,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 72.35974, y: 0}
+  m_AnchoredPosition: {x: 170, y: 0}
   m_SizeDelta: {x: 304.7195, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &173228506269525353
@@ -155,7 +155,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u6240\u5728\u5730\u56FE(\u65B0\u6389\u843D)"
+  m_Text: "\u5730\u56FE\u7B49\u7EA7"
 --- !u!1 &369693922594646548
 GameObject:
   m_ObjectHideFlags: 0
@@ -2564,8 +2564,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -252.3, y: 0}
-  m_SizeDelta: {x: 160, y: 50}
+  m_AnchoredPosition: {x: -157.3299, y: 0}
+  m_SizeDelta: {x: 349.94, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8883951769763978744
 CanvasRenderer:
@@ -2608,7 +2608,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "BOSS\u540D\u79F0"
+  m_Text: "\u6240\u5728\u5730\u56FE(\u65B0\u6389\u843D)"
 --- !u!1 &6970724456706882295
 GameObject:
   m_ObjectHideFlags: 0

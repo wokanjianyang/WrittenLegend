@@ -61,7 +61,7 @@ public class Com_BossInfoItem : MonoBehaviour
             txt_MapName.text += "(" + mapConfig.Memo + ")";
         }
 
-        txt_BossName.text = bossConfig.Name;
+        txt_BossName.text = mapConfig.LevelRequired + "";
 
         if (GameProcessor.Inst.isTimeError || GameProcessor.Inst.isCheckError)
         {
