@@ -115,7 +115,7 @@ namespace Game
 
             if (SelfPlayer.Camp == PlayerType.Hero)
             {
-                //Debug.Log($"{(this.SelfPlayer.Name)} 属性:{(SelfPlayer.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Protect))}");
+                Debug.Log($"{(this.SelfPlayer.Name)} 属性:{(StringHelper.FormatNumber(dr.Damage))}");
             }
 
             this.SelfPlayer.SetHP(currentHP);
