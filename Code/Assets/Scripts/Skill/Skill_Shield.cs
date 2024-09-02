@@ -33,6 +33,16 @@ namespace Game
 
                 DoEffect(this.SelfPlayer, this.SelfPlayer, 0, rolePercent, effect);
             }
+
+            //if (this.SkillPanel.DivineLevel > 0)
+            //{
+            //    int divineMax = (int)(SkillPanel.DivineLevel * SkillPanel.DivineAttrConfig.Param);
+
+            //    if (SkillPanel.SkillId == 3005)
+            //    {
+
+            //    }
+            //}
         }
     }
 }

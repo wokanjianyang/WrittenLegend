@@ -274,6 +274,23 @@ namespace Game
 
             this.DivineLevel = skillData.GetDivineLevel(); ;
 
+            //护盾神技
+            if (DivineLevel > 0)
+            {
+                int divineMax = (int)(DivineLevel * DivineAttrConfig.Param);
+                if (SkillId == 1005)
+                {
+                    EffectIdList[18] = new EffectData(18, 1005, divineMax, 0, Duration, 0);
+                }
+                else if (SkillId == 2005)
+                {
+                    EffectIdList[19] = new EffectData(19, 2005, divineMax, 0, Duration, 0);
+                }
+                else if (SkillId == 3005)
+                {
+                    EffectIdList[18] = new EffectData(18, 3005, 100, 0, divineMax, 0);
+                }
+            }
 
             //TEST skill
             //this.CD = 0;

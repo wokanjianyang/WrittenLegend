@@ -64,6 +64,12 @@ namespace Game
                         continue;
                     }
 
+                    if (DamageHelper.IsMiss2(SelfPlayer, enemy))
+                    {
+                        enemy.ShowMiss2();
+                        continue;
+                    }
+
                     //先行特效
                     foreach (EffectData effect in SkillPanel.EffectIdList.Values)
                     {

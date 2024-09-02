@@ -554,6 +554,15 @@ namespace Game
             });
         }
 
+        public void ShowMiss2()
+        {
+            this.EventCenter.Raise(new ShowMsgEvent()
+            {
+                Type = MsgType.Miss,
+                Content = "二次闪避"
+            });
+        }
+
         public T GetComponent<T>()
         {
             return this.Transform.GetComponent<T>();

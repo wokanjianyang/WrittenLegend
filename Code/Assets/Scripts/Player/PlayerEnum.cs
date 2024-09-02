@@ -49,6 +49,7 @@ namespace Game
         InheritAdvance = 36, //高级继承
         Protect = 37,//免疫
         BurstMul = 38,//连爆
+        Miss2 = 39,//二次闪避
 
         WarriorSkillPercent = 41, //战士技能百分比系数
         WarriorSkillDamage = 42, //战士技能固定系数

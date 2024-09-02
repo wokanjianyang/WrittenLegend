@@ -100,6 +100,17 @@ namespace Game
             return !RandomHelper.RandomRate((int)rate);
         }
 
+        public static bool IsMiss2(APlayer self, APlayer enemy)
+        {
+            double miss = enemy.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Miss2);
+
+            double rate = Math.Min(miss, 95); //闪避最高95%
+
+            Debug.Log("miss2 rate:" + rate);
+
+            return RandomHelper.RandomRate((int)rate);
+        }
+
         public static long GetSkillDamage(AttributeBonus attributeBonus, int role)
         {
             long attack = 100;
