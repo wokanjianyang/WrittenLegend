@@ -16,6 +16,7 @@
 {"_t":"EffectConfig","_id":16,"Name":"暴击增加","Type":1,"CalType":1,"SourceAttr":-2,"Priority":-1,"TargetType":3,"RunType":0,"TargetAttr":8,"ExpertRise":0,"LevelRise":0,"Des":""},
 {"_t":"EffectConfig","_id":17,"Name":"易伤","Type":1,"CalType":1,"SourceAttr":-2,"Priority":-1,"TargetType":2,"RunType":0,"TargetAttr":401,"ExpertRise":0,"LevelRise":0,"Des":""},
 {"_t":"EffectConfig","_id":18,"Name":"绝对免伤","Type":1,"CalType":1,"SourceAttr":-2,"Priority":-1,"TargetType":1,"RunType":0,"TargetAttr":37,"ExpertRise":0,"LevelRise":0,"Des":""},
+{"_t":"EffectConfig","_id":19,"Name":"二次闪避","Type":1,"CalType":1,"SourceAttr":-2,"Priority":-1,"TargetType":1,"RunType":0,"TargetAttr":39,"ExpertRise":0,"LevelRise":0,"Des":""},
 {"_t":"EffectConfig","_id":101,"Name":"吸血","Type":2,"CalType":1,"SourceAttr":-1,"Priority":1,"TargetType":1,"RunType":0,"TargetAttr":0,"ExpertRise":0,"LevelRise":0,"Des":"吸血{0}%"},
 {"_t":"EffectConfig","_id":102,"Name":"回复","Type":2,"CalType":1,"SourceAttr":-1,"Priority":1,"TargetType":1,"RunType":1,"TargetAttr":0,"ExpertRise":100,"LevelRise":0,"Des":""},
 {"_t":"EffectConfig","_id":103,"Name":"灼烧","Type":2,"CalType":-1,"SourceAttr":-1,"Priority":1,"TargetType":2,"RunType":1,"TargetAttr":0,"ExpertRise":0,"LevelRise":0,"Des":"灼烧{0}%伤害{2}秒"},

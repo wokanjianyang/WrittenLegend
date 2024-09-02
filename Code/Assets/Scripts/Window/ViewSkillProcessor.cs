@@ -20,6 +20,9 @@ namespace Game
 
         public List<Toggle> Toggle_Plan_List = new List<Toggle>();
 
+        private int SelectRole = 1;
+        public List<Toggle> Toggle_Role_List = new List<Toggle>();
+
         private Com_Skill[] AllEquipSkills;
 
         private List<Item_Skill> learnSkills;
@@ -51,6 +54,7 @@ namespace Game
 
             this.ShowSkillPanel();
             this.ShowSkillBattle();
+            this.ChangeRole();
 
             this.InitPlanName();
 
@@ -62,6 +66,19 @@ namespace Game
                     if (isOn)
                     {
                         ChangePlan(index);
+                    }
+                });
+            }
+
+            for (int i = 0; i < Toggle_Role_List.Count; i++)
+            {
+                int index = i + 1;
+                Toggle_Role_List[i].onValueChanged.AddListener((isOn) =>
+                {
+                    if (isOn)
+                    {
+                        SelectRole = index;
+                        ChangeRole();
                     }
                 });
             }
@@ -90,6 +107,22 @@ namespace Game
             GameProcessor.Inst.User.SkillPanelIndex = index;
             this.ShowSkillBattle();
             GameProcessor.Inst.User.EventCenter.Raise(new HeroUpdateSkillEvent());
+        }
+
+        private void ChangeRole()
+        {
+            for (int i = 0; i < learnSkills.Count; i++)
+            {
+                Item_Skill item = learnSkills[i];
+                if (item.SkillPanel.SkillData.SkillConfig.Role == SelectRole)
+                {
+                    item.gameObject.SetActive(true);
+                }
+                else
+                {
+                    item.gameObject.SetActive(false);
+                }
+            }
         }
 
         private void ShowSkillPanel()
