@@ -34,10 +34,16 @@ namespace Game
             ComBoxList.Add(Resources.Load<GameObject>("Prefab/Window/Box_Pink"));
             ComBoxList.Add(Resources.Load<GameObject>("Prefab/Window/Box_Orange"));
             ComBoxList.Add(Resources.Load<GameObject>("Prefab/Window/Box6"));
+            ComBoxList.Add(Resources.Load<GameObject>("Prefab/Window/Box7"));
 
             BoxSelectPrefab = Resources.Load<GameObject>("Prefab/Window/GameItem/BoxSelect");
 
             Message_Prefab = Resources.Load<GameObject>("Prefab/Dialog/Msg");
+        }
+
+        public GameObject GetBoxPrefab(int quanlity)
+        {
+            return ComBoxList[quanlity];
         }
 
         public Box_Select CreateBoxSelect(Transform parent, BoxItem item, ComBoxType type)
@@ -53,7 +59,8 @@ namespace Game
             return comItem;
         }
 
-        public GameObject MessagePrefab() {
+        public GameObject MessagePrefab()
+        {
             return this.Message_Prefab;
         }
     }
