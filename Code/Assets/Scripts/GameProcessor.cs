@@ -802,20 +802,24 @@ namespace Game
 
             if (ruleType == RuleType.EquipCopy)
             {
-                User user = GameProcessor.Inst.User;
-                int rl = user.GetArtifactValue(ArtifactType.EquipBattleRate);
-                int rate = this.EquipCopySetting_Rate ? 5 + rl : 1;
+                int rl = User.GetArtifactValue(ArtifactType.EquipBattleRate);
+                int rate = 5 + rl;
 
                 //判断是否自动挑战
-                if (EquipCopySetting_Auto && user.MagicCopyTikerCount.Data >= rate)
+                if (EquipCopySetting_Auto && User.MagicCopyTikerCount.Data >= rate)
                 {
                     this.AutoEquipCopy();
                 }
             }
             else if (ruleType == RuleType.BossFamily)
             {
-                long bossTicket = GameProcessor.Inst.User.GetMaterialCount(ItemHelper.SpecialId_Boss_Ticket);
-                if (EquipBossFamily_Auto && bossTicket > 0)
+                long bossTicket = User.GetMaterialCount(ItemHelper.SpecialId_Boss_Ticket);
+                int rl = User.GetArtifactValue(ArtifactType.BossBattleRate);
+                int rate = rl + 1;
+
+                Debug.Log("剩余boss卷:" + bossTicket);
+
+                if (EquipBossFamily_Auto && bossTicket > rate)
                 {
                     this.AutoBossFamily();
                 }
@@ -828,7 +832,7 @@ namespace Game
 
         private void AutoEquipCopy()
         {
-            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke(ConfigHelper.AutoStartMapTime + "S后自动挑战装备副本", true,
+            ShowSecondaryConfirmationDialog?.Invoke(ConfigHelper.AutoStartMapTime + "S后自动挑战装备副本", true,
             () =>
             {
                 StopCoroutine(ie_autoStartCopy);
@@ -862,7 +866,7 @@ namespace Game
 
         private void AutoBossFamily()
         {
-            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke(ConfigHelper.AutoStartMapTime + "S后自动挑战BOSS之家", true,
+            ShowSecondaryConfirmationDialog?.Invoke(ConfigHelper.AutoStartMapTime + "S后自动挑战BOSS之家", true,
             () =>
             {
                 StopCoroutine(ie_autoBossFamily);
