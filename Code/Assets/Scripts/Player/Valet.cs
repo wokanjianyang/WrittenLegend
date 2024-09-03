@@ -148,6 +148,31 @@ namespace Game
                     }
                 }
             }
+
+            if (Master.Camp == PlayerType.Hero) //继承神技-道力盾
+            {
+                User user = GameProcessor.Inst.User;
+
+                SkillData skillData = user.SkillList.Where(m => m.SkillConfig.Id == 3005).FirstOrDefault();
+                if (skillData != null)
+                {
+                    List<SkillRune> runeList = user.GetRuneList(skillData.SkillId, null);
+                    List<SkillSuit> suitList = user.GetSuitList(skillData.SkillId);
+
+                    SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, false);
+
+                    if (skillPanel.DivineLevel > 0)
+                    {
+                        Debug.Log("dld Percent:" + skillPanel.Percent);
+                        int dp = (int)(skillPanel.DivineAttrConfig.Param * skillPanel.DivineLevel);
+                        Debug.Log("dld dp:" + dp);
+                        skillPanel.Percent = skillPanel.Percent * dp / 100;
+                        Debug.Log("dld Percent:" + skillPanel.Percent);
+                        SkillState skill = new SkillState(this, skillPanel, skillData.Position, 0);
+                        SelectSkillList.Add(skill);
+                    }
+                }
+            }
         }
 
         private void OnHeroUpdateAllSkillEvent(HeroUpdateSkillEvent e)

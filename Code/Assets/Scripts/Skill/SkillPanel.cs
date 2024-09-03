@@ -13,7 +13,7 @@ namespace Game
         public int SkillId { get; }
 
         public long Damage { get; }
-        public int Percent { get; }
+        public int Percent { get; set; }
         public int Dis { get; }
         public int EnemyMax { get; }
         public int CD { get; }
