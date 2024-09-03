@@ -286,10 +286,6 @@ namespace Game
                 {
                     EffectIdList[19] = new EffectData(19, 2005, divineMax, 0, Duration, 0);
                 }
-                else if (SkillId == 3005)
-                {
-                    EffectIdList[18] = new EffectData(18, 3005, 100, 0, divineMax, 0);
-                }
             }
 
             //TEST skill
