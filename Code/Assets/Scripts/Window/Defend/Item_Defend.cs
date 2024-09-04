@@ -70,7 +70,7 @@ namespace Game
 
             record.Count.Data--;
 
-            if (Type == 3)
+            if (Type < 3)
             {
                 this.GetComponentInParent<Dialog_Defend>().gameObject.SetActive(false);
                 GameProcessor.Inst.EventCenter.Raise(new CloseViewMoreEvent());
@@ -78,7 +78,7 @@ namespace Game
             }
             else
             {
-                this.gameObject.SetActive(false);
+                this.Btn_Start.gameObject.SetActive(false);
 
                 double exp = 0;
                 double gold = 0;
@@ -103,15 +103,15 @@ namespace Game
 
                 List<Item> items = DropHelper.BuildDropItem(dropList, 1);
 
-                if (items.Count > 0)
-                {
-                    user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
-                }
+                //if (items.Count > 0)
+                //{
+                //    user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+                //}
 
-                user.DefendData.Complete();
+                //user.DefendData.Complete();
 
                 //œ‘ æµÙ¬‰¡–±Ì
-
+                GameProcessor.Inst.EventCenter.Raise(new ShowDropEvent() { Gold = gold, Exp = exp, Items = items });
             }
         }
     }

@@ -59,6 +59,25 @@ namespace Game
             return comItem;
         }
 
+        public Com_Box CreateBoxDrop(Transform parent, Item item)
+        {
+            GameObject prefab = this.GetBoxPrefab(item.GetQuality());
+            var go = GameObject.Instantiate(prefab);
+            Com_Box comItem = go.GetComponent<Com_Box>();
+
+            BoxItem boxItem = new BoxItem();
+            boxItem.Item = item;
+            boxItem.MagicNubmer.Data = item.Count;
+
+            comItem.SetItem(boxItem);
+
+            comItem.transform.SetParent(parent);
+            comItem.transform.localPosition = Vector3.zero;
+            comItem.transform.localScale = Vector3.one;
+
+            return comItem;
+        }
+
         public GameObject MessagePrefab()
         {
             return this.Message_Prefab;

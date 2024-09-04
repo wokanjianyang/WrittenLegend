@@ -89,6 +89,7 @@ public class Init : MonoBehaviour
             {
                 "Window/Dialog_FloatButtons",
                 "Window/Loading",
+                "Window/Dialog_Drop",
                 "Window/Dialog_SecondaryConfirmation",
             }
         }

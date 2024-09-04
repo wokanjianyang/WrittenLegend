@@ -4,5 +4,5 @@
 {"_t":"SkillDivineAttrConfig","_id":30021,"SkillId":3002,"Name":"神技·火符术","Desc":"火符术可以弹射3格内的其他敌人，最多弹射{0}次，不会重复弹射","DamageType":3,"Param":1},
 {"_t":"SkillDivineAttrConfig","_id":1,"SkillId":1005,"Name":"神技·武力盾","Desc":"武力盾额外提高{0}的绝对减伤","DamageType":0,"Param":20},
 {"_t":"SkillDivineAttrConfig","_id":2,"SkillId":2005,"Name":"神技·魔法盾","Desc":"魔法盾额外提高{0}的二次闪避","DamageType":0,"Param":15},
-{"_t":"SkillDivineAttrConfig","_id":3,"SkillId":3005,"Name":"神技·道力盾","Desc":"月灵获得{0}%系数的道力盾（无需人物上阵技能）","DamageType":0,"Param":1},
+{"_t":"SkillDivineAttrConfig","_id":3,"SkillId":3005,"Name":"神技·道力盾","Desc":"月灵获得{0}%系数的道力盾（无需人物上阵技能）","DamageType":0,"Param":10},
 ]}
