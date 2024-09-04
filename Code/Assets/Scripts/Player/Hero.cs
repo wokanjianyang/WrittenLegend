@@ -59,6 +59,9 @@ namespace Game
             this.SetAttr(user);  //设置属性值
             this.SetSkill(user); //设置技能
 
+            double maxHP = AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
+            SetHP(maxHP);
+
             base.Load();
             this.Logic.SetData(null); //设置UI
         }
@@ -132,8 +135,6 @@ namespace Game
             this.SetAttackSpeed((int)AttributeBonus.GetTotalAttrDouble(AttributeEnum.Speed));
             this.SetMoveSpeed((int)AttributeBonus.GetTotalAttrDouble(AttributeEnum.MoveSpeed));
 
-            double maxHP = AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
-            SetHP(maxHP);
             //Debug.Log("Hero Hp:" + StringHelper.FormatNumber(maxHP));
         }
 
@@ -250,18 +251,18 @@ namespace Game
                 }
                 else if (skillData.SkillId == 1011)
                 {
-                    AttributeBonus.SetSkillAttr(AttributeEnum.HP, AttributeFrom.Skill, skillPanel.Percent);
-                    AttributeBonus.SetSkillAttr(AttributeEnum.Protect, AttributeFrom.Skill, skillPanel.Damage);
+                    AttributeBonus.SetSkillAttr(AttributeEnum.MulHp, AttributeFrom.Skill, skillPanel.Percent);
+                    AttributeBonus.SetSkillAttr(AttributeEnum.MulAttrPhy, AttributeFrom.Skill, skillPanel.Damage);
                 }
                 else if (skillData.SkillId == 2011)
                 {
-                    AttributeBonus.SetSkillAttr(AttributeEnum.HP, AttributeFrom.Skill, skillPanel.Percent);
+                    AttributeBonus.SetSkillAttr(AttributeEnum.MulHp, AttributeFrom.Skill, skillPanel.Percent);
                     AttributeBonus.SetSkillAttr(AttributeEnum.MulAttrMagic, AttributeFrom.Skill, skillPanel.Damage);
                 }
                 else if (skillData.SkillId == 3011)
                 {
-                    AttributeBonus.SetSkillAttr(AttributeEnum.HP, AttributeFrom.Skill, skillPanel.Percent);
-                    AttributeBonus.SetSkillAttr(AttributeEnum.MulAttrPhy, AttributeFrom.Skill, skillPanel.Damage);
+                    AttributeBonus.SetSkillAttr(AttributeEnum.MulHp, AttributeFrom.Skill, skillPanel.Percent);
+                    AttributeBonus.SetSkillAttr(AttributeEnum.MulAttrSpirit, AttributeFrom.Skill, skillPanel.Damage);
                 }
             }
 

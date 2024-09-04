@@ -19,8 +19,8 @@ namespace Game
             foreach (AttributeEnum item in Enum.GetValues(typeof(AttributeEnum)))
             {
                 AllAttrDict.Add(item, new Dictionary<int, double>());
+                SkillDict.Add(item, new Dictionary<int, double>());
             }
-
         }
 
         public void SetBuffList(List<DefendBuffConfig> list)
