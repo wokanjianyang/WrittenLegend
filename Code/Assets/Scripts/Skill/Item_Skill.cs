@@ -107,6 +107,15 @@ namespace Game
                 this.Btn_Divine.gameObject.SetActive(false);
             }
 
+            if (skillPanel.SkillData.SkillConfig.UpItemId > 0)
+            {
+                this.Btn_UpLevel.gameObject.SetActive(true);
+            }
+            else
+            {
+                this.Btn_UpLevel.gameObject.SetActive(false);
+            }
+
 
             for (int i = 0; i < runeList.Count; i++)
             {

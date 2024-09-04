@@ -103,7 +103,7 @@ namespace Game
             this.Level = (int)(skillData.MagicLevel.Data + riseLevel);
 
             int levelPercent = (Level - 1) * skillData.SkillConfig.LevelPercent;
-            long levelDamage = skillData.MagicLevel.Data * 0;
+            long levelDamage = (Level - 1) * skillData.SkillConfig.LevelDamage;
 
             long runeDamage = baseRuneList.Select(m => m.Damage).Sum() * skillData.MagicLevel.Data;
             long suitDamage = baseSuitList.Select(m => m.Damage).Sum() * skillData.MagicLevel.Data;
