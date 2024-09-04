@@ -36,7 +36,7 @@ namespace Game
 
         public MagicDouble MagicGold { get; } = new MagicDouble();
 
-        public MagicData MagicExp { get; } = new MagicData();
+        public MagicDouble MagicExp { get; } = new MagicDouble();
 
         public MagicData MagicUpExp { get; } = new MagicData();
 
@@ -993,7 +993,7 @@ namespace Game
         }
 
 
-        public void AddExpAndGold(long exp, long gold)
+        public void AddExpAndGold(double exp, double gold)
         {
             if (this.MagicGold.Data < 0 || gold >= 8223372036854775807)
             {

@@ -369,6 +369,15 @@ namespace Game
         public int Index { get; set; }
     }
 
+    public class ShowDropEvent : SDD.Events.Event
+    {
+        public List<Item> Items { get; set; }
+
+        public double Gold { get; set; }
+
+        public double Exp { get; set; }
+    }
+
     public class ShowSelectEvent : SDD.Events.Event
     {
         public BoxItem boxItem { get; set; }
