@@ -323,12 +323,14 @@ namespace Game
 
             MonsterBase monster = MonsterBaseCategory.Instance.GetByMapId(mapId);
 
+            message += "\n离线未知暗殿(" + mapConfig.Name + ")，击杀了" + killCount + "个怪物，获得";
+            long burstMul = user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstMul);
+            killCount = killCount * (100 + burstMul) / 100;
+
             long gold = (long)(monster.Gold * killCount * modelConfig.RewardRate * ((100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.GoldIncrea)) / 100));
             long exp = (long)(monster.Exp * killCount * modelConfig.RewardRate * ((100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.ExpIncrea)) / 100));
 
             //Debug.Log("monster:" + monster.Name);
-
-            message += "\n离线未知暗殿(" + mapConfig.Name + ")，击杀了" + killCount + "个怪物，获得";
 
             message += "，金币" + StringHelper.FormatNumber(gold) + "，经验" + StringHelper.FormatNumber(exp);
 

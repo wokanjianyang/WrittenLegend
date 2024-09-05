@@ -83,6 +83,11 @@ namespace Game
                         this.Txt_Layer.gameObject.SetActive(true);
                     }
                 }
+                else
+                {
+                    this.Txt_Level.text = GameItem.Count + "";
+                    this.Txt_Level.gameObject.SetActive(true);
+                }
             }
         }
     }

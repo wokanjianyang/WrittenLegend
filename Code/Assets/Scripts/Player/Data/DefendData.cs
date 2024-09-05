@@ -82,6 +82,11 @@ namespace Game
 
         public int GetDropId(int layer, int progress)
         {
+            return GetDropIdList(layer)[progress - 1];
+        }
+
+        public List<int> GetDropIdList(int layer)
+        {
             if (!DropDict.ContainsKey(layer))
             {
                 DropDict[layer] = new List<List<int>>();
@@ -101,7 +106,7 @@ namespace Game
             //Debug.Log("infinite drop1-100:" + DropList[0][99]);
             //Debug.Log("drop:" + DropList[0][99] + "," + DropList[0][199] + "," + DropList[0][299]);
 
-            return DropList[0][progress - 1];
+            return DropList[0];
         }
 
         public List<DefendBuffConfig> GetBuffList(DefendBuffType type)

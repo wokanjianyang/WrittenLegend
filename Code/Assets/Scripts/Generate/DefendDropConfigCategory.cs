@@ -13,7 +13,7 @@ namespace Game
 
             for (int i = 1; i <= 100; i++)
             {
-                List<DefendDropConfig> dropConfigs = this.GetLevelList(i, rates);
+                List<DefendDropConfig> dropConfigs = this.GetLevelList(layer, i, rates);
 
                 rates.Add(RandomDropId(dropConfigs));
             }
@@ -40,9 +40,9 @@ namespace Game
             return -1;
         }
 
-        private List<DefendDropConfig> GetLevelList(long level, List<int> excludeList)
+        private List<DefendDropConfig> GetLevelList(int layer, long level, List<int> excludeList)
         {
-            List<DefendDropConfig> configs = this.list.Where(m => m.StartLevel <= level && m.EndLevel >= level && level % m.RateLevel == 0).ToList();
+            List<DefendDropConfig> configs = this.list.Where(m => m.Layer == layer && m.StartLevel <= level && m.EndLevel >= level && level % m.RateLevel == 0).ToList();
 
             List<DefendDropConfig> list = new List<DefendDropConfig>();
 

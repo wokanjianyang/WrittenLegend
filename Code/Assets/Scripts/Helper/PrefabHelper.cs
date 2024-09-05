@@ -11,6 +11,7 @@ namespace Game
     {
         private List<GameObject> ComBoxList = new List<GameObject>();
         private GameObject BoxSelectPrefab = null;
+        private GameObject BoxDropPrefab = null;
         private GameObject Message_Prefab = null;
 
         private static PrefabHelper instance = null;
@@ -38,6 +39,8 @@ namespace Game
 
             BoxSelectPrefab = Resources.Load<GameObject>("Prefab/Window/GameItem/BoxSelect");
 
+            BoxDropPrefab = Resources.Load<GameObject>("Prefab/Window/GameItem/Box_Drop");
+
             Message_Prefab = Resources.Load<GameObject>("Prefab/Dialog/Msg");
         }
 
@@ -59,17 +62,12 @@ namespace Game
             return comItem;
         }
 
-        public Com_Box CreateBoxDrop(Transform parent, Item item)
+        public Box_Drop CreateBoxDrop(Transform parent, Item item)
         {
-            GameObject prefab = this.GetBoxPrefab(item.GetQuality());
-            var go = GameObject.Instantiate(prefab);
-            Com_Box comItem = go.GetComponent<Com_Box>();
+            var go = GameObject.Instantiate(BoxDropPrefab);
+            Box_Drop comItem = go.GetComponent<Box_Drop>();
 
-            BoxItem boxItem = new BoxItem();
-            boxItem.Item = item;
-            boxItem.MagicNubmer.Data = item.Count;
-
-            comItem.SetItem(boxItem);
+            comItem.SetItem(item);
 
             comItem.transform.SetParent(parent);
             comItem.transform.localPosition = Vector3.zero;

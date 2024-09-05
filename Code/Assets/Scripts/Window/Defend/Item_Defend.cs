@@ -82,7 +82,6 @@ namespace Game
 
                 double exp = 0;
                 double gold = 0;
-                List<KeyValuePair<double, DropConfig>> dropList = new List<KeyValuePair<double, DropConfig>>();
 
                 for (int i = 1; i <= 100; i++)
                 {
@@ -90,25 +89,21 @@ namespace Game
 
                     exp += rewardConfig.Exp;
                     gold += rewardConfig.Gold;
-
-                    //掉落道具
-                    int dropId = user.DefendData.GetDropId(this.Level, i);
-                    DropConfig dropConfig = DropConfigCategory.Instance.Get(dropId);
-
-                    dropList.Add(new KeyValuePair<double, DropConfig>(1, dropConfig));
                 }
 
                 //增加经验,金币
                 user.AddExpAndGold(exp, gold);
 
-                List<Item> items = DropHelper.BuildDropItem(dropList, 1);
+                List<int> dropIdList = user.DefendData.GetDropIdList(this.Level);
 
-                //if (items.Count > 0)
-                //{
-                //    user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
-                //}
+                List<Item> items = DropHelper.BuildDropItem(dropIdList);
 
-                //user.DefendData.Complete();
+                if (items.Count > 0)
+                {
+                    user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+                }
+
+                user.DefendData.Complete();
 
                 //显示掉落列表
                 GameProcessor.Inst.EventCenter.Raise(new ShowDropEvent() { Gold = gold, Exp = exp, Items = items });

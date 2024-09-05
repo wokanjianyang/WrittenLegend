@@ -17,7 +17,7 @@ namespace Game
         //public RectTransform Container;
 
 
-        private List<Com_Box> ItemList = new List<Com_Box>();
+        private List<Box_Drop> ItemList = new List<Box_Drop>();
 
         public int Order => (int)ComponentOrder.Dialog;
 
@@ -48,11 +48,11 @@ namespace Game
             this.Init();
             this.gameObject.SetActive(true);
 
-            this.Txt_Msg.text = "获取金币:" + e.Gold + "，经验：" + e.Exp;
+            this.Txt_Msg.text = "获取金币:" + StringHelper.FormatNumber(e.Gold) + "，经验：" + StringHelper.FormatNumber(e.Exp);
 
             for (int i = 0; i < e.Items.Count; i++)
             {
-                Com_Box box = PrefabHelper.Instance().CreateBoxDrop(Container.content, e.Items[i]);
+                Box_Drop box = PrefabHelper.Instance().CreateBoxDrop(Container.content, e.Items[i]);
 
                 ItemList.Add(box);
             }

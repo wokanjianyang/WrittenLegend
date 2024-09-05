@@ -103,5 +103,28 @@ namespace Game
             }
             return list;
         }
+
+        public static List<Item> BuildDropItem(List<int> dropIdList)
+        {
+            List<Item> list = new List<Item>();
+
+            var groupedDictionary = dropIdList.GroupBy(kv => kv);
+
+            foreach (IGrouping<int, int> group in groupedDictionary)
+            {
+                int dropId = group.Key;
+                int count = group.Count();
+
+                DropConfig config = DropConfigCategory.Instance.Get(dropId);
+
+                int index = RandomHelper.RandomNumber(0, config.ItemIdList.Length);
+                int configId = config.ItemIdList[index];
+
+                Item item = ItemHelper.BuildItem((ItemType)config.ItemType, configId, 1, config.Quantity * count);
+                list.Add(item);
+            }
+
+            return list;
+        }
     }
 }
