@@ -117,17 +117,20 @@ namespace Game
 		/// <summary>Accuracy</summary>
 		[ProtoMember(14)]
 		public int Accuracy { get; set; }
-		/// <summary>MulDamageResist</summary>
+		/// <summary>Miss</summary>
 		[ProtoMember(15)]
+		public int Miss { get; set; }
+		/// <summary>MulDamageResist</summary>
+		[ProtoMember(16)]
 		public int MulDamageResist { get; set; }
 		/// <summary>Protect</summary>
-		[ProtoMember(16)]
+		[ProtoMember(17)]
 		public int Protect { get; set; }
 		/// <summary>Exp</summary>
-		[ProtoMember(17)]
+		[ProtoMember(18)]
 		public double Exp { get; set; }
 		/// <summary>Gold</summary>
-		[ProtoMember(18)]
+		[ProtoMember(19)]
 		public double Gold { get; set; }
 
 	}
