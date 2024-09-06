@@ -86,6 +86,8 @@ namespace Game
         public const int PillDefaultTime = 60;
         public const int BabelCount = 300;
 
+        public const int Mine_Time = 60;
+
         public static int GetFloorRate(long floor)
         {
             if (floor > 100 && floor < FastFloor)

@@ -40,7 +40,7 @@ public class BattleRule_Mine
             {
                 miner.BirthDay = nt;
             }
-            else if (nt - miner.BirthDay >= 50)
+            else if (nt - miner.BirthDay >= ConfigHelper.Mine_Time)
             {
                 MineConfig config = miner.InlineBuild(nt);
 
