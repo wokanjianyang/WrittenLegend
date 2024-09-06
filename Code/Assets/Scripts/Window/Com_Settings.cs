@@ -62,7 +62,7 @@ namespace Game
             {
                 code = code.Trim();
 
-                if (code == "yundang")
+                if (code == "yundang1")
                 {
                     GameProcessor.Inst.Yundang = true;
                 }
