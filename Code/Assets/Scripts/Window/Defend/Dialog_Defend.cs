@@ -17,7 +17,10 @@ public class Dialog_Defend : MonoBehaviour, IBattleLife
     // Start is called before the first frame update
     void Start()
     {
-        long progess = GameProcessor.Inst.User.GetAchievementProgeress(AchievementSourceType.Defend);
+        User user = GameProcessor.Inst.User;
+        user.DefendData.BuildCurrent();
+
+        long progess = user.GetAchievementProgeress(AchievementSourceType.Defend);
 
         for (int i = 0; i < ItemList.Count; i++)
         {

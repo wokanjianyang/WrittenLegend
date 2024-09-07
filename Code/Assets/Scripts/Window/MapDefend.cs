@@ -56,7 +56,7 @@ public class MapDefend : MonoBehaviour, IBattleLife
 
         User user = GameProcessor.Inst.User;
 
-        DefendRecord record = user.DefendData.GetCurrentRecord();
+        DefendRecord record = user.DefendData.GetCurrentRecord(AppHelper.DefendLevel);
 
         if (record == null)
         {

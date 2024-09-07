@@ -15,6 +15,7 @@ namespace Game
 
         public Button Btn_Start;
         public Text Txt_Start;
+        public Text Txt_Over;
 
         private string[] names = new string[] { "普通", "困难", "噩梦", "地狱" };
 
@@ -34,6 +35,7 @@ namespace Game
             this.Level = index + 1;
             long p = progress - index * 100;
 
+            //p = 0;
             if (p > 100)
             {
                 Type = 3;
@@ -52,6 +54,14 @@ namespace Game
                 Txt_Start.text = "挑战";
                 Btn_Start.gameObject.SetActive(false);
             }
+
+            User user = GameProcessor.Inst.User;
+            DefendRecord record = user.DefendData.GetCurrentRecord(this.Level);
+            if (record == null)
+            {
+                this.Txt_Over.gameObject.SetActive(true);
+                Btn_Start.gameObject.SetActive(false);
+            }
         }
 
         private void OnClick_Start()
@@ -59,8 +69,7 @@ namespace Game
             AppHelper.DefendLevel = Level;
 
             User user = GameProcessor.Inst.User;
-            user.DefendData.BuildCurrent();
-            DefendRecord record = user.DefendData.GetCurrentRecord();
+            DefendRecord record = user.DefendData.GetCurrentRecord(this.Level);
 
             if (record == null)
             {
@@ -79,6 +88,7 @@ namespace Game
             else
             {
                 this.Btn_Start.gameObject.SetActive(false);
+                this.Txt_Over.gameObject.SetActive(true);
 
                 double exp = 0;
                 double gold = 0;

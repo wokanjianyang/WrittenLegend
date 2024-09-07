@@ -42,7 +42,7 @@ public class Dialog_Buff : MonoBehaviour, IBattleLife
         {
             User user = GameProcessor.Inst.User;
             //auto select pre
-            DefendRecord record = user.DefendData.GetCurrentRecord();
+            DefendRecord record = user.DefendData.GetCurrentRecord(this.Level);
             if (this.Progress > 0 && !record.BuffDict.ContainsKey(this.Progress))
             {
                 SelectBuff();
@@ -76,7 +76,7 @@ public class Dialog_Buff : MonoBehaviour, IBattleLife
     {
         User user = GameProcessor.Inst.User;
 
-        DefendRecord record = user.DefendData.GetCurrentRecord();
+        DefendRecord record = user.DefendData.GetCurrentRecord(this.Level);
         if (record == null)
         {
             return;

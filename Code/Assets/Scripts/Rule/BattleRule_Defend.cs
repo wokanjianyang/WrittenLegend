@@ -63,7 +63,7 @@ public class Battle_Defend : ABattleRule
         {
             int si = (int)(this.Progress - 1) / 10 + 1;
 
-            if (!GameProcessor.Inst.User.DefendData.GetCurrentRecord().BuffDict.ContainsKey(si))
+            if (!GameProcessor.Inst.User.DefendData.GetCurrentRecord(this.Level).BuffDict.ContainsKey(si))
             {
                 GameProcessor.Inst.EventCenter.Raise(new DefendBuffSelectEvent() { Index = si, Level = this.Level });
             }
@@ -109,7 +109,7 @@ public class Battle_Defend : ABattleRule
             this.Start = true;
             this.Progress++;
 
-            DefendRecord record = user.DefendData.GetCurrentRecord();
+            DefendRecord record = user.DefendData.GetCurrentRecord(this.Level);
 
             record.Progress.Data = this.Progress;
             record.Hp.Data = (long)defendPlayer.HP;

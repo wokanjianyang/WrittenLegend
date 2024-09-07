@@ -19,49 +19,51 @@ namespace Game
 
         public Dictionary<int, List<List<int>>> DropDict = new Dictionary<int, List<List<int>>>();
 
-        public DefendRecord GetCurrentRecord()
+        public DefendRecord GetCurrentRecord(int level)
         {
-            int level = AppHelper.DefendLevel;
             CurrentDict.TryGetValue(level, out DefendRecord Current);
             return Current;
         }
 
         public void BuildCurrent()
         {
-            int level = AppHelper.DefendLevel;
-            CurrentDict.TryGetValue(level, out DefendRecord Current);
-
-            if (Current != null && Current.Count.Data <= 0)
+            for (int level = 1; level <= ConfigHelper.DefendMaxLevel; level++)
             {
-                Current = null;
-                CurrentDict.Remove(level);
-            }
+                CurrentDict.TryGetValue(level, out DefendRecord Current);
 
-            if (!CountDict.ContainsKey(level))
-            {
-                MagicData data = new MagicData();
-                data.Data = 1;
-                CountDict[level] = data;
-            }
-
-            CountDict.TryGetValue(level, out MagicData Count);
-            if (Current == null && Count.Data > 0)
-            {
-                Current = new DefendRecord();
-                Current.Progress.Data = 1;
-                Current.Hp.Data = ConfigHelper.DefendHp;
-                Current.Count.Data = 10;
-                CurrentDict[level] = Current;
-
-                Count.Data--;
-
-                if (DropDict.TryGetValue(level, out List<List<int>> dropList))
+                if (Current != null && Current.Count.Data <= 0)
                 {
-                    if (dropList.Count > 0)
+                    Current = null;
+                    CurrentDict.Remove(level);
+                }
+
+                if (!CountDict.ContainsKey(level))
+                {
+                    MagicData data = new MagicData();
+                    data.Data = 1;
+                    CountDict[level] = data;
+                }
+
+                CountDict.TryGetValue(level, out MagicData Count);
+                if (Current == null && Count.Data > 0)
+                {
+                    Current = new DefendRecord();
+                    Current.Progress.Data = 1;
+                    Current.Hp.Data = ConfigHelper.DefendHp;
+                    Current.Count.Data = 10;
+                    CurrentDict[level] = Current;
+
+                    Count.Data--;
+
+                    if (DropDict.TryGetValue(level, out List<List<int>> dropList))
                     {
-                        dropList.RemoveAt(0);
+                        if (dropList.Count > 0)
+                        {
+                            dropList.RemoveAt(0);
+                        }
                     }
                 }
+
             }
         }
 

@@ -64,6 +64,7 @@ namespace Game
         public const int MapStartId = 1000;
 
         public const int DefendHp = 2000; //防守塔默认血量
+        public const int DefendMaxLevel = 4; //守沙难度
 
         public const int SkillSuitMax = 4;
         public const int SkillSuitMin = 2;
