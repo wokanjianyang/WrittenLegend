@@ -10,7 +10,7 @@ namespace Game
     public class Monster_Defend : APlayer
     {
         public int Progeress;
-        MonsterDefendConfig Config { get; set; }
+        DefendConfig Config { get; set; }
         QualityConfig QualityConfig { get; set; }
 
         private int DefendLevel = 0;
@@ -23,11 +23,11 @@ namespace Game
             this.DefendLevel = level;
 
             int id = (level - 1) * 100 + (int)progress;
-            this.Config = MonsterDefendConfigCategory.Instance.Get(id);
+            this.Config = DefendConfigCategory.Instance.GetByLayerAndLevel(level, (int)progress);
             this.QualityConfig = QualityConfigCategory.Instance.Get(this.Quality);
 
             this.Init();
-            this.EventCenter.AddListener<DeadRewarddEvent>(MakeReward);
+            //this.EventCenter.AddListener<DeadRewarddEvent>(MakeReward);
         }
 
         private void Init()
@@ -48,7 +48,7 @@ namespace Game
             this.AttributeBonus = new AttributeBonus();
 
             double hp = Double.Parse(Config.HP);
-            double attr = Double.Parse(Config.PhyAttr);
+            double attr = Double.Parse(Config.Attr);
             double def = Double.Parse(Config.Def);
 
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp * QualityConfig.HpRate);
@@ -65,8 +65,6 @@ namespace Game
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
         }
-
-
 
         private void SetSkill()
         {
@@ -104,43 +102,43 @@ namespace Game
             }
         }
 
-        private void MakeReward(DeadRewarddEvent dead)
-        {
-            //Log.Info("Monster :" + this.ToString() + " dead");
-            BuildReword();
-        }
+        //private void MakeReward(DeadRewarddEvent dead)
+        //{
+        //    //Log.Info("Monster :" + this.ToString() + " dead");
+        //    BuildReword();
+        //}
 
-        private void BuildReword()
-        {
-            User user = GameProcessor.Inst.User;
+        //private void BuildReword()
+        //{
+        //    User user = GameProcessor.Inst.User;
 
-            long exp = (long)(Config.Exp * (100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.ExpIncrea)) / 100);
-            long gold = (long)(Config.Gold * (100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.GoldIncrea)) / 100);
+        //    long exp = (long)(Config.Exp * (100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.ExpIncrea)) / 100);
+        //    long gold = (long)(Config.Gold * (100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.GoldIncrea)) / 100);
 
-            //增加经验,金币
-            user.AddExpAndGold(exp, gold);
+        //    //增加经验,金币
+        //    user.AddExpAndGold(exp, gold);
 
-            List<KeyValuePair<double, DropConfig>> dropList = new List<KeyValuePair<double, DropConfig>>();
+        //    List<KeyValuePair<double, DropConfig>> dropList = new List<KeyValuePair<double, DropConfig>>();
 
-            //掉落道具
-            for (int i = 0; i < Config.DropIdList.Length; i++)
-            {
-                DropConfig dropConfig = DropConfigCategory.Instance.Get(Config.DropIdList[i]);
-                dropList.Add(new KeyValuePair<double, DropConfig>(Config.DropRateList[i], dropConfig));
-            }
+        //    //掉落道具
+        //    for (int i = 0; i < Config.DropIdList.Length; i++)
+        //    {
+        //        DropConfig dropConfig = DropConfigCategory.Instance.Get(Config.DropIdList[i]);
+        //        dropList.Add(new KeyValuePair<double, DropConfig>(Config.DropRateList[i], dropConfig));
+        //    }
 
-            List<Item> items = DropHelper.BuildDropItem(dropList, 1);
+        //    List<Item> items = DropHelper.BuildDropItem(dropList, 1);
 
-            if (items.Count > 0)
-            {
-                user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
-            }
+        //    if (items.Count > 0)
+        //    {
+        //        user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+        //    }
 
-            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
-            {
-                Type = RuleType.Defend,
-                Message = BattleMsgHelper.BuildMonsterDeadMessage(this, exp, gold, items, 0)
-            });
-        }
+        //    GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+        //    {
+        //        Type = RuleType.Defend,
+        //        Message = BattleMsgHelper.BuildMonsterDeadMessage(this, exp, gold, items, 0)
+        //    });
+        //}
     }
 }

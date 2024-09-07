@@ -104,10 +104,7 @@ public class Battle_Defend : ABattleRule
                 user.MagicRecord[AchievementSourceType.Defend].Data = cp;
             }
 
-            if (this.Level >= 3)
-            {
-                this.BuildRewardNew();
-            }
+            this.BuildRewardNew();
 
             this.Start = true;
             this.Progress++;
@@ -120,15 +117,13 @@ public class Battle_Defend : ABattleRule
             return;
         }
 
-
-
         if (this.Progress > MaxProgress && this.Over)
         {
             this.Over = false;
 
             user.DefendData.Complete();
 
-            BuildReward();
+            //BuildReward();
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Defend, Message = "守卫成功" });
 
@@ -137,6 +132,7 @@ public class Battle_Defend : ABattleRule
             return;
         }
     }
+
     private void BuildRewardNew()
     {
         DefendConfig rewardConfig = DefendConfigCategory.Instance.GetByLayerAndLevel(this.Level, (int)this.Progress);
@@ -171,23 +167,23 @@ public class Battle_Defend : ABattleRule
         });
     }
 
-    private void BuildReward()
-    {
-        User user = GameProcessor.Inst.User;
+    //private void BuildReward()
+    //{
+    //    User user = GameProcessor.Inst.User;
 
-        List<Item> items = DropLimitHelper.Build((int)DropLimitType.Defend, 0, 1, 1, 9999999, 1);
+    //    List<Item> items = DropLimitHelper.Build((int)DropLimitType.Defend, 0, 1, 1, 9999999, 1);
 
-        if (items.Count > 0)
-        {
-            GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
-        }
+    //    if (items.Count > 0)
+    //    {
+    //        GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+    //    }
 
-        GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
-        {
-            Type = RuleType.Defend,
-            Message = BattleMsgHelper.BuildRewardMessage("守卫成功奖励", 0, 0, items)
-        });
-    }
+    //    GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+    //    {
+    //        Type = RuleType.Defend,
+    //        Message = BattleMsgHelper.BuildRewardMessage("守卫成功奖励", 0, 0, items)
+    //    });
+    //}
 
     public override void CheckGameResult()
     {

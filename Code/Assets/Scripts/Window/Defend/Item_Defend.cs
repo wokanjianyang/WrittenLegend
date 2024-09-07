@@ -34,7 +34,7 @@ namespace Game
             this.Level = index + 1;
             long p = progress - index * 100;
 
-            if (p >= 100)
+            if (p > 100)
             {
                 Type = 3;
                 Txt_Start.text = "É¨µ´";
