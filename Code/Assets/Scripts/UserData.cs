@@ -439,52 +439,65 @@ namespace Game
             return filePath;
         }
 
-        //public static void TestFull(User user)
-        //{
-        //    user.MagicLevel.Data = ConfigHelper.Max_Level;
+        public static void TestFull(User user)
+        {
+            user.MagicLevel.Data = ConfigHelper.Max_Level;
 
-        //    //精练
-        //    foreach (var kv in user.MagicEquipRefine)
-        //    {
-        //        kv.Value.Data = ConfigHelper.Max_Level_Refine;
-        //    }
+            //foreach (var kv in user.ArtifactData) {
+            //    int id = kv.Key;
+            //    ArtifactConfig config = ArtifactConfigCategory.Instance.Get(id);
 
-        //    //强化
-        //    foreach (var kv in user.MagicEquipStrength)
-        //    {
-        //        kv.Value.Data = ConfigHelper.Max_Level;
-        //    }
+            //    kv.Value.Data = config.MaxCount;
+            //}
 
-        //    //图鉴
-        //    foreach (var kv in user.CardData)
-        //    {
-        //        try
-        //        {
-        //            CardConfig cardConfig = CardConfigCategory.Instance.Get(kv.Key);
-        //            kv.Value.Data = cardConfig.MaxLevel;
-        //        }
-        //        catch { }
-        //    }
+            //foreach (SkillData skill in user.SkillList)
+            //{
+            //    int maxLevel = user.GetSkillLimit(skill.SkillConfig);
+            //    skill.MagicLevel.Data = maxLevel;
+            //}
 
-        //    //魂环
-        //    foreach (var kv in user.SoulRingData)
-        //    {
-        //    }
+            ////精练
+            //foreach (var kv in user.MagicEquipRefine)
+            //{
+            //    kv.Value.Data = ConfigHelper.Max_Level_Refine;
+            //}
 
-        //    //幻神
-        //    List<PhantomConfig> phantoms = PhantomConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
-        //    foreach (var kv in phantoms)
-        //    {
-        //        user.PhantomRecord[kv.Id] = 15;
-        //    }
+            ////强化
+            //foreach (var kv in user.MagicEquipStrength)
+            //{
+            //    kv.Value.Data = ConfigHelper.Max_Level;
+            //}
 
-        //    //广告
-        //    user.Record.AddRecord(RecordType.AdVirtual, 1000);
-        //    user.Record.AddRecord(RecordType.AdReal, 1000);
+            ////图鉴
+            //foreach (var kv in user.CardData)
+            //{
+            //    try
+            //    {
+            //        CardConfig cardConfig = CardConfigCategory.Instance.Get(kv.Key);
+            //        kv.Value.Data = cardConfig.MaxLevel;
+            //    }
+            //    catch { }
+            //}
 
-        //    user.MagicRecord[AchievementSourceType.BossFamily].Data = 10000;
+            ////魂环
+            //foreach (var kv in user.SoulRingData)
+            //{
+            //}
 
-        //    //技能
-        //}
+            ////幻神
+            //List<PhantomConfig> phantoms = PhantomConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
+            //foreach (var kv in phantoms)
+            //{
+            //    user.PhantomRecord[kv.Id] = 15;
+            //}
+
+            ////广告
+            //user.Record.AddRecord(RecordType.AdVirtual, 1000);
+            //user.Record.AddRecord(RecordType.AdReal, 1000);
+
+            //user.MagicRecord[AchievementSourceType.BossFamily].Data = 10000;
+
+            //技能
+        }
     }
 }
