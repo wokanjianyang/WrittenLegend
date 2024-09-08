@@ -124,6 +124,14 @@ namespace Game
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 107, 1, 1));
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 108, 1, 1));
 
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 109, 1, 5));  //战士经验
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 110, 1, 1)); //法师经验
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 111, 1, 1)); //道士经验
+
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 112, 1, 10));  //战士输出
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 113, 1, 1)); //法师输出
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 114, 1, 1)); //道士输出
+
             //items.AddRange(AddRedEquipDaoshi());
             //items.AddRange(AddExclusive1());
 
