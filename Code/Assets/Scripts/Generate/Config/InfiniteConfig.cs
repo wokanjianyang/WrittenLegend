@@ -90,7 +90,7 @@ namespace Game
 		/// <summary>RiseAttr</summary>
 		[ProtoMember(5)]
 		public string RiseAttr { get; set; }
-		/// <summary>Def</summary>
+		/// <summary>0</summary>
 		[ProtoMember(6)]
 		public string Def { get; set; }
 		/// <summary>RiseDef</summary>
