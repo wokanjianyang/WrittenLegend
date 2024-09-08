@@ -240,6 +240,7 @@ namespace Game
                 //List<BoxItem> items = user.Bags.Where(m => m.Item.Type == ItemType.Equip && m.Item.ConfigId >= 22105801 && m.Item.ConfigId <= 22105810).ToList();
                 //List<BoxItem> items = user.Bags.Where(m => m.Item.Type == ItemType.Equip && m.Item.ConfigId >= 23105801 && m.Item.ConfigId <= 23105810).ToList();
                 //Debug.Log("items:" + items.Count);
+                //修改红装
                 //foreach (var item in user.EquipPanelList[3])
                 //{
                 //    //Debug.Log(item.Value.EquipConfig.Name);
@@ -254,6 +255,18 @@ namespace Game
                 //    Equip equip = item.Value;
                 //    equip.AttrEntryList = AttrEntryList1;
                 //}
+                //修改专属
+                //int ei = 0;
+                //foreach (var item in user.ExclusivePanelList[1])
+                //{
+                //    ei++;
+                //    if (ei == 3) {
+                //        ExclusiveItem exclusive = item.Value;
+                //        exclusive.LevelDict.Clear();
+                //        exclusive.LevelDict[10036] = 99;
+                //    }
+                //}
+
 
                 //user.Bags.RemoveAll(m => m.Item.Type != 0);
 
