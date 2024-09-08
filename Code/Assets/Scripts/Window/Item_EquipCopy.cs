@@ -1,5 +1,7 @@
 using Game.Data;
 using Sirenix.OdinInspector;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -47,7 +49,7 @@ namespace Game
             {
                 GameProcessor.Inst.EventCenter.Raise(new OpenDefendEvent());
             }
-            else if (Type == CopyType.HeorPhantom)
+            else if (Type == CopyType.HeorPhantom) //
             {
                 User user = GameProcessor.Inst.User;
 
@@ -56,6 +58,26 @@ namespace Game
                 if (record == null)
                 {
                     GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "今天挑战已经通关了", ToastType = ToastTypeEnum.Failure });
+                    return;
+                }
+
+                if (user.Cycle.Data >= 1)
+                {  //如果是1转之后，自动完成
+
+                    user.HeroPhatomData.Complete();
+
+                    List<Item> items = DropLimitHelper.Build((int)DropLimitType.HeroPhatom, 0, 1, 1, 9999999, 1); ;
+
+                    foreach (Item item in items)
+                    {
+                        item.Count *= 10; //十层
+                    }
+
+                    user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+
+                    //显示掉落列表
+                    GameProcessor.Inst.EventCenter.Raise(new ShowDropEvent() { Gold = 0, Exp = 0, Items = items });
+
                     return;
                 }
 

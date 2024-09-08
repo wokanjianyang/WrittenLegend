@@ -1,5 +1,5 @@
 {"list":[
-{"_t":"DropLimitConfig","_id":1,"Name":"开学活动","Type":1,"StartMapId":0,"EndMapId":9999,"DropId":1005,"StartRate":0,"Rate":50,"EndRate":0,"ShareRise":0,"ShareDz":0,"StartDate":"2024-09-01","EndDate":"2024-09-04"},
+{"_t":"DropLimitConfig","_id":1,"Name":"开学活动","Type":1,"StartMapId":0,"EndMapId":9999,"DropId":1005,"StartRate":0,"Rate":50,"EndRate":0,"ShareRise":0,"ShareDz":0,"StartDate":"2024-09-15","EndDate":"2024-09-18"},
 {"_t":"DropLimitConfig","_id":101,"Name":"第一批白图鉴","Type":98,"StartMapId":1000,"EndMapId":1099,"DropId":2010,"StartRate":0,"Rate":6000,"EndRate":0,"ShareRise":1,"ShareDz":0,"StartDate":"2023-10-21","EndDate":"2025-10-21"},
 {"_t":"DropLimitConfig","_id":102,"Name":"第一批绿图鉴","Type":98,"StartMapId":1000,"EndMapId":1099,"DropId":2011,"StartRate":0,"Rate":12000,"EndRate":0,"ShareRise":1,"ShareDz":0,"StartDate":"2023-10-21","EndDate":"2025-10-21"},
 {"_t":"DropLimitConfig","_id":103,"Name":"第一批蓝图鉴","Type":98,"StartMapId":1000,"EndMapId":1099,"DropId":2012,"StartRate":0,"Rate":18000,"EndRate":0,"ShareRise":1,"ShareDz":0,"StartDate":"2023-10-21","EndDate":"2025-10-21"},
