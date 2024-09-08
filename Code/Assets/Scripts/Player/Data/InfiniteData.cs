@@ -53,7 +53,16 @@ namespace Game
             //Debug.Log("infinite drop1-100:" + DropList[0][99]);
             //Debug.Log("drop:" + DropList[0][99] + "," + DropList[0][199] + "," + DropList[0][299]);
 
-            return DropList[0][level - 1];
+            List<int> dropList = DropList[0];
+
+            if (level > dropList.Count)
+            {
+                return 0;
+            }
+            else
+            {
+                return dropList[level - 1];
+            }
         }
 
 

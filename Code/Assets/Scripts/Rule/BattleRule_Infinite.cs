@@ -128,9 +128,11 @@ public class BattleRule_Infinite : ABattleRule
 
         //µôÂäµÀ¾ß
         int dropId = user.InfiniteData.GetDropId((int)level);
-        DropConfig dropConfig = DropConfigCategory.Instance.Get(dropId);
-
-        dropList.Add(new KeyValuePair<double, DropConfig>(1, dropConfig));
+        if (dropId > 0)
+        {
+            DropConfig dropConfig = DropConfigCategory.Instance.Get(dropId);
+            dropList.Add(new KeyValuePair<double, DropConfig>(1, dropConfig));
+        }
 
         List<Item> items = DropHelper.BuildDropItem(dropList, 1);
 
