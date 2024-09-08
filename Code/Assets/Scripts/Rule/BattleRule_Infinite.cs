@@ -91,7 +91,7 @@ public class BattleRule_Infinite : ABattleRule
                 user.MagicRecord[AchievementSourceType.Infinite].Data = currentProgres;
             }
 
-            record.Progress.Data += 1;
+            record.Progress.Data += ap;
 
             for (int i = 0; i < ap; i++)
             {
