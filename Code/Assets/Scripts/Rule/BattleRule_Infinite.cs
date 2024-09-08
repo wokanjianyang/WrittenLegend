@@ -13,7 +13,7 @@ public class BattleRule_Infinite : ABattleRule
 
     //private long Progress = 1;
 
-    private const int MaxProgress = 1500; //
+    private const int MaxProgress = ConfigHelper.Infinit_Max; //
     private const int SkipTime = 15;
     private const int SkipCount = 10;
 
@@ -91,7 +91,7 @@ public class BattleRule_Infinite : ABattleRule
                 user.MagicRecord[AchievementSourceType.Infinite].Data = currentProgres;
             }
 
-            record.Progress.Data += ap;
+            record.Progress.Data += 1;
 
             for (int i = 0; i < ap; i++)
             {

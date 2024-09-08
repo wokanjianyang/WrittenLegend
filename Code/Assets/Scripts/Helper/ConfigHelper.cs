@@ -89,6 +89,8 @@ namespace Game
 
         public const int Mine_Time = 60;
 
+        public const int Infinit_Max = 1500;
+
         public static int GetFloorRate(long floor)
         {
             if (floor > 100 && floor < FastFloor)

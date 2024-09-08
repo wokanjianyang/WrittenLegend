@@ -9,7 +9,7 @@ namespace Game
     {
         public List<int> GetAllDropIdList()
         {
-            int maxLevel = 1000;
+            int maxLevel = ConfigHelper.Infinit_Max;
 
             List<int> rates = new List<int>();
 

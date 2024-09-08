@@ -106,7 +106,7 @@ namespace Game
 
             double rate = Math.Min(miss, 95); //闪避最高95%
 
-            Debug.Log("miss2 rate:" + rate);
+            //Debug.Log("miss2 rate:" + rate);
 
             return RandomHelper.RandomRate((int)rate);
         }
