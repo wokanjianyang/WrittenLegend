@@ -9,7 +9,7 @@ namespace Game
 {
     public class Monster_Infinite : APlayer
     {
-        public int Progeress;
+        public int Progress;
         InfiniteConfig Config { get; set; }
         InfiniteModelConfig ModelConfig { get; set; }
 
@@ -20,7 +20,7 @@ namespace Game
 
         public Monster_Infinite(long progress, int quality) : base()
         {
-            this.Progeress = (int)progress;
+            this.Progress = (int)progress;
             this.GroupId = 2;
             this.Quality = quality;
             this.RuleType = RuleType.Infinite;
@@ -38,7 +38,7 @@ namespace Game
 
             this.Camp = PlayerType.Enemy;
             this.Name = ModelConfig.Name + qualityConfig.MonsterTitle;
-            this.Level = Progeress * 100;
+            this.Level = Progress * 100;
 
             this.SetAttr();  //设置属性值
             this.SetSkill(); //设置技能
@@ -51,13 +51,13 @@ namespace Game
         {
             this.AttributeBonus = new AttributeBonus();
 
-            int riseLevel = this.Progeress - Config.StartLevel;
+            int riseLevel = this.Progress - Config.StartLevel;
 
             double hp = Double.Parse(Config.HP) + Double.Parse(Config.RiseHp) * riseLevel;
             double attr = Double.Parse(Config.Attr) + Double.Parse(Config.RiseAttr) * riseLevel;
             double def = Double.Parse(Config.Def) + Double.Parse(Config.RiseDef) * riseLevel;
 
-            //Debug.Log("Progeress:" + this.Progeress + " :" + def);
+            Debug.Log("Infinit " + this.Progress + " HP:" + StringHelper.FormatNumber(hp));
 
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp * HpRate[Quality - 1]);
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr * AttrRate[Quality - 1]);
@@ -71,6 +71,7 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.CritDamage, AttributeFrom.HeroBase, Config.CritDamage);
 
             AttributeBonus.SetAttr(AttributeEnum.Accuracy, AttributeFrom.HeroBase, Config.Accuracy);
+            AttributeBonus.SetAttr(AttributeEnum.Miss, AttributeFrom.HeroBase, Config.Miss);
             AttributeBonus.SetAttr(AttributeEnum.MulDamageResist, AttributeFrom.HeroBase, Config.MulDamageResist);
             AttributeBonus.SetAttr(AttributeEnum.Protect, AttributeFrom.HeroBase, Config.Protect);
 
@@ -88,7 +89,7 @@ namespace Game
             {
                 int skillId = rdList[i];
                 SkillData skillData = new SkillData(skillId, i);
-                skillData.MagicLevel.Data = this.Progeress * skillData.SkillConfig.MaxLevel / 100;
+                skillData.MagicLevel.Data = this.Progress * skillData.SkillConfig.MaxLevel / 100;
                 list.Add(skillData);
             }
 

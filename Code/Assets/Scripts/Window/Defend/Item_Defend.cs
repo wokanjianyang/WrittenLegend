@@ -28,12 +28,19 @@ namespace Game
             Btn_Start.onClick.AddListener(() => { this.OnClick_Start(); });
         }
 
-        public void SetContent(int index, long progress)
+        private void OnEnable()
         {
-            Txt_Name.text = names[index];
+            if (this.Level > 0)
+            {
+                this.Show();
+            }
+        }
 
-            this.Level = index + 1;
-            long p = progress - index * 100;
+        private void Show()
+        {
+            User user = GameProcessor.Inst.User;
+
+            long p = user.MagicRecord[AchievementSourceType.Defend].Data - (this.Level - 1) * 100;
 
             //p = 0;
             if (p > 100)
@@ -55,13 +62,21 @@ namespace Game
                 Btn_Start.gameObject.SetActive(false);
             }
 
-            User user = GameProcessor.Inst.User;
+
             DefendRecord record = user.DefendData.GetCurrentRecord(this.Level);
             if (record == null)
             {
                 this.Txt_Over.gameObject.SetActive(true);
                 Btn_Start.gameObject.SetActive(false);
             }
+        }
+
+        public void SetContent(int index)
+        {
+            Txt_Name.text = names[index];
+            this.Level = index + 1;
+
+            this.Show();
         }
 
         private void OnClick_Start()

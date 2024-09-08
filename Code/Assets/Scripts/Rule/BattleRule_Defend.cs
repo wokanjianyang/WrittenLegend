@@ -73,16 +73,8 @@ public class Battle_Defend : ABattleRule
             //Load All
             for (int i = 0; i < MonsterList.Length; i++)
             {
-                if (Level <= 2)
-                {
-                    var enemy = new Monster_Defend(this.Progress, MonsterList[i], this.Level);
-                    GameProcessor.Inst.PlayerManager.LoadMonsterDefend(enemy);
-                }
-                else
-                {
-                    var enemy = new Monster_DefendNew(this.Level, this.Progress, MonsterList[i]);
-                    GameProcessor.Inst.PlayerManager.LoadMonsterDefend(enemy);
-                }
+                var enemy = new Monster_DefendNew(this.Level, this.Progress, MonsterList[i]);
+                GameProcessor.Inst.PlayerManager.LoadMonsterDefend(enemy);
             }
 
             GameProcessor.Inst.EventCenter.Raise(new ShowDefendInfoEvent() { Count = Progress, PauseCount = PauseCount });

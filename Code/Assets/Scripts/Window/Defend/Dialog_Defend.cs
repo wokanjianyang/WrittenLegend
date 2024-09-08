@@ -24,7 +24,7 @@ public class Dialog_Defend : MonoBehaviour, IBattleLife
 
         for (int i = 0; i < ItemList.Count; i++)
         {
-            ItemList[i].SetContent(i, progess);
+            ItemList[i].SetContent(i);
         }
         btn_FullScreen.onClick.AddListener(this.OnClick_Close);
     }
