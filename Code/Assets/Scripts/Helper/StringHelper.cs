@@ -173,7 +173,32 @@ namespace Game
         {
             string src;
 
-            if (val.Length > 29)
+            if (val.Length > 49)
+            {
+                unit = "极" + unit;
+                src = val.Substring(0, val.Length - 48);
+            }
+            else if (val.Length > 45)
+            {
+                unit = "载" + unit;
+                src = val.Substring(0, val.Length - 44);
+            }
+            else if (val.Length > 41)
+            {
+                unit = "正" + unit;
+                src = val.Substring(0, val.Length - 40);
+            }
+            else if (val.Length > 37)
+            {
+                unit = "涧" + unit;
+                src = val.Substring(0, val.Length - 36);
+            }
+            else if (val.Length > 33)
+            {
+                unit = "沟" + unit;
+                src = val.Substring(0, val.Length - 32);
+            }
+            else if (val.Length > 29)
             {
                 unit = "穰" + unit;
                 src = val.Substring(0, val.Length - 28);

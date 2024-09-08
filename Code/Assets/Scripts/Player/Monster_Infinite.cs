@@ -57,7 +57,7 @@ namespace Game
             double attr = Double.Parse(Config.Attr) + Double.Parse(Config.RiseAttr) * riseLevel;
             double def = Double.Parse(Config.Def) + Double.Parse(Config.RiseDef) * riseLevel;
 
-            Debug.Log("Infinit " + this.Progress + " HP:" + StringHelper.FormatNumber(hp));
+            //Debug.Log("Infinit " + this.Progress + " HP:" + StringHelper.FormatNumber(hp));
 
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp * HpRate[Quality - 1]);
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr * AttrRate[Quality - 1]);
