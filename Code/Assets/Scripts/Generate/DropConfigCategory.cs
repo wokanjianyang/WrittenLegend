@@ -106,25 +106,26 @@ namespace Game
 
         public static List<Item> BuildDropItem(List<int> dropIdList)
         {
-            List<Item> list = new List<Item>();
+            Dictionary<int, Item> dict = new Dictionary<int, Item>();
 
-            var groupedDictionary = dropIdList.GroupBy(kv => kv);
-
-            foreach (IGrouping<int, int> group in groupedDictionary)
+            foreach (int dropId in dropIdList)
             {
-                int dropId = group.Key;
-                int count = group.Count();
-
                 DropConfig config = DropConfigCategory.Instance.Get(dropId);
 
                 int index = RandomHelper.RandomNumber(0, config.ItemIdList.Length);
-                int configId = config.ItemIdList[index];
+                int itemId = config.ItemIdList[index];
 
-                Item item = ItemHelper.BuildItem((ItemType)config.ItemType, configId, 1, config.Quantity * count);
-                list.Add(item);
+                if (!dict.ContainsKey(itemId))
+                {
+                    dict[itemId] = ItemHelper.BuildItem((ItemType)config.ItemType, itemId, 1, config.Quantity); ;
+                }
+                else
+                {
+                    dict[itemId].Count += config.Quantity;
+                }
             }
 
-            return list;
+            return dict.Select(m => m.Value).OrderBy(m => m.ConfigId).ToList();
         }
     }
 }
