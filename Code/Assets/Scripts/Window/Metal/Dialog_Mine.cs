@@ -16,7 +16,7 @@ public class Dialog_Mine : MonoBehaviour, IBattleLife
     public Button Btn_Info;
     public Text Txt_Info;
 
-    public Transform Tf_Miner;
+    public ScrollRect Sr_Miner;
     private GameObject Pab_Miner;
     List<MinerUI> miners = new List<MinerUI>();
 
@@ -76,7 +76,7 @@ public class Dialog_Mine : MonoBehaviour, IBattleLife
 
             MinerUI com = item.GetComponentInChildren<MinerUI>();
 
-            item.transform.SetParent(this.Tf_Miner);
+            item.transform.SetParent(this.Sr_Miner.content);
             item.transform.localScale = Vector3.one;
 
             miners.Add(com);
@@ -101,7 +101,7 @@ public class Dialog_Mine : MonoBehaviour, IBattleLife
 
             var item = GameObject.Instantiate(Pab_Miner);
             MinerUI com = item.GetComponentInChildren<MinerUI>();
-            item.transform.SetParent(this.Tf_Miner);
+            item.transform.SetParent(this.Sr_Miner.content);
             item.transform.localScale = Vector3.one;
             miners.Add(com);
         }
