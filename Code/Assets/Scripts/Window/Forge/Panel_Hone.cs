@@ -158,15 +158,15 @@ public class Panel_Hone : MonoBehaviour
             honeList[i].SetItem(attrId, attrVal, honeLevel, SelectEquip.Layer);
         }
 
-        int part = SelectEquip.Part;
-        int layer = SelectEquip.Layer;
+        //int part = SelectEquip.Part;
+        //int layer = SelectEquip.Layer;
 
-        EquipGradeConfig config = EquipGradeConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Part == part && m.Layer == layer).FirstOrDefault();
+        //EquipGradeConfig config = EquipGradeConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Part == part && m.Layer == layer).FirstOrDefault();
 
-        if (config == null)
-        {
-            return;
-        }
+        //if (config == null)
+        //{
+        //    return;
+        //}
 
         Txt_Fee.gameObject.SetActive(true);
         Txt_Fee.text = "0/99";
