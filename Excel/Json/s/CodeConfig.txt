@@ -43,7 +43,7 @@
 {"_t":"CodeConfig","_id":42,"Type":1,"code":"gx169","ItemTypeList":[5],"ItemIdList":[4004],"ItemQuanlityList":[38]},
 {"_t":"CodeConfig","_id":43,"Type":1,"code":"gx236","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013],"ItemQuanlityList":[388,38,12]},
 {"_t":"CodeConfig","_id":44,"Type":1,"code":"fqf666","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013],"ItemQuanlityList":[666,66,16]},
-{"_t":"CodeConfig","_id":45,"Type":1,"code":"luoyi666","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013],"ItemQuanlityList":[666,66,16]},
+{"_t":"CodeConfig","_id":45,"Type":1,"code":"xiaoqin666","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013],"ItemQuanlityList":[666,66,16]},
 {"_t":"CodeConfig","_id":46,"Type":1,"code":"zui999","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013],"ItemQuanlityList":[999,99,38]},
 {"_t":"CodeConfig","_id":47,"Type":1,"code":"bc235","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013],"ItemQuanlityList":[388,38,12]},
 {"_t":"CodeConfig","_id":48,"Type":1,"code":"zhongqiu2024","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013],"ItemQuanlityList":[388,38,12]},

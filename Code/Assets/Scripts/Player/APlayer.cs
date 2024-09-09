@@ -547,20 +547,28 @@ namespace Game
 
         public void ShowMiss()
         {
-            this.EventCenter.Raise(new ShowMsgEvent()
+            if ((this.Camp == PlayerType.Enemy && GameProcessor.Inst.User.ShowMonsterDamage)
+              || (this.Camp != PlayerType.Enemy && GameProcessor.Inst.User.ShowPlayerEffect))
             {
-                Type = MsgType.Miss,
-                Content = "MISS"
-            });
+                this.EventCenter.Raise(new ShowMsgEvent()
+                {
+                    Type = MsgType.Miss,
+                    Content = "MISS"
+                });
+            }
         }
 
         public void ShowMiss2()
         {
-            this.EventCenter.Raise(new ShowMsgEvent()
+            if ((this.Camp == PlayerType.Enemy && GameProcessor.Inst.User.ShowMonsterDamage)
+             || (this.Camp != PlayerType.Enemy && GameProcessor.Inst.User.ShowPlayerEffect))
             {
-                Type = MsgType.Miss,
-                Content = "二次闪避"
-            });
+                this.EventCenter.Raise(new ShowMsgEvent()
+                {
+                    Type = MsgType.Miss,
+                    Content = "二次闪避"
+                });
+            }
         }
 
         public T GetComponent<T>()

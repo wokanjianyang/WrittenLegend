@@ -82,6 +82,8 @@ namespace Game
 
         public bool ShowMonsterDamage { get; set; } = true;
 
+        public bool ShowPlayerEffect { get; set; } = true;
+
         public List<SkillData> SkillList { get; set; } = new List<SkillData>();
 
         public IDictionary<int, List<int>> SkillPanelList { get; set; } = new Dictionary<int, List<int>>();
@@ -256,7 +258,7 @@ namespace Game
 
         public List<DropData> DropDataList { get; } = new List<DropData>();
 
-        public IDictionary<int, int> FestiveData_91 { get; set; } = new Dictionary<int, int>();
+        public IDictionary<int, int> FestiveData_915 { get; set; } = new Dictionary<int, int>();
 
         public List<Miner> MinerList { get; set; } = new List<Miner>();
 
@@ -1159,23 +1161,23 @@ namespace Game
 
         public int GetFestiveCount(int id)
         {
-            if (!this.FestiveData_91.ContainsKey(id))
+            if (!this.FestiveData_915.ContainsKey(id))
             {
-                this.FestiveData_91[id] = 0;
+                this.FestiveData_915[id] = 0;
             }
 
-            return this.FestiveData_91[id];
+            return this.FestiveData_915[id];
         }
 
         public void SaveFestiveCount(int configId, int count)
         {
-            if (this.FestiveData_91.ContainsKey(configId))
+            if (this.FestiveData_915.ContainsKey(configId))
             {
-                this.FestiveData_91[configId] += count;
+                this.FestiveData_915[configId] += count;
             }
             else
             {
-                this.FestiveData_91[configId] = count;
+                this.FestiveData_915[configId] = count;
             }
         }
 

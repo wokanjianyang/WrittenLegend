@@ -93,11 +93,15 @@ namespace Game
                 }
                 this.SelfPlayer.SetSP(currentSP);
 
-                this.SelfPlayer.EventCenter.Raise(new ShowMsgEvent
+                if ((this.SelfPlayer.Camp == PlayerType.Enemy && GameProcessor.Inst.User.ShowMonsterDamage)
+                 || (this.SelfPlayer.Camp != PlayerType.Enemy && GameProcessor.Inst.User.ShowPlayerEffect))
                 {
-                    Type = MsgType.SP,
-                    Content = "-" + StringHelper.FormatNumber(dr.Damage)
-                });
+                    this.SelfPlayer.EventCenter.Raise(new ShowMsgEvent
+                    {
+                        Type = MsgType.SP,
+                        Content = "-" + StringHelper.FormatNumber(dr.Damage)
+                    });
+                }
 
                 this.SelfPlayer.EventCenter.Raise(new SetPlayerHPEvent { });
 
@@ -120,13 +124,17 @@ namespace Game
 
             this.SelfPlayer.SetHP(currentHP);
 
-            if (this.SelfPlayer.Camp != PlayerType.Enemy || GameProcessor.Inst.User.ShowMonsterDamage)
+            if ((this.SelfPlayer.Camp == PlayerType.Enemy && GameProcessor.Inst.User.ShowMonsterDamage)
+             || (this.SelfPlayer.Camp != PlayerType.Enemy && GameProcessor.Inst.User.ShowPlayerEffect))
             {
-                this.SelfPlayer.EventCenter.Raise(new ShowMsgEvent
+                if (GameProcessor.Inst.User.ShowMonsterDamage)
                 {
-                    Type = dr.Type,
-                    Content = "-" + StringHelper.FormatNumber(dr.Damage)
-                });
+                    this.SelfPlayer.EventCenter.Raise(new ShowMsgEvent
+                    {
+                        Type = dr.Type,
+                        Content = "-" + StringHelper.FormatNumber(dr.Damage)
+                    });
+                }
             }
 
             this.SelfPlayer.EventCenter.Raise(new SetPlayerHPEvent { });

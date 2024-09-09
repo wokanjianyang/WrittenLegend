@@ -32,9 +32,19 @@ namespace Game
             this.CD = 0;
 
             bool isShow = true;
-            if (player.Camp == PlayerType.Enemy && !GameProcessor.Inst.User.ShowMonsterSkill)
+            if (player.Camp == PlayerType.Enemy)
             {
-                isShow = false;
+                if (!GameProcessor.Inst.User.ShowMonsterSkill)
+                {
+                    isShow = false;
+                }
+            }
+            else
+            {
+                if (!GameProcessor.Inst.User.ShowPlayerEffect)
+                {
+                    isShow = false;
+                }
             }
 
             if (skillPanel.SkillId == 1010)

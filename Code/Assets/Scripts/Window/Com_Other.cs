@@ -23,6 +23,7 @@ namespace Game
         [LabelText("显示怪物技能特效")]
         public Toggle tog_Monster_Skill;
         public Toggle tog_Monster_Damage;
+        public Toggle tog_Player;
         //public Button btn_Query;
 
         public Text txt_Info;
@@ -55,6 +56,10 @@ namespace Game
             tog_Monster_Damage.onValueChanged.AddListener((isOn) =>
             {
                 this.ShowDamage(isOn);
+            });
+            tog_Player.onValueChanged.AddListener((isOn) =>
+            {
+                this.ShowPlayerEffect(isOn);
             });
 
             this.btn_Change.onClick.AddListener(this.OnClick_Change);
@@ -149,10 +154,11 @@ namespace Game
         public void Init()
         {
             Debug.Log("Other init");
-            tog_Monster_Skill.isOn = GameProcessor.Inst.User.ShowMonsterSkill;
-            tog_Monster_Damage.isOn = GameProcessor.Inst.User.ShowMonsterDamage;
-
             User user = GameProcessor.Inst.User;
+
+            tog_Monster_Skill.isOn = user.ShowMonsterSkill;
+            tog_Monster_Damage.isOn = user.ShowMonsterDamage;
+            tog_Player.isOn = user.ShowPlayerEffect;
 
             string account = user.Account;
             //this.txt_Account.text = "设备Id:" + id;
@@ -202,6 +208,11 @@ namespace Game
         public void ShowDamage(bool show)
         {
             GameProcessor.Inst.User.ShowMonsterDamage = show;
+        }
+
+        public void ShowPlayerEffect(bool show)
+        {
+            GameProcessor.Inst.User.ShowPlayerEffect = show;
         }
 
         public void OnClick_Change()
@@ -379,7 +390,7 @@ namespace Game
                       if (GameProcessor.Inst.LoadInit(str_json, account))
                       {
                           this.txt_Info.text = "读取存档成功,请退出重进";
-                          GameProcessor.Inst.SaveData();;
+                          GameProcessor.Inst.SaveData(); ;
                       }
                       else
                       {
