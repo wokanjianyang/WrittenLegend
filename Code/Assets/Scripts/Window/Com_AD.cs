@@ -332,7 +332,6 @@ public class Com_AD : MonoBehaviour, IBattleLife
         User user = GameProcessor.Inst.User;
 
         int rate = real ? 2 : 1;
-        int dzRate = user.GetDzRate();
 
         var data = user.ADShowData?.GetADShowStatus((ADTypeEnum)type);
 
@@ -340,6 +339,8 @@ public class Com_AD : MonoBehaviour, IBattleLife
         {
             return;
         }
+
+        rate = Math.Min(rate, 6 - data.CurrentShowCount);
 
         data.CurrentShowCount += rate;
 
@@ -351,16 +352,16 @@ public class Com_AD : MonoBehaviour, IBattleLife
         switch (type)
         {
             case 1:
-                RewardExpAndGold(rate * dzRate);
+                RewardExpAndGold(rate);
                 break;
             case 2:
-                RewardBossTicket(rate * dzRate);
+                RewardBossTicket(rate);
                 break;
             case 3:
-                RewardCopyTicket(rate * dzRate);
+                RewardCopyTicket(rate);
                 break;
             case 4:
-                RewardStone(rate * dzRate);
+                RewardStone(rate);
                 break;
             default:
                 break;
@@ -368,11 +369,11 @@ public class Com_AD : MonoBehaviour, IBattleLife
 
         if (real)
         {
-            user.Record.AddRecord(RecordType.AdReal, 1 * dzRate);
+            user.Record.AddRecord(RecordType.AdReal, 1);
         }
         else
         {
-            user.Record.AddRecord(RecordType.AdVirtual, 1 * dzRate);
+            user.Record.AddRecord(RecordType.AdVirtual, 1);
         }
 
         this.UpdateAdData();
