@@ -106,6 +106,7 @@ namespace Game
             //user.SaveArtifactLevel(180007, 1); //破限
             //user.SaveArtifactLevel(180009, 1); //圣者
             //user.SaveArtifactLevel(180019, 1); //副本杀手
+            //user.SaveArtifactLevel(180030, 45); //极。卖身契
 
             //user.Record.AddRecord(RecordType.AdReal, -800);
             //user.MagicGold.Data = 100000000000000000L;//10京金币
