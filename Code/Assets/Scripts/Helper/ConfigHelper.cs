@@ -58,7 +58,7 @@ namespace Game
 
         public static int[] RateAttrIdList = { 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009 };
 
-        public static string[] LayerNameList = { "黄", "玄", "地", "天", "荒", "洪", "宙", "宇", };
+        public static string[] LayerNameList = { "黄", "玄", "地", "天", "荒", "洪", "宙", "宇", "极", "道", "虚", "始" };
         public static string[] LayerChinaList = { "零", "一", "二", "三", "四", "五", "六", "七", "八", };
 
         public const int MapStartId = 1000;
