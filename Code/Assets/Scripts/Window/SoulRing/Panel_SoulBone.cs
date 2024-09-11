@@ -1,0 +1,220 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using Game;
+using Game.Data;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class Panel_SoulBone : MonoBehaviour
+{
+    public Text txt_Fee;
+
+    public Button Btn_Active;
+
+
+    public List<Toggle> RingList = new List<Toggle>();
+    public List<StrenthAttrItem> AttrList = new List<StrenthAttrItem>();
+
+    private int Sid = 0;
+
+    public int Order => (int)ComponentOrder.Dialog;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        Btn_Active.onClick.AddListener(OnStrong);
+
+        for (int i = 0; i < RingList.Count; i++)
+        {
+            int index = i + 1;
+
+            RingList[i].onValueChanged.AddListener((isOn) =>
+            {
+                if (isOn) { ShowSoulRing(index); }
+            });
+        }
+
+        Init();
+    }
+
+    public void OnBattleStart()
+    {
+
+    }
+
+    private void Init()
+    {
+        User user = GameProcessor.Inst.User;
+
+        for (int i = 0; i < RingList.Count; i++)
+        {
+            int sid = i + 1;
+
+            if (user.SoulRingData.TryGetValue(sid, out MagicData data)) //active
+            {
+                InitRing(sid, data.Data);
+            }
+            else
+            {
+                InitRing(sid, 0);
+            }
+        }
+    }
+
+
+    private void InitRing(int sid, long level)
+    {
+        Toggle ring = RingList[sid - 1];
+
+        //初始未选中,隐藏具体信息
+        for (int i = 0; i < AttrList.Count; i++)
+        {
+            AttrList[i].gameObject.SetActive(false);
+        }
+
+        Btn_Active.gameObject.SetActive(false);
+
+        Text[] txtList = ring.GetComponentsInChildren<Text>();
+
+        for (int i = 0; i < txtList.Length; i++)
+        {
+            if (txtList[i].name == "lb_Name")
+            {
+                SoulRingConfig srConfig = SoulRingConfigCategory.Instance.Get(sid);
+                txtList[i].text = srConfig.Name.Insert(2, "\n");
+            }
+            else
+            {
+                txtList[i].text = level + "";
+            }
+        }
+    }
+
+    private void ShowSoulRing(int sid)
+    {
+        this.Sid = sid;
+
+        User user = GameProcessor.Inst.User;
+
+        long currentLevel = 0;
+
+        if (user.SoulRingData.TryGetValue(sid, out MagicData data))
+        {
+            currentLevel = data.Data;
+        }
+        InitRing(sid, currentLevel);
+
+        SoulRingAttrConfig currentConfig = SoulRingConfigCategory.Instance.GetAttrConfig(sid, currentLevel);
+        SoulRingAttrConfig nextConfig = SoulRingConfigCategory.Instance.GetAttrConfig(sid, currentLevel + 1);
+
+
+        if (currentConfig == null && nextConfig == null)
+        {
+            return; //未配置的
+        }
+
+        long MaxLevel = user.GetSoulRingLimit();
+
+        if (nextConfig == null || currentLevel >= MaxLevel || currentLevel >= nextConfig.EndLevel)
+        {
+            txt_Fee.text = "已满级";
+            Btn_Active.gameObject.SetActive(false);
+        }
+        else
+        {
+            Btn_Active.gameObject.SetActive(true);
+        }
+
+        //Fee
+        long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_SoulRingShard);
+        if (nextConfig != null)
+        {
+            long fee = nextConfig.GetFee(currentLevel + 1);
+            string color = materialCount >= fee ? "#FFFF00" : "#FF0000";
+
+            txt_Fee.gameObject.SetActive(true);
+            txt_Fee.text = string.Format("<color={0}>{1}</color>", color, "需要:" + fee + " 魂环碎片");
+        }
+
+        SoulRingAttrConfig showConfig = currentConfig == null ? nextConfig : currentConfig;
+
+        long aurasLevel = showConfig.GetAurasLevel(currentLevel);
+        double aurasAttr = 0;
+
+        if (currentConfig != null && currentConfig.AurasId > 0)
+        {
+            AurasAttrConfig aurasAttrConfig = AurasAttrConfigCategory.Instance.GetConfig(currentConfig.AurasId);
+            aurasAttr = aurasAttrConfig.GetAttr(aurasLevel);
+        }
+
+        //Attr
+        for (int i = 0; i < AttrList.Count; i++)
+        {
+            StrenthAttrItem attrItem = AttrList[i];
+
+            if (i >= showConfig.AttrIdList.Length)
+            {
+                attrItem.gameObject.SetActive(false);
+            }
+            else
+            {
+                attrItem.gameObject.SetActive(true);
+
+                long attrBase = currentConfig == null ? 0 : currentConfig.GetAttr(i, currentLevel);
+                long attrRise = nextConfig == null ? 0 : nextConfig.AttrRiseList[i];
+
+                attrItem.SetContent(showConfig.AttrIdList[i], attrBase, attrRise);
+            }
+        }
+    }
+
+    public void OnShowSoulRingEvent(ShowSoulRingEvent e)
+    {
+        this.gameObject.SetActive(true);
+    }
+
+
+    public void OnStrong()
+    {
+        User user = GameProcessor.Inst.User;
+
+        long currentLevel = 0;
+
+        if (user.SoulRingData.TryGetValue(this.Sid, out MagicData data))
+        {
+            currentLevel = data.Data;
+        }
+
+        long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_SoulRingShard);
+
+        SoulRingAttrConfig currentConfig = SoulRingConfigCategory.Instance.GetAttrConfig(this.Sid, currentLevel);
+        SoulRingAttrConfig nextConfig = SoulRingConfigCategory.Instance.GetAttrConfig(this.Sid, currentLevel + 1);
+
+        long fee = nextConfig.GetFee(currentLevel + 1);
+
+        if (materialCount < fee)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的材料", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
+
+        if (currentLevel == 0)
+        {
+            user.SoulRingData[Sid] = new MagicData();
+        }
+        user.SoulRingData[Sid].Data = currentLevel + 1;
+
+        GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
+        {
+            Type = ItemType.Material,
+            ItemId = ItemHelper.SpecialId_SoulRingShard,
+            Quantity = fee
+        });
+
+        GameProcessor.Inst.UpdateInfo();
+
+        ShowSoulRing(this.Sid);
+    }
+}

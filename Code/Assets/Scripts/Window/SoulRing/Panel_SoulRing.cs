@@ -7,7 +7,7 @@ using Game.Data;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Dialog_SoulRing : MonoBehaviour, IBattleLife
+public class Panel_SoulRing : MonoBehaviour, IBattleLife
 {
     public Text Fee;
 
