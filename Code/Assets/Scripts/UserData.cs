@@ -367,7 +367,7 @@ namespace Game
                 return;
             }
 
-            //Debug.Log("save back " + index);
+            Debug.Log("save back " + index);
 
             string pk = GetBackKey(index);
             string pv = Guid.NewGuid().ToString().Substring(0, 16);

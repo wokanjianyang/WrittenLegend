@@ -622,7 +622,7 @@ namespace Game
                 }
                 else
                 {
-                    int index = (onlineTime / 100) % 3 + 1;
+                    int index = (onlineTime / 100) % 3;
                     UserData.SaveBack(index);
                 }
             }
@@ -817,7 +817,7 @@ namespace Game
                 int rl = User.GetArtifactValue(ArtifactType.BossBattleRate);
                 int rate = rl + 1;
 
-                Debug.Log("剩余boss卷:" + bossTicket);
+                //Debug.Log("剩余boss卷:" + bossTicket);
 
                 if (EquipBossFamily_Auto && bossTicket > rate)
                 {

@@ -70,7 +70,7 @@ namespace Game
         {
             List<SkillRune> runeList = new List<SkillRune>();
 
-            List<SkillRuneConfig> runeConfigs = SkillRuneConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.SkillId == skillId).OrderBy(m => m.Id).ToList();
+            List<SkillRuneConfig> runeConfigs = SkillRuneConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.SkillId == skillId && m.Type == 1).OrderBy(m => m.Id).ToList();
 
             foreach (SkillRuneConfig config in runeConfigs)
             {

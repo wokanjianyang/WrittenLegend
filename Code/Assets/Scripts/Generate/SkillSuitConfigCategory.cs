@@ -14,7 +14,7 @@ namespace Game
     {
         public static SkillSuitConfig RandomSuit(int seed, int skillId)
         {
-            List<SkillSuitConfig> list = SkillSuitConfigCategory.Instance.GetAll().Where(m => m.Value.SkillId == skillId).Select(m => m.Value).ToList();
+            List<SkillSuitConfig> list = SkillSuitConfigCategory.Instance.GetAll().Where(m => m.Value.SkillId == skillId && m.Value.Type == 1).Select(m => m.Value).ToList();
             int index = RandomHelper.RandomNumber(seed, 0, list.Count);
 
             return list[index];
@@ -29,7 +29,7 @@ namespace Game
         {
             List<SkillSuit> suitList = new List<SkillSuit>();
 
-            List<SkillSuitConfig> suitConfigs = SkillSuitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.SkillId == skillId).OrderBy(m => m.Id).ToList();
+            List<SkillSuitConfig> suitConfigs = SkillSuitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.SkillId == skillId && m.Type == 1).OrderBy(m => m.Id).ToList();
 
             if (excludeList != null)
             {

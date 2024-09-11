@@ -48,4 +48,9 @@
 {"_t":"HalidomConfig","_id":40000097,"ItemId":40000097,"Name":"噩梦尸心","AttrId":2002,"AttrValue":25,"RiseAttr":25,"MaxLevel":4,"Des":"防御倍率"},
 {"_t":"HalidomConfig","_id":40000098,"ItemId":40000098,"Name":"噩梦法杖","AttrId":2003,"AttrValue":25,"RiseAttr":25,"MaxLevel":4,"Des":"生命倍率"},
 {"_t":"HalidomConfig","_id":40000099,"ItemId":40000099,"Name":"噩梦权杖","AttrId":2001,"AttrValue":5,"RiseAttr":5,"MaxLevel":4,"Des":"攻击倍率"},
+{"_t":"HalidomConfig","_id":40000100,"ItemId":40000100,"Name":"噩梦战锤","AttrId":2004,"AttrValue":5,"RiseAttr":5,"MaxLevel":4,"Des":"物攻倍率"},
+{"_t":"HalidomConfig","_id":40000101,"ItemId":40000101,"Name":"噩梦血核","AttrId":2003,"AttrValue":25,"RiseAttr":25,"MaxLevel":4,"Des":"生命倍率"},
+{"_t":"HalidomConfig","_id":40000102,"ItemId":40000102,"Name":"噩梦魔核","AttrId":2002,"AttrValue":25,"RiseAttr":25,"MaxLevel":4,"Des":"防御倍率"},
+{"_t":"HalidomConfig","_id":40000103,"ItemId":40000103,"Name":"噩梦龙甲","AttrId":2011,"AttrValue":10,"RiseAttr":10,"MaxLevel":4,"Des":"减伤倍率"},
+{"_t":"HalidomConfig","_id":40000104,"ItemId":40000104,"Name":"噩梦龙爪","AttrId":2001,"AttrValue":5,"RiseAttr":5,"MaxLevel":4,"Des":"攻击倍率"},
 ]}
