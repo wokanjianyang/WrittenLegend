@@ -163,13 +163,13 @@ namespace Game
 
                     if (skillPanel.DivineLevel > 0)
                     {
-                        Debug.Log("dld Percent:" + skillPanel.Percent);
+                        //Debug.Log("dld Percent:" + skillPanel.Percent);
                         int dp = (int)(skillPanel.DivineAttrConfig.Param * skillPanel.DivineLevel);
-                        Debug.Log("dld dp:" + dp);
+                        //Debug.Log("dld dp:" + dp);
                         skillPanel.Percent = skillPanel.Percent * dp / 100;
-                        Debug.Log("dld Percent:" + skillPanel.Percent);
-                        SkillState skill = new SkillState(this, skillPanel, skillData.Position, 0);
-                        SelectSkillList.Add(skill);
+                        //Debug.Log("dld Percent:" + skillPanel.Percent);
+                        SkillState skill = new SkillState(this, skillPanel, 0, 0);
+                        SelectSkillList.Insert(0, skill);
                     }
                 }
             }
