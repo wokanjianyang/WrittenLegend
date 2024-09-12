@@ -10,12 +10,13 @@ using UnityEngine.UI;
 public class Panel_SoulBone : MonoBehaviour
 {
     public Text txt_Fee;
-
     public Button Btn_Active;
 
+    public Transform Tf_Ring;
+    public Transform Tf_Attr;
 
-    public List<Toggle> RingList = new List<Toggle>();
-    public List<StrenthAttrItem> AttrList = new List<StrenthAttrItem>();
+    private List<Toggle> RingList;
+    private List<StrenthAttrItem> AttrList;
 
     private int Sid = 0;
 
@@ -25,6 +26,9 @@ public class Panel_SoulBone : MonoBehaviour
     void Start()
     {
         Btn_Active.onClick.AddListener(OnStrong);
+
+        RingList = Tf_Ring.GetComponentsInChildren<Toggle>().ToList();
+        AttrList = Tf_Attr.GetComponentsInChildren<StrenthAttrItem>().ToList();
 
         for (int i = 0; i < RingList.Count; i++)
         {
@@ -39,11 +43,6 @@ public class Panel_SoulBone : MonoBehaviour
         Init();
     }
 
-    public void OnBattleStart()
-    {
-
-    }
-
     private void Init()
     {
         User user = GameProcessor.Inst.User;
@@ -52,7 +51,7 @@ public class Panel_SoulBone : MonoBehaviour
         {
             int sid = i + 1;
 
-            if (user.SoulRingData.TryGetValue(sid, out MagicData data)) //active
+            if (user.SoulBoneData.TryGetValue(sid, out MagicData data)) //active
             {
                 InitRing(sid, data.Data);
             }
@@ -82,8 +81,8 @@ public class Panel_SoulBone : MonoBehaviour
         {
             if (txtList[i].name == "lb_Name")
             {
-                SoulRingConfig srConfig = SoulRingConfigCategory.Instance.Get(sid);
-                txtList[i].text = srConfig.Name.Insert(2, "\n");
+                SoulBoneConfig config = SoulBoneConfigCategory.Instance.Get(sid);
+                txtList[i].text = config.Name.Insert(2, "\n");
             }
             else
             {
@@ -100,26 +99,32 @@ public class Panel_SoulBone : MonoBehaviour
 
         long currentLevel = 0;
 
-        if (user.SoulRingData.TryGetValue(sid, out MagicData data))
+        if (user.SoulBoneData.TryGetValue(sid, out MagicData data))
         {
             currentLevel = data.Data;
         }
         InitRing(sid, currentLevel);
 
-        SoulRingAttrConfig currentConfig = SoulRingConfigCategory.Instance.GetAttrConfig(sid, currentLevel);
-        SoulRingAttrConfig nextConfig = SoulRingConfigCategory.Instance.GetAttrConfig(sid, currentLevel + 1);
+        SoulBoneConfig config = SoulBoneConfigCategory.Instance.Get(sid);
 
+        long RingLevel = user.SoulRingData[sid].Data;
 
-        if (currentConfig == null && nextConfig == null)
-        {
-            return; //未配置的
-        }
+        long materialCount = user.GetMaterialCount(config.ItemId);
+        long fee = 1;
+        ItemConfig itemConfig = ItemConfigCategory.Instance.Get(config.ItemId);
 
-        long MaxLevel = user.GetSoulRingLimit();
-
-        if (nextConfig == null || currentLevel >= MaxLevel || currentLevel >= nextConfig.EndLevel)
+        if (currentLevel >= RingLevel)
         {
             txt_Fee.text = "已满级";
+        }
+        else
+        {
+            string color = materialCount >= fee ? "#FFFF00" : "#FF0000";
+            txt_Fee.text = string.Format("<color={0}>{1}</color>", color, itemConfig.Name + ":" + materialCount + "/ " + fee);
+        }
+
+        if (currentLevel >= RingLevel || materialCount < fee)
+        {
             Btn_Active.gameObject.SetActive(false);
         }
         else
@@ -127,34 +132,15 @@ public class Panel_SoulBone : MonoBehaviour
             Btn_Active.gameObject.SetActive(true);
         }
 
-        //Fee
-        long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_SoulRingShard);
-        if (nextConfig != null)
-        {
-            long fee = nextConfig.GetFee(currentLevel + 1);
-            string color = materialCount >= fee ? "#FFFF00" : "#FF0000";
-
-            txt_Fee.gameObject.SetActive(true);
-            txt_Fee.text = string.Format("<color={0}>{1}</color>", color, "需要:" + fee + " 魂环碎片");
-        }
-
-        SoulRingAttrConfig showConfig = currentConfig == null ? nextConfig : currentConfig;
-
-        long aurasLevel = showConfig.GetAurasLevel(currentLevel);
-        double aurasAttr = 0;
-
-        if (currentConfig != null && currentConfig.AurasId > 0)
-        {
-            AurasAttrConfig aurasAttrConfig = AurasAttrConfigCategory.Instance.GetConfig(currentConfig.AurasId);
-            aurasAttr = aurasAttrConfig.GetAttr(aurasLevel);
-        }
-
         //Attr
         for (int i = 0; i < AttrList.Count; i++)
         {
             StrenthAttrItem attrItem = AttrList[i];
 
-            if (i >= showConfig.AttrIdList.Length)
+            int attrId = config.AttrIdList[i];
+            double baseValue = config.AttrValueist[i];
+
+            if (i >= config.AttrIdList.Length)
             {
                 attrItem.gameObject.SetActive(false);
             }
@@ -162,17 +148,9 @@ public class Panel_SoulBone : MonoBehaviour
             {
                 attrItem.gameObject.SetActive(true);
 
-                long attrBase = currentConfig == null ? 0 : currentConfig.GetAttr(i, currentLevel);
-                long attrRise = nextConfig == null ? 0 : nextConfig.AttrRiseList[i];
-
-                attrItem.SetContent(showConfig.AttrIdList[i], attrBase, attrRise);
+                attrItem.SetContent(attrId, baseValue * currentLevel, baseValue);
             }
         }
-    }
-
-    public void OnShowSoulRingEvent(ShowSoulRingEvent e)
-    {
-        this.gameObject.SetActive(true);
     }
 
 
@@ -180,19 +158,10 @@ public class Panel_SoulBone : MonoBehaviour
     {
         User user = GameProcessor.Inst.User;
 
-        long currentLevel = 0;
+        SoulBoneConfig config = SoulBoneConfigCategory.Instance.Get(this.Sid);
+        long materialCount = user.GetMaterialCount(config.ItemId);
 
-        if (user.SoulRingData.TryGetValue(this.Sid, out MagicData data))
-        {
-            currentLevel = data.Data;
-        }
-
-        long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_SoulRingShard);
-
-        SoulRingAttrConfig currentConfig = SoulRingConfigCategory.Instance.GetAttrConfig(this.Sid, currentLevel);
-        SoulRingAttrConfig nextConfig = SoulRingConfigCategory.Instance.GetAttrConfig(this.Sid, currentLevel + 1);
-
-        long fee = nextConfig.GetFee(currentLevel + 1);
+        long fee = 1;
 
         if (materialCount < fee)
         {
@@ -200,18 +169,14 @@ public class Panel_SoulBone : MonoBehaviour
             return;
         }
 
-        if (currentLevel == 0)
-        {
-            user.SoulRingData[Sid] = new MagicData();
-        }
-        user.SoulRingData[Sid].Data = currentLevel + 1;
-
         GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
         {
             Type = ItemType.Material,
             ItemId = ItemHelper.SpecialId_SoulRingShard,
             Quantity = fee
         });
+
+        user.AddSoulBoneLevel(Sid);
 
         GameProcessor.Inst.UpdateInfo();
 

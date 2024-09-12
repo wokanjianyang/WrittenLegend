@@ -14,6 +14,4 @@
 {"_t":"DefendBuffConfig","_id":13,"Name":"减伤(小)","Type":1,"MaxCount":4,"AttrId":13,"AttrValue":10,"SkillId":0,"RuneId":0,"Memo":"增加{0}%减伤","Rate":100},
 {"_t":"DefendBuffConfig","_id":14,"Name":"减伤(中)","Type":1,"MaxCount":3,"AttrId":13,"AttrValue":20,"SkillId":0,"RuneId":0,"Memo":"增加{0}%减伤","Rate":100},
 {"_t":"DefendBuffConfig","_id":15,"Name":"减伤(大)","Type":1,"MaxCount":2,"AttrId":13,"AttrValue":30,"SkillId":0,"RuneId":0,"Memo":"增加{0}%减伤","Rate":100},
-{"_t":"DefendBuffConfig","_id":1000,"Name":"多重雷电","Type":2,"MaxCount":1,"AttrId":0,"AttrValue":0,"SkillId":0,"RuneId":1001,"Memo":"雷电术施法目标+4","Rate":10},
-{"_t":"DefendBuffConfig","_id":1001,"Name":"多重火符","Type":2,"MaxCount":1,"AttrId":0,"AttrValue":0,"SkillId":0,"RuneId":1002,"Memo":"火符术施法目标+1","Rate":10},
 ]}

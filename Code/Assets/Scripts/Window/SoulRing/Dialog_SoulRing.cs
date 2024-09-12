@@ -25,12 +25,12 @@ public class Dialog_SoulRing : MonoBehaviour, IBattleLife
 
         toggle_Ring.onValueChanged.AddListener((isOn) =>
         {
-            if (isOn) { panel_SoulRing.gameObject.SetActive(isOn); }
+            panel_SoulRing.gameObject.SetActive(isOn);
         });
 
         toggle_Bone.onValueChanged.AddListener((isOn) =>
         {
-            if (isOn) { panel_SoulBone.gameObject.SetActive(isOn); }
+            panel_SoulBone.gameObject.SetActive(isOn);
         });
     }
 

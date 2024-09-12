@@ -239,6 +239,8 @@ namespace Game
 
         public Dictionary<int, MagicData> SoulRingData { get; } = new Dictionary<int, MagicData>();
 
+        public Dictionary<int, MagicData> SoulBoneData { get; } = new Dictionary<int, MagicData>();
+
         public MagicData WingData { get; set; } = new MagicData();
 
         public MagicData PillData { get; set; } = new MagicData();
@@ -1348,6 +1350,24 @@ namespace Game
             }
 
             RingData[ringId].Data++;
+        }
+
+        public long GetSoulBoneLevel(int sid)
+        {
+            if (!SoulBoneData.ContainsKey(sid))
+            {
+                SoulBoneData[sid] = new MagicData();
+            }
+            return SoulBoneData[sid].Data;
+        }
+
+        public void AddSoulBoneLevel(int sid)
+        {
+            if (!SoulBoneData.ContainsKey(sid))
+            {
+                SoulBoneData[sid] = new MagicData();
+            }
+            SoulBoneData[sid].Data++;
         }
 
         public long GetHalidomLevel(int id)

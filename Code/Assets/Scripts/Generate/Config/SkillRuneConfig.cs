@@ -147,6 +147,9 @@ namespace Game
 		/// <summary>附带效果</summary>
 		[ProtoMember(24)]
 		public int EffectId { get; set; }
+		/// <summary>系数倍率</summary>
+		[ProtoMember(25)]
+		public int PercentRate { get; set; }
 
 	}
 }

@@ -44,6 +44,7 @@
 {"_t":"InfiniteDropConfig","_id":120,"DropId":180020,"Name":"传世之源","Rate":10000,"StartLevel":1,"EndLevel":1000,"RateLevel":100,"Max":1},
 {"_t":"InfiniteDropConfig","_id":121,"DropId":180021,"Name":"神戒之源","Rate":10000,"StartLevel":1,"EndLevel":1000,"RateLevel":100,"Max":1},
 {"_t":"InfiniteDropConfig","_id":130,"DropId":180030,"Name":"极·卖身契","Rate":1,"StartLevel":1001,"EndLevel":2000,"RateLevel":100,"Max":1},
-{"_t":"InfiniteDropConfig","_id":201,"DropId":220016,"Name":"六大神戒","Rate":5,"StartLevel":150,"EndLevel":10000,"RateLevel":20,"Max":2},
-{"_t":"InfiniteDropConfig","_id":202,"DropId":4001,"Name":"神技","Rate":5,"StartLevel":200,"EndLevel":10000,"RateLevel":30,"Max":2},
+{"_t":"InfiniteDropConfig","_id":201,"DropId":220016,"Name":"六大神戒","Rate":5,"StartLevel":150,"EndLevel":1200,"RateLevel":20,"Max":2},
+{"_t":"InfiniteDropConfig","_id":202,"DropId":4001,"Name":"神技","Rate":5,"StartLevel":200,"EndLevel":1200,"RateLevel":30,"Max":2},
+{"_t":"InfiniteDropConfig","_id":203,"DropId":4002,"Name":"魂骨","Rate":10,"StartLevel":1001,"EndLevel":2000,"RateLevel":50,"Max":5},
 ]}

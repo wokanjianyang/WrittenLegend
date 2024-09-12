@@ -11,7 +11,6 @@ public class Panel_SoulRing : MonoBehaviour, IBattleLife
 {
     public Text Fee;
 
-    public Button Btn_Full;
     public Button Btn_Active;
     public Button Btn_Strong;
 
@@ -29,7 +28,6 @@ public class Panel_SoulRing : MonoBehaviour, IBattleLife
     // Start is called before the first frame update
     void Start()
     {
-        Btn_Full.onClick.AddListener(OnClick_Close);
         Btn_Active.onClick.AddListener(OnStrong);
         Btn_Strong.onClick.AddListener(OnStrong);
 
@@ -266,10 +264,5 @@ public class Panel_SoulRing : MonoBehaviour, IBattleLife
         ShowSoulRing(this.Sid);
 
         GameProcessor.Inst.SaveData();
-    }
-
-    public void OnClick_Close()
-    {
-        this.gameObject.SetActive(false);
     }
 }

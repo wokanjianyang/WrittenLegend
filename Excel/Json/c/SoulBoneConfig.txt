@@ -1,0 +1,10 @@
+{"list":[
+{"_t":"SoulBoneConfig","_id":1,"Name":"八蛛魂骨","AttrIdList":[14,15,16,18,19,20,24,2003],"AttrValueist":[10,10,10,1,1,1,1,0.2],"ItemId":8101},
+{"_t":"SoulBoneConfig","_id":2,"Name":"智慧头骨","AttrIdList":[14,15,16,18,19,20,24,2004],"AttrValueist":[10,10,10,1,1,1,1,0.2],"ItemId":8102},
+{"_t":"SoulBoneConfig","_id":3,"Name":"蓝银皇骨","AttrIdList":[14,15,16,18,19,20,24,2002],"AttrValueist":[10,10,10,1,1,1,1,0.2],"ItemId":8103},
+{"_t":"SoulBoneConfig","_id":4,"Name":"柔骨兔骨","AttrIdList":[14,15,16,18,19,20,24,2003],"AttrValueist":[10,10,10,1,1,1,1,0.2],"ItemId":8104},
+{"_t":"SoulBoneConfig","_id":5,"Name":"邪魔腿骨","AttrIdList":[14,15,16,18,19,20,24,2005],"AttrValueist":[10,10,10,1,1,1,1,0.2],"ItemId":8105},
+{"_t":"SoulBoneConfig","_id":6,"Name":"泰坦巨猿骨","AttrIdList":[14,15,16,18,19,20,24,2003],"AttrValueist":[10,10,10,1,1,1,1,0.2],"ItemId":8106},
+{"_t":"SoulBoneConfig","_id":7,"Name":"天青牛蟒骨","AttrIdList":[14,15,16,18,19,20,24,2006],"AttrValueist":[10,10,10,1,1,1,1,0.2],"ItemId":8107},
+{"_t":"SoulBoneConfig","_id":8,"Name":"魔鲸王骨","AttrIdList":[14,15,16,18,19,20,24,2001],"AttrValueist":[10,10,10,1,1,1,1,0.2],"ItemId":8108},
+]}

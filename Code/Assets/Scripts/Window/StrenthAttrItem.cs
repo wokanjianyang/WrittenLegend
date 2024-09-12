@@ -31,7 +31,7 @@ namespace Game
 
         }
 
-        public void SetContent(int attrId, long attrBase, long percent, long attrRise)
+        public void SetContent(int attrId, double attrBase, double percent, double attrRise)
         {
             this.Txt_Name.text = StringHelper.FormatAttrValueName(attrId);
 
@@ -40,7 +40,7 @@ namespace Game
                 string attrText = StringHelper.FormatAttrValueText(attrId, attrBase);
                 if (percent > 0)
                 {
-                    long pb = attrBase / 100 * percent;
+                    double pb = attrBase / 100 * percent;
                     attrText += "(" + StringHelper.FormatAttrValueText(attrId, pb) + ")";
                 }
 
@@ -61,7 +61,7 @@ namespace Game
             }
         }
 
-        public void SetContent(int attrId, long attrBase, long attrRise)
+        public void SetContent(int attrId, double attrBase, double attrRise)
         {
             this.SetContent(attrId, attrBase, 0, attrRise);
         }
