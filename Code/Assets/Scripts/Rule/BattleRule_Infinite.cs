@@ -116,6 +116,9 @@ public class BattleRule_Infinite : ABattleRule
     private void BuildReward(long level)
     {
         InfiniteConfig rewardConfig = InfiniteConfigCategory.Instance.GetByLevel(level);
+        if (rewardConfig == null) {
+            return;
+        }
 
         User user = GameProcessor.Inst.User;
 
