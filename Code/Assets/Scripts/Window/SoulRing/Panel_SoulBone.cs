@@ -20,8 +20,6 @@ public class Panel_SoulBone : MonoBehaviour
 
     private int Sid = 0;
 
-    public int Order => (int)ComponentOrder.Dialog;
-
     // Start is called before the first frame update
     void Start()
     {

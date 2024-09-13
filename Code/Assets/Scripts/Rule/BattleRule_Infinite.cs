@@ -83,7 +83,8 @@ public class BattleRule_Infinite : ABattleRule
             long ap = 1;
             if (UseTime >= 0 && currentProgres < progess)
             {
-                ap = Math.Min(progess - currentProgres, 10);
+                long ar = progess / 1000 + 1;
+                ap = Math.Min(progess - currentProgres, 10 * ar);
             }
 
             if (progess < currentProgres)

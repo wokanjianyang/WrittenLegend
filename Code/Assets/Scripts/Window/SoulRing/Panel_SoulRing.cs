@@ -7,7 +7,7 @@ using Game.Data;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Panel_SoulRing : MonoBehaviour, IBattleLife
+public class Panel_SoulRing : MonoBehaviour
 {
     public Text Fee;
 
@@ -22,8 +22,6 @@ public class Panel_SoulRing : MonoBehaviour, IBattleLife
     public List<StrenthAttrItem> AttrList = new List<StrenthAttrItem>();
 
     private int Sid = 0;
-
-    public int Order => (int)ComponentOrder.Dialog;
 
     // Start is called before the first frame update
     void Start()
@@ -44,10 +42,6 @@ public class Panel_SoulRing : MonoBehaviour, IBattleLife
         Init();
     }
 
-    public void OnBattleStart()
-    {
-        GameProcessor.Inst.EventCenter.AddListener<ShowSoulRingEvent>(this.OnShowSoulRingEvent);
-    }
 
     private void Init()
     {
@@ -67,7 +61,6 @@ public class Panel_SoulRing : MonoBehaviour, IBattleLife
             }
         }
     }
-
 
     private void InitRing(int sid, long level)
     {
@@ -215,12 +208,6 @@ public class Panel_SoulRing : MonoBehaviour, IBattleLife
             }
         }
     }
-
-    public void OnShowSoulRingEvent(ShowSoulRingEvent e)
-    {
-        this.gameObject.SetActive(true);
-    }
-
 
     public void OnStrong()
     {
