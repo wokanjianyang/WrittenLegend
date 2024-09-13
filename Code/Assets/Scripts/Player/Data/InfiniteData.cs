@@ -22,9 +22,11 @@ namespace Game
         public InfiniteRecord GetCurrentRecord()
         {
             long nt = DateTime.Today.Ticks;
-            //Debug.Log("nt:" + nt + "  Ticket:" + Ticket);
+
             if (nt > Ticket)
             {
+                Debug.Log("nt:" + nt + "  Ticket:" + Ticket);
+
                 Ticket = nt;
                 Current = new InfiniteRecord();
                 Current.Progress.Data = 1;
@@ -34,7 +36,7 @@ namespace Game
                 {
                     DropList.RemoveAt(0);
                 }
-                this.GetDropId(1); //防止卡顿
+                //this.GetDropId(1); //防止卡顿
             }
 
             return Current;

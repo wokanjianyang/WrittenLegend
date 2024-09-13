@@ -68,7 +68,6 @@ public class MapInfinite : MonoBehaviour, IBattleLife
         record.Count.Data--;
 
         Dictionary<string, object> param = new Dictionary<string, object>();
-        param.Add("progress", record.Progress.Data);
         param.Add("count", record.Count.Data);
 
         GameProcessor.Inst.DelayAction(0.1f, () =>
