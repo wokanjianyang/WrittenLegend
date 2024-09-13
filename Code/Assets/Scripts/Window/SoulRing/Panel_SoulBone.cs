@@ -95,12 +95,8 @@ public class Panel_SoulBone : MonoBehaviour
 
         User user = GameProcessor.Inst.User;
 
-        long currentLevel = 0;
+        long currentLevel = user.GetSoulBoneLevel(sid);
 
-        if (user.SoulBoneData.TryGetValue(sid, out MagicData data))
-        {
-            currentLevel = data.Data;
-        }
         InitRing(sid, currentLevel);
 
         SoulBoneConfig config = SoulBoneConfigCategory.Instance.Get(sid);
@@ -130,13 +126,14 @@ public class Panel_SoulBone : MonoBehaviour
             Btn_Active.gameObject.SetActive(true);
         }
 
+        long ringLevel = user.GetSoulRingLevel(sid);
         //Attr
         for (int i = 0; i < AttrList.Count; i++)
         {
             StrenthAttrItem attrItem = AttrList[i];
 
             int attrId = config.AttrIdList[i];
-            double baseValue = config.AttrValueist[i];
+            double baseValue = config.AttrValueList[i];
 
             if (i >= config.AttrIdList.Length)
             {
@@ -146,7 +143,7 @@ public class Panel_SoulBone : MonoBehaviour
             {
                 attrItem.gameObject.SetActive(true);
 
-                attrItem.SetContent(attrId, baseValue * currentLevel, baseValue);
+                attrItem.SetContent(attrId, baseValue * currentLevel * ringLevel, baseValue * ringLevel);
             }
         }
     }
@@ -170,7 +167,7 @@ public class Panel_SoulBone : MonoBehaviour
         GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
         {
             Type = ItemType.Material,
-            ItemId = ItemHelper.SpecialId_SoulRingShard,
+            ItemId = config.ItemId,
             Quantity = fee
         });
 

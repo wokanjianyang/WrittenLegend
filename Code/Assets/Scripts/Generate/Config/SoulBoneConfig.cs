@@ -84,9 +84,9 @@ namespace Game
 		/// <summary>AttrIdList</summary>
 		[ProtoMember(3)]
 		public int[] AttrIdList { get; set; }
-		/// <summary>AttrValueist</summary>
+		/// <summary>AttrValueList</summary>
 		[ProtoMember(4)]
-		public double[] AttrValueist { get; set; }
+		public double[] AttrValueList { get; set; }
 		/// <summary>ItemId</summary>
 		[ProtoMember(5)]
 		public int ItemId { get; set; }

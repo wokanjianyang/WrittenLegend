@@ -461,12 +461,23 @@ namespace Game
             {
                 if (sl.Value.Data > 0)
                 {
+                    int sid = sl.Key;
                     long srLevel = sl.Value.Data;
 
-                    SoulRingAttrConfig ringConfig = SoulRingConfigCategory.Instance.GetAttrConfig(sl.Key, srLevel);
+                    SoulRingAttrConfig ringConfig = SoulRingConfigCategory.Instance.GetAttrConfig(sid, srLevel);
                     for (int i = 0; i < ringConfig.AttrIdList.Length; i++)
                     {
-                        AttributeBonus.SetAttr((AttributeEnum)ringConfig.AttrIdList[i], AttributeFrom.SoulRing, sl.Key, ringConfig.GetAttr(i, srLevel));
+                        AttributeBonus.SetAttr((AttributeEnum)ringConfig.AttrIdList[i], AttributeFrom.SoulRing, sid, ringConfig.GetAttr(i, srLevel));
+                    }
+
+                    long sbLevel = GetSoulBoneLevel(sid);
+                    if (sbLevel > 0)
+                    {
+                        SoulBoneConfig boneConfig = SoulBoneConfigCategory.Instance.Get(sid);
+                        for (int i = 0; i < boneConfig.AttrIdList.Length; i++)
+                        {
+                            AttributeBonus.SetAttr((AttributeEnum)boneConfig.AttrIdList[i], AttributeFrom.SoulBone, sid, boneConfig.AttrValueList[i] * sbLevel * srLevel);
+                        }
                     }
                 }
             }
@@ -1350,6 +1361,15 @@ namespace Game
             }
 
             RingData[ringId].Data++;
+        }
+
+        public long GetSoulRingLevel(int sid)
+        {
+            if (!SoulRingData.ContainsKey(sid))
+            {
+                SoulRingData[sid] = new MagicData();
+            }
+            return SoulRingData[sid].Data;
         }
 
         public long GetSoulBoneLevel(int sid)

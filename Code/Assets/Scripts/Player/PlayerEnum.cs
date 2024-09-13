@@ -125,6 +125,7 @@ namespace Game
         Ring = 19,//ÌØ½ä
         Cycle = 20,//×ªÉú
         Pill = 21,//ÐÞÁ¶
+        SoulBone = 22, //»ê¹Ç
 
         Dingzhi = 98,
         /// <summary>
