@@ -34,6 +34,7 @@ namespace Game
                 {
                     DropList.RemoveAt(0);
                 }
+                this.GetDropId(1); //防止卡顿
             }
 
             return Current;
