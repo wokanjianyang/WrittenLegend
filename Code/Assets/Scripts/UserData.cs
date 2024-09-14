@@ -230,10 +230,10 @@ namespace Game
                 //user.KillRecord.Clear();
 
 
-                //user.InfiniteData = new InfiniteData();
-                //user.InfiniteData.Ticket = 0;
-                //user.InfiniteData.GetCurrentRecord();
-                //user.InfiniteData.Current.Progress.Data = 1000;
+                user.InfiniteData = new InfiniteData();
+                user.InfiniteData.Ticket = 0;
+                user.InfiniteData.GetCurrentRecord();
+                user.InfiniteData.Current.Progress.Data = 999;
                 //Debug.Log("DeviceId:" + user.DeviceId);
 
                 //去掉专属精华

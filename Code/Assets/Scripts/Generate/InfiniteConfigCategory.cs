@@ -14,7 +14,7 @@ namespace Game
 
         public InfiniteConfig GetByLevel(long level)
         {
-            InfiniteConfig config = this.list.Where(m => m.StartLevel <= level && m.EndLevel >= level).First();
+            InfiniteConfig config = this.list.Where(m => m.StartLevel <= level && m.EndLevel >= level).FirstOrDefault();
             return config;
         }
     }
