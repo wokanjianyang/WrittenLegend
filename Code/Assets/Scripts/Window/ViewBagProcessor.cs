@@ -243,7 +243,7 @@ namespace Game
         {
             User user = GameProcessor.Inst.User;
             List<BoxItem> recoveryList = user.Bags.Where(m => !m.Item.IsLock && user.RecoverySetting.CheckRecovery(m.Item)).ToList();
-            this.Recovery(recoveryList, RuleType.Normal);
+            this.RecoveryAll(recoveryList, RuleType.Normal);
 
             RefreshBag();
         }
@@ -665,14 +665,23 @@ namespace Game
         {
             User user = GameProcessor.Inst.User;
             List<BoxItem> recoveryList = user.Bags.Where(m => !m.Item.IsLock && user.RecoverySetting.CheckRecovery(m.Item)).ToList();
-            this.Recovery(recoveryList, RuleType.Normal);
+            this.RecoveryAll(recoveryList, RuleType.Normal);
         }
 
         private void OnRecoveryEvent(RecoveryEvent e)
         {
-            List<BoxItem> recoveryList = new List<BoxItem>();
-            recoveryList.Add(e.BoxItem);
-            this.Recovery(recoveryList, RuleType.Normal);
+            //手动点击回收的
+            if (e.Quantity > 1)
+            {
+                this.RecoverySingle(e.BoxItem, e.Quantity);
+            }
+            else
+            {
+                List<BoxItem> recoveryList = new List<BoxItem>();
+                recoveryList.Add(e.BoxItem);
+                this.RecoveryAll(recoveryList, RuleType.Normal);
+            }
+
         }
 
         private void OnRestoreEvent(RestoreEvent e)
@@ -824,10 +833,33 @@ namespace Game
         {
             User user = GameProcessor.Inst.User;
             List<BoxItem> recoveryList = user.Bags.Where(m => !m.Item.IsLock && user.RecoverySetting.CheckRecovery(m.Item)).ToList();
-            this.Recovery(recoveryList, e.RuleType);
+            this.RecoveryAll(recoveryList, e.RuleType);
         }
 
-        private void Recovery(List<BoxItem> recoveryList, RuleType ruleType)
+        private void RecoverySingle(BoxItem boxItem, int quantity)
+        {
+            User user = GameProcessor.Inst.User;
+
+            long gold = 0;
+
+            UseBoxItem(boxItem, quantity);
+
+            List<Item> itemList = new List<Item>();
+            if (boxItem.Item.ItemConfig.RecoveryItemId > 0)
+            {
+                Item item = ItemHelper.BuildMaterial(boxItem.Item.ItemConfig.RecoveryItemId, quantity);
+                AddBoxItem(item);
+                itemList.Add(item);
+            }
+
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+            {
+                Type = RuleType.Normal,
+                Message = BattleMsgHelper.BuildAutoRecoveryMessage(quantity, itemList, gold)
+            });
+        }
+
+        private void RecoveryAll(List<BoxItem> recoveryList, RuleType ruleType)
         {
             User user = GameProcessor.Inst.User;
 

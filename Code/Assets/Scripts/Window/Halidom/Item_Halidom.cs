@@ -35,26 +35,57 @@ namespace Game
             MagicData halidomData = user.HalidomData[Config.Id];
             int maxLevel = user.GetHolidomLimit();
 
-            if (halidomData.Data < maxLevel)
+            //Debug.Log("Holidom maxLEvel:" + maxLevel);
+
+            long currentLevel = halidomData.Data;
+            if (currentLevel < maxLevel)
             {
-                int rise = (int)halidomData.Data * 1;
+                int rise = (int)currentLevel * 1;
 
                 long total = user.Bags.Where(m => m.Item.Type == ItemType.Halidom && m.Item.ConfigId == Config.ItemId).Select(m => m.MagicNubmer.Data).Sum();
                 int upNumber = 1 + rise;
 
                 if (total < upNumber)
                 {
-                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "对应的遗物数量不足", ToastType = ToastTypeEnum.Failure });
-                    return;
-                }
+                    if (currentLevel > 0)
+                    { //尝试使用碎片
+                        upNumber *= 5; //5个碎片当1个整体
+                    }
+                    else
+                    {
+                        GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "对应的遗物数量不足", ToastType = ToastTypeEnum.Failure });
+                        return;
+                    }
 
-                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "消耗" + upNumber + "个" + Config.Name + "升级成功", ToastType = ToastTypeEnum.Success });
-                GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
+                    total = user.GetMaterialCount(ItemHelper.SpecialId_Halidom_Chip);
+                    if (total < upNumber)
+                    {
+                        GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "对应的遗物数量不足，且遗物粉尘数量不足", ToastType = ToastTypeEnum.Failure });
+                        return;
+                    }
+                    else
+                    {
+                        //使用粉尘升级
+                        GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "消耗" + upNumber + "个遗物粉尘升级成功", ToastType = ToastTypeEnum.Success });
+                        GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
+                        {
+                            Type = ItemType.Material,
+                            ItemId = ItemHelper.SpecialId_Halidom_Chip,
+                            Quantity = upNumber
+                        });
+                    }
+                }
+                else
                 {
-                    Type = ItemType.Halidom,
-                    ItemId = Config.ItemId,
-                    Quantity = upNumber
-                });
+                    //使用遗物升级
+                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "消耗" + upNumber + "个" + Config.Name + "升级成功", ToastType = ToastTypeEnum.Success });
+                    GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
+                    {
+                        Type = ItemType.Halidom,
+                        ItemId = Config.ItemId,
+                        Quantity = upNumber
+                    });
+                }
 
                 halidomData.Data++;
                 this.SetContent(this.Config, halidomData.Data);

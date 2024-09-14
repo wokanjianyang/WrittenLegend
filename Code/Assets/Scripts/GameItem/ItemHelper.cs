@@ -100,23 +100,25 @@ namespace Game
             return newList;
         }
 
-        public static int SpecialId_SoulRingShard = 4001;
-        public static int SpecialId_EquipRefineStone = 4002;
-        public static int SpecialId_Copy_Ticket = 4003;
-        public static int SpecialId_Boss_Ticket = 4004;
-        public static int SpecialId_Exclusive_Stone = 4005;
-        public static int SpecialId_Moon_Cake = 4006;
-        public static int SpecialId_Equip_Speical_Stone = 4007;
-        public static int SpecialId_Wing_Stone = 4008;
-        //public static int SpecialId_Exclusive_Core = 4009;
-        public static int SpecialId_Exclusive_Heart = 4010;
-        public static int SpecialId_Red_Stone = 4011;
-        public static int SpecialId_Legacy_Stone = 4012;
-        public static int SpecialId_Legacy_Ticket = 4013;
-        public static int SpecialId_Level_Stone = 4014;
-        public static int SpecialId_Red_Chip = 4015;
+        public static int SpecialId_SoulRingShard = 4001; //魂环碎片
+        public static int SpecialId_EquipRefineStone = 4002; //精炼石
+        public static int SpecialId_Copy_Ticket = 4003; //装备副本卷
+        public static int SpecialId_Boss_Ticket = 4004; //BOSS挑战卷
+        public static int SpecialId_Exclusive_Stone = 4005; //专属碎片
+        public static int SpecialId_Moon_Cake = 4006; //书页
+        public static int SpecialId_Equip_Speical_Stone = 4007; //四格碎片
+        public static int SpecialId_Wing_Stone = 4008; //凤凰之羽
+        //public static int SpecialId_Exclusive_Core = 4009; //专属精华
+        public static int SpecialId_Exclusive_Heart = 4010; //专属之心
+        public static int SpecialId_Red_Stone = 4011;  //红装精华
+        public static int SpecialId_Legacy_Stone = 4012; //传世精华
+        public static int SpecialId_Legacy_Ticket = 4013; //传世挑战卷
+        public static int SpecialId_Level_Stone = 4014; //等级丹
+        public static int SpecialId_Red_Chip = 4015; //红装粉尘
         public static int SpecialId_Pill = 4016; //淬体丹
-        public static int SpecialId_Pill_Ticket = 4017;
+        public static int SpecialId_Pill_Ticket = 4017; //幻境挑战卷
+        public static int SpecialId_Halidom_Chip = 4018; //遗物粉尘
+
 
         public static int SpecialId_Card_Stone = 4101;
         public static int SpecialId_Skil_Advance = 4102;

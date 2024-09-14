@@ -34,6 +34,8 @@ namespace Game
         public Button Btn_Confirm;
         public Button Btn_Cancle;
 
+        private int Type = 0;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -169,12 +171,11 @@ namespace Game
                 return;
             }
 
-            this.gameObject.SetActive(false);
+            this.tf_Count.gameObject.SetActive(true);
+            this.Type = 1;
 
-            GameProcessor.Inst.EventCenter.Raise(new RecoveryEvent()
-            {
-                BoxItem = this.boxItem,
-            });
+            long count = this.boxItem.MagicNubmer.Data;
+            if_Count.placeholder.GetComponent<Text>().text = "最大输入" + count;
         }
 
         private void OnLose()
@@ -216,6 +217,7 @@ namespace Game
         private void OnUseBatch()
         {
             this.tf_Count.gameObject.SetActive(true);
+            this.Type = 2;
 
             long count = this.boxItem.MagicNubmer.Data;
             if_Count.placeholder.GetComponent<Text>().text = "最大输入" + count;
@@ -237,11 +239,23 @@ namespace Game
 
             if (quantity > 0)
             {
-                GameProcessor.Inst.EventCenter.Raise(new BagUseEvent()
+                if (this.Type == 1)
                 {
-                    Quantity = quantity,
-                    BoxItem = this.boxItem
-                });
+                    GameProcessor.Inst.EventCenter.Raise(new RecoveryEvent()
+                    {
+                        Quantity = quantity,
+                        BoxItem = this.boxItem,
+                    });
+                }
+                else if (Type == 2)
+                {
+
+                    GameProcessor.Inst.EventCenter.Raise(new BagUseEvent()
+                    {
+                        Quantity = quantity,
+                        BoxItem = this.boxItem
+                    });
+                }
             }
         }
 
