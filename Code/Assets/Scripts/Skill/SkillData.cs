@@ -35,7 +35,7 @@ namespace Game
 
             if (tempLevel < 100)
             {
-                rate = Math.Min(10, tempLevel + 5);
+                rate = 10;
             }
             else if (tempLevel >= 100 && tempLevel < 150)
             {
