@@ -38,18 +38,18 @@ namespace Game
             //Debug.Log("Holidom maxLEvel:" + maxLevel);
 
             long currentLevel = halidomData.Data;
+            int rise = (int)currentLevel * 1;
+            int upNumber = 1 + rise;
+
             if (currentLevel < maxLevel)
             {
-                int rise = (int)currentLevel * 1;
-
                 long total = user.Bags.Where(m => m.Item.Type == ItemType.Halidom && m.Item.ConfigId == Config.ItemId).Select(m => m.MagicNubmer.Data).Sum();
-                int upNumber = 1 + rise;
 
                 if (total < upNumber)
                 {
                     if (currentLevel > 0)
                     { //尝试使用碎片
-                        upNumber *= 5; //5个碎片当1个整体
+                        upNumber *= 10; //5个碎片当1个整体
                     }
                     else
                     {
@@ -73,6 +73,12 @@ namespace Game
                             ItemId = ItemHelper.SpecialId_Halidom_Chip,
                             Quantity = upNumber
                         });
+
+                        halidomData.Data++;
+                        this.SetContent(this.Config, halidomData.Data);
+                        GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
+
+                        GameProcessor.Inst.SaveData();
                     }
                 }
                 else
@@ -85,18 +91,48 @@ namespace Game
                         ItemId = Config.ItemId,
                         Quantity = upNumber
                     });
+
+                    halidomData.Data++;
+                    this.SetContent(this.Config, halidomData.Data);
+                    GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
+
+                    GameProcessor.Inst.SaveData();
                 }
-
-                halidomData.Data++;
-                this.SetContent(this.Config, halidomData.Data);
-                GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
-
-                GameProcessor.Inst.SaveData();
             }
             else
             {
-                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "已经满级了", ToastType = ToastTypeEnum.Failure });
-                return;
+                int tupoLevel = maxLevel - 4;
+                if (currentLevel < maxLevel + tupoLevel)
+                {
+                    //突破，使用粉尘
+                    upNumber *= 20;
+
+                    long total = user.GetMaterialCount(ItemHelper.SpecialId_Halidom_Chip);
+                    if (total < upNumber)
+                    {
+                        GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "突破所需遗物粉尘数量不足", ToastType = ToastTypeEnum.Failure });
+                        return;
+                    }
+
+                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "消耗" + upNumber + "个遗物粉尘突破成功", ToastType = ToastTypeEnum.Success });
+                    GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
+                    {
+                        Type = ItemType.Material,
+                        ItemId = ItemHelper.SpecialId_Halidom_Chip,
+                        Quantity = upNumber
+                    });
+
+                    halidomData.Data++;
+                    this.SetContent(this.Config, halidomData.Data);
+                    GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
+
+                    GameProcessor.Inst.SaveData();
+                }
+                else
+                {
+                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "已经满级了", ToastType = ToastTypeEnum.Failure });
+                    return;
+                }
             }
         }
 
@@ -104,7 +140,9 @@ namespace Game
         {
             this.Config = config;
 
-            this.Txt_Name.text = string.Format("<color=#{0}>{1}</color>", QualityConfigHelper.GetQualityColor(6), config.Name);
+            string color = level > 8 ? QualityConfigHelper.GetQualityColor(7) : QualityConfigHelper.GetQualityColor(6);
+
+            this.Txt_Name.text = string.Format("<color=#{0}>{1}</color>", color, config.Name);
 
             if (level > 0)
             {

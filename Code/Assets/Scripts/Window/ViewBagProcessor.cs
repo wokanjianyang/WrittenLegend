@@ -671,7 +671,7 @@ namespace Game
         private void OnRecoveryEvent(RecoveryEvent e)
         {
             //手动点击回收的
-            if (e.Quantity > 1)
+            if (e.Quantity > 0)
             {
                 this.RecoverySingle(e.BoxItem, e.Quantity);
             }
