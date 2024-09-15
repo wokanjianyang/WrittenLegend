@@ -70,9 +70,22 @@ namespace Game
             User user = GameProcessor.Inst.User;
             RecoverySetting setting = user.RecoverySetting;
 
-            foreach (int equipQuality in setting.EquipQuanlity.Keys)
+            for (int i = 0; i < equipQualityToggles.Length; i++)
             {
-                equipQualityToggles[equipQuality - 1].isOn = setting.EquipQuanlity[equipQuality];
+                if (!setting.EquipQuanlity.ContainsKey(i + 1))
+                {
+                    setting.EquipQuanlity[i + 1] = false;
+                }
+                equipQualityToggles[i].isOn = setting.EquipQuanlity[i + 1];
+            }
+
+            if (user.Cycle.Data >= 4)
+            {
+                equipQualityToggles[5].enabled = true;
+            }
+            else
+            {
+                equipQualityToggles[5].enabled = false;
             }
 
             foreach (int quality in setting.ExclusiveQuanlity.Keys)

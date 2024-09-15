@@ -139,7 +139,7 @@ namespace Game
                     //}
 
                     if ((EquipQuanlity.GetValueOrDefault(item.GetQuality(), false) || item.Level < EquipLevel || EquipRole.GetValueOrDefault(role, false))
-                        && equip.Quality < 6)
+                        && equip.Quality < 7)
                     {
                         return true;
                     }
