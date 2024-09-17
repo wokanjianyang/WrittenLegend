@@ -20,7 +20,9 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
     public Toggle toggle_Hide;
     public Toggle toggle_Spe;
 
-    public List<Toggle> tgLevelList;
+    public Transform Tf_Layer;
+
+    private List<Toggle> tgLevelList;
     private int LevelCount = 35; //每个难度多少个
     private int ShowCount = 10; //隐藏的时候显示多少个
 
@@ -53,7 +55,7 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
         {
             GameProcessor.Inst.EquipCopySetting_Spe = isOn;
         });
-        
+
 
         toggle_Hide.onValueChanged.AddListener((isOn) =>
         {
@@ -89,6 +91,8 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
     {
         ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Item/Item_BossInfo");
         GameProcessor.Inst.EventCenter.AddListener<BossInfoEvent>(this.OnBossInfoEvent);
+
+        tgLevelList = Tf_Layer.GetComponentsInChildren<Toggle>().ToList();
     }
 
     private void Init()
@@ -99,7 +103,14 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
         {
             BuildItem(config);
         }
+
+        List<MapNewAttr> newList = MapNewAttrCategory.Instance.GetAll().Select(m => m.Value).ToList();
+        for (int i = 0; i < newList.Count; i++)
+        {
+            BuildItemNew(newList[i]);
+        }
     }
+
     private void BuildItem(MapConfig config)
     {
         BossConfig bossConfig = BossConfigCategory.Instance.Get(config.BoosId);
@@ -113,6 +124,22 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
         item.transform.localScale = Vector3.one;
 
         items.Add(com);
+    }
+
+    private void BuildItemNew(MapNewAttr config)
+    {
+        //for (int i = 0; i < 5; i++)
+        //{
+        //    var item = GameObject.Instantiate(ItemPrefab);
+        //    var com = item.GetComponent<Com_BossInfoItem>();
+
+        //    com.SetContentNew(config, bossConfig);
+
+        //    item.transform.SetParent(this.sr_Boss.content);
+        //    item.transform.localScale = Vector3.one;
+
+        //    items.Add(com);
+        //}
     }
 
 

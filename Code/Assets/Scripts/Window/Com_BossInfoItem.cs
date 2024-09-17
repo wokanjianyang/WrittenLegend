@@ -77,6 +77,11 @@ public class Com_BossInfoItem : MonoBehaviour
         //RefeshTime();
     }
 
+    public void SetContentNew()
+    {
+
+    }
+
     //public void SetKillTime(long killTime)
     //{
     //    this.killTime = killTime;
