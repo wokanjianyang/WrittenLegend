@@ -46,15 +46,22 @@ namespace Game
         {
             this.AttributeBonus = new AttributeBonus();
 
+            int p1 = Math.Min(this.Progeress, 10000);
             //int riseLevel = this.Progeress - Config.Start;
-            double riseRate = Math.Pow(1.003, this.Progeress);
+            double riseRate = Math.Pow(1.003, p1);
+
+            int p2 = this.Progeress - 10000;
+            if (p2 > 0)
+            {
+                riseRate *= Math.Pow(1.005, p2);
+            }
             //Debug.Log("riseRate:" + riseRate);
 
             riseRate *= MonsterConfig.AttrRate;
 
             long day = (TimeHelper.ClientNowSeconds() - 1724083200) / 86400;
             double dayRate = Math.Pow(0.95, day);
-            Debug.Log("dayRate:" + dayRate);
+            //Debug.Log("dayRate:" + dayRate);
 
             double hp = 999000000000000000000000.0 * dayRate;
             double attr = 300000000000.0 * dayRate;

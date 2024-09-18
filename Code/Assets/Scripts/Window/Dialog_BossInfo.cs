@@ -103,45 +103,20 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
         {
             BuildItem(config);
         }
-
-        List<MapNewAttr> newList = MapNewAttrCategory.Instance.GetAll().Select(m => m.Value).ToList();
-        for (int i = 0; i < newList.Count; i++)
-        {
-            BuildItemNew(newList[i]);
-        }
     }
 
     private void BuildItem(MapConfig config)
     {
-        BossConfig bossConfig = BossConfigCategory.Instance.Get(config.BoosId);
-
         var item = GameObject.Instantiate(ItemPrefab);
         var com = item.GetComponent<Com_BossInfoItem>();
 
-        com.SetContent(config, bossConfig);
+        com.SetContent(config);
 
         item.transform.SetParent(this.sr_Boss.content);
         item.transform.localScale = Vector3.one;
 
         items.Add(com);
     }
-
-    private void BuildItemNew(MapNewAttr config)
-    {
-        //for (int i = 0; i < 5; i++)
-        //{
-        //    var item = GameObject.Instantiate(ItemPrefab);
-        //    var com = item.GetComponent<Com_BossInfoItem>();
-
-        //    com.SetContentNew(config, bossConfig);
-
-        //    item.transform.SetParent(this.sr_Boss.content);
-        //    item.transform.localScale = Vector3.one;
-
-        //    items.Add(com);
-        //}
-    }
-
 
     private void ChangeLevel(int layer)
     {

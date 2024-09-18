@@ -90,8 +90,11 @@ namespace Game
 		/// <summary>道具类型</summary>
 		[ProtoMember(5)]
 		public int ItemType { get; set; }
-		/// <summary>掉落Id列表</summary>
+		/// <summary>Layer</summary>
 		[ProtoMember(6)]
+		public int Layer { get; set; }
+		/// <summary>掉落Id列表</summary>
+		[ProtoMember(7)]
 		public int[] ItemIdList { get; set; }
 
 	}
