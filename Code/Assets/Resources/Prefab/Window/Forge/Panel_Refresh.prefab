@@ -1552,8 +1552,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 115.58496, y: 100}
-  m_SizeDelta: {x: 682.8301, y: 90}
+  m_AnchoredPosition: {x: 115.58496, y: 115.29901}
+  m_SizeDelta: {x: 682.8301, y: 120.5981}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1587711786194860215
 CanvasRenderer:
@@ -1596,7 +1596,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u6D17\u7EC3\u53EA\u80FD\u6D17\u7EC3\u7EA2\u8272\u88C5\u5907\uFF0C\u540C\u65F6\u6D17\u7EC3\u968F\u673A\u5C5E\u6027\u548C\u8BCD\u6761\n\u6BCF\u65E5\u6BCF\u6D17\u7EC3200\u6B21\uFF0C\u589E\u52A0\u6D88\u8017\uFF0C100\u7CBE\u534E\u5C01\u9876\uFF0C\u6BCF\u65E50\u70B9\u6062\u590D\u6D88\u8017\u3002"
+  m_Text: "\u6D17\u7EC3\u53EA\u80FD\u6D17\u7EC3\u7EA2\u8272\u88C5\u5907\uFF0C\u540C\u65F6\u6D17\u7EC3\u968F\u673A\u5C5E\u6027\u548C\u8BCD\u6761\n\u6BCF\u65E5\u6BCF\u6D17\u7EC3200\u6B21\uFF0C\u589E\u52A0\u6D88\u8017\uFF0C100\u7CBE\u534E\u5C01\u9876\uFF0C\u6BCF\u65E50\u70B9\u6062\u590D\u6D88\u8017\u3002\n\u8BBE\u7F6E3-6\u6761\u5C5E\u6027\uFF0C\u5F00\u59CB\u81EA\u52A8\u6D17\u7EC3\u3002\u8BBE\u7F6E0\u6761\u5C5E\u6027\uFF0C\u5173\u95ED\u81EA\u52A8\u6D17\u7EC3\u3002"
 --- !u!1 &4306570360614059537
 GameObject:
   m_ObjectHideFlags: 0

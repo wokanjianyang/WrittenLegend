@@ -390,6 +390,8 @@ public class Panel_Refresh : MonoBehaviour
 
     private void OnClickSettingOK()
     {
+        this.AutoAttrDict.Clear();
+
         int total = 0;
 
         for (int i = 0; i < ItemList.Count; i++)
@@ -403,9 +405,8 @@ public class Panel_Refresh : MonoBehaviour
             }
         }
 
-        if (total > 6 || total < 3)
+        if (total < 3 && total > 0)
         {
-            AutoAttrDict.Clear();
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "设置错误,保留词条总和，必须是3-6之间" });
             return;
         }
@@ -413,8 +414,17 @@ public class Panel_Refresh : MonoBehaviour
         int.TryParse(If_Max.text, out int max);
         this.AutoMax = max;
 
-        this.Btn_Auto.gameObject.SetActive(true);
-        this.Btn_Refesh.gameObject.SetActive(false);
+        if (total > 0)
+        {
+            this.Btn_Auto.gameObject.SetActive(true);
+            this.Btn_Refesh.gameObject.SetActive(false);
+        }
+        else
+        {
+            this.Btn_Auto.gameObject.SetActive(false);
+            this.Btn_Refesh.gameObject.SetActive(true);
+        }
+
         this.Tf_Setting.gameObject.SetActive(false);
     }
 

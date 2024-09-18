@@ -48,7 +48,8 @@ namespace Game
 
         public bool GetSkillReserveQuanlity(int quanlity)
         {
-            if (!SkillReserveQuanlity.ContainsKey(quanlity)) {
+            if (!SkillReserveQuanlity.ContainsKey(quanlity))
+            {
                 SkillReserveQuanlity[quanlity] = false;
             }
 
@@ -139,7 +140,12 @@ namespace Game
                     //}
 
                     if ((EquipQuanlity.GetValueOrDefault(item.GetQuality(), false) || item.Level < EquipLevel || EquipRole.GetValueOrDefault(role, false))
-                        && equip.Quality < 7)
+                        && equip.Quality < 6)
+                    {
+                        return true;
+                    }
+
+                    if (EquipQuanlity.GetValueOrDefault(6, false) && equip.Quality == 6 && equip.Layer <= 1) //ºìÉ«»ØÊÕ
                     {
                         return true;
                     }
