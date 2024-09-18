@@ -78,53 +78,50 @@ namespace Game
 		/// <summary>_Id</summary>
 		[ProtoMember(1)]
 		public int Id { get; set; }
-		/// <summary>Name</summary>
-		[ProtoMember(2)]
-		public string Name { get; set; }
 		/// <summary>Layer</summary>
-		[ProtoMember(3)]
+		[ProtoMember(2)]
 		public int Layer { get; set; }
 		/// <summary>进入等级要求</summary>
-		[ProtoMember(4)]
+		[ProtoMember(3)]
 		public string LevelRequired { get; set; }
 		/// <summary>Memo</summary>
-		[ProtoMember(5)]
+		[ProtoMember(4)]
 		public string Memo { get; set; }
 		/// <summary>攻击</summary>
-		[ProtoMember(6)]
+		[ProtoMember(5)]
 		public string Attr { get; set; }
 		/// <summary>防御</summary>
-		[ProtoMember(7)]
+		[ProtoMember(6)]
 		public string Def { get; set; }
 		/// <summary>生命</summary>
-		[ProtoMember(8)]
+		[ProtoMember(7)]
 		public string HP { get; set; }
 		/// <summary>DamageIncrea</summary>
-		[ProtoMember(9)]
+		[ProtoMember(8)]
 		public int DamageIncrea { get; set; }
 		/// <summary>DamageResist</summary>
-		[ProtoMember(10)]
+		[ProtoMember(9)]
 		public int DamageResist { get; set; }
 		/// <summary>CritRate</summary>
-		[ProtoMember(11)]
+		[ProtoMember(10)]
 		public int CritRate { get; set; }
 		/// <summary>CritDamage</summary>
-		[ProtoMember(12)]
+		[ProtoMember(11)]
 		public int CritDamage { get; set; }
 		/// <summary>Accuracy</summary>
-		[ProtoMember(13)]
+		[ProtoMember(12)]
 		public int Accuracy { get; set; }
 		/// <summary>Miss</summary>
-		[ProtoMember(14)]
+		[ProtoMember(13)]
 		public int Miss { get; set; }
 		/// <summary>Protect</summary>
-		[ProtoMember(15)]
+		[ProtoMember(14)]
 		public int Protect { get; set; }
 		/// <summary>经验</summary>
-		[ProtoMember(16)]
+		[ProtoMember(15)]
 		public long Exp { get; set; }
 		/// <summary>掉落金币</summary>
-		[ProtoMember(17)]
+		[ProtoMember(16)]
 		public long Gold { get; set; }
 
 	}

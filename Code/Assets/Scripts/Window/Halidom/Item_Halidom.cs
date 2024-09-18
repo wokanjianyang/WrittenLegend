@@ -14,6 +14,9 @@ namespace Game
         public Text Txt_Level;
         public Text Txt_Attr_Current;
 
+        private int Count_Normal = 10;
+        private int Count_Tupo = 20;
+
         public HalidomConfig Config { get; set; }
 
         // Start is called before the first frame update
@@ -49,7 +52,7 @@ namespace Game
                 {
                     if (currentLevel > 0)
                     { //尝试使用碎片
-                        upNumber *= 10; //5个碎片当1个整体
+                        upNumber *= Count_Normal; //5个碎片当1个整体
                     }
                     else
                     {
@@ -65,6 +68,8 @@ namespace Game
                     }
                     else
                     {
+                        upNumber *= Count_Tupo; //5个碎片当1个整体
+
                         //使用粉尘升级
                         GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "消耗" + upNumber + "个遗物粉尘升级成功", ToastType = ToastTypeEnum.Success });
                         GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
