@@ -51,7 +51,7 @@ namespace Game
         void Start()
         {
             this.btn_Done.onClick.AddListener(this.OnClick_Done);
-
+            this.Init();
         }
 
         // Update is called once per frame
@@ -60,8 +60,10 @@ namespace Game
 
         }
 
-        public void Open()
+        public void Init()
         {
+            Debug.Log("Init Recovery");
+
             //初始化
             equipQualityToggles = tran_EquipQualityList.GetComponentsInChildren<Toggle>();
             equipRoleToggles = tran_EquipRoleList.GetComponentsInChildren<Toggle>();
@@ -81,11 +83,12 @@ namespace Game
 
             if (user.Cycle.Data >= 4)
             {
-                equipQualityToggles[5].enabled = true;
+                equipQualityToggles[5].gameObject.SetActive(true);
             }
             else
             {
-                equipQualityToggles[5].enabled = false;
+                equipQualityToggles[5].isOn = false;
+                equipQualityToggles[5].gameObject.SetActive(false);
             }
 
             foreach (int quality in setting.ExclusiveQuanlity.Keys)
@@ -112,6 +115,7 @@ namespace Game
             if_DropQuality.text = setting.DropQuality.ToString();
             ifSpeicalLevel.text = setting.SpecailLevel.ToString();
         }
+
 
         public void OnClick_Done()
         {

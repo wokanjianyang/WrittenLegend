@@ -50,7 +50,6 @@ namespace Game
             if (e.IsOpen)
             {
                 this.tog_Recovery.isOn = true;
-                com_Recovery.Open();
 
                 com_Other.Init();
             }
