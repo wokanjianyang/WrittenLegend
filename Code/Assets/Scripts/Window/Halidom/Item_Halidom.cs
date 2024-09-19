@@ -50,27 +50,23 @@ namespace Game
 
                 if (total < upNumber)
                 {
-                    if (currentLevel > 0)
-                    { //尝试使用碎片
-                        upNumber *= Count_Normal; //5个碎片当1个整体
-                    }
-                    else
+                    if (currentLevel <= 0)
                     {
-                        GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "对应的遗物数量不足", ToastType = ToastTypeEnum.Failure });
+                        GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "激活所需遗物数量不足", ToastType = ToastTypeEnum.Failure });
                         return;
                     }
 
+                    //使用粉尘升级
+                    upNumber *= Count_Normal; //粉尘消耗*10
                     total = user.GetMaterialCount(ItemHelper.SpecialId_Halidom_Chip);
+
                     if (total < upNumber)
                     {
-                        GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "对应的遗物数量不足，且遗物粉尘数量不足", ToastType = ToastTypeEnum.Failure });
+                        GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "升级所需遗物，粉尘数量不足", ToastType = ToastTypeEnum.Failure });
                         return;
                     }
                     else
                     {
-                        upNumber *= Count_Tupo; //5个碎片当1个整体
-
-                        //使用粉尘升级
                         GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "消耗" + upNumber + "个遗物粉尘升级成功", ToastType = ToastTypeEnum.Success });
                         GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
                         {
