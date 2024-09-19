@@ -14,6 +14,8 @@ public class Dialog_Card : MonoBehaviour
     public Button btn_Close;
     public Button Btn_Batch;
 
+    public Toggle toggle_Skip;
+
     private int SelectStage = 0;
     public List<Toggle> toggleStageList = new List<Toggle>();
 
@@ -105,6 +107,11 @@ public class Dialog_Card : MonoBehaviour
         {
             int cardId = cardItem.Key;
             long cardLevel = cardItem.Value.Data;
+
+            if (cardId == 1999998 && toggle_Skip.isOn)
+            {
+                continue;
+            }
 
             CardConfig config = CardConfigCategory.Instance.Get(cardId);
             int itemId = config.RiseId;
