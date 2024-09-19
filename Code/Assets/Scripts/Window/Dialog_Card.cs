@@ -44,16 +44,7 @@ public class Dialog_Card : MonoBehaviour
     public void Init()
     {
         User user = GameProcessor.Inst.User;
-        if (user.Cycle.Data >= 1)
-        {
-            Btn_Batch.gameObject.SetActive(true);
-        }
-        else
-        {
-            Btn_Batch.gameObject.SetActive(false);
-        }
-
-        this.gameObject.SetActive(true);
+        Btn_Batch.gameObject.SetActive(true);
 
         List<CardConfig> configs = CardConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
 
