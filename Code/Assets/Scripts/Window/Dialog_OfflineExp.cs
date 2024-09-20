@@ -99,6 +99,17 @@ namespace Game
             //items.Add(ItemHelper.BuildMaterial(8009, ic)); //神技
             //items.Add(ItemHelper.BuildMaterial(8010, ic)); //神技
 
+            //int ic = 1;
+            //items.Add(ItemHelper.BuildMaterial(8101, ic)); //魂骨
+            //items.Add(ItemHelper.BuildMaterial(8102, ic)); //魂骨
+            //items.Add(ItemHelper.BuildMaterial(8103, ic)); //魂骨
+            //items.Add(ItemHelper.BuildMaterial(8104, ic)); //魂骨
+            //items.Add(ItemHelper.BuildMaterial(8105, ic)); //魂骨
+            //items.Add(ItemHelper.BuildMaterial(8106, ic)); //魂骨
+            //items.Add(ItemHelper.BuildMaterial(8107, ic)); //魂骨
+            //items.Add(ItemHelper.BuildMaterial(8108, ic)); //魂骨
+
+
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Pill, 6000000));
 
             //user.SaveArtifactLevel(180001, 1); //boss杀手
