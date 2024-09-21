@@ -214,7 +214,7 @@ namespace Game
                 {
                     user.DeviceId = AppHelper.GetDeviceIdentifier();
                 }
-                user.VersionLog.Remove(237);
+
                 //List<BoxItem> cfList = user.Bags.Where(m => m.Item.Type == ItemType.Card || m.Item.Type == ItemType.Fashion
                 //|| (m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Card_Stone)).ToList();
                 //if (cfList.Count > 0)
