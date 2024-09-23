@@ -84,13 +84,18 @@ namespace Game
             Quality = quality;
 
             QualityAttrList = new Dictionary<int, long>();
-            if (Quality > 0 && Part <= 10)
+            if (Quality > 0 && (Part <= 10 || Part >= 21))
             {
                 EquipQualityConfig qualityConfig = EquipQualityConfigCategory.Instance.Get(quality);
 
                 if (qualityConfig.AttrIdList != null)
                 {
                     int qualityRate = Level / 200 + 1;
+                    if (quality >= 7)
+                    {
+                        qualityRate = 1;
+                    }
+
                     for (int i = 0; i < qualityConfig.AttrIdList.Length; i++)
                     {
                         QualityAttrList.Add(qualityConfig.AttrIdList[i], qualityConfig.AttrValueList[i] * qualityRate);
@@ -98,12 +103,12 @@ namespace Game
                 }
             }
 
-            if (RuneConfigId > 0 && Part <= 10)
+            if (RuneConfigId > 0 && (Part <= 10 || Part >= 21))
             {
                 SkillRuneConfig = SkillRuneConfigCategory.Instance.Get(RuneConfigId);
             }
 
-            if (SuitConfigId > 0 && Part <= 10)
+            if (SuitConfigId > 0 && (Part <= 10 || Part >= 21))
             {
                 SkillSuitConfig = SkillSuitConfigCategory.Instance.Get(SuitConfigId);
             }

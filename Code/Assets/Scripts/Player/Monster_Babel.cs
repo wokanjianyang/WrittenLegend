@@ -103,7 +103,7 @@ namespace Game
 
             foreach (SkillData skillData in list)
             {
-                List<SkillRune> runeList = SkillRuneHelper.GetAllRune(skillData.SkillId, 4);
+                List<SkillRune> runeList = SkillRuneConfigCategory.Instance.GetAllRune(skillData.SkillId, 4);
                 List<SkillSuit> suitList = SkillSuitHelper.GetAllSuit(skillData.SkillId, 4);
 
                 SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, false);

@@ -8,12 +8,28 @@ namespace Game
 
     public partial class SkillRuneConfigCategory
     {
+        public SkillRuneConfig Random7()
+        {
+            List<SkillRuneConfig> list = this.list.Where(m => m.Type == 2).ToList(); //选择金色词条
 
-    }
+            int maxRate = list.Select(m => m.BuildRate).Sum();
+            int rd = RandomHelper.RandomNumber(1, maxRate + 1);
 
-    public class SkillRuneHelper
-    {
-        public static SkillRuneConfig RandomRune(int seed, int indexSeed, int role, int type, int quality, int level)
+            int tempRate = 0;
+            for (int i = 0; i < list.Count; i++)
+            {
+                tempRate += list[i].BuildRate;
+
+                if (rd <= tempRate)
+                {
+                    return list[i];
+                }
+            }
+
+            return null;
+        }
+
+        public SkillRuneConfig RandomRune(int seed, int indexSeed, int role, int type, int quality, int level)
         {
             int skillId = role * 1000;
 
@@ -21,7 +37,12 @@ namespace Game
             if (type == 1)
             {
                 RuneRate = ConfigHelper.RuneRate;
-                if (quality >= 5)
+
+                if (quality == 7)
+                {
+                    return Random7();
+                }
+                else if (quality >= 5)
                 {
                     if (level <= 300)
                     {
@@ -57,20 +78,18 @@ namespace Game
 
             //seed = AppHelper.RefreshSeed(seed);
 
-            List<SkillRuneConfig> list = SkillRuneConfigCategory.Instance.GetAll().Select(m => m.Value)
-                .Where(m => m.SkillId == skillId && m.Type == 1).ToList();
+            List<SkillRuneConfig> list = this.list.Where(m => m.SkillId == skillId && m.Type == 1).ToList();
 
             index = RandomHelper.RandomNumber(indexSeed, 0, list.Count);
 
             return list[index];
         }
 
-
-        public static List<SkillRune> GetAllRune(int skillId, int runeCount)
+        public List<SkillRune> GetAllRune(int skillId, int runeCount)
         {
             List<SkillRune> runeList = new List<SkillRune>();
 
-            List<SkillRuneConfig> runeConfigs = SkillRuneConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.SkillId == skillId && m.Type == 1).OrderBy(m => m.Id).ToList();
+            List<SkillRuneConfig> runeConfigs = this.list.Where(m => m.SkillId == skillId && m.Type == 1).OrderBy(m => m.Id).ToList();
 
             foreach (SkillRuneConfig config in runeConfigs)
             {
@@ -80,4 +99,6 @@ namespace Game
             return runeList;
         }
     }
+
+
 }

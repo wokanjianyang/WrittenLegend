@@ -255,7 +255,7 @@ namespace Game
             }
 
 
-            if (equip.Part <= 10)
+            if (equip.Part <= 10 || equip.Part >= 20)
             {
                 EquipSuit equipSuit = user.GetEquipSuit(equip.EquipConfig);
 
@@ -322,9 +322,9 @@ namespace Game
                 {
                     tran_RedAttribute.gameObject.SetActive(true);
 
-                    EquipRedSuit red = user.GetEquipRedConfig(equip.EquipConfig.Role);
+                    EquipRedSuit red = user.GetEquipRedConfig(equip.EquipConfig.Role, equip.GetQuality());
 
-                    this.ShowRed(red);
+                    this.ShowRed(red, equip.GetQuality());
 
                     if (equip.Layer > 1)
                     {
@@ -357,14 +357,26 @@ namespace Game
             }
         }
 
-        private void ShowRed(EquipRedSuit redSuit)
+        private void ShowRed(EquipRedSuit redSuit, int quality)
         {
+            Text redTitle = tran_RedAttribute.Find("Title").GetComponent<Text>();
+
+            string color = QualityConfigHelper.GetQualityColor(quality);
+            if (quality == 6)
+            {
+                redTitle.text = string.Format("<color=#{0}>[红装属性]</color>", color);
+            }
+            else if (quality == 7)
+            {
+                redTitle.text = string.Format("<color=#{0}>[金装属性]</color>", color);
+            }
+
             Item_Equip_Red[] reds = tran_RedAttribute.GetComponentsInChildren<Item_Equip_Red>(true);
 
             for (int i = 0; i < reds.Length; i++)
             {
                 reds[i].gameObject.SetActive(true);
-                reds[i].SetContent(redSuit.List[i]);
+                reds[i].SetContent(redSuit.List[i], quality);
             }
         }
 

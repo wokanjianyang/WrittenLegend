@@ -36,12 +36,12 @@ namespace Game
 
             if (runeId == 0 && quality > 2) //随机生成词条
             {
-                SkillRuneConfig runeConfig = SkillRuneHelper.RandomRune(seed, -1, config.Role, 1, quality, config.LevelRequired);
+                SkillRuneConfig runeConfig = SkillRuneConfigCategory.Instance.RandomRune(seed, -1, config.Role, 1, quality, config.LevelRequired);
                 runeId = runeConfig.Id;
 
                 if (suitId == 0 && quality > 3)  //随机生成套装
                 {
-                    suitId = SkillSuitHelper.RandomSuit(seed, runeConfig.SkillId).Id;
+                    suitId = SkillSuitHelper.RandomSuit(seed, runeConfig.SkillId, runeConfig.Type).Id;
                 }
             }
 

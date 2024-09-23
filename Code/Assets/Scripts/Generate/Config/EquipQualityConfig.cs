@@ -78,14 +78,11 @@ namespace Game
 		/// <summary>_Id</summary>
 		[ProtoMember(1)]
 		public int Id { get; set; }
-		/// <summary>RandomNum</summary>
-		[ProtoMember(2)]
-		public int RandomNum { get; set; }
 		/// <summary>AttrIdList</summary>
-		[ProtoMember(3)]
+		[ProtoMember(2)]
 		public int[] AttrIdList { get; set; }
 		/// <summary>AttrValueList</summary>
-		[ProtoMember(4)]
+		[ProtoMember(3)]
 		public int[] AttrValueList { get; set; }
 
 	}

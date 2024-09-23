@@ -389,7 +389,7 @@ namespace Game
             //装备红色属性
             for (int role = 1; role <= 3; role++)
             {
-                EquipRedSuit red = GetEquipRedConfig(role);
+                EquipRedSuit red = GetEquipRedConfig(role, 6);
                 foreach (EquipRedItem redItem in red.List)
                 {
                     if (redItem.Level > 0)
@@ -839,14 +839,14 @@ namespace Game
             return list;
         }
 
-        public EquipRedSuit GetEquipRedConfig(int role)
+        public EquipRedSuit GetEquipRedConfig(int role, int quality)
         {
-            List<Equip> equips = this.EquipPanelList[EquipPanelIndex].Select(m => m.Value).Where(m => m.GetQuality() == 6 && m.EquipConfig.Role == role).ToList();
+            List<Equip> equips = this.EquipPanelList[EquipPanelIndex].Select(m => m.Value).Where(m => m.GetQuality() == quality && m.EquipConfig.Role == role).ToList();
             List<int> layers = equips.Select(m => m.Layer).OrderByDescending(m => m).ToList();
 
             //Debug.Log("red layers:" + layers.ListToString());
 
-            List<EquipRedConfig> list = EquipRedConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Role == role).ToList();
+            List<EquipRedConfig> list = EquipRedConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Role == role && m.Quality == quality).ToList();
 
             List<EquipRedItem> redList = new List<EquipRedItem>();
 

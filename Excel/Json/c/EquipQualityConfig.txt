@@ -1,8 +1,9 @@
 {"list":[
-{"_t":"EquipQualityConfig","_id":1,"RandomNum":1,"AttrIdList":[],"AttrValueList":[]},
-{"_t":"EquipQualityConfig","_id":2,"RandomNum":2,"AttrIdList":[],"AttrValueList":[]},
-{"_t":"EquipQualityConfig","_id":3,"RandomNum":3,"AttrIdList":[15],"AttrValueList":[5]},
-{"_t":"EquipQualityConfig","_id":4,"RandomNum":4,"AttrIdList":[15,14],"AttrValueList":[7,2]},
-{"_t":"EquipQualityConfig","_id":5,"RandomNum":5,"AttrIdList":[15,14,16],"AttrValueList":[10,5,5]},
-{"_t":"EquipQualityConfig","_id":6,"RandomNum":6,"AttrIdList":[15,14,16],"AttrValueList":[20,10,10]},
+{"_t":"EquipQualityConfig","_id":1,"AttrIdList":[],"AttrValueList":[]},
+{"_t":"EquipQualityConfig","_id":2,"AttrIdList":[],"AttrValueList":[]},
+{"_t":"EquipQualityConfig","_id":3,"AttrIdList":[15],"AttrValueList":[5]},
+{"_t":"EquipQualityConfig","_id":4,"AttrIdList":[15,14],"AttrValueList":[7,2]},
+{"_t":"EquipQualityConfig","_id":5,"AttrIdList":[15,14,16],"AttrValueList":[10,5,5]},
+{"_t":"EquipQualityConfig","_id":6,"AttrIdList":[15,14,16],"AttrValueList":[20,10,10]},
+{"_t":"EquipQualityConfig","_id":7,"AttrIdList":[2001,2002,2003],"AttrValueList":[10,20,20]},
 ]}

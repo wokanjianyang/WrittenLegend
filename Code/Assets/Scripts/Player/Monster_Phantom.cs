@@ -70,7 +70,7 @@ public class Monster_Phantom : APlayer
 
         foreach (SkillData skillData in list)
         {
-            List<SkillRune> runeList = SkillRuneHelper.GetAllRune(skillData.SkillConfig.Id, 4);
+            List<SkillRune> runeList = SkillRuneConfigCategory.Instance.GetAllRune(skillData.SkillConfig.Id, 4);
             List<SkillSuit> suitList = SkillSuitHelper.GetAllSuit(skillData.SkillConfig.Id, 4);
 
             SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, false);

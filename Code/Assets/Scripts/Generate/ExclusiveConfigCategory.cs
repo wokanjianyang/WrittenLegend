@@ -37,7 +37,7 @@ namespace Game
                 SkillRuneConfig runeConfig;
                 if (runeId <= 0)
                 {
-                    runeConfig = SkillRuneHelper.RandomRune(seed, -1, role, 0, quality, 0);
+                    runeConfig = SkillRuneConfigCategory.Instance.RandomRune(seed, -1, role, 0, quality, 0);
                     runeId = runeConfig.Id;
                 }
                 else
@@ -47,7 +47,7 @@ namespace Game
 
                 if (suitId <= 0 && quality >= 4)
                 {
-                    suitId = SkillSuitHelper.RandomSuit(seed, runeConfig.SkillId).Id;
+                    suitId = SkillSuitHelper.RandomSuit(seed, runeConfig.SkillId, runeConfig.Type).Id;
                 }
             }
 

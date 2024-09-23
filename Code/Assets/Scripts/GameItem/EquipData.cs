@@ -42,9 +42,9 @@ namespace Game
             {
                 AttrList.Add(AttrEntryConfigCategory.Instance.Build(part, level, quality, role));
 
-                SkillRuneConfig config = SkillRuneHelper.RandomRune(-1, -1, role, 1, quality, level);
+                SkillRuneConfig config = SkillRuneConfigCategory.Instance.RandomRune(-1, -1, role, 1, quality, level);
                 RuneIdList.Add(config.Id);
-                SuitIdList.Add(SkillSuitHelper.RandomSuit(-1, config.SkillId).Id);
+                SuitIdList.Add(SkillSuitHelper.RandomSuit(-1, config.SkillId, config.Type).Id);
             }
         }
     }

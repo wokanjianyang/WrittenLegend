@@ -150,7 +150,7 @@ namespace Game
                 {
                     if (model.Rune > 0)
                     {
-                        runeList = SkillRuneHelper.GetAllRune(skillData.SkillId, model.Rune);
+                        runeList = SkillRuneConfigCategory.Instance.GetAllRune(skillData.SkillId, model.Rune);
                     }
 
                     if (model.Suit > 0)

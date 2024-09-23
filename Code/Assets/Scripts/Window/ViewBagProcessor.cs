@@ -726,7 +726,7 @@ namespace Game
                     int runeId = kv.Key;
                     int runeLevel = kv.Value;
                     SkillRuneConfig runeConfig = SkillRuneConfigCategory.Instance.Get(runeId);
-                    int suitId = SkillSuitHelper.RandomSuit(0, runeConfig.SkillId).Id;
+                    int suitId = SkillSuitHelper.RandomSuit(0, runeConfig.SkillId, runeConfig.Type).Id;
 
                     for (int i = 0; i < runeLevel; i++)
                     {
