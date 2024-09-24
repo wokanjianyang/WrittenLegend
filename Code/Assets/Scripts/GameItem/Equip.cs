@@ -198,7 +198,7 @@ namespace Game
         public void Init(int seed)
         {
             //根据品质,生成随机属性
-            if (EquipConfig.RandomAttr == 0 && Part <= 10)
+            if (EquipConfig.RandomAttr == 0 && (Part <= 10 || Part >= 20))
             {
                 this.AttrEntryList.AddRange(AttrEntryConfigCategory.Instance.Build(this.Part, this.Level, this.Quality, this.EquipConfig.Role, seed));
             }
