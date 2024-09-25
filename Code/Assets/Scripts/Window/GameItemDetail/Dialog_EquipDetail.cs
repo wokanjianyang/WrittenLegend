@@ -163,7 +163,7 @@ namespace Game
 
                 var btList = BaseAttrList.ToList();
 
-                for (int index = 0; index < 6; index++)
+                for (int index = 0; index < 8; index++)
                 {
                     var child = tran_BaseAttribute.Find(string.Format("Attribute_{0}", index));
 
@@ -186,7 +186,7 @@ namespace Game
 
                 var AttrEntryList = equip.AttrEntryList.ToList();
 
-                for (int index = 0; index < 6; index++)
+                for (int index = 0; index < 8; index++)
                 {
                     var child = tran_RandomAttribute.Find(string.Format("Attribute_{0}", index));
 
