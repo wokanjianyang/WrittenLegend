@@ -46,9 +46,6 @@ namespace Game
         [LabelText("套装属性")]
         public Transform tran_GroupAttribute;
 
-        [LabelText("普通道具属性")]
-        public Transform tran_NormalAttribute;
-
         [LabelText("红装属性")]
         public Transform tran_RedAttribute;
 
@@ -106,7 +103,6 @@ namespace Game
         {
             this.gameObject.SetActive(true);
             tran_BaseAttribute.gameObject.SetActive(false);
-            tran_NormalAttribute.gameObject.SetActive(false);
             tran_RandomAttribute.gameObject.SetActive(false);
             tran_QualityAttribute.gameObject.SetActive(false);
             tran_SkillAttribute.gameObject.SetActive(false);
@@ -138,10 +134,6 @@ namespace Game
 
             User user = GameProcessor.Inst.User;
 
-
-
-
-
             long basePercent = 0;
             long qualityPercent = 0;
 
@@ -161,11 +153,13 @@ namespace Game
                 tran_BaseAttribute.Find("Title").GetComponent<Text>().text = "[基础属性]";
                 tran_BaseAttribute.Find("NeedLevel").GetComponent<Text>().text = string.Format("<color={0}>需要等级{1}</color>", color, this.boxItem.Item.Level);
 
-                var btList = BaseAttrList.ToList();
+                Transform gridBase = tran_BaseAttribute.Find("Grid_Base");
+
+                List<KeyValuePair<int, long>> btList = BaseAttrList.ToList();
 
                 for (int index = 0; index < 8; index++)
                 {
-                    var child = tran_BaseAttribute.Find(string.Format("Attribute_{0}", index));
+                    var child = gridBase.Find(string.Format("Attribute_{0}", index));
 
                     if (index < btList.Count())
                     {
@@ -183,12 +177,13 @@ namespace Game
             {
                 tran_RandomAttribute.gameObject.SetActive(true);
                 tran_RandomAttribute.Find("Title").GetComponent<Text>().text = "[随机属性]";
+                Transform gridRandom = tran_RandomAttribute.Find("Grid_Random");
 
                 var AttrEntryList = equip.AttrEntryList.ToList();
 
                 for (int index = 0; index < 8; index++)
                 {
-                    var child = tran_RandomAttribute.Find(string.Format("Attribute_{0}", index));
+                    var child = gridRandom.Find(string.Format("Attribute_{0}", index));
 
                     if (index < AttrEntryList.Count)
                     {
@@ -211,12 +206,13 @@ namespace Game
             {
                 tran_QualityAttribute.gameObject.SetActive(true);
                 tran_QualityAttribute.Find("Title").GetComponent<Text>().text = "[品质属性]";
+                Transform gridQuality = tran_QualityAttribute.Find("Grid_Quality");
 
                 var QualityAttrList = equip.QualityAttrList.ToList();
 
                 for (int index = 0; index < 4; index++)
                 {
-                    var child = tran_QualityAttribute.Find(string.Format("Attribute_{0}", index));
+                    var child = gridQuality.Find(string.Format("Attribute_{0}", index));
 
                     if (index < QualityAttrList.Count)
                     {
@@ -262,12 +258,13 @@ namespace Game
                 if (equipSuit.Config != null)
                 {
                     tran_GroupAttribute.gameObject.SetActive(true);
+                    Transform gridGroup = tran_GroupAttribute.Find("Grid_Group");
 
                     int groupCount = 0;
                     int nameIndex = 0;
                     for (int i = 0; i < 3; i++)
                     {
-                        var nameChild = tran_GroupAttribute.Find(string.Format("Name_{0}", nameIndex++));
+                        var nameChild = gridGroup.Find(string.Format("Name_{0}", nameIndex++));
 
                         if (i >= equipSuit.ItemList.Count)
                         {
@@ -300,7 +297,7 @@ namespace Game
 
                     for (int index = 0; index < 3; index++)
                     {
-                        var attrChild = tran_GroupAttribute.Find(string.Format("Attribute_{0}", index));
+                        var attrChild = gridGroup.Find(string.Format("Attribute_{0}", index));
 
                         if (index < config.AttrIdList.Length)
                         {
@@ -325,23 +322,24 @@ namespace Game
                     EquipRedSuit red = user.GetEquipRedConfig(equip.EquipConfig.Role, equip.GetQuality());
 
                     this.ShowRed(red, equip.GetQuality());
-
-                    if (equip.Layer > 1)
-                    {
-                        this.btn_Restore.gameObject.SetActive(this.boxItem.BoxId != -1 && !this.boxItem.Item.IsLock);
-                    }
-                    //else
-                    //{
-                    //    this.btn_Recovery.gameObject.SetActive(this.boxItem.BoxId != -1 && !this.boxItem.Item.IsLock);
-                    //}
                 }
             }
 
 
             this.btn_Equip.gameObject.SetActive(this.boxItem.BoxId != -1);
             this.btn_UnEquip.gameObject.SetActive(this.boxItem.BoxId == -1);
-            this.btn_Recovery.gameObject.SetActive(this.boxItem.BoxId != -1 && !this.boxItem.Item.IsLock);
-            //this.btn_Restore.gameObject.SetActive(this.boxItem.BoxId != -1 && !this.boxItem.Item.IsLock);
+
+            if (equip.GetQuality() >= 6 && equip.Layer > 1)
+            {
+                this.btn_Restore.gameObject.SetActive(this.boxItem.BoxId != -1 && !this.boxItem.Item.IsLock);
+                this.btn_Recovery.gameObject.SetActive(false);
+            }
+            else
+            {
+                this.btn_Restore.gameObject.SetActive(false);
+                this.btn_Recovery.gameObject.SetActive(this.boxItem.BoxId != -1 && !this.boxItem.Item.IsLock);
+            }
+
             this.btn_Lock.gameObject.SetActive(!this.boxItem.Item.IsLock);
             this.btn_Unlock.gameObject.SetActive(this.boxItem.Item.IsLock);
 
