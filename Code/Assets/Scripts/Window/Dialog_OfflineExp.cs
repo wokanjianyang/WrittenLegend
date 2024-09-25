@@ -43,7 +43,7 @@ namespace Game
         {
             List<Item> items = new List<Item>();
 
-            items.Add(ItemHelper.BuildEquip(21205804, 7, 0, 0));
+            //items.Add(ItemHelper.BuildEquip(21205804, 7, 0, 0));
 
             //items.Add(ItemHelper.BuildEquip(21105803, 6,0,0));
             //items.Add(ItemHelper.BuildEquip(21105804, 6, 0, 0));
