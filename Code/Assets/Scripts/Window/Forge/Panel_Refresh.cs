@@ -39,6 +39,7 @@ public class Panel_Refresh : MonoBehaviour
     private int AutoMax = 200;
 
     private int RefreshCount = 0;
+    private int AutoSaveCount = 0;
 
     private const int MaxCount = 10; //10¼þ×°±¸
 
@@ -316,16 +317,19 @@ public class Panel_Refresh : MonoBehaviour
         this.TxtCostCount.text = string.Format("<color={0}>{1}/{2}</color>", color, stoneTotal, upCount);
 
         RefreshCount++;
-        if (RefreshCount > 7 * type)
+        if (RefreshCount % (7 * type) == 6)
         {
-            RefreshCount = 0;
+            Debug.Log("Refresh save : " + RefreshCount);
             GameProcessor.Inst.SaveData();
         }
-
-        if ((user.RedRefreshCount.Data + 1) % (200 * type) == 0)
+        else
         {
-
-            GameProcessor.Inst.SaveNetData();
+            if ((RefreshCount - AutoSaveCount) > 10 && RandomHelper.RandomRate(1))
+            {
+                Debug.Log("Refresh save net: " + RefreshCount);
+                AutoSaveCount = RefreshCount;
+                GameProcessor.Inst.SaveNetData();
+            }
         }
 
         return true;
@@ -431,6 +435,7 @@ public class Panel_Refresh : MonoBehaviour
     private void OnClickAuto()
     {
         this.Auto = true;
+        this.AutoCount = 0;
         this.Btn_Auto.gameObject.SetActive(false);
         this.Btn_Auto_Close.gameObject.SetActive(true);
     }

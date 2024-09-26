@@ -101,12 +101,12 @@ namespace Game
 
         public List<AttrEntryConfig> GetRedAttrList()
         {
-            return this.list.Where(m => m.Type == 1).ToList();
+            return this.list.Where(m => m.Type == 1 && m.EndQuality == 6).ToList();
         }
 
         public AttrEntryConfig GetRedConfig(int attrId)
         {
-            return this.list.Where(m => m.Type == 1 && m.AttrId == attrId).FirstOrDefault();
+            return this.list.Where(m => m.Type == 1 && m.EndQuality == 6 && m.AttrId == attrId).FirstOrDefault();
         }
     }
 }

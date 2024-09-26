@@ -136,7 +136,7 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
 
         if (this.SelectLayer < 0)
         {
-            this.SelectLayer = this.MaxLayer;
+            this.SelectLayer = Math.Min(this.MaxLayer, 2);
             tgLevelList[SelectLayer].isOn = true;
         }
 
