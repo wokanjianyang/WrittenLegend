@@ -299,6 +299,7 @@ MonoBehaviour:
   Txt_Limit_Title: {fileID: 4215972612659462679}
   Txt_Limit_Content: {fileID: 3505619496430932404}
   Btn_Ok: {fileID: 8770791505231663007}
+  Btn_Batch: {fileID: 1659416914088720680}
 --- !u!1 &3900977321426753135
 GameObject:
   m_ObjectHideFlags: 0
@@ -840,7 +841,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u4E00\u952E\u5151\u6362"
+  m_Text: "\u5151\u6362"
 --- !u!1 &5589127748327995646
 GameObject:
   m_ObjectHideFlags: 0
@@ -1073,7 +1074,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2649647367791683458
 RectTransform:
   m_ObjectHideFlags: 0

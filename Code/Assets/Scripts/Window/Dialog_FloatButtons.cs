@@ -53,14 +53,14 @@ public class Dialog_FloatButtons : MonoBehaviour, IBattleLife, IPointerDownHandl
         DropLimitConfig dropLimit = DropLimitConfigCategory.Instance.Get(1);
         long nt = DateTime.Now.Ticks;
 
-        if (nt < DateTime.Parse(dropLimit.StartDate).AddDays(-3).Ticks || nt > DateTime.Parse(dropLimit.EndDate).AddDays(1).Ticks)
-        {
-            this.Btn_Festive.gameObject.SetActive(false);
-        }
-        else
+        if (nt < DateTime.Parse(dropLimit.EndDate).AddDays(1).Ticks)
         {
             this.Txt_Festive.text = dropLimit.Name;
             this.Btn_Festive.onClick.AddListener(OnClick_Festive);
+        }
+        else
+        {
+            this.Btn_Festive.gameObject.SetActive(false);
         }
     }
 
