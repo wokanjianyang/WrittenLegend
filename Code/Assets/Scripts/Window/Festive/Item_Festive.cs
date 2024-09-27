@@ -66,7 +66,7 @@ public class Item_Festive : MonoBehaviour
 
         DropLimitConfig dropLimit = DropLimitConfigCategory.Instance.Get(1);
 
-        if (DateTime.Now.Ticks > DateTime.Parse(dropLimit.StartDate).AddDays(-10).Ticks)
+        if (DateTime.Now.Ticks > DateTime.Parse(dropLimit.StartDate).Ticks)
         {
             Btn_Batch.gameObject.SetActive(true);
             Btn_Ok.gameObject.SetActive(true);
