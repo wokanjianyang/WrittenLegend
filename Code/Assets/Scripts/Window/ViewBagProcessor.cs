@@ -1455,7 +1455,7 @@ namespace Game
             {
                 var newItems = e.ItemList;
 
-                foreach (var newItem in newItems)
+                foreach (Item newItem in newItems)
                 {
                     if (newItem.Type == ItemType.Buff)
                     {

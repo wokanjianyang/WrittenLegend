@@ -18,12 +18,13 @@ namespace Game
         public Text Txt_Memo;
 
         public Button Btn_Recovery;
+        public Button Btn_Lose;
+        public Button Btn_Learn;
+
         public Button Btn_Use;
         public Button Btn_Use_Batch;
         public Button Btn_UseAll;
-        public Button Btn_Lose;
 
-        public Button Btn_Learn;
         public Button Btn_Close;
 
         private BoxItem boxItem;
@@ -70,11 +71,13 @@ namespace Game
             this.gameObject.SetActive(true);
 
             this.Btn_Recovery.gameObject.SetActive(false);
-            this.Btn_Lose.gameObject.SetActive(true);
+            this.Btn_Lose.gameObject.SetActive(false);
+            this.Btn_Learn.gameObject.SetActive(false);
+
             this.Btn_Use.gameObject.SetActive(false);
             this.Btn_UseAll.gameObject.SetActive(false);
-            this.Btn_Learn.gameObject.SetActive(false);
             this.Btn_Use_Batch.gameObject.SetActive(false);
+
             this.tf_Count.gameObject.SetActive(false);
             this.if_Count.text = "";
 
@@ -113,6 +116,7 @@ namespace Game
                         GiftPack giftPack = this.boxItem.Item as GiftPack;
                         Txt_Memo.text = giftPack.Des;
                         this.Btn_Use.gameObject.SetActive(true);
+                        //this.Btn_UseAll.gameObject.SetActive(true);
                     }
                     break;
                 case ItemType.ExpPack:
@@ -214,6 +218,17 @@ namespace Game
             });
         }
 
+        private void OnUseAll()
+        {
+            this.gameObject.SetActive(false);
+
+            GameProcessor.Inst.EventCenter.Raise(new BagUseEvent()
+            {
+                Quantity = -1,
+                BoxItem = this.boxItem
+            });
+        }
+
         private void OnUseBatch()
         {
             this.tf_Count.gameObject.SetActive(true);
@@ -264,16 +279,7 @@ namespace Game
             this.tf_Count.gameObject.SetActive(false);
         }
 
-        private void OnUseAll()
-        {
-            this.gameObject.SetActive(false);
 
-            GameProcessor.Inst.EventCenter.Raise(new BagUseEvent()
-            {
-                Quantity = -1,
-                BoxItem = this.boxItem
-            });
-        }
 
         private void OnLearnSkill()
         {
