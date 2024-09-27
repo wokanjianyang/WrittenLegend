@@ -96,8 +96,9 @@ public class Panel_SoulBone : MonoBehaviour
         User user = GameProcessor.Inst.User;
 
         long currentLevel = user.GetSoulBoneLevel(sid);
+        long RingLevel = user.GetSoulRingLevel(sid);
 
-        if (currentLevel == 0)
+        if (RingLevel == 0)
         {
             txt_Fee.text = "请先激活对应魂环";
             return;
@@ -106,8 +107,6 @@ public class Panel_SoulBone : MonoBehaviour
         InitRing(sid, currentLevel);
 
         SoulBoneConfig config = SoulBoneConfigCategory.Instance.Get(sid);
-
-        long RingLevel = user.SoulRingData[sid].Data;
 
         long materialCount = user.GetMaterialCount(config.ItemId);
         long fee = 1;
@@ -132,7 +131,6 @@ public class Panel_SoulBone : MonoBehaviour
             Btn_Active.gameObject.SetActive(true);
         }
 
-        long ringLevel = user.GetSoulRingLevel(sid);
         //Attr
         for (int i = 0; i < AttrList.Count; i++)
         {
@@ -149,7 +147,7 @@ public class Panel_SoulBone : MonoBehaviour
             {
                 attrItem.gameObject.SetActive(true);
 
-                attrItem.SetContent(attrId, baseValue * currentLevel * ringLevel, baseValue * ringLevel);
+                attrItem.SetContent(attrId, baseValue * currentLevel * RingLevel, baseValue * RingLevel);
             }
         }
     }
