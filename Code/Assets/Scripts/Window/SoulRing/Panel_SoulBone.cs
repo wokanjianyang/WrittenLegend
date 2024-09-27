@@ -97,6 +97,12 @@ public class Panel_SoulBone : MonoBehaviour
 
         long currentLevel = user.GetSoulBoneLevel(sid);
 
+        if (currentLevel == 0)
+        {
+            txt_Fee.text = "请先激活对应魂环";
+            return;
+        }
+
         InitRing(sid, currentLevel);
 
         SoulBoneConfig config = SoulBoneConfigCategory.Instance.Get(sid);
