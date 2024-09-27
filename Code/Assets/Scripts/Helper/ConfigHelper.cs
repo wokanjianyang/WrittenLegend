@@ -22,7 +22,7 @@ namespace Game
 
         public const long Cycle_Level = 10000; //每次轮回增加等级
 
-        public const long Cycle_Max = 8;
+        public const long Cycle_Max = 10;
 
         public const long Max_Legacy_Level = 10; //最大传世副本等级
 

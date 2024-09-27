@@ -1083,7 +1083,10 @@ namespace Game
             yield return null;
             this.isInLevelUp = false;
 
-            EventCenter.Raise(new UserAttrChangeEvent());
+            if (this.MagicLevel.Data < 10000 && this.Cycle.Data <= 0)
+            {
+                EventCenter.Raise(new UserAttrChangeEvent());
+            }
         }
 
         private void SetUpExp()
