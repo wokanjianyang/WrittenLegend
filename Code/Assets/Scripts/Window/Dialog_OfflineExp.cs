@@ -134,8 +134,8 @@ namespace Game
 
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 26, 1, 1));  //神技
 
-            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 28, 1, 1));  //神技
-            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 29, 1, 3));  //神技
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 28, 1, 1));  //魂骨
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 29, 1, 3));  //11技能
 
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 106, 1, 5));
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 107, 1, 1));
