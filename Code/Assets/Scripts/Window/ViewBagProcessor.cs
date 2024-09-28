@@ -28,6 +28,8 @@ namespace Game
         public Button Btn_Ok;
         public Button Btn_Cancle;
 
+        public RectTransform Tf_Equip_Golden;
+
 
         [Title("功能按钮")]
         public Button Btn_Attr;
@@ -43,6 +45,8 @@ namespace Game
         public Button btn_Artifact;
         public Button btn_Ring;
         public Button btn_Pill;
+
+        public Button btn_Equip_Golden;
 
         [Title("功能框")]
         public Dialog_Exclusive ExclusiveDialog;
@@ -83,6 +87,7 @@ namespace Game
             this.btn_Artifact.onClick.AddListener(OnOpenArtifact);
             this.btn_Ring.onClick.AddListener(OnOpenRing);
             this.btn_Pill.onClick.AddListener(OnOpenPill);
+            this.btn_Equip_Golden.onClick.AddListener(OnOpenEquipGolden);
 
             this.Btn_Reset.onClick.AddListener(OnRefreshBag);
             this.Btn_ReName.onClick.AddListener(OnSetPlanName);
@@ -191,6 +196,12 @@ namespace Game
             }
 
             foreach (var slotBox in EquipInfoSpecial.GetComponentsInChildren<SlotBox>())
+            {
+                slotBox.Init(prefab);
+                yield return null;
+            }
+
+            foreach (var slotBox in Tf_Equip_Golden.GetComponentsInChildren<SlotBox>())
             {
                 slotBox.Init(prefab);
                 yield return null;
@@ -575,6 +586,8 @@ namespace Game
         private void ShowEquipPanel()
         {
             int position = GameProcessor.Inst.User.EquipPanelIndex;
+
+            Tf_Equip_Golden.gameObject.SetActive(false);
 
             for (int i = 0; i < this.Equip_Plan_List.Count; i++)
             {
@@ -1226,13 +1239,18 @@ namespace Game
             int Part = equip.Part;
 
             IDictionary<int, Equip> ep = null; ;
-            if (Part > 10)
+
+            if (Part <= 10)
+            {
+                ep = user.EquipPanelList[user.EquipPanelIndex]; ;
+            }
+            else if (Part >= 11 && Part <= 14)
             {
                 ep = user.EquipPanelSpecial;
             }
-            else
+            else if (Part >= 21 && Part <= 28)
             {
-                ep = user.EquipPanelList[user.EquipPanelIndex]; ;
+                ep = user.EquipPanelGolden;
             }
 
             //增加一次穿戴记录，用做轮流穿戴左右
@@ -1257,9 +1275,13 @@ namespace Game
                 {
                     slot = Equip_Plan_List[user.EquipPanelIndex].GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == Position).First();
                 }
-                else
+                else if (Position >= 11 && Position <= 14)
                 {
                     slot = EquipInfoSpecial.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == Position).First();
+                }
+                else if (Position >= 21 && Position <= 28)
+                {
+                    slot = Tf_Equip_Golden.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == Position).First();
                 }
 
                 Com_Box comItem = slot.GetEquip();
@@ -1352,18 +1374,22 @@ namespace Game
 
             SlotBox slot = null;
 
-            if (position > 14)
-            {
-                slot = ExclusiveDialog.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
-            }
-            else if (position > 10)
-            {
-                slot = EquipInfoSpecial.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
-            }
-            else
+            if (position <= 10)
             {
                 var EquipInfo = Equip_Plan_List[pi];
                 slot = EquipInfo.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+            }
+            else if (position >= 11 && position <= 14)
+            {
+                slot = EquipInfoSpecial.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+            }
+            else if (position >= 15 && position <= 20)
+            {
+                slot = ExclusiveDialog.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+            }
+            else if (position >= 21 && position <= 28)
+            {
+                slot = Tf_Equip_Golden.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
 
             //生成格子
@@ -1395,9 +1421,17 @@ namespace Game
             {
                 slot = Equip_Plan_List[user.EquipPanelIndex].GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
-            else
+            else if (position >= 11 && position <= 14)
             {
                 slot = EquipInfoSpecial.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+            }
+            else if (position >= 15 && position <= 20)
+            {
+                slot = ExclusiveDialog.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+            }
+            else if (position >= 21 && position <= 28)
+            {
+                slot = Tf_Equip_Golden.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
 
             Com_Box comItem = slot.GetEquip();
@@ -1408,16 +1442,23 @@ namespace Game
             AddBoxItem(equip);
 
             //
-            IDictionary<int, Equip> ep = null; ;
-            if (position > 10)
+            if (position <= 10)
             {
-                ep = user.EquipPanelSpecial;
+                user.EquipPanelList[user.EquipPanelIndex].Remove(position);
+
             }
-            else
+            else if (position >= 11 && position <= 14)
             {
-                ep = user.EquipPanelList[user.EquipPanelIndex]; ;
+                user.EquipPanelSpecial.Remove(position);
             }
-            ep.Remove(position);
+            else if (position >= 15 && position <= 20)
+            {
+
+            }
+            else if (position >= 21 && position <= 28)
+            {
+                user.EquipPanelGolden.Remove(position);
+            }
 
             //通知英雄更新属性
             user.EventCenter.Raise(new HeroUnUseEquipEvent() { });
@@ -1543,6 +1584,16 @@ namespace Game
         public void OnOpenWing()
         {
             this.DialogWing.gameObject.SetActive(true);
+        }
+
+        public void OnOpenEquipGolden()
+        {
+            this.Tf_Equip_Golden.gameObject.SetActive(true);
+
+            for (int i = 0; i < this.Equip_Plan_List.Count; i++)
+            {
+                this.Equip_Plan_List[i].gameObject.SetActive(false);
+            }
         }
 
         public void OpenFashion()

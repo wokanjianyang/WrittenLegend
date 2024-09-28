@@ -195,6 +195,23 @@ namespace Game
         [LabelText("专属6")]
         神圣命运 = 20,
 
+        [LabelText("金武器")]
+        金武器 = 21,
+        [LabelText("金衣服")]
+        金衣服 = 22,
+        [LabelText("金项链")]
+        金项链 = 23,
+        [LabelText("金头盔")]
+        金头盔 = 24,
+        [LabelText("金手镯")]
+        金手镯 = 25,
+        [LabelText("金戒指")]
+        金戒指 = 26,
+        [LabelText("金腰带")]
+        金腰带 = 27,
+        [LabelText("金鞋子")]
+        金鞋子 = 28,
+
         [LabelText("主专属")]
         主专属 = 101,
         [LabelText("副专属")]

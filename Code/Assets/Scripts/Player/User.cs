@@ -56,6 +56,8 @@ namespace Game
 
         public IDictionary<int, Equip> EquipPanelSpecial { get; set; } = new Dictionary<int, Equip>();
 
+        public IDictionary<int, Equip> EquipPanelGolden { get; set; } = new Dictionary<int, Equip>();
+
         public IDictionary<int, IDictionary<int, ExclusiveItem>> ExclusivePanelList { get; set; } = new Dictionary<int, IDictionary<int, ExclusiveItem>>();
 
         public IDictionary<int, ExclusiveItem> ExclusiveList { get; set; } = new Dictionary<int, ExclusiveItem>();
