@@ -70,7 +70,7 @@ namespace Game
             if (isPlayer)
             {
                 List<SkillRuneConfig> skillRuneConfigs = SkillRuneConfigCategory.Instance.GetAll().Select(m => m.Value)
-                    .Where(m => m.SkillId == SkillId && m.Type == 1).ToList();
+                    .Where(m => m.SkillId == SkillId && m.Type >= 1).ToList();
                 foreach (SkillRuneConfig config in skillRuneConfigs)
                 {
                     int count = runeList.Where(m => m.SkillRuneConfig.Id == config.Id).Select(m => m.AvailableQuantity).Sum();

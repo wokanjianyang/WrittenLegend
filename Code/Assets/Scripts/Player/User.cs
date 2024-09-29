@@ -359,7 +359,7 @@ namespace Game
                 }
             }
 
-            //装备属性
+            //装备属性-普通装备
             foreach (KeyValuePair<int, Equip> kvp in EquipPanelList[EquipPanelIndex])
             {
                 long refineLevel = GetRefineLevel(kvp.Key);
@@ -369,8 +369,16 @@ namespace Game
                     AttributeBonus.SetAttr((AttributeEnum)a.Key, AttributeFrom.EquipBase, kvp.Key, a.Value);
                 }
             }
-
+            //装备属性-四格装备
             foreach (KeyValuePair<int, Equip> kvp in EquipPanelSpecial)
+            {
+                foreach (KeyValuePair<int, long> a in kvp.Value.GetTotalAttrList(0))
+                {
+                    AttributeBonus.SetAttr((AttributeEnum)a.Key, AttributeFrom.EquipBase, kvp.Key, a.Value);
+                }
+            }
+            //装备属性-金色装备
+            foreach (KeyValuePair<int, Equip> kvp in EquipPanelGolden)
             {
                 foreach (KeyValuePair<int, long> a in kvp.Value.GetTotalAttrList(0))
                 {
@@ -391,8 +399,17 @@ namespace Game
             //装备红色属性
             for (int role = 1; role <= 3; role++)
             {
-                EquipRedSuit red = GetEquipRedConfig(role, 6);
-                foreach (EquipRedItem redItem in red.List)
+                EquipRedSuit red6 = GetEquipRedConfig(role, 6);
+                foreach (EquipRedItem redItem in red6.List)
+                {
+                    if (redItem.Level > 0)
+                    {
+                        AttributeBonus.SetAttr((AttributeEnum)(redItem.Config.AttrId), AttributeFrom.EquipRed, 1, redItem.Config.AttrValue + redItem.Config.AttrRise * (redItem.Level - 1));
+                    }
+                }
+
+                EquipRedSuit red7 = GetEquipRedConfig(role, 7);
+                foreach (EquipRedItem redItem in red7.List)
                 {
                     if (redItem.Level > 0)
                     {
@@ -756,6 +773,9 @@ namespace Game
             //计算装备的词条加成
             List<int> skillList = this.EquipPanelList[EquipPanelIndex].Where(m => m.Value.SkillRuneConfig != null && m.Value.SkillRuneConfig.SkillId == skillId).Select(m => m.Value.SkillRuneConfig.Id).ToList();
 
+            //金装词条
+            skillList.AddRange(this.EquipPanelGolden.Where(m => m.Value.SkillRuneConfig != null && m.Value.SkillRuneConfig.SkillId == skillId).Select(m => m.Value.SkillRuneConfig.Id).ToList());
+
             //buff 词条
             if (buffList != null)
             {
@@ -778,7 +798,7 @@ namespace Game
                 list.Add(skillRune);
             }
 
-            if (skillId == 1010)
+            if (skillId == 1002)
             {
                 Debug.Log(JsonConvert.SerializeObject(list));
             }
@@ -792,6 +812,9 @@ namespace Game
 
             //计算装备的套装加成
             List<SkillSuitConfig> skillList = this.EquipPanelList[EquipPanelIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SkillSuitConfig.SkillId == skillId).Select(m => m.Value.SkillSuitConfig).ToList();
+
+            //金装套装
+            skillList.AddRange(this.EquipPanelGolden.Where(m => m.Value.SkillSuitConfig != null && m.Value.SkillSuitConfig.SkillId == skillId).Select(m => m.Value.SkillSuitConfig).ToList());
 
             foreach (var ex in this.ExclusivePanelList[ExclusiveIndex].Values)
             {
@@ -816,6 +839,7 @@ namespace Game
         {
             int count = this.EquipPanelList[EquipPanelIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SuitConfigId == suitId).Count();
             count += this.ExclusivePanelList[ExclusiveIndex].Select(m => m.Value.GetSuitCount(suitId)).Sum();
+            count += this.EquipPanelGolden.Where(m => m.Value.SkillSuitConfig != null && m.Value.SuitConfigId == suitId).Count();
 
             return count;
         }
@@ -843,7 +867,16 @@ namespace Game
 
         public EquipRedSuit GetEquipRedConfig(int role, int quality)
         {
-            List<Equip> equips = this.EquipPanelList[EquipPanelIndex].Select(m => m.Value).Where(m => m.GetQuality() == quality && m.EquipConfig.Role == role).ToList();
+            List<Equip> equips = null;
+            if (quality == 6)
+            {
+                equips = this.EquipPanelList[EquipPanelIndex].Select(m => m.Value).Where(m => m.GetQuality() == quality && m.EquipConfig.Role == role).ToList();
+            }
+            else if (quality == 7)
+            {
+                equips = this.EquipPanelGolden.Select(m => m.Value).Where(m => m.GetQuality() == quality && m.EquipConfig.Role == role).ToList();
+            }
+
             List<int> layers = equips.Select(m => m.Layer).OrderByDescending(m => m).ToList();
 
             //Debug.Log("red layers:" + layers.ListToString());

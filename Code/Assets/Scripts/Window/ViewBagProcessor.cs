@@ -223,6 +223,13 @@ namespace Game
                 //yield return null;
             }
 
+            //穿戴金装
+            foreach (var kvp in user.EquipPanelGolden)
+            {
+                this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
+                //yield return null;
+            }
+
             //穿戴专属
             foreach (var kvp in user.ExclusivePanelList[user.ExclusiveIndex])
             {
@@ -1248,7 +1255,7 @@ namespace Game
             {
                 ep = user.EquipPanelSpecial;
             }
-            else if (Part >= 21 && Part <= 28)
+            else if (Part >= 21 && Part <= 30)
             {
                 ep = user.EquipPanelGolden;
             }
@@ -1279,7 +1286,7 @@ namespace Game
                 {
                     slot = EquipInfoSpecial.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == Position).First();
                 }
-                else if (Position >= 21 && Position <= 28)
+                else if (Position >= 21 && Position <= 30)
                 {
                     slot = Tf_Equip_Golden.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == Position).First();
                 }
@@ -1387,7 +1394,7 @@ namespace Game
             {
                 slot = ExclusiveDialog.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
-            else if (position >= 21 && position <= 28)
+            else if (position >= 21 && position <= 30)
             {
                 slot = Tf_Equip_Golden.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
@@ -1429,7 +1436,7 @@ namespace Game
             {
                 slot = ExclusiveDialog.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
-            else if (position >= 21 && position <= 28)
+            else if (position >= 21 && position <= 30)
             {
                 slot = Tf_Equip_Golden.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
@@ -1455,7 +1462,7 @@ namespace Game
             {
 
             }
-            else if (position >= 21 && position <= 28)
+            else if (position >= 21 && position <= 30)
             {
                 user.EquipPanelGolden.Remove(position);
             }

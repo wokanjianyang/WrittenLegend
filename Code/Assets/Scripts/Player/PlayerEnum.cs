@@ -203,14 +203,18 @@ namespace Game
         金项链 = 23,
         [LabelText("金头盔")]
         金头盔 = 24,
-        [LabelText("金手镯")]
-        金手镯 = 25,
-        [LabelText("金戒指")]
-        金戒指 = 26,
+        [LabelText("金左镯")]
+        金左镯 = 25,
+        [LabelText("金右镯")]
+        金右镯 = 26,
+        [LabelText("金左戒")]
+        金左戒 = 27,
+        [LabelText("金右戒")]
+        金右戒 = 28,
         [LabelText("金腰带")]
-        金腰带 = 27,
+        金腰带 = 29,
         [LabelText("金鞋子")]
-        金鞋子 = 28,
+        金鞋子 = 30,
 
         [LabelText("主专属")]
         主专属 = 101,
