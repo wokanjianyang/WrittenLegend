@@ -48,6 +48,13 @@ namespace Game
             //    items.Add(ItemHelper.BuildEquip(21205800 + i, 7, 0, 0));
             //}
 
+            //items.Add(new Equip(22205805, 12010, 12110, 7));
+            //items.Add(new Equip(22205807, 12010, 12110, 7));
+
+            //items.Add(new Equip(21105801, 9, 10, 6));
+            //items.Add(new Equip(21105802, 9, 10, 6));
+            //items.Add(new Equip(21105803, 9, 10, 6));
+
             //items.Add(ItemHelper.BuildEquip(21105803, 6,0,0));
             //items.Add(ItemHelper.BuildEquip(21105804, 6, 0, 0));
             //items.Add(ItemHelper.BuildEquip(21105805, 6, 0, 0));
