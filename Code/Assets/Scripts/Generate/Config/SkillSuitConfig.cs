@@ -150,6 +150,9 @@ namespace Game
 		/// <summary>系数倍率</summary>
 		[ProtoMember(25)]
 		public int PercentRate { get; set; }
+		/// <summary>Center</summary>
+		[ProtoMember(26)]
+		public string Center { get; set; }
 
 	}
 }

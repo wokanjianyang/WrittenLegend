@@ -24,8 +24,12 @@ namespace Game
         public int AttrIncrea { get; } //攻击加成
         public int FinalIncrea { get; } //最终伤害加成
 
+        public int PercentRate { get; }
+
         public int InheritIncrea { get; }
         public int EffectId { get; } //
+
+        public string Center { get; }
 
         public SkillSuit(int suitId)
         {
@@ -48,6 +52,9 @@ namespace Game
             this.AttrIncrea = SkillSuitConfig.AttrIncrea;
             this.FinalIncrea = SkillSuitConfig.FinalIncrea;
             this.InheritIncrea = SkillSuitConfig.InheritIncrea;
+
+            this.PercentRate = SkillSuitConfig.PercentRate;
+            this.Center = SkillSuitConfig.Center;
 
             this.EffectId = SkillSuitConfig.EffectId;
         }

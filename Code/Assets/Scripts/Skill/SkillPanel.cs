@@ -44,6 +44,8 @@ namespace Game
 
         public AttackCastType CastType { get; }
 
+        public string CenterType { get; }
+
         public List<KeyValuePair<string, int>> RuneTextList { get; } = new List<KeyValuePair<string, int>>();
         public List<KeyValuePair<string, int>> SuitTextList { get; } = new List<KeyValuePair<string, int>>();
 
@@ -111,6 +113,9 @@ namespace Game
             int runePercent = baseRuneList.Select(m => m.Percent).Sum();
             int suitPercent = baseSuitList.Select(m => m.Percent).Sum();
 
+            int runePercentRate = baseRuneList.Select(m => m.PercentRate).Sum();
+            int suitPercentRate = baseSuitList.Select(m => m.PercentRate).Sum();
+
             int runeIgnoreDef = baseRuneList.Select(m => m.IgnoreDef).Sum();
             int suitIgnoreDef = baseSuitList.Select(m => m.IgnoreDef).Sum();
 
@@ -163,7 +168,10 @@ namespace Game
             }
 
             this.Damage += skillData.SkillConfig.Damage + runeDamage + suitDamage + levelDamage;
+
             this.Percent += skillData.SkillConfig.Percent + runePercent + suitPercent + levelPercent;
+            //系数倍率
+            this.Percent = this.Percent * (100 + runePercentRate + suitPercentRate) / 100;
             this.Percent = this.Percent * (100 + divineAttrList[0]) / 100;
 
             this.IgnoreDef += skillData.SkillConfig.IgnoreDef + runeIgnoreDef + suitIgnoreDef;
@@ -187,6 +195,12 @@ namespace Game
             //施法范围
             this.Area = EnumHelper.FromString<AttackGeometryType>(skillData.SkillConfig.Area);
             this.CastType = (AttackCastType)skillData.SkillConfig.CastType;
+
+            foreach(SkillSuit suit in suitList) {
+                if (suit.Center != "") {
+                    this.CenterType = suit.Center;
+                }
+            }
 
             if (isPlayer)
             {

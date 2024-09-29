@@ -27,6 +27,8 @@ namespace Game
         public int AttrIncrea { get; } //攻击加成
         public int FinalIncrea { get; } //最终伤害加成
 
+        public int PercentRate { get; }
+
         public int InheritIncrea { get; }
         public int EffectId { get; } //
 
@@ -49,6 +51,7 @@ namespace Game
             this.CritRate = SkillRuneConfig.CritRate * AvailableQuantity;
             this.CritDamage = SkillRuneConfig.CritDamage * AvailableQuantity;
             this.DamageIncrea = SkillRuneConfig.DamageIncrea * AvailableQuantity;
+            this.PercentRate = SkillRuneConfig.PercentRate* AvailableQuantity;
 
             this.AttrIncrea = SkillRuneConfig.AttrIncrea;
             this.FinalIncrea = SkillRuneConfig.FinalIncrea;
