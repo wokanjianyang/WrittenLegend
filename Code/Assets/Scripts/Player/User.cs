@@ -30,6 +30,8 @@ namespace Game
 
         public int OffLineMapId { get; set; }
 
+        public RandomRecord RandomRecord { get; set; } = new RandomRecord();
+
         public MagicData Cycle { get; set; } = new MagicData();
 
         public MagicData MagicLevel { get; } = new MagicData();
