@@ -83,6 +83,7 @@ namespace Game
         public int Phantom_Auto_Id = 0;
 
         public bool Yundang = false;
+        public bool Net = true;
 
         void Awake()
         {
@@ -647,8 +648,13 @@ namespace Game
                 StartCoroutine(NetworkHelper.UploadData(bytes, headers,
                         (
                             WebResultWrapper result) =>
-                        { },
-                        () => { }));
+                        {
+                            this.Net = true;
+                        },
+                        () =>
+                        {
+                            this.Net = false;
+                        }));
             }
             catch (Exception ex)
             {

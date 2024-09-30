@@ -40,7 +40,14 @@ namespace Game
 
             for (int i = 0; i < 20 - RuneIdList.Count; i++)
             {
-                AttrList.Add(AttrEntryConfigCategory.Instance.Build(part, level, quality, role));
+                if (GameProcessor.Inst.Net)
+                {
+                    AttrList.Add(AttrEntryConfigCategory.Instance.Build(part, level, quality, role));
+                }
+                else
+                {
+                    AttrList.Add(AttrEntryConfigCategory.Instance.BuildNew(part, level, quality, role, GameProcessor.Inst.User.RandomRecord));
+                }
 
                 SkillRuneConfig config = SkillRuneConfigCategory.Instance.RandomRune(-1, -1, role, 1, quality, level);
                 RuneIdList.Add(config.Id);

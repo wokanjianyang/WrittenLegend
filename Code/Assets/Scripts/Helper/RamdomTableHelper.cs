@@ -86,23 +86,28 @@ namespace Game
             }
         }
 
-        public int Random(int bound, RandomRecord record)
+        public int Random(int lower, int upper, RandomRecord record)
         {
-            if (bound <= 0)
+            if (upper <= 0 || lower >= upper)
             {
                 return 0;
             }
 
-            int len = CalLen(bound);
+            int len = CalLen(upper);
 
             int r = GetNumber(record, len);
 
-            while (r >= bound)
+            while (r >= upper || r < lower)
             {
                 r = GetNumber(record, len);
             }
 
             return r;
+        }
+
+        public int Random(int bound, RandomRecord record)
+        {
+            return Random(0, bound, record);
         }
 
         public int GetNumber(RandomRecord record, int len)

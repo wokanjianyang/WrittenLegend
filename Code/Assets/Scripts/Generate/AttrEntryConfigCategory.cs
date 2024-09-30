@@ -81,6 +81,41 @@ namespace Game
             return rsList;
         }
 
+        public List<KeyValuePair<int, long>> BuildNew(int part, int level, int quality, int role, RandomRecord record)
+        {
+            List<KeyValuePair<int, long>> rsList = new List<KeyValuePair<int, long>>();
+
+            List<AttrEntryConfig> configs = list.FindAll(m =>
+            m.PartList.Contains(part)
+            && m.StartLevel <= level && level <= m.EndLevel
+            && m.StartQuality <= quality && quality <= m.EndQuality
+            && (m.Role == role || m.Role == 0));
+
+            if (configs.Count <= 0)
+            {
+                return rsList;
+            }
+
+            for (int i = 0; i < quality; i++)
+            {
+                List<int> excludeList = GetExcludeList(rsList);
+
+                var fcList = configs.Where(m => !excludeList.Contains(m.Id)).ToList();
+
+                int rd = RandomTableHelper.Instance().Random(0, fcList.Count, record);
+
+                AttrEntryConfig config = fcList[rd];
+
+                long attrValue = 0;
+
+                attrValue = RandomTableHelper.Instance().Random(config.MinValue, config.MaxValue + 1, record);
+
+                rsList.Add(new KeyValuePair<int, long>(config.AttrId, attrValue));
+            }
+
+            return rsList;
+        }
+
         private List<int> GetExcludeList(List<KeyValuePair<int, long>> rsList)
         {
             List<int> excludeList = new List<int>();
