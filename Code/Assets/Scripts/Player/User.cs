@@ -1489,13 +1489,13 @@ namespace Game
             return limitId + 1000;
         }
 
-        public List<Item> CheckRecovery(List<Item> items, out long recoveryGold)
+        public List<Item> CheckRecovery(List<Item> items, out long recoveryGold,out int recoveryCount)
         {
             List<Item> newList = new List<Item>();
             recoveryGold = 0;
 
             List<Item> recoveryList = items.Where(m => RecoverySetting.CheckRecovery(m)).ToList();
-
+            recoveryCount = recoveryList.Count;
             if (recoveryList.Count > 0)
             {
                 Dictionary<int, int> recoveryDict = new Dictionary<int, int>();

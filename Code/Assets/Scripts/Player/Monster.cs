@@ -232,13 +232,13 @@ namespace Game
             });
 
             //œ»ªÿ ’
-            List<Item> recoveryList = user.CheckRecovery(items, out long recoveryGold);
-            if (recoveryList.Count > 0)
+            List<Item> recoveryList = user.CheckRecovery(items, out long recoveryGold,out int recoveryCount);
+            if (recoveryCount > 0)
             {
                 GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
                 {
                     Type = RuleType,
-                    Message = BattleMsgHelper.BuildAutoRecoveryMessage(recoveryList.Count, recoveryList, recoveryGold)
+                    Message = BattleMsgHelper.BuildAutoRecoveryMessage(recoveryCount, recoveryList, recoveryGold)
                 });
             }
 
