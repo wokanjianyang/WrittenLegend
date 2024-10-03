@@ -59,7 +59,7 @@ namespace Game
             double InheritAdvance = this.Master.AttributeBonus.GetAttackAttr(AttributeEnum.InheritAdvance) / 100.0;
             double valteHp = 1 + this.Master.AttributeBonus.GetAttackAttr(AttributeEnum.SkillValetHp) / 100.0;
 
-            double MaxInheritAdvance = Math.Min(InheritAdvance, 1);
+            double MaxInheritAdvance = Math.Max(InheritAdvance, 1);
 
             //Debug.Log("valet InheritIncrea:" + InheritIncrea);
             //Debug.Log("valet InheritAdvance:" + InheritAdvance);
@@ -94,7 +94,7 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.AurasDamageResist, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.AurasDamageResist, false));
 
             AttributeBonus.SetAttr(AttributeEnum.Miss, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Miss) * MaxInheritAdvance);
-            AttributeBonus.SetAttr(AttributeEnum.Accuracy, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Accuracy) * InheritAdvance);
+            AttributeBonus.SetAttr(AttributeEnum.Accuracy, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Accuracy) * MaxInheritAdvance);
 
             AttributeBonus.SetAttr(AttributeEnum.PhyDamage, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.PhyDamage) * InheritAdvance);
             AttributeBonus.SetAttr(AttributeEnum.MagicDamage, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.MagicDamage) * InheritAdvance);

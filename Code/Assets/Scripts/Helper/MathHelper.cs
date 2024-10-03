@@ -65,9 +65,9 @@ namespace Game
                 return 0;
             }
 
-            if (rs >= 300)
+            if (rs >= 10)
             {
-                return 3;
+                return 10;
             }
 
             int count = (int)(rs / 100);

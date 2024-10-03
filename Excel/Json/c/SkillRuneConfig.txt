@@ -113,7 +113,6 @@
 {"_t":"SkillRuneConfig","_id":11008,"Type":2,"BuildRate":50,"Role":1,"SkillId":1008,"Name":"护体神盾·精通","Des":"提高此技能系数10%倍率","Max":8,"PercentRate":10},
 {"_t":"SkillRuneConfig","_id":11009,"Type":2,"BuildRate":50,"Role":1,"SkillId":1009,"Name":"开天斩·精通","Des":"提高此技能系数10%倍率","Max":6,"PercentRate":10},
 {"_t":"SkillRuneConfig","_id":11010,"Type":2,"BuildRate":10,"Role":1,"SkillId":1010,"Name":"彻地钉·精通","Des":"提高此技能系数10%倍率","Max":6,"PercentRate":10},
-{"_t":"SkillRuneConfig","_id":11011,"Type":3,"BuildRate":10,"Role":1,"SkillId":1011,"Name":"战士之魂·精通","Des":"提高此技能系数10%倍率","Max":4,"PercentRate":10},
 {"_t":"SkillRuneConfig","_id":12001,"Type":2,"BuildRate":200,"Role":2,"SkillId":2001,"Name":"小火球·精通","Des":"提高此技能系数10%倍率","Max":10,"PercentRate":10},
 {"_t":"SkillRuneConfig","_id":12002,"Type":2,"BuildRate":200,"Role":2,"SkillId":2002,"Name":"雷电术·精通","Des":"提高此技能系数10%倍率","Max":10,"PercentRate":10},
 {"_t":"SkillRuneConfig","_id":12003,"Type":2,"BuildRate":100,"Role":2,"SkillId":2003,"Name":"火墙·精通","Des":"提高此技能系数10%倍率","Max":10,"PercentRate":10},
@@ -124,7 +123,6 @@
 {"_t":"SkillRuneConfig","_id":12008,"Type":2,"BuildRate":50,"Role":2,"SkillId":2008,"Name":"瞬息移动·精通","Des":"提高此技能系数10%倍率","Max":8,"PercentRate":10},
 {"_t":"SkillRuneConfig","_id":12009,"Type":2,"BuildRate":50,"Role":2,"SkillId":2009,"Name":"流星火雨·精通","Des":"提高此技能系数10%倍率","Max":6,"PercentRate":10},
 {"_t":"SkillRuneConfig","_id":12010,"Type":2,"BuildRate":10,"Role":2,"SkillId":2010,"Name":"分身术·精通","Des":"提高此技能系数10%倍率","Max":6,"PercentRate":10},
-{"_t":"SkillRuneConfig","_id":12011,"Type":3,"BuildRate":10,"Role":2,"SkillId":2011,"Name":"法师之魂·精通","Des":"提高此技能系数10%倍率","Max":4,"PercentRate":10},
 {"_t":"SkillRuneConfig","_id":13001,"Type":2,"BuildRate":200,"Role":3,"SkillId":3001,"Name":"治疗术·精通","Des":"提高此技能系数10%倍率","Max":10,"PercentRate":10},
 {"_t":"SkillRuneConfig","_id":13002,"Type":2,"BuildRate":200,"Role":3,"SkillId":3002,"Name":"火符术·精通","Des":"提高此技能系数10%倍率","Max":10,"PercentRate":10},
 {"_t":"SkillRuneConfig","_id":13003,"Type":2,"BuildRate":100,"Role":3,"SkillId":3003,"Name":"施毒术·精通","Des":"提高此技能系数10%倍率","Max":10,"PercentRate":10},
@@ -135,5 +133,4 @@
 {"_t":"SkillRuneConfig","_id":13008,"Type":2,"BuildRate":50,"Role":3,"SkillId":3008,"Name":"隐身术·精通","Des":"提高此技能系数10%倍率","Max":8,"PercentRate":10},
 {"_t":"SkillRuneConfig","_id":13009,"Type":2,"BuildRate":50,"Role":3,"SkillId":3009,"Name":"召唤月灵·精通","Des":"提高此技能系数10%倍率","Max":6,"PercentRate":10},
 {"_t":"SkillRuneConfig","_id":13010,"Type":2,"BuildRate":10,"Role":3,"SkillId":3010,"Name":"无极道体·精通","Des":"提高此技能系数10%倍率","Max":6,"PercentRate":10},
-{"_t":"SkillRuneConfig","_id":13011,"Type":3,"BuildRate":10,"Role":3,"SkillId":3011,"Name":"道士之魂·精通","Des":"提高此技能系数10%倍率","Max":4,"PercentRate":10},
 ]}
