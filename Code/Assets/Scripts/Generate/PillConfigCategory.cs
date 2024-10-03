@@ -76,6 +76,16 @@ namespace Game
 
         public long GetFee(long layer)
         {
+            double rate = 0;
+            if (layer <= 4)
+            {
+                rate = layer * 0.5 + 1;
+            }
+            else
+            {
+                rate = layer * 1 + 1;
+            }
+
             return (long)(this.FeeRise * (layer * 0.5 + 1));
         }
     }
