@@ -59,7 +59,7 @@ namespace Game
             double InheritAdvance = this.Master.AttributeBonus.GetAttackAttr(AttributeEnum.InheritAdvance) / 100.0;
             double valteHp = 1 + this.Master.AttributeBonus.GetAttackAttr(AttributeEnum.SkillValetHp) / 100.0;
 
-            double MaxInheritAdvance = Math.Max(InheritAdvance, 1);
+            double MaxInheritAdvance = Math.Min(InheritAdvance, 1);
 
             //Debug.Log("valet InheritIncrea:" + InheritIncrea);
             //Debug.Log("valet InheritAdvance:" + InheritAdvance);
