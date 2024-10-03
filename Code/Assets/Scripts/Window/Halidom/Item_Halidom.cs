@@ -67,19 +67,27 @@ namespace Game
                     }
                     else
                     {
-                        GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "消耗" + upNumber + "个遗物粉尘升级成功", ToastType = ToastTypeEnum.Success });
-                        GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
+                        GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("是否确认用遗物粉尘升级遗物", true,
+                        () =>
                         {
-                            Type = ItemType.Material,
-                            ItemId = ItemHelper.SpecialId_Halidom_Chip,
-                            Quantity = upNumber
+                            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "消耗" + upNumber + "个遗物粉尘升级成功", ToastType = ToastTypeEnum.Success });
+                            GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
+                            {
+                                Type = ItemType.Material,
+                                ItemId = ItemHelper.SpecialId_Halidom_Chip,
+                                Quantity = upNumber
+                            });
+
+                            halidomData.Data++;
+                            this.SetContent(this.Config, halidomData.Data);
+                            GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
+                        }, () =>
+                        {
                         });
 
-                        halidomData.Data++;
-                        this.SetContent(this.Config, halidomData.Data);
-                        GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
 
-                        GameProcessor.Inst.SaveData();
+
+                        //GameProcessor.Inst.SaveData();
                     }
                 }
                 else
