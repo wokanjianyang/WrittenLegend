@@ -218,18 +218,19 @@ namespace Game
 
             double rs = user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstMul);
             int itemCount = MathHelper.RandomBurstMul(rs);
-            if (itemCount > 0)
-            {
-                exp += exp * itemCount;
-                gold += gold * itemCount;
-                items.AddRange(ItemHelper.BurstMul(items, itemCount, qualityRate));
-            }
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
             {
                 Type = RuleType,
                 Message = BattleMsgHelper.BuildMonsterDeadMessage(this, exp, gold, items, itemCount)
             });
+
+            if (itemCount > 0)
+            {
+                exp += exp * itemCount;
+                gold += gold * itemCount;
+                items.AddRange(ItemHelper.BurstMul(items, itemCount, qualityRate));
+            }
 
             //œ»ªÿ ’
             List<Item> recoveryList = user.CheckRecovery(items, out long recoveryGold,out int recoveryCount);

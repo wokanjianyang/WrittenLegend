@@ -42,14 +42,16 @@ namespace Game
                 drops += "<color=#EE4444>连爆+" + burstMul + "</color>,";
             }
 
+            burstMul += 1;
+
             if (exp > 0)
             {
-                drops += ",经验增加:" + StringHelper.FormatNumber(exp);
+                drops += ",经验增加:" + StringHelper.FormatNumber(exp * burstMul);
             }
 
             if (gold > 0)
             {
-                drops += ",金币增加:" + StringHelper.FormatNumber(gold);
+                drops += ",金币增加:" + StringHelper.FormatNumber(gold * burstMul);
             }
 
             if (Drops != null && Drops.Count > 0)
@@ -58,9 +60,9 @@ namespace Game
                 foreach (var drop in Drops)
                 {
                     string qt = "";
-                    if (drop.Count > 1)
+                    if (drop.Count > 1 || burstMul > 1)
                     {
-                        qt = "*" + drop.Count;
+                        qt = "*" + drop.Count * burstMul;
                     }
 
                     drops += $"<color=#{QualityConfigHelper.GetColor(drop)}>[{drop.Name}]</color>" + qt;

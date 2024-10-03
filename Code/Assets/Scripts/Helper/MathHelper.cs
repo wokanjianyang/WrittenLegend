@@ -65,10 +65,10 @@ namespace Game
                 return 0;
             }
 
-            if (rs >= 10)
-            {
-                return 10;
-            }
+            //if (rs >= 300)
+            //{
+            //    return 3;
+            //}
 
             int count = (int)(rs / 100);
             int rate = (int)(rs - count * 100);
