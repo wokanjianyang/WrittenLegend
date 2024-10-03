@@ -60,6 +60,7 @@ namespace Game
             riseRate *= MonsterConfig.AttrRate;
 
             long day = (TimeHelper.ClientNowSeconds() - 1724083200) / 86400;
+            day = Math.Min(day, 60);
             double dayRate = Math.Pow(0.95, day);
             //Debug.Log("dayRate:" + dayRate);
 
