@@ -867,7 +867,7 @@ namespace Game
             List<Item> itemList = new List<Item>();
             if (boxItem.Item.ItemConfig.RecoveryItemId > 0)
             {
-                Item item = ItemHelper.BuildMaterial(boxItem.Item.ItemConfig.RecoveryItemId, quantity);
+                Item item = ItemHelper.BuildMaterial(boxItem.Item.ItemConfig.RecoveryItemId, quantity * boxItem.Item.ItemConfig.RecoveryCount);
                 AddBoxItem(item);
                 itemList.Add(item);
             }

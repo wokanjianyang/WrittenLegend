@@ -18,6 +18,7 @@ namespace Game
         public Text Txt_Memo;
 
         public Button Btn_Recovery;
+        public Button Btn_Recovery_All;
         public Button Btn_Lose;
         public Button Btn_Learn;
 
@@ -41,6 +42,7 @@ namespace Game
         void Start()
         {
             this.Btn_Recovery.onClick.AddListener(this.OnRecovery);
+            this.Btn_Recovery_All.onClick.AddListener(this.OnRecoveryAll);
             this.Btn_Lose.onClick.AddListener(this.OnLose);
             this.Btn_Use.onClick.AddListener(this.OnUse);
             this.Btn_Use_Batch.onClick.AddListener(this.OnUseBatch);
@@ -71,6 +73,7 @@ namespace Game
             this.gameObject.SetActive(true);
 
             this.Btn_Recovery.gameObject.SetActive(false);
+            this.Btn_Recovery_All.gameObject.SetActive(false);
             this.Btn_Lose.gameObject.SetActive(false);
             this.Btn_Learn.gameObject.SetActive(false);
 
@@ -152,6 +155,7 @@ namespace Game
                 if (this.boxItem.Item.ItemConfig.RecoveryItemId > 0)
                 {
                     this.Btn_Recovery.gameObject.SetActive(true);
+                    this.Btn_Recovery_All.gameObject.SetActive(true);
                     this.Btn_Lose.gameObject.SetActive(false);
                 }
             }
@@ -159,6 +163,7 @@ namespace Game
             if (this.BoxType != ComBoxType.Bag) //不可操作
             {
                 this.Btn_Recovery.gameObject.SetActive(false);
+                this.Btn_Recovery_All.gameObject.SetActive(false);
                 this.Btn_Lose.gameObject.SetActive(false);
                 this.Btn_Use.gameObject.SetActive(false);
                 this.Btn_UseAll.gameObject.SetActive(false);
@@ -180,6 +185,16 @@ namespace Game
 
             long count = this.boxItem.MagicNubmer.Data;
             if_Count.placeholder.GetComponent<Text>().text = "最大输入" + count;
+        }
+
+        private void OnRecoveryAll()
+        {
+            this.gameObject.SetActive(false);
+            GameProcessor.Inst.EventCenter.Raise(new RecoveryEvent()
+            {
+                Quantity = -1,
+                BoxItem = this.boxItem,
+            });
         }
 
         private void OnLose()
