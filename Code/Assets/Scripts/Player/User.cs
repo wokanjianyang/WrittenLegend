@@ -800,10 +800,10 @@ namespace Game
                 list.Add(skillRune);
             }
 
-            if (skillId == 1002)
-            {
-                Debug.Log(JsonConvert.SerializeObject(list));
-            }
+            //if (skillId == 1002)
+            //{
+            //    Debug.Log(JsonConvert.SerializeObject(list));
+            //}
 
             return list;
         }
