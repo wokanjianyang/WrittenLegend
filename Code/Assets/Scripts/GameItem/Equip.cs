@@ -135,6 +135,10 @@ namespace Game
                     {
                         AttributeBase = AttributeBase * GetLayerRate(Layer);
                     }
+                    else if (Quality == 7)
+                    {
+                        AttributeBase = AttributeBase * GetLayerRate(Layer);
+                    }
                 }
 
                 BaseAttrList.Add(EquipConfig.BaseArray[i], AttributeBase);
@@ -224,6 +228,11 @@ namespace Game
                 basePercent += refineConfig.GetBaseAttrPercent(level);
                 qualityPercent += refineConfig.GetQualityAttrPercent(level);
             }
+            else if (Part >= 21 && Quality == 7)
+            {
+                basePercent = 100;
+                qualityPercent = 100 * Layer;
+            }
 
             //根据基础属性和词条属性，计算总属性
             IDictionary<int, long> BaseAttrList = this.GetBaseAttrList();
@@ -239,6 +248,7 @@ namespace Game
                 AttrList[attrId] += BaseAttrList[attrId] * basePercent / 100;
             }
 
+            //计算随机属性
             for (int i = 0; i < AttrEntryList.Count; i++)
             {
                 int attrId = AttrEntryList[i].Key;
@@ -253,6 +263,7 @@ namespace Game
                 AttrList[attrId] += attrTotalValue;
             }
 
+            //计算品质属性
             foreach (int attrId in QualityAttrList.Keys)
             {
                 if (!AttrList.ContainsKey(attrId))

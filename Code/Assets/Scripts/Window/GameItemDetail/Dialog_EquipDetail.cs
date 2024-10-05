@@ -144,6 +144,11 @@ namespace Game
                 basePercent = refineConfig.GetBaseAttrPercent(refineLevel);
                 qualityPercent = refineConfig.GetQualityAttrPercent(refineLevel);
             }
+            else if (equip.Part >= 21 && equip.Quality == 7)
+            {
+                basePercent = 100;
+                qualityPercent = 100 * (equip.Layer - 1);
+            }
 
             IDictionary<int, long> BaseAttrList = equip.GetBaseAttrList();
 
