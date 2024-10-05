@@ -78,23 +78,26 @@ namespace Game
 		/// <summary>_Id</summary>
 		[ProtoMember(1)]
 		public int Id { get; set; }
-		/// <summary>Part</summary>
+		/// <summary>Quanlity</summary>
 		[ProtoMember(2)]
+		public int Quanlity { get; set; }
+		/// <summary>Part</summary>
+		[ProtoMember(3)]
 		public int Part { get; set; }
 		/// <summary>Layer</summary>
-		[ProtoMember(3)]
+		[ProtoMember(4)]
 		public int Layer { get; set; }
 		/// <summary>MetailId</summary>
-		[ProtoMember(4)]
+		[ProtoMember(5)]
 		public int MetailId { get; set; }
 		/// <summary>MetailCount</summary>
-		[ProtoMember(5)]
+		[ProtoMember(6)]
 		public int MetailCount { get; set; }
 		/// <summary>MetailId1</summary>
-		[ProtoMember(6)]
+		[ProtoMember(7)]
 		public int MetailId1 { get; set; }
 		/// <summary>MetailCount1</summary>
-		[ProtoMember(7)]
+		[ProtoMember(8)]
 		public int MetailCount1 { get; set; }
 
 	}

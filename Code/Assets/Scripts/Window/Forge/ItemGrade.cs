@@ -36,6 +36,9 @@ namespace Game
         {
             this.item = equip;
 
+            Txt_Name.color = ColorHelper.GetColorByQuality(equip.GetQuality());
+            Txt_Level.color = ColorHelper.GetColorByQuality(equip.GetQuality());
+
             Txt_Name.text = equip.EquipConfig.Name;
             Txt_Level.text = ConfigHelper.LayerChinaList[equip.Layer] + "½×";
 

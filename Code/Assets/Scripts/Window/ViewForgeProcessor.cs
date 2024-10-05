@@ -30,6 +30,9 @@ public class ViewForgeProcessor : AViewPage
     public Toggle toggle_Grade;
     public Panel_Grade PanelGrade;
 
+    public Toggle toggle_Grade_Golden;
+    public Panel_Grade_Golden PanelGradeGolden;
+
     public Toggle toggle_Hone;
     public Panel_Hone PanelHone;
 
@@ -59,12 +62,12 @@ public class ViewForgeProcessor : AViewPage
 
         this.toggle_Strengthen.onValueChanged.AddListener((isOn) =>
         {
-            this.ShowStrengthen(isOn);
+            PanelStrengthen.gameObject.SetActive(isOn);
         });
 
         this.toggle_Refine.onValueChanged.AddListener((isOn) =>
         {
-            this.ShowRefine(isOn);
+            PanelRefine.gameObject.SetActive(isOn);
         });
 
         this.toggle_Exchange.onValueChanged.AddListener((isOn) =>
@@ -74,17 +77,22 @@ public class ViewForgeProcessor : AViewPage
 
         this.toggle_Devour.onValueChanged.AddListener((isOn) =>
         {
-            this.ShowDevour(isOn);
+            PanelDevour.gameObject.SetActive(isOn);
         });
 
         this.toggle_Refresh.onValueChanged.AddListener((isOn) =>
         {
-            this.ShowRefresh(isOn);
+            PanelRefresh.gameObject.SetActive(isOn);
         });
 
         this.toggle_Grade.onValueChanged.AddListener((isOn) =>
         {
-            this.ShowGrade(isOn);
+            PanelGrade.gameObject.SetActive(isOn);
+        });
+
+        this.toggle_Grade_Golden.onValueChanged.AddListener((isOn) =>
+        {
+            PanelGradeGolden.gameObject.SetActive(isOn);
         });
 
         this.toggle_Hone.onValueChanged.AddListener((isOn) =>
@@ -96,68 +104,11 @@ public class ViewForgeProcessor : AViewPage
         {
             PanelExclusiveUp.gameObject.SetActive(isOn);
         });
-
-
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        this.ShowStrengthen(true);
     }
 
     public override void OnBattleStart()
     {
         base.OnBattleStart();
-
-        //GameProcessor.Inst.EventCenter.AddListener<ChangeCompositeTypeEvent>(this.OnChangeCompositeTypeEvent);
-        //GameProcessor.Inst.EventCenter.AddListener<CompositeUIFreshEvent>(this.OnCompositeUIFreshEvent);
-    }
-
-    private void ShowStrengthen(bool isOn)
-    {
-        PanelStrengthen.gameObject.SetActive(isOn);
-    }
-
-    // Composite
-
-
-    //private void ShowComposite() {
-    //    for (int i = 0; i < sr_Right.content.childCount; i++)
-    //    {
-    //        Item_Composite com = sr_Right.content.GetChild(i).GetComponent<Item_Composite>();
-    //        if (com != null)
-    //        {
-    //            com.Check();
-    //        }
-    //    }
-    //}
-
-    //private void OnCompositeUIFreshEvent(CompositeUIFreshEvent e)
-    //{
-    //    ShowComposite();
-    //}
-
-
-    // Refine
-    private void ShowRefine(bool isOn)
-    {
-        PanelRefine.gameObject.SetActive(isOn);
-    }
-
-    private void ShowDevour(bool isOn)
-    {
-        PanelDevour.gameObject.SetActive(isOn);
-    }
-
-    private void ShowRefresh(bool isOn)
-    {
-        PanelRefresh.gameObject.SetActive(isOn);
-    }
-
-    private void ShowGrade(bool isOn)
-    {
-        PanelGrade.gameObject.SetActive(isOn);
     }
 
     protected override bool CheckPageType(ViewPageType page)
@@ -168,8 +119,6 @@ public class ViewForgeProcessor : AViewPage
     public override void OnInit()
     {
         base.OnInit();
-
-
     }
 
     public override void OnOpen()

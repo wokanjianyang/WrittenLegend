@@ -24,5 +24,10 @@ namespace Game
             // 使用转换后的byte值创建Color对象
             return new Color32(r, g, b, a);
         }
+
+        public static Color GetColorByQuality(int quality) {
+            string color = QualityConfigHelper.GetQualityColor(quality);
+            return HexToColor(color);
+        }
     }
 }

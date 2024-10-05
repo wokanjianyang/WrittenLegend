@@ -77,7 +77,7 @@ public class MapBossFamily : MonoBehaviour, IBattleLife
 
         user.MagicRecord[AchievementSourceType.BossFamily].Data += this.MapRate;
 
-        GameProcessor.Inst.SaveData();
+        //GameProcessor.Inst.SaveData();
 
         StartCopy();
     }

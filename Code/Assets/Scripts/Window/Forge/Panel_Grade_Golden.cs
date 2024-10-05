@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
-public class Panel_Grade : MonoBehaviour
+public class Panel_Grade_Golden : MonoBehaviour
 {
     public ScrollRect sr_Panel;
 
@@ -18,7 +18,7 @@ public class Panel_Grade : MonoBehaviour
     public Button Btn_OK;
 
     private const int MaxCount = 10; //10¼þ×°±¸
-    private const int Quality = 6;
+    private const int Quality = 7;
 
     Equip SelectEquip;
 
@@ -69,11 +69,11 @@ public class Panel_Grade : MonoBehaviour
             return;
         }
 
-        IDictionary<int, Equip> dict = user.EquipPanelList[user.EquipPanelIndex];
+        IDictionary<int, Equip> dict = user.EquipPanelGolden;
 
         for (int BoxId = 0; BoxId < MaxCount; BoxId++)
         {
-            int postion = BoxId + 1;
+            int postion = BoxId + 21;
 
             var bagBox = this.sr_Panel.content.GetChild(BoxId);
             if (bagBox == null || !dict.ContainsKey(postion))
@@ -82,11 +82,6 @@ public class Panel_Grade : MonoBehaviour
             }
 
             Equip equip = dict[postion];
-
-            if (equip.GetQuality() < 6)
-            {
-                continue;
-            }
 
             ItemGrade box = this.CreateItem(equip, bagBox);
             this.items.Add(box);

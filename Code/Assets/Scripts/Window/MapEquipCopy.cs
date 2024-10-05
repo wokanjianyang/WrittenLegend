@@ -68,7 +68,7 @@ public class MapEquipCopy : MonoBehaviour, IBattleLife
 
         user.SetAchievementProgeress(AchievementSourceType.EquipCopy, rate);
 
-        GameProcessor.Inst.SaveData();
+        //GameProcessor.Inst.SaveData();
 
         MapConfig config = MapConfigCategory.Instance.Get(this.CopyMapId);
         txt_FloorName.text = config.Name;
