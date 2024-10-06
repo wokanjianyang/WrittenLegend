@@ -114,4 +114,9 @@
 {"_t":"MapConfig","_id":1112,"Name":"地狱通道","Level":4,"Layer":4,"LevelRequired":"1150-3","Memo":"梦魇魂火","DropLevel":0,"DropIdList":[202002,300091,104,504,210042],"DropRateList":[10,2500,1000,18000,600000],"BoosId":10077},
 {"_t":"MapConfig","_id":1113,"Name":"地狱尸洞","Level":4,"Layer":4,"LevelRequired":"1150-4","Memo":"梦魇腐肉","DropLevel":0,"DropIdList":[202002,300091,104,504,210043],"DropRateList":[10,2500,1000,18000,600000],"BoosId":10078},
 {"_t":"MapConfig","_id":1114,"Name":"地狱蛇谷","Level":4,"Layer":4,"LevelRequired":"1150-5","Memo":"梦魇蛇胆","DropLevel":0,"DropIdList":[202002,300091,104,504,210044],"DropRateList":[10,2500,1000,18000,600000],"BoosId":10079},
+{"_t":"MapConfig","_id":1115,"Name":"地狱土城外","Level":4,"Layer":4,"LevelRequired":"1200-1","Memo":"梦魇狼爪","DropLevel":0,"DropIdList":[202003,300091,104,504,210045],"DropRateList":[10,2500,1000,18000,600000],"BoosId":10080},
+{"_t":"MapConfig","_id":1116,"Name":"地狱土城","Level":4,"Layer":4,"LevelRequired":"1200-2","Memo":"梦魇虫皮","DropLevel":0,"DropIdList":[202003,300091,104,504,210046],"DropRateList":[10,2500,1000,18000,600000],"BoosId":10081},
+{"_t":"MapConfig","_id":1117,"Name":"地狱龙城外","Level":4,"Layer":4,"LevelRequired":"1200-3","Memo":"梦魇鹰羽","DropLevel":0,"DropIdList":[202003,300091,104,504,210047],"DropRateList":[10,2500,1000,18000,600000],"BoosId":10082},
+{"_t":"MapConfig","_id":1118,"Name":"地狱龙城","Level":4,"Layer":4,"LevelRequired":"1200-4","Memo":"梦魇虫角","DropLevel":0,"DropIdList":[202003,300091,104,504,210048],"DropRateList":[10,2500,1000,18000,600000],"BoosId":10083},
+{"_t":"MapConfig","_id":1119,"Name":"地狱圣域","Level":4,"Layer":4,"LevelRequired":"1200-5","Memo":"梦魇蜈膏","DropLevel":0,"DropIdList":[202003,300091,104,504,210049],"DropRateList":[10,2500,1000,18000,600000],"BoosId":10084},
 ]}
