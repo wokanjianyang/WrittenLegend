@@ -256,7 +256,7 @@ namespace Game
             }
 
 
-            if (equip.Part <= 10 || equip.Part >= 20)
+            if (equip.Part <= 10)
             {
                 EquipSuit equipSuit = user.GetEquipSuit(equip.EquipConfig);
 
