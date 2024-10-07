@@ -29,8 +29,6 @@ namespace Game
 
             long time = DateTime.Now.Ticks;
 
-            int dzRate = user.GetDzRate();
-
             //不检测limitid
             List<DropLimitConfig> drops = DropLimitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m =>
             m.Type == type && m.StartMapId <= mapId && mapId <= m.EndMapId
@@ -61,20 +59,26 @@ namespace Game
 
                 if (dropLimit.StartRate > 0 || dropLimit.EndRate > 0) //有保底机制的
                 {
-                    dropData.Number += countRise * dzRate;
-                    //Debug.Log("Start Drop Rate:" + dropLimit.Id + " ," + dropData.Number);
-                    if (dropData.Number < dropLimit.StartRate)
+                    dropData.Number += countRise;
+
+                    //if (dropLimit.Id >= 2005)
+                    //{
+                    //    Debug.Log("Start Drop Rate:" + dropLimit.Id + " ," + dropData.Number);
+                    //}
+
+                    if (dropLimit.StartRate > 0 && dropData.Number < dropLimit.StartRate)
                     {
                         continue;
                     }
 
-                    if (dropData.Number >= dropLimit.EndRate)
+                    if (dropLimit.EndRate > 0 && dropData.Number >= dropLimit.EndRate)
                     {
                         rate = 1;
                         Debug.Log("Start End Rate:" + dropLimit.Id + " ," + rate);
                     }
                 }
-                if (dropLimitId == 2005 && modelRise > 10)
+
+                if (dropLimitId >= 2005 && modelRise > 10)
                 {
                     modelRise = 10;
                 }
@@ -93,12 +97,7 @@ namespace Game
                     int index = RandomHelper.RandomNumber(dropData.Seed, 0, dropConfig.ItemIdList.Length);
                     int configId = dropConfig.ItemIdList[index];
 
-                    if (dropLimit.ShareDz <= 0)
-                    {
-                        dzRate = 1;
-                    }
-
-                    Item item = ItemHelper.BuildItem((ItemType)dropConfig.ItemType, configId, 1, dropConfig.Quantity * dzRate, dropData.Seed);
+                    Item item = ItemHelper.BuildItem((ItemType)dropConfig.ItemType, configId, 1, dropConfig.Quantity, dropData.Seed);
                     list.Add(item);
                 }
             }
