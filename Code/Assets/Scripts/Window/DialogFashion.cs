@@ -22,6 +22,9 @@ public class DialogFashion : MonoBehaviour, IBattleLife
     public Button Btn_Close;
     public Text Txt_Ok;
 
+    public Button Btn_Batch;
+    public Text Txt_Desc;
+
     private int CountMax = 8;
 
     public int Order => (int)ComponentOrder.Dialog;
@@ -32,6 +35,7 @@ public class DialogFashion : MonoBehaviour, IBattleLife
     {
         Btn_Close.onClick.AddListener(OnClick_Close);
         Btn_Ok.onClick.AddListener(OnClick_Ok);
+        Btn_Batch.onClick.AddListener(OnClick_Batch);
     }
 
     // Start is called before the first frame update
@@ -56,6 +60,17 @@ public class DialogFashion : MonoBehaviour, IBattleLife
         }
 
         ShowSuit(1);
+
+        if (GameProcessor.Inst.User.Cycle.Data > 0)
+        {
+            Btn_Batch.gameObject.SetActive(true);
+            Txt_Desc.gameObject.SetActive(true);
+        }
+        else
+        {
+            Btn_Batch.gameObject.SetActive(false);
+            Txt_Desc.gameObject.SetActive(true);
+        }
     }
 
     public void OnBattleStart()
@@ -231,6 +246,41 @@ public class DialogFashion : MonoBehaviour, IBattleLife
 
         this.ShowItem(currentItem);
         GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
+    }
+
+    private void OnClick_Batch()
+    {
+        User user = GameProcessor.Inst.User;
+
+        foreach (var kv in user.FashionData)
+        {
+            int suitId = kv.Key;
+            foreach (var fv in kv.Value)
+            {
+                int part = fv.Key;
+                int currentLevel = (int)fv.Value.Data;
+
+                FashionConfig config = FashionConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.SuitId == suitId && m.Part == part).FirstOrDefault();
+
+                long total = user.GetItemMeterialCount(config.ItemId);
+
+                int needCount = CalNeedCount(currentLevel);
+
+                int atLevel = user.GetArtifactValue(ArtifactType.FashionLimit);
+
+                if (total >= needCount && currentLevel < 20 + atLevel)
+                {
+                    //¿ªÊ¼Éý¼¶
+
+                    user.UseItemMeterialCount(config.ItemId, needCount);
+                    user.FashionData[suitId][part].Data++;
+                }
+            }
+
+        }
+
+        GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
+        this.ShowSuit(CurrentSuit);
     }
 
     public void OnClick_Close()
