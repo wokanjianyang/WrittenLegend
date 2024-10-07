@@ -61,7 +61,7 @@ public class DialogFashion : MonoBehaviour, IBattleLife
 
         ShowSuit(1);
 
-        if (GameProcessor.Inst.User.Cycle.Data > 0)
+        if (GameProcessor.Inst.User.Cycle.Data > 0 || GameProcessor.Inst.User.MagicLevel.Data >= 50000)
         {
             Btn_Batch.gameObject.SetActive(true);
             Txt_Desc.gameObject.SetActive(true);

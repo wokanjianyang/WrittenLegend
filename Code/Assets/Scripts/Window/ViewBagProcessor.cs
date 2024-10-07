@@ -121,6 +121,15 @@ namespace Game
             {
                 this.btn_Pill.gameObject.SetActive(false);
             }
+
+            if (user.MapId >= 1104)
+            {
+                this.btn_Equip_Golden.gameObject.SetActive(true);
+            }
+            else
+            {
+                this.btn_Equip_Golden.gameObject.SetActive(false);
+            }
         }
 
         // Update is called once per frame
