@@ -94,6 +94,8 @@ public class Dialog_Card : MonoBehaviour
     {
         User user = GameProcessor.Inst.User;
 
+        long totalUp = 0;
+
         foreach (var cardItem in user.CardData)
         {
             int cardId = cardItem.Key;
@@ -118,11 +120,17 @@ public class Dialog_Card : MonoBehaviour
                 user.UseItemMeterialCount(itemId, useNumber);
                 user.SaveCardLevel(cardId, upLevel);
 
-                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = config.Name + "使用" + useNumber + "个材料成功提升" + upLevel + "级", ToastType = ToastTypeEnum.Success });
+                totalUp += upLevel;
+                //GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = config.Name + "使用" + useNumber + "个材料成功提升" + upLevel + "级", ToastType = ToastTypeEnum.Success });
             }
         }
 
-        this.Show();
+        if (totalUp > 0)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "一键升级成功，总共提高" + totalUp + "级", ToastType = ToastTypeEnum.Success });
+            GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
+            this.Show();
+        }
     }
 
     public void OnClick_Close()
