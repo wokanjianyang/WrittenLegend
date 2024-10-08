@@ -46,16 +46,24 @@ namespace Game
         {
             this.AttributeBonus = new AttributeBonus();
 
-            int p1 = Math.Min(this.Progeress, 10000);
-            //int riseLevel = this.Progeress - Config.Start;
-            double riseRate = Math.Pow(1.003, p1);
-
-            int p2 = this.Progeress - 10000;
-            if (p2 > 0)
+            double riseRate = 0;
+            if (this.Progeress <= 10000)
             {
-                riseRate *= Math.Pow(1.005, p2);
+                riseRate = Math.Pow(1.003, this.Progeress);
             }
-            //Debug.Log("riseRate:" + riseRate);
+            else if (this.Progeress <= 15000)
+            {
+                riseRate = Math.Pow(1.003, 10000);
+                riseRate *= Math.Pow(1.005, this.Progeress - 10000);
+            }
+            else
+            {
+                riseRate = Math.Pow(1.003, 10000);
+                riseRate *= Math.Pow(1.005, 5000);
+                riseRate *= Math.Pow(1.010, this.Progeress - 15000);
+            }
+
+            //Debug.Log(this.Progeress + " riseRate:" + riseRate);
 
             riseRate *= MonsterConfig.AttrRate;
 
