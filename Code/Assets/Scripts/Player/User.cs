@@ -80,6 +80,8 @@ namespace Game
 
         public IDictionary<int, MagicData> LegacyLayer { get; set; } = new Dictionary<int, MagicData>();
 
+        public MagicData LegacyPoint { get; } = new MagicData();
+
         public RecoverySetting RecoverySetting { get; set; } = new RecoverySetting();
 
         public bool ShowMonsterSkill { get; set; } = true;
@@ -1489,7 +1491,7 @@ namespace Game
             return limitId + 1000;
         }
 
-        public List<Item> CheckRecovery(List<Item> items, out long recoveryGold,out int recoveryCount)
+        public List<Item> CheckRecovery(List<Item> items, out long recoveryGold, out int recoveryCount)
         {
             List<Item> newList = new List<Item>();
             recoveryGold = 0;

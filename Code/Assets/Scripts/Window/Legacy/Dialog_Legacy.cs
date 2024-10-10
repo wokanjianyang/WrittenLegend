@@ -170,11 +170,12 @@ public class Dialog_Legacy : MonoBehaviour, IBattleLife
             Btn_Ok.gameObject.SetActive(false);
         }
 
+        long point = user.LegacyPoint.Data;
         long needLayerNumber = GetNeedLayerNumber(currentLayer, config);
-        color = total >= needLayerNumber + 1 ? "#FFFF00" : "#FF0000";
-        Txt_Fee2.text = string.Format("<color={0}>{1}</color> /{2}", color, needLayerNumber, total);
+        color = point >= needLayerNumber + 1 ? "#FFFF00" : "#FF0000";
+        Txt_Fee2.text = string.Format("<color={0}>{1}</color> /{2}", color, needLayerNumber, point);
 
-        if (total >= needLayerNumber)
+        if (point >= needLayerNumber)
         {
             Btn_Layer_Up.gameObject.SetActive(true);
         }
@@ -192,7 +193,7 @@ public class Dialog_Legacy : MonoBehaviour, IBattleLife
 
     private long GetNeedLayerNumber(long layer, LegacyConfig config)
     {
-        return (layer + 1) * 5 * 100 * config.RecoveryNubmer;
+        return 200 * config.RecoveryNubmer;
     }
 
     public void OnClick_Ok()
@@ -241,21 +242,16 @@ public class Dialog_Legacy : MonoBehaviour, IBattleLife
         User user = GameProcessor.Inst.User;
         long currentLayer = user.GetLegacyLayer(config.Id);
 
-        long total = user.GetMaterialCount(ItemHelper.SpecialId_Legacy_Stone);
+        long total = user.LegacyPoint.Data;
         long needCount = GetNeedLayerNumber(currentLayer, config);
 
         if (total < needCount)
         {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "材料数量不足" + needCount + "个", ToastType = ToastTypeEnum.Failure });
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "祝福值不够", ToastType = ToastTypeEnum.Failure });
             return;
         }
 
-        GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
-        {
-            Type = ItemType.Material,
-            ItemId = ItemHelper.SpecialId_Legacy_Stone,
-            Quantity = needCount
-        });
+        user.LegacyPoint.Data -= needCount;
         user.SaveLegacyLayer(config.Id, (int)(currentLayer + 1));
 
         this.ShowItem(currentItem);

@@ -22,7 +22,7 @@ namespace Game
             }
 
             List<int> dropList = DropIdList[role];
-            if (dropList.Count < 50)
+            if (dropList.Count < 200)
             {
                 for (int i = dropList.Count; i < 100; i++)
                 {

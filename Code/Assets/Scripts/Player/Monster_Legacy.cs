@@ -120,7 +120,8 @@ public class Monster_Legacy : APlayer
 
         long legacyLayer = user.GetLegacyLayer(dropLegacy.Id);
 
-        string message = "掉落 " + string.Format("<color=#{0}>{1}</color> ", QualityConfigHelper.GetQualityColor(6), dropLegacy.Name + "(" + layer + "阶) ");
+        string message = "掉落 " + string.Format("<color=#{0}>{1}</color> ", QualityConfigHelper.GetQualityColor(1), dropLegacy.Name + "(" + layer + "阶) ");
+        message += ",祝福值+1";
 
         int recoveryStone = 0;
         if (layer > legacyLayer)
@@ -158,6 +159,7 @@ public class Monster_Legacy : APlayer
             }
         }
 
+        user.LegacyPoint.Data++;
 
         GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
         {
