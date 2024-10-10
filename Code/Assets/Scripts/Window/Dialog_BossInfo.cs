@@ -71,10 +71,6 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
             });
         }
 
-#if !UNITY_EDITOR
-    tgLevelList[3].gameObject.SetActive(false);
-#endif
-
         User user = GameProcessor.Inst.User;
         this.Rate = user.GetArtifactValue(ArtifactType.EquipBattleRate) + 5;
 

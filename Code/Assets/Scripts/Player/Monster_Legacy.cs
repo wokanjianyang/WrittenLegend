@@ -134,7 +134,7 @@ public class Monster_Legacy : APlayer
             {
                 recoveryStone += dropLegacy.GetRecoveryNumber((int)legacyLayer);
 
-                message += ",并且回收之前的获得" + recoveryStone + "个<color=#" + QualityConfigHelper.GetQualityColor(6) + ">传世精华</color>";
+                message += ",并且回收之前的获得" + recoveryStone + "个<color=#" + QualityConfigHelper.GetQualityColor(1) + ">传世精华</color>";
 
                 GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
             }

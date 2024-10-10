@@ -96,9 +96,7 @@ namespace Game
 
         public List<Vector3Int> GetPlayCells()
         {
-            var baseCell = SkillPanel.CenterType == "" ? SelfPlayer.Cell : SelfPlayer.Enemy.Cell;
-
-            return GameProcessor.Inst.MapData.GetAttackRangeCell(baseCell, SelfPlayer.Cell, SkillPanel);
+            return GameProcessor.Inst.MapData.GetAttackRangeCell(SelfPlayer.Enemy.Cell, SelfPlayer.Cell, SkillPanel);
         }
     }
 }

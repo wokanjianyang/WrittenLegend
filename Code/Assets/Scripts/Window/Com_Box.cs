@@ -70,7 +70,7 @@ namespace Game
                 else if (BoxItem.Item.Type == ItemType.Equip)
                 {
                     Equip equip = BoxItem.Item as Equip;
-                    if (equip.GetQuality() > 5 && equip.Part <= 10)
+                    if (equip.GetQuality() > 5 && (equip.Part <= 10 || equip.Part >= 21))
                     {
                         this.Layer.text = ConfigHelper.LayerChinaList[equip.Layer] + "阶";
                         this.Layer.gameObject.SetActive(true);

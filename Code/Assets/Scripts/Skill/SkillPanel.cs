@@ -196,11 +196,11 @@ namespace Game
             this.Area = EnumHelper.FromString<AttackGeometryType>(skillData.SkillConfig.Area);
             this.CastType = (AttackCastType)skillData.SkillConfig.CastType;
 
-            foreach(SkillSuit suit in suitList) {
-                if (suit.Center != "") {
-                    this.CenterType = suit.Center;
-                }
-            }
+            //foreach(SkillSuit suit in suitList) {
+            //    if (suit.Center != "") {
+            //        this.CenterType = suit.Center;
+            //    }
+            //}
 
             if (isPlayer)
             {

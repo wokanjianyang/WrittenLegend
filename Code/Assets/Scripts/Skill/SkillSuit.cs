@@ -29,7 +29,7 @@ namespace Game
         public int InheritIncrea { get; }
         public int EffectId { get; } //
 
-        public string Center { get; }
+        //public string Center { get; }
 
         public SkillSuit(int suitId)
         {
@@ -54,7 +54,7 @@ namespace Game
             this.InheritIncrea = SkillSuitConfig.InheritIncrea;
 
             this.PercentRate = SkillSuitConfig.PercentRate;
-            this.Center = SkillSuitConfig.Center;
+            //this.Center = SkillSuitConfig.Center;
 
             this.EffectId = SkillSuitConfig.EffectId;
         }
