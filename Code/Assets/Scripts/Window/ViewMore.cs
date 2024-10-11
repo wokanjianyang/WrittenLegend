@@ -25,7 +25,6 @@ namespace Game
         public Dialog_Copy_Legacy LegacyDialog;
 
         public Item_EquipCopy MineItem;
-        public Dialog_Mine MineDialog;
 
         public Item_EquipCopy PillItem;
         public Map_Dialog_Pill MapDialogPill;
@@ -84,7 +83,6 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<CloseViewMoreEvent>(this.OnClose);
             GameProcessor.Inst.EventCenter.AddListener<CopyViewCloseEvent>(this.OnCopyViewClose);
 
-            GameProcessor.Inst.EventCenter.AddListener<OpenMineEvent>(this.OpenMine);
             GameProcessor.Inst.EventCenter.AddListener<OpenLegacyEvent>(this.OpenLegacy);
             GameProcessor.Inst.EventCenter.AddListener<OpenPillEvent>(this.OpenPill);
             GameProcessor.Inst.EventCenter.AddListener<OpenBabelEvent>(this.OpenBabel);
@@ -180,11 +178,6 @@ namespace Game
             scrollRect.gameObject.SetActive(false);
 
             GameProcessor.Inst.EventCenter.Raise(new InfiniteStartEvent() { });
-        }
-
-        private void OpenMine(OpenMineEvent e)
-        {
-            MineDialog.gameObject.SetActive(true);
         }
 
         private void OpenLegacy(OpenLegacyEvent e)

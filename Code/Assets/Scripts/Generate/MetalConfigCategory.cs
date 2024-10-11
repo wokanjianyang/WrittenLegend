@@ -7,7 +7,10 @@ namespace Game
 
     public partial class MetalConfigCategory
     {
-
+        public MetalConfig GetQualityRiseConfig(int quality)
+        {
+            return this.list.Where(m => m.RiseQuality == quality).FirstOrDefault();
+        }
     }
 
     public partial class MetalConfig

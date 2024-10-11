@@ -1,5 +1,6 @@
 using Game.Data;
 using Sirenix.OdinInspector;
+using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -30,7 +31,7 @@ namespace Game
         }
 
 
-        public void SetContent(MetalConfig config, long level)
+        public void SetContent(MetalConfig config, long level, long percent)
         {
             this.Config = config;
 
@@ -44,13 +45,16 @@ namespace Game
                 this.gameObject.SetActive(true);
             }
 
+            long riseLevel = level * percent / 100;
+            riseLevel = Math.Max(riseLevel, percent);
+
             this.Txt_Name.text = string.Format("<color=#{0}>{1}</color>", QualityConfigHelper.GetQualityColor(Config.Quality), config.Name);
-            this.Txt_Level.text = $"{level}个";
+            this.Txt_Level.text = $"{level}+{riseLevel}个";
 
 
-            long rate = this.Config.GetRate(level);
-            long val = config.GetAttr(level);
-            long nr = config.GetNextRate(level);
+            long rate = this.Config.GetRate(level + riseLevel);
+            long val = config.GetAttr(level + riseLevel);
+            long nr = config.GetNextRate(level + riseLevel);
 
             if (config.AttrId > 0)
             {
@@ -59,7 +63,8 @@ namespace Game
             }
             else
             {
-
+                this.Txt_Attr_Current.text = string.Format(config.Des, level);
+                this.Txt_Attr_Rise.text = "单个属性:1%";
             }
 
             if (Config.RisePower > 0)

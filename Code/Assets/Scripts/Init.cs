@@ -81,7 +81,10 @@ public class Init : MonoBehaviour
                 "Window/Dialog_Attr",
                 "Window/Legacy/Dialog_Legacy",
 
+                "Window/More/Dialog_Mine",
+
                 "Window/Skill/Dialog_Divine",
+  
             }
         },
         {

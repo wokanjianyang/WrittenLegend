@@ -80,7 +80,7 @@
 {"_t":"SkillSuitConfig","_id":12008,"Type":2,"BuildRate":50,"SkillId":2008,"Name":"瞬息移动·觉醒","Des":"提高此技能系数50%倍率","PercentRate":50,"Duration":0,"Dis":0},
 {"_t":"SkillSuitConfig","_id":12009,"Type":2,"BuildRate":50,"SkillId":2009,"Name":"流星火雨·觉醒","Des":"提高此技能系数50%倍率","PercentRate":50,"Duration":0,"Dis":0},
 {"_t":"SkillSuitConfig","_id":12010,"Type":2,"BuildRate":5,"SkillId":2010,"Name":"分身术·觉醒","Des":"提高此技能系数50%倍率","PercentRate":50,"Duration":0,"Dis":0},
-{"_t":"SkillSuitConfig","_id":12110,"Type":3,"BuildRate":5,"SkillId":2010,"Name":"分身术·觉醒","Des":"提高15S持续时间","PercentRate":50,"Duration":15,"Dis":0},
+{"_t":"SkillSuitConfig","_id":12110,"Type":3,"BuildRate":5,"SkillId":2010,"Name":"分身术·持久","Des":"提高15S持续时间","PercentRate":50,"Duration":15,"Dis":0},
 {"_t":"SkillSuitConfig","_id":13001,"Type":2,"BuildRate":200,"SkillId":3001,"Name":"治疗术·觉醒","Des":"提高此技能系数50%倍率","PercentRate":50,"Duration":0,"Dis":0},
 {"_t":"SkillSuitConfig","_id":13002,"Type":2,"BuildRate":200,"SkillId":3002,"Name":"火符术·觉醒","Des":"提高此技能系数50%倍率","PercentRate":50,"Duration":0,"Dis":0},
 {"_t":"SkillSuitConfig","_id":13003,"Type":2,"BuildRate":100,"SkillId":3003,"Name":"施毒术·觉醒","Des":"提高此技能系数50%倍率","PercentRate":50,"Duration":0,"Dis":0},

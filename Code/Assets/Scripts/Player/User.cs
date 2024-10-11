@@ -524,11 +524,6 @@ namespace Game
             }
 
             //矿石
-            //long lv3 = MetalData[101].Data;
-            //long lv4 = MetalData[102].Data;
-            //long lv5 = MetalData[103].Data;
-            //long lv6 = MetalData[104].Data;
-
             foreach (var kv in MetalData)
             {
                 long level = kv.Value.Data;
@@ -536,9 +531,11 @@ namespace Game
                 if (level > 0)
                 {
                     MetalConfig metalConfig = MetalConfigCategory.Instance.Get(kv.Key);
+                    long percent = GetMetalQualityLevel(metalConfig.Quality);
+                    long riseLevel = level * percent / 100;
+                    riseLevel = Math.Max(riseLevel, percent);
 
-
-                    AttributeBonus.SetAttr((AttributeEnum)metalConfig.AttrId, AttributeFrom.Metal, kv.Key, metalConfig.GetAttr(level));
+                    AttributeBonus.SetAttr((AttributeEnum)metalConfig.AttrId, AttributeFrom.Metal, kv.Key, metalConfig.GetAttr(level + riseLevel));
                 }
             }
 
@@ -1463,6 +1460,33 @@ namespace Game
             }
 
             HalidomData[id].Data++;
+        }
+
+        public long GetMetalLevel(int id)
+        {
+            if (!MetalData.ContainsKey(id))
+            {
+                MetalData[id] = new MagicData();
+            }
+
+            return MetalData[id].Data;
+        }
+
+        public long GetMetalQualityLevel(int quality)
+        {
+            MetalConfig config = MetalConfigCategory.Instance.GetQualityRiseConfig(quality);
+
+            if (config == null)
+            {
+                return 0;
+            }
+
+            if (!MetalData.ContainsKey(config.Id))
+            {
+                return 0;
+            }
+
+            return MetalData[config.Id].Data;
         }
 
         internal long GetMaxLevel()

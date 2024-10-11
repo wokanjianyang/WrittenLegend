@@ -23,27 +23,22 @@ public class Dialog_Mine : MonoBehaviour, IBattleLife
     public Text Txt_Level1;
     public Text Txt_LEvel2;
 
-    public int Order => (int)ComponentOrder.BattleRule;
-
-    void Awake()
-    {
-        //this.Pab_Miner = Resources.Load<GameObject>("Prefab/Window/More/MinerUI");
-    }
+    public int Order => (int)ComponentOrder.Dialog;
 
     // Start is called before the first frame update
     void Start()
     {
         Btn_Full.onClick.AddListener(OnClick_Close);
-        //Btn_Close.onClick.AddListener(OnClick_Close);
-        //Btn_Add.onClick.AddListener(OnAdd);
         Btn_Info.onClick.AddListener(OnShowInfo);
-
-        Init();
     }
 
     void OnEnable()
     {
         User user = GameProcessor.Inst.User;
+        if (user == null)
+        {
+            return;
+        }
 
         int levelN = user.GetLimitMineCount();
 
@@ -58,67 +53,14 @@ public class Dialog_Mine : MonoBehaviour, IBattleLife
     {
         this.msgPrefab = Resources.Load<GameObject>("Prefab/Window/Item/Item_DropMsg");
         GameProcessor.Inst.EventCenter.AddListener<MineMsgEvent>(this.ShowMsg);
+
+        GameProcessor.Inst.EventCenter.AddListener<OpenMineEvent>(this.OpenMineEvent);
     }
 
-    private void Init()
+    private void OpenMineEvent(OpenMineEvent e)
     {
-        //User user = GameProcessor.Inst.User;
-
-        //Debug.Log("MinerList Count" + user.MinerList.Count);
-
-        //long maxCount = user.GetLimitMineCount();
-
-        //if (user.MinerList.Count < maxCount)
-        //{
-        //    this.Btn_Add.gameObject.SetActive(true);
-        //    this.Txt_Info.gameObject.SetActive(false);
-        //}
-        //else
-        //{
-        //    this.Btn_Add.gameObject.SetActive(false);
-        //    this.Txt_Info.gameObject.SetActive(true);
-        //}
-
-        //for (int i = 0; i < user.MinerList.Count; i++)
-        //{
-        //    var item = GameObject.Instantiate(Pab_Miner);
-
-        //    MinerUI com = item.GetComponentInChildren<MinerUI>();
-
-        //    item.transform.SetParent(this.Sr_Miner.content);
-        //    item.transform.localScale = Vector3.one;
-
-        //    miners.Add(com);
-        //}
+        this.gameObject.SetActive(true);
     }
-
-    //private void OnAdd()
-    //{
-    //    this.Btn_Add.gameObject.SetActive(false);
-
-    //    User user = GameProcessor.Inst.User;
-
-    //    long currentCount = user.MinerList.Count;
-    //    long maxCount = user.GetLimitMineCount();
-
-    //    for (long i = currentCount + 1; i <= maxCount; i++)
-    //    {
-    //        Miner miner = new Miner();
-    //        miner.Init("矿工");
-
-    //        user.MinerList.Add(miner);
-
-    //        var item = GameObject.Instantiate(Pab_Miner);
-    //        MinerUI com = item.GetComponentInChildren<MinerUI>();
-    //        item.transform.SetParent(this.Sr_Miner.content);
-    //        item.transform.localScale = Vector3.one;
-    //        miners.Add(com);
-    //    }
-
-
-    //    string message = "一共领取了" + (maxCount - currentCount) + "个矿工";
-    //    GameProcessor.Inst.EventCenter.Raise(new MineMsgEvent() { Message = message });
-    //}
 
     public void OnShowInfo()
     {

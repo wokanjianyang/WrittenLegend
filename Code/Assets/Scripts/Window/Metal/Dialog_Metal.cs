@@ -33,18 +33,21 @@ public class Dialog_Metal : MonoBehaviour
 
         for (int i = 0; i < configs.Count; i++)
         {
+            MetalConfig config = configs[i];
+            long percent = user.GetMetalQualityLevel(config.Quality);
+
             var item = GameObject.Instantiate(ItemPrefab);
             Item_Metal com = item.GetComponentInChildren<Item_Metal>();
 
             var md = user.MetalData;
-            int key = configs[i].Id;
+            int key = config.Id;
 
             if (!md.ContainsKey(key))
             {
                 md[key] = new Game.Data.MagicData();
             }
 
-            com.SetContent(configs[i], md[key].Data);
+            com.SetContent(config, md[key].Data, percent);
 
             item.transform.SetParent(this.sr_Boss.content);
             item.transform.localScale = Vector3.one;
@@ -63,7 +66,10 @@ public class Dialog_Metal : MonoBehaviour
 
         for (int i = 0; i < configs.Count; i++)
         {
-            Item_Metal com = items.Where(m => m.Config.Id == configs[i].Id).FirstOrDefault();
+            MetalConfig config = configs[i];
+            long percent = user.GetMetalQualityLevel(config.Quality);
+
+            Item_Metal com = items.Where(m => m.Config.Id == config.Id).FirstOrDefault();
 
             if (com != null)
             {
@@ -74,7 +80,7 @@ public class Dialog_Metal : MonoBehaviour
                 {
                     md[key] = new Game.Data.MagicData();
                 }
-                com.SetContent(configs[i], md[key].Data);
+                com.SetContent(config, md[key].Data, percent);
             }
         }
     }

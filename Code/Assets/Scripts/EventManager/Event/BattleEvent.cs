@@ -152,6 +152,10 @@ namespace Game
     {
     }
 
+    public class OpenMineEvent : SDD.Events.Event
+    {
+    }
+
     public class PhantomEvent : SDD.Events.Event
     {
 
@@ -221,10 +225,6 @@ namespace Game
     public class ChangeMapEvent : SDD.Events.Event
     {
         public int MapId { get; set; }
-    }
-
-    public class OpenMineEvent : SDD.Events.Event
-    {
     }
     public class OpenLegacyEvent : SDD.Events.Event
     {

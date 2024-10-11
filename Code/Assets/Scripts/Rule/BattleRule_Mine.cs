@@ -35,7 +35,7 @@ public class BattleRule_Mine
 
         long nt = TimeHelper.ClientNowSeconds();
 
-        if (nt - user.MinerTime >= 3)
+        if (nt - user.MinerTime >= ConfigHelper.Mine_Time)
         {
             Debug.Log("Mine Build Reward");
 
