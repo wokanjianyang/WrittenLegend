@@ -217,6 +217,7 @@ namespace Game
 
             user.AddExpAndGold(exp + rewardExp, gold + rewardGold);
             user.SecondExpTick = currentTick;
+            user.MinerTime = currentTick;
 
             foreach (var item in items)
             {
@@ -522,8 +523,15 @@ namespace Game
 
         private void BuildOfflineMine(User user, long mineTime, ref string message)
         {
+            long count = mineTime / 60;
+
+            if (count <= 0)
+            {
+                return;
+            }
+
             //miner
-            Dictionary<int, int> offlineMetal = Miner.BuildMetal(false);
+            Dictionary<int, int> offlineMetal = MineConfigCategory.Instance.BuildMetal(false, count);
 
             var sortedDict = offlineMetal.OrderBy(kvp => kvp.Key).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 

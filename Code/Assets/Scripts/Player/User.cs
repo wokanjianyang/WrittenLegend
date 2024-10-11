@@ -274,7 +274,6 @@ namespace Game
 
         public IDictionary<int, int> FestiveData_101 { get; set; } = new Dictionary<int, int>();
 
-        public List<Miner> MinerList { get; set; } = new List<Miner>();
         public long MinerTime { get; set; } = 0;
 
         public Dictionary<int, MagicData> MetalData { get; } = new Dictionary<int, MagicData>();
