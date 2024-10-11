@@ -81,33 +81,15 @@ namespace Game
 		/// <summary>Type</summary>
 		[ProtoMember(2)]
 		public int Type { get; set; }
-		/// <summary>Name</summary>
+		/// <summary>RequireLevel</summary>
 		[ProtoMember(3)]
+		public int RequireLevel { get; set; }
+		/// <summary>Name</summary>
+		[ProtoMember(4)]
 		public string Name { get; set; }
 		/// <summary>Rate</summary>
-		[ProtoMember(4)]
-		public int Rate { get; set; }
-		/// <summary>StartRate</summary>
 		[ProtoMember(5)]
-		public int StartRate { get; set; }
-		/// <summary>EndRate</summary>
-		[ProtoMember(6)]
-		public int EndRate { get; set; }
-		/// <summary>AttrValue</summary>
-		[ProtoMember(7)]
-		public long AttrValue { get; set; }
-		/// <summary>RiseAttr</summary>
-		[ProtoMember(8)]
-		public int RiseAttr { get; set; }
-		/// <summary>RisePower</summary>
-		[ProtoMember(9)]
-		public int RisePower { get; set; }
-		/// <summary>MaxLevel</summary>
-		[ProtoMember(10)]
-		public int MaxLevel { get; set; }
-		/// <summary>Des</summary>
-		[ProtoMember(11)]
-		public string Des { get; set; }
+		public int Rate { get; set; }
 
 	}
 }

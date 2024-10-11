@@ -27,7 +27,7 @@ public class Dialog_Metal : MonoBehaviour
 
     public void Init()
     {
-        List<MetalConfig> configs = MetalConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
+        List<MetalConfig> configs = MetalConfigCategory.Instance.GetAll().Select(m => m.Value).OrderBy(m => m.Id).OrderBy(m => m.Quality).ToList();
 
         User user = GameProcessor.Inst.User;
 

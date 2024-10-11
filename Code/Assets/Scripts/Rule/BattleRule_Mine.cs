@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Game.Data;
 
 public class BattleRule_Mine
 {
@@ -34,34 +35,58 @@ public class BattleRule_Mine
 
         long nt = TimeHelper.ClientNowSeconds();
 
-        foreach (var miner in user.MinerList)
+        if (nt - user.MinerTime >= 3)
         {
-            if (miner.BirthDay == 0)
-            {
-                miner.BirthDay = nt;
-            }
-            else if (nt - miner.BirthDay >= ConfigHelper.Mine_Time)
-            {
-                MineConfig config = miner.InlineBuild(nt);
+            Debug.Log("Mine Build Reward");
 
-                if (config != null)
+            user.MinerTime = nt;
+            Dictionary<int, int> metalList = Miner.BuildMetal(true);
+
+            if (metalList.Count <= 0)
+            {
+                return;
+            }
+
+            metalList = metalList.OrderBy(kvp => kvp.Key).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+
+            Dictionary<int, MagicData> md = user.MetalData;
+
+            string message = $"ÍÚµ½¿óÊ¯£º";
+
+            foreach (var kv in metalList)
+            {
+                int key = kv.Key;
+                if (!md.ContainsKey(key))
                 {
-                    var md = user.MetalData;
-                    int key = config.Id;
-                    if (!md.ContainsKey(key))
-                    {
-                        md[key] = new Game.Data.MagicData();
-                    }
-
-                    md[key].Data += 1;
-
-                    MetalConfig metalConfig = MetalConfigCategory.Instance.Get(config.Id);
-                    //Debug.Log(message);
-                    string message = BattleMsgHelper.BuildMinerMessage(miner, metalConfig, md[key].Data);
-
-                    GameProcessor.Inst.EventCenter.Raise(new MineMsgEvent() { Message = message });
+                    md[key] = new MagicData();
                 }
+
+                md[key].Data += kv.Value;
+
+                MetalConfig metalConfig = MetalConfigCategory.Instance.Get(key);
+                message += $"<color=#{QualityConfigHelper.GetQualityColor(metalConfig.Quality)}>[{metalConfig.Name}]</color>" + kv.Value + "¸ö";
             }
+
+
+            //Debug.Log(message);
+            GameProcessor.Inst.EventCenter.Raise(new MineMsgEvent() { Message = message });
         }
+
+        //foreach (var miner in user.MinerList)
+        //{
+        //    if (miner.BirthDay == 0)
+        //    {
+        //        miner.BirthDay = nt;
+        //    }
+        //    else if (nt - miner.BirthDay >= ConfigHelper.Mine_Time)
+        //    {
+        //        //MineConfig config = miner.InlineBuild(nt);
+
+        //        if (config != null)
+        //        {
+
+        //        }
+        //    }
+        //}
     }
 }

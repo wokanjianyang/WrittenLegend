@@ -196,10 +196,16 @@ namespace Game
             return (int)limit;
         }
 
-        public long GetLimitMineCount()
+        public int GetLimitMineCount()
         {
             int limit = GetArtifactValue(ArtifactType.MineCount);
-            return GetLimitLevel() - 4 + limit;
+            return (int)(GetLimitLevel() - 4 + limit);
+        }
+
+        public int GetLimitMineCount2()
+        {
+            int limit = GetArtifactValue(ArtifactType.MineCount2);
+            return (int)limit;
         }
 
         public long LastUploadTime { get; set; }
@@ -269,6 +275,7 @@ namespace Game
         public IDictionary<int, int> FestiveData_101 { get; set; } = new Dictionary<int, int>();
 
         public List<Miner> MinerList { get; set; } = new List<Miner>();
+        public long MinerTime { get; set; } = 0;
 
         public Dictionary<int, MagicData> MetalData { get; } = new Dictionary<int, MagicData>();
 
@@ -518,6 +525,11 @@ namespace Game
             }
 
             //矿石
+            //long lv3 = MetalData[101].Data;
+            //long lv4 = MetalData[102].Data;
+            //long lv5 = MetalData[103].Data;
+            //long lv6 = MetalData[104].Data;
+
             foreach (var kv in MetalData)
             {
                 long level = kv.Value.Data;
@@ -525,6 +537,7 @@ namespace Game
                 if (level > 0)
                 {
                     MetalConfig metalConfig = MetalConfigCategory.Instance.Get(kv.Key);
+
 
                     AttributeBonus.SetAttr((AttributeEnum)metalConfig.AttrId, AttributeFrom.Metal, kv.Key, metalConfig.GetAttr(level));
                 }

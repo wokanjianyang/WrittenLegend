@@ -27,52 +27,87 @@ public class Miner
         Debug.Log("init seed :" + Seed);
     }
 
-    public MineConfig InlineBuild(long nowSecond)
+    //public MineConfig InlineBuild(long nowSecond)
+    //{
+    //    if (this.BirthDay >= nowSecond)
+    //    {
+    //        return null;
+    //    }
+
+    //    List<MineConfig> mines = MineConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
+
+    //    int min = mines.Select(m => m.StartRate).Min();
+    //    int max = mines.Select(m => m.EndRate).Max();
+
+    //    int ward = RandomHelper.RandomNumber(this.Seed, min, max + 1);
+    //    MineConfig mine = mines.Where(m => m.StartRate <= ward && ward <= m.EndRate).FirstOrDefault();
+
+    //    this.Seed = AppHelper.RefreshSeed(this.Seed);
+    //    this.BirthDay = nowSecond;
+
+    //    return mine;
+    //}
+
+    //public void OfflineBuild(long time, Dictionary<int, long> offlineMetal)
+    //{
+    //    long count = time / 60;
+
+    //    for (int i = 0; i < count; i++)
+    //    {
+    //        List<MineConfig> mines = MineConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
+
+    //        int min = mines.Select(m => m.StartRate).Min();
+    //        int max = mines.Select(m => m.EndRate).Max();
+
+    //        int ward = RandomHelper.RandomNumber(this.Seed, min, max + 1);
+    //        MineConfig mine = mines.Where(m => m.StartRate <= ward && ward <= m.EndRate).FirstOrDefault();
+    //        int key = mine.Id;
+
+    //        if (!offlineMetal.ContainsKey(key))
+    //        {
+    //            offlineMetal[key] = 0;
+    //        }
+
+    //        offlineMetal[key]++;
+    //        this.Seed = AppHelper.RefreshSeed(this.Seed);
+    //    }
+
+    //    this.BirthDay = TimeHelper.ClientNowSeconds() + RandomHelper.RandomNumber(0, 20); ;
+    //}
+
+    public static Dictionary<int, int> BuildMetal(bool inline)
     {
-        if (this.BirthDay >= nowSecond)
+        Dictionary<int, int> drops = new Dictionary<int, int>();
+
+        User user = GameProcessor.Inst.User;
+
+        int levelN = user.GetLimitMineCount();
+
+        RandomRecord record = inline ? null : user.RandomRecord;
+
+        for (int i = 0; i < levelN; i++)
         {
-            return null;
-        }
+            int metalId = MineConfigCategory.Instance.RandomMetal(0, levelN, record);
 
-        List<MineConfig> mines = MineConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
-
-        int min = mines.Select(m => m.StartRate).Min();
-        int max = mines.Select(m => m.EndRate).Max();
-
-        int ward = RandomHelper.RandomNumber(this.Seed, min, max + 1);
-        MineConfig mine = mines.Where(m => m.StartRate <= ward && ward <= m.EndRate).FirstOrDefault();
-
-        this.Seed = AppHelper.RefreshSeed(this.Seed);
-        this.BirthDay = nowSecond;
-
-        return mine;
-    }
-
-    public void OfflineBuild(long time, Dictionary<int, long> offlineMetal)
-    {
-        long count = time / 60;
-
-        for (int i = 0; i < count; i++)
-        {
-            List<MineConfig> mines = MineConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
-
-            int min = mines.Select(m => m.StartRate).Min();
-            int max = mines.Select(m => m.EndRate).Max();
-
-            int ward = RandomHelper.RandomNumber(this.Seed, min, max + 1);
-            MineConfig mine = mines.Where(m => m.StartRate <= ward && ward <= m.EndRate).FirstOrDefault();
-            int key = mine.Id;
-
-            if (!offlineMetal.ContainsKey(key))
+            if (!drops.ContainsKey(metalId))
             {
-                offlineMetal[key] = 0;
+                drops[metalId] = 0;
             }
-
-            offlineMetal[key]++;
-            this.Seed = AppHelper.RefreshSeed(this.Seed);
+            drops[metalId]++;
         }
 
-        this.BirthDay = TimeHelper.ClientNowSeconds() + RandomHelper.RandomNumber(0, 20); ;
-    }
+        int levelS = user.GetLimitMineCount2();
+        for (int i = 0; i < levelS; i++)
+        {
+            int metalId = MineConfigCategory.Instance.RandomMetal(1, levelS, record);
 
+            if (!drops.ContainsKey(metalId))
+            {
+                drops[metalId] = 0;
+            }
+            drops[metalId]++;
+        }
+
+        return drops;
+    }
 }

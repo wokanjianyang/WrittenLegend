@@ -52,8 +52,15 @@ namespace Game
             long val = config.GetAttr(level);
             long nr = config.GetNextRate(level);
 
-            this.Txt_Attr_Current.text = StringHelper.FormatAttrText(config.AttrId, val);
-            this.Txt_Attr_Rise.text = "单个属性:" + StringHelper.FormatAttrValueText(config.AttrId, config.AttrValue * rate);
+            if (config.AttrId > 0)
+            {
+                this.Txt_Attr_Current.text = StringHelper.FormatAttrText(config.AttrId, val);
+                this.Txt_Attr_Rise.text = "单个属性:" + StringHelper.FormatAttrValueText(config.AttrId, config.AttrValue * rate);
+            }
+            else
+            {
+
+            }
 
             if (Config.RisePower > 0)
             {

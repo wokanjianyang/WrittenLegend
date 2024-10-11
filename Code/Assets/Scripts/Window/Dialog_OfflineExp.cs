@@ -523,11 +523,7 @@ namespace Game
         private void BuildOfflineMine(User user, long mineTime, ref string message)
         {
             //miner
-            Dictionary<int, long> offlineMetal = new Dictionary<int, long>();
-            foreach (var miner in user.MinerList)
-            {
-                miner.OfflineBuild(mineTime, offlineMetal);
-            }
+            Dictionary<int, int> offlineMetal = Miner.BuildMetal(false);
 
             var sortedDict = offlineMetal.OrderBy(kvp => kvp.Key).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
@@ -538,7 +534,7 @@ namespace Game
                 int key = kp.Key;
                 if (!md.ContainsKey(key))
                 {
-                    md[key] = new Game.Data.MagicData();
+                    md[key] = new MagicData();
                 }
 
                 md[key].Data += kp.Value;

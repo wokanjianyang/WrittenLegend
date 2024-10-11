@@ -20,6 +20,6 @@
 {"_t":"ArtifactConfig","_id":19,"ItemId":180019,"Name":"副本杀手","Type":19,"AttrValue":1,"MaxCount":5,"DropRate":1,"Des":"挑战装备副本，可以倍率+1"},
 {"_t":"ArtifactConfig","_id":20,"ItemId":180020,"Name":"传世之源","Type":20,"AttrValue":1,"MaxCount":40,"DropRate":1,"Des":"传世等阶上限+1"},
 {"_t":"ArtifactConfig","_id":21,"ItemId":180021,"Name":"神戒之源","Type":21,"AttrValue":1,"MaxCount":50,"DropRate":1,"Des":"神戒等级上限+1"},
-{"_t":"ArtifactConfig","_id":30,"ItemId":180030,"Name":"极·卖身契","Type":5,"AttrValue":1,"MaxCount":50,"DropRate":1,"Des":"矿工额外加1"},
+{"_t":"ArtifactConfig","_id":30,"ItemId":180030,"Name":"极·卖身契","Type":30,"AttrValue":1,"MaxCount":50,"DropRate":1,"Des":"矿工额外加1"},
 {"_t":"ArtifactConfig","_id":31,"ItemId":180031,"Name":"极·圣者遗物","Type":9,"AttrValue":1,"MaxCount":10,"DropRate":1,"Des":"遗物等阶上限+1"},
 ]}
