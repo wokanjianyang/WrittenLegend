@@ -87,21 +87,21 @@ namespace Game
 		/// <summary>Attr</summary>
 		[ProtoMember(4)]
 		public string Attr { get; set; }
-		/// <summary>RiseAttr</summary>
+		/// <summary>AttrRise</summary>
 		[ProtoMember(5)]
-		public string RiseAttr { get; set; }
-		/// <summary>0</summary>
+		public double AttrRise { get; set; }
+		/// <summary>Def</summary>
 		[ProtoMember(6)]
 		public string Def { get; set; }
-		/// <summary>RiseDef</summary>
+		/// <summary>DefRise</summary>
 		[ProtoMember(7)]
-		public string RiseDef { get; set; }
+		public double DefRise { get; set; }
 		/// <summary>HP</summary>
 		[ProtoMember(8)]
 		public string HP { get; set; }
-		/// <summary>RiseHp</summary>
+		/// <summary>HpRise</summary>
 		[ProtoMember(9)]
-		public string RiseHp { get; set; }
+		public double HpRise { get; set; }
 		/// <summary>DamageIncrea</summary>
 		[ProtoMember(10)]
 		public int DamageIncrea { get; set; }

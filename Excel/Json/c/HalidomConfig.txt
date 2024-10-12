@@ -53,4 +53,9 @@
 {"_t":"HalidomConfig","_id":40000102,"ItemId":40000102,"Name":"噩梦魔核","AttrId":2002,"AttrValue":25,"RiseAttr":25,"MaxLevel":4,"Des":"防御倍率"},
 {"_t":"HalidomConfig","_id":40000103,"ItemId":40000103,"Name":"噩梦龙甲","AttrId":2011,"AttrValue":10,"RiseAttr":10,"MaxLevel":4,"Des":"减伤倍率"},
 {"_t":"HalidomConfig","_id":40000104,"ItemId":40000104,"Name":"噩梦龙爪","AttrId":2001,"AttrValue":5,"RiseAttr":5,"MaxLevel":4,"Des":"攻击倍率"},
+{"_t":"HalidomConfig","_id":40000105,"ItemId":40000105,"Name":"地狱鸡爪","AttrId":2004,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"物攻倍率"},
+{"_t":"HalidomConfig","_id":40000106,"ItemId":40000106,"Name":"地狱鹿茸","AttrId":2005,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"法术倍率"},
+{"_t":"HalidomConfig","_id":40000107,"ItemId":40000107,"Name":"地狱草帽","AttrId":2006,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"道术倍率"},
+{"_t":"HalidomConfig","_id":40000108,"ItemId":40000108,"Name":"地狱猫爪","AttrId":2003,"AttrValue":30,"RiseAttr":30,"MaxLevel":4,"Des":"生命倍率"},
+{"_t":"HalidomConfig","_id":40000109,"ItemId":40000109,"Name":"地狱花朵","AttrId":2002,"AttrValue":30,"RiseAttr":30,"MaxLevel":4,"Des":"防御倍率"},
 ]}

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Game
 {
@@ -9,6 +10,7 @@ namespace Game
     {
         public Dictionary<int, int> BuildMetal(ref int seed, long count)
         {
+           //Debug.Log("BuildMetal seed:" + seed);
             Dictionary<int, int> drops = new Dictionary<int, int>();
 
             User user = GameProcessor.Inst.User;
@@ -19,7 +21,7 @@ namespace Game
             {
                 seed = AppHelper.RefreshSeed(seed);
 
-                int metalId = MineConfigCategory.Instance.RandomMetal(0, levelN, seed);
+                int metalId = RandomMetal(0, levelN, seed);
 
                 if (!drops.ContainsKey(metalId))
                 {
