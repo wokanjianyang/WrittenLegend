@@ -531,7 +531,7 @@ namespace Game
             }
 
             //miner
-            Dictionary<int, int> offlineMetal = MineConfigCategory.Instance.BuildMetal(false, count);
+            Dictionary<int, int> offlineMetal = MineConfigCategory.Instance.BuildMetal(ref user.MinerSeed, count);
 
             var sortedDict = offlineMetal.OrderBy(kvp => kvp.Key).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 

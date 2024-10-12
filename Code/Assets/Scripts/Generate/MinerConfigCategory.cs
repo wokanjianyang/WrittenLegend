@@ -7,7 +7,7 @@ namespace Game
 
     public partial class MineConfigCategory
     {
-        public Dictionary<int, int> BuildMetal(bool inline, long count)
+        public Dictionary<int, int> BuildMetal(ref int seed, long count)
         {
             Dictionary<int, int> drops = new Dictionary<int, int>();
 
@@ -15,11 +15,11 @@ namespace Game
 
             int levelN = user.GetLimitMineCount();
 
-            RandomRecord record = inline ? null : user.RandomRecord;
-
             for (int i = 0; i < levelN * count; i++)
             {
-                int metalId = MineConfigCategory.Instance.RandomMetal(0, levelN, record);
+                seed = AppHelper.RefreshSeed(seed);
+
+                int metalId = MineConfigCategory.Instance.RandomMetal(0, levelN, seed);
 
                 if (!drops.ContainsKey(metalId))
                 {
@@ -31,7 +31,9 @@ namespace Game
             int levelS = user.GetLimitMineCount2();
             for (int i = 0; i < levelS * count; i++)
             {
-                int metalId = MineConfigCategory.Instance.RandomMetal(1, levelS, record);
+                seed = AppHelper.RefreshSeed(seed);
+
+                int metalId = MineConfigCategory.Instance.RandomMetal(1, levelS, seed);
 
                 if (!drops.ContainsKey(metalId))
                 {
@@ -45,24 +47,16 @@ namespace Game
 
         public int RandomMetal(int type, int level)
         {
-            return RandomMetal(type, level, null);
+            return RandomMetal(type, level, 0);
         }
 
-        public int RandomMetal(int type, int level, RandomRecord record)
+        public int RandomMetal(int type, int level, int seed)
         {
             List<MineConfig> mines = this.list.Where(m => (m.Type == 0 || m.Type == type) && m.RequireLevel <= level).ToList();
 
             int max = mines.Select(m => m.Rate).Sum();
 
-            int rd = 0;
-            if (record == null)
-            {
-                rd = RandomHelper.RandomNumber(0, max);
-            }
-            else
-            {
-                rd = RandomTableHelper.Instance().Random(0, max, record);
-            }
+            int rd = RandomHelper.RandomNumber(seed, 0, max);
 
             int endRate = 0;
             for (int i = 0; i < mines.Count; i++)

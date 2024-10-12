@@ -40,7 +40,7 @@ public class BattleRule_Mine
             Debug.Log("Mine Build Reward");
 
             user.MinerTime = nt;
-            Dictionary<int, int> metalList = MineConfigCategory.Instance.BuildMetal(true, 1);
+            Dictionary<int, int> metalList = MineConfigCategory.Instance.BuildMetal(ref user.MinerSeed, 1);
 
             if (metalList.Count <= 0)
             {
