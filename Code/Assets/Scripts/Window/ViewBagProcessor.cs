@@ -784,17 +784,19 @@ namespace Game
                 Equip equip = boxItem.Item as Equip;
                 int layer = equip.Layer;
 
-
-                int redNumber = 0;
                 for (int l = 1; l < layer; l++)
                 {
                     EquipGradeConfig config = EquipGradeConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Part == equip.Part && m.Layer == l).FirstOrDefault();
 
-                    Item item = ItemHelper.BuildMaterial(config.MetailId1, config.MetailCount1);
+                    Item item = ItemHelper.BuildMaterial(config.MetailId, config.MetailCount);
                     newList.Add(item);
 
-                    redNumber += config.MetailCount;
+                    Item item1 = ItemHelper.BuildMaterial(config.MetailId1, config.MetailCount1);
+                    newList.Add(item1);
+
                 }
+
+                int redNumber = 0;
                 foreach (var kv in equip.HoneList)
                 {
                     int honeLevel = kv.Value;

@@ -188,7 +188,7 @@ namespace Game
                     user.HeroPhatomData = new HeroPhatomData();
                     user.HeroPhatomData.Count.Data = 1;
                 }
-
+                user.GameDoCheat211 = false;
                 if (user.InfiniteData == null)
                 {
                     user.InfiniteData = new InfiniteData();

@@ -94,6 +94,7 @@ namespace Game
 
             AttributeBonus.SetAttr(AttributeEnum.Miss, AttributeFrom.HeroBase, Config.Miss);
             AttributeBonus.SetAttr(AttributeEnum.Accuracy, AttributeFrom.HeroBase, Config.Accuracy);
+            AttributeBonus.SetAttr(AttributeEnum.Protect, AttributeFrom.HeroBase, Config.Protect);
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
         }
