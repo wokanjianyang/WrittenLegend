@@ -63,7 +63,7 @@
 {"_t":"EquipGradeConfig","_id":62,"Quanlity":6,"Part":7,"Layer":8,"MetailId":4011,"MetailCount":29,"MetailId1":50000062,"MetailCount1":30},
 {"_t":"EquipGradeConfig","_id":63,"Quanlity":6,"Part":9,"Layer":8,"MetailId":4011,"MetailCount":29,"MetailId1":50000063,"MetailCount1":30},
 {"_t":"EquipGradeConfig","_id":64,"Quanlity":6,"Part":10,"Layer":8,"MetailId":4011,"MetailCount":29,"MetailId1":50000064,"MetailCount1":30},
-{"_t":"EquipGradeConfig","_id":65,"Quanlity":6,"Part":1,"Layer":8,"MetailId":4011,"MetailCount":29,"MetailId1":50000065,"MetailCount1":30},
+{"_t":"EquipGradeConfig","_id":65,"Quanlity":6,"Part":1,"Layer":9,"MetailId":4011,"MetailCount":29,"MetailId1":50000065,"MetailCount1":30},
 {"_t":"EquipGradeConfig","_id":66,"Quanlity":6,"Part":2,"Layer":9,"MetailId":4011,"MetailCount":37,"MetailId1":50000066,"MetailCount1":40},
 {"_t":"EquipGradeConfig","_id":67,"Quanlity":6,"Part":3,"Layer":9,"MetailId":4011,"MetailCount":37,"MetailId1":50000067,"MetailCount1":40},
 {"_t":"EquipGradeConfig","_id":68,"Quanlity":6,"Part":4,"Layer":9,"MetailId":4011,"MetailCount":37,"MetailId1":50000068,"MetailCount1":40},

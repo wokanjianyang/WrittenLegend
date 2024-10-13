@@ -118,6 +118,7 @@ namespace Game
         public static int SpecialId_Pill = 4016; //淬体丹
         public static int SpecialId_Pill_Ticket = 4017; //幻境挑战卷
         public static int SpecialId_Halidom_Chip = 4018; //遗物粉尘
+        public static int SpecialId_Golden_Stone = 4019;  //金装精华
 
 
         public static int SpecialId_Card_Stone = 4101;
