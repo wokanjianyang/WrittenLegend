@@ -67,7 +67,7 @@ public class Dialog_Wing : MonoBehaviour, IBattleLife
         {
             //Fee
             long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_Wing_Stone);
-            long fee = nextConfig.GetFee(nextLevel);
+            long fee = currentConfig.GetFee(nextLevel);
             string color = materialCount >= fee ? "#FFFF00" : "#FF0000";
 
             txt_Fee.gameObject.SetActive(true);
@@ -75,7 +75,7 @@ public class Dialog_Wing : MonoBehaviour, IBattleLife
 
         }
 
-        WingConfig showConfig = nextConfig == null ? currentConfig : nextConfig;
+        WingConfig showConfig = currentConfig;
 
         for (int i = 0; i < AtrrList.Count; i++)
         {
