@@ -44,5 +44,5 @@
 {"_t":"GiftPackConfig","_id":111,"Name":"道士经验红装","GiftType":1,"LevelRequired":0,"ItemTypeList":[20,20,20,20,20,20,20,20],"ItemIdList":[17,18,19,20,21,22,23,24],"ItemCountList":[1,1,1,1,1,1,1,1,1],"Des":"道士满经验红装自选"},
 {"_t":"GiftPackConfig","_id":112,"Name":"战士输出红装","GiftType":1,"LevelRequired":0,"ItemTypeList":[20,20,20,20,20,20,20,20],"ItemIdList":[25,26,27,28,29,30,31,32],"ItemCountList":[1,1,1,1,1,1,1,1,1],"Des":"战士输出红装自选"},
 {"_t":"GiftPackConfig","_id":113,"Name":"法师输出红装","GiftType":1,"LevelRequired":0,"ItemTypeList":[20,20,20,20,20,20,20,20],"ItemIdList":[33,34,35,36,37,38,39,40],"ItemCountList":[1,1,1,1,1,1,1,1,1],"Des":"法师输出红装自选"},
-{"_t":"GiftPackConfig","_id":114,"Name":"道士输出红装","GiftType":1,"LevelRequired":0,"ItemTypeList":[20,20,20,20,20,20,20,20],"ItemIdList":[41,42,43,44,45,46,47,48],"ItemCountList":[1,1,1,1,1,1,1,1,1],"Des":"道士输出红装自选"},
+{"_t":"GiftPackConfig","_id":114,"Name":"道士输出红装","GiftType":1,"LevelRequired":0,"ItemTypeList":[20,20,20,20,20,20,20,20,20,20],"ItemIdList":[41,42,43,44,45,46,47,48,49,50],"ItemCountList":[1,1,1,1,1,1,1,1,1,1,1],"Des":"道士输出红装自选"},
 ]}

@@ -21,7 +21,9 @@ namespace Game
         public long Exp;
 
         private int RewarCount = 1;
-        private int[] excludeSuitList = { 6 };
+
+        private int[] excludeSkillList = { 1004, 2007, 2010, 3004, 3007, 3008, 3009 };
+        //private int[] excludeSuitList = { 6 };
 
         public Boss(int bossId, int mapId, RuleType ruleType, int rewarCount, int modelId) : base()
         {
@@ -155,7 +157,13 @@ namespace Game
                 {
                     for (int i = 0; i < model.SkillList.Length; i++)
                     {
-                        list.Add(new SkillData(model.SkillList[i], i)); //增加默认技能
+                        int skillId = model.SkillList[i];
+                        if (this.RuleType == RuleType.BossFamily && this.excludeSkillList.Contains(skillId))
+                        {
+                            continue;
+                        }
+
+                        list.Add(new SkillData(skillId, i)); //增加默认技能
                     }
                 }
                 this.Title = model.Name;
@@ -177,7 +185,7 @@ namespace Game
 
                     if (model.Suit > 0)
                     {
-                        suitList = SkillSuitHelper.GetAllSuit(skillData.SkillId, model.Suit, excludeSuitList);
+                        suitList = SkillSuitHelper.GetAllSuit(skillData.SkillId, model.Suit);
                     }
                 }
 

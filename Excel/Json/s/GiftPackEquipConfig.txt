@@ -47,4 +47,6 @@
 {"_t":"GiftPackEquipConfig","_id":46,"EquipId":23105807,"RuneId":20,"SuitId":15,"AttrIdList":[35,35,2001,2002,2003,2006],"Quality":6},
 {"_t":"GiftPackEquipConfig","_id":47,"EquipId":23105809,"RuneId":28,"SuitId":18,"AttrIdList":[35,2011,2001,2002,2003,2006],"Quality":6},
 {"_t":"GiftPackEquipConfig","_id":48,"EquipId":23105810,"RuneId":28,"SuitId":18,"AttrIdList":[35,2011,2001,2002,2003,2006],"Quality":6},
+{"_t":"GiftPackEquipConfig","_id":49,"EquipId":23105801,"RuneId":20,"SuitId":4,"AttrIdList":[7,7,7,7,2001,2006],"Quality":6},
+{"_t":"GiftPackEquipConfig","_id":50,"EquipId":23105803,"RuneId":20,"SuitId":4,"AttrIdList":[7,7,7,7,2001,2006],"Quality":6},
 ]}
