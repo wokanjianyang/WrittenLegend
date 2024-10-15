@@ -144,10 +144,6 @@ namespace Game
                     user.RecoverySetting.SkillReserveQuanlity[5] = true;
                 }
 
-                //user.First_Create_Time = TimeHelper.ClientNowSeconds() - 86400 * 40;
-                //Debug.Log(user.First_Create_Time);
-                Debug.Log(TimeHelper.SecondsToDate(user.First_Create_Time).ToString("yyyy-MM-dd"));
-
                 if (user.EquipPanelList.Count < 7)
                 {
                     for (int i = 0; i < 7; i++)
