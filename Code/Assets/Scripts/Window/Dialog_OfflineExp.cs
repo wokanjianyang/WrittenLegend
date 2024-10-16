@@ -43,33 +43,10 @@ namespace Game
         {
             List<Item> items = new List<Item>();
 
-            //for (int i = 1; i <= 8; i++)
-            //{
-            //    items.Add(ItemHelper.BuildEquip(21205800 + i, 7, 0, 0));
-            //}
-
-            //items.Add(new Equip(21205805, 11010, 11110, 7));
-            //items.Add(new Equip(21205807, 11010, 11110, 7));
-
-            //items.Add(new Equip(21105801, 9, 10, 6));
-            //items.Add(new Equip(21105802, 9, 10, 6));
-            //items.Add(new Equip(21105803, 9, 10, 6));
-
-            //items.Add(ItemHelper.BuildEquip(21105803, 6,0,0));
-            //items.Add(ItemHelper.BuildEquip(21105804, 6, 0, 0));
-            //items.Add(ItemHelper.BuildEquip(21105805, 6, 0, 0));
-            //items.Add(ItemHelper.BuildEquip(21105805, 6, 0, 0));
-            //items.Add(ItemHelper.BuildEquip(21105807, 6, 0, 0));
-            //items.Add(ItemHelper.BuildEquip(21105807, 6, 0, 0));
-            //items.Add(ItemHelper.BuildEquip(21105809, 6, 0, 0));
-            //items.Add(new Equip(22005707, 16, 10037, 5));
-            //items.Add(new Equip(22005709, 23, 15, 5));
-            //items.Add(new Equip(22005710, 23, 15, 5));
-
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Legacy_Ticket, 2000)); //传世卷
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Copy_Ticket, 100000)); //装备卷
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, 5000)); //BOSS卷
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Wing_Stone, 1800));  //羽毛
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Wing_Stone, 1200));  //羽毛
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Pill_Ticket, 100));  //幻境劵
 
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Stone, 1000)); //专属碎片
@@ -82,47 +59,10 @@ namespace Game
             
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecailEquipRefreshId, 99999)); //橙装精华
 
-            //items.Add(ItemHelper.BuildMaterial(50000009, 30)); //3介升阶红石头
-            //items.Add(ItemHelper.BuildMaterial(50000011, 30)); //3介升阶红石头
-            //items.Add(ItemHelper.BuildMaterial(50000014, 30)); //3介升阶红石头
-            //items.Add(ItemHelper.BuildMaterial(50000015, 30)); //3介升阶红石头
-            //items.Add(ItemHelper.BuildMaterial(50000016, 30)); //3介升阶红石头
-
             //items.Add(ItemHelper.BuildItem(ItemType.Card, 2000010, 10, 5));
 
             //items.Add(ItemHelper.BuildItem(ItemType.SkillBox, 1010, 1, 1));
             //items.Add(ItemHelper.BuildItem(ItemType.SkillBox, 3010, 1, 1));
-
-            //int rc = 1;
-            //items.Add(ItemHelper.BuildItem(ItemType.Ring, 190001, 1, rc));
-            //items.Add(ItemHelper.BuildItem(ItemType.Ring, 190002, 1, rc));
-            //items.Add(ItemHelper.BuildItem(ItemType.Ring, 190003, 1, rc));
-            //items.Add(ItemHelper.BuildItem(ItemType.Ring, 190004, 1, rc));
-            //items.Add(ItemHelper.BuildItem(ItemType.Ring, 190005, 1, rc));
-            //items.Add(ItemHelper.BuildItem(ItemType.Ring, 190006, 1, rc));
-
-            //int ic = 1;
-            //items.Add(ItemHelper.BuildMaterial(8001, ic)); //神技
-            //items.Add(ItemHelper.BuildMaterial(8002, ic)); //神技
-            //items.Add(ItemHelper.BuildMaterial(8003, ic)); //神技
-            //items.Add(ItemHelper.BuildMaterial(8004, ic)); //神技
-            //items.Add(ItemHelper.BuildMaterial(8005, ic)); //神技
-            //items.Add(ItemHelper.BuildMaterial(8006, ic)); //神技
-            //items.Add(ItemHelper.BuildMaterial(8007, ic)); //神技
-            //items.Add(ItemHelper.BuildMaterial(8008, ic)); //神技
-            //items.Add(ItemHelper.BuildMaterial(8009, ic)); //神技
-            //items.Add(ItemHelper.BuildMaterial(8010, ic)); //神技
-
-            //int ic = 1;
-            //items.Add(ItemHelper.BuildMaterial(8101, ic)); //魂骨
-            //items.Add(ItemHelper.BuildMaterial(8102, ic)); //魂骨
-            //items.Add(ItemHelper.BuildMaterial(8103, ic)); //魂骨
-            //items.Add(ItemHelper.BuildMaterial(8104, ic)); //魂骨
-            //items.Add(ItemHelper.BuildMaterial(8105, ic)); //魂骨
-            //items.Add(ItemHelper.BuildMaterial(8106, ic)); //魂骨
-            //items.Add(ItemHelper.BuildMaterial(8107, ic)); //魂骨
-            //items.Add(ItemHelper.BuildMaterial(8108, ic)); //魂骨
-
 
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Pill, 6000000));
 
@@ -146,10 +86,10 @@ namespace Game
 
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 26, 1, 1));  //神技
 
-            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 28, 1, 1));  //魂骨
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 28, 1, 6));  //魂骨
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 29, 1, 3));  //11技能
 
-            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 106, 1, 5));
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 106, 1, 2));
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 107, 1, 1));
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 108, 1, 1));
 
@@ -173,6 +113,65 @@ namespace Game
                 user.Bags.Add(boxItem);
             }
         }
+
+        //for (int i = 1; i <= 8; i++)
+        //{
+        //    items.Add(ItemHelper.BuildEquip(21205800 + i, 7, 0, 0));
+        //}
+
+        //items.Add(new Equip(21205805, 11010, 11110, 7));
+        //items.Add(new Equip(21205807, 11010, 11110, 7));
+
+        //items.Add(new Equip(21105801, 9, 10, 6));
+        //items.Add(new Equip(21105802, 9, 10, 6));
+        //items.Add(new Equip(21105803, 9, 10, 6));
+
+        //items.Add(ItemHelper.BuildEquip(21105803, 6,0,0));
+        //items.Add(ItemHelper.BuildEquip(21105804, 6, 0, 0));
+        //items.Add(ItemHelper.BuildEquip(21105805, 6, 0, 0));
+        //items.Add(ItemHelper.BuildEquip(21105805, 6, 0, 0));
+        //items.Add(ItemHelper.BuildEquip(21105807, 6, 0, 0));
+        //items.Add(ItemHelper.BuildEquip(21105807, 6, 0, 0));
+        //items.Add(ItemHelper.BuildEquip(21105809, 6, 0, 0));
+        //items.Add(new Equip(22005707, 16, 10037, 5));
+        //items.Add(new Equip(22005709, 23, 15, 5));
+        //items.Add(new Equip(22005710, 23, 15, 5));
+
+        //items.Add(ItemHelper.BuildMaterial(50000009, 30)); //3介升阶红石头
+        //items.Add(ItemHelper.BuildMaterial(50000011, 30)); //3介升阶红石头
+        //items.Add(ItemHelper.BuildMaterial(50000014, 30)); //3介升阶红石头
+        //items.Add(ItemHelper.BuildMaterial(50000015, 30)); //3介升阶红石头
+        //items.Add(ItemHelper.BuildMaterial(50000016, 30)); //3介升阶红石头
+
+        //int rc = 1;
+        //items.Add(ItemHelper.BuildItem(ItemType.Ring, 190001, 1, rc));
+        //items.Add(ItemHelper.BuildItem(ItemType.Ring, 190002, 1, rc));
+        //items.Add(ItemHelper.BuildItem(ItemType.Ring, 190003, 1, rc));
+        //items.Add(ItemHelper.BuildItem(ItemType.Ring, 190004, 1, rc));
+        //items.Add(ItemHelper.BuildItem(ItemType.Ring, 190005, 1, rc));
+        //items.Add(ItemHelper.BuildItem(ItemType.Ring, 190006, 1, rc));
+
+        //int ic = 1;
+        //items.Add(ItemHelper.BuildMaterial(8001, ic)); //神技
+        //items.Add(ItemHelper.BuildMaterial(8002, ic)); //神技
+        //items.Add(ItemHelper.BuildMaterial(8003, ic)); //神技
+        //items.Add(ItemHelper.BuildMaterial(8004, ic)); //神技
+        //items.Add(ItemHelper.BuildMaterial(8005, ic)); //神技
+        //items.Add(ItemHelper.BuildMaterial(8006, ic)); //神技
+        //items.Add(ItemHelper.BuildMaterial(8007, ic)); //神技
+        //items.Add(ItemHelper.BuildMaterial(8008, ic)); //神技
+        //items.Add(ItemHelper.BuildMaterial(8009, ic)); //神技
+        //items.Add(ItemHelper.BuildMaterial(8010, ic)); //神技
+
+        //int ic = 1;
+        //items.Add(ItemHelper.BuildMaterial(8101, ic)); //魂骨
+        //items.Add(ItemHelper.BuildMaterial(8102, ic)); //魂骨
+        //items.Add(ItemHelper.BuildMaterial(8103, ic)); //魂骨
+        //items.Add(ItemHelper.BuildMaterial(8104, ic)); //魂骨
+        //items.Add(ItemHelper.BuildMaterial(8105, ic)); //魂骨
+        //items.Add(ItemHelper.BuildMaterial(8106, ic)); //魂骨
+        //items.Add(ItemHelper.BuildMaterial(8107, ic)); //魂骨
+        //items.Add(ItemHelper.BuildMaterial(8108, ic)); //魂骨
 
         public void ShowOffline()
         {
