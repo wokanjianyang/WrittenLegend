@@ -20,6 +20,7 @@ public class Panel_Hone : MonoBehaviour
     public Text Txt_Fee;
 
     public Button Btn_OK;
+    public Button Btn_Batch;
 
     private const int MaxCount = 10; //10件装备
 
@@ -32,6 +33,7 @@ public class Panel_Hone : MonoBehaviour
         this.Init();
 
         this.Btn_OK.onClick.AddListener(OnClickOK);
+        this.Btn_Batch.onClick.AddListener(OnClickBatch);
 
         for (int i = 0; i < honeList.Count; i++)
         {
@@ -249,6 +251,68 @@ public class Panel_Hone : MonoBehaviour
         this.ShowAttr();
 
         GameProcessor.Inst.SaveData();
+    }
+
+    public void OnClickBatch()
+    {
+        GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("一键淬炼消耗10京金币。是否确认？", true,
+        () =>
+        {
+            BatchHone();
+        }, () =>
+        {
+
+        });
+    }
+
+    private void BatchHone()
+    {
+        User user = GameProcessor.Inst.User;
+
+        if (user.MagicGold.Data <= ConfigHelper.RestoreGold * 20)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "金币不足10京", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
+
+        user.SubGold(ConfigHelper.RestoreGold * 20);
+
+        IDictionary<int, Equip> dict = user.EquipPanelList[user.EquipPanelIndex];
+
+        foreach (Equip equip in dict.Values)
+        {
+            for (int i = 0; i < equip.AttrEntryList.Count; i++)
+            {
+                int attrId = SelectEquip.AttrEntryList[i].Key;
+                long attrVal = SelectEquip.AttrEntryList[i].Value;
+                int MaxLevel = EquipHoneConfigCategory.Instance.GetMaxLevel(attrId, attrVal, equip.Layer);
+
+                for (int l = 1; l <= MaxLevel; l++)
+                {
+                    int honeLevel = equip.GetHoneLevel(i);
+                    int needCount = GetNeedNumber(honeLevel);
+
+                    long count = user.GetMaterialCount(ItemHelper.SpecialId_Red_Stone);
+
+                    if (count < needCount)
+                    {
+                        break;
+                    }
+
+                    GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
+                    {
+                        Type = ItemType.Material,
+                        ItemId = ItemHelper.SpecialId_Red_Stone,
+                        Quantity = needCount
+                    });
+
+                    equip.Hone(i);
+                }
+            }
+        }
+
+        GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
+        this.Load();
     }
 }
 
