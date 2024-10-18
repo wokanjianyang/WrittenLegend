@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
 using System;
+using System.Linq;
 
 namespace Game
 {
@@ -314,6 +315,43 @@ namespace Game
             }
 
             return 0;
+        }
+
+        public void GetRestoreItems(Dictionary<int, int> mlist)
+        {
+            int layer = Layer;
+
+            for (int l = 1; l < layer; l++)
+            {
+                EquipGradeConfig config = EquipGradeConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Part == Part && m.Layer == l).FirstOrDefault();
+
+                if (!mlist.ContainsKey(config.MetailId))
+                {
+                    mlist[config.MetailId] = 0;
+                }
+
+                mlist[config.MetailId] += config.MetailCount;
+
+
+                if (!mlist.ContainsKey(config.MetailId1))
+                {
+                    mlist[config.MetailId1] = 0;
+                }
+
+                mlist[config.MetailId1] += config.MetailCount1;
+            }
+
+            foreach (var kv in HoneList)
+            {
+                int honeLevel = kv.Value;
+                int redNumber = EquipHoneConfigCategory.Instance.GetTotalNeedNumber(honeLevel);
+
+                if (!mlist.ContainsKey(ItemHelper.SpecialId_Red_Stone))
+                {
+                    mlist[ItemHelper.SpecialId_Red_Stone] = 0;
+                }
+                mlist[ItemHelper.SpecialId_Red_Stone] += redNumber;
+            }
         }
     }
 }

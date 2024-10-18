@@ -803,22 +803,21 @@ namespace Game
                     redNumber += EquipHoneConfigCategory.Instance.GetTotalNeedNumber(honeLevel);
                 }
 
-
                 if (redNumber > 0)
                 {
                     Item redItem = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Red_Stone, redNumber);
                     newList.Add(redItem);
                 }
 
-                equip.Layer = 1;
-                equip.HoneList = new Dictionary<int, int>();
-                newList.Add(equip);
-
                 if (haveCount < newList.Count)
                 {
                     GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "请保留" + newList.Count + "个包裹空额", ToastType = ToastTypeEnum.Failure });
                     return;
                 }
+
+                equip.Layer = 1;
+                equip.HoneList = new Dictionary<int, int>();
+                newList.Add(equip);
             }
 
             //Fee

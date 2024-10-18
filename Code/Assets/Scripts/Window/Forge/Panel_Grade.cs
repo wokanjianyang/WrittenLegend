@@ -321,50 +321,35 @@ public class Panel_Grade : MonoBehaviour
             return;
         }
 
-        user.SubGold(ConfigHelper.RestoreGold * 20);
-
-        int haveCount = user.GetBagIdleCount(4);
-
         IDictionary<int, Equip> dict = user.EquipPanelList[user.EquipPanelIndex];
 
-        List<Item> newList = new List<Item>();
+        Dictionary<int, int> mlist = new Dictionary<int, int>();
+
         foreach (Equip equip in dict.Values)
         {
-            int layer = equip.Layer;
+            equip.GetRestoreItems(mlist);
+        }
 
-            for (int l = 1; l < layer; l++)
-            {
-                EquipGradeConfig config = EquipGradeConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Part == equip.Part && m.Layer == l).FirstOrDefault();
+        int haveCount = user.GetBagIdleCount(4);
+        if (haveCount < mlist.Count)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "Çë±£Áô" + mlist.Count + "¸ö°ü¹ü¿Õ¶î", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
 
-                Item item = ItemHelper.BuildMaterial(config.MetailId, config.MetailCount);
-                newList.Add(item);
+        user.SubGold(ConfigHelper.RestoreGold * 20);
 
-                Item item1 = ItemHelper.BuildMaterial(config.MetailId1, config.MetailCount1);
-                newList.Add(item1);
-
-            }
-
-            int redNumber = 0;
-            foreach (var kv in equip.HoneList)
-            {
-                int honeLevel = kv.Value;
-                redNumber += EquipHoneConfigCategory.Instance.GetTotalNeedNumber(honeLevel);
-            }
-
-            if (redNumber > 0)
-            {
-                Item redItem = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Red_Stone, redNumber);
-                newList.Add(redItem);
-            }
-
+        foreach (Equip equip in dict.Values)
+        {
             equip.Layer = 1;
             equip.HoneList = new Dictionary<int, int>();
         }
 
-        if (haveCount < newList.Count)
+        List<Item> newList = new List<Item>();
+        foreach (var kp in mlist)
         {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "Çë±£Áô" + newList.Count + "¸ö°ü¹ü¿Õ¶î", ToastType = ToastTypeEnum.Failure });
-            return;
+            Item item = ItemHelper.BuildMaterial(kp.Key, kp.Value);
+            newList.Add(item);
         }
 
         user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = newList });
