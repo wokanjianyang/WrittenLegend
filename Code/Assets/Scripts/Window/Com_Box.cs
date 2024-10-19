@@ -151,7 +151,7 @@ namespace Game
                 if (item.Item.Type == ItemType.Equip)
                 {
                     Equip equip = item.Item as Equip;
-                    if (equip.Part > 10)
+                    if (equip.Part > 10 && equip.Part < 20)
                     {
                         item.Item.IsNew = false;
                         return;
