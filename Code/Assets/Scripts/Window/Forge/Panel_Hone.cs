@@ -283,8 +283,8 @@ public class Panel_Hone : MonoBehaviour
         {
             for (int i = 0; i < equip.AttrEntryList.Count; i++)
             {
-                int attrId = SelectEquip.AttrEntryList[i].Key;
-                long attrVal = SelectEquip.AttrEntryList[i].Value;
+                int attrId = equip.AttrEntryList[i].Key;
+                long attrVal = equip.AttrEntryList[i].Value;
                 int MaxLevel = EquipHoneConfigCategory.Instance.GetMaxLevel(attrId, attrVal, equip.Layer);
 
                 for (int l = 1; l <= MaxLevel; l++)
