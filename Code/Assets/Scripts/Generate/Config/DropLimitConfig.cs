@@ -114,6 +114,9 @@ namespace Game
 		/// <summary>结束日期</summary>
 		[ProtoMember(13)]
 		public string EndDate { get; set; }
+		/// <summary>保底爆率</summary>
+		[ProtoMember(14)]
+		public int MinRate { get; set; }
 
 	}
 }
