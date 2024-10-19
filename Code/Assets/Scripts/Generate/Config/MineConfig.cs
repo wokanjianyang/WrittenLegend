@@ -90,6 +90,9 @@ namespace Game
 		/// <summary>Rate</summary>
 		[ProtoMember(5)]
 		public int Rate { get; set; }
+		/// <summary>RiseRate</summary>
+		[ProtoMember(6)]
+		public int RiseRate { get; set; }
 
 	}
 }

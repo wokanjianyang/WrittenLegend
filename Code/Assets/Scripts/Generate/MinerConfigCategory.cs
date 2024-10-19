@@ -10,7 +10,7 @@ namespace Game
     {
         public Dictionary<int, int> BuildMetal(ref int seed, long count)
         {
-           //Debug.Log("BuildMetal seed:" + seed);
+            //Debug.Log("BuildMetal seed:" + seed);
             Dictionary<int, int> drops = new Dictionary<int, int>();
 
             User user = GameProcessor.Inst.User;
@@ -35,7 +35,7 @@ namespace Game
             {
                 seed = AppHelper.RefreshSeed(seed);
 
-                int metalId = MineConfigCategory.Instance.RandomMetal(1, levelS, seed);
+                int metalId = RandomMetal(1, levelS, seed);
 
                 if (!drops.ContainsKey(metalId))
                 {
@@ -47,16 +47,19 @@ namespace Game
             return drops;
         }
 
-        public int RandomMetal(int type, int level)
-        {
-            return RandomMetal(type, level, 0);
-        }
-
         public int RandomMetal(int type, int level, int seed)
         {
             List<MineConfig> mines = this.list.Where(m => (m.Type == 0 || m.Type == type) && m.RequireLevel <= level).ToList();
 
-            int max = mines.Select(m => m.Rate).Sum();
+            int max = 0;
+            if (type == 0)
+            {
+                max = mines.Select(m => m.Rate).Sum();
+            }
+            else
+            {
+                max = mines.Select(m => m.Rate + m.RiseRate).Sum();
+            }
 
             int rd = RandomHelper.RandomNumber(seed, 0, max);
 
@@ -64,6 +67,10 @@ namespace Game
             for (int i = 0; i < mines.Count; i++)
             {
                 endRate += mines[i].Rate;
+                if (type == 1)
+                {
+                    endRate += mines[i].RiseRate;
+                }
 
                 if (rd <= endRate)
                 {

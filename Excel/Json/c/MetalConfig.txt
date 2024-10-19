@@ -9,7 +9,7 @@
 {"_t":"MetalConfig","_id":8,"Name":"绿宝石","AttrId":14,"AttrValue":1,"RiseAttr":1,"RiseLog":10,"RisePower":2,"MaxLevel":10000,"Quality":4,"RiseQuality":0,"Des":"攻击比例"},
 {"_t":"MetalConfig","_id":9,"Name":"孔雀石","AttrId":26,"AttrValue":1,"RiseAttr":1,"RiseLog":10,"RisePower":2,"MaxLevel":10000,"Quality":4,"RiseQuality":0,"Des":"物攻加成"},
 {"_t":"MetalConfig","_id":10,"Name":"青金石","AttrId":27,"AttrValue":1,"RiseAttr":1,"RiseLog":10,"RisePower":2,"MaxLevel":10000,"Quality":4,"RiseQuality":0,"Des":"魔法加成"},
-{"_t":"MetalConfig","_id":11,"Name":"月光石","AttrId":28,"AttrValue":1,"RiseAttr":1,"RiseLog":50,"RisePower":2,"MaxLevel":10000,"Quality":4,"RiseQuality":0,"Des":"道术加成"},
+{"_t":"MetalConfig","_id":11,"Name":"月光石","AttrId":28,"AttrValue":1,"RiseAttr":1,"RiseLog":10,"RisePower":2,"MaxLevel":10000,"Quality":4,"RiseQuality":0,"Des":"道术加成"},
 {"_t":"MetalConfig","_id":12,"Name":"红水晶","AttrId":33,"AttrValue":1,"RiseAttr":1,"RiseLog":50,"RisePower":2,"MaxLevel":10000,"Quality":5,"RiseQuality":0,"Des":"物伤比例"},
 {"_t":"MetalConfig","_id":13,"Name":"紫水晶","AttrId":34,"AttrValue":1,"RiseAttr":1,"RiseLog":50,"RisePower":2,"MaxLevel":10000,"Quality":5,"RiseQuality":0,"Des":"法伤比例"},
 {"_t":"MetalConfig","_id":14,"Name":"黄水晶","AttrId":35,"AttrValue":1,"RiseAttr":1,"RiseLog":50,"RisePower":2,"MaxLevel":10000,"Quality":5,"RiseQuality":0,"Des":"道伤比例"},

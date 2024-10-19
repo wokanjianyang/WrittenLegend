@@ -529,7 +529,7 @@ namespace Game
             {
                 long level = kv.Value.Data;
 
-                if (level > 0)
+                if (level > 0 && kv.Key > 0)
                 {
                     MetalConfig metalConfig = MetalConfigCategory.Instance.Get(kv.Key);
                     long percent = GetMetalQualityLevel(metalConfig.Quality);
