@@ -32,14 +32,18 @@ namespace Game
 
         //    return message;
         //}
-
         public static string BuildMonsterDeadMessage(APlayer monster, long exp, long gold, List<Item> Drops, int burstMul)
+        {
+            return BuildMonsterDeadMessage(monster, exp, gold, Drops, burstMul, 0);
+        }
+
+        public static string BuildMonsterDeadMessage(APlayer monster, long exp, long gold, List<Item> Drops, int burstMul, int soulRise)
         {
             string drops = "";
 
             if (burstMul > 0)
             {
-                drops += "<color=#EE4444>连爆+" + burstMul + "</color>,";
+                drops += "<color=#EE4444>连爆+" + burstMul + "</color>";
             }
 
             burstMul += 1;
@@ -67,6 +71,11 @@ namespace Game
 
                     drops += $"<color=#{QualityConfigHelper.GetColor(drop)}>[{drop.Name}]</color>" + qt;
                 }
+            }
+
+            if (soulRise > 0)
+            {
+                drops += ",炼魂:<color=#FF6600>魂环碎片</color>*" + soulRise;
             }
 
             string message = $"<color=#{QualityConfigHelper.GetQualityColor(monster.Quality)}>[{monster.Name}]</color><color=white>死亡{drops}</color>";

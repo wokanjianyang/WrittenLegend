@@ -224,6 +224,7 @@ namespace Game
             double dropRate = user.GetRealDropRate();
             double modelRate = dropModelRate * qualityConfig.DropRate;
             double countRate = countModelRate * qualityConfig.CountRate;
+            int soulPercent = (int)user.AttributeBonus.GetTotalAttr(AttributeEnum.SoulPercent);
 
             List<Item> items = new List<Item>();
             //生成道具奖励 ,爆率 = 人物爆率*怪物类型爆率*怪物品质爆率
@@ -250,11 +251,17 @@ namespace Game
             double rs = user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstMul);
             int itemCount = MathHelper.RandomBurstMul(rs);
 
+            int soulRise = 0;
+            if (soulPercent > 0)
+            {
+                soulRise = user.SoulRingNumber + user.GetArtifactValue(ArtifactType.SoulStone);
+                soulRise = (int)(soulRise * soulPercent * dropModelRate / 100);
+            }
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
             {
                 Type = RuleType,
-                Message = BattleMsgHelper.BuildMonsterDeadMessage(this, exp, gold, items, itemCount)
+                Message = BattleMsgHelper.BuildMonsterDeadMessage(this, exp, gold, items, itemCount, soulRise)
             });
 
             if (itemCount > 0)
@@ -263,6 +270,12 @@ namespace Game
                 gold += gold * itemCount;
                 items.AddRange(ItemHelper.BurstMul(items, itemCount, qualityRate));
             }
+
+            if (soulRise > 0)
+            {
+                items.Add(ItemHelper.BuildSoulRingShard(soulRise));
+            }
+
 
             //先回收
             List<Item> recoveryList = user.CheckRecovery(items, out long recoveryGold, out int recoveryCount);

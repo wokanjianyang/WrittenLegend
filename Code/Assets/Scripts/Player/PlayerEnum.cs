@@ -66,6 +66,8 @@ namespace Game
         EquipRandomIncrea = 102, //装备随机属性百分比
         EquipStrengthIncrea = 103, //装备强化属性百分比
 
+        SoulPercent = 110, //炼魂夺魄
+
         SkillPhyDamage = 302, //物理伤害
         SkillMagicDamage = 303,//魔法伤害
         SkillSpiritDamage = 304, //道术伤害

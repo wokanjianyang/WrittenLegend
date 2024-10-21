@@ -44,6 +44,7 @@ namespace Game
             {nameof(AttributeEnum.Accuracy), "精准" },
             {nameof(AttributeEnum.Protect), "绝对减伤" },
             {nameof(AttributeEnum.BurstMul), "多次掉落" },
+            {nameof(AttributeEnum.SoulPercent), "炼魂夺魄" },
 
             {nameof(AttributeEnum.PhyDamage), "物伤加成" },
             {nameof(AttributeEnum.MagicDamage),"魔伤加成" },

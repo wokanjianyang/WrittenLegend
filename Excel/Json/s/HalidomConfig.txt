@@ -58,4 +58,9 @@
 {"_t":"HalidomConfig","_id":40000107,"ItemId":40000107,"Name":"地狱草帽","AttrId":2006,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"道术倍率"},
 {"_t":"HalidomConfig","_id":40000108,"ItemId":40000108,"Name":"地狱猫爪","AttrId":2003,"AttrValue":30,"RiseAttr":30,"MaxLevel":4,"Des":"生命倍率"},
 {"_t":"HalidomConfig","_id":40000109,"ItemId":40000109,"Name":"地狱花朵","AttrId":2002,"AttrValue":30,"RiseAttr":30,"MaxLevel":4,"Des":"防御倍率"},
+{"_t":"HalidomConfig","_id":40000110,"ItemId":40000075,"Name":"地狱冰晶","AttrId":2001,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"攻击倍率"},
+{"_t":"HalidomConfig","_id":40000111,"ItemId":40000076,"Name":"地狱蝠翼","AttrId":2010,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"增伤倍率"},
+{"_t":"HalidomConfig","_id":40000112,"ItemId":40000077,"Name":"地狱魂火","AttrId":2011,"AttrValue":10,"RiseAttr":10,"MaxLevel":4,"Des":"减伤倍率"},
+{"_t":"HalidomConfig","_id":40000113,"ItemId":40000078,"Name":"地狱腐肉","AttrId":2002,"AttrValue":30,"RiseAttr":30,"MaxLevel":4,"Des":"防御倍率"},
+{"_t":"HalidomConfig","_id":40000114,"ItemId":40000079,"Name":"地狱蛇胆","AttrId":2003,"AttrValue":30,"RiseAttr":30,"MaxLevel":4,"Des":"生命倍率"},
 ]}

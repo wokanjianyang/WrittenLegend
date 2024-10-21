@@ -26,8 +26,6 @@ public class Dialog_Cycle : MonoBehaviour
         Btn_Close.onClick.AddListener(OnClick_Close);
 
         AttrList = this.GetComponentsInChildren<StrenthAttrItem>();
-
-        this.Show();
     }
 
     // Start is called before the first frame update
@@ -38,6 +36,11 @@ public class Dialog_Cycle : MonoBehaviour
         {
             Btn_Ok.onClick.AddListener(OnClick_Ok);
         }
+    }
+
+    private void OnEnable()
+    {
+        this.Show();
     }
 
     private void Show()
@@ -74,7 +77,7 @@ public class Dialog_Cycle : MonoBehaviour
                 AttrList[i].gameObject.SetActive(true);
 
                 int attrId = nextConfig != null ? nextConfig.AttrIdList[i] : config.AttrIdList[i];
-                long bv = config != null ? config.AttrValueList[i] : 0;
+                long bv = config != null && config.AttrValueList.Length > i ? config.AttrValueList[i] : 0;
                 long nv = nextConfig != null ? nextConfig.AttrValueList[i] : bv;
 
                 AttrList[i].SetContent(attrId, bv, nv - bv);

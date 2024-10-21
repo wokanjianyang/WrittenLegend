@@ -200,7 +200,7 @@ namespace Game
             double dropRate = user.GetRealDropRate();
             double modelRate = dropModelRate * qualityConfig.DropRate;
             double countRate = countModelRate * qualityConfig.CountRate;
-
+            int soulPercent = (int)user.AttributeBonus.GetTotalAttr(AttributeEnum.SoulPercent);
             //Debug.Log("dropRate:" + dropRate);
 
             List<Item> items = new List<Item>();
@@ -223,10 +223,17 @@ namespace Game
             double rs = user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstMul);
             int itemCount = MathHelper.RandomBurstMul(rs);
 
+            int soulRise = 0;
+            if (soulPercent > 0)
+            {
+                soulRise = user.SoulRingNumber + user.GetArtifactValue(ArtifactType.SoulStone);
+                soulRise = (int)(soulRise * soulPercent * dropModelRate / 100);
+            }
+
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
             {
                 Type = RuleType,
-                Message = BattleMsgHelper.BuildMonsterDeadMessage(this, exp, gold, items, itemCount)
+                Message = BattleMsgHelper.BuildMonsterDeadMessage(this, exp, gold, items, itemCount, soulRise)
             });
 
             if (itemCount > 0)
@@ -236,8 +243,13 @@ namespace Game
                 items.AddRange(ItemHelper.BurstMul(items, itemCount, qualityRate));
             }
 
+            if (soulRise > 0)
+            {
+                items.Add(ItemHelper.BuildSoulRingShard(soulRise));
+            }
+
             //œ»ªÿ ’
-            List<Item> recoveryList = user.CheckRecovery(items, out long recoveryGold,out int recoveryCount);
+            List<Item> recoveryList = user.CheckRecovery(items, out long recoveryGold, out int recoveryCount);
             if (recoveryCount > 0)
             {
                 GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
