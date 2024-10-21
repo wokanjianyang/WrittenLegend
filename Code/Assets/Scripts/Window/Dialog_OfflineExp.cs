@@ -56,7 +56,7 @@ namespace Game
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_EquipRefineStone, 999999999)); //精炼石
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Red_Stone, 999)); //红装精华
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Golden_Stone, 999)); //红装精华
-            
+
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecailEquipRefreshId, 99999)); //橙装精华
 
             //items.Add(ItemHelper.BuildItem(ItemType.Card, 2000010, 10, 5));
@@ -348,7 +348,7 @@ namespace Game
             double realRate = user.GetRealDropRate() * modelConfig.DropRate;
             double qualityRate = (100 + (int)user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea)) / 100;
             double realQualityRate = 1 + Math.Log(qualityRate, 13);
-
+            long soulPercent = user.AttributeBonus.GetTotalAttr(AttributeEnum.SoulPercent);
             //Debug.Log("realRate:" + realRate);
             //Debug.Log("qualityRate:" + qualityRate);
             //Debug.Log("realQualityRate:" + realQualityRate);
@@ -373,6 +373,19 @@ namespace Game
 
             rewardExp += exp;
             rewardGold += gold;
+
+            //炼魂
+            int soulRise = 0;
+            if (soulPercent > 0)
+            {
+                soulRise = user.SoulRingNumber + user.GetArtifactValue(ArtifactType.SoulStone);
+                soulRise = (int)(killCount * soulRise * soulPercent * modelConfig.DropRate / 100);
+                if (soulRise > 0)
+                {
+                    itemList.Add(ItemHelper.BuildSoulRingShard(soulRise));
+                    message += ",炼魂:<color=#FF6600>魂环碎片</color>*" + soulRise;
+                }
+            }
 
             int skillBox = 0;
 
