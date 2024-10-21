@@ -41,9 +41,9 @@ public class Map_Dialog_Pill : MonoBehaviour
 
         List<MonsterPillConfig> list = MonsterPillConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
 
-        long cycle = user.Cycle.Data;
+        long num = Math.Min(user.Cycle.Data, list.Count);
 
-        for (int i = 0; i < cycle; i++)
+        for (int i = 0; i < num; i++)
         {
             BuildItem(list[i]);
         }

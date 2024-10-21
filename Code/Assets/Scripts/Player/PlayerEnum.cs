@@ -67,6 +67,12 @@ namespace Game
         EquipStrengthIncrea = 103, //装备强化属性百分比
 
         SoulPercent = 110, //炼魂夺魄
+        Talent = 111, //天赋点
+        DefendRate = 112, //防御系数
+        RealDefend = 113,//真是防御
+        RealHpDamage = 114,//真实血量伤害
+        RealMulDamageResist = 115, //溢出减伤迭代计算
+        RealCritRate = 115,//溢出暴击转为伤害加成
 
         SkillPhyDamage = 302, //物理伤害
         SkillMagicDamage = 303,//魔法伤害
