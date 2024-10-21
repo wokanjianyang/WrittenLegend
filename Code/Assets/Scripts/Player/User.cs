@@ -415,7 +415,7 @@ namespace Game
                 {
                     if (redItem.Level > 0)
                     {
-                        AttributeBonus.SetAttr((AttributeEnum)(redItem.Config.AttrId), AttributeFrom.EquipRed, 1, redItem.Config.AttrValue + redItem.Config.AttrRise * (redItem.Level - 1));
+                        AttributeBonus.SetAttr((AttributeEnum)(redItem.Config.AttrId), AttributeFrom.EquipRed, 60 + role, redItem.Config.AttrValue + redItem.Config.AttrRise * (redItem.Level - 1));
                     }
                 }
 
@@ -424,7 +424,7 @@ namespace Game
                 {
                     if (redItem.Level > 0)
                     {
-                        AttributeBonus.SetAttr((AttributeEnum)(redItem.Config.AttrId), AttributeFrom.EquipRed, 1, redItem.Config.AttrValue + redItem.Config.AttrRise * (redItem.Level - 1));
+                        AttributeBonus.SetAttr((AttributeEnum)(redItem.Config.AttrId), AttributeFrom.EquipRed, 70 + role, redItem.Config.AttrValue + redItem.Config.AttrRise * (redItem.Level - 1));
                     }
                 }
             }

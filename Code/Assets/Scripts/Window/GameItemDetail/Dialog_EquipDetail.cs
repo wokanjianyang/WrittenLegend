@@ -319,7 +319,10 @@ namespace Game
                         }
                     }
                 }
+            }
 
+            if (equip.Part <= 10 || equip.Part >= 21)
+            {
                 if (equip.GetQuality() >= 6)
                 {
                     tran_RedAttribute.gameObject.SetActive(true);
@@ -329,7 +332,6 @@ namespace Game
                     this.ShowRed(red, equip.GetQuality());
                 }
             }
-
 
             this.btn_Equip.gameObject.SetActive(this.boxItem.BoxId != -1);
             this.btn_UnEquip.gameObject.SetActive(this.boxItem.BoxId == -1);
