@@ -294,7 +294,7 @@ public class Panel_Hone : MonoBehaviour
 
                     long count = user.GetMaterialCount(ItemHelper.SpecialId_Red_Stone);
 
-                    if (count < needCount)
+                    if (count < needCount || honeLevel >= MaxLevel)
                     {
                         break;
                     }

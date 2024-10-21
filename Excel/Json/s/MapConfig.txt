@@ -109,4 +109,9 @@
 {"_t":"MapConfig","_id":1107,"Name":"地狱城外","Level":4,"Layer":4,"LevelRequired":"1100-3","Memo":"地狱草帽","DropLevel":0,"DropIdList":[202001,300091,104,504,210037],"DropRateList":[10,2500,1000,18000,600000],"BoosId":10107},
 {"_t":"MapConfig","_id":1108,"Name":"地狱老城","Level":4,"Layer":4,"LevelRequired":"1100-4","Memo":"地狱猫爪","DropLevel":0,"DropIdList":[202001,300091,104,504,210038],"DropRateList":[10,2500,1000,18000,600000],"BoosId":10108},
 {"_t":"MapConfig","_id":1109,"Name":"地狱森林","Level":4,"Layer":4,"LevelRequired":"1100-5","Memo":"地狱花朵","DropLevel":0,"DropIdList":[202001,300091,104,504,210039],"DropRateList":[10,2500,1000,18000,600000],"BoosId":10109},
+{"_t":"MapConfig","_id":1110,"Name":"地狱洞穴","Level":4,"Layer":4,"LevelRequired":"1150-1","Memo":"地狱冰晶","DropLevel":0,"DropIdList":[202001,300091,104,504,210040],"DropRateList":[10,2500,1000,18000,600000],"BoosId":10110},
+{"_t":"MapConfig","_id":1111,"Name":"地狱骷髅洞","Level":4,"Layer":4,"LevelRequired":"1150-2","Memo":"地狱蝠翼","DropLevel":0,"DropIdList":[202001,300091,104,504,210041],"DropRateList":[10,2500,1000,18000,600000],"BoosId":10111},
+{"_t":"MapConfig","_id":1112,"Name":"地狱通道","Level":4,"Layer":4,"LevelRequired":"1150-3","Memo":"地狱魂火","DropLevel":0,"DropIdList":[202001,300091,104,504,210042],"DropRateList":[10,2500,1000,18000,600000],"BoosId":10112},
+{"_t":"MapConfig","_id":1113,"Name":"地狱尸洞","Level":4,"Layer":4,"LevelRequired":"1150-4","Memo":"地狱腐肉","DropLevel":0,"DropIdList":[202001,300091,104,504,210043],"DropRateList":[10,2500,1000,18000,600000],"BoosId":10113},
+{"_t":"MapConfig","_id":1114,"Name":"地狱蛇谷","Level":4,"Layer":4,"LevelRequired":"1150-5","Memo":"地狱蛇胆","DropLevel":0,"DropIdList":[202001,300091,104,504,210044],"DropRateList":[10,2500,1000,18000,600000],"BoosId":10114},
 ]}
