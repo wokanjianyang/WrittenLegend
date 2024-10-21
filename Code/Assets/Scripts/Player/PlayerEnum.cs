@@ -72,7 +72,7 @@ namespace Game
         RealDefend = 113,//真是防御
         RealHpDamage = 114,//真实血量伤害
         RealMulDamageResist = 115, //溢出减伤迭代计算
-        RealCritRate = 115,//溢出暴击转为伤害加成
+        RealCritRate = 116,//溢出暴击转为伤害加成
 
         SkillPhyDamage = 302, //物理伤害
         SkillMagicDamage = 303,//魔法伤害
