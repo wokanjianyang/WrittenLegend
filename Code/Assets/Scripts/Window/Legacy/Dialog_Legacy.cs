@@ -70,7 +70,15 @@ public class Dialog_Legacy : MonoBehaviour, IBattleLife
             });
         }
 
-        ShowSuit(1);
+        this.ShowSuit(1);
+    }
+
+    void OnEnable()
+    {
+        if (CurrentSuit > 0)
+        {
+            this.ShowSuit(CurrentSuit);
+        }
     }
 
     public void OnBattleStart()
