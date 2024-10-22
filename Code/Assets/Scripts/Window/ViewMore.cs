@@ -46,7 +46,7 @@ namespace Game
             }
 
             long level = user.MagicLevel.Data;
-            int mc = user.GetArtifactValue(ArtifactType.MineCount);
+            int mc = user.GetArtifactValue(ArtifactType.MineCount) + user.GetLimitMineCount2();
             if (level > 20000 || mc > 0)
             {
                 MineItem.gameObject.SetActive(true);

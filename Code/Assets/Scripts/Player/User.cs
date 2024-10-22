@@ -253,6 +253,8 @@ namespace Game
 
         public Dictionary<int, MagicData> SoulBoneData { get; } = new Dictionary<int, MagicData>();
 
+        public Dictionary<int, MagicData> TalentData { get; } = new Dictionary<int, MagicData>();
+
         public MagicData WingData { get; set; } = new MagicData();
 
         public MagicData PillData { get; set; } = new MagicData();
@@ -1440,6 +1442,24 @@ namespace Game
                 SoulBoneData[sid] = new MagicData();
             }
             SoulBoneData[sid].Data++;
+        }
+
+        public long GetTalentLevel(int tid)
+        {
+            if (!TalentData.ContainsKey(tid))
+            {
+                TalentData[tid] = new MagicData();
+            }
+            return TalentData[tid].Data;
+        }
+
+        public void AddTalentLevel(int tid)
+        {
+            if (!TalentData.ContainsKey(tid))
+            {
+                TalentData[tid] = new MagicData();
+            }
+            TalentData[tid].Data++;
         }
 
         public long GetHalidomLevel(int id)

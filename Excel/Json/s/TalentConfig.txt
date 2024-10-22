@@ -1,0 +1,7 @@
+{"list":[
+{"_t":"TalentConfig","_id":1,"Name":"铜墙","RequireId":0,"RequireLevel":0,"MaxLevel":10,"AttrId":14,"AttrValue":100,"Fee":300},
+{"_t":"TalentConfig","_id":2,"Name":"铁壁","RequireId":0,"RequireLevel":0,"MaxLevel":10,"AttrId":16,"AttrValue":100,"Fee":300},
+{"_t":"TalentConfig","_id":3,"Name":"神之减伤","RequireId":0,"RequireLevel":0,"MaxLevel":1,"AttrId":26,"AttrValue":100,"Fee":300},
+{"_t":"TalentConfig","_id":4,"Name":"神之暴击","RequireId":0,"RequireLevel":0,"MaxLevel":1,"AttrId":27,"AttrValue":100,"Fee":300},
+{"_t":"TalentConfig","_id":5,"Name":"血杀","RequireId":0,"RequireLevel":0,"MaxLevel":10,"AttrId":15,"AttrValue":100,"Fee":300},
+]}

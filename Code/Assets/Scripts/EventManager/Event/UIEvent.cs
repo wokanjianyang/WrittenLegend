@@ -146,4 +146,15 @@ namespace Game
     {
 
     }
+
+
+    public class TalentShowEvent : SDD.Events.Event
+    {
+
+    }
+
+    public class TalentDetailShowEvent : SDD.Events.Event
+    {
+        public int Tid { get; set; }
+    }
 }
