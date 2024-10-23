@@ -18,16 +18,16 @@ namespace Game
         // Start is called before the first frame update
         void Start()
         {
-
+            if (Config != null)
+            {
+                this.Show();
+            }
         }
 
         // Update is called once per frame
         void OnEnable()
         {
-            if (Config != null)
-            {
-                this.Show();
-            }
+
         }
 
         public void Show()
@@ -55,8 +55,19 @@ namespace Game
             }
         }
 
-        public void SetContent(TalentConfig config)
+        public void SetContent(int tid)
         {
+            if (!TalentConfigCategory.Instance.Contain(tid))
+            {
+                this.gameObject.SetActive(false);
+                return;
+            }
+            else
+            {
+                this.gameObject.SetActive(true);
+            }
+
+            TalentConfig config = TalentConfigCategory.Instance.Get(tid);
             this.Config = config;
             this.Txt_Name.text = config.Name;
             this.Show();

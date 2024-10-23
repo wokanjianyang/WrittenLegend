@@ -45,6 +45,7 @@ namespace Game
         public Button btn_Artifact;
         public Button btn_Ring;
         public Button btn_Pill;
+        public Button btn_Talent;
 
         public Button btn_Equip_Golden;
 
@@ -57,6 +58,7 @@ namespace Game
         public Dialog_Ring DialogRing;
         public Dialog_Cycle DialogCycle;
         public Dialog_Pill DialogPill;
+
 
         private List<Com_Box> items = new List<Com_Box>();
 
@@ -88,6 +90,7 @@ namespace Game
             this.btn_Ring.onClick.AddListener(OnOpenRing);
             this.btn_Pill.onClick.AddListener(OnOpenPill);
             this.btn_Equip_Golden.onClick.AddListener(OnOpenEquipGolden);
+            this.btn_Talent.onClick.AddListener(OnOpenTalent);
 
             this.Btn_Reset.onClick.AddListener(OnRefreshBag);
             this.Btn_ReName.onClick.AddListener(OnSetPlanName);
@@ -130,6 +133,10 @@ namespace Game
             {
                 this.btn_Equip_Golden.gameObject.SetActive(false);
             }
+
+#if !UNITY_EDITOR
+            btn_Talent.gameObject.SetActive(false);
+#endif
         }
 
         // Update is called once per frame
@@ -1611,6 +1618,11 @@ namespace Game
             {
                 this.Equip_Plan_List[i].gameObject.SetActive(false);
             }
+        }
+
+        public void OnOpenTalent()
+        {
+            GameProcessor.Inst.EventCenter.Raise(new TalentShowEvent());
         }
 
         public void OpenFashion()
