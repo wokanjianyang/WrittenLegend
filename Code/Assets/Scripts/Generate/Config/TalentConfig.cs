@@ -99,6 +99,9 @@ namespace Game
 		/// <summary>Fee</summary>
 		[ProtoMember(8)]
 		public int Fee { get; set; }
+		/// <summary>desc</summary>
+		[ProtoMember(9)]
+		public string desc { get; set; }
 
 	}
 }

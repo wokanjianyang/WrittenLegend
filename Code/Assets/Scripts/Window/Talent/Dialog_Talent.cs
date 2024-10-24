@@ -9,6 +9,8 @@ using UnityEngine.UI;
 
 public class Dialog_Talent : MonoBehaviour, IBattleLife
 {
+    public Dialog_Talent_Detail DialogDetail;
+
     private List<Item_Talent> ItemList = new List<Item_Talent>();
     public Button Btn_Close;
 
@@ -39,7 +41,7 @@ public class Dialog_Talent : MonoBehaviour, IBattleLife
 
     private void OnShowDetailEvent(TalentDetailShowEvent e)
     {
-
+        DialogDetail.Show(e.Tid);
     }
 
     private void Show()

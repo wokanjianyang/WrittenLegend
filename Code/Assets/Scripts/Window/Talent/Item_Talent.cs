@@ -51,7 +51,7 @@ namespace Game
         {
             if (Config != null)
             {
-                GameProcessor.Inst.User.EventCenter.Raise(new TalentDetailShowEvent() { Tid = Config.Id });
+                GameProcessor.Inst.EventCenter.Raise(new TalentDetailShowEvent() { Tid = Config.Id });
             }
         }
 
