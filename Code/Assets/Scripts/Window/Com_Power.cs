@@ -109,10 +109,10 @@ public class Com_Power : MonoBehaviour, IBattleLife
         User user = GameProcessor.Inst.User;
         if (user != null)
         {
-            int MapNo = Math.Max(user.MapId - 1, ConfigHelper.MapStartId);
+            //int MapNo = Math.Max(user.MapId - 1, ConfigHelper.MapStartId);
 
-            MapConfig config = MapConfigCategory.Instance.Get(MapNo);
-            Map.text = config.Name;
+            //MapConfig config = MapConfigCategory.Instance.Get(MapNo);
+            Map.text = "挂机中...";
         }
     }
 
