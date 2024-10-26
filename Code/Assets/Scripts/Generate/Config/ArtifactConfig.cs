@@ -93,9 +93,9 @@ namespace Game
 		/// <summary>MaxCount</summary>
 		[ProtoMember(6)]
 		public int MaxCount { get; set; }
-		/// <summary>DropRate</summary>
+		/// <summary>Quality</summary>
 		[ProtoMember(7)]
-		public int DropRate { get; set; }
+		public int Quality { get; set; }
 		/// <summary>Des</summary>
 		[ProtoMember(8)]
 		public string Des { get; set; }
