@@ -10,6 +10,7 @@ namespace Game
 {
     public class Item_Talent : MonoBehaviour, IPointerClickHandler
     {
+        public Image Img_Bg;
         public Text Txt_Name;
         public Text Txt_Level;
 
@@ -66,8 +67,12 @@ namespace Game
             {
                 this.gameObject.SetActive(true);
             }
-
             TalentConfig config = TalentConfigCategory.Instance.Get(tid);
+
+            Texture2D texture = Resources.Load<Texture2D>("UI/Talent/" + config.Name);
+            Img_Bg.sprite = Sprite.Create(texture, new Rect(0, 0, 160, 160), Vector2.zero);
+
+
             this.Config = config;
             this.Txt_Name.text = config.Name;
             this.Show();
