@@ -73,16 +73,6 @@ namespace Game
 
             long cardLevel = user.GetCardLevel(Config.Id);
 
-            if (cardLevel <= 0)
-            {
-                this.gameObject.SetActive(false);
-                return;
-            }
-            else
-            {
-                this.gameObject.SetActive(true);
-            }
-
             long percent = user.GetCardQualityLevel(Config.Quality);
 
             long riseLevel = cardLevel * percent / 100;
