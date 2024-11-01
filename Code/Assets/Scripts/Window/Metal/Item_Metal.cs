@@ -46,7 +46,7 @@ namespace Game
             }
 
             long riseLevel = level * percent / 100;
-            riseLevel = Math.Max(riseLevel, percent);
+            riseLevel = Math.Max(riseLevel, percent);//每个最低加成1级
 
             this.Txt_Name.text = string.Format("<color=#{0}>{1}</color>", QualityConfigHelper.GetQualityColor(Config.Quality), config.Name);
             this.Txt_Level.text = $"{level}+{riseLevel}个";

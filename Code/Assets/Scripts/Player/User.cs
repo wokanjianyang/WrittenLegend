@@ -460,7 +460,11 @@ namespace Game
                 if (sp.Value.Data > 0)
                 {
                     CardConfig cardConfig = CardConfigCategory.Instance.Get(sp.Key);
-                    long cardAttr = cardConfig.AttrValue + (sp.Value.Data - 1) * cardConfig.LevelIncrea;
+                    long cardLevel = sp.Value.Data;
+                    long percent = GetCardQualityLevel(cardConfig.Quality);
+                    long riseLevel = cardLevel * percent / 100;
+
+                    long cardAttr = cardConfig.AttrValue * (cardLevel + riseLevel);
                     AttributeBonus.SetAttr((AttributeEnum)cardConfig.AttrId, AttributeFrom.Card, sp.Key, cardAttr);
                 }
             }
@@ -1316,6 +1320,23 @@ namespace Game
             }
 
             return CardData[cardId].Data;
+        }
+
+        public long GetCardQualityLevel(int quality)
+        {
+            CardConfig config = CardConfigCategory.Instance.GetQualityRiseConfig(quality);
+
+            if (config == null)
+            {
+                return 0;
+            }
+
+            if (!CardData.ContainsKey(config.Id))
+            {
+                return 0;
+            }
+
+            return CardData[config.Id].Data;
         }
 
         public void SaveCardLevel(int cardId, long level)

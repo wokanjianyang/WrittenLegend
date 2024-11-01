@@ -73,19 +73,33 @@ namespace Game
 
             long cardLevel = user.GetCardLevel(Config.Id);
 
-
-            if (cardLevel > 0)
+            if (cardLevel <= 0)
             {
-                long val = Config.AttrValue + (cardLevel - 1) * Config.LevelIncrea;
-                this.Txt_Level.text = $"{cardLevel}级";
-                this.Txt_Attr_Current.text = StringHelper.FormatAttrText(Config.AttrId, val);
-                this.Txt_Attr_Rise.text = "升级增加:" + StringHelper.FormatAttrValueText(Config.AttrId, Config.LevelIncrea);
+                this.gameObject.SetActive(false);
+                return;
             }
             else
             {
-                this.Txt_Level.text = "未激活";
-                this.Txt_Attr_Current.text = " ???? ";
-                this.Txt_Attr_Rise.text = "激活增加:" + StringHelper.FormatAttrValueText(Config.AttrId, Config.AttrValue);
+                this.gameObject.SetActive(true);
+            }
+
+            long percent = user.GetCardQualityLevel(Config.Quality);
+
+            long riseLevel = cardLevel * percent / 100;
+
+            long totalLevel = cardLevel + riseLevel;
+            long val = Config.AttrValue * totalLevel;
+            this.Txt_Level.text = $"等级{cardLevel}+{riseLevel}";
+
+            if (Config.AttrId > 0)
+            {
+                this.Txt_Attr_Current.text = StringHelper.FormatAttrText(Config.AttrId, totalLevel);
+                this.Txt_Attr_Rise.text = "升级增加:" + StringHelper.FormatAttrValueText(Config.AttrId, Config.AttrValue);
+            }
+            else
+            {
+                this.Txt_Attr_Current.text = string.Format(Config.Des, totalLevel);
+                this.Txt_Attr_Rise.text = "升级增加:1%";
             }
 
             int itemId = Config.RiseId;

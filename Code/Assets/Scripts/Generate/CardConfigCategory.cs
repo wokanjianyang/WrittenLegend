@@ -7,7 +7,10 @@ namespace Game
 
     public partial class CardConfigCategory
     {
-
+        public CardConfig GetQualityRiseConfig(int quality)
+        {
+            return this.list.Where(m => m.RiseQualilty == quality).FirstOrDefault();
+        }
     }
 
     public partial class CardConfig
