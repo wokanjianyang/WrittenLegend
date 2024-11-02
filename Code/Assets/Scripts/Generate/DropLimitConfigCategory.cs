@@ -34,6 +34,11 @@ namespace Game
             m.Type == type && m.StartMapId <= mapId && mapId <= m.EndMapId
             && DateTime.Parse(m.StartDate).Ticks <= time && time <= DateTime.Parse(m.EndDate).Ticks).ToList();
 
+            if (mapId >= 1105 && modelRise > 5)
+            {
+                modelRise = 5;
+            }
+
             foreach (DropLimitConfig dropLimit in drops)
             {
                 int dropLimitId = dropLimit.Id;
