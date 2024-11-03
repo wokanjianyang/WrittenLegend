@@ -583,9 +583,6 @@ namespace Game
                 this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
             }
 
-            GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
-            GameProcessor.Inst.User.EventCenter.Raise(new SkillChangePlanEvent());
-
             //Debug.Log("OnChangeExclusiveEvent");
         }
 
@@ -601,9 +598,11 @@ namespace Game
             }
 
             user.SkillPanelIndex = index;
-            GameProcessor.Inst.User.EventCenter.Raise(new SkillChangePlanEvent());
 
             ShowEquipPanel();
+
+            GameProcessor.Inst.User.EventCenter.Raise(new SkillChangePlanEvent());
+            GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
         }
 
         private void ShowEquipPanel()
@@ -623,7 +622,6 @@ namespace Game
                     this.Equip_Plan_List[i].gameObject.SetActive(false);
                 }
             }
-            GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
         }
 
         private void ShowBagPanel(int index)
