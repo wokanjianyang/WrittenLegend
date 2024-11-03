@@ -12,18 +12,41 @@ public class Dialog_Cycle : MonoBehaviour
     public Text Txt_Name;
     public Text Txt_Desc;
 
+    public Toggle toggle_Type1;
+    public Toggle toggle_Type2;
+
     public StrenthAttrItem[] AttrList;
 
     public Text Txt_Fee;
 
     public Button Btn_Ok;
     public Button Btn_Close;
+    public Text Txt_Ok;
+
+    private string[][] NameList = {
+        new string[]{"一转", "二转", "三转", "四转", "五转", "六转", "七转", "八转", "九转", "十转" },
+        new string[]{"一", "二", "三", "四", "五", "六", "七", "八", "九", "十" },
+    };
+
+    private string[] BtnName = { "轮回", "练气" };
 
     public int Order => (int)ComponentOrder.Dialog;
+
+    private int Type = 1;
 
     private void Awake()
     {
         Btn_Close.onClick.AddListener(OnClick_Close);
+
+        toggle_Type1.onValueChanged.AddListener((isOn) =>
+        {
+            this.Show(1);
+        });
+
+        toggle_Type2.onValueChanged.AddListener((isOn) =>
+        {
+            this.Show(2);
+        });
 
         AttrList = this.GetComponentsInChildren<StrenthAttrItem>();
     }
@@ -40,11 +63,14 @@ public class Dialog_Cycle : MonoBehaviour
 
     private void OnEnable()
     {
-        this.Show();
+        this.Show(this.Type);
     }
 
-    private void Show()
+    private void Show(int type)
     {
+        this.Type = type;
+        this.Txt_Ok.text = BtnName[type - 1];
+
         User user = GameProcessor.Inst.User;
 
         long level = user.MagicLevel.Data;
@@ -113,7 +139,7 @@ public class Dialog_Cycle : MonoBehaviour
         user.EventCenter.Raise(new SetPlayerLevelEvent { Cycle = user.Cycle.Data, Level = user.MagicLevel.Data });
         user.EventCenter.Raise(new UserAttrChangeEvent());
 
-        this.Show();
+        this.Show(this.Type);
     }
 
     public void OnClick_Close()
