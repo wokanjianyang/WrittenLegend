@@ -368,7 +368,7 @@ namespace Game
                 long maxType = (Cycle.Data - 1) / 10;
                 for (int cc = 0; cc < maxType; cc++)
                 {
-                    CycleConfig ccConfig = CycleConfigCategory.Instance.GetByCycle(cc, cc * 10);
+                    CycleConfig ccConfig = CycleConfigCategory.Instance.GetByCycle(cc, (cc + 1) * 10);
                     for (int i = 0; i < ccConfig.AttrIdList.Length; i++)
                     {
                         AttributeBonus.SetAttr((AttributeEnum)ccConfig.AttrIdList[i], AttributeFrom.Cycle, cc * 100 + i, ccConfig.AttrValueList[i]);
