@@ -7,9 +7,9 @@ namespace Game
 
     public partial class CycleConfigCategory
     {
-        public CycleConfig GetByCycle(long cycle)
+        public CycleConfig GetByCycle(long type, long cycle)
         {
-            return this.list.Where(m => m.Cycle == cycle).FirstOrDefault();
+            return this.list.Where(m => m.Type == type && m.Cycle == cycle).FirstOrDefault();
         }
 
         public void Init()

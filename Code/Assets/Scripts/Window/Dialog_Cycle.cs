@@ -23,16 +23,11 @@ public class Dialog_Cycle : MonoBehaviour
     public Button Btn_Close;
     public Text Txt_Ok;
 
-    private string[][] NameList = {
-        new string[]{"一转", "二转", "三转", "四转", "五转", "六转", "七转", "八转", "九转", "十转" },
-        new string[]{"一", "二", "三", "四", "五", "六", "七", "八", "九", "十" },
-    };
-
     private string[] BtnName = { "轮回", "练气" };
 
     public int Order => (int)ComponentOrder.Dialog;
 
-    private int Type = 1;
+    private int Type = 0;
 
     private void Awake()
     {
@@ -40,12 +35,12 @@ public class Dialog_Cycle : MonoBehaviour
 
         toggle_Type1.onValueChanged.AddListener((isOn) =>
         {
-            this.Show(1);
+            this.Show(0);
         });
 
         toggle_Type2.onValueChanged.AddListener((isOn) =>
         {
-            this.Show(2);
+            this.Show(1);
         });
 
         AttrList = this.GetComponentsInChildren<StrenthAttrItem>();
@@ -59,6 +54,11 @@ public class Dialog_Cycle : MonoBehaviour
         {
             Btn_Ok.onClick.AddListener(OnClick_Ok);
         }
+
+        if (GameProcessor.Inst.User.Cycle.Data < 10)
+        {
+            toggle_Type2.gameObject.SetActive(false);
+        }
     }
 
     private void OnEnable()
@@ -69,51 +69,77 @@ public class Dialog_Cycle : MonoBehaviour
     private void Show(int type)
     {
         this.Type = type;
-        this.Txt_Ok.text = BtnName[type - 1];
+        this.Txt_Ok.text = BtnName[type];
 
         User user = GameProcessor.Inst.User;
 
-        long level = user.MagicLevel.Data;
         long cycle = user.Cycle.Data;
-        long maxLevel = user.GetMaxLevel();
+        long maxCycle = (type + 1) * 10;
 
-        Txt_Name.text = ConfigHelper.LayerChinaList[cycle] + "转";
-
-        string color = level >= maxLevel ? "#FFFF00" : "#FF0000";
-        Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2}", color, level, maxLevel);
-
-        if (level >= maxLevel && cycle < ConfigHelper.Cycle_Max && user.Account != "")
+        if (cycle >= maxCycle)
         {
-            Btn_Ok.gameObject.SetActive(true);
+            CycleConfig maxConfig = CycleConfigCategory.Instance.GetByCycle(type, maxCycle);
+            Txt_Name.text = maxConfig.Name;
+            Txt_Fee.text = "已满";
+            Btn_Ok.gameObject.SetActive(false);
+
+            for (int i = 0; i < AttrList.Length; i++)
+            {
+                if (i < maxConfig.AttrIdList.Length)
+                {
+                    AttrList[i].gameObject.SetActive(true);
+
+                    int attrId = maxConfig.AttrIdList[i];
+                    long bv = maxConfig.AttrValueList[i];
+
+                    AttrList[i].SetContent(attrId, bv, 0);
+                }
+                else
+                {
+                    AttrList[i].gameObject.SetActive(false);
+                }
+            }
         }
         else
         {
-            Btn_Ok.gameObject.SetActive(false);
-        }
+            CycleConfig currentConfig = CycleConfigCategory.Instance.GetByCycle(type, cycle);
+            CycleConfig nextConfig = CycleConfigCategory.Instance.GetByCycle(type, cycle + 1);
 
-        CycleConfig config = CycleConfigCategory.Instance.GetByCycle(cycle);
-        CycleConfig nextConfig = CycleConfigCategory.Instance.GetByCycle(cycle + 1);
+            long level = user.MagicLevel.Data;
 
-        int maxCount = nextConfig != null ? nextConfig.AttrIdList.Length : config.AttrIdList.Length;
+            Txt_Name.text = nextConfig.Name;
 
-        for (int i = 0; i < AttrList.Length; i++)
-        {
-            if (i < maxCount)
+            string color = level >= nextConfig.RequireLevel ? "#FFFF00" : "#FF0000";
+            Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2}", color, level, nextConfig.RequireLevel);
+
+            if (level >= nextConfig.RequireLevel && cycle < ConfigHelper.Cycle_Max && user.Account != "")
             {
-                AttrList[i].gameObject.SetActive(true);
-
-                int attrId = nextConfig != null ? nextConfig.AttrIdList[i] : config.AttrIdList[i];
-                long bv = config != null && config.AttrValueList.Length > i ? config.AttrValueList[i] : 0;
-                long nv = nextConfig != null ? nextConfig.AttrValueList[i] : bv;
-
-                AttrList[i].SetContent(attrId, bv, nv - bv);
+                Btn_Ok.gameObject.SetActive(true);
             }
             else
             {
-                AttrList[i].gameObject.SetActive(false);
+                Btn_Ok.gameObject.SetActive(false);
+            }
+
+            int maxCount = nextConfig != null ? nextConfig.AttrIdList.Length : currentConfig.AttrIdList.Length;
+
+            for (int i = 0; i < AttrList.Length; i++)
+            {
+                if (i < maxCount)
+                {
+                    int attrId = nextConfig != null ? nextConfig.AttrIdList[i] : currentConfig.AttrIdList[i];
+                    long bv = currentConfig != null && currentConfig.AttrValueList.Length > i ? currentConfig.AttrValueList[i] : 0;
+                    long nv = nextConfig != null ? nextConfig.AttrValueList[i] : bv;
+
+                    AttrList[i].SetContent(attrId, bv, nv - bv);
+                    AttrList[i].gameObject.SetActive(true);
+                }
+                else
+                {
+                    AttrList[i].gameObject.SetActive(false);
+                }
             }
         }
-
     }
 
     public void OnClick_Ok()
@@ -123,9 +149,10 @@ public class Dialog_Cycle : MonoBehaviour
         User user = GameProcessor.Inst.User;
 
         long level = user.MagicLevel.Data;
-        long cycleLevel = user.GetMaxLevel();
+        long cycle = user.Cycle.Data;
+        CycleConfig nextConfig = CycleConfigCategory.Instance.GetByCycle(this.Type, cycle + 1);
 
-        if (level < cycleLevel)
+        if (level < nextConfig.RequireLevel)
         {
             return;
         }

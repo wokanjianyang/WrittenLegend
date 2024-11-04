@@ -78,15 +78,24 @@ namespace Game
 		/// <summary>Id</summary>
 		[ProtoMember(1)]
 		public int Id { get; set; }
-		/// <summary>Cycle</summary>
+		/// <summary>Type</summary>
 		[ProtoMember(2)]
-		public long Cycle { get; set; }
-		/// <summary>AttrIdList</summary>
+		public int Type { get; set; }
+		/// <summary>Cycle</summary>
 		[ProtoMember(3)]
+		public int Cycle { get; set; }
+		/// <summary>AttrIdList</summary>
+		[ProtoMember(4)]
 		public int[] AttrIdList { get; set; }
 		/// <summary>AttrValueList</summary>
-		[ProtoMember(4)]
+		[ProtoMember(5)]
 		public long[] AttrValueList { get; set; }
+		/// <summary>Name</summary>
+		[ProtoMember(6)]
+		public string Name { get; set; }
+		/// <summary>RequireLevel</summary>
+		[ProtoMember(7)]
+		public int RequireLevel { get; set; }
 
 	}
 }

@@ -365,7 +365,17 @@ namespace Game
             //转生属性
             if (Cycle.Data > 0)
             {
-                CycleConfig cycleConfig = CycleConfigCategory.Instance.GetByCycle(Cycle.Data);
+                long maxType = (Cycle.Data - 1) / 10;
+                for (int cc = 0; cc < maxType; cc++)
+                {
+                    CycleConfig ccConfig = CycleConfigCategory.Instance.GetByCycle(cc, cc * 10);
+                    for (int i = 0; i < ccConfig.AttrIdList.Length; i++)
+                    {
+                        AttributeBonus.SetAttr((AttributeEnum)ccConfig.AttrIdList[i], AttributeFrom.Cycle, cc * 100 + i, ccConfig.AttrValueList[i]);
+                    }
+                }
+
+                CycleConfig cycleConfig = CycleConfigCategory.Instance.GetByCycle(maxType, Cycle.Data);
                 for (int i = 0; i < cycleConfig.AttrIdList.Length; i++)
                 {
                     AttributeBonus.SetAttr((AttributeEnum)cycleConfig.AttrIdList[i], AttributeFrom.Cycle, i, cycleConfig.AttrValueList[i]);
