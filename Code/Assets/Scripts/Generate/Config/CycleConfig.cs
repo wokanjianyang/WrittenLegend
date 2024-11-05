@@ -90,12 +90,6 @@ namespace Game
 		/// <summary>AttrValueList</summary>
 		[ProtoMember(5)]
 		public long[] AttrValueList { get; set; }
-		/// <summary>Name</summary>
-		[ProtoMember(6)]
-		public string Name { get; set; }
-		/// <summary>RequireLevel</summary>
-		[ProtoMember(7)]
-		public int RequireLevel { get; set; }
 
 	}
 }

@@ -62,7 +62,7 @@ namespace Game
             string text = "";
             if (cycle > 0)
             {
-                text += ConfigHelper.LayerChinaList[cycle] + "转 "; // string.Format("<color=#FF0000>{0}</color>", );
+                text += ConfigHelper.CycleList[cycle] + " "; // string.Format("<color=#FF0000>{0}</color>", );
             }
             text += level + "级";
 

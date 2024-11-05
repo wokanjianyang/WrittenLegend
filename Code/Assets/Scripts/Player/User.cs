@@ -350,12 +350,6 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, levelAttr + 10);
             AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, levelAttr / 5 + 1);
 
-            if (isDingzhi)
-            {
-                AttributeBonus.SetAttr(AttributeEnum.Speed, AttributeFrom.Dingzhi, 100);
-                AttributeBonus.SetAttr(AttributeEnum.MoveSpeed, AttributeFrom.Dingzhi, 100);
-            }
-
             //AttributeBonus.SetAttr(AttributeEnum.QualityIncrea, AttributeFrom.Test + 1, 1000000000);
             //AttributeBonus.SetAttr(AttributeEnum.MulAttr, AttributeFrom.Test + 1, 100000);
 
@@ -365,7 +359,7 @@ namespace Game
             //转生属性
             if (Cycle.Data > 0)
             {
-                long maxType = (Cycle.Data - 1) / 10;
+                int maxType = (int)((Cycle.Data - 1) / 10);
                 for (int cc = 0; cc < maxType; cc++)
                 {
                     CycleConfig ccConfig = CycleConfigCategory.Instance.GetByCycle(cc, (cc + 1) * 10);
@@ -378,7 +372,7 @@ namespace Game
                 CycleConfig cycleConfig = CycleConfigCategory.Instance.GetByCycle(maxType, Cycle.Data);
                 for (int i = 0; i < cycleConfig.AttrIdList.Length; i++)
                 {
-                    AttributeBonus.SetAttr((AttributeEnum)cycleConfig.AttrIdList[i], AttributeFrom.Cycle, i, cycleConfig.AttrValueList[i]);
+                    AttributeBonus.SetAttr((AttributeEnum)cycleConfig.AttrIdList[i], AttributeFrom.Cycle, maxType * 100 + i, cycleConfig.AttrValueList[i]);
                 }
             }
 

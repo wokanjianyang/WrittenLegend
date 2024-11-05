@@ -79,7 +79,7 @@ public class Dialog_Cycle : MonoBehaviour
         if (cycle >= maxCycle)
         {
             CycleConfig maxConfig = CycleConfigCategory.Instance.GetByCycle(type, maxCycle);
-            Txt_Name.text = maxConfig.Name;
+            Txt_Name.text = ConfigHelper.CycleList[maxCycle];
             Txt_Fee.text = "已满";
             Btn_Ok.gameObject.SetActive(false);
 
@@ -107,12 +107,13 @@ public class Dialog_Cycle : MonoBehaviour
 
             long level = user.MagicLevel.Data;
 
-            Txt_Name.text = nextConfig.Name;
+            Txt_Name.text = ConfigHelper.CycleList[cycle];
+            long RequireLevel = user.GetMaxLevel();
 
-            string color = level >= nextConfig.RequireLevel ? "#FFFF00" : "#FF0000";
-            Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2}", color, level, nextConfig.RequireLevel);
+            string color = level >= RequireLevel ? "#FFFF00" : "#FF0000";
+            Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2}", color, level, RequireLevel);
 
-            if (level >= nextConfig.RequireLevel && cycle < ConfigHelper.Cycle_Max && user.Account != "")
+            if (level >= RequireLevel && cycle < ConfigHelper.Cycle_Max && user.Account != "")
             {
                 Btn_Ok.gameObject.SetActive(true);
             }
@@ -147,12 +148,13 @@ public class Dialog_Cycle : MonoBehaviour
         Btn_Ok.gameObject.SetActive(false);
 
         User user = GameProcessor.Inst.User;
+        long RequireLevel = user.GetMaxLevel();
 
         long level = user.MagicLevel.Data;
         long cycle = user.Cycle.Data;
         CycleConfig nextConfig = CycleConfigCategory.Instance.GetByCycle(this.Type, cycle + 1);
 
-        if (level < nextConfig.RequireLevel)
+        if (level < RequireLevel)
         {
             return;
         }
