@@ -990,10 +990,10 @@ MonoBehaviour:
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
+    m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 500/1000
+  m_Text: "9999\u6781\u6781/1000\u6781\u6781"
 --- !u!1 &8051326289647365413
 GameObject:
   m_ObjectHideFlags: 0
