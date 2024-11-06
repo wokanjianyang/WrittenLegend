@@ -12,11 +12,11 @@ namespace Game
 
         public const int Channel_Tap = 1;
 
-        public const int Version = 302;
+        public const int Version = 303;
 
-        public const long PackTime = 1730079653; //打包时间，防止作弊
+        public const long PackTime = 1730882150; //打包时间，防止作弊
 
-        public const long PackEndTime = 1731807653; //超过此时间,游戏不能使用，需要更新
+        public const long PackEndTime = 1732610150; //超过此时间,游戏不能使用，需要更新
 
         public const long Max_Level = 120000; //最大人物等级和强化等级
 
@@ -24,7 +24,7 @@ namespace Game
 
         public const long Cycle_Max = 11;
 
-        public const long Max_Legacy_Level = 10; //最大传世副本等级
+        public const long Max_Legacy_Level = 20; //最大传世副本等级
 
         public const long Max_Floor = 20000000; //最大闯关
 
@@ -44,15 +44,15 @@ namespace Game
         public const long MaxOfflineTime = 3600 * 24;  //最长离线时间
 
         //public const int MaxBagCount = 210;  // 包裹数量
-        public static int[] BagCount = new int[] { 100, 100, 100, 350, 350 };
+        public static int[] BagCount = new int[] { 100, 100, 100, 350, 450 };
 
         public const int CopyTicketCd = 900; //15分钟
         public const int CopyTicketCdMin = 120; //2分钟
-        public const int LegacyTicketCd = 10800; //1小时 
+        public const int LegacyTicketCd = 5400; //1小时 
 
         public const int CopyTicketMax = 1500; //副本最大次数
         public const int CopyTicketFirstCount = 300; //副本离线和新号最多多少次
-        public const int LegacyTiketMax = 50; //传世挑战最大次数
+        public const int LegacyTiketMax = 100; //传世挑战最大次数
 
         public static int[] PercentAttrIdList = { 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 23, 24, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 41, 43, 45, 101, 102, 103, 110, 201, 202, 203, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011 };
 

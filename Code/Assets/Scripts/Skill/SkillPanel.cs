@@ -162,7 +162,7 @@ namespace Game
                 int dil = (int)v.Value.Data;
                 if (dil > 0)
                 {
-                    SkillDivineConfig divineConfig = SkillDivineConfigCategory.Instance.Get(v.Key);
+                    SkillDivineConfig divineConfig = SkillDivineConfigCategory.Instance.GetConfig(v.Key, dil);
                     divineAttrList[divineConfig.SkillAttrId - 1] += divineConfig.SkillAttrValue * dil;
                 }
             }
