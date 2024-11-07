@@ -56,7 +56,7 @@ public class Dialog_Talent_Detail : MonoBehaviour
         Txt_Next.text = "升级提高：" + "" + StringHelper.FormatAttrValueText(config.AttrId, attrVal);
 
         Txt_Cost.text = "需求天赋点：" + config.Fee;
-        Txt_Require.text = "前置天赋总等级：" + config.RequireId;
+        Txt_Require.text = "前置天赋总等级：" + config.RequireLevel;
 
         if (level < config.MaxLevel && config.Fee < (total - use))
         {
@@ -90,6 +90,8 @@ public class Dialog_Talent_Detail : MonoBehaviour
             user.AddTalentLevel(Tid);
 
             this.Show();
+
+            GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
         }
     }
 }

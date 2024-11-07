@@ -3,8 +3,8 @@
 {"_t":"TalentConfig","_id":2,"Name":"固守","RequireId":0,"RequireLevel":0,"MaxLevel":20,"AttrId":2002,"AttrValue":100,"RiseValue":0,"Fee":1,"desc":"提高防御倍率{0}%"},
 {"_t":"TalentConfig","_id":3,"Name":"命源","RequireId":0,"RequireLevel":0,"MaxLevel":20,"AttrId":2003,"AttrValue":100,"RiseValue":0,"Fee":1,"desc":"提高生命倍率{0}%"},
 {"_t":"TalentConfig","_id":4,"Name":"铁壁","RequireId":0,"RequireLevel":10,"MaxLevel":10,"AttrId":112,"AttrValue":1,"RiseValue":0,"Fee":2,"desc":"提高防御系数{0}点"},
-{"_t":"TalentConfig","_id":5,"Name":"破军","RequireId":0,"RequireLevel":0,"MaxLevel":1,"AttrId":116,"AttrValue":100,"RiseValue":0,"Fee":2,"desc":"溢出的暴击率，每点会额外增加x%的伤害"},
-{"_t":"TalentConfig","_id":6,"Name":"贪狼","RequireId":0,"RequireLevel":0,"MaxLevel":10,"AttrId":114,"AttrValue":100,"RiseValue":0,"Fee":2,"desc":"附加自身生命上限*x%的伤害，不计入吸血"},
-{"_t":"TalentConfig","_id":7,"Name":"律己","RequireId":0,"RequireLevel":0,"MaxLevel":10,"AttrId":113,"AttrValue":9,"RiseValue":0,"Fee":2,"desc":"拥有护体盾的时候，任意伤害不会超过护盾的x%"},
-{"_t":"TalentConfig","_id":8,"Name":"镇卫","RequireId":0,"RequireLevel":0,"MaxLevel":1,"AttrId":115,"AttrValue":100,"RiseValue":0,"Fee":10,"desc":"溢出的减伤倍率，会额外计算"},
+{"_t":"TalentConfig","_id":5,"Name":"破军","RequireId":0,"RequireLevel":10,"MaxLevel":1,"AttrId":116,"AttrValue":100,"RiseValue":0,"Fee":2,"desc":"溢出的暴击率，每点会额外增加x%的伤害"},
+{"_t":"TalentConfig","_id":6,"Name":"贪狼","RequireId":0,"RequireLevel":10,"MaxLevel":10,"AttrId":114,"AttrValue":100,"RiseValue":0,"Fee":2,"desc":"附加自身生命上限*x%的伤害，不计入吸血"},
+{"_t":"TalentConfig","_id":7,"Name":"律己","RequireId":0,"RequireLevel":10,"MaxLevel":10,"AttrId":113,"AttrValue":9,"RiseValue":0,"Fee":2,"desc":"拥有护体盾的时候，任意伤害不会超过护盾的x%"},
+{"_t":"TalentConfig","_id":8,"Name":"镇卫","RequireId":0,"RequireLevel":40,"MaxLevel":1,"AttrId":115,"AttrValue":100,"RiseValue":0,"Fee":10,"desc":"溢出的减伤倍率，会额外计算"},
 ]}

@@ -134,6 +134,7 @@ namespace Game
         Cycle = 20,//×ªÉú
         Pill = 21,//ÐÞÁ¶
         SoulBone = 22, //»ê¹Ç
+        Talent = 23, //Ìì¸³
 
         Dingzhi = 98,
         /// <summary>

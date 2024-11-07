@@ -28,7 +28,10 @@ namespace Game
         // Update is called once per frame
         void OnEnable()
         {
-
+            if (this.Config != null)
+            {
+                this.Show();
+            }
         }
 
         public void Show()

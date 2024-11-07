@@ -640,6 +640,16 @@ namespace Game
                 }
             }
 
+            //天赋
+            foreach (var sp in this.TalentData)
+            {
+                if (sp.Value.Data > 0)
+                {
+                    TalentConfig talentConfig = TalentConfigCategory.Instance.Get(sp.Key);
+
+                    AttributeBonus.SetAttr((AttributeEnum)talentConfig.AttrId, AttributeFrom.Talent, sp.Key, talentConfig.AttrValue * sp.Value.Data);
+                }
+            }
 
             //光环
             foreach (var ar in GetAurasList())
