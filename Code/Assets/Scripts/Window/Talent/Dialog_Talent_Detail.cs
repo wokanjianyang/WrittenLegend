@@ -16,8 +16,8 @@ public class Dialog_Talent_Detail : MonoBehaviour
     public Text Txt_Desc;
     public Text Txt_Current;
     public Text Txt_Next;
-    public Text Text_Cost;
-    public Text Text_Require;
+    public Text Txt_Cost;
+    public Text Txt_Require;
 
     public Button Btn_OK;
 
@@ -48,14 +48,15 @@ public class Dialog_Talent_Detail : MonoBehaviour
 
 
         long level = user.GetTalentLevel(this.Tid);
+        double attrVal = level * config.AttrValue;
 
         Txt_Name.text = config.Name;
-        Txt_Desc.text = string.Format(config.desc);
-        Txt_Current.text = "当前等级:" + "";
-        Txt_Next.text = "下一等级:" + "";
+        Txt_Desc.text = string.Format(config.desc, attrVal);
+        Txt_Current.text = "等级：" + level + "/" + config.MaxLevel;
+        Txt_Next.text = "升级提高：" + "" + StringHelper.FormatAttrValueText(config.AttrId, attrVal);
 
-        Text_Cost.text = "需求天赋点:" + config.Fee;
-        Text_Require.text = "前置天赋总等级:" + config.RequireId;
+        Txt_Cost.text = "需求天赋点：" + config.Fee;
+        Txt_Require.text = "前置天赋总等级：" + config.RequireId;
 
         if (level < config.MaxLevel && config.Fee < (total - use))
         {

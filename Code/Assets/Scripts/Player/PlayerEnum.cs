@@ -69,7 +69,7 @@ namespace Game
         SoulPercent = 110, //炼魂夺魄
         Talent = 111, //天赋点
         DefendRate = 112, //防御系数
-        RealDefend = 113,//真是防御
+        RealDefend = 113,//固定防御
         RealHpDamage = 114,//真实血量伤害
         RealMulDamageResist = 115, //溢出减伤迭代计算
         RealCritRate = 116,//溢出暴击转为伤害加成

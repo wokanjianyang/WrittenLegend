@@ -45,6 +45,10 @@ namespace Game
             {nameof(AttributeEnum.Protect), "绝对减伤" },
             {nameof(AttributeEnum.BurstMul), "多次掉落" },
             {nameof(AttributeEnum.SoulPercent), "炼魂" },
+            {nameof(AttributeEnum.RealDefend), "固定防御" },
+            {nameof(AttributeEnum.RealMulDamageResist), "完全减伤" },
+            {nameof(AttributeEnum.RealHpDamage), "血量真伤" },
+            {nameof(AttributeEnum.RealCritRate), "弱点暴击" },
 
             {nameof(AttributeEnum.PhyDamage), "物伤加成" },
             {nameof(AttributeEnum.MagicDamage),"魔伤加成" },

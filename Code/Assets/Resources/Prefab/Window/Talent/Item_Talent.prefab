@@ -219,7 +219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Img_Bg: {fileID: 4682379856564361657}
   Txt_Name: {fileID: 8181858019419231940}
-  Txt_Level: {fileID: 8181858019419231940}
+  Txt_Level: {fileID: 3636749429276466863}
 --- !u!1 &6772530897389458344
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,4 +299,4 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 11/50
+  m_Text: 00/99

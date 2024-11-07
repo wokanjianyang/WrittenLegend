@@ -39,7 +39,7 @@ namespace Game
 
             if (level > 0)
             {
-                this.Txt_Level.gameObject.SetActive(false);
+                this.Txt_Level.gameObject.SetActive(true);
                 this.Txt_Level.text = $"{level}/{Config.MaxLevel}";
             }
             else

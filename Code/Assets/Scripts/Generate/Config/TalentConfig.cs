@@ -96,11 +96,14 @@ namespace Game
 		/// <summary>AttrValue</summary>
 		[ProtoMember(7)]
 		public int AttrValue { get; set; }
-		/// <summary>Fee</summary>
+		/// <summary>RiseValue</summary>
 		[ProtoMember(8)]
+		public int RiseValue { get; set; }
+		/// <summary>Fee</summary>
+		[ProtoMember(9)]
 		public int Fee { get; set; }
 		/// <summary>desc</summary>
-		[ProtoMember(9)]
+		[ProtoMember(10)]
 		public string desc { get; set; }
 
 	}
