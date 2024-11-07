@@ -63,6 +63,26 @@ namespace Game
             return FormatAttrValueName(attrId) + cr + FormatAttrValueText(attrId, val);
         }
 
+        public static string BuildMulResist(double val)
+        {
+            string text = val + "";
+
+            int count = 2;
+            for (int i = 0; i <= text.Length - 4; i++)
+            {
+                string c = text.Substring(i + 3, 1);
+                if (c == "9")
+                {
+                    count++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            return count + "个9";
+        }
+
         public static string FormatAttrValueText(int attrId, double val)
         {
             string nt = "";
@@ -70,6 +90,11 @@ namespace Game
 
             List<int> percents = ConfigHelper.PercentAttrIdList.ToList();
             //List<int> rates = ConfigHelper.RateAttrIdList.ToList();
+
+            if (attrId == 2011 && val > 99.99999999)
+            {
+                return BuildMulResist(val);
+            }
 
             if (percents.Contains(attrId))
             {
@@ -82,7 +107,7 @@ namespace Game
             }
             else
             {
-                nt = val.ToString("0.####");
+                nt = val.ToString("0.########");
             }
 
             return nt + unit;

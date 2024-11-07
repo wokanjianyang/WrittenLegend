@@ -21,22 +21,33 @@ public class Dialog_Talent_Detail : MonoBehaviour
 
     public Button Btn_OK;
 
-
+    private int Tid = 0;
 
     private void Awake()
     {
         Btn_Close.onClick.AddListener(OnClick_Close);
-
+        Btn_OK.onClick.AddListener(OnClick_Ok);
     }
 
-
-    public void Show(int tid)
+    public void Open(int tid)
     {
-        TalentConfig config = TalentConfigCategory.Instance.Get(tid);
+        this.gameObject.SetActive(true);
+
+        this.Tid = tid;
+        this.Show();
+    }
+
+    public void Show()
+    {
+        TalentConfig config = TalentConfigCategory.Instance.Get(this.Tid);
 
         User user = GameProcessor.Inst.User;
 
-        long level = user.GetTalentLevel(tid);
+        long total = user.TalentExp.Data / 10000;
+        long use = user.TalentData.Select(m => m.Value.Data).Sum();
+
+
+        long level = user.GetTalentLevel(this.Tid);
 
         Txt_Name.text = config.Name;
         Txt_Desc.text = string.Format(config.desc);
@@ -46,18 +57,38 @@ public class Dialog_Talent_Detail : MonoBehaviour
         Text_Cost.text = "需求天赋点:" + config.Fee;
         Text_Require.text = "前置天赋总等级:" + config.RequireId;
 
-        if (level < config.MaxLevel)
+        if (level < config.MaxLevel && config.Fee < (total - use))
         {
-            this.gameObject.SetActive(true);
+            Btn_OK.gameObject.SetActive(true);
         }
         else
         {
-            this.gameObject.SetActive(false); ;
+            Btn_OK.gameObject.SetActive(false); ;
         }
     }
 
     public void OnClick_Close()
     {
         this.gameObject.SetActive(false);
+    }
+
+    public void OnClick_Ok()
+    {
+        TalentConfig config = TalentConfigCategory.Instance.Get(this.Tid);
+
+        User user = GameProcessor.Inst.User;
+
+        long total = user.TalentExp.Data / 10000;
+        long use = user.TalentData.Select(m => m.Value.Data).Sum();
+
+
+        long level = user.GetTalentLevel(this.Tid);
+
+        if (level < config.MaxLevel && config.Fee < (total - use))
+        {
+            user.AddTalentLevel(Tid);
+
+            this.Show();
+        }
     }
 }

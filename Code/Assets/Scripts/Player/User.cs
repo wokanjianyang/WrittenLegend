@@ -253,6 +253,7 @@ namespace Game
 
         public Dictionary<int, MagicData> SoulBoneData { get; } = new Dictionary<int, MagicData>();
 
+        public MagicData TalentExp { get; set; } = new MagicData();
         public Dictionary<int, MagicData> TalentData { get; } = new Dictionary<int, MagicData>();
 
         public MagicData WingData { get; set; } = new MagicData();

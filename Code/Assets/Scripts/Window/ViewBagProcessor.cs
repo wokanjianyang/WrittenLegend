@@ -1059,6 +1059,12 @@ namespace Game
                 user.MagicLevel.Data += quantity;
                 user.EventCenter.Raise(new SetPlayerLevelEvent { Cycle = user.Cycle.Data, Level = user.MagicLevel.Data });
             }
+            else if (boxItem.Item.Type == ItemType.Material_Usable && boxItem.Item.ConfigId == ItemHelper.SpecialId_Talent_Book)
+            {
+                ItemConfig config = ItemConfigCategory.Instance.Get(boxItem.Item.ConfigId);
+
+                user.TalentExp.Data += quantity * config.UseParam;
+            }
             else if (boxItem.Item.Type == ItemType.SkillBox)
             {
                 user.EventCenter.Raise(new HeroUseSkillBookEvent

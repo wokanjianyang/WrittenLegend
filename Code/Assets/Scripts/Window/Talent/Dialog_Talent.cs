@@ -11,8 +11,16 @@ public class Dialog_Talent : MonoBehaviour, IBattleLife
 {
     public Dialog_Talent_Detail DialogDetail;
 
+    public Text Txt_Total;
+    public Text Txt_Enable;
+    public Text Txt_Used;
+
+    public HP_Progress ExpProgress;
+
     private List<Item_Talent> ItemList = new List<Item_Talent>();
     public Button Btn_Close;
+
+    private int LevelExp = 10000;
 
     public int Order => (int)ComponentOrder.Dialog;
 
@@ -41,21 +49,29 @@ public class Dialog_Talent : MonoBehaviour, IBattleLife
 
     private void OnShowDetailEvent(TalentDetailShowEvent e)
     {
-        DialogDetail.Show(e.Tid);
+        DialogDetail.Open(e.Tid);
     }
 
     private void Show()
     {
         User user = GameProcessor.Inst.User;
 
+        long total = user.TalentExp.Data / LevelExp;
+        long used = user.TalentData.Select(m => m.Value.Data).Sum();
+        long enabled = total - used;
+
+        long exp = user.TalentExp.Data % LevelExp;
+        this.ExpProgress.SetProgress(exp, LevelExp);
+
+        Txt_Total.text = "天赋等级：Lv" + total;
+        Txt_Enable.text = "剩余天赋点：" + enabled;
+        Txt_Used.text = "已分配天赋点：" + used;
+
         for (int i = 0; i < ItemList.Count; i++)
         {
             ItemList[i].SetContent(i + 1);
         }
-
     }
-
-
 
     public void OnClick_Close()
     {
