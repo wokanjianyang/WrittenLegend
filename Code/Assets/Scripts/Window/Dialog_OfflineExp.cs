@@ -340,7 +340,7 @@ namespace Game
 
             List<Item> itemList = new List<Item>();
 
-            long killCount = (long)(offlineTime * 2.5);
+            long killCountFrom = (long)(offlineTime * 2.5);
             //long realKillCount = (long)(killCount * modelConfig.CountRate);
 
             double lossRate = 1.1; //损失系数,只有 1/1.1 倍的掉落收益
@@ -360,9 +360,10 @@ namespace Game
 
             MonsterBase monster = MonsterBaseCategory.Instance.GetByMapId(mapId);
 
-            message += "\n离线未知暗殿(" + mapConfig.Name + ")，击杀了" + killCount + "个怪物，获得";
             long burstMul = user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstMul);
-            killCount = killCount * (100 + burstMul) / 100;
+            long killCount = killCountFrom * (100 + burstMul) / 100;
+
+            message += "\n离线未知暗殿(" + mapConfig.Name + ")，击杀了" + killCountFrom + "(连爆计算为" + killCount + ")个怪物，获得";
 
             long gold = (long)(monster.Gold * killCount * modelConfig.RewardRate * ((100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.GoldIncrea)) / 100));
             long exp = (long)(monster.Exp * killCount * modelConfig.RewardRate * ((100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.ExpIncrea)) / 100));
