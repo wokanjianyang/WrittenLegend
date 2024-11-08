@@ -91,7 +91,19 @@ namespace Game
             double currentSP = this.SelfPlayer.SP;
             if (currentSP > 0)
             {
-                currentSP -= dr.Damage;
+                double spDamge = dr.Damage;
+
+                double spRate = this.SelfPlayer.AttributeBonus.GetTotalAttrDouble(AttributeEnum.SpRate);
+                if (spRate > 0)
+                {
+                    double maxHp = this.SelfPlayer.AttributeBonus.GetBaseAttr(AttributeEnum.HP);
+                    double maxSpDamge = maxHp * (100 - spRate) / 100;
+
+                    spDamge = Math.Min(spDamge, maxSpDamge);
+                    //Debug.Log("maxHp:" + maxHp + " spDamage:" + spDamge);
+                }
+
+                currentSP -= spDamge;
                 if (currentSP <= 0)
                 {
                     currentSP = 0;
@@ -104,7 +116,7 @@ namespace Game
                     this.SelfPlayer.EventCenter.Raise(new ShowMsgEvent
                     {
                         Type = MsgType.SP,
-                        Content = "-" + StringHelper.FormatNumber(dr.Damage)
+                        Content = "-" + StringHelper.FormatNumber(spDamge)
                     });
                 }
 

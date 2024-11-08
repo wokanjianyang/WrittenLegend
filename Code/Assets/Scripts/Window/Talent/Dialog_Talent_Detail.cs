@@ -43,22 +43,26 @@ public class Dialog_Talent_Detail : MonoBehaviour
 
         User user = GameProcessor.Inst.User;
 
-        long total = user.TalentExp.Data / 10000;
-        long use = user.TalentData.Select(m => m.Value.Data).Sum();
+        long totalPoint = user.TalentExp.Data / 10000;
+        long usedPoint = user.TalentPoint;
+        long enablePoint = totalPoint - usedPoint;
 
-
+        long totalLevel = user.TalentData.Select(m => m.Value.Data).Sum();
         long level = user.GetTalentLevel(this.Tid);
         double attrVal = level * config.AttrValue;
 
         Txt_Name.text = config.Name;
         Txt_Desc.text = string.Format(config.desc, attrVal);
         Txt_Current.text = "等级：" + level + "/" + config.MaxLevel;
-        Txt_Next.text = "升级提高：" + "" + StringHelper.FormatAttrValueText(config.AttrId, attrVal);
+        Txt_Next.text = "升级提高：" + "" + StringHelper.FormatAttrValueText(config.AttrId, config.RiseValue);
 
-        Txt_Cost.text = "需求天赋点：" + config.Fee;
-        Txt_Require.text = "前置天赋总等级：" + config.RequireLevel;
+        string color = config.Fee <= enablePoint ? "#00FF00" : "#FF0000";
+        Txt_Cost.text = string.Format("需求天赋点：<color={0}>{1} /{2}</color>", color, enablePoint, config.Fee);
 
-        if (level < config.MaxLevel && config.Fee < (total - use))
+        color = totalLevel >= config.RequireLevel ? "#00FF00" : "#FF0000";
+        Txt_Require.text = string.Format("前置天赋总等级：<color={0}>{1} /{2}</color>", color, totalLevel, config.RequireLevel);
+
+        if (level < config.MaxLevel && config.RequireLevel <= totalLevel && config.Fee <= enablePoint)
         {
             Btn_OK.gameObject.SetActive(true);
         }
@@ -87,11 +91,14 @@ public class Dialog_Talent_Detail : MonoBehaviour
 
         if (level < config.MaxLevel && config.Fee < (total - use))
         {
-            user.AddTalentLevel(Tid);
+            user.AddTalentLevel(Tid, config.Fee);
 
             this.Show();
 
             GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
+
+            Dialog_Talent parent = this.GetComponentInParent<Dialog_Talent>();
+            parent.Refresh();
         }
     }
 }

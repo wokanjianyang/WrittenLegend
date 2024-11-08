@@ -57,7 +57,7 @@ public class Dialog_Talent : MonoBehaviour, IBattleLife
         User user = GameProcessor.Inst.User;
 
         long total = user.TalentExp.Data / LevelExp;
-        long used = user.TalentData.Select(m => m.Value.Data).Sum();
+        long used = user.TalentPoint;
         long enabled = total - used;
 
         long exp = user.TalentExp.Data % LevelExp;
@@ -70,6 +70,26 @@ public class Dialog_Talent : MonoBehaviour, IBattleLife
         for (int i = 0; i < ItemList.Count; i++)
         {
             ItemList[i].SetContent(i + 1);
+        }
+    }
+
+    public void Refresh() {
+        User user = GameProcessor.Inst.User;
+
+        long total = user.TalentExp.Data / LevelExp;
+        long used = user.TalentPoint;
+        long enabled = total - used;
+
+        long exp = user.TalentExp.Data % LevelExp;
+        this.ExpProgress.SetProgress(exp, LevelExp);
+
+        Txt_Total.text = "天赋等级：Lv" + total;
+        Txt_Enable.text = "剩余天赋点：" + enabled;
+        Txt_Used.text = "已分配天赋点：" + used;
+
+        for (int i = 0; i < ItemList.Count; i++)
+        {
+            ItemList[i].Show();
         }
     }
 

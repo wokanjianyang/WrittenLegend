@@ -256,6 +256,8 @@ namespace Game
         public MagicData TalentExp { get; set; } = new MagicData();
         public Dictionary<int, MagicData> TalentData { get; } = new Dictionary<int, MagicData>();
 
+        public int TalentPoint { get; set; } = 0;
+
         public MagicData WingData { get; set; } = new MagicData();
 
         public MagicData PillData { get; set; } = new MagicData();
@@ -1489,13 +1491,14 @@ namespace Game
             return TalentData[tid].Data;
         }
 
-        public void AddTalentLevel(int tid)
+        public void AddTalentLevel(int tid, int fee)
         {
             if (!TalentData.ContainsKey(tid))
             {
                 TalentData[tid] = new MagicData();
             }
             TalentData[tid].Data++;
+            TalentPoint += fee;
         }
 
         public long GetHalidomLevel(int id)

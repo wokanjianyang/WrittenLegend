@@ -96,14 +96,20 @@ namespace Game
 		/// <summary>AttrValue</summary>
 		[ProtoMember(7)]
 		public int AttrValue { get; set; }
-		/// <summary>RiseValue</summary>
+		/// <summary>RiseType</summary>
 		[ProtoMember(8)]
-		public int RiseValue { get; set; }
-		/// <summary>Fee</summary>
+		public int RiseType { get; set; }
+		/// <summary>RiseValue</summary>
 		[ProtoMember(9)]
+		public int RiseValue { get; set; }
+		/// <summary>RiseUnit</summary>
+		[ProtoMember(10)]
+		public string RiseUnit { get; set; }
+		/// <summary>Fee</summary>
+		[ProtoMember(11)]
 		public int Fee { get; set; }
 		/// <summary>desc</summary>
-		[ProtoMember(10)]
+		[ProtoMember(12)]
 		public string desc { get; set; }
 
 	}

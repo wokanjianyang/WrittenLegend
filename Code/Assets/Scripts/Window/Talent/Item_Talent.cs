@@ -19,23 +19,15 @@ namespace Game
         // Start is called before the first frame update
         void Start()
         {
-            if (Config != null)
-            {
-                this.Show();
-            }
-        }
-
-        // Update is called once per frame
-        void OnEnable()
-        {
-            if (this.Config != null)
-            {
-                this.Show();
-            }
         }
 
         public void Show()
         {
+            if (this.Config == null)
+            {
+                return;
+            }
+
             User user = GameProcessor.Inst.User;
 
             long level = user.GetTalentLevel(Config.Id);
