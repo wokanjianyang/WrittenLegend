@@ -24,7 +24,7 @@ namespace Game
 
         }
 
-        public override void Do(double baseHp)
+        public override void Do(DamageResult baseDr)
         {
             List<Vector3Int> playCells = GetPlayCells();
 
@@ -52,9 +52,12 @@ namespace Game
                         }
                     }
 
-                    double dm = baseHp * 0.2 * SkillPanel.Percent;
+                    double dm = baseDr.Damage * 0.2 * SkillPanel.Percent;
+                    double edm = baseDr.ExtendDamage * 0.2 * SkillPanel.Percent;
 
-                    DamageResult dr = new DamageResult(dm, 0, MsgType.Damage, RoleType.Warrior); //
+                    //Debug.Log("dm:" + StringHelper.FormatNumber(dm) + "  edm:" + StringHelper.FormatNumber(edm));
+
+                    DamageResult dr = new DamageResult(dm, edm, MsgType.Damage, RoleType.Warrior); //
                     dr.FromId = attackData.Tid;
                     enemy.OnHit(dr);
 

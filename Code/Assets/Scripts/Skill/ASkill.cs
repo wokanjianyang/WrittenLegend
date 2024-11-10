@@ -27,7 +27,7 @@ namespace Game
             this.SkillPanel = skill;
         }
         abstract public void Do();
-        public virtual void Do(double baseHp)
+        public virtual void Do(DamageResult baseDr)
         {
 
         }

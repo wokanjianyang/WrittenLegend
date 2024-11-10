@@ -88,10 +88,12 @@ namespace Game
                 //Debug.Log($"{(this.SelfPlayer.Name)} 受到伤害:{(StringHelper.FormatNumber(dr.Damage))}");
             }
 
+            double totalDamage = dr.Damage + dr.ExtendDamage;
+
             double currentSP = this.SelfPlayer.SP;
             if (currentSP > 0)
             {
-                double spDamge = dr.Damage;
+                double spDamge = totalDamage;
 
                 double spRate = this.SelfPlayer.AttributeBonus.GetTotalAttrDouble(AttributeEnum.SpRate);
                 if (spRate > 0)
@@ -127,7 +129,7 @@ namespace Game
 
             double currentHP = this.SelfPlayer.HP;
 
-            currentHP -= dr.Damage;
+            currentHP -= totalDamage;
             if (currentHP <= 0)
             {
                 currentHP = 0;
@@ -140,10 +142,17 @@ namespace Game
             {
                 if (GameProcessor.Inst.User.ShowMonsterDamage)
                 {
+                    string content = "-" + StringHelper.FormatNumber(dr.Damage);
+                    if (dr.ExtendDamage > 0)
+                    {
+                        content += "+" + StringHelper.FormatNumber(dr.ExtendDamage);
+
+                        //Debug.Log("DM:" + StringHelper.FormatNumber(dr.Damage) + "  EDM:" + StringHelper.FormatNumber(dr.ExtendDamage));
+                    }
                     this.SelfPlayer.EventCenter.Raise(new ShowMsgEvent
                     {
                         Type = dr.Type,
-                        Content = "-" + StringHelper.FormatNumber(dr.Damage)
+                        Content = content
                     });
                 }
             }

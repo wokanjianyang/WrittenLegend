@@ -17,7 +17,7 @@ namespace Game
 
         public override void Do()
         {
-            double baseHp = 0;
+            DamageResult baseDr = null;
 
             List<Vector3Int> playCells = GetPlayCells();
             this.skillGraphic?.PlayAnimation(playCells);
@@ -71,7 +71,7 @@ namespace Game
 
                     if (enemy.ID == SelfPlayer.Enemy.ID)
                     {
-                        baseHp = dr.Damage;
+                        baseDr = dr;
                     }
 
                     //if (this.SelfPlayer.Camp == PlayerType.Valet)
@@ -119,9 +119,9 @@ namespace Game
             {
                 //do Chediding
                 SkillState skillChediding = SelfPlayer.SelectSkillList.Where(m => m.SkillPanel.SkillId == 1010).FirstOrDefault();
-                if (skillChediding != null && baseHp > 0 && RandomHelper.RandomNumber(1, 6) <= 1)
+                if (skillChediding != null && baseDr != null && RandomHelper.RandomNumber(1, 6) <= 1)
                 {
-                    skillChediding.Do(baseHp);
+                    skillChediding.Do(baseDr);
                 }
             }
         }

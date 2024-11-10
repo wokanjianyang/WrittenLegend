@@ -155,10 +155,10 @@ namespace Game
             this.skillLogic.Do();
         }
 
-        public void Do(double baseHp)
+        public void Do(DamageResult baseDr)
         {
             this.CD = SkillPanel.CD;
-            this.skillLogic.Do(baseHp);
+            this.skillLogic.Do(baseDr);
         }
 
         //public void SetLastUseTime(long time)
