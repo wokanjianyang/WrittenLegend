@@ -15,7 +15,7 @@ public class BattleRule_Babel : ABattleRule
     private const double TimeMax = 180;
     private double TimeTotal = 0;
 
-    private int[] MonsterList1 = new int[] { 1, 1, 1, 1, 1, 1, 1, 1, 2, 2 };
+    private int[] MonsterList1 = new int[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
     private int[] MonsterList2 = new int[] { 1, 1, 1, 1, 2, 2, 2, 2, 2, 3 };
     private int[] MonsterList3 = new int[] { 2, 2, 2, 2, 2, 2, 3, 3, 3, 3 };
 

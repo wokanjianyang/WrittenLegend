@@ -54,7 +54,7 @@ namespace Game
 
                     double dm = baseHp * 0.2 * SkillPanel.Percent;
 
-                    DamageResult dr = new DamageResult(dm, MsgType.Damage, RoleType.Warrior); //
+                    DamageResult dr = new DamageResult(dm, 0, MsgType.Damage, RoleType.Warrior); //
                     dr.FromId = attackData.Tid;
                     enemy.OnHit(dr);
 

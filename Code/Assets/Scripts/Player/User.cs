@@ -40,7 +40,7 @@ namespace Game
 
         public MagicDouble MagicExp { get; } = new MagicDouble();
 
-        public MagicData MagicUpExp { get; } = new MagicData();
+        public MagicDouble MagicUpExp { get; } = new MagicDouble();
 
         public MagicData MagicTowerFloor { get; } = new MagicData();
 
@@ -648,8 +648,7 @@ namespace Game
                 if (sp.Value.Data > 0)
                 {
                     TalentConfig talentConfig = TalentConfigCategory.Instance.Get(sp.Key);
-
-                    AttributeBonus.SetAttr((AttributeEnum)talentConfig.AttrId, AttributeFrom.Talent, sp.Key, talentConfig.AttrValue * sp.Value.Data);
+                    AttributeBonus.SetAttr((AttributeEnum)talentConfig.AttrId, AttributeFrom.Talent, sp.Key, talentConfig.GetAttrValue(sp.Value.Data));
                 }
             }
 
@@ -1163,7 +1162,7 @@ namespace Game
 
         private void SetUpExp()
         {
-            long levelAttr = LevelConfigCategory.GetLevelAttr(MagicLevel.Data);
+            double levelAttr = LevelConfigCategory.GetLevelAttr(MagicLevel.Data);
             LevelConfig config = LevelConfigCategory.Instance.GetAll().Where(m => m.Value.StartLevel <= MagicLevel.Data && m.Value.EndLevel >= MagicLevel.Data).First().Value;
             MagicUpExp.Data = levelAttr * config.Exp;
         }

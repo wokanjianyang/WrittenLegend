@@ -49,12 +49,12 @@ public class Dialog_Talent_Detail : MonoBehaviour
 
         long totalLevel = user.TalentData.Select(m => m.Value.Data).Sum();
         long level = user.GetTalentLevel(this.Tid);
-        double attrVal = level * config.AttrValue;
+        double attrVal = config.GetAttrValue(level);
 
         Txt_Name.text = config.Name;
         Txt_Desc.text = string.Format(config.desc, attrVal);
         Txt_Current.text = "等级：" + level + "/" + config.MaxLevel;
-        Txt_Next.text = "升级提高：" + "" + StringHelper.FormatAttrValueText(config.AttrId, config.RiseValue);
+        Txt_Next.text = "升级提高：" + "" + config.RiseValue + config.RiseUnit;
 
         string color = config.Fee <= enablePoint ? "#00FF00" : "#FF0000";
         Txt_Cost.text = string.Format("需求天赋点：<color={0}>{1} /{2}</color>", color, enablePoint, config.Fee);

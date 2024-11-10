@@ -83,10 +83,10 @@ namespace Game
                 return;
             }
 
-            //if (SelfPlayer.Camp == PlayerType.Hero)
-            //{
-            //    Debug.Log($"{(this.SelfPlayer.Name)} 属性:{(StringHelper.FormatNumber(dr.Damage))}");
-            //}
+            if (SelfPlayer.Camp == PlayerType.Hero)
+            {
+                //Debug.Log($"{(this.SelfPlayer.Name)} 受到伤害:{(StringHelper.FormatNumber(dr.Damage))}");
+            }
 
             double currentSP = this.SelfPlayer.SP;
             if (currentSP > 0)

@@ -19,7 +19,14 @@ namespace Game
             long ignoreDef = Math.Min(skill.IgnoreDef + attcher.GetAttackAttr(AttributeEnum.DefIgnore), 100);
             def = def * (100 - ignoreDef) / 100;
 
-            double defRate = def * ConfigHelper.Def_Rate / (def * ConfigHelper.Def_Rate + roleAttr);
+            double defRiseRate = 1 + enemy.GetAttackDoubleAttr(AttributeEnum.DefendRate);
+
+            double defRate = def * ConfigHelper.Def_Rate * defRiseRate / (def * ConfigHelper.Def_Rate * defRiseRate + roleAttr);
+
+            //if (defRiseRate > 1)
+            //{
+            //    Debug.Log("defRiseRate:" + defRiseRate + " defRate:" + defRate);
+            //}
 
             double attack = roleAttr * (1 - defRate); //攻击 - 防御
 
@@ -82,8 +89,16 @@ namespace Game
 
             MsgType type = isCrit ? MsgType.Crit : MsgType.Damage;
 
+            double extendDamage = 0;
+            double at = attcher.GetAttackDoubleAttr(AttributeEnum.RealHpDamage);
+            if (at > 0)
+            {
+                double maxHp = attcher.GetAttackDoubleAttr(AttributeEnum.HP);
+                extendDamage = maxHp * at;
+            }
+
             //强制最少1点伤害
-            return new DamageResult(Math.Max(1, attack), type, (RoleType)role); //
+            return new DamageResult(Math.Max(1, attack), extendDamage, type, (RoleType)role); //
         }
 
         public static bool IsMiss(APlayer self, APlayer enemy)
@@ -296,9 +311,10 @@ namespace Game
 
     public class DamageResult
     {
-        public DamageResult(double damage, MsgType type, RoleType roleType)
+        public DamageResult(double damage, double extendDamage, MsgType type, RoleType roleType)
         {
             this.Damage = damage;
+            this.ExtendDamage = extendDamage;
             this.Type = type;
             this.RoleType = roleType;
         }
@@ -315,6 +331,7 @@ namespace Game
 
         public RoleType RoleType { get; set; }
         public double Damage { get; set; }
+        public double ExtendDamage { get; set; }
         public int FromId { get; set; }
     }
 }
