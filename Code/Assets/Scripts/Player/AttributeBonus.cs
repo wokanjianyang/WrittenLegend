@@ -86,13 +86,6 @@ namespace Game
             return GetTotalAttrDouble(attrType, true);
         }
 
-        public double GetMulResist(int type)
-        {
-            //TODO
-
-            return 0;
-        }
-
         public double GetTotalAttrDouble(AttributeEnum attrType, bool haveBuff)
         {
             double total = 0;
@@ -352,6 +345,14 @@ namespace Game
             }
 
             return (1 - total) * 100;
+        }
+
+
+        public double GetMulResist(int type)
+        {
+            //TODO
+
+            return 0;
         }
 
         public double CalMulDamageResistAttack()
