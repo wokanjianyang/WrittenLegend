@@ -198,6 +198,89 @@ namespace Game
         {
             string src;
 
+            if (val.Length > 48)
+            {
+                unit = "极" + unit;
+                src = val.Substring(0, val.Length - 48);
+            }
+            else if (val.Length > 44)
+            {
+                unit = "载" + unit;
+                src = val.Substring(0, val.Length - 44);
+            }
+            else if (val.Length > 40)
+            {
+                unit = "正" + unit;
+                src = val.Substring(0, val.Length - 40);
+            }
+            else if (val.Length > 36)
+            {
+                unit = "涧" + unit;
+                src = val.Substring(0, val.Length - 36);
+            }
+            else if (val.Length > 32)
+            {
+                unit = "沟" + unit;
+                src = val.Substring(0, val.Length - 32);
+            }
+            else if (val.Length > 28)
+            {
+                unit = "穰" + unit;
+                src = val.Substring(0, val.Length - 28);
+            }
+            else if (val.Length > 24)
+            {
+                unit = "秭" + unit;
+                src = val.Substring(0, val.Length - 24);
+            }
+            else if (val.Length > 20)
+            {
+                unit = "垓" + unit;
+                src = val.Substring(0, val.Length - 20);
+            }
+            else if (val.Length > 16)
+            {
+                unit = "京" + unit;
+                src = val.Substring(0, val.Length - 16);
+            }
+            else if (val.Length > 12)
+            {
+                unit = "兆" + unit;
+                src = val.Substring(0, val.Length - 12);
+            }
+            else if (val.Length > 8)
+            {
+                unit = "亿" + unit;
+                src = val.Substring(0, val.Length - 8);
+            }
+            else if (val.Length > 4)
+            {
+                unit = "万" + unit;
+                src = val.Substring(0, val.Length - 4);
+            }
+            else
+            {
+                return val + unit;
+            }
+
+            if (src.Length < 4)
+            {   //加上点
+                string scale = val.Substring(src.Length, 3 - src.Length).TrimEnd('0');
+                if (scale.Length > 0) //小数位全是0,不显示
+                {
+                    src += "." + scale;
+                }
+                return src + unit;
+            }
+            else
+            {
+                return FormatNumber(src, unit);
+            }
+        }
+        private static string FormatNumberOld(string val, string unit)
+        {
+            string src;
+
             if (val.Length > 49)
             {
                 unit = "极" + unit;
