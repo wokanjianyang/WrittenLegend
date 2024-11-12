@@ -19,14 +19,16 @@ public class Dialog_Talent : MonoBehaviour, IBattleLife
 
     private List<Item_Talent> ItemList = new List<Item_Talent>();
     public Button Btn_Close;
+    public Button Btn_Reset;
 
-    private int LevelExp = 10000;
+    private const int LevelExp = 10000;
 
     public int Order => (int)ComponentOrder.Dialog;
 
     private void Awake()
     {
         Btn_Close.onClick.AddListener(OnClick_Close);
+        Btn_Reset.onClick.AddListener(OnClick_Reset);
 
         ItemList = this.GetComponentsInChildren<Item_Talent>().ToList();
     }
@@ -73,7 +75,8 @@ public class Dialog_Talent : MonoBehaviour, IBattleLife
         }
     }
 
-    public void Refresh() {
+    public void Refresh()
+    {
         User user = GameProcessor.Inst.User;
 
         long total = user.TalentExp.Data / LevelExp;
@@ -96,5 +99,36 @@ public class Dialog_Talent : MonoBehaviour, IBattleLife
     public void OnClick_Close()
     {
         this.gameObject.SetActive(false);
+    }
+
+    public void OnClick_Reset()
+    {
+        GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("重置天赋消耗100京金币。是否确认？", true,
+         () =>
+         {
+             ResetTalent();
+         }, () =>
+         {
+
+         });
+    }
+
+    private void ResetTalent()
+    {
+        User user = GameProcessor.Inst.User;
+
+        if (user.MagicGold.Data <= ConfigHelper.RestoreGold * 200)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "金币不足100京", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
+
+        user.SubGold(ConfigHelper.RestoreGold * 200);
+
+        user.TalentData.Clear();
+        user.TalentPoint = 0;
+
+        GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
+        this.Refresh();
     }
 }

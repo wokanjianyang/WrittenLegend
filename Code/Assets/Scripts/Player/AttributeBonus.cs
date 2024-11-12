@@ -317,9 +317,10 @@ namespace Game
 
             AttributeEnum percentType = AttributeEnum.MulDamageResist;
 
+            long rmdr = GetTotalAttr(AttributeEnum.RealMulDamageResist); //是否使用迭代减伤
             foreach (double pc in AllAttrDict[percentType].Values)
             {
-                double fp = Math.Min(70.0, pc);
+                double fp = CalMulDamageResistLimit(pc, rmdr);
 
                 total *= (1 - fp / 100);
             }
@@ -348,11 +349,17 @@ namespace Game
         }
 
 
-        public double GetMulResist(int type)
+        public double CalMulDamageResistLimit(double pc, long rmdr)
         {
             //TODO
-
-            return 0;
+            if (rmdr > 0)
+            {
+                return MathHelper.CalRealResist(pc);
+            }
+            else
+            {
+                return Math.Min(70.0, pc);
+            }
         }
 
         public double CalMulDamageResistAttack()
