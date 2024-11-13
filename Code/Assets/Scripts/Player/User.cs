@@ -1158,6 +1158,8 @@ namespace Game
             {
                 EventCenter.Raise(new UserAttrChangeEvent());
             }
+
+            TaskHelper.CheckTask(TaskType.Cycle, this.Cycle.Data);
         }
 
         private void SetUpExp()

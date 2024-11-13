@@ -144,5 +144,6 @@ namespace Game
         Recovery = 5, //设置回收
         SkillBook = 6, //设置回收
         BindAccount = 7, //绑定帐号
+        Cycle = 8, //转生
     }
 }

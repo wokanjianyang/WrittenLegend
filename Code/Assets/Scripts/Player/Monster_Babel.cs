@@ -60,7 +60,7 @@ namespace Game
             {
                 riseRate = Math.Pow(1.003, 10000);
                 riseRate *= Math.Pow(1.005, 5000);
-                riseRate *= Math.Pow(1.010, this.Progeress - 15000);
+                riseRate *= Math.Pow(1.008, this.Progeress - 15000);
             }
 
             //Debug.Log(this.Progeress + " riseRate:" + riseRate);

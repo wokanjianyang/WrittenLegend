@@ -1,12 +1,12 @@
 {"list":[
 {"_t":"TalentConfig","_id":1,"Name":"破军","RequireId":0,"RequireLevel":0,"MaxLevel":10,"AttrId":2001,"AttrValue":100,"RiseType":1,"RiseValue":100,"RiseUnit":"%","Fee":1,"desc":"提高攻击倍率{0}%"},
-{"_t":"TalentConfig","_id":2,"Name":"镇卫","RequireId":0,"RequireLevel":0,"MaxLevel":10,"AttrId":2002,"AttrValue":100,"RiseType":1,"RiseValue":100,"RiseUnit":"%","Fee":1,"desc":"提高防御倍率{0}%"},
-{"_t":"TalentConfig","_id":3,"Name":"命源","RequireId":0,"RequireLevel":0,"MaxLevel":10,"AttrId":2003,"AttrValue":100,"RiseType":1,"RiseValue":100,"RiseUnit":"%","Fee":1,"desc":"提高生命倍率{0}%"},
+{"_t":"TalentConfig","_id":2,"Name":"镇卫","RequireId":0,"RequireLevel":0,"MaxLevel":10,"AttrId":2002,"AttrValue":200,"RiseType":1,"RiseValue":200,"RiseUnit":"%","Fee":1,"desc":"提高防御倍率{0}%"},
+{"_t":"TalentConfig","_id":3,"Name":"命源","RequireId":0,"RequireLevel":0,"MaxLevel":10,"AttrId":2003,"AttrValue":300,"RiseType":1,"RiseValue":300,"RiseUnit":"%","Fee":1,"desc":"提高生命倍率{0}%"},
 {"_t":"TalentConfig","_id":4,"Name":"迷踪","RequireId":0,"RequireLevel":10,"MaxLevel":10,"AttrId":112,"AttrValue":4,"RiseType":1,"RiseValue":4,"RiseUnit":"%","Fee":2,"desc":"提高闪避概率{0}%"},
-{"_t":"TalentConfig","_id":5,"Name":"铁壁","RequireId":0,"RequireLevel":10,"MaxLevel":10,"AttrId":112,"AttrValue":6,"RiseType":2,"RiseValue":6,"RiseUnit":"倍","Fee":2,"desc":"提高防御系数{0}倍"},
+{"_t":"TalentConfig","_id":5,"Name":"铁壁","RequireId":0,"RequireLevel":10,"MaxLevel":10,"AttrId":112,"AttrValue":100,"RiseType":2,"RiseValue":6,"RiseUnit":"倍","Fee":2,"desc":"提高防御系数{0}倍"},
 {"_t":"TalentConfig","_id":6,"Name":"天目","RequireId":0,"RequireLevel":10,"MaxLevel":10,"AttrId":112,"AttrValue":2,"RiseType":1,"RiseValue":2,"RiseUnit":"%","Fee":2,"desc":"提高命中概率{0}%"},
 {"_t":"TalentConfig","_id":7,"Name":"绝杀","RequireId":0,"RequireLevel":20,"MaxLevel":1,"AttrId":116,"AttrValue":100,"RiseType":1,"RiseValue":100,"RiseUnit":"%","Fee":3,"desc":"溢出的暴击率，每点会额外增加{0}%的伤害"},
-{"_t":"TalentConfig","_id":8,"Name":"贪狼","RequireId":0,"RequireLevel":20,"MaxLevel":10,"AttrId":114,"AttrValue":10,"RiseType":2,"RiseValue":10,"RiseUnit":"倍","Fee":3,"desc":"附加自身生命上限*{0}倍的伤害，不计入吸血"},
+{"_t":"TalentConfig","_id":8,"Name":"贪狼","RequireId":0,"RequireLevel":20,"MaxLevel":10,"AttrId":114,"AttrValue":1000,"RiseType":2,"RiseValue":10,"RiseUnit":"倍","Fee":3,"desc":"附加自身生命上限*{0}倍的伤害，不计入吸血"},
 {"_t":"TalentConfig","_id":9,"Name":"律己","RequireId":0,"RequireLevel":20,"MaxLevel":10,"AttrId":113,"AttrValue":9,"RiseType":1,"RiseValue":9,"RiseUnit":"%","Fee":3,"desc":"拥有护体盾的时候，任意伤害不会超过面板生命的（100-{0}）%"},
 {"_t":"TalentConfig","_id":10,"Name":"固守","RequireId":0,"RequireLevel":40,"MaxLevel":1,"AttrId":115,"AttrValue":1,"RiseType":1,"RiseValue":0,"RiseUnit":"","Fee":10,"desc":"溢出的减伤倍率，会额外计算"},
 ]}
