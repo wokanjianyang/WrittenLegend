@@ -58,6 +58,7 @@ namespace Game
         public Dialog_Ring DialogRing;
         public Dialog_Cycle DialogCycle;
         public Dialog_Pill DialogPill;
+        public Dialog_EquipGolden DialogEquipGolden;
 
 
         private List<Com_Box> items = new List<Com_Box>();
@@ -1616,12 +1617,13 @@ namespace Game
 
         public void OnOpenEquipGolden()
         {
-            this.Tf_Equip_Golden.gameObject.SetActive(true);
+            //this.Tf_Equip_Golden.gameObject.SetActive(true);
 
-            for (int i = 0; i < this.Equip_Plan_List.Count; i++)
-            {
-                this.Equip_Plan_List[i].gameObject.SetActive(false);
-            }
+            //for (int i = 0; i < this.Equip_Plan_List.Count; i++)
+            //{
+            //    this.Equip_Plan_List[i].gameObject.SetActive(false);
+            //}
+            DialogEquipGolden.gameObject.SetActive(true);
         }
 
         public void OnOpenTalent()
