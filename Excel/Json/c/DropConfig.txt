@@ -332,6 +332,7 @@
 {"_t":"DropConfig","_id":220035,"Level":0,"Name":"图鉴碎片","Quantity":100,"ItemType":5,"ItemIdList":[4101]},
 {"_t":"DropConfig","_id":220036,"Level":0,"Name":"等级丹","Quantity":10,"ItemType":15,"ItemIdList":[4014]},
 {"_t":"DropConfig","_id":220037,"Level":0,"Name":"等级丹","Quantity":15,"ItemType":15,"ItemIdList":[4014]},
+{"_t":"DropConfig","_id":220038,"Level":0,"Name":"天赋秘籍","Quantity":1,"ItemType":15,"ItemIdList":[4020]},
 {"_t":"DropConfig","_id":101,"Level":0,"Name":"一阶四格","Quantity":1,"ItemType":2,"ItemIdList":[101,201,301,401]},
 {"_t":"DropConfig","_id":102,"Level":0,"Name":"二阶四格","Quantity":1,"ItemType":2,"ItemIdList":[102,202,302,402]},
 {"_t":"DropConfig","_id":103,"Level":0,"Name":"三阶四格","Quantity":1,"ItemType":2,"ItemIdList":[103,203,303,403]},

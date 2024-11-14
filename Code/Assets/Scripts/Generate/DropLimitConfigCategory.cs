@@ -21,6 +21,35 @@ namespace Game
 
     public class DropLimitHelper
     {
+        public static List<Item> BuildJieRi(double modelRise)
+        {
+            List<Item> list = new List<Item>();
+
+            long time = DateTime.Now.Ticks;
+
+            int dropType = (int)DropLimitType.JieRi;
+            //²»¼ì²âlimitid
+            DropLimitConfig dropLimit = DropLimitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m =>
+            m.Type == dropType && DateTime.Parse(m.StartDate).Ticks <= time && time <= DateTime.Parse(m.EndDate).Ticks).FirstOrDefault();
+
+            double rate = dropLimit.Rate;
+            rate = rate / modelRise;
+
+            if (RandomHelper.RandomResult(rate))
+            {
+                int dropId = dropLimit.DropId;
+                DropConfig dropConfig = DropConfigCategory.Instance.Get(dropId);
+
+                int configId = dropConfig.ItemIdList[0];
+
+                Item item = ItemHelper.BuildItem((ItemType)dropConfig.ItemType, configId, 1, dropConfig.Quantity, 0);
+                list.Add(item);
+            }
+
+            return list;
+        }
+
+
         public static List<Item> Build(int type, int mapId, double rateRise, double modelRise, int limit, double countRise)
         {
             User user = GameProcessor.Inst.User;
