@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Game
 {
-    public class Dialog_EquipGolden : MonoBehaviour, IBattleLife
+    public class Dialog_EquipGolden : MonoBehaviour
     {
         public Button Btn_Close;
 
@@ -23,18 +23,13 @@ namespace Game
 
             toggle.onValueChanged.AddListener((isOn) =>
             {
-                GameProcessor.Inst.User.ExclusiveSetting = isOn;
+                GameProcessor.Inst.User.EquipGoldenSetting = isOn;
             });
+
+            this.Init();
         }
 
-        void Start()
-        {
-            toggle.isOn = GameProcessor.Inst.User.ExclusiveSetting;
-
-            this.InitPlanName();
-        }
-
-        public void OnBattleStart()
+        public void Init()
         {
             var prefab = Resources.Load<GameObject>("Prefab/Window/Box_Info");
 
@@ -44,8 +39,6 @@ namespace Game
             {
                 items[i].Init(prefab);
             }
-
-            this.InitPlanName();
 
             for (int i = 0; i < Toggle_Plan_List.Count; i++)
             {
@@ -60,12 +53,20 @@ namespace Game
             }
         }
 
+        public void Show()
+        {
+            this.gameObject.SetActive(true);
+
+            toggle.isOn = GameProcessor.Inst.User.EquipGoldenSetting;
+            this.InitPlanName();
+        }
+
         private void InitPlanName()
         {
-            int ExclusiveIndex = GameProcessor.Inst.User.ExclusiveIndex;
-            Toggle_Plan_List[ExclusiveIndex].isOn = true;
-
             User user = GameProcessor.Inst.User;
+
+            int EquipGoldenIndex = user.EquipGoldenIndex;
+            Toggle_Plan_List[EquipGoldenIndex].isOn = true;
 
             for (int i = 0; i < Toggle_Plan_List.Count; i++)
             {
@@ -80,7 +81,7 @@ namespace Game
 
         private void ChangePlan(int i)
         {
-            GameProcessor.Inst.EventCenter.Raise(new ChangeExclusiveEvent() { Index = i });
+            GameProcessor.Inst.EventCenter.Raise(new ChangeEquipGoldenEvent() { Index = i });
 
             GameProcessor.Inst.User.EventCenter.Raise(new SkillChangePlanEvent());
             GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());

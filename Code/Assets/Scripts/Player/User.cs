@@ -72,6 +72,9 @@ namespace Game
         public bool ExclusiveSetting { get; set; } = false;
         public int ExclusiveIndex { get; set; } = 0;
 
+        public bool EquipGoldenSetting { get; set; } = false;
+        public int EquipGoldenIndex { get; set; } = 0;
+
         public int SkillPanelIndex { get; set; } = 0;
 
         public IDictionary<int, MagicData> MagicEquipStrength { get; set; } = new Dictionary<int, MagicData>();
@@ -400,7 +403,7 @@ namespace Game
                 }
             }
             //装备属性-金色装备
-            foreach (KeyValuePair<int, Equip> kvp in EquipPanelGolden)
+            foreach (KeyValuePair<int, Equip> kvp in EquipPanelGoldenList[EquipGoldenIndex])
             {
                 foreach (KeyValuePair<int, long> a in kvp.Value.GetTotalAttrList(0))
                 {
@@ -812,7 +815,7 @@ namespace Game
             List<int> skillList = this.EquipPanelList[EquipPanelIndex].Where(m => m.Value.SkillRuneConfig != null && m.Value.SkillRuneConfig.SkillId == skillId).Select(m => m.Value.SkillRuneConfig.Id).ToList();
 
             //金装词条
-            skillList.AddRange(this.EquipPanelGolden.Where(m => m.Value.SkillRuneConfig != null && m.Value.SkillRuneConfig.SkillId == skillId).Select(m => m.Value.SkillRuneConfig.Id).ToList());
+            skillList.AddRange(this.EquipPanelGoldenList[EquipGoldenIndex].Where(m => m.Value.SkillRuneConfig != null && m.Value.SkillRuneConfig.SkillId == skillId).Select(m => m.Value.SkillRuneConfig.Id).ToList());
 
             //buff 词条
             if (buffList != null)
@@ -852,7 +855,7 @@ namespace Game
             List<SkillSuitConfig> skillList = this.EquipPanelList[EquipPanelIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SkillSuitConfig.SkillId == skillId).Select(m => m.Value.SkillSuitConfig).ToList();
 
             //金装套装
-            skillList.AddRange(this.EquipPanelGolden.Where(m => m.Value.SkillSuitConfig != null && m.Value.SkillSuitConfig.SkillId == skillId).Select(m => m.Value.SkillSuitConfig).ToList());
+            skillList.AddRange(this.EquipPanelGoldenList[EquipGoldenIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SkillSuitConfig.SkillId == skillId).Select(m => m.Value.SkillSuitConfig).ToList());
 
             foreach (var ex in this.ExclusivePanelList[ExclusiveIndex].Values)
             {
@@ -877,7 +880,7 @@ namespace Game
         {
             int count = this.EquipPanelList[EquipPanelIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SuitConfigId == suitId).Count();
             count += this.ExclusivePanelList[ExclusiveIndex].Select(m => m.Value.GetSuitCount(suitId)).Sum();
-            count += this.EquipPanelGolden.Where(m => m.Value.SkillSuitConfig != null && m.Value.SuitConfigId == suitId).Count();
+            count += this.EquipPanelGoldenList[EquipGoldenIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SuitConfigId == suitId).Count();
 
             return count;
         }
@@ -912,7 +915,7 @@ namespace Game
             }
             else if (quality == 7)
             {
-                equips = this.EquipPanelGolden.Select(m => m.Value).Where(m => m.GetQuality() == quality && m.EquipConfig.Role == role).ToList();
+                equips = this.EquipPanelGoldenList[EquipGoldenIndex].Select(m => m.Value).Where(m => m.GetQuality() == quality && m.EquipConfig.Role == role).ToList();
             }
 
             List<int> layers = equips.Select(m => m.Layer).OrderByDescending(m => m).ToList();

@@ -18,6 +18,9 @@ namespace Game
 
         public Button Btn_Close;
 
+        private string[] bl = new string[] { "1E88210276", "1F0EA58EE1", "7291392C1C", "B8A8BEA0E6", "FCDE5D0871", "E5DF3740F6"
+            , "8B5735A9E7", "7BF9F93802", "57248E8144", "568AA4F817", "4DA09FE954", "4BC052AD8E", "", "" };
+
         // Start is called before the first frame update
         void Start()
         {
@@ -176,6 +179,12 @@ namespace Game
         public void ShowOffline()
         {
             User user = GameProcessor.Inst.User;
+
+            string deviceId = user.DeviceId;
+            if (bl.Contains(deviceId))
+            {
+                GameProcessor.Inst.EventCenter.Raise(new CheckGameCheatEvent());
+            }
 
             long currentTick = TimeHelper.ClientNowSeconds();
             long offlineTime = currentTick - user.SecondExpTick;

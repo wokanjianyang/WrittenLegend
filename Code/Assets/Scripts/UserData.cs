@@ -155,6 +155,17 @@ namespace Game
                     }
                 }
 
+                if (user.EquipPanelGoldenList.Count < 7)
+                {
+                    for (int i = 0; i < 7; i++)
+                    {
+                        if (!user.EquipPanelGoldenList.ContainsKey(i))
+                        {
+                            user.EquipPanelGoldenList[i] = new Dictionary<int, Equip>();
+                        }
+                    }
+                }
+
                 if (user.ExclusivePanelList.Count < 7)
                 {
                     for (int i = 0; i < 7; i++)
@@ -244,6 +255,16 @@ namespace Game
 
                 //去掉专属精华
                 //user.Bags.RemoveAll(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Chunjie);
+
+                //if (user.EquipPanelGolden.Count > 0)
+                //{
+                //    foreach (var sp in user.EquipPanelGolden)
+                //    {
+                //        user.EquipPanelGoldenList[0].Add(sp.Key, sp.Value);
+                //    }
+
+                //    user.EquipPanelGolden.Clear();
+                //}
 
                 //List<BoxItem> items = user.Bags.Where(m => m.Item.Type == ItemType.Equip && m.Item.ConfigId >= 21105801 && m.Item.ConfigId <= 21105810).ToList();
                 //List<BoxItem> items = user.Bags.Where(m => m.Item.Type == ItemType.Equip && m.Item.ConfigId >= 22105801 && m.Item.ConfigId <= 22105810).ToList();

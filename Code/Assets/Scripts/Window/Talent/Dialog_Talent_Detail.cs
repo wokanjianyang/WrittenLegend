@@ -54,7 +54,15 @@ public class Dialog_Talent_Detail : MonoBehaviour
         Txt_Name.text = config.Name;
         Txt_Desc.text = string.Format(config.desc, attrVal);
         Txt_Current.text = "等级：" + level + "/" + config.MaxLevel;
-        Txt_Next.text = "升级提高：" + "" + config.RiseValue + config.RiseUnit;
+
+        if (level > 0)
+        {
+            Txt_Next.text = "升级提高：" + "" + config.RiseValue + config.RiseUnit;
+        }
+        else
+        {
+            Txt_Next.text = "激活提高：" + "" + config.AttrValue + config.RiseUnit;
+        }
 
         string color = config.Fee <= enablePoint ? "#00FF00" : "#FF0000";
         Txt_Cost.text = string.Format("需求天赋点：<color={0}>{1} /{2}</color>", color, enablePoint, config.Fee);

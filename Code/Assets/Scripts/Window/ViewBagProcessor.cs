@@ -28,7 +28,7 @@ namespace Game
         public Button Btn_Ok;
         public Button Btn_Cancle;
 
-        public RectTransform Tf_Equip_Golden;
+        //public RectTransform Tf_Equip_Golden;
 
 
         [Title("功能按钮")]
@@ -134,10 +134,6 @@ namespace Game
             {
                 this.btn_Equip_Golden.gameObject.SetActive(false);
             }
-
-#if !UNITY_EDITOR
-            btn_Talent.gameObject.SetActive(false);
-#endif
         }
 
         // Update is called once per frame
@@ -165,6 +161,7 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<EquipLockEvent>(this.OnEquipLockEvent);
             GameProcessor.Inst.EventCenter.AddListener<ExchangeEvent>(this.OnExchangeEvent);
             GameProcessor.Inst.EventCenter.AddListener<ChangeExclusiveEvent>(this.OnChangeExclusiveEvent);
+            GameProcessor.Inst.EventCenter.AddListener<ChangeEquipGoldenEvent>(this.OnChangeEquipGoldenEvent);
 
             int EquipPanelIndex = GameProcessor.Inst.User.EquipPanelIndex;
             Toggle_Plan_List[EquipPanelIndex].isOn = true;
@@ -218,9 +215,10 @@ namespace Game
                 yield return null;
             }
 
-            foreach (var slotBox in Tf_Equip_Golden.GetComponentsInChildren<SlotBox>())
+            List<SlotBox> gds = DialogEquipGolden.GetComponentsInChildren<SlotBox>().ToList();
+            for (int i = 0; i < gds.Count; i++)
             {
-                slotBox.Init(prefab);
+                gds[i].Init(prefab, 21 + i);
                 yield return null;
             }
 
@@ -241,7 +239,7 @@ namespace Game
             }
 
             //穿戴金装
-            foreach (var kvp in user.EquipPanelGolden)
+            foreach (var kvp in user.EquipPanelGoldenList[user.EquipGoldenIndex])
             {
                 this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
                 //yield return null;
@@ -587,6 +585,24 @@ namespace Game
             //Debug.Log("OnChangeExclusiveEvent");
         }
 
+        private void OnChangeEquipGoldenEvent(ChangeEquipGoldenEvent e)
+        {
+            User user = GameProcessor.Inst.User;
+            user.EquipGoldenIndex = e.Index;
+
+            for (int i = 21; i <= 30; i++)
+            {
+                this.ClearEquipPanelItem(i);
+            }
+
+            foreach (var kvp in user.EquipPanelGoldenList[e.Index])
+            {
+                this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
+            }
+
+            //Debug.Log("OnChangeExclusiveEvent");
+        }
+
         private void ChangePlan(int index)
         {
             User user = GameProcessor.Inst.User;
@@ -594,8 +610,14 @@ namespace Game
 
             if (user.ExclusiveSetting)
             {
-                user.ExclusiveIndex = index;
+                //user.ExclusiveIndex = index;
                 GameProcessor.Inst.EventCenter.Raise(new ChangeExclusiveEvent() { Index = index });
+            }
+
+            if (user.EquipGoldenSetting)
+            {
+                //user.EquipGoldenIndex = index;
+                GameProcessor.Inst.EventCenter.Raise(new ChangeEquipGoldenEvent() { Index = index });
             }
 
             user.SkillPanelIndex = index;
@@ -610,7 +632,7 @@ namespace Game
         {
             int position = GameProcessor.Inst.User.EquipPanelIndex;
 
-            Tf_Equip_Golden.gameObject.SetActive(false);
+            DialogEquipGolden.gameObject.SetActive(false);
 
             for (int i = 0; i < this.Equip_Plan_List.Count; i++)
             {
@@ -1279,7 +1301,7 @@ namespace Game
             }
             else if (Part >= 21 && Part <= 30)
             {
-                ep = user.EquipPanelGolden;
+                ep = user.EquipPanelGoldenList[user.EquipGoldenIndex];
             }
 
             //增加一次穿戴记录，用做轮流穿戴左右
@@ -1310,7 +1332,7 @@ namespace Game
                 }
                 else if (Position >= 21 && Position <= 30)
                 {
-                    slot = Tf_Equip_Golden.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == Position).First();
+                    slot = DialogEquipGolden.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == Position).First();
                 }
 
                 Com_Box comItem = slot.GetEquip();
@@ -1380,7 +1402,11 @@ namespace Game
         {
             SlotBox slot = null;
 
-            if (position > 14)
+            if (position >= 21 && position <= 30)
+            {
+                slot = DialogEquipGolden.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+            }
+            else if (position > 14 && position <= 20)
             {
                 slot = ExclusiveDialog.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
@@ -1388,7 +1414,7 @@ namespace Game
             {
                 slot = EquipInfoSpecial.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
-            else
+            else if (position <= 10)
             {
                 int pi = GameProcessor.Inst.User.EquipPanelIndex;
 
@@ -1418,7 +1444,7 @@ namespace Game
             }
             else if (position >= 21 && position <= 30)
             {
-                slot = Tf_Equip_Golden.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+                slot = DialogEquipGolden.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
 
             //生成格子
@@ -1460,7 +1486,7 @@ namespace Game
             }
             else if (position >= 21 && position <= 30)
             {
-                slot = Tf_Equip_Golden.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+                slot = DialogEquipGolden.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
 
             Com_Box comItem = slot.GetEquip();
@@ -1486,7 +1512,7 @@ namespace Game
             }
             else if (position >= 21 && position <= 30)
             {
-                user.EquipPanelGolden.Remove(position);
+                user.EquipPanelGoldenList[user.EquipGoldenIndex].Remove(position);
             }
 
             //通知英雄更新属性
@@ -1617,13 +1643,7 @@ namespace Game
 
         public void OnOpenEquipGolden()
         {
-            //this.Tf_Equip_Golden.gameObject.SetActive(true);
-
-            //for (int i = 0; i < this.Equip_Plan_List.Count; i++)
-            //{
-            //    this.Equip_Plan_List[i].gameObject.SetActive(false);
-            //}
-            DialogEquipGolden.gameObject.SetActive(true);
+            DialogEquipGolden.Show();
         }
 
         public void OnOpenTalent()

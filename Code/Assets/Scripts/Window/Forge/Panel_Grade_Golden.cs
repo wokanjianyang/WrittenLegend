@@ -69,7 +69,7 @@ public class Panel_Grade_Golden : MonoBehaviour
             return;
         }
 
-        IDictionary<int, Equip> dict = user.EquipPanelGolden;
+        IDictionary<int, Equip> dict = user.EquipPanelGoldenList[user.EquipGoldenIndex];
 
         for (int BoxId = 0; BoxId < MaxCount; BoxId++)
         {

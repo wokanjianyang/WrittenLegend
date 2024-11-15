@@ -34,6 +34,12 @@ namespace Game
             baseInfo.tmp_Title.text = this.SlotType.ToString();
         }
 
+        public void Init(GameObject prefab, int type)
+        {
+            this.SlotType = (SlotType)(type);
+            this.Init(prefab);
+        }
+
         public void Equip(Com_Box equip)
         {
             this.equip = equip;

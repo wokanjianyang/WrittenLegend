@@ -43,7 +43,7 @@ namespace Game
             long p = user.MagicRecord[AchievementSourceType.Defend].Data - (this.Level - 1) * 100;
 
             //p = 0;
-            if (p > 100)
+            if (p >= 100)
             {
                 Type = 3;
                 Txt_Start.text = "É¨µ´";
