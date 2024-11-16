@@ -19,7 +19,7 @@ namespace Game
                 return 0;
             }
 
-            int bv = this.AttrValue;
+            double bv = this.AttrValue;
             for (int i = 1; i < level; i++)
             {
                 if (this.RiseType == 1)

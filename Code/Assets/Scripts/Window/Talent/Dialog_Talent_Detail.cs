@@ -52,7 +52,7 @@ public class Dialog_Talent_Detail : MonoBehaviour
         double attrVal = config.GetAttrValue(level);
 
         Txt_Name.text = config.Name;
-        Txt_Desc.text = string.Format(config.desc, attrVal);
+        Txt_Desc.text = string.Format(config.desc, StringHelper.FormatNumber(attrVal));
         Txt_Current.text = "µÈ¼¶£º" + level + "/" + config.MaxLevel;
 
         if (level > 0)
