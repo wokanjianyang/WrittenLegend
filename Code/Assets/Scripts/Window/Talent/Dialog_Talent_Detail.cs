@@ -97,7 +97,7 @@ public class Dialog_Talent_Detail : MonoBehaviour
 
         long level = user.GetTalentLevel(this.Tid);
 
-        if (level < config.MaxLevel && config.Fee < (total - use))
+        if (level < config.MaxLevel && config.Fee <= (total - use))
         {
             user.AddTalentLevel(Tid, config.Fee);
 

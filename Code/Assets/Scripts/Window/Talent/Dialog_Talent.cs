@@ -47,6 +47,7 @@ public class Dialog_Talent : MonoBehaviour, IBattleLife
     private void OnShowEvent(TalentShowEvent e)
     {
         this.gameObject.SetActive(true);
+        this.Refresh();
     }
 
     private void OnShowDetailEvent(TalentDetailShowEvent e)
