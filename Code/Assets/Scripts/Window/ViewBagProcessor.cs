@@ -632,8 +632,6 @@ namespace Game
         {
             int position = GameProcessor.Inst.User.EquipPanelIndex;
 
-            DialogEquipGolden.gameObject.SetActive(false);
-
             for (int i = 0; i < this.Equip_Plan_List.Count; i++)
             {
                 if (i == position)

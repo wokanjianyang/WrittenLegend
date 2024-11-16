@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Game
 {
-    public class Dialog_EquipGolden : MonoBehaviour
+    public class Dialog_EquipGolden : MonoBehaviour, IBattleLife
     {
         public Button Btn_Close;
 
@@ -25,8 +25,6 @@ namespace Game
             {
                 GameProcessor.Inst.User.EquipGoldenSetting = isOn;
             });
-
-            this.Init();
         }
 
         public void Init()
@@ -51,6 +49,11 @@ namespace Game
                     }
                 });
             }
+        }
+
+        public void OnBattleStart()
+        {
+            this.Init();
         }
 
         public void Show()
