@@ -95,6 +95,7 @@ namespace Game
             {
                 double maxHp = attcher.GetAttackDoubleAttr(AttributeEnum.HP);
                 extendDamage = maxHp * at;
+                //Debug.Log("maxHp:" + StringHelper.FormatNumber(maxHp) + " extendDamage:" + StringHelper.FormatNumber(extendDamage));
             }
 
             //强制最少1点伤害

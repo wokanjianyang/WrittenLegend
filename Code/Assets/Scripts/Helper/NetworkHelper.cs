@@ -64,7 +64,8 @@ namespace Game
             return code;
         }
 
-        public static string BuildUpdateParam(User user) {
+        public static string BuildUpdateParam(User user)
+        {
             Dictionary<string, string> paramDict = new Dictionary<string, string>();
             paramDict.Add("account", user.Account);
             paramDict.Add("name", user.Name);
@@ -75,6 +76,10 @@ namespace Game
 
             long ringTotal = user.SoulRingData.Select(m => m.Value.Data).Sum();
             paramDict.Add("ring", ringTotal + "");
+
+            long soulBoneTotal = user.SoulBoneData.Select(m => m.Value.Data).Sum();
+            paramDict.Add("soulBone", soulBoneTotal + "");
+
             paramDict.Add("swing", user.WingData.Data + "");
 
             long metalTotal = user.MetalData.Select(m => m.Value.Data).Sum();
@@ -103,6 +108,12 @@ namespace Game
 
             long legacy = user.GetAchievementProgeress(AchievementSourceType.Legacy);
             paramDict.Add("legacy", legacy + "");
+
+            long pill = user.PillData.Data;
+            paramDict.Add("pill", pill + "");
+
+            long infiniteMax = user.GetAchievementProgeress(AchievementSourceType.Infinite);
+            paramDict.Add("infiniteMax", infiniteMax + "");
 
             if (user.First_Create_Time > 0)
             {

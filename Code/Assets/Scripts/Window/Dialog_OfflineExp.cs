@@ -176,6 +176,25 @@ namespace Game
         //items.Add(ItemHelper.BuildMaterial(8107, ic)); //魂骨
         //items.Add(ItemHelper.BuildMaterial(8108, ic)); //魂骨
 
+        public void TestInfinityDrop()
+        {
+
+            User user = GameProcessor.Inst.User;
+
+            for (int i = 0; i < 20; i++)
+            {
+                user.InfiniteData.GetDropId(10);
+                List<int> drops = user.InfiniteData.DropList[0];
+                user.InfiniteData.DropList.RemoveAt(0);
+
+                int countT = drops.Where(m => m >= 180032 && m<= 180034).Count();
+                if (countT > 0)
+                {
+                    Debug.Log(i + " drop Talent :" + countT);
+                }
+            }
+        }
+
         public void ShowOffline()
         {
             User user = GameProcessor.Inst.User;
