@@ -461,6 +461,16 @@ namespace Game
 
     }
 
+    //--Myth
+    public class OpenMythEvent : SDD.Events.Event
+    {
+
+    }
+    public class MythStartEvent : SDD.Events.Event
+    {
+
+    }
+
     //--------Fashion
     public class OpenFashionDialogEvent : SDD.Events.Event
     {

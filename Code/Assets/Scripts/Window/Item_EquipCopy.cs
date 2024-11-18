@@ -115,6 +115,10 @@ namespace Game
             {
                 GameProcessor.Inst.EventCenter.Raise(new OpenBabelEvent());
             }
+            else if (Type == CopyType.Myth)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new OpenMythEvent());
+            }
         }
     }
 }

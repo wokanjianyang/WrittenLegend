@@ -260,6 +260,7 @@ namespace Game
         Legacy = 9,
         Pill,
         Babel,
+        Myth,
     }
 
     public enum RoleType
