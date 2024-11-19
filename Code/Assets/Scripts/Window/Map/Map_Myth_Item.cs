@@ -10,7 +10,7 @@ public class Map_Myth_Item : MonoBehaviour
     public Text Txt_Name;
     public Button Btn_Start;
 
-    private MonsterPillConfig Config;
+    private MythConfig Config;
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +36,7 @@ public class Map_Myth_Item : MonoBehaviour
         vm.StartPill(Config.Id);
     }
 
-    public void SetContent(MonsterPillConfig config)
+    public void SetContent(MythConfig config)
     {
         this.Config = config;
         Txt_Name.text = config.MapName;

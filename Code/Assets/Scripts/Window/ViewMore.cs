@@ -209,6 +209,13 @@ namespace Game
             GameProcessor.Inst.EventCenter.Raise(new PillStartEvent() { Layer = layer });
         }
 
+        public void StartMyth(int id)
+        {
+            scrollRect.gameObject.SetActive(false);
+
+            GameProcessor.Inst.EventCenter.Raise(new MythStartEvent() { Id = id });
+        }
+
         public void StartBabel()
         {
             scrollRect.gameObject.SetActive(false);

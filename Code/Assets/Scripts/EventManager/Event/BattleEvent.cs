@@ -468,7 +468,7 @@ namespace Game
     }
     public class MythStartEvent : SDD.Events.Event
     {
-
+        public int Id { get; set; }
     }
 
     //--------Fashion

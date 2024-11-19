@@ -1,0 +1,8 @@
+{"list":[
+{"_t":"MythConfig","_id":1,"MapName":"小村杀鸡","Attr":"1000000","Def":"1000000","HP":"1000000000000","DamageIncrea":0,"DamageResist":0,"CritRateResist":0,"ResotrePercent":0},
+{"_t":"MythConfig","_id":2,"MapName":"比奇打骷髅","Attr":"2000000","Def":"2000000","HP":"2000000000000","DamageIncrea":0,"DamageResist":0,"CritRateResist":0,"ResotrePercent":0},
+{"_t":"MythConfig","_id":3,"MapName":"矿洞打僵尸","Attr":"3000000","Def":"3000000","HP":"3000000000000","DamageIncrea":0,"DamageResist":0,"CritRateResist":0,"ResotrePercent":0},
+{"_t":"MythConfig","_id":4,"MapName":"山谷杀蛇","Attr":"4000000","Def":"4000000","HP":"4000000000000","DamageIncrea":0,"DamageResist":0,"CritRateResist":0,"ResotrePercent":0},
+{"_t":"MythConfig","_id":5,"MapName":"蜈蚣洞","Attr":"5000000","Def":"5000000","HP":"5000000000000","DamageIncrea":0,"DamageResist":0,"CritRateResist":0,"ResotrePercent":0},
+{"_t":"MythConfig","_id":6,"MapName":"猪洞烧猪","Attr":"6000000","Def":"6000000","HP":"6000000000000","DamageIncrea":0,"DamageResist":0,"CritRateResist":0,"ResotrePercent":0},
+]}
