@@ -28,7 +28,7 @@ namespace Game
                     break;
                 }
 
-                long tempUpNumber = CalNewUpNumber(currentLevel);
+                long tempUpNumber = CalNewUpNumber(currentLevel + upLevel);
 
                 if (tempUpNumber <= materialNubmer)
                 {
@@ -51,26 +51,26 @@ namespace Game
 
         }
 
-        public long CalOldUpNumber(long currentLevel)
-        {
-            long rise = currentLevel / RiseLevel;
-            rise = rise * RiseNumber + StartNubmer;
-            return rise;
-        }
+        //public long CalOldUpNumber(long currentLevel)
+        //{
+        //    long rise = currentLevel / RiseLevel;
+        //    rise = rise * RiseNumber + StartNubmer;
+        //    return rise;
+        //}
 
-        public long CalReturnNumber(long currentLevel)
-        {
-            long newTotal = 0;
-            long oldTotal = 0;
+        //public long CalReturnNumber(long currentLevel)
+        //{
+        //    long newTotal = 0;
+        //    long oldTotal = 0;
 
-            for (int i = 0; i < currentLevel; i++)
-            {
-                newTotal += CalNewUpNumber(i);
-                oldTotal += CalOldUpNumber(i);
-            }
+        //    for (int i = 0; i < currentLevel; i++)
+        //    {
+        //        newTotal += CalNewUpNumber(i);
+        //        oldTotal += CalOldUpNumber(i);
+        //    }
 
-            return oldTotal - newTotal;
-        }
+        //    return oldTotal - newTotal;
+        //}
     }
 
 }
