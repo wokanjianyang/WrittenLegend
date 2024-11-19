@@ -25,11 +25,11 @@ public class Map_Myth_Item : MonoBehaviour
 
         if (user.PillTime.Time.Data < 5)
         {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "挑战时间不足", ToastType = ToastTypeEnum.Failure });
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "已通过，请等下周", ToastType = ToastTypeEnum.Failure });
             return;
         }
 
-        var dialog = this.GetComponentInParent<Map_Dialog_Pill>();
+        var dialog = this.GetComponentInParent<Map_Dialog_Myth>();
         dialog.gameObject.SetActive(false);
 
         var vm = this.GetComponentInParent<ViewMore>();

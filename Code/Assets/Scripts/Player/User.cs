@@ -263,6 +263,8 @@ namespace Game
 
         public int TalentPoint { get; set; } = 0;
 
+        public MythData MythData { get; set; } = new MythData();
+
         public MagicData WingData { get; set; } = new MagicData();
 
         public MagicData PillData { get; set; } = new MagicData();
