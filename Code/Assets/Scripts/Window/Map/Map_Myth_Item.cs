@@ -33,7 +33,7 @@ public class Map_Myth_Item : MonoBehaviour
         dialog.gameObject.SetActive(false);
 
         var vm = this.GetComponentInParent<ViewMore>();
-        vm.StartPill(Config.Id);
+        vm.StartMyth(Config.Id);
     }
 
     public void SetContent(MythConfig config)

@@ -38,6 +38,7 @@ namespace Game
         Legacy,
         Pill,
         Babel,
+        Myth,
     }
 
     public enum ComponentOrder

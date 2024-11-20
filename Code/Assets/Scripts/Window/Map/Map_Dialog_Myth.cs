@@ -24,17 +24,12 @@ public class Map_Dialog_Myth : MonoBehaviour
         this.Init();
     }
 
-    void OnEnable()
-    {
-
-    }
-
     private void Init()
     {
         User user = GameProcessor.Inst.User;
         user.PillTime.Check(user.Cycle.Data);
 
-        ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Pill/Map_Pill_Item");
+        ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Map/Map_Myth_Item");
 
         List<MythConfig> list = MythConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
 
@@ -57,23 +52,6 @@ public class Map_Dialog_Myth : MonoBehaviour
         item.transform.localScale = Vector3.one;
 
         items.Add(com);
-    }
-
-
-    public void OnClick_Start()
-    {
-        User user = GameProcessor.Inst.User;
-
-        if (user.BabelCount.Data < 5)
-        {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "挑战次数不足", ToastType = ToastTypeEnum.Failure });
-            return;
-        }
-
-        this.gameObject.SetActive(false);
-
-        var vm = this.GetComponentInParent<ViewMore>();
-        vm.StartBabel();
     }
 
     public void OnClick_Close()
