@@ -7,17 +7,17 @@ using System;
 
 public class Monster_Myth : APlayer
 {
-    MonsterPillConfig config;
+    MonsterMythConfig config;
 
     int MapId = 0;
 
-    public Monster_Myth(int mapId)
+    public Monster_Myth(int mapId, int layer)
     {
         this.GroupId = 2;
         this.MapId = mapId;
         this.RuleType = RuleType.Myth;
 
-        config = MonsterPillConfigCategory.Instance.Get(this.MapId);
+        config = MonsterMythConfigCategory.Instance.GetByMapIdAndLayer(mapId, layer);
 
         this.Init();
     }
@@ -68,8 +68,6 @@ public class Monster_Myth : APlayer
         AttributeBonus.SetAttr(AttributeEnum.DamageResist, AttributeFrom.HeroBase, config.DamageResist);
         AttributeBonus.SetAttr(AttributeEnum.CritRateResist, AttributeFrom.HeroBase, config.CritRateResist);
         AttributeBonus.SetAttr(AttributeEnum.RestoreHpPercent, AttributeFrom.HeroBase, config.ResotrePercent);
-        AttributeBonus.SetAttr(AttributeEnum.Miss, AttributeFrom.HeroBase, config.Miss);
-        AttributeBonus.SetAttr(AttributeEnum.Protect, AttributeFrom.HeroBase, config.Protect);
 
         double MaxHP = AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
         SetHP(MaxHP);

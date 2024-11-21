@@ -13,7 +13,8 @@ public class BattleRule_Myth : ABattleRule
 
     private double MapTime = 0;
 
-    private const int MaxQuanlity = 30;
+    private int CurrentLayer = 1;
+    private int[] LayerCount = new int[] { 10, 8, 4, 1 };
 
     protected override RuleType ruleType => RuleType.Pill;
 
@@ -36,36 +37,49 @@ public class BattleRule_Myth : ABattleRule
         }
         //Debug.Log("create pill currentRoundTime:" + currentRoundTime);
 
-        MapTime += currentRoundTime;
-        //Debug.Log("create pill MapTime:" + MapTime);
-
-        if (MapTime >= 600)
+        if (CurrentLayer <= LayerCount.Length)
         {
-            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Pill, Message = "挑战失败！" });
+            MapTime += currentRoundTime;
+        }
+        GameProcessor.Inst.EventCenter.Raise(new ShowMythInfoEvent() { Time = MapTime });
 
-            GameOver();
+        //Debug.Log("create pill MapTime:" + MapTime);
+        var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
 
-            Start = false;
+        if (CurrentLayer <= LayerCount.Length && (MapTime >= 60 || enemys.Count <= 0))
+        {
+            for (int i = 0; i < LayerCount[CurrentLayer - 1]; i++)
+            {
+                var enemy = new Monster_Myth(MapId, CurrentLayer);
+                GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
+            }
+
+            CurrentLayer++;
+            MapTime = 0;
+
             return;
         }
 
-        //GameProcessor.Inst.EventCenter.Raise(new ShowPillInfoEvent() { Time = time });
-
-        var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
-
-        int count = 1;
-
-        //Debug.Log("create pill monster:" + count);
-        for (int i = 0; i < count; i++)
+        if (CurrentLayer > LayerCount.Length && enemys.Count <= 0)
         {
-            var enemy = new Monster_Myth(1);
-            GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Pill, Message = "挑战通关！" });
+
+            BuildReward(MapId);
         }
     }
 
-    private void GameOver()
+    private void BuildReward(int mapId)
     {
-        GameProcessor.Inst.SetGameOver(PlayerType.Enemy);
-        GameProcessor.Inst.CloseBattle(RuleType.Pill, 0);
+
+    }
+
+    public override void CheckGameResult()
+    {
+        var heroCamp = GameProcessor.Inst.PlayerManager.GetHero();
+        if (heroCamp.HP == 0)
+        {
+            GameProcessor.Inst.SetGameOver(PlayerType.Enemy);
+            GameProcessor.Inst.HeroDie(RuleType.Myth, 13);
+        }
     }
 }
