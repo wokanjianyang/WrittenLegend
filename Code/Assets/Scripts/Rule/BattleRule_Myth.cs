@@ -16,7 +16,7 @@ public class BattleRule_Myth : ABattleRule
     private int CurrentLayer = 1;
     private int[] LayerCount = new int[] { 10, 8, 4, 1 };
 
-    protected override RuleType ruleType => RuleType.Pill;
+    protected override RuleType ruleType => RuleType.Myth;
 
     public BattleRule_Myth(Dictionary<string, object> param)
     {
@@ -27,6 +27,14 @@ public class BattleRule_Myth : ABattleRule
         Start = true;
 
         MapTime = 0;
+
+        this.LoadHero();
+    }
+
+    private void LoadHero()
+    {
+        APlayer hero = new HeroMyth();
+        GameProcessor.Inst.PlayerManager.LoadMonster(hero);
     }
 
     public override void DoMapLogic(int roundNum, double currentRoundTime)
@@ -65,12 +73,23 @@ public class BattleRule_Myth : ABattleRule
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Pill, Message = "ÃÙ’ΩÕ®πÿ£°" });
 
             BuildReward(MapId);
+
+            GameProcessor.Inst.CloseBattle(RuleType.Myth, 0);
         }
     }
 
     private void BuildReward(int mapId)
     {
+        List<Item> items = new List<Item>();
 
+        MythConfig mythConfig = MythConfigCategory.Instance.Get(mapId);
+
+        for (int i = 0; i < mythConfig.ItemIdList.Length; i++)
+        {
+            items.Add(ItemHelper.BuildItem((ItemType)mythConfig.ItemType[i], mythConfig.ItemIdList[i], 1, mythConfig.ItemQuantity[i]));
+        }
+
+        GameProcessor.Inst.EventCenter.Raise(new ShowDropEvent() { Gold = 0, Exp = 0, Items = items });
     }
 
     public override void CheckGameResult()

@@ -27,15 +27,12 @@ public class Map_Dialog_Myth : MonoBehaviour
     private void Init()
     {
         User user = GameProcessor.Inst.User;
-        user.PillTime.Check(user.Cycle.Data);
 
         ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Map/Map_Myth_Item");
 
         List<MythConfig> list = MythConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
 
-        long num = Math.Min(user.Cycle.Data, list.Count);
-
-        for (int i = 0; i < num; i++)
+        for (int i = 0; i < list.Count; i++)
         {
             BuildItem(list[i]);
         }

@@ -102,6 +102,15 @@ namespace Game
 		/// <summary>ResotrePercent</summary>
 		[ProtoMember(9)]
 		public int ResotrePercent { get; set; }
+		/// <summary>ItemType</summary>
+		[ProtoMember(10)]
+		public int[] ItemType { get; set; }
+		/// <summary>ItemIdList</summary>
+		[ProtoMember(11)]
+		public int[] ItemIdList { get; set; }
+		/// <summary>ItemQuantity</summary>
+		[ProtoMember(12)]
+		public int[] ItemQuantity { get; set; }
 
 	}
 }

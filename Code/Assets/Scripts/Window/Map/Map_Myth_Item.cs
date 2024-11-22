@@ -23,7 +23,7 @@ public class Map_Myth_Item : MonoBehaviour
     {
         User user = GameProcessor.Inst.User;
 
-        if (user.PillTime.Time.Data < 5)
+        if (user.MythData.GetOver(this.Config.Id))
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "已通过，请等下周", ToastType = ToastTypeEnum.Failure });
             return;

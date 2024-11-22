@@ -10,7 +10,6 @@ public class MapMyth : MonoBehaviour, IBattleLife
 {
     public Text Txt_Name;
     public Text Txt_Time;
-    public Text Txt_Count;
 
     public ScrollRect sr_BattleMsg;
 

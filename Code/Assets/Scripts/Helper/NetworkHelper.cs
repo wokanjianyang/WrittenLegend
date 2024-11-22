@@ -69,7 +69,7 @@ namespace Game
             Dictionary<string, string> paramDict = new Dictionary<string, string>();
             paramDict.Add("account", user.Account);
             paramDict.Add("name", user.Name);
-            paramDict.Add("power", user.AttributeBonus.GetPower());
+            paramDict.Add("power", user.AttributeBonus.GetPowerText());
             paramDict.Add("gold", StringHelper.FormatNumber(user.MagicGold.Data));
             paramDict.Add("level", user.MagicLevel.Data + "");
             paramDict.Add("cycle", user.Cycle.Data + "");

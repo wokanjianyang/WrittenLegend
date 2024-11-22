@@ -171,7 +171,7 @@ namespace Game
         }
 
 
-        public string GetPower()
+        public double GetPower()
         {
             double p1 = GetTotalAttrDouble(AttributeEnum.PhyAtt);
             double p2 = GetTotalAttrDouble(AttributeEnum.MagicAtt);
@@ -214,10 +214,12 @@ namespace Game
             powerDef *= 1 / (1 - mdr / 100);
 
             double newPower = (powerDamage + powerDef) / 20;
+            return newPower;
+        }
 
-            //Debug.Log("New Power:" + StringHelper.FormatNumber(newPower));
-
-            return StringHelper.FormatNumber(newPower);
+        public string GetPowerText()
+        {
+            return StringHelper.FormatNumber(GetPower());
         }
 
         private double CalPercent(AttributeEnum type)
