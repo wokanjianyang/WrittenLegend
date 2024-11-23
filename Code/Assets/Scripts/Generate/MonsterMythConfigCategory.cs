@@ -7,9 +7,9 @@ namespace Game
 
     public partial class MonsterMythConfigCategory
     {
-        public MonsterMythConfig GetByMapIdAndLayer(long mapId, int layer)
+        public MonsterMythConfig GetByMapIdAndQuality(long mapId, int layer)
         {
-            MonsterMythConfig config = this.list.Where(m => m.MapId <= mapId && m.Layer <= layer).FirstOrDefault();
+            MonsterMythConfig config = this.list.Where(m => m.MapId == mapId && m.Quality == layer).FirstOrDefault();
 
             return config;
         }

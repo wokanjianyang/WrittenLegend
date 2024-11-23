@@ -14,7 +14,7 @@ public class BattleRule_Myth : ABattleRule
     private double MapTime = 0;
 
     private int CurrentLayer = 1;
-    private int[] LayerCount = new int[] { 10, 8, 4, 1 };
+    private int[] LayerCount = new int[] { 10, 8, 4, 2, 1 };
 
     protected override RuleType ruleType => RuleType.Myth;
 
@@ -49,7 +49,7 @@ public class BattleRule_Myth : ABattleRule
         {
             MapTime += currentRoundTime;
         }
-        GameProcessor.Inst.EventCenter.Raise(new ShowMythInfoEvent() { Time = MapTime });
+        GameProcessor.Inst.EventCenter.Raise(new ShowMythInfoEvent() { Time = (int)(60 - MapTime) });
 
         //Debug.Log("create pill MapTime:" + MapTime);
         var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
@@ -70,8 +70,9 @@ public class BattleRule_Myth : ABattleRule
 
         if (CurrentLayer > LayerCount.Length && enemys.Count <= 0)
         {
-            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Pill, Message = "挑战通关！" });
+            this.Start = false;
 
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Myth, Message = "挑战通关！" });
             BuildReward(MapId);
 
             GameProcessor.Inst.CloseBattle(RuleType.Myth, 0);
@@ -89,14 +90,16 @@ public class BattleRule_Myth : ABattleRule
             items.Add(ItemHelper.BuildItem((ItemType)mythConfig.ItemType[i], mythConfig.ItemIdList[i], 1, mythConfig.ItemQuantity[i]));
         }
 
+        GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
         GameProcessor.Inst.EventCenter.Raise(new ShowDropEvent() { Gold = 0, Exp = 0, Items = items });
     }
 
     public override void CheckGameResult()
     {
         var heroCamp = GameProcessor.Inst.PlayerManager.GetHero();
-        if (heroCamp.HP == 0)
+        if (heroCamp.HP <= 0)
         {
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Myth, Message = "挑战失败！" });
             GameProcessor.Inst.SetGameOver(PlayerType.Enemy);
             GameProcessor.Inst.HeroDie(RuleType.Myth, 13);
         }

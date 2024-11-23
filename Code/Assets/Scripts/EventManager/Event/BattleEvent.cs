@@ -473,7 +473,7 @@ namespace Game
 
     public class ShowMythInfoEvent : SDD.Events.Event
     {
-        public double Time { get; set; }
+        public int Time { get; set; }
     }
     //--------Fashion
     public class OpenFashionDialogEvent : SDD.Events.Event

@@ -30,12 +30,13 @@ namespace Game
 
             double power = user.AttributeBonus.GetPower();
             double scale = Math.Log10(power) - 9;
-
-            Debug.Log("myth scale :" + scale);
             this.Scale = (int)scale;
 
             this.SetAttr(user);  //设置属性值
             this.SetSkill(user); //设置技能
+
+            double maxHP = AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
+            SetHP(maxHP);
 
             base.Load();
             this.Logic.SetData(null); //设置UI
@@ -47,13 +48,15 @@ namespace Game
 
             //把用户面板属性，当做战斗的基本属性
 
-            double attr = 1000000;
+            double attr = 10000;
             double attrRate = 1 + Scale * 0.05;
+
+            Debug.Log("myth scale Rate:" + attrRate);
 
             this.SetAttackSpeed((int)user.AttributeBonus.GetTotalAttr(AttributeEnum.Speed));
             this.SetMoveSpeed((int)user.AttributeBonus.GetTotalAttr(AttributeEnum.MoveSpeed));
 
-            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, attr * attrRate * 10000);
+            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, attr * attrRate * 100);
 
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroPanel, attr * attrRate);
             AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroPanel, attr * attrRate);
@@ -93,7 +96,14 @@ namespace Game
             }
 
             List<int> rids = list.Select(m => m.SkillId).ToList();
-            list.AddRange(user.GetCurrentSkill(rids));
+            List<SkillData> userList = user.GetCurrentSkill(rids);
+
+            for (int i = 0; i < userList.Count; i++)
+            {
+                SkillData skillData = new SkillData(userList[i].SkillId, userList[i].Position);
+                skillData.MagicLevel.Data = Math.Max(1, userList[i].MagicLevel.Data / 10000);
+                list.Add(skillData);
+            }
 
             list.Add(new SkillData(9001, (int)SkillPosition.Default));
 
@@ -111,6 +121,8 @@ namespace Game
 
                 SkillState skill = new SkillState(this, skillPanel, i, 0);
                 SelectSkillList.Add(skill);
+
+                //Debug.Log(skillData.SkillConfig.Name + " Percent  :" + skillPanel.Percent);
 
                 //职业专精技能的属性
                 if (skillData.SkillConfig.Type == (int)SkillType.Expert)

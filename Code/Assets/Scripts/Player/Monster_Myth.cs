@@ -9,15 +9,13 @@ public class Monster_Myth : APlayer
 {
     MonsterMythConfig config;
 
-    int MapId = 0;
-
-    public Monster_Myth(int mapId, int layer)
+    public Monster_Myth(int mapId, int quality)
     {
         this.GroupId = 2;
-        this.MapId = mapId;
         this.RuleType = RuleType.Myth;
+        this.Quality = quality;
 
-        config = MonsterMythConfigCategory.Instance.GetByMapIdAndLayer(mapId, layer);
+        config = MonsterMythConfigCategory.Instance.GetByMapIdAndQuality(mapId, quality);
 
         this.Init();
     }
@@ -25,8 +23,8 @@ public class Monster_Myth : APlayer
     private void Init()
     {
         this.Camp = PlayerType.Enemy;
-        this.Name = " 幻境魔物";
-        this.Level = 1000;
+        this.Name = config.MonsterName;
+        this.Level = config.Id * 10 + config.Quality;
         this.ModelType = MondelType.Nomal;
 
         this.SetAttr();  //设置属性值
@@ -41,6 +39,14 @@ public class Monster_Myth : APlayer
         //加载技能
         List<SkillData> list = new List<SkillData>();
 
+
+        for (int i = 0; i < config.SkillIdList.Length; i++)
+        {
+            int skillId = config.SkillIdList[i];
+            SkillData skillData = new SkillData(skillId, i);
+            skillData.MagicLevel.Data = Quality;
+            list.Add(skillData);
+        }
 
         list.Add(new SkillData(9001, (int)SkillPosition.Default)); //增加默认技能
 

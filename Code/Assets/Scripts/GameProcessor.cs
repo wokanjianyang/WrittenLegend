@@ -693,6 +693,7 @@ namespace Game
                 case RuleType.BossFamily:
                 case RuleType.HeroPhantom:
                 case RuleType.Phantom:
+                case RuleType.Myth:
                     ie_autoExitKey = StartCoroutine(this.AutoExitMap(ruleType, time, ConfigHelper.AutoExitMapTime));
                     break;
                 default:
