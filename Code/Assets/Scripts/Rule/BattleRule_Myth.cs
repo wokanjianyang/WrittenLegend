@@ -13,6 +13,7 @@ public class BattleRule_Myth : ABattleRule
 
     private double MapTime = 0;
 
+    private int MaxTime = 30;
     private int CurrentLayer = 1;
     private int[] LayerCount = new int[] { 10, 8, 4, 2, 1 };
 
@@ -49,12 +50,12 @@ public class BattleRule_Myth : ABattleRule
         {
             MapTime += currentRoundTime;
         }
-        GameProcessor.Inst.EventCenter.Raise(new ShowMythInfoEvent() { Time = (int)(60 - MapTime) });
+        GameProcessor.Inst.EventCenter.Raise(new ShowMythInfoEvent() { Layer = CurrentLayer, Time = (int)(MaxTime - MapTime) });
 
         //Debug.Log("create pill MapTime:" + MapTime);
         var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
 
-        if (CurrentLayer <= LayerCount.Length && (MapTime >= 60 || enemys.Count <= 0))
+        if (CurrentLayer <= LayerCount.Length && (MapTime >= MaxTime || enemys.Count <= 0))
         {
             for (int i = 0; i < LayerCount[CurrentLayer - 1]; i++)
             {

@@ -64,7 +64,7 @@ public class MapMyth : MonoBehaviour, IBattleLife
 
     public void OnShowInfo(ShowMythInfoEvent e)
     {
-        if (e.Time > 0)
+        if (e.Layer < 5)
         {
             Txt_Time.text = "下波出怪时间：" + (e.Time);
         }
