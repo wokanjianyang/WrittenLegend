@@ -221,7 +221,7 @@ public class Com_AD : MonoBehaviour, IBattleLife
 
     public IEnumerator EnableButton()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
 
         Btn_Read1.gameObject.SetActive(true);
         Btn_Read2.gameObject.SetActive(true);
