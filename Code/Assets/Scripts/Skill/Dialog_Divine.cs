@@ -22,6 +22,7 @@ public class Dialog_Divine : MonoBehaviour, IBattleLife
     public Button Btn_Ok;
     public Button Btn_Close;
     public Button Btn_Restore;
+    public Button Btn_Batch;
     public Text Txt_OK;
 
     private int SkillId = 0;
@@ -34,6 +35,7 @@ public class Dialog_Divine : MonoBehaviour, IBattleLife
         Btn_Close.onClick.AddListener(OnClick_Close);
         Btn_Ok.onClick.AddListener(OnClick_Ok);
         Btn_Restore.onClick.AddListener(OnClick_Restore);
+        Btn_Batch.onClick.AddListener(OnClick_Batch);
 
         items = this.GetComponentsInChildren<Item_Divine>().ToList();
 
@@ -263,6 +265,58 @@ public class Dialog_Divine : MonoBehaviour, IBattleLife
         user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = newList });
 
         this.Show();
+    }
+
+    public void OnClick_Batch()
+    {
+        Btn_Batch.gameObject.SetActive(false);
+
+        User user = GameProcessor.Inst.User;
+
+        if (user.MagicGold.Data <= ConfigHelper.RestoreGold * 2)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "½ð±Ò²»×ã1¾©", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
+
+        int count = 0;
+
+        for (int i = 0; i < items.Count; i++)
+        {
+            Item_Divine currentItem = items[i];
+            SkillDivineConfig config = currentItem.Config;
+
+            long currentLevel = skillData.GetDivineItemLevel(config.Id);
+
+            long total = user.GetBagItemCount(config.ItemId);
+            long needCount = GetNeedNumber(currentLevel);
+
+            if (total < needCount)
+            {
+                continue;
+            }
+
+            count++;
+
+            GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
+            {
+                Type = ItemType.Material,
+                ItemId = config.ItemId,
+                Quantity = needCount
+            });
+
+            skillData.AddDivineItemLevel(config.Id);
+        }
+
+        if (count > 0)
+        {
+            user.SubGold(ConfigHelper.RestoreGold * 2);
+            GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
+            GameProcessor.Inst.User.EventCenter.Raise(new SkillShowEvent());
+            this.Show();
+        }
+
+        Btn_Batch.gameObject.SetActive(true);
     }
 
     public void OnClick_Close()
