@@ -99,7 +99,7 @@ namespace Game
 
             string color = total >= upNumber ? "#FFFF00" : "#FF0000";
 
-            Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2}", color, upNumber, total);
+            Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2}", color, total, upNumber);
         }
 
         public void SetContent(CardConfig config)
