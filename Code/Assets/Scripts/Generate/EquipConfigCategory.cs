@@ -67,7 +67,7 @@ namespace Game
             for (int i = 0; i < config.AttrIdList.Length; i++)
             {
                 int attrId = config.AttrIdList[i];
-                AttrEntryConfig entryConfig = AttrEntryConfigCategory.Instance.GetRedConfig(attrId);
+                AttrEntryConfig entryConfig = AttrEntryConfigCategory.Instance.GetRedConfig(attrId, config.Quality);
                 AttrEntryList.Add(new KeyValuePair<int, long>(attrId, entryConfig.MaxValue));
             }
 

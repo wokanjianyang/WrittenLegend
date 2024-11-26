@@ -104,6 +104,8 @@ namespace Game
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 113, 1, 1)); //法师输出
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 114, 1, 1)); //道士输出
 
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 127, 1, 1)); //金装
+
             //items.AddRange(AddRedEquipDaoshi());
             //items.AddRange(AddExclusiveFashi());
 

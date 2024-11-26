@@ -139,9 +139,9 @@ namespace Game
             return this.list.Where(m => m.Type == 1 && m.EndQuality == 6).ToList();
         }
 
-        public AttrEntryConfig GetRedConfig(int attrId)
+        public AttrEntryConfig GetRedConfig(int attrId, int quality)
         {
-            return this.list.Where(m => m.Type == 1 && m.EndQuality == 6 && m.AttrId == attrId).FirstOrDefault();
+            return this.list.Where(m => m.Type == 1 && m.EndQuality == quality && m.AttrId == attrId).FirstOrDefault();
         }
     }
 }
