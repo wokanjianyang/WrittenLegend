@@ -229,14 +229,16 @@ public class Dialog_Divine : MonoBehaviour, IBattleLife
             return;
         }
 
-        GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("重生消耗5000兆金币，其他材料全额返回。是否确认？", true,
-        () =>
-        {
-            this.Restore();
-        }, () =>
-        {
+        this.Restore();
 
-        });
+        //GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("重生消耗5000兆金币，其他材料全额返回。是否确认？", true,
+        //() =>
+        //{
+
+        //}, () =>
+        //{
+
+        //});
     }
 
     private void Restore()
@@ -291,7 +293,7 @@ public class Dialog_Divine : MonoBehaviour, IBattleLife
             long total = user.GetBagItemCount(config.ItemId);
             long needCount = GetNeedNumber(currentLevel);
 
-            if (total < needCount)
+            if (total < needCount || currentLevel >= 4)
             {
                 continue;
             }
@@ -314,6 +316,10 @@ public class Dialog_Divine : MonoBehaviour, IBattleLife
             GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
             GameProcessor.Inst.User.EventCenter.Raise(new SkillShowEvent());
             this.Show();
+        }
+        else
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "全部已满级或者材料全部不足", ToastType = ToastTypeEnum.Failure });
         }
 
         Btn_Batch.gameObject.SetActive(true);
