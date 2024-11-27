@@ -54,7 +54,12 @@ namespace Game
         public long DivineLevel = 0;
         public SkillDivineAttrConfig DivineAttrConfig;
 
-        public SkillPanel(SkillData skillData, List<SkillRune> runeList, List<SkillSuit> suitList, bool isPlayer)
+        public SkillPanel(SkillData skillData, List<SkillRune> runeList, List<SkillSuit> suitList, bool isPlayer) : this(skillData, runeList, suitList, isPlayer, 1)
+        {
+
+        }
+
+        public SkillPanel(SkillData skillData, List<SkillRune> runeList, List<SkillSuit> suitList, bool isPlayer, int mythRate)
         {
             this.SkillData = skillData;
             this.SkillId = skillData.SkillId;
@@ -201,6 +206,11 @@ namespace Game
             //        this.CenterType = suit.Center;
             //    }
             //}
+            if (mythRate > 1)
+            {
+                this.Percent = this.Percent / mythRate;
+                this.Damage = this.Percent / mythRate;
+            }
 
             if (isPlayer)
             {

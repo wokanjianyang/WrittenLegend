@@ -97,13 +97,14 @@ namespace Game
 
             List<int> rids = list.Select(m => m.SkillId).ToList();
             List<SkillData> userList = user.GetCurrentSkill(rids);
+            list.AddRange(userList);
 
-            for (int i = 0; i < userList.Count; i++)
-            {
-                SkillData skillData = new SkillData(userList[i].SkillId, userList[i].Position);
-                skillData.MagicLevel.Data = Math.Max(1, userList[i].MagicLevel.Data / 10000);
-                list.Add(skillData);
-            }
+            //for (int i = 0; i < userList.Count; i++)
+            //{
+            //    SkillData skillData = new SkillData(userList[i].SkillId, userList[i].Position);
+            //    skillData.MagicLevel.Data = Math.Max(1, userList[i].MagicLevel.Data / 10000);
+            //    list.Add(skillData);
+            //}
 
             list.Add(new SkillData(9001, (int)SkillPosition.Default));
 
@@ -117,12 +118,14 @@ namespace Game
 
                 List<SkillSuit> suitList = user.GetSuitList(skillData.SkillId);
 
-                SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, true);
+                SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, true, skillData.SkillConfig.MaxLevel * 5);
+
+
 
                 SkillState skill = new SkillState(this, skillPanel, i, 0);
                 SelectSkillList.Add(skill);
 
-                //Debug.Log(skillData.SkillConfig.Name + " Percent  :" + skillPanel.Percent);
+                Debug.Log(skillData.SkillConfig.Name + " Percent  :" + skillPanel.Percent);
 
                 //职业专精技能的属性
                 if (skillData.SkillConfig.Type == (int)SkillType.Expert)
