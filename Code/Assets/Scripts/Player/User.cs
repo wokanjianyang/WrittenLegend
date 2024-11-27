@@ -898,7 +898,7 @@ namespace Game
                 if (currentPanel.TryGetValue(i, out Equip equip))
                 {
                     EquipSuit es = GetEquipSuit(equip.EquipConfig);
-                    if (es.Active)
+                    if (es.Active && es.Config != null)
                     {
                         list.Add(es.Config);
                     }
