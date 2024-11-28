@@ -208,8 +208,8 @@ namespace Game
             //}
             if (mythRate > 1)
             {
-                this.Percent = this.Percent / mythRate;
-                this.Damage = this.Percent / mythRate;
+                this.Percent = Math.Max(this.Percent / mythRate, this.Percent > 0 ? 1 : 0);
+                this.Damage = Math.Max(this.Damage / mythRate, this.Damage > 0 ? 1 : 0);
             }
 
             if (isPlayer)

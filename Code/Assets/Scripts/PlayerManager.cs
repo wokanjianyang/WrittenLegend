@@ -81,6 +81,30 @@ namespace Game
             this.AddPlayer(hero);
         }
 
+        public void LoadHero(Hero her)
+        {
+            this.hero = her;
+
+            var coms = hero.Transform.GetComponents<MonoBehaviour>();
+            foreach (var com in coms)
+            {
+                if (com is IPlayer _com)
+                {
+                    _com.SetParent(hero);
+                }
+            }
+
+            var tempCells = GameProcessor.Inst.MapData.AllCells.ToList();
+            var allPlayerCells = GameProcessor.Inst.PlayerManager.GetAllPlayers().Select(p => p.Cell).ToList();
+            tempCells.RemoveAll(p => allPlayerCells.Contains(p));
+
+
+            var index = RandomHelper.RandomNumber(0, tempCells.Count);
+            var bornCell = tempCells[index];
+            hero.SetPosition(bornCell, true);
+            this.AddPlayer(hero);
+        }
+
         public void LoadHeroPhantom(APlayer player)
         {
             var coms = player.Transform.GetComponents<MonoBehaviour>();

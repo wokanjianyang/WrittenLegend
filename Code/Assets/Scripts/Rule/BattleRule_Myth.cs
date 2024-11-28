@@ -34,8 +34,8 @@ public class BattleRule_Myth : ABattleRule
 
     private void LoadHero()
     {
-        APlayer hero = new HeroMyth();
-        GameProcessor.Inst.PlayerManager.LoadMonster(hero);
+        HeroMyth hero = new HeroMyth();
+        GameProcessor.Inst.PlayerManager.LoadHero(hero);
     }
 
     public override void DoMapLogic(int roundNum, double currentRoundTime)

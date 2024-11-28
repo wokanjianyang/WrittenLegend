@@ -116,8 +116,15 @@ namespace Game
                 {
                     SkillData skillData = GameProcessor.Inst.User.SkillList.Where(m => m.SkillConfig.Id == skillId).FirstOrDefault();
 
+
                     if (skillData != null && Master.Camp == PlayerType.Hero)
                     {
+                        int scale = 1;
+                        if (this.Master.RuleType == RuleType.Myth)
+                        {
+                            scale = skillData.SkillConfig.MaxLevel * 5;
+                        }
+
                         User user = GameProcessor.Inst.User;
 
                         List<SkillRuneConfig> buffRuneList = null;
@@ -129,7 +136,7 @@ namespace Game
                         List<SkillRune> runeList = user.GetRuneList(skillData.SkillId, buffRuneList);
                         List<SkillSuit> suitList = user.GetSuitList(skillData.SkillId);
 
-                        SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, false);
+                        SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, false, scale);
 
                         SkillState skill = new SkillState(this, skillPanel, skillData.Position, 0);
                         SelectSkillList.Add(skill);

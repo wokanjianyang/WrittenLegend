@@ -13,6 +13,11 @@ namespace Game
 
         public List<SkillState> DoubleHitSkillList { get; set; } = new List<SkillState>();
 
+        public Hero()
+        {
+
+        }
+
         public Hero(RuleType ruleType) : base()
         {
             this.GroupId = 1;

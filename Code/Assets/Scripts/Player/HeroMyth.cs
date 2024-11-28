@@ -7,16 +7,14 @@ using System;
 
 namespace Game
 {
-    public class HeroMyth : APlayer
+    public class HeroMyth : Hero
     {
         private int Scale = 0;
-        public List<SkillState> DoubleHitSkillList { get; set; } = new List<SkillState>();
 
         public HeroMyth() : base()
         {
             this.GroupId = 1;
             this.RuleType = RuleType.Myth;
-
 
             this.Init();
         }
@@ -125,7 +123,8 @@ namespace Game
                 SkillState skill = new SkillState(this, skillPanel, i, 0);
                 SelectSkillList.Add(skill);
 
-                Debug.Log(skillData.SkillConfig.Name + " Percent  :" + skillPanel.Percent);
+                //Debug.Log(skillData.SkillConfig.Name + " Percent  :" + skillPanel.Percent);
+                //Debug.Log(skillData.SkillConfig.Name + " Damage  :" + skillPanel.Damage);
 
                 //职业专精技能的属性
                 if (skillData.SkillConfig.Type == (int)SkillType.Expert)

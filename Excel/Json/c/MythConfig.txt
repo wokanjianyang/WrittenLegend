@@ -1,8 +1,8 @@
 {"list":[
 {"_t":"MythConfig","_id":1,"MapName":"小村杀鸡","ItemType":[5,5],"ItemIdList":[4008,4020],"ItemQuantity":[10,5]},
 {"_t":"MythConfig","_id":2,"MapName":"比奇打骷髅","ItemType":[5,5],"ItemIdList":[4008,4020],"ItemQuantity":[10,5]},
-{"_t":"MythConfig","_id":3,"MapName":"矿洞打僵尸","ItemType":[5,5],"ItemIdList":[4008,4020],"ItemQuantity":[10,5]},
-{"_t":"MythConfig","_id":4,"MapName":"山谷杀蛇","ItemType":[5,5],"ItemIdList":[4008,4020],"ItemQuantity":[10,5]},
-{"_t":"MythConfig","_id":5,"MapName":"蜈蚣洞","ItemType":[5,5],"ItemIdList":[4008,4020],"ItemQuantity":[10,5]},
-{"_t":"MythConfig","_id":6,"MapName":"猪洞烧猪","ItemType":[5,5],"ItemIdList":[4008,4020],"ItemQuantity":[10,5]},
+{"_t":"MythConfig","_id":3,"MapName":"矿洞打僵尸","ItemType":[5,5],"ItemIdList":[4008,4020],"ItemQuantity":[10,6]},
+{"_t":"MythConfig","_id":4,"MapName":"山谷杀蛇","ItemType":[5,5],"ItemIdList":[4008,4020],"ItemQuantity":[10,6]},
+{"_t":"MythConfig","_id":5,"MapName":"地下砍蜈蚣","ItemType":[5,5],"ItemIdList":[4008,4020],"ItemQuantity":[10,7]},
+{"_t":"MythConfig","_id":6,"MapName":"猪洞烧猪","ItemType":[5,5],"ItemIdList":[4008,4020],"ItemQuantity":[10,7]},
 ]}

@@ -21,7 +21,7 @@ public class MapMyth : MonoBehaviour, IBattleLife
     private int msgId = 0;
     private List<Text> msgPool = new List<Text>();
 
-    private long MapTime = 0;
+    private long MapTime = 13;
 
     public int Order => (int)ComponentOrder.BattleRule;
 
