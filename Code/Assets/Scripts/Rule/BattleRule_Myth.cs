@@ -13,7 +13,7 @@ public class BattleRule_Myth : ABattleRule
 
     private double MapTime = 0;
 
-    private int MaxTime = 30;
+    private int MaxTime = 20;
     private int CurrentLayer = 1;
     private int[] LayerCount = new int[] { 10, 8, 4, 2, 1 };
 

@@ -44,7 +44,7 @@ public class Monster_Myth : APlayer
         {
             int skillId = config.SkillIdList[i];
             SkillData skillData = new SkillData(skillId, i);
-            skillData.MagicLevel.Data = Quality;
+            skillData.MagicLevel.Data = config.SkillLevelList[i];
             list.Add(skillData);
         }
 

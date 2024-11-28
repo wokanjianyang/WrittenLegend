@@ -111,6 +111,9 @@ namespace Game
 		/// <summary>SkillIdList</summary>
 		[ProtoMember(12)]
 		public int[] SkillIdList { get; set; }
+		/// <summary>SkillLevelList</summary>
+		[ProtoMember(13)]
+		public int[] SkillLevelList { get; set; }
 
 	}
 }
