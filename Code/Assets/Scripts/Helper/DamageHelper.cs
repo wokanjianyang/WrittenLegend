@@ -12,7 +12,8 @@ namespace Game
 
             int role = skill.SkillData.SkillConfig.Role;
 
-            double roleAttr = GetRoleAttack(attcher, role, true) * (100 + skill.AttrIncrea + attcher.GetAttackAttr(AttributeEnum.AurasAttrIncrea)) / 100;  //职业攻击
+            double roleAttr = GetRoleAttack(attcher, role, true);
+            roleAttr = roleAttr * (100 + skill.AttrIncrea + attcher.GetAttackAttr(AttributeEnum.AurasAttrIncrea)) / 100;  //职业攻击
 
             //防御 = 目标防御 * (100-无视防御)/100
             double def = enemy.GetAttackDoubleAttr(AttributeEnum.Def);
