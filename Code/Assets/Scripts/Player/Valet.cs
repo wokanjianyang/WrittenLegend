@@ -120,9 +120,9 @@ namespace Game
                     if (skillData != null && Master.Camp == PlayerType.Hero)
                     {
                         int scale = 1;
-                        if (this.Master.RuleType == RuleType.Myth)
+                        if (this.Master.RuleType == RuleType.Myth && this.Master.Camp == PlayerType.Hero)
                         {
-                            scale = skillData.SkillConfig.MaxLevel * 5;
+                            scale = skillData.SkillConfig.MythRate;
                         }
 
                         User user = GameProcessor.Inst.User;

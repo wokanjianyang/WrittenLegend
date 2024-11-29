@@ -116,7 +116,7 @@ namespace Game
 
                 List<SkillSuit> suitList = user.GetSuitList(skillData.SkillId);
 
-                SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, true, skillData.SkillConfig.MaxLevel * 5);
+                SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, true, skillData.SkillConfig.MythRate);
 
 
 
