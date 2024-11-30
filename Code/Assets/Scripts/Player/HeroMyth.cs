@@ -49,8 +49,8 @@ namespace Game
 
             Debug.Log("myth scale Rate:" + attrRate);
 
-            this.SetAttackSpeed((int)user.AttributeBonus.GetTotalAttr(AttributeEnum.Speed));
-            this.SetMoveSpeed((int)user.AttributeBonus.GetTotalAttr(AttributeEnum.MoveSpeed));
+            //this.SetAttackSpeed((int)user.AttributeBonus.GetTotalAttr(AttributeEnum.Speed));
+            //this.SetMoveSpeed((int)user.AttributeBonus.GetTotalAttr(AttributeEnum.MoveSpeed));
 
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, attr * attrRate * 150);
 
@@ -169,7 +169,7 @@ namespace Game
                 }
             }
 
-            InitDoubleHitSkill(user);
+            //InitDoubleHitSkill(user);
         }
 
         private void InitDoubleHitSkill(User user)
