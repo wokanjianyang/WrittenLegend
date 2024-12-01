@@ -33,7 +33,7 @@ namespace Game
                 var hp = CalcFormula();
                 teamer.OnRestore(attackData.Tid, hp);
 
-                //Debug.Log("Restore Base :" + hp);
+                //Debug.Log(this.SelfPlayer.Name + "(" + SelfPlayer.ID + ")" + " Restore to +" + teamer.Name + "(" + teamer.ID + ")" + " :" + hp);
 
                 //Buff
                 foreach (EffectData effect in SkillPanel.EffectIdList.Values)
@@ -75,14 +75,14 @@ namespace Game
             foreach (var cell in allAttackCells)
             {
                 var enemy = GameProcessor.Inst.PlayerManager.GetPlayer(cell);
-                if (enemy != null && enemy.GroupId == SelfPlayer.GroupId && enemy.ID != SelfPlayer.ID) //只回复同组成员,自己已经加进去了
+                if (enemy != null && enemy.HP > 0 && enemy.GroupId == SelfPlayer.GroupId && enemy.ID != SelfPlayer.ID) //只回复同组成员,自己已经加进去了
                 {
                     teamList.Add(enemy);
                 }
             }
 
             //按损失血量排序
-            teamList = teamList.OrderBy(m => m.AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP) - m.HP).ToList();
+            teamList = teamList.OrderByDescending(m => m.AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP) - m.HP).ToList();
 
             foreach (var teamer in teamList)
             {

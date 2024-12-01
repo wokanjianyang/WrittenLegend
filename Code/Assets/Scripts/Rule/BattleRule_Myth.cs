@@ -15,7 +15,7 @@ public class BattleRule_Myth : ABattleRule
 
     private int MaxTime = 20;
     private int CurrentLayer = 1;
-    private int[] LayerCount = new int[] { 10, 8, 4, 2, 1 };
+    private int[] LayerCount = new int[] { 10, 8, 6, 4, 2 };
 
     protected override RuleType ruleType => RuleType.Myth;
 
@@ -76,7 +76,7 @@ public class BattleRule_Myth : ABattleRule
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Myth, Message = "ÃÙ’ΩÕ®πÿ£°" });
             BuildReward(MapId);
 
-            GameProcessor.Inst.CloseBattle(RuleType.Myth, 0);
+            GameProcessor.Inst.CloseBattle(RuleType.Myth, 13);
         }
     }
 

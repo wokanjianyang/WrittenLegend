@@ -256,14 +256,14 @@ namespace Game
                 //去掉专属精华
                 //user.Bags.RemoveAll(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Chunjie);
 
-                if (user.EquipPanelGolden.Count > 0)
-                {
-                    foreach (var sp in user.EquipPanelGolden)
-                    {
-                        user.EquipPanelGoldenList[0].Add(sp.Key, sp.Value);
-                    }
-                    user.EquipPanelGolden.Clear();
-                }
+                //if (user.EquipPanelGolden.Count > 0)
+                //{
+                //    foreach (var sp in user.EquipPanelGolden)
+                //    {
+                //        user.EquipPanelGoldenList[0].Add(sp.Key, sp.Value);
+                //    }
+                //    user.EquipPanelGolden.Clear();
+                //}
 
                 //List<BoxItem> items = user.Bags.Where(m => m.Item.Type == ItemType.Equip && m.Item.ConfigId >= 21105801 && m.Item.ConfigId <= 21105810).ToList();
                 //List<BoxItem> items = user.Bags.Where(m => m.Item.Type == ItemType.Equip && m.Item.ConfigId >= 22105801 && m.Item.ConfigId <= 22105810).ToList();
