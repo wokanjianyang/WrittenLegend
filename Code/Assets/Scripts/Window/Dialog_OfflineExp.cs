@@ -108,6 +108,8 @@ namespace Game
 
             //items.AddRange(AddRedEquipDaoshi());
             //items.AddRange(AddExclusiveDaoshi());
+            //items.AddRange(AddExclusiveZhanshi());
+
 
             foreach (var item in items)
             {
@@ -596,6 +598,86 @@ namespace Game
 
                 message += $"<color=#{QualityConfigHelper.GetQualityColor(metalConfig.Quality)}>[{metalConfig.Name}]</color>" + kp.Value + "个";
             }
+        }
+
+        private List<ExclusiveItem> AddExclusiveZhanshi()
+        {
+            //定制红
+            List<ExclusiveItem> list = new List<ExclusiveItem>();
+
+            //刺杀
+            //ExclusiveItem exclusive1 = new ExclusiveItem(1, 9, 10, 5, 2);
+            //exclusive1.RuneConfigIdList.Add(9);
+            //exclusive1.RuneConfigIdList.Add(9);
+            //exclusive1.RuneConfigIdList.Add(27);
+            //exclusive1.SuitConfigIdList.Add(10);
+            //exclusive1.SuitConfigIdList.Add(10003);
+            //exclusive1.SuitConfigIdList.Add(10003);
+            //exclusive1.LevelDict[10008] = 99;
+            //exclusive1.Count = 1;
+            //list.Add(exclusive1);
+
+            //武力盾
+            //ExclusiveItem exclusive2 = new ExclusiveItem(2, 27, 10009, 5, 2);
+            //exclusive2.RuneConfigIdList.Add(14);
+            //exclusive2.RuneConfigIdList.Add(14);
+            //exclusive2.RuneConfigIdList.Add(14);
+            //exclusive2.SuitConfigIdList.Add(10009);
+            //exclusive2.SuitConfigIdList.Add(10010);
+            //exclusive2.SuitConfigIdList.Add(10010);
+            //exclusive2.LevelDict[10009] = 99;
+            //exclusive2.Count = 1;
+            //list.Add(exclusive2);
+
+            ////冰咆哮
+            //ExclusiveItem exclusive3 = new ExclusiveItem(3, 5, 6, 5, 2);
+            //exclusive3.RuneConfigIdList.Add(5);
+            //exclusive3.RuneConfigIdList.Add(5);
+            //exclusive3.RuneConfigIdList.Add(18);
+            //exclusive3.SuitConfigIdList.Add(6);
+            //exclusive3.SuitConfigIdList.Add(11);
+            //exclusive3.SuitConfigIdList.Add(11);
+            //exclusive3.LevelDict[10010] = 99;
+            //exclusive3.Count = 1;
+            //list.Add(exclusive3);
+
+            ////护体神盾
+            //ExclusiveItem exclusive4 = new ExclusiveItem(4, 21, 10029, 5, 2);
+            //exclusive4.RuneConfigIdList.Add(21);
+            //exclusive4.RuneConfigIdList.Add(21);
+            //exclusive4.RuneConfigIdList.Add(21);
+            //exclusive4.SuitConfigIdList.Add(10029);
+            //exclusive4.SuitConfigIdList.Add(10030);
+            //exclusive4.SuitConfigIdList.Add(10030);
+            //exclusive4.LevelDict[24] = 99;
+            //exclusive4.Count = 1;
+            //list.Add(exclusive4);
+
+            ////流行+回复
+            //ExclusiveItem exclusive5 = new ExclusiveItem(5, 26, 3, 5, 2);
+            //exclusive5.RuneConfigIdList.Add(26);
+            //exclusive5.RuneConfigIdList.Add(26);
+            //exclusive5.RuneConfigIdList.Add(23);
+            //exclusive5.SuitConfigIdList.Add(3);
+            //exclusive5.SuitConfigIdList.Add(17);
+            //exclusive5.SuitConfigIdList.Add(17);
+            //exclusive5.LevelDict[25] = 99;
+            //exclusive5.Count = 1;
+            //list.Add(exclusive5);
+
+            //月灵+隐身
+            //ExclusiveItem exclusive6 = new ExclusiveItem(6, 23, 18, 5, 2);
+            //exclusive6.RuneConfigIdList.Add(20);
+            //exclusive6.RuneConfigIdList.Add(20);
+            //exclusive6.RuneConfigIdList.Add(20);
+            //exclusive6.SuitConfigIdList.Add(18);
+            //exclusive6.SuitConfigIdList.Add(15);
+            //exclusive6.SuitConfigIdList.Add(15);
+            //exclusive6.LevelDict[29] = 99;
+            //exclusive6.Count = 1;
+            //list.Add(exclusive6);
+
+            return list;
         }
 
         private List<ExclusiveItem> AddExclusiveFashi()

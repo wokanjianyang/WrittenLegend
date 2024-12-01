@@ -105,14 +105,20 @@ namespace Game
 		/// <summary>CritRateResist</summary>
 		[ProtoMember(10)]
 		public int CritRateResist { get; set; }
-		/// <summary>ResotrePercent</summary>
+		/// <summary>CritDamageResist</summary>
 		[ProtoMember(11)]
+		public int CritDamageResist { get; set; }
+		/// <summary>Protect</summary>
+		[ProtoMember(12)]
+		public int Protect { get; set; }
+		/// <summary>ResotrePercent</summary>
+		[ProtoMember(13)]
 		public int ResotrePercent { get; set; }
 		/// <summary>SkillIdList</summary>
-		[ProtoMember(12)]
+		[ProtoMember(14)]
 		public int[] SkillIdList { get; set; }
 		/// <summary>SkillLevelList</summary>
-		[ProtoMember(13)]
+		[ProtoMember(15)]
 		public int[] SkillLevelList { get; set; }
 
 	}

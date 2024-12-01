@@ -163,10 +163,16 @@ namespace Game
                 SkillData skillData = user.SkillList.Where(m => m.SkillConfig.Id == 3005).FirstOrDefault();
                 if (skillData != null)
                 {
+                    int scale = 1;
+                    if (this.Master.RuleType == RuleType.Myth && this.Master.Camp == PlayerType.Hero)
+                    {
+                        scale = skillData.SkillConfig.MythRate;
+                    }
+
                     List<SkillRune> runeList = user.GetRuneList(skillData.SkillId, null);
                     List<SkillSuit> suitList = user.GetSuitList(skillData.SkillId);
 
-                    SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, false);
+                    SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, false, scale);
 
                     if (skillPanel.DivineLevel > 0)
                     {
