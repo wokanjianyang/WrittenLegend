@@ -28,6 +28,8 @@ public class Map_Dialog_Myth : MonoBehaviour
     {
         User user = GameProcessor.Inst.User;
 
+        user.MythData.Check();
+
         ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Map/Map_Myth_Item");
 
         List<MythConfig> list = MythConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
