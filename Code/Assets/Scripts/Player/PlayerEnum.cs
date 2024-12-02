@@ -58,6 +58,11 @@ namespace Game
         WarlockSkillPercent = 45, //道士技能百分比系数
         WarlockSkillDamage = 46, //道士技能固定系数
 
+        ExpFinal = 50, //经验增幅
+        GoldFinal = 51, //金币增幅
+        BurstFinal = 52, //爆率增幅
+        QualityFinal = 53, //品质增幅
+
         AurasDamageResist = 201, //光环减伤
         AurasDamageIncrea = 202, //光环增伤
         AurasAttrIncrea = 203,//

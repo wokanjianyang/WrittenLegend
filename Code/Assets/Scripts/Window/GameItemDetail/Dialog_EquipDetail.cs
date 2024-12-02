@@ -127,7 +127,13 @@ namespace Game
 
             Equip equip = this.boxItem.Item as Equip;
 
-            string name = equip.Name + "(" + ConfigHelper.LayerChinaList[equip.Layer] + "阶)";
+            string name = equip.Name;
+
+            if (equip.Part <= 10 || equip.Part >= 21)
+            {
+                name += "(" + ConfigHelper.LayerChinaList[equip.Layer] + "阶)";
+            }
+
             this.tmp_Title.text = string.Format("<color=#{0}>{1}</color>", titleColor, name);
 
             string color = "green";

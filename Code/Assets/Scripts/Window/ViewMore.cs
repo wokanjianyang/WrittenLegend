@@ -31,6 +31,7 @@ namespace Game
 
         public Map_Dialog_Babel MapDialogBabel;
 
+        public Item_EquipCopy MythItem;
         public Map_Dialog_Myth MapDialogMyth;
 
         void Start()
@@ -60,10 +61,12 @@ namespace Game
             if (user.Cycle.Data > 0)
             {
                 PillItem.gameObject.SetActive(true);
+                MythItem.gameObject.SetActive(true);
             }
             else
             {
                 PillItem.gameObject.SetActive(false);
+                MythItem.gameObject.SetActive(false);
             }
 
             int mapId = user.MapId;

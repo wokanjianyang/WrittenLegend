@@ -567,6 +567,7 @@ MonoBehaviour:
   PillItem: {fileID: 7641780842597536633}
   MapDialogPill: {fileID: 2453002550796695539}
   MapDialogBabel: {fileID: 8739431490638665371}
+  MythItem: {fileID: 8821110732609970221}
   MapDialogMyth: {fileID: 3879612799734765954}
 --- !u!222 &7198626478367842758
 CanvasRenderer:
@@ -3029,6 +3030,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8788837374395113449, guid: a148f9a7b8963d14f9d15ac46a060fb4, type: 3}
   m_PrefabInstance: {fileID: 7518594655835379499}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8821110732609970221 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1314360016101029638, guid: a148f9a7b8963d14f9d15ac46a060fb4, type: 3}
+  m_PrefabInstance: {fileID: 7518594655835379499}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88dab96125209d849820b05ef8121e05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8024285806518415816
 PrefabInstance:
   m_ObjectHideFlags: 0
