@@ -16,4 +16,6 @@
 {"_t":"EquipRefineConfig","_id":15,"StartLevel":551,"EndLevel":600,"BaseFee":92000000,"RiseFee":800000},
 {"_t":"EquipRefineConfig","_id":16,"StartLevel":601,"EndLevel":650,"BaseFee":132000000,"RiseFee":900000},
 {"_t":"EquipRefineConfig","_id":17,"StartLevel":651,"EndLevel":700,"BaseFee":177000000,"RiseFee":1000000},
+{"_t":"EquipRefineConfig","_id":18,"StartLevel":701,"EndLevel":750,"BaseFee":227000000,"RiseFee":1500000},
+{"_t":"EquipRefineConfig","_id":19,"StartLevel":751,"EndLevel":800,"BaseFee":302000000,"RiseFee":2000000},
 ]}

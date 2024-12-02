@@ -139,6 +139,18 @@ namespace Game
                 case AttributeEnum.SecondGold:
                     total = CalTotal(AttributeEnum.SecondGold, haveBuff, AttributeEnum.GoldIncrea);
                     break;
+                case AttributeEnum.ExpIncrea:
+                    total = CalTotal(AttributeEnum.ExpIncrea, haveBuff, AttributeEnum.ExpFinal);
+                    break;
+                case AttributeEnum.GoldIncrea:
+                    total = CalTotal(AttributeEnum.GoldIncrea, haveBuff, AttributeEnum.GoldFinal);
+                    break;
+                case AttributeEnum.BurstIncrea:
+                    total = CalTotal(AttributeEnum.BurstIncrea, haveBuff, AttributeEnum.BurstFinal);
+                    break;
+                case AttributeEnum.QualityIncrea:
+                    total = CalTotal(AttributeEnum.QualityIncrea, haveBuff, AttributeEnum.QualityFinal);
+                    break;
                 default:
                     if ((int)attrType < 2001)
                     {
