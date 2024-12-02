@@ -9,6 +9,7 @@ public class Map_Myth_Item : MonoBehaviour
 {
     public Text Txt_Name;
     public Button Btn_Start;
+    public Text Txt_Over;
 
     private MythConfig Config;
 
@@ -18,6 +19,25 @@ public class Map_Myth_Item : MonoBehaviour
         Btn_Start.onClick.AddListener(OnClick_NavigateMap);
     }
 
+    private void OnEnable()
+    {
+        if (this.Config != null)
+        {
+            this.Show();
+        }
+    }
+
+
+    private void Show()
+    {
+        User user = GameProcessor.Inst.User;
+
+        if (user.MythData.GetOver(Config.Id))
+        {
+            Txt_Over.gameObject.SetActive(true);
+            Btn_Start.gameObject.SetActive(false);
+        }
+    }
 
     private void OnClick_NavigateMap()
     {
@@ -40,5 +60,7 @@ public class Map_Myth_Item : MonoBehaviour
     {
         this.Config = config;
         Txt_Name.text = config.MapName;
+
+        this.Show();
     }
 }
