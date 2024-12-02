@@ -63,7 +63,7 @@ public class Map_Dialog_Babel : MonoBehaviour
     {
         User user = GameProcessor.Inst.User;
 
-        if (user.BabelCount.Data < 5)
+        if (user.BabelCount.Data <= 0)
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "挑战次数不足", ToastType = ToastTypeEnum.Failure });
             return;
