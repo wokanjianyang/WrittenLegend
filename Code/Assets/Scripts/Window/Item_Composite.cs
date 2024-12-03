@@ -84,7 +84,7 @@ public class Item_Composite : MonoBehaviour
         for (int i = 0; i < Config.ItemIdList.Length; i++)
         {
             int quality = Config.ItemQualityList[i];
-            int MaxCount = Config.ItemCountList[i];
+            long MaxCount = Config.ItemCountList[i];
 
             long count = user.Bags.Where(m => (int)m.Item.Type == Config.ItemTypeList[i] && m.Item.ConfigId == Config.ItemIdList[i]).Select(m => m.MagicNubmer.Data).Sum();
 

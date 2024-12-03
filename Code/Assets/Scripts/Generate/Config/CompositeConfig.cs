@@ -89,7 +89,7 @@ namespace Game
 		public int[] ItemIdList { get; set; }
 		/// <summary>ItemCountList</summary>
 		[ProtoMember(5)]
-		public int[] ItemCountList { get; set; }
+		public long[] ItemCountList { get; set; }
 		/// <summary>ItemQualityList</summary>
 		[ProtoMember(6)]
 		public int[] ItemQualityList { get; set; }
