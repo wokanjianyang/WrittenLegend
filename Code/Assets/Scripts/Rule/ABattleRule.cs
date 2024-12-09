@@ -65,6 +65,11 @@ namespace Game
             this.currentRoundTime += Time.unscaledDeltaTime;
             if (this.currentRoundTime >= roundTime)
             {
+                if (this.currentRoundTime > 0.3)
+                {
+                    this.currentRoundTime = 0.3f;
+                }
+
                 this.DoMapLogic(roundNum, this.currentRoundTime);
                 this.currentRoundTime = 0;
 

@@ -82,6 +82,15 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
 
         if (effectTime > 0.2f)
         {
+            if (this.SelfPlayer.Camp == PlayerType.Hero && effectTime > 1)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = this.SelfPlayer.RuleType, Message = "CD时间:" + effectTime });
+            }
+
+            if (effectTime > 0.3) {
+                effectTime = 0.3f;
+            }
+
             try
             {
                 this.SelfPlayer.DoCD(effectTime);
