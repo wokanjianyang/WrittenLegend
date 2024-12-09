@@ -250,8 +250,27 @@ public class Dialog_Legacy : MonoBehaviour, IBattleLife
         User user = GameProcessor.Inst.User;
         long currentLayer = user.GetLegacyLayer(config.Id);
 
+        LegacyMapConfig legacyMapConfig = LegacyMapConfigCategory.Instance.Get(config.Role);
+        long[] powerList = new long[] { 0, 0, 0 };
+        foreach (KeyValuePair<int, MagicData> kv in user.LegacyLayer)
+        {
+            LegacyConfig legacy = LegacyConfigCategory.Instance.Get(kv.Key);
+
+            for (int i = 0; i < legacy.PowerList.Length; i++)
+            {
+                powerList[i] += kv.Value.Data * legacy.PowerList[i];
+            }
+        }
+        long maxCurrentLayer = legacyMapConfig.CalMaxLayer(powerList, user.GetArtifactValue(ArtifactType.LegacyLimit));
+
         long total = user.LegacyPoint.Data;
         long needCount = GetNeedLayerNumber(currentLayer, config);
+
+        if (currentLayer >= maxCurrentLayer)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "祝福升阶不能超过当前副本等阶", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
 
         if (total < needCount)
         {
