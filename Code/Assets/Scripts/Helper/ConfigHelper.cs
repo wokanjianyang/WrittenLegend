@@ -12,7 +12,7 @@ namespace Game
 
         public const int Channel_Tap = 1;
 
-        public const int Version = 307;
+        public const int Version = 308;
 
         public const long PackTime = 1733707732; //打包时间，防止作弊
 
@@ -95,7 +95,7 @@ namespace Game
 
         public const int Mine_Time = 60;
 
-        public const int Infinit_Max = 2000;
+        public const int Infinit_Max = 2500;
 
         public static int GetFloorRate(long floor)
         {

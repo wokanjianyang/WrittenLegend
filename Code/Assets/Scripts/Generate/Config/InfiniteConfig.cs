@@ -125,7 +125,7 @@ namespace Game
 		public int MulDamageResist { get; set; }
 		/// <summary>Protect</summary>
 		[ProtoMember(17)]
-		public int Protect { get; set; }
+		public double Protect { get; set; }
 		/// <summary>Exp</summary>
 		[ProtoMember(18)]
 		public double Exp { get; set; }
