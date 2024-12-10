@@ -78,7 +78,7 @@ namespace Game
             paramDict.Add("ring", ringTotal + "");
 
             long soulBoneTotal = user.SoulBoneData.Select(m => m.Value.Data).Sum();
-            paramDict.Add("soulBone", soulBoneTotal + "");
+            paramDict.Add("bone", soulBoneTotal + "");
 
             paramDict.Add("swing", user.WingData.Data + "");
 
@@ -113,7 +113,7 @@ namespace Game
             paramDict.Add("pill", pill + "");
 
             long infiniteMax = user.GetAchievementProgeress(AchievementSourceType.Infinite);
-            paramDict.Add("infiniteMax", infiniteMax + "");
+            paramDict.Add("infinite", infiniteMax + "");
 
             if (user.First_Create_Time > 0)
             {
