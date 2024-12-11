@@ -8,15 +8,18 @@ using UnityEngine.UI;
 
 public class Dialog_Defend : MonoBehaviour, IBattleLife
 {
-    public List<Item_Defend> ItemList;
-
+    public Transform Tf_Parent;
     public Button btn_FullScreen;
+
+    private List<Item_Defend> ItemList;
 
     public int Order => (int)ComponentOrder.Dialog;
 
     // Start is called before the first frame update
     void Start()
     {
+        ItemList = Tf_Parent.GetComponentsInChildren<Item_Defend>().ToList();
+
         User user = GameProcessor.Inst.User;
         user.DefendData.BuildCurrent();
 
