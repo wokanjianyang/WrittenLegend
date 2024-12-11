@@ -48,9 +48,17 @@ namespace Game
         {
             this.AttributeBonus = new AttributeBonus();
 
-            double hp = Double.Parse(Config.HP) + (Progress - Config.StartLevel) * Double.Parse(Config.RiseHp); ;
-            double attr = Double.Parse(Config.Attr) + (Progress - Config.StartLevel) * Double.Parse(Config.RiseAttr);
-            double def = Double.Parse(Config.Def) + (Progress - Config.StartLevel) * Double.Parse(Config.RiseDef);
+            double riseHp = Math.Pow(Config.RiseHp, Progress - Config.StartLevel);
+            double riseAttr = Math.Pow(Config.RiseAttr, Progress - Config.StartLevel);
+            double riseDef = Math.Pow(Config.RiseDef, Progress - Config.StartLevel);
+            //Debug.Log("pw:" + (Progress - Config.StartLevel));
+            //Debug.Log("RiseHp:" + riseHp);
+            //Debug.Log("riseAttr:" + riseAttr);
+            //Debug.Log("riseDef:" + riseDef);
+
+            double hp = Double.Parse(Config.HP) * (1 + riseHp);
+            double attr = Double.Parse(Config.Attr) * (1 + riseAttr);
+            double def = Double.Parse(Config.Def) * (1 + riseDef);
 
             //Debug.Log("Defend " + this.Progress + " HP:" + StringHelper.FormatNumber(hp));
 
@@ -67,6 +75,7 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.MulDamageResist, AttributeFrom.HeroBase, Config.MulDamageResist);
             AttributeBonus.SetAttr(AttributeEnum.Accuracy, AttributeFrom.HeroBase, Config.Accuracy);
             AttributeBonus.SetAttr(AttributeEnum.Miss, AttributeFrom.HeroBase, Config.Miss);
+            AttributeBonus.SetAttr(AttributeEnum.Protect, AttributeFrom.HeroBase, Config.Protect);
 
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));

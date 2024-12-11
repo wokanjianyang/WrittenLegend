@@ -95,19 +95,19 @@ namespace Game
 		public string Attr { get; set; }
 		/// <summary>RiseAttr</summary>
 		[ProtoMember(7)]
-		public string RiseAttr { get; set; }
+		public double RiseAttr { get; set; }
 		/// <summary>Def</summary>
 		[ProtoMember(8)]
 		public string Def { get; set; }
 		/// <summary>RiseDef</summary>
 		[ProtoMember(9)]
-		public string RiseDef { get; set; }
+		public double RiseDef { get; set; }
 		/// <summary>HP</summary>
 		[ProtoMember(10)]
 		public string HP { get; set; }
 		/// <summary>RiseHp</summary>
 		[ProtoMember(11)]
-		public string RiseHp { get; set; }
+		public double RiseHp { get; set; }
 		/// <summary>DamageIncrea</summary>
 		[ProtoMember(12)]
 		public int DamageIncrea { get; set; }
