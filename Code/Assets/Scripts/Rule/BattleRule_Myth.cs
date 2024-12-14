@@ -24,11 +24,6 @@ public class BattleRule_Myth : ABattleRule
         param.TryGetValue("MapId", out object mapId);
 
         this.MapId = (int)mapId;
-
-        Start = true;
-
-        MapTime = 0;
-
         this.LoadHero();
     }
 
@@ -36,6 +31,9 @@ public class BattleRule_Myth : ABattleRule
     {
         HeroMyth hero = new HeroMyth();
         GameProcessor.Inst.PlayerManager.LoadHero(hero);
+
+        Start = true;
+        MapTime = 0;
     }
 
     public override void DoMapLogic(int roundNum, double currentRoundTime)
@@ -55,7 +53,7 @@ public class BattleRule_Myth : ABattleRule
         //Debug.Log("create pill MapTime:" + MapTime);
         var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
 
-        if (CurrentLayer <= LayerCount.Length && (MapTime >= MaxTime || enemys.Count <= 0))
+        if (CurrentLayer <= LayerCount.Length && MapTime >= 1 && (MapTime >= MaxTime || enemys.Count <= 0))
         {
             for (int i = 0; i < LayerCount[CurrentLayer - 1]; i++)
             {
