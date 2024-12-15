@@ -21,6 +21,9 @@ public class ViewForgeProcessor : AViewPage
     public Toggle toggle_Refine;
     public Panel_Refine PanelRefine;
 
+    public Toggle toggle_Reform;
+    public Panel_Reform PanelReform;
+
     public Toggle toggle_Strengthen;
     public Panel_Strengthen PanelStrengthen;
 
@@ -68,6 +71,11 @@ public class ViewForgeProcessor : AViewPage
         this.toggle_Refine.onValueChanged.AddListener((isOn) =>
         {
             PanelRefine.gameObject.SetActive(isOn);
+        });
+
+        this.toggle_Reform.onValueChanged.AddListener((isOn) =>
+        {
+            PanelReform.gameObject.SetActive(isOn);
         });
 
         this.toggle_Exchange.onValueChanged.AddListener((isOn) =>
