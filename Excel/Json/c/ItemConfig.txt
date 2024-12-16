@@ -482,6 +482,8 @@
 {"_t":"ItemConfig","_id":180032,"Name":"极·副本契约","Type":18,"Des":"激活或者升级对应法宝","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":7,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
 {"_t":"ItemConfig","_id":180033,"Name":"极·BOSS契约","Type":18,"Des":"激活或者升级对应法宝","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":7,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
 {"_t":"ItemConfig","_id":180034,"Name":"极.财富契约","Type":18,"Des":"激活或者升级对应法宝","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":7,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
+{"_t":"ItemConfig","_id":180035,"Name":"极.魔法书","Type":18,"Des":"激活或者升级对应法宝","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":7,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
+{"_t":"ItemConfig","_id":180036,"Name":"极.无限之魂","Type":18,"Des":"激活或者升级对应法宝","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":7,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
 {"_t":"ItemConfig","_id":190001,"Name":"定身神戒","Type":19,"Des":"激活或者升级对应神戒","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":6,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
 {"_t":"ItemConfig","_id":190002,"Name":"护体神戒","Type":19,"Des":"激活或者升级对应神戒","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":6,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
 {"_t":"ItemConfig","_id":190003,"Name":"重生神戒","Type":19,"Des":"激活或者升级对应神戒","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":6,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
