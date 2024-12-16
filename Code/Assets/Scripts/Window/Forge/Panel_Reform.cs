@@ -46,7 +46,7 @@ public class Panel_Reform : MonoBehaviour
         for (int i = 0; i < items.Count(); i++)
         {
             int position = i + 1;
-            long level = user.GetRefineLevel(position);
+            long level = user.GetReformLevel(position);
 
             items[i].Init(2, position, level, toggleGroup);
         }
@@ -55,54 +55,30 @@ public class Panel_Reform : MonoBehaviour
     private void ShowRefine()
     {
         User user = GameProcessor.Inst.User;
-        long MaxLevel = user.GetRefineLimit();
-        long currentLevel = user.GetRefineLevel(Refine_Position);
+
+        long MaxLevel = user.GetReformLimit(Refine_Position);
+        long currentLevel = user.GetReformLevel(Refine_Position);
 
         items[Refine_Position - 1].SetLevel(currentLevel);
 
-        EquipRefineConfig currentConfig = EquipRefineConfigCategory.Instance.GetByLevel(currentLevel);
-
         long nextLevel = currentLevel + 1;
-        EquipRefineConfig nextConfig = EquipRefineConfigCategory.Instance.GetByLevel(nextLevel);
+        EquipReformFeeConfig feeConfig = EquipReformFeeConfigCategory.Instance.GetByLevel(nextLevel);
 
-        if (nextConfig == null || nextLevel > MaxLevel)
+        if (feeConfig == null || nextLevel > MaxLevel)
         {
             Reform_Txt_Fee.text = "已满级";
             Btn_Reform.gameObject.SetActive(false);
         }
         else
         {
-            var materialCount = user.GetMaterialCount(ItemHelper.SpecialId_EquipRefineStone);
+            long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_EquipRefineStone);
 
-            string color = materialCount >= nextConfig.GetFee(nextLevel) ? "#FFFF00" : "#FF0000";
+            double goldCount = feeConfig.GetFee(nextLevel) * ConfigHelper.RestoreGold * 2; //京单位
 
-            Reform_Txt_Fee.text = string.Format("<color={0}>{1}</color>", color, nextConfig.GetFee(nextLevel));
-            Btn_Reform.gameObject.SetActive(true);
-        }
+            //string color = materialCount >= nextConfig.GetFee(nextLevel) ? "#FFFF00" : "#FF0000";
 
-
-        if (nextConfig != null && nextConfig.GetBaseAttrPercent(nextLevel) > 0)
-        {
-            long currentAttrValue = currentConfig == null ? 0 : currentConfig.GetBaseAttrPercent(currentLevel);
-            long nextAttrValue = nextConfig == null ? 0 : nextConfig.GetBaseAttrPercent(nextLevel);
-
-            long attrRise = nextAttrValue - currentAttrValue;
-
-        }
-
-        if (nextConfig != null && nextConfig.GetQualityAttrPercent(nextLevel) > 0)
-        {
-            long currentAttrValue = currentConfig == null ? 0 : currentConfig.GetQualityAttrPercent(currentLevel);
-            long nextAttrValue = nextConfig == null ? 0 : nextConfig.GetQualityAttrPercent(nextLevel);
-            long attrRise = nextAttrValue - currentAttrValue;
-
-        }
-
-        if (nextConfig != null && nextConfig.GetStengthPercent(nextLevel) > 0)
-        {
-            long currentStrenthValue = currentConfig == null ? 0 : currentConfig.GetStengthPercent(currentLevel);
-            long nextStrenthValue = nextConfig == null ? 0 : nextConfig.GetStengthPercent(nextLevel);
-            long strenthRise = nextStrenthValue - currentStrenthValue;
+            //Reform_Txt_Fee.text = string.Format("<color={0}>{1}</color>", color, nextConfig.GetFee(nextLevel));
+            //Btn_Reform.gameObject.SetActive(true);
         }
     }
 
@@ -121,7 +97,7 @@ public class Panel_Reform : MonoBehaviour
         if (currentLevel >= MaxLevel)
         {
             //
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "精练等级满级了", ToastType = ToastTypeEnum.Failure });
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "改造等级满级了", ToastType = ToastTypeEnum.Failure });
             return;
         }
 

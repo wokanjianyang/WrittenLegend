@@ -244,6 +244,10 @@ namespace Game
     {
         public int Position { get; set; }
     }
+    public class EquipReformSelectEvent : SDD.Events.Event
+    {
+        public int Position { get; set; }
+    }
 
     public class ChangeCompositeTypeEvent : SDD.Events.Event
     {

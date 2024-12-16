@@ -61,6 +61,10 @@ namespace Game
                 {
                     GameProcessor.Inst.EventCenter.Raise(new EquipRefineSelectEvent() { Position = this.Position });
                 }
+                else if (Type == 3)
+                {
+                    GameProcessor.Inst.EventCenter.Raise(new EquipReformSelectEvent() { Position = this.Position });
+                }
             }
         }
     }

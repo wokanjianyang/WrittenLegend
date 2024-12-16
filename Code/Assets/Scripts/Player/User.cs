@@ -81,6 +81,8 @@ namespace Game
 
         public IDictionary<int, MagicData> MagicEquipRefine { get; set; } = new Dictionary<int, MagicData>();
 
+        public IDictionary<int, MagicData> MagicEquipReform { get; set; } = new Dictionary<int, MagicData>();
+
         public IDictionary<int, MagicData> LegacyLevel { get; set; } = new Dictionary<int, MagicData>();
 
         public IDictionary<int, MagicData> LegacyLayer { get; set; } = new Dictionary<int, MagicData>();
@@ -179,6 +181,12 @@ namespace Game
         {
             long limit = GetLimitLevel() * 25 + 50;
             limit = limit + GetArtifactValue(ArtifactType.RefintLimit);
+            return (int)limit;
+        }
+
+        public int GetReformLimit(int position)
+        {
+            long limit = (GetStrengthLevel(position) - 300000) / 1000;
             return (int)limit;
         }
 
@@ -1387,6 +1395,16 @@ namespace Game
             }
 
             return MagicEquipRefine[position].Data;
+        }
+
+        public long GetReformLevel(int position)
+        {
+            if (!MagicEquipReform.ContainsKey(position))
+            {
+                MagicEquipReform[position] = new MagicData();
+            }
+
+            return MagicEquipReform[position].Data;
         }
 
         public long GetLegacyLevel(int id)

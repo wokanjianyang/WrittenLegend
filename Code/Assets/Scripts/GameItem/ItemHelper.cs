@@ -120,7 +120,7 @@ namespace Game
         public static int SpecialId_Halidom_Chip = 4018; //遗物粉尘
         public static int SpecialId_Golden_Stone = 4019;  //金装精华
         public static int SpecialId_Talent_Book = 4020; //天赋书
-
+        public static int SpecialId_Equip_Reform = 4021; //改造石
 
         public static int SpecialId_Card_Stone = 4101;
         public static int SpecialId_Skil_Advance = 4102;
