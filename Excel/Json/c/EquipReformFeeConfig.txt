@@ -1,5 +1,5 @@
 {"list":[
-{"_t":"EquipReformFeeConfig","_id":1,"StartLevel":1,"EndLevel":50,"BaseFee":10,"RiseFee":1},
-{"_t":"EquipReformFeeConfig","_id":2,"StartLevel":51,"EndLevel":100,"BaseFee":59,"RiseFee":2},
-{"_t":"EquipReformFeeConfig","_id":3,"StartLevel":101,"EndLevel":200,"BaseFee":157,"RiseFee":3},
+{"_t":"EquipReformFeeConfig","_id":1,"StartLevel":1,"EndLevel":50,"BaseFee":100,"RiseFee":50},
+{"_t":"EquipReformFeeConfig","_id":2,"StartLevel":51,"EndLevel":100,"BaseFee":2550,"RiseFee":100},
+{"_t":"EquipReformFeeConfig","_id":3,"StartLevel":101,"EndLevel":200,"BaseFee":7450,"RiseFee":150},
 ]}
