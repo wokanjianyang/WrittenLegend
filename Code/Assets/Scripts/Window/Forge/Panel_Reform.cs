@@ -12,8 +12,10 @@ using UnityEngine.UI;
 public class Panel_Reform : MonoBehaviour
 {
     public Transform Tran_Item_List;
-    public Transform Tran_Attr_List;
     private ItemForge[] items;
+
+    public Transform Tran_Attr_List;
+    private StrenthAttrItem[] AttrList;
 
     public Text Reform_Txt_Fee;
     public Text Reform_Txt_Fee1;
@@ -21,17 +23,21 @@ public class Panel_Reform : MonoBehaviour
 
     private int Refine_Position = 1;
 
+    private double UnitGold = 10000000000000000L;
+    private int ReformStoneFee = 1;
     // Start is called before the first frame update
     void Awake()
     {
         items = Tran_Item_List.GetComponentsInChildren<ItemForge>();
         Btn_Reform.onClick.AddListener(OnClick_Refine);
+
+        AttrList = Tran_Attr_List.GetComponentsInChildren<StrenthAttrItem>();
     }
 
     // Update is called once per frame
     void Start()
     {
-        GameProcessor.Inst.EventCenter.AddListener<EquipRefineSelectEvent>(this.OnEquipRefineSelectEvent);
+        GameProcessor.Inst.EventCenter.AddListener<EquipReformSelectEvent>(this.OnEquipReformSelectEvent);
 
         this.Init();
         this.ShowRefine();
@@ -48,7 +54,7 @@ public class Panel_Reform : MonoBehaviour
             int position = i + 1;
             long level = user.GetReformLevel(position);
 
-            items[i].Init(2, position, level, toggleGroup);
+            items[i].Init(3, position, level, toggleGroup);
         }
     }
 
@@ -67,22 +73,63 @@ public class Panel_Reform : MonoBehaviour
         if (feeConfig == null || nextLevel > MaxLevel)
         {
             Reform_Txt_Fee.text = "已满级";
+            Reform_Txt_Fee1.text = "已满级";
             Btn_Reform.gameObject.SetActive(false);
         }
         else
         {
-            long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_EquipRefineStone);
+            long stoneCount = user.GetMaterialCount(ItemHelper.SpecialId_Reform_Stone);
+            double needGold = feeConfig.GetFee(nextLevel); //京单位
 
-            double goldCount = feeConfig.GetFee(nextLevel) * ConfigHelper.RestoreGold * 2; //京单位
+            int needStoneCount = ReformStoneFee;
+            if (stoneCount > needStoneCount)
+            {
+                Reform_Txt_Fee.text = string.Format("需要改造石：<color={0}>{1}/{2}</color>", "#FFFF00", stoneCount, needStoneCount);
+                Btn_Reform.gameObject.SetActive(true);
+            }
+            else
+            {
+                Reform_Txt_Fee.text = string.Format("需要改造石：<color={0}>{1}/{2}</color>", "#FF0000", stoneCount, needStoneCount);
+                Btn_Reform.gameObject.SetActive(false);
+            }
 
-            //string color = materialCount >= nextConfig.GetFee(nextLevel) ? "#FFFF00" : "#FF0000";
+            double realNeedGold = UnitGold * needGold;
 
-            //Reform_Txt_Fee.text = string.Format("<color={0}>{1}</color>", color, nextConfig.GetFee(nextLevel));
-            //Btn_Reform.gameObject.SetActive(true);
+            if (user.MagicGold.Data >= realNeedGold)
+            {
+                Reform_Txt_Fee1.text = string.Format("需要金币：<color={0}>{1}京</color>", "#FFFF00", needGold);
+                Btn_Reform.gameObject.SetActive(true);
+            }
+            else
+            {
+                Reform_Txt_Fee1.text = string.Format("需要金币：<color={0}>{1}京</color>", "#FF0000", needGold);
+                Btn_Reform.gameObject.SetActive(false);
+            }
+        }
+
+
+        EquipReformConfig reformConfig = EquipReformConfigCategory.Instance.Get(Refine_Position);
+
+        for (int i = 0; i < AttrList.Length; i++)
+        {
+            if (i < reformConfig.AttrList.Length)
+            {
+                int attrId = reformConfig.AttrList[i];
+
+                long attrAdd = reformConfig.AttrValueList[i];
+                long attrCurrent = reformConfig.AttrValueList[i] * currentLevel;
+
+                AttrList[i].SetContent(attrId, attrCurrent, attrAdd);
+                AttrList[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                AttrList[i].gameObject.SetActive(false);
+            }
         }
     }
 
-    private void OnEquipRefineSelectEvent(EquipRefineSelectEvent e)
+    private void OnEquipReformSelectEvent(EquipReformSelectEvent e)
     {
         this.Refine_Position = e.Position;
         ShowRefine();
@@ -91,9 +138,10 @@ public class Panel_Reform : MonoBehaviour
     private void OnClick_Refine()
     {
         User user = GameProcessor.Inst.User;
-        long currentLevel = user.GetRefineLevel(Refine_Position);
 
-        long MaxLevel = user.GetRefineLimit();
+        long currentLevel = user.GetReformLevel(Refine_Position);
+
+        long MaxLevel = user.GetReformLimit(Refine_Position);
         if (currentLevel >= MaxLevel)
         {
             //
@@ -101,31 +149,37 @@ public class Panel_Reform : MonoBehaviour
             return;
         }
 
-        long refineLevel = currentLevel + 1;
-        EquipRefineConfig config = EquipRefineConfigCategory.Instance.GetByLevel(refineLevel);
+        long nextLevel = currentLevel + 1;
+        EquipReformFeeConfig config = EquipReformFeeConfigCategory.Instance.GetByLevel(nextLevel);
 
-        var materialCount = user.GetMaterialCount(ItemHelper.SpecialId_EquipRefineStone);
+        long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_Reform_Stone);
 
-        if (materialCount < config.GetFee(refineLevel))
+        if (materialCount < ReformStoneFee)
         {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的精炼石", ToastType = ToastTypeEnum.Failure });
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的改造石头", ToastType = ToastTypeEnum.Failure });
             return;
         }
 
-        user.MagicEquipRefine[Refine_Position].Data++;
+        double needGold = config.GetFee(nextLevel); //京单位
+        double realNeedGold = UnitGold * needGold;
 
+        if (user.MagicGold.Data < realNeedGold)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的金币", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
+
+        user.SubGold(realNeedGold);
         GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
         {
             Type = ItemType.Material,
-            ItemId = ItemHelper.SpecialId_EquipRefineStone,
-            Quantity = config.GetFee(refineLevel)
+            ItemId = ItemHelper.SpecialId_Reform_Stone,
+            Quantity = ReformStoneFee
         });
+        user.MagicEquipReform[Refine_Position].Data++;
 
         GameProcessor.Inst.UpdateInfo();
-
         ShowRefine();
-
-        GameProcessor.Inst.SaveData();
     }
 
 

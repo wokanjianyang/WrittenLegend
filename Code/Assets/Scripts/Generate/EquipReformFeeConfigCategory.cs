@@ -4,7 +4,6 @@ using System.Linq;
 
 namespace Game
 {
-
     public partial class EquipReformFeeConfigCategory
     {
 
