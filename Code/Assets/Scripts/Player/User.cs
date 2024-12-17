@@ -467,6 +467,22 @@ namespace Game
                 }
             }
 
+            //改造属性
+            foreach (var sp in this.MagicEquipReform)
+            {
+                int position = sp.Key;
+                EquipReformConfig reformConfig = EquipReformConfigCategory.Instance.Get(position);
+
+                long reformLevel = sp.Value.Data;
+                if (reformLevel > 0)
+                {
+                    for (int i = 0; i < reformConfig.AttrList.Length; i++)
+                    {
+                        AttributeBonus.SetAttr((AttributeEnum)reformConfig.AttrList[i], AttributeFrom.EquipReform, position, reformLevel * reformConfig.AttrValueList[i]);
+                    }
+                }
+            }
+
             //专属属性
             foreach (var sp in this.ExclusivePanelList[ExclusiveIndex])
             {

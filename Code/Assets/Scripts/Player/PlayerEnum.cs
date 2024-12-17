@@ -140,6 +140,7 @@ namespace Game
         Pill = 21,//ÐÞÁ¶
         SoulBone = 22, //»ê¹Ç
         Talent = 23, //Ìì¸³
+        EquipReform = 24, //¸ÄÔì
 
         Dingzhi = 98,
         /// <summary>
