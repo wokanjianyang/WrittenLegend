@@ -104,7 +104,7 @@ public class Dialog_Talent : MonoBehaviour, IBattleLife
 
     public void OnClick_Reset()
     {
-        GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("重置天赋消耗100京金币。是否确认？", true,
+        GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("重置天赋消耗1垓金币。是否确认？", true,
          () =>
          {
              ResetTalent();
@@ -118,13 +118,13 @@ public class Dialog_Talent : MonoBehaviour, IBattleLife
     {
         User user = GameProcessor.Inst.User;
 
-        if (user.MagicGold.Data <= ConfigHelper.RestoreGold * 200)
+        if (user.MagicGold.Data <= ConfigHelper.RestoreGold * 20000.0)
         {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "金币不足100京", ToastType = ToastTypeEnum.Failure });
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "金币不足1垓", ToastType = ToastTypeEnum.Failure });
             return;
         }
 
-        user.SubGold(ConfigHelper.RestoreGold * 200);
+        user.SubGold(ConfigHelper.RestoreGold * 20000.0);
 
         user.TalentData.Clear();
         user.TalentPoint = 0;
