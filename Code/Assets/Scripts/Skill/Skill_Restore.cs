@@ -75,7 +75,7 @@ namespace Game
             foreach (var cell in allAttackCells)
             {
                 var enemy = GameProcessor.Inst.PlayerManager.GetPlayer(cell);
-                if (enemy != null && enemy.HP > 0 && enemy.GroupId == SelfPlayer.GroupId && enemy.ID != SelfPlayer.ID) //只回复同组成员,自己已经加进去了
+                if (enemy != null && enemy.HP > 0 && enemy.Camp != PlayerType.Defend && enemy.GroupId == SelfPlayer.GroupId && enemy.ID != SelfPlayer.ID) //只回复同组成员,自己已经加进去了
                 {
                     teamList.Add(enemy);
                 }

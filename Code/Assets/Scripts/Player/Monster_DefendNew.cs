@@ -66,7 +66,7 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr * QualityConfig.AttrRate);
             AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr * QualityConfig.AttrRate);
             AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr * QualityConfig.AttrRate);
-            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, def * QualityConfig.DefRate);
+            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, def);
 
             AttributeBonus.SetAttr(AttributeEnum.DamageIncrea, AttributeFrom.HeroBase, Config.DamageIncrea);
             AttributeBonus.SetAttr(AttributeEnum.DamageResist, AttributeFrom.HeroBase, Config.DamageResist);
@@ -117,6 +117,17 @@ namespace Game
                 SkillState skill = new SkillState(this, skillPanel, skillData.Position, 0);
                 SelectSkillList.Add(skill);
             }
+        }
+
+        public override float AttackLogic()
+        {
+            var hero = GameProcessor.Inst.PlayerManager.GetHero();
+            if (hero != null)
+            {
+                this._enemy = hero;
+            }
+
+            return base.AttackLogic();
         }
     }
 }
