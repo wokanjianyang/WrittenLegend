@@ -29,7 +29,7 @@ namespace Game
 
             this.Txt_Name.text = string.Format("<color=#{0}>{1}</color>", color, name);
 
-            int attr = redItem.Config.AttrValue + (showLevel - 1) * redItem.Config.AttrRise;
+            int attr = (int)(redItem.Config.AttrValue + (showLevel - 1) * redItem.Config.AttrRise);
 
             this.Txt_Des.text = string.Format("<color=#{0}>{1}</color>", color, StringHelper.FormatAttrText(redItem.Config.AttrId, attr, "+"));
         }

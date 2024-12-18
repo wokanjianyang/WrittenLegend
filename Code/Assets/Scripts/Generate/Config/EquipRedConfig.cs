@@ -95,7 +95,7 @@ namespace Game
 		public int AttrValue { get; set; }
 		/// <summary>AttrRise</summary>
 		[ProtoMember(7)]
-		public int AttrRise { get; set; }
+		public double AttrRise { get; set; }
 
 	}
 }
