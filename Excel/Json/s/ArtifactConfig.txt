@@ -25,6 +25,6 @@
 {"_t":"ArtifactConfig","_id":32,"ItemId":180032,"Name":"极·副本契约","Type":4,"AttrValue":3,"MaxCount":16,"Quality":7,"Des":"广告的副本劵收益+3"},
 {"_t":"ArtifactConfig","_id":33,"ItemId":180033,"Name":"极·BOSS契约","Type":2,"AttrValue":2,"MaxCount":8,"Quality":7,"Des":"广告的BOSS劵收益+2"},
 {"_t":"ArtifactConfig","_id":34,"ItemId":180034,"Name":"极.财富契约","Type":15,"AttrValue":100,"MaxCount":10,"Quality":7,"Des":"广告的金币经验收益+100%，每1个额外+1经验丹"},
-{"_t":"ArtifactConfig","_id":35,"ItemId":180035,"Name":"极.魔法书","Type":8,"AttrValue":15,"MaxCount":10,"Quality":7,"Des":"广告的金币经验收益+100%，每1个额外+1经验丹"},
-{"_t":"ArtifactConfig","_id":36,"ItemId":180036,"Name":"极.无限之魂","Type":10,"AttrValue":2,"MaxCount":10,"Quality":7,"Des":"广告的金币经验收益+100%，每1个额外+1经验丹"},
+{"_t":"ArtifactConfig","_id":35,"ItemId":180035,"Name":"极.魔法书","Type":8,"AttrValue":15,"MaxCount":10,"Quality":7,"Des":"所有技能上限提高15%"},
+{"_t":"ArtifactConfig","_id":36,"ItemId":180036,"Name":"极.无限之魂","Type":10,"AttrValue":2,"MaxCount":10,"Quality":7,"Des":"魂环等级上限+2"},
 ]}
