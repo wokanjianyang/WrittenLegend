@@ -24,7 +24,7 @@ public class Panel_Reform : MonoBehaviour
     private int Refine_Position = 1;
 
     private double UnitGold = 10000000000000000L;
-    private int ReformStoneFee = 1;
+    //private int ReformStoneFee = 1;
     // Start is called before the first frame update
     void Awake()
     {
@@ -81,7 +81,7 @@ public class Panel_Reform : MonoBehaviour
             long stoneCount = user.GetMaterialCount(ItemHelper.SpecialId_Reform_Stone);
             double needGold = feeConfig.GetFee(nextLevel); //京单位
 
-            int needStoneCount = ReformStoneFee;
+            int needStoneCount = feeConfig.StoneFee;
             if (stoneCount > needStoneCount)
             {
                 Reform_Txt_Fee.text = string.Format("需要改造石：<color={0}>{1}/{2}</color>", "#FFFF00", stoneCount, needStoneCount);
@@ -154,7 +154,7 @@ public class Panel_Reform : MonoBehaviour
 
         long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_Reform_Stone);
 
-        if (materialCount < ReformStoneFee)
+        if (materialCount < config.StoneFee)
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的改造石头", ToastType = ToastTypeEnum.Failure });
             return;
@@ -174,7 +174,7 @@ public class Panel_Reform : MonoBehaviour
         {
             Type = ItemType.Material,
             ItemId = ItemHelper.SpecialId_Reform_Stone,
-            Quantity = ReformStoneFee
+            Quantity = config.StoneFee
         });
         user.MagicEquipReform[Refine_Position].Data++;
 

@@ -1,5 +1,6 @@
 {"list":[
-{"_t":"EquipReformFeeConfig","_id":1,"StartLevel":1,"EndLevel":50,"BaseFee":100,"RiseFee":50},
-{"_t":"EquipReformFeeConfig","_id":2,"StartLevel":51,"EndLevel":100,"BaseFee":2550,"RiseFee":100},
-{"_t":"EquipReformFeeConfig","_id":3,"StartLevel":101,"EndLevel":200,"BaseFee":7450,"RiseFee":150},
+{"_t":"EquipReformFeeConfig","_id":1,"StartLevel":1,"EndLevel":50,"BaseFee":100,"RiseFee":50,"StoneFee":1},
+{"_t":"EquipReformFeeConfig","_id":2,"StartLevel":51,"EndLevel":100,"BaseFee":2550,"RiseFee":75,"StoneFee":2},
+{"_t":"EquipReformFeeConfig","_id":3,"StartLevel":101,"EndLevel":150,"BaseFee":6225,"RiseFee":100,"StoneFee":3},
+{"_t":"EquipReformFeeConfig","_id":4,"StartLevel":151,"EndLevel":200,"BaseFee":11125,"RiseFee":150,"StoneFee":4},
 ]}
