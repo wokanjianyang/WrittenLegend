@@ -1,5 +1,5 @@
 {"list":[
-{"_t":"EquipRedConfig","_id":1,"Role":1,"Quality":6,"Count":2,"AttrId":2003,"AttrValue":50,"AttrRise":10},
+{"_t":"EquipRedConfig","_id":1,"Role":1,"Quality":6,"Count":2,"AttrId":2003,"AttrValue":50,"AttrRise":50},
 {"_t":"EquipRedConfig","_id":2,"Role":1,"Quality":6,"Count":6,"AttrId":2002,"AttrValue":50,"AttrRise":10},
 {"_t":"EquipRedConfig","_id":3,"Role":1,"Quality":6,"Count":10,"AttrId":2011,"AttrValue":20,"AttrRise":5},
 {"_t":"EquipRedConfig","_id":4,"Role":2,"Quality":6,"Count":2,"AttrId":2008,"AttrValue":20,"AttrRise":5},

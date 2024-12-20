@@ -25,7 +25,7 @@ namespace Game
 
         }
 
-        public void SetContent(int metailId, int upCount)
+        public void SetContent(int metailId, long upCount)
         {
             ItemConfig config = ItemConfigCategory.Instance.Get(metailId);
             this.Txt_Name.text = config.Name;
