@@ -359,7 +359,13 @@ namespace Game
                 }
             }
 
-            return (1 - total) * 100;
+            total = (1 - total) * 100.0;
+
+            if (total >= 100) {
+                total = 99.9999999999999;
+            }
+
+            return total;
         }
 
 
