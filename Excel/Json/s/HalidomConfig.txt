@@ -68,4 +68,9 @@
 {"_t":"HalidomConfig","_id":40000117,"ItemId":40000117,"Name":"地狱鹰羽","AttrId":2006,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"道术倍率"},
 {"_t":"HalidomConfig","_id":40000118,"ItemId":40000118,"Name":"地狱虫角","AttrId":2002,"AttrValue":30,"RiseAttr":30,"MaxLevel":4,"Des":"防御倍率"},
 {"_t":"HalidomConfig","_id":40000119,"ItemId":40000119,"Name":"地狱蜈膏","AttrId":2003,"AttrValue":30,"RiseAttr":30,"MaxLevel":4,"Des":"生命倍率"},
+{"_t":"HalidomConfig","_id":40000120,"ItemId":40000120,"Name":"地狱虫心","AttrId":2001,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"攻击倍率"},
+{"_t":"HalidomConfig","_id":40000121,"ItemId":40000121,"Name":"地狱龙皮","AttrId":2010,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"增伤倍率"},
+{"_t":"HalidomConfig","_id":40000122,"ItemId":40000122,"Name":"地狱猪皮","AttrId":2011,"AttrValue":10,"RiseAttr":10,"MaxLevel":4,"Des":"减伤倍率"},
+{"_t":"HalidomConfig","_id":40000123,"ItemId":40000123,"Name":"地狱猪心","AttrId":2003,"AttrValue":30,"RiseAttr":30,"MaxLevel":4,"Des":"生命倍率"},
+{"_t":"HalidomConfig","_id":40000124,"ItemId":40000124,"Name":"地狱蝎皮","AttrId":2002,"AttrValue":30,"RiseAttr":30,"MaxLevel":4,"Des":"防御倍率"},
 ]}
