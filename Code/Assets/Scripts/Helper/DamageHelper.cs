@@ -49,9 +49,9 @@ namespace Game
 
             //绝杀-暴击溢出
             double rcr = attcher.GetAttackDoubleAttr(AttributeEnum.RealCritRate);
-            if (rcr > 0)
+            if (rcr > 0 && CritRate > 100)
             {
-                attack = attack * (rcr + 100) / 100;
+                attack = attack * (rcr * (CritRate - 100) / 100 + 1);
             }
 
             //伤害加成（不低于5） = 100基础伤害+技能伤害加成 + 攻击者伤害加成 — 被攻击者伤害减免 
