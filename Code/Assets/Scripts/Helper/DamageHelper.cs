@@ -47,6 +47,13 @@ namespace Game
                 attack = attack * (CritDamage + 100) / 100;
             }
 
+            //绝杀-暴击溢出
+            double rcr = attcher.GetAttackDoubleAttr(AttributeEnum.RealCritRate);
+            if (rcr > 0)
+            {
+                attack = attack * (rcr + 100) / 100;
+            }
+
             //伤害加成（不低于5） = 100基础伤害+技能伤害加成 + 攻击者伤害加成 — 被攻击者伤害减免 
             long DamageIncrea = Math.Max(5, 100 + attcher.GetAttackAttr(AttributeEnum.DamageIncrea) + skill.DamageIncrea - enemy.GetAttackAttr(AttributeEnum.DamageResist));
             attack = attack * DamageIncrea / 100;
