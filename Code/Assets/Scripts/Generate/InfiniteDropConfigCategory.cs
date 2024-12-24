@@ -44,7 +44,7 @@ namespace Game
 
         private List<InfiniteDropConfig> GetLevelList(long level, List<int> excludeList)
         {
-            List<InfiniteDropConfig> configs = this.list.Where(m => m.StartLevel <= level && m.EndLevel >= level && level % m.RateLevel == 0).ToList();
+            List<InfiniteDropConfig> configs = this.list.Where(m => m.StartLevel <= level && m.EndLevel >= level && (level - m.StartLevel) % m.RateLevel == 0).ToList();
 
             List<InfiniteDropConfig> list = new List<InfiniteDropConfig>();
 

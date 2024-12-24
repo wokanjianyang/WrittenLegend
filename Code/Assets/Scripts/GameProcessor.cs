@@ -666,6 +666,44 @@ namespace Game
             }
         }
 
+        public void SaveRecord(string type, string condition)
+        {
+            try
+            {
+                User user = GameProcessor.Inst.User;
+
+                if (user.Account == "")
+                {
+                    return;
+                }
+
+                //再存储新档
+                StartCoroutine(NetworkHelper.SaveRank(type, condition,
+                        (WebResultWrapper result) =>
+                        {
+                            string condition = result.Data["condition"];
+                            AppHelper.BabelRecord = int.Parse(condition);
+
+                            if (result.Code == StatusMessage.OK)
+                            {
+                                this.EventCenter.Raise(new ShowGameMsgEvent() { Content = "更新纪录成功", ToastType = ToastTypeEnum.Success });
+                            }
+                            else
+                            {
+                                this.EventCenter.Raise(new ShowGameMsgEvent() { Content = result.Msg, ToastType = ToastTypeEnum.Failure });
+                            }
+                        },
+                        () =>
+                        {
+                            this.EventCenter.Raise(new ShowGameMsgEvent() { Content = "更新纪录失败" });
+                        }));
+            }
+            catch (Exception ex)
+            {
+                this.EventCenter.Raise(new ShowGameMsgEvent() { Content = "更新纪录失败" });
+            }
+        }
+
         void OnApplicationPause(bool isPaused)
         {
             //if(isPaused)

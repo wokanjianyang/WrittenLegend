@@ -11,6 +11,8 @@ namespace Game
     {
         public static int DefendLevel = 0;
 
+        public static int BabelRecord = 0;
+
         public static string getKey()
         {
 #if UNITY_EDITOR

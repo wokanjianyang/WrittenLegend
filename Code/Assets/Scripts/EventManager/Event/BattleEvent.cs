@@ -462,7 +462,7 @@ namespace Game
     }
     public class BabelStartEvent : SDD.Events.Event
     {
-
+        public int Record { get; set; }
     }
 
     //--Myth

@@ -156,6 +156,31 @@ namespace Game
             return SendRequest("get_user_file", Encoding.UTF8.GetBytes(""), successAction, failAction);
         }
 
+        public static IEnumerator SaveRank(string type, string condition, Action<WebResultWrapper> successAction, Action failAction)
+        {
+            Dictionary<string, string> dict = new Dictionary<string, string>();
+            dict.Add("type", type);
+            dict.Add("condition", condition);
+
+            string param = JsonConvert.SerializeObject(dict);
+
+            byte[] bytes = new System.Text.UTF8Encoding().GetBytes(param);
+
+            return SendRequest("save_rank", bytes, successAction, failAction);
+        }
+
+        public static IEnumerator GetRank(string type, Action<WebResultWrapper> successAction, Action failAction)
+        {
+            Dictionary<string, string> dict = new Dictionary<string, string>();
+            dict.Add("type", type);
+
+            string param = JsonConvert.SerializeObject(dict);
+
+            byte[] bytes = new System.Text.UTF8Encoding().GetBytes(param);
+
+            return SendRequest("get_rank", bytes, successAction, failAction);
+        }
+
         public static IEnumerator DownData(Action<byte[]> successAction, Action failAction)
         {
             string url = home + "down_user_file";

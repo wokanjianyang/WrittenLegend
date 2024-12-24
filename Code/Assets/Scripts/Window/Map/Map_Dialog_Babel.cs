@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Game;
+using Game.Data;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,9 +20,12 @@ public class Map_Dialog_Babel : MonoBehaviour
     public Text Txt_Progress;
     public Text Txt_Reward;
 
+    public Text Txt_Rank;
+
     public Button Btn_Start;
     public Button Btn_Close;
 
+    private int MaxProgress = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -56,6 +61,37 @@ public class Map_Dialog_Babel : MonoBehaviour
         Txt_Progress.text = "挑战层数:" + nextProgress + "";
         Txt_Reward.text = "通过奖励:" + item.Name + "*" + item.Count;
         Txt_Count.text = "今日挑战次数:" + user.BabelCount.Data;
+
+        try
+        {
+            //再存储新档
+            StartCoroutine(NetworkHelper.GetRank("babel",
+                    (WebResultWrapper result) =>
+                    {
+                        if (result.Code == StatusMessage.OK)
+                        {
+                            string name = result.Data["name"];
+                            string time = result.Data["time"];
+                            string condition = result.Data["condition"];
+
+                            this.Txt_Rank.text = "最高纪录 " + name + " " + condition + "层" + " (time)";
+                            this.MaxProgress = int.Parse(condition);
+                        }
+                        else
+                        {
+                            this.Txt_Rank.text = "读取失败.";
+                        }
+                    },
+                    () =>
+                    {
+                        this.Txt_Rank.text = "读取失败.";
+                    }
+                    ));
+        }
+        catch (Exception ex)
+        {
+            this.Txt_Rank.text = "读取失败，请稍等一会重试...";
+        }
     }
 
 
@@ -72,7 +108,7 @@ public class Map_Dialog_Babel : MonoBehaviour
         this.gameObject.SetActive(false);
 
         var vm = this.GetComponentInParent<ViewMore>();
-        vm.StartBabel();
+        vm.StartBabel(MaxProgress);
     }
 
     public void OnClick_Close()

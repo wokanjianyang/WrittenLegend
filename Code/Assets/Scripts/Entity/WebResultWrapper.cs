@@ -18,7 +18,8 @@ namespace Game.Data
         public int Version { get; set; }
 
         public int LoadCount { get; set; }
-        //public JObject Data { get; set; }
+
+        public Dictionary<string, string> Data { get; set; }
     }
 
 

@@ -226,11 +226,11 @@ namespace Game
             GameProcessor.Inst.EventCenter.Raise(new MythStartEvent() { Id = id });
         }
 
-        public void StartBabel()
+        public void StartBabel(int record)
         {
             scrollRect.gameObject.SetActive(false);
 
-            GameProcessor.Inst.EventCenter.Raise(new BabelStartEvent() { });
+            GameProcessor.Inst.EventCenter.Raise(new BabelStartEvent() { Record = record });
         }
 
         protected override bool CheckPageType(ViewPageType page)

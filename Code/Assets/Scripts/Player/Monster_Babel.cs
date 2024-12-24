@@ -11,10 +11,11 @@ namespace Game
     {
         public int Progeress;
         public int Type;
+        private int Record = 0;
 
         MonsterBabelConfig MonsterConfig { get; set; }
 
-        public Monster_Babel(long progress, int type) : base()
+        public Monster_Babel(long progress, int type, int record) : base()
         {
             this.GroupId = 2;
             this.RuleType = RuleType.Babel;
@@ -22,6 +23,7 @@ namespace Game
 
             this.Progeress = (int)progress;
             this.Type = type;
+            this.Record = record;
 
             this.MonsterConfig = MonsterBabelConfigCategory.Instance.GetByProgressAndType(progress, type);
 
@@ -61,6 +63,13 @@ namespace Game
                 riseRate = Math.Pow(1.003, 10000);
                 riseRate *= Math.Pow(1.005, 5000);
                 riseRate *= Math.Pow(1.008, this.Progeress - 15000);
+            }
+
+            if (Record > 0 && this.Progeress + 1000 < Record)
+            {
+                int lose = Record - this.Progeress - 1000;
+
+                riseRate *= Math.Pow(0.99, lose);
             }
 
             //Debug.Log(this.Progeress + " riseRate:" + riseRate);
