@@ -25,6 +25,7 @@ public class Map_Dialog_Babel : MonoBehaviour
     public Button Btn_Start;
     public Button Btn_Close;
 
+    private bool IsNet = false;
     private int MaxProgress = 0;
 
     // Start is called before the first frame update
@@ -44,6 +45,16 @@ public class Map_Dialog_Babel : MonoBehaviour
         User user = GameProcessor.Inst.User;
         long progress = user.BabelData.Data;
 
+        if (user.Account != "" && ConfigHelper.Channel != ConfigHelper.Channel_Tap)
+        {
+            IsNet = true;
+            Txt_Rank.gameObject.SetActive(true);
+        }
+        else
+        {
+            Txt_Rank.gameObject.SetActive(false);
+        }
+
         if (progress == 0 && user.BabelCount.Data == 0)
         {
             user.BabelCount.Data = ConfigHelper.BabelCount;
@@ -62,35 +73,38 @@ public class Map_Dialog_Babel : MonoBehaviour
         Txt_Reward.text = "通过奖励:" + item.Name + "*" + item.Count;
         Txt_Count.text = "今日挑战次数:" + user.BabelCount.Data;
 
-        try
+        if (IsNet)
         {
-            //再存储新档
-            StartCoroutine(NetworkHelper.GetRank("babel",
-                    (WebResultWrapper result) =>
-                    {
-                        if (result.Code == StatusMessage.OK)
+            try
+            {
+                //再存储新档
+                StartCoroutine(NetworkHelper.GetRank("babel",
+                        (WebResultWrapper result) =>
                         {
-                            string name = result.Data["name"];
-                            string time = result.Data["time"];
-                            string condition = result.Data["condition"];
+                            if (result.Code == StatusMessage.OK)
+                            {
+                                string name = result.Data["name"];
+                                string time = result.Data["time"];
+                                string condition = result.Data["condition"];
 
-                            this.Txt_Rank.text = "最高纪录 " + name + " " + condition + "层" + " (time)";
-                            this.MaxProgress = int.Parse(condition);
-                        }
-                        else
+                                this.Txt_Rank.text = "最高纪录 " + name + " " + condition + "层" + " (" + time + ")";
+                                this.MaxProgress = int.Parse(condition);
+                            }
+                            else
+                            {
+                                this.Txt_Rank.text = "读取失败.";
+                            }
+                        },
+                        () =>
                         {
                             this.Txt_Rank.text = "读取失败.";
                         }
-                    },
-                    () =>
-                    {
-                        this.Txt_Rank.text = "读取失败.";
-                    }
-                    ));
-        }
-        catch (Exception ex)
-        {
-            this.Txt_Rank.text = "读取失败，请稍等一会重试...";
+                        ));
+            }
+            catch (Exception ex)
+            {
+                this.Txt_Rank.text = "读取失败，请稍等一会重试...";
+            }
         }
     }
 
