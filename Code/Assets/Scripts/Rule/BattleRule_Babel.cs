@@ -25,7 +25,7 @@ public class BattleRule_Babel : ABattleRule
 
     public BattleRule_Babel(Dictionary<string, object> param)
     {
-        param.TryGetValue("record", out object record);
+        param.TryGetValue("Record", out object record);
         this.Record = (int)record;
 
         User user = GameProcessor.Inst.User;
