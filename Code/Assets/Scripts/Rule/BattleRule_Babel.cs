@@ -19,15 +19,10 @@ public class BattleRule_Babel : ABattleRule
     private int[] MonsterList2 = new int[] { 1, 1, 1, 1, 2, 2, 2, 2, 2, 3 };
     private int[] MonsterList3 = new int[] { 2, 2, 2, 2, 2, 2, 3, 3, 3, 3 };
 
-    private int Record = 0;
-
     protected override RuleType ruleType => RuleType.Babel;
 
     public BattleRule_Babel(Dictionary<string, object> param)
     {
-        param.TryGetValue("Record", out object record);
-        this.Record = (int)record;
-
         User user = GameProcessor.Inst.User;
 
         this.Progress = user.BabelData.Data + 1;
@@ -50,7 +45,7 @@ public class BattleRule_Babel : ABattleRule
 
             foreach (int type in types)
             {
-                var RealBoss = new Monster_Babel(Progress, type, Record);
+                var RealBoss = new Monster_Babel(Progress, type);
                 GameProcessor.Inst.PlayerManager.LoadMonster(RealBoss);
             }
 
@@ -133,8 +128,9 @@ public class BattleRule_Babel : ABattleRule
 
         GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
 
-        if (Record > 0 && progress >= Record + 10)
+        if (AppHelper.BabelRecord > 0 && progress >= AppHelper.BabelRecord + 10)
         {
+            AppHelper.BabelRecord = (int)progress;
             GameProcessor.Inst.SaveRecord("babel", progress + "");
         }
     }

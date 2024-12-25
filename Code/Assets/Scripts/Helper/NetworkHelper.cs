@@ -156,11 +156,11 @@ namespace Game
             return SendRequest("get_user_file", Encoding.UTF8.GetBytes(""), successAction, failAction);
         }
 
-        public static IEnumerator SaveRank(string type, string condition, Action<WebResultWrapper> successAction, Action failAction)
+        public static IEnumerator SaveRank(string type, string rank, Action<WebResultWrapper> successAction, Action failAction)
         {
             Dictionary<string, string> dict = new Dictionary<string, string>();
             dict.Add("type", type);
-            dict.Add("condition", condition);
+            dict.Add("rank", rank);
 
             string param = JsonConvert.SerializeObject(dict);
 

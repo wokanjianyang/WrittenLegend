@@ -681,9 +681,6 @@ namespace Game
                 StartCoroutine(NetworkHelper.SaveRank(type, condition,
                         (WebResultWrapper result) =>
                         {
-                            string condition = result.Data["condition"];
-                            AppHelper.BabelRecord = int.Parse(condition);
-
                             if (result.Code == StatusMessage.OK)
                             {
                                 this.EventCenter.Raise(new ShowGameMsgEvent() { Content = "更新纪录成功", ToastType = ToastTypeEnum.Success });

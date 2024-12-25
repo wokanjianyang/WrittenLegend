@@ -53,7 +53,6 @@ public class MapBabel : MonoBehaviour, IBattleLife
 
         Dictionary<string, object> param = new Dictionary<string, object>();
         param.Add("Progress", babel);
-        param.Add("Record", e.Record);
 
         Txt_Name.text = babel + "²ã";
 

@@ -26,7 +26,6 @@ public class Map_Dialog_Babel : MonoBehaviour
     public Button Btn_Close;
 
     private bool IsNet = false;
-    private int MaxProgress = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -85,10 +84,10 @@ public class Map_Dialog_Babel : MonoBehaviour
                             {
                                 string name = result.Data["name"];
                                 string time = result.Data["time"];
-                                string condition = result.Data["condition"];
+                                string rank = result.Data["rank"];
 
-                                this.Txt_Rank.text = "最高纪录 " + name + " " + condition + "层" + " (" + time + ")";
-                                this.MaxProgress = int.Parse(condition);
+                                this.Txt_Rank.text = "最高纪录 " + name + " " + rank + "层" + " (" + time + ")";
+                                AppHelper.BabelRecord = int.Parse(rank);
                             }
                             else
                             {
@@ -122,7 +121,7 @@ public class Map_Dialog_Babel : MonoBehaviour
         this.gameObject.SetActive(false);
 
         var vm = this.GetComponentInParent<ViewMore>();
-        vm.StartBabel(MaxProgress);
+        vm.StartBabel();
     }
 
     public void OnClick_Close()
