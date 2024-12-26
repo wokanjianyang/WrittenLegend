@@ -62,28 +62,26 @@ namespace Game
             {
                 riseRate = Math.Pow(1.003, 10000);
                 riseRate *= Math.Pow(1.005, 5000);
-                riseRate *= Math.Pow(1.008, this.Progeress - 15000);
+                riseRate *= Math.Pow(1.007, this.Progeress - 15000);
             }
 
             if (Record > 0 && this.Progeress + 1000 < Record)
             {
                 int lose = Record - this.Progeress - 1000;
 
-                riseRate *= Math.Pow(0.999, lose);
+                double loseRate = Math.Max(Math.Pow(0.997, lose), 0.000000001);
+                //Debug.Log("loseRate:" + loseRate);
+
+                riseRate *= loseRate;
             }
 
             //Debug.Log(this.Progeress + " riseRate:" + riseRate);
 
             riseRate *= MonsterConfig.AttrRate;
 
-            long day = (TimeHelper.ClientNowSeconds() - 1724083200) / 86400;
-            day = Math.Min(day, 60);
-            double dayRate = Math.Pow(0.95, day);
-            //Debug.Log("dayRate:" + dayRate);
-
-            double hp = 999000000000000000000000.0 * dayRate;
-            double attr = 300000000000.0 * dayRate;
-            double def = 100000000000000.0 * dayRate;
+            double hp = 999000000000000000000000.0;
+            double attr = 300000000000.0;
+            double def = 100000000000000.0;
 
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp * riseRate);
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr * riseRate);
@@ -101,6 +99,8 @@ namespace Game
 
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
+
+            Debug.Log("HP:" + AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
         }
 
         private void SetSkill()

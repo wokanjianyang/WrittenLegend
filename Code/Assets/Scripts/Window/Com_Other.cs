@@ -240,7 +240,11 @@ namespace Game
                      if (result.Code == StatusMessage.OK)
                      {
                          GameProcessor.Inst.User.Account = account;
-                         GameProcessor.Inst.SaveData();
+
+                         if (GameProcessor.Inst.User.MagicEquipRefine.Count > 0)
+                         {
+                             GameProcessor.Inst.SaveData();
+                         }
 
                          this.Tf_Login.gameObject.SetActive(false);
 
