@@ -97,10 +97,12 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.Accuracy, AttributeFrom.HeroBase, Progeress * 0.005);
             AttributeBonus.SetAttr(AttributeEnum.Miss, AttributeFrom.HeroBase, Progeress * 0.005);
 
+            AttributeBonus.SetAttr(AttributeEnum.Protect, AttributeFrom.HeroBase, 90);
+
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
 
-            Debug.Log("HP:" + AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
+            //Debug.Log("HP:" + AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
         }
 
         private void SetSkill()
