@@ -143,6 +143,11 @@ public class Panel_Grade_Golden : MonoBehaviour
 
     public void OnClickOK()
     {
+        if (SelectEquip.GetQuality() != Quality)
+        {
+            return;
+        }
+
         int part = SelectEquip.Part;
         int layer = SelectEquip.Layer;
         EquipGradeConfig config = EquipGradeConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Part == part && m.Layer == layer && m.Quanlity == Quality).FirstOrDefault();

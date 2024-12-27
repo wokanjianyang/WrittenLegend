@@ -290,7 +290,10 @@ public class Panel_Grade : MonoBehaviour
         {
             for (int i = 0; i <= 14; i++)
             {
-                Grade(equip);
+                if (equip.GetQuality() == Quality)
+                {
+                    Grade(equip);
+                }
             }
         }
 
