@@ -260,18 +260,18 @@ namespace Game
                 }
                 else if (skillData.SkillId == 1011)
                 {
-                    AttributeBonus.SetSkillAttr(AttributeEnum.MulHp, AttributeFrom.Skill, skillPanel.Percent);
-                    AttributeBonus.SetSkillAttr(AttributeEnum.MulAttrPhy, AttributeFrom.Skill, skillPanel.Damage);
+                    AttributeBonus.SetAttr(AttributeEnum.MulHp, AttributeFrom.Skill, skillPanel.Percent);
+                    AttributeBonus.SetAttr(AttributeEnum.MulAttrPhy, AttributeFrom.Skill, skillPanel.Damage);
                 }
                 else if (skillData.SkillId == 2011)
                 {
-                    AttributeBonus.SetSkillAttr(AttributeEnum.MulHp, AttributeFrom.Skill, skillPanel.Percent);
-                    AttributeBonus.SetSkillAttr(AttributeEnum.MulAttrMagic, AttributeFrom.Skill, skillPanel.Damage);
+                    AttributeBonus.SetAttr(AttributeEnum.MulHp, AttributeFrom.Skill, skillPanel.Percent);
+                    AttributeBonus.SetAttr(AttributeEnum.MulAttrMagic, AttributeFrom.Skill, skillPanel.Damage);
                 }
                 else if (skillData.SkillId == 3011)
                 {
-                    AttributeBonus.SetSkillAttr(AttributeEnum.MulHp, AttributeFrom.Skill, skillPanel.Percent);
-                    AttributeBonus.SetSkillAttr(AttributeEnum.MulAttrSpirit, AttributeFrom.Skill, skillPanel.Damage);
+                    AttributeBonus.SetAttr(AttributeEnum.MulHp, AttributeFrom.Skill, skillPanel.Percent);
+                    AttributeBonus.SetAttr(AttributeEnum.MulAttrSpirit, AttributeFrom.Skill, skillPanel.Damage);
                 }
             }
 

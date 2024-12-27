@@ -63,4 +63,16 @@ public class Map_Myth_Item : MonoBehaviour
 
         this.Show();
     }
+
+    public void SetMax(int maxId)
+    {
+        if (Config.Id - 1 <= maxId)
+        {
+            this.gameObject.SetActive(true);
+        }
+        else
+        {
+            this.gameObject.SetActive(false);
+        }
+    }
 }

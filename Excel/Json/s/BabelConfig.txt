@@ -13,6 +13,6 @@
 {"_t":"BabelConfig","_id":12,"Start":15001,"End":20000,"ItemType":5,"ItemId":4004,"ItemCount":1,"ItemType1":15,"ItemId1":4014,"ItemCount1":70,"ItemType2":4,"ItemId2":22,"ItemCount2":1},
 {"_t":"BabelConfig","_id":13,"Start":20001,"End":21000,"ItemType":9,"ItemId":4003,"ItemCount":10,"ItemType1":15,"ItemId1":4014,"ItemCount1":80,"ItemType2":4,"ItemId2":26,"ItemCount2":1},
 {"_t":"BabelConfig","_id":14,"Start":21001,"End":25000,"ItemType":9,"ItemId":4003,"ItemCount":10,"ItemType1":15,"ItemId1":4014,"ItemCount1":80,"ItemType2":4,"ItemId2":22,"ItemCount2":1},
-{"_t":"BabelConfig","_id":15,"Start":25001,"End":26000,"ItemType":9,"ItemId":4004,"ItemCount":2,"ItemType1":15,"ItemId1":4014,"ItemCount1":90,"ItemType2":4,"ItemId2":28,"ItemCount2":1},
+{"_t":"BabelConfig","_id":15,"Start":25001,"End":26000,"ItemType":9,"ItemId":4004,"ItemCount":2,"ItemType1":15,"ItemId1":4014,"ItemCount1":90,"ItemType2":4,"ItemId2":29,"ItemCount2":1},
 {"_t":"BabelConfig","_id":16,"Start":26001,"End":30000,"ItemType":9,"ItemId":4004,"ItemCount":2,"ItemType1":15,"ItemId1":4014,"ItemCount1":90,"ItemType2":4,"ItemId2":22,"ItemCount2":1},
 ]}

@@ -24,6 +24,29 @@ public class Map_Dialog_Myth : MonoBehaviour
         this.Init();
     }
 
+    private void OnEnable()
+    {
+        this.ShowItemMax();
+    }   
+
+
+    private void ShowItemMax()
+    {
+        User user = GameProcessor.Inst.User;
+
+        if (user == null)
+        {
+            return;
+        }
+
+        int max = user.MythData.GetMax();
+
+        for (int i = 0; i < items.Count; i++)
+        {
+            items[i].SetMax(max);
+        }
+    }
+
     private void Init()
     {
         User user = GameProcessor.Inst.User;

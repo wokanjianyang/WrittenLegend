@@ -49,6 +49,19 @@ namespace Game
             }
         }
 
+        public int GetMax()
+        {
+            var seq = Record.Where(m => m.Value > 0).Select(m => m.Key);
+            if (seq.Any())
+            {
+                return seq.Max();
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
         public void SetOver(int id)
         {
             this.Record[id] = DateTime.Now.Ticks;

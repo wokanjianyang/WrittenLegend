@@ -53,6 +53,7 @@
 {"_t":"CodeConfig","_id":52,"Type":1,"code":"shengdan2024","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013],"ItemQuanlityList":[488,48,24]},
 {"_t":"CodeConfig","_id":97,"Type":1,"code":"lthd7","ItemTypeList":[9,5],"ItemIdList":[4003,4004],"ItemQuanlityList":[1888,288]},
 {"_t":"CodeConfig","_id":98,"Type":1,"code":"lthd8","ItemTypeList":[9,5],"ItemIdList":[4003,4004],"ItemQuanlityList":[1888,288]},
+{"_t":"CodeConfig","_id":99,"Type":1,"code":"tt310","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013],"ItemQuanlityList":[6666,666,666]},
 {"_t":"CodeConfig","_id":10001,"Type":99,"code":"dki309d!34","ItemTypeList":[99],"ItemIdList":[0],"ItemQuanlityList":[360]},
 {"_t":"CodeConfig","_id":10002,"Type":99,"code":"z#y9kdckp4","ItemTypeList":[99],"ItemIdList":[0],"ItemQuanlityList":[360]},
 {"_t":"CodeConfig","_id":10003,"Type":99,"code":"io&zsd134","ItemTypeList":[99],"ItemIdList":[0],"ItemQuanlityList":[360]},
