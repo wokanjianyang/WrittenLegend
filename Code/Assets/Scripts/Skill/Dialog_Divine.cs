@@ -28,6 +28,8 @@ public class Dialog_Divine : MonoBehaviour, IBattleLife
     private int SkillId = 0;
     SkillData skillData = null;
 
+    private int MaxLevel = 4;
+
     public int Order => (int)ComponentOrder.Dialog;
 
     private void Awake()
@@ -146,14 +148,22 @@ public class Dialog_Divine : MonoBehaviour, IBattleLife
 
         ItemConfig itemConfig = ItemConfigCategory.Instance.Get(config.ItemId);
 
-        Txt_Metail.text = "消耗" + itemConfig.Name + "";
-        Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2}", color, total, needNumber);
+        if (currentLevel < MaxLevel)
+        {
+            Txt_Metail.text = "消耗" + itemConfig.Name + "";
+            Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2}", color, total, needNumber);
+        }
+        else
+        {
+            Txt_Metail.text = "";
+            Txt_Fee.text = "已满级";
+        }
 
         SkillDivineAttrConfig divineAttrConfig = SkillDivineAttrConfigCategory.Instance.GetBySkillId(this.SkillId);
         long divineMax = currentLevel * divineAttrConfig.Param;
         Txt_Desc.text = "完成神技所有阶段之后，获得神技效果：" + string.Format(divineAttrConfig.Desc, divineMax);
 
-        if (total >= needNumber && currentLevel < 4)
+        if (total >= needNumber && currentLevel < MaxLevel)
         {
             if (currentLevel <= 0)
             {
@@ -293,7 +303,7 @@ public class Dialog_Divine : MonoBehaviour, IBattleLife
             long total = user.GetBagItemCount(config.ItemId);
             long needCount = GetNeedNumber(currentLevel);
 
-            if (total < needCount || currentLevel >= 4)
+            if (total < needCount || currentLevel >= MaxLevel)
             {
                 continue;
             }
