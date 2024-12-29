@@ -191,7 +191,7 @@ namespace Game
                 List<int> drops = user.InfiniteData.DropList[0];
                 user.InfiniteData.DropList.RemoveAt(0);
 
-                int countT = drops.Where(m => m >= 180032 && m<= 180034).Count();
+                int countT = drops.Where(m => m >= 180032 && m <= 180034).Count();
                 if (countT > 0)
                 {
                     Debug.Log(i + " drop Talent :" + countT);
@@ -1786,14 +1786,30 @@ namespace Game
             return list;
         }
 
-        private void Test()
+        private void Test(User user)
         {
-            for (int i = 1; i <= 501; i++)
+            for (int count = 1; count <= 10; count++)
             {
-                EquipRefineConfig oldConfig = EquipRefineConfigCategory.Instance.GetByLevel(i);
-            }
+                if (user.InfiniteData.DropList.Count > 0)
+                {
+                    user.InfiniteData.DropList.RemoveAt(0);
+                }
+                user.InfiniteData.GetDropId(1);
 
-            //Debug.Log(" Test Over ");
+                List<int> dropList = user.InfiniteData.DropList[0];
+
+                for (int i = 1; i < dropList.Count; i++)
+                {
+                    if (dropList[i - 1] == 4002)
+                    {
+                        //Debug.Log(count + "次 - " + i + "层 掉落魂骨");
+                    }
+                    else if (dropList[i - 1] >= 180001 && dropList[i - 1] <= 180101)
+                    {
+                        Debug.Log(count + "次 - " + i + "层 掉落法宝");
+                    }
+                }
+            }
         }
     }
 
