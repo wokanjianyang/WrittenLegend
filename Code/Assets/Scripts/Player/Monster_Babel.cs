@@ -69,7 +69,7 @@ namespace Game
             {
                 int lose = Record - this.Progeress - 1000;
 
-                double loseRate = Math.Max(Math.Pow(0.998, lose), 0.0000001);
+                double loseRate = Math.Max(Math.Pow(0.997, lose), 0.0000001);
                 //Debug.Log("loseRate:" + loseRate);
 
                 riseRate *= loseRate;
