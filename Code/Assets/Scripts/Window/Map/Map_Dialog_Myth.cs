@@ -61,6 +61,8 @@ public class Map_Dialog_Myth : MonoBehaviour
         {
             BuildItem(list[i]);
         }
+
+        this.ShowItemMax();
     }
 
     private void BuildItem(MythConfig config)
