@@ -33,10 +33,10 @@ RectTransform:
   m_Father: {fileID: 1173079490924791338}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -60}
-  m_SizeDelta: {x: 0, y: 20}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 25}
+  m_SizeDelta: {x: 114, y: 20}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &7070042228542403030
 CanvasRenderer:
@@ -97,7 +97,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6943964263426807951
 RectTransform:
   m_ObjectHideFlags: 0
@@ -303,7 +303,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 053f31fdbd61b784e9b631e55b96012b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a15e3f69b864b7e4e9db79dbadbc7c6c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -551,16 +551,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image_Background: {fileID: 3299545045484391158}
-  list_Backgrounds:
-  - {fileID: 21300000, guid: 4f0f2dc39c80e374aa1c90450224d7d7, type: 3}
-  - {fileID: 21300000, guid: b50706f65e0532046a5867453de91cf9, type: 3}
-  - {fileID: 21300000, guid: 053f31fdbd61b784e9b631e55b96012b, type: 3}
-  - {fileID: 21300000, guid: f0748ddbb0bb5f342a9510d335602850, type: 3}
-  - {fileID: 21300000, guid: 81017b44e38092d4387ba0f54a8300d7, type: 3}
-  - {fileID: 21300000, guid: 26b5a7a6c83549c40be23d90762a3d30, type: 3}
+  Hero_Backgrounds:
+  - {fileID: 21300000, guid: a15e3f69b864b7e4e9db79dbadbc7c6c, type: 3}
+  Monster_Backgrounds:
+  - {fileID: 21300000, guid: 88ed99b2f043cd9459ebd7fa11739b94, type: 3}
+  - {fileID: 21300000, guid: a65e6492190de164fba3e19b7a9140cd, type: 3}
+  - {fileID: 21300000, guid: cb7f105c6c3f21647b5b215120e8d9bb, type: 3}
+  - {fileID: 21300000, guid: 36a746070fda72048a9c13510c7bfbce, type: 3}
+  - {fileID: 21300000, guid: 6fe1c522a33bf0f4c97b7ee1bbc622c8, type: 3}
+  Valet_Backgrounds:
+  - {fileID: 21300000, guid: afde59ab5d6bab540a77464c93e9f067, type: 3}
+  - {fileID: 21300000, guid: 3253401dba08796478e70eef038730f1, type: 3}
+  Other_Backgrounds:
+  - {fileID: 21300000, guid: e2143e3a4baf2b945821681dd4f69302, type: 3}
   tran_Info: {fileID: 1173079490924791338}
   tmp_Info_Name: {fileID: 3517343299721237907}
-  tmp_Info_Level: {fileID: 8866319226953566738}
   tran_Barrage: {fileID: 4680396866725006832}
   tran_Attack: {fileID: 7079487226024100141}
   hp_Progress: {fileID: 8636824040226327321}
@@ -650,9 +655,9 @@ RectTransform:
   m_Father: {fileID: 1173079490924791338}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -35}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 114, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8636824040226327321

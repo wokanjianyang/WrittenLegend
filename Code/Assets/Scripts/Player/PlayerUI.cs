@@ -15,7 +15,10 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
     [LabelText("背景图片")]
     public Image image_Background;
 
-    public Sprite[] list_Backgrounds;
+    public Sprite[] Hero_Backgrounds;
+    public Sprite[] Monster_Backgrounds;
+    public Sprite[] Valet_Backgrounds;
+    public Sprite[] Other_Backgrounds;
 
     [Title("信息")]
     [LabelText("信息")]
@@ -24,8 +27,8 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
     [LabelText("名称")]
     public Text tmp_Info_Name;
 
-    [LabelText("等级")]
-    public Text tmp_Info_Level;
+    //[LabelText("等级")]
+    //public Text tmp_Info_Level;
 
     [Title("提示")]
     [LabelText("弹幕")]
@@ -120,7 +123,7 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
         this.SelfPlayer = player;
         // this.SelfPlayer.EventCenter.AddListener<SetBackgroundColorEvent>(OnSetBackgroundColorEvent);
         this.SelfPlayer.EventCenter.AddListener<SetPlayerNameEvent>(OnSetNameEvent);
-        this.SelfPlayer.EventCenter.AddListener<SetPlayerLevelEvent>(OnSetPlayerLevelEvent);
+        //this.SelfPlayer.EventCenter.AddListener<SetPlayerLevelEvent>(OnSetPlayerLevelEvent);
         this.SelfPlayer.EventCenter.AddListener<SetPlayerHPEvent>(OnSetPlayerHPEvent);
         this.SelfPlayer.EventCenter.AddListener<ShowMsgEvent>(OnShowMsgEvent);
         this.SelfPlayer.EventCenter.AddListener<ShowAttackIcon>(OnShowAttackIcon);
@@ -143,7 +146,7 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
         {
             this.SelfPlayer.EventCenter.RemoveListener<SetBackgroundColorEvent>(OnSetBackgroundColorEvent);
             this.SelfPlayer.EventCenter.RemoveListener<SetPlayerNameEvent>(OnSetNameEvent);
-            this.SelfPlayer.EventCenter.RemoveListener<SetPlayerLevelEvent>(OnSetPlayerLevelEvent);
+            //this.SelfPlayer.EventCenter.RemoveListener<SetPlayerLevelEvent>(OnSetPlayerLevelEvent);
             this.SelfPlayer.EventCenter.RemoveListener<SetPlayerHPEvent>(OnSetPlayerHPEvent);
             this.SelfPlayer.EventCenter.RemoveListener<ShowMsgEvent>(OnShowMsgEvent);
             this.SelfPlayer.EventCenter.RemoveListener<ShowHideEvent>(OnShowHide);
@@ -170,8 +173,9 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
         switch (SelfPlayer.Camp)
         {
             case PlayerType.Hero:
+                break;
             case PlayerType.HeroPhatom:
-                this.image_Background.sprite = list_Backgrounds[0];
+                this.image_Background.sprite = Hero_Backgrounds[0];
                 if (SelfPlayer.RingType > 0)
                 {
                     SourRingEffect.gameObject.SetActive(true);
@@ -180,45 +184,47 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
             case PlayerType.Valet:
                 if (this.SelfPlayer.ModelType == MondelType.YueLing)
                 {
-                    this.image_Background.sprite = list_Backgrounds[5];
+                    this.image_Background.sprite = Valet_Backgrounds[1];
                 }
                 else
                 {
-                    this.image_Background.sprite = list_Backgrounds[1];
+                    this.image_Background.sprite = Valet_Backgrounds[0];
                 }
                 break;
             case PlayerType.Defend:
-                this.image_Background.sprite = list_Backgrounds[4];
+                this.image_Background.sprite = Other_Backgrounds[0];
                 break;
             case PlayerType.Enemy:
-                if (this.SelfPlayer.ModelType == MondelType.Boss || this.SelfPlayer.Quality == 5)
+                int index = this.SelfPlayer.Quality;
+                if (index >= 1 && index <= 6)
                 {
-                    this.image_Background.sprite = list_Backgrounds[3];
+                    index = index - 1;
                 }
                 else
                 {
-                    this.image_Background.sprite = list_Backgrounds[2];
+                    index = 0;
                 }
+                this.image_Background.sprite = Monster_Backgrounds[index];
                 break;
         }
     }
 
-    private void OnSetPlayerLevelEvent(SetPlayerLevelEvent e)
-    {
-        string title = this.SelfPlayer.Title;
-        title = title == null ? "" : "(" + title + ")";
+    //private void OnSetPlayerLevelEvent(SetPlayerLevelEvent e)
+    //{
+    //    string title = this.SelfPlayer.Title;
+    //    title = title == null ? "" : "(" + title + ")";
 
-        if (SelfPlayer is Monster_Phantom)
-        {
-            this.tmp_Info_Level.text = e.Level + "转";
-        }
-        else
-        {
-            this.tmp_Info_Level.text = "Lv." + e.Level + title;
-        }
+    //    if (SelfPlayer is Monster_Phantom)
+    //    {
+    //        this.tmp_Info_Level.text = e.Level + "转";
+    //    }
+    //    else
+    //    {
+    //        this.tmp_Info_Level.text = "Lv." + e.Level + title;
+    //    }
 
 
-    }
+    //}
 
     private void OnSetPlayerHPEvent(SetPlayerHPEvent e)
     {
