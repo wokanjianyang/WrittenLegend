@@ -86,7 +86,7 @@ namespace Game
             User user = GameProcessor.Inst.User;
             DefendRecord record = user.DefendData.GetCurrentRecord(this.Level);
 
-            if (record == null)
+            if (record == null || record.Count.Data <= 0)
             {
                 GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有了挑战次数", ToastType = ToastTypeEnum.Failure });
                 return;
