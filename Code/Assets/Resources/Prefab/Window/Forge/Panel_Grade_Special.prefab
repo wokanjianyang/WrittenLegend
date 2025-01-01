@@ -336,7 +336,7 @@ GameObject:
   - component: {fileID: 1238226694481284155}
   - component: {fileID: 710191972147433083}
   m_Layer: 5
-  m_Name: Panel_Grade Special
+  m_Name: Panel_Grade_Special
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

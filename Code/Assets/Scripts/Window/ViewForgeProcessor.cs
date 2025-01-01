@@ -48,6 +48,9 @@ public class ViewForgeProcessor : AViewPage
     public Toggle toggle_ExclusiveUp;
     public Panel_Exclusive_Up PanelExclusiveUp;
 
+    public Toggle toggle_GradeSpecail;
+    public Panel_Grade_Specail PanelGradeSpecail;
+
     private void Awake()
     {
         this.toggle_Equip.onValueChanged.AddListener((isOn) =>
@@ -111,6 +114,11 @@ public class ViewForgeProcessor : AViewPage
         this.toggle_ExclusiveUp.onValueChanged.AddListener((isOn) =>
         {
             PanelExclusiveUp.gameObject.SetActive(isOn);
+        });
+
+        this.toggle_GradeSpecail.onValueChanged.AddListener((isOn) =>
+        {
+            PanelGradeSpecail.gameObject.SetActive(isOn);
         });
     }
 
