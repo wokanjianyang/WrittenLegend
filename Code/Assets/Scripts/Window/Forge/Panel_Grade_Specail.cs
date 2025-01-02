@@ -73,7 +73,7 @@ public class Panel_Grade_Specail : MonoBehaviour
 
         for (int BoxId = 0; BoxId < 4; BoxId++)
         {
-            int postion = 10 + 1;
+            int postion = 11 + BoxId;
 
             var bagBox = this.sr_Panel.content.GetChild(BoxId);
             if (bagBox == null || !dict.ContainsKey(postion))
@@ -87,7 +87,7 @@ public class Panel_Grade_Specail : MonoBehaviour
             this.items.Add(box);
         }
 
-        metailFee.gameObject.SetActive(false);
+        //metailFee.gameObject.SetActive(false);
 
         this.Btn_OK.gameObject.SetActive(false);
     }
@@ -147,6 +147,7 @@ public class Panel_Grade_Specail : MonoBehaviour
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "Éý½×³É¹¦", ToastType = ToastTypeEnum.Success });
             GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
+
             this.Load();
         }
     }
