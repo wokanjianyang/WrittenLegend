@@ -127,11 +127,12 @@ public class Panel_Grade_Specail : MonoBehaviour
 
         if (config == null)
         {
-            return;
+            metailFee.SetContent("ÒÑ¾­Âú¼¶");
         }
-
-        metailFee.gameObject.SetActive(true);
-        metailFee.SetContent(config.FeeItemId, config.Fee);
+        else
+        {
+            metailFee.SetContent(config.FeeItemId, config.Fee);
+        }
     }
 
     public void OnClickOK()
