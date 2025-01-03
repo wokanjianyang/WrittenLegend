@@ -118,7 +118,7 @@ public class ViewForgeProcessor : AViewPage
 
         this.toggle_GradeSpecail.onValueChanged.AddListener((isOn) =>
         {
-            PanelGradeSpecail.gameObject.SetActive(isOn);
+            //PanelGradeSpecail.gameObject.SetActive(isOn);
         });
     }
 

@@ -84,38 +84,6 @@ namespace Game
             Gold = EquipConfig.Price;
             Quality = quality;
 
-            if (Part >= 11 && Part <= 20)
-            {
-                if (Layer <= 3)
-                {
-                    Quality = 1;
-                }
-                else if (Layer >= 4 && Layer <= 6)
-                {
-                    Quality = 2;
-                }
-                else if (Layer >= 7 && Layer <= 9)
-                {
-                    Quality = 3;
-                }
-                else if (Layer >= 10 && Layer <= 12)
-                {
-                    Quality = 4;
-                }
-                else if (Layer >= 13 && Layer <= 17)
-                {
-                    Quality = 5;
-                }
-                else if (Layer >= 18 && Layer <= 22)
-                {
-                    Quality = 6;
-                }
-                else {
-                    Quality = 7;
-                }
-                Debug.Log("Spe Layer:" + Quality);
-            }
-
             QualityAttrList = new Dictionary<int, long>();
             if (Quality > 0 && (Part <= 10 || Part >= 21))
             {
