@@ -116,7 +116,7 @@ namespace Game
 		public int Accuracy { get; set; }
 		/// <summary>Protect</summary>
 		[ProtoMember(14)]
-		public int Protect { get; set; }
+		public double Protect { get; set; }
 		/// <summary>经验</summary>
 		[ProtoMember(15)]
 		public long Exp { get; set; }

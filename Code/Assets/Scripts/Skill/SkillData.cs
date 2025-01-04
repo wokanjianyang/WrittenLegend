@@ -33,19 +33,19 @@ namespace Game
 
             long tempLevel = MagicLevel.Data;
 
-            if (tempLevel < 100)
+            if (tempLevel < 1000)
             {
                 rate = 10;
             }
-            else if (tempLevel >= 100 && tempLevel < 150)
+            else if (tempLevel >= 1000 && tempLevel < 1500)
             {
                 rate = 20;
             }
-            else if (tempLevel >= 150 && tempLevel < 200)
+            else if (tempLevel >= 1500 && tempLevel < 2000)
             {
                 rate = 30;
             }
-            else if (tempLevel >= 200 && tempLevel < 250)
+            else if (tempLevel >= 2000 && tempLevel < 2500)
             {
                 rate = 40;
             }

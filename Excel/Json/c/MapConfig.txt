@@ -124,4 +124,9 @@
 {"_t":"MapConfig","_id":1122,"Name":"地狱魔猪厅","Level":4,"Layer":4,"LevelRequired":"1250-3","Memo":"地狱猪皮","DropLevel":0,"DropIdList":[202001,300091,104,504,210052],"DropRateList":[10,2500,1000,18000,600000],"BoosId":10122},
 {"_t":"MapConfig","_id":1123,"Name":"地狱魔猪殿","Level":4,"Layer":4,"LevelRequired":"1250-4","Memo":"地狱猪心","DropLevel":0,"DropIdList":[202001,300091,104,504,210053],"DropRateList":[10,2500,1000,18000,600000],"BoosId":10123},
 {"_t":"MapConfig","_id":1124,"Name":"地狱桃源","Level":4,"Layer":4,"LevelRequired":"1250-5","Memo":"地狱蝎皮","DropLevel":0,"DropIdList":[202001,300091,104,504,210054],"DropRateList":[10,2500,1000,18000,600000],"BoosId":10124},
+{"_t":"MapConfig","_id":1125,"Name":"地狱魔禁地","Level":4,"Layer":4,"LevelRequired":"1300-1","Memo":"地狱宝甲","DropLevel":0,"DropIdList":[202001,300091,104,504,210055],"DropRateList":[10,2500,1000,18000,600000],"BoosId":10125},
+{"_t":"MapConfig","_id":1126,"Name":"地狱魔神殿","Level":4,"Layer":4,"LevelRequired":"1300-2","Memo":"地狱号角","DropLevel":0,"DropIdList":[202001,300091,104,504,210056],"DropRateList":[10,2500,1000,18000,600000],"BoosId":10126},
+{"_t":"MapConfig","_id":1127,"Name":"地狱邪禁地","Level":4,"Layer":4,"LevelRequired":"1300-3","Memo":"地狱雕像","DropLevel":0,"DropIdList":[202001,300091,104,504,210057],"DropRateList":[10,2500,1000,18000,600000],"BoosId":10127},
+{"_t":"MapConfig","_id":1128,"Name":"地狱邪魔殿","Level":4,"Layer":4,"LevelRequired":"1300-4","Memo":"地狱神像","DropLevel":0,"DropIdList":[202001,300091,104,504,210058],"DropRateList":[10,2500,1000,18000,600000],"BoosId":10128},
+{"_t":"MapConfig","_id":1129,"Name":"地狱封魔殿","Level":4,"Layer":4,"LevelRequired":"1300-5","Memo":"地狱獠牙","DropLevel":0,"DropIdList":[202001,300091,104,504,210059],"DropRateList":[10,2500,1000,18000,600000],"BoosId":10129},
 ]}
