@@ -122,6 +122,36 @@ public class ViewForgeProcessor : AViewPage
         });
     }
 
+    void OnEnable()
+    {
+        User user = GameProcessor.Inst.User;
+
+        if (user == null)
+        {
+            return;
+        }
+
+        if (user.Cycle.Data > 0)
+        {
+            toggle_Reform.gameObject.SetActive(true);
+            toggle_Grade_Golden.gameObject.SetActive(true);
+        }
+        else
+        {
+            toggle_Reform.gameObject.SetActive(false);
+            toggle_Grade_Golden.gameObject.SetActive(false);
+        }
+
+        if (user.MapId >= 1070)
+        {
+            toggle_Equip.gameObject.SetActive(true);
+        }
+        else
+        {
+            toggle_Equip.gameObject.SetActive(false);
+        }
+    }
+
     public override void OnBattleStart()
     {
         base.OnBattleStart();

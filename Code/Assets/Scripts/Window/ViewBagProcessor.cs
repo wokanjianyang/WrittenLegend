@@ -120,10 +120,21 @@ namespace Game
             if (user.Cycle.Data > 0)
             {
                 this.btn_Pill.gameObject.SetActive(true);
+                this.btn_Talent.gameObject.SetActive(true);
             }
             else
             {
                 this.btn_Pill.gameObject.SetActive(false);
+                this.btn_Talent.gameObject.SetActive(false);
+            }
+
+            if (user.MapId >= 1051)
+            {
+                this.btn_Halidom.gameObject.SetActive(true);
+            }
+            else
+            {
+                this.btn_Halidom.gameObject.SetActive(false);
             }
 
             if (user.MapId >= 1104)

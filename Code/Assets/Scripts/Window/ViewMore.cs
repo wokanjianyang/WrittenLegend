@@ -26,6 +26,10 @@ namespace Game
 
         public Item_EquipCopy MineItem;
 
+        public Item_EquipCopy BabelItem;
+
+        public Item_EquipCopy InfiniteItem;
+
         public Item_EquipCopy PillItem;
         public Map_Dialog_Pill MapDialogPill;
 
@@ -33,6 +37,8 @@ namespace Game
 
         public Item_EquipCopy MythItem;
         public Map_Dialog_Myth MapDialogMyth;
+
+        public Text Txt_Limit;
 
         void Start()
         {
@@ -56,6 +62,24 @@ namespace Game
             else
             {
                 MineItem.gameObject.SetActive(false);
+            }
+
+            if (level > 30000 || user.Cycle.Data > 0)
+            {
+                InfiniteItem.gameObject.SetActive(true);
+            }
+            else
+            {
+                InfiniteItem.gameObject.SetActive(false);
+            }
+
+            if (level > 50000 || user.Cycle.Data > 0)
+            {
+                BabelItem.gameObject.SetActive(true);
+            }
+            else
+            {
+                BabelItem.gameObject.SetActive(false);
             }
 
             if (user.Cycle.Data > 0)
