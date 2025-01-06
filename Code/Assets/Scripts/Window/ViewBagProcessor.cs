@@ -1168,7 +1168,16 @@ namespace Game
                 }
 
             }
+            else if (boxItem.Item.ConfigId >= 8201 && boxItem.Item.ConfigId <= 8210)
+            {
+                //build pet
+                List<Item> items = new List<Item>();
 
+                Item item = ItemHelper.BuildItem(ItemType.Pet, boxItem.Item.ConfigId, 1, 1);
+                items.Add(item);
+
+                user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+            }
         }
 
         private void OnBagRemove(BagRemoveEvent e)

@@ -50,6 +50,10 @@ namespace Game
             {
                 item = EquipHelper.BuildByPack(configId);
             }
+            else if (type == ItemType.Pet)
+            {
+                item = PetConfigCategory.Instance.BuildPet(configId);
+            }
             else
             {
                 item = new Item(configId);

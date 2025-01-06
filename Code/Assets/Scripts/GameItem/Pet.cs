@@ -8,10 +8,10 @@ using UnityEngine;
 
 namespace Game
 {
-    public class PetData
+    public class Pet : Item
     {
-        public MagicData Level { get; set; } = new MagicData();
-        public MagicData Layer { get; set; } = new MagicData();
+        public MagicData PetLevel { get; set; } = new MagicData();
+        public MagicData PetLayer { get; set; } = new MagicData();
 
         public MagicData LevelExp { get; set; } = new MagicData();
 
@@ -19,9 +19,8 @@ namespace Game
 
         public IDictionary<int, MagicData> Flair { get; set; } = new Dictionary<int, MagicData>();
 
-        public string Name { get; set; }
-
         public int Status { get; set; }
+
         public int RunMapId { get; set; }
 
 

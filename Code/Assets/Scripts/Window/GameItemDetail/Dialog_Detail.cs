@@ -91,6 +91,8 @@ namespace Game
             var titleColor = QualityConfigHelper.GetColor(this.boxItem.Item);
             this.Txt_Title.text = string.Format("<color=#{0}>{1}</color>", titleColor, this.boxItem.Item.Name);
 
+            long number = this.boxItem.MagicNubmer.Data;
+
             string color = "green";
             if (this.boxItem.Item.ItemConfig != null)
             {
@@ -128,8 +130,11 @@ namespace Game
                 case ItemType.Material_Usable:
                     {
                         this.Btn_Use.gameObject.SetActive(true);
-                        this.Btn_Use_Batch.gameObject.SetActive(true);
-                        this.Btn_UseAll.gameObject.SetActive(true);
+                        if (number > 1)
+                        {
+                            this.Btn_Use_Batch.gameObject.SetActive(true);
+                            this.Btn_UseAll.gameObject.SetActive(true);
+                        }
                     }
                     break;
                 case ItemType.Material:
