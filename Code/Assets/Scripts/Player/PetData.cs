@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Game
 {
-    public class Pet
+    public class PetData
     {
         public MagicData Level { get; set; } = new MagicData();
         public MagicData Layer { get; set; } = new MagicData();
