@@ -24,7 +24,7 @@ namespace Game
 
         private IEnumerator IE_Attack(Vector3Int cell)
         {
-            var effectCom = EffectLoader.CreateEffectShield(this.SkillPanel.SkillData.SkillConfig.Name, this.SkillPanel.Duration);//
+            var effectCom = EffectLoader.CreateEffectShield(this.SkillPanel.SkillData.SkillConfig.ModelName, this.SkillPanel.Duration);//
 
             if (effectCom != null)
             {
