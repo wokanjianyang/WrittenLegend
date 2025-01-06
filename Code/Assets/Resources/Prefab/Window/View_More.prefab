@@ -1294,7 +1294,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7256414721186957394, guid: a148f9a7b8963d14f9d15ac46a060fb4, type: 3}
       propertyPath: m_Text
-      value: "\u672A \u77E5 \u79D8 \u5883"
+      value: "\u672A \u77E5 \u6697 \u57DF"
       objectReference: {fileID: 0}
     - target: {fileID: 7764137097597263466, guid: a148f9a7b8963d14f9d15ac46a060fb4, type: 3}
       propertyPath: m_Name
@@ -1855,7 +1855,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7256414721186957394, guid: a148f9a7b8963d14f9d15ac46a060fb4, type: 3}
       propertyPath: m_Text
-      value: "\u5B88 \u536B \u6C99 \u57CE"
+      value: "\u5B88 \u536B \u9F99 \u57CE"
       objectReference: {fileID: 0}
     - target: {fileID: 7764137097597263466, guid: a148f9a7b8963d14f9d15ac46a060fb4, type: 3}
       propertyPath: m_Name
