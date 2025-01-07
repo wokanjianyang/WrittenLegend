@@ -1173,7 +1173,7 @@ namespace Game
                 //build pet
                 List<Item> items = new List<Item>();
 
-                Item item = ItemHelper.BuildItem(ItemType.Pet, boxItem.Item.ConfigId, 1, 1);
+                Item item = PetConfigCategory.Instance.BuildPet(boxItem.Item.ConfigId, e.Flairs);
                 items.Add(item);
 
                 user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });

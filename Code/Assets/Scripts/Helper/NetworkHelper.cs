@@ -181,6 +181,19 @@ namespace Game
             return SendRequest("get_rank", bytes, successAction, failAction);
         }
 
+        public static IEnumerator GetPet(int configId, int count, Action<WebResultWrapper> successAction, Action failAction)
+        {
+            Dictionary<string, string> dict = new Dictionary<string, string>();
+            dict.Add("configId", configId + "");
+            dict.Add("count", count + "");
+
+            string param = JsonConvert.SerializeObject(dict);
+
+            byte[] bytes = new System.Text.UTF8Encoding().GetBytes(param);
+
+            return SendRequest("get_pet", bytes, successAction, failAction);
+        }
+
         public static IEnumerator DownData(Action<byte[]> successAction, Action failAction)
         {
             string url = home + "down_user_file";

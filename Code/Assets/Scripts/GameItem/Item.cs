@@ -101,7 +101,8 @@ namespace Game
         Fashion = 13,
         Halidom = 14,
         Material_Usable = 15,
-        Pet = 16,
+        PetEgg = 16,
+        Pet = 17,
 
         Artifact = 18,
         Ring = 19,

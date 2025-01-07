@@ -290,6 +290,8 @@ namespace Game
 
         public Dictionary<int, MagicData> ArtifactData { get; } = new Dictionary<int, MagicData>();
 
+        public Dictionary<int, int> PetCountData { get; } = new Dictionary<int, int>();
+
         public List<DropData> DropDataList { get; } = new List<DropData>();
 
         public IDictionary<int, int> FestiveData_0101 { get; set; } = new Dictionary<int, int>();
@@ -1249,6 +1251,26 @@ namespace Game
             }
 
             return (int)ArtifactData[artifactId].Data;
+        }
+
+        public int GetPetCount(int configId)
+        {
+            if (!this.PetCountData.ContainsKey(configId))
+            {
+                PetCountData[configId] = 1;
+            }
+
+            return PetCountData[configId];
+        }
+
+        public void SetPetCount(int configId)
+        {
+            if (!this.PetCountData.ContainsKey(configId))
+            {
+                PetCountData[configId] = 1;
+            }
+
+            PetCountData[configId]++;
         }
 
         public void SaveArtifactLevel(int itemId, int level)

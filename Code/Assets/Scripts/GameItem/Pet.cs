@@ -16,14 +16,16 @@ namespace Game
         public MagicData LevelExp { get; set; } = new MagicData();
 
         public MagicData LayerExp { get; set; } = new MagicData();
-
-        public IDictionary<int, MagicData> Flair { get; set; } = new Dictionary<int, MagicData>();
+        public List<KeyValuePair<int, MagicData>> Flairs { get; set; } = new List<KeyValuePair<int, MagicData>>();
 
         public int Status { get; set; }
 
         public int RunMapId { get; set; }
 
-
+        public override int GetQuality()
+        {
+            return 5;
+        }
 
     }
 }
