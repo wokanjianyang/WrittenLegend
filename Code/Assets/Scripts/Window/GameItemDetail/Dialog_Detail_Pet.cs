@@ -15,9 +15,9 @@ namespace Game
         [LabelText("容器")]
         public RectTransform rect_Content;
 
-        [Title("背景图片")]
-        public Image img_Background;
-        public Sprite[] list_BackgroundImgs;
+        //[Title("背景图片")]
+        //public Image img_Background;
+        //public Sprite[] list_BackgroundImgs;
 
         [LabelText("名称")]
         public Text TxtName;
@@ -147,6 +147,15 @@ namespace Game
                     }
                 }
             }
+
+            if (pet.SkillId > 0)
+            {
+                SkillConfig skillConfig = SkillConfigCategory.Instance.Get(pet.SkillId);
+                tran_SkillAttribute.gameObject.SetActive(true);
+            }
+
+            this.btn_Equip.gameObject.SetActive(this.boxItem.BoxId != -1);
+            this.btn_UnEquip.gameObject.SetActive(this.boxItem.BoxId == -1);
         }
 
         private void OnEquip()

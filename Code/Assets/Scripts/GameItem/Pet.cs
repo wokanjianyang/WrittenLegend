@@ -20,6 +20,8 @@ namespace Game
 
         public int Status { get; set; }
 
+        public int SkillId { get; set; }
+
         public int RunMapId { get; set; }
 
         public override int GetQuality()
