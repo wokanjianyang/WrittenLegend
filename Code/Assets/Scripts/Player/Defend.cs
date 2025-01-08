@@ -17,7 +17,7 @@ public class Defend : APlayer
     private void Init(long hp)
     {
         this.Camp = PlayerType.Defend;
-        this.Name = "沙城";
+        this.Name = "龙城";
         this.ModelType = MondelType.Boss;
 
         this.SetAttr(hp);  //设置属性值
