@@ -248,14 +248,14 @@ public class Com_AD : MonoBehaviour, IBattleLife
         //    return;
         //}
 
-        if (toggle_Skip.isOn)
+        if (toggle_Skip.isOn || true)
         {
             int skipCount = user.AdData.GetSkipCount();
 
-            if (skipCount > 0)
+            if (skipCount > 0 || true)
             {
                 //使用跳过次数
-                user.AdData.Use();
+                //user.AdData.Use(); 正式之后要改回来
                 RewardAd(type, true);
                 return;
             }
