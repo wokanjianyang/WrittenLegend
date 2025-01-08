@@ -26,7 +26,6 @@ namespace Game
             }
 
             pet.Name = "³èÎï";
-            pet.Flairs = new List<KeyValuePair<int, MagicData>>(); ;
 
             return pet;
         }
@@ -37,11 +36,11 @@ namespace Game
 
             for (int i = 1; i <= quality; i++)
             {
-                List<PetConfig> temps = this.list.Where(m => m.StartQuality == quality).ToList();
+                List<PetConfig> temps = this.list.Where(m => m.StartQuality == i).ToList();
                 int index = RandomHelper.RandomNumber(1, temps.Count + 1);
 
                 PetConfig config = temps[index - 1];
-                int attrValue = RandomHelper.RandomNumber(config.MinValue, config.MaxCount + 1);
+                int attrValue = RandomHelper.RandomNumber(config.MinValue, config.MaxValue + 1);
 
                 flairs.Add(new KeyValuePair<int, int>(config.AttrId, attrValue));
             }

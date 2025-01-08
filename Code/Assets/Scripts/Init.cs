@@ -69,6 +69,7 @@ public class Init : MonoBehaviour
                 "Window/Map/Map_Myth",
 
                 "Window/Dialog_Detail_Select",
+                "Window/Dialog_Detail_Pet",
                 "Window/Dialog_Detail",
                 "Window/Dialog_EquipDetail",
                 "Window/Dialog_Exclusive_Detail",
@@ -86,7 +87,7 @@ public class Init : MonoBehaviour
                 "Window/More/Dialog_Mine",
 
                 "Window/Skill/Dialog_Divine",
-  
+
             }
         },
         {

@@ -24,7 +24,34 @@ namespace Game
 
         public override int GetQuality()
         {
-            return 5;
+            return Flairs.Count;
+        }
+
+        public Pet()
+        {
+            this.Type = ItemType.Pet;
+            this.Name = "³èÎï";
+
+        }
+
+        public Dictionary<int, long> GetBaseAttr()
+        {
+            Dictionary<int, long> attrs = new Dictionary<int, long>();
+
+            for (int i = 0; i < Flairs.Count; i++)
+            {
+                int attrId = Flairs[i].Key;
+                long attrValue = Flairs[i].Value.Data * PetLevel.Data;
+
+                if (!attrs.ContainsKey(attrId))
+                {
+                    attrs[attrId] = 0;
+                }
+
+                attrs[attrId] += attrValue;
+            }
+
+            return attrs;
         }
 
     }

@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using Game.Data;
+using Newtonsoft.Json;
 
 namespace Game
 {
@@ -264,10 +265,12 @@ namespace Game
 
             GameProcessor.Inst.EventCenter.Raise(new BagUseEvent()
             {
-                Quantity = -1,
+                Quantity = 1,
                 BoxItem = this.boxItem,
                 Flairs = flairs,
             });
+
+            this.gameObject.SetActive(false);
 
             //NetworkHelper.GetPet(configId, count,
             //            (WebResultWrapper result) =>

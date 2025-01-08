@@ -20,13 +20,14 @@ namespace Game
         public Sprite[] list_BackgroundImgs;
 
         [LabelText("名称")]
-        public Text tmp_Title;
+        public Text TxtName;
+        public Text TxtLevel;
 
-        [LabelText("天赋")]
+        [LabelText("资质")]
         public Transform tran_BaseAttribute;
 
         [LabelText("属性")]
-        public Transform tran_HideAttribute;
+        public Transform tran_FinalAttribute;
 
         [LabelText("技能")]
         public Transform tran_SkillAttribute;
@@ -43,8 +44,6 @@ namespace Game
         public Button Btn_Close;
 
         private BoxItem boxItem;
-        private int equipPositioin;
-        private ComBoxType BoxType;
 
         private RectTransform rectTransform;
 
@@ -75,15 +74,79 @@ namespace Game
         {
             this.gameObject.SetActive(false);
 
-            GameProcessor.Inst.EventCenter.AddListener<ShowEquipDetailEvent>(this.OnShowEquipDetailEvent);
+            GameProcessor.Inst.EventCenter.AddListener<ShowPetDetailEvent>(this.OnShowEvent);
             this.rectTransform = this.transform.GetComponent<RectTransform>();
         }
 
-        private void OnShowEquipDetailEvent(ShowEquipDetailEvent e)
+        private void OnShowEvent(ShowPetDetailEvent e)
         {
             this.gameObject.SetActive(true);
-       
 
+            tran_BaseAttribute.gameObject.SetActive(false);
+            tran_FinalAttribute.gameObject.SetActive(false);
+            tran_SkillAttribute.gameObject.SetActive(false);
+
+            this.btn_Equip.gameObject.SetActive(false);
+            this.btn_UnEquip.gameObject.SetActive(false);
+            this.btn_Recovery.gameObject.SetActive(false);
+            this.btn_Restore.gameObject.SetActive(false);
+            this.btn_Lock.gameObject.SetActive(false);
+            this.btn_Unlock.gameObject.SetActive(false);
+
+            this.boxItem = e.boxItem;
+
+            string titleColor = QualityConfigHelper.GetColor(this.boxItem.Item);
+
+            Pet pet = this.boxItem.Item as Pet;
+
+            this.TxtName.text = string.Format("<color=#{0}>{1}</color>", titleColor, pet.Name);
+            this.TxtLevel.text = pet.PetLevel.Data + "";
+
+            List<KeyValuePair<int, MagicData>> flairs = pet.Flairs;
+
+            if (flairs != null && flairs.Count > 0)
+            {
+                tran_BaseAttribute.gameObject.SetActive(true);
+                Transform gridBase = tran_BaseAttribute.Find("Grid_Base");
+
+                for (int index = 0; index < 8; index++)
+                {
+                    var child = gridBase.Find(string.Format("Attribute_{0}", index));
+
+                    if (index < flairs.Count())
+                    {
+                        child.GetComponent<Text>().text = StringHelper.FormatAttrValueName(flairs[index].Key) + "：" + flairs[index].Value.Data;
+                        child.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        child.gameObject.SetActive(false);
+                    }
+                }
+            }
+
+            List<KeyValuePair<int, long>> attrList = pet.GetBaseAttr().ToList();
+
+            if (attrList.Count > 0)
+            {
+                tran_FinalAttribute.gameObject.SetActive(true);
+                Transform gridBase = tran_FinalAttribute.Find("Grid_Base");
+
+                for (int index = 0; index < 8; index++)
+                {
+                    var child = gridBase.Find(string.Format("Attribute_{0}", index));
+
+                    if (index < attrList.Count())
+                    {
+                        child.GetComponent<Text>().text = StringHelper.FormatAttrText(attrList[index].Key, attrList[index].Value);
+                        child.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        child.gameObject.SetActive(false);
+                    }
+                }
+            }
         }
 
         private void OnEquip()
@@ -105,7 +168,6 @@ namespace Game
             {
                 IsWear = false,
                 BoxItem = this.boxItem,
-                Part = this.equipPositioin,
             });
         }
 

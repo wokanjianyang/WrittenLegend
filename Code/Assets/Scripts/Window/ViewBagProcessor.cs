@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using SA.Android.Utilities;
 using SA.CrossPlatform.UI;
 using Sirenix.OdinInspector;
@@ -1168,9 +1169,11 @@ namespace Game
                 }
 
             }
-            else if (boxItem.Item.ConfigId >= 8201 && boxItem.Item.ConfigId <= 8210)
+            else if (boxItem.Item.Type == ItemType.PetEgg)
             {
                 //build pet
+                //string str_json = JsonConvert.SerializeObject(e.Flairs);
+                //Debug.Log("build pet flairs:" + str_json);
                 List<Item> items = new List<Item>();
 
                 Item item = PetConfigCategory.Instance.BuildPet(boxItem.Item.ConfigId, e.Flairs);

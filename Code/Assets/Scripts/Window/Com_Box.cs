@@ -116,12 +116,22 @@ namespace Game
                 });
                 return;
             }
-
-            GameProcessor.Inst.EventCenter.Raise(new ShowDetailEvent()
+            else if (this.BoxItem.Item.Type == ItemType.Pet)
             {
-                boxItem = this.BoxItem,
-                Type = this.Type
-            });
+                GameProcessor.Inst.EventCenter.Raise(new ShowPetDetailEvent()
+                {
+                    boxItem = this.BoxItem,
+                });
+                return;
+            }
+            else
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowDetailEvent()
+                {
+                    boxItem = this.BoxItem,
+                    Type = this.Type
+                });
+            }
         }
 
         public void OnPointerUp(PointerEventData eventData)

@@ -33,6 +33,11 @@ namespace Game
         public int EquipPosition { get; set; }
     }
 
+    public class ShowPetDetailEvent : SDD.Events.Event
+    {
+        public BoxItem boxItem { get; set; }
+    }
+
     public class ComBoxSelectEvent : SDD.Events.Event
     {
         public BoxItem BoxItem { get; set; }
