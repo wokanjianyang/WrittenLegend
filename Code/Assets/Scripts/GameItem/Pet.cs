@@ -56,5 +56,9 @@ namespace Game
             return attrs;
         }
 
+        public long GetSkillPercent()
+        {
+            return (long)(PetLevel.Data * 1);
+        }
     }
 }

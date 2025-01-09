@@ -31,6 +31,8 @@ namespace Game
 
         [LabelText("技能")]
         public Transform tran_SkillAttribute;
+        public Text TxtSkillName;
+        public Text TxtSkillDes;
 
         [Title("导航")]
         public Button btn_Equip;
@@ -152,6 +154,9 @@ namespace Game
             {
                 SkillConfig skillConfig = SkillConfigCategory.Instance.Get(pet.SkillId);
                 tran_SkillAttribute.gameObject.SetActive(true);
+
+                TxtSkillName.text = skillConfig.Name + "";
+                TxtSkillDes.text = "技能系数倍率" + pet.GetSkillPercent() + "%";
             }
 
             this.btn_Equip.gameObject.SetActive(this.boxItem.BoxId != -1);

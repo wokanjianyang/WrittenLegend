@@ -261,16 +261,19 @@ namespace Game
             int configId = this.boxItem.Item.ConfigId;
             int count = GameProcessor.Inst.User.GetPetCount(configId);
 
-            List<KeyValuePair<int, int>> flairs = PetConfigCategory.Instance.BuildPetAttr(5);
+            int skillId = 0;
+            List<KeyValuePair<int, int>> flairs = PetConfigCategory.Instance.BuildPetAttr(configId, out skillId);
 
             GameProcessor.Inst.EventCenter.Raise(new BagUseEvent()
             {
                 Quantity = 1,
                 BoxItem = this.boxItem,
                 Flairs = flairs,
+                SkillId = skillId
             });
 
             this.gameObject.SetActive(false);
+            AppHelper.PetEgging = false;
 
             //NetworkHelper.GetPet(configId, count,
             //            (WebResultWrapper result) =>

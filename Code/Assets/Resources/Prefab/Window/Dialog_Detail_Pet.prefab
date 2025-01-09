@@ -1734,6 +1734,8 @@ MonoBehaviour:
   tran_BaseAttribute: {fileID: 6740507056651436116}
   tran_FinalAttribute: {fileID: 90823879927649398}
   tran_SkillAttribute: {fileID: 927551179669643380}
+  TxtSkillName: {fileID: 1748026232357034142}
+  TxtSkillDes: {fileID: 568463720447428915}
   btn_Equip: {fileID: 5759845792683961740}
   btn_UnEquip: {fileID: 7941566524176722828}
   btn_Recovery: {fileID: 7840251558719351412}
@@ -3332,7 +3334,7 @@ GameObject:
   - component: {fileID: 8370662867724636332}
   - component: {fileID: 568463720447428915}
   m_Layer: 0
-  m_Name: txt_des
+  m_Name: Txt_Skill_Des
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3412,7 +3414,7 @@ GameObject:
   - component: {fileID: 7632063144968895675}
   - component: {fileID: 1748026232357034142}
   m_Layer: 0
-  m_Name: txt_name
+  m_Name: Txt_Skill_Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

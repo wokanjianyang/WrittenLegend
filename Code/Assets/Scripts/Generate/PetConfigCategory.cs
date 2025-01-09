@@ -9,12 +9,13 @@ namespace Game
     public partial class PetConfigCategory
     {
 
-        public Pet BuildPet(int configId, List<KeyValuePair<int, int>> flairs)
+        public Pet BuildPet(int configId, List<KeyValuePair<int, int>> flairs, int skillId)
         {
             Pet pet = new Pet();
 
             pet.PetLevel.Data = 1;
             pet.PetLayer.Data = 1;
+            pet.SkillId = skillId;
 
             foreach (var flair in flairs)
             {
@@ -30,8 +31,24 @@ namespace Game
             return pet;
         }
 
-        public List<KeyValuePair<int, int>> BuildPetAttr(int quality)
+        public List<KeyValuePair<int, int>> BuildPetAttr(int configId, out int skillId)
         {
+            ItemConfig itemConfig = ItemConfigCategory.Instance.Get(configId);
+
+            int quality = itemConfig.Quality;
+
+            int role = RandomHelper.RandomNumber(1, 4);
+
+            if (quality >= 4)
+            {
+                SkillRuneConfig skillRuneConfig = SkillRuneConfigCategory.Instance.Random7(role);
+                skillId = skillRuneConfig.SkillId;
+            }
+            else
+            {
+                skillId = 0;
+            }
+
             List<KeyValuePair<int, int>> flairs = new List<KeyValuePair<int, int>>();
 
             for (int i = 1; i <= quality; i++)

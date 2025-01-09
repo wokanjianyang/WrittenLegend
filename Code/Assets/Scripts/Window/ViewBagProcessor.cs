@@ -1176,7 +1176,7 @@ namespace Game
                 //Debug.Log("build pet flairs:" + str_json);
                 List<Item> items = new List<Item>();
 
-                Item item = PetConfigCategory.Instance.BuildPet(boxItem.Item.ConfigId, e.Flairs);
+                Item item = PetConfigCategory.Instance.BuildPet(boxItem.Item.ConfigId, e.Flairs, e.SkillId);
                 items.Add(item);
 
                 user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
