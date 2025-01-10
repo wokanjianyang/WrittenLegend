@@ -296,6 +296,8 @@ namespace Game
 
         public IDictionary<int, int> FestiveData_0101 { get; set; } = new Dictionary<int, int>();
 
+        public IDictionary<int, int> SevenDayData { get; set; } = new Dictionary<int, int>();
+
         public int MinerSeed = 1;
         public long MinerTime { get; set; } = 0;
 
@@ -1320,6 +1322,28 @@ namespace Game
             else
             {
                 this.FestiveData_0101[configId] = count;
+            }
+        }
+
+        public int GetSevenDayCount(int id)
+        {
+            if (!this.SevenDayData.ContainsKey(id))
+            {
+                this.SevenDayData[id] = 0;
+            }
+
+            return this.SevenDayData[id];
+        }
+
+        public void SaveSevenDayCount(int configId, int count)
+        {
+            if (this.SevenDayData.ContainsKey(configId))
+            {
+                this.SevenDayData[configId] += count;
+            }
+            else
+            {
+                this.SevenDayData[configId] = count;
             }
         }
 

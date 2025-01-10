@@ -11,7 +11,7 @@ public class Dialog_FloatButtons : MonoBehaviour, IBattleLife, IPointerDownHandl
 
     public Com_AD com_AD;
 
-    public Dialog_Festive dialog_Festive;
+
 
     public Transform Menu;
 
@@ -29,6 +29,10 @@ public class Dialog_FloatButtons : MonoBehaviour, IBattleLife, IPointerDownHandl
 
     public Button Btn_Festive;
     public Text Txt_Festive;
+    public Dialog_Festive dialog_Festive;
+
+    public Button Btn_Seven_Day;
+    public Dialog_Seven_Day DialogSevenDay;
 
     public enum DragEnum
     {
@@ -62,6 +66,8 @@ public class Dialog_FloatButtons : MonoBehaviour, IBattleLife, IPointerDownHandl
         {
             this.Btn_Festive.gameObject.SetActive(false);
         }
+
+        this.Btn_Seven_Day.onClick.AddListener(OnClick_SevenDay);
     }
 
     public void OnBattleStart()
@@ -84,6 +90,11 @@ public class Dialog_FloatButtons : MonoBehaviour, IBattleLife, IPointerDownHandl
     private void OnClick_Festive()
     {
         this.dialog_Festive.Open();
+    }
+
+    private void OnClick_SevenDay()
+    {
+        this.DialogSevenDay.Open();
     }
 
     private void OnClick_Power()
