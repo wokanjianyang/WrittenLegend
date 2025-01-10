@@ -124,14 +124,12 @@ namespace Game
                 });
                 return;
             }
-            else
+
+            GameProcessor.Inst.EventCenter.Raise(new ShowDetailEvent()
             {
-                GameProcessor.Inst.EventCenter.Raise(new ShowDetailEvent()
-                {
-                    boxItem = this.BoxItem,
-                    Type = this.Type
-                });
-            }
+                boxItem = this.BoxItem,
+                Type = this.Type
+            });
         }
 
         public void OnPointerUp(PointerEventData eventData)
