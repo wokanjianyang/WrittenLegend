@@ -150,13 +150,12 @@ namespace Game
                 }
             }
 
-            if (pet.SkillId > 0)
+            if (pet.Role > 0)
             {
-                SkillConfig skillConfig = SkillConfigCategory.Instance.Get(pet.SkillId);
                 tran_SkillAttribute.gameObject.SetActive(true);
 
-                TxtSkillName.text = skillConfig.Name + "";
-                TxtSkillDes.text = "技能系数倍率" + pet.GetSkillPercent() + "%";
+                TxtSkillName.text = ConfigHelper.RoleName[pet.Role - 1] + "所有技能：";
+                TxtSkillDes.text = "系数倍率" + pet.GetSkillPercent() + "%";
             }
 
             this.btn_Equip.gameObject.SetActive(this.boxItem.BoxId != -1);

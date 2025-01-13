@@ -97,6 +97,8 @@ namespace Game
 
         public const int Infinit_Max = 2500;
 
+        public static string[] RoleName = { "战士", "法师", "道士" };
+
         public static int GetFloorRate(long floor)
         {
             if (floor > 100 && floor < FastFloor)

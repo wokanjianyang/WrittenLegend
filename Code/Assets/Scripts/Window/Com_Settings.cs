@@ -20,8 +20,8 @@ namespace Game
         public InputField if_Name;
         [LabelText("修改")]
         public Button btn_ChangeName;
-        [LabelText("兑换码输入框")]
 
+        [LabelText("兑换码输入框")]
         public InputField if_Code;
         [LabelText("兑换")]
         public Button btn_Code;

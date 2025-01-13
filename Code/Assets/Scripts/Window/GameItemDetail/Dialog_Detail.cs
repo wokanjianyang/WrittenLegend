@@ -143,7 +143,7 @@ namespace Game
                         }
                     }
                     break;
-                case ItemType.PetEgg:
+                case ItemType.Pet:
                     {
                         if (!AppHelper.PetEgging)
                         {
@@ -261,15 +261,15 @@ namespace Game
             int configId = this.boxItem.Item.ConfigId;
             int count = GameProcessor.Inst.User.GetPetCount(configId);
 
-            int skillId = 0;
-            List<KeyValuePair<int, int>> flairs = PetConfigCategory.Instance.BuildPetAttr(configId, out skillId);
+            int role = this.boxItem.Item.ItemConfig.UseParam;
+            List<KeyValuePair<int, int>> flairs = PetConfigCategory.Instance.BuildPetAttr(configId, role);
 
             GameProcessor.Inst.EventCenter.Raise(new BagUseEvent()
             {
                 Quantity = 1,
                 BoxItem = this.boxItem,
                 Flairs = flairs,
-                SkillId = skillId
+                Role = role
             });
 
             this.gameObject.SetActive(false);

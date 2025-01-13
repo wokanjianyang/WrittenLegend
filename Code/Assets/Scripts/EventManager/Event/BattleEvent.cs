@@ -130,7 +130,7 @@ namespace Game
 
         public List<KeyValuePair<int, int>> Flairs { get; set; }
 
-        public int SkillId { get; set; }
+        public int Role { get; set; }
     }
 
     public class BagRemoveEvent : SDD.Events.Event

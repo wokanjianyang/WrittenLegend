@@ -20,7 +20,7 @@ namespace Game
 
         public int Status { get; set; }
 
-        public int SkillId { get; set; }
+        public int Role { get; set; }
 
         public int RunMapId { get; set; }
 
@@ -32,8 +32,6 @@ namespace Game
         public Pet()
         {
             this.Type = ItemType.Pet;
-            this.Name = "³èÎï";
-
         }
 
         public Dictionary<int, long> GetBaseAttr()
@@ -58,7 +56,7 @@ namespace Game
 
         public long GetSkillPercent()
         {
-            return (long)(PetLevel.Data * 1);
+            return (long)(Flairs.Count * 2);
         }
     }
 }

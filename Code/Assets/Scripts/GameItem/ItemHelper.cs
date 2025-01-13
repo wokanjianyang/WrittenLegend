@@ -52,7 +52,7 @@ namespace Game
             }
             else if (type == ItemType.Pet)
             {
-
+                item = PetConfigCategory.Instance.BuildPet(configId);
             }
             else
             {

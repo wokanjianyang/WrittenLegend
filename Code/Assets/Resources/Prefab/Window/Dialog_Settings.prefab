@@ -1235,7 +1235,7 @@ GameObject:
   - component: {fileID: 3173413430668253604}
   - component: {fileID: 5328865688787250289}
   m_Layer: 5
-  m_Name: Button (Legacy)
+  m_Name: btn_Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6640,7 +6640,7 @@ GameObject:
   - component: {fileID: 2506367579629482903}
   - component: {fileID: 4416501166365466687}
   m_Layer: 5
-  m_Name: InputField (Legacy)
+  m_Name: if_Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8911,7 +8911,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8754294473652040903}
-  - component: {fileID: 328942895402860276}
   m_Layer: 5
   m_Name: Tf_Name
   m_TagString: Untagged
@@ -8942,23 +8941,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 903, y: 1203}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &328942895402860276
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6357590401431991890}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0bd240833e449c59ba9b12c4c5b4756, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tf_Name: {fileID: 0}
-  if_Name: {fileID: 0}
-  btn_ChangeName: {fileID: 0}
-  if_Code: {fileID: 0}
-  btn_Code: {fileID: 0}
 --- !u!1 &6427395789190265685
 GameObject:
   m_ObjectHideFlags: 0

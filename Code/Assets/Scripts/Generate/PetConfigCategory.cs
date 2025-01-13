@@ -9,13 +9,17 @@ namespace Game
     public partial class PetConfigCategory
     {
 
-        public Pet BuildPet(int configId, List<KeyValuePair<int, int>> flairs, int skillId)
+        public Pet BuildPet(int configId)
         {
             Pet pet = new Pet();
 
             pet.PetLevel.Data = 1;
             pet.PetLayer.Data = 1;
-            pet.SkillId = skillId;
+
+            int role = RandomHelper.RandomNumber(1, 4);
+            pet.Role = role;
+
+            List<KeyValuePair<int, int>> flairs = BuildPetAttr(configId, role);
 
             foreach (var flair in flairs)
             {
@@ -26,40 +30,37 @@ namespace Game
                 pet.Flairs.Add(new KeyValuePair<int, MagicData>(attrId, attrValue));
             }
 
-            pet.Name = "³èÎï";
+            pet.Name = ConfigHelper.RoleName[role - 1] + "³èÎï";
 
             return pet;
         }
 
-        public List<KeyValuePair<int, int>> BuildPetAttr(int configId, out int skillId)
+        public List<KeyValuePair<int, int>> BuildPetAttr(int configId, int role)
         {
             ItemConfig itemConfig = ItemConfigCategory.Instance.Get(configId);
 
             int quality = itemConfig.Quality;
 
-            int role = RandomHelper.RandomNumber(1, 4);
-
-            if (quality >= 4)
-            {
-                SkillRuneConfig skillRuneConfig = SkillRuneConfigCategory.Instance.Random7(role);
-                skillId = skillRuneConfig.SkillId;
-            }
-            else
-            {
-                skillId = 0;
-            }
-
             List<KeyValuePair<int, int>> flairs = new List<KeyValuePair<int, int>>();
+
+            int total = quality * 30;
+
+            int tempTotal = 0;
 
             for (int i = 1; i <= quality; i++)
             {
-                List<PetConfig> temps = this.list.Where(m => m.StartQuality == i).ToList();
+                List<PetConfig> temps = this.list.Where(m => m.StartQuality <= i && i <= m.EndQuality && (role == m.Role || m.Role == 0)).ToList();
                 int index = RandomHelper.RandomNumber(1, temps.Count + 1);
 
                 PetConfig config = temps[index - 1];
-                int attrValue = RandomHelper.RandomNumber(config.MinValue, config.MaxValue + 1);
+
+                int avg = (total - tempTotal) / (quality - i + 1);
+
+                int attrValue = RandomHelper.RandomNumber(Math.Max(10, avg - 15), Math.Min(90, avg - 15));
 
                 flairs.Add(new KeyValuePair<int, int>(config.AttrId, attrValue));
+
+                tempTotal += attrValue;
             }
 
             return flairs;

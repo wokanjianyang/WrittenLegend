@@ -1169,14 +1169,14 @@ namespace Game
                 }
 
             }
-            else if (boxItem.Item.Type == ItemType.PetEgg)
+            else if (boxItem.Item.Type == ItemType.Pet)
             {
                 //build pet
                 //string str_json = JsonConvert.SerializeObject(e.Flairs);
                 //Debug.Log("build pet flairs:" + str_json);
                 List<Item> items = new List<Item>();
 
-                Item item = PetConfigCategory.Instance.BuildPet(boxItem.Item.ConfigId, e.Flairs, e.SkillId);
+                Item item = PetConfigCategory.Instance.BuildPet(boxItem.Item.ConfigId);
                 items.Add(item);
 
                 user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
