@@ -15,11 +15,13 @@ namespace Game
 {
     public class Com_Settings : MonoBehaviour
     {
+        public Transform tf_Name;
         [LabelText("名字输入框")]
         public InputField if_Name;
         [LabelText("修改")]
         public Button btn_ChangeName;
         [LabelText("兑换码输入框")]
+
         public InputField if_Code;
         [LabelText("兑换")]
         public Button btn_Code;
@@ -31,6 +33,11 @@ namespace Game
         {
             this.btn_ChangeName.onClick.AddListener(this.OnClick_ChangeName);
             this.btn_Code.onClick.AddListener(this.OnClick_Code);
+
+            if (ConfigHelper.Channel == ConfigHelper.Channel_Tap)
+            {
+                tf_Name.gameObject.SetActive(false);
+            }
         }
 
         // Update is called once per frame
@@ -166,7 +173,8 @@ namespace Game
             {
                 user.AdData.SaveCode(code);
             }
-            else {
+            else
+            {
                 List<Item> items = new List<Item>();
 
                 for (int i = 0; i < config.ItemTypeList.Count(); i++)
