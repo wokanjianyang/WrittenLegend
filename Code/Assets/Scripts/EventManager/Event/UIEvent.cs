@@ -157,4 +157,9 @@ namespace Game
     {
         public int Tid { get; set; }
     }
+
+    public class PetShowEvent : SDD.Events.Event
+    {
+
+    }
 }

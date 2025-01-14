@@ -47,6 +47,7 @@ namespace Game
         public Button btn_Ring;
         public Button btn_Pill;
         public Button btn_Talent;
+        public Button btn_Pet;
 
         public Button btn_Equip_Golden;
 
@@ -98,6 +99,8 @@ namespace Game
             this.Btn_ReName.onClick.AddListener(OnSetPlanName);
             this.Btn_Ok.onClick.AddListener(OnPlanNameOK);
             this.Btn_Cancle.onClick.AddListener(OnPlanNameClose);
+
+            this.btn_Pet.onClick.AddListener(OnOpenPet);
         }
 
         // Start is called before the first frame update
@@ -146,6 +149,15 @@ namespace Game
             {
                 this.btn_Equip_Golden.gameObject.SetActive(false);
             }
+
+            if (AppHelper.GetDeviceIdentifier() != "0AF588B5A9" && AppHelper.GetDeviceIdentifier() != "905A621CD2")
+            {
+                this.btn_Pet.gameObject.SetActive(false);
+            }
+            else
+            {
+                this.btn_Pet.gameObject.SetActive(true);
+            }
         }
 
         // Update is called once per frame
@@ -174,6 +186,8 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<ExchangeEvent>(this.OnExchangeEvent);
             GameProcessor.Inst.EventCenter.AddListener<ChangeExclusiveEvent>(this.OnChangeExclusiveEvent);
             GameProcessor.Inst.EventCenter.AddListener<ChangeEquipGoldenEvent>(this.OnChangeEquipGoldenEvent);
+
+            GameProcessor.Inst.EventCenter.AddListener<PetBattleUpEvent>(this.PetBattleUp);
 
             int EquipPanelIndex = GameProcessor.Inst.User.EquipPanelIndex;
             Toggle_Plan_List[EquipPanelIndex].isOn = true;
@@ -711,6 +725,27 @@ namespace Game
             //UserData.Save();
 
             TaskHelper.CheckTask(TaskType.Equip, 1);
+        }
+
+        private void PetBattleUp(PetBattleUpEvent e)
+        {
+            User user = GameProcessor.Inst.User;
+
+            if (user.PetList.Count >= 3)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "宠物上阵位置已经满了", ToastType = ToastTypeEnum.Failure });
+                return;
+            }
+
+            //从包袱移除
+            UseBoxItem(e.BoxItem, 1);
+
+            Pet pet = e.BoxItem.Item as Pet;
+
+            user.PetList.Add(pet);
+
+            //通知英雄更新属性
+            user.EventCenter.Raise(new HeroUseEquipEvent { });
         }
 
         private void OnSkillBookLearn(SkillBookLearnEvent e)
@@ -1670,6 +1705,11 @@ namespace Game
         public void OnOpenTalent()
         {
             GameProcessor.Inst.EventCenter.Raise(new TalentShowEvent());
+        }
+
+        public void OnOpenPet()
+        {
+            GameProcessor.Inst.EventCenter.Raise(new PetShowEvent());
         }
 
         public void OpenFashion()

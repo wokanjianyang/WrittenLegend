@@ -83,6 +83,7 @@ public class Init : MonoBehaviour
                 "Window/Dialog_Fashion",
                 "Window/Dialog_Attr",
                 "Window/Legacy/Dialog_Legacy",
+                "Window/Pet/Dialog_Pet",
 
                 "Window/More/Dialog_Mine",
 

@@ -38,6 +38,16 @@ namespace Game
         public BoxItem boxItem { get; set; }
     }
 
+    public class PetBattleUpEvent : SDD.Events.Event
+    {
+        public BoxItem BoxItem { get; set; }
+    }
+
+    public class PetBattleDownEvent : SDD.Events.Event
+    {
+        public Pet pet { get; set; }
+    }
+
     public class ComBoxSelectEvent : SDD.Events.Event
     {
         public BoxItem BoxItem { get; set; }

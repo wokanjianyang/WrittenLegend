@@ -111,6 +111,8 @@ namespace Game
 
         public HeroPhatomData HeroPhatomData { get; set; }
 
+        public List<Pet> PetList { get; set; } = new List<Pet>();
+
         /// <summary>
         /// 包裹
         /// </summary>

@@ -53,7 +53,7 @@ namespace Game
         void Start()
         {
             this.btn_Equip.onClick.AddListener(this.OnEquip);
-            this.btn_UnEquip.onClick.AddListener(this.OnUnEquip);
+            //this.btn_UnEquip.onClick.AddListener(this.OnUnEquip);
 
 
             this.btn_Recovery.onClick.AddListener(this.OnRecovery);
@@ -166,20 +166,8 @@ namespace Game
         {
             this.gameObject.SetActive(false);
 
-            GameProcessor.Inst.EventCenter.Raise(new EquipOneEvent()
+            GameProcessor.Inst.EventCenter.Raise(new PetBattleUpEvent()
             {
-                IsWear = true,
-                BoxItem = this.boxItem,
-            });
-        }
-
-        private void OnUnEquip()
-        {
-            this.gameObject.SetActive(false);
-
-            GameProcessor.Inst.EventCenter.Raise(new EquipOneEvent()
-            {
-                IsWear = false,
                 BoxItem = this.boxItem,
             });
         }
