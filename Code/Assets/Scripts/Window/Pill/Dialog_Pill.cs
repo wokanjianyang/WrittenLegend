@@ -71,7 +71,7 @@ public class Dialog_Pill : MonoBehaviour
 
         Txt_Fee.gameObject.SetActive(true);
 
-        if (PillLayer > 10)
+        if (PillLayer > ConfigHelper.PillMax)
         {
             Txt_Fee.text = "ÐÞÁ¶ÒÑÂú";
             Btn_Active.gameObject.SetActive(false);

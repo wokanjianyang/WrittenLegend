@@ -156,7 +156,7 @@ namespace Game
             }
             else
             {
-                this.btn_Pet.gameObject.SetActive(true);
+                this.btn_Pet.gameObject.SetActive(false);
             }
         }
 
