@@ -12,7 +12,7 @@ public class Dialog_Pet : MonoBehaviour, IBattleLife
     public ScrollRect sr_Boss;
 
     private GameObject prefab;
-    private List<Item_Pet> items = new List<Item_Pet>();
+    private List<Item_Pet> PetItems = new List<Item_Pet>();
 
 
     public Button Btn_Close;
@@ -26,6 +26,33 @@ public class Dialog_Pet : MonoBehaviour, IBattleLife
         this.Init();
     }
 
+    public void OnBattleStart()
+    {
+        GameProcessor.Inst.EventCenter.AddListener<PetShowEvent>(this.OnShow);
+        GameProcessor.Inst.EventCenter.AddListener<PetBattleDownEvent>(this.PetBattleDown);
+    }
+
+    private void PetBattleDown(PetBattleDownEvent e)
+    {
+        User user = GameProcessor.Inst.User;
+
+        Item_Pet item = PetItems.Where(m => m.position == e.Position).FirstOrDefault();
+
+        Pet pet = item.pet;
+
+        PetItems.Remove(item);
+        GameObject.Destroy(item.gameObject);
+
+        user.PetList.Remove(pet);
+
+        List<Item> items = new List<Item>();
+        items.Add(pet);
+        if (items.Count > 0)
+        {
+            GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+        }
+    }
+
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -35,26 +62,26 @@ public class Dialog_Pet : MonoBehaviour, IBattleLife
             return;
         }
 
-        foreach (var cb in items)
+        foreach (var cb in PetItems)
         {
             GameObject.Destroy(cb.gameObject);
         }
-        items.Clear();
+        PetItems.Clear();
 
         List<Pet> pets = user.PetList;
 
         for (int i = 0; i < pets.Count; i++)
         {
-            Item_Pet item = this.CreateItem(pets[i]);
-            this.items.Add(item);
+            Item_Pet item = this.CreateItem(pets[i], i);
+            this.PetItems.Add(item);
         }
     }
 
-    private Item_Pet CreateItem(Pet pet)
+    private Item_Pet CreateItem(Pet pet, int position)
     {
         var go = GameObject.Instantiate(prefab);
         Item_Pet comItem = go.GetComponent<Item_Pet>();
-        comItem.Init(pet);
+        comItem.Init(pet, position);
 
         comItem.transform.SetParent(this.sr_Boss.content);
         comItem.transform.localPosition = Vector3.zero;
@@ -64,10 +91,7 @@ public class Dialog_Pet : MonoBehaviour, IBattleLife
     }
 
 
-    public void OnBattleStart()
-    {
-        GameProcessor.Inst.EventCenter.AddListener<PetShowEvent>(this.OnShow);
-    }
+
 
     public void OnShow(PetShowEvent e)
     {

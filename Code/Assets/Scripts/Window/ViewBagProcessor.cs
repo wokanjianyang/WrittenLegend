@@ -748,6 +748,9 @@ namespace Game
             user.EventCenter.Raise(new HeroUseEquipEvent { });
         }
 
+
+
+
         private void OnSkillBookLearn(SkillBookLearnEvent e)
         {
             User user = GameProcessor.Inst.User;

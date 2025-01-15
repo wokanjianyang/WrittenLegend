@@ -45,7 +45,7 @@ namespace Game
 
     public class PetBattleDownEvent : SDD.Events.Event
     {
-        public Pet pet { get; set; }
+        public int Position { get; set; }
     }
 
     public class ComBoxSelectEvent : SDD.Events.Event
