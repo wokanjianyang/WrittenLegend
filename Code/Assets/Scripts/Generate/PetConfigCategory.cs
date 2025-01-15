@@ -2,6 +2,7 @@ using Game.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Game
 {
@@ -11,13 +12,12 @@ namespace Game
 
         public Pet BuildPet(int configId)
         {
-            Pet pet = new Pet();
+
+            int role = RandomHelper.RandomNumber(1, 4);
+            Pet pet = new Pet(role);
 
             pet.PetLevel.Data = 1;
             pet.PetLayer.Data = 1;
-
-            int role = RandomHelper.RandomNumber(1, 4);
-            pet.Role = role;
 
             List<KeyValuePair<int, int>> flairs = BuildPetAttr(configId, role);
 
@@ -29,8 +29,6 @@ namespace Game
 
                 pet.Flairs.Add(new KeyValuePair<int, MagicData>(attrId, attrValue));
             }
-
-            pet.Name = ConfigHelper.RoleName[role - 1] + "³èÎï";
 
             return pet;
         }

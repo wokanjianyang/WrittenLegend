@@ -99,6 +99,7 @@ namespace Game
         public const int Infinit_Max = 2500;
 
         public static string[] RoleName = { "战士", "法师", "道士" };
+        public static string[] PetName = { "战宠", "法宠", "道宠" };
 
         public static int GetFloorRate(long floor)
         {

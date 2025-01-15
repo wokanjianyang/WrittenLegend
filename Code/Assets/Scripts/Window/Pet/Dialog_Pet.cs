@@ -11,8 +11,8 @@ public class Dialog_Pet : MonoBehaviour, IBattleLife
 {
     public ScrollRect sr_Boss;
 
-    private GameObject ItemPrefab;
-    private List<Item_Pet> items;
+    private GameObject prefab;
+    private List<Item_Pet> items = new List<Item_Pet>();
 
 
     public Button Btn_Close;
@@ -22,7 +22,7 @@ public class Dialog_Pet : MonoBehaviour, IBattleLife
     private void Awake()
     {
         Btn_Close.onClick.AddListener(OnClick_Close);
-
+        prefab = Resources.Load<GameObject>("Prefab/Window/Pet/Item_Pet");
         this.Init();
     }
 
@@ -52,8 +52,6 @@ public class Dialog_Pet : MonoBehaviour, IBattleLife
 
     private Item_Pet CreateItem(Pet pet)
     {
-        GameObject prefab = Resources.Load<GameObject>("Prefab/Window/Pet/Item_Pet");
-
         var go = GameObject.Instantiate(prefab);
         Item_Pet comItem = go.GetComponent<Item_Pet>();
         comItem.Init(pet);

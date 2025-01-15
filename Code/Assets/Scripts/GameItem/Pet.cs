@@ -29,9 +29,12 @@ namespace Game
             return Flairs.Count;
         }
 
-        public Pet()
+        public Pet(int role)
         {
             this.Type = ItemType.Pet;
+            this.Role = role;
+
+            this.Name = ConfigHelper.PetName[Role - 1];
         }
 
         public Dictionary<int, long> GetBaseAttr()

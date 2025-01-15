@@ -15,6 +15,7 @@ namespace Game
         public Button Btn_Down;
         public Button Btn_Up_Level;
 
+        public Button Btn_Image;
         public Image image_Background;
         public Sprite[] list_Backgrounds;
 
@@ -23,6 +24,7 @@ namespace Game
         // Start is called before the first frame update
         void Start()
         {
+            this.Btn_Image.onClick.AddListener(ShowDetail);
         }
 
         // Update is called once per frame
@@ -34,6 +36,18 @@ namespace Game
         void OnEnable()
         {
 
+        }
+
+        private void ShowDetail()
+        {
+            BoxItem box = new BoxItem();
+            box.Item = pet;
+            box.BoxId = 1;
+
+            GameProcessor.Inst.EventCenter.Raise(new ShowPetDetailEvent()
+            {
+                boxItem = box,
+            });
         }
 
         public void Init(Pet pet)
