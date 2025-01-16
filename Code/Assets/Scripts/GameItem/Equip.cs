@@ -319,11 +319,12 @@ namespace Game
 
         public void GetRestoreItems(Dictionary<int, int> mlist)
         {
+            int quanlity = this.GetQuality();
             int layer = Layer;
 
             for (int l = 1; l < layer; l++)
             {
-                EquipGradeConfig config = EquipGradeConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Part == Part && m.Layer == l).FirstOrDefault();
+                EquipGradeConfig config = EquipGradeConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Part == Part && m.Layer == l && m.Quanlity == quanlity).FirstOrDefault();
 
                 if (!mlist.ContainsKey(config.MetailId))
                 {

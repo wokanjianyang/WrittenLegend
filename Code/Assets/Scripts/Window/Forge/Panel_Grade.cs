@@ -164,54 +164,6 @@ public class Panel_Grade : MonoBehaviour
             GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
             this.Load();
         }
-
-        //int part = SelectEquip.Part;
-        //int layer = SelectEquip.Layer;
-        //EquipGradeConfig config = EquipGradeConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Part == part && m.Layer == layer && m.Quanlity == Quality).FirstOrDefault();
-
-        //if (config == null)
-        //{
-        //    return;
-        //}
-
-        //User user = GameProcessor.Inst.User;
-
-        //int[] idList = { config.MetailId, config.MetailId1 };
-        //int[] countList = { config.MetailCount, config.MetailCount1 };
-
-        //for (int i = 0; i < idList.Length; i++)
-        //{
-        //    int specialId = idList[i];
-        //    int upCount = countList[i];
-
-        //    long stoneTotal = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == specialId).Select(m => m.MagicNubmer.Data).Sum();
-        //    if (stoneTotal < upCount)
-        //    {
-        //        GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "ÄúµÄÉý½×²ÄÁÏ²»×ã", ToastType = ToastTypeEnum.Failure });
-        //        return;
-        //    }
-        //}
-
-        //for (int i = 0; i < idList.Length; i++)
-        //{
-        //    int specialId = idList[i];
-        //    int upCount = countList[i];
-
-        //    GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
-        //    {
-        //        Type = ItemType.Material,
-        //        ItemId = specialId,
-        //        Quantity = upCount
-        //    });
-        //}
-
-        //this.SelectEquip.Grade();
-
-        //GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
-
-        //this.Load();
-
-        //GameProcessor.Inst.SaveData();
     }
 
     private bool Grade(Equip equip)
