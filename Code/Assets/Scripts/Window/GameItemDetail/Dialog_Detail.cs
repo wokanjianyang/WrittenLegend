@@ -254,26 +254,26 @@ namespace Game
 
         private void OnEgg()
         {
-            AppHelper.PetEgging = true;
-            Txt_Memo.text = "请稍等几秒，孵化中...";
-            this.Btn_Egg.gameObject.SetActive(false);
+            //AppHelper.PetEgging = true;
+            //Txt_Memo.text = "请稍等几秒，孵化中...";
+            //this.Btn_Egg.gameObject.SetActive(false);
 
-            int configId = this.boxItem.Item.ConfigId;
-            int count = GameProcessor.Inst.User.GetPetCount(configId);
+            //int configId = this.boxItem.Item.ConfigId;
+            //int count = GameProcessor.Inst.User.GetPetCount(configId);
 
-            int role = this.boxItem.Item.ItemConfig.UseParam;
-            List<KeyValuePair<int, int>> flairs = PetConfigCategory.Instance.BuildPetAttr(configId, role);
+            //int role = this.boxItem.Item.ItemConfig.UseParam;
+            //List<KeyValuePair<int, int>> flairs = PetConfigCategory.Instance.BuildPetAttr(configId, role);
 
-            GameProcessor.Inst.EventCenter.Raise(new BagUseEvent()
-            {
-                Quantity = 1,
-                BoxItem = this.boxItem,
-                Flairs = flairs,
-                Role = role
-            });
+            //GameProcessor.Inst.EventCenter.Raise(new BagUseEvent()
+            //{
+            //    Quantity = 1,
+            //    BoxItem = this.boxItem,
+            //    Flairs = flairs,
+            //    Role = role
+            //});
 
-            this.gameObject.SetActive(false);
-            AppHelper.PetEgging = false;
+            //this.gameObject.SetActive(false);
+            //AppHelper.PetEgging = false;
 
             //NetworkHelper.GetPet(configId, count,
             //            (WebResultWrapper result) =>

@@ -111,7 +111,9 @@ namespace Game
             User user = GameProcessor.Inst.User;
 
             string account = user.Account;
-            if (account.Length > 0)
+            long day = (TimeHelper.ClientNowSeconds() - user.First_Create_Time) / 86400 + 1;
+
+            if (account.Length > 0 || day >= 30)
             {
                 this.Btn_Cycle.gameObject.SetActive(true);
             }

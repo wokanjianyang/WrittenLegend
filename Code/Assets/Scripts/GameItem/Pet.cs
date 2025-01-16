@@ -44,7 +44,10 @@ namespace Game
             for (int i = 0; i < Flairs.Count; i++)
             {
                 int attrId = Flairs[i].Key;
-                long attrValue = Flairs[i].Value.Data * PetLevel.Data;
+
+                PetConfig config = PetConfigCategory.Instance.GetByAttrId(attrId);
+
+                long attrValue = (int)(Flairs[i].Value.Data * config.AttrValue / 100 * PetLevel.Data);
 
                 if (!attrs.ContainsKey(attrId))
                 {

@@ -33,7 +33,7 @@ namespace Game
             return pet;
         }
 
-        public List<KeyValuePair<int, int>> BuildPetAttr(int configId, int role)
+        private List<KeyValuePair<int, int>> BuildPetAttr(int configId, int role)
         {
             ItemConfig itemConfig = ItemConfigCategory.Instance.Get(configId);
 
@@ -62,6 +62,11 @@ namespace Game
             }
 
             return flairs;
+        }
+
+        public PetConfig GetByAttrId(int attrId)
+        {
+            return this.list.Where(m => m.AttrId == attrId).FirstOrDefault();
         }
     }
 
