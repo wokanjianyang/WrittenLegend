@@ -83,7 +83,7 @@ namespace Game
 
             if (Config.AttrId > 0)
             {
-                this.Txt_Attr_Current.text = StringHelper.FormatAttrText(Config.AttrId, totalLevel);
+                this.Txt_Attr_Current.text = StringHelper.FormatAttrText(Config.AttrId, val);
                 this.Txt_Attr_Rise.text = "升级增加:" + StringHelper.FormatAttrValueText(Config.AttrId, Config.AttrValue);
             }
             else
