@@ -14,6 +14,7 @@ public class Dialog_Pet : MonoBehaviour, IBattleLife
     private GameObject prefab;
     private List<Item_Pet> PetItems = new List<Item_Pet>();
 
+    public Dialog_Pet_Forge DialogPetForge;
 
     public Button Btn_Close;
 
@@ -30,13 +31,14 @@ public class Dialog_Pet : MonoBehaviour, IBattleLife
     {
         GameProcessor.Inst.EventCenter.AddListener<PetShowEvent>(this.OnShow);
         GameProcessor.Inst.EventCenter.AddListener<PetBattleDownEvent>(this.PetBattleDown);
+        GameProcessor.Inst.EventCenter.AddListener<PetForgeEvent>(this.PetForge);
     }
 
     private void PetBattleDown(PetBattleDownEvent e)
     {
         User user = GameProcessor.Inst.User;
 
-        Item_Pet item = PetItems.Where(m => m.position == e.Position).FirstOrDefault();
+        Item_Pet item = e.Item;
 
         Pet pet = item.pet;
 
@@ -51,6 +53,11 @@ public class Dialog_Pet : MonoBehaviour, IBattleLife
         {
             GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
         }
+    }
+
+    private void PetForge(PetForgeEvent e)
+    {
+        DialogPetForge.Open(e.Item.pet);
     }
 
     // Start is called before the first frame update

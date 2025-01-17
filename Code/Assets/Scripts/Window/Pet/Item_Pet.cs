@@ -58,16 +58,20 @@ namespace Game
 
             GameProcessor.Inst.EventCenter.Raise(new PetBattleDownEvent()
             {
-                Position = this.position,
+                Item = this
             });
         }
 
         private void OnUpLevel()
         {
 
+            GameProcessor.Inst.EventCenter.Raise(new PetForgeEvent()
+            {
+                Item = this
+            });
         }
 
-        public void Init(Pet pet,int position)
+        public void Init(Pet pet, int position)
         {
             this.pet = pet;
             this.position = position;
