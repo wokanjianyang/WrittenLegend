@@ -38,7 +38,7 @@ namespace Game
             int role = RandomHelper.RandomNumber(1, 4);
             Pet pet = new Pet(role);
 
-            pet.PetLevel.Data = 1;
+            pet.PetLevel.Data = 100;
             pet.PetLayer.Data = 1;
 
             List<KeyValuePair<int, int>> flairs = BuildPetAttr(configId, role);
@@ -93,7 +93,7 @@ namespace Game
 
         public long GetPetFee(long level)
         {
-            return 200 + level * 50;
+            return 500 + level * 50;
         }
     }
 
