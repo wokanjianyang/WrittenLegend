@@ -58,6 +58,11 @@ namespace Game
         {
             return FormatAttrText(attrId, val, "");
         }
+        public static string FormatAttrText(int attrId, double val)
+        {
+            return FormatAttrValueName(attrId) + "" + FormatAttrValueText(attrId, val);
+        }
+
         public static string FormatAttrText(int attrId, long val, string cr)
         {
             return FormatAttrValueName(attrId) + cr + FormatAttrValueText(attrId, val);

@@ -9,6 +9,28 @@ namespace Game
 
     public partial class PetConfigCategory
     {
+        public Pet BuildByPack(int configId)
+        {
+
+            GiftPackPet packPet = GiftPackPetCategory.Instance.Get(configId);
+
+            Pet pet = new Pet(packPet.Role);
+
+            pet.PetLevel.Data = 1;
+            pet.PetLayer.Data = 1;
+
+
+            for (int i = 0; i < packPet.AttrIdList.Length; i++)
+            {
+                int attrId = packPet.AttrIdList[i];
+                MagicData attrValue = new MagicData();
+                attrValue.Data = packPet.AttrValueList[i];
+
+                pet.Flairs.Add(new KeyValuePair<int, MagicData>(attrId, attrValue));
+            }
+
+            return pet;
+        }
 
         public Pet BuildPet(int configId)
         {
@@ -54,7 +76,7 @@ namespace Game
 
                 int avg = (total - tempTotal) / (quality - i + 1);
 
-                int attrValue = RandomHelper.RandomNumber(Math.Max(10, avg - 15), Math.Min(90, avg - 15));
+                int attrValue = RandomHelper.RandomNumber(Math.Max(10, avg - 15), Math.Min(50, avg + 15));
 
                 flairs.Add(new KeyValuePair<int, int>(config.AttrId, attrValue));
 
@@ -67,6 +89,11 @@ namespace Game
         public PetConfig GetByAttrId(int attrId)
         {
             return this.list.Where(m => m.AttrId == attrId).FirstOrDefault();
+        }
+
+        public long GetPetFee(long level)
+        {
+            return 200 + level * 50;
         }
     }
 

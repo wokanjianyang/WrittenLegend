@@ -41,10 +41,10 @@ public class Dialog_Pet_Forge : MonoBehaviour
         Txt_Level.text = SelectPet.PetLevel.Data + "级";
         Txt_Level.color = ColorHelper.GetColorByQuality(SelectPet.GetQuality());
 
-        int upCount = 100;
+        long fee = PetConfigCategory.Instance.GetPetFee(SelectPet.PetLevel.Data);
 
-        Item_Metail_Need.SetContent(ItemHelper.SpecialId_Pet_Exp, upCount);
-        ExpProgress.SetProgress(SelectPet.LevelExp.Data, upCount);
+        Item_Metail_Need.SetContent(ItemHelper.SpecialId_Pet_Exp, fee);
+        ExpProgress.SetProgress(SelectPet.LevelExp.Data, fee);
     }
 
     public void OnClick_Ok()
@@ -53,14 +53,25 @@ public class Dialog_Pet_Forge : MonoBehaviour
 
         User user = GameProcessor.Inst.User;
 
-        int upCount = 100;
+        long fee = PetConfigCategory.Instance.GetPetFee(SelectPet.PetLevel.Data);
 
         long stoneTotal = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Pet_Exp).Select(m => m.MagicNubmer.Data).Sum();
-        if (stoneTotal < upCount)
+        if (stoneTotal < fee)
         {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "材料不足", ToastType = ToastTypeEnum.Failure });
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "口粮不足", ToastType = ToastTypeEnum.Failure });
             return;
         }
+
+        GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
+        {
+            Type = ItemType.Material,
+            ItemId = ItemHelper.SpecialId_Pet_Exp,
+            Quantity = fee
+        });
+
+
+        SelectPet.UpLevel();
+
 
         this.Show();
 

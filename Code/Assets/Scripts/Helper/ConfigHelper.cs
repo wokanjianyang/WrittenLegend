@@ -100,6 +100,7 @@ namespace Game
 
         public static string[] RoleName = { "战士", "法师", "道士" };
         public static string[] PetName = { "战魂", "法魂", "道魂" };
+        public const int PetMax = 2;
 
         public static int GetFloorRate(long floor)
         {

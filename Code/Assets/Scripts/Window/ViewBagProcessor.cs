@@ -733,7 +733,7 @@ namespace Game
         {
             User user = GameProcessor.Inst.User;
 
-            if (user.PetList.Count >= 3)
+            if (user.PetList.Count >= ConfigHelper.PetMax)
             {
                 GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "宠物上阵位置已经满了", ToastType = ToastTypeEnum.Failure });
                 return;

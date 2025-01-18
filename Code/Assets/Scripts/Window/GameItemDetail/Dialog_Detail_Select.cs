@@ -130,6 +130,13 @@ namespace Game
                     Type = ComBoxType.Gift,
                 });
             }
+            else if (select.BoxItem.Item.Type == ItemType.Pet)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowPetDetailEvent()
+                {
+                    boxItem = select.BoxItem,
+                });
+            }
             else
             {
                 GameProcessor.Inst.EventCenter.Raise(new ShowDetailEvent()

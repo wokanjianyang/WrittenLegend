@@ -37,9 +37,9 @@ namespace Game
             this.Name = ConfigHelper.PetName[Role - 1];
         }
 
-        public Dictionary<int, long> GetBaseAttr()
+        public Dictionary<int, double> GetBaseAttr()
         {
-            Dictionary<int, long> attrs = new Dictionary<int, long>();
+            Dictionary<int, double> attrs = new Dictionary<int, double>();
 
             for (int i = 0; i < Flairs.Count; i++)
             {
@@ -47,7 +47,7 @@ namespace Game
 
                 PetConfig config = PetConfigCategory.Instance.GetByAttrId(attrId);
 
-                long attrValue = (int)(Flairs[i].Value.Data * config.AttrValue / 100 * PetLevel.Data);
+                double attrValue = (Flairs[i].Value.Data * config.AttrValue / 100 * PetLevel.Data);
 
                 if (!attrs.ContainsKey(attrId))
                 {
@@ -60,9 +60,16 @@ namespace Game
             return attrs;
         }
 
+        public void UpLevel()
+        {
+            this.PetLevel.Data++;
+        }
+
         public long GetSkillPercent()
         {
-            return (long)(Flairs.Count * 2);
+            return PetSkillRise[Flairs.Count - 1];
         }
+
+        private int[] PetSkillRise = new int[] { 5, 6, 7, 8, 10, 12, 15 };
     }
 }

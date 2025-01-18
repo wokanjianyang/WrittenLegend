@@ -20,7 +20,6 @@ namespace Game
         public Sprite[] list_Backgrounds;
 
         public Pet pet;
-        public int position;
 
         // Start is called before the first frame update
         void Start()
@@ -71,10 +70,9 @@ namespace Game
             });
         }
 
-        public void Init(Pet pet, int position)
+        public void Init(Pet pet)
         {
             this.pet = pet;
-            this.position = position;
 
             Txt_Name.text = pet.Name;
             Txt_Level.text = pet.PetLevel.Data + "¼¶";

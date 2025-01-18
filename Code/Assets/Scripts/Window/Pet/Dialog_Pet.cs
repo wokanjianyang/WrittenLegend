@@ -88,7 +88,7 @@ public class Dialog_Pet : MonoBehaviour, IBattleLife
     {
         var go = GameObject.Instantiate(prefab);
         Item_Pet comItem = go.GetComponent<Item_Pet>();
-        comItem.Init(pet, position);
+        comItem.Init(pet);
 
         comItem.transform.SetParent(this.sr_Boss.content);
         comItem.transform.localPosition = Vector3.zero;

@@ -56,4 +56,5 @@
 {"_t":"GiftPackConfig","_id":124,"Name":"战士防御金装","GiftType":1,"LevelRequired":0,"ItemTypeList":[20,20,20,20,20,20,20,20],"ItemIdList":[125,126,127,128,129,130,131,132],"ItemCountList":[1,1,1,1,1,1,1,1,1],"Des":"战士防御金装"},
 {"_t":"GiftPackConfig","_id":125,"Name":"法师输出金装","GiftType":1,"LevelRequired":0,"ItemTypeList":[20,20,20,20,20,20,20,20],"ItemIdList":[133,134,135,136,137,138,139,140],"ItemCountList":[1,1,1,1,1,1,1,1,1],"Des":"法师输出金装"},
 {"_t":"GiftPackConfig","_id":127,"Name":"金装自选","GiftType":1,"LevelRequired":0,"ItemTypeList":[4,4,4,4,4,4],"ItemIdList":[121,122,123,124,125],"ItemCountList":[1,1,1,1,1,1,1,1],"Des":"金装自选"},
+{"_t":"GiftPackConfig","_id":201,"Name":"橙宠自选","GiftType":1,"LevelRequired":0,"ItemTypeList":[21,21,21],"ItemIdList":[1,2,3],"ItemCountList":[1,1,1],"Des":"橙宠自选"},
 ]}

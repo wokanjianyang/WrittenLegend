@@ -127,7 +127,7 @@ namespace Game
                 }
             }
 
-            List<KeyValuePair<int, long>> attrList = pet.GetBaseAttr().ToList();
+            List<KeyValuePair<int, double>> attrList = pet.GetBaseAttr().ToList();
 
             if (attrList.Count > 0)
             {
