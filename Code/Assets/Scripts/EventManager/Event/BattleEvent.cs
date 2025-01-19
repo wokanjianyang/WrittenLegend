@@ -53,6 +53,16 @@ namespace Game
         public Item_Pet Item { get; set; }
     }
 
+    public class PetOpenTravelEvent : SDD.Events.Event
+    {
+        public Pet Pet { get; set; }
+    }
+
+    public class PetStartTravelEvent : SDD.Events.Event
+    {
+        public int MapId { get; set; }
+    }
+
     public class ComBoxSelectEvent : SDD.Events.Event
     {
         public BoxItem BoxItem { get; set; }

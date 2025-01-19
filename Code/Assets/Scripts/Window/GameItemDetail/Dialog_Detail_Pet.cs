@@ -155,7 +155,7 @@ namespace Game
                 tran_SkillAttribute.gameObject.SetActive(true);
 
                 TxtSkillName.text = ConfigHelper.RoleName[pet.Role - 1] + "所有技能：";
-                TxtSkillDes.text = "系数倍率" + pet.GetSkillPercent() + "%";
+                TxtSkillDes.text = "系数增幅" + pet.GetSkillPercent() + "%";
             }
 
             this.btn_Equip.gameObject.SetActive(this.boxItem.BoxId != -1);

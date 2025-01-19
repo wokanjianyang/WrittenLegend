@@ -14,6 +14,7 @@ namespace Game
 
         public Button Btn_Down;
         public Button Btn_Up_Level;
+        public Button Btn_Travel;
 
         public Button Btn_Image;
         public Image image_Background;
@@ -27,6 +28,7 @@ namespace Game
             this.Btn_Image.onClick.AddListener(ShowDetail);
             this.Btn_Down.onClick.AddListener(OnDown);
             this.Btn_Up_Level.onClick.AddListener(OnUpLevel);
+            this.Btn_Travel.onClick.AddListener(OnTravel);
         }
 
         // Update is called once per frame
@@ -68,6 +70,14 @@ namespace Game
             {
                 Item = this
             });
+        }
+
+        private void OnTravel() {
+            GameProcessor.Inst.EventCenter.Raise(new PetOpenTravelEvent()
+            {
+                Pet = pet
+            });
+
         }
 
         public void Init(Pet pet)
