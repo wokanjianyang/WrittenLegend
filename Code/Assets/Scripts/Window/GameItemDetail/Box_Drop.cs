@@ -53,6 +53,25 @@ namespace Game
             this.ShowName();
         }
 
+        public void SetItem(string name, int quality, int count)
+        {
+            this.Txt_Layer.gameObject.SetActive(false);
+            this.Txt_Level.gameObject.SetActive(false);
+
+            this.Txt_Name.text = name;
+            Color color = ColorHelper.HexToColor(QualityConfigHelper.GetQualityColor(quality));
+            Txt_Name.color = color;
+            Txt_Level.color = color;
+
+            image_Background.sprite = list_Backgrounds[quality - 1];
+
+            if (count > 1)
+            {
+                this.Txt_Level.text = count + "";
+                this.Txt_Level.gameObject.SetActive(true);
+            }
+        }
+
         private void ShowName()
         {
             this.Txt_Layer.gameObject.SetActive(false);

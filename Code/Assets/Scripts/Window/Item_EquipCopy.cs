@@ -76,7 +76,8 @@ namespace Game
                     user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
 
                     //ÏÔÊ¾µôÂäÁĞ±í
-                    GameProcessor.Inst.EventCenter.Raise(new ShowDropEvent() { Gold = 0, Exp = 0, Items = items });
+                    string message = "¾µÏñÌôÕ½½±Àø";
+                    GameProcessor.Inst.EventCenter.Raise(new ShowDropEvent() { Message = message, Items = items });
 
                     return;
                 }

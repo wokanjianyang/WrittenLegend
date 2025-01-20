@@ -908,6 +908,7 @@ MonoBehaviour:
   Txt_Level: {fileID: 6622652671257390660}
   Btn_Down: {fileID: 3293058130083487514}
   Btn_Up_Level: {fileID: 4115436650014010635}
+  Btn_Travel: {fileID: 7441892351624744525}
   Btn_Image: {fileID: 3767510205012372135}
   image_Background: {fileID: 974584536716700146}
   list_Backgrounds:

@@ -24,6 +24,8 @@ namespace Game
 
         public int RunMapId { get; set; }
 
+        public long RunTime { get; set; }
+
         public override int GetQuality()
         {
             return Flairs.Count;

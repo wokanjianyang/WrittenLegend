@@ -23,8 +23,6 @@ public class Item_Travel : MonoBehaviour
 
     private void OnClick_NavigateMap()
     {
-        User user = GameProcessor.Inst.User;
-
         GameProcessor.Inst.EventCenter.Raise(new PetStartTravelEvent() { MapId = this.MapId });
     }
 

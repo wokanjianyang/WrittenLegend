@@ -48,15 +48,47 @@ namespace Game
             this.Init();
             this.gameObject.SetActive(true);
 
-            this.Txt_Msg.text = "获取金币:" + StringHelper.FormatNumber(e.Gold) + "，经验：" + StringHelper.FormatNumber(e.Exp);
+            this.Txt_Msg.text = e.Message;
+
+            Dictionary<string, int> mergeDict = new Dictionary<string, int>();
 
             for (int i = 0; i < e.Items.Count; i++)
             {
-                Box_Drop box = PrefabHelper.Instance().CreateBoxDrop(Container.content, e.Items[i]);
+                Item item = e.Items[i];
 
+                if (item.Type == ItemType.Card)
+                {
+                    MergeDict(mergeDict, "图鉴");
+                }
+                else if (item.Type == ItemType.Fashion)
+                {
+                    MergeDict(mergeDict, "时装");
+                }
+                else
+                {
+                    Box_Drop box = PrefabHelper.Instance().CreateBoxDrop(Container.content, item);
+                    ItemList.Add(box);
+                }
+            }
+
+            foreach (var sp in mergeDict)
+            {
+                Box_Drop box = PrefabHelper.Instance().CreateBoxDrop(Container.content, sp.Key, 1, sp.Value);
                 ItemList.Add(box);
             }
         }
+
+        private void MergeDict(Dictionary<string, int> dict, string name)
+        {
+            if (!dict.ContainsKey(name))
+            {
+                dict[name] = 0;
+            }
+
+            dict[name]++;
+        }
+
+
 
         public void OnClick_Close()
         {

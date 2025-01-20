@@ -416,9 +416,7 @@ namespace Game
     {
         public List<Item> Items { get; set; }
 
-        public double Gold { get; set; }
-
-        public double Exp { get; set; }
+        public string Message { get; set; }
     }
 
     public class ShowSelectEvent : SDD.Events.Event

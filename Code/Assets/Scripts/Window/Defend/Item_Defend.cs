@@ -131,7 +131,8 @@ namespace Game
                 user.DefendData.Complete();
 
                 //显示掉落列表
-                GameProcessor.Inst.EventCenter.Raise(new ShowDropEvent() { Gold = gold, Exp = exp, Items = items });
+                string message = "获得金币：" + StringHelper.FormatNumber(gold) + " 经验：" + StringHelper.FormatNumber(exp) + "";
+                GameProcessor.Inst.EventCenter.Raise(new ShowDropEvent() { Message = message, Items = items });
             }
         }
     }

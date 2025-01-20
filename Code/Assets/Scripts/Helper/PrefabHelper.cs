@@ -76,6 +76,20 @@ namespace Game
             return comItem;
         }
 
+        public Box_Drop CreateBoxDrop(Transform parent, string name, int quality, int count)
+        {
+            var go = GameObject.Instantiate(BoxDropPrefab);
+            Box_Drop comItem = go.GetComponent<Box_Drop>();
+
+            comItem.SetItem(name, quality, count);
+
+            comItem.transform.SetParent(parent);
+            comItem.transform.localPosition = Vector3.zero;
+            comItem.transform.localScale = Vector3.one;
+
+            return comItem;
+        }
+
         public GameObject MessagePrefab()
         {
             return this.Message_Prefab;

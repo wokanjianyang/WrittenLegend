@@ -34,7 +34,6 @@ public class Dialog_Pet : MonoBehaviour, IBattleLife
         GameProcessor.Inst.EventCenter.AddListener<PetBattleDownEvent>(this.PetBattleDown);
         GameProcessor.Inst.EventCenter.AddListener<PetForgeEvent>(this.OpenPetForge);
         GameProcessor.Inst.EventCenter.AddListener<PetOpenTravelEvent>(this.OpenTravel);
-        GameProcessor.Inst.EventCenter.AddListener<PetStartTravelEvent>(this.StartTravel);
     }
 
     private void PetBattleDown(PetBattleDownEvent e)
@@ -68,9 +67,6 @@ public class Dialog_Pet : MonoBehaviour, IBattleLife
         DialogPetTravel.Open(e.Pet);
     }
 
-    private void StartTravel(PetStartTravelEvent e) { 
-    
-    }
 
     // Start is called before the first frame update
     void OnEnable()
