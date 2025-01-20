@@ -62,9 +62,16 @@ namespace Game
             return attrs;
         }
 
-        public void UpLevel()
+        public void AddExp(long exp)
         {
-            this.PetLevel.Data++;
+            this.LevelExp.Data += exp;
+
+            int need = 1000;
+            if (this.LevelExp.Data >= need)
+            {
+                this.LevelExp.Data -= need;
+                this.PetLevel.Data++;
+            }
         }
 
         public long GetSkillPercent()

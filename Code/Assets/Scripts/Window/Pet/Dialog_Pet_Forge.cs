@@ -70,7 +70,7 @@ public class Dialog_Pet_Forge : MonoBehaviour
         });
 
 
-        SelectPet.UpLevel();
+        SelectPet.AddExp(fee);
 
 
         this.Show();

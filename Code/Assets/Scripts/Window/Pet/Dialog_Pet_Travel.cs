@@ -95,7 +95,8 @@ public class Dialog_Pet_Travel : MonoBehaviour
         this.ShowTravelInfo();
 
         //build reward
-        this.SelectPet.LayerExp.Data += count;
+        this.SelectPet.AddExp(count);
+
 
         string message = SelectPet.Name + "巡游获得经验：" + count;
 
