@@ -1,5 +1,5 @@
 {"list":[
-{"_t":"GiftPackPet","_id":1,"Name":"战魂","AttrIdList":[7,33,18,2004,2003],"AttrValueList":[40,40,40,40,40],"Role":1},
-{"_t":"GiftPackPet","_id":2,"Name":"法魂","AttrIdList":[7,34,18,2005,2003],"AttrValueList":[40,40,40,40,40],"Role":2},
-{"_t":"GiftPackPet","_id":3,"Name":"道魂","AttrIdList":[7,35,18,2006,2003],"AttrValueList":[40,40,40,40,40],"Role":3},
+{"_t":"GiftPackPet","_id":1,"Name":"战魂","AttrIdList":[7,33,18,2004,2003],"AttrValueList":[35,35,35,35,35],"Role":1},
+{"_t":"GiftPackPet","_id":2,"Name":"法魂","AttrIdList":[7,34,18,2005,2003],"AttrValueList":[35,35,35,35,35],"Role":2},
+{"_t":"GiftPackPet","_id":3,"Name":"道魂","AttrIdList":[7,35,18,2006,2003],"AttrValueList":[35,35,35,35,35],"Role":3},
 ]}
