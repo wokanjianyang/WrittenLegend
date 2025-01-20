@@ -13,6 +13,7 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
 
     public Text txt_boss_count;
     public Text txt_boss_time;
+    public Button Btn_Close;
 
     public Text TxtRate;
     public Toggle toggle_Rate;
@@ -35,6 +36,7 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
 
     private void Awake()
     {
+        Btn_Close.onClick.AddListener(OnClick_Close);
         this.Init();
     }
 

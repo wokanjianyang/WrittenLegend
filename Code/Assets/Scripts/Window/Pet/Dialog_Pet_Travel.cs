@@ -14,6 +14,8 @@ public class Dialog_Pet_Travel : MonoBehaviour
     public Text Txt_Info;
     public Toggle toggle_Hide;
 
+    public Button Btn_Close;
+
     public Transform Tf_Layer;
 
     private List<Toggle> tgLevelList;
@@ -24,26 +26,16 @@ public class Dialog_Pet_Travel : MonoBehaviour
     private int MaxLayer = -1;
     private int SelectLayer = -1;
 
+    private Pet SelectPet;
 
     List<Item_Travel> items = new List<Item_Travel>();
-
-    public int Order => (int)ComponentOrder.Dialog;
 
     private void Awake()
     {
         tgLevelList = Tf_Layer.GetComponentsInChildren<Toggle>().ToList();
         ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Pet/Item_Travel");
 
-
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        toggle_Hide.onValueChanged.AddListener((isOn) =>
-        {
-            this.Show();
-        });
+        Btn_Close.onClick.AddListener(OnClick_Close);
 
         for (int i = 0; i < tgLevelList.Count; i++)
         {
@@ -53,11 +45,11 @@ public class Dialog_Pet_Travel : MonoBehaviour
                 this.ChangeLevel(index);
             });
         }
-    }
 
-    public void Open(Pet pet)
-    {
-        this.gameObject.SetActive(true);
+        toggle_Hide.onValueChanged.AddListener((isOn) =>
+        {
+            this.Show();
+        });
 
         this.Init();
     }
@@ -91,8 +83,24 @@ public class Dialog_Pet_Travel : MonoBehaviour
         this.Show();
     }
 
+    public void Open(Pet pet)
+    {
+        this.gameObject.SetActive(true);
+        this.SelectPet = pet;
+
+        this.Show();
+    }
+
     private void Show()
     {
+        if (this.SelectPet.RunMapId > 0)
+        {
+            MapConfig map = MapConfigCategory.Instance.Get(this.SelectPet.RunMapId);
+            Txt_Info.text = "当前巡游地图为：" + map.Name;
+        }
+
+        int PetQuality = this.SelectPet.GetQuality();
+
         foreach (var item in items)
         {
             item.gameObject.SetActive(false);
@@ -103,13 +111,13 @@ public class Dialog_Pet_Travel : MonoBehaviour
 
         if (this.SelectLayer < 0)
         {
-            this.SelectLayer = Math.Min(this.MaxLayer, 3);
+            this.SelectLayer = Math.Min(this.MaxLayer, PetQuality);
             tgLevelList[SelectLayer].isOn = true;
         }
 
         for (int i = 0; i < tgLevelList.Count; i++)
         {
-            if (i <= MaxLayer)
+            if (i <= MaxLayer && i < PetQuality)
             {
                 tgLevelList[i].gameObject.SetActive(true);
             }
@@ -137,12 +145,6 @@ public class Dialog_Pet_Travel : MonoBehaviour
             }
             j++;
         }
-    }
-
-    private void OnBossInfoEvent(BossInfoEvent e)
-    {
-        this.gameObject.SetActive(true);
-        this.Show();
     }
 
     public void OnClick_Close()

@@ -65,7 +65,7 @@ public class Dialog_Pet : MonoBehaviour, IBattleLife
 
     private void OpenTravel(PetOpenTravelEvent e)
     {
-        DialogPetTravel.Open(e.Item.pet);
+        DialogPetTravel.Open(e.Pet);
     }
 
     private void StartTravel(PetStartTravelEvent e) { 
