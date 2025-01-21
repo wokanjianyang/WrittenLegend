@@ -92,11 +92,10 @@ public class Dialog_Pet_Travel : MonoBehaviour
         this.SelectPet.RunMapId = 0;
         this.SelectPet.RunTime = 0;
 
-        this.ShowTravelInfo();
-
         //build reward
         this.SelectPet.AddExp(count);
 
+        this.ShowTravelInfo();
 
         string message = SelectPet.Name + "巡游获得经验：" + count;
 

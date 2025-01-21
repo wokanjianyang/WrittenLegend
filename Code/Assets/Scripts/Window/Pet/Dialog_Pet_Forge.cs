@@ -13,7 +13,9 @@ public class Dialog_Pet_Forge : MonoBehaviour
 
     public Text Txt_Level;
 
-    public Item_Metail_Need Item_Metail_Need;
+    public Text Txt_Metail_Name;
+    public Text Txt_Metail_Count;
+
     public Button Btn_Close;
     public Button Btn_OK;
 
@@ -41,9 +43,11 @@ public class Dialog_Pet_Forge : MonoBehaviour
         Txt_Level.text = SelectPet.PetLevel.Data + "¼¶";
         Txt_Level.color = ColorHelper.GetColorByQuality(SelectPet.GetQuality());
 
-        long fee = PetConfigCategory.Instance.GetPetFee(SelectPet.PetLevel.Data);
+        User user = GameProcessor.Inst.User;
+        long stoneTotal = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Pet_Exp).Select(m => m.MagicNubmer.Data).Sum();
+        Txt_Metail_Count.text = stoneTotal + "";
 
-        Item_Metail_Need.SetContent(ItemHelper.SpecialId_Pet_Exp, fee);
+        long fee = PetConfigCategory.Instance.GetPetFee(SelectPet.PetLevel.Data);
         ExpProgress.SetProgress(SelectPet.LevelExp.Data, fee);
     }
 
@@ -53,10 +57,13 @@ public class Dialog_Pet_Forge : MonoBehaviour
 
         User user = GameProcessor.Inst.User;
 
-        long fee = PetConfigCategory.Instance.GetPetFee(SelectPet.PetLevel.Data);
+        long max = PetConfigCategory.Instance.GetPetFee(SelectPet.PetLevel.Data);
+        long current = SelectPet.LevelExp.Data;
+
+        long fee = Math.Max(0, max - current);
 
         long stoneTotal = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Pet_Exp).Select(m => m.MagicNubmer.Data).Sum();
-        if (stoneTotal < fee)
+        if (stoneTotal <= 0)
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "¿ÚÁ¸²»×ã", ToastType = ToastTypeEnum.Failure });
             return;
@@ -71,7 +78,6 @@ public class Dialog_Pet_Forge : MonoBehaviour
 
 
         SelectPet.AddExp(fee);
-
 
         this.Show();
 

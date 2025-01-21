@@ -66,10 +66,11 @@ namespace Game
         {
             this.LevelExp.Data += exp;
 
-            int need = 1000;
-            if (this.LevelExp.Data >= need)
+            long fee = PetConfigCategory.Instance.GetPetFee(PetLevel.Data);
+
+            if (this.LevelExp.Data >= fee)
             {
-                this.LevelExp.Data -= need;
+                this.LevelExp.Data -= fee;
                 this.PetLevel.Data++;
             }
         }
