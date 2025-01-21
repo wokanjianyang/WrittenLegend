@@ -55,6 +55,8 @@ public class Dialog_Pet : MonoBehaviour, IBattleLife
         {
             GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
         }
+
+        user.EventCenter.Raise(new HeroUnUseEquipEvent() { });
     }
 
     private void OpenPetForge(PetForgeEvent e)

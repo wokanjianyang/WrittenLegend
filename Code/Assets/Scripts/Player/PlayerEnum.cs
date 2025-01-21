@@ -141,6 +141,7 @@ namespace Game
         SoulBone = 22, //魂骨
         Talent = 23, //天赋
         EquipReform = 24, //改造
+        Pet = 25,//宠物
 
         Dingzhi = 98,
         /// <summary>

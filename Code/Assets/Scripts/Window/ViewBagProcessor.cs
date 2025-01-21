@@ -152,13 +152,13 @@ namespace Game
                 this.btn_Equip_Golden.gameObject.SetActive(false);
             }
 
-            if (AppHelper.GetDeviceIdentifier() != "0AF588B5A9" && AppHelper.GetDeviceIdentifier() != "905A621CD2")
+            if (user.Cycle.Data > 0 || user.MagicLevel.Data >= 50000)
             {
-                this.btn_Pet.gameObject.SetActive(false);
+                this.btn_Pet.gameObject.SetActive(true);
             }
             else
             {
-                this.btn_Pet.gameObject.SetActive(true);
+                this.btn_Pet.gameObject.SetActive(false);
             }
         }
 

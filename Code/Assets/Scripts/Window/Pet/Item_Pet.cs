@@ -56,6 +56,11 @@ namespace Game
 
         private void OnDown()
         {
+            if (pet.RunMapId > 0)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "巡游中不可以下阵", ToastType = ToastTypeEnum.Failure });
+                return;
+            }
 
             GameProcessor.Inst.EventCenter.Raise(new PetBattleDownEvent()
             {
@@ -72,7 +77,8 @@ namespace Game
             });
         }
 
-        private void OnTravel() {
+        private void OnTravel()
+        {
             GameProcessor.Inst.EventCenter.Raise(new PetOpenTravelEvent()
             {
                 Pet = pet

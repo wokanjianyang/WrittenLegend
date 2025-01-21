@@ -136,7 +136,9 @@ namespace Game
 
             foreach (var skill in user.SkillList)
             {
-                SkillPanel skillPanel = new SkillPanel(skill, user.GetRuneList(skill.SkillId, null), user.GetSuitList(skill.SkillId), true);
+                int petRate = user.GetPetSkillRate(skill.SkillConfig.Role);
+
+                SkillPanel skillPanel = new SkillPanel(skill, user.GetRuneList(skill.SkillId, null), user.GetSuitList(skill.SkillId), true, 1, petRate);
                 ShowSkillPanelItem(skillPanel);
             }
         }

@@ -136,7 +136,7 @@ namespace Game
                         List<SkillRune> runeList = user.GetRuneList(skillData.SkillId, buffRuneList);
                         List<SkillSuit> suitList = user.GetSuitList(skillData.SkillId);
 
-                        SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, false, scale);
+                        SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, false, scale, 0);
 
                         SkillState skill = new SkillState(this, skillPanel, skillData.Position, 0);
                         SelectSkillList.Add(skill);
@@ -172,7 +172,7 @@ namespace Game
                     List<SkillRune> runeList = user.GetRuneList(skillData.SkillId, null);
                     List<SkillSuit> suitList = user.GetSuitList(skillData.SkillId);
 
-                    SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, false, scale);
+                    SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, false, scale, 0);
 
                     if (skillPanel.DivineLevel > 0)
                     {

@@ -199,11 +199,43 @@ namespace Game
             return FormatNumber(val.ToString("0"), "");
         }
 
+        private const int Start = 0;
         private static string FormatNumber(string val, string unit)
         {
             string src;
 
-            if (val.Length > 48)
+            if (val.Length > 72 + Start)
+            {
+                unit = "祇" + unit;
+                src = val.Substring(0, val.Length - 72);
+            }
+            else if (val.Length > 68 + Start)
+            {
+                unit = "僧" + unit;
+                src = val.Substring(0, val.Length - 68);
+            }
+            else if (val.Length > 64 + Start)
+            {
+                unit = "阿" + unit;
+                src = val.Substring(0, val.Length - 64);
+            }
+            else if (val.Length > 60 + Start)
+            {
+                unit = "沙" + unit;
+                src = val.Substring(0, val.Length - 60);
+            }
+            else if (val.Length > 56 + Start)
+            {
+                unit = "河" + unit;
+                src = val.Substring(0, val.Length - 56);
+            }
+            else if (val.Length > 52 + Start)
+            {
+                unit = "恒" + unit;
+                src = val.Substring(0, val.Length - 52);
+            }
+
+            else if (val.Length > 48 + Start)
             {
                 unit = "极" + unit;
                 src = val.Substring(0, val.Length - 48);

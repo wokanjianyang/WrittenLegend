@@ -116,9 +116,9 @@ namespace Game
 
                 List<SkillSuit> suitList = user.GetSuitList(skillData.SkillId);
 
-                SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, true, skillData.SkillConfig.MythRate);
+                int petRate = user.GetPetSkillRate(skillData.SkillConfig.Role);
 
-
+                SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, true, skillData.SkillConfig.MythRate, petRate);
 
                 SkillState skill = new SkillState(this, skillPanel, i, 0);
                 SelectSkillList.Add(skill);

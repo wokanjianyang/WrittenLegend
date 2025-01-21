@@ -296,7 +296,7 @@ namespace Game
 
         public List<DropData> DropDataList { get; } = new List<DropData>();
 
-        public IDictionary<int, int> FestiveData_0101 { get; set; } = new Dictionary<int, int>();
+        public IDictionary<int, int> FestiveData_0127 { get; set; } = new Dictionary<int, int>();
 
         public IDictionary<int, int> SevenDayData { get; set; } = new Dictionary<int, int>();
 
@@ -559,6 +559,18 @@ namespace Game
                             AttributeBonus.SetAttr((AttributeEnum)boneConfig.AttrIdList[i], AttributeFrom.SoulBone, sid, boneConfig.AttrValueList[i] * sbLevel * srLevel);
                         }
                     }
+                }
+            }
+
+            //宠物
+            for (int i = 0; i < PetList.Count; i++)
+            {
+                Pet pet = PetList[i];
+                var attrList = pet.GetBaseAttr();
+
+                foreach (var sp in attrList)
+                {
+                    AttributeBonus.SetAttr((AttributeEnum)sp.Key, AttributeFrom.Pet, i, sp.Value);
                 }
             }
 
@@ -1267,6 +1279,13 @@ namespace Game
             return PetCountData[configId];
         }
 
+        public int GetPetSkillRate(int role)
+        {
+            long rate = this.PetList.Where(m => m.Role == role).Select(m => m.GetSkillPercent()).Sum();
+
+            return (int)rate;
+        }
+
         public void SetPetCount(int configId)
         {
             if (!this.PetCountData.ContainsKey(configId))
@@ -1307,23 +1326,23 @@ namespace Game
 
         public int GetFestiveCount(int id)
         {
-            if (!this.FestiveData_0101.ContainsKey(id))
+            if (!this.FestiveData_0127.ContainsKey(id))
             {
-                this.FestiveData_0101[id] = 0;
+                this.FestiveData_0127[id] = 0;
             }
 
-            return this.FestiveData_0101[id];
+            return this.FestiveData_0127[id];
         }
 
         public void SaveFestiveCount(int configId, int count)
         {
-            if (this.FestiveData_0101.ContainsKey(configId))
+            if (this.FestiveData_0127.ContainsKey(configId))
             {
-                this.FestiveData_0101[configId] += count;
+                this.FestiveData_0127[configId] += count;
             }
             else
             {
-                this.FestiveData_0101[configId] = count;
+                this.FestiveData_0127[configId] = count;
             }
         }
 

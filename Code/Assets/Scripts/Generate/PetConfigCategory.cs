@@ -78,7 +78,7 @@ namespace Game
 
                 int attrValue = RandomHelper.RandomNumber(Math.Max(10, avg - 15), Math.Min(50, avg + 15));
 
-                flairs.Add(new KeyValuePair<int, int>(config.AttrId, attrValue));
+                flairs.Add(new KeyValuePair<int, int>(config.AttrId, Math.Min(50, attrValue + quality)));
 
                 tempTotal += attrValue;
             }

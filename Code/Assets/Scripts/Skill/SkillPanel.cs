@@ -54,12 +54,12 @@ namespace Game
         public long DivineLevel = 0;
         public SkillDivineAttrConfig DivineAttrConfig;
 
-        public SkillPanel(SkillData skillData, List<SkillRune> runeList, List<SkillSuit> suitList, bool isPlayer) : this(skillData, runeList, suitList, isPlayer, 1)
+        public SkillPanel(SkillData skillData, List<SkillRune> runeList, List<SkillSuit> suitList, bool isPlayer) : this(skillData, runeList, suitList, isPlayer, 1, 0)
         {
 
         }
 
-        public SkillPanel(SkillData skillData, List<SkillRune> runeList, List<SkillSuit> suitList, bool isPlayer, int mythRate)
+        public SkillPanel(SkillData skillData, List<SkillRune> runeList, List<SkillSuit> suitList, bool isPlayer, int mythRate, int petRate)
         {
             this.SkillData = skillData;
             this.SkillId = skillData.SkillId;
@@ -176,7 +176,7 @@ namespace Game
 
             this.Percent += skillData.SkillConfig.Percent + runePercent + suitPercent + levelPercent;
             //系数倍率
-            this.Percent = this.Percent * (100 + runePercentRate + suitPercentRate) / 100;
+            this.Percent = this.Percent * (100 + runePercentRate + suitPercentRate + petRate) / 100;
             this.Percent = this.Percent * (100 + divineAttrList[0]) / 100;
 
             this.IgnoreDef += skillData.SkillConfig.IgnoreDef + runeIgnoreDef + suitIgnoreDef;
