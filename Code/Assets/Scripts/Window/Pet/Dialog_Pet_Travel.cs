@@ -89,6 +89,8 @@ public class Dialog_Pet_Travel : MonoBehaviour
         long time = TimeHelper.ClientNowSeconds() - SelectPet.RunTime;
         long count = time / 60;
 
+        int mapId = this.SelectPet.RunMapId;
+
         this.SelectPet.RunMapId = 0;
         this.SelectPet.RunTime = 0;
 
@@ -99,22 +101,25 @@ public class Dialog_Pet_Travel : MonoBehaviour
 
         string message = SelectPet.Name + "巡游获得经验：" + count;
 
-        User user = GameProcessor.Inst.User;
-        long rewardExp = 0;
-        long rewardGold = 0;
-
         List<Item> items = new List<Item>();
 
-        items.AddRange(BuildReward(user, time, ref rewardExp, ref rewardGold, ref message));
+        if (time >= 60)
+        {
+            User user = GameProcessor.Inst.User;
+            long rewardExp = 0;
+            long rewardGold = 0;
 
-        user.AddExpAndGold(rewardExp, rewardGold);
+            items.AddRange(BuildReward(user, time, ref rewardExp, ref rewardGold, ref message, mapId));
 
-        user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+            user.AddExpAndGold(rewardExp, rewardGold);
+
+            user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+        }
 
         GameProcessor.Inst.EventCenter.Raise(new ShowDropEvent() { Message = message, Items = items });
     }
 
-    private List<Item> BuildReward(User user, long offlineTime, ref long rewardExp, ref long rewardGold, ref string message)
+    private List<Item> BuildReward(User user, long offlineTime, ref long rewardExp, ref long rewardGold, ref string message, int mapId)
     {
         MonsterModelConfig modelConfig = MonsterModelConfigCategory.Instance.Get(1); //暗殿
 
@@ -132,9 +137,6 @@ public class Dialog_Pet_Travel : MonoBehaviour
         //Debug.Log("realRate:" + realRate);
         //Debug.Log("qualityRate:" + qualityRate);
         //Debug.Log("realQualityRate:" + realQualityRate);
-
-        int mapId = Math.Max(MapConfigCategory.Instance.GetMinMapId(), user.OffLineMapId);
-        mapId = Math.Min(MapConfigCategory.Instance.GetMaxMapId(), mapId);
 
         MapConfig mapConfig = MapConfigCategory.Instance.Get(mapId);
 
@@ -219,21 +221,27 @@ public class Dialog_Pet_Travel : MonoBehaviour
                 }
                 else
                 {
-                    if (dropConfig.ItemIdList.Length > 1)
+                    //道具多次随机
+                    Dictionary<int, int> merginDict = new Dictionary<int, int>();
+                    for (int d = 0; d < dropCount; d++)
                     {
-                        //多种道具，随机分开
-                        Debug.Log(dropCount + "特殊掉落->" + dropConfig.Id + "特殊掉落");
-                        for (int d = 0; d < dropCount; d++)
+                        int di = RandomHelper.RandomNumber(0, dropConfig.ItemIdList.Length);
+
+                        int itemId = dropConfig.ItemIdList[di];
+
+                        if (!merginDict.ContainsKey(itemId))
                         {
-                            int di = RandomHelper.RandomNumber(0, dropConfig.ItemIdList.Length);
-                            itemList.Add(ItemHelper.BuildItem((ItemType)dropConfig.ItemType, dropConfig.ItemIdList[di], 1, 1));
+                            merginDict[itemId] = 0;
                         }
-                        message += $"，<color=#{QualityConfigHelper.GetQualityColor(6)}>[{dropConfig.Name}]</color>" + dropCount + "个";
+                        merginDict[itemId]++;
                     }
-                    else
+
+                    foreach (var sp in merginDict)
                     {
-                        //单中道具，混合一起
-                        itemList.Add(ItemHelper.BuildItem((ItemType)dropConfig.ItemType, dropConfig.ItemIdList[0], 1, dropCount));
+                        itemList.Add(ItemHelper.BuildItem((ItemType)dropConfig.ItemType, sp.Key, 1, sp.Value));
+
+
+                        message += $"，<color=#{QualityConfigHelper.GetQualityColor(6)}>[{dropConfig.Name}]</color>" + dropCount + "个";
                     }
                 }
             }
@@ -284,10 +292,27 @@ public class Dialog_Pet_Travel : MonoBehaviour
                 }
                 else
                 {
+                    //道具多次随机
+                    Dictionary<int, int> merginDict = new Dictionary<int, int>();
                     for (int d = 0; d < dropCount; d++)
                     {
                         int di = RandomHelper.RandomNumber(0, dropConfig.ItemIdList.Length);
-                        itemList.Add(ItemHelper.BuildItem((ItemType)dropConfig.ItemType, dropConfig.ItemIdList[di], 1, 1));
+
+                        int itemId = dropConfig.ItemIdList[di];
+
+                        if (!merginDict.ContainsKey(itemId))
+                        {
+                            merginDict[itemId] = 0;
+                        }
+                        merginDict[itemId]++;
+                    }
+
+                    foreach (var sp in merginDict)
+                    {
+                        itemList.Add(ItemHelper.BuildItem((ItemType)dropConfig.ItemType, sp.Key, 1, sp.Value));
+
+
+                        message += $"，<color=#{QualityConfigHelper.GetQualityColor(6)}>[{dropConfig.Name}]</color>" + dropCount + "个";
                     }
                 }
 
