@@ -219,12 +219,22 @@ public class Dialog_Pet_Travel : MonoBehaviour
                 }
                 else
                 {
-                    for (int d = 0; d < dropCount; d++)
+                    if (dropConfig.ItemIdList.Length > 1)
                     {
-                        int di = RandomHelper.RandomNumber(0, dropConfig.ItemIdList.Length);
-                        itemList.Add(ItemHelper.BuildItem((ItemType)dropConfig.ItemType, dropConfig.ItemIdList[di], 1, 1));
+                        //多种道具，随机分开
+                        Debug.Log(dropCount + "特殊掉落->" + dropConfig.Id + "特殊掉落");
+                        for (int d = 0; d < dropCount; d++)
+                        {
+                            int di = RandomHelper.RandomNumber(0, dropConfig.ItemIdList.Length);
+                            itemList.Add(ItemHelper.BuildItem((ItemType)dropConfig.ItemType, dropConfig.ItemIdList[di], 1, 1));
+                        }
+                        message += $"，<color=#{QualityConfigHelper.GetQualityColor(6)}>[{dropConfig.Name}]</color>" + dropCount + "个";
                     }
-                    message += $"，<color=#{QualityConfigHelper.GetQualityColor(6)}>[{dropConfig.Name}]</color>" + dropCount + "个";
+                    else
+                    {
+                        //单中道具，混合一起
+                        itemList.Add(ItemHelper.BuildItem((ItemType)dropConfig.ItemType, dropConfig.ItemIdList[0], 1, dropCount));
+                    }
                 }
             }
 
