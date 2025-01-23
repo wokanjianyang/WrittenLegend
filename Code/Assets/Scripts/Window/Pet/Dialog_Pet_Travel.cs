@@ -99,7 +99,7 @@ public class Dialog_Pet_Travel : MonoBehaviour
 
         this.ShowTravelInfo();
 
-        string message = SelectPet.Name + "巡游获得经验：" + count;
+        string message = SelectPet.Name + "打工获得经验：" + count;
 
         List<Item> items = new List<Item>();
 

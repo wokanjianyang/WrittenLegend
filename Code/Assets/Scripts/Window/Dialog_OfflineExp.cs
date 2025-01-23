@@ -920,6 +920,92 @@ namespace Game
             return list;
         }
 
+        private List<ExclusiveItem> AddExclusiveHaimian()
+        {
+            //定制红
+            List<ExclusiveItem> list = new List<ExclusiveItem>();
+
+            //火符
+            //ExclusiveItem exclusive1 = new ExclusiveItem(1, 20, 10031, 5, 2);
+            //exclusive1.RuneConfigIdList.Add(20);
+            //exclusive1.RuneConfigIdList.Add(20);
+            //exclusive1.RuneConfigIdList.Add(10056);
+            //exclusive1.SuitConfigIdList.Add(10031);
+            //exclusive1.SuitConfigIdList.Add(10032);
+            //exclusive1.SuitConfigIdList.Add(10032);
+            ////exclusive1.LevelDict[24] = 99;
+            //exclusive1.Count = 1;
+            //list.Add(exclusive1);
+
+
+
+            ////精通
+            //ExclusiveItem exclusive3 = new ExclusiveItem(2, 5, 6, 5, 1);
+            //exclusive3.RuneConfigIdList.Add(5);
+            //exclusive3.RuneConfigIdList.Add(5);
+            //exclusive3.RuneConfigIdList.Add(18);
+            //exclusive3.SuitConfigIdList.Add(6);
+            //exclusive3.SuitConfigIdList.Add(11);
+            //exclusive3.SuitConfigIdList.Add(11);
+            ////exclusive3.LevelDict[29] = 99;
+            //exclusive3.Count = 1;
+            //list.Add(exclusive3);
+
+            ////隐身
+            //ExclusiveItem exclusive4 = new ExclusiveItem(3, 23, 15, 5, 1);
+            //exclusive4.RuneConfigIdList.Add(23);
+            //exclusive4.RuneConfigIdList.Add(28);
+            //exclusive4.RuneConfigIdList.Add(28);
+            //exclusive4.SuitConfigIdList.Add(15);
+            //exclusive4.SuitConfigIdList.Add(18);
+            //exclusive4.SuitConfigIdList.Add(18);
+            ////exclusive4.LevelDict[10056] = 99;
+            //exclusive4.Count = 1;
+            //list.Add(exclusive4);
+
+
+            ////月灵
+            //ExclusiveItem exclusive5 = new ExclusiveItem(4, 10064, 9, 5, 2);
+            //exclusive5.RuneConfigIdList.Add(10064);
+            //exclusive5.RuneConfigIdList.Add(23);
+            //exclusive5.RuneConfigIdList.Add(23);
+            //exclusive5.SuitConfigIdList.Add(9);
+            //exclusive5.SuitConfigIdList.Add(4);
+            //exclusive5.SuitConfigIdList.Add(4);
+            ////exclusive5.LevelDict[10063] = 99;
+            //exclusive5.Count = 1;
+            //list.Add(exclusive5);
+
+            ////盾
+            //ExclusiveItem exclusive2 = new ExclusiveItem(6, 16, 10037, 5, 2);
+            //exclusive2.RuneConfigIdList.Add(16);
+            //exclusive2.RuneConfigIdList.Add(16);
+            //exclusive2.RuneConfigIdList.Add(16);
+            //exclusive2.SuitConfigIdList.Add(10037);
+            //exclusive2.SuitConfigIdList.Add(10038);
+            //exclusive2.SuitConfigIdList.Add(10038);
+            ////exclusive2.LevelDict[25] = 99;
+            //exclusive2.Count = 1;
+            //list.Add(exclusive2);
+
+            //治疗
+            //ExclusiveItem exclusive4 = new ExclusiveItem(5, 10055, 10029, 5, 2);
+            //exclusive4.RuneConfigIdList.Add(10055);
+            //exclusive4.RuneConfigIdList.Add(10055);
+            //exclusive4.RuneConfigIdList.Add(10055);
+            //exclusive4.SuitConfigIdList.Add(10029);
+            //exclusive4.SuitConfigIdList.Add(3);
+            //exclusive4.SuitConfigIdList.Add(3);
+            ////exclusive4.LevelDict[10049] = 99;
+            //exclusive4.Count = 1;
+            //list.Add(exclusive4);
+
+
+
+
+            return list;
+        }
+
         private List<ExclusiveItem> AddExclusive()
         {
             //定制红
