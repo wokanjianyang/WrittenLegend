@@ -116,7 +116,8 @@ public class BattleRule_Infinite : ABattleRule
     private void BuildReward(long level)
     {
         InfiniteConfig rewardConfig = InfiniteConfigCategory.Instance.GetByLevel(level);
-        if (rewardConfig == null) {
+        if (rewardConfig == null)
+        {
             return;
         }
 
@@ -143,6 +144,16 @@ public class BattleRule_Infinite : ABattleRule
         if (items.Count > 0)
         {
             user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+        }
+
+        if (dropId >= 220101 && dropId <= 220110)
+        {
+            GameProcessor.Inst.SaveData();
+
+            if (dropId >= 220106)
+            {
+                GameProcessor.Inst.SaveNetData();
+            }
         }
 
         GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
