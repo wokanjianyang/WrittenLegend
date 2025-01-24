@@ -159,7 +159,7 @@ namespace Game
             }
 
             this.btn_Equip.gameObject.SetActive(this.boxItem.BoxId != -1);
-            //this.btn_UnEquip.gameObject.SetActive(this.boxItem.BoxId == -1);
+            this.btn_Recovery.gameObject.SetActive(this.boxItem.BoxId != -1);
         }
 
         private void OnEquip()
@@ -202,12 +202,34 @@ namespace Game
                 return;
             }
 
-            this.gameObject.SetActive(false);
-
-            GameProcessor.Inst.EventCenter.Raise(new RecoveryEvent()
+            if (this.boxItem.Item.GetQuality() >= 5)
             {
-                BoxItem = this.boxItem,
-            });
+                GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("是否确认回收？", true,
+                () =>
+                {
+                    this.gameObject.SetActive(false);
+
+                    GameProcessor.Inst.EventCenter.Raise(new RecoveryEvent()
+                    {
+                        BoxItem = this.boxItem,
+                        Quantity = 1
+                    });
+                }, () =>
+                {
+
+                });
+            }
+            else
+            {
+                this.gameObject.SetActive(false);
+
+                GameProcessor.Inst.EventCenter.Raise(new RecoveryEvent()
+                {
+                    BoxItem = this.boxItem,
+                    Quantity = 1
+                });
+            }
+
         }
 
         public void OnClick_Close()

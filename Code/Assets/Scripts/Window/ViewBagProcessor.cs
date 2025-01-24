@@ -953,7 +953,14 @@ namespace Game
             UseBoxItem(boxItem, quantity);
 
             List<Item> itemList = new List<Item>();
-            if (boxItem.Item.ItemConfig.RecoveryItemId > 0)
+
+            if (boxItem.Item.Type == ItemType.Pet)
+            {
+                Item item = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Pet_Exp, boxItem.Item.GetQuality() * 100);
+                AddBoxItem(item);
+                itemList.Add(item);
+            }
+            else if (boxItem.Item.ItemConfig.RecoveryItemId > 0)
             {
                 Item item = ItemHelper.BuildMaterial(boxItem.Item.ItemConfig.RecoveryItemId, quantity * boxItem.Item.ItemConfig.RecoveryCount);
                 AddBoxItem(item);
