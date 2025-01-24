@@ -87,6 +87,7 @@ public class Dialog_Pet_Travel : MonoBehaviour
         }
 
         long time = TimeHelper.ClientNowSeconds() - SelectPet.RunTime;
+        time = Math.Min(time, 86400);
         long count = time / 60;
 
         int mapId = this.SelectPet.RunMapId;
