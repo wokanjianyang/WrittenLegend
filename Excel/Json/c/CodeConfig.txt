@@ -417,4 +417,13 @@
 {"_t":"CodeConfig","_id":25113,"Type":1,"code":"jn11h13","ItemTypeList":[4],"ItemIdList":[29],"ItemQuanlityList":[1]},
 {"_t":"CodeConfig","_id":25114,"Type":1,"code":"jn11h14","ItemTypeList":[4],"ItemIdList":[29],"ItemQuanlityList":[1]},
 {"_t":"CodeConfig","_id":25115,"Type":1,"code":"jn11h15","ItemTypeList":[4],"ItemIdList":[29],"ItemQuanlityList":[1]},
+{"_t":"CodeConfig","_id":26101,"Type":1,"code":"chongwua1","ItemTypeList":[4],"ItemIdList":[201],"ItemQuanlityList":[1]},
+{"_t":"CodeConfig","_id":26102,"Type":1,"code":"chongwua2","ItemTypeList":[4],"ItemIdList":[202],"ItemQuanlityList":[1]},
+{"_t":"CodeConfig","_id":26103,"Type":1,"code":"chongwua3","ItemTypeList":[4],"ItemIdList":[203],"ItemQuanlityList":[1]},
+{"_t":"CodeConfig","_id":26104,"Type":1,"code":"chongwua4","ItemTypeList":[4],"ItemIdList":[204],"ItemQuanlityList":[1]},
+{"_t":"CodeConfig","_id":26105,"Type":1,"code":"chongwua5","ItemTypeList":[4],"ItemIdList":[205],"ItemQuanlityList":[1]},
+{"_t":"CodeConfig","_id":26106,"Type":1,"code":"chongwua6","ItemTypeList":[4],"ItemIdList":[206],"ItemQuanlityList":[1]},
+{"_t":"CodeConfig","_id":26107,"Type":1,"code":"chongwua7","ItemTypeList":[4],"ItemIdList":[207],"ItemQuanlityList":[1]},
+{"_t":"CodeConfig","_id":26108,"Type":1,"code":"chongwua8","ItemTypeList":[4],"ItemIdList":[208],"ItemQuanlityList":[1]},
+{"_t":"CodeConfig","_id":26109,"Type":1,"code":"chongwua9","ItemTypeList":[4],"ItemIdList":[209],"ItemQuanlityList":[1]},
 ]}

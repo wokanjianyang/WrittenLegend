@@ -159,7 +159,19 @@ namespace Game
             }
 
             this.btn_Equip.gameObject.SetActive(this.boxItem.BoxId != -1);
-            this.btn_Recovery.gameObject.SetActive(this.boxItem.BoxId != -1);
+            if (pet.PetLevel.Data <= 1 && !this.boxItem.Item.IsLock)
+            {
+                this.btn_Recovery.gameObject.SetActive(this.boxItem.BoxId != -1);
+            }
+
+            if (this.boxItem.Item.IsLock)
+            {
+                this.btn_Unlock.gameObject.SetActive(true);
+            }
+            else
+            {
+                this.btn_Lock.gameObject.SetActive(true);
+            }
         }
 
         private void OnEquip()
@@ -239,24 +251,28 @@ namespace Game
 
         public void OnClick_Lock()
         {
-            this.gameObject.SetActive(false);
+            this.btn_Lock.gameObject.SetActive(false);
 
             GameProcessor.Inst.EventCenter.Raise(new EquipLockEvent()
             {
                 BoxItem = this.boxItem,
                 IsLock = true
             });
+
+            this.btn_Unlock.gameObject.SetActive(true);
         }
 
         private void OnClick_Unlock()
         {
-            this.gameObject.SetActive(false);
+            this.btn_Unlock.gameObject.SetActive(false);
 
             GameProcessor.Inst.EventCenter.Raise(new EquipLockEvent()
             {
                 BoxItem = this.boxItem,
                 IsLock = false
             });
+
+            this.btn_Lock.gameObject.SetActive(true);
         }
     }
 }
