@@ -12,11 +12,15 @@ public class Dialog_Pet_Forge : MonoBehaviour
     public HP_Progress ExpProgress;
 
     public Text Txt_Level;
-
     public Text Txt_Cost;
+
+    public Text Txt_Layer;
+    public Text Txt_Name_Layer;
+    public Text Txt_Cost_Layer;
 
     public Button Btn_Close;
     public Button Btn_OK;
+    public Button Btn_OK_Layer;
 
     private Pet SelectPet;
 
@@ -59,6 +63,22 @@ public class Dialog_Pet_Forge : MonoBehaviour
         {
             Btn_OK.gameObject.SetActive(true);
         }
+
+        long maxLayer = currentLevel / 20;
+        long currentLayer = SelectPet.PetLayer.Data;
+
+        Txt_Layer.text = "当前等阶：" + currentLayer + "阶（最高等阶" + maxLayer + "阶）";
+
+        int quanlity = SelectPet.GetQuality();
+        int materailId = ItemHelper.Specail_Pet_Layer[quanlity - 4];
+
+        ItemConfig itemConfig = ItemConfigCategory.Instance.Get(materailId);
+
+        long haveCount = user.GetMaterialCount(materailId);
+        long needCount = PetConfigCategory.Instance.GetPetLayerFee(currentLayer);
+
+        Txt_Name_Layer.text = itemConfig.Name;
+        Txt_Cost_Layer.text = haveCount + "/" + needCount;
     }
 
     public void OnClick_Ok()

@@ -95,6 +95,32 @@ namespace Game
         {
             return 1000 + (level - 1) * 100;
         }
+
+        public long GetTotalFee(long level)
+        {
+            long total = 0;
+            for (int i = 1; i < level; i++)
+            {
+                total += GetPetFee(i);
+            }
+            return total;
+        }
+
+        public int GetPetLayerFee(long layer)
+        {
+            return 10;
+        }
+
+        public int GetPetLayerFeeTotal(long layer)
+        {
+            int total = 0;
+
+            for (int i = 1; i < layer; i++)
+            {
+                total += GetPetLayerFee(i);
+            }
+            return total;
+        }
     }
 
     public partial class PetConfig

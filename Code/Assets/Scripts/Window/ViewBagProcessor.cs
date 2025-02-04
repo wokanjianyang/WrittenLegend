@@ -897,6 +897,35 @@ namespace Game
                 equip.HoneList = new Dictionary<int, int>();
                 newList.Add(equip);
             }
+            else if (boxItem.Item.Type == ItemType.Pet)
+            {
+                Pet pet = boxItem.Item as Pet;
+                long level = pet.PetLevel.Data;
+                long layer = pet.PetLayer.Data;
+                int quality = pet.GetQuality();
+
+                long expCount = PetConfigCategory.Instance.GetPetFee(level) + pet.LayerExp.Data;
+                long layerCount = PetConfigCategory.Instance.GetPetLayerFeeTotal(layer);
+
+                pet.PetLayer.Data = 1;
+                pet.PetLevel.Data = 1;
+                pet.LayerExp.Data = 0;
+
+
+                if (expCount > 0)
+                {
+                    Item levelItem = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Pet_Exp, expCount);
+                    newList.Add(levelItem);
+                }
+
+                if (layerCount > 0)
+                {
+                    Item layerItem = ItemHelper.BuildMaterial(ItemHelper.Specail_Pet_Layer[quality - 4], layerCount);
+                    newList.Add(layerItem);
+                }
+
+                newList.Add(pet);
+            }
 
             //Fee
             user.SubGold(ConfigHelper.RestoreGold);

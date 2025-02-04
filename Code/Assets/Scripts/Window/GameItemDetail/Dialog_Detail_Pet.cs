@@ -159,9 +159,17 @@ namespace Game
             }
 
             this.btn_Equip.gameObject.SetActive(this.boxItem.BoxId != -1);
-            if (pet.PetLevel.Data <= 1 && !this.boxItem.Item.IsLock)
+
+            if (!this.boxItem.Item.IsLock)
             {
-                this.btn_Recovery.gameObject.SetActive(this.boxItem.BoxId != -1);
+                if (pet.PetLevel.Data > 1)
+                {
+                    this.btn_Restore.gameObject.SetActive(this.boxItem.BoxId != -1);
+                }
+                else
+                {
+                    this.btn_Recovery.gameObject.SetActive(this.boxItem.BoxId != -1);
+                }
             }
 
             if (this.boxItem.Item.IsLock)
@@ -192,7 +200,7 @@ namespace Game
                 return;
             }
 
-            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("重生消耗5000兆金币，其他材料全额返回。是否确认？", true,
+            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("重生消耗5000兆金币，其他材料全部返回。是否确认？", true,
                 () =>
                 {
                     this.gameObject.SetActive(false);
