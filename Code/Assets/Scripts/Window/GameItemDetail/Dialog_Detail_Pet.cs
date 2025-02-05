@@ -111,13 +111,16 @@ namespace Game
                 tran_BaseAttribute.gameObject.SetActive(true);
                 Transform gridBase = tran_BaseAttribute.Find("Grid_Base");
 
+                long RiseFlairs = (pet.PetLayer.Data - 1) * Pet.LayerRiseAttr;
+
                 for (int index = 0; index < 8; index++)
                 {
                     var child = gridBase.Find(string.Format("Attribute_{0}", index));
 
                     if (index < flairs.Count())
                     {
-                        child.GetComponent<Text>().text = StringHelper.FormatAttrValueName(flairs[index].Key) + "：" + flairs[index].Value.Data;
+                        long tf = flairs[index].Value.Data + RiseFlairs;
+                        child.GetComponent<Text>().text = StringHelper.FormatAttrValueName(flairs[index].Key) + "：" + tf;
                         child.gameObject.SetActive(true);
                     }
                     else

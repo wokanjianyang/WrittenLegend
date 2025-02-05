@@ -10,6 +10,9 @@ namespace Game
 {
     public class Pet : Item
     {
+        public const int LayerRiseAttr = 3;
+        public const int LayerRiseSkill = 2;
+
         public MagicData PetLevel { get; set; } = new MagicData();
         public MagicData PetLayer { get; set; } = new MagicData();
 
@@ -47,11 +50,13 @@ namespace Game
             {
                 int attrId = Flairs[i].Key;
                 long level = PetLevel.Data;
+                long layer = PetLayer.Data;
 
                 PetConfig config = PetConfigCategory.Instance.GetByAttrId(attrId);
 
                 long rise = level / 10;
-                double attrValue = (Flairs[i].Value.Data * config.AttrValue / 100 * level) * (1 + rise * 0.05);
+                long flairs = Flairs[i].Value.Data + (layer - 1) * LayerRiseAttr;
+                double attrValue = (flairs * config.AttrValue / 100 * level) * (1 + rise * 0.05);
 
                 if (!attrs.ContainsKey(attrId))
                 {
@@ -79,7 +84,7 @@ namespace Game
 
         public long GetSkillPercent()
         {
-            return PetSkillRise[Flairs.Count - 1];
+            return PetSkillRise[Flairs.Count - 1] + (PetLayer.Data - 1) * LayerRiseSkill;
         }
 
         private int[] PetSkillRise = new int[] { 5, 6, 7, 8, 10, 12, 15 };

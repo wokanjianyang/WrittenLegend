@@ -11,6 +11,7 @@ namespace Game
     {
         public Text Txt_Name;
         public Text Txt_Level;
+        public Text Txt_Layer;
 
         public Button Btn_Down;
         public Button Btn_Up_Level;
@@ -92,7 +93,10 @@ namespace Game
 
             Txt_Name.text = pet.Name;
             Txt_Level.text = pet.PetLevel.Data + "¼¶";
+            Txt_Layer.text = pet.PetLayer.Data + "½×";
+
             Txt_Level.color = ColorHelper.GetColorByQuality(pet.GetQuality());
+            Txt_Layer.color = ColorHelper.GetColorByQuality(pet.GetQuality());
 
             this.image_Background.sprite = list_Backgrounds[pet.Role - 1];
         }
