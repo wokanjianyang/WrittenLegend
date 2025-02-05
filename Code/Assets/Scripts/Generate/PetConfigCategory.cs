@@ -96,7 +96,7 @@ namespace Game
             return 1000 + (level - 1) * 100;
         }
 
-        public long GetTotalFee(long level)
+        public long GetFeeTotal(long level)
         {
             long total = 0;
             for (int i = 1; i < level; i++)
