@@ -70,7 +70,7 @@ public class Dialog_Pet_Forge : MonoBehaviour
         Txt_Layer.text = "当前等阶：" + currentLayer + "阶（最高等阶" + maxLayer + "阶）";
 
         int quanlity = SelectPet.GetQuality();
-        int materailId = ItemHelper.Specail_Pet_Layer[quanlity - 4];
+        int materailId = ItemHelper.Specail_Pet_Layer[quanlity - 5];
 
         ItemConfig itemConfig = ItemConfigCategory.Instance.Get(materailId);
 

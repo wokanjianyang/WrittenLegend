@@ -920,7 +920,7 @@ namespace Game
 
                 if (layerCount > 0)
                 {
-                    Item layerItem = ItemHelper.BuildMaterial(ItemHelper.Specail_Pet_Layer[quality - 4], layerCount);
+                    Item layerItem = ItemHelper.BuildMaterial(ItemHelper.Specail_Pet_Layer[quality - 5], layerCount);
                     newList.Add(layerItem);
                 }
 
@@ -985,9 +985,19 @@ namespace Game
 
             if (boxItem.Item.Type == ItemType.Pet)
             {
-                Item item = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Pet_Exp, boxItem.Item.GetQuality() * 100);
+                int quality = boxItem.Item.GetQuality();
+
+                Item item = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Pet_Exp, quality * 100);
                 AddBoxItem(item);
                 itemList.Add(item);
+
+                if (quality >= 5)
+                {
+                    Item item1 = ItemHelper.BuildMaterial(ItemHelper.Specail_Pet_Layer[quality - 5], 1);
+                    AddBoxItem(item1);
+                    itemList.Add(item1);
+                }
+
             }
             else if (boxItem.Item.ItemConfig.RecoveryItemId > 0)
             {
