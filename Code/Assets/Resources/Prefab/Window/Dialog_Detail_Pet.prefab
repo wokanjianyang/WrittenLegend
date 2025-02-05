@@ -1489,8 +1489,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 200, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 250, y: 0}
+  m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5512333871862382690
 CanvasRenderer:
@@ -1533,7 +1533,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "[\u521D\u59CB\u4E0A\u965050]"
+  m_Text: "[\u521D\u59CB\u4E0A\u965050+\u7B49\u9636*3]"
 --- !u!1 &2841642868052210806
 GameObject:
   m_ObjectHideFlags: 0
@@ -1813,6 +1813,7 @@ MonoBehaviour:
   rect_Content: {fileID: 7103713330004383517}
   TxtName: {fileID: 6396048922050135663}
   TxtLevel: {fileID: 578772938372966513}
+  TxtLayer: {fileID: 5579775108267105015}
   tran_BaseAttribute: {fileID: 6740507056651436116}
   tran_FinalAttribute: {fileID: 90823879927649398}
   tran_SkillAttribute: {fileID: 927551179669643380}
@@ -3440,7 +3441,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u3010\u53D6\u51B3\u4E8E\u54C1\u8D28+\u7B49\u9636\u3011"
+  m_Text: "\u3010\u53D6\u51B3\u4E8E\u54C1\u8D28+\u7B49\u9636*2\u3011"
 --- !u!1 &7734086531243081192
 GameObject:
   m_ObjectHideFlags: 0
@@ -3776,7 +3777,7 @@ GameObject:
   - component: {fileID: 7917773323537737721}
   - component: {fileID: 5579775108267105015}
   m_Layer: 0
-  m_Name: TxtLevel
+  m_Name: TxtLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3936,7 +3937,7 @@ GameObject:
   - component: {fileID: 5721504992172320556}
   - component: {fileID: 977344059922247875}
   m_Layer: 0
-  m_Name: TxtLevelTitle
+  m_Name: TxtLayerTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -22,6 +22,7 @@ namespace Game
         [LabelText("名称")]
         public Text TxtName;
         public Text TxtLevel;
+        public Text TxtLayer;
 
         [LabelText("资质")]
         public Transform tran_BaseAttribute;
@@ -103,6 +104,7 @@ namespace Game
 
             this.TxtName.text = string.Format("<color=#{0}>{1}</color>", titleColor, pet.Name);
             this.TxtLevel.text = pet.PetLevel.Data + "";
+            this.TxtLayer.text = pet.PetLayer.Data + "";
 
             List<KeyValuePair<int, MagicData>> flairs = pet.Flairs;
 
