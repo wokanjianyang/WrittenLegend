@@ -134,4 +134,9 @@
 {"_t":"MapConfig","_id":1132,"Name":"地狱尸魔殿","Level":4,"Layer":4,"LevelRequired":"1350-3","Memo":"地狱尸心","DropLevel":0,"DropIdList":[202001,300091,104,504,210062,1009],"DropRateList":[10,2500,1000,18000,600000,140000],"BoosId":10132},
 {"_t":"MapConfig","_id":1133,"Name":"地狱骨魔殿","Level":4,"Layer":4,"LevelRequired":"1350-4","Memo":"地狱法杖","DropLevel":0,"DropIdList":[202001,300091,104,504,210063,1009],"DropRateList":[10,2500,1000,18000,600000,140000],"BoosId":10133},
 {"_t":"MapConfig","_id":1134,"Name":"地狱魔牛殿","Level":4,"Layer":4,"LevelRequired":"1350-5","Memo":"地狱权杖","DropLevel":0,"DropIdList":[202001,300091,104,504,210064,1009],"DropRateList":[10,2500,1000,18000,600000,140000],"BoosId":10134},
+{"_t":"MapConfig","_id":1135,"Name":"地狱水龙谷","Level":4,"Layer":4,"LevelRequired":"1400-1","Memo":"地狱战锤","DropLevel":0,"DropIdList":[202001,300091,104,504,210065,1009],"DropRateList":[10,2500,1000,18000,600000,140000],"BoosId":10135},
+{"_t":"MapConfig","_id":1136,"Name":"地狱土龙谷","Level":4,"Layer":4,"LevelRequired":"1400-2","Memo":"地狱血核","DropLevel":0,"DropIdList":[202001,300091,104,504,210066,1009],"DropRateList":[10,2500,1000,18000,600000,140000],"BoosId":10136},
+{"_t":"MapConfig","_id":1137,"Name":"地狱毒龙谷","Level":4,"Layer":4,"LevelRequired":"1400-3","Memo":"地狱魔核","DropLevel":0,"DropIdList":[202001,300091,104,504,210067,1009],"DropRateList":[10,2500,1000,18000,600000,140000],"BoosId":10137},
+{"_t":"MapConfig","_id":1138,"Name":"地狱火龙谷","Level":4,"Layer":4,"LevelRequired":"1400-4","Memo":"地狱龙甲","DropLevel":0,"DropIdList":[202001,300091,104,504,210068,1009],"DropRateList":[10,2500,1000,18000,600000,140000],"BoosId":10138},
+{"_t":"MapConfig","_id":1139,"Name":"地狱冰龙谷","Level":4,"Layer":4,"LevelRequired":"1400-5","Memo":"地狱龙爪","DropLevel":0,"DropIdList":[202001,300091,104,504,210069,1009],"DropRateList":[10,2500,1000,18000,600000,140000],"BoosId":10139},
 ]}

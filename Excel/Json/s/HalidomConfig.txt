@@ -83,4 +83,9 @@
 {"_t":"HalidomConfig","_id":40000132,"ItemId":40000132,"Name":"地狱尸心","AttrId":2011,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"增伤倍率"},
 {"_t":"HalidomConfig","_id":40000133,"ItemId":40000133,"Name":"地狱法杖","AttrId":2003,"AttrValue":30,"RiseAttr":30,"MaxLevel":4,"Des":"生命倍率"},
 {"_t":"HalidomConfig","_id":40000134,"ItemId":40000134,"Name":"地狱权杖","AttrId":2002,"AttrValue":30,"RiseAttr":30,"MaxLevel":4,"Des":"防御倍率"},
+{"_t":"HalidomConfig","_id":40000135,"ItemId":40000135,"Name":"地狱战锤","AttrId":2004,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"物攻倍率"},
+{"_t":"HalidomConfig","_id":40000136,"ItemId":40000136,"Name":"地狱血核","AttrId":2005,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"法术倍率"},
+{"_t":"HalidomConfig","_id":40000137,"ItemId":40000137,"Name":"地狱魔核","AttrId":2006,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"道术倍率"},
+{"_t":"HalidomConfig","_id":40000138,"ItemId":40000138,"Name":"地狱龙甲","AttrId":2002,"AttrValue":30,"RiseAttr":30,"MaxLevel":4,"Des":"防御倍率"},
+{"_t":"HalidomConfig","_id":40000139,"ItemId":40000139,"Name":"地狱龙爪","AttrId":2003,"AttrValue":30,"RiseAttr":30,"MaxLevel":4,"Des":"生命倍率"},
 ]}

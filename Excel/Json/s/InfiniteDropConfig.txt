@@ -66,8 +66,8 @@
 {"_t":"InfiniteDropConfig","_id":301,"DropId":220101,"Name":"白色宠物","Rate":20,"StartLevel":101,"EndLevel":500,"RateLevel":10,"Max":1},
 {"_t":"InfiniteDropConfig","_id":302,"DropId":220102,"Name":"绿色宠物","Rate":15,"StartLevel":501,"EndLevel":1000,"RateLevel":10,"Max":1},
 {"_t":"InfiniteDropConfig","_id":303,"DropId":220103,"Name":"蓝色宠物","Rate":10,"StartLevel":1001,"EndLevel":1500,"RateLevel":20,"Max":1},
-{"_t":"InfiniteDropConfig","_id":304,"DropId":220104,"Name":"紫色宠物","Rate":6,"StartLevel":1501,"EndLevel":2000,"RateLevel":30,"Max":1},
-{"_t":"InfiniteDropConfig","_id":305,"DropId":220105,"Name":"橙色宠物","Rate":4,"StartLevel":2002,"EndLevel":3000,"RateLevel":50,"Max":1},
-{"_t":"InfiniteDropConfig","_id":306,"DropId":220106,"Name":"红色宠物","Rate":2,"StartLevel":2502,"EndLevel":3500,"RateLevel":60,"Max":1},
-{"_t":"InfiniteDropConfig","_id":307,"DropId":220107,"Name":"金色宠物","Rate":1,"StartLevel":3502,"EndLevel":5000,"RateLevel":100,"Max":1},
+{"_t":"InfiniteDropConfig","_id":304,"DropId":220104,"Name":"紫色宠物","Rate":8,"StartLevel":1501,"EndLevel":2000,"RateLevel":20,"Max":1},
+{"_t":"InfiniteDropConfig","_id":305,"DropId":220105,"Name":"橙色宠物","Rate":15,"StartLevel":2001,"EndLevel":3000,"RateLevel":52,"Max":1},
+{"_t":"InfiniteDropConfig","_id":306,"DropId":220106,"Name":"红色宠物","Rate":10,"StartLevel":2501,"EndLevel":3500,"RateLevel":52,"Max":1},
+{"_t":"InfiniteDropConfig","_id":307,"DropId":220107,"Name":"金色宠物","Rate":5,"StartLevel":3001,"EndLevel":5000,"RateLevel":52,"Max":1},
 ]}
