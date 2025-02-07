@@ -202,7 +202,7 @@ namespace Game
         private static string[] UnitList = { "万", "亿", "兆", "京", "垓", "秭", "穰", "沟", "涧", "正", "载", "极", "恒", "河", "沙", "阿", "僧", "祇"
                 , "那", "由", "他", "不", "可", "思" , "议","无","量","大","数‌" };
 
-        private const int Start = 0;
+        private const int Start = 1;
 
         private static string FormatNumber(string val, string unit)
         {
@@ -222,11 +222,15 @@ namespace Game
             }
 
             //加上点
-            string scale = val.Substring(src.Length, 3 - src.Length).TrimEnd('0');
-            if (scale.Length > 0) //小数位全是0,不显示
+            if (src.Length <= 3)
             {
-                src += "." + scale;
+                string scale = val.Substring(src.Length, 3 - src.Length).TrimEnd('0');
+                if (scale.Length > 0) //小数位全是0,不显示
+                {
+                    src += "." + scale;
+                }
             }
+
             return src + unit;
         }
 
