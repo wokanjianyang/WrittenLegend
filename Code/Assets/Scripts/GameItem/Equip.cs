@@ -122,7 +122,7 @@ namespace Game
             {
                 long AttributeBase = EquipConfig.AttributeBase[i];
 
-                if (this.Part <= 10)
+                if (this.Part <= 10 || (this.Part >= 21 && this.Part <= 30))
                 {
                     if (Quality <= 4)
                     {
