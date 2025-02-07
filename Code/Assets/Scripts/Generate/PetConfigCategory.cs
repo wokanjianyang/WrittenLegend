@@ -108,7 +108,7 @@ namespace Game
 
         public int GetPetLayerFee(long layer)
         {
-            return 10;
+            return (int)Math.Min((4 + layer), 10);
         }
 
         public int GetPetLayerFeeTotal(long layer)

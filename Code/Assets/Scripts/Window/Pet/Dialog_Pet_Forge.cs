@@ -100,6 +100,14 @@ public class Dialog_Pet_Forge : MonoBehaviour
         long max = PetConfigCategory.Instance.GetPetFee(SelectPet.PetLevel.Data);
         long current = SelectPet.LevelExp.Data;
 
+        long currentLevel = SelectPet.PetLevel.Data;
+        int maxLevel = SelectPet.GetQuality() * 30;
+        if (currentLevel >= maxLevel)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "不能超过最大等级", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
+
         long stoneTotal = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Pet_Exp).Select(m => m.MagicNubmer.Data).Sum();
         if (stoneTotal <= 0)
         {
