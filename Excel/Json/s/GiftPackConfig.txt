@@ -30,6 +30,8 @@
 {"_t":"GiftPackConfig","_id":29,"Name":"11阶级技能自选","GiftType":1,"LevelRequired":0,"ItemTypeList":[3,3,3],"ItemIdList":[1011,2011,3011],"ItemCountList":[1,1,1],"Des":"战魂，法魂，道魂 三选一"},
 {"_t":"GiftPackConfig","_id":30,"Name":"极矿工礼包","GiftType":1,"LevelRequired":0,"ItemTypeList":[18],"ItemIdList":[180030],"ItemCountList":[1],"Des":"极矿工礼包"},
 {"_t":"GiftPackConfig","_id":31,"Name":"极法宝自选","GiftType":1,"LevelRequired":0,"ItemTypeList":[18,18,18],"ItemIdList":[180032,180033,180034],"ItemCountList":[1,1,1],"Des":"极法宝自选"},
+{"_t":"GiftPackConfig","_id":32,"Name":"普通金宠包","GiftType":0,"LevelRequired":0,"ItemTypeList":[4,5],"ItemIdList":[207,4022],"ItemCountList":[2,10000],"Des":"2个40资质金宠+1w口粮"},
+{"_t":"GiftPackConfig","_id":33,"Name":"满资质金宠包","GiftType":0,"LevelRequired":0,"ItemTypeList":[4,5],"ItemIdList":[209,4022],"ItemCountList":[2,50000],"Des":"2个50资质金宠+5w口粮"},
 {"_t":"GiftPackConfig","_id":96,"Name":"驱魔符距离4件套","GiftType":0,"LevelRequired":0,"ItemTypeList":[12,12,12,12,5,5],"ItemIdList":[36,37,38,39,4005,4010],"ItemCountList":[1,1,1,1,300,60],"Des":"驱魔符距离4件套"},
 {"_t":"GiftPackConfig","_id":97,"Name":"盾专属自选套","GiftType":1,"LevelRequired":0,"ItemTypeList":[4,4,4,4],"ItemIdList":[99,102,104],"ItemCountList":[1,1,1],"Des":"盾专属自选套"},
 {"_t":"GiftPackConfig","_id":98,"Name":"专属自选","GiftType":1,"LevelRequired":0,"ItemTypeList":[4,4,4,4,4,4,4,4,4],"ItemIdList":[99,100,101,102,103,104,105,96],"ItemCountList":[1,1,1,1,1,1,1,1,1,1,1],"Des":"专属自选"},
