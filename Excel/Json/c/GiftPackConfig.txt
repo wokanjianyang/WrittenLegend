@@ -64,7 +64,7 @@
 {"_t":"GiftPackConfig","_id":204,"Name":"40红宠自选","GiftType":1,"LevelRequired":0,"ItemTypeList":[21,21,21],"ItemIdList":[10,11,12],"ItemCountList":[1,1,1],"Des":"40资质红宠自选"},
 {"_t":"GiftPackConfig","_id":205,"Name":"45红宠自选","GiftType":1,"LevelRequired":0,"ItemTypeList":[21,21,21],"ItemIdList":[13,14,15],"ItemCountList":[1,1,1],"Des":"45资质红宠自选"},
 {"_t":"GiftPackConfig","_id":206,"Name":"50红宠自选","GiftType":1,"LevelRequired":0,"ItemTypeList":[21,21,21],"ItemIdList":[16,17,18],"ItemCountList":[1,1,1],"Des":"50资质红宠自选"},
-{"_t":"GiftPackConfig","_id":207,"Name":"40金宠自选","GiftType":1,"LevelRequired":0,"ItemTypeList":[21,21,21],"ItemIdList":[19,20,21],"ItemCountList":[1,1,1],"Des":"40资质金宠自选"},
-{"_t":"GiftPackConfig","_id":208,"Name":"45金宠自选","GiftType":1,"LevelRequired":0,"ItemTypeList":[21,21,21],"ItemIdList":[22,23,24],"ItemCountList":[1,1,1],"Des":"45资质金宠自选"},
-{"_t":"GiftPackConfig","_id":209,"Name":"50金宠自选","GiftType":1,"LevelRequired":0,"ItemTypeList":[21,21,21],"ItemIdList":[25,26,27],"ItemCountList":[1,1,1],"Des":"50资质金宠自选"},
+{"_t":"GiftPackConfig","_id":207,"Name":"40金宠自选","GiftType":1,"LevelRequired":0,"ItemTypeList":[21,21,21,21,21,21],"ItemIdList":[19,20,21,28,29,30],"ItemCountList":[1,1,1,1,1,1],"Des":"40资质金宠自选"},
+{"_t":"GiftPackConfig","_id":208,"Name":"45金宠自选","GiftType":1,"LevelRequired":0,"ItemTypeList":[21,21,21,21,21,21],"ItemIdList":[22,23,24,31,32,33],"ItemCountList":[1,1,1,1,1,1],"Des":"45资质金宠自选"},
+{"_t":"GiftPackConfig","_id":209,"Name":"50金宠自选","GiftType":1,"LevelRequired":0,"ItemTypeList":[21,21,21,21,21,21],"ItemIdList":[25,26,27,34,35,36],"ItemCountList":[1,1,1,1,1,1],"Des":"50资质金宠自选"},
 ]}
