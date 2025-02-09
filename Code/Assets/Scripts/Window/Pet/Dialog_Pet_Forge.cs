@@ -116,16 +116,24 @@ public class Dialog_Pet_Forge : MonoBehaviour
         }
 
         long fee = Math.Min(stoneTotal, max - current);
-        fee = Math.Max(fee, 0);
 
-        GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
+        //Debug.Log("pet fee:" + fee);
+
+        if (fee <= 0)
         {
-            Type = ItemType.Material,
-            ItemId = ItemHelper.SpecialId_Pet_Exp,
-            Quantity = fee
-        });
+            SelectPet.AddExp(0);
+        }
+        else
+        {
+            GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
+            {
+                Type = ItemType.Material,
+                ItemId = ItemHelper.SpecialId_Pet_Exp,
+                Quantity = fee
+            });
 
-        SelectPet.AddExp(fee);
+            SelectPet.AddExp(fee);
+        }
 
         this.Show();
 
@@ -181,5 +189,7 @@ public class Dialog_Pet_Forge : MonoBehaviour
     {
         this.SelectPet = null;
         this.gameObject.SetActive(false);
+
+        GameProcessor.Inst.EventCenter.Raise(new PetShowEvent());
     }
 }

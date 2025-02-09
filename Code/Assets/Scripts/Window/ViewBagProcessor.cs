@@ -904,15 +904,15 @@ namespace Game
                 long layer = pet.PetLayer.Data;
                 int quality = pet.GetQuality();
 
-                long expCount = PetConfigCategory.Instance.GetFeeTotal(level) + pet.LayerExp.Data;
+                long expCount = PetConfigCategory.Instance.GetFeeTotal(level) + pet.LevelExp.Data;
                 long layerCount = PetConfigCategory.Instance.GetPetLayerFeeTotal(layer);
 
                 pet.PetLayer.Data = 1;
                 pet.PetLevel.Data = 1;
-                pet.LayerExp.Data = 0;
+                pet.LevelExp.Data = 0;
 
 
-                Debug.Log("pet exp count:" + expCount);
+                //Debug.Log("pet exp count:" + expCount);
                 if (expCount > 0)
                 {
                     Item levelItem = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Pet_Exp, expCount);

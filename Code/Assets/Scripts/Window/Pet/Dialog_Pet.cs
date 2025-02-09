@@ -71,8 +71,10 @@ public class Dialog_Pet : MonoBehaviour, IBattleLife
 
 
     // Start is called before the first frame update
-    void OnEnable()
+    private void Show()
     {
+        //Debug.Log("pet onable");
+
         User user = GameProcessor.Inst.User;
         if (user == null)
         {
@@ -113,6 +115,7 @@ public class Dialog_Pet : MonoBehaviour, IBattleLife
     public void OnShow(PetShowEvent e)
     {
         this.gameObject.SetActive(true);
+        this.Show();
     }
 
     private void Init()

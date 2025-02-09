@@ -18,7 +18,7 @@ namespace Game
 
         public MagicData LevelExp { get; set; } = new MagicData();
 
-        public MagicData LayerExp { get; set; } = new MagicData();
+        //public MagicData LayerExp { get; set; } = new MagicData();
         public List<KeyValuePair<int, MagicData>> Flairs { get; set; } = new List<KeyValuePair<int, MagicData>>();
 
         public int Status { get; set; }
