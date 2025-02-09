@@ -1,3 +1,7 @@
+v3.5.7
+ 
+兑换码 yi1000
+
 v3.5.6
 1 宠物开启重生，进阶（橙色以上才有进阶）
 2 无尽增加红色金色宠物的掉落概率
@@ -5,6 +9,14 @@ v3.5.6
 4 调整裂天斩，腾空斩的攻击距离为5（和满距离流光剑法一样）
 5 所有人永久免广，副本次数改为副本劵，开了免广的会多获取一些收益
 6 开启元宵节活动
+7 更新码：gx356,anyult01,yuanxiao2025，
+daxiong666，guji666，shangdi666，jiangfeng666，
+yu666，ge666，justsoso666，hturt666，qingming666，
+shulin888，buyao888，jiandanai888，tuzi888
+leichan999，jiushen999，xx999，jiasudu999，xming999
+ci999，ci1000，zhou999，zhou1000，biwang1001，biwang1002，
+niuroumian666，niuroumian888，niuroumian999，
+quan666，quan888，quan999，
 
 v3.5.5
 1 开启宠物养成系统，宠物暂时归于专属包裹
