@@ -518,6 +518,13 @@ public class Com_AD : MonoBehaviour, IBattleLife
         List<Item> items = new List<Item>();
         items.Add(item);
 
+        int legacyRate = user.GetArtifactValue(ArtifactType.LegacyTicketAd);
+        if (legacyRate > 0)
+        {
+            Item itemLegacy = ItemHelper.BuildItem(ItemType.Ticket, ItemHelper.SpecialId_Legacy_Ticket, 1, legacyRate * 2);
+            items.Add(itemLegacy);
+        }
+
         user.EventCenter.Raise(new HeroBagUpdateEvent()
         {
             ItemList = items

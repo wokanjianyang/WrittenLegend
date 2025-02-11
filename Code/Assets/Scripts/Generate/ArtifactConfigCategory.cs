@@ -41,7 +41,9 @@ namespace Game
         EquipBattleRate = 19,
         LegacyLimit = 20,
         RingLimit = 21,
+        LegacyTicketAd = 22,
         MineCount2 = 30,
+
     }
 
 }
