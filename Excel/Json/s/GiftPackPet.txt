@@ -35,4 +35,13 @@
 {"_t":"GiftPackPet","_id":34,"Name":"金色战魂50","AttrIdList":[7,33,18,2004,2003,2001,50],"AttrValueList":[50,50,50,50,50,50,50],"Role":1},
 {"_t":"GiftPackPet","_id":35,"Name":"金色法魂50","AttrIdList":[7,34,18,2005,2003,2001,50],"AttrValueList":[50,50,50,50,50,50,50],"Role":2},
 {"_t":"GiftPackPet","_id":36,"Name":"金色道魂50","AttrIdList":[7,35,18,2006,2003,2001,50],"AttrValueList":[50,50,50,50,50,50,50],"Role":3},
+{"_t":"GiftPackPet","_id":37,"Name":"金色战魂40","AttrIdList":[7,33,18,2004,2003,32,50],"AttrValueList":[40,40,40,40,40,40,40],"Role":1},
+{"_t":"GiftPackPet","_id":38,"Name":"金色法魂40","AttrIdList":[7,34,18,2005,2003,32,50],"AttrValueList":[40,40,40,40,40,40,40],"Role":2},
+{"_t":"GiftPackPet","_id":39,"Name":"金色道魂40","AttrIdList":[7,35,18,2006,2003,32,50],"AttrValueList":[40,40,40,40,40,40,40],"Role":3},
+{"_t":"GiftPackPet","_id":40,"Name":"金色战魂45","AttrIdList":[7,33,18,2004,2003,32,50],"AttrValueList":[45,45,45,45,45,45,45],"Role":1},
+{"_t":"GiftPackPet","_id":41,"Name":"金色法魂45","AttrIdList":[7,34,18,2005,2003,32,50],"AttrValueList":[45,45,45,45,45,45,45],"Role":2},
+{"_t":"GiftPackPet","_id":42,"Name":"金色道魂45","AttrIdList":[7,35,18,2006,2003,32,50],"AttrValueList":[45,45,45,45,45,45,45],"Role":3},
+{"_t":"GiftPackPet","_id":43,"Name":"金色战魂50","AttrIdList":[7,33,18,2004,2003,32,50],"AttrValueList":[50,50,50,50,50,50,50],"Role":1},
+{"_t":"GiftPackPet","_id":44,"Name":"金色法魂50","AttrIdList":[7,34,18,2005,2003,32,50],"AttrValueList":[50,50,50,50,50,50,50],"Role":2},
+{"_t":"GiftPackPet","_id":45,"Name":"金色道魂50","AttrIdList":[7,35,18,2006,2003,32,50],"AttrValueList":[50,50,50,50,50,50,50],"Role":3},
 ]}
