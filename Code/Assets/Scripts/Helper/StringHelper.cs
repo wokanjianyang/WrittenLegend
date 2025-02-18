@@ -403,6 +403,20 @@ namespace Game
             }
         }
 
+        public static double StringToNumber(string text)
+        {
+            string unit = "";
+
+            for (int i = 0; i < UnitList.Length; i++)
+            {
+                unit += "0000";
+
+                text = text.Replace(UnitList[i], unit);
+            }
+
+            return Convert.ToDouble(text);
+        }
+
         //private static string FormatNumberOld(string val, string unit)
         //{
         //    string src;

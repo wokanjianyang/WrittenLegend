@@ -294,7 +294,18 @@ namespace Game
                 user.HeroPhatomData.Refresh();
                 user.PillTime.Check(user.Cycle.Data);
                 user.RedRefreshCount.Data = 0;
-                user.BabelCount.Data = ConfigHelper.BabelCount;
+
+                int BabelCount = ConfigHelper.BabelCount;
+                if (user.BabelData.Data < 10000)
+                {
+                    BabelCount = ConfigHelper.BabelCount + 200;
+                }
+                else if (user.BabelData.Data < 20000)
+                {
+                    BabelCount = ConfigHelper.BabelCount + 100;
+                }
+
+                user.BabelCount.Data = BabelCount;
 
                 user.DataDate = DateTime.Now.Ticks;
                 //保存到Tap

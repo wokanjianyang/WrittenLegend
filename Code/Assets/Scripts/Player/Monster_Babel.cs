@@ -58,11 +58,18 @@ namespace Game
                 riseRate = Math.Pow(1.003, 10000);
                 riseRate *= Math.Pow(1.005, this.Progeress - 10000);
             }
-            else
+            else if (this.Progeress <= 30000)
             {
                 riseRate = Math.Pow(1.003, 10000);
                 riseRate *= Math.Pow(1.005, 5000);
                 riseRate *= Math.Pow(1.007, this.Progeress - 15000);
+            }
+            else
+            {
+                riseRate = Math.Pow(1.003, 10000);
+                riseRate *= Math.Pow(1.005, 5000);
+                riseRate *= Math.Pow(1.007, 15000);
+                riseRate *= Math.Pow(1.009, this.Progeress - 30000);
             }
 
             if (Record > 0 && this.Progeress + 1000 < Record)
@@ -101,6 +108,11 @@ namespace Game
 
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
+
+            int speed = (this.Progeress - 30000) / 10000;
+
+            this.SetAttackSpeed(speed * 100 + 100);
+            this.SetMoveSpeed(speed * 100 + 100);
 
             //Debug.Log("HP:" + AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
         }

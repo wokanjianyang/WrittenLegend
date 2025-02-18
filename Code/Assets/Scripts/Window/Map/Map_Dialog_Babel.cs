@@ -56,7 +56,7 @@ public class Map_Dialog_Babel : MonoBehaviour
 
         if (progress == 0 && user.BabelCount.Data == 0)
         {
-            user.BabelCount.Data = ConfigHelper.BabelCount;
+            user.BabelCount.Data = ConfigHelper.BabelCount * 2;
         }
 
         long nextProgress = progress + 1;
