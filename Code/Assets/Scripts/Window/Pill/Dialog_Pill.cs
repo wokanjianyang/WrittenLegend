@@ -58,7 +58,9 @@ public class Dialog_Pill : MonoBehaviour
         long PillLevel = (p % 100) / 10 + 1;
 
         this.Txt_Point_Name.text = PillNameList[PillIndex];
-        this.Txt_Level_Name.text = ConfigHelper.LayerChinaList[PillLayer] + "½×" + PillLevel + "ÖØ";
+        this.Txt_Level_Name.text = StringHelper.GetChinaNumber(PillLayer) + "½×" + PillLevel + "ÖØ";
+
+        Debug.Log("PillLayer:" + PillLayer);
 
         PillConfig config = PillConfigCategory.Instance.GetByLevel(currentLevel);
 
