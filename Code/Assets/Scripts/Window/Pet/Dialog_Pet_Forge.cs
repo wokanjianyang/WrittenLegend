@@ -137,6 +137,8 @@ public class Dialog_Pet_Forge : MonoBehaviour
 
         this.Show();
 
+        user.EventCenter.Raise(new UserAttrChangeEvent());
+
         this.Btn_OK.gameObject.SetActive(true);
     }
 
@@ -182,6 +184,8 @@ public class Dialog_Pet_Forge : MonoBehaviour
         SelectPet.PetLayer.Data++;
 
         this.Show();
+
+        user.EventCenter.Raise(new UserAttrChangeEvent());
 
         this.Btn_OK_Layer.gameObject.SetActive(true);
     }

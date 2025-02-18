@@ -53,13 +53,16 @@ namespace Game
 
             int riseLevel = this.Progress - Config.StartLevel;
 
-            double hp = double.Parse(Config.HP);
+            double hp = StringHelper.StringToNumber(Config.HP);
+            //Debug.Log("Config " + this.Progress + " HP:" + StringHelper.FormatNumber(hp));
             hp += hp * Config.HpRise * riseLevel;
 
-            double attr = double.Parse(Config.Attr);
+            double attr = StringHelper.StringToNumber(Config.Attr);
+            //Debug.Log("Config " + this.Progress + " Attr:" + StringHelper.FormatNumber(attr));
             attr += attr * Config.AttrRise * riseLevel;
 
-            double def = double.Parse(Config.Def);
+            double def = StringHelper.StringToNumber(Config.Def);
+            //Debug.Log("Config " + this.Progress + " Def:" + StringHelper.FormatNumber(def));
             def += def * Config.DefRise * riseLevel;
 
             //Debug.Log("Infinit " + this.Progress + " HP:" + StringHelper.FormatNumber(hp));
