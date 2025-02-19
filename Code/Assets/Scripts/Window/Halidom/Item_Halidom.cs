@@ -116,26 +116,32 @@ namespace Game
                     //突破，使用粉尘
                     upNumber *= 20;
 
-                    long total = user.GetMaterialCount(ItemHelper.SpecialId_Halidom_Chip);
-                    if (total < upNumber)
+                    GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("是否确认用遗物粉尘突破遗物", true,
+                    () =>
                     {
-                        GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "突破所需遗物粉尘数量不足", ToastType = ToastTypeEnum.Failure });
-                        return;
-                    }
+                        long total = user.GetMaterialCount(ItemHelper.SpecialId_Halidom_Chip);
+                        if (total < upNumber)
+                        {
+                            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "突破所需遗物粉尘数量不足", ToastType = ToastTypeEnum.Failure });
+                            return;
+                        }
 
-                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "消耗" + upNumber + "个遗物粉尘突破成功", ToastType = ToastTypeEnum.Success });
-                    GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
+                        GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "消耗" + upNumber + "个遗物粉尘突破成功", ToastType = ToastTypeEnum.Success });
+                        GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
+                        {
+                            Type = ItemType.Material,
+                            ItemId = ItemHelper.SpecialId_Halidom_Chip,
+                            Quantity = upNumber
+                        });
+
+                        halidomData.Data++;
+                        this.SetContent(this.Config, halidomData.Data);
+                        GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
+                    }, () =>
                     {
-                        Type = ItemType.Material,
-                        ItemId = ItemHelper.SpecialId_Halidom_Chip,
-                        Quantity = upNumber
                     });
 
-                    halidomData.Data++;
-                    this.SetContent(this.Config, halidomData.Data);
-                    GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
 
-                    GameProcessor.Inst.SaveData();
                 }
                 else
                 {

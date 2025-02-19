@@ -1,13 +1,21 @@
+v3.5.9
+##3 礼包增加批量使用功能
+
 v3.5.8
 1 增加法宝（传世契约）
 2 开放通天层数3w-3.5w，调整1w一下，每日有500次挑战次数，2w一下，每日有400次挑战次数，2w以上每日有300次挑战次数
-##3 礼包增加批量使用功能
 3 优化遗物升级，升阶，防止误点
 4 增加传世之源，和神戒之源的掉落概率
-5 开放神话之路上限
-6 开放幻境上限
-7 开放四格
-8 兑换码 yi1000，kongtiao1000，bici1002
+5 开放神话之路,幻境,无尽上限
+6 开放四格上限
+7 兑换码 gx358，guren666，lingchegn666，duola666，huakai666，yexu666，bayue666，
+haimian888，chenxi888，chenxi999，poxian999，
+zhening1003，zhening1004，biwang1004，kongtiao1001，kongtiao1002，xuanyuan1002，xuanyuan1003，
+xx1000，niuroumian1000，ci1001，yi1000，bici1002，bici1003，xming1000，
+
+
+
+
 
 task:神话之路上限，通天上限，命中宠物
 
