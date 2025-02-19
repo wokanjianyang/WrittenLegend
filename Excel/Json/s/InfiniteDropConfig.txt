@@ -61,7 +61,7 @@
 {"_t":"InfiniteDropConfig","_id":133,"DropId":180034,"Name":"极.财富契约","Rate":2,"StartLevel":1100,"EndLevel":3000,"RateLevel":100,"Max":1},
 {"_t":"InfiniteDropConfig","_id":134,"DropId":180035,"Name":"极.魔法书","Rate":1,"StartLevel":2000,"EndLevel":2500,"RateLevel":100,"Max":1},
 {"_t":"InfiniteDropConfig","_id":135,"DropId":180036,"Name":"极.无限之魂","Rate":1,"StartLevel":2000,"EndLevel":2500,"RateLevel":100,"Max":1},
-{"_t":"InfiniteDropConfig","_id":136,"DropId":180037,"Name":"极·传世契约","Rate":1,"StartLevel":2500,"EndLevel":3000,"RateLevel":100,"Max":1},
+{"_t":"InfiniteDropConfig","_id":136,"DropId":180037,"Name":"极·传世契约","Rate":1,"StartLevel":2500,"EndLevel":3500,"RateLevel":100,"Max":1},
 {"_t":"InfiniteDropConfig","_id":201,"DropId":220016,"Name":"六大神戒","Rate":5,"StartLevel":150,"EndLevel":1200,"RateLevel":20,"Max":2},
 {"_t":"InfiniteDropConfig","_id":202,"DropId":4001,"Name":"神技","Rate":5,"StartLevel":200,"EndLevel":1000,"RateLevel":30,"Max":2},
 {"_t":"InfiniteDropConfig","_id":203,"DropId":4002,"Name":"魂骨","Rate":15,"StartLevel":1050,"EndLevel":1500,"RateLevel":51,"Max":2},

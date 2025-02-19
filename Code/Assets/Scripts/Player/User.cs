@@ -297,6 +297,7 @@ namespace Game
         public List<DropData> DropDataList { get; } = new List<DropData>();
 
         public IDictionary<int, int> FestiveData_0212 { get; set; } = new Dictionary<int, int>();
+        public IDictionary<int, int> FestiveData_0312 { get; set; } = new Dictionary<int, int>();
 
         public IDictionary<int, int> SevenDayData { get; set; } = new Dictionary<int, int>();
 

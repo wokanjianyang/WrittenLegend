@@ -210,6 +210,7 @@ namespace Game
                     request.SetRequestHeader("account", account);
                     request.SetRequestHeader("fileId", fileId);
                     request.SetRequestHeader("deviceId", deviceId);
+                    request.SetRequestHeader("version", ConfigHelper.Version + "");
                     request.SetRequestHeader("sign", sign);
 
                     request.downloadHandler.Dispose();
