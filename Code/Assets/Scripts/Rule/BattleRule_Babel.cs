@@ -83,7 +83,7 @@ public class BattleRule_Babel : ABattleRule
             {
                 GameProcessor.Inst.CloseBattle(RuleType.Babel, 0);
             }
-            else
+            else if (this.Progress >= ConfigHelper.BabelMax)
             {
                 TimeTotal = TimeMax;
                 Start = false;

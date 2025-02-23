@@ -92,6 +92,8 @@ namespace Game
 
         public const int PillDefaultTime = 60;
         public const int BabelCount = 300;
+        public const int BabelMax = 35000;
+
         public const int PillMax = 20;
 
         public const int Mine_Time = 60;

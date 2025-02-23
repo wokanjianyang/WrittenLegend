@@ -252,6 +252,15 @@ namespace Game
 
         public void StartBabel()
         {
+            User user = GameProcessor.Inst.User;
+
+            if (user.BabelData.Data >= ConfigHelper.BabelMax)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "你已经通关了，请等待开放上限", ToastType = ToastTypeEnum.Failure });
+                return;
+            }
+
+
             scrollRect.gameObject.SetActive(false);
 
             GameProcessor.Inst.EventCenter.Raise(new BabelStartEvent() { });
