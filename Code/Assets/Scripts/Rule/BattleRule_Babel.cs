@@ -33,7 +33,7 @@ public class BattleRule_Babel : ABattleRule
 
     public override void DoMapLogic(int roundNum, double currentRoundTime)
     {
-        if (Over)
+        if (Over || this.Progress > ConfigHelper.BabelMax)
         {
             return;
         }
@@ -83,7 +83,7 @@ public class BattleRule_Babel : ABattleRule
             {
                 GameProcessor.Inst.CloseBattle(RuleType.Babel, 0);
             }
-            else if (this.Progress >= ConfigHelper.BabelMax)
+            else
             {
                 TimeTotal = TimeMax;
                 Start = false;

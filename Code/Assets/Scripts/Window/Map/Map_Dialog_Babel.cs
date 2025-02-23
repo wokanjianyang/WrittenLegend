@@ -65,12 +65,19 @@ public class Map_Dialog_Babel : MonoBehaviour
         Txt_Floor1.text = progress > 0 ? progress + "层" : "";
         Txt_Floor0.text = nextProgress + "层";
 
-        BabelConfig rewardConfig = BabelConfigCategory.Instance.GetByProgress(nextProgress);
-        Item item = rewardConfig.BuildItem(nextProgress);
-
         Txt_Progress.text = "挑战层数:" + nextProgress + "";
-        Txt_Reward.text = "通过奖励:" + item.Name + "*" + item.Count;
         Txt_Count.text = "今日挑战次数:" + user.BabelCount.Data;
+
+        if (nextProgress > ConfigHelper.BabelMax)
+        {
+            Txt_Reward.text = "已通关，等待开发上限";
+        }
+        else
+        {
+            BabelConfig rewardConfig = BabelConfigCategory.Instance.GetByProgress(nextProgress);
+            Item item = rewardConfig.BuildItem(nextProgress);
+            Txt_Reward.text = "通过奖励:" + item.Name + "*" + item.Count;
+        }
 
         if (IsNet)
         {
