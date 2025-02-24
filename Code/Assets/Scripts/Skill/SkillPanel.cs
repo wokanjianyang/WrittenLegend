@@ -302,6 +302,7 @@ namespace Game
             if (DivineLevel > 0)
             {
                 int divineMax = (int)(DivineLevel * DivineAttrConfig.Param);
+                int effectDivine = divineMax / mythRate;
                 if (SkillId == 1005)
                 {
                     EffectIdList[18] = new EffectData(18, 1005, divineMax, 0, Duration, 0);
@@ -309,6 +310,22 @@ namespace Game
                 else if (SkillId == 2005)
                 {
                     EffectIdList[19] = new EffectData(19, 2005, divineMax, 0, Duration, 0);
+                }
+                else if (SkillId == 1008)
+                {
+                    EffectIdList[22] = new EffectData(22, 1008, effectDivine, 0, 360, 6);
+                }
+                else if (SkillId == 2008)
+                {
+                    EffectIdList[24] = new EffectData(24, 2008, effectDivine, 0, 360, 6);
+                }
+                else if (SkillId == 3008)
+                {
+                    EffectIdList[223008] = new EffectData(22, 3008, effectDivine, 0, 360, 6);
+                    EffectIdList[25] = new EffectData(25, 3008, effectDivine, 0, 360, 6);
+
+                    EffectIdList[28] = new EffectData(28, 3008, effectDivine, 0, 360, 6);
+                    EffectIdList[31] = new EffectData(31, 3008, effectDivine, 0, 360, 6);
                 }
             }
 

@@ -269,20 +269,20 @@ namespace Game
             return Math.Max(rd, 1);
         }
 
-        public static long GetEffectFromTotal(AttributeBonus attacker, SkillPanel skillPanel, EffectData effect)
+        public static double GetEffectFromTotal(AttributeBonus attacker, SkillPanel skillPanel, EffectData effect)
         {
             int srcAttr = effect.Config.SourceAttr;
 
             //按照某个属性，计算百分比+固定值得来的
             if (srcAttr == -2)
             {
-                long total = attacker.GetTotalAttr((AttributeEnum)effect.Config.SourceAttr);
+                double total = attacker.GetTotalAttr((AttributeEnum)effect.Config.SourceAttr);
 
                 //Debug.Log("Shield Base Total:" + total);
 
                 int role = skillPanel.SkillData.SkillConfig.Role;
 
-                long percent = effect.Percent;
+                double percent = effect.Percent;
                 if (effect.Config.ExpertRise > 0) //享受其他增强收益
                 {
                     //Debug.Log("Shield Skill-Percent:" + skillPanel.Percent);
@@ -310,7 +310,7 @@ namespace Game
             //配置来源的数值
             else if (srcAttr == 0)
             {
-                long total = effect.Percent;
+                double total = effect.Percent;
                 return total;
             }
 

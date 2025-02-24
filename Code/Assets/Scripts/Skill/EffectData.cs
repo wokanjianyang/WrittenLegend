@@ -11,7 +11,7 @@ namespace Game
         /// <summary>
         /// 伤害比例加成
         /// </summary>
-        public int Percent { get; }
+        public double Percent { get; }
         /// <summary>
         /// 伤害固定加成
         /// </summary>
@@ -25,7 +25,7 @@ namespace Game
         /// </summary>
         public int Max { get; }
 
-        public EffectData(int configId, int fromId, int percent, long damage, int duration, int max)
+        public EffectData(int configId, int fromId, double percent, long damage, int duration, int max)
         {
             this.Config = EffectConfigCategory.Instance.Get(configId);
             this.FromId = fromId;
