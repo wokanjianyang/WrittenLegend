@@ -30,6 +30,7 @@ namespace Game
             this.Priority = position; // - skillPanel.SkillData.SkillConfig.Priority;
             this.Position = position;
             this.CD = 0;
+            this.Rate = skillPanel.Rate;
 
             bool isShow = true;
             if (player.Camp == PlayerType.Enemy)

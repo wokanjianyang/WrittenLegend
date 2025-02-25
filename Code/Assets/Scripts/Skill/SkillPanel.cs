@@ -18,6 +18,8 @@ namespace Game
         public int EnemyMax { get; }
         public int CD { get; }
 
+        public int Rate { get; }
+
         public int Row { get; }
         public int Column { get; }
 
@@ -63,6 +65,8 @@ namespace Game
         {
             this.SkillData = skillData;
             this.SkillId = skillData.SkillId;
+
+            this.DivineAttrConfig = SkillDivineAttrConfigCategory.Instance.GetBySkillId(SkillId);
 
             if (runeList == null)
             {
@@ -168,7 +172,7 @@ namespace Game
                 if (dil > 0)
                 {
                     SkillDivineConfig divineConfig = SkillDivineConfigCategory.Instance.GetConfig(v.Key, dil);
-                    divineAttrList[divineConfig.SkillAttrId - 1] += divineConfig.SkillAttrValue * dil;
+                    divineAttrList[divineConfig.SkillAttrId - 1] += divineConfig.SkillAttrValue * dil / DivineAttrConfig.PercentRate;
                 }
             }
 
@@ -183,6 +187,7 @@ namespace Game
             this.Dis += skillData.SkillConfig.Dis + runeDis + suitDis;
             this.EnemyMax += skillData.SkillConfig.EnemyMax + runeEnemyMax + suitEnemyMax;
             this.CD += Math.Max(skillData.SkillConfig.CD - runeCD - suitCD, 0);
+            this.Rate = skillData.SkillConfig.Rate;
             this.Duration = skillData.SkillConfig.Duration + runeDuration + suitDuration;
 
             this.Row = skillData.SkillConfig.Row + runeRow + suitRow;
@@ -294,15 +299,13 @@ namespace Game
                 this.DefinitelyCrit = false;
             }
 
-            this.DivineAttrConfig = SkillDivineAttrConfigCategory.Instance.GetBySkillId(SkillId);
-
             this.DivineLevel = skillData.GetDivineLevel(); ;
 
             //护盾神技
             if (DivineLevel > 0)
             {
                 int divineMax = (int)(DivineLevel * DivineAttrConfig.Param);
-                int effectDivine = divineMax / mythRate;
+                int effectDivine = divineMax / DivineAttrConfig.ParamRate;
                 if (SkillId == 1005)
                 {
                     EffectIdList[18] = new EffectData(18, 1005, divineMax, 0, Duration, 0);
@@ -326,6 +329,18 @@ namespace Game
 
                     EffectIdList[28] = new EffectData(28, 3008, effectDivine, 0, 360, 6);
                     EffectIdList[31] = new EffectData(31, 3008, effectDivine, 0, 360, 6);
+                }
+                else if (SkillId == 1009)
+                {
+                    this.Rate += divineMax;
+                }
+                else if (SkillId == 2009)
+                {
+
+                }
+                else if (SkillId == 3009)
+                {
+
                 }
             }
 

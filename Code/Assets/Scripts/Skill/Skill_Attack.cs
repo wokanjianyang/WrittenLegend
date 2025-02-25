@@ -145,7 +145,7 @@ namespace Game
             {
                 //do Chediding
                 SkillState skillChediding = SelfPlayer.SelectSkillList.Where(m => m.SkillPanel.SkillId == 1010).FirstOrDefault();
-                if (skillChediding != null && baseDr != null && RandomHelper.RandomNumber(1, 6) <= 1)
+                if (skillChediding != null && baseDr != null && RandomHelper.RandomRate(skillChediding.Rate))
                 {
                     skillChediding.Do(baseDr);
                 }

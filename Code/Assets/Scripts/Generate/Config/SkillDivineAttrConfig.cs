@@ -93,6 +93,12 @@ namespace Game
 		/// <summary>Param</summary>
 		[ProtoMember(6)]
 		public int Param { get; set; }
+		/// <summary>ParamRate</summary>
+		[ProtoMember(7)]
+		public int ParamRate { get; set; }
+		/// <summary>PercentRate</summary>
+		[ProtoMember(8)]
+		public int PercentRate { get; set; }
 
 	}
 }
