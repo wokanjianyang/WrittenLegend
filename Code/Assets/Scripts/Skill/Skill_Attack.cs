@@ -151,13 +151,12 @@ namespace Game
             {
                 //do Chediding
                 SkillState skillChediding = SelfPlayer.SelectSkillList.Where(m => m.SkillPanel.SkillId == 1010).FirstOrDefault();
-                if (skillChediding != null)
-                {
-                    Debug.Log("Chediding rate:" + skillChediding.Rate);
-                }
+                //if (skillChediding != null)
+                //{
+                //    Debug.Log("Chediding rate:" + skillChediding.Rate);
+                //}
                 if (skillChediding != null && baseDr != null && RandomHelper.RandomRate(skillChediding.Rate))
                 {
-                    Debug.Log("Chediding rate:" + skillChediding.Rate);
                     skillChediding.Do(baseDr);
                 }
             }

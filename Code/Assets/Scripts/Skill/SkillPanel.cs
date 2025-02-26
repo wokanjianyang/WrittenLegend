@@ -172,7 +172,12 @@ namespace Game
                 if (dil > 0 && DivineAttrConfig != null)
                 {
                     SkillDivineConfig divineConfig = SkillDivineConfigCategory.Instance.GetConfig(v.Key, dil);
-                    divineAttrList[divineConfig.SkillAttrId - 1] += divineConfig.SkillAttrValue * dil / DivineAttrConfig.PercentRate;
+                    int dal = divineConfig.SkillAttrValue * dil;
+                    if (mythRate > 1)
+                    {
+                        dal = dal / DivineAttrConfig.PercentRate;
+                    }
+                    divineAttrList[divineConfig.SkillAttrId - 1] += dal;
                 }
             }
 
