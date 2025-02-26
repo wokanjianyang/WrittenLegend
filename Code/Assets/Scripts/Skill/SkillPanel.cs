@@ -169,7 +169,7 @@ namespace Game
             foreach (KeyValuePair<int, Data.MagicData> v in skillData.DivineData)
             {
                 int dil = (int)v.Value.Data;
-                if (dil > 0)
+                if (dil > 0 && DivineAttrConfig != null)
                 {
                     SkillDivineConfig divineConfig = SkillDivineConfigCategory.Instance.GetConfig(v.Key, dil);
                     divineAttrList[divineConfig.SkillAttrId - 1] += divineConfig.SkillAttrValue * dil / DivineAttrConfig.PercentRate;
@@ -302,7 +302,7 @@ namespace Game
             this.DivineLevel = skillData.GetDivineLevel(); ;
 
             //护盾神技
-            if (DivineLevel > 0)
+            if (DivineLevel > 0 && DivineAttrConfig != null)
             {
                 int divineMax = (int)(DivineLevel * DivineAttrConfig.Param);
                 int effectDivine = divineMax / DivineAttrConfig.ParamRate;
@@ -330,15 +330,15 @@ namespace Game
                     EffectIdList[28] = new EffectData(28, 3008, effectDivine, 0, 360, 6);
                     EffectIdList[31] = new EffectData(31, 3008, effectDivine, 0, 360, 6);
                 }
-                else if (SkillId == 1009)
+                else if (SkillId == 1010)
                 {
                     this.Rate += divineMax;
                 }
-                else if (SkillId == 2009)
+                else if (SkillId == 2010)
                 {
 
                 }
-                else if (SkillId == 3009)
+                else if (SkillId == 3010)
                 {
 
                 }

@@ -15,7 +15,7 @@ namespace Game
 
         }
 
-        public override void Do()
+        public override void Do(SkillRunType runType)
         {
             DamageResult baseDr = null;
 
@@ -115,15 +115,7 @@ namespace Game
                 orbState.Do();
             }
 
-            if (SkillPanel.SkillData.SkillConfig.Role == (int)RoleType.Warrior)
-            {
-                //do Chediding
-                SkillState skillChediding = SelfPlayer.SelectSkillList.Where(m => m.SkillPanel.SkillId == 1010).FirstOrDefault();
-                if (skillChediding != null && baseDr != null && RandomHelper.RandomNumber(1, 6) <= 1)
-                {
-                    skillChediding.Do(baseDr);
-                }
-            }
+            DoChediding(runType, baseDr);
         }
 
     }

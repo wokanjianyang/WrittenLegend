@@ -15,7 +15,7 @@ namespace Game
             return true;
         }
 
-        public override void Do()
+        public override void Do(SkillRunType runType)
         {
             //如果还有附加特效
             this.skillGraphic?.PlayAnimation(SelfPlayer.Cell);

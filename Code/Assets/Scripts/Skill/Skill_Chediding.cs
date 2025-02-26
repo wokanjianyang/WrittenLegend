@@ -19,7 +19,7 @@ namespace Game
             return false;
         }
 
-        public override void Do()
+        public override void Do(SkillRunType runType)
         {
 
         }

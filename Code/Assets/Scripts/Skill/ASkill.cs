@@ -26,11 +26,13 @@ namespace Game
             this.SelfPlayer = player;
             this.SkillPanel = skill;
         }
-        abstract public void Do();
+        abstract public void Do(SkillRunType runType);
+
         public virtual void Do(DamageResult baseDr)
         {
 
         }
+
 
         public int CalDistance(Vector3Int from, Vector3Int to)
         {

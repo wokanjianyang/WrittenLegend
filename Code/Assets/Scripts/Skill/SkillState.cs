@@ -153,7 +153,13 @@ namespace Game
         public void Do()
         {
             this.CD = SkillPanel.CD;
-            this.skillLogic.Do();
+            this.skillLogic.Do(SkillRunType.Normal);
+        }
+
+        public void Do(SkillRunType runType)
+        {
+            this.CD = SkillPanel.CD;
+            this.skillLogic.Do(runType);
         }
 
         public void Do(DamageResult baseDr)
@@ -171,5 +177,11 @@ namespace Game
         {
             this.Rate += rate;
         }
+    }
+
+    public enum SkillRunType
+    {
+        Normal = 1,
+        Double = 2,
     }
 }

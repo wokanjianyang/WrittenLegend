@@ -12,7 +12,7 @@ namespace Game
             this.skillGraphic = null;
         }
 
-        public override void Do()
+        public override void Do(SkillRunType runType)
         {
 
         }

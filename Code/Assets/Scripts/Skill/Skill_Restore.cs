@@ -19,7 +19,7 @@ namespace Game
             return GetAllTargets().Count > 0;
         }
 
-        public override void Do()
+        public override void Do(SkillRunType runType)
         {
             List<AttackData> attackDataCache = GetAllTargets();
 

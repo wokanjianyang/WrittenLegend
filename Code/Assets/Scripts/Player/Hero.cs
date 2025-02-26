@@ -374,7 +374,7 @@ namespace Game
 
                 if (skill.SkillPanel.SkillData.SkillConfig.Type == (int)SkillType.Attack)
                 {
-                    this.DoubleHit();
+                    //this.DoubleHit();
                 }
 
                 return AttckSpeed;
@@ -433,7 +433,7 @@ namespace Game
             {
                 if (RandomHelper.RandomRate(skill.Rate))
                 {
-                    skill.Do();
+                    skill.Do(SkillRunType.Double);
                     //Debug.Log(" Double Hit " + skill.SkillPanel.SkillData.SkillConfig.Name);
                     return;
                 }

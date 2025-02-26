@@ -16,7 +16,7 @@ namespace Game
             return true;
         }
 
-        public override void Do()
+        public override void Do(SkillRunType runType)
         {
             ToHide();
             //如果还有附加特效

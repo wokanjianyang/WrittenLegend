@@ -23,7 +23,7 @@ namespace Game
                 }
             }
         }
-        public override void Do()
+        public override void Do(SkillRunType runType)
         {
             List<Vector3Int> allAttackCells = GetPlayCells();
             this.skillGraphic?.PlayAnimation(allAttackCells);

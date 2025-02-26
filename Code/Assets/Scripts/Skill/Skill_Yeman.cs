@@ -20,12 +20,12 @@ namespace Game
             return base.IsCanUse() && GetMoveCell() != Vector3Int.zero;
         }
 
-        public override void Do()
+        public override void Do(SkillRunType runType)
         {
             var moveCell = GetMoveCell();
             this.SelfPlayer.Move(moveCell);
 
-            base.Do();
+            base.Do(runType);
         }
 
         private Vector3Int GetMoveCell()
