@@ -214,7 +214,7 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
             int count = (int)(dieTime / CopyTicketCd);
             user.CopyTicketTime += count * CopyTicketCd;
 
-            if (count >= ConfigHelper.CopyTicketFirstCount)  //离线最高可以获取100次
+            if (count >= ConfigHelper.CopyTicketFirstCount * 10)  //离线最高可以获取100次
             {
                 count = ConfigHelper.CopyTicketFirstCount;
             }
