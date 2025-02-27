@@ -56,17 +56,18 @@ namespace Game
         public long DivineLevel = 0;
         public SkillDivineAttrConfig DivineAttrConfig;
 
-        public SkillPanel(SkillData skillData, List<SkillRune> runeList, List<SkillSuit> suitList, bool isPlayer) : this(skillData, runeList, suitList, isPlayer, 1, 0)
+        public SkillPanel(SkillData skillData, List<SkillRune> runeList, List<SkillSuit> suitList, bool isPlayer) : this(skillData, runeList, suitList, isPlayer, RuleType.Normal, 0)
         {
 
         }
 
-        public SkillPanel(SkillData skillData, List<SkillRune> runeList, List<SkillSuit> suitList, bool isPlayer, int mythRate, int petRate)
+        public SkillPanel(SkillData skillData, List<SkillRune> runeList, List<SkillSuit> suitList, bool isPlayer, RuleType ruleType, int petRate)
         {
             this.SkillData = skillData;
             this.SkillId = skillData.SkillId;
 
             this.DivineAttrConfig = SkillDivineAttrConfigCategory.Instance.GetBySkillId(SkillId);
+            int mythRate = skillData.SkillConfig.MythRate;
 
             if (runeList == null)
             {
@@ -173,7 +174,7 @@ namespace Game
                 {
                     SkillDivineConfig divineConfig = SkillDivineConfigCategory.Instance.GetConfig(v.Key, dil);
                     int dal = divineConfig.SkillAttrValue * dil;
-                    if (mythRate > 1)
+                    if (ruleType == RuleType.Myth)
                     {
                         dal = dal / DivineAttrConfig.PercentRate;
                     }

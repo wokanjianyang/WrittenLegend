@@ -61,6 +61,11 @@ namespace Game
             double phyAtt = Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.PhyAtt);
             double spiritAtt = Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.SpiritAtt);
 
+            if (this.RuleType == RuleType.Myth)
+            {
+                //Debug.Log("dupulication myth PhyAtt:" + phyAtt);
+            }
+
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
 
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroPanel, phyAtt * 0.5);
@@ -108,6 +113,11 @@ namespace Game
 
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
+
+            if (this.RuleType == RuleType.Myth)
+            {
+                //Debug.Log("dupulication myth PhyAtt:" + AttributeBonus.GetTotalAttrDouble(AttributeEnum.PhyAtt));
+            }
         }
 
         private void SetSkill()
@@ -121,6 +131,11 @@ namespace Game
                 {
                     SkillState skill = new SkillState(this, mss.SkillPanel, mss.Position, 0);
                     SelectSkillList.Add(skill);
+
+                    //if (this.RuleType == RuleType.Myth)
+                    //{
+                    //    Debug.Log("dup " + mss.SkillPanel.SkillData.SkillConfig.Name + ":" + mss.SkillPanel.Percent);
+                    //}
                 }
             }
         }

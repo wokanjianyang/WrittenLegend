@@ -229,7 +229,7 @@ namespace Game
 
                 int petRate = user.GetPetSkillRate(skillData.SkillConfig.Role);
 
-                SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, true, 1, petRate);
+                SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, true, RuleType, petRate);
 
                 SkillState skill = new SkillState(this, skillPanel, i, 0);
                 SelectSkillList.Add(skill);
