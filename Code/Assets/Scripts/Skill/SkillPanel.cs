@@ -217,7 +217,7 @@ namespace Game
             //        this.CenterType = suit.Center;
             //    }
             //}
-            if (mythRate > 1)
+            if (ruleType == RuleType.Myth)
             {
                 this.Percent = Math.Max(this.Percent / mythRate, this.Percent > 0 ? 1 : 0);
                 this.Damage = Math.Max(this.Damage / mythRate, this.Damage > 0 ? 1 : 0);
