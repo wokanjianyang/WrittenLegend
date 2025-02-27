@@ -156,7 +156,7 @@ namespace Game
                 qualityPercent = 100 * (equip.Layer - 1);
             }
 
-            IDictionary<int, long> BaseAttrList = equip.GetBaseAttrList();
+            IDictionary<int, double> BaseAttrList = equip.GetBaseAttrList();
 
             if (BaseAttrList != null && BaseAttrList.Count > 0)
             {
@@ -166,7 +166,7 @@ namespace Game
 
                 Transform gridBase = tran_BaseAttribute.Find("Grid_Base");
 
-                List<KeyValuePair<int, long>> btList = BaseAttrList.ToList();
+                List<KeyValuePair<int, double>> btList = BaseAttrList.ToList();
 
                 for (int index = 0; index < 8; index++)
                 {
@@ -429,7 +429,7 @@ namespace Game
             tran_SuitAttribute.gameObject.SetActive(true);
         }
 
-        private string FormatAttrText(int attr, long val, long percent)
+        private string FormatAttrText(int attr, double val, long percent)
         {
             string unit = "";
 
@@ -441,7 +441,7 @@ namespace Game
             }
 
             string refineText = "";
-            long refineAttr = val * percent / 100;
+            double refineAttr = val * percent / 100;
             if (refineAttr > 0)
             {
                 refineText = "+" + StringHelper.FormatNumber(refineAttr);

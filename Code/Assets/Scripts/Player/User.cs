@@ -406,7 +406,7 @@ namespace Game
             {
                 long refineLevel = GetRefineLevel(kvp.Key);
 
-                foreach (KeyValuePair<int, long> a in kvp.Value.GetTotalAttrList(refineLevel))
+                foreach (KeyValuePair<int, double> a in kvp.Value.GetTotalAttrList(refineLevel))
                 {
                     AttributeBonus.SetAttr((AttributeEnum)a.Key, AttributeFrom.EquipBase, kvp.Key, a.Value);
                 }
@@ -414,7 +414,7 @@ namespace Game
             //装备属性-四格装备
             foreach (KeyValuePair<int, Equip> kvp in EquipPanelSpecial)
             {
-                foreach (KeyValuePair<int, long> a in kvp.Value.GetTotalAttrList(0))
+                foreach (KeyValuePair<int, double> a in kvp.Value.GetTotalAttrList(0))
                 {
                     AttributeBonus.SetAttr((AttributeEnum)a.Key, AttributeFrom.EquipBase, kvp.Key, a.Value);
                 }
@@ -422,7 +422,7 @@ namespace Game
             //装备属性-金色装备
             foreach (KeyValuePair<int, Equip> kvp in EquipPanelGoldenList[EquipGoldenIndex])
             {
-                foreach (KeyValuePair<int, long> a in kvp.Value.GetTotalAttrList(0))
+                foreach (KeyValuePair<int, double> a in kvp.Value.GetTotalAttrList(0))
                 {
                     AttributeBonus.SetAttr((AttributeEnum)a.Key, AttributeFrom.EquipBase, kvp.Key, a.Value);
                 }

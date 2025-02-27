@@ -115,9 +115,9 @@ namespace Game
             }
         }
 
-        public IDictionary<int, long> GetBaseAttrList()
+        public IDictionary<int, double> GetBaseAttrList()
         {
-            IDictionary<int, long> BaseAttrList = new Dictionary<int, long>();
+            IDictionary<int, double> BaseAttrList = new Dictionary<int, double>();
             for (int i = 0; i < EquipConfig.AttributeBase.Length; i++)
             {
                 long AttributeBase = EquipConfig.AttributeBase[i];
@@ -218,7 +218,7 @@ namespace Game
         /// <summary>
         /// 属性列表
         /// </summary>
-        public IDictionary<int, long> GetTotalAttrList(long level)
+        public IDictionary<int, double> GetTotalAttrList(long level)
         {
             long basePercent = 100;
             long qualityPercent = 100;
@@ -236,9 +236,9 @@ namespace Game
             }
 
             //根据基础属性和词条属性，计算总属性
-            IDictionary<int, long> BaseAttrList = this.GetBaseAttrList();
+            IDictionary<int, double> BaseAttrList = this.GetBaseAttrList();
 
-            IDictionary<int, long> AttrList = new Dictionary<int, long>();
+            IDictionary<int, double> AttrList = new Dictionary<int, double>();
             foreach (int attrId in BaseAttrList.Keys)
             {
                 if (!AttrList.ContainsKey(attrId))
