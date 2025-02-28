@@ -12,6 +12,7 @@ namespace Game
         public Button Btn_Close;
         public Button Btn_OK;
         public Button Btn_Query;
+        public Button Btn_OK_All;
 
         public RectTransform Container;
         public ToggleGroup toggleGroup;
@@ -27,6 +28,7 @@ namespace Game
         {
             Btn_Close.onClick.AddListener(OnClick_Close);
             Btn_OK.onClick.AddListener(OnClick_OK);
+            Btn_OK_All.onClick.AddListener(OnClick_OK_All);
             Btn_Query.onClick.AddListener(OnClick_Query);
         }
 
@@ -66,6 +68,16 @@ namespace Game
 
                 ItemList.Add(item);
             }
+
+            Debug.Log(config.Id + " " + config.Name + "" + config.OpenType);
+            if (config.OpenType == 1)
+            {
+                this.Btn_OK_All.gameObject.SetActive(true);
+            }
+            else
+            {
+                this.Btn_OK_All.gameObject.SetActive(false);
+            }
         }
 
         public void OnShow(ShowSelectEvent e)
@@ -92,14 +104,37 @@ namespace Game
                 return;
             }
 
+            this.gameObject.SetActive(false);
+
             //选择第N个装备
             GameProcessor.Inst.EventCenter.Raise(new SelectGiftEvent()
             {
                 BoxItem = boxItem,
-                Item = select.BoxItem.Item
+                Item = select.BoxItem.Item,
+                Nubmer = 1
             });
+        }
+
+
+        public void OnClick_OK_All()
+        {
+            Gift_Item select = ItemList.Where(m => m.toggle.isOn).FirstOrDefault();
+
+            if (select == null)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "请先选择一个道具", ToastType = ToastTypeEnum.Failure });
+                return;
+            }
 
             this.gameObject.SetActive(false);
+
+            //选择第N个装备
+            GameProcessor.Inst.EventCenter.Raise(new SelectGiftEvent()
+            {
+                BoxItem = boxItem,
+                Item = select.BoxItem.Item,
+                Nubmer = boxItem.MagicNubmer.Data
+            });
         }
 
         public void OnClick_Query()

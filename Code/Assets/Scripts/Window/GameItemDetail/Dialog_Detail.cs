@@ -127,7 +127,17 @@ namespace Game
                         GiftPack giftPack = this.boxItem.Item as GiftPack;
                         Txt_Memo.text = giftPack.Des;
                         this.Btn_Use.gameObject.SetActive(true);
-                        //this.Btn_UseAll.gameObject.SetActive(true);
+
+                        GiftPackConfig giftPackConfig = GiftPackConfigCategory.Instance.Get(giftPack.ConfigId);
+                        if (giftPackConfig.OpenType == 1)
+                        {
+                            this.Btn_UseAll.gameObject.SetActive(true);
+                        }
+                        else
+                        {
+                            this.Btn_UseAll.gameObject.SetActive(false);
+                        }
+                        //
                     }
                     break;
                 case ItemType.ExpPack:

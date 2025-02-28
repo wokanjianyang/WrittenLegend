@@ -428,6 +428,8 @@ namespace Game
     {
         public BoxItem BoxItem { get; set; }
         public Item Item { get; set; }
+
+        public long Nubmer { get; set; }
     }
 
     //------------Hero Phantom---------------

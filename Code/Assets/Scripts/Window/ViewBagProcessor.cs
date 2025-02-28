@@ -587,9 +587,12 @@ namespace Game
 
         private void OnSelectGift(SelectGiftEvent e)
         {
-            if (UseBoxItem(e.BoxItem, 1))
+            if (UseBoxItem(e.BoxItem, e.Nubmer))
             {
                 List<Item> items = new List<Item>();
+
+                e.Item.Count *= e.Nubmer;
+
                 items.Add(e.Item);
                 GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
             }
@@ -1308,7 +1311,7 @@ namespace Game
 
             //逻辑处理
 
-            if (boxItem == null)
+            if (boxItem == null || quantity > boxItem.MagicNubmer.Data)
             {
                 //Log.Debug("此物品已经被使用了");
                 return false;
