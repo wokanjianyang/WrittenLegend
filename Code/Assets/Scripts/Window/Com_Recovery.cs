@@ -25,6 +25,10 @@ namespace Game
         public InputField if_EquipLevel;
         [LabelText("四格等级")]
         public InputField ifSpeicalLevel;
+        [LabelText("遗物")]
+        public InputField if_Halidom;
+        [LabelText("红装升阶石")]
+        public InputField if_RedStone;
 
         [LabelText("随机幸运属性")]
         public InputField if_Lucky;
@@ -114,6 +118,8 @@ namespace Game
             if_DropRate.text = setting.DropRate.ToString();
             if_DropQuality.text = setting.DropQuality.ToString();
             ifSpeicalLevel.text = setting.SpecailLevel.ToString();
+            if_RedStone.text = setting.RedStoneLevel.ToString();
+            if_Halidom.text = setting.ExpTotal.ToString();
         }
 
 
@@ -141,6 +147,12 @@ namespace Game
 
             int.TryParse(ifSpeicalLevel.text, out int speicalLevel);
             user.RecoverySetting.SpecailLevel = speicalLevel;
+
+            int.TryParse(if_Halidom.text, out int halidomLevel);
+            user.RecoverySetting.HalidomLevel = halidomLevel;
+
+            int.TryParse(if_RedStone.text, out int redStoneLevel);
+            user.RecoverySetting.RedStoneLevel = redStoneLevel;
 
             for (var i = 0; i < equipRoleToggles.Length; i++)
             {

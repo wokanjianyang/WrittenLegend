@@ -24,6 +24,7 @@ namespace Game
         public Toggle tog_Monster_Skill;
         public Toggle tog_Monster_Damage;
         public Toggle tog_Player;
+        public Dropdown dp_InfoColor;
         //public Button btn_Query;
 
         public Text txt_Info;
@@ -62,6 +63,11 @@ namespace Game
                 this.ShowPlayerEffect(isOn);
             });
 
+            dp_InfoColor.ClearOptions();
+            dp_InfoColor.AddOptions(new List<string>() { "白色", "绿色", "蓝色", "紫色", "橙色", "红色", "金色" });
+
+            dp_InfoColor.onValueChanged.AddListener(this.onValueChange);
+
             this.btn_Change.onClick.AddListener(this.OnClick_Change);
             this.btn_Save.onClick.AddListener(this.OnClick_Save);
             this.btn_Load.onClick.AddListener(this.OnClick_Load);
@@ -81,6 +87,11 @@ namespace Game
                 Show();
             }
             //}
+        }
+
+        private void onValueChange(int value)
+        {
+            Debug.Log("dropDown：" + value);
         }
 
         private bool CheckShow()

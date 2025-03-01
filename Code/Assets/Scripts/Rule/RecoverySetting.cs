@@ -24,6 +24,10 @@ namespace Game
 
         public int DropQuality { get; set; } = 0;
 
+        public int HalidomLevel { get; set; } = 0;
+
+        public int RedStoneLevel { get; set; } = 0;
+
         public Dictionary<int, bool> EquipRole { get; private set; } = new Dictionary<int, bool>();
         public int SkillBookLevel { get; set; } = 0;//
 
@@ -176,6 +180,20 @@ namespace Game
                 }
 
                 if (ExclusiveQuanlity.GetValueOrDefault(qality, false))
+                {
+                    return true;
+                }
+            }
+            else if (item.Type == ItemType.Halidom)
+            {
+                if (item.ConfigId >= 40000051 && item.ConfigId<= 41000000  && item.ItemConfig.UseParam < HalidomLevel)
+                {
+                    return true;
+                }
+            }
+            else if (item.Type == ItemType.Material)
+            {
+                if (item.ConfigId >= 50000001 && item.ConfigId <= 51000000 && item.ItemConfig.UseParam < RedStoneLevel)
                 {
                     return true;
                 }
