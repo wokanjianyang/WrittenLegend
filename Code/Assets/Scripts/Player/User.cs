@@ -97,6 +97,8 @@ namespace Game
 
         public bool ShowPlayerEffect { get; set; } = true;
 
+        public int InfoColor { get; set; } = 1;
+
         public List<SkillData> SkillList { get; set; } = new List<SkillData>();
 
         public IDictionary<int, List<int>> SkillPanelList { get; set; } = new Dictionary<int, List<int>>();

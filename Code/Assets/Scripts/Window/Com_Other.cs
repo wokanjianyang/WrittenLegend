@@ -91,7 +91,9 @@ namespace Game
 
         private void onValueChange(int value)
         {
-            Debug.Log("dropDown：" + value);
+            //Debug.Log("dropDown：" + value);
+
+            GameProcessor.Inst.User.InfoColor = value + 1;
         }
 
         private bool CheckShow()
@@ -170,6 +172,7 @@ namespace Game
             tog_Monster_Skill.isOn = user.ShowMonsterSkill;
             tog_Monster_Damage.isOn = user.ShowMonsterDamage;
             tog_Player.isOn = user.ShowPlayerEffect;
+            dp_InfoColor.value = user.InfoColor - 1;
 
             string account = user.Account;
             //this.txt_Account.text = "设备Id:" + id;

@@ -259,11 +259,16 @@ namespace Game
                 soulRise = (int)(soulRise * soulPercent * dropModelRate / 100);
             }
 
-            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+            bool showMessage = QualityConfigHelper.GetMaxColor(items) >= user.InfoColor;
+
+            if (showMessage)
             {
-                Type = RuleType,
-                Message = BattleMsgHelper.BuildMonsterDeadMessage(this, exp, gold, items, itemCount, soulRise)
-            });
+                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+                {
+                    Type = RuleType,
+                    Message = BattleMsgHelper.BuildMonsterDeadMessage(this, exp, gold, items, itemCount, soulRise)
+                });
+            }
 
             if (itemCount > 0)
             {
@@ -280,7 +285,7 @@ namespace Game
 
             //œ»ªÿ ’
             List<Item> recoveryList = user.CheckRecovery(items, out long recoveryGold, out int recoveryCount);
-            if (recoveryCount > 0)
+            if (recoveryCount > 0 && showMessage)
             {
                 GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
                 {

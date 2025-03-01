@@ -18,6 +18,17 @@ namespace Game
             return titleColor;
         }
 
+        public static int GetMaxColor(List<Item> items)
+        {
+            int ml = 1;
+
+            foreach (var item in items)
+            {
+                ml = Math.Max(ml, item.GetQuality());
+            }
+            return ml;
+        }
+
         public static string GetEquipTagColor(bool isKeep)
         {
             return isKeep ? "FF0000" : "FFFFFF";

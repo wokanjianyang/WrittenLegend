@@ -59,7 +59,10 @@ public class BattleRule_Infinite : ABattleRule
 
         if (enemys.Count <= 0 && currentProgres <= MaxProgress && this.Start)
         {
-            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Infinite, Message = "第" + currentProgres + "波发起了进攻" });
+            if (user.InfoColor <= 1)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Infinite, Message = "第" + currentProgres + "波发起了进攻" });
+            }
 
             this.AttckTime = TimeHelper.ClientNowSeconds();
 
@@ -156,11 +159,14 @@ public class BattleRule_Infinite : ABattleRule
             }
         }
 
-        GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+        if (QualityConfigHelper.GetMaxColor(items) >= user.InfoColor)
         {
-            Type = RuleType.Infinite,
-            Message = BattleMsgHelper.BuildRewardMessage("无尽闯关" + level + "奖励:", exp, gold, items)
-        });
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+            {
+                Type = RuleType.Infinite,
+                Message = BattleMsgHelper.BuildRewardMessage("无尽闯关" + level + "奖励:", exp, gold, items),
+            });
+        }
     }
 
     public override void CheckGameResult()

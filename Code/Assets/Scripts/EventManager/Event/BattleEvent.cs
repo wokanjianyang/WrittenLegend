@@ -106,6 +106,8 @@ namespace Game
         public string Message { get; set; }
 
         public RuleType Type { get; set; } = RuleType.Normal;
+
+        public int MessageLevel { get; set; }
     }
 
     public class MineMsgEvent : SDD.Events.Event
