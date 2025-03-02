@@ -1311,7 +1311,7 @@ namespace Game
 
             //逻辑处理
 
-            if (boxItem == null || quantity > boxItem.MagicNubmer.Data)
+            if (boxItem == null)
             {
                 //Log.Debug("此物品已经被使用了");
                 return false;

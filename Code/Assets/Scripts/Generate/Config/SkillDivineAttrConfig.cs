@@ -99,6 +99,9 @@ namespace Game
 		/// <summary>PercentRate</summary>
 		[ProtoMember(8)]
 		public int PercentRate { get; set; }
+		/// <summary>LevelRequire</summary>
+		[ProtoMember(9)]
+		public int LevelRequire { get; set; }
 
 	}
 }

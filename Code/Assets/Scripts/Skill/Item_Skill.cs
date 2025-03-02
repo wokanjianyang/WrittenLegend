@@ -29,6 +29,7 @@ namespace Game
 
         public Button Btn_UpLevel;
         public Button Btn_Divine;
+        public Text Txt_Divine;
 
         List<Text> runeList = new List<Text>();
         List<Text> suitList = new List<Text>();
@@ -100,7 +101,18 @@ namespace Game
 
             if (skillPanel.DivineAttrConfig != null)
             {
-                this.Btn_Divine.gameObject.SetActive(true);
+                if (skillPanel.DivineAttrConfig.LevelRequire <= skillPanel.SkillData.MagicLevel.Data)
+                {
+                    this.Btn_Divine.gameObject.SetActive(true);
+                    this.Txt_Divine.gameObject.SetActive(false);
+                }
+                else
+                {
+                    this.Btn_Divine.gameObject.SetActive(false);
+                    this.Txt_Divine.gameObject.SetActive(true);
+
+                    this.Txt_Divine.text = "技能" + skillPanel.DivineAttrConfig.LevelRequire + "级解锁神技";
+                }
             }
             else
             {
