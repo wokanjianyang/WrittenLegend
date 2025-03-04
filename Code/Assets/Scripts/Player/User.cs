@@ -1744,6 +1744,10 @@ namespace Game
                     {
                         recoveryDict[ItemHelper.SpecialId_Exclusive_Stone] += item.GetQuality() * 1;
                     }
+                    else if (item.ItemConfig.RecoveryItemId > 0)
+                    {
+                        //Item item = ItemHelper.BuildMaterial(box.Item.ItemConfig.RecoveryItemId, box.MagicNubmer.Data * box.Item.ItemConfig.RecoveryCount);
+                    }
                 }
 
                 foreach (var kvp in recoveryDict)
