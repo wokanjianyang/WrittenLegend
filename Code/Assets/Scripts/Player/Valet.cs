@@ -104,7 +104,7 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.MulDamageIncrea, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.MulDamageIncrea) * InheritAdvance);
             AttributeBonus.SetAttr(AttributeEnum.MulDamageResist, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.MulDamageResist) * MaxInheritAdvance);
 
-            double sd = Master.AttributeBonus.GetAttackAttr(AttributeEnum.SkillDivine3009);
+            double sd = Master.AttributeBonus.GetAttackAttr(AttributeEnum.SkillDivine3010);
             if (sd > 0)
             {
                 sd = sd / 100.0;

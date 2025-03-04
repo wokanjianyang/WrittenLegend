@@ -275,18 +275,18 @@ namespace Game
                     AttributeBonus.SetAttr(AttributeEnum.MulHp, AttributeFrom.Skill, skillPanel.Percent);
                     AttributeBonus.SetAttr(AttributeEnum.MulAttrSpirit, AttributeFrom.Skill, skillPanel.Damage);
                 }
-                else if (skillData.SkillId == 2009)
+                else if (skillData.SkillId == 2010)
                 {
                     if (skillPanel.DivineLevel > 0)
                     {
-                        AttributeBonus.SetAttr(AttributeEnum.SkillDivine2009, AttributeFrom.Skill, skillPanel.DivineAttrConfig.Param * skillPanel.DivineLevel);
+                        AttributeBonus.SetAttr(AttributeEnum.SkillDivine2010, AttributeFrom.Skill, skillPanel.DivineAttrConfig.Param * skillPanel.DivineLevel);
                     }
                 }
-                else if (skillData.SkillId == 3009)
+                else if (skillData.SkillId == 3010)
                 {
                     if (skillPanel.DivineLevel > 0)
                     {
-                        AttributeBonus.SetAttr(AttributeEnum.SkillDivine3009, AttributeFrom.Skill, skillPanel.DivineAttrConfig.Param * skillPanel.DivineLevel);
+                        AttributeBonus.SetAttr(AttributeEnum.SkillDivine3010, AttributeFrom.Skill, skillPanel.DivineAttrConfig.Param * skillPanel.DivineLevel);
                     }
                 }
             }

@@ -87,8 +87,8 @@ namespace Game
         SkillValetSpeed = 307, //攻击速度
         SkillValetHp = 308, //生命加成
 
-        SkillDivine2009 = 12009, //分身神技
-        SkillDivine3009 = 13009, //无极神技
+        SkillDivine2010 = 12010, //分身神技
+        SkillDivine3010 = 13010, //无极神技
 
         ExtraDamage = 401,//额外伤害
 
