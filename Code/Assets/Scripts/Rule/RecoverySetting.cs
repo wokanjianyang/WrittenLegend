@@ -61,7 +61,7 @@ namespace Game
         }
 
 
-        public bool CheckRecovery(Item item)
+        public bool CheckRecovery(Item item, RecoveryType type)
         {
             if (item.IsLock)
             {
@@ -184,14 +184,14 @@ namespace Game
                     return true;
                 }
             }
-            else if (item.Type == ItemType.Halidom)
+            else if (item.Type == ItemType.Halidom && type == RecoveryType.Drop)
             {
                 if (item.ConfigId >= 40000051 && item.ConfigId<= 41000000  && item.ItemConfig.UseParam < HalidomLevel)
                 {
                     return true;
                 }
             }
-            else if (item.Type == ItemType.Material)
+            else if (item.Type == ItemType.Material && type == RecoveryType.Drop)
             {
                 if (item.ConfigId >= 50000001 && item.ConfigId <= 51000000 && item.ItemConfig.UseParam < RedStoneLevel)
                 {
@@ -201,5 +201,10 @@ namespace Game
 
             return false;
         }
+    }
+
+    public enum RecoveryType {
+        Drop = 1,//´ò¹ÖµôÂä
+        Other = 2, //ÆäËû
     }
 }

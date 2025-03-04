@@ -1704,7 +1704,7 @@ namespace Game
             List<Item> newList = new List<Item>();
             recoveryGold = 0;
 
-            List<Item> recoveryList = items.Where(m => RecoverySetting.CheckRecovery(m)).ToList();
+            List<Item> recoveryList = items.Where(m => RecoverySetting.CheckRecovery(m, RecoveryType.Drop)).ToList();
             recoveryCount = recoveryList.Count;
             if (recoveryList.Count > 0)
             {
@@ -1755,7 +1755,7 @@ namespace Game
                     }
                 }
 
-                items.RemoveAll(m => RecoverySetting.CheckRecovery(m));
+                items.RemoveAll(m => RecoverySetting.CheckRecovery(m, RecoveryType.Drop));
                 items.AddRange(newList);
             }
 
