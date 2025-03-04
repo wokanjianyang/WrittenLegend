@@ -97,6 +97,11 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.MulDamageIncrea, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.MulDamageIncrea));
             AttributeBonus.SetAttr(AttributeEnum.MulDamageResist, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.MulDamageResist));
 
+            if (this.Master.Camp != PlayerType.Hero)
+            {
+                AttributeBonus.SetAttr(AttributeEnum.Protect, AttributeFrom.HeroBase, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Protect));
+            }
+
             double sd = Master.AttributeBonus.GetAttackAttr(AttributeEnum.SkillDivine2010);
             if (sd > 0)
             {
@@ -114,10 +119,12 @@ namespace Game
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
 
-            if (this.RuleType == RuleType.Myth)
-            {
-                //Debug.Log("dupulication myth PhyAtt:" + AttributeBonus.GetTotalAttrDouble(AttributeEnum.PhyAtt));
-            }
+            //if (this.RuleType == RuleType.Myth || 1==1)
+            //{
+            //    Debug.Log("dupulication myth RealHpDamage:" + AttributeBonus.GetTotalAttrDouble(AttributeEnum.RealHpDamage));
+            //    Debug.Log("dupulication myth SpRate:" + AttributeBonus.GetTotalAttrDouble(AttributeEnum.SpRate));
+            //    Debug.Log("dupulication myth RealCritRate:" + AttributeBonus.GetTotalAttrDouble(AttributeEnum.RealCritRate));
+            //}
         }
 
         private void SetSkill()
