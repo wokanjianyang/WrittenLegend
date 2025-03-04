@@ -1746,7 +1746,13 @@ namespace Game
                     }
                     else if (item.ItemConfig.RecoveryItemId > 0)
                     {
-                        //Item item = ItemHelper.BuildMaterial(box.Item.ItemConfig.RecoveryItemId, box.MagicNubmer.Data * box.Item.ItemConfig.RecoveryCount);
+                        int RecoveryItemId = item.ItemConfig.RecoveryItemId;
+
+                        if (!recoveryDict.ContainsKey(RecoveryItemId))
+                        {
+                            recoveryDict[RecoveryItemId] = 0;
+                        }
+                        recoveryDict[RecoveryItemId] += item.ItemConfig.RecoveryCount;
                     }
                 }
 

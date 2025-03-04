@@ -119,7 +119,7 @@ namespace Game
             if_DropQuality.text = setting.DropQuality.ToString();
             ifSpeicalLevel.text = setting.SpecailLevel.ToString();
             if_RedStone.text = setting.RedStoneLevel.ToString();
-            if_Halidom.text = setting.ExpTotal.ToString();
+            if_Halidom.text = setting.HalidomLevel.ToString();
         }
 
 
