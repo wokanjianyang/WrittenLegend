@@ -118,6 +118,13 @@ namespace Game
 
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
+
+            //if (this.RuleType == RuleType.Myth || 1 == 1)
+            //{
+            //    Debug.Log("dupulication myth RealHpDamage:" + AttributeBonus.GetTotalAttrDouble(AttributeEnum.RealHpDamage));
+            //    Debug.Log("dupulication myth SpRate:" + AttributeBonus.GetTotalAttrDouble(AttributeEnum.SpRate));
+            //    Debug.Log("dupulication myth RealCritRate:" + AttributeBonus.GetTotalAttrDouble(AttributeEnum.RealCritRate));
+            //}
         }
 
         private void SetSkill()

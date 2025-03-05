@@ -255,11 +255,6 @@ namespace Game
                         AttributeBonus.SetAttr(AttributeEnum.WarlockSkillDamage, attrKey, skillPanel.Damage);
                     }
                 }
-                else if (skillData.SkillId == 3010)
-                {
-                    AttributeBonus.SetAttr(AttributeEnum.InheritAdvance, AttributeFrom.Skill, skillPanel.Percent);
-                    AttributeBonus.SetAttr(AttributeEnum.SkillValetHp, AttributeFrom.Skill, skillPanel.Damage);
-                }
                 else if (skillData.SkillId == 1011)
                 {
                     AttributeBonus.SetAttr(AttributeEnum.MulHp, AttributeFrom.Skill, skillPanel.Percent);
@@ -284,6 +279,9 @@ namespace Game
                 }
                 else if (skillData.SkillId == 3010)
                 {
+                    AttributeBonus.SetAttr(AttributeEnum.InheritAdvance, AttributeFrom.Skill, skillPanel.Percent);
+                    AttributeBonus.SetAttr(AttributeEnum.SkillValetHp, AttributeFrom.Skill, skillPanel.Damage);
+
                     if (skillPanel.DivineLevel > 0)
                     {
                         AttributeBonus.SetAttr(AttributeEnum.SkillDivine3010, AttributeFrom.Skill, skillPanel.DivineAttrConfig.Param * skillPanel.DivineLevel);
