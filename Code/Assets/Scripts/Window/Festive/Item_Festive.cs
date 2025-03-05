@@ -64,6 +64,11 @@ public class Item_Festive : MonoBehaviour
         Txt_Cost_Content.text = Config.Cost + " 个/次";
         Txt_Limit_Content.text = MaxCount + "/" + Config.Max;
 
+        if (Config.Step > 0)
+        {
+            Txt_Title.text += "(档位材料)";
+        }
+
         DropLimitConfig dropLimit = DropLimitConfigCategory.Instance.Get(1);
 
         if (DateTime.Now.Ticks > DateTime.Parse(dropLimit.StartDate).Ticks)

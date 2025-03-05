@@ -260,7 +260,7 @@ namespace Game
             if (UserData.StartTime > ConfigHelper.PackEndTime)
             {
                 //load时间大于结束时间,必须要更新
-                isTimeError = true;
+                isVersionError = true;
             }
 
             if (this.User.SecondExpTick > UserData.StartTime)
