@@ -55,7 +55,10 @@ public class Monster_Myth : APlayer
             List<SkillRune> runeList = SkillRuneConfigCategory.Instance.GetAllRune(skillData.SkillConfig.Id, 4);
             List<SkillSuit> suitList = SkillSuitHelper.GetAllSuit(skillData.SkillConfig.Id, 4);
 
-            SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, false);
+            SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, false, RuleType.Normal, 0);
+
+            //Debug.Log(skillData.SkillConfig.Name + " Percent  :" + skillPanel.Percent);
+            //Debug.Log(skillData.SkillConfig.Name + " Damage  :" + skillPanel.Damage);
 
             SkillState skill = new SkillState(this, skillPanel, skillData.Position, 0);
             SelectSkillList.Add(skill);
