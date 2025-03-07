@@ -4,7 +4,7 @@ v3.6.0
 4 提高道士驱魔符在神话之路的伤害
 4 修改升阶石回收，只会回收掉落的石头，其他来源的不回收。
 5 优化无尽跳关，每多1000层，多跳5层
-6 兑换码 yy1000 ，yy1001，yy1002，lingchegn1000，lingchegn1001，
+6 兑换码 gx360，yy1000 ，yy1001，yy1002，lingchegn1000，lingchegn1001，
 muchen666，liuxing666，xs666，xm1001，haozi888
 
 v3.5.9
