@@ -620,6 +620,26 @@ namespace Game
             }
         }
 
+        private List<Equip> AddGoldenEquip()
+        {
+            //定制红
+            List<Equip> list = new List<Equip>();
+
+            //list.Add(ItemHelper.BuildEquip(22205801, 7, 1, 0));
+            //list.Add(ItemHelper.BuildEquip(22205802, 7, 1, 0));
+
+            list.Add(ItemHelper.BuildEquip(22205801, 7, 1, 0));
+            list.Add(ItemHelper.BuildEquip(22205801, 7, 1, 0));
+            list.Add(ItemHelper.BuildEquip(22205801, 7, 1, 0));
+            list.Add(ItemHelper.BuildEquip(22205801, 7, 1, 0));
+            list.Add(ItemHelper.BuildEquip(22205801, 7, 1, 0));
+            list.Add(ItemHelper.BuildEquip(22205801, 7, 1, 0));
+            list.Add(ItemHelper.BuildEquip(22205801, 7, 1, 0));
+            list.Add(ItemHelper.BuildEquip(22205801, 7, 1, 0));
+
+            return list;
+        }
+
         private List<ExclusiveItem> AddExclusiveZhanshi()
         {
             //定制红
