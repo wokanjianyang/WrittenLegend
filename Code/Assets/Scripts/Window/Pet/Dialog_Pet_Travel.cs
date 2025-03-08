@@ -426,6 +426,7 @@ public class Dialog_Pet_Travel : MonoBehaviour
         if (this.SelectLayer < 0)
         {
             this.SelectLayer = Math.Min(this.MaxLayer, PetQuality);
+            this.SelectLayer = Math.Min(this.SelectLayer, tgLevelList.Count - 1);
             tgLevelList[SelectLayer].isOn = true;
         }
 
