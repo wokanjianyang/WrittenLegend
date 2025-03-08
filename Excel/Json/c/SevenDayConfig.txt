@@ -43,7 +43,7 @@
 {"_t":"SevenDayConfig","_id":403,"Day":5,"Cost":100,"Max":30,"Title":"兑换图鉴碎片*1000","TargetName":"图鉴碎片","TargetType":5,"TargetId":4101,"TargetCount":1000},
 {"_t":"SevenDayConfig","_id":404,"Day":5,"Cost":500,"Max":30,"Title":"兑换魂环碎片*50w","TargetName":"魂环碎片","TargetType":5,"TargetId":4001,"TargetCount":500000},
 {"_t":"SevenDayConfig","_id":405,"Day":5,"Cost":100,"Max":30,"Title":"兑换书页200个","TargetName":"书页","TargetType":5,"TargetId":4006,"TargetCount":200},
-{"_t":"SevenDayConfig","_id":500,"Day":6,"Cost":50000,"Max":3,"Title":"兑换法宝自选*1","TargetName":"法宝自选","TargetType":4,"TargetId":24,"TargetCount":1},
+{"_t":"SevenDayConfig","_id":500,"Day":6,"Cost":50000,"Max":3,"Title":"兑换新手法宝自选*1","TargetName":"新手法宝自选","TargetType":4,"TargetId":34,"TargetCount":1},
 {"_t":"SevenDayConfig","_id":501,"Day":6,"Cost":500,"Max":35,"Title":"兑换精炼石*100w","TargetName":"精炼石","TargetType":5,"TargetId":4002,"TargetCount":1000000},
 {"_t":"SevenDayConfig","_id":502,"Day":6,"Cost":100,"Max":35,"Title":"兑换四格碎片*1000","TargetName":"四格碎片","TargetType":5,"TargetId":4007,"TargetCount":1000},
 {"_t":"SevenDayConfig","_id":503,"Day":6,"Cost":100,"Max":35,"Title":"兑换图鉴碎片*1000","TargetName":"图鉴碎片","TargetType":5,"TargetId":4101,"TargetCount":1000},
