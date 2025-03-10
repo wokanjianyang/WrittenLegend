@@ -461,6 +461,7 @@ namespace Game
         private void OnCompositeEvent(CompositeEvent e)
         {
             CompositeConfig Config = e.Config;
+            long number = e.Number;
 
             User user = GameProcessor.Inst.User;
 
@@ -479,6 +480,9 @@ namespace Game
                         Quantity = 1,
                         BoxItem = boxItem
                     });
+
+                    Item item = ItemHelper.BuildItem((ItemType)Config.TargetType, Config.TargetId, 1, 1);
+                    AddBoxItem(item);
                 }
                 else
                 {
@@ -486,14 +490,13 @@ namespace Game
                     {
                         Type = type,
                         ItemId = configId,
-                        Quantity = Config.ItemCountList[i]
+                        Quantity = Config.ItemCountList[i] * number
                     });
+
+                    Item item = ItemHelper.BuildItem((ItemType)Config.TargetType, Config.TargetId, 1, number);
+                    AddBoxItem(item);
                 }
             }
-
-            Item item = ItemHelper.BuildItem((ItemType)Config.TargetType, Config.TargetId, 1, 1);
-
-            AddBoxItem(item);
 
             GameProcessor.Inst.EventCenter.Raise(new CompositeUIFreshEvent());
         }

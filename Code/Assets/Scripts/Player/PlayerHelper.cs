@@ -42,12 +42,14 @@ namespace Game
             {nameof(AttributeEnum.QualityIncrea), "品质加成" },
             {nameof(AttributeEnum.Miss), "闪避" },
             {nameof(AttributeEnum.Accuracy), "精准" },
+            {nameof(AttributeEnum.Strong), "韧性" },
             {nameof(AttributeEnum.Protect), "绝对减伤" },
             {nameof(AttributeEnum.BurstMul), "多次掉落" },
             {nameof(AttributeEnum.ExpFinal), "经验增幅" },
             {nameof(AttributeEnum.GoldFinal), "金币增幅" },
             {nameof(AttributeEnum.BurstFinal), "爆率增幅" },
             {nameof(AttributeEnum.QualityFinal), "品质增幅" },
+                        
 
             {nameof(AttributeEnum.SoulPercent), "炼魂" },
             {nameof(AttributeEnum.SpRate), "护盾固防" },

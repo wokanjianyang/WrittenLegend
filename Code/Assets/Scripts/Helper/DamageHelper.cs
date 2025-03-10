@@ -31,6 +31,13 @@ namespace Game
 
             double attack = roleAttr * (1 - defRate); //攻击 - 防御
 
+            //韧性减伤
+            double strong = enemy.GetAttackDoubleAttr(AttributeEnum.Strong);
+            if (strong > 0)
+            {
+                attack = attack / strong;
+            }
+
             //技能系数
             attack = attack * (skill.Percent + GetRolePercent(attcher, role)) / 100 + skill.Damage + GetRoleDamage(attcher, role);  // *百分比系数 + 固定数值
 

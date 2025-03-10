@@ -293,6 +293,8 @@ namespace Game
     public class CompositeEvent : SDD.Events.Event
     {
         public CompositeConfig Config { get; set; }
+
+        public long Number { get; set; }
     }
 
     public class CompositeUIFreshEvent : SDD.Events.Event
@@ -306,6 +308,8 @@ namespace Game
     public class ExchangeEvent : SDD.Events.Event
     {
         public ExchangeConfig Config { get; set; }
+
+        public int Number { get; set; }
     }
 
     public class ExclusiveDevourEvent : SDD.Events.Event
