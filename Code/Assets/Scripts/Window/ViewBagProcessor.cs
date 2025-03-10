@@ -481,8 +481,7 @@ namespace Game
                         BoxItem = boxItem
                     });
 
-                    Item item = ItemHelper.BuildItem((ItemType)Config.TargetType, Config.TargetId, 1, 1);
-                    AddBoxItem(item);
+                    number = 1; //防止其他地方数量配置不对
                 }
                 else
                 {
@@ -492,11 +491,11 @@ namespace Game
                         ItemId = configId,
                         Quantity = Config.ItemCountList[i] * number
                     });
-
-                    Item item = ItemHelper.BuildItem((ItemType)Config.TargetType, Config.TargetId, 1, number);
-                    AddBoxItem(item);
                 }
             }
+
+            Item item = ItemHelper.BuildItem((ItemType)Config.TargetType, Config.TargetId, 1, number);
+            AddBoxItem(item);
 
             GameProcessor.Inst.EventCenter.Raise(new CompositeUIFreshEvent());
         }
