@@ -225,6 +225,7 @@ namespace Game
             powerDef *= CalPercent(AttributeEnum.DamageResist) * CalPercent(AttributeEnum.AurasDamageResist);
             powerDamage *= Math.Min(GetTotalAttrDouble(AttributeEnum.CritRateResist), 1) * (GetTotalAttrDouble(AttributeEnum.CritDamageResist) + 100) / 100;
             powerDef *= CalPercent(AttributeEnum.Miss);
+            powerDef *= GetTotalAttrDouble(AttributeEnum.Strong);
 
             //减伤倍率
             double mdr = CalMulDamageResist(false);
