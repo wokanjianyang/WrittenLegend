@@ -113,6 +113,7 @@ namespace Game
 
         MulDamageIncrea = 2010,  //增伤倍率
         MulDamageResist = 2011, //减伤倍率
+        StrongMul = 2012,//韧性倍率
     }
 
     /// <summary>

@@ -118,6 +118,11 @@ namespace Game
                     mr = 1 + CalMulTotal(haveBuff, AttributeEnum.MulDef) / 100;
                     total *= mr;
                     break;
+                case AttributeEnum.Strong:
+                    total = CalTotal(AttributeEnum.Strong, haveBuff);
+                    mr = 1 + CalMulTotal(haveBuff, AttributeEnum.StrongMul) / 100;
+                    total *= mr;
+                    break;
                 case AttributeEnum.PhyDamage:
                     total = 100 + CalTotal(AttributeEnum.PhyDamage, haveBuff);
                     total = total * (1 + CalMulTotal(haveBuff, AttributeEnum.MulPhyDamageRise) / 100) - 100;
@@ -361,7 +366,8 @@ namespace Game
 
             total = (1 - total) * 100.0;
 
-            if (total >= 100) {
+            if (total >= 100)
+            {
                 total = 99.9999999999999;
             }
 
