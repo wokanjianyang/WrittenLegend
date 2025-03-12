@@ -1696,7 +1696,7 @@ namespace Game
 
             limitId += this.Account.Length * 1000;
 
-            return limitId + 1000;
+            return limitId + 1015;
         }
 
         public List<Item> CheckRecovery(List<Item> items, out long recoveryGold, out int recoveryCount)

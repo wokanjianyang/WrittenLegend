@@ -19,7 +19,7 @@ public class Dialog_FloatButtons : MonoBehaviour, IBattleLife, IPointerDownHandl
 
     public Image btn_Exit;
 
-    public Image btn_AD;
+    public Button btn_AD;
 
     private DragEnum dragType;
 
@@ -56,6 +56,8 @@ public class Dialog_FloatButtons : MonoBehaviour, IBattleLife, IPointerDownHandl
 
         DropLimitConfig dropLimit = DropLimitConfigCategory.Instance.Get(1);
         long nt = DateTime.Now.Ticks;
+
+        this.btn_AD.onClick.AddListener(OnClick_AD);
 
         if (nt < DateTime.Parse(dropLimit.EndDate).AddDays(1).Ticks)
         {
@@ -180,10 +182,6 @@ public class Dialog_FloatButtons : MonoBehaviour, IBattleLife, IPointerDownHandl
             else if (RectTransformUtility.RectangleContainsScreenPoint(this.btn_Exit.rectTransform, eventData.position))
             {
                 this.OnClick_Exit();
-            }
-            else if (RectTransformUtility.RectangleContainsScreenPoint(this.btn_AD.rectTransform, eventData.position))
-            {
-                this.OnClick_AD();
             }
         }
     }
