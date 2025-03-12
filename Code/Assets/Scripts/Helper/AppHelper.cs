@@ -116,5 +116,25 @@ namespace Game
             int todaySeed = Math.Abs(seed + TimeHelper.WeekSeed());
             return RandomHelper.RandomNumber(todaySeed, 1, int.MaxValue - 1);
         }
+
+        public static string GetCode()
+        {
+            string dllPath = Path.Combine(Application.dataPath, "Managed/Assembly-CSharp.dll");
+
+            string hash = "";
+
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                using (FileStream stream = File.OpenRead(dllPath))
+                {
+                    byte[] hashBytes = sha256.ComputeHash(stream);
+                    hash = BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+                }
+            }
+
+            Debug.Log($"Assembly-CSharp.dll哈希值：{hash}");
+
+            return "";
+        }
     }
 }
