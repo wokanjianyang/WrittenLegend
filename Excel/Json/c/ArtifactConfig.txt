@@ -18,7 +18,7 @@
 {"_t":"ArtifactConfig","_id":17,"ItemId":180017,"Name":"分解机","Type":17,"AttrValue":1,"MaxCount":800,"Quality":6,"Des":"分解精炼石+1"},
 {"_t":"ArtifactConfig","_id":18,"ItemId":180018,"Name":"摄魂瓶","Type":18,"AttrValue":1,"MaxCount":100,"Quality":6,"Des":"魂环碎片掉落+1"},
 {"_t":"ArtifactConfig","_id":19,"ItemId":180019,"Name":"副本杀手","Type":19,"AttrValue":1,"MaxCount":5,"Quality":6,"Des":"挑战装备副本，可以倍率+1"},
-{"_t":"ArtifactConfig","_id":20,"ItemId":180020,"Name":"传世之源","Type":20,"AttrValue":1,"MaxCount":100,"Quality":6,"Des":"传世等阶上限+1"},
+{"_t":"ArtifactConfig","_id":20,"ItemId":180020,"Name":"传世之源","Type":20,"AttrValue":1,"MaxCount":150,"Quality":6,"Des":"传世等阶上限+1"},
 {"_t":"ArtifactConfig","_id":21,"ItemId":180021,"Name":"神戒之源","Type":21,"AttrValue":1,"MaxCount":100,"Quality":6,"Des":"神戒等级上限+1"},
 {"_t":"ArtifactConfig","_id":22,"ItemId":180022,"Name":"传世契约","Type":22,"AttrValue":1,"MaxCount":4,"Quality":6,"Des":"广告的传世劵收益+1"},
 {"_t":"ArtifactConfig","_id":30,"ItemId":180030,"Name":"极·卖身契","Type":30,"AttrValue":1,"MaxCount":60,"Quality":7,"Des":"超级矿工额外加1"},

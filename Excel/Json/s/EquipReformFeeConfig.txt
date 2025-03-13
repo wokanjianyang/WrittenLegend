@@ -3,4 +3,8 @@
 {"_t":"EquipReformFeeConfig","_id":2,"StartLevel":51,"EndLevel":100,"BaseFee":2550,"RiseFee":75,"StoneFee":2},
 {"_t":"EquipReformFeeConfig","_id":3,"StartLevel":101,"EndLevel":150,"BaseFee":6225,"RiseFee":100,"StoneFee":3},
 {"_t":"EquipReformFeeConfig","_id":4,"StartLevel":151,"EndLevel":200,"BaseFee":11125,"RiseFee":150,"StoneFee":4},
+{"_t":"EquipReformFeeConfig","_id":5,"StartLevel":201,"EndLevel":250,"BaseFee":18475,"RiseFee":200,"StoneFee":5},
+{"_t":"EquipReformFeeConfig","_id":6,"StartLevel":251,"EndLevel":300,"BaseFee":28275,"RiseFee":250,"StoneFee":6},
+{"_t":"EquipReformFeeConfig","_id":7,"StartLevel":301,"EndLevel":400,"BaseFee":40525,"RiseFee":325,"StoneFee":8},
+{"_t":"EquipReformFeeConfig","_id":8,"StartLevel":401,"EndLevel":500,"BaseFee":72700,"RiseFee":400,"StoneFee":10},
 ]}

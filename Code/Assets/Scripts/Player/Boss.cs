@@ -79,9 +79,10 @@ namespace Game
             double attrModelRate = ModelConfig == null ? 1 : ModelConfig.AttrRate;
             double defModelRate = ModelConfig == null ? 1 : ModelConfig.DefRate;
 
-            double hp = Double.Parse(Config.HP);
-            double attr = Double.Parse(Config.PhyAttr);
-            double def = Double.Parse(Config.Def);
+            double hp = StringHelper.StringToNumber(Config.HP);
+            double attr = StringHelper.StringToNumber(Config.PhyAttr);
+            double def = StringHelper.StringToNumber(Config.Def);
+            double strong = StringHelper.StringToNumber(Config.Strong);
 
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, (hp * hpModelRate));
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, (attr * attrModelRate));
@@ -97,6 +98,8 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.Miss, AttributeFrom.HeroBase, Config.Miss);
             AttributeBonus.SetAttr(AttributeEnum.Accuracy, AttributeFrom.HeroBase, Config.Accuracy);
             AttributeBonus.SetAttr(AttributeEnum.Protect, AttributeFrom.HeroBase, Config.Protect);
+
+            AttributeBonus.SetAttr(AttributeEnum.Strong, AttributeFrom.HeroBase, strong);
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
         }

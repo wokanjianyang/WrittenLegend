@@ -139,4 +139,9 @@
 {"_t":"MapConfig","_id":1137,"Name":"地狱毒龙谷","Level":4,"Layer":4,"LevelRequired":"1400-3","Memo":"地狱魔核","DropLevel":0,"DropIdList":[202001,300091,104,504,210067,1009],"DropRateList":[10,2500,1000,18000,600000,140000],"BoosId":10137},
 {"_t":"MapConfig","_id":1138,"Name":"地狱火龙谷","Level":4,"Layer":4,"LevelRequired":"1400-4","Memo":"地狱龙甲","DropLevel":0,"DropIdList":[202001,300091,104,504,210068,1009],"DropRateList":[10,2500,1000,18000,600000,140000],"BoosId":10138},
 {"_t":"MapConfig","_id":1139,"Name":"地狱冰龙谷","Level":4,"Layer":4,"LevelRequired":"1400-5","Memo":"地狱龙爪","DropLevel":0,"DropIdList":[202001,300091,104,504,210069,1009],"DropRateList":[10,2500,1000,18000,600000,140000],"BoosId":10139},
+{"_t":"MapConfig","_id":1140,"Name":"深渊小村","Level":5,"Layer":5,"LevelRequired":"1450-1","Memo":"暗金装备","DropLevel":0,"DropIdList":[202002,300091,105,504,210070,1009],"DropRateList":[10,2500,1000,18000,600000,100000],"BoosId":10105},
+{"_t":"MapConfig","_id":1141,"Name":"深渊村外","Level":5,"Layer":5,"LevelRequired":"1450-2","Memo":"深渊鹿茸","DropLevel":0,"DropIdList":[202002,300091,105,504,210070,1009],"DropRateList":[10,2500,1000,18000,600000,140000],"BoosId":10106},
+{"_t":"MapConfig","_id":1142,"Name":"深渊农场","Level":5,"Layer":5,"LevelRequired":"1450-3","Memo":"深渊草帽","DropLevel":0,"DropIdList":[202002,300091,105,504,210070,1009],"DropRateList":[10,2500,1000,18000,600000,140000],"BoosId":10107},
+{"_t":"MapConfig","_id":1143,"Name":"深渊老城","Level":5,"Layer":5,"LevelRequired":"1450-4","Memo":"深渊猫爪","DropLevel":0,"DropIdList":[202002,300091,105,504,210070,1009],"DropRateList":[10,2500,1000,18000,600000,140000],"BoosId":10108},
+{"_t":"MapConfig","_id":1144,"Name":"深渊森林","Level":5,"Layer":5,"LevelRequired":"1450-5","Memo":"深渊花朵","DropLevel":0,"DropIdList":[202002,300091,105,504,210070,1009],"DropRateList":[10,2500,1000,18000,600000,140000],"BoosId":10109},
 ]}

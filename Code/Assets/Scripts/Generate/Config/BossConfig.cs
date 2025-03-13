@@ -96,41 +96,44 @@ namespace Game
 		/// <summary>生命</summary>
 		[ProtoMember(7)]
 		public string HP { get; set; }
-		/// <summary>DamageIncrea</summary>
+		/// <summary>Strong</summary>
 		[ProtoMember(8)]
+		public string Strong { get; set; }
+		/// <summary>DamageIncrea</summary>
+		[ProtoMember(9)]
 		public int DamageIncrea { get; set; }
 		/// <summary>DamageResist</summary>
-		[ProtoMember(9)]
+		[ProtoMember(10)]
 		public int DamageResist { get; set; }
 		/// <summary>CritRate</summary>
-		[ProtoMember(10)]
+		[ProtoMember(11)]
 		public int CritRate { get; set; }
 		/// <summary>CritDamage</summary>
-		[ProtoMember(11)]
+		[ProtoMember(12)]
 		public int CritDamage { get; set; }
 		/// <summary>Miss</summary>
-		[ProtoMember(12)]
+		[ProtoMember(13)]
 		public int Miss { get; set; }
 		/// <summary>Accuracy</summary>
-		[ProtoMember(13)]
+		[ProtoMember(14)]
 		public int Accuracy { get; set; }
 		/// <summary>Protect</summary>
-		[ProtoMember(14)]
+		[ProtoMember(15)]
 		public double Protect { get; set; }
 		/// <summary>经验</summary>
-		[ProtoMember(15)]
+		[ProtoMember(16)]
 		public long Exp { get; set; }
 		/// <summary>掉落金币</summary>
-		[ProtoMember(16)]
+		[ProtoMember(17)]
 		public long Gold { get; set; }
 		/// <summary>地图Id掉落</summary>
-		[ProtoMember(17)]
+		[ProtoMember(18)]
 		public int[] DropIdList { get; set; }
 		/// <summary>掉落概率列表</summary>
-		[ProtoMember(18)]
+		[ProtoMember(19)]
 		public int[] DropRateList { get; set; }
 		/// <summary>模型</summary>
-		[ProtoMember(19)]
+		[ProtoMember(20)]
 		public int ModelType { get; set; }
 
 	}

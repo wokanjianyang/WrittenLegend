@@ -81,7 +81,7 @@ namespace Game
 		/// <summary>ItemId</summary>
 		[ProtoMember(2)]
 		public int ItemId { get; set; }
-		/// <summary>Level</summary>
+		/// <summary>Layer</summary>
 		[ProtoMember(3)]
 		public int Level { get; set; }
 		/// <summary>Name</summary>

@@ -108,5 +108,5 @@
 {"_t":"CompositeConfig","_id":426,"Type":"魔石","ItemTypeList":[2,5],"ItemIdList":[426,4007],"ItemCountList":[1,67200000],"ItemQualityList":[0,0],"TargetName":"魔石二七阶","TargetId":427,"TargetType":2},
 {"_t":"CompositeConfig","_id":427,"Type":"魔石","ItemTypeList":[2,5],"ItemIdList":[427,4007],"ItemCountList":[1,134400000],"ItemQualityList":[0,0],"TargetName":"魔石二八阶","TargetId":428,"TargetType":2},
 {"_t":"CompositeConfig","_id":501,"Type":"其他","ItemTypeList":[5,5],"ItemIdList":[4015,4201],"ItemCountList":[5,10],"ItemQualityList":[0,0],"TargetName":"红装精华","TargetId":4011,"TargetType":5},
-{"_t":"CompositeConfig","_id":502,"Type":"其他","ItemTypeList":[5,5],"ItemIdList":[4011,4201],"ItemCountList":[20,100000],"ItemQualityList":[0,0],"TargetName":"金装精华","TargetId":4019,"TargetType":5},
+{"_t":"CompositeConfig","_id":502,"Type":"其他","ItemTypeList":[5,5],"ItemIdList":[4011,4201],"ItemCountList":[10,100000],"ItemQualityList":[0,0],"TargetName":"金装精华","TargetId":4019,"TargetType":5},
 ]}
