@@ -44,7 +44,7 @@ namespace Game
                 }
                 else if (quality == 8)
                 {
-                    return Random7(3, role);
+                    return Random7(3, 0);
                 }
                 else if (quality >= 5)
                 {

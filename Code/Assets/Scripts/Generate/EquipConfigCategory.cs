@@ -41,7 +41,14 @@ namespace Game
 
                 if (suitId == 0 && quality > 3)  //随机生成套装
                 {
-                    suitId = SkillSuitHelper.RandomSuit(seed, runeConfig.SkillId, runeConfig.Type).Id;
+                    if (quality == 8)
+                    {
+                        suitId = SkillSuitConfigCategory.Instance.GetSuitIdBySkillLayer(runeConfig.SkillLayer);
+                    }
+                    else
+                    {
+                        suitId = SkillSuitHelper.RandomSuit(seed, runeConfig.SkillId, runeConfig.Type).Id;
+                    }
                 }
             }
 

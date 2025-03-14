@@ -7,7 +7,10 @@ namespace Game
 
     public partial class SkillSuitConfigCategory
     {
-
+        public int GetSuitIdBySkillLayer(int skillLayer)
+        {
+            return list.Where(m => m.SkillLayer == skillLayer).First().Id;
+        }
     }
 
     public class SkillSuitHelper
