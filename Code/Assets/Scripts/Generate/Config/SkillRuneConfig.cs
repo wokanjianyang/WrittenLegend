@@ -156,6 +156,9 @@ namespace Game
 		/// <summary>系数倍率</summary>
 		[ProtoMember(27)]
 		public int PercentRate { get; set; }
+		/// <summary>SkillLayer</summary>
+		[ProtoMember(28)]
+		public int SkillLayer { get; set; }
 
 	}
 }

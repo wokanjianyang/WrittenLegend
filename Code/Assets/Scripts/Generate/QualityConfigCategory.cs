@@ -61,6 +61,9 @@ namespace Game
                 case 7:
                     titleColor = "FFD700";
                     break;
+                case 8:
+                    titleColor = "A67C40";
+                    break;
                 default:
                     break;
             }

@@ -58,9 +58,10 @@ namespace Game
 
         public IDictionary<int, IDictionary<int, Equip>> EquipPanelGoldenList { get; set; } = new Dictionary<int, IDictionary<int, Equip>>();
 
+        public IDictionary<int, IDictionary<int, Equip>> EquipPanelDarkGoldList { get; set; } = new Dictionary<int, IDictionary<int, Equip>>();
+
         public IDictionary<int, Equip> EquipPanelSpecial { get; set; } = new Dictionary<int, Equip>();
 
-        public IDictionary<int, Equip> EquipPanelGolden { get; set; } = new Dictionary<int, Equip>();
 
         public IDictionary<int, IDictionary<int, ExclusiveItem>> ExclusivePanelList { get; set; } = new Dictionary<int, IDictionary<int, ExclusiveItem>>();
 
@@ -74,6 +75,8 @@ namespace Game
 
         public bool EquipGoldenSetting { get; set; } = false;
         public int EquipGoldenIndex { get; set; } = 0;
+
+        public int EquipDarkGoldIndex { get; set; } = 0;
 
         public int SkillPanelIndex { get; set; } = 0;
 
@@ -858,11 +861,19 @@ namespace Game
                 ex.GetRuneList(skillId, skillDict);
             }
 
+            int skillLayer = SkillConfigCategory.Instance.Get(skillId).SkillLayer;
+
             //计算装备的词条加成
             List<int> skillList = this.EquipPanelList[EquipPanelIndex].Where(m => m.Value.SkillRuneConfig != null && m.Value.SkillRuneConfig.SkillId == skillId).Select(m => m.Value.SkillRuneConfig.Id).ToList();
 
             //金装词条
             skillList.AddRange(this.EquipPanelGoldenList[EquipGoldenIndex].Where(m => m.Value.SkillRuneConfig != null && m.Value.SkillRuneConfig.SkillId == skillId).Select(m => m.Value.SkillRuneConfig.Id).ToList());
+
+            //暗金词条
+            if (skillLayer > 0)
+            {
+                skillList.AddRange(this.EquipPanelDarkGoldList[EquipDarkGoldIndex].Where(m => m.Value.SkillRuneConfig != null && m.Value.SkillRuneConfig.SkillLayer == skillLayer).Select(m => m.Value.SkillRuneConfig.Id).ToList());
+            }
 
             //buff 词条
             if (buffList != null)
@@ -898,11 +909,19 @@ namespace Game
         {
             List<SkillSuit> list = new List<SkillSuit>();
 
+            int skillLayer = SkillConfigCategory.Instance.Get(skillId).SkillLayer;
+
             //计算装备的套装加成
             List<SkillSuitConfig> skillList = this.EquipPanelList[EquipPanelIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SkillSuitConfig.SkillId == skillId).Select(m => m.Value.SkillSuitConfig).ToList();
 
             //金装套装
             skillList.AddRange(this.EquipPanelGoldenList[EquipGoldenIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SkillSuitConfig.SkillId == skillId).Select(m => m.Value.SkillSuitConfig).ToList());
+
+            //暗金词条
+            if (skillLayer > 0)
+            {
+                skillList.AddRange(this.EquipPanelDarkGoldList[EquipDarkGoldIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SkillSuitConfig.SkillLayer == skillLayer).Select(m => m.Value.SkillSuitConfig).ToList());
+            }
 
             foreach (var ex in this.ExclusivePanelList[ExclusiveIndex].Values)
             {
@@ -963,6 +982,10 @@ namespace Game
             else if (quality == 7)
             {
                 equips = this.EquipPanelGoldenList[EquipGoldenIndex].Select(m => m.Value).Where(m => m.GetQuality() == quality && m.EquipConfig.Role == role).ToList();
+            }
+            else if (quality == 8)
+            {
+                equips = this.EquipPanelDarkGoldList[EquipDarkGoldIndex].Select(m => m.Value).Where(m => m.GetQuality() == quality && m.EquipConfig.Role == role).ToList();
             }
 
             List<int> layers = equips.Select(m => m.Layer).OrderByDescending(m => m).ToList();

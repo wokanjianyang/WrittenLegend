@@ -92,6 +92,7 @@ namespace Game
             {nameof(AttributeEnum.MulSpiritDamageRise), "道伤倍率" },
             {nameof(AttributeEnum.MulDamageIncrea), "增伤倍率" },
             {nameof(AttributeEnum.MulDamageResist),"减伤倍率" },
+            {nameof(AttributeEnum.StrongMul),"韧性倍率" },
         };
     }
 }

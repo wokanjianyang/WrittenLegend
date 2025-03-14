@@ -83,6 +83,7 @@ namespace Game
             double attr = StringHelper.StringToNumber(Config.PhyAttr);
             double def = StringHelper.StringToNumber(Config.Def);
             double strong = StringHelper.StringToNumber(Config.Strong);
+            double damageMul = StringHelper.StringToNumber(Config.DamageMul);
 
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, (hp * hpModelRate));
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, (attr * attrModelRate));
@@ -100,6 +101,7 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.Protect, AttributeFrom.HeroBase, Config.Protect);
 
             AttributeBonus.SetAttr(AttributeEnum.Strong, AttributeFrom.HeroBase, strong);
+            AttributeBonus.SetAttr(AttributeEnum.MulDamageIncrea, AttributeFrom.HeroBase, damageMul);
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
         }

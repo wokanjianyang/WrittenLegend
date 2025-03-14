@@ -8,9 +8,9 @@ namespace Game
 
     public partial class SkillRuneConfigCategory
     {
-        public SkillRuneConfig Random7(int role)
+        public SkillRuneConfig Random7(int type, int role)
         {
-            List<SkillRuneConfig> list = this.list.Where(m => m.Type == 2 && m.Role == role).ToList(); //选择金色词条
+            List<SkillRuneConfig> list = this.list.Where(m => m.Type == type && m.Role == role).ToList(); //选择金色词条
 
             int maxRate = list.Select(m => m.BuildRate).Sum();
             int rd = RandomHelper.RandomNumber(1, maxRate + 1);
@@ -40,7 +40,11 @@ namespace Game
 
                 if (quality == 7)
                 {
-                    return Random7(role);
+                    return Random7(2, role);
+                }
+                else if (quality == 8)
+                {
+                    return Random7(3, role);
                 }
                 else if (quality >= 5)
                 {

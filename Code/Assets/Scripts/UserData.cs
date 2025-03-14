@@ -166,6 +166,17 @@ namespace Game
                     }
                 }
 
+                if (user.EquipPanelDarkGoldList.Count < 7)
+                {
+                    for (int i = 0; i < 7; i++)
+                    {
+                        if (!user.EquipPanelDarkGoldList.ContainsKey(i))
+                        {
+                            user.EquipPanelDarkGoldList[i] = new Dictionary<int, Equip>();
+                        }
+                    }
+                }
+
                 if (user.ExclusivePanelList.Count < 7)
                 {
                     for (int i = 0; i < 7; i++)
