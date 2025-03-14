@@ -433,6 +433,15 @@ namespace Game
                 }
             }
 
+            //装备属性-暗金色装备
+            foreach (KeyValuePair<int, Equip> kvp in EquipPanelDarkGoldList[EquipDarkGoldIndex])
+            {
+                foreach (KeyValuePair<int, double> a in kvp.Value.GetTotalAttrList(0))
+                {
+                    AttributeBonus.SetAttr((AttributeEnum)a.Key, AttributeFrom.EquipBase, kvp.Key, a.Value);
+                }
+            }
+
             //套装属性
             List<EquipGroupConfig> suitList = GetEquipGroups();
             foreach (EquipGroupConfig item in suitList)
@@ -461,6 +470,16 @@ namespace Game
                     if (redItem.Level > 0)
                     {
                         AttributeBonus.SetAttr((AttributeEnum)(redItem.Config.AttrId), AttributeFrom.EquipRed, 70 + role, redItem.Config.AttrValue + redItem.Config.AttrRise * (redItem.Level - 1));
+                    }
+                }
+
+
+                EquipRedSuit red8 = GetEquipRedConfig(role, 8);
+                foreach (EquipRedItem redItem in red8.List)
+                {
+                    if (redItem.Level > 0)
+                    {
+                        AttributeBonus.SetAttr((AttributeEnum)(redItem.Config.AttrId), AttributeFrom.EquipRed, 80 + role, redItem.Config.AttrValue + redItem.Config.AttrRise * (redItem.Level - 1));
                     }
                 }
             }
@@ -1719,7 +1738,7 @@ namespace Game
 
             limitId += this.Account.Length * 1000;
 
-            return limitId + 1015;
+            return limitId + 1020;
         }
 
         public List<Item> CheckRecovery(List<Item> items, out long recoveryGold, out int recoveryCount)
