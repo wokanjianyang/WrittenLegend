@@ -102,6 +102,12 @@ namespace Game
             }
             return runeList;
         }
+
+        public List<SkillRuneConfig> GetSkillAllConfigs(int skillId, int skillLayer)
+        {
+            return this.list.Where(m => (m.SkillId == skillId) || (m.SkillLayer == skillLayer)).ToList();
+
+        }
     }
 
 

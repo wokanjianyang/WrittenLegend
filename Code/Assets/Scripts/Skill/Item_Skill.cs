@@ -71,7 +71,7 @@ namespace Game
                 }
             }
 
-            for (int i = 1; i <= 4; i++)
+            for (int i = 1; i <= 6; i++)
             {
                 Text text = this.transform.Find(string.Format("Txt_Suit{0}", i)).GetComponent<Text>();
                 if (text != null)

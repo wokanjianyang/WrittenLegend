@@ -418,6 +418,11 @@ namespace Game
         public int Index { get; set; }
     }
 
+    public class ChangeEquipDarkGoldEvent : SDD.Events.Event
+    {
+        public int Index { get; set; }
+    }
+
     public class ShowDropEvent : SDD.Events.Event
     {
         public List<Item> Items { get; set; }

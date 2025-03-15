@@ -381,13 +381,24 @@ namespace Game
             {
                 redTitle.text = string.Format("<color=#{0}>[金装属性]</color>", color);
             }
+            else if (quality == 8)
+            {
+                redTitle.text = string.Format("<color=#{0}>[暗金属性]</color>", color);
+            }
 
             Item_Equip_Red[] reds = tran_RedAttribute.GetComponentsInChildren<Item_Equip_Red>(true);
 
             for (int i = 0; i < reds.Length; i++)
             {
-                reds[i].gameObject.SetActive(true);
-                reds[i].SetContent(redSuit.List[i], quality);
+                if (i < redSuit.List.Count)
+                {
+                    reds[i].gameObject.SetActive(true);
+                    reds[i].SetContent(redSuit.List[i], quality);
+                }
+                else
+                {
+                    reds[i].gameObject.SetActive(false);
+                }
             }
         }
 

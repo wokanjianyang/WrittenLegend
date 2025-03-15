@@ -81,16 +81,15 @@ namespace Game
             long riseLevel = 0;
             if (isPlayer)
             {
-                List<SkillRuneConfig> skillRuneConfigs = SkillRuneConfigCategory.Instance.GetAll().Select(m => m.Value)
-                    .Where(m => m.SkillId == SkillId && m.Type >= 1).ToList();
+                List<SkillRuneConfig> skillRuneConfigs = SkillRuneConfigCategory.Instance.GetSkillAllConfigs(SkillId, skillData.SkillConfig.SkillLayer);
+
                 foreach (SkillRuneConfig config in skillRuneConfigs)
                 {
                     int count = runeList.Where(m => m.SkillRuneConfig.Id == config.Id).Select(m => m.AvailableQuantity).Sum();
                     RuneTextList.Add(new KeyValuePair<string, int>(config.Name, count));
                 }
 
-                List<SkillSuitConfig> skillSuitConfigs = SkillSuitConfigCategory.Instance.GetAll().Select(m => m.Value)
-                    .Where(m => m.SkillId == SkillId).ToList();
+                List<SkillSuitConfig> skillSuitConfigs = SkillSuitConfigCategory.Instance.GetSkillAllConfigs(SkillId, skillData.SkillConfig.SkillLayer);
                 foreach (SkillSuitConfig config in skillSuitConfigs)
                 {
                     int count = suitList.Where(m => m.SkillSuitConfig.Id == config.Id).Count();

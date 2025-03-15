@@ -237,6 +237,27 @@ namespace Game
         [LabelText("金鞋子")]
         金鞋子 = 30,
 
+        [LabelText("暗金武器")]
+        暗金武器 = 31,
+        [LabelText("暗金衣服")]
+        暗金衣服 = 32,
+        [LabelText("暗金项链")]
+        暗金项链 = 33,
+        [LabelText("暗金头盔")]
+        暗金头盔 = 34,
+        [LabelText("暗金左镯")]
+        暗金左镯 = 35,
+        [LabelText("暗金右镯")]
+        暗金右镯 = 36,
+        [LabelText("暗金左戒")]
+        暗金左戒 = 37,
+        [LabelText("暗金右戒")]
+        暗金右戒 = 38,
+        [LabelText("暗金腰带")]
+        暗金腰带 = 39,
+        [LabelText("暗金鞋子")]
+        暗金鞋子 = 40,
+
         [LabelText("主专属")]
         主专属 = 101,
         [LabelText("副专属")]

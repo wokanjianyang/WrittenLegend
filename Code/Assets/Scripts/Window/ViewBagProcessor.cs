@@ -50,6 +50,7 @@ namespace Game
         public Button btn_Pet;
 
         public Button btn_Equip_Golden;
+        public Button btn_Equip_Dark_Gold;
 
         [Title("功能框")]
         public Dialog_Exclusive ExclusiveDialog;
@@ -61,7 +62,7 @@ namespace Game
         public Dialog_Cycle DialogCycle;
         public Dialog_Pill DialogPill;
         public Dialog_EquipGolden DialogEquipGolden;
-
+        public Dialog_Equip_Dark_Gold DialogEquipDarkGold;
 
         private List<Com_Box> items = new List<Com_Box>();
 
@@ -93,6 +94,7 @@ namespace Game
             this.btn_Ring.onClick.AddListener(OnOpenRing);
             this.btn_Pill.onClick.AddListener(OnOpenPill);
             this.btn_Equip_Golden.onClick.AddListener(OnOpenEquipGolden);
+            this.btn_Equip_Dark_Gold.onClick.AddListener(OnOpenEquipDarkGold);
             this.btn_Talent.onClick.AddListener(OnOpenTalent);
 
             this.Btn_Reset.onClick.AddListener(OnRefreshBag);
@@ -188,6 +190,8 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<ExchangeEvent>(this.OnExchangeEvent);
             GameProcessor.Inst.EventCenter.AddListener<ChangeExclusiveEvent>(this.OnChangeExclusiveEvent);
             GameProcessor.Inst.EventCenter.AddListener<ChangeEquipGoldenEvent>(this.OnChangeEquipGoldenEvent);
+            GameProcessor.Inst.EventCenter.AddListener<ChangeEquipDarkGoldEvent>(this.OnChangeEquipDarkGoldEvent);
+
 
             GameProcessor.Inst.EventCenter.AddListener<PetBattleUpEvent>(this.PetBattleUp);
 
@@ -250,6 +254,14 @@ namespace Game
                 yield return null;
             }
 
+            List<SlotBox> dgds = DialogEquipDarkGold.GetComponentsInChildren<SlotBox>().ToList();
+            for (int i = 0; i < dgds.Count; i++)
+            {
+                dgds[i].Init(prefab, 31 + i);
+                yield return null;
+            }
+
+
             foreach (var kvEp in user.EquipPanelList)
             {
                 foreach (var kvp in kvEp.Value)
@@ -268,6 +280,13 @@ namespace Game
 
             //穿戴金装
             foreach (var kvp in user.EquipPanelGoldenList[user.EquipGoldenIndex])
+            {
+                this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
+                //yield return null;
+            }
+
+            //穿戴暗金装
+            foreach (var kvp in user.EquipPanelDarkGoldList[user.EquipDarkGoldIndex])
             {
                 this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
                 //yield return null;
@@ -635,6 +654,23 @@ namespace Game
 
             //Debug.Log("OnChangeExclusiveEvent");
         }
+
+        private void OnChangeEquipDarkGoldEvent(ChangeEquipDarkGoldEvent e)
+        {
+            User user = GameProcessor.Inst.User;
+            user.EquipDarkGoldIndex = e.Index;
+
+            for (int i = 31; i <= 40; i++)
+            {
+                this.ClearEquipPanelItem(i);
+            }
+
+            foreach (var kvp in user.EquipPanelDarkGoldList[e.Index])
+            {
+                this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
+            }
+        }
+
 
         private void ChangePlan(int index)
         {
@@ -1416,6 +1452,10 @@ namespace Game
             {
                 ep = user.EquipPanelGoldenList[user.EquipGoldenIndex];
             }
+            else if (Part >= 31 && Part <= 40)
+            {
+                ep = user.EquipPanelDarkGoldList[user.EquipDarkGoldIndex];
+            }
 
             //增加一次穿戴记录，用做轮流穿戴左右
             if (!user.EquipRecord.ContainsKey(Part))
@@ -1446,6 +1486,10 @@ namespace Game
                 else if (Position >= 21 && Position <= 30)
                 {
                     slot = DialogEquipGolden.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == Position).First();
+                }
+                else if (Position >= 31 && Position <= 40)
+                {
+                    slot = DialogEquipDarkGold.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == Position).First();
                 }
 
                 Com_Box comItem = slot.GetEquip();
@@ -1501,7 +1545,7 @@ namespace Game
 
         private void ClearEquipPanelItem(int position)
         {
-            SlotBox slot = GetEquipSolt(position);
+            SlotBox slot = GetCurrentPanelEquipSolt(position);
 
             Com_Box comItem = slot.GetEquip();
             if (comItem != null)
@@ -1511,29 +1555,34 @@ namespace Game
             }
         }
 
-        private SlotBox GetEquipSolt(int position)
+        private SlotBox GetCurrentPanelEquipSolt(int position)
         {
             SlotBox slot = null;
 
-            if (position >= 21 && position <= 30)
-            {
-                slot = DialogEquipGolden.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
-            }
-            else if (position > 14 && position <= 20)
-            {
-                slot = ExclusiveDialog.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
-            }
-            else if (position > 10)
-            {
-                slot = EquipInfoSpecial.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
-            }
-            else if (position <= 10)
+            if (position <= 10)
             {
                 int pi = GameProcessor.Inst.User.EquipPanelIndex;
 
                 var EquipInfo = Equip_Plan_List[pi];
                 slot = EquipInfo.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
+            else if (position >= 11 && position <= 14)
+            {
+                slot = EquipInfoSpecial.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+            }
+            else if (position >= 15 && position <= 20)
+            {
+                slot = ExclusiveDialog.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+            }
+            else if (position >= 21 && position <= 30)
+            {
+                slot = DialogEquipGolden.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+            }
+            else if (position >= 31 && position <= 40)
+            {
+                slot = DialogEquipDarkGold.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+            }
+
             return slot;
         }
 
@@ -1558,6 +1607,10 @@ namespace Game
             else if (position >= 21 && position <= 30)
             {
                 slot = DialogEquipGolden.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+            }
+            else if (position >= 31 && position <= 40)
+            {
+                slot = DialogEquipDarkGold.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
 
             //生成格子
@@ -1600,6 +1653,10 @@ namespace Game
             else if (position >= 21 && position <= 30)
             {
                 slot = DialogEquipGolden.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+            }
+            else if (position >= 30 && position <= 40)
+            {
+                slot = DialogEquipDarkGold.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
 
             Com_Box comItem = slot.GetEquip();
@@ -1757,6 +1814,11 @@ namespace Game
         public void OnOpenEquipGolden()
         {
             DialogEquipGolden.Show();
+        }
+
+        public void OnOpenEquipDarkGold()
+        {
+            DialogEquipDarkGold.Show();
         }
 
         public void OnOpenTalent()

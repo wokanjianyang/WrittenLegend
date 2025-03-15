@@ -74,6 +74,7 @@ namespace Game
         public int ExclusiveIndex { get; set; } = 0;
 
         public bool EquipGoldenSetting { get; set; } = false;
+        public bool EquipDarkGoldSetting { get; set; } = false;
         public int EquipGoldenIndex { get; set; } = 0;
 
         public int EquipDarkGoldIndex { get; set; } = 0;

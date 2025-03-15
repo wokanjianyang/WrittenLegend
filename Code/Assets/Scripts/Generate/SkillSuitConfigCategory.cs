@@ -11,6 +11,10 @@ namespace Game
         {
             return list.Where(m => m.SkillLayer == skillLayer).First().Id;
         }
+
+        public List<SkillSuitConfig> GetSkillAllConfigs(int skillId, int skillLayer) {
+            return this.list.Where(m => (m.SkillId == skillId) || (m.SkillLayer == skillLayer)).ToList();
+        }
     }
 
     public class SkillSuitHelper
