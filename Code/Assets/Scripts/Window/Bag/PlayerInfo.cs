@@ -88,7 +88,7 @@ namespace Game
             QualityIncrea.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea).ToString() + "%";
 
             SecondExp.text = StringHelper.FormatNumber(user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondExp));
-            SecondGold.text = StringHelper.FormatNumber(user.AttributeBonus.GetTotalAttr(AttributeEnum.SecondGold));
+            SecondGold.text = StringHelper.FormatNumber(user.AttributeBonus.GetTotalAttr(AttributeEnum.Strong));
 
             RestoerHpPercent.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.RestoreHpPercent).ToString() + "%";
             Speed.text = user.AttributeBonus.GetTotalAttr(AttributeEnum.Speed).ToString() + "%";
