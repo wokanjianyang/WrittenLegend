@@ -81,7 +81,7 @@ namespace Game
             attack *= (1 + roleDamageRise / 100);
 
             //增伤倍率
-            double mdi = attcher.GetAttackAttr(AttributeEnum.MulDamageIncrea);
+            double mdi = attcher.GetAttackDoubleAttr(AttributeEnum.MulDamageIncrea);
             attack *= (1 + mdi / 100);
 
             //减伤倍率
@@ -112,6 +112,8 @@ namespace Game
                 extendDamage = maxHp * at;
                 //Debug.Log("maxHp:" + StringHelper.FormatNumber(maxHp) + " extendDamage:" + StringHelper.FormatNumber(extendDamage));
             }
+
+            //Debug.Log("attack:" + StringHelper.FormatNumber(attack));
 
             //强制最少1点伤害
             return new DamageResult(Math.Max(1, attack), extendDamage, type, (RoleType)role); //
