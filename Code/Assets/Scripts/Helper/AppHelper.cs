@@ -119,9 +119,14 @@ namespace Game
 
         public static string GetCode()
         {
-            string dllPath = Path.Combine(Application.dataPath, "Managed/Assembly-CSharp.dll");
+            string dllPath = Path.Combine(Application.dataPath, "/com.lcgame.wujinanyu/files/il2cpp/Managed/libil2cpp.so");
 
             string hash = "";
+
+            if (!File.Exists(dllPath))
+            {
+                return "路径不存在";
+            }
 
             using (SHA256 sha256 = SHA256.Create())
             {
@@ -134,7 +139,7 @@ namespace Game
 
             Debug.Log($"Assembly-CSharp.dll哈希值：{hash}");
 
-            return "";
+            return hash;
         }
     }
 }

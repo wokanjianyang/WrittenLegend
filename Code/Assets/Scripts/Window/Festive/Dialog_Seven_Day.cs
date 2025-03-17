@@ -2,6 +2,7 @@ using Game;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -11,6 +12,7 @@ using UnityEngine.UI;
 public class Dialog_Seven_Day : MonoBehaviour
 {
     public Text Txt_Total;
+    public Text Txt_Des;
 
     public ScrollRect sr_Panel;
     private GameObject ItemPrefab;
