@@ -65,6 +65,11 @@ namespace Game
             //Debug.Log("Config " + this.Progress + " Def:" + StringHelper.FormatNumber(def));
             def += def * Config.DefRise * riseLevel;
 
+            double damageMul = StringHelper.StringToNumber(Config.DamageMul);
+            damageMul += damageMul * Config.MulRise * riseLevel;
+
+            double strong = StringHelper.StringToNumber(Config.Strong);
+            strong += strong * Config.StrongRise * riseLevel;
             //Debug.Log("Infinit " + this.Progress + " HP:" + StringHelper.FormatNumber(hp));
             //Debug.Log("Infinit " + this.Progress + " Def:" + StringHelper.FormatNumber(def));
             //Debug.Log("Infinit " + this.Progress + " Attr:" + StringHelper.FormatNumber(attr));
@@ -85,6 +90,8 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.MulDamageResist, AttributeFrom.HeroBase, Config.MulDamageResist);
             AttributeBonus.SetAttr(AttributeEnum.Protect, AttributeFrom.HeroBase, Config.Protect);
 
+            AttributeBonus.SetAttr(AttributeEnum.Strong, AttributeFrom.HeroBase, strong);
+            AttributeBonus.SetAttr(AttributeEnum.MulDamageIncrea, AttributeFrom.HeroBase, damageMul);
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
         }

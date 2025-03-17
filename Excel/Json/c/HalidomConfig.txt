@@ -91,6 +91,6 @@
 {"_t":"HalidomConfig","_id":40000140,"ItemId":40000140,"Layer":4,"Name":"深渊鸡爪","AttrId":2004,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"物攻倍率"},
 {"_t":"HalidomConfig","_id":40000141,"ItemId":40000141,"Layer":4,"Name":"深渊鹿茸","AttrId":2005,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"魔法倍率"},
 {"_t":"HalidomConfig","_id":40000142,"ItemId":40000142,"Layer":4,"Name":"深渊草帽","AttrId":2006,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"道术倍率"},
-{"_t":"HalidomConfig","_id":40000143,"ItemId":40000143,"Layer":4,"Name":"深渊猫爪","AttrId":2012,"AttrValue":25,"RiseAttr":25,"MaxLevel":4,"Des":"韧性倍率"},
-{"_t":"HalidomConfig","_id":40000144,"ItemId":40000144,"Layer":4,"Name":"深渊花朵","AttrId":2001,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"攻击倍率"},
+{"_t":"HalidomConfig","_id":40000143,"ItemId":40000143,"Layer":4,"Name":"深渊猫爪","AttrId":2011,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"增伤倍率"},
+{"_t":"HalidomConfig","_id":40000144,"ItemId":40000144,"Layer":4,"Name":"深渊花朵","AttrId":2012,"AttrValue":25,"RiseAttr":25,"MaxLevel":4,"Des":"韧性倍率"},
 ]}

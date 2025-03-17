@@ -1684,6 +1684,10 @@ namespace Game
             {
                 user.EquipPanelGoldenList[user.EquipGoldenIndex].Remove(position);
             }
+            else if (position >= 31 && position <= 40)
+            {
+                user.EquipPanelDarkGoldList[user.EquipDarkGoldIndex].Remove(position);
+            }
 
             //通知英雄更新属性
             user.EventCenter.Raise(new HeroUnUseEquipEvent() { });
