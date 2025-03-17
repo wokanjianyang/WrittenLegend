@@ -40,7 +40,7 @@
 {"_t":"CodeConfig","_id":77,"Type":0,"code":"xs666","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013],"ItemQuanlityList":[666,66,55]},
 {"_t":"CodeConfig","_id":78,"Type":0,"code":"xm1001","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013],"ItemQuanlityList":[999,99,77]},
 {"_t":"CodeConfig","_id":79,"Type":0,"code":"haozi888","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013],"ItemQuanlityList":[888,88,66]},
-{"_t":"CodeConfig","_id":99,"Type":1,"code":"tt370","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013,26],"ItemQuanlityList":[8000,500,400]},
+{"_t":"CodeConfig","_id":99,"Type":1,"code":"tt370","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013,26],"ItemQuanlityList":[20000,1000,600]},
 {"_t":"CodeConfig","_id":108,"Type":1,"code":"anyult05ap","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013],"ItemQuanlityList":[1888,388,200]},
 {"_t":"CodeConfig","_id":10001,"Type":99,"code":"dki309d!34","ItemTypeList":[99],"ItemIdList":[0],"ItemQuanlityList":[360]},
 {"_t":"CodeConfig","_id":10002,"Type":99,"code":"z#y9kdckp4","ItemTypeList":[99],"ItemIdList":[0],"ItemQuanlityList":[360]},
