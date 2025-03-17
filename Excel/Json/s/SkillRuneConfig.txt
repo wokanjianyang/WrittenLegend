@@ -143,5 +143,5 @@
 {"_t":"SkillRuneConfig","_id":21008,"Type":3,"BuildRate":50,"Role":0,"SkillId":0,"SkillLayer":8,"Name":"八阶·专精","Des":"提高八阶全系技能系数10%系数增幅","Max":5,"PercentRate":10},
 {"_t":"SkillRuneConfig","_id":21009,"Type":3,"BuildRate":50,"Role":0,"SkillId":0,"SkillLayer":9,"Name":"九阶·专精","Des":"提高九阶全系技能系数10%系数增幅","Max":4,"PercentRate":10},
 {"_t":"SkillRuneConfig","_id":21010,"Type":3,"BuildRate":10,"Role":0,"SkillId":0,"SkillLayer":10,"Name":"十阶·专精","Des":"提高十阶全系技能系数10%系数增幅","Max":3,"PercentRate":10},
-{"_t":"SkillRuneConfig","_id":21011,"Type":3,"BuildRate":5,"Role":0,"SkillId":0,"SkillLayer":11,"Name":"十一阶·专精","Des":"提高十一阶全系技能系数10%系数增幅","Max":2,"PercentRate":10},
+{"_t":"SkillRuneConfig","_id":21011,"Type":3,"BuildRate":2,"Role":0,"SkillId":0,"SkillLayer":11,"Name":"十一阶·专精","Des":"提高十一阶全系技能系数10%系数增幅","Max":2,"PercentRate":10},
 ]}
