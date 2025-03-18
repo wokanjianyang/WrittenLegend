@@ -115,6 +115,12 @@ namespace Game
             long infiniteMax = user.GetAchievementProgeress(AchievementSourceType.Infinite);
             paramDict.Add("infinite", infiniteMax + "");
 
+            long babel = user.BabelData.Data;
+            paramDict.Add("babel", babel + "");
+
+            long artifactMetal = user.GetArtifactLevel(180030);
+            paramDict.Add("artifactMetal", artifactMetal + "");
+
             if (user.First_Create_Time > 0)
             {
                 string createTime = TimeHelper.SecondsToDate(user.First_Create_Time).ToString("yyyy-MM-dd");
