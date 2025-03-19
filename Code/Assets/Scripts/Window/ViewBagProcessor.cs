@@ -154,6 +154,14 @@ namespace Game
                 this.btn_Equip_Golden.gameObject.SetActive(false);
             }
 
+            if (user.MapId >= 1139)
+            {
+                this.btn_Equip_Dark_Gold.gameObject.SetActive(true);
+            }
+            else {
+                this.btn_Equip_Dark_Gold.gameObject.SetActive(false);
+            }
+
             if (user.Cycle.Data > 0 || user.MagicLevel.Data >= 50000)
             {
                 this.btn_Pet.gameObject.SetActive(true);

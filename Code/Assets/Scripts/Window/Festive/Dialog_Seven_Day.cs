@@ -59,6 +59,13 @@ public class Dialog_Seven_Day : MonoBehaviour
 
             itemList.Add(com);
         }
+
+        User user = GameProcessor.Inst.User;
+        long day = (TimeHelper.ClientNowSeconds() - user.First_Create_Time) / 86400 + 1;
+
+        day = 30 - day;
+
+        this.Txt_Des.text = "开局七天，每天解锁一批奖励，" + day + "天之后关闭新手活动入口，请及时兑换完毕";
     }
 
     private void ChangeAuto(bool isOn)

@@ -12,11 +12,11 @@ namespace Game
 
         public const int Channel_Tap = 1;
 
-        public const int Version = 370;
+        public const int Version = 371;
 
         public const long PackTime = 1742179889; //打包时间，防止作弊
 
-        public const long PackEndTime = 1743907889; //超过此时间,游戏不能使用，需要更新
+        public const long PackEndTime = 1744119594; //超过此时间,游戏不能使用，需要更新
 
         public const long Max_Level = 120000; //最大人物等级和强化等级
 

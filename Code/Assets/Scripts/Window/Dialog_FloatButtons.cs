@@ -72,7 +72,7 @@ public class Dialog_FloatButtons : MonoBehaviour, IBattleLife, IPointerDownHandl
         User user = GameProcessor.Inst.User;
         long day = (TimeHelper.ClientNowSeconds() - user.First_Create_Time) / 86400 + 1;
 
-        if (day >= 30)
+        if (day > 30)
         {
             this.Btn_Seven_Day.gameObject.SetActive(false);
         }
