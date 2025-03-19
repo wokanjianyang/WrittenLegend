@@ -118,7 +118,7 @@ namespace Game
             long babel = user.BabelData.Data;
             paramDict.Add("babel", babel + "");
 
-            long artifactMetal = user.GetArtifactLevel(180030);
+            long artifactMetal = user.GetArtifactLevel(30);
             paramDict.Add("artifactMetal", artifactMetal + "");
 
             if (user.First_Create_Time > 0)
