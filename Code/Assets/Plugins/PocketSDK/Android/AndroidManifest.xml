@@ -50,7 +50,7 @@
         <activity android:name="com.pocket.zxpa.MainActivity" />
         <activity android:name="com.pocket.zxpa.LoadADActivity" />
 
-        <activity
+        <!--<activity
             android:name="com.qq.e.ads.PortraitADActivity"
             android:screenOrientation="portrait"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
@@ -85,7 +85,7 @@
         <provider
             android:name="com.bytedance.sdk.openadsdk.multipro.TTMultiProvider"
             android:authorities="${applicationId}.TTMultiProvider"
-            android:exported="false" />
+            android:exported="false" />-->
 
     </application>
 

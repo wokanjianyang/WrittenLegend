@@ -12,15 +12,15 @@ public class ADUnityPlayerActivity extends UnityPlayerActivity
         super.onCreate(savedInstanceState);
 
 
-         adManager = new AdManager();
+         //adManager = new AdManager();
 
-         adManager.initAd(this);
+         //adManager.initAd(this);
     }
 
     // Quit Unity
     @Override protected void onDestroy ()
     {
-        adManager.Destroy();
+        //adManager.Destroy();
         super.onDestroy();
     }
 

@@ -133,7 +133,7 @@ public class MainActivity extends Activity implements PermissionsUtils.IPermissi
 
     private void GotoNextActivity()
     {
-        PocketSdk.initSDK(this, "taptap", "12600"); //11723
+        //PocketSdk.initSDK(this, "taptap", "12600"); //11723
 
         Intent i =  new  Intent (MainActivity.this  ,  ADUnityPlayerActivity.class  ).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity( i);
