@@ -132,14 +132,25 @@ public class Init : MonoBehaviour
     {
         AN_Preloader.LockScreen("正在获取时间...");
 
-        var timeTaks = TimeCheatingDetector.GetOnlineTimeTask("https://www.baidu.com/");
-        await timeTaks;
-        long currentTimeSecond = (long)timeTaks.Result.onlineSecondsUtc;
-        //Log.Debug("time:" + currentTimeSecond);
+
+        long currentTimeSecond = 0;
+
+        if (ConfigHelper.Channel == ConfigHelper.Channel_Tap)
+        {
+            currentTimeSecond = TimeHelper.ClientNowSeconds();
+
+            Log.Debug("local time:" + currentTimeSecond);
+        }
+        else
+        {
+            var timeTaks = TimeCheatingDetector.GetOnlineTimeTask("https://www.baidu.com/");
+            await timeTaks;
+            currentTimeSecond = (long)timeTaks.Result.onlineSecondsUtc;
+            Log.Debug("time:" + currentTimeSecond);
+            AN_Preloader.UnlockScreen();
+        }
 
         UserData.StartTime = currentTimeSecond;
-
-        AN_Preloader.UnlockScreen();
 
         this.LoadConfig();
 

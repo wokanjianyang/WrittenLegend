@@ -1,4 +1,5 @@
 using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,26 +23,31 @@ namespace Game
             PlayerGuide.onClick.AddListener(Reward);
         }
 
+        private void Update()
+        {
+            Txt_Time.text = DateTime.Now.ToString("MM-dd hh:mm:ss");
+        }
+
         public void Init()
         {
             User user = GameProcessor.Inst.User;
 
-            if (GameProcessor.Inst.isTimeError)
-            {
-                PlayerGuide.gameObject.SetActive(false);
-                Txt_Time.gameObject.SetActive(true);
-                //Txt_Time.text = "您的收益时间：" + TimeHelper.SecondsToDate(user.SecondExpTick).AddHours(8).ToString()+",时间正常且过了这个时间才有收益";
-                Txt_Time.text = "您的时间不正确或者没有更新，请校检时间或者更新游戏";
-                return;
-            }
+            //if (GameProcessor.Inst.isTimeError)
+            //{
+            //    PlayerGuide.gameObject.SetActive(false);
+            //    Txt_Time.gameObject.SetActive(true);
+            //    //Txt_Time.text = "您的收益时间：" + TimeHelper.SecondsToDate(user.SecondExpTick).AddHours(8).ToString()+",时间正常且过了这个时间才有收益";
+            //    Txt_Time.text = "您的时间不正确或者没有更新，请校检时间或者更新游戏";
+            //    return;
+            //}
 
-            if (GameProcessor.Inst.isCheckError)
-            {
-                PlayerGuide.gameObject.SetActive(false);
-                Txt_Time.gameObject.SetActive(true);
-                Txt_Time.text = "您修改了存档";
-                return;
-            }
+            //if (GameProcessor.Inst.isCheckError)
+            //{
+            //    PlayerGuide.gameObject.SetActive(false);
+            //    Txt_Time.gameObject.SetActive(true);
+            //    Txt_Time.text = "您修改了存档";
+            //    return;
+            //}
 
             TaskConfig config = TaskConfigCategory.Instance.GetById(user.TaskId);
 
