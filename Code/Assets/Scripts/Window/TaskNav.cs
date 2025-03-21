@@ -25,7 +25,7 @@ namespace Game
 
         private void Update()
         {
-            Txt_Time.text = DateTime.Now.ToString("MM-dd hh:mm:ss");
+            Txt_Time.text = DateTime.Now.ToString("MM-dd HH:mm:ss");
         }
 
         public void Init()
