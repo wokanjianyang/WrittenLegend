@@ -48,18 +48,36 @@ namespace Game
         {
             this.AttributeBonus = new AttributeBonus();
 
-            double riseHp = Math.Pow(Config.RiseHp, Progress - Config.StartLevel);
-            double riseAttr = Math.Pow(Config.RiseAttr, Progress - Config.StartLevel);
-            double riseDef = Math.Pow(Config.RiseDef, Progress - Config.StartLevel);
+            int riseLevel = Progress - Config.StartLevel;
+
+            double riseHp = Math.Pow(Config.RiseHp, riseLevel);
+            double riseAttr = Math.Pow(Config.RiseAttr, riseLevel);
+            double riseDef = Math.Pow(Config.RiseDef, riseLevel);
+            double riseStrong = Math.Pow(Config.RiseStrong, riseLevel);
+            double riseMul = Math.Pow(Config.MulRise, riseLevel);
+            double riseMiss = Config.RiseMiss * riseLevel;
+            double RiseAccuracy = Config.RiseAccuracy * riseLevel;
             //Debug.Log("pw:" + (Progress - Config.StartLevel));
-            //Debug.Log("RiseHp:" + riseHp);
-            //Debug.Log("riseAttr:" + riseAttr);
-            //Debug.Log("riseDef:" + riseDef);
 
-            double hp = Double.Parse(Config.HP) * (1 + riseHp);
-            double attr = Double.Parse(Config.Attr) * (1 + riseAttr);
-            double def = Double.Parse(Config.Def) * (1 + riseDef);
+            //if (Progress >= 100)
+            //{
+            //    Debug.Log("RiseHp:" + riseHp);
+            //    Debug.Log("riseAttr:" + riseAttr);
+            //    Debug.Log("riseDef:" + riseDef);
+            //}
 
+            double hp = StringHelper.StringToNumber(Config.HP) * (1 + riseHp);
+            double attr = StringHelper.StringToNumber(Config.Attr) * (1 + riseAttr);
+            double def = StringHelper.StringToNumber(Config.Def) * (1 + riseDef);
+
+            double strong = StringHelper.StringToNumber(Config.Strong) * (1 + riseStrong);
+            double damageMul = StringHelper.StringToNumber(Config.DamageMul) * (1 + riseMul);
+            //if (Progress >= 100)
+            //{
+            //    Debug.Log("hp:" + hp);
+            //    Debug.Log("attr:" + attr);
+            //    Debug.Log("def:" + def);
+            //}
             //Debug.Log("Defend " + this.Progress + " HP:" + StringHelper.FormatNumber(hp));
 
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp * QualityConfig.HpRate);
@@ -73,12 +91,20 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.CritRate, AttributeFrom.HeroBase, Config.CritRate);
             AttributeBonus.SetAttr(AttributeEnum.CritDamage, AttributeFrom.HeroBase, Config.CritDamage);
             AttributeBonus.SetAttr(AttributeEnum.MulDamageResist, AttributeFrom.HeroBase, Config.MulDamageResist);
-            AttributeBonus.SetAttr(AttributeEnum.Accuracy, AttributeFrom.HeroBase, Config.Accuracy);
-            AttributeBonus.SetAttr(AttributeEnum.Miss, AttributeFrom.HeroBase, Config.Miss);
+
+            AttributeBonus.SetAttr(AttributeEnum.Accuracy, AttributeFrom.HeroBase, Config.Accuracy + RiseAccuracy);
+            AttributeBonus.SetAttr(AttributeEnum.Miss, AttributeFrom.HeroBase, Config.Miss + riseMiss);
             AttributeBonus.SetAttr(AttributeEnum.Protect, AttributeFrom.HeroBase, Config.Protect);
+
+            AttributeBonus.SetAttr(AttributeEnum.Strong, AttributeFrom.HeroBase, strong);
+            AttributeBonus.SetAttr(AttributeEnum.MulDamageIncrea, AttributeFrom.HeroBase, damageMul);
 
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
+
+            //回满当前血量
+            this.SetAttackSpeed(Config.Speed);
+            this.SetMoveSpeed(Config.Speed);
         }
 
 

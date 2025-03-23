@@ -17,7 +17,7 @@ namespace Game
         public Text Txt_Start;
         public Text Txt_Over;
 
-        private string[] names = new string[] { "普通", "困难", "噩梦", "地狱", "深渊" };
+        private string[] names = new string[] { "普通", "困难", "噩梦", "地狱", "深渊", "混沌" };
 
         private int Level = 0;
         private int Type = 0;
