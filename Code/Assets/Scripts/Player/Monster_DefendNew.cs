@@ -115,7 +115,23 @@ namespace Game
             List<SkillData> list = new List<SkillData>();
             list.Add(new SkillData(9001, (int)SkillPosition.Default)); //增加默认技能
 
-            if (Quality + this.Layer >= 6)
+            if (this.Layer >= 6)
+            {
+                List<PlayerModel> models = PlayerModelCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Quality >= 5).ToList();
+                int index = RandomHelper.RandomNumber(0, models.Count);
+                PlayerModel model = models[index];
+
+                if (model.SkillList != null)
+                {
+                    for (int i = 0; i < model.SkillList.Length; i++)
+                    {
+                        list.Add(new SkillData(model.SkillList[i], i)); //增加默认技能
+                    }
+                }
+
+                this.Name = model.Name + "·" + Config.Name;
+            }
+            else if (Quality + this.Layer >= 6)
             {
                 //random model
                 List<PlayerModel> models = PlayerModelCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.StartMapId == 0).ToList();
