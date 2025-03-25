@@ -408,6 +408,8 @@
 {"_t":"DropConfig","_id":1007,"Level":0,"Name":"红装精华","Quantity":1,"ItemType":5,"ItemIdList":[4011]},
 {"_t":"DropConfig","_id":1008,"Level":0,"Name":"练体丹","Quantity":1,"ItemType":5,"ItemIdList":[4016]},
 {"_t":"DropConfig","_id":1009,"Level":0,"Name":"口粮","Quantity":1,"ItemType":5,"ItemIdList":[4022]},
+{"_t":"DropConfig","_id":1010,"Level":0,"Name":"金装精华","Quantity":1,"ItemType":5,"ItemIdList":[4025]},
+{"_t":"DropConfig","_id":1011,"Level":0,"Name":"暗金精华","Quantity":1,"ItemType":5,"ItemIdList":[4026]},
 {"_t":"DropConfig","_id":2000,"Level":0,"Name":"龙城图鉴","Quantity":1,"ItemType":11,"ItemIdList":[2000006,2000007,2000008,2000009,2000010]},
 {"_t":"DropConfig","_id":2001,"Level":0,"Name":"第一批冠名图鉴","Quantity":1,"ItemType":11,"ItemIdList":[2000001,2000002,2000003,2000004,2000005]},
 {"_t":"DropConfig","_id":2002,"Level":0,"Name":"第二批冠名图鉴","Quantity":1,"ItemType":11,"ItemIdList":[2000011,2000012,2000013]},
