@@ -109,10 +109,14 @@ public class Monster_Specail : APlayer
             user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
         }
 
-        GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+        bool showMessage = QualityConfigHelper.GetMaxColor(items) >= user.InfoColor;
+        if (showMessage)
         {
-            Type = RuleType,
-            Message = BattleMsgHelper.BuildMonsterDeadMessage(this, 0, 0, items, 0)
-        });
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+            {
+                Type = RuleType,
+                Message = BattleMsgHelper.BuildMonsterDeadMessage(this, 0, 0, items, 0)
+            });
+        }
     }
 }

@@ -68,7 +68,10 @@ public class Battle_Defend : ABattleRule
                 GameProcessor.Inst.EventCenter.Raise(new DefendBuffSelectEvent() { Index = si, Level = this.Level });
             }
 
-            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Defend, Message = "第" + this.Progress + "波发起了进攻" });
+            if (GameProcessor.Inst.User.InfoColor <= 1)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Defend, Message = "第" + this.Progress + "波发起了进攻" });
+            }
 
             //Load All
             for (int i = 0; i < MonsterList.Length; i++)
@@ -152,11 +155,14 @@ public class Battle_Defend : ABattleRule
             user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
         }
 
-        GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+        if (QualityConfigHelper.GetMaxColor(items) >= user.InfoColor)
         {
-            Type = RuleType.Defend,
-            Message = BattleMsgHelper.BuildRewardMessage("守卫沙城" + this.Progress + "奖励:", exp, gold, items)
-        });
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+            {
+                Type = RuleType.Defend,
+                Message = BattleMsgHelper.BuildRewardMessage("守卫沙城" + this.Progress + "奖励:", exp, gold, items)
+            });
+        }
     }
 
     //private void BuildReward()
