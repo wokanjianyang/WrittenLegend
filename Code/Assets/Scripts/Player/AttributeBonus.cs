@@ -211,7 +211,7 @@ namespace Game
             powerDamage *= CalPercent(AttributeEnum.AurasAttrIncrea);
             powerDamage *= CalPercent(AttributeEnum.DamageIncrea) * CalPercent(AttributeEnum.AurasDamageIncrea);
             powerDamage *= (1 + GetTotalAttrDouble(AttributeEnum.Lucky) * 0.1);
-            powerDamage *= Math.Min(GetTotalAttrDouble(AttributeEnum.CritRate), 1) * (GetTotalAttrDouble(AttributeEnum.CritDamage) + 150) / 100;
+            powerDamage *= (1 + Math.Min(GetTotalAttrDouble(AttributeEnum.CritRate), 1) * (GetTotalAttrDouble(AttributeEnum.CritDamage) + 150) / 100);
 
             double roleDamageRise = DamageHelper.GetRoleDamageAttackRise(this, role, true);
             powerDamage *= (1 + roleDamageRise / 100);
@@ -222,10 +222,10 @@ namespace Game
 
 
             double powerDef = GetTotalAttrDouble(AttributeEnum.HP) / 10 + GetTotalAttrDouble(AttributeEnum.Def) * 3;
-            powerDef *= CalPercent(AttributeEnum.DamageResist) * CalPercent(AttributeEnum.AurasDamageResist);
-            powerDamage *= Math.Min(GetTotalAttrDouble(AttributeEnum.CritRateResist), 1) * (GetTotalAttrDouble(AttributeEnum.CritDamageResist) + 100) / 100;
-            powerDef *= CalPercent(AttributeEnum.Miss);
-            powerDef *= GetTotalAttrDouble(AttributeEnum.Strong);
+            powerDef *= (1 + CalPercent(AttributeEnum.DamageResist) * CalPercent(AttributeEnum.AurasDamageResist));
+            powerDamage *= (1 + Math.Min(GetTotalAttrDouble(AttributeEnum.CritRateResist), 1) * (GetTotalAttrDouble(AttributeEnum.CritDamageResist) + 100) / 100);
+            powerDef *= (1 + CalPercent(AttributeEnum.Miss));
+            powerDef *= (1 + GetTotalAttrDouble(AttributeEnum.Strong));
 
             //减伤倍率
             double mdr = CalMulDamageResist(false);
