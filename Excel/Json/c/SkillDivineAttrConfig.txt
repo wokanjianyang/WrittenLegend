@@ -6,6 +6,6 @@
 {"_t":"SkillDivineAttrConfig","_id":5,"SkillId":2005,"Name":"神技·法力盾","Desc":"法力盾额外提高{0}的二次闪避","DamageType":0,"Param":15,"ParamRate":1,"PercentRate":1,"LevelRequire":1},
 {"_t":"SkillDivineAttrConfig","_id":6,"SkillId":3005,"Name":"神技·道力盾","Desc":"月灵获得{0}%系数的道力盾（无需人物上阵技能）","DamageType":0,"Param":10,"ParamRate":1,"PercentRate":1,"LevelRequire":1},
 {"_t":"SkillDivineAttrConfig","_id":10,"SkillId":1010,"Name":"神技·裂地斩","Desc":"裂地斩增加{0}%的触发概率，神话之路会削弱","DamageType":0,"Param":12,"ParamRate":1,"PercentRate":100,"LevelRequire":135},
-{"_t":"SkillDivineAttrConfig","_id":11,"SkillId":2010,"Name":"神技·分身术","Desc":"分身享受{0}%的天赋和无视防御效果，神话之路会削弱","DamageType":0,"Param":20,"ParamRate":1,"PercentRate":7,"LevelRequire":135},
-{"_t":"SkillDivineAttrConfig","_id":12,"SkillId":3010,"Name":"神技·无极道体","Desc":"宠物享受{0}%的天赋和无视防御效果，神话之路会削弱","DamageType":0,"Param":20,"ParamRate":1,"PercentRate":5,"LevelRequire":135},
+{"_t":"SkillDivineAttrConfig","_id":11,"SkillId":2010,"Name":"神技·分身术","Desc":"分身享受{0}%的天赋、无视防御、韧性效果，神话之路会削弱","DamageType":0,"Param":20,"ParamRate":1,"PercentRate":7,"LevelRequire":135},
+{"_t":"SkillDivineAttrConfig","_id":12,"SkillId":3010,"Name":"神技·无极道体","Desc":"宠物享受{0}%的天赋、无视防御、韧性效果，神话之路会削弱","DamageType":0,"Param":20,"ParamRate":1,"PercentRate":5,"LevelRequire":135},
 ]}

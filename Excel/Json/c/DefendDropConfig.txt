@@ -50,5 +50,5 @@
 {"_t":"DefendDropConfig","_id":49,"Layer":6,"DropId":220036,"Name":"等级丹*10","Rate":3,"StartLevel":10,"EndLevel":98,"RateLevel":1,"Max":5},
 {"_t":"DefendDropConfig","_id":50,"Layer":6,"DropId":220041,"Name":"改造石","Rate":8,"StartLevel":70,"EndLevel":98,"RateLevel":1,"Max":5},
 {"_t":"DefendDropConfig","_id":51,"Layer":6,"DropId":1010,"Name":"金色精华","Rate":10,"StartLevel":20,"EndLevel":70,"RateLevel":1,"Max":10},
-{"_t":"DefendDropConfig","_id":52,"Layer":6,"DropId":1011,"Name":"暗金精华","Rate":8,"StartLevel":51,"EndLevel":99,"RateLevel":1,"Max":10},
+{"_t":"DefendDropConfig","_id":52,"Layer":6,"DropId":1011,"Name":"暗金精华","Rate":8,"StartLevel":51,"EndLevel":98,"RateLevel":1,"Max":10},
 ]}

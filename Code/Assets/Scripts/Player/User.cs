@@ -204,6 +204,19 @@ namespace Game
             return (int)limit;
         }
 
+        public int GetFashionLimit()
+        {
+            int atLevel = GetArtifactValue(ArtifactType.FashionLimit);
+
+            int percent = GetArtifactValue(ArtifactType.FashinPercentLimit);
+            if (percent > 0)
+            {
+                atLevel = atLevel * (100 + percent) / 100;
+            }
+
+            return atLevel;
+        }
+
         public int GetHolidomLimit()
         {
             long limit = 4 + GetArtifactValue(ArtifactType.HolidomLimit);

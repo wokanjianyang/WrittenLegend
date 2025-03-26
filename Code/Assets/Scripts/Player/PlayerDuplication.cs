@@ -112,6 +112,7 @@ namespace Game
                 AttributeBonus.SetAttr(AttributeEnum.SpRate, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.SpRate) * sd);
                 AttributeBonus.SetAttr(AttributeEnum.RealHpDamage, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.RealHpDamage) * sd);
                 AttributeBonus.SetAttr(AttributeEnum.RealCritRate, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.RealCritRate) * sd);
+                AttributeBonus.SetAttr(AttributeEnum.Strong, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Strong) * sd);
             }
 
             this.RingType = Master.RingType;

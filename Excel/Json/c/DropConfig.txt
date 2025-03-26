@@ -347,6 +347,8 @@
 {"_t":"DropConfig","_id":180035,"Level":0,"Name":"极.魔法书","Quantity":1,"ItemType":18,"ItemIdList":[180035]},
 {"_t":"DropConfig","_id":180036,"Level":0,"Name":"极.无限之魂","Quantity":1,"ItemType":18,"ItemIdList":[180036]},
 {"_t":"DropConfig","_id":180037,"Level":0,"Name":"极.无限之魂","Quantity":1,"ItemType":18,"ItemIdList":[180037]},
+{"_t":"DropConfig","_id":180038,"Level":0,"Name":"极·万界图","Quantity":1,"ItemType":18,"ItemIdList":[180038]},
+{"_t":"DropConfig","_id":180039,"Level":0,"Name":"极·金蛟剪","Quantity":1,"ItemType":18,"ItemIdList":[180039]},
 {"_t":"DropConfig","_id":220000,"Level":0,"Name":"副本劵","Quantity":1,"ItemType":9,"ItemIdList":[4003]},
 {"_t":"DropConfig","_id":220001,"Level":0,"Name":"Boss劵","Quantity":1,"ItemType":5,"ItemIdList":[4004]},
 {"_t":"DropConfig","_id":220002,"Level":0,"Name":"四格碎片","Quantity":50,"ItemType":5,"ItemIdList":[4007]},

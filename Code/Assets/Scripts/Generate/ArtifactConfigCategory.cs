@@ -43,6 +43,7 @@ namespace Game
         RingLimit = 21,
         LegacyTicketAd = 22,
         MineCount2 = 30,
+        FashinPercentLimit = 39,
 
     }
 

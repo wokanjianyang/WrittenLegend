@@ -218,7 +218,7 @@ public class DialogFashion : MonoBehaviour, IBattleLife
 
         int currentLevel = (int)fs[currentItem.Part].Data;
 
-        int atLevel = user.GetArtifactValue(ArtifactType.FashionLimit);
+        int atLevel = user.GetFashionLimit();
 
         FashionSuitConfig suitConfig = FashionSuitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Id == CurrentSuit).FirstOrDefault();
 
@@ -266,7 +266,7 @@ public class DialogFashion : MonoBehaviour, IBattleLife
 
                 int needCount = CalNeedCount(currentLevel);
 
-                int atLevel = user.GetArtifactValue(ArtifactType.FashionLimit);
+                int atLevel = user.GetFashionLimit();
 
                 if (total >= needCount && currentLevel < 20 + atLevel)
                 {
