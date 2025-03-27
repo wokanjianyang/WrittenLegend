@@ -44,6 +44,15 @@ public class BattleRule_Legacy : ABattleRule
         }
 
         User user = GameProcessor.Inst.User;
+
+        if (checkAuto())
+        {
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Legacy, Message = "当前积分已经达标，或者阶数已满，自动停止挑战！" });
+            Start = false;
+            return;
+        }
+
+
         long LecacyCount = user.LegacyTikerCount.Data;
 
         GameProcessor.Inst.EventCenter.Raise(new ShowLegacyInfoEvent() { Count = LecacyCount });
@@ -66,6 +75,46 @@ public class BattleRule_Legacy : ABattleRule
     }
 
 
+    private bool checkAuto()
+    {
+        User user = GameProcessor.Inst.User;
+
+        LegacyMapConfig legacyMapConfig = LegacyMapConfigCategory.Instance.Get(MapId);
+
+        long needNumber = legacyMapConfig.PowerList[MapId - 1] + (this.Layer - 1) * 500;
+
+        //Debug.Log("needNumber:" + needNumber);
+
+        long[] powerList = new long[] { 0, 0, 0 };
+        long minCount = 0;
+
+        foreach (var kv in user.LegacyLayer)
+        {
+            LegacyConfig legacy = LegacyConfigCategory.Instance.Get(kv.Key);
+
+            for (int i = 0; i < legacy.PowerList.Length; i++)
+            {
+                powerList[i] += kv.Value.Data * legacy.PowerList[i];
+            }
+
+            if (legacy.Role == MapId && kv.Value.Data < this.Layer)
+            {
+                minCount++;
+            }
+        }
+
+        long totalNumber = powerList[MapId - 1];
+        //Debug.Log("totalNumber:" + totalNumber);
+
+        //Debug.Log("minCount:" + minCount);
+
+        if (minCount <= 0 || totalNumber >= needNumber)
+        {
+            return true;
+        }
+
+        return false;
+    }
 
     private void GameOver()
     {
