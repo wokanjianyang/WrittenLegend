@@ -102,6 +102,9 @@ namespace Game
 		/// <summary>TargetType</summary>
 		[ProtoMember(9)]
 		public int TargetType { get; set; }
+		/// <summary>AutoHide</summary>
+		[ProtoMember(10)]
+		public int AutoHide { get; set; }
 
 	}
 }

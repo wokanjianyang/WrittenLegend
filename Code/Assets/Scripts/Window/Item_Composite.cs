@@ -100,6 +100,15 @@ public class Item_Composite : MonoBehaviour
 
             long count = user.Bags.Where(m => (int)m.Item.Type == Config.ItemTypeList[i] && m.Item.ConfigId == Config.ItemIdList[i]).Select(m => m.MagicNubmer.Data).Sum();
 
+            if (Config.TargetType == 2 && Config.AutoHide == 1 && count <= 0)
+            {
+                this.gameObject.SetActive(false); //没有主材料的，隐藏
+            }
+            else
+            {
+                this.gameObject.SetActive(true);
+            }
+
             string color = "#00FF00";
 
             if (count < MaxCount)
