@@ -22,7 +22,7 @@
 {"_t":"FestiveConfig","_id":21,"Step":0,"Cost":200000,"Max":1,"Title":"兑换法宝自选*1","TargetName":"法宝自选","TargetType":4,"TargetId":25,"TargetCount":1},
 {"_t":"FestiveConfig","_id":22,"Step":0,"Cost":50000,"Max":20,"Title":"兑换低级法宝自选*1","TargetName":"低级法宝自选","TargetType":4,"TargetId":24,"TargetCount":1},
 {"_t":"FestiveConfig","_id":23,"Step":0,"Cost":300000,"Max":3,"Title":"兑换魂骨自选*1","TargetName":"魂骨自选","TargetType":4,"TargetId":28,"TargetCount":1},
-{"_t":"FestiveConfig","_id":24,"Step":0,"Cost":400000,"Max":1,"Title":"兑换极矿工礼包*1","TargetName":"极矿工礼包","TargetType":4,"TargetId":30,"TargetCount":1},
+{"_t":"FestiveConfig","_id":24,"Step":0,"Cost":400000,"Max":2,"Title":"兑换极矿工礼包*1","TargetName":"极矿工礼包","TargetType":4,"TargetId":30,"TargetCount":1},
 {"_t":"FestiveConfig","_id":26,"Step":0,"Cost":5000,"Max":100,"Title":"兑换改造石","TargetName":"改造石","TargetType":5,"TargetId":4021,"TargetCount":1},
 {"_t":"FestiveConfig","_id":27,"Step":0,"Cost":5000,"Max":100,"Title":"兑换宠物口粮*100","TargetName":"宠物口粮","TargetType":5,"TargetId":4022,"TargetCount":100},
 {"_t":"FestiveConfig","_id":28,"Step":0,"Cost":3000,"Max":60,"Title":"兑换红装精华*1","TargetName":"红装精华","TargetType":5,"TargetId":4011,"TargetCount":1},
