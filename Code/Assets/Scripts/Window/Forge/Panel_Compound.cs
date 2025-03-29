@@ -16,6 +16,8 @@ public class Panel_Compound : MonoBehaviour, IBattleLife
 
     private Dictionary<string, List<CompositeConfig>> allCompositeDatas = new Dictionary<string, List<CompositeConfig>>();
 
+    private List<Item_Composite> list = new List<Item_Composite>();
+
     public int Order => (int)ComponentOrder.Dialog;
 
     // Start is called before the first frame update
@@ -33,6 +35,8 @@ public class Panel_Compound : MonoBehaviour, IBattleLife
     public void OnBattleStart()
     {
         GameProcessor.Inst.EventCenter.AddListener<ChangeCompositeTypeEvent>(this.OnChangeCompositeTypeEvent);
+
+        GameProcessor.Inst.EventCenter.AddListener<CompositeUIFreshEvent>(this.OnUIFresh);
     }
 
     private void InitComposite()
@@ -66,6 +70,8 @@ public class Panel_Compound : MonoBehaviour, IBattleLife
 
         var firstCompositeList = this.allCompositeDatas.First().Value;
 
+        list.Clear();
+
         var compositeItemPrefab = Resources.Load<GameObject>("Prefab/Window/Item/Item_Composite");
         foreach (var config in firstCompositeList)
         {
@@ -76,6 +82,8 @@ public class Panel_Compound : MonoBehaviour, IBattleLife
 
             var com = compositeItem.GetComponent<Item_Composite>();
             com.SetData(config);
+
+            list.Add(com);
         }
     }
 
@@ -93,6 +101,9 @@ public class Panel_Compound : MonoBehaviour, IBattleLife
 
         var total = sr_Right.content.childCount - 1;
         var max = Mathf.Max(total, compositeList.Count);
+
+        list.Clear();
+
         for (var i = 0; i < max; i++)
         {
             if (i < compositeList.Count)
@@ -113,6 +124,8 @@ public class Panel_Compound : MonoBehaviour, IBattleLife
                     com = compositeItem.GetComponent<Item_Composite>();
                 }
                 com.SetData(config);
+
+                list.Add(com);
             }
             else
             {
@@ -122,6 +135,12 @@ public class Panel_Compound : MonoBehaviour, IBattleLife
 
         //sr_Right.horizontalNormalizedPosition = 0;
     }
-
+    public void OnUIFresh(CompositeUIFreshEvent e)
+    {
+        foreach (Item_Composite sp in list)
+        {
+            sp.Check();
+        }
+    }
 }
 

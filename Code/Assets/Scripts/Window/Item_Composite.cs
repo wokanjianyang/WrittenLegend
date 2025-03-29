@@ -37,19 +37,6 @@ public class Item_Composite : MonoBehaviour
 
         Btn_Ok.onClick.AddListener(OnClickOK);
         Btn_Ok_All.onClick.AddListener(OnClickOKAll);
-
-        GameProcessor.Inst.EventCenter.AddListener<CompositeUIFreshEvent>(this.OnUIFresh);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    void OnEnable()
-    {
-        this.Check();
     }
 
     private void Init()
@@ -82,12 +69,14 @@ public class Item_Composite : MonoBehaviour
         }
     }
 
-    private void Check()
+    public void Check()
     {
         if (Config == null)
         {
             return;
         }
+
+        this.gameObject.SetActive(true);
 
         User user = GameProcessor.Inst.User;
 
@@ -104,10 +93,6 @@ public class Item_Composite : MonoBehaviour
             {
                 this.gameObject.SetActive(false); //没有主材料的，隐藏
             }
-            else
-            {
-                this.gameObject.SetActive(true);
-            }
 
             string color = "#00FF00";
 
@@ -117,7 +102,7 @@ public class Item_Composite : MonoBehaviour
                 this.check = false;
             }
 
-            TxtCountList[i].text = string.Format("<color={0}>({1}/{2})</color>", color, count, MaxCount);
+            TxtCountList[i].text = string.Format("<color={0}>({1}/{2})</color>", color, StringHelper.FormatNumber(count), StringHelper.FormatNumber(MaxCount));
         }
     }
 
@@ -174,9 +159,6 @@ public class Item_Composite : MonoBehaviour
         }
     }
 
-    public void OnUIFresh(CompositeUIFreshEvent e)
-    {
-        this.Check();
-    }
+
 }
 
