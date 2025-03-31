@@ -38,10 +38,15 @@ namespace Game
         public Item_EquipCopy MythItem;
         public Map_Dialog_Myth MapDialogMyth;
 
+        public Button Btn_World;
+        public Map_Dialog_World MapDialogWorld;
+
         public Text Txt_Limit;
 
         void Start()
         {
+
+            Btn_World.onClick.AddListener(OnClick_World);
         }
 
         void OnEnable()
@@ -117,6 +122,11 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<OpenMythEvent>(this.OpenMyth);
 
             GameProcessor.Inst.EventCenter.AddListener<BattlerEndEvent>(this.OnBattlerEnd);
+        }
+
+        private void OnClick_World()
+        {
+            this.MapDialogWorld.gameObject.SetActive(true);
         }
 
         public void OnClose(CloseViewMoreEvent e)
