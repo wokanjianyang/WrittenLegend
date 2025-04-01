@@ -39,6 +39,7 @@ namespace Game
         Pill,
         Babel,
         Myth,
+        World,
     }
 
     public enum ComponentOrder

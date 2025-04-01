@@ -30,6 +30,20 @@ namespace Game
         public void OnPointerClick(PointerEventData eventData)
         {
             User user = GameProcessor.Inst.User;
+
+            int layer = user.WorldData.GetLayer(this.Config.Id);
+
+            if (layer >= 10)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "已通过，请等下个月", ToastType = ToastTypeEnum.Failure });
+                return;
+            }
+
+            var dialog = this.GetComponentInParent<Map_Dialog_World>();
+            dialog.gameObject.SetActive(false);
+
+            var vm = this.GetComponentInParent<ViewMore>();
+            vm.StartWorld(Config.Id, layer);
         }
 
         public void Show()

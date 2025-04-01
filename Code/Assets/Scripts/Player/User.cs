@@ -294,6 +294,7 @@ namespace Game
 
         public MythData MythData { get; set; } = new MythData();
 
+        public WorldData WorldData { get; set; } = new WorldData();
         public MagicData WingData { get; set; } = new MagicData();
 
         public MagicData PillData { get; set; } = new MagicData();

@@ -260,6 +260,14 @@ namespace Game
             GameProcessor.Inst.EventCenter.Raise(new MythStartEvent() { Id = id });
         }
 
+        public void StartWorld(int id, int layer)
+        {
+            scrollRect.gameObject.SetActive(false);
+
+            GameProcessor.Inst.EventCenter.Raise(new WorldStartEvent() { Id = id, Layer = layer });
+        }
+
+
         public void StartBabel()
         {
             User user = GameProcessor.Inst.User;

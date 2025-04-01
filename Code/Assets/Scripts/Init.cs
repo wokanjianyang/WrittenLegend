@@ -67,6 +67,7 @@ public class Init : MonoBehaviour
                 "Window/Map/Map_Pill",
                 "Window/Map/Map_Babel",
                 "Window/Map/Map_Myth",
+                "Window/Map/Map_World",
 
                 "Window/Dialog_Detail_Select",
                 "Window/Dialog_Detail",
