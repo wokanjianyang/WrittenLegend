@@ -36,7 +36,7 @@ public class MapWorld : MonoBehaviour, IBattleLife
         this.msgPrefab = Resources.Load<GameObject>("Prefab/Window/Item/Item_DropMsg");
 
         GameProcessor.Inst.EventCenter.AddListener<BattleMsgEvent>(this.OnBattleMsgEvent);
-        GameProcessor.Inst.EventCenter.AddListener<ShowMythInfoEvent>(this.OnShowInfo);
+        GameProcessor.Inst.EventCenter.AddListener<ShowWorldInfoEvent>(this.OnShowInfo);
         GameProcessor.Inst.EventCenter.AddListener<WorldStartEvent>(this.OnStart);
         GameProcessor.Inst.EventCenter.AddListener<BattleLoseEvent>(this.OnBattleLoseEvent);
 
@@ -63,7 +63,7 @@ public class MapWorld : MonoBehaviour, IBattleLife
         });
     }
 
-    public void OnShowInfo(ShowMythInfoEvent e)
+    public void OnShowInfo(ShowWorldInfoEvent e)
     {
         if (e.Layer < 5)
         {
@@ -77,7 +77,7 @@ public class MapWorld : MonoBehaviour, IBattleLife
 
     private void OnBattleMsgEvent(BattleMsgEvent e)
     {
-        if (e.Type != RuleType.Myth)
+        if (e.Type != RuleType.World)
         {
             return;
         }

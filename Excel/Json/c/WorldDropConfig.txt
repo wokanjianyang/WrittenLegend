@@ -1,0 +1,7 @@
+{"list":[
+{"_t":"WorldDropConfig","_id":1,"MapId":1,"StartLevel":1,"EndLevel":100,"ItemType":5,"ItemId":4001,"ItemCount":20000,"ItemType1":9,"ItemId1":4003,"ItemCount1":70,"ItemType2":5,"ItemId2":4004,"ItemCount2":70},
+{"_t":"WorldDropConfig","_id":2,"MapId":1,"StartLevel":101,"EndLevel":200,"ItemType":5,"ItemId":4001,"ItemCount":20000,"ItemType1":9,"ItemId1":4003,"ItemCount1":70,"ItemType2":5,"ItemId2":4004,"ItemCount2":80},
+{"_t":"WorldDropConfig","_id":3,"MapId":1,"StartLevel":201,"EndLevel":300,"ItemType":5,"ItemId":4001,"ItemCount":20000,"ItemType1":9,"ItemId1":4003,"ItemCount1":70,"ItemType2":5,"ItemId2":4004,"ItemCount2":90},
+{"_t":"WorldDropConfig","_id":4,"MapId":1,"StartLevel":301,"EndLevel":400,"ItemType":5,"ItemId":4001,"ItemCount":20000,"ItemType1":9,"ItemId1":4003,"ItemCount1":70,"ItemType2":5,"ItemId2":4004,"ItemCount2":100},
+{"_t":"WorldDropConfig","_id":5,"MapId":1,"StartLevel":401,"EndLevel":500,"ItemType":5,"ItemId":4001,"ItemCount":20000,"ItemType1":9,"ItemId1":4003,"ItemCount1":70,"ItemType2":4,"ItemId2":22,"ItemCount2":1},
+]}

@@ -9,14 +9,15 @@ public class Monster_World : APlayer
 {
     MonsterWorldConfig Config;
 
-    private int Layer = 1;
+    private int Step = 1;
 
-    public Monster_World(int mapId, int level, int step)
+    public Monster_World(int mapId, long level, int step)
     {
         this.GroupId = 2;
         this.RuleType = RuleType.World;
         this.Quality = 5;
-        this.Layer = level;
+        this.Level = level;
+        this.Step = step;
 
         Config = MonsterWorldConfigCategory.Instance.GetByMapIdAndStep(mapId, step);
 
@@ -87,9 +88,9 @@ public class Monster_World : APlayer
 
         double strong = StringHelper.StringToNumber(Config.Strong);
 
-        AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp );
+        AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp);
         AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr);
-        AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr );
+        AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr);
         AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr);
         AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, def);
 
@@ -114,4 +115,30 @@ public class Monster_World : APlayer
         return base.DoEvent();
     }
 
+    public override void OnHit(DamageResult dr)
+    {
+
+        double maxHp = this.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
+        double maxDamage = maxHp / 1000;
+        dr.Damage = Math.Min(dr.Damage, maxDamage);
+        dr.ExtendDamage = Math.Min(dr.ExtendDamage, maxDamage);
+
+        base.OnHit(dr);
+
+        if (Config.Step == 1 && Step < 5)
+        {
+            int nowPercent = (int)(this.HP * 100 / maxHp);
+            int stepPercent = 100 - this.Step * 20;
+
+            if (HP > 0 && stepPercent >= nowPercent)  //只有本体，从90%开始,过了每10%的界限
+            {
+                Step++;
+
+                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.World, Message = this.Name + "进入第一阶段!" });
+                //sepcial logic
+                var enemy = new Monster_World(Config.Id, this.Level, Step);
+                GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
+            }
+        }
+    }
 }

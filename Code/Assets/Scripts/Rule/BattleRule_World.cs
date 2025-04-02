@@ -67,19 +67,21 @@ public class BattleRule_World : ABattleRule
 
     private void BuildReward(int mapId)
     {
+        WorldDropConfig rewardConfig = WorldDropConfigCategory.Instance.GetConfig(mapId, Layer);
+
+        Debug.Log("map id:" + mapId + "  layer:" + Layer);
+
+        //掉落道具
         List<Item> items = new List<Item>();
+        items.Add(rewardConfig.BuildItem(Layer));
 
-        MythConfig mythConfig = MythConfigCategory.Instance.Get(mapId);
-
-        for (int i = 0; i < mythConfig.ItemIdList.Length; i++)
+        GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
         {
-            items.Add(ItemHelper.BuildItem((ItemType)mythConfig.ItemType[i], mythConfig.ItemIdList[i], 1, mythConfig.ItemQuantity[i]));
-        }
+            Type = RuleType.Babel,
+            Message = BattleMsgHelper.BuildRewardMessage("仙界神兽" + Layer + "轮奖励:", 0, 0, items)
+        });
 
         GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
-
-        string message = "仙界神兽" + mythConfig.MapName + "通关奖励";
-        GameProcessor.Inst.EventCenter.Raise(new ShowDropEvent() { Message = message, Items = items });
     }
 
     public override void CheckGameResult()
