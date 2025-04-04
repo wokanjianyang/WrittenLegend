@@ -134,7 +134,7 @@ public class Monster_World : APlayer
             {
                 Step++;
 
-                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.World, Message = this.Name + "进入第一阶段!" });
+                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.World, Message = this.Name + "进入第" + Step + "阶段!" });
                 //sepcial logic
                 var enemy = new Monster_World(Config.Id, this.Level, Step);
                 GameProcessor.Inst.PlayerManager.LoadMonster(enemy);

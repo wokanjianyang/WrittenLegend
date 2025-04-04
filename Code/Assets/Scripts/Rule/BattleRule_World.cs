@@ -57,8 +57,8 @@ public class BattleRule_World : ABattleRule
         {
             this.Start = false;
 
-            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Myth, Message = "挑战通关！" });
-            GameProcessor.Inst.User.MythData.SetOver(this.MapId);
+            GameProcessor.Inst.User.WorldData.SetOver(this.MapId);
+
             BuildReward(MapId);
 
             GameProcessor.Inst.CloseBattle(RuleType.World, 14);
@@ -67,17 +67,15 @@ public class BattleRule_World : ABattleRule
 
     private void BuildReward(int mapId)
     {
-        WorldDropConfig rewardConfig = WorldDropConfigCategory.Instance.GetConfig(mapId, Layer);
-
-        Debug.Log("map id:" + mapId + "  layer:" + Layer);
+        Debug.Log("BuildReward layer:" + this.Layer);
 
         //掉落道具
         List<Item> items = new List<Item>();
-        items.Add(rewardConfig.BuildItem(Layer));
+        items.Add(WorldDropConfigCategory.Instance.BuildItem(mapId, Layer));
 
         GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
         {
-            Type = RuleType.Babel,
+            Type = RuleType.World,
             Message = BattleMsgHelper.BuildRewardMessage("仙界神兽" + Layer + "轮奖励:", 0, 0, items)
         });
 

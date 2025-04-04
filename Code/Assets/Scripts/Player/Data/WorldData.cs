@@ -39,12 +39,12 @@ namespace Game
                 Record[id] = 0;
             }
 
-            return Record[id];
+            return Record[id] + 1;
         }
 
         public void SetOver(int id)
         {
-            this.Ticket = DateTime.Now.Ticks;
+            this.Record[id]++;
         }
     }
 }

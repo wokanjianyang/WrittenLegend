@@ -12,26 +12,31 @@ namespace Game
             var config = this.list.Where(m => m.MapId == mapId && m.StartLevel <= level && level <= m.EndLevel).FirstOrDefault();
             return config;
         }
-    }
 
-    public partial class WorldDropConfig
-    {
-        public Item BuildItem(int progress)
+        private int[] Drop1_List1 = new int[]{
+                  60000003, 60000002, 60000006, 60000007, 60000008, 60000009, 60000001, 60000003, 60000002, 60000006
+                , 60000007, 60000008, 60000009, 60000001, 60000010, 60000003, 60000002, 60000006, 60000007, 60000008
+                , 60000009, 60000001, 60000003, 60000002, 60000006, 60000007, 60000008, 60000009, 60000001, 60000010
+                , 60000005, 60000003, 60000002, 60000006, 60000007, 60000008, 60000009, 60000001, 60000003, 60000002
+                , 60000006, 60000007, 60000008, 60000009, 60000001, 60000010, 60000005, 60000004, 60000003, 60000002
+        };
+
+        private int[] Drop1_List2 = new int[] { 61000001, 61000002, 61000003, 61000004, 61000005 };
+
+        public Item BuildItem(int mapId, int progress)
         {
 
-            if (progress % 100 == 0)
+            if (progress % 100 != 0)
             {
-                return ItemHelper.BuildItem((ItemType)ItemType2, ItemId2, 1, ItemCount2);
-            }
-            else if (progress % 10 == 0)
-            {
-                return ItemHelper.BuildItem((ItemType)ItemType1, ItemId1, 1, ItemCount1);
+                int id = progress % Drop1_List1.Length;
+
+                return ItemHelper.BuildItem(ItemType.Material, Drop1_List1[id], 1, 1);
             }
             else
             {
-                return ItemHelper.BuildItem((ItemType)ItemType, ItemId, 1, ItemCount);
+                int id = (progress / 100) % Drop1_List2.Length;
+                return ItemHelper.BuildItem(ItemType.Material, Drop1_List2[id], 1, 1);
             }
         }
     }
-
 }

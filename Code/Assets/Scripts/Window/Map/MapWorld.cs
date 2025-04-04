@@ -55,6 +55,7 @@ public class MapWorld : MonoBehaviour, IBattleLife
         WorldConfig config = WorldConfigCategory.Instance.Get(e.Id);
 
         Txt_Name.text = config.MapName;
+        Txt_Time.text = e.Layer + "ÂÖ";
 
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {

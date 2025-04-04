@@ -16,6 +16,8 @@ namespace Game
 
         WorldConfig Config;
 
+        private int level = 0;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -25,17 +27,21 @@ namespace Game
         // Update is called once per frame
         void OnEnable()
         {
+            if (this.Config == null)
+            {
+                return;
+            }
+
+            this.Show();
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            User user = GameProcessor.Inst.User;
+            this.level = GameProcessor.Inst.User.WorldData.GetLayer(this.Config.Id);
 
-            int layer = user.WorldData.GetLayer(this.Config.Id);
-
-            if (layer >= 10)
+            if (this.level >= 100)
             {
-                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "已通过，请等下个月", ToastType = ToastTypeEnum.Failure });
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "已通关，请等下个月", ToastType = ToastTypeEnum.Failure });
                 return;
             }
 
@@ -43,15 +49,15 @@ namespace Game
             dialog.gameObject.SetActive(false);
 
             var vm = this.GetComponentInParent<ViewMore>();
-            vm.StartWorld(Config.Id, layer);
+            vm.StartWorld(Config.Id, this.level);
         }
 
         public void Show()
         {
-            User user = GameProcessor.Inst.User;
+            this.level = GameProcessor.Inst.User.WorldData.GetLayer(this.Config.Id);
 
             this.Txt_Name.text = Config.MapName;
-            this.Txt_Level.text = $"{1}(轮)"; ;
+            this.Txt_Level.text = $"{level}(轮)"; ;
             this.Txt_Desc.text = Config.Desc;
         }
 
