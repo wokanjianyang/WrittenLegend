@@ -74,12 +74,15 @@ public class Monster_World : APlayer
 
         double hp = StringHelper.StringToNumber(Config.Hp);
         double hpRise = Math.Pow(Config.RiseHp, riseLevel);
-        Debug.Log("Config " + this.Level + " hpRise:" + StringHelper.FormatNumber(hpRise));
         hp = hp * hpRise;
+
+        Debug.Log("Config " + this.Level + " hpRise:" + StringHelper.FormatNumber(hpRise));
 
         double attr = StringHelper.StringToNumber(Config.Attr);
         double attrRise = Math.Pow(Config.AttrRise, riseLevel);
         attr = attr * attrRise;
+
+        Debug.Log("Config " + this.Level + " attr:" + StringHelper.FormatNumber(attr));
 
         double def = StringHelper.StringToNumber(Config.Def);
         double defRise = Math.Pow(Config.DefRise, riseLevel);
@@ -88,6 +91,8 @@ public class Monster_World : APlayer
         double damageMul = StringHelper.StringToNumber(Config.DamageMul);
         double mulRise = Math.Pow(Config.MulRise, riseLevel);
         damageMul = damageMul * mulRise;
+
+        Debug.Log("Config " + this.Level + " damageMul:" + StringHelper.FormatNumber(damageMul));
 
         double strong = StringHelper.StringToNumber(Config.Strong);
         double strongRise = Math.Pow(Config.StrongRise, riseLevel);
@@ -104,8 +109,8 @@ public class Monster_World : APlayer
         AttributeBonus.SetAttr(AttributeEnum.CritRateResist, AttributeFrom.HeroBase, Config.CritRateResist + riseLevel * 10);
         AttributeBonus.SetAttr(AttributeEnum.CritDamageResist, AttributeFrom.HeroBase, Config.CritDamageResist + riseLevel * 10);
 
-        AttributeBonus.SetAttr(AttributeEnum.Accuracy, AttributeFrom.HeroBase, Config.Accuracy + riseLevel * 0.1);
-        AttributeBonus.SetAttr(AttributeEnum.Miss, AttributeFrom.HeroBase, Config.Miss + riseLevel * 0.1);
+        AttributeBonus.SetAttr(AttributeEnum.Accuracy, AttributeFrom.HeroBase, Config.Accuracy + riseLevel * 0.3);
+        AttributeBonus.SetAttr(AttributeEnum.Miss, AttributeFrom.HeroBase, Config.Miss + riseLevel * 0.3);
 
         AttributeBonus.SetAttr(AttributeEnum.Protect, AttributeFrom.HeroBase, Config.Protect);
 

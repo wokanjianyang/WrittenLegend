@@ -28,8 +28,13 @@ namespace Game
             //{
             //    Debug.Log("defRiseRate:" + defRiseRate + " defRate:" + defRate);
             //}
-
             double attack = roleAttr * (1 - defRate); //攻击 - 防御
+
+            if (attack <= 0)
+            {   //因为精度问题，最高16位，所以防御减伤最高16位
+                defRate = def * ConfigHelper.Def_Rate * defRiseRate / roleAttr;
+                attack = roleAttr / defRate;
+            }
 
             //韧性减伤
             double strong = enemy.GetAttackDoubleAttr(AttributeEnum.Strong);
