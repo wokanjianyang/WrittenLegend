@@ -87,53 +87,68 @@ namespace Game
 		/// <summary>MonsterName</summary>
 		[ProtoMember(4)]
 		public string MonsterName { get; set; }
-		/// <summary>Attr</summary>
+		/// <summary>LoseRate</summary>
 		[ProtoMember(5)]
+		public int LoseRate { get; set; }
+		/// <summary>Speed</summary>
+		[ProtoMember(6)]
+		public int Speed { get; set; }
+		/// <summary>Attr</summary>
+		[ProtoMember(7)]
 		public string Attr { get; set; }
 		/// <summary>AttrRise</summary>
-		[ProtoMember(6)]
+		[ProtoMember(8)]
 		public double AttrRise { get; set; }
 		/// <summary>Def</summary>
-		[ProtoMember(7)]
+		[ProtoMember(9)]
 		public string Def { get; set; }
 		/// <summary>DefRise</summary>
-		[ProtoMember(8)]
-		public string DefRise { get; set; }
+		[ProtoMember(10)]
+		public double DefRise { get; set; }
 		/// <summary>Hp</summary>
-		[ProtoMember(9)]
+		[ProtoMember(11)]
 		public string Hp { get; set; }
 		/// <summary>RiseHp</summary>
-		[ProtoMember(10)]
+		[ProtoMember(12)]
 		public double RiseHp { get; set; }
 		/// <summary>DamageMul</summary>
-		[ProtoMember(11)]
+		[ProtoMember(13)]
 		public string DamageMul { get; set; }
 		/// <summary>MulRise</summary>
-		[ProtoMember(12)]
+		[ProtoMember(14)]
 		public double MulRise { get; set; }
 		/// <summary>Strong</summary>
-		[ProtoMember(13)]
+		[ProtoMember(15)]
 		public string Strong { get; set; }
 		/// <summary>StrongRise</summary>
-		[ProtoMember(14)]
+		[ProtoMember(16)]
 		public double StrongRise { get; set; }
 		/// <summary>CritRate</summary>
-		[ProtoMember(15)]
+		[ProtoMember(17)]
 		public int CritRate { get; set; }
+		/// <summary>CritDamage</summary>
+		[ProtoMember(18)]
+		public int CritDamage { get; set; }
 		/// <summary>CritRateResist</summary>
-		[ProtoMember(16)]
+		[ProtoMember(19)]
 		public int CritRateResist { get; set; }
 		/// <summary>CritDamageResist</summary>
-		[ProtoMember(17)]
+		[ProtoMember(20)]
 		public int CritDamageResist { get; set; }
+		/// <summary>Accuracy</summary>
+		[ProtoMember(21)]
+		public int Accuracy { get; set; }
+		/// <summary>Miss</summary>
+		[ProtoMember(22)]
+		public int Miss { get; set; }
 		/// <summary>Protect</summary>
-		[ProtoMember(18)]
+		[ProtoMember(23)]
 		public int Protect { get; set; }
 		/// <summary>SkillIdList</summary>
-		[ProtoMember(19)]
+		[ProtoMember(24)]
 		public int[] SkillIdList { get; set; }
 		/// <summary>SkillLevelList</summary>
-		[ProtoMember(20)]
+		[ProtoMember(25)]
 		public int[] SkillLevelList { get; set; }
 
 	}

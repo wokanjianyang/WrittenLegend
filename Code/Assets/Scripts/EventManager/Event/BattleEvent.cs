@@ -528,7 +528,6 @@ namespace Game
     public class WorldStartEvent : SDD.Events.Event
     {
         public int Id { get; set; }
-        public int Layer { get; set; }
     }
 
     public class ShowWorldInfoEvent : SDD.Events.Event

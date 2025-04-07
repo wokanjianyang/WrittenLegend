@@ -82,6 +82,9 @@ namespace Game
         public bool Phantom_Auto = false;
         public int Phantom_Auto_Id = 0;
 
+        public bool World_Auto = false;
+        public int World_Auto_Id = 0;
+
         public bool Yundang = false;
         public bool Net = true;
 
@@ -877,6 +880,10 @@ namespace Game
             {
                 this.AutoPhantom();
             }
+            else if (ruleType == RuleType.World && World_Auto)
+            {
+                this.AutoWorld();
+            }
         }
 
         private void AutoEquipCopy()
@@ -977,6 +984,41 @@ namespace Game
         {
             this.EventCenter.Raise(new CopyViewCloseEvent());
             this.EventCenter.Raise(new PhantomStartEvent() { PhantomId = Phantom_Auto_Id });
+        }
+
+
+
+        private void AutoWorld()
+        {
+            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke(ConfigHelper.AutoStartMapTime + "S后自动挑战神兽", true,
+            () =>
+            {
+                StopCoroutine(ie_autoPhatom);
+                AutoStartWorld();
+            }, () =>
+            {
+                StopCoroutine(ie_autoPhatom);
+            });
+
+            ie_autoPhatom = StartCoroutine(this.ShowAutoStartWorld());
+        }
+        private IEnumerator ShowAutoStartWorld()
+        {
+            int cd = ConfigHelper.AutoStartMapTime;
+            for (int i = 0; i < cd; i++)
+            {
+                this.EventCenter.Raise(new SecondaryConfirmTextEvent() { Text = $"{(cd - i)}S后自动挑战神兽" });
+                yield return new WaitForSeconds(1f);
+            }
+
+            this.EventCenter.Raise(new SecondaryConfirmCloseEvent());
+
+            AutoStartWorld();
+        }
+        private void AutoStartWorld()
+        {
+            this.EventCenter.Raise(new CopyViewCloseEvent());
+            this.EventCenter.Raise(new WorldStartEvent() { Id = World_Auto_Id });
         }
 
         private IEnumerator AutoExitApp(ExitType type)

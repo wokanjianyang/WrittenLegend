@@ -104,6 +104,8 @@ namespace Game
         public static string[] PetName = { "战魂", "法魂", "道魂" };
         public const int PetMax = 2;
 
+        public const int MaxWorld = 1000;
+
         public static int GetFloorRate(long floor)
         {
             if (floor > 100 && floor < FastFloor)

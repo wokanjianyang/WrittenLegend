@@ -260,11 +260,11 @@ namespace Game
             GameProcessor.Inst.EventCenter.Raise(new MythStartEvent() { Id = id });
         }
 
-        public void StartWorld(int id, int layer)
+        public void StartWorld(int id)
         {
             scrollRect.gameObject.SetActive(false);
 
-            GameProcessor.Inst.EventCenter.Raise(new WorldStartEvent() { Id = id, Layer = layer });
+            GameProcessor.Inst.EventCenter.Raise(new WorldStartEvent() { Id = id});
         }
 
 

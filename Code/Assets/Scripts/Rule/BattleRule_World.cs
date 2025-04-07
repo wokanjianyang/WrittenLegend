@@ -12,11 +12,6 @@ public class BattleRule_World : ABattleRule
     private int Layer = 0;
     private int MapId = 0;
 
-    private double MapTime = 0;
-
-    private int MaxTime = 20;
-    private int CurrentLayer = 1;
-
     protected override RuleType ruleType => RuleType.Myth;
 
     public BattleRule_World(Dictionary<string, object> param)
@@ -33,7 +28,6 @@ public class BattleRule_World : ABattleRule
     private void Load()
     {
         Start = true;
-        MapTime = 0;
 
         var enemy = new Monster_World(MapId, Layer, 1);
         GameProcessor.Inst.PlayerManager.LoadMonster(enemy);

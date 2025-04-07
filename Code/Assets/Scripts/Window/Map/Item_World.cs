@@ -39,17 +39,19 @@ namespace Game
         {
             this.level = GameProcessor.Inst.User.WorldData.GetLayer(this.Config.Id);
 
-            if (this.level >= 100)
+            if (this.level > ConfigHelper.MaxWorld)
             {
-                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "已通关，请等下个月", ToastType = ToastTypeEnum.Failure });
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "已通关，请等下次", ToastType = ToastTypeEnum.Failure });
                 return;
             }
 
             var dialog = this.GetComponentInParent<Map_Dialog_World>();
             dialog.gameObject.SetActive(false);
 
+            GameProcessor.Inst.World_Auto_Id = this.Config.Id;
+
             var vm = this.GetComponentInParent<ViewMore>();
-            vm.StartWorld(Config.Id, this.level);
+            vm.StartWorld(Config.Id);
         }
 
         public void Show()

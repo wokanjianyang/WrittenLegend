@@ -48,14 +48,22 @@ public class MapWorld : MonoBehaviour, IBattleLife
     {
         this.gameObject.SetActive(true);
 
+        int layer = GameProcessor.Inst.User.WorldData.GetLayer(e.Id);
+
+        if (layer > ConfigHelper.MaxWorld)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "已通关，请等下次", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
+
         Dictionary<string, object> param = new Dictionary<string, object>();
         param.Add("MapId", e.Id);
-        param.Add("Layer", e.Layer);
+        param.Add("Layer", layer);
 
         WorldConfig config = WorldConfigCategory.Instance.Get(e.Id);
 
         Txt_Name.text = config.MapName;
-        Txt_Time.text = e.Layer + "轮";
+        Txt_Time.text = layer + "轮";
 
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {

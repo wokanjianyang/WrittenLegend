@@ -70,23 +70,28 @@ public class Monster_World : APlayer
 
     private void SetAttr()
     {
+        long riseLevel = this.Level - 1;
 
         double hp = StringHelper.StringToNumber(Config.Hp);
-        //Debug.Log("Config " + this.Progress + " HP:" + StringHelper.FormatNumber(hp));
-        //hp += hp * Config.HpRise * riseLevel;
+        double hpRise = Math.Pow(Config.RiseHp, riseLevel);
+        Debug.Log("Config " + this.Level + " hpRise:" + StringHelper.FormatNumber(hpRise));
+        hp = hp * hpRise;
 
         double attr = StringHelper.StringToNumber(Config.Attr);
-        //Debug.Log("Config " + this.Progress + " Attr:" + StringHelper.FormatNumber(attr));
-        //attr += attr * Config.AttrRise * riseLevel;
+        double attrRise = Math.Pow(Config.AttrRise, riseLevel);
+        attr = attr * attrRise;
 
         double def = StringHelper.StringToNumber(Config.Def);
-        //Debug.Log("Config " + this.Progress + " Def:" + StringHelper.FormatNumber(def));
-        //def += def * Config.DefRise * riseLevel;
+        double defRise = Math.Pow(Config.DefRise, riseLevel);
+        def = def * defRise;
 
         double damageMul = StringHelper.StringToNumber(Config.DamageMul);
-        //damageMul += damageMul * Config.MulRise * riseLevel;
+        double mulRise = Math.Pow(Config.MulRise, riseLevel);
+        damageMul = damageMul * mulRise;
 
         double strong = StringHelper.StringToNumber(Config.Strong);
+        double strongRise = Math.Pow(Config.StrongRise, riseLevel);
+        strong = strong * strongRise;
 
         AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp);
         AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr);
@@ -94,17 +99,22 @@ public class Monster_World : APlayer
         AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr);
         AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, def);
 
-        AttributeBonus.SetAttr(AttributeEnum.CritRate, AttributeFrom.HeroBase, Config.CritRate);
-        //AttributeBonus.SetAttr(AttributeEnum.CritDamage, AttributeFrom.HeroBase, Config.CritDamage);
+        AttributeBonus.SetAttr(AttributeEnum.CritRate, AttributeFrom.HeroBase, Config.CritRate + riseLevel * 10);
+        AttributeBonus.SetAttr(AttributeEnum.CritDamage, AttributeFrom.HeroBase, Config.CritDamage + riseLevel * 10);
+        AttributeBonus.SetAttr(AttributeEnum.CritRateResist, AttributeFrom.HeroBase, Config.CritRateResist + riseLevel * 10);
+        AttributeBonus.SetAttr(AttributeEnum.CritDamageResist, AttributeFrom.HeroBase, Config.CritDamageResist + riseLevel * 10);
 
-        //AttributeBonus.SetAttr(AttributeEnum.Accuracy, AttributeFrom.HeroBase, Config.Accuracy);
-        //AttributeBonus.SetAttr(AttributeEnum.Miss, AttributeFrom.HeroBase, Config.Miss);
-        //AttributeBonus.SetAttr(AttributeEnum.MulDamageResist, AttributeFrom.HeroBase, Config.MulDamageResist);
+        AttributeBonus.SetAttr(AttributeEnum.Accuracy, AttributeFrom.HeroBase, Config.Accuracy + riseLevel * 0.1);
+        AttributeBonus.SetAttr(AttributeEnum.Miss, AttributeFrom.HeroBase, Config.Miss + riseLevel * 0.1);
 
         AttributeBonus.SetAttr(AttributeEnum.Protect, AttributeFrom.HeroBase, Config.Protect);
 
         AttributeBonus.SetAttr(AttributeEnum.Strong, AttributeFrom.HeroBase, strong);
         AttributeBonus.SetAttr(AttributeEnum.MulDamageIncrea, AttributeFrom.HeroBase, damageMul);
+
+        //回满当前血量
+        this.SetAttackSpeed(Config.Speed);
+        this.SetMoveSpeed(Config.Speed);
 
         double MaxHP = AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
         SetHP(MaxHP);
@@ -119,7 +129,7 @@ public class Monster_World : APlayer
     {
 
         double maxHp = this.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
-        double maxDamage = maxHp / 1000;
+        double maxDamage = maxHp * Config.LoseRate / 1000;
         dr.Damage = Math.Min(dr.Damage, maxDamage);
         dr.ExtendDamage = Math.Min(dr.ExtendDamage, maxDamage);
 
@@ -134,7 +144,7 @@ public class Monster_World : APlayer
             {
                 Step++;
 
-                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.World, Message = this.Name + "进入第" + Step + "阶段!" });
+                //GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.World, Message = this.Name + "进入第" + Step + "阶段!" });
                 //sepcial logic
                 var enemy = new Monster_World(Config.Id, this.Level, Step);
                 GameProcessor.Inst.PlayerManager.LoadMonster(enemy);

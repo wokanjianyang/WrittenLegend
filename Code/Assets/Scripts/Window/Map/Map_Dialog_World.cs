@@ -13,6 +13,8 @@ public class Map_Dialog_World : MonoBehaviour
     public ScrollRect sr_Boss;
     public Button Btn_Close;
 
+    public Toggle toggle_Auto;
+
     private GameObject ItemPrefab;
     List<Item_World> items = new List<Item_World>();
 
@@ -22,6 +24,11 @@ public class Map_Dialog_World : MonoBehaviour
 
         Btn_Close.onClick.AddListener(OnClick_Close);
         this.Init();
+
+        toggle_Auto.onValueChanged.AddListener((isOn) =>
+        {
+            GameProcessor.Inst.World_Auto = isOn;
+        });
     }
 
     private void OnEnable()
