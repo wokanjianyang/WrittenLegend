@@ -49,8 +49,12 @@ public class Dialog_Cycle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        string account = GameProcessor.Inst.User.Account;
-        if (account.Length > 0)
+        User user = GameProcessor.Inst.User;
+
+        string account = user.Account;
+        long day = (TimeHelper.ClientNowSeconds() - user.First_Create_Time) / 86400 + 1;
+
+        if (account.Length > 0 || user.GetLimitId() >= 1030)
         {
             Btn_Ok.onClick.AddListener(OnClick_Ok);
         }
@@ -113,7 +117,7 @@ public class Dialog_Cycle : MonoBehaviour
             string color = level >= RequireLevel ? "#FFFF00" : "#FF0000";
             Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2}", color, level, RequireLevel);
 
-            if (level >= RequireLevel && cycle < ConfigHelper.Cycle_Max && user.Account != "")
+            if (level >= RequireLevel && cycle < ConfigHelper.Cycle_Max)
             {
                 Btn_Ok.gameObject.SetActive(true);
             }
@@ -159,10 +163,7 @@ public class Dialog_Cycle : MonoBehaviour
             return;
         }
 
-        if (user.Account != "")
-        {
-            user.Cycle.Data += 1;
-        }
+        user.Cycle.Data += 1;
         user.MagicLevel.Data = 1;
 
         user.EventCenter.Raise(new SetPlayerLevelEvent { Cycle = user.Cycle.Data, Level = user.MagicLevel.Data });

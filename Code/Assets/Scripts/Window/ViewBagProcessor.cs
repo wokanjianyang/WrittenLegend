@@ -115,9 +115,10 @@ namespace Game
             string account = user.Account;
             long day = (TimeHelper.ClientNowSeconds() - user.First_Create_Time) / 86400 + 1;
 
-            if (account.Length > 0 || day >= 30)
+            if (account.Length > 0 || user.GetLimitId() >= 1030)
             {
                 this.Btn_Cycle.gameObject.SetActive(true);
+                this.Btn_Cycle.onClick.AddListener(this.OnClick_Cycle);
             }
 
             if (user.Cycle.Data <= 0 && user.MagicLevel.Data < ConfigHelper.Max_Level)
@@ -158,7 +159,8 @@ namespace Game
             {
                 this.btn_Equip_Dark_Gold.gameObject.SetActive(true);
             }
-            else {
+            else
+            {
                 this.btn_Equip_Dark_Gold.gameObject.SetActive(false);
             }
 
@@ -217,12 +219,6 @@ namespace Game
                         ChangePlan(index);
                     }
                 });
-            }
-
-            string account = GameProcessor.Inst.User.Account;
-            if (account.Length > 0)
-            {
-                this.Btn_Cycle.onClick.AddListener(this.OnClick_Cycle);
             }
 
             GameProcessor.Inst.StartCoroutine(LoadBox());
