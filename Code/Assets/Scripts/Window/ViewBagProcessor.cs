@@ -51,6 +51,7 @@ namespace Game
 
         public Button btn_Equip_Golden;
         public Button btn_Equip_Dark_Gold;
+        public Button btn_Relic;
 
         [Title("功能框")]
         public Dialog_Exclusive ExclusiveDialog;
