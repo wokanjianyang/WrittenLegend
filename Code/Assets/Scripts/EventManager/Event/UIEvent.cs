@@ -162,4 +162,9 @@ namespace Game
     {
 
     }
+
+    public class RelicShowEvent : SDD.Events.Event
+    {
+
+    }
 }

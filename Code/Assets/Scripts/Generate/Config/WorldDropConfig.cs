@@ -75,45 +75,33 @@ namespace Game
     [ProtoContract]
 	public partial class WorldDropConfig: ProtoObject, IConfig
 	{
-		/// <summary>ID</summary>
+		/// <summary>Id</summary>
 		[ProtoMember(1)]
 		public int Id { get; set; }
 		/// <summary>MapId</summary>
 		[ProtoMember(2)]
 		public int MapId { get; set; }
-		/// <summary>StartLevel</summary>
+		/// <summary>DropType</summary>
 		[ProtoMember(3)]
+		public int DropType { get; set; }
+		/// <summary>ItemId</summary>
+		[ProtoMember(4)]
+		public int ItemId { get; set; }
+		/// <summary>Name</summary>
+		[ProtoMember(5)]
+		public string Name { get; set; }
+		/// <summary>Rate</summary>
+		[ProtoMember(6)]
+		public int Rate { get; set; }
+		/// <summary>StartLevel</summary>
+		[ProtoMember(7)]
 		public int StartLevel { get; set; }
 		/// <summary>EndLevel</summary>
-		[ProtoMember(4)]
-		public int EndLevel { get; set; }
-		/// <summary>ItemType</summary>
-		[ProtoMember(5)]
-		public int ItemType { get; set; }
-		/// <summary>ItemId</summary>
-		[ProtoMember(6)]
-		public int ItemId { get; set; }
-		/// <summary>ItemCount</summary>
-		[ProtoMember(7)]
-		public int ItemCount { get; set; }
-		/// <summary>ItemType1</summary>
 		[ProtoMember(8)]
-		public int ItemType1 { get; set; }
-		/// <summary>ItemId1</summary>
+		public int EndLevel { get; set; }
+		/// <summary>Max</summary>
 		[ProtoMember(9)]
-		public int ItemId1 { get; set; }
-		/// <summary>ItemCount1</summary>
-		[ProtoMember(10)]
-		public int ItemCount1 { get; set; }
-		/// <summary>ItemType2</summary>
-		[ProtoMember(11)]
-		public int ItemType2 { get; set; }
-		/// <summary>ItemId2</summary>
-		[ProtoMember(12)]
-		public int ItemId2 { get; set; }
-		/// <summary>ItemCount2</summary>
-		[ProtoMember(13)]
-		public int ItemCount2 { get; set; }
+		public int Max { get; set; }
 
 	}
 }

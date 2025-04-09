@@ -97,6 +97,7 @@ namespace Game
             this.btn_Equip_Golden.onClick.AddListener(OnOpenEquipGolden);
             this.btn_Equip_Dark_Gold.onClick.AddListener(OnOpenEquipDarkGold);
             this.btn_Talent.onClick.AddListener(OnOpenTalent);
+            this.btn_Relic.onClick.AddListener(OnOpenRelic);
 
             this.Btn_Reset.onClick.AddListener(OnRefreshBag);
             this.Btn_ReName.onClick.AddListener(OnSetPlanName);
@@ -1834,6 +1835,12 @@ namespace Game
         {
             GameProcessor.Inst.EventCenter.Raise(new TalentShowEvent());
         }
+
+        public void OnOpenRelic()
+        {
+            GameProcessor.Inst.EventCenter.Raise(new RelicShowEvent());
+        }
+        
 
         public void OnOpenPet()
         {

@@ -7,32 +7,32 @@ namespace Game
 {
     [ProtoContract]
     [Config]
-    public partial class RelicDropConfigCategory : ProtoObject, IMerge
+    public partial class RelicConfigCategory : ProtoObject, IMerge
     {
-        public static RelicDropConfigCategory Instance;
+        public static RelicConfigCategory Instance;
 		
         [ProtoIgnore]
         [BsonIgnore]
-        private Dictionary<int, RelicDropConfig> dict = new Dictionary<int, RelicDropConfig>();
+        private Dictionary<int, RelicConfig> dict = new Dictionary<int, RelicConfig>();
 		
         [BsonElement]
         [ProtoMember(1)]
-        private List<RelicDropConfig> list = new List<RelicDropConfig>();
+        private List<RelicConfig> list = new List<RelicConfig>();
 		
-        public RelicDropConfigCategory()
+        public RelicConfigCategory()
         {
             Instance = this;
         }
         
         public void Merge(object o)
         {
-            RelicDropConfigCategory s = o as RelicDropConfigCategory;
+            RelicConfigCategory s = o as RelicConfigCategory;
             this.list.AddRange(s.list);
         }
 		
         public override void EndInit()
         {
-            foreach (RelicDropConfig config in list)
+            foreach (RelicConfig config in list)
             {
                 config.EndInit();
                 this.dict.Add(config.Id, config);
@@ -40,13 +40,13 @@ namespace Game
             this.AfterEndInit();
         }
 		
-        public RelicDropConfig Get(int id)
+        public RelicConfig Get(int id)
         {
-            this.dict.TryGetValue(id, out RelicDropConfig item);
+            this.dict.TryGetValue(id, out RelicConfig item);
 
             if (item == null)
             {
-                throw new Exception($"配置找不到，配置表名: {nameof (RelicDropConfig)}，配置id: {id}");
+                throw new Exception($"配置找不到，配置表名: {nameof (RelicConfig)}，配置id: {id}");
             }
 
             return item;
@@ -57,12 +57,12 @@ namespace Game
             return this.dict.ContainsKey(id);
         }
 
-        public Dictionary<int, RelicDropConfig> GetAll()
+        public Dictionary<int, RelicConfig> GetAll()
         {
             return this.dict;
         }
 
-        public RelicDropConfig GetOne()
+        public RelicConfig GetOne()
         {
             if (this.dict == null || this.dict.Count <= 0)
             {
@@ -73,35 +73,29 @@ namespace Game
     }
 
     [ProtoContract]
-	public partial class RelicDropConfig: ProtoObject, IConfig
+	public partial class RelicConfig: ProtoObject, IConfig
 	{
 		/// <summary>Id</summary>
 		[ProtoMember(1)]
 		public int Id { get; set; }
-		/// <summary>MapId</summary>
+		/// <summary>Type</summary>
 		[ProtoMember(2)]
-		public int MapId { get; set; }
-		/// <summary>DropType</summary>
-		[ProtoMember(3)]
-		public int DropType { get; set; }
+		public int Type { get; set; }
 		/// <summary>ItemId</summary>
-		[ProtoMember(4)]
+		[ProtoMember(3)]
 		public int ItemId { get; set; }
 		/// <summary>Name</summary>
-		[ProtoMember(5)]
+		[ProtoMember(4)]
 		public string Name { get; set; }
-		/// <summary>Rate</summary>
+		/// <summary>AttrId</summary>
+		[ProtoMember(5)]
+		public int[] AttrId { get; set; }
+		/// <summary>AttrValue</summary>
 		[ProtoMember(6)]
-		public int Rate { get; set; }
-		/// <summary>StartLevel</summary>
+		public int[] AttrValue { get; set; }
+		/// <summary>AttrRise</summary>
 		[ProtoMember(7)]
-		public int StartLevel { get; set; }
-		/// <summary>EndLevel</summary>
-		[ProtoMember(8)]
-		public int EndLevel { get; set; }
-		/// <summary>Max</summary>
-		[ProtoMember(9)]
-		public int Max { get; set; }
+		public int[] AttrRise { get; set; }
 
 	}
 }

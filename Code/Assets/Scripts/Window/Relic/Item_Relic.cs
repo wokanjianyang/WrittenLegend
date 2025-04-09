@@ -1,0 +1,67 @@
+using Game.Data;
+using Sirenix.OdinInspector;
+using System;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
+namespace Game
+{
+    [Serializable]
+    public class RelicItemSelectEvent : UnityEvent<int> { } // 支持int和string参数
+
+    public class Item_Relic : MonoBehaviour
+    {
+        public Text Txt_Name;
+        public Text Txt_Level;
+        public Toggle toggle;
+
+        public RelicConfig Config { get; set; }
+
+
+        [SerializeField]
+        private RelicItemSelectEvent _onValueChanged = new RelicItemSelectEvent();
+
+        // Start is called before the first frame update
+        void Start()
+        {
+            toggle.onValueChanged.AddListener((isOn) =>
+            {
+                this.Show();
+            });
+        }
+
+        // Update is called once per frame
+        void OnEnable()
+        {
+            //if (Config != null)
+            //{
+            //    this.Show();
+            //}
+        }
+
+        public void AddListener(UnityAction<int> callback)
+        {
+            _onValueChanged.AddListener(callback);
+        }
+
+        public void Show()
+        {
+            if (this.Config == null)
+            {
+                return;
+            }
+
+            this.Txt_Name.text = Config.Name;
+        }
+
+        public void SetContent(RelicConfig config)
+        {
+            this.Config = config;
+
+            this.Show();
+        }
+    }
+}
