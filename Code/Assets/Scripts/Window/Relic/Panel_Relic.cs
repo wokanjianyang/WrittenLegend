@@ -21,7 +21,7 @@ public class Panel_Relic : MonoBehaviour
     private int Rid = 0;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         Btn_Active.onClick.AddListener(OnStrong);
 
@@ -40,6 +40,8 @@ public class Panel_Relic : MonoBehaviour
         this.Rid = id;
 
         this.Init();
+
+        Debug.Log("show panel :" + id);
     }
 
     private void Init()
@@ -54,9 +56,27 @@ public class Panel_Relic : MonoBehaviour
         }
     }
 
-    private void SelectItem(int i)
+    private void SelectItem(int id)
     {
-        Debug.Log("select item:" + i);
+        //Debug.Log("select item:" + i);
+
+        RelicConfig config = RelicConfigCategory.Instance.Get(id);
+
+        for (int i = 0; i < AttrList.Count; i++)
+        {
+            if (i >= config.AttrId.Length)
+            {
+                AttrList[i].gameObject.SetActive(false);
+            }
+            else
+            {
+                AttrList[i].gameObject.SetActive(true);
+
+                int attrValue = config.AttrValue[i];
+                AttrList[i].SetContent(config.AttrId[i], attrValue, config.AttrRise[i]);
+            }
+        }
+
     }
 
 

@@ -49,12 +49,16 @@ namespace Game
 
         public void Show()
         {
+            Debug.Log("item relic show");
+
             if (this.Config == null)
             {
                 return;
             }
 
-            this.Txt_Name.text = Config.Name;
+            this.Txt_Name.text = Config.Name.Insert(2, "\n"); ;
+
+            _onValueChanged.Invoke(Config.Id);
         }
 
         public void SetContent(RelicConfig config)

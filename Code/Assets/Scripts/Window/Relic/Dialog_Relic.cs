@@ -31,6 +31,8 @@ public class Dialog_Relic : MonoBehaviour, IBattleLife
         {
             this.ShowPanel(2);
         });
+
+        this.ShowPanel(1);
     }
 
     public void OnBattleStart()
