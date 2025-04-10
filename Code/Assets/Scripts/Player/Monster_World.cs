@@ -76,31 +76,31 @@ public class Monster_World : APlayer
         double hpRise = Math.Pow(Config.RiseHp, riseLevel);
         hp = hp * hpRise;
 
-        Debug.Log("hpRise " + StringHelper.FormatNumber(hpRise) + " hp:" + StringHelper.FormatNumber(hp));
+        //Debug.Log("hpRise " + StringHelper.FormatNumber(hpRise) + " hp:" + StringHelper.FormatNumber(hp));
 
         double attr = StringHelper.StringToNumber(Config.Attr);
         double attrRise = Math.Pow(Config.AttrRise, riseLevel);
         attr = attr * attrRise;
 
-        Debug.Log("attrRise " + StringHelper.FormatNumber(attrRise) + " attr:" + StringHelper.FormatNumber(attr));
+        //Debug.Log("attrRise " + StringHelper.FormatNumber(attrRise) + " attr:" + StringHelper.FormatNumber(attr));
 
         double def = StringHelper.StringToNumber(Config.Def);
         double defRise = Math.Pow(Config.DefRise, riseLevel);
         def = def * defRise;
 
-        Debug.Log("defRise " + StringHelper.FormatNumber(defRise) + " def:" + StringHelper.FormatNumber(def));
+        //Debug.Log("defRise " + StringHelper.FormatNumber(defRise) + " def:" + StringHelper.FormatNumber(def));
 
         double damageMul = StringHelper.StringToNumber(Config.DamageMul);
         double mulRise = Math.Pow(Config.MulRise, riseLevel);
         damageMul = damageMul * mulRise;
 
-        Debug.Log("mulRise " + StringHelper.FormatNumber(mulRise) + " damageMul:" + StringHelper.FormatNumber(damageMul));
+        //Debug.Log("mulRise " + StringHelper.FormatNumber(mulRise) + " damageMul:" + StringHelper.FormatNumber(damageMul));
 
         double strong = StringHelper.StringToNumber(Config.Strong);
         double strongRise = Math.Pow(Config.StrongRise, riseLevel);
         strong = strong * strongRise;
 
-        Debug.Log("strongRise " + StringHelper.FormatNumber(strongRise) + " strong:" + StringHelper.FormatNumber(strong));
+       //Debug.Log("strongRise " + StringHelper.FormatNumber(strongRise) + " strong:" + StringHelper.FormatNumber(strong));
 
         AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp);
         AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr);

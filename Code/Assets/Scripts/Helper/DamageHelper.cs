@@ -104,6 +104,13 @@ namespace Game
             long lucky = attcher.GetAttackAttr(AttributeEnum.Lucky);
             attack = attack * (lucky * 10 + 100) / 100;
 
+            double luckyHit = attcher.GetAttackDoubleAttr(AttributeEnum.LuckyHit);
+            if (luckyHit > 0)
+            {
+                attack = attack * (luckyHit * lucky + 100) / 100;
+                //Debug.Log("luckyHit:" + luckyHit + "  rise:" + (luckyHit * lucky + 100) / 100);
+            }
+
             double protect = enemy.GetAttackAttr(AttributeEnum.Protect);
             attack = attack * (100 - protect) / 100;
 

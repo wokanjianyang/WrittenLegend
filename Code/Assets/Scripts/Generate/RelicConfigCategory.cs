@@ -34,4 +34,29 @@ namespace Game
             }
         }
     }
+    public partial class RelicGroupConfig
+    {
+        public double GetAttrValue(long level)
+        {
+            if (level <= 0)
+            {
+                return 0;
+            }
+            else
+            {
+                if (this.RiseType == 2)
+                {
+                    return this.AttrValue * Math.Pow(this.RiseAttr, level - 1);
+                }
+                else if (this.RiseType == 1)
+                {
+                    return this.AttrValue + this.RiseAttr * (level - 1);
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
+    }
 }

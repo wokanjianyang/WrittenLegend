@@ -47,9 +47,30 @@ public class Panel_Relic : MonoBehaviour
 
         RelicGroupConfig groupConfig = RelicGroupConfigCategory.Instance.Get(Rid);
 
-        //double attrValue = groupConfig
+        User user = GameProcessor.Inst.User;
 
-        this.Txt_Group.text = string.Format(groupConfig.Des, 1);
+        int startId = 1 + (id - 1) * 8;
+        int endId = id * 8;
+
+        int count = user.RelicData.Where(m => m.Key >= startId && m.Key <= endId && m.Value.Data > 0).Count();
+
+        int groupLevel = user.GetRelicGroupLevel(id);
+
+        double groupValue = groupConfig.GetAttrValue(groupLevel);
+
+        double nextValue = groupConfig.GetAttrValue(groupLevel + 1);
+
+        //Debug.Log("groupValue:" + groupValue + " nextValue:" + nextValue);
+
+        string color = count >= 8 ? "#D8CAB0" : "#4D4D4d";
+
+        string des = string.Format(groupConfig.Des, groupValue, (nextValue - groupValue));
+
+        string levelDes = groupLevel > 0 ? string.Format("£¨{0}¼¶£©£º", groupLevel) : string.Format("£¨{0}/8£©£º", count);
+
+        des = groupConfig.Name + levelDes + des;
+
+        this.Txt_Group.text = string.Format("<color={0}>{1}</color>", color, des);
     }
 
     private void Init()

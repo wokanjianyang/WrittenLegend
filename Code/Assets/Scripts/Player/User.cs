@@ -620,6 +620,19 @@ namespace Game
                 }
             }
 
+            //神器套装
+            List<RelicGroupConfig> relicGroups = RelicGroupConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
+            foreach (var relicGroupConfig in relicGroups)
+            {
+                int groupLevel = GetRelicGroupLevel(relicGroupConfig.Id);
+                if (groupLevel > 0)
+                {
+                    double groupValue = relicGroupConfig.GetAttrValue(groupLevel);
+                    AttributeBonus.SetAttr((AttributeEnum)relicGroupConfig.AttrId, AttributeFrom.Relic, 999, groupValue);
+                }
+            }
+
+
             //宠物
             for (int i = 0; i < PetList.Count; i++)
             {
@@ -1668,6 +1681,16 @@ namespace Game
                 SoulBoneData[sid] = new MagicData();
             }
             SoulBoneData[sid].Data++;
+        }
+
+        public int GetRelicGroupLevel(int gid)
+        {
+            int startId = 1 + (gid - 1) * 8;
+            int endId = gid * 8;
+
+            long groupLevel = RelicData.Where(m => m.Key >= startId && m.Key <= endId).Select(m => m.Value.Data).DefaultIfEmpty(0).Min();
+
+            return (int)groupLevel;
         }
 
         public int GetRelicLevel(int rid)
