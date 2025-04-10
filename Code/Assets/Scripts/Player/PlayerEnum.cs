@@ -147,6 +147,7 @@ namespace Game
         Talent = 23, //天赋
         EquipReform = 24, //改造
         Pet = 25,//宠物
+        Relic = 26,//神器
 
         Dingzhi = 98,
         /// <summary>

@@ -7,32 +7,32 @@ namespace Game
 {
     [ProtoContract]
     [Config]
-    public partial class RelicAttrConfigCategory : ProtoObject, IMerge
+    public partial class RelicGroupConfigCategory : ProtoObject, IMerge
     {
-        public static RelicAttrConfigCategory Instance;
+        public static RelicGroupConfigCategory Instance;
 		
         [ProtoIgnore]
         [BsonIgnore]
-        private Dictionary<int, RelicAttrConfig> dict = new Dictionary<int, RelicAttrConfig>();
+        private Dictionary<int, RelicGroupConfig> dict = new Dictionary<int, RelicGroupConfig>();
 		
         [BsonElement]
         [ProtoMember(1)]
-        private List<RelicAttrConfig> list = new List<RelicAttrConfig>();
+        private List<RelicGroupConfig> list = new List<RelicGroupConfig>();
 		
-        public RelicAttrConfigCategory()
+        public RelicGroupConfigCategory()
         {
             Instance = this;
         }
         
         public void Merge(object o)
         {
-            RelicAttrConfigCategory s = o as RelicAttrConfigCategory;
+            RelicGroupConfigCategory s = o as RelicGroupConfigCategory;
             this.list.AddRange(s.list);
         }
 		
         public override void EndInit()
         {
-            foreach (RelicAttrConfig config in list)
+            foreach (RelicGroupConfig config in list)
             {
                 config.EndInit();
                 this.dict.Add(config.Id, config);
@@ -40,13 +40,13 @@ namespace Game
             this.AfterEndInit();
         }
 		
-        public RelicAttrConfig Get(int id)
+        public RelicGroupConfig Get(int id)
         {
-            this.dict.TryGetValue(id, out RelicAttrConfig item);
+            this.dict.TryGetValue(id, out RelicGroupConfig item);
 
             if (item == null)
             {
-                throw new Exception($"配置找不到，配置表名: {nameof (RelicAttrConfig)}，配置id: {id}");
+                throw new Exception($"配置找不到，配置表名: {nameof (RelicGroupConfig)}，配置id: {id}");
             }
 
             return item;
@@ -57,12 +57,12 @@ namespace Game
             return this.dict.ContainsKey(id);
         }
 
-        public Dictionary<int, RelicAttrConfig> GetAll()
+        public Dictionary<int, RelicGroupConfig> GetAll()
         {
             return this.dict;
         }
 
-        public RelicAttrConfig GetOne()
+        public RelicGroupConfig GetOne()
         {
             if (this.dict == null || this.dict.Count <= 0)
             {
@@ -73,31 +73,28 @@ namespace Game
     }
 
     [ProtoContract]
-	public partial class RelicAttrConfig: ProtoObject, IConfig
+	public partial class RelicGroupConfig: ProtoObject, IConfig
 	{
 		/// <summary>Id</summary>
 		[ProtoMember(1)]
 		public int Id { get; set; }
-		/// <summary>ItemId</summary>
-		[ProtoMember(2)]
-		public int ItemId { get; set; }
-		/// <summary>Layer</summary>
-		[ProtoMember(3)]
-		public int Layer { get; set; }
 		/// <summary>Name</summary>
-		[ProtoMember(4)]
+		[ProtoMember(2)]
 		public string Name { get; set; }
 		/// <summary>AttrId</summary>
-		[ProtoMember(5)]
+		[ProtoMember(3)]
 		public int AttrId { get; set; }
 		/// <summary>AttrValue</summary>
-		[ProtoMember(6)]
+		[ProtoMember(4)]
 		public double AttrValue { get; set; }
 		/// <summary>RiseAttr</summary>
-		[ProtoMember(7)]
+		[ProtoMember(5)]
 		public double RiseAttr { get; set; }
+		/// <summary>RiseType</summary>
+		[ProtoMember(6)]
+		public int RiseType { get; set; }
 		/// <summary>Des</summary>
-		[ProtoMember(8)]
+		[ProtoMember(7)]
 		public string Des { get; set; }
 
 	}

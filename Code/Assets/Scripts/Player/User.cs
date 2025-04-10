@@ -287,6 +287,8 @@ namespace Game
 
         public Dictionary<int, MagicData> SoulBoneData { get; } = new Dictionary<int, MagicData>();
 
+        public Dictionary<int, MagicData> RelicData { get; } = new Dictionary<int, MagicData>();
+
         public MagicData TalentExp { get; set; } = new MagicData();
         public Dictionary<int, MagicData> TalentData { get; } = new Dictionary<int, MagicData>();
 
@@ -599,6 +601,21 @@ namespace Game
                         {
                             AttributeBonus.SetAttr((AttributeEnum)boneConfig.AttrIdList[i], AttributeFrom.SoulBone, sid, boneConfig.AttrValueList[i] * sbLevel * srLevel);
                         }
+                    }
+                }
+            }
+
+            //神器
+            foreach (var rl in RelicData)
+            {
+                int rid = rl.Key;
+                int level = (int)rl.Value.Data;
+                if (level > 0)
+                {
+                    RelicConfig relicConfig = RelicConfigCategory.Instance.Get(rid);
+                    for (int i = 0; i < relicConfig.AttrIdList.Length; i++)
+                    {
+                        AttributeBonus.SetAttr((AttributeEnum)relicConfig.AttrIdList[i], AttributeFrom.Relic, rid, relicConfig.GetAttrValue(i, level));
                     }
                 }
             }
@@ -1651,6 +1668,24 @@ namespace Game
                 SoulBoneData[sid] = new MagicData();
             }
             SoulBoneData[sid].Data++;
+        }
+
+        public int GetRelicLevel(int rid)
+        {
+            if (!RelicData.ContainsKey(rid))
+            {
+                RelicData[rid] = new MagicData();
+            }
+            return (int)RelicData[rid].Data;
+        }
+
+        public void AddRelicLevel(int rid)
+        {
+            if (!RelicData.ContainsKey(rid))
+            {
+                RelicData[rid] = new MagicData();
+            }
+            RelicData[rid].Data++;
         }
 
         public long GetTalentLevel(int tid)

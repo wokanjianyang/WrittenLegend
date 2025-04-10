@@ -29,7 +29,7 @@ namespace Game
         {
             toggle.onValueChanged.AddListener((isOn) =>
             {
-                this.Show();
+                this.Select();
             });
         }
 
@@ -49,7 +49,7 @@ namespace Game
 
         public void Show()
         {
-            Debug.Log("item relic show");
+            //Debug.Log("item relic show");
 
             if (this.Config == null)
             {
@@ -58,8 +58,19 @@ namespace Game
 
             this.Txt_Name.text = Config.Name.Insert(2, "\n"); ;
 
-            _onValueChanged.Invoke(Config.Id);
+            User user = GameProcessor.Inst.User;
+            int level = user.GetRelicLevel(Config.Id);
+            this.Txt_Level.text = level + "";
         }
+
+        private void Select()
+        {
+            if (toggle.isOn)
+            {
+                _onValueChanged.Invoke(Config.Id);
+            }
+        }
+
 
         public void SetContent(RelicConfig config)
         {
