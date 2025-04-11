@@ -122,7 +122,7 @@ namespace Game
             {
                 long AttributeBase = EquipConfig.AttributeBase[i];
 
-                if (this.Part <= 10 || (this.Part >= 21 && this.Part <= 30))
+                if (this.Part <= 10 || (this.Part >= 21))
                 {
                     if (Quality <= 4)
                     {
@@ -137,6 +137,10 @@ namespace Game
                         AttributeBase = AttributeBase * GetLayerRate(Layer);
                     }
                     else if (Quality == 7)
+                    {
+                        AttributeBase = AttributeBase * GetLayerRate(Layer);
+                    }
+                    else if (Quality == 8)
                     {
                         AttributeBase = AttributeBase * GetLayerRate(Layer);
                     }

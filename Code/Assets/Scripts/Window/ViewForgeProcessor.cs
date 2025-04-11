@@ -36,6 +36,9 @@ public class ViewForgeProcessor : AViewPage
     public Toggle toggle_Grade_Golden;
     public Panel_Grade_Golden PanelGradeGolden;
 
+    public Toggle toggle_Grade_Dark;
+    public Panel_Grade_Dark PanelGradeDark;
+
     public Toggle toggle_Hone;
     public Panel_Hone PanelHone;
 
@@ -104,6 +107,12 @@ public class ViewForgeProcessor : AViewPage
         this.toggle_Grade_Golden.onValueChanged.AddListener((isOn) =>
         {
             PanelGradeGolden.gameObject.SetActive(isOn);
+        });
+
+
+        this.toggle_Grade_Dark.onValueChanged.AddListener((isOn) =>
+        {
+            PanelGradeDark.gameObject.SetActive(isOn);
         });
 
         this.toggle_Hone.onValueChanged.AddListener((isOn) =>

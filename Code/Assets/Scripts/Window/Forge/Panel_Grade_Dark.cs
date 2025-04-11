@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
-public class Panel_Grade_Golden : MonoBehaviour
+public class Panel_Grade_Dark : MonoBehaviour
 {
     public ScrollRect sr_Panel;
 
@@ -20,10 +20,10 @@ public class Panel_Grade_Golden : MonoBehaviour
     public Button Btn_Batch_Restore;
 
     private const int MaxCount = 10; //10¼þ×°±¸
-    private const int Quality = 7;
+    private const int Quality = 8;
 
-    private const int StartPosition = 21;
-    private const int MaxLevel = 14;
+    private const int StartPosition = 31;
+    private const int MaxLevel = 7;
 
     Equip SelectEquip;
 
@@ -76,7 +76,7 @@ public class Panel_Grade_Golden : MonoBehaviour
             return;
         }
 
-        IDictionary<int, Equip> dict = user.EquipPanelGoldenList[user.EquipGoldenIndex];
+        IDictionary<int, Equip> dict = user.EquipPanelDarkGoldList[user.EquipDarkGoldIndex];
 
         for (int BoxId = 0; BoxId < MaxCount; BoxId++)
         {
@@ -234,7 +234,7 @@ public class Panel_Grade_Golden : MonoBehaviour
 
         user.SubGold(ConfigHelper.RestoreGold * 20);
 
-        IDictionary<int, Equip> dict = user.EquipPanelGoldenList[user.EquipGoldenIndex];
+        IDictionary<int, Equip> dict = user.EquipPanelDarkGoldList[user.EquipDarkGoldIndex];
 
         foreach (Equip equip in dict.Values)
         {
@@ -274,7 +274,7 @@ public class Panel_Grade_Golden : MonoBehaviour
             return;
         }
 
-        IDictionary<int, Equip> dict = user.EquipPanelGoldenList[user.EquipGoldenIndex];
+        IDictionary<int, Equip> dict = user.EquipPanelDarkGoldList[user.EquipDarkGoldIndex];
 
         Dictionary<int, int> mlist = new Dictionary<int, int>();
 

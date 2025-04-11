@@ -22,6 +22,9 @@ public class Panel_Grade : MonoBehaviour
     private const int MaxCount = 10; //10¼þ×°±¸
     private const int Quality = 6;
 
+    private const int StartPosition = 1;
+    private const int MaxLevel = 21;
+
     Equip SelectEquip;
 
     // Start is called before the first frame update
@@ -77,7 +80,7 @@ public class Panel_Grade : MonoBehaviour
 
         for (int BoxId = 0; BoxId < MaxCount; BoxId++)
         {
-            int postion = BoxId + 1;
+            int postion = BoxId + StartPosition;
 
             var bagBox = this.sr_Panel.content.GetChild(BoxId);
             if (bagBox == null || !dict.ContainsKey(postion))
@@ -240,7 +243,7 @@ public class Panel_Grade : MonoBehaviour
 
         foreach (Equip equip in dict.Values)
         {
-            for (int i = 0; i <= 14; i++)
+            for (int i = 0; i <= MaxLevel; i++)
             {
                 if (equip.GetQuality() == Quality)
                 {
