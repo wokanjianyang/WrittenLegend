@@ -139,6 +139,15 @@ namespace Game
                 this.btn_Talent.gameObject.SetActive(false);
             }
 
+            if (user.Cycle.Data >= 6)
+            {
+                this.btn_Relic.gameObject.SetActive(true);
+            }
+            else
+            {
+                this.btn_Relic.gameObject.SetActive(false);
+            }
+
             if (user.MapId >= 1051)
             {
                 this.btn_Halidom.gameObject.SetActive(true);
@@ -1840,7 +1849,7 @@ namespace Game
         {
             GameProcessor.Inst.EventCenter.Raise(new RelicShowEvent());
         }
-        
+
 
         public void OnOpenPet()
         {

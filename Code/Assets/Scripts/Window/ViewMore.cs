@@ -98,6 +98,15 @@ namespace Game
                 MythItem.gameObject.SetActive(false);
             }
 
+            if (user.Cycle.Data >= 6)
+            {
+                Btn_World.gameObject.SetActive(true);
+            }
+            else
+            {
+                Btn_World.gameObject.SetActive(false);
+            }
+
             int mapId = user.MapId;
             if (mapId >= 1070)
             {
@@ -264,7 +273,7 @@ namespace Game
         {
             scrollRect.gameObject.SetActive(false);
 
-            GameProcessor.Inst.EventCenter.Raise(new WorldStartEvent() { Id = id});
+            GameProcessor.Inst.EventCenter.Raise(new WorldStartEvent() { Id = id });
         }
 
 
