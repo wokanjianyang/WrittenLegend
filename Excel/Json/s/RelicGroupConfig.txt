@@ -1,5 +1,5 @@
 {"list":[
-{"_t":"RelicGroupConfig","_id":1,"Name":"青龙之力","AttrId":117,"AttrValue":0.01,"RiseAttr":2,"RiseType":2,"Des":"攻击会触发幸运一击，额外增加幸运*{0}%（下一级+{1}）的伤害（乘法）"},
+{"_t":"RelicGroupConfig","_id":1,"Name":"青龙之力","AttrId":117,"AttrValue":0.1,"RiseAttr":2,"RiseType":2,"Des":"攻击会触发幸运一击，额外增加幸运*{0}%（下一级+{1}）的伤害（乘法）"},
 {"_t":"RelicGroupConfig","_id":2,"Name":"轩辕剑","AttrId":2002,"AttrValue":30,"RiseAttr":30,"RiseType":0,"Des":"防御倍率"},
 {"_t":"RelicGroupConfig","_id":3,"Name":"神农鼎","AttrId":2001,"AttrValue":5,"RiseAttr":5,"RiseType":0,"Des":"攻击倍率"},
 ]}
