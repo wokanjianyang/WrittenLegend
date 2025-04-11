@@ -34,7 +34,7 @@ namespace Game
             }
             else
             {
-                int id = (progress / 100) % Drop1_List2.Length;
+                int id = (progress / 100 - 1) % Drop1_List2.Length;
                 return ItemHelper.BuildItem(ItemType.Material, Drop1_List2[id], 1, 1);
             }
         }

@@ -18,13 +18,9 @@ namespace Game
 
         public void Check()
         {
-            DateTime today = DateTime.Today;
-            int difference = ((int)DayOfWeek.Monday - (int)today.DayOfWeek);
-            DateTime currentMonday = today.AddDays(difference);
+            long nt = TimeHelper.ClientNowSeconds();
 
-            long nt = currentMonday.Ticks;
-
-            if (Ticket == 0 || nt > Ticket)
+            if (Ticket == 0 || nt - Ticket >= 86400 * 10)
             {
                 Ticket = nt;
 

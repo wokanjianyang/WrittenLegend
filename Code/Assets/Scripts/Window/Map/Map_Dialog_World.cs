@@ -13,6 +13,8 @@ public class Map_Dialog_World : MonoBehaviour
     public ScrollRect sr_Boss;
     public Button Btn_Close;
 
+    public Text Txt_Des;
+
     public Toggle toggle_Auto;
 
     private GameObject ItemPrefab;
@@ -34,7 +36,7 @@ public class Map_Dialog_World : MonoBehaviour
     private void OnEnable()
     {
         this.Show();
-    }   
+    }
 
 
     private void Show()
@@ -46,18 +48,22 @@ public class Map_Dialog_World : MonoBehaviour
             return;
         }
 
+        long refeshTime = user.WorldData.Ticket - TimeHelper.ClientNowSeconds() + 86400 * 10;
 
-        for (int i = 0; i < items.Count; i++)
-        {
-            //items[i].SetMax(max);
-        }
+        Debug.Log("refeshTime:" + refeshTime);
+
+        long day = refeshTime / 86400;
+        refeshTime = refeshTime - day * 86400;
+
+        string dayText = (day > 0 ? day + "天" : "");
+        Txt_Des.text = "重置时间倒计时：" + dayText + TimeSpan.FromSeconds(refeshTime).ToString(@"hh\:mm\:ss");
     }
 
     private void Init()
     {
         User user = GameProcessor.Inst.User;
 
-        //user.MythData.Check();
+        user.WorldData.Check();
 
         ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Map/Item_World");
 
