@@ -13,7 +13,7 @@ namespace Game
             {
                 List<WorldDropConfig> dropList = this.list.Where(m => m.MapId == mapId && m.DropType == 1).ToList();
 
-                int id = progress % dropList.Count;
+                int id = (progress - 1) % dropList.Count;
 
                 return ItemHelper.BuildItem(ItemType.Material, dropList[id].ItemId, 1, 1);
             }

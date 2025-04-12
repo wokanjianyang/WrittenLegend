@@ -26,6 +26,7 @@ public class Map_Dialog_World : MonoBehaviour
 
         Btn_Close.onClick.AddListener(OnClick_Close);
         this.Init();
+        this.Show();
 
         toggle_Auto.onValueChanged.AddListener((isOn) =>
         {
