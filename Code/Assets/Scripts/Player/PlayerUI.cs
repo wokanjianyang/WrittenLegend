@@ -18,6 +18,7 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
     public Sprite[] Hero_Backgrounds;
     public Sprite[] Monster_Backgrounds;
     public Sprite[] Valet_Backgrounds;
+    public Sprite[] World_Backgrounds;
     public Sprite[] Other_Backgrounds;
 
     [Title("信息")]
@@ -90,7 +91,8 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
             //    GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = this.SelfPlayer.RuleType, Message = "CD时间:" + effectTime });
             //}
 
-            if (effectTime > 0.3) {
+            if (effectTime > 0.3)
+            {
                 effectTime = 0.3f;
             }
 
@@ -196,6 +198,16 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
                 break;
             case PlayerType.Enemy:
                 int index = this.SelfPlayer.Quality;
+
+                if (SelfPlayer.RuleType == RuleType.World)
+                {
+                    Vector2 spriteSize = this.image_Background.sprite.rect.size;
+                    this.image_Background.rectTransform.sizeDelta = new Vector2(300, 300);
+                    this.image_Background.sprite = World_Backgrounds[index - 1];
+                    break;
+                }
+
+
                 if (index >= 1 && index <= 6)
                 {
                     index = index - 1;

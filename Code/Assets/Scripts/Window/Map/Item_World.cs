@@ -8,11 +8,15 @@ using UnityEngine.UI;
 
 namespace Game
 {
-    public class Item_World : MonoBehaviour, IPointerClickHandler
+    public class Item_World : MonoBehaviour
     {
         public Text Txt_Name;
         public Text Txt_Level;
-        public Text Txt_Desc;
+
+        public Image image_Background;
+        public Sprite[] list_Backgrounds;
+
+        public Button Btn_OK;
 
         WorldConfig Config;
 
@@ -21,7 +25,7 @@ namespace Game
         // Start is called before the first frame update
         void Start()
         {
-
+            this.Btn_OK.onClick.AddListener(OnClickOk);
         }
 
         // Update is called once per frame
@@ -35,7 +39,7 @@ namespace Game
             this.Show();
         }
 
-        public void OnPointerClick(PointerEventData eventData)
+        public void OnClickOk()
         {
             this.level = GameProcessor.Inst.User.WorldData.GetLayer(this.Config.Id);
 
@@ -59,14 +63,15 @@ namespace Game
             this.level = GameProcessor.Inst.User.WorldData.GetLayer(this.Config.Id);
 
             this.Txt_Name.text = Config.MapName;
-            this.Txt_Level.text = $"{level}(ÂÖ)"; ;
-            this.Txt_Desc.text = Config.Desc;
+            this.Txt_Level.text = $"{level}¼¶"; ;
         }
 
         public void SetContent(WorldConfig config)
         {
             this.Config = config;
             this.Show();
+
+            this.image_Background.sprite = list_Backgrounds[Config.Id - 1];
         }
     }
 }

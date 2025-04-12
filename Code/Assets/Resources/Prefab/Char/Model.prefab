@@ -562,6 +562,11 @@ MonoBehaviour:
   Valet_Backgrounds:
   - {fileID: 21300000, guid: afde59ab5d6bab540a77464c93e9f067, type: 3}
   - {fileID: 21300000, guid: 3253401dba08796478e70eef038730f1, type: 3}
+  World_Backgrounds:
+  - {fileID: 21300000, guid: 4b38b38818ac8454f88e939e1449e0ae, type: 3}
+  - {fileID: 21300000, guid: f3bade43efed1824082e6c13e4f621f4, type: 3}
+  - {fileID: 21300000, guid: c6608387e11c7bf4e9e23d09302222d5, type: 3}
+  - {fileID: 21300000, guid: 0fac1744e2f90064ebe1ef6419a72c12, type: 3}
   Other_Backgrounds:
   - {fileID: 21300000, guid: e2143e3a4baf2b945821681dd4f69302, type: 3}
   tran_Info: {fileID: 1173079490924791338}

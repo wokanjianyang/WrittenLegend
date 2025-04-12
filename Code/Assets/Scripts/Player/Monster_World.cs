@@ -15,7 +15,7 @@ public class Monster_World : APlayer
     {
         this.GroupId = 2;
         this.RuleType = RuleType.World;
-        this.Quality = 5;
+        this.Quality = mapId;
         this.Level = level;
         this.Step = step;
 
@@ -100,7 +100,7 @@ public class Monster_World : APlayer
         double strongRise = Math.Pow(Config.StrongRise, riseLevel);
         strong = strong * strongRise;
 
-       //Debug.Log("strongRise " + StringHelper.FormatNumber(strongRise) + " strong:" + StringHelper.FormatNumber(strong));
+        //Debug.Log("strongRise " + StringHelper.FormatNumber(strongRise) + " strong:" + StringHelper.FormatNumber(strong));
 
         AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp);
         AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr);
