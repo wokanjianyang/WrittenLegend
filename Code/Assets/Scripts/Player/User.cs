@@ -1418,23 +1418,23 @@ namespace Game
 
         public int GetFestiveCount(int id)
         {
-            if (!this.FestiveData_0402.ContainsKey(id))
+            if (!this.FestiveData_0502.ContainsKey(id))
             {
-                this.FestiveData_0402[id] = 0;
+                this.FestiveData_0502[id] = 0;
             }
 
-            return this.FestiveData_0402[id];
+            return this.FestiveData_0502[id];
         }
 
         public void SaveFestiveCount(int configId, int count)
         {
-            if (this.FestiveData_0402.ContainsKey(configId))
+            if (this.FestiveData_0502.ContainsKey(configId))
             {
-                this.FestiveData_0402[configId] += count;
+                this.FestiveData_0502[configId] += count;
             }
             else
             {
-                this.FestiveData_0402[configId] = count;
+                this.FestiveData_0502[configId] = count;
             }
         }
 
