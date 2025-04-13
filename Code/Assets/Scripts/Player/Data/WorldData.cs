@@ -15,8 +15,10 @@ namespace Game
 
         public long Ticket { get; set; }
 
+        public Dictionary<int, List<int>> DictItemList = new Dictionary<int, List<int>>();
 
-        public void Check()
+
+        public bool Check()
         {
             long nt = TimeHelper.ClientNowSeconds();
 
@@ -24,8 +26,38 @@ namespace Game
             {
                 Ticket = nt;
 
-                Record = new Dictionary<int, int>();
+                Record.Clear();
+                DictItemList.Clear();
+
+                for (int mapId = 1; mapId <= 1; mapId++)
+                {
+                    List<int> list = WorldDropConfigCategory.Instance.GetAllDropIdList(mapId);
+
+                    DictItemList.Add(mapId, list);
+                }
+
+                return true;
             }
+
+            List<WorldConfig> worlds = WorldConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
+
+            if (worlds.Count > DictItemList.Count)
+            {
+                for (int i = 0; i < worlds.Count; i++)
+                {
+                    int mapId = worlds[i].Id;
+                    if (!this.DictItemList.ContainsKey(mapId))
+                    {
+                        List<int> list = WorldDropConfigCategory.Instance.GetAllDropIdList(mapId);
+
+                        DictItemList.Add(mapId, list);
+                    }
+                }
+
+                return true;
+            }
+
+            return false;
         }
 
         public int GetLayer(int id)
@@ -41,6 +73,20 @@ namespace Game
         public void SetOver(int id)
         {
             this.Record[id]++;
+        }
+
+        public int GetDropId(int mapId, int level)
+        {
+            List<int> dropList = DictItemList[mapId];
+
+            if (level > dropList.Count)
+            {
+                return 0;
+            }
+            else
+            {
+                return dropList[level - 1];
+            }
         }
     }
 }

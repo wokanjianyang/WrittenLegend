@@ -66,7 +66,9 @@ public class Panel_Relic : MonoBehaviour
 
         string des = string.Format(groupConfig.Des, groupValue, (nextValue - groupValue));
 
-        string levelDes = groupLevel > 0 ? string.Format("（{0}级）：", groupLevel) : string.Format("（{0}/8）：", count);
+        long maxLevel = user.Cycle.Data;
+
+        string levelDes = groupLevel > 0 ? string.Format("【{0}级】-【最高等级" + maxLevel + "】：", groupLevel) : string.Format("（{0}/8）：", count);
 
         des = groupConfig.Name + levelDes + des;
 

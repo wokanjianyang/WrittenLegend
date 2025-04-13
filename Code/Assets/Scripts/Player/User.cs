@@ -1690,7 +1690,7 @@ namespace Game
 
             long groupLevel = RelicData.Where(m => m.Key >= startId && m.Key <= endId).Select(m => m.Value.Data).DefaultIfEmpty(0).Min();
 
-            return (int)groupLevel;
+            return (int)Math.Min(groupLevel, Cycle.Data);
         }
 
         public int GetRelicLevel(int rid)

@@ -63,9 +63,17 @@ public class BattleRule_World : ABattleRule
     {
         Debug.Log("BuildReward layer:" + this.Layer);
 
+        User user = GameProcessor.Inst.User;
+
         //掉落道具
         List<Item> items = new List<Item>();
-        items.Add(WorldDropConfigCategory.Instance.BuildItem(mapId, Layer));
+
+        //掉落道具
+        int itemId = user.WorldData.GetDropId(mapId, this.Layer);
+        if (itemId > 0)
+        {
+            items.Add(ItemHelper.BuildItem(ItemType.Material, itemId, 1, 1));
+        }
 
         GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
         {

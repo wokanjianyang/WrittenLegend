@@ -7,24 +7,37 @@ namespace Game
 
     public partial class WorldDropConfigCategory
     {
-        public Item BuildItem(int mapId, int progress)
+        public List<int> GetAllDropIdList(int mapId)
         {
-            if (progress > 0 && progress % 80 == 0)
+            List<int> rates = new List<int>();
+
+            for (int level = 1; level <= ConfigHelper.MaxWorld; level++)
             {
+                List<WorldDropConfig> dropConfigs = this.list.Where(m => m.MapId == mapId && m.StartLevel <= level && m.EndLevel >= level && (level - m.StartLevel) % m.RateLevel == 0).ToList();
 
-                List<WorldDropConfig> dropList = this.list.Where(m => m.MapId == mapId && m.DropType == 2).ToList();
-
-                int id = (progress / 100 - 1) % dropList.Count;
-                return ItemHelper.BuildItem(ItemType.Material, dropList[id].ItemId, 1, 1);
+                rates.Add(RandomDropId(dropConfigs));
             }
-            else
+
+            return rates;
+        }
+
+        private int RandomDropId(List<WorldDropConfig> dropConfigs)
+        {
+            int total = dropConfigs.Select(m => m.Rate).Sum();
+            int rd = RandomHelper.RandomNumber(1, total + 1);
+
+            int endRate = 0;
+            for (int i = 0; i < dropConfigs.Count; i++)
             {
-                List<WorldDropConfig> dropList = this.list.Where(m => m.MapId == mapId && m.DropType == 1).ToList();
+                endRate += dropConfigs[i].Rate;
 
-                int id = (progress - 1) % dropList.Count;
-
-                return ItemHelper.BuildItem(ItemType.Material, dropList[id].ItemId, 1, 1);
+                if (rd <= endRate)
+                {
+                    return dropConfigs[i].ItemId;
+                }
             }
+
+            return -1;
         }
     }
 }

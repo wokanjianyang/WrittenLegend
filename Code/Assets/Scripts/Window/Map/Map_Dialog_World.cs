@@ -64,7 +64,10 @@ public class Map_Dialog_World : MonoBehaviour
     {
         User user = GameProcessor.Inst.User;
 
-        user.WorldData.Check();
+        if (user.WorldData.Check()) {
+            GameProcessor.Inst.SaveData();
+            GameProcessor.Inst.SaveNetData();
+        }
 
         ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Map/Item_World");
 
