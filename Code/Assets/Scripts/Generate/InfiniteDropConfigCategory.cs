@@ -13,9 +13,9 @@ namespace Game
 
             List<int> rates = new List<int>();
 
-            for (int level = 1; level <= maxLevel; level++)
+            for (int i = 1; i <= maxLevel; i++)
             {
-                List<InfiniteDropConfig> dropConfigs = this.GetLevelList(level, rates);
+                List<InfiniteDropConfig> dropConfigs = this.GetLevelList(i, rates);
 
                 rates.Add(RandomDropId(dropConfigs));
             }
@@ -50,23 +50,18 @@ namespace Game
 
             foreach (InfiniteDropConfig config in configs)
             {
-                if (config.Max >= 10000)
-                {
-                    continue;
-                }
-
                 int total = excludeList.Where(m => m == config.DropId).Count();
 
-                //if (config.DropId >= 180001 && config.DropId <= 180100) //ÉñÆ÷
-                //{
-                //    ArtifactConfig artifactConfig = ArtifactConfigCategory.Instance.GetByItemId(config.DropId);
-                //    int atLevel = GameProcessor.Inst.User.GetArtifactLevel(artifactConfig.Id);
+                if (config.DropId >= 180001 && config.DropId <= 180100) //ÉñÆ÷
+                {
+                    ArtifactConfig artifactConfig = ArtifactConfigCategory.Instance.GetByItemId(config.DropId);
+                    int atLevel = GameProcessor.Inst.User.GetArtifactLevel(artifactConfig.Id);
 
-                //    if (total + atLevel >= artifactConfig.MaxCount)
-                //    {
-                //        continue;
-                //    }
-                //}
+                    if (total + atLevel >= artifactConfig.MaxCount)
+                    {
+                        continue;
+                    }
+                }
 
                 if (config.Max > total)
                 {

@@ -259,6 +259,7 @@ namespace Game
                     request.SetRequestHeader("deviceId", deviceId);
                     request.SetRequestHeader("fileId", fileId);
                     request.SetRequestHeader("sign", sign);
+                    request.SetRequestHeader("version", ConfigHelper.Version + "");
                     request.SetRequestHeader("level", level);
 
                     if (headers != null)
