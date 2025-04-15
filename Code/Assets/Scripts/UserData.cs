@@ -236,6 +236,14 @@ namespace Game
                     user.DeviceId = AppHelper.GetDeviceIdentifier();
                 }
 
+                if (user.VersionLog.Count > 0 && user.InfiniteData.DropList.Count > 0)
+                {
+                    int maxVersion = user.VersionLog.Select(m => m.Key).DefaultIfEmpty(0).Max();
+                    if (maxVersion <= 375)
+                    {
+                        user.InfiniteData.DropList.Clear();
+                    }
+                }
                 //if (user.RandomRecord.v < ConfigHelper.Version)
                 //{
                 //    RandomTableHelper.Instance().Refresh();

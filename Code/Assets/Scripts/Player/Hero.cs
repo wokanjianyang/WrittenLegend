@@ -464,7 +464,7 @@ namespace Game
         }
         public override void OnHit(DamageResult dr)
         {
-            Debug.Log("heor hit damage:" + StringHelper.FormatNumber(dr.Damage));
+            //Debug.Log("heor hit damage:" + StringHelper.FormatNumber(dr.Damage));
 
             base.OnHit(dr);
         }
