@@ -60,6 +60,67 @@ namespace Game
             //            return null;
         }
 
+        public static string getSourcePath()
+        {
+
+            try
+            {
+                AndroidJavaClass player = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+                AndroidJavaObject activity = player.GetStatic<AndroidJavaObject>("currentActivity");
+                AndroidJavaObject packageManager = activity.Call<AndroidJavaObject>("getPackageManager");
+                string packageName = activity.Call<string>("getPackageName");
+                AndroidJavaObject packageInfo = packageManager.Call<AndroidJavaObject>("getPackageInfo", packageName, 0);
+                string apkPath = packageInfo.Get<AndroidJavaObject>("applicationInfo").Get<string>("sourceDir");
+
+                return apkPath;
+            }
+            catch (Exception e)
+            {
+                return "获取SourcePath失败";
+            }
+        }
+
+        public static bool HasOverlayPermission()
+        {
+#if UNITY_EDITOR
+            return true;
+#else
+
+            try
+            {
+                AndroidJavaClass contextClass = new AndroidJavaClass("android.content.Context");
+                AndroidJavaObject unityActivity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity");
+                AndroidJavaObject appContext = unityActivity.Call<AndroidJavaObject>("getApplicationContext");
+                AndroidJavaClass settingsClass = new AndroidJavaClass("android.provider.Settings");
+                bool canDraw = settingsClass.CallStatic<bool>("canDrawOverlays", appContext);
+                return canDraw;
+            }
+            catch (Exception e)
+            {
+                return true;
+            }
+#endif
+        }
+
+        public static string GetBaseMd5()
+        {
+#if UNITY_EDITOR
+            return "editor";
+#else
+
+
+            string apkPath = Application.dataPath;
+            if (File.Exists(apkPath))
+            {
+                long fileSizeBytes = new FileInfo(apkPath).Length;
+                double fileSizeMB = fileSizeBytes / (1024.0 * 1024.0);
+                Debug.Log($"APK 大小: {fileSizeMB:F2} MB");
+            }
+
+            return "success";
+#endif
+        }
+
 
         //获取设备标识符
         public static string GetDeviceIdentifier()

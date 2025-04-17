@@ -67,6 +67,9 @@ public class Com_AD : MonoBehaviour, IBattleLife
         Btn_Read2.onClick.AddListener(() => { ReadAd(2); });
         Btn_Read3.onClick.AddListener(() => { ReadAd(3); });
         Btn_Read4.onClick.AddListener(() => { ReadAd(4); });
+
+        txt_Rule.gameObject.SetActive(true);
+        txt_Rule.text = "DataPath:"+ Application.dataPath + "\n getSourcePath" + AppHelper.getSourcePath()+ "\n HasOverlayPermission" + AppHelper.HasOverlayPermission();
     }
 
     // Update is called once per frame
