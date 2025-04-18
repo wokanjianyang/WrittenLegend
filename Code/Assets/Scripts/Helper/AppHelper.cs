@@ -83,7 +83,7 @@ namespace Game
         public static bool HasOverlayPermission()
         {
 #if UNITY_EDITOR
-            return true;
+            return false;
 #else
 
             try
@@ -97,7 +97,7 @@ namespace Game
             }
             catch (Exception e)
             {
-                return true;
+                return false;
             }
 #endif
         }
@@ -112,18 +112,12 @@ namespace Game
             string apkPath = Application.dataPath + "/../base.apk"; ;
             if (File.Exists(apkPath))
             {
-                long fileSizeBytes = new FileInfo(apkPath).Length;
-                double fileSizeMB = fileSizeBytes / (1024.0 * 1024.0);
-                Debug.Log($"APK 大小: {fileSizeMB:F2} MB");
-
-                return fileSizeMB + "MB";
+                return CalculateFileMD5(apkPath);
             }
             else
             {
-                return "not file";
+                return "notfile";
             }
-
-            return "success";
 #endif
         }
 

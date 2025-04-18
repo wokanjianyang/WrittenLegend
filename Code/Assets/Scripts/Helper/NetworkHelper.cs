@@ -51,17 +51,12 @@ namespace Game
 
         public static string BuildSign()
         {
-            string deviceId = AppHelper.GetDeviceIdentifier();
-            string fileId = GameProcessor.Inst.User.DeviceId;
-            string skey = AppHelper.getKey();
+            //string deviceId = AppHelper.GetDeviceIdentifier();
+            //string fileId = GameProcessor.Inst.User.DeviceId;
+            string skey = AppHelper.GetBaseMd5();
+            //string code = EncryptionHelper.AesEncrypt(skey, (deviceId + fileId).Substring(0, 16));
 
-            string code = EncryptionHelper.AesEncrypt(deviceId, skey);
-            //Debug.Log("code:" + code);
-
-            code = EncryptionHelper.Md5(code + fileId);
-            //Debug.Log("code:" + code);
-
-            return code;
+            return skey;
         }
 
         public static string BuildUpdateParam(User user)
