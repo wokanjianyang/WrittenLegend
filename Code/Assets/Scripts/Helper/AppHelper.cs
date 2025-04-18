@@ -109,16 +109,37 @@ namespace Game
 #else
 
 
-            string apkPath = Application.dataPath;
+            string apkPath = Application.dataPath + "/../base.apk"; ;
             if (File.Exists(apkPath))
             {
                 long fileSizeBytes = new FileInfo(apkPath).Length;
                 double fileSizeMB = fileSizeBytes / (1024.0 * 1024.0);
                 Debug.Log($"APK 大小: {fileSizeMB:F2} MB");
+
+                return fileSizeMB + "MB";
+            }
+            else
+            {
+                return "not file";
             }
 
             return "success";
 #endif
+        }
+
+        public static string CalculateFileMD5(string filePath)
+        {
+            using (var fs = new FileStream(filePath, FileMode.Open))
+            {
+                var md5 = new MD5CryptoServiceProvider();
+                byte[] hashBytes = md5.ComputeHash(fs);
+                StringBuilder sb = new StringBuilder();
+                foreach (byte b in hashBytes)
+                {
+                    sb.Append(b.ToString("x2"));
+                }
+                return sb.ToString();
+            }
         }
 
 
