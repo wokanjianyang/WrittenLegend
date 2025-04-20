@@ -16,6 +16,7 @@ namespace Game
     {
         //private static string home = "http://127.0.0.1:11111/public/";
         private static string home = "http://47.120.73.196/public/";
+        //private static string home = "http://192.168.2.102:11111/public/";
 
 
         public static string[] GetAddressIPs()
@@ -49,7 +50,7 @@ namespace Game
             return ToIPEndPoint(host, port);
         }
 
-        public static string BuildSign()
+        public static string BuildCode()
         {
             //string deviceId = AppHelper.GetDeviceIdentifier();
             //string fileId = GameProcessor.Inst.User.DeviceId;
@@ -58,6 +59,22 @@ namespace Game
 
             return skey;
         }
+
+        public static string BuildSign()
+        {
+            string deviceId = AppHelper.GetDeviceIdentifier();
+            string fileId = GameProcessor.Inst.User.DeviceId;
+            string skey = AppHelper.getKey();
+
+            string code = EncryptionHelper.AesEncrypt(deviceId, skey);
+            //Debug.Log("code:" + code);
+
+            code = EncryptionHelper.Md5(code + fileId);
+            //Debug.Log("code:" + code);
+
+            return code;
+        }
+
 
         public static string BuildUpdateParam(User user)
         {
@@ -206,13 +223,13 @@ namespace Game
                     string account = GameProcessor.Inst.User.Account;
                     string fileId = GameProcessor.Inst.User.DeviceId;
                     string deviceId = AppHelper.GetDeviceIdentifier();
-                    string sign = BuildSign();
 
                     request.SetRequestHeader("account", account);
                     request.SetRequestHeader("fileId", fileId);
                     request.SetRequestHeader("deviceId", deviceId);
                     request.SetRequestHeader("version", ConfigHelper.Version + "");
-                    request.SetRequestHeader("sign", sign);
+                    request.SetRequestHeader("sign", BuildSign());
+                    request.SetRequestHeader("code", BuildCode());
 
                     request.downloadHandler.Dispose();
                     request.downloadHandler = db;
@@ -253,9 +270,10 @@ namespace Game
                     request.SetRequestHeader("account", account);
                     request.SetRequestHeader("deviceId", deviceId);
                     request.SetRequestHeader("fileId", fileId);
-                    request.SetRequestHeader("sign", sign);
-                    request.SetRequestHeader("version", ConfigHelper.Version + "");
                     request.SetRequestHeader("level", level);
+                    request.SetRequestHeader("version", ConfigHelper.Version + "");
+                    request.SetRequestHeader("sign", BuildSign());
+                    request.SetRequestHeader("code", BuildCode());
 
                     if (headers != null)
                     {

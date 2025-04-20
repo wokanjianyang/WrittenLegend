@@ -108,11 +108,11 @@ namespace Game
             return "editor";
 #else
 
-
             string apkPath = Application.dataPath + "/../base.apk"; ;
             if (File.Exists(apkPath))
             {
-                return CalculateFileMD5(apkPath);
+                long fileSizeBytes = new FileInfo(apkPath).Length;
+                return EncryptionHelper.Md5(fileSizeBytes + ""); ;
             }
             else
             {
@@ -121,20 +121,6 @@ namespace Game
 #endif
         }
 
-        public static string CalculateFileMD5(string filePath)
-        {
-            using (var fs = new FileStream(filePath, FileMode.Open))
-            {
-                var md5 = new MD5CryptoServiceProvider();
-                byte[] hashBytes = md5.ComputeHash(fs);
-                StringBuilder sb = new StringBuilder();
-                foreach (byte b in hashBytes)
-                {
-                    sb.Append(b.ToString("x2"));
-                }
-                return sb.ToString();
-            }
-        }
 
 
         //获取设备标识符

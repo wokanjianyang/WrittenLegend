@@ -792,7 +792,7 @@ PlayerSettings:
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
     : ODIN_INSPECTOR
-    Android: 
+    Android: ODIN_INSPECTOR
     EmbeddedLinux: EASY_MOBILE;EASY_MOBILE_PRO
     GameCoreScarlett: EASY_MOBILE;EASY_MOBILE_PRO
     GameCoreXboxOne: EASY_MOBILE;EASY_MOBILE_PRO

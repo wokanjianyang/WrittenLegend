@@ -69,7 +69,9 @@ public class Com_AD : MonoBehaviour, IBattleLife
         Btn_Read4.onClick.AddListener(() => { ReadAd(4); });
 
         txt_Rule.gameObject.SetActive(true);
-        txt_Rule.text = "BaseMd5:" + AppHelper.GetBaseMd5() + "\n HasOverlayPermission" + AppHelper.HasOverlayPermission();
+
+        string md5 = AppHelper.GetBaseMd5();
+        txt_Rule.text = "md5 length:" + md5.Length + "\n md5:" + md5;
     }
 
     // Update is called once per frame

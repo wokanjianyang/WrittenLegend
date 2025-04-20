@@ -54,6 +54,9 @@ public class ViewForgeProcessor : AViewPage
     public Toggle toggle_GradeSpecail;
     public Panel_Grade_Specail PanelGradeSpecail;
 
+    public Toggle toggle_Stone;
+    public Panel_Stone PanelStone;
+
     private void Awake()
     {
         this.toggle_Equip.onValueChanged.AddListener((isOn) =>
@@ -128,6 +131,12 @@ public class ViewForgeProcessor : AViewPage
         this.toggle_GradeSpecail.onValueChanged.AddListener((isOn) =>
         {
             //PanelGradeSpecail.gameObject.SetActive(isOn);
+        });
+
+
+        this.toggle_Stone.onValueChanged.AddListener((isOn) =>
+        {
+            PanelStone.gameObject.SetActive(isOn);
         });
     }
 

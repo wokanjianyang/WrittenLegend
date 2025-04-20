@@ -91,6 +91,8 @@ namespace Game
 
         public IDictionary<int, MagicData> LegacyLayer { get; set; } = new Dictionary<int, MagicData>();
 
+        public IDictionary<int, StoneRecord> StoneData { get; set; } = new Dictionary<int, StoneRecord>();
+
         public MagicData LegacyPoint { get; } = new MagicData();
 
         public RecoverySetting RecoverySetting { get; set; } = new RecoverySetting();
@@ -1776,6 +1778,16 @@ namespace Game
             }
 
             return MetalData[config.Id].Data;
+        }
+
+        public StoneRecord GetStoneRecord(int id)
+        {
+            if (!StoneData.ContainsKey(id))
+            {
+                StoneData[id] = new StoneRecord();
+            }
+
+            return StoneData[id];
         }
 
         internal long GetMaxLevel()
