@@ -42,6 +42,11 @@ namespace Game
             return List[index].StoneId;
         }
 
+        public List<int> GetExcludeStoneId(int index)
+        {
+            return List.Where(m => m.Key != index).Select(m => m.Value.StoneId).ToList();
+        }
+
         public int GetStoneLevel(int index)
         {
             if (!List.ContainsKey(index))

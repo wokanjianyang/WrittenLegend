@@ -1,4 +1,5 @@
 using Game;
+using Newtonsoft.Json;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,6 +59,7 @@ public class Panel_Stone : MonoBehaviour
 
         ShowForgeItem();
         ShowStoneMain();
+        ShowStone();
     }
 
     public void Init()
@@ -104,8 +106,9 @@ public class Panel_Stone : MonoBehaviour
         this.StoneId = 0;
 
         ShowForgeItem();
-        ShowStoneMain();
-        ShowStone();
+
+        mainList[MainIndex - 1].toggle.isOn = true;
+        //ShowStoneMain();
     }
 
     private void ShowForgeItem()
@@ -169,12 +172,12 @@ public class Panel_Stone : MonoBehaviour
         this.MainIndex = index;
 
         ShowStoneMain();
+        ShowStone();
     }
 
     private void ShowStoneMain()
     {
         this.Btn_OK.gameObject.SetActive(false);
-        this.Btn_Active.gameObject.SetActive(false);
 
         User user = GameProcessor.Inst.User;
         StoneRecord record = user.GetStoneRecord(SelectPosition);
@@ -185,11 +188,15 @@ public class Panel_Stone : MonoBehaviour
         {
             StoneSetConfig setConfig = StoneSetConfigCategory.Instance.Get(SelectPosition);
 
+            List<int> excludeList = record.GetExcludeStoneId(MainIndex);
+
+            Debug.Log("excludeList:" + JsonConvert.SerializeObject(excludeList));
+
             for (int i = 0; i < stoneList.Count; i++)
             {
                 StoneConfig stoneConfig = StoneConfigCategory.Instance.Get(i + 1);
 
-                if (setConfig.TypeList.Contains(stoneConfig.Type))
+                if (setConfig.TypeList.Contains(stoneConfig.Type) && !excludeList.Contains(stoneConfig.Id))
                 {
                     stoneList[i].toggle.interactable = true;
                     if (stoneId == 0)
@@ -329,6 +336,7 @@ public class Panel_Stone : MonoBehaviour
 
         record.AddCount();
 
+        ShowForgeItem();
         ShowStoneMain();
         ShowStone();
     }

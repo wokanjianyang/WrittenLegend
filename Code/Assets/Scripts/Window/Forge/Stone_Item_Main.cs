@@ -53,7 +53,7 @@ namespace Game
 
         public void Show()
         {
-            Debug.Log("Stone_Item_Main Show Id:" + StoneId);
+            Debug.Log("Stone_Item_Main Show Index:" + MainIndex);
 
 
             this.Txt_Level.gameObject.SetActive(false);
