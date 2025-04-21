@@ -130,6 +130,7 @@ namespace Game
         public static int SpecialId_Talent_Book = 4020; //天赋书
         public static int SpecialId_Reform_Stone = 4021; //改造石
         public static int SpecialId_Pet_Exp = 4022; //魂宠口粮
+        public static int SpecialId_Stone_Set = 4027; //魂宠口粮
 
         public static int SpecialId_Card_Stone = 4101;
         public static int SpecialId_Skil_Advance = 4102;

@@ -20,6 +20,7 @@ namespace Game
         public Image image_Background;
         public Sprite[] list_Backgrounds;
 
+        private int MainIndex { get; set; } = 0;
         private int StoneId { get; set; } = 0;
         private int StoneLevel { get; set; } = 0;
 
@@ -52,7 +53,7 @@ namespace Game
 
         public void Show()
         {
-            //Debug.Log("item relic show");
+            Debug.Log("Stone_Item_Main Show Id:" + StoneId);
 
 
             this.Txt_Level.gameObject.SetActive(false);
@@ -83,13 +84,14 @@ namespace Game
         {
             if (toggle.isOn)
             {
-                _onValueChanged.Invoke(StoneId);
+                _onValueChanged.Invoke(MainIndex);
             }
         }
 
 
         public void SetContent(int index, int stoneId, int stoneLevel)
         {
+            this.MainIndex = index;
             this.StoneId = stoneId;
             this.StoneLevel = stoneLevel;
 

@@ -8,52 +8,69 @@ using UnityEngine;
 namespace Game
 {
 
+    public class StoneSet
+    {
+        public int StoneId { get; set; } = 0;
+
+        public MagicData StoneLevel { get; set; }
+
+        public StoneSet(int stoneId)
+        {
+            this.StoneId = stoneId;
+            this.StoneLevel = new MagicData();
+        }
+    }
+
     public class StoneRecord
     {
+        public Dictionary<int, StoneSet> List { get; set; } = new Dictionary<int, StoneSet>();
 
-        public Dictionary<int, MagicData> LeveList { get; set; } = new Dictionary<int, MagicData>();
-        public Dictionary<int, int> IdList { get; set; } = new Dictionary<int, int>();
-
-        public int RunCount = 0;
+        public int SetCount = 0;
 
         public int GetSetCount()
         {
-            return RunCount;
+            return SetCount;
         }
 
         public int GetStoneId(int index)
         {
-            if (!IdList.ContainsKey(index))
-            {
-                IdList[index] = 0;
-            }
-
-            return IdList[index];
-        }
-
-        public int GetStoneLevel(int id)
-        {
-            if (id == 0)
+            if (!List.ContainsKey(index))
             {
                 return 0;
             }
 
-            if (!LeveList.ContainsKey(id))
+            return List[index].StoneId;
+        }
+
+        public int GetStoneLevel(int index)
+        {
+            if (!List.ContainsKey(index))
             {
-                LeveList[id] = new MagicData();
+                return 0;
             }
 
-            return (int)LeveList[id].Data;
+            return (int)List[index].StoneLevel.Data;
         }
 
         public void AddCount()
         {
-            this.RunCount++;
+            this.SetCount++;
         }
 
-        public void AddLevel(int id)
+        public void AddLevel(int index, int stoneId)
         {
-            LeveList[id].Data++;
+            if (!List.ContainsKey(index))
+            {
+                if (List.Count >= SetCount + 1)
+                {
+                    Debug.Log("没有镶嵌位置");
+                    return; //如果没有镶嵌位置，不可以镶嵌
+                }
+
+                List[index] = new StoneSet(stoneId);
+            }
+
+            List[index].StoneLevel.Data++;
         }
     }
 }

@@ -19,9 +19,9 @@ public class Panel_Stone : MonoBehaviour
     public ToggleGroup tg_Stone;
     private List<Stone_Item> stoneList = new List<Stone_Item>();
 
-    private List<Stone_Item> stoneUsedList = new List<Stone_Item>();
-
-    public List<Item_Metail_Need> metailList;
+    public StrenthAttrItem AttrItem;
+    public Text Txt_Fee;
+    public Text Txt_Fee_Set;
 
     public Button Btn_OK;
     public Button Btn_Active;
@@ -33,7 +33,8 @@ public class Panel_Stone : MonoBehaviour
     private const int MaxLevel = 14;
 
     private int SelectPosition = 0;
-    private int SelectIndex = 0;
+    private int MainIndex = 0;
+    private int StoneId = 0;
 
     // Start is called before the first frame update
     void Awake()
@@ -51,8 +52,12 @@ public class Panel_Stone : MonoBehaviour
     // Update is called once per frame
     void Start()
     {
-        this.SelectForgeItem(1);
-        this.SelectStoneMain(1);
+        this.SelectPosition = 1;
+        this.MainIndex = 1;
+        this.StoneId = 0;
+
+        ShowForgeItem();
+        ShowStoneMain();
     }
 
     public void Init()
@@ -95,7 +100,16 @@ public class Panel_Stone : MonoBehaviour
         Debug.Log("SelectForgeItem id:" + id);
 
         this.SelectPosition = id;
+        this.MainIndex = 1;
+        this.StoneId = 0;
 
+        ShowForgeItem();
+        ShowStoneMain();
+        ShowStone();
+    }
+
+    private void ShowForgeItem()
+    {
         User user = GameProcessor.Inst.User;
         StoneRecord record = user.GetStoneRecord(SelectPosition);
 
@@ -107,12 +121,14 @@ public class Panel_Stone : MonoBehaviour
 
             if (i <= setCount)
             {
-                int stoneId = record.GetStoneId(i);
-                int level = record.GetStoneLevel(stoneId);
+                //Debug.Log("SelectForgeItem-stoneId:" + stoneId);
+
+                int level = record.GetStoneLevel(i + 1);
+                int stoneId = record.GetStoneId(i + 1);
 
                 //可以镶嵌
                 main.toggle.interactable = true;
-                main.SetContent(i, stoneId, level);
+                main.SetContent(i + 1, stoneId, level);
             }
             else
             {
@@ -123,26 +139,47 @@ public class Panel_Stone : MonoBehaviour
         for (int i = 0; i < stoneList.Count; i++)
         {
             stoneList[i].toggle.interactable = false;
+            stoneList[i].Show();
         }
 
-        SelectStoneMain(1);
+        if (record.GetSetCount() < 2)
+        {
+            long fee = setCount + 1;
+            long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_Stone_Set);
+            ItemConfig itemConfig = ItemConfigCategory.Instance.Get(ItemHelper.SpecialId_Stone_Set);
+
+            string color = materialCount >= fee ? "#FFFF00" : "#FF0000";
+
+            Txt_Fee_Set.text = string.Format("<color={0}>{1}</color>", color, itemConfig.Name + ":" + materialCount + "/ " + fee);
+
+            Txt_Fee_Set.gameObject.SetActive(true);
+            Btn_Active.gameObject.SetActive(true);
+        }
+        else
+        {
+            Txt_Fee_Set.gameObject.SetActive(false);
+            Btn_Active.gameObject.SetActive(false);
+        }
     }
 
     private void SelectStoneMain(int index)
     {
-        Debug.Log("SelectStoneMain id:" + index);
+        Debug.Log("SelectMain Index:" + index);
 
-        this.SelectIndex = index;
+        this.MainIndex = index;
 
-        stoneUsedList.Clear();
+        ShowStoneMain();
+    }
+
+    private void ShowStoneMain()
+    {
         this.Btn_OK.gameObject.SetActive(false);
-        this.Btn_Active.gameObject.SetActive(true);
+        this.Btn_Active.gameObject.SetActive(false);
 
         User user = GameProcessor.Inst.User;
         StoneRecord record = user.GetStoneRecord(SelectPosition);
 
-        int stoneId = record.GetStoneId(SelectIndex);
-        int level = record.GetStoneLevel(stoneId);
+        int stoneId = record.GetStoneId(MainIndex);
 
         if (stoneId == 0)
         {
@@ -155,54 +192,145 @@ public class Panel_Stone : MonoBehaviour
                 if (setConfig.TypeList.Contains(stoneConfig.Type))
                 {
                     stoneList[i].toggle.interactable = true;
-                    //stoneList[i].gameObject.SetActive(true);
-
-                    stoneUsedList.Add(stoneList[i]);
+                    if (stoneId == 0)
+                    {
+                        stoneId = stoneConfig.Id;
+                        stoneList[i].toggle.isOn = true;
+                    }
                 }
                 else
                 {
                     stoneList[i].toggle.interactable = false;
-                    //stoneList[i].gameObject.SetActive(false);
                 }
             }
         }
         else
         {
-            StoneConfig stoneConfig = StoneConfigCategory.Instance.Get(stoneId);
-
             for (int i = 0; i < stoneList.Count; i++)
             {
-                stoneUsedList.Add(stoneList[i]);
+                if (stoneId == i + 1)
+                {
+                    stoneList[i].toggle.interactable = true;
+                    stoneList[i].toggle.isOn = true;
+                }
+                else
+                {
+                    stoneList[i].toggle.interactable = false;
+                }
             }
         }
 
-
-        stoneUsedList[0].toggle.isOn = true;
-
+        if (StoneId == 0)
+        {
+            StoneId = stoneId;
+        }
     }
 
-    private void SelectStone(int itemId)
+    private void SelectStone(int stoneId)
     {
-        Debug.Log("SelectStoneMain id:" + itemId);
+        Debug.Log("SelectStone id:" + stoneId);
+        this.StoneId = stoneId;
+
+        ShowStone();
     }
 
-
-    public void Load()
+    private void ShowStone()
     {
-        //把之前的卸载
+        //显示属性，费用
+        User user = GameProcessor.Inst.User;
+        StoneRecord record = user.GetStoneRecord(SelectPosition);
 
+        int level = record.GetStoneLevel(MainIndex);
 
-        this.Btn_OK.gameObject.SetActive(false);
+        StoneConfig config = StoneConfigCategory.Instance.Get(StoneId);
+
+        int fee = config.GetFee(level + 1);
+
+        long materialCount = user.GetMaterialCount(config.ItemId);
+        string color = materialCount >= fee ? "#FFFF00" : "#FF0000";
+        Txt_Fee.text = string.Format("<color={0}>{1}</color>", color, config.Name + ":" + materialCount + "/ " + fee);
+
+        if (materialCount >= fee)
+        {
+            this.Btn_OK.gameObject.SetActive(true);
+        }
+
+        int currentAttr = config.GetAttr(level);
+
+        int nextAtt = config.GetAttr(level + 1);
+
+        AttrItem.SetContent(config.AttrId, currentAttr, nextAtt - currentAttr);
     }
 
     public void OnClickOK()
     {
+        this.Btn_OK.gameObject.SetActive(false);
+
+        User user = GameProcessor.Inst.User;
+
+        StoneRecord record = user.GetStoneRecord(SelectPosition);
+
+        int level = record.GetStoneLevel(MainIndex);
+
+        StoneConfig config = StoneConfigCategory.Instance.Get(StoneId);
+
+        int fee = config.GetFee(level + 1);
+
+        long materialCount = user.GetMaterialCount(config.ItemId);
+
+        if (materialCount < fee)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的材料", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
+
+        GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
+        {
+            Type = ItemType.Material,
+            ItemId = config.ItemId,
+            Quantity = fee
+        });
+
+        record.AddLevel(MainIndex, StoneId);
+
+        GameProcessor.Inst.UpdateInfo();
+
+        ShowForgeItem();
+        ShowStoneMain();
+        ShowStone();
     }
 
 
     public void OnClickActive()
     {
+        this.Btn_Active.gameObject.SetActive(false);
 
+        User user = GameProcessor.Inst.User;
+
+        StoneRecord record = user.GetStoneRecord(SelectPosition);
+
+        int setCount = record.GetSetCount();
+
+        long fee = setCount + 1;
+        long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_Stone_Set);
+
+        if (materialCount < fee)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的材料", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
+
+        GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
+        {
+            Type = ItemType.Material,
+            ItemId = ItemHelper.SpecialId_Stone_Set,
+            Quantity = fee
+        });
+
+        record.AddCount();
+
+        ShowStoneMain();
+        ShowStone();
     }
 }
 
