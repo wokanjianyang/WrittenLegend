@@ -75,7 +75,9 @@ namespace Game
             //user.SaveArtifactLevel(180005, 10); //卖身契
             //user.SaveArtifactLevel(180006, 10); //万界图
             //user.SaveArtifactLevel(180007, 1); //破限
+            //user.SaveArtifactLevel(180008, 1); //魔法
             //user.SaveArtifactLevel(180009, 1); //圣者
+            //user.SaveArtifactLevel(180011, 1); //锤子
             //user.SaveArtifactLevel(180013, 1); //金蛟剪
             //user.SaveArtifactLevel(180020, 1); //传世之源
             //user.SaveArtifactLevel(180021, 1); //神戒之源
@@ -89,21 +91,20 @@ namespace Game
             //user.SaveItemMeterialCount(1999994, 100000);
             //user.SaveItemMeterialCount(ItemHelper.SpecialId_Card_Stone, 10000000);
             //user.Cycle.Data = 2;
-            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 13, 1, 1));
-            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 18, 1, 1));
-            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 19, 1, 1));
-            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 20, 1, 1));
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 22, 1, 1)); //特戒
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 32, 1, 1)); //普通金宠包
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 33, 1, 1)); //满资质金宠包
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 35, 1, 1)); //青龙神器自选
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 36, 1, 1)); //宝石自选
 
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 26, 1, 1));  //神技
 
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 28, 1, 6));  //魂骨
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 29, 1, 3));  //11技能
 
-            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 106, 1, 2));
-            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 107, 1, 1));
-            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 108, 1, 1));
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 106, 1, 2)); //白银
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 107, 1, 1)); //黄金
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 108, 1, 1)); //钻石
 
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 109, 1, 5));  //战士经验
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 110, 1, 1)); //法师经验
@@ -113,7 +114,8 @@ namespace Game
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 113, 1, 1)); //法师输出
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 114, 1, 1)); //道士输出
 
-            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 127, 1, 1)); //金装
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 127, 1, 1)); //金装自选
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 128, 1, 1)); //暗金自选
 
             //items.AddRange(AddRedEquipDaoshi());
             //items.AddRange(AddExclusiveHuoXing());
@@ -129,6 +131,16 @@ namespace Game
                 user.Bags.Add(boxItem);
             }
         }
+
+        //items.Add(ItemHelper.BuildMaterial(50000105, 10000)); //十五阶装备升阶石
+        //items.Add(ItemHelper.BuildMaterial(50000106, 10000)); //十六阶装备升阶石
+        //items.Add(ItemHelper.BuildMaterial(50000107, 10000)); //十七阶装备升阶石
+        //items.Add(ItemHelper.BuildMaterial(50000108, 10000)); //十八阶装备升阶石
+        //items.Add(ItemHelper.BuildMaterial(50000109, 10000)); //十九阶装备升阶石
+        //items.Add(ItemHelper.BuildMaterial(50000110, 10000)); //二十阶装备升阶石
+        //items.Add(ItemHelper.BuildMaterial(50000111, 10000)); //二一阶装备升阶石
+        //items.Add(ItemHelper.BuildMaterial(50000112, 10000)); //二二阶装备升阶石
+
 
         //for (int i = 1; i <= 8; i++)
         //{

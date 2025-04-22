@@ -149,4 +149,9 @@
 {"_t":"MapConfig","_id":1147,"Name":"深渊通道","Level":5,"Layer":5,"LevelRequired":"1500-3","Memo":"深渊魂火","DropLevel":0,"DropIdList":[202002,300091,105,504,210071,1009],"DropRateList":[10,2500,1000,18000,600000,140000],"BoosId":10147},
 {"_t":"MapConfig","_id":1148,"Name":"深渊尸洞","Level":5,"Layer":5,"LevelRequired":"1500-4","Memo":"深渊腐肉","DropLevel":0,"DropIdList":[202002,300091,105,504,210071,1009],"DropRateList":[10,2500,1000,18000,600000,140000],"BoosId":10148},
 {"_t":"MapConfig","_id":1149,"Name":"深渊蛇谷","Level":5,"Layer":5,"LevelRequired":"1500-5","Memo":"深渊蛇胆","DropLevel":0,"DropIdList":[202002,300091,105,504,210071,1009],"DropRateList":[10,2500,1000,18000,600000,140000],"BoosId":10149},
+{"_t":"MapConfig","_id":1150,"Name":"深渊狼山","Level":5,"Layer":5,"LevelRequired":"1550-1","Memo":"深渊狼爪","DropLevel":0,"DropIdList":[202002,300091,105,504,210072,1009],"DropRateList":[10,2500,1000,18000,600000,140000],"BoosId":10150},
+{"_t":"MapConfig","_id":1151,"Name":"深渊沙洞","Level":5,"Layer":5,"LevelRequired":"1550-2","Memo":"深渊虫皮","DropLevel":0,"DropIdList":[202002,300091,105,504,210072,1009],"DropRateList":[10,2500,1000,18000,600000,140000],"BoosId":10151},
+{"_t":"MapConfig","_id":1152,"Name":"深渊鹰崖","Level":5,"Layer":5,"LevelRequired":"1550-3","Memo":"深渊鹰羽","DropLevel":0,"DropIdList":[202002,300091,105,504,210072,1009],"DropRateList":[10,2500,1000,18000,600000,140000],"BoosId":10152},
+{"_t":"MapConfig","_id":1153,"Name":"深渊虫谷","Level":5,"Layer":5,"LevelRequired":"1550-4","Memo":"深渊虫角","DropLevel":0,"DropIdList":[202002,300091,105,504,210072,1009],"DropRateList":[10,2500,1000,18000,600000,140000],"BoosId":10153},
+{"_t":"MapConfig","_id":1154,"Name":"深渊虫洞","Level":5,"Layer":5,"LevelRequired":"1550-5","Memo":"深渊蜈膏","DropLevel":0,"DropIdList":[202002,300091,105,504,210072,1009],"DropRateList":[10,2500,1000,18000,600000,140000],"BoosId":10154},
 ]}

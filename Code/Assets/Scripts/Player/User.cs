@@ -634,6 +634,24 @@ namespace Game
                 }
             }
 
+            //宝石
+            foreach (var sp in StoneData)
+            {
+                int ps = sp.Key;
+
+                foreach (var ss in sp.Value.List)
+                {
+                    StoneSet sd = ss.Value;
+
+                    int stoneId = sd.StoneId;
+                    int stoneLevel = (int)sd.StoneLevel.Data;
+
+                    StoneConfig stoneConfig = StoneConfigCategory.Instance.Get(stoneId);
+                    int attrValue = stoneConfig.GetAttr(stoneLevel);
+
+                    AttributeBonus.SetAttr((AttributeEnum)stoneConfig.AttrId, AttributeFrom.Stone, ps * 10 + ss.Key, attrValue);
+                }
+            }
 
             //宠物
             for (int i = 0; i < PetList.Count; i++)

@@ -149,6 +149,7 @@ namespace Game
         EquipReform = 24, //改造
         Pet = 25,//宠物
         Relic = 26,//神器
+        Stone = 27,//宝石
 
         Dingzhi = 98,
         /// <summary>
