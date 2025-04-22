@@ -139,7 +139,7 @@ namespace Game
                 this.btn_Talent.gameObject.SetActive(false);
             }
 
-            if (user.Cycle.Data >= 6)
+            if (user.Cycle.Data >= 4)
             {
                 this.btn_Relic.gameObject.SetActive(true);
             }

@@ -98,7 +98,7 @@ namespace Game
                 MythItem.gameObject.SetActive(false);
             }
 
-            if (user.Cycle.Data >= 6)
+            if (user.Cycle.Data >= 4)
             {
                 Btn_World.gameObject.SetActive(true);
             }

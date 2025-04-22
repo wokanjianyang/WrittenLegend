@@ -233,7 +233,7 @@ namespace Game
                 basePercent += refineConfig.GetBaseAttrPercent(level);
                 qualityPercent += refineConfig.GetQualityAttrPercent(level);
             }
-            else if (Part >= 21 && Quality == 7)
+            else if (Part >= 21 && Quality >= 7)
             {
                 basePercent = 100;
                 qualityPercent = 100 * Layer;
