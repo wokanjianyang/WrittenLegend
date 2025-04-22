@@ -108,7 +108,7 @@ public class Panel_Stone : MonoBehaviour
         ShowForgeItem();
 
         mainList[MainIndex - 1].toggle.isOn = true;
-        //ShowStoneMain();
+        ShowStoneMain();
     }
 
     private void ShowForgeItem()

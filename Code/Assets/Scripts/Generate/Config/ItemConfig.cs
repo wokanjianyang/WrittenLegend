@@ -92,7 +92,7 @@ namespace Game
 		public int Price { get; set; }
 		/// <summary>堆叠数量</summary>
 		[ProtoMember(6)]
-		public int MaxNum { get; set; }
+		public long MaxNum { get; set; }
 		/// <summary>道具使用等级</summary>
 		[ProtoMember(7)]
 		public int LevelRequired { get; set; }

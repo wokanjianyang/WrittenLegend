@@ -152,7 +152,14 @@ namespace Game
             this.go_Lock.gameObject.SetActive(item.Item.IsLock);
 
             this.tmp_Count.transform.gameObject.SetActive(this.Count > 1);
-            this.tmp_Count.text = this.Count.ToString();
+            if (this.Count > 999999999)
+            {
+                this.tmp_Count.text = StringHelper.FormatNumber(this.Count);
+            }
+            else
+            {
+                this.tmp_Count.text = this.Count.ToString();
+            }
 
             if (item.Item.IsNew && (item.Item.Type == ItemType.Equip || item.Item.Type == ItemType.Exclusive))
             {
@@ -187,14 +194,30 @@ namespace Game
         {
             this.Count += quantity;
             this.tmp_Count.transform.gameObject.SetActive(this.Count != 1);
-            this.tmp_Count.text = this.Count.ToString();
+
+            if (this.Count > 999999999)
+            {
+                this.tmp_Count.text = StringHelper.FormatNumber(this.Count);
+            }
+            else
+            {
+                this.tmp_Count.text = this.Count.ToString();
+            }
+
         }
 
         public void RemoveStack(long quantity)
         {
             this.Count -= quantity;
             this.tmp_Count.transform.gameObject.SetActive(this.Count != 1);
-            this.tmp_Count.text = this.Count.ToString();
+            if (this.Count > 999999999)
+            {
+                this.tmp_Count.text = StringHelper.FormatNumber(this.Count);
+            }
+            else
+            {
+                this.tmp_Count.text = this.Count.ToString();
+            }
         }
 
         public void SetLock(bool isLock)

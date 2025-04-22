@@ -77,7 +77,7 @@ namespace Game
         /// <summary>
         /// 堆叠数量
         /// </summary>
-        public int MaxNum { get; set; }
+        public long MaxNum { get; set; }
 
         //[JsonIgnore]
         //public int BoxId { get; set; } = -1;
