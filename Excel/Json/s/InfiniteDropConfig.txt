@@ -39,6 +39,7 @@
 {"_t":"InfiniteDropConfig","_id":38,"DropId":220041,"Name":"改造石","Rate":12,"StartLevel":2001,"EndLevel":10000,"RateLevel":2,"Max":30},
 {"_t":"InfiniteDropConfig","_id":39,"DropId":1010,"Name":"金色精华","Rate":5,"StartLevel":2500,"EndLevel":10000,"RateLevel":1,"Max":10},
 {"_t":"InfiniteDropConfig","_id":40,"DropId":1011,"Name":"暗金精华","Rate":5,"StartLevel":3200,"EndLevel":10000,"RateLevel":1,"Max":10},
+{"_t":"InfiniteDropConfig","_id":41,"DropId":1012,"Name":"开孔石","Rate":1,"StartLevel":1500,"EndLevel":10000,"RateLevel":30,"Max":1},
 {"_t":"InfiniteDropConfig","_id":101,"DropId":180001,"Name":"BOSS杀手","Rate":2000,"StartLevel":100,"EndLevel":1000,"RateLevel":100,"Max":1},
 {"_t":"InfiniteDropConfig","_id":102,"DropId":180002,"Name":"BOSS契约","Rate":4000,"StartLevel":100,"EndLevel":1000,"RateLevel":100,"Max":1},
 {"_t":"InfiniteDropConfig","_id":103,"DropId":180003,"Name":"命运沙漏","Rate":150000,"StartLevel":100,"EndLevel":1000,"RateLevel":100,"Max":5},
