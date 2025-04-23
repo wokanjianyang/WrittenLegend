@@ -123,7 +123,7 @@ namespace Game
             }
             catch (Exception e)
             {
-                return notfile;
+                return "notfile";
             }
 #endif
         }
