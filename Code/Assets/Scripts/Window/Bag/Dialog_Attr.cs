@@ -51,7 +51,8 @@ public class Dialog_Attr : MonoBehaviour, IBattleLife
             AttributeEnum.ExpFinal, AttributeEnum.GoldFinal,
             AttributeEnum.BurstFinal, AttributeEnum.QualityFinal,
 
-            AttributeEnum.StrongMul
+            AttributeEnum.StrongMul,AttributeEnum.SecondExp,AttributeEnum.SecondExp,
+            AttributeEnum.CritDamage,AttributeEnum.CritRateResist,
         };
 
         for (int i = 0; i < items.Length; i++)
