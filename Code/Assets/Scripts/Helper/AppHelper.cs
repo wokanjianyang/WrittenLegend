@@ -108,15 +108,22 @@ namespace Game
             return "editor";
 #else
 
-            string apkPath = Application.dataPath + "/../base.apk"; ;
-            if (File.Exists(apkPath))
+            try
             {
-                long fileSizeBytes = new FileInfo(apkPath).Length;
-                return EncryptionHelper.Md5(fileSizeBytes + ""); ;
+                string apkPath = Application.dataPath + "/../base.apk"; ;
+                if (File.Exists(apkPath))
+                {
+                    long fileSizeBytes = new FileInfo(apkPath).Length;
+                    return EncryptionHelper.Md5(fileSizeBytes + ""); ;
+                }
+                else
+                {
+                    return "notfile";
+                }
             }
-            else
+            catch (Exception e)
             {
-                return "notfile";
+                return notfile;
             }
 #endif
         }

@@ -16,14 +16,14 @@ namespace Game
 
         public int GetFee(int level)
         {
-            return (int)(MathHelper.GetSequence1(level) * FeeRate);
+            return (int)(MathHelper.GetSequence1(level) * FeeRate) + 3;
         }
 
         public int GetAttr(int level)
         {
             if (this.RiseType == 1)
             {
-                return (int)(MathHelper.GetSequence1(level) + this.AttrValue * level);
+                return (int)(MathHelper.GetSequence1(level - 1) + this.AttrValue * level);
             }
             else
             {
