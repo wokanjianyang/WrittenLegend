@@ -52,7 +52,7 @@ namespace Game
                 }
             }
 
-            Equip equip = new Equip(configId, runeId, suitId, quality);
+            Equip equip = new Equip(configId, 12010, 12110, quality);
             if (seed < 0)
             {
                 seed = AppHelper.InitSeed();
