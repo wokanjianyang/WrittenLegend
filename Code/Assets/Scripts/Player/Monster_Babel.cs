@@ -43,44 +43,42 @@ namespace Game
             this.Logic.SetData(null); //设置UI
         }
 
-
         private void SetAttr()
         {
             this.AttributeBonus = new AttributeBonus();
 
-            double riseRate = 0;
-            if (this.Progeress <= 10000)
+            double riseRate = 1;
+            double riseHpRate = 1;
+            double riseStrong = 1;
+
+            if (Progeress > 35000)
             {
-                riseRate = Math.Pow(1.003, this.Progeress);
-            }
-            else if (this.Progeress <= 15000)
-            {
-                riseRate = Math.Pow(1.003, 10000);
-                riseRate *= Math.Pow(1.005, this.Progeress - 10000);
-            }
-            else if (this.Progeress <= 30000)
-            {
-                riseRate = Math.Pow(1.003, 10000);
-                riseRate *= Math.Pow(1.005, 5000);
-                riseRate *= Math.Pow(1.007, this.Progeress - 15000);
-            }
-            else
-            {
-                riseRate = Math.Pow(1.003, 10000);
-                riseRate *= Math.Pow(1.005, 5000);
-                riseRate *= Math.Pow(1.007, 15000);
-                riseRate *= Math.Pow(1.009, this.Progeress - 30000);
+                riseRate *= Math.Pow(1.009, Progeress - 35000);
+                riseHpRate *= Math.Pow(1.012, Progeress - 35000);
+
+                riseStrong *= Math.Pow(1.01, Progeress - 35000);
             }
 
-            if (Record > 0 && this.Progeress + 1000 < Record)
+            if (Progeress > 30000)
             {
-                int lose = Record - this.Progeress - 1000;
-
-                double loseRate = Math.Max(Math.Pow(0.997, lose), 0.0000001);
-                //Debug.Log("loseRate:" + loseRate);
-
-                riseRate *= loseRate;
+                riseRate *= Math.Pow(1.009, Math.Min(Progeress, 35000) - 30000);
+                riseHpRate *= Math.Pow(1.009, Math.Min(Progeress, 35000) - 30000);
             }
+
+            if (Progeress > 15000)
+            {
+                riseRate *= Math.Pow(1.007, Math.Min(Progeress, 30000) - 15000);
+                riseHpRate *= Math.Pow(1.007, Math.Min(Progeress, 30000) - 15000);
+            }
+
+            if (Progeress > 10000)
+            {
+                riseRate *= Math.Pow(1.005, Math.Min(Progeress, 15000) - 10000);
+                riseHpRate *= Math.Pow(1.005, Math.Min(Progeress, 15000) - 10000);
+            }
+
+            riseRate *= Math.Pow(1.003, Math.Min(Progeress, 10000));
+            riseHpRate *= Math.Pow(1.003, Math.Min(Progeress, 10000));
 
             //Debug.Log(this.Progeress + " riseRate:" + riseRate);
 
@@ -89,8 +87,9 @@ namespace Game
             double hp = 999000000000000000000000.0;
             double attr = 300000000000.0;
             double def = 100000000000000.0;
+            double strong = 10000;
 
-            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp * riseRate);
+            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp * riseHpRate);
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr * riseRate);
             AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr * riseRate);
             AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr * riseRate);
@@ -105,6 +104,11 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.Miss, AttributeFrom.HeroBase, Progeress * 0.005);
 
             AttributeBonus.SetAttr(AttributeEnum.Protect, AttributeFrom.HeroBase, 90);
+
+            if (this.Progeress > 35000)
+            {
+                AttributeBonus.SetAttr(AttributeEnum.Strong, AttributeFrom.HeroBase, strong * riseStrong);
+            }
 
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));

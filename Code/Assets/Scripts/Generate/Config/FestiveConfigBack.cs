@@ -7,32 +7,32 @@ namespace Game
 {
     [ProtoContract]
     [Config]
-    public partial class FestiveConfigMaxCategory : ProtoObject, IMerge
+    public partial class FestiveConfigBackCategory : ProtoObject, IMerge
     {
-        public static FestiveConfigMaxCategory Instance;
+        public static FestiveConfigBackCategory Instance;
 		
         [ProtoIgnore]
         [BsonIgnore]
-        private Dictionary<int, FestiveConfigMax> dict = new Dictionary<int, FestiveConfigMax>();
+        private Dictionary<int, FestiveConfigBack> dict = new Dictionary<int, FestiveConfigBack>();
 		
         [BsonElement]
         [ProtoMember(1)]
-        private List<FestiveConfigMax> list = new List<FestiveConfigMax>();
+        private List<FestiveConfigBack> list = new List<FestiveConfigBack>();
 		
-        public FestiveConfigMaxCategory()
+        public FestiveConfigBackCategory()
         {
             Instance = this;
         }
         
         public void Merge(object o)
         {
-            FestiveConfigMaxCategory s = o as FestiveConfigMaxCategory;
+            FestiveConfigBackCategory s = o as FestiveConfigBackCategory;
             this.list.AddRange(s.list);
         }
 		
         public override void EndInit()
         {
-            foreach (FestiveConfigMax config in list)
+            foreach (FestiveConfigBack config in list)
             {
                 config.EndInit();
                 this.dict.Add(config.Id, config);
@@ -40,13 +40,13 @@ namespace Game
             this.AfterEndInit();
         }
 		
-        public FestiveConfigMax Get(int id)
+        public FestiveConfigBack Get(int id)
         {
-            this.dict.TryGetValue(id, out FestiveConfigMax item);
+            this.dict.TryGetValue(id, out FestiveConfigBack item);
 
             if (item == null)
             {
-                throw new Exception($"配置找不到，配置表名: {nameof (FestiveConfigMax)}，配置id: {id}");
+                throw new Exception($"配置找不到，配置表名: {nameof (FestiveConfigBack)}，配置id: {id}");
             }
 
             return item;
@@ -57,12 +57,12 @@ namespace Game
             return this.dict.ContainsKey(id);
         }
 
-        public Dictionary<int, FestiveConfigMax> GetAll()
+        public Dictionary<int, FestiveConfigBack> GetAll()
         {
             return this.dict;
         }
 
-        public FestiveConfigMax GetOne()
+        public FestiveConfigBack GetOne()
         {
             if (this.dict == null || this.dict.Count <= 0)
             {
@@ -73,7 +73,7 @@ namespace Game
     }
 
     [ProtoContract]
-	public partial class FestiveConfigMax: ProtoObject, IConfig
+	public partial class FestiveConfigBack: ProtoObject, IConfig
 	{
 		/// <summary>Id</summary>
 		[ProtoMember(1)]
