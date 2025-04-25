@@ -66,7 +66,7 @@ public class Item_Festive : MonoBehaviour
 
         if (Config.Step > 0)
         {
-            Txt_Title.text += "(µµÎ»²ÄÁÏ)";
+            Txt_Title.text += " µµÎ»£¨" + Config.Step + "/5£©";
         }
 
         DropLimitConfig dropLimit = DropLimitConfigCategory.Instance.Get(1);
