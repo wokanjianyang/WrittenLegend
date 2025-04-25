@@ -131,7 +131,7 @@ public class BattleRule_Babel : ABattleRule
         if (AppHelper.BabelRecord > 0 && progress >= AppHelper.BabelRecord + 10)
         {
             AppHelper.BabelRecord = (int)progress;
-            //GameProcessor.Inst.SaveRecord("babel", progress + "");
+            GameProcessor.Inst.SaveRecord("babel", progress + "");
         }
     }
 
