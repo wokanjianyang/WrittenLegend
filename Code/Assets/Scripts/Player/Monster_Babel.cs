@@ -175,5 +175,16 @@ namespace Game
                 }
             }
         }
+
+
+        public override void OnHit(DamageResult dr)
+        {
+            //if (this.Quality == 3)
+            //{
+            //    Debug.Log("monster babel " + this.Progeress + " hit damage:" + StringHelper.FormatNumber(dr.Damage));
+            //}
+
+            base.OnHit(dr);
+        }
     }
 }
