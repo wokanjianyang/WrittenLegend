@@ -93,7 +93,7 @@ public class Item_Festive : MonoBehaviour
         User user = GameProcessor.Inst.User;
 
         this.CurrentStep = user.GetFestiveStep();
-        if (Config.Step > this.CurrentStep)
+        if (Config.Step > this.CurrentStep || user.Cycle.Data < Config.RequireCycle)
         {
             this.check = false;
             this.gameObject.SetActive(false);

@@ -19,6 +19,17 @@ namespace Game
             return (int)(MathHelper.GetSequence1(level) * FeeRate) + 3;
         }
 
+        public int GetTotalFee(long level)
+        {
+            int total = 0;
+            for (int i = 1; i <= level; i++)
+            {
+                total += GetFee(i);
+            }
+            return total;
+        }
+
+
         public int GetAttr(int level)
         {
             if (this.RiseType == 1)

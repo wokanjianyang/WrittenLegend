@@ -26,6 +26,7 @@ public class Panel_Stone : MonoBehaviour
 
     public Button Btn_OK;
     public Button Btn_Active;
+    public Button Btn_Restore;
 
     private const int MaxCount = 10; //10件装备
     private const int Quality = 7;
@@ -48,6 +49,7 @@ public class Panel_Stone : MonoBehaviour
 
         this.Btn_OK.onClick.AddListener(OnClickOK);
         this.Btn_Active.onClick.AddListener(OnClickActive);
+        this.Btn_Restore.onClick.AddListener(OnRestore);
     }
 
     // Update is called once per frame
@@ -162,6 +164,15 @@ public class Panel_Stone : MonoBehaviour
         {
             Txt_Fee_Set.gameObject.SetActive(false);
             Btn_Active.gameObject.SetActive(false);
+        }
+
+        if (record.List.Count > 0)
+        {
+            this.Btn_Restore.gameObject.SetActive(true);
+        }
+        else
+        {
+            this.Btn_Restore.gameObject.SetActive(false);
         }
     }
 
@@ -339,6 +350,57 @@ public class Panel_Stone : MonoBehaviour
         ShowForgeItem();
         ShowStoneMain();
         ShowStone();
+    }
+
+    public void OnRestore()
+    {
+        GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("重置消耗100京金币。是否确认？", true,
+        () =>
+        {
+            Restore();
+        }, () =>
+        {
+
+        });
+    }
+
+    private void Restore()
+    {
+        this.Btn_Restore.gameObject.SetActive(false);
+
+        User user = GameProcessor.Inst.User;
+
+        if (user.MagicGold.Data <= ConfigHelper.RestoreGold * 200)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "金币不足100京", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
+
+        user.SubGold(ConfigHelper.RestoreGold * 200);
+
+        StoneRecord record = user.GetStoneRecord(SelectPosition);
+
+        List<Item> newList = new List<Item>();
+
+        foreach (var sp in record.List)
+        {
+            StoneSet set = sp.Value;
+
+            StoneConfig config = StoneConfigCategory.Instance.Get(set.StoneId);
+
+            int totalFee = config.GetTotalFee(set.StoneLevel.Data);
+
+            Item item = ItemHelper.BuildMaterial(config.ItemId, totalFee);
+            newList.Add(item);
+
+        }
+
+        record.List.Clear();
+        user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = newList });
+
+        GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
+
+        ShowForgeItem();
     }
 }
 
