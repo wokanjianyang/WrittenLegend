@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Game
 {
@@ -175,6 +176,14 @@ namespace Game
                 SelectSkillList.Add(skill);
             }
         }
+
+        public override void OnHit(DamageResult dr)
+        {
+            //Debug.Log("monster hit damage:" + StringHelper.FormatNumber(dr.Damage));
+
+            base.OnHit(dr);
+        }
+
         private void MakeReward(DeadRewarddEvent dead)
         {
             //Log.Info("Monster :" + this.ToString() + " dead");

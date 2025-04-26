@@ -113,6 +113,8 @@ namespace Game
                 AttributeBonus.SetAttr(AttributeEnum.RealHpDamage, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.RealHpDamage) * sd);
                 AttributeBonus.SetAttr(AttributeEnum.RealCritRate, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.RealCritRate) * sd);
                 AttributeBonus.SetAttr(AttributeEnum.Strong, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Strong) * sd);
+
+                AttributeBonus.SetAttr(AttributeEnum.LuckyHit, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.LuckyHit) * sd);
             }
 
             this.RingType = Master.RingType;
@@ -165,6 +167,13 @@ namespace Game
             {
                 return base.DoEvent();
             }
+        }
+
+        public override void OnHit(DamageResult dr)
+        {
+            //Debug.Log("duplication player hit damage:" + StringHelper.FormatNumber(dr.Damage));
+
+            base.OnHit(dr);
         }
     }
 }
