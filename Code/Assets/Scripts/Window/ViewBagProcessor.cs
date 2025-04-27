@@ -175,7 +175,7 @@ namespace Game
                 this.btn_Equip_Dark_Gold.gameObject.SetActive(false);
             }
 
-            if (user.Cycle.Data > 0 || user.MagicLevel.Data >= 50000)
+            if (user.Cycle.Data > 0 || user.MagicLevel.Data >= 50000 || user.PetList.Count > 0)
             {
                 this.btn_Pet.gameObject.SetActive(true);
             }
