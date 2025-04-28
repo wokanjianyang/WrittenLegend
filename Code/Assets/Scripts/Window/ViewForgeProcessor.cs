@@ -168,6 +168,15 @@ public class ViewForgeProcessor : AViewPage
         {
             toggle_Equip.gameObject.SetActive(false);
         }
+
+        if (user.Cycle.Data > 3)
+        {
+            toggle_Stone.gameObject.SetActive(true);
+        }
+        else
+        {
+            toggle_Stone.gameObject.SetActive(false);
+        }
     }
 
     public override void OnBattleStart()
