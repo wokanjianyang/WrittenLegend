@@ -80,6 +80,16 @@ namespace Game
             riseRate *= Math.Pow(1.003, Math.Min(Progeress, 10000));
             riseHpRate *= Math.Pow(1.003, Math.Min(Progeress, 10000));
 
+            if (Record > 0 && this.Progeress + 1000 < Record)
+            {
+                int lose = Record - this.Progeress - 1000;
+
+                double loseRate = Math.Max(Math.Pow(0.997, lose), 0.0000001);
+                //Debug.Log("loseRate:" + loseRate);
+
+                riseRate *= loseRate;
+                riseHpRate *= loseRate;
+            }
             //Debug.Log(this.Progeress + " riseRate:" + riseRate);
 
             riseRate *= MonsterConfig.AttrRate;
