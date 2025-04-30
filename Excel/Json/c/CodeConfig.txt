@@ -7,6 +7,8 @@
 {"_t":"CodeConfig","_id":43,"Type":1,"code":"anyu378","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013],"ItemQuanlityList":[5000,500,800]},
 {"_t":"CodeConfig","_id":44,"Type":1,"code":"gx379","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013],"ItemQuanlityList":[888,88,66]},
 {"_t":"CodeConfig","_id":45,"Type":1,"code":"bc378","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013],"ItemQuanlityList":[2222,222,188]},
+{"_t":"CodeConfig","_id":46,"Type":1,"code":"gx380","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013],"ItemQuanlityList":[888,88,66]},
+{"_t":"CodeConfig","_id":47,"Type":1,"code":"laodongjie2025","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013],"ItemQuanlityList":[888,88,66]},
 {"_t":"CodeConfig","_id":108,"Type":1,"code":"anyult10zh","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013],"ItemQuanlityList":[1888,388,288]},
 {"_t":"CodeConfig","_id":10001,"Type":99,"code":"dki309d!34","ItemTypeList":[99],"ItemIdList":[0],"ItemQuanlityList":[360]},
 {"_t":"CodeConfig","_id":10002,"Type":99,"code":"z#y9kdckp4","ItemTypeList":[99],"ItemIdList":[0],"ItemQuanlityList":[360]},
