@@ -1428,7 +1428,7 @@ namespace Game
         {
             int currentStep = 99;
 
-            List<FestiveConfig> list = FestiveConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
+            List<FestiveConfig> list = FestiveConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Step > 0 && m.RequireCycle <= Cycle.Data).ToList();
             foreach (FestiveConfig config in list)
             {
                 int max = this.GetFestiveCount(config.Id);
