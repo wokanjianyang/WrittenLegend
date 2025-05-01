@@ -40,6 +40,14 @@ public class Dialog_Pet : MonoBehaviour, IBattleLife
     {
         User user = GameProcessor.Inst.User;
 
+        //判断空格
+        int ic = GameProcessor.Inst.User.GetBagIdleCount(3);
+        if (ic < 10)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "请保留10个对应的包裹格子", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
+
         Item_Pet item = e.Item;
 
         Pet pet = item.pet;

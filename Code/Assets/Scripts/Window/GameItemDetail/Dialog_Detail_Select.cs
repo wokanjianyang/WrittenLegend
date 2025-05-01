@@ -104,6 +104,15 @@ namespace Game
                 return;
             }
 
+            //判断空格
+            int ic = GameProcessor.Inst.User.GetBagIdleCount(select.BoxItem.GetBagType());
+            if (ic < 10)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "请保留10个对应的包裹格子", ToastType = ToastTypeEnum.Failure });
+                return;
+            }
+
+
             this.gameObject.SetActive(false);
 
             //选择第N个装备
@@ -123,6 +132,14 @@ namespace Game
             if (select == null)
             {
                 GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "请先选择一个道具", ToastType = ToastTypeEnum.Failure });
+                return;
+            }
+
+            //判断空格
+            int ic = GameProcessor.Inst.User.GetBagIdleCount(select.BoxItem.GetBagType());
+            if (ic < 10)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "请保留10个对应的包裹格子", ToastType = ToastTypeEnum.Failure });
                 return;
             }
 
