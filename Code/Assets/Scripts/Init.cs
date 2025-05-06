@@ -96,7 +96,7 @@ public class Init : MonoBehaviour
         {
             UILayer.Top,  new List<string>()
             {
-                "Window/Dialog_FloatButtons",
+                "Window/Festive/Dialog_FloatButtons",
                 "Window/Loading",
                 "Window/Dialog_Drop",
                 "Window/Dialog_SecondaryConfirmation",

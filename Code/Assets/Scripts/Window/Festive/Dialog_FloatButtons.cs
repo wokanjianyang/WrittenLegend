@@ -34,6 +34,9 @@ public class Dialog_FloatButtons : MonoBehaviour, IBattleLife, IPointerDownHandl
     public Button Btn_Seven_Day;
     public Dialog_Seven_Day DialogSevenDay;
 
+    public Button Btn_Festive_Week;
+    public Dialog_Festive_Week DialogFestiveWeek;
+
     public enum DragEnum
     {
         None,
@@ -82,6 +85,17 @@ public class Dialog_FloatButtons : MonoBehaviour, IBattleLife, IPointerDownHandl
             this.Btn_Seven_Day.onClick.AddListener(OnClick_SevenDay);
         }
 
+        if (DateTime.Now.DayOfWeek == DayOfWeek.Sunday)
+        {
+            this.Btn_Festive_Week.gameObject.SetActive(false);
+        }
+        else
+        {
+            this.Btn_Festive_Week.gameObject.SetActive(true);
+            this.Btn_Festive_Week.onClick.AddListener(OnClick_Week);
+        }
+
+
     }
 
     public void OnBattleStart()
@@ -115,6 +129,12 @@ public class Dialog_FloatButtons : MonoBehaviour, IBattleLife, IPointerDownHandl
     {
         this.com_Power.Open();
     }
+
+    private void OnClick_Week()
+    {
+        this.DialogFestiveWeek.Open();
+    }
+
 
     private void OnClick_Exit()
     {

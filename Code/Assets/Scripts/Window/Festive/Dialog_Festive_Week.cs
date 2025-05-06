@@ -9,7 +9,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
-public class Dialog_Seven_Day : MonoBehaviour
+public class Dialog_Festive_Week : MonoBehaviour
 {
     public Text Txt_Total;
     public Text Txt_Des;
@@ -19,7 +19,7 @@ public class Dialog_Seven_Day : MonoBehaviour
 
     public Button Btn_Close;
 
-    private List<Item_Seven_Day> itemList = new List<Item_Seven_Day>();
+    private List<Item_Festive_Week> itemList = new List<Item_Festive_Week>();
     public Toggle Toggle_Auto;
 
     // Start is called before the first frame update
@@ -43,9 +43,9 @@ public class Dialog_Seven_Day : MonoBehaviour
 
     private void Init()
     {
-        ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Festive/Item_Seven_Day");
+        ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Festive/Item_Festive_Week");
 
-        List<SevenDayConfig> list = SevenDayConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
+        List<FestiveWeekConfig> list = FestiveWeekConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
 
         foreach (var config in list)
         {
@@ -54,24 +54,17 @@ public class Dialog_Seven_Day : MonoBehaviour
             Item.transform.localScale = Vector3.one;
             Item.gameObject.SetActive(true);
 
-            Item_Seven_Day com = Item.GetComponent<Item_Seven_Day>();
+            Item_Festive_Week com = Item.GetComponent<Item_Festive_Week>();
             com.SetData(config);
 
             itemList.Add(com);
         }
-
-        User user = GameProcessor.Inst.User;
-        long day = (TimeHelper.ClientNowSeconds() - user.First_Create_Time) / 86400 + 1;
-
-        day = 30 - day;
-
-        this.Txt_Des.text = "开局七天，每天解锁一批奖励，" + day + "天之后关闭新手活动入口，请及时兑换完毕";
     }
 
     private void ChangeAuto(bool isOn)
     {
 
-        foreach (Item_Seven_Day item in itemList)
+        foreach (Item_Festive_Week item in itemList)
         {
             item.ChangeAuto(isOn);
         }
@@ -82,7 +75,7 @@ public class Dialog_Seven_Day : MonoBehaviour
         long count = GameProcessor.Inst.User.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Chunjie).Select(m => m.MagicNubmer.Data).Sum();
         this.Txt_Total.text = count + " 个";
 
-        foreach (Item_Seven_Day item in itemList)
+        foreach (Item_Festive_Week item in itemList)
         {
             item.ChangeAuto(Toggle_Auto.isOn);
         }

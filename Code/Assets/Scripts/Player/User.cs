@@ -320,6 +320,7 @@ namespace Game
 
         public List<DropData> DropDataList { get; } = new List<DropData>();
 
+        public IDictionary<int, int> FestiveWeekData { get; set; } = new Dictionary<int, int>();
         public IDictionary<int, int> FestiveData_0502 { get; set; } = new Dictionary<int, int>();
         public IDictionary<int, int> FestiveData_0602 { get; set; } = new Dictionary<int, int>();
 
@@ -1462,6 +1463,29 @@ namespace Game
                 this.FestiveData_0502[configId] = count;
             }
         }
+
+        public int GetFestiveWeekCount(int id)
+        {
+            if (!this.FestiveWeekData.ContainsKey(id))
+            {
+                this.FestiveWeekData[id] = 0;
+            }
+
+            return this.FestiveWeekData[id];
+        }
+
+        public void SaveFestiveWeekCount(int configId, int count)
+        {
+            if (this.FestiveWeekData.ContainsKey(configId))
+            {
+                this.FestiveWeekData[configId] += count;
+            }
+            else
+            {
+                this.FestiveWeekData[configId] = count;
+            }
+        }
+
 
         public int GetSevenDayCount(int id)
         {

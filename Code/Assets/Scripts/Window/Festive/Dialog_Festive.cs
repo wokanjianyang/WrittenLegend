@@ -43,7 +43,7 @@ public class Dialog_Festive : MonoBehaviour
 
     private void Init()
     {
-        ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Item/Item_Festive");
+        ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Festive/Item_Festive");
 
         List<FestiveConfig> list = FestiveConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
 
