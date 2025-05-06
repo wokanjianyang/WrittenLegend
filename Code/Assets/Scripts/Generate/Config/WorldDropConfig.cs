@@ -81,24 +81,27 @@ namespace Game
 		/// <summary>MapId</summary>
 		[ProtoMember(2)]
 		public int MapId { get; set; }
-		/// <summary>DropType</summary>
-		[ProtoMember(3)]
-		public int DropType { get; set; }
 		/// <summary>ItemId</summary>
-		[ProtoMember(4)]
+		[ProtoMember(3)]
 		public int ItemId { get; set; }
 		/// <summary>Rate</summary>
-		[ProtoMember(5)]
+		[ProtoMember(4)]
 		public int Rate { get; set; }
 		/// <summary>StartLevel</summary>
-		[ProtoMember(6)]
+		[ProtoMember(5)]
 		public int StartLevel { get; set; }
 		/// <summary>EndLevel</summary>
-		[ProtoMember(7)]
+		[ProtoMember(6)]
 		public int EndLevel { get; set; }
 		/// <summary>RateLevel</summary>
-		[ProtoMember(8)]
+		[ProtoMember(7)]
 		public int RateLevel { get; set; }
+		/// <summary>ExcludeStart</summary>
+		[ProtoMember(8)]
+		public int ExcludeStart { get; set; }
+		/// <summary>ExcludeLevel</summary>
+		[ProtoMember(9)]
+		public int ExcludeLevel { get; set; }
 
 	}
 }

@@ -24,7 +24,14 @@ namespace Game
 
             if (Ticket == 0 || nt - Ticket >= 86400 * 10)
             {
-                Ticket = nt;
+                if (Ticket == 0)
+                {
+                    Ticket = nt;
+                }
+                else
+                {
+                    Ticket += 86400 * 10;
+                }
 
                 Record.Clear();
                 DictItemList.Clear();
