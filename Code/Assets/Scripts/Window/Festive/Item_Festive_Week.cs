@@ -57,7 +57,7 @@ public class Item_Festive_Week : MonoBehaviour
     private void Init()
     {
         User user = GameProcessor.Inst.User;
-        int MaxCount = user.GetFestiveWeekCount(Config.Id);
+        int MaxCount = user.WeekData.GetFestiveWeekCount(Config.Id);
 
         TargetName.text = Config.TargetName;
         Txt_Title.text = Config.Title;
@@ -94,7 +94,7 @@ public class Item_Festive_Week : MonoBehaviour
             this.check = false;
         }
 
-        int MaxCount = user.GetFestiveWeekCount(Config.Id);
+        int MaxCount = user.WeekData.GetFestiveWeekCount(Config.Id);
         if (MaxCount >= Config.Max)
         {
             this.check = false;
@@ -133,11 +133,11 @@ public class Item_Festive_Week : MonoBehaviour
         User user = GameProcessor.Inst.User;
         long total = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Chunjie).Select(m => m.MagicNubmer.Data).Sum();
 
-        int maxCount = Config.Max - user.GetFestiveWeekCount(Config.Id);
+        int maxCount = Config.Max - user.WeekData.GetFestiveWeekCount(Config.Id);
 
         int count = 1;
 
-        user.SaveFestiveWeekCount(Config.Id, count);
+        user.WeekData.SaveFestiveWeekCount(Config.Id, count);
 
         //²ÄÁÏ
         GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
@@ -161,7 +161,7 @@ public class Item_Festive_Week : MonoBehaviour
 
         GameProcessor.Inst.EventCenter.Raise(new FestiveUIFreshEvent() { });
 
-        int MaxCount = user.GetFestiveWeekCount(Config.Id);
+        int MaxCount = user.WeekData.GetFestiveWeekCount(Config.Id);
         Txt_Limit_Content.text = MaxCount + "/" + Config.Max;
 
         //this.Check();
@@ -187,12 +187,12 @@ public class Item_Festive_Week : MonoBehaviour
         User user = GameProcessor.Inst.User;
         long total = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Chunjie).Select(m => m.MagicNubmer.Data).Sum();
 
-        int maxCount = Config.Max - user.GetFestiveWeekCount(Config.Id);
+        int maxCount = Config.Max - user.WeekData.GetFestiveWeekCount(Config.Id);
 
         int count = (int)(total / Config.Cost);
         count = Math.Min(count, maxCount);
 
-        user.SaveFestiveWeekCount(Config.Id, count);
+        user.WeekData.SaveFestiveWeekCount(Config.Id, count);
 
         //²ÄÁÏ
         GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
@@ -216,7 +216,7 @@ public class Item_Festive_Week : MonoBehaviour
 
         GameProcessor.Inst.EventCenter.Raise(new FestiveUIFreshEvent() { });
 
-        int MaxCount = user.GetFestiveWeekCount(Config.Id);
+        int MaxCount = user.WeekData.GetFestiveWeekCount(Config.Id);
         Txt_Limit_Content.text = MaxCount + "/" + Config.Max;
     }
 

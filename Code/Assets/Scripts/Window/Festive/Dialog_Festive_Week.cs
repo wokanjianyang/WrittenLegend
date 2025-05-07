@@ -86,6 +86,8 @@ public class Dialog_Festive_Week : MonoBehaviour
         long count = GameProcessor.Inst.User.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Chunjie).Select(m => m.MagicNubmer.Data).Sum();
         this.Txt_Total.text = count + " ¸ö";
 
+        GameProcessor.Inst.User.WeekData.Check();
+
         this.gameObject.SetActive(true);
     }
 

@@ -86,5 +86,15 @@ namespace Game
                            ((x & 0xff000000) >> 24));
         }
 
+        public static long GetFestiveWeek()
+        {
+            DateTime start = DateTime.Parse("2025-04-28");
+
+            long sc = (DateTime.Now.Ticks - start.Ticks) / 10000000;
+
+            long week = (sc) / (86400 * 7);
+
+            return week;
+        }
     }
 }

@@ -27,10 +27,23 @@ namespace Game
 
             long time = DateTime.Now.Ticks;
 
-            int dropType = (int)DropLimitType.JieRi;
-            //不检测limitid
-            DropLimitConfig dropLimit = DropLimitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m =>
-            m.Type == dropType && DateTime.Parse(m.StartDate).Ticks <= time && time <= DateTime.Parse(m.EndDate).Ticks).FirstOrDefault();
+            //int dropType = (int)DropLimitType.JieRi;
+            ////不检测limitid
+            //DropLimitConfig dropLimit = DropLimitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m =>
+            //m.Type == dropType && DateTime.Parse(m.StartDate).Ticks <= time && time <= DateTime.Parse(m.EndDate).Ticks).FirstOrDefault();
+
+            //如果节日中，或者是周末，则使用Drop1，否则使用Drop2
+            DropLimitConfig dropLimit = DropLimitConfigCategory.Instance.Get(1);
+            if ((DateTime.Parse(dropLimit.StartDate).Ticks <= time && time <= DateTime.Parse(dropLimit.EndDate).Ticks)
+                || DateTime.Now.DayOfWeek == DayOfWeek.Sunday)
+            {
+                //Debug.Log("drop1");
+            }
+            else
+            {
+                //Debug.Log("drop2");
+                dropLimit = DropLimitConfigCategory.Instance.Get(2);
+            }
 
             double rate = dropLimit.Rate;
             rate = rate / modelRise;

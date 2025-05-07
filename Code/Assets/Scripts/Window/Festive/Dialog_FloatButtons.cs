@@ -85,9 +85,12 @@ public class Dialog_FloatButtons : MonoBehaviour, IBattleLife, IPointerDownHandl
             this.Btn_Seven_Day.onClick.AddListener(OnClick_SevenDay);
         }
 
-        if (DateTime.Now.DayOfWeek == DayOfWeek.Sunday)
+        if (DateTime.Now.DayOfWeek != DayOfWeek.Sunday)
         {
             this.Btn_Festive_Week.gameObject.SetActive(false);
+
+            this.Btn_Festive_Week.gameObject.SetActive(true);
+            this.Btn_Festive_Week.onClick.AddListener(OnClick_Week);
         }
         else
         {
