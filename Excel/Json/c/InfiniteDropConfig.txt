@@ -77,7 +77,7 @@
 {"_t":"InfiniteDropConfig","_id":305,"DropId":220105,"Name":"橙色宠物","Rate":15,"StartLevel":2001,"EndLevel":2500,"RateLevel":52,"Max":1},
 {"_t":"InfiniteDropConfig","_id":306,"DropId":220106,"Name":"红色宠物","Rate":7,"StartLevel":2501,"EndLevel":3000,"RateLevel":52,"Max":1},
 {"_t":"InfiniteDropConfig","_id":307,"DropId":220107,"Name":"金色宠物","Rate":3,"StartLevel":3001,"EndLevel":3500,"RateLevel":52,"Max":1},
-{"_t":"InfiniteDropConfig","_id":311,"DropId":806,"Name":"金图鉴1","Rate":10,"StartLevel":3500,"EndLevel":5000,"RateLevel":3,"Max":33},
-{"_t":"InfiniteDropConfig","_id":312,"DropId":807,"Name":"金图鉴2","Rate":10,"StartLevel":3500,"EndLevel":5000,"RateLevel":3,"Max":22},
-{"_t":"InfiniteDropConfig","_id":313,"DropId":808,"Name":"金图鉴3","Rate":10,"StartLevel":3500,"EndLevel":5000,"RateLevel":3,"Max":11},
+{"_t":"InfiniteDropConfig","_id":311,"DropId":2007,"Name":"金图鉴1","Rate":10,"StartLevel":3500,"EndLevel":5000,"RateLevel":3,"Max":33},
+{"_t":"InfiniteDropConfig","_id":312,"DropId":2008,"Name":"金图鉴2","Rate":6,"StartLevel":3500,"EndLevel":5000,"RateLevel":3,"Max":22},
+{"_t":"InfiniteDropConfig","_id":313,"DropId":2009,"Name":"金图鉴3","Rate":2,"StartLevel":3500,"EndLevel":5000,"RateLevel":3,"Max":11},
 ]}
