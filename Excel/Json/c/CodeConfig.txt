@@ -342,6 +342,6 @@
 {"_t":"CodeConfig","_id":25402,"Type":1,"code":"shenjil2","ItemTypeList":[4,4],"ItemIdList":[26,106],"ItemQuanlityList":[20,3]},
 {"_t":"CodeConfig","_id":25403,"Type":1,"code":"shenjil3","ItemTypeList":[4,4],"ItemIdList":[26,106],"ItemQuanlityList":[20,3]},
 {"_t":"CodeConfig","_id":25501,"Type":1,"code":"tejiel1","ItemTypeList":[4,4],"ItemIdList":[22,106],"ItemQuanlityList":[40,2]},
-{"_t":"CodeConfig","_id":25502,"Type":1,"code":"tejiel1","ItemTypeList":[4,4],"ItemIdList":[22,106],"ItemQuanlityList":[40,2]},
-{"_t":"CodeConfig","_id":25503,"Type":1,"code":"tejiel1","ItemTypeList":[4,4],"ItemIdList":[22,106],"ItemQuanlityList":[40,2]},
+{"_t":"CodeConfig","_id":25502,"Type":1,"code":"tejiel2","ItemTypeList":[4,4],"ItemIdList":[22,106],"ItemQuanlityList":[40,2]},
+{"_t":"CodeConfig","_id":25503,"Type":1,"code":"tejiel3","ItemTypeList":[4,4],"ItemIdList":[22,106],"ItemQuanlityList":[40,2]},
 ]}
