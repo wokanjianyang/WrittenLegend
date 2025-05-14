@@ -56,11 +56,22 @@ public class MapPill : MonoBehaviour, IBattleLife
         MonsterPillConfig config = MonsterPillConfigCategory.Instance.Get(e.Layer);
         Txt_Name.text = config.MapName;
 
-        GameProcessor.Inst.DelayAction(0.1f, () =>
+        if (e.Type == 1)
         {
-            GameProcessor.Inst.OnDestroy();
-            GameProcessor.Inst.LoadMap(RuleType.Pill, this.transform, param);
-        });
+            GameProcessor.Inst.DelayAction(0.1f, () =>
+            {
+                GameProcessor.Inst.OnDestroy();
+                GameProcessor.Inst.LoadMap(RuleType.Pill, this.transform, param);
+            });
+        }
+        else if (e.Type == 2)
+        {
+            GameProcessor.Inst.DelayAction(0.1f, () =>
+            {
+                GameProcessor.Inst.OnDestroy();
+                GameProcessor.Inst.LoadMap(RuleType.Pill2, this.transform, param);
+            });
+        }
     }
 
     public void OnShowInfo(ShowPillInfoEvent e)
@@ -103,6 +114,10 @@ public class MapPill : MonoBehaviour, IBattleLife
     private void OnBattleLoseEvent(BattleLoseEvent e)
     {
         if (e.Time == MapTime && e.Type == RuleType.Pill)
+        {
+            this.Exit();
+        }
+        else if (e.Time == MapTime && e.Type == RuleType.Pill2)
         {
             this.Exit();
         }
