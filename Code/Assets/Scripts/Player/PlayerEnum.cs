@@ -80,6 +80,7 @@ namespace Game
         RealMulDamageResist = 115, //溢出减伤迭代计算
         RealCritRate = 116,//溢出暴击转为伤害加成
         LuckyHit = 117, //青龙之力-幸运一击
+        Relic2 = 118, //神器2
 
         SkillPhyDamage = 302, //物理伤害
         SkillMagicDamage = 303,//魔法伤害

@@ -13,7 +13,8 @@ namespace Game
 
             for (int level = 1; level <= ConfigHelper.MaxWorld; level++)
             {
-                List<WorldDropConfig> dropConfigs = this.list.Where(m => m.MapId == mapId && m.StartLevel <= level && m.EndLevel >= level
+                List<WorldDropConfig> dropConfigs = this.list.Where(m => (m.MapId == mapId || m.MapId == 0)
+                && m.StartLevel <= level && m.EndLevel >= level
                 && ((level - m.StartLevel) % m.RateLevel == 0)
                 && (m.ExcludeStart > level || m.ExcludeLevel == 0 || level % m.ExcludeLevel != 0)).ToList();
 

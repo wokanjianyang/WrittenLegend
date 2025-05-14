@@ -91,7 +91,9 @@ public class Map_Dialog_World : MonoBehaviour
 
         ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Map/Item_World");
 
-        List<WorldConfig> list = WorldConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
+        long cycle = user.Cycle.Data;
+
+        List<WorldConfig> list = WorldConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Cycle <= cycle).ToList();
 
         for (int i = 0; i < list.Count; i++)
         {

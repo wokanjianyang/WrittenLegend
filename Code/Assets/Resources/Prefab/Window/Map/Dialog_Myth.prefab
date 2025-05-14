@@ -858,7 +858,7 @@ GameObject:
   - component: {fileID: 6161500108856320323}
   - component: {fileID: 3701882196585756899}
   m_Layer: 5
-  m_Name: Map_Myth_Dialog
+  m_Name: Dialog_Myth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

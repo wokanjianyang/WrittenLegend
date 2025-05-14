@@ -37,10 +37,16 @@ public class Panel_Relic : MonoBehaviour
         }
     }
 
-    public void Show(int id)
+    public void ChangePanel(int id)
     {
+        this.SelectId = 0;
         this.Rid = id;
 
+        this.Show();
+    }
+
+    public void Show()
+    {
         this.Init();
 
         //Debug.Log("show panel :" + id);
@@ -49,12 +55,12 @@ public class Panel_Relic : MonoBehaviour
 
         User user = GameProcessor.Inst.User;
 
-        int startId = 1 + (id - 1) * 8;
-        int endId = id * 8;
+        int startId = 1 + (Rid - 1) * 8;
+        int endId = Rid * 8;
 
         int count = user.RelicData.Where(m => m.Key >= startId && m.Key <= endId && m.Value.Data > 0).Count();
 
-        int groupLevel = user.GetRelicGroupLevel(id);
+        int groupLevel = user.GetRelicGroupLevel(Rid);
 
         double groupValue = groupConfig.GetAttrValue(groupLevel);
 
@@ -96,7 +102,7 @@ public class Panel_Relic : MonoBehaviour
 
     private void SelectItem(int id)
     {
-        //Debug.Log("select item:" + i);
+        Debug.Log("select item id:" + id);
 
         this.SelectId = id;
         this.Btn_Active.gameObject.SetActive(false);
@@ -165,6 +171,6 @@ public class Panel_Relic : MonoBehaviour
 
         GameProcessor.Inst.UpdateInfo();
 
-        Show(this.Rid);
+        Show();
     }
 }

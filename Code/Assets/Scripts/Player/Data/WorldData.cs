@@ -36,7 +36,7 @@ namespace Game
                 Record.Clear();
                 DictItemList.Clear();
 
-                for (int mapId = 1; mapId <= 1; mapId++)
+                for (int mapId = 1; mapId <= 2; mapId++)
                 {
                     List<int> list = WorldDropConfigCategory.Instance.GetAllDropIdList(mapId);
 

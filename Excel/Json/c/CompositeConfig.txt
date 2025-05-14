@@ -116,8 +116,9 @@
 {"_t":"CompositeConfig","_id":428,"Type":"魔石","ItemTypeList":[2,5],"ItemIdList":[428,4007],"ItemCountList":[1,268800000],"ItemQualityList":[0,0],"TargetName":"魔石二九阶","TargetId":429,"TargetType":2,"AutoHide":1},
 {"_t":"CompositeConfig","_id":429,"Type":"魔石","ItemTypeList":[2,5],"ItemIdList":[429,4007],"ItemCountList":[1,537600000],"ItemQualityList":[0,0],"TargetName":"魔石三十阶","TargetId":430,"TargetType":2,"AutoHide":1},
 {"_t":"CompositeConfig","_id":501,"Type":"其他","ItemTypeList":[5,5],"ItemIdList":[4015,4201],"ItemCountList":[5,10],"ItemQualityList":[0,0],"TargetName":"红装精华","TargetId":4011,"TargetType":5,"AutoHide":0},
-{"_t":"CompositeConfig","_id":502,"Type":"其他","ItemTypeList":[5,5],"ItemIdList":[4011,4201],"ItemCountList":[10,100000],"ItemQualityList":[0,0],"TargetName":"金装精华","TargetId":4019,"TargetType":5,"AutoHide":0},
+{"_t":"CompositeConfig","_id":502,"Type":"其他","ItemTypeList":[5,5],"ItemIdList":[4011,4201],"ItemCountList":[10,50000],"ItemQualityList":[0,0],"TargetName":"金装精华","TargetId":4019,"TargetType":5,"AutoHide":0},
 {"_t":"CompositeConfig","_id":503,"Type":"其他","ItemTypeList":[5,5],"ItemIdList":[4023,4111],"ItemCountList":[6,20000],"ItemQualityList":[0,0],"TargetName":"红色魂心","TargetId":4024,"TargetType":5,"AutoHide":0},
 {"_t":"CompositeConfig","_id":504,"Type":"其他","ItemTypeList":[5,5],"ItemIdList":[4024,4111],"ItemCountList":[6,100000],"ItemQualityList":[0,0],"TargetName":"金色魂心","TargetId":4025,"TargetType":5,"AutoHide":0},
 {"_t":"CompositeConfig","_id":505,"Type":"其他","ItemTypeList":[5,5],"ItemIdList":[4028,4111],"ItemCountList":[40,100000],"ItemQualityList":[0,0],"TargetName":"青龙神器","TargetId":35,"TargetType":4,"AutoHide":0},
+{"_t":"CompositeConfig","_id":506,"Type":"其他","ItemTypeList":[5,5],"ItemIdList":[4029,4111],"ItemCountList":[40,100000],"ItemQualityList":[0,0],"TargetName":"白虎神器","TargetId":37,"TargetType":4,"AutoHide":0},
 ]}

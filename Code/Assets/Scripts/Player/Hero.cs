@@ -90,7 +90,11 @@ namespace Game
                 AttributeBonus.SetAttr(AttributeEnum.MulHp, AttributeFrom.HeroPanel, ConfigHelper.PvpRate * 100);
             }
 
-            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
+            double relic2 = 1 + user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Relic2) * user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.DamageResist) / 100;
+
+            //Debug.Log("relic2:" + relic2);
+
+            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP) * relic2);
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.PhyAtt));
             AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.MagicAtt));
             AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.SpiritAtt));

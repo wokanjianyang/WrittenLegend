@@ -51,6 +51,6 @@ public class Dialog_Relic : MonoBehaviour, IBattleLife
 
     private void ShowPanel(int id)
     {
-        panel_Relic.Show(id);
+        panel_Relic.ChangePanel(id);
     }
 }

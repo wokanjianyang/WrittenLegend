@@ -138,17 +138,23 @@ namespace Game
 		/// <summary>Accuracy</summary>
 		[ProtoMember(21)]
 		public int Accuracy { get; set; }
-		/// <summary>Miss</summary>
+		/// <summary>AccuracyRise</summary>
 		[ProtoMember(22)]
-		public int Miss { get; set; }
-		/// <summary>Protect</summary>
+		public double AccuracyRise { get; set; }
+		/// <summary>Miss</summary>
 		[ProtoMember(23)]
+		public int Miss { get; set; }
+		/// <summary>MissRise</summary>
+		[ProtoMember(24)]
+		public double MissRise { get; set; }
+		/// <summary>Protect</summary>
+		[ProtoMember(25)]
 		public int Protect { get; set; }
 		/// <summary>SkillIdList</summary>
-		[ProtoMember(24)]
+		[ProtoMember(26)]
 		public int[] SkillIdList { get; set; }
 		/// <summary>SkillLevelList</summary>
-		[ProtoMember(25)]
+		[ProtoMember(27)]
 		public int[] SkillLevelList { get; set; }
 
 	}
