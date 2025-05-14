@@ -5,29 +5,28 @@ using UnityEngine;
 using System.Linq;
 using System;
 
-public class Monster_Pill : APlayer
+public class Monster_Pill2 : APlayer
 {
     MonsterPillConfig config;
 
-    int Type = 1;
+    int Type = 2;
     int Layer = 0;
 
-    public Monster_Pill(int layer)
+    public Monster_Pill2(int layer)
     {
         this.GroupId = 2;
         this.Layer = layer;
         this.RuleType = RuleType.Pill;
 
-        config = MonsterPillConfigCategory.Instance.GetByTypeAndLayer(this.Type,this.Layer);
+        config = MonsterPillConfigCategory.Instance.GetByTypeAndLayer(this.Type, this.Layer);
 
         this.Init();
-        this.EventCenter.AddListener<DeadRewarddEvent>(MakeReward);
     }
 
     private void Init()
     {
         this.Camp = PlayerType.Enemy;
-        this.Name =  config.MonsterName;
+        this.Name = config.MonsterName;
         this.Level = Layer;
         this.ModelType = MondelType.Nomal;
 
@@ -89,43 +88,5 @@ public class Monster_Pill : APlayer
     public override float DoEvent()
     {
         return base.DoEvent();
-    }
-
-    private void MakeReward(DeadRewarddEvent dead)
-    {
-        BuildReward();
-    }
-
-    private void BuildReward()
-    {
-        User user = GameProcessor.Inst.User;
-
-        List<Item> items = DropLimitHelper.Build((int)DropLimitType.Pill, 0, 1, 1, 9999999, 1);
-
-        foreach (Item item in items)
-        {
-            item.Count *= Layer;
-        }
-
-        if (items.Count > 0)
-        {
-            GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
-        }
-
-        double rs = user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstMul);
-        int itemCount = MathHelper.RandomBurstMul(rs);
-
-        GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
-        {
-            Type = RuleType,
-            Message = BattleMsgHelper.BuildMonsterDeadMessage(this, 0, 0, items, itemCount)
-        });
-
-        if (itemCount > 0)
-        {
-            items.AddRange(ItemHelper.BurstMul(items, itemCount, 1));
-        }
-
-
     }
 }

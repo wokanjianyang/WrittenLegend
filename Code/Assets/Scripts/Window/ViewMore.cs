@@ -255,11 +255,11 @@ namespace Game
             MapDialogMyth.gameObject.SetActive(true);
         }
 
-        public void StartPill(int layer)
+        public void StartPill(int layer, int type)
         {
             scrollRect.gameObject.SetActive(false);
 
-            GameProcessor.Inst.EventCenter.Raise(new PillStartEvent() { Layer = layer });
+            GameProcessor.Inst.EventCenter.Raise(new PillStartEvent() { Layer = layer, Type = type });
         }
 
         public void StartMyth(int id)

@@ -23,7 +23,9 @@ public class Map_Pill_Item : MonoBehaviour
     {
         User user = GameProcessor.Inst.User;
 
-        if (user.PillTime.Time.Data < 5)
+        int minTime = Config.Type == 1 ? 5 : 600;
+
+        if (user.PillTime.Time.Data < minTime)
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "挑战时间不足", ToastType = ToastTypeEnum.Failure });
             return;
@@ -33,7 +35,7 @@ public class Map_Pill_Item : MonoBehaviour
         dialog.gameObject.SetActive(false);
 
         var vm = this.GetComponentInParent<ViewMore>();
-        vm.StartPill(Config.Id);
+        vm.StartPill(Config.Layer, Config.Type);
     }
 
     public void SetContent(MonsterPillConfig config)

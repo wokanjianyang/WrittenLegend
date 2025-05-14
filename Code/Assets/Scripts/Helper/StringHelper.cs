@@ -254,7 +254,10 @@ namespace Game
                 }
             }
 
-            res += "E" + e;
+            if (e > 0)
+            {
+                res += "E" + e;
+            }
 
             return Convert.ToDouble(res);
         }

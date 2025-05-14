@@ -492,6 +492,7 @@ namespace Game
     }
     public class PillStartEvent : SDD.Events.Event
     {
+        public int Type { get; set; }
         public int Layer { get; set; }
     }
 
