@@ -139,7 +139,7 @@ namespace Game
 
         public static int SpecialId_Chunjie = 4111;
 
-        public static int SpecailEquipRefreshId = 4201;
+        public static int SpecailEquipRefreshId = 4201; //³È×°¾«»ª
 
         public static int[] Specail_Pet_Layer = { 4023, 4024, 4025 };
     }
