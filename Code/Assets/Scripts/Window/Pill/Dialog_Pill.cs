@@ -10,144 +10,49 @@ using UnityEngine.UI;
 
 public class Dialog_Pill : MonoBehaviour
 {
-    public Text Txt_Fee;
-    public Text Txt_Point_Name;
-    public Text Txt_Level_Name;
+    public Toggle toggle1;
+    public Toggle toggle2;
 
-    public Transform Tf_Attr;
-    public Transform Tf_Item;
+    public Panel_Pill pp;
+    public Panel_Pill2 pp2;
 
     public Button Btn_Close;
-    public Button Btn_Active;
-
-    private Item_Pill[] ItemList;
-    private StrenthAttrItem[] AtrrList;
 
     public int Order => (int)ComponentOrder.Dialog;
 
-    private string[] PillNameList = new string[]{"ÊÖÌ«Òõ","ÊÖÑôÃ÷","×ãÑôÃ÷","×ãÌ«Òõ","ÊÖÉÙÒõ","ÊÖÌ«Ñô","×ãÌ«Ñô","×ãÉÙÒõ","ÊÖØÊÒõ","ÊÖÉÙÑô","×ãÉÙÑô","×ãØÊÒõ"
-        ,"ÈÎÂö","¶½Âö","³åÂö","´øÂö","ÒõõÎÂö","ÑôõÎÂö","ÒõÎ¬Âö","ÑôÎ¬Âö"};
+
 
     void Awake()
     {
-        ItemList = Tf_Item.GetComponentsInChildren<Item_Pill>();
-        AtrrList = Tf_Attr.GetComponentsInChildren<StrenthAttrItem>();
-
         Btn_Close.onClick.AddListener(OnClick_Close);
-        Btn_Active.onClick.AddListener(OnStrong);
-    }
 
-    // Start is called before the first frame update
-    void OnEnable()
-    {
-        Show();
-    }
-
-    private void Show()
-    {
-        User user = GameProcessor.Inst.User;
-
-        long currentLevel = user.PillData.Data;
-        //Debug.Log("currentLevel show:" + currentLevel);
-
-        long PillLayer = (currentLevel / 2000);
-
-        long p = currentLevel % 2000;
-
-        long PillIndex = p / 100;
-        long PillLevel = (p % 100) / 10 + 1;
-
-        this.Txt_Point_Name.text = PillNameList[PillIndex];
-        this.Txt_Level_Name.text = StringHelper.GetChinaNumber(PillLayer) + "½×" + PillLevel + "ÖØ";
-
-        Debug.Log("PillLayer:" + PillLayer);
-
-        PillConfig config = PillConfigCategory.Instance.GetByLevel(currentLevel);
-
-        //Fee
-        long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_Pill);
-
-        long fee = config.GetFee(PillLayer);
-
-        string color = materialCount >= fee ? "#FFFF00" : "#FF0000";
-
-        Txt_Fee.gameObject.SetActive(true);
-
-        if (PillLayer > ConfigHelper.PillMax)
+        toggle1.onValueChanged.AddListener((isOn) =>
         {
-            Txt_Fee.text = "ĞŞÁ¶ÒÑÂú";
-            Btn_Active.gameObject.SetActive(false);
-        }
-        else
-        {
-            Txt_Fee.text = string.Format("<color={0}>ÏûºÄ´ãÌåµ¤:{1}/{2}</color>", color, fee, materialCount);
-            Btn_Active.gameObject.SetActive(true);
-        }
-
-        Dictionary<int, long> attrDict = PillConfigCategory.Instance.ParseLevel(currentLevel);
-
-        //Debug.Log(JsonConvert.SerializeObject(attrDict));
-
-        int index = 0;
-        foreach (var kv in attrDict)
-        {
-            StrenthAttrItem attrItem = AtrrList[index++];
-
-            long rise = 0;
-            if (config.AttrId == kv.Key)
-            {
-                rise = config.GetAttr(PillLayer); ;
-            }
-
-            attrItem.SetContent(kv.Key, kv.Value, rise);
-        }
-
-        long itemIndex = currentLevel % 10;
-        for (int i = 0; i < ItemList.Length; i++)
-        {
-            if (i < itemIndex)
-            {
-                ItemList[i].Active(true);
-            }
-            else
-            {
-                ItemList[i].Active(false);
-            }
-        }
-    }
-
-    public void OnStrong()
-    {
-        User user = GameProcessor.Inst.User;
-
-        long currentLevel = user.PillData.Data;
-        long PillLayer = (currentLevel / 2000);
-
-        long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_Pill);
-
-        PillConfig config = PillConfigCategory.Instance.GetByLevel(currentLevel);
-        long fee = config.GetFee(PillLayer);
-
-        if (materialCount < fee)
-        {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "Ã»ÓĞ×ã¹»µÄ²ÄÁÏ", ToastType = ToastTypeEnum.Failure });
-            return;
-        }
-
-        user.PillData.Data++;
-
-        GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
-        {
-            Type = ItemType.Material,
-            ItemId = ItemHelper.SpecialId_Pill,
-            Quantity = fee
+            this.ShowPanel(1);
         });
 
-        Show();
+        toggle2.onValueChanged.AddListener((isOn) =>
+        {
+            this.ShowPanel(2);
+        });
+    }
 
-        user.EventCenter.Raise(new UserAttrChangeEvent());
 
-        GameProcessor.Inst.SaveData();
+
+    private void ShowPanel(int index)
+    {
+
+        if (index == 1)
+        {
+            pp.gameObject.SetActive(true);
+            pp2.gameObject.SetActive(false);
+        }
+        else if (index == 2)
+        {
+            pp.gameObject.SetActive(false);
+            pp2.gameObject.SetActive(true);
+        }
+
     }
 
     public void OnClick_Close()

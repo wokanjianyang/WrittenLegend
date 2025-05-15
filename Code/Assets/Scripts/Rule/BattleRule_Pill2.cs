@@ -53,21 +53,29 @@ public class BattleRule_Pill2 : ABattleRule
             this.Start = false;
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Myth, Message = "挑战通关！" });
-            GameProcessor.Inst.User.MythData.SetOver(this.Layer);
+            GameProcessor.Inst.User.PillTime.Time.Data -= currentRoundTime;
+
             BuildReward();
 
-            GameProcessor.Inst.CloseBattle(RuleType.Pill2, 14);
+            GameProcessor.Inst.CloseBattle(RuleType.Pill2, 0);
         }
     }
 
     private void BuildReward()
     {
+        List<Item> items = new List<Item>();
 
+        items.Add(ItemHelper.BuildItem(ItemType.Metal, ItemHelper.SpecialId_Pill2, 1, Layer * 10 + 90));
+
+        GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+
+        string message = "练气秘境" + Layer + "层通关奖励";
+        GameProcessor.Inst.EventCenter.Raise(new ShowDropEvent() { Message = message, Items = items });
     }
 
     private void GameOver()
     {
         GameProcessor.Inst.SetGameOver(PlayerType.Enemy);
-        GameProcessor.Inst.CloseBattle(RuleType.Pill, 0);
+        GameProcessor.Inst.CloseBattle(RuleType.Pill2, 0);
     }
 }

@@ -124,6 +124,7 @@ namespace Game
         public static int SpecialId_Level_Stone = 4014; //等级丹
         public static int SpecialId_Red_Chip = 4015; //红装粉尘
         public static int SpecialId_Pill = 4016; //淬体丹
+        public static int SpecialId_Pill2 = 4033; //行气丹
         public static int SpecialId_Pill_Ticket = 4017; //幻境挑战卷
         public static int SpecialId_Halidom_Chip = 4018; //遗物粉尘
         public static int SpecialId_Golden_Stone = 4019;  //金装精华
