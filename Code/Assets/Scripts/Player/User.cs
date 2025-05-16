@@ -126,6 +126,8 @@ namespace Game
         /// </summary>
         public List<BoxItem> Bags { get; set; } = new List<BoxItem>();
 
+        public IDictionary<string, bool> GiftListNew { get; set; } = new Dictionary<string, bool>();
+
         public IDictionary<string, bool> GiftList { get; set; } = new Dictionary<string, bool>();
 
         public Dictionary<int, long> VersionLog { get; } = new Dictionary<int, long>();

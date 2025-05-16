@@ -89,7 +89,7 @@ namespace Game
         {
             User user = GameProcessor.Inst.User;
 
-            if (user.GiftList.ContainsKey(code))
+            if (user.GiftListNew.ContainsKey(code))
             {
                 GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "您已经使用了兑换码", ToastType = ToastTypeEnum.Failure });
                 return;
@@ -134,14 +134,14 @@ namespace Game
 
             user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
 
-            user.GiftList[code] = true;
+            user.GiftListNew[code] = true;
         }
 
         private void SpecialCode(string code)
         {
             User user = GameProcessor.Inst.User;
 
-            if (user.GiftList.ContainsKey(code))
+            if (user.GiftListNew.ContainsKey(code))
             {
                 GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "您已经使用了兑换码", ToastType = ToastTypeEnum.Failure });
                 return;
@@ -167,7 +167,7 @@ namespace Game
                 return;
             }
 
-            user.GiftList[code] = true;
+            user.GiftListNew[code] = true;
 
             if (config.Type == 99)
             {
