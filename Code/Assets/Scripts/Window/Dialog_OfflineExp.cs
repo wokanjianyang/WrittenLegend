@@ -98,7 +98,7 @@ namespace Game
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 22, 1, 1)); //特戒
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 32, 1, 1)); //普通金宠包
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 33, 1, 1)); //满资质金宠包
-            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 35, 1, 1)); //青龙神器自选
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 41, 1, 1)); //神器自选
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 36, 1, 1)); //宝石自选
 
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 26, 1, 1));  //神技
