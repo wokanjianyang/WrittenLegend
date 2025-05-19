@@ -132,7 +132,16 @@ public class Dialog_FloatButtons : MonoBehaviour, IBattleLife, IPointerDownHandl
 
     private void OnClick_Week()
     {
-        this.DialogFestiveWeek.Open();
+
+        if (DateTime.Now.DayOfWeek != DayOfWeek.Sunday)
+        {
+            this.Btn_Festive_Week.gameObject.SetActive(false);
+        }
+        else
+        {
+            this.DialogFestiveWeek.Open();
+        }
+
     }
 
 
