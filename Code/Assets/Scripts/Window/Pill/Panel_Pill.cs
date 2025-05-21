@@ -145,6 +145,6 @@ public class Panel_Pill : MonoBehaviour
 
         user.EventCenter.Raise(new UserAttrChangeEvent());
 
-        GameProcessor.Inst.SaveData();
+        //GameProcessor.Inst.SaveData();
     }
 }

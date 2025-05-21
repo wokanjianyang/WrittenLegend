@@ -305,6 +305,8 @@ namespace Game
 
         public MagicData PillData { get; set; } = new MagicData();
 
+        public MagicData PillData2 { get; set; } = new MagicData();
+
         public PillTime PillTime { get; set; } = new PillTime();
 
         public Dictionary<int, Dictionary<int, MagicData>> FashionData { get; set; } = new Dictionary<int, Dictionary<int, MagicData>>();

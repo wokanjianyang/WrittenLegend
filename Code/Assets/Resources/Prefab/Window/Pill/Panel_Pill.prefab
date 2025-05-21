@@ -487,7 +487,6 @@ MonoBehaviour:
   Txt_Level_Name: {fileID: 3797666077345836623}
   Tf_Attr: {fileID: 1266267741591212666}
   Tf_Item: {fileID: 7636261883941808499}
-  Btn_Close: {fileID: 0}
   Btn_Active: {fileID: 5195334008731211425}
 --- !u!1 &8172710602515746416
 GameObject:
@@ -759,7 +758,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -635}
-  m_SizeDelta: {x: 360, y: 50}
+  m_SizeDelta: {x: 560, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3905515974319838298
 CanvasRenderer:
@@ -791,7 +790,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 24
+    m_FontSize: 28
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2

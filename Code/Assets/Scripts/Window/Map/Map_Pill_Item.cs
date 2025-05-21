@@ -21,13 +21,6 @@ public class Map_Pill_Item : MonoBehaviour
 
     private void OnClick_NavigateMap()
     {
-        if (Config.Type == 2)
-        {
-            //TODO
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "¿ª·¢ÖÐ", ToastType = ToastTypeEnum.Failure });
-            return;
-        }
-
         User user = GameProcessor.Inst.User;
 
         int minTime = Config.Type == 1 ? 5 : 600;

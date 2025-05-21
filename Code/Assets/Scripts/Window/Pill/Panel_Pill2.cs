@@ -45,8 +45,8 @@ public class Panel_Pill2 : MonoBehaviour
     {
         User user = GameProcessor.Inst.User;
 
-        long currentLevel = user.PillData.Data;
-        //Debug.Log("currentLevel show:" + currentLevel);
+        long currentLevel = user.PillData2.Data;
+        Debug.Log("currentLevel show:" + currentLevel);
 
         long PillLayer = (currentLevel / 2000);
 
@@ -58,12 +58,12 @@ public class Panel_Pill2 : MonoBehaviour
         this.Txt_Point_Name.text = PillNameList[PillIndex];
         this.Txt_Level_Name.text = StringHelper.GetChinaNumber(PillLayer) + "阶" + PillLevel + "重";
 
-        Debug.Log("PillLayer:" + PillLayer);
+        Debug.Log("Pill2Layer:" + PillLayer + " Pill2Level:" + PillLevel);
 
-        PillConfig config = PillConfigCategory.Instance.GetByLevel(currentLevel);
+        PillConfig2 config = PillConfig2Category.Instance.GetByLevel(currentLevel);
 
         //Fee
-        long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_Pill);
+        long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_Pill2);
 
         long fee = config.GetFee(PillLayer);
 
@@ -78,25 +78,25 @@ public class Panel_Pill2 : MonoBehaviour
         }
         else
         {
-            Txt_Fee.text = string.Format("<color={0}>消耗淬体丹:{1}/{2}</color>", color, fee, materialCount);
+            Txt_Fee.text = string.Format("<color={0}>消耗行气丹:{1}/{2}</color>", color, fee, materialCount);
             Btn_Active.gameObject.SetActive(true);
         }
 
-        Dictionary<int, long> attrDict = PillConfigCategory.Instance.ParseLevel(currentLevel);
+        Dictionary<int, double> attrDict = PillConfig2Category.Instance.ParseLevel(currentLevel);
 
-        //Debug.Log(JsonConvert.SerializeObject(attrDict));
+        Debug.Log(JsonConvert.SerializeObject(attrDict));
 
         int index = 0;
         foreach (var kv in attrDict)
         {
             StrenthAttrItem attrItem = AtrrList[index++];
 
-            long rise = 0;
+            double rise = 0;
             if (config.AttrId == kv.Key)
             {
-                rise = config.GetAttr(PillLayer); ;
+                rise = config.AttrValue;
             }
-
+            
             attrItem.SetContent(kv.Key, kv.Value, rise);
         }
 
@@ -118,12 +118,12 @@ public class Panel_Pill2 : MonoBehaviour
     {
         User user = GameProcessor.Inst.User;
 
-        long currentLevel = user.PillData.Data;
+        long currentLevel = user.PillData2.Data;
         long PillLayer = (currentLevel / 2000);
 
-        long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_Pill);
+        long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_Pill2);
 
-        PillConfig config = PillConfigCategory.Instance.GetByLevel(currentLevel);
+        PillConfig2 config = PillConfig2Category.Instance.GetByLevel(currentLevel);
         long fee = config.GetFee(PillLayer);
 
         if (materialCount < fee)
@@ -132,12 +132,12 @@ public class Panel_Pill2 : MonoBehaviour
             return;
         }
 
-        user.PillData.Data++;
+        user.PillData2.Data++;
 
         GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
         {
             Type = ItemType.Material,
-            ItemId = ItemHelper.SpecialId_Pill,
+            ItemId = ItemHelper.SpecialId_Pill2,
             Quantity = fee
         });
 
@@ -145,6 +145,6 @@ public class Panel_Pill2 : MonoBehaviour
 
         user.EventCenter.Raise(new UserAttrChangeEvent());
 
-        GameProcessor.Inst.SaveData();
+        //GameProcessor.Inst.SaveData();
     }
 }
