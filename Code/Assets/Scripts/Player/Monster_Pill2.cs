@@ -47,8 +47,8 @@ public class Monster_Pill2 : APlayer
 
         foreach (SkillData skillData in list)
         {
-            List<SkillRune> runeList = SkillRuneConfigCategory.Instance.GetAllRune(skillData.SkillConfig.Id, 4);
-            List<SkillSuit> suitList = SkillSuitHelper.GetAllSuit(skillData.SkillConfig.Id, 4);
+            List<SkillRune> runeList = SkillRuneConfigCategory.Instance.GetAllRune(skillData.SkillConfig.Id, 99);
+            List<SkillSuit> suitList = SkillSuitHelper.GetAllSuit(skillData.SkillConfig.Id, 99);
 
             SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, false);
 
@@ -68,6 +68,10 @@ public class Monster_Pill2 : APlayer
         double def = StringHelper.StringToNumber(config.Def);
         //Debug.Log(this.Layer + " Def:" + StringHelper.FormatNumber(def));
 
+        double damageMul = StringHelper.StringToNumber(config.DamageMul);
+
+        double strong = StringHelper.StringToNumber(config.Strong);
+
         AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp);
         AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr);
         AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr);
@@ -77,9 +81,18 @@ public class Monster_Pill2 : APlayer
         AttributeBonus.SetAttr(AttributeEnum.DamageIncrea, AttributeFrom.HeroBase, config.DamageIncrea);
         AttributeBonus.SetAttr(AttributeEnum.DamageResist, AttributeFrom.HeroBase, config.DamageResist);
         AttributeBonus.SetAttr(AttributeEnum.CritRateResist, AttributeFrom.HeroBase, config.CritRateResist);
+        AttributeBonus.SetAttr(AttributeEnum.CritDamage, AttributeFrom.HeroBase, config.CritDamage);
         AttributeBonus.SetAttr(AttributeEnum.RestoreHpPercent, AttributeFrom.HeroBase, config.ResotrePercent);
+
         AttributeBonus.SetAttr(AttributeEnum.Miss, AttributeFrom.HeroBase, config.Miss);
+        AttributeBonus.SetAttr(AttributeEnum.Accuracy, AttributeFrom.HeroBase, config.Accuracy);
         AttributeBonus.SetAttr(AttributeEnum.Protect, AttributeFrom.HeroBase, config.Protect);
+
+        AttributeBonus.SetAttr(AttributeEnum.Strong, AttributeFrom.HeroBase, strong);
+        AttributeBonus.SetAttr(AttributeEnum.MulDamageIncrea, AttributeFrom.HeroBase, damageMul);
+
+        SetMoveSpeed((int)config.Speed);
+        SetAttackSpeed((int)config.Speed);
 
         double MaxHP = AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
         SetHP(MaxHP);

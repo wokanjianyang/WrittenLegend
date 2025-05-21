@@ -101,7 +101,7 @@ namespace Game
 		public string HP { get; set; }
 		/// <summary>Strong</summary>
 		[ProtoMember(9)]
-		public double Strong { get; set; }
+		public string Strong { get; set; }
 		/// <summary>DamageMul</summary>
 		[ProtoMember(10)]
 		public string DamageMul { get; set; }
@@ -123,11 +123,14 @@ namespace Game
 		/// <summary>Miss</summary>
 		[ProtoMember(16)]
 		public int Miss { get; set; }
-		/// <summary>Protect</summary>
+		/// <summary>Accuracy</summary>
 		[ProtoMember(17)]
+		public int Accuracy { get; set; }
+		/// <summary>Protect</summary>
+		[ProtoMember(18)]
 		public int Protect { get; set; }
 		/// <summary>Speed</summary>
-		[ProtoMember(18)]
+		[ProtoMember(19)]
 		public double Speed { get; set; }
 
 	}
