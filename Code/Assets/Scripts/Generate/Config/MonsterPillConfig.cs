@@ -99,36 +99,36 @@ namespace Game
 		/// <summary>HP</summary>
 		[ProtoMember(8)]
 		public string HP { get; set; }
-		/// <summary>DamageIncrea</summary>
-		[ProtoMember(9)]
-		public int DamageIncrea { get; set; }
-		/// <summary>DamageResist</summary>
-		[ProtoMember(10)]
-		public int DamageResist { get; set; }
-		/// <summary>CritRateResist</summary>
-		[ProtoMember(11)]
-		public int CritRateResist { get; set; }
-		/// <summary>CritDamage</summary>
-		[ProtoMember(12)]
-		public int CritDamage { get; set; }
-		/// <summary>ResotrePercent</summary>
-		[ProtoMember(13)]
-		public int ResotrePercent { get; set; }
-		/// <summary>Miss</summary>
-		[ProtoMember(14)]
-		public int Miss { get; set; }
-		/// <summary>Protect</summary>
-		[ProtoMember(15)]
-		public int Protect { get; set; }
-		/// <summary>Speed</summary>
-		[ProtoMember(16)]
-		public double Speed { get; set; }
 		/// <summary>Strong</summary>
-		[ProtoMember(17)]
+		[ProtoMember(9)]
 		public double Strong { get; set; }
 		/// <summary>DamageMul</summary>
-		[ProtoMember(18)]
+		[ProtoMember(10)]
 		public string DamageMul { get; set; }
+		/// <summary>DamageIncrea</summary>
+		[ProtoMember(11)]
+		public int DamageIncrea { get; set; }
+		/// <summary>DamageResist</summary>
+		[ProtoMember(12)]
+		public int DamageResist { get; set; }
+		/// <summary>CritRateResist</summary>
+		[ProtoMember(13)]
+		public int CritRateResist { get; set; }
+		/// <summary>CritDamage</summary>
+		[ProtoMember(14)]
+		public int CritDamage { get; set; }
+		/// <summary>ResotrePercent</summary>
+		[ProtoMember(15)]
+		public int ResotrePercent { get; set; }
+		/// <summary>Miss</summary>
+		[ProtoMember(16)]
+		public int Miss { get; set; }
+		/// <summary>Protect</summary>
+		[ProtoMember(17)]
+		public int Protect { get; set; }
+		/// <summary>Speed</summary>
+		[ProtoMember(18)]
+		public double Speed { get; set; }
 
 	}
 }

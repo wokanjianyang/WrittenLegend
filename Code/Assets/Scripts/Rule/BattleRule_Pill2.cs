@@ -65,7 +65,7 @@ public class BattleRule_Pill2 : ABattleRule
     {
         List<Item> items = new List<Item>();
 
-        items.Add(ItemHelper.BuildItem(ItemType.Material, ItemHelper.SpecialId_Pill2, 1, Layer * 10 + 90));
+        items.Add(ItemHelper.BuildItem(ItemType.Material, ItemHelper.SpecialId_Pill2, 1, Layer * 10 + 110));
 
         GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
 
