@@ -46,7 +46,7 @@ public class Panel_Pill2 : MonoBehaviour
         User user = GameProcessor.Inst.User;
 
         long currentLevel = user.PillData2.Data;
-        Debug.Log("currentLevel show:" + currentLevel);
+        //Debug.Log("currentLevel show:" + currentLevel);
 
         long PillLayer = (currentLevel / 2000);
 
@@ -58,7 +58,7 @@ public class Panel_Pill2 : MonoBehaviour
         this.Txt_Point_Name.text = PillNameList[PillIndex];
         this.Txt_Level_Name.text = StringHelper.GetChinaNumber(PillLayer) + "阶" + PillLevel + "重";
 
-        Debug.Log("Pill2Layer:" + PillLayer + " Pill2Level:" + PillLevel);
+        //Debug.Log("Pill2Layer:" + PillLayer + " Pill2Level:" + PillLevel);
 
         PillConfig2 config = PillConfig2Category.Instance.GetByLevel(currentLevel);
 
@@ -84,7 +84,7 @@ public class Panel_Pill2 : MonoBehaviour
 
         Dictionary<int, double> attrDict = PillConfig2Category.Instance.ParseLevel(currentLevel);
 
-        Debug.Log(JsonConvert.SerializeObject(attrDict));
+        //Debug.Log(JsonConvert.SerializeObject(attrDict));
 
         int index = 0;
         foreach (var kv in attrDict)

@@ -58,7 +58,7 @@ public class Panel_Pill : MonoBehaviour
         this.Txt_Point_Name.text = PillNameList[PillIndex];
         this.Txt_Level_Name.text = StringHelper.GetChinaNumber(PillLayer) + "½×" + PillLevel + "ÖØ";
 
-        Debug.Log("PillLayer:" + PillLayer);
+        //Debug.Log("PillLayer:" + PillLayer);
 
         PillConfig config = PillConfigCategory.Instance.GetByLevel(currentLevel);
 

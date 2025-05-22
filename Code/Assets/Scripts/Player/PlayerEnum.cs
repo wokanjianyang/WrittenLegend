@@ -151,6 +151,7 @@ namespace Game
         Pet = 25,//³èÎï
         Relic = 26,//ÉñÆ÷
         Stone = 27,//±¦Ê¯
+        Pill2 = 28,
 
         Dingzhi = 98,
         /// <summary>

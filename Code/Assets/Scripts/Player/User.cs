@@ -789,7 +789,16 @@ namespace Game
             {
                 if (kv.Value > 0)
                 {
-                    AttributeBonus.SetAttr((AttributeEnum)kv.Key, AttributeFrom.Auras, kv.Value);
+                    AttributeBonus.SetAttr((AttributeEnum)kv.Key, AttributeFrom.Pill, kv.Value);
+                }
+            }
+
+            Dictionary<int, double> pillDict2 = PillConfig2Category.Instance.ParseLevel(PillData2.Data);
+            foreach (var kv in pillDict2)
+            {
+                if (kv.Value > 0)
+                {
+                    AttributeBonus.SetAttr((AttributeEnum)kv.Key, AttributeFrom.Pill2, kv.Value);
                 }
             }
 

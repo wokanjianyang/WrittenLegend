@@ -65,7 +65,7 @@ public class BattleRule_Pill2 : ABattleRule
     {
         List<Item> items = new List<Item>();
 
-        items.Add(ItemHelper.BuildItem(ItemType.Material, ItemHelper.SpecialId_Pill2, 1, Layer * 10 + 110));
+        items.Add(ItemHelper.BuildItem(ItemType.Material, ItemHelper.SpecialId_Pill2, 1, Layer * 20 + 220));
 
         GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
 
@@ -73,9 +73,14 @@ public class BattleRule_Pill2 : ABattleRule
         GameProcessor.Inst.EventCenter.Raise(new ShowDropEvent() { Message = message, Items = items });
     }
 
-    private void GameOver()
+    public override void CheckGameResult()
     {
-        GameProcessor.Inst.SetGameOver(PlayerType.Enemy);
-        GameProcessor.Inst.CloseBattle(RuleType.Pill2, 0);
+        var heroCamp = GameProcessor.Inst.PlayerManager.GetHero();
+        if (heroCamp.HP <= 0)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Myth, Message = "ÌôÕ½Ê§°Ü£¡" });
+            GameProcessor.Inst.SetGameOver(PlayerType.Enemy);
+            GameProcessor.Inst.HeroDie(RuleType.Pill2, 0);
+        }
     }
 }
