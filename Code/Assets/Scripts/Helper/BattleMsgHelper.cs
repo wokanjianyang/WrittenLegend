@@ -34,10 +34,10 @@ namespace Game
         //}
         public static string BuildMonsterDeadMessage(APlayer monster, long exp, long gold, List<Item> Drops, int burstMul)
         {
-            return BuildMonsterDeadMessage(monster, exp, gold, Drops, burstMul, 0);
+            return BuildMonsterDeadMessage(monster, exp, gold, Drops, burstMul, 0, 0);
         }
 
-        public static string BuildMonsterDeadMessage(APlayer monster, long exp, long gold, List<Item> Drops, int burstMul, int soulRise)
+        public static string BuildMonsterDeadMessage(APlayer monster, long exp, long gold, List<Item> Drops, int burstMul, int soulRise, int newRate)
         {
             string drops = "";
 
@@ -51,6 +51,10 @@ namespace Game
             if (exp > 0)
             {
                 drops += ",经验增加:" + StringHelper.FormatNumber(exp * burstMul);
+                if (newRate > 1)
+                {
+                    drops += "*" + newRate + "(新手福利)";
+                }
             }
 
             if (gold > 0)

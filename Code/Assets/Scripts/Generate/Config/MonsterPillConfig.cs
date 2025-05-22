@@ -132,6 +132,9 @@ namespace Game
 		/// <summary>Speed</summary>
 		[ProtoMember(19)]
 		public double Speed { get; set; }
+		/// <summary>SkillIdList</summary>
+		[ProtoMember(20)]
+		public int[] SkillIdList { get; set; }
 
 	}
 }

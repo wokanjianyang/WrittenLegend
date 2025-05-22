@@ -264,6 +264,7 @@ namespace Game
                 soulRise = (int)(soulRise * soulPercent * dropModelRate / 100);
             }
 
+            int newRate = user.Cycle.Data <= 0 ? 2 : 1;
             bool showMessage = QualityConfigHelper.GetMaxColor(items) >= user.InfoColor;
 
             if (showMessage)
@@ -271,7 +272,7 @@ namespace Game
                 GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
                 {
                     Type = RuleType,
-                    Message = BattleMsgHelper.BuildMonsterDeadMessage(this, exp, gold, items, itemCount, soulRise)
+                    Message = BattleMsgHelper.BuildMonsterDeadMessage(this, exp, gold, items, itemCount, soulRise, newRate)
                 });
             }
 
@@ -300,7 +301,7 @@ namespace Game
             }
 
             //增加经验,金币
-            user.AddExpAndGold(exp, gold);
+            user.AddExpAndGold(exp * newRate, gold);
             if (items.Count > 0)
             {
                 user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });

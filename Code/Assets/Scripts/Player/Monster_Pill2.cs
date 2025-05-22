@@ -42,6 +42,13 @@ public class Monster_Pill2 : APlayer
         //加载技能
         List<SkillData> list = new List<SkillData>();
 
+        for (int i = 0; i < config.SkillIdList.Length; i++)
+        {
+            int skillId = config.SkillIdList[i];
+            SkillData skillData = new SkillData(skillId, i);
+            skillData.MagicLevel.Data = this.Level * 100;
+            list.Add(skillData);
+        }
 
         list.Add(new SkillData(9001, (int)SkillPosition.Default)); //增加默认技能
 
@@ -71,6 +78,8 @@ public class Monster_Pill2 : APlayer
         double damageMul = StringHelper.StringToNumber(config.DamageMul);
 
         double strong = StringHelper.StringToNumber(config.Strong);
+
+        Debug.Log(this.Layer + " strong:" + strong.ToString());
 
         AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp);
         AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr);
