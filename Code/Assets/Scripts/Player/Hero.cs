@@ -469,7 +469,7 @@ namespace Game
         }
         public override void OnHit(DamageResult dr)
         {
-            //Debug.Log("heor hit damage:" + StringHelper.FormatNumber(dr.Damage));
+            Debug.Log("heor hit damage:" + StringHelper.FormatNumber(dr.Damage) + " maxHP:" + StringHelper.FormatNumber(this.AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP)));
 
             base.OnHit(dr);
         }

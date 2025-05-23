@@ -25,26 +25,29 @@ public class BattleRule_Pill2 : ABattleRule
         //this.MapTime = (long)mapTime;
         this.Layer = (int)layer;
 
-        Debug.Log("pill2 layer:" + layer);
-
-        Start = true;
-
-        for (int i = 0; i < 10; i++)
-        {
-            var enemy = new Monster_Pill2(Layer);
-            GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
-        }
+        //Debug.Log("pill2 layer:" + layer);
 
         MapTime = 0;
     }
 
     public override void DoMapLogic(int roundNum, double currentRoundTime)
     {
+        MapTime += currentRoundTime;
+
         if (!Start)
         {
+            if (MapTime > 2)
+            {
+                Start = true;
+
+                for (int i = 0; i < 10; i++)
+                {
+                    var enemy = new Monster_Pill2(Layer);
+                    GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
+                }
+            }
             return;
         }
-
 
         var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
 
@@ -78,7 +81,7 @@ public class BattleRule_Pill2 : ABattleRule
         var heroCamp = GameProcessor.Inst.PlayerManager.GetHero();
         if (heroCamp.HP <= 0)
         {
-            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Myth, Message = "ÌôÕ½Ê§°Ü£¡" });
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Pill2, Message = "ÌôÕ½Ê§°Ü£¡" });
             GameProcessor.Inst.SetGameOver(PlayerType.Enemy);
             GameProcessor.Inst.HeroDie(RuleType.Pill2, 0);
         }

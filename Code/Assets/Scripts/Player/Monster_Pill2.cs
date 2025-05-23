@@ -79,7 +79,7 @@ public class Monster_Pill2 : APlayer
 
         double strong = StringHelper.StringToNumber(config.Strong);
 
-        Debug.Log(this.Layer + " strong:" + strong.ToString());
+        //Debug.Log(this.Layer + " strong:" + strong.ToString());
 
         AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp);
         AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr);
@@ -110,5 +110,12 @@ public class Monster_Pill2 : APlayer
     public override float DoEvent()
     {
         return base.DoEvent();
+    }
+
+    public override void OnHit(DamageResult dr)
+    {
+        //Debug.Log("monster pill2 hit damage:" + StringHelper.FormatNumber(dr.Damage) + " maxHP:" + StringHelper.FormatNumber(this.AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP)));
+
+        base.OnHit(dr);
     }
 }

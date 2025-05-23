@@ -739,6 +739,7 @@ namespace Game
                 case RuleType.Phantom:
                 case RuleType.Myth:
                 case RuleType.World:
+                case RuleType.Pill2:
                     ie_autoExitKey = StartCoroutine(this.AutoExitMap(ruleType, time, ConfigHelper.AutoExitMapTime));
                     break;
                 default:
