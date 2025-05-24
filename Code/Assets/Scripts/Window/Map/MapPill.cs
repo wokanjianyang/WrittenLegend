@@ -76,6 +76,15 @@ public class MapPill : MonoBehaviour, IBattleLife
 
     public void OnShowInfo(ShowPillInfoEvent e)
     {
+        if (e.Type == 1)
+        {
+            Txt_Count.gameObject.SetActive(true);
+        }
+        else
+        {
+            Txt_Count.gameObject.SetActive(false);
+        }
+
         Txt_Count.text = " £”‡ÃÙ’Ω ±º‰£∫" + (int)(e.Time);
     }
 

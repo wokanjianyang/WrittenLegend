@@ -9,6 +9,8 @@ public class BattleRule_Pill2 : ABattleRule
 {
     private bool Start = false;
 
+    private bool Over = false;
+
     private int Layer = 0;
 
     private double MapTime = 0;
@@ -34,6 +36,11 @@ public class BattleRule_Pill2 : ABattleRule
     {
         MapTime += currentRoundTime;
 
+        if (this.Over)
+        {
+            return;
+        }
+
         if (!Start)
         {
             if (MapTime > 2)
@@ -45,6 +52,8 @@ public class BattleRule_Pill2 : ABattleRule
                     var enemy = new Monster_Pill2(Layer);
                     GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
                 }
+
+                GameProcessor.Inst.EventCenter.Raise(new ShowPillInfoEvent() { Type = 2 });
             }
             return;
         }
@@ -53,10 +62,10 @@ public class BattleRule_Pill2 : ABattleRule
 
         if (enemys.Count <= 0)
         {
-            this.Start = false;
+            this.Over = true;
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Myth, Message = "ÌôÕ½Í¨¹Ø£¡" });
-            GameProcessor.Inst.User.PillTime.Time.Data -= currentRoundTime;
+            GameProcessor.Inst.User.PillTime.Time.Data -= 600;
 
             BuildReward();
 

@@ -71,7 +71,7 @@ public class Panel_Pill2 : MonoBehaviour
 
         Txt_Fee.gameObject.SetActive(true);
 
-        if (PillLayer > ConfigHelper.PillMax)
+        if (PillLayer > ConfigHelper.PillMax2)
         {
             Txt_Fee.text = "修炼已满";
             Btn_Active.gameObject.SetActive(false);

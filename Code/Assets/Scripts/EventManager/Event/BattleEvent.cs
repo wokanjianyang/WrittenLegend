@@ -485,6 +485,7 @@ namespace Game
     //--pill
     public class ShowPillInfoEvent : SDD.Events.Event
     {
+        public int Type { get; set; }
         public double Time { get; set; }
     }
     public class OpenPillEvent : SDD.Events.Event

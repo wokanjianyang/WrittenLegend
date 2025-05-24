@@ -63,7 +63,7 @@ public class BattleRule_Pill : ABattleRule
             user.PillTime.Time.Data = -60; //如果切后台，导致currentRoundTime特别大
         }
 
-        GameProcessor.Inst.EventCenter.Raise(new ShowPillInfoEvent() { Time = user.PillTime.Time.Data });
+        GameProcessor.Inst.EventCenter.Raise(new ShowPillInfoEvent() { Type = 1, Time = user.PillTime.Time.Data });
 
         var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
 
