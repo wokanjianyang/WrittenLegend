@@ -17,15 +17,23 @@ public class Panel_SoulRing : MonoBehaviour
     public Text LockLevel;
     public Text LockMemo;
 
-    public List<Toggle> RingList = new List<Toggle>();
-    public List<Toggle> RingSkillList = new List<Toggle>();
-    public List<StrenthAttrItem> AttrList = new List<StrenthAttrItem>();
+    public Transform Tf_Ring;
+    public Transform Tf_Attr;
+    public Transform Tf_RingSkill;
+
+    private List<Toggle> RingList;
+    private List<StrenthAttrItem> AttrList;
+    private List<Toggle> RingSkillList;
 
     private int Sid = 0;
 
     // Start is called before the first frame update
     void Start()
     {
+        RingList = Tf_Ring.GetComponentsInChildren<Toggle>().ToList();
+        AttrList = Tf_Attr.GetComponentsInChildren<StrenthAttrItem>().ToList();
+        RingSkillList = Tf_RingSkill.GetComponentsInChildren<Toggle>().ToList();
+
         Btn_Active.onClick.AddListener(OnStrong);
         Btn_Strong.onClick.AddListener(OnStrong);
 

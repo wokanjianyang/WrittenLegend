@@ -23,7 +23,7 @@ public class Map_Pill_Item : MonoBehaviour
     {
         User user = GameProcessor.Inst.User;
 
-        int minTime = Config.Type == 1 ? 5 : 600;
+        int minTime = Config.Type == 1 ? 5 : ConfigHelper.PillDefaultTime * 10 - 1;
 
         if (user.PillTime.Time.Data < minTime)
         {

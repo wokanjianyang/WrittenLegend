@@ -65,7 +65,7 @@ public class BattleRule_Pill2 : ABattleRule
             this.Over = true;
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Myth, Message = "ÃÙ’ΩÕ®πÿ£°" });
-            GameProcessor.Inst.User.PillTime.Time.Data -= 600;
+            GameProcessor.Inst.User.PillTime.Time.Data -= ConfigHelper.PillDefaultTime * 10 - 1;
 
             BuildReward();
 
