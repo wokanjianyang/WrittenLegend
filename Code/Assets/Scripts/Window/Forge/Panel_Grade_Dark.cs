@@ -236,9 +236,9 @@ public class Panel_Grade_Dark : MonoBehaviour
 
         IDictionary<int, Equip> dict = user.EquipPanelDarkGoldList[user.EquipDarkGoldIndex];
 
-        foreach (Equip equip in dict.Values)
+        for (int i = 0; i <= MaxLevel; i++)
         {
-            for (int i = 0; i <= MaxLevel; i++)
+            foreach (Equip equip in dict.Values)
             {
                 if (equip.GetQuality() == Quality)
                 {

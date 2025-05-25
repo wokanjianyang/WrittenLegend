@@ -279,34 +279,38 @@ public class Panel_Hone : MonoBehaviour
 
         IDictionary<int, Equip> dict = user.EquipPanelList[user.EquipPanelIndex];
 
-        foreach (Equip equip in dict.Values)
+        for (int m = 0; m < 25; m++)
         {
-            for (int i = 0; i < equip.AttrEntryList.Count; i++)
+            foreach (Equip equip in dict.Values)
             {
-                int attrId = equip.AttrEntryList[i].Key;
-                long attrVal = equip.AttrEntryList[i].Value;
-                int MaxLevel = EquipHoneConfigCategory.Instance.GetMaxLevel(attrId, attrVal, equip.Layer);
-
-                for (int l = 1; l <= MaxLevel; l++)
+                for (int i = 0; i < equip.AttrEntryList.Count; i++)
                 {
+                    int attrId = equip.AttrEntryList[i].Key;
+                    long attrVal = equip.AttrEntryList[i].Value;
+
                     int honeLevel = equip.GetHoneLevel(i);
-                    int needCount = GetNeedNumber(honeLevel);
+                    int MaxLevel = EquipHoneConfigCategory.Instance.GetMaxLevel(attrId, attrVal, equip.Layer);
 
-                    long count = user.GetMaterialCount(ItemHelper.SpecialId_Red_Stone);
-
-                    if (count < needCount || honeLevel >= MaxLevel)
+                    if (honeLevel < MaxLevel)
                     {
-                        break;
+                        int needCount = GetNeedNumber(honeLevel);
+
+                        long count = user.GetMaterialCount(ItemHelper.SpecialId_Red_Stone);
+
+                        if (count < needCount)
+                        {
+                            break;
+                        }
+
+                        GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
+                        {
+                            Type = ItemType.Material,
+                            ItemId = ItemHelper.SpecialId_Red_Stone,
+                            Quantity = needCount
+                        });
+
+                        equip.Hone(i);
                     }
-
-                    GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
-                    {
-                        Type = ItemType.Material,
-                        ItemId = ItemHelper.SpecialId_Red_Stone,
-                        Quantity = needCount
-                    });
-
-                    equip.Hone(i);
                 }
             }
         }

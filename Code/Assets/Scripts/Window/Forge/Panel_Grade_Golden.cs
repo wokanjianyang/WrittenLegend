@@ -236,9 +236,9 @@ public class Panel_Grade_Golden : MonoBehaviour
 
         IDictionary<int, Equip> dict = user.EquipPanelGoldenList[user.EquipGoldenIndex];
 
-        foreach (Equip equip in dict.Values)
+        for (int i = 0; i <= MaxLevel; i++)
         {
-            for (int i = 0; i <= MaxLevel; i++)
+            foreach (Equip equip in dict.Values)
             {
                 if (equip.GetQuality() == Quality)
                 {
