@@ -74,11 +74,14 @@ namespace Game
         private Coroutine ie_autoPhatom = null;
         private Coroutine ie_AutoResurrection = null;
 
+        private Coroutine ie_autoStartMap = null;
+
         //副本临时设置
         public bool EquipCopySetting_Rate = false;
         public bool EquipCopySetting_Auto = false;
         public bool EquipCopySetting_Spe = true;
         public bool EquipBossFamily_Auto = false;
+        public bool Babel_Auto = false;
         public bool Phantom_Auto = false;
         public int Phantom_Auto_Id = 0;
 
@@ -740,6 +743,7 @@ namespace Game
                 case RuleType.Myth:
                 case RuleType.World:
                 case RuleType.Pill2:
+                case RuleType.Babel:
                     ie_autoExitKey = StartCoroutine(this.AutoExitMap(ruleType, time, ConfigHelper.AutoExitMapTime));
                     break;
                 default:
@@ -889,6 +893,10 @@ namespace Game
             {
                 this.AutoWorld();
             }
+            else if (ruleType == RuleType.Babel && Babel_Auto)
+            {
+                this.AutoStartMap(ruleType);
+            }
         }
 
         private void AutoEquipCopy()
@@ -989,6 +997,53 @@ namespace Game
         {
             this.EventCenter.Raise(new CopyViewCloseEvent());
             this.EventCenter.Raise(new PhantomStartEvent() { PhantomId = Phantom_Auto_Id });
+        }
+
+
+        private void AutoStartMap(RuleType ruleType)
+        {
+            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke(ConfigHelper.AutoStartMapTime + "S后自动挑战", true,
+                () =>
+                {
+                    StopCoroutine(ie_autoStartMap);
+                    AutoRunMap(ruleType);
+                }, () =>
+                {
+                    StopCoroutine(ie_autoStartMap);
+                });
+
+            ie_autoStartMap = StartCoroutine(this.ShowAutoStartMap(ruleType));
+        }
+
+        private IEnumerator ShowAutoStartMap(RuleType ruleType)
+        {
+            int cd = ConfigHelper.AutoStartMapTime;
+            for (int i = 0; i < cd; i++)
+            {
+                this.EventCenter.Raise(new SecondaryConfirmTextEvent() { Text = $"{(cd - i)}S后自动挑战" });
+                yield return new WaitForSeconds(1f);
+            }
+
+            this.EventCenter.Raise(new SecondaryConfirmCloseEvent());
+
+            AutoRunMap(ruleType);
+        }
+
+        private void AutoRunMap(RuleType ruleType)
+        {
+            this.EventCenter.Raise(new CopyViewCloseEvent());
+
+            Debug.Log("auto type :" + ruleType);
+
+            switch (ruleType)
+            {
+                case RuleType.Babel:
+                    this.EventCenter.Raise(new BabelStartEvent() { });
+                    break;
+                case RuleType.World:
+                    this.EventCenter.Raise(new WorldStartEvent() { Id = World_Auto_Id });
+                    break;
+            }
         }
 
 

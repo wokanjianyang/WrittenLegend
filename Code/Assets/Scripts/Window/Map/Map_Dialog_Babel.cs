@@ -22,6 +22,8 @@ public class Map_Dialog_Babel : MonoBehaviour
 
     public Text Txt_Rank;
 
+    public Toggle toggle_Auto;
+
     public Button Btn_Start;
     public Button Btn_Close;
 
@@ -30,6 +32,11 @@ public class Map_Dialog_Babel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        toggle_Auto.onValueChanged.AddListener((isOn) =>
+        {
+            GameProcessor.Inst.Babel_Auto = isOn;
+        });
+
         Btn_Start.onClick.AddListener(OnClick_Start);
         Btn_Close.onClick.AddListener(OnClick_Close);
     }
