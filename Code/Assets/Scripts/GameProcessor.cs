@@ -869,7 +869,7 @@ namespace Game
                 //判断是否自动挑战
                 if (EquipCopySetting_Auto && User.MagicCopyTikerCount.Data >= rate)
                 {
-                    this.AutoEquipCopy();
+                    this.AutoStartMap(ruleType);
                 }
             }
             else if (ruleType == RuleType.BossFamily)
@@ -882,122 +882,125 @@ namespace Game
 
                 if (EquipBossFamily_Auto && bossTicket > rate)
                 {
-                    this.AutoBossFamily();
+                    this.AutoStartMap(ruleType);
                 }
             }
             else if (ruleType == RuleType.Phantom && Phantom_Auto)
             {
-                this.AutoPhantom();
+                this.AutoStartMap(ruleType);
             }
             else if (ruleType == RuleType.World && World_Auto)
             {
-                this.AutoWorld();
+                this.AutoStartMap(ruleType);
             }
             else if (ruleType == RuleType.Babel && Babel_Auto)
             {
-                this.AutoStartMap(ruleType);
+                if (User.BabelCount.Data > 0)
+                {
+                    this.AutoStartMap(ruleType);
+                }
             }
         }
 
-        private void AutoEquipCopy()
-        {
-            ShowSecondaryConfirmationDialog?.Invoke(ConfigHelper.AutoStartMapTime + "S后自动挑战装备副本", true,
-            () =>
-            {
-                StopCoroutine(ie_autoStartCopy);
-                AutoStartCopy();
-            }, () =>
-            {
-                StopCoroutine(ie_autoStartCopy);
-            });
+        //private void AutoEquipCopy()
+        //{
+        //    ShowSecondaryConfirmationDialog?.Invoke(ConfigHelper.AutoStartMapTime + "S后自动挑战装备副本", true,
+        //    () =>
+        //    {
+        //        StopCoroutine(ie_autoStartCopy);
+        //        AutoStartCopy();
+        //    }, () =>
+        //    {
+        //        StopCoroutine(ie_autoStartCopy);
+        //    });
 
-            ie_autoStartCopy = StartCoroutine(this.ShowAutoStartCopy());
-        }
-        private IEnumerator ShowAutoStartCopy()
-        {
-            int cd = ConfigHelper.AutoStartMapTime;
-            for (int i = 0; i < 2; i++)
-            {
-                this.EventCenter.Raise(new SecondaryConfirmTextEvent() { Text = $"{(cd - i)}秒后自动挑战副本" });
-                yield return new WaitForSeconds(1f);
-            }
+        //    ie_autoStartCopy = StartCoroutine(this.ShowAutoStartCopy());
+        //}
+        //private IEnumerator ShowAutoStartCopy()
+        //{
+        //    int cd = ConfigHelper.AutoStartMapTime;
+        //    for (int i = 0; i < 2; i++)
+        //    {
+        //        this.EventCenter.Raise(new SecondaryConfirmTextEvent() { Text = $"{(cd - i)}秒后自动挑战副本" });
+        //        yield return new WaitForSeconds(1f);
+        //    }
 
-            this.EventCenter.Raise(new SecondaryConfirmCloseEvent());
+        //    this.EventCenter.Raise(new SecondaryConfirmCloseEvent());
 
-            AutoStartCopy();
-        }
+        //    AutoStartCopy();
+        //}
 
-        private void AutoStartCopy()
-        {
-            this.EventCenter.Raise(new CopyViewCloseEvent());
-            this.EventCenter.Raise(new AutoStartCopyEvent());
-        }
+        //private void AutoStartCopy()
+        //{
+        //    this.EventCenter.Raise(new CopyViewCloseEvent());
+        //    this.EventCenter.Raise(new AutoStartCopyEvent());
+        //}
 
-        private void AutoBossFamily()
-        {
-            ShowSecondaryConfirmationDialog?.Invoke(ConfigHelper.AutoStartMapTime + "S后自动挑战BOSS之家", true,
-            () =>
-            {
-                StopCoroutine(ie_autoBossFamily);
-                AutoStartBossFamily();
-            }, () =>
-            {
-                StopCoroutine(ie_autoBossFamily);
-            });
+        //private void AutoBossFamily()
+        //{
+        //    ShowSecondaryConfirmationDialog?.Invoke(ConfigHelper.AutoStartMapTime + "S后自动挑战BOSS之家", true,
+        //    () =>
+        //    {
+        //        StopCoroutine(ie_autoBossFamily);
+        //        AutoStartBossFamily();
+        //    }, () =>
+        //    {
+        //        StopCoroutine(ie_autoBossFamily);
+        //    });
 
-            ie_autoBossFamily = StartCoroutine(this.ShowAutoStartBossFamily());
-        }
-        private IEnumerator ShowAutoStartBossFamily()
-        {
-            int cd = ConfigHelper.AutoStartMapTime;
-            for (int i = 0; i < cd; i++)
-            {
-                this.EventCenter.Raise(new SecondaryConfirmTextEvent() { Text = $"{(cd - i)}秒后自动挑战BOSS之家" });
-                yield return new WaitForSeconds(1f);
-            }
+        //    ie_autoBossFamily = StartCoroutine(this.ShowAutoStartBossFamily());
+        //}
+        //private IEnumerator ShowAutoStartBossFamily()
+        //{
+        //    int cd = ConfigHelper.AutoStartMapTime;
+        //    for (int i = 0; i < cd; i++)
+        //    {
+        //        this.EventCenter.Raise(new SecondaryConfirmTextEvent() { Text = $"{(cd - i)}秒后自动挑战BOSS之家" });
+        //        yield return new WaitForSeconds(1f);
+        //    }
 
-            this.EventCenter.Raise(new SecondaryConfirmCloseEvent());
+        //    this.EventCenter.Raise(new SecondaryConfirmCloseEvent());
 
-            AutoStartBossFamily();
-        }
-        private void AutoStartBossFamily()
-        {
-            this.EventCenter.Raise(new CopyViewCloseEvent());
-            this.EventCenter.Raise(new AutoStartBossFamily());
-        }
+        //    AutoStartBossFamily();
+        //}
+        //private void AutoStartBossFamily()
+        //{
+        //    this.EventCenter.Raise(new CopyViewCloseEvent());
+        //    this.EventCenter.Raise(new AutoStartBossFamily());
+        //}
 
-        private void AutoPhantom()
-        {
-            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke(ConfigHelper.AutoStartMapTime + "S后自动幻影挑战", true,
-            () =>
-            {
-                StopCoroutine(ie_autoPhatom);
-                AutoStartPhantom();
-            }, () =>
-            {
-                StopCoroutine(ie_autoPhatom);
-            });
+        //private void AutoPhantom()
+        //{
+        //    GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke(ConfigHelper.AutoStartMapTime + "S后自动幻影挑战", true,
+        //    () =>
+        //    {
+        //        StopCoroutine(ie_autoPhatom);
+        //        AutoStartPhantom();
+        //    }, () =>
+        //    {
+        //        StopCoroutine(ie_autoPhatom);
+        //    });
 
-            ie_autoPhatom = StartCoroutine(this.ShowAutoStartPhantom());
-        }
-        private IEnumerator ShowAutoStartPhantom()
-        {
-            int cd = ConfigHelper.AutoStartMapTime;
-            for (int i = 0; i < cd; i++)
-            {
-                this.EventCenter.Raise(new SecondaryConfirmTextEvent() { Text = $"{(cd - i)}S后自动幻影挑战" });
-                yield return new WaitForSeconds(1f);
-            }
+        //    ie_autoPhatom = StartCoroutine(this.ShowAutoStartPhantom());
+        //}
+        //private IEnumerator ShowAutoStartPhantom()
+        //{
+        //    int cd = ConfigHelper.AutoStartMapTime;
+        //    for (int i = 0; i < cd; i++)
+        //    {
+        //        this.EventCenter.Raise(new SecondaryConfirmTextEvent() { Text = $"{(cd - i)}S后自动幻影挑战" });
+        //        yield return new WaitForSeconds(1f);
+        //    }
 
-            this.EventCenter.Raise(new SecondaryConfirmCloseEvent());
+        //    this.EventCenter.Raise(new SecondaryConfirmCloseEvent());
 
-            AutoStartPhantom();
-        }
-        private void AutoStartPhantom()
-        {
-            this.EventCenter.Raise(new CopyViewCloseEvent());
-            this.EventCenter.Raise(new PhantomStartEvent() { PhantomId = Phantom_Auto_Id });
-        }
+        //    AutoStartPhantom();
+        //}
+        //private void AutoStartPhantom()
+        //{
+        //    this.EventCenter.Raise(new CopyViewCloseEvent());
+        //    this.EventCenter.Raise(new PhantomStartEvent() { PhantomId = Phantom_Auto_Id });
+        //}
 
 
         private void AutoStartMap(RuleType ruleType)
@@ -1043,43 +1046,53 @@ namespace Game
                 case RuleType.World:
                     this.EventCenter.Raise(new WorldStartEvent() { Id = World_Auto_Id });
                     break;
+                case RuleType.Phantom:
+                    this.EventCenter.Raise(new PhantomStartEvent() { PhantomId = Phantom_Auto_Id });
+                    break;
+                case RuleType.BossFamily:
+                    this.EventCenter.Raise(new AutoStartBossFamily());
+                    break;
+                case RuleType.EquipCopy:
+                    this.EventCenter.Raise(new AutoStartCopyEvent());
+                    break;
+
             }
         }
 
 
 
-        private void AutoWorld()
-        {
-            GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke(ConfigHelper.AutoStartMapTime + "S后自动挑战神兽", true,
-            () =>
-            {
-                StopCoroutine(ie_autoPhatom);
-                AutoStartWorld();
-            }, () =>
-            {
-                StopCoroutine(ie_autoPhatom);
-            });
+        //private void AutoWorld()
+        //{
+        //    GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke(ConfigHelper.AutoStartMapTime + "S后自动挑战神兽", true,
+        //    () =>
+        //    {
+        //        StopCoroutine(ie_autoPhatom);
+        //        AutoStartWorld();
+        //    }, () =>
+        //    {
+        //        StopCoroutine(ie_autoPhatom);
+        //    });
 
-            ie_autoPhatom = StartCoroutine(this.ShowAutoStartWorld());
-        }
-        private IEnumerator ShowAutoStartWorld()
-        {
-            int cd = ConfigHelper.AutoStartMapTime;
-            for (int i = 0; i < cd; i++)
-            {
-                this.EventCenter.Raise(new SecondaryConfirmTextEvent() { Text = $"{(cd - i)}S后自动挑战神兽" });
-                yield return new WaitForSeconds(1f);
-            }
+        //    ie_autoPhatom = StartCoroutine(this.ShowAutoStartWorld());
+        //}
+        //private IEnumerator ShowAutoStartWorld()
+        //{
+        //    int cd = ConfigHelper.AutoStartMapTime;
+        //    for (int i = 0; i < cd; i++)
+        //    {
+        //        this.EventCenter.Raise(new SecondaryConfirmTextEvent() { Text = $"{(cd - i)}S后自动挑战神兽" });
+        //        yield return new WaitForSeconds(1f);
+        //    }
 
-            this.EventCenter.Raise(new SecondaryConfirmCloseEvent());
+        //    this.EventCenter.Raise(new SecondaryConfirmCloseEvent());
 
-            AutoStartWorld();
-        }
-        private void AutoStartWorld()
-        {
-            this.EventCenter.Raise(new CopyViewCloseEvent());
-            this.EventCenter.Raise(new WorldStartEvent() { Id = World_Auto_Id });
-        }
+        //    AutoStartWorld();
+        //}
+        //private void AutoStartWorld()
+        //{
+        //    this.EventCenter.Raise(new CopyViewCloseEvent());
+        //    this.EventCenter.Raise(new WorldStartEvent() { Id = World_Auto_Id });
+        //}
 
         private IEnumerator AutoExitApp(ExitType type)
         {

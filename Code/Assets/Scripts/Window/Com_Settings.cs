@@ -89,7 +89,7 @@ namespace Game
         {
             User user = GameProcessor.Inst.User;
 
-            if (user.GiftListNew.ContainsKey(code))
+            if (user.GiftListNew.ContainsKey(code) || user.GiftList.ContainsKey(code))
             {
                 GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "您已经使用了兑换码", ToastType = ToastTypeEnum.Failure });
                 return;
@@ -141,7 +141,7 @@ namespace Game
         {
             User user = GameProcessor.Inst.User;
 
-            if (user.GiftListNew.ContainsKey(code))
+            if (user.GiftListNew.ContainsKey(code) || user.GiftList.ContainsKey(code))
             {
                 GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "您已经使用了兑换码", ToastType = ToastTypeEnum.Failure });
                 return;
