@@ -35,9 +35,13 @@ public class BattleRule_Mine
 
         long nt = TimeHelper.ClientNowSeconds();
 
-        if (nt - user.MinerTime >= ConfigHelper.Mine_Time)
+        long runTime = (long)(ConfigHelper.Mine_Time * 100 / (100 + user.AttributeBonus.GetBaseAttr(AttributeEnum.MetailFinal)));
+
+        runTime = Math.Max(runTime, 6);
+
+        if (nt - user.MinerTime >= runTime)
         {
-            Debug.Log("Mine Build Reward");
+            //Debug.Log("Mine Build Reward time:" + runTime);
 
             user.MinerTime = nt;
             Dictionary<int, int> metalList = MineConfigCategory.Instance.BuildMetal(ref user.MinerSeed, 1);
@@ -51,7 +55,7 @@ public class BattleRule_Mine
 
             Dictionary<int, MagicData> md = user.MetalData;
 
-            string message = $"挖到矿石：";
+            string message = DateTime.Now.ToString("mm:ss") + $"挖到矿石：";
 
             foreach (var kv in metalList)
             {

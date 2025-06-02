@@ -606,7 +606,11 @@ namespace Game
 
         private void BuildOfflineMine(User user, long mineTime, ref string message)
         {
-            long count = mineTime / 60;
+            long runTime = (long)(ConfigHelper.Mine_Time * 100 / (100 + user.AttributeBonus.GetBaseAttr(AttributeEnum.MetailFinal)));
+
+            runTime = Math.Max(runTime, 6);
+
+            long count = mineTime / runTime;
 
             if (count <= 0)
             {
@@ -644,14 +648,11 @@ namespace Game
             //list.Add(ItemHelper.BuildEquip(22205801, 7, 1, 0));
             //list.Add(ItemHelper.BuildEquip(22205802, 7, 1, 0));
 
-            list.Add(ItemHelper.BuildEquip(22205801, 7, 1, 0));
-            list.Add(ItemHelper.BuildEquip(22205801, 7, 1, 0));
-            list.Add(ItemHelper.BuildEquip(22205801, 7, 1, 0));
-            list.Add(ItemHelper.BuildEquip(22205801, 7, 1, 0));
-            list.Add(ItemHelper.BuildEquip(22205801, 7, 1, 0));
-            list.Add(ItemHelper.BuildEquip(22205801, 7, 1, 0));
-            list.Add(ItemHelper.BuildEquip(22205801, 7, 1, 0));
-            list.Add(ItemHelper.BuildEquip(22205801, 7, 1, 0));
+            for (int i = 0; i < 10; i++)
+            {
+                list.Add(ItemHelper.BuildEquip(22205801, 7, 1, 0));
+                list.Add(ItemHelper.BuildEquip(22205801, 7, 1, 0));
+            }
 
             return list;
         }
