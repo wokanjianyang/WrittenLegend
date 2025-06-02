@@ -127,6 +127,12 @@ namespace Game
                     total = 100 + CalTotal(AttributeEnum.PhyDamage, haveBuff);
                     total = total * (1 + CalMulTotal(haveBuff, AttributeEnum.MulPhyDamageRise) / 100) - 100;
                     break;
+                case AttributeEnum.CritRate:
+                    total = CalTotal(attrType, haveBuff, AttributeEnum.CritFinal);
+                    break;
+                case AttributeEnum.Lucky:
+                    total = CalTotal(attrType, haveBuff, AttributeEnum.LuckyFinal);
+                    break;
                 case AttributeEnum.MagicDamage:
                     total = 100 + CalTotal(AttributeEnum.MagicDamage, haveBuff);
                     total = total * (1 + CalMulTotal(haveBuff, AttributeEnum.MulMagicDamageRise) / 100) - 100;
