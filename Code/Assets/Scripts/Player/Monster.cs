@@ -222,6 +222,12 @@ namespace Game
             //生成道具奖励
             List<KeyValuePair<double, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(Config.MapId, dropRate * modelRate);
 
+            //Debug.Log("count Rate:" + countRate);
+
+            countRate = countRate * (100 + user.AttributeBonus.GetBaseAttr(AttributeEnum.DropFinal)) / 100;
+
+            //Debug.Log("count Rate1:" + countRate);
+
             //限时奖励
             int limit = user.GetLimitId();
             items.AddRange(DropLimitHelper.Build((int)DropLimitType.Normal, this.MapId, dropRate, modelRate, limit, countRate));

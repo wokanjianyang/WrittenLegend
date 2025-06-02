@@ -36,4 +36,10 @@
 {"_t":"LevelConfig","_id":35,"StartLevel":310001,"EndLevel":320000,"Exp":21600000000000},
 {"_t":"LevelConfig","_id":36,"StartLevel":320001,"EndLevel":330000,"Exp":64800000000000},
 {"_t":"LevelConfig","_id":37,"StartLevel":330001,"EndLevel":340000,"Exp":195000000000000},
+{"_t":"LevelConfig","_id":38,"StartLevel":340001,"EndLevel":350000,"Exp":600000000000000},
+{"_t":"LevelConfig","_id":39,"StartLevel":350001,"EndLevel":360000,"Exp":1800000000000000},
+{"_t":"LevelConfig","_id":40,"StartLevel":360001,"EndLevel":370000,"Exp":5400000000000000},
+{"_t":"LevelConfig","_id":41,"StartLevel":370001,"EndLevel":380000,"Exp":16000000000000000},
+{"_t":"LevelConfig","_id":42,"StartLevel":380001,"EndLevel":390000,"Exp":48000000000000000},
+{"_t":"LevelConfig","_id":43,"StartLevel":390001,"EndLevel":400000,"Exp":15000000000000000},
 ]}
