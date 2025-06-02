@@ -108,4 +108,9 @@
 {"_t":"HalidomConfig","_id":40000157,"ItemId":40000157,"Layer":4,"Name":"深渊猪皮","AttrId":2010,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"增伤倍率"},
 {"_t":"HalidomConfig","_id":40000158,"ItemId":40000158,"Layer":4,"Name":"深渊猪心","AttrId":2012,"AttrValue":25,"RiseAttr":25,"MaxLevel":4,"Des":"韧性倍率"},
 {"_t":"HalidomConfig","_id":40000159,"ItemId":40000159,"Layer":4,"Name":"深渊蝎皮","AttrId":2002,"AttrValue":50,"RiseAttr":50,"MaxLevel":4,"Des":"防御倍率"},
+{"_t":"HalidomConfig","_id":40000160,"ItemId":40000160,"Layer":4,"Name":"深渊宝甲","AttrId":2003,"AttrValue":40,"RiseAttr":40,"MaxLevel":4,"Des":"生命倍率"},
+{"_t":"HalidomConfig","_id":40000161,"ItemId":40000161,"Layer":4,"Name":"深渊号角","AttrId":2001,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"攻击倍率"},
+{"_t":"HalidomConfig","_id":40000162,"ItemId":40000162,"Layer":4,"Name":"深渊雕像","AttrId":2007,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"物伤倍率"},
+{"_t":"HalidomConfig","_id":40000163,"ItemId":40000163,"Layer":4,"Name":"深渊神像","AttrId":2008,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"法伤倍率"},
+{"_t":"HalidomConfig","_id":40000164,"ItemId":40000164,"Layer":4,"Name":"深渊獠牙","AttrId":2009,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"道伤倍率"},
 ]}

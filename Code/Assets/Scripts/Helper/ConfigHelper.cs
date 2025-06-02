@@ -12,7 +12,7 @@ namespace Game
 
         public const int Channel_Tap = 1;
 
-        public const int Version = 382;
+        public const int Version = 383;
 
         public const long PackTime = 1748051601; //打包时间，防止作弊
 
@@ -22,7 +22,7 @@ namespace Game
 
         public const long Cycle_Level = 10000; //每次轮回增加等级
 
-        public const long Cycle_Max = 20;
+        public const long Cycle_Max = 21;
 
         public const long Max_Legacy_Level = 20; //最大传世副本等级 
 
@@ -54,7 +54,7 @@ namespace Game
         public const int CopyTicketFirstCount = 300; //副本离线和新号最多多少次
         public const int LegacyTiketMax = 200; //传世挑战最大次数
 
-        public static int[] PercentAttrIdList = { 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 23, 24, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 41, 43, 45, 50, 51, 52, 53, 101, 102, 103, 110, 201, 202, 203, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012 };
+        public static int[] PercentAttrIdList = { 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 23, 24, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 41, 43, 45, 50, 51, 52, 53, 54, 55, 101, 102, 103, 108, 109, 110, 201, 202, 203, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012 };
 
         public static int[] RateAttrIdList = { 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009 };
 
@@ -64,8 +64,8 @@ namespace Game
          "二一", "二二", "二三", "二四", "二五", "二六", "二七", "二八","二九", "三十",};
 
         public static string[] CycleList = { "零转", "一转", "二转", "三转", "四转", "五转", "六转", "七转", "八转", "九转", "十转",
-            "练气", "筑基", "金丹", "元婴", "化神", "练虚", "合体", "大乘","渡劫", "散仙",
-         "二一", "二二", "二三", "二四", "二五", "二六", "二七", "二八","二九", "三十",};
+            "练气", "筑基", "金丹", "元婴", "化神", "练虚", "合体", "大乘","渡劫", "散仙初期",
+         "散仙中期", "‌散仙后期", "人仙初期", "人仙中期", "人仙后期", "地仙初期", "地仙中期", "地仙后期","真仙初期", "‌真仙中期",};
 
         public const int MapStartId = 1000;
 

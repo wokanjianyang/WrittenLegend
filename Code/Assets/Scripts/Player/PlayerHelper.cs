@@ -49,7 +49,11 @@ namespace Game
             {nameof(AttributeEnum.GoldFinal), "金币增幅" },
             {nameof(AttributeEnum.BurstFinal), "爆率增幅" },
             {nameof(AttributeEnum.QualityFinal), "品质增幅" },
-                        
+            {nameof(AttributeEnum.CritFinal), "暴击增幅" },
+            {nameof(AttributeEnum.LuckyFinal), "幸运增幅" },
+            {nameof(AttributeEnum.DropFinal), "特殊爆率" },
+            {nameof(AttributeEnum.MetailFinal), "挖矿速度" },
+
 
             {nameof(AttributeEnum.SoulPercent), "炼魂" },
             {nameof(AttributeEnum.SpRate), "护盾固防" },

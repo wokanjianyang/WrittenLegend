@@ -63,6 +63,8 @@ namespace Game
         GoldFinal = 51, //金币增幅
         BurstFinal = 52, //爆率增幅
         QualityFinal = 53, //品质增幅
+        CritFinal = 54,//暴击增幅
+        LuckyFinal = 55,//幸运增幅
 
         AurasDamageResist = 201, //光环减伤
         AurasDamageIncrea = 202, //光环增伤
@@ -72,6 +74,8 @@ namespace Game
         EquipRandomIncrea = 102, //装备随机属性百分比
         EquipStrengthIncrea = 103, //装备强化属性百分比
 
+        DropFinal = 108, //稀有爆率增幅
+        MetailFinal = 109, //挖矿
         SoulPercent = 110, //炼魂夺魄
         Talent = 111, //天赋点
         DefendRate = 112, //防御系数
@@ -81,6 +85,7 @@ namespace Game
         RealCritRate = 116,//溢出暴击转为伤害加成
         LuckyHit = 117, //青龙之力-幸运一击
         Relic2 = 118, //神器2
+
 
         SkillPhyDamage = 302, //物理伤害
         SkillMagicDamage = 303,//魔法伤害
