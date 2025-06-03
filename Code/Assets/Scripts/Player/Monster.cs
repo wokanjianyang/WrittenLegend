@@ -224,18 +224,18 @@ namespace Game
 
             //Debug.Log("count Rate:" + countRate);
 
-            countRate = countRate * (100 + user.AttributeBonus.GetBaseAttr(AttributeEnum.DropFinal)) / 100;
+            double dropFinal = (100 + user.AttributeBonus.GetBaseAttr(AttributeEnum.DropFinal)) / 100;
 
-            //Debug.Log("count Rate1:" + countRate);
+            //Debug.Log("dropFinal:" + dropFinal);
 
             //ÏÞÊ±½±Àø
             int limit = user.GetLimitId();
-            items.AddRange(DropLimitHelper.Build((int)DropLimitType.Normal, this.MapId, dropRate, modelRate, limit, countRate));
-            items.AddRange(DropLimitHelper.Build((int)DropLimitType.Map, this.MapId, dropRate, modelRate, limit, countRate));
+            items.AddRange(DropLimitHelper.Build((int)DropLimitType.Normal, this.MapId, dropRate, modelRate, limit, countRate, dropFinal));
+            items.AddRange(DropLimitHelper.Build((int)DropLimitType.Map, this.MapId, dropRate, modelRate, limit, countRate, dropFinal));
 
             if (this.RuleType == RuleType.EquipCopy || this.RuleType == RuleType.BossFamily)
             {
-                items.AddRange(DropLimitHelper.BuildJieRi(modelRate));
+                items.AddRange(DropLimitHelper.BuildJieRi(modelRate * dropFinal));
                 //items.AddRange(DropLimitHelper.Build((int)DropLimitType.JieRi, this.MapId, dropRate, modelRate, limit, countRate));
             }
 

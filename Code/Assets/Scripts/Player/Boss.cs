@@ -235,20 +235,20 @@ namespace Game
             //生成道具奖励 ,爆率 = 人物爆率*怪物类型爆率*怪物品质爆率
             List<KeyValuePair<double, DropConfig>> dropList = DropConfigCategory.Instance.GetByMapLevel(Config.MapId, dropRate * modelRate);
 
-            //Debug.Log("count Rate:" + countRate);
+            // Debug.Log("count Rate:" + countRate);
 
-            //countRate = countRate * (100 + user.AttributeBonus.GetBaseAttr(AttributeEnum.DropFinal)) / 100;
+            double dropFinal = (100 + user.AttributeBonus.GetBaseAttr(AttributeEnum.DropFinal)) / 100;
 
-            //Debug.Log("count Rate1:" + countRate);
+            //Debug.Log("dropFinal:" + dropFinal);
 
             //限时奖励
             int limit = user.GetLimitId();
-            items.AddRange(DropLimitHelper.Build((int)DropLimitType.Normal, this.MapId, dropRate, modelRate, limit, countRate));
-            items.AddRange(DropLimitHelper.Build((int)DropLimitType.Map, this.MapId, dropRate, modelRate, limit, countRate));
+            items.AddRange(DropLimitHelper.Build((int)DropLimitType.Normal, this.MapId, dropRate, modelRate, limit, countRate, dropFinal));
+            items.AddRange(DropLimitHelper.Build((int)DropLimitType.Map, this.MapId, dropRate, modelRate, limit, countRate, dropFinal));
 
             if (this.RuleType == RuleType.EquipCopy || this.RuleType == RuleType.BossFamily)
             {
-                items.AddRange(DropLimitHelper.BuildJieRi(modelRate));
+                items.AddRange(DropLimitHelper.BuildJieRi(modelRate * dropFinal));
                 //items.AddRange(DropLimitHelper.Build((int)DropLimitType.JieRi, this.MapId, dropRate, modelRate, limit, countRate));
             }
 
@@ -258,7 +258,7 @@ namespace Game
             int mapIndex = Config.MapId - ConfigHelper.MapStartId;
             int quantity = mapIndex / 10 + 1 + user.SoulRingNumber + user.GetArtifactValue(ArtifactType.SoulStone);
 
-            items.Add(ItemHelper.BuildSoulRingShard(quantity * 2 * user.GetDzRate()));
+            items.Add(ItemHelper.BuildSoulRingShard(quantity * 2));
 
             double rs = user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstMul);
             int itemCount = MathHelper.RandomBurstMul(rs);

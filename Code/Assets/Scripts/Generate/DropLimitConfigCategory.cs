@@ -62,8 +62,12 @@ namespace Game
             return list;
         }
 
-
         public static List<Item> Build(int type, int mapId, double rateRise, double modelRise, int limit, double countRise)
+        {
+            return Build(type, mapId, rateRise, modelRise, limit, countRise, 1);
+        }
+
+        public static List<Item> Build(int type, int mapId, double rateRise, double modelRise, int limit, double countRise, double dropFinal)
         {
             User user = GameProcessor.Inst.User;
 
@@ -106,7 +110,7 @@ namespace Game
 
                 if (dropLimit.StartRate > 0 || dropLimit.EndRate > 0 || dropLimit.MinRate > 0) //有保底机制的
                 {
-                    dropData.Number += countRise;
+                    dropData.Number += countRise * dropFinal;
 
                     //if (dropLimit.Id >= 2005)
                     //{
@@ -121,14 +125,14 @@ namespace Game
                     if (dropLimit.EndRate > 0 && dropData.Number >= dropLimit.EndRate)
                     {
                         rate = 1;
-                        Debug.Log("Start End Rate:" + dropLimit.Id + " ," + rate);
+                        //Debug.Log("Start End Rate:" + dropLimit.Id + " ," + rate);
                     }
 
                     if (dropLimit.MinRate > 0 && dropData.Number >= dropLimit.Rate)
                     {
                         rate = dropLimit.MinRate;
 
-                        Debug.Log("Drop Limit Rate:" + dropLimit.Id + " ," + rate);
+                        //Debug.Log("Drop Limit Rate:" + dropLimit.Id + " ," + rate);
                     }
                 }
 
@@ -137,7 +141,7 @@ namespace Game
                     modelRise = 10;
                 }
 
-                rate = rate / modelRise;
+                rate = rate / modelRise / dropFinal;
 
                 if (RandomHelper.RandomResult(rate))
                 {
