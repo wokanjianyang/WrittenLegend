@@ -8,9 +8,6 @@ using UnityEngine.UI;
 
 public class Dialog_Card : MonoBehaviour
 {
-    public ScrollRect sr_Boss;
-    private GameObject ItemPrefab;
-
     public Button btn_Close;
     public Button Btn_Batch;
 
@@ -19,15 +16,16 @@ public class Dialog_Card : MonoBehaviour
     private int SelectStage = 0;
     public List<Toggle> toggleStageList = new List<Toggle>();
 
-    private List<Item_Card> items = new List<Item_Card>();
+    public Panel_Card panel1;
+    public Panel_Card_Special panel2;
+
+    public int Order => (int)ComponentOrder.Dialog;
 
     // Start is called before the first frame update
     void Start()
     {
         this.btn_Close.onClick.AddListener(OnClick_Close);
         this.Btn_Batch.onClick.AddListener(OnClick_Batch);
-
-        ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Item/Item_Card");
 
         for (int i = 0; i < toggleStageList.Count; i++)
         {
@@ -38,55 +36,22 @@ public class Dialog_Card : MonoBehaviour
             });
         }
 
-        this.Init();
+        this.ChangePanel(0);
     }
-
-    public void Init()
-    {
-        User user = GameProcessor.Inst.User;
-        Btn_Batch.gameObject.SetActive(true);
-
-        List<CardConfig> configs = CardConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
-
-        for (int i = 0; i < configs.Count; i++)
-        {
-            var item = GameObject.Instantiate(ItemPrefab);
-            var com = item.GetComponentInChildren<Item_Card>();
-
-            com.SetContent(configs[i]);
-
-            item.transform.SetParent(this.sr_Boss.content);
-            item.transform.localScale = Vector3.one;
-
-            items.Add(com);
-        }
-
-        this.Show();
-    }
-
-    public int Order => (int)ComponentOrder.Dialog;
 
     private void ChangePanel(int index)
     {
         this.SelectStage = index;
-        this.Show();
-    }
 
-    private void Show()
-    {
-        this.gameObject.SetActive(true);
-
-        for (int i = 0; i < items.Count; i++)
+        if (index == 4)
         {
-            if (this.SelectStage == items[i].Config.Stage)
-            {
-                items[i].gameObject.SetActive(true);
-                items[i].Show();
-            }
-            else
-            {
-                items[i].gameObject.SetActive(false);
-            }
+            this.panel1.gameObject.SetActive(false);
+            this.panel2.Show();
+        }
+        else
+        {
+            this.panel2.gameObject.SetActive(false);
+            this.panel1.Show(this.SelectStage);
         }
     }
 
@@ -129,7 +94,8 @@ public class Dialog_Card : MonoBehaviour
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "一键升级成功，总共提高" + totalUp + "级", ToastType = ToastTypeEnum.Success });
             GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
-            this.Show();
+
+            this.panel1.Show(this.SelectStage);
         }
     }
 

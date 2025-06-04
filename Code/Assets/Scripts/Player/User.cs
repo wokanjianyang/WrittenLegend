@@ -316,6 +316,8 @@ namespace Game
 
         public Dictionary<int, MagicData> CardData { get; } = new Dictionary<int, MagicData>();
 
+        public Dictionary<int, MagicData> CardSpecialData { get; } = new Dictionary<int, MagicData>();
+
         public Dictionary<int, MagicData> HalidomData { get; } = new Dictionary<int, MagicData>();
 
         public Dictionary<int, MagicData> ArtifactData { get; } = new Dictionary<int, MagicData>();
@@ -1591,6 +1593,22 @@ namespace Game
         {
             CardData[cardId].Data += level;
         }
+
+        public int GetCardSpecialLevel(int cardId)
+        {
+            if (!CardSpecialData.ContainsKey(cardId))
+            {
+                CardSpecialData[cardId] = new MagicData();
+            }
+
+            return (int)CardSpecialData[cardId].Data;
+        }
+
+        public void SaveCardSpecialLevel(int cardId, int level)
+        {
+            CardSpecialData[cardId].Data += level;
+        }
+
 
         public long GetStrengthLevel(int position)
         {
