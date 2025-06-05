@@ -51,6 +51,15 @@ namespace Game
 
         }
 
+        public long GetCardRiseValue(long cardLevel, int groupLevel)
+        {
+            long val = cardLevel * this.AttrValue;
+
+            long risePercent = cardLevel / ConfigHelper.CardSpecialRiseLevel * groupLevel;
+
+            return val * risePercent / 100;
+        }
+
         //public long CalOldUpNumber(long currentLevel)
         //{
         //    long rise = currentLevel / RiseLevel;

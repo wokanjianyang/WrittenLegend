@@ -557,17 +557,23 @@ namespace Game
             }
 
             //图鉴属性
+            int cardGroupLevel = GetCardSpecialGroupLevel();
             foreach (var sp in this.CardData)
             {
                 if (sp.Value.Data > 0)
                 {
                     CardConfig cardConfig = CardConfigCategory.Instance.Get(sp.Key);
-                    long cardLevel = sp.Value.Data;
-                    long percent = GetCardQualityLevel(cardConfig.Quality);
-                    long riseLevel = cardLevel * percent / 100;
 
-                    long cardAttr = cardConfig.AttrValue * (cardLevel + riseLevel);
-                    AttributeBonus.SetAttr((AttributeEnum)cardConfig.AttrId, AttributeFrom.Card, sp.Key, cardAttr);
+                    long cardLevel = sp.Value.Data;
+                    long riseLevel = GetCardRiseLevel(cardConfig.Quality, cardLevel, cardGroupLevel);
+
+                    long totalLevel = cardLevel + riseLevel;
+
+                    long val = cardConfig.AttrValue * totalLevel;
+
+                    long riseValue = cardConfig.GetCardRiseValue(totalLevel, cardGroupLevel);
+
+                    AttributeBonus.SetAttr((AttributeEnum)cardConfig.AttrId, AttributeFrom.Card, sp.Key, val + riseValue);
                 }
             }
 
@@ -1572,7 +1578,7 @@ namespace Game
             return CardData[cardId].Data;
         }
 
-        public long GetCardQualityLevel(int quality)
+        public long GetCardRiseLevel(int quality, long cardLevel, int groupLevel)
         {
             CardConfig config = CardConfigCategory.Instance.GetQualityRiseConfig(quality);
 
@@ -1586,7 +1592,15 @@ namespace Game
                 return 0;
             }
 
-            return CardData[config.Id].Data;
+            long goldenLevel = CardData[config.Id].Data;
+
+            long goldenRiseLevel = config.GetCardRiseValue(goldenLevel, groupLevel);
+
+            long risePercent = (goldenLevel + goldenRiseLevel) / 100;
+
+            long riseLevel = cardLevel * risePercent;
+
+            return riseLevel;
         }
 
         public void SaveCardLevel(int cardId, long level)
