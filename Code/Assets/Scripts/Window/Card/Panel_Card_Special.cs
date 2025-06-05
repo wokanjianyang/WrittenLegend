@@ -53,7 +53,7 @@ public class Panel_Card_Special : MonoBehaviour
 
         string color = groupValue >= 0 ? "#D8CAB0" : "#4D4D4d";
 
-        string des = string.Format("仙鉴玄心【{0}级】： 低于暗金的图鉴，每100级，额外增加的{0}%属性", groupLevel, groupValue);
+        string des = string.Format("仙鉴玄心【{0}级】： 低于暗金的图鉴，额外增加的{0}%属性", groupLevel, groupValue);
 
         this.Txt_Group.text = string.Format("<color={0}>{1}</color>", color, des);
     }

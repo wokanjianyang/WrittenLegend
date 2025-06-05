@@ -1596,9 +1596,7 @@ namespace Game
 
             long goldenRiseLevel = config.GetCardRiseValue(goldenLevel, groupLevel);
 
-            long risePercent = (goldenLevel + goldenRiseLevel) / 100;
-
-            long riseLevel = cardLevel * risePercent;
+            long riseLevel = cardLevel * (goldenLevel + goldenRiseLevel) / 100;
 
             return riseLevel;
         }
