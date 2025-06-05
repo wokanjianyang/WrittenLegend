@@ -22,9 +22,9 @@ namespace Game
             }
 
             List<int> dropList = DropIdList[role];
-            if (dropList.Count < 200)
+            if (dropList.Count < 500)
             {
-                for (int i = dropList.Count; i < 100; i++)
+                for (int i = dropList.Count; i < 500; i++)
                 {
                     int dropId = LegacyConfigCategory.Instance.GetDropItem(role).Id;
                     dropList.Add(dropId);
@@ -45,9 +45,9 @@ namespace Game
             }
 
             List<int> dropList = DropLayerList[role];
-            if (dropList.Count < 49)
+            if (dropList.Count < 500)
             {
-                for (int i = dropList.Count; i < 50; i++)
+                for (int i = dropList.Count; i < 500; i++)
                 {
                     int dropId = LegacyConfigCategory.Instance.GetDropLayer(layer);
                     dropList.Add(dropId);

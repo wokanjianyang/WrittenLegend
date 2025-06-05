@@ -45,7 +45,7 @@ public class Panel_Card_Special : MonoBehaviour
 
         User user = GameProcessor.Inst.User;
 
-        int groupLevel = 1; //user.GetRelicGroupLevel(Rid);
+        int groupLevel = user.GetCardSpecialGroupLevel(); //user.GetRelicGroupLevel(Rid);
 
         double groupValue = groupLevel * 1;
 
@@ -53,7 +53,7 @@ public class Panel_Card_Special : MonoBehaviour
 
         string color = groupValue >= 0 ? "#D8CAB0" : "#4D4D4d";
 
-        string des = string.Format("低于暗金的图鉴，每100级，额外增加的{0}%属性", groupValue);
+        string des = string.Format("仙鉴玄心【{0}级】： 低于暗金的图鉴，每100级，额外增加的{0}%属性", groupLevel, groupValue);
 
         this.Txt_Group.text = string.Format("<color={0}>{1}</color>", color, des);
     }
@@ -79,7 +79,7 @@ public class Panel_Card_Special : MonoBehaviour
 
     private void SelectItem(int id)
     {
-        Debug.Log("select item id:" + id);
+        Debug.Log("select card item id:" + id);
 
         this.SelectId = id;
         this.Btn_Active.gameObject.SetActive(false);
@@ -107,7 +107,7 @@ public class Panel_Card_Special : MonoBehaviour
 
         int fee = config.GetFee(level);
 
-        long materialCount = user.GetMaterialCount(config.ItemId);
+        long materialCount = user.GetItemMeterialCount(config.ItemId);
         string color = materialCount >= fee ? "#FFFF00" : "#FF0000";
         txt_Fee.text = string.Format("<color={0}>{1}</color>", color, config.Name + ":" + materialCount + "/ " + fee);
 

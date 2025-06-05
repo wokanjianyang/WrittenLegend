@@ -74,21 +74,45 @@ namespace Game
             long cardLevel = user.GetCardLevel(Config.Id);
 
             long percent = user.GetCardQualityLevel(Config.Quality);
+            int groupLevel = user.GetCardSpecialGroupLevel();
+
+            percent = percent * (100 + groupLevel) / 100;
 
             long riseLevel = cardLevel * percent / 100;
 
+            Debug.Log(string.Format("card cardLevel : {0},percent:{1},groupLevel:{2},riseLevel{3}", cardLevel, percent, groupLevel, riseLevel));
+
             long totalLevel = cardLevel + riseLevel;
             long val = Config.AttrValue * totalLevel;
-            this.Txt_Level.text = $"等级{cardLevel}+{riseLevel}";
+
 
             if (Config.AttrId > 0)
             {
-                this.Txt_Attr_Current.text = StringHelper.FormatAttrText(Config.AttrId, val);
+                this.Txt_Level.text = $"等级{cardLevel}+{riseLevel}";
+
+                string txtCurrent = StringHelper.FormatAttrText(Config.AttrId, val);
+
+                if (groupLevel > 0)
+                {
+                    long riseValue = (totalLevel / 100) * val / 100;
+
+                    txtCurrent += "+" + StringHelper.FormatAttrValueText(Config.AttrId, riseValue);
+                }
+                this.Txt_Attr_Current.text = txtCurrent;
                 this.Txt_Attr_Rise.text = "升级增加:" + StringHelper.FormatAttrValueText(Config.AttrId, Config.AttrValue);
             }
             else
             {
-                this.Txt_Attr_Current.text = string.Format(Config.Des, totalLevel);
+                this.Txt_Level.text = $"等级{cardLevel}";
+
+                string txtCurrent = string.Format(Config.Des, totalLevel);
+                if (groupLevel > 0)
+                {
+                    long groupAttr = totalLevel * (groupLevel) / 100;
+                    txtCurrent += "+" + groupAttr + "%";
+                }
+
+                this.Txt_Attr_Current.text = txtCurrent;
                 this.Txt_Attr_Rise.text = "升级增加:1%";
             }
 

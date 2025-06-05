@@ -1,7 +1,7 @@
 {"list":[
-{"_t":"CardSpecialConfig","_id":1,"Type":1,"ItemId":1998001,"Name":"仙鉴青龙","AttrIdList":[2001,2002,2003,2004],"AttrValueList":[10,15,20,10],"AttrRiseList":[1,2,3,1]},
-{"_t":"CardSpecialConfig","_id":2,"Type":1,"ItemId":1998002,"Name":"仙鉴白虎","AttrIdList":[2001,2002,2003,2005],"AttrValueList":[10,15,20,10],"AttrRiseList":[1,2,3,1]},
-{"_t":"CardSpecialConfig","_id":3,"Type":1,"ItemId":1998003,"Name":"仙鉴朱雀","AttrIdList":[2001,2002,2003,2006],"AttrValueList":[10,15,20,10],"AttrRiseList":[1,2,3,1]},
-{"_t":"CardSpecialConfig","_id":4,"Type":1,"ItemId":1998004,"Name":"仙鉴玄武","AttrIdList":[2001,2002,2003,2007],"AttrValueList":[10,15,20,10],"AttrRiseList":[1,2,3,1]},
-{"_t":"CardSpecialConfig","_id":5,"Type":1,"ItemId":1998005,"Name":"仙鉴麒麟","AttrIdList":[2001,2002,2003,2008],"AttrValueList":[10,15,20,10],"AttrRiseList":[1,2,3,1]},
+{"_t":"CardSpecialConfig","_id":1,"Type":1,"ItemId":1998001,"Name":"仙鉴青龙","AttrIdList":[2001,2002,2003,2004],"AttrValueList":[1,2,3,1],"AttrRiseList":[1,2,3,1]},
+{"_t":"CardSpecialConfig","_id":2,"Type":1,"ItemId":1998002,"Name":"仙鉴白虎","AttrIdList":[2001,2002,2003,2005],"AttrValueList":[1,2,3,1],"AttrRiseList":[1,2,3,1]},
+{"_t":"CardSpecialConfig","_id":3,"Type":1,"ItemId":1998003,"Name":"仙鉴朱雀","AttrIdList":[2001,2002,2003,2006],"AttrValueList":[1,2,3,1],"AttrRiseList":[1,2,3,1]},
+{"_t":"CardSpecialConfig","_id":4,"Type":1,"ItemId":1998004,"Name":"仙鉴玄武","AttrIdList":[2001,2002,2003,2012],"AttrValueList":[1,2,3,1],"AttrRiseList":[1,2,3,1]},
+{"_t":"CardSpecialConfig","_id":5,"Type":1,"ItemId":1998005,"Name":"仙鉴麒麟","AttrIdList":[2001,2002,2003,2010],"AttrValueList":[1,2,3,1],"AttrRiseList":[1,2,3,1]},
 ]}

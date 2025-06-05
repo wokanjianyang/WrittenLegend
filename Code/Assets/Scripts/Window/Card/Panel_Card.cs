@@ -19,7 +19,7 @@ public class Panel_Card : MonoBehaviour
 
     void Awake()
     {
-        ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Item/Item_Card");
+        ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Card/Item_Card");
     }
 
     public void Show(int stage)

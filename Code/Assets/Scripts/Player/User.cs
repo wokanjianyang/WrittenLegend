@@ -1609,6 +1609,22 @@ namespace Game
             CardSpecialData[cardId].Data += level;
         }
 
+        public int GetCardSpecialGroupLevel()
+        {
+            int startId = 1;
+            int endId = 5;
+
+            long groupLevel = 999999;
+
+            for (int i = startId; i <= endId; i++)
+            {
+                groupLevel = Math.Min(groupLevel, GetCardSpecialLevel(i));
+
+                //Debug.Log("GetCardSpecialGroupLevel item id:" + i + ": " + groupLevel);
+            }
+
+            return (int)groupLevel;
+        }
 
         public long GetStrengthLevel(int position)
         {
