@@ -80,5 +80,5 @@
 {"_t":"InfiniteDropConfig","_id":311,"DropId":2007,"Name":"金图鉴1","Rate":20,"StartLevel":3000,"EndLevel":5000,"RateLevel":3,"Max":33},
 {"_t":"InfiniteDropConfig","_id":312,"DropId":2008,"Name":"金图鉴2","Rate":10,"StartLevel":3000,"EndLevel":5000,"RateLevel":3,"Max":22},
 {"_t":"InfiniteDropConfig","_id":313,"DropId":2009,"Name":"金图鉴3","Rate":5,"StartLevel":3000,"EndLevel":5000,"RateLevel":3,"Max":11},
-{"_t":"InfiniteDropConfig","_id":314,"DropId":2022,"Name":"暗金图鉴","Rate":2,"StartLevel":3500,"EndLevel":5000,"RateLevel":1,"Max":2},
+{"_t":"InfiniteDropConfig","_id":314,"DropId":2022,"Name":"暗金图鉴","Rate":2,"StartLevel":3500,"EndLevel":5000,"RateLevel":4,"Max":5},
 ]}

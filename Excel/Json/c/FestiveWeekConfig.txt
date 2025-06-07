@@ -12,4 +12,5 @@
 {"_t":"FestiveWeekConfig","_id":11,"Cycle":0,"Cost":4000,"Max":10,"Title":"兑换高级书页*20","TargetName":"高级书页","TargetType":5,"TargetId":4102,"TargetCount":20},
 {"_t":"FestiveWeekConfig","_id":33,"Cycle":0,"Cost":30000,"Max":2,"Title":"兑换特戒自选*1","TargetName":"特戒自选","TargetType":4,"TargetId":22,"TargetCount":1},
 {"_t":"FestiveWeekConfig","_id":34,"Cycle":0,"Cost":50000,"Max":1,"Title":"兑换神技自选*1","TargetName":"神技自选","TargetType":4,"TargetId":26,"TargetCount":1},
+{"_t":"FestiveWeekConfig","_id":36,"Cycle":6,"Cost":300000,"Max":1,"Title":"兑换魂骨自选*1","TargetName":"魂骨自选","TargetType":4,"TargetId":28,"TargetCount":1},
 ]}

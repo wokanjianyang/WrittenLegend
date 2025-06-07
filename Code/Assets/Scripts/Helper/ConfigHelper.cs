@@ -12,11 +12,11 @@ namespace Game
 
         public const int Channel_Tap = 1;
 
-        public const int Version = 383;
+        public const int Version = 384;
 
-        public const long PackTime = 1748051601; //打包时间，防止作弊
+        public const long PackTime = 1749176124; //打包时间，防止作弊
 
-        public const long PackEndTime = 1749779601; //超过此时间,游戏不能使用，需要更新
+        public const long PackEndTime = 1750904124; //超过此时间,游戏不能使用，需要更新
 
         public const long Max_Level = 120000; //最大人物等级和强化等级
 
@@ -44,7 +44,7 @@ namespace Game
         public const long MaxOfflineTime = 3600 * 24;  //最长离线时间
 
         //public const int MaxBagCount = 210;  // 包裹数量
-        public static int[] BagCount = new int[] { 100, 100, 100, 350, 450 };
+        public static int[] BagCount = new int[] { 200, 200, 200, 450, 550 };
 
         public const int CopyTicketCd = 900; //15分钟
         public const int CopyTicketCdMin = 120; //2分钟
