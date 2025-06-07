@@ -577,6 +577,24 @@ namespace Game
                 }
             }
 
+            foreach (var sp in this.CardSpecialData)
+            {
+                if (sp.Value.Data > 0)
+                {
+                    CardSpecialConfig cardSpecialConfig = CardSpecialConfigCategory.Instance.Get(sp.Key);
+
+                    int cardSpecialLevel = (int)sp.Value.Data;
+
+                    for (int i = 0; i < cardSpecialConfig.AttrIdList.Length; i++)
+                    {
+                        int attrCardSpeicalId = cardSpecialConfig.AttrIdList[i];
+                        double attrCardSpeicalValue = cardSpecialConfig.GetAttrValue(i, cardSpecialLevel);
+
+                        AttributeBonus.SetAttr((AttributeEnum)attrCardSpeicalId, AttributeFrom.CardSpeical, sp.Key, attrCardSpeicalValue);
+                    }
+                }
+            }
+
             //无尽塔属性
             if (this.MagicTowerFloor.Data > 1)
             {

@@ -157,6 +157,7 @@ namespace Game
         Relic = 26,//ÉñÆ÷
         Stone = 27,//±¦Ê¯
         Pill2 = 28,
+        CardSpeical = 29,//°µ½ðÍ¼¼ø
 
         Dingzhi = 98,
         /// <summary>
