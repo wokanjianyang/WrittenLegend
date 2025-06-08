@@ -81,7 +81,7 @@ public class Init : MonoBehaviour
                 "Window/SoulRing/Dialog_SoulRing",
                 "Window/Talent/Dialog_Talent",
                 "Window/Dialog_Achievement",
-                "Window/Dialog_Fashion",
+                "Window/Fashion/Dialog_Fashion",
                 "Window/Dialog_Attr",
                 "Window/Legacy/Dialog_Legacy",
                 "Window/Pet/Dialog_Pet",
