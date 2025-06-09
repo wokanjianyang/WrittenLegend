@@ -32,12 +32,12 @@ namespace Game
 
         //    return message;
         //}
-        public static string BuildMonsterDeadMessage(APlayer monster, long exp, long gold, List<Item> Drops, int burstMul)
+        public static string BuildMonsterDeadMessage(APlayer monster, double exp, double gold, List<Item> Drops, int burstMul)
         {
             return BuildMonsterDeadMessage(monster, exp, gold, Drops, burstMul, 0, 0);
         }
 
-        public static string BuildMonsterDeadMessage(APlayer monster, long exp, long gold, List<Item> Drops, int burstMul, int soulRise, int newRate)
+        public static string BuildMonsterDeadMessage(APlayer monster, double exp, double gold, List<Item> Drops, int burstMul, int soulRise, int newRate)
         {
             string drops = "";
 

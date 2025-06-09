@@ -757,8 +757,11 @@ namespace Game
                 {
                     FashionSuitConfig suitConfig = FashionSuitConfigCategory.Instance.Get(suitId);
 
-                    long suitValue = suitConfig.AttrValue + (suitLevel - 1) * suitConfig.AttrRise;
-                    AttributeBonus.SetAttr((AttributeEnum)suitConfig.AttrId, AttributeFrom.Fashion, suitId, suitValue);
+                    for (int i = 0; i < suitConfig.AttrIdList.Length; i++)
+                    {
+                        long suitValue = suitConfig.GetAttrValue(i, suitLevel);
+                        AttributeBonus.SetAttr((AttributeEnum)suitConfig.AttrIdList[i], AttributeFrom.Fashion, suitId * 10 + i, suitValue);
+                    }
                 }
             }
 

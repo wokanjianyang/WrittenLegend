@@ -219,8 +219,8 @@ namespace Game
             double dropModelRate = ModelConfig == null ? 1 : ModelConfig.DropRate;
             double countModelRate = ModelConfig == null ? 1 : ModelConfig.CountRate;
 
-            long exp = (long)(this.Exp * (100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.ExpIncrea)) / 100 * rewardModelRate);
-            long gold = (long)(this.Gold * (100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.GoldIncrea)) / 100 * rewardModelRate);
+            double exp = (this.Exp * (100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.ExpIncrea)) / 100 * rewardModelRate);
+            double gold = (this.Gold * (100 + user.AttributeBonus.GetTotalAttr(AttributeEnum.GoldIncrea)) / 100 * rewardModelRate);
 
             QualityConfig qualityConfig = QualityConfigCategory.Instance.Get(Quality);
 

@@ -1,8 +1,10 @@
 {"list":[
-{"_t":"FashionSuitConfig","_id":1,"Name":"斩仙之力","AttrId":2004,"AttrValue":10,"AttrRise":2,"MaxLevel":20},
-{"_t":"FashionSuitConfig","_id":2,"Name":"魔尊之力","AttrId":2005,"AttrValue":10,"AttrRise":2,"MaxLevel":20},
-{"_t":"FashionSuitConfig","_id":3,"Name":"幽冥之力","AttrId":2006,"AttrValue":10,"AttrRise":2,"MaxLevel":20},
-{"_t":"FashionSuitConfig","_id":4,"Name":"战魂之力","AttrId":2002,"AttrValue":10,"AttrRise":2,"MaxLevel":20},
-{"_t":"FashionSuitConfig","_id":5,"Name":"法魂之力","AttrId":2001,"AttrValue":5,"AttrRise":1,"MaxLevel":20},
-{"_t":"FashionSuitConfig","_id":6,"Name":"道魂之力","AttrId":2003,"AttrValue":15,"AttrRise":3,"MaxLevel":20},
+{"_t":"FashionSuitConfig","_id":1,"Name":"斩仙之力","AttrIdList":[2004],"AttrValueList":[10],"AttrRiseList":[2],"MaxLevel":20},
+{"_t":"FashionSuitConfig","_id":2,"Name":"魔尊之力","AttrIdList":[2005],"AttrValueList":[10],"AttrRiseList":[2],"MaxLevel":20},
+{"_t":"FashionSuitConfig","_id":3,"Name":"幽冥之力","AttrIdList":[2006],"AttrValueList":[10],"AttrRiseList":[2],"MaxLevel":20},
+{"_t":"FashionSuitConfig","_id":4,"Name":"战魂之力","AttrIdList":[2002],"AttrValueList":[10],"AttrRiseList":[2],"MaxLevel":20},
+{"_t":"FashionSuitConfig","_id":5,"Name":"法魂之力","AttrIdList":[2001],"AttrValueList":[5],"AttrRiseList":[1],"MaxLevel":20},
+{"_t":"FashionSuitConfig","_id":6,"Name":"道魂之力","AttrIdList":[2003],"AttrValueList":[15],"AttrRiseList":[3],"MaxLevel":20},
+{"_t":"FashionSuitConfig","_id":7,"Name":"天神之力","AttrIdList":[2001,2002,2003],"AttrValueList":[2,4,6],"AttrRiseList":[2,4,6],"MaxLevel":20},
+{"_t":"FashionSuitConfig","_id":8,"Name":"魔神之力","AttrIdList":[2001,2002,2003],"AttrValueList":[3,6,9],"AttrRiseList":[3,6,9],"MaxLevel":20},
 ]}

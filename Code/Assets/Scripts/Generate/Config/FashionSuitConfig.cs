@@ -81,15 +81,15 @@ namespace Game
 		/// <summary>Name</summary>
 		[ProtoMember(2)]
 		public string Name { get; set; }
-		/// <summary>AttrId</summary>
+		/// <summary>AttrIdList</summary>
 		[ProtoMember(3)]
-		public int AttrId { get; set; }
-		/// <summary>AttrValue</summary>
+		public int[] AttrIdList { get; set; }
+		/// <summary>AttrValueList</summary>
 		[ProtoMember(4)]
-		public int AttrValue { get; set; }
-		/// <summary>AttrRise</summary>
+		public int[] AttrValueList { get; set; }
+		/// <summary>AttrRiseList</summary>
 		[ProtoMember(5)]
-		public int AttrRise { get; set; }
+		public int[] AttrRiseList { get; set; }
 		/// <summary>MaxLevel</summary>
 		[ProtoMember(6)]
 		public int MaxLevel { get; set; }

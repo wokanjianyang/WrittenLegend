@@ -9,13 +9,17 @@ using UnityEngine.UI;
 
 public class DialogFashion : MonoBehaviour, IBattleLife
 {
-    public List<Toggle> toggles;
-    public List<ItemFashion> items;
+    public Transform Tf_Nav;
+    private List<Toggle> toggles;
 
-    public List<StrenthAttrItem> ItemAttrList;
+    public Transform Tf_Items;
+    private List<ItemFashion> items;
 
-    public Text Txt_Suit_Name;
-    public StrenthAttrItem SuitAttr;
+    public Transform Tf_Attr;
+    private List<StrenthAttrItem> ItemAttrList;
+
+    public Transform Tf_SuitAttr;
+    private List<StrenthAttrItem> SuitAttrList;
 
     public Text Txt_Fee;
     public Button Btn_Ok;
@@ -33,6 +37,11 @@ public class DialogFashion : MonoBehaviour, IBattleLife
 
     private void Awake()
     {
+        toggles = Tf_Nav.GetComponentsInChildren<Toggle>().ToList();
+        items = Tf_Items.GetComponentsInChildren<ItemFashion>().ToList();
+        ItemAttrList = Tf_Attr.GetComponentsInChildren<StrenthAttrItem>().ToList();
+        SuitAttrList = Tf_SuitAttr.GetComponentsInChildren<StrenthAttrItem>().ToList();
+
         Btn_Close.onClick.AddListener(OnClick_Close);
         Btn_Ok.onClick.AddListener(OnClick_Ok);
         Btn_Batch.onClick.AddListener(OnClick_Batch);
@@ -141,19 +150,20 @@ public class DialogFashion : MonoBehaviour, IBattleLife
 
         int suitLevel = (int)fs.Select(m => m.Value.Data).Min();
 
-        string attrName = StringHelper.FormatAttrValueName(suitConfig.AttrId);
-        long ab = 0;
-        long ar = suitConfig.AttrRise;
-        if (suitLevel > 0)
+        for (int i = 0; i < SuitAttrList.Count; i++)
         {
-            ab = suitConfig.AttrValue + suitConfig.AttrRise * (suitLevel - 1);
-        }
-        else
-        {
-            ar = suitConfig.AttrValue;
-        }
+            if (i < suitConfig.AttrIdList.Length)
+            {
+                SuitAttrList[i].gameObject.SetActive(true);
 
-        SuitAttr.SetContent(suitConfig.AttrId, ab, ar);
+                long attrValue = suitConfig.GetAttrValue(i, suitLevel);
+                SuitAttrList[i].SetContent(suitConfig.AttrIdList[i], attrValue, suitConfig.AttrRiseList[i]);
+            }
+            else
+            {
+                SuitAttrList[i].gameObject.SetActive(false);
+            }
+        }
 
         //µ¥¼þÊôÐÔ
         FashionConfig config = currentItem.Config;
