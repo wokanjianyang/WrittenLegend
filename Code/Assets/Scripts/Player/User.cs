@@ -1291,7 +1291,7 @@ namespace Game
 
         public void AddExpAndGold(double exp, double gold)
         {
-            if (this.MagicGold.Data < 0 || gold >= 8223372036854775807000000d)
+            if (this.MagicGold.Data < 0)
             {
                 GameProcessor.Inst.EventCenter.Raise(new CheckGameCheatEvent());
                 return;
@@ -1322,7 +1322,7 @@ namespace Game
             }
         }
 
-        public void SubExp(long exp)
+        public void SubExp(double exp)
         {
             if (exp <= 0 || this.MagicExp.Data < 0)
             {
