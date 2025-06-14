@@ -310,6 +310,8 @@ namespace Game
         public PillTime PillTime { get; set; } = new PillTime();
 
         public Dictionary<int, Dictionary<int, MagicData>> FashionData { get; set; } = new Dictionary<int, Dictionary<int, MagicData>>();
+
+        public int FashionUpId { get; set; } = 0;
         public Dictionary<int, MagicData> ItemMeterialData { get; } = new Dictionary<int, MagicData>();
 
         public Dictionary<int, int> AchievementData { get; } = new Dictionary<int, int>();
@@ -319,6 +321,8 @@ namespace Game
         public Dictionary<int, MagicData> CardSpecialData { get; } = new Dictionary<int, MagicData>();
 
         public Dictionary<int, MagicData> HalidomData { get; } = new Dictionary<int, MagicData>();
+
+        public Dictionary<int, MagicData> FashionSpecialData { get; } = new Dictionary<int, MagicData>();
 
         public Dictionary<int, MagicData> ArtifactData { get; } = new Dictionary<int, MagicData>();
 
@@ -762,6 +766,29 @@ namespace Game
                         long suitValue = suitConfig.GetAttrValue(i, suitLevel);
                         AttributeBonus.SetAttr((AttributeEnum)suitConfig.AttrIdList[i], AttributeFrom.Fashion, suitId * 10 + i, suitValue);
                     }
+                }
+            }
+
+            //fashion-special
+            foreach (var sp in FashionSpecialData)
+            {
+                int fsId = sp.Key;
+                long fsLevel = sp.Value.Data;
+                if (fsLevel > 0)
+                {
+                    FashionSpecialConfig fashionSpecialConfig = FashionSpecialConfigCategory.Instance.Get(fsId);
+
+                    for (int i = 0; i < fashionSpecialConfig.AttrIdList.Length; i++)
+                    {
+                        long fsValue = fashionSpecialConfig.AttrValueList[i];
+                        AttributeBonus.SetAttr((AttributeEnum)fashionSpecialConfig.AttrIdList[i], AttributeFrom.FashionSpeical, fsId, fsValue);
+                    }
+
+                    if (fsId == FashionUpId)
+                    {
+                        AttributeBonus.SetAttr((AttributeEnum)fashionSpecialConfig.UpAttrId, AttributeFrom.FashionSpeical, 0, fashionSpecialConfig.UpAttrValue);
+                    }
+
                 }
             }
 
@@ -1856,6 +1883,26 @@ namespace Game
             }
 
             HalidomData[id].Data++;
+        }
+
+        public long GetFashionSpecialLevel(int id)
+        {
+            if (!FashionSpecialData.ContainsKey(id))
+            {
+                FashionSpecialData[id] = new MagicData();
+            }
+
+            return FashionSpecialData[id].Data;
+        }
+
+        public void SaveFashionSpecialLevel(int id)
+        {
+            if (!FashionSpecialData.ContainsKey(id))
+            {
+                FashionSpecialData[id] = new MagicData();
+            }
+
+            FashionSpecialData[id].Data++;
         }
 
         public long GetMetalLevel(int id)

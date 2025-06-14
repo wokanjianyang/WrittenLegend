@@ -9,7 +9,7 @@ using System;
 
 namespace Game
 {
-    public class ItemFashion : MonoBehaviour
+    public class Item_Fashion : MonoBehaviour
     {
         public Text Txt_Name;
         public Text Txt_Level;

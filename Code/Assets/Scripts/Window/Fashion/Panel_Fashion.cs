@@ -7,13 +7,13 @@ using Game.Data;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DialogFashion : MonoBehaviour, IBattleLife
+public class Panel_Fashion : MonoBehaviour
 {
     public Transform Tf_Nav;
     private List<Toggle> toggles;
 
     public Transform Tf_Items;
-    private List<ItemFashion> items;
+    private List<Item_Fashion> items;
 
     public Transform Tf_Attr;
     private List<StrenthAttrItem> ItemAttrList;
@@ -23,11 +23,8 @@ public class DialogFashion : MonoBehaviour, IBattleLife
 
     public Text Txt_Fee;
     public Button Btn_Ok;
-    public Button Btn_Close;
-    public Text Txt_Ok;
 
     public Button Btn_Batch;
-    public Text Txt_Desc;
 
     private int CountMax = 8;
 
@@ -38,11 +35,10 @@ public class DialogFashion : MonoBehaviour, IBattleLife
     private void Awake()
     {
         toggles = Tf_Nav.GetComponentsInChildren<Toggle>().ToList();
-        items = Tf_Items.GetComponentsInChildren<ItemFashion>().ToList();
+        items = Tf_Items.GetComponentsInChildren<Item_Fashion>().ToList();
         ItemAttrList = Tf_Attr.GetComponentsInChildren<StrenthAttrItem>().ToList();
         SuitAttrList = Tf_SuitAttr.GetComponentsInChildren<StrenthAttrItem>().ToList();
 
-        Btn_Close.onClick.AddListener(OnClick_Close);
         Btn_Ok.onClick.AddListener(OnClick_Ok);
         Btn_Batch.onClick.AddListener(OnClick_Batch);
     }
@@ -69,23 +65,47 @@ public class DialogFashion : MonoBehaviour, IBattleLife
         }
 
         ShowSuit(1);
-
-        if (GameProcessor.Inst.User.Cycle.Data > 0 || GameProcessor.Inst.User.MagicLevel.Data >= 50000)
-        {
-            Btn_Batch.gameObject.SetActive(true);
-            Txt_Desc.gameObject.SetActive(true);
-        }
-        else
-        {
-            Btn_Batch.gameObject.SetActive(false);
-            Txt_Desc.gameObject.SetActive(true);
-        }
     }
 
-    public void OnBattleStart()
+    public void Show(int type)
     {
-        GameProcessor.Inst.EventCenter.AddListener<OpenFashionDialogEvent>(this.OpenFashionDialog);
-        //throw new NotImplementedException();
+        this.gameObject.SetActive(true);
+
+        if (type == 0)
+        {
+            for (int i = 0; i < toggles.Count; i++)
+            {
+
+                if (i < 6)
+                {
+                    toggles[i].gameObject.SetActive(true);
+                }
+                else
+                {
+                    toggles[i].gameObject.SetActive(false);
+                }
+
+            }
+
+            this.ShowSuit(1);
+        }
+        else if (type == 1)
+        {
+            for (int i = 0; i < toggles.Count; i++)
+            {
+
+                if (i < 6)
+                {
+                    toggles[i].gameObject.SetActive(false);
+                }
+                else
+                {
+                    toggles[i].gameObject.SetActive(true);
+                }
+            }
+
+            this.ShowSuit(7);
+        }
     }
 
     private void ShowSuit(int suitId)
@@ -112,7 +132,7 @@ public class DialogFashion : MonoBehaviour, IBattleLife
         {
             FashionConfig config = configs.Where(m => m.Part == i).FirstOrDefault();
 
-            ItemFashion box = items[i - 1];
+            Item_Fashion box = items[i - 1];
 
             box.Init(i, config);
 
@@ -120,12 +140,12 @@ public class DialogFashion : MonoBehaviour, IBattleLife
             box.SetLevel(level);
         }
 
-        ItemFashion currentItem = items.Where(m => m.toggle.isOn).FirstOrDefault();
+        Item_Fashion currentItem = items.Where(m => m.toggle.isOn).FirstOrDefault();
 
         ShowItem(currentItem);
     }
 
-    private void ShowItem(ItemFashion currentItem)
+    private void ShowItem(Item_Fashion currentItem)
     {
         //套装属性
         FashionSuitConfig suitConfig = FashionSuitConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Id == CurrentSuit).FirstOrDefault();
@@ -145,7 +165,6 @@ public class DialogFashion : MonoBehaviour, IBattleLife
         else
         {
             Btn_Ok.gameObject.SetActive(true);
-            Txt_Ok.text = currentLevel > 0 ? "升级" : "激活";
         }
 
         int suitLevel = (int)fs.Select(m => m.Value.Data).Min();
@@ -214,16 +233,11 @@ public class DialogFashion : MonoBehaviour, IBattleLife
         return Math.Min(currentLevel + 1, 20);
     }
 
-    private void OpenFashionDialog(OpenFashionDialogEvent e)
-    {
-        this.gameObject.SetActive(true);
-    }
-
     public void OnClick_Ok()
     {
         User user = GameProcessor.Inst.User;
 
-        ItemFashion currentItem = items.Where(m => m.toggle.isOn).FirstOrDefault();
+        Item_Fashion currentItem = items.Where(m => m.toggle.isOn).FirstOrDefault();
         Dictionary<int, MagicData> fs = user.FashionData[CurrentSuit];
 
         int currentLevel = (int)fs[currentItem.Part].Data;
@@ -291,10 +305,5 @@ public class DialogFashion : MonoBehaviour, IBattleLife
 
         GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
         this.ShowSuit(CurrentSuit);
-    }
-
-    public void OnClick_Close()
-    {
-        this.gameObject.SetActive(false);
     }
 }

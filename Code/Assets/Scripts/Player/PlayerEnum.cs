@@ -158,6 +158,7 @@ namespace Game
         Stone = 27,//宝石
         Pill2 = 28,
         CardSpeical = 29,//暗金图鉴
+        FashionSpeical = 30,//暗金时装
 
         Dingzhi = 98,
         /// <summary>

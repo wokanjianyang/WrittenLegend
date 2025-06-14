@@ -542,6 +542,9 @@ namespace Game
     {
     }
 
+    public class FashionUIFreshEvent : SDD.Events.Event
+    {
+    }
     //----------Divine
     public class OpenDivineEvent : SDD.Events.Event
     {

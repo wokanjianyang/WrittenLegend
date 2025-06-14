@@ -1,0 +1,8 @@
+{"list":[
+{"_t":"FashionSpecialConfig","_id":1,"Name":"小男战士","AttrIdList":[2001,2002,2003,2012],"AttrValueList":[100,200,300,100],"UpAttrId":2004,"UpAttrValue":50,"Fee":10},
+{"_t":"FashionSpecialConfig","_id":2,"Name":"小女战士","AttrIdList":[2001,2002,2003,2012],"AttrValueList":[100,200,300,100],"UpAttrId":2004,"UpAttrValue":50,"Fee":10},
+{"_t":"FashionSpecialConfig","_id":3,"Name":"小男法师","AttrIdList":[2001,2002,2003,2012],"AttrValueList":[100,200,300,100],"UpAttrId":2005,"UpAttrValue":50,"Fee":10},
+{"_t":"FashionSpecialConfig","_id":4,"Name":"小女法师","AttrIdList":[2001,2002,2003,2012],"AttrValueList":[100,200,300,100],"UpAttrId":2005,"UpAttrValue":50,"Fee":10},
+{"_t":"FashionSpecialConfig","_id":5,"Name":"小男道士","AttrIdList":[2001,2002,2003,2012],"AttrValueList":[100,200,300,100],"UpAttrId":2006,"UpAttrValue":50,"Fee":10},
+{"_t":"FashionSpecialConfig","_id":6,"Name":"小女道士","AttrIdList":[2001,2002,2003,2012],"AttrValueList":[100,200,300,100],"UpAttrId":2006,"UpAttrValue":50,"Fee":10},
+]}
