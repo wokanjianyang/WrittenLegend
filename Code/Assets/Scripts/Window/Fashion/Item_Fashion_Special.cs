@@ -9,6 +9,7 @@ using UnityEngine.UI;
 
 public class Item_Fashion_Special : MonoBehaviour
 {
+    public Image Icon;
     public Text Txt_Name;
 
     public Transform Tf_Attr;
@@ -41,6 +42,9 @@ public class Item_Fashion_Special : MonoBehaviour
     {
         this.Config = config;
 
+        Txt_Name.text = this.Config.Name;
+        Icon.sprite = PrefabHelper.Instance().GetFashion(Config.Id);
+
         this.Show();
     }
 
@@ -50,9 +54,6 @@ public class Item_Fashion_Special : MonoBehaviour
         {
             return;
         }
-
-
-        Txt_Name.text = this.Config.Name;
 
         for (int i = 0; i < AttrList.Count; i++)
         {

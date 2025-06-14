@@ -39,6 +39,8 @@ namespace Game
 
         public RuleType RuleType = RuleType.Normal;
 
+        public int FashionId { get; set; } = 0;
+
         public int RingType { get; set; } = 0;
 
         public Vector3Int Cell { get; set; }

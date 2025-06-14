@@ -175,6 +175,10 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
         switch (SelfPlayer.Camp)
         {
             case PlayerType.Hero:
+            case PlayerType.Duplication:
+                if (SelfPlayer.FashionId > 0) {
+                    this.image_Background.sprite = PrefabHelper.Instance().GetFashion(SelfPlayer.FashionId);
+                }
                 break;
             case PlayerType.HeroPhatom:
                 this.image_Background.sprite = Hero_Backgrounds[0];

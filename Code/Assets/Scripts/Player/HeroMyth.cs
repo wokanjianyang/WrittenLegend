@@ -23,6 +23,7 @@ namespace Game
             this.Camp = PlayerType.Hero;
             this.Name = user.Name;
             this.Level = user.MagicLevel.Data;
+            this.FashionId = user.FashionUpId;
 
             double power = user.AttributeBonus.GetPower();
             double scale = Math.Log10(power) - 9;

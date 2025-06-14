@@ -39,6 +39,7 @@ namespace Game
             }
             this.Level = Master.Level;
             this.ModelType = Master.ModelType;
+            this.FashionId = Master.FashionId;
             this.Name = "分身" + "(" + Master.Name + ")";
 
             this.SetAttr();  //设置属性值

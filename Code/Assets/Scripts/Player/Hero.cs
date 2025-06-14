@@ -60,6 +60,7 @@ namespace Game
             this.Camp = PlayerType.Hero;
             this.Name = user.Name;
             this.Level = user.MagicLevel.Data;
+            this.FashionId = user.FashionUpId;
 
             this.SetAttr(user);  //设置属性值
             this.SetSkill(user); //设置技能

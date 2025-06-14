@@ -14,6 +14,8 @@ namespace Game
         private GameObject BoxDropPrefab = null;
         private GameObject Message_Prefab = null;
 
+        private List<Sprite> PlayerList = new List<Sprite>();
+
         private static PrefabHelper instance = null;
 
         public static PrefabHelper Instance()
@@ -43,6 +45,13 @@ namespace Game
             BoxDropPrefab = Resources.Load<GameObject>("Prefab/Window/GameItem/Box_Drop");
 
             Message_Prefab = Resources.Load<GameObject>("Prefab/Dialog/Msg");
+
+            PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion1"));
+            PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion2"));
+            PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion3"));
+            PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion4"));
+            PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion5"));
+            PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion6"));
         }
 
         public GameObject GetBoxPrefab(int quanlity)
@@ -94,6 +103,11 @@ namespace Game
         public GameObject MessagePrefab()
         {
             return this.Message_Prefab;
+        }
+
+        public Sprite GetFashion(int id)
+        {
+            return PlayerList[id - 1];
         }
     }
 }
