@@ -216,7 +216,7 @@ public class Panel_Fashion : MonoBehaviour
 
         string color = total >= needCount ? "#FFFF00" : "#FF0000";
 
-        Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2}", color, currentItem.Config.Name + " * " + needCount, total);
+        Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2}", color, currentItem.Config.Name + " * " + total, needCount);
 
         if (total >= needCount)
         {

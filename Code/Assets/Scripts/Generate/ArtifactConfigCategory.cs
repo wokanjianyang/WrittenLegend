@@ -44,6 +44,7 @@ namespace Game
         LegacyTicketAd = 22,
         MineCount2 = 30,
         FashinPercentLimit = 39,
+        CardBaseLimit = 40,
 
     }
 

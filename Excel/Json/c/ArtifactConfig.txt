@@ -29,6 +29,6 @@
 {"_t":"ArtifactConfig","_id":35,"ItemId":180035,"Name":"极.魔法书","Type":8,"AttrValue":15,"MaxCount":10,"Quality":7,"Des":"所有技能上限提高15%"},
 {"_t":"ArtifactConfig","_id":36,"ItemId":180036,"Name":"极.无限之魂","Type":10,"AttrValue":2,"MaxCount":10,"Quality":7,"Des":"魂环等级上限+2"},
 {"_t":"ArtifactConfig","_id":37,"ItemId":180037,"Name":"极·传世契约","Type":22,"AttrValue":2,"MaxCount":4,"Quality":7,"Des":"广告的传世劵收益+2"},
-{"_t":"ArtifactConfig","_id":38,"ItemId":180038,"Name":"极·万界图","Type":6,"AttrValue":100,"MaxCount":40,"Quality":7,"Des":"所有图鉴上限提高100%"},
-{"_t":"ArtifactConfig","_id":39,"ItemId":180039,"Name":"极·金蛟剪","Type":39,"AttrValue":5,"MaxCount":20,"Quality":7,"Des":"时装等级上限5%"},
+{"_t":"ArtifactConfig","_id":38,"ItemId":180038,"Name":"极·万界图","Type":40,"AttrValue":10,"MaxCount":40,"Quality":7,"Des":"所有图鉴上限提高100%"},
+{"_t":"ArtifactConfig","_id":39,"ItemId":180039,"Name":"极·金蛟剪","Type":39,"AttrValue":10,"MaxCount":20,"Quality":7,"Des":"时装等级上限5%"},
 ]}
