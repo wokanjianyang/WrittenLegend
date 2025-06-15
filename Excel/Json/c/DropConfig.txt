@@ -413,6 +413,7 @@
 {"_t":"DropConfig","_id":1010,"Level":0,"Name":"金装精华","Quantity":1,"ItemType":5,"ItemIdList":[4019]},
 {"_t":"DropConfig","_id":1011,"Level":0,"Name":"暗金精华","Quantity":1,"ItemType":5,"ItemIdList":[4026]},
 {"_t":"DropConfig","_id":1012,"Level":0,"Name":"开孔石","Quantity":1,"ItemType":5,"ItemIdList":[4027]},
+{"_t":"DropConfig","_id":1013,"Level":0,"Name":"时装精华","Quantity":1,"ItemType":5,"ItemIdList":[4034]},
 {"_t":"DropConfig","_id":2000,"Level":0,"Name":"龙城图鉴","Quantity":1,"ItemType":11,"ItemIdList":[2000006,2000007,2000008,2000009,2000010]},
 {"_t":"DropConfig","_id":2001,"Level":0,"Name":"第一批冠名图鉴","Quantity":1,"ItemType":11,"ItemIdList":[2000001,2000002,2000003,2000004,2000005]},
 {"_t":"DropConfig","_id":2002,"Level":0,"Name":"第二批冠名图鉴","Quantity":1,"ItemType":11,"ItemIdList":[2000011,2000012,2000013]},
