@@ -42,7 +42,7 @@ namespace Game
         MoveSpeed = 29,//移动速度
         DefIgnore = 30,//无视防御
         Miss = 31, //闪避
-        Accuracy = 32, //精准
+        Accuracy = 32, //命中
         PhyDamage = 33, //物伤加成
         MagicDamage = 34,//魔伤加成
         SpiritDamage = 35, //道伤加成
@@ -85,6 +85,9 @@ namespace Game
         RealCritRate = 116,//溢出暴击转为伤害加成
         LuckyHit = 117, //青龙之力-幸运一击
         Relic2 = 118, //神器2
+        Relic3 = 119, //神器2
+        Relic4 = 120, //神器2
+        Relic5 = 121, //神器2
 
 
         SkillPhyDamage = 302, //物理伤害

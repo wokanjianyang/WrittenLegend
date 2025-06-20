@@ -15,4 +15,12 @@
 {"_t":"RelicConfig","_id":14,"Type":2,"ItemId":61000014,"Name":"白虎护戒","AttrIdList":[2001,2002,2003,2009],"AttrValueList":[10,15,20,10],"AttrRiseList":[10,15,20,10]},
 {"_t":"RelicConfig","_id":15,"Type":2,"ItemId":61000015,"Name":"白虎腰带","AttrIdList":[2001,2002,2003,2010],"AttrValueList":[10,15,20,10],"AttrRiseList":[10,15,20,10]},
 {"_t":"RelicConfig","_id":16,"Type":2,"ItemId":61000016,"Name":"白虎战靴","AttrIdList":[2001,2002,2003,2012],"AttrValueList":[10,15,20,10],"AttrRiseList":[10,15,20,10]},
+{"_t":"RelicConfig","_id":17,"Type":3,"ItemId":61000017,"Name":"朱雀神剑","AttrIdList":[2001,2002,2003,32],"AttrValueList":[10,15,20,0.5],"AttrRiseList":[10,15,20,0.5]},
+{"_t":"RelicConfig","_id":18,"Type":3,"ItemId":61000018,"Name":"朱雀神甲","AttrIdList":[2001,2002,2003,32],"AttrValueList":[10,15,20,0.5],"AttrRiseList":[10,15,20,0.5]},
+{"_t":"RelicConfig","_id":19,"Type":3,"ItemId":61000019,"Name":"朱雀面罩","AttrIdList":[2001,2002,2003,32],"AttrValueList":[10,15,20,0.5],"AttrRiseList":[10,15,20,0.5]},
+{"_t":"RelicConfig","_id":20,"Type":3,"ItemId":61000020,"Name":"朱雀项链","AttrIdList":[2001,2002,2003,32],"AttrValueList":[10,15,20,0.5],"AttrRiseList":[10,15,20,0.5]},
+{"_t":"RelicConfig","_id":21,"Type":3,"ItemId":61000021,"Name":"朱雀护腕","AttrIdList":[2001,2002,2003,32],"AttrValueList":[10,15,20,0.5],"AttrRiseList":[10,15,20,0.5]},
+{"_t":"RelicConfig","_id":22,"Type":3,"ItemId":61000022,"Name":"朱雀护戒","AttrIdList":[2001,2002,2003,32],"AttrValueList":[10,15,20,0.5],"AttrRiseList":[10,15,20,0.5]},
+{"_t":"RelicConfig","_id":23,"Type":3,"ItemId":61000023,"Name":"朱雀腰带","AttrIdList":[2001,2002,2003,32],"AttrValueList":[10,15,20,0.5],"AttrRiseList":[10,15,20,0.5]},
+{"_t":"RelicConfig","_id":24,"Type":3,"ItemId":61000024,"Name":"朱雀战靴","AttrIdList":[2001,2002,2003,32],"AttrValueList":[10,15,20,0.5],"AttrRiseList":[10,15,20,0.5]},
 ]}

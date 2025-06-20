@@ -135,7 +135,7 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.RealHpDamage, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.RealHpDamage));
             AttributeBonus.SetAttr(AttributeEnum.RealCritRate, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.RealCritRate));
             AttributeBonus.SetAttr(AttributeEnum.LuckyHit, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.LuckyHit));
-
+            AttributeBonus.SetAttr(AttributeEnum.Relic3, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Relic3));
             //this.AurasList = new List<AAuras>();
             //foreach (var ac in user.GetAurasList())
             //{

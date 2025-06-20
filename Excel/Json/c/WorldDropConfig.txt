@@ -27,4 +27,13 @@
 {"_t":"WorldDropConfig","_id":1014,"MapId":2,"ItemId":61000014,"Rate":2,"StartLevel":300,"EndLevel":650,"RateLevel":10,"ExcludeStart":0,"ExcludeLevel":0},
 {"_t":"WorldDropConfig","_id":1015,"MapId":2,"ItemId":61000015,"Rate":2,"StartLevel":400,"EndLevel":1000,"RateLevel":10,"ExcludeStart":0,"ExcludeLevel":0},
 {"_t":"WorldDropConfig","_id":1016,"MapId":2,"ItemId":61000016,"Rate":2,"StartLevel":400,"EndLevel":1000,"RateLevel":10,"ExcludeStart":0,"ExcludeLevel":0},
+{"_t":"WorldDropConfig","_id":1017,"MapId":3,"ItemId":4030,"Rate":100,"StartLevel":50,"EndLevel":1000,"RateLevel":10,"ExcludeStart":0,"ExcludeLevel":0},
+{"_t":"WorldDropConfig","_id":1018,"MapId":3,"ItemId":61000017,"Rate":3,"StartLevel":50,"EndLevel":400,"RateLevel":10,"ExcludeStart":0,"ExcludeLevel":0},
+{"_t":"WorldDropConfig","_id":1019,"MapId":3,"ItemId":61000018,"Rate":3,"StartLevel":50,"EndLevel":400,"RateLevel":10,"ExcludeStart":0,"ExcludeLevel":0},
+{"_t":"WorldDropConfig","_id":1020,"MapId":3,"ItemId":61000019,"Rate":3,"StartLevel":150,"EndLevel":450,"RateLevel":10,"ExcludeStart":0,"ExcludeLevel":0},
+{"_t":"WorldDropConfig","_id":1021,"MapId":3,"ItemId":61000020,"Rate":3,"StartLevel":150,"EndLevel":450,"RateLevel":10,"ExcludeStart":0,"ExcludeLevel":0},
+{"_t":"WorldDropConfig","_id":1022,"MapId":3,"ItemId":61000021,"Rate":2,"StartLevel":300,"EndLevel":650,"RateLevel":10,"ExcludeStart":0,"ExcludeLevel":0},
+{"_t":"WorldDropConfig","_id":1023,"MapId":3,"ItemId":61000022,"Rate":2,"StartLevel":300,"EndLevel":650,"RateLevel":10,"ExcludeStart":0,"ExcludeLevel":0},
+{"_t":"WorldDropConfig","_id":1024,"MapId":3,"ItemId":61000023,"Rate":2,"StartLevel":400,"EndLevel":1000,"RateLevel":10,"ExcludeStart":0,"ExcludeLevel":0},
+{"_t":"WorldDropConfig","_id":1025,"MapId":3,"ItemId":61000024,"Rate":2,"StartLevel":400,"EndLevel":1000,"RateLevel":10,"ExcludeStart":0,"ExcludeLevel":0},
 ]}

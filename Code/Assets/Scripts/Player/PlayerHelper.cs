@@ -41,7 +41,7 @@ namespace Game
             {nameof(AttributeEnum.RestoreHpPercent), "比例回血" },
             {nameof(AttributeEnum.QualityIncrea), "品质加成" },
             {nameof(AttributeEnum.Miss), "闪避" },
-            {nameof(AttributeEnum.Accuracy), "精准" },
+            {nameof(AttributeEnum.Accuracy), "命中" },
             {nameof(AttributeEnum.Strong), "韧性" },
             {nameof(AttributeEnum.Protect), "绝对减伤" },
             {nameof(AttributeEnum.BurstMul), "多次掉落" },

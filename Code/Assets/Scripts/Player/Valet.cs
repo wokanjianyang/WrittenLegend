@@ -117,7 +117,7 @@ namespace Game
                 AttributeBonus.SetAttr(AttributeEnum.Strong, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Strong) * sd);
 
                 AttributeBonus.SetAttr(AttributeEnum.LuckyHit, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.LuckyHit) * sd * 0.01);
-
+                AttributeBonus.SetAttr(AttributeEnum.Relic3, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Relic3) * sd * 0.01);
                 //Debug.Log("lucky hit:" + AttributeBonus.GetTotalAttrDouble(AttributeEnum.LuckyHit) * AttributeBonus.GetAttackDoubleAttr(AttributeEnum.Lucky));
             }
 

@@ -111,6 +111,15 @@ namespace Game
                 //Debug.Log("luckyHit:" + luckyHit + "  rise:" + (luckyHit * lucky + 100) / 100);
             }
 
+            double relic3 = attcher.GetAttackDoubleAttr(AttributeEnum.Relic3);
+            if (relic3 > 0)
+            {
+                double accuracy = attcher.GetAttackDoubleAttr(AttributeEnum.Accuracy);
+                attack = attack * (accuracy * relic3 + 100) / 100;
+
+                //Debug.Log("relic3:" + relic3 + "  rise:" + (accuracy * relic3 + 100) / 100);
+            }
+
             double protect = enemy.GetAttackAttr(AttributeEnum.Protect);
             attack = attack * (100 - protect) / 100;
 

@@ -10,8 +10,10 @@ using UnityEngine.UI;
 public class Dialog_Relic : MonoBehaviour, IBattleLife
 {
     public Button Btn_Full;
-    public Toggle toggle1;
-    public Toggle toggle2;
+
+    public Transform tf_tgs;
+
+    private List<Toggle> toggles;
 
     public Panel_Relic panel_Relic;
 
@@ -20,17 +22,20 @@ public class Dialog_Relic : MonoBehaviour, IBattleLife
     // Start is called before the first frame update
     void Start()
     {
+        toggles = tf_tgs.GetComponentsInChildren<Toggle>().ToList();
+
         Btn_Full.onClick.AddListener(OnClick_Close);
 
-        toggle1.onValueChanged.AddListener((isOn) =>
+        for (int i = 0; i < toggles.Count; i++)
         {
-            this.ShowPanel(1);
-        });
+            int index = i + 1;
 
-        toggle2.onValueChanged.AddListener((isOn) =>
-        {
-            this.ShowPanel(2);
-        });
+            toggles[i].onValueChanged.AddListener((isOn) =>
+            {
+                this.ShowPanel(index);
+            });
+
+        }
 
         this.ShowPanel(1);
     }

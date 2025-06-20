@@ -92,10 +92,10 @@ namespace Game
 		public int[] AttrIdList { get; set; }
 		/// <summary>AttrValueList</summary>
 		[ProtoMember(6)]
-		public int[] AttrValueList { get; set; }
+		public double[] AttrValueList { get; set; }
 		/// <summary>AttrRiseList</summary>
 		[ProtoMember(7)]
-		public int[] AttrRiseList { get; set; }
+		public double[] AttrRiseList { get; set; }
 
 	}
 }
