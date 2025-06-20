@@ -78,17 +78,26 @@ namespace Game
 		/// <summary>ID</summary>
 		[ProtoMember(1)]
 		public int Id { get; set; }
-		/// <summary>Name</summary>
+		/// <summary>Sid</summary>
 		[ProtoMember(2)]
-		public string Name { get; set; }
-		/// <summary>AttrIdList</summary>
+		public int Sid { get; set; }
+		/// <summary>Name</summary>
 		[ProtoMember(3)]
+		public string Name { get; set; }
+		/// <summary>StartLevel</summary>
+		[ProtoMember(4)]
+		public int StartLevel { get; set; }
+		/// <summary>EndLevel</summary>
+		[ProtoMember(5)]
+		public int EndLevel { get; set; }
+		/// <summary>AttrIdList</summary>
+		[ProtoMember(6)]
 		public int[] AttrIdList { get; set; }
 		/// <summary>AttrValueList</summary>
-		[ProtoMember(4)]
+		[ProtoMember(7)]
 		public double[] AttrValueList { get; set; }
 		/// <summary>ItemId</summary>
-		[ProtoMember(5)]
+		[ProtoMember(8)]
 		public int ItemId { get; set; }
 
 	}

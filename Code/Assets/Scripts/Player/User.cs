@@ -641,7 +641,8 @@ namespace Game
                     long sbLevel = GetSoulBoneLevel(sid);
                     if (sbLevel > 0)
                     {
-                        SoulBoneConfig boneConfig = SoulBoneConfigCategory.Instance.Get(sid);
+                        SoulBoneConfig boneConfig = SoulBoneConfigCategory.Instance.GetConfig(sid, sbLevel);
+                        //SoulBoneConfig boneConfig = SoulBoneConfigCategory.Instance.Get(sid);
                         for (int i = 0; i < boneConfig.AttrIdList.Length; i++)
                         {
                             AttributeBonus.SetAttr((AttributeEnum)boneConfig.AttrIdList[i], AttributeFrom.SoulBone, sid, boneConfig.AttrValueList[i] * sbLevel * srLevel);

@@ -106,7 +106,7 @@ public class Panel_SoulBone : MonoBehaviour
 
         InitRing(sid, currentLevel);
 
-        SoulBoneConfig config = SoulBoneConfigCategory.Instance.Get(sid);
+        SoulBoneConfig config = SoulBoneConfigCategory.Instance.GetConfig(sid, currentLevel);
 
         long materialCount = user.GetMaterialCount(config.ItemId);
         long fee = 1;
