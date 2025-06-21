@@ -18,6 +18,7 @@ public class Panel_Pill : MonoBehaviour
     public Transform Tf_Item;
 
     public Button Btn_Active;
+    public Button Btn_Active_Batch;
 
     private Item_Pill[] ItemList;
     private StrenthAttrItem[] AtrrList;
@@ -33,6 +34,7 @@ public class Panel_Pill : MonoBehaviour
         AtrrList = Tf_Attr.GetComponentsInChildren<StrenthAttrItem>();
 
         Btn_Active.onClick.AddListener(OnStrong);
+        Btn_Active_Batch.onClick.AddListener(OnBatch);
     }
 
     // Start is called before the first frame update
@@ -118,6 +120,19 @@ public class Panel_Pill : MonoBehaviour
     {
         User user = GameProcessor.Inst.User;
 
+        strong();
+
+        Show();
+
+        user.EventCenter.Raise(new UserAttrChangeEvent());
+
+        //GameProcessor.Inst.SaveData();
+    }
+
+    private bool strong()
+    {
+        User user = GameProcessor.Inst.User;
+
         long currentLevel = user.PillData.Data;
         long PillLayer = (currentLevel / 2000);
 
@@ -129,7 +144,7 @@ public class Panel_Pill : MonoBehaviour
         if (materialCount < fee)
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有足够的材料", ToastType = ToastTypeEnum.Failure });
-            return;
+            return false;
         }
 
         user.PillData.Data++;
@@ -141,10 +156,24 @@ public class Panel_Pill : MonoBehaviour
             Quantity = fee
         });
 
+        return true;
+    }
+
+
+    private void OnBatch()
+    {
+        User user = GameProcessor.Inst.User;
+
+        for (int i = 0; i < 100; i++)
+        {
+            if (!strong())
+            {
+                break;
+            }
+        }
+
         Show();
 
         user.EventCenter.Raise(new UserAttrChangeEvent());
-
-        //GameProcessor.Inst.SaveData();
     }
 }
