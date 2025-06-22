@@ -7,6 +7,11 @@ namespace Game
 
     public partial class InfiniteDropConfigCategory
     {
+        public InfiniteDropConfig GetConfig(int dropId, long level)
+        {
+            return this.list.Where(m => m.DropId == dropId && m.StartLevel <= level && level <= m.EndLevel).FirstOrDefault();
+        }
+
         public List<int> GetAllDropIdList()
         {
             int maxLevel = ConfigHelper.Infinit_Max;

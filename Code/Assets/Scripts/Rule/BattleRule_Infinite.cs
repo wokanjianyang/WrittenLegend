@@ -142,7 +142,17 @@ public class BattleRule_Infinite : ABattleRule
             dropList.Add(new KeyValuePair<double, DropConfig>(1, dropConfig));
         }
 
+        InfiniteDropConfig infiniteDropConfig = InfiniteDropConfigCategory.Instance.GetConfig(dropId, level);
+
         List<Item> items = DropHelper.BuildDropItem(dropList, 1);
+
+        if (infiniteDropConfig != null && infiniteDropConfig.Number > 1)
+        {
+            foreach (Item item in items)
+            {
+                item.Count = item.Count * infiniteDropConfig.Number;
+            }
+        }
 
         if (items.Count > 0)
         {

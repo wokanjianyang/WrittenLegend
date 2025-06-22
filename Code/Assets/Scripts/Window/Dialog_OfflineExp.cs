@@ -47,8 +47,8 @@ namespace Game
             List<Item> items = new List<Item>();
 
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Legacy_Ticket, 2000)); //传世卷
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Copy_Ticket, 100000)); //装备卷
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, 5000)); //BOSS卷
+            items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Copy_Ticket, 10000)); //装备卷
+            items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, 4000)); //BOSS卷
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Wing_Stone, 1200));  //羽毛
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Pill_Ticket, 100));  //幻境劵
 
@@ -80,7 +80,7 @@ namespace Game
             //user.SaveArtifactLevel(180006, 10); //万界图
             //user.SaveArtifactLevel(180007, 1); //破限
             //user.SaveArtifactLevel(180008, 1); //魔法
-            //user.SaveArtifactLevel(180009, 1); //圣者
+            user.SaveArtifactLevel(180009, 1); //圣者
             //user.SaveArtifactLevel(180011, 1); //锤子
             //user.SaveArtifactLevel(180013, 1); //金蛟剪
             //user.SaveArtifactLevel(180020, 1); //传世之源
@@ -98,7 +98,7 @@ namespace Game
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 22, 1, 1)); //特戒
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 32, 1, 1)); //普通金宠包
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 33, 1, 1)); //满资质金宠包
-            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 41, 1, 1)); //神器自选
+            items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 41, 1, 8)); //神器自选
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 36, 1, 1)); //宝石自选
 
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 26, 1, 1));  //神技
@@ -106,9 +106,9 @@ namespace Game
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 28, 1, 6));  //魂骨
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 29, 1, 3));  //11技能
 
-            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 106, 1, 2)); //白银
-            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 107, 1, 1)); //黄金
-            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 108, 1, 1)); //钻石
+            items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 106, 1, 5)); //白银
+            items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 107, 1, 1)); //黄金
+            items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 108, 1, 1)); //钻石
 
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 109, 1, 5));  //战士经验
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 110, 1, 1)); //法师经验

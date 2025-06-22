@@ -136,15 +136,15 @@ public class Panel_SoulBone : MonoBehaviour
         {
             StrenthAttrItem attrItem = AttrList[i];
 
-            int attrId = config.AttrIdList[i];
-            double baseValue = config.AttrValueList[i];
-
             if (i >= config.AttrIdList.Length)
             {
                 attrItem.gameObject.SetActive(false);
             }
             else
             {
+                int attrId = config.AttrIdList[i];
+                double baseValue = config.AttrValueList[i];
+
                 attrItem.gameObject.SetActive(true);
 
                 attrItem.SetContent(attrId, baseValue * currentLevel * RingLevel, baseValue * RingLevel);
