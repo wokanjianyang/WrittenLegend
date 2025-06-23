@@ -18,17 +18,60 @@ namespace Game
 
             List<int> rates = new List<int>();
 
-            for (int i = 1; i <= maxLevel; i++)
-            {
-                List<InfiniteDropConfig> dropConfigs = this.GetLevelList(i, rates);
+            Dictionary<int, int> dict = new Dictionary<int, int>();
 
-                rates.Add(RandomDropId(dropConfigs));
+            List<InfiniteDropConfig> dropConfigs = new List<InfiniteDropConfig>();
+
+            foreach (InfiniteDropConfig config in this.list)
+            {
+                if (config.DropId >= 180001 && config.DropId <= 180100) //神器
+                {
+                    ArtifactConfig artifactConfig = ArtifactConfigCategory.Instance.GetByItemId(config.DropId);
+                    int atLevel = GameProcessor.Inst.User.GetArtifactLevel(artifactConfig.Id);
+
+                    if (atLevel >= artifactConfig.MaxCount)
+                    {
+                        continue;
+                    }
+                }
+
+                dropConfigs.Add(config);
+            }
+
+
+            for (int level = 1; level <= maxLevel; level++)
+            {
+                dropConfigs.RemoveAll(m => m.EndLevel < level);
+
+                List<InfiniteDropConfig> tempConfigs = dropConfigs.Where(m => m.StartLevel <= level && m.EndLevel >= level && (level - m.StartLevel) % m.RateLevel == 0).ToList();
+
+                InfiniteDropConfig config = RandomId(tempConfigs);
+
+                if (config == null)
+                {
+                    rates.Add(0);
+                    continue;
+                }
+
+                if (!dict.ContainsKey(config.Id))
+                {
+                    dict[config.Id] = 0;
+                }
+
+                dict[config.Id]++;
+
+                if (dict[config.Id] >= config.Max)
+                {
+                    dropConfigs.Remove(config); //掉落上限的，去掉
+                }
+
+                rates.Add(config.DropId);
             }
 
             return rates;
         }
 
-        private int RandomDropId(List<InfiniteDropConfig> dropConfigs)
+        private InfiniteDropConfig RandomId(List<InfiniteDropConfig> dropConfigs)
         {
             int total = dropConfigs.Select(m => m.Rate).Sum();
             int rd = RandomHelper.RandomNumber(1, total + 1);
@@ -40,41 +83,60 @@ namespace Game
 
                 if (rd <= endRate)
                 {
-                    return dropConfigs[i].DropId;
+                    return dropConfigs[i];
                 }
             }
 
-            return -1;
+            return null;
         }
 
-        private List<InfiniteDropConfig> GetLevelList(long level, List<int> excludeList)
-        {
-            List<InfiniteDropConfig> configs = this.list.Where(m => m.StartLevel <= level && m.EndLevel >= level && (level - m.StartLevel) % m.RateLevel == 0).ToList();
+        //private int RandomDropId(List<InfiniteDropConfig> dropConfigs)
+        //{
+        //    int total = dropConfigs.Select(m => m.Rate).Sum();
+        //    int rd = RandomHelper.RandomNumber(1, total + 1);
 
-            List<InfiniteDropConfig> list = new List<InfiniteDropConfig>();
+        //    int endRate = 0;
+        //    for (int i = 0; i < dropConfigs.Count; i++)
+        //    {
+        //        endRate += dropConfigs[i].Rate;
 
-            foreach (InfiniteDropConfig config in configs)
-            {
-                int total = excludeList.Where(m => m == config.DropId).Count();
+        //        if (rd <= endRate)
+        //        {
+        //            return dropConfigs[i].DropId;
+        //        }
+        //    }
 
-                if (config.DropId >= 180001 && config.DropId <= 180100) //神器
-                {
-                    ArtifactConfig artifactConfig = ArtifactConfigCategory.Instance.GetByItemId(config.DropId);
-                    int atLevel = GameProcessor.Inst.User.GetArtifactLevel(artifactConfig.Id);
+        //    return -1;
+        //}
 
-                    if (total + atLevel >= artifactConfig.MaxCount)
-                    {
-                        continue;
-                    }
-                }
+        //private List<InfiniteDropConfig> GetLevelList(long level, List<int> excludeList)
+        //{
+        //    List<InfiniteDropConfig> configs = this.list.Where(m => m.StartLevel <= level && m.EndLevel >= level && (level - m.StartLevel) % m.RateLevel == 0).ToList();
 
-                if (config.Max > total)
-                {
-                    list.Add(config);
-                }
-            }
-            return list;
-        }
+        //    List<InfiniteDropConfig> list = new List<InfiniteDropConfig>();
+
+        //    foreach (InfiniteDropConfig config in configs)
+        //    {
+        //        int total = excludeList.Where(m => m == config.DropId).Count();
+
+        //        if (config.DropId >= 180001 && config.DropId <= 180100) //神器
+        //        {
+        //            ArtifactConfig artifactConfig = ArtifactConfigCategory.Instance.GetByItemId(config.DropId);
+        //            int atLevel = GameProcessor.Inst.User.GetArtifactLevel(artifactConfig.Id);
+
+        //            if (total + atLevel >= artifactConfig.MaxCount)
+        //            {
+        //                continue;
+        //            }
+        //        }
+
+        //        if (config.Max > total)
+        //        {
+        //            list.Add(config);
+        //        }
+        //    }
+        //    return list;
+        //}
     }
 
 }
