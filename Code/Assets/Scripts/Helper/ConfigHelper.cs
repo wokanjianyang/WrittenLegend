@@ -14,9 +14,9 @@ namespace Game
 
         public const int Version = 385;
 
-        public const long PackTime = 1749951754; //打包时间，防止作弊
+        public const long PackTime = 1750743340; //打包时间，防止作弊
 
-        public const long PackEndTime = 1751679754; //超过此时间,游戏不能使用，需要更新
+        public const long PackEndTime = 1752471340; //超过此时间,游戏不能使用，需要更新
 
         public const long Max_Level = 120000; //最大人物等级和强化等级
 
@@ -99,7 +99,7 @@ namespace Game
 
         public const int Mine_Time = 60;
 
-        public const int Infinit_Max = 4000;
+        public const int Infinit_Max = 4500;
 
         public static string[] RoleName = { "战士", "法师", "道士" };
         public static string[] PetName = { "战魂", "法魂", "道魂" };
