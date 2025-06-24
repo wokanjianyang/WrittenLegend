@@ -19,7 +19,7 @@ public class Monster_World : APlayer
         this.Level = level;
         this.Step = step;
 
-        Debug.Log("MonsterWorldConfig：" + mapId + " - " + step);
+        //Debug.Log("MonsterWorldConfig：" + mapId + " - " + step);
 
         Config = MonsterWorldConfigCategory.Instance.GetByMapIdAndStep(mapId, step);
 
@@ -115,9 +115,9 @@ public class Monster_World : APlayer
         AttributeBonus.SetAttr(AttributeEnum.CritRateResist, AttributeFrom.HeroBase, Config.CritRateResist + riseLevel * 10);
         AttributeBonus.SetAttr(AttributeEnum.CritDamageResist, AttributeFrom.HeroBase, Config.CritDamageResist + riseLevel * 10);
 
-        AttributeBonus.SetAttr(AttributeEnum.Accuracy, AttributeFrom.HeroBase, Config.Accuracy + riseLevel * 0.3);
-        AttributeBonus.SetAttr(AttributeEnum.Miss, AttributeFrom.HeroBase, Config.Miss + riseLevel * 0.1);
-
+        AttributeBonus.SetAttr(AttributeEnum.Accuracy, AttributeFrom.HeroBase, Config.Accuracy + riseLevel * Config.AccuracyRise);
+        AttributeBonus.SetAttr(AttributeEnum.Miss, AttributeFrom.HeroBase, Config.Miss + riseLevel * Config.MissRise);
+        //Debug.Log("Miss " + AttributeBonus.GetAttackDoubleAttr(AttributeEnum.Miss));
         AttributeBonus.SetAttr(AttributeEnum.Protect, AttributeFrom.HeroBase, Config.Protect);
 
         AttributeBonus.SetAttr(AttributeEnum.Strong, AttributeFrom.HeroBase, strong);
