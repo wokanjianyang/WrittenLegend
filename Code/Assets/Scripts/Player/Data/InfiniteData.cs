@@ -25,7 +25,7 @@ namespace Game
 
             if (nt > Ticket)
             {
-                Debug.Log("nt:" + nt + "  Ticket:" + Ticket);
+                //Debug.Log("nt:" + nt + "  Ticket:" + Ticket);
 
                 Ticket = nt;
                 Current = new InfiniteRecord();
