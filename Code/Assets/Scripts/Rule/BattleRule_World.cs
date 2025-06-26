@@ -51,17 +51,39 @@ public class BattleRule_World : ABattleRule
         {
             this.Start = false;
 
-            GameProcessor.Inst.User.WorldData.SetOver(this.MapId);
+            User user = GameProcessor.Inst.User;
 
-            BuildReward(MapId);
+            int type = 100 + MapId;
+            long progess = user.GetRecordData(type);
+
+            int ap = 1;
+            if (progess > this.Layer)  //如果历史最高记录大于当前，跳关
+            {
+                long ar = progess / 400 + 1;
+                ap = (int)Math.Min(progess - this.Layer, ar * 5);
+            }
+
+            Debug.Log("this Layer:" + this.Layer + " progress :" + progess + " ap:" + ap);
+
+            if (this.Layer > progess) //如果当前进度大于历史记录，更新历史最高记录
+            {
+                user.SaveRecordData(type, this.Layer);
+            }
+
+            for (int i = 0; i < ap; i++)
+            {
+                BuildReward(MapId, this.Layer + i);
+            }
+
+            user.WorldData.SetOver(this.MapId, ap);
 
             GameProcessor.Inst.CloseBattle(RuleType.World, 14);
         }
     }
 
-    private void BuildReward(int mapId)
+    private void BuildReward(int mapId, int layer)
     {
-        Debug.Log("BuildReward layer:" + this.Layer);
+        Debug.Log("BuildReward layer:" + layer);
 
         User user = GameProcessor.Inst.User;
 
@@ -69,7 +91,7 @@ public class BattleRule_World : ABattleRule
         List<Item> items = new List<Item>();
 
         //掉落道具
-        int itemId = user.WorldData.GetDropId(mapId, this.Layer);
+        int itemId = user.WorldData.GetDropId(mapId, layer);
         if (itemId > 0)
         {
             items.Add(ItemHelper.BuildItem(ItemType.Material, itemId, 1, 1));
@@ -78,7 +100,7 @@ public class BattleRule_World : ABattleRule
         GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
         {
             Type = RuleType.World,
-            Message = BattleMsgHelper.BuildRewardMessage("仙界神兽" + Layer + "轮奖励:", 0, 0, items)
+            Message = BattleMsgHelper.BuildRewardMessage("仙界神兽" + layer + "轮奖励:", 0, 0, items)
         });
 
         GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });

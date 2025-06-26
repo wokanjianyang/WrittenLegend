@@ -77,9 +77,9 @@ namespace Game
             return Record[id] + 1;
         }
 
-        public void SetOver(int id)
+        public void SetOver(int id, int ap)
         {
-            this.Record[id]++;
+            this.Record[id] += ap;
         }
 
         public int GetDropId(int mapId, int level)

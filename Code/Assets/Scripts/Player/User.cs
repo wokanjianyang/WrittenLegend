@@ -111,6 +111,8 @@ namespace Game
 
         public IDictionary<AchievementSourceType, MagicData> MagicRecord { get; set; } = new Dictionary<AchievementSourceType, MagicData>();
 
+        public IDictionary<int, int> RecordData { get; set; } = new Dictionary<int, int>();
+
         public DefendData DefendData { get; set; }
 
         public InfiniteData InfiniteData { get; set; }
@@ -1276,6 +1278,21 @@ namespace Game
             }
 
             this.MagicRecord[type].Data += count;
+        }
+
+        public int GetRecordData(int type)
+        {
+            if (!RecordData.ContainsKey(type))
+            {
+                RecordData[type] = 0;
+            }
+
+            return RecordData[type];
+        }
+
+        public void SaveRecordData(int type, int data)
+        {
+            RecordData[type] = data;
         }
 
         public long GetAchievementProgeress(AchievementSourceType type)

@@ -1023,7 +1023,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u7279\u6B8A"
+  m_Text: "\u76AE\u80A4"
 --- !u!1 &5881165578695066585
 GameObject:
   m_ObjectHideFlags: 0
@@ -2001,11 +2001,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7634290227419728450, guid: de09074cf0ecb22468e47b9254cdd938, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7634290227419728450, guid: de09074cf0ecb22468e47b9254cdd938, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7634290227419728450, guid: de09074cf0ecb22468e47b9254cdd938, type: 3}
       propertyPath: m_SizeDelta.x
@@ -2017,7 +2017,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7634290227419728450, guid: de09074cf0ecb22468e47b9254cdd938, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -37.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7708511638034941886, guid: de09074cf0ecb22468e47b9254cdd938, type: 3}
       propertyPath: m_Pivot.x
