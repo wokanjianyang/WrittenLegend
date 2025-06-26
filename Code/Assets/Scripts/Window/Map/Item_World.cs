@@ -63,7 +63,15 @@ namespace Game
             this.level = GameProcessor.Inst.User.WorldData.GetLayer(this.Config.Id);
 
             this.Txt_Name.text = Config.MapName;
-            this.Txt_Level.text = $"{level}级"; ;
+
+            if (this.level <= ConfigHelper.MaxWorld)
+            {
+                this.Txt_Level.text = $"{level}级";
+            }
+            else
+            {
+                this.Txt_Level.text = "完美通关";
+            }
         }
 
         public void SetContent(WorldConfig config)

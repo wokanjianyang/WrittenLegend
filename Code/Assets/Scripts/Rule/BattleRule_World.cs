@@ -14,6 +14,8 @@ public class BattleRule_World : ABattleRule
 
     protected override RuleType ruleType => RuleType.Myth;
 
+    private WorldConfig Config;
+
     public BattleRule_World(Dictionary<string, object> param)
     {
         param.TryGetValue("MapId", out object mapId);
@@ -21,6 +23,8 @@ public class BattleRule_World : ABattleRule
 
         this.MapId = (int)mapId;
         this.Layer = (int)layer;
+
+        this.Config = WorldConfigCategory.Instance.Get(MapId);
 
         this.Load();
     }
@@ -63,7 +67,7 @@ public class BattleRule_World : ABattleRule
                 ap = (int)Math.Min(progess - this.Layer, ar * 5);
             }
 
-            Debug.Log("this Layer:" + this.Layer + " progress :" + progess + " ap:" + ap);
+            //Debug.Log("this Layer:" + this.Layer + " progress :" + progess + " ap:" + ap);
 
             if (this.Layer > progess) //如果当前进度大于历史记录，更新历史最高记录
             {
@@ -83,7 +87,7 @@ public class BattleRule_World : ABattleRule
 
     private void BuildReward(int mapId, int layer)
     {
-        Debug.Log("BuildReward layer:" + layer);
+        //Debug.Log("BuildReward layer:" + layer);
 
         User user = GameProcessor.Inst.User;
 
@@ -100,7 +104,7 @@ public class BattleRule_World : ABattleRule
         GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
         {
             Type = RuleType.World,
-            Message = BattleMsgHelper.BuildRewardMessage("仙界神兽" + layer + "轮奖励:", 0, 0, items)
+            Message = BattleMsgHelper.BuildRewardMessage(Config.MapName + layer + "轮奖励:", 0, 0, items)
         });
 
         GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
