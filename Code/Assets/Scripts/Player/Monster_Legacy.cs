@@ -96,7 +96,7 @@ public class Monster_Legacy : APlayer
     public override void OnHit(DamageResult dr)
     {
         double maxHp = this.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
-        double maxDamage = maxHp / 50;
+        double maxDamage = maxHp / 15;
         dr.Damage = Math.Min(dr.Damage, maxDamage);
         dr.ExtendDamage = Math.Min(dr.ExtendDamage, maxDamage);
 

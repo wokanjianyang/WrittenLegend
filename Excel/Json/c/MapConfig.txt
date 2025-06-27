@@ -164,4 +164,9 @@
 {"_t":"MapConfig","_id":1162,"Name":"深渊邪禁地","Level":5,"Layer":5,"LevelRequired":"1650-3","Memo":"深渊雕像","DropLevel":0,"DropIdList":[202002,300091,105,504,210074,1009],"DropRateList":[10,2500,1000,18000,600000,140000],"BoosId":10162},
 {"_t":"MapConfig","_id":1163,"Name":"深渊邪魔殿","Level":5,"Layer":5,"LevelRequired":"1650-4","Memo":"深渊神像","DropLevel":0,"DropIdList":[202002,300091,105,504,210074,1009],"DropRateList":[10,2500,1000,18000,600000,140000],"BoosId":10163},
 {"_t":"MapConfig","_id":1164,"Name":"深渊封魔殿","Level":5,"Layer":5,"LevelRequired":"1650-5","Memo":"深渊獠牙","DropLevel":0,"DropIdList":[202002,300091,105,504,210074,1009],"DropRateList":[10,2500,1000,18000,600000,140000],"BoosId":10164},
+{"_t":"MapConfig","_id":1165,"Name":"深渊烈焰殿","Level":5,"Layer":5,"LevelRequired":"1700-1","Memo":"深渊树心","DropLevel":0,"DropIdList":[202002,300091,105,504,210075,1009],"DropRateList":[10,2500,1000,18000,600000,140000],"BoosId":10165},
+{"_t":"MapConfig","_id":1166,"Name":"深渊封邪殿","Level":5,"Layer":5,"LevelRequired":"1700-2","Memo":"深渊魔心","DropLevel":0,"DropIdList":[202002,300091,105,504,210075,1009],"DropRateList":[10,2500,1000,18000,600000,140000],"BoosId":10166},
+{"_t":"MapConfig","_id":1167,"Name":"深渊尸魔殿","Level":5,"Layer":5,"LevelRequired":"1700-3","Memo":"深渊尸心","DropLevel":0,"DropIdList":[202002,300091,105,504,210075,1009],"DropRateList":[10,2500,1000,18000,600000,140000],"BoosId":10167},
+{"_t":"MapConfig","_id":1168,"Name":"深渊骨魔殿","Level":5,"Layer":5,"LevelRequired":"1700-4","Memo":"深渊法杖","DropLevel":0,"DropIdList":[202002,300091,105,504,210075,1009],"DropRateList":[10,2500,1000,18000,600000,140000],"BoosId":10168},
+{"_t":"MapConfig","_id":1169,"Name":"深渊魔牛殿","Level":5,"Layer":5,"LevelRequired":"1700-5","Memo":"深渊权杖","DropLevel":0,"DropIdList":[202002,300091,105,504,210075,1009],"DropRateList":[10,2500,1000,18000,600000,140000],"BoosId":10169},
 ]}
