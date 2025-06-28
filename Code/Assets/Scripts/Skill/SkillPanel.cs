@@ -25,7 +25,7 @@ namespace Game
 
         public int Duration { get; }
 
-        public int IgnoreDef { get; }  //无视防御
+        public int IgnoreDef { get; set; }  //无视防御
 
         public int CritRate { get; } //暴击率
         public int CritDamage { get; } //暴击倍率
