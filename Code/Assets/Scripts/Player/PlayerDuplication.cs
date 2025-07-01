@@ -141,7 +141,7 @@ namespace Game
 
                 if (mss.SkillPanel.SkillId != SkillPanel.SkillId && mss.SkillPanel.SkillData.SkillConfig.Type != (int)SkillType.Valet) //not loop
                 {
-                    SkillState skill = new SkillState(this, mss.SkillPanel, mss.Position, 0);
+                    SkillState skill = new SkillState(this, mss.SkillPanel, mss.FromSkill, mss.Position, 0);
                     SelectSkillList.Add(skill);
 
                     //if (this.RuleType == RuleType.Myth)

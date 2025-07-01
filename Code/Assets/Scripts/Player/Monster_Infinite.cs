@@ -119,7 +119,15 @@ namespace Game
 
                 SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, false);
 
-                SkillState skill = new SkillState(this, skillPanel, skillData.Position, 0);
+                SkillPanel from = null;
+                if (skillPanel.SkillData.SkillConfig.FromId > 0)
+                {
+                    SkillData fromData = new SkillData(1002, 0);
+
+                    from = new SkillPanel(fromData, SkillRuneConfigCategory.Instance.GetAllRune(fromData.SkillId, this.Quality), SkillSuitHelper.GetAllSuit(skillData.SkillId, this.Quality), false);
+                }
+
+                SkillState skill = new SkillState(this, skillPanel, from, skillData.Position, 0);
                 SelectSkillList.Add(skill);
 
                 //职业专精技能的属性
@@ -149,6 +157,8 @@ namespace Game
                     AttributeBonus.SetAttr(AttributeEnum.SkillValetHp, AttributeFrom.Skill, skillPanel.Damage);
                 }
             }
+
+            base.SetSkillAfter();
         }
     }
 }

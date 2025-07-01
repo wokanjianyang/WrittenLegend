@@ -239,7 +239,15 @@ namespace Game
 
                 SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, true, RuleType, petRate);
 
-                SkillState skill = new SkillState(this, skillPanel, i, 0);
+                SkillPanel from = null;
+                if (skillPanel.SkillData.SkillConfig.FromId > 0)
+                {
+                    SkillData fromData = user.SkillList.Where(m => m.SkillId == 1002).FirstOrDefault();
+
+                    from = new SkillPanel(fromData, user.GetRuneList(fromData.SkillId, null), user.GetSuitList(fromData.SkillId), true, RuleType, petRate);
+                }
+
+                SkillState skill = new SkillState(this, skillPanel, from, i, 0);
                 SelectSkillList.Add(skill);
 
                 //职业专精技能的属性
@@ -298,6 +306,8 @@ namespace Game
             }
 
             InitDoubleHitSkill(user);
+
+            base.SetSkillAfter();
         }
 
         private void InitDoubleHitSkill(User user)

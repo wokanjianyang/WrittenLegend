@@ -184,6 +184,8 @@ namespace Game
                     AttributeBonus.SetAttr(AttributeEnum.SkillValetHp, AttributeFrom.Skill, skillPanel.Damage);
                 }
             }
+
+            base.SetSkillAfter();
         }
 
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game
 {
-    public class Skill_Jian23 : ASkill
+    public class Skill_Jian23 : Skill_Attack
     {
         private SkillPanel FromSkill;
 
@@ -12,7 +12,7 @@ namespace Game
         {
             if (isShow)
             {
-                this.skillGraphic = new SkillGraphic_Chediding(player, skill);
+                this.skillGraphic = new SkillGraphic_Jian23(player, skill);
             }
 
             this.FromSkill = fromSkill;
@@ -20,17 +20,7 @@ namespace Game
             this.FromSkill.IgnoreDef += this.SkillPanel.IgnoreDef;
         }
 
-        public override bool IsCanUse()
-        {
-            return false;
-        }
-
         public override void Do(SkillRunType runType)
-        {
-
-        }
-
-        public override void Do(DamageResult baseDr)
         {
             List<Vector3Int> playCells = GetPlayCells();
 
@@ -58,9 +48,6 @@ namespace Game
                         }
                     }
 
-                    double dm = baseDr.Damage * 0.2 * SkillPanel.Percent;
-                    double edm = baseDr.ExtendDamage * 0.2 * SkillPanel.Percent;
-
                     //Debug.Log("dm:" + StringHelper.FormatNumber(dm) + "  edm:" + StringHelper.FormatNumber(edm));
                     var dr = DamageHelper.CalcDamage(SelfPlayer.AttributeBonus, enemy.AttributeBonus, FromSkill);
 
@@ -83,22 +70,55 @@ namespace Game
             }
         }
 
-        public List<AttackData> GetAllTargets()
-        {
-            List<Vector3Int> allAttackCells = GetPlayCells();
 
+
+        public override List<AttackData> GetAllTargets()
+        {
             List<AttackData> attackDatas = new List<AttackData>();
+
+            if (SelfPlayer.Enemy != null)
+            {
+                attackDatas.Add(new AttackData()
+                {
+                    Tid = SelfPlayer.Enemy.ID,
+                    Cell = SelfPlayer.Enemy.Cell,
+                    Ratio = 0
+                });
+            }
+
+            if (attackDatas.Count >= SkillPanel.EnemyMax)  //如果只能攻击一个，则优先攻击目标
+            {
+                return attackDatas;
+            }
+
+            //Debug.Log($"获取技能:{(this.SkillPanel.SkillData.SkillConfig.Name)}施法目标");
+
+            //施法中心为自己
+            APlayer target = SelfPlayer;
+
+            List<Vector3Int> allAttackCells = GameProcessor.Inst.MapData.GetAttackRangeCell(SelfPlayer.Cell, SelfPlayer.Enemy.Cell, SkillPanel);
+            allAttackCells.Remove(SelfPlayer.Enemy.Cell);
+
+            //排序，从进到远
+            Vector3Int selfCell = SelfPlayer.Cell;
+            allAttackCells = allAttackCells.OrderBy(m => Mathf.Abs(m.x - selfCell.x) + Mathf.Abs(m.y - selfCell.y) + Mathf.Abs(m.z - selfCell.z)).ToList();
+
 
             foreach (var cell in allAttackCells)
             {
+                if (attackDatas.Count >= SkillPanel.EnemyMax)
+                {
+                    break;
+                }
+
                 var enemy = GameProcessor.Inst.PlayerManager.GetPlayer(cell);
-                if (enemy != null && enemy.GroupId != SelfPlayer.GroupId) //不会攻击同组成员
+                if (enemy != null && enemy.IsSurvice && enemy.GroupId != SelfPlayer.GroupId) //不会攻击同组成员
                 {
                     attackDatas.Add(new AttackData()
                     {
                         Tid = enemy.ID,
                         Cell = cell,
-                        Ratio = 1
+                        Ratio = 0
                     });
                 }
             }
@@ -106,9 +126,9 @@ namespace Game
             return attackDatas;
         }
 
-        public List<Vector3Int> GetPlayCells()
+        public override List<Vector3Int> GetPlayCells()
         {
-            return GameProcessor.Inst.MapData.GetAttackRangeCell(SelfPlayer.Enemy.Cell, SelfPlayer.Cell, SkillPanel);
+            return GetAllTargets().Select(m => m.Cell).ToList();
         }
     }
 }

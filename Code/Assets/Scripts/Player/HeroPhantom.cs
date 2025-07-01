@@ -197,6 +197,8 @@ namespace Game
             }
 
             InitDoubleHitSkill(user);
+
+            base.SetSkillAfter();
         }
 
         private void InitDoubleHitSkill(User user)

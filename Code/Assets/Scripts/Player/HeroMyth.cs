@@ -121,7 +121,7 @@ namespace Game
 
                 SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, true, RuleType, petRate);
 
-                SkillState skill = new SkillState(this, skillPanel, i, 0);
+                SkillState skill = new SkillState(this, skillPanel, null, i, 0);
                 SelectSkillList.Add(skill);
 
                 //Debug.Log(skillData.SkillConfig.Name + " Percent  :" + skillPanel.Percent);
@@ -171,6 +171,8 @@ namespace Game
             }
 
             //InitDoubleHitSkill(user);
+
+            base.SetSkillAfter();
         }
 
         private void InitDoubleHitSkill(User user)

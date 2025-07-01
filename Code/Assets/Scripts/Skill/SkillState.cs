@@ -7,6 +7,9 @@ namespace Game
     public class SkillState
     {
         public SkillPanel SkillPanel { get; set; }
+
+        public SkillPanel FromSkill { get; set; }
+
         public APlayer SelfPlayer { get; set; }
 
         public int Priority { get; }
@@ -22,8 +25,12 @@ namespace Game
 
         public float CD = 0;
 
+        public SkillState(APlayer player, SkillPanel skillPanel, int position, int useRound) : this(player, skillPanel, null, position, useRound)
+        {
 
-        public SkillState(APlayer player, SkillPanel skillPanel, int position, int useRound)
+        }
+
+        public SkillState(APlayer player, SkillPanel skillPanel, SkillPanel fromSkill, int position, int useRound)
         {
             this.SelfPlayer = player;
             this.SkillPanel = skillPanel;
@@ -31,6 +38,7 @@ namespace Game
             this.Position = position;
             this.CD = 0;
             this.Rate = skillPanel.Rate;
+            this.FromSkill = fromSkill;
 
             bool isShow = true;
             if (player.Camp == PlayerType.Enemy)
@@ -79,6 +87,10 @@ namespace Game
             else if (skillPanel.SkillId == 4003)
             {
                 this.skillLogic = new Skill_Ring_FH(player, skillPanel, isShow);
+            }
+            else if (skillPanel.SkillId == 1012)
+            {
+                this.skillLogic = new Skill_Jian23(player, skillPanel, fromSkill, isShow);
             }
             else if (skillPanel.SkillData.SkillConfig.Type == (int)SkillType.Attack)
             {
@@ -154,6 +166,9 @@ namespace Game
         {
             this.CD = SkillPanel.CD;
             this.skillLogic.Do(SkillRunType.Normal);
+
+            //––∂ØΩ·À„
+            this.SelfPlayer.SkillAfter();
         }
 
         public void Do(SkillRunType runType)

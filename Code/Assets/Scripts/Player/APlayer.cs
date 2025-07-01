@@ -223,6 +223,42 @@ namespace Game
             return null;
         }
 
+        private int state2012Count = 0;
+        private SkillState ss2012 = null;
+
+        public virtual void SetSkillAfter()
+        {
+            foreach (SkillState ss in SelectSkillList)
+            {
+                if (ss.SkillPanel.SkillId == 2012)
+                {
+                    state2012Count = 0;
+                    ss2012 = ss;
+
+                    //Debug.Log("init 2012:");
+                }
+            }
+        }
+
+        public void SkillAfter()
+        {
+            //Debug.Log("SkillAfter count:" + state2012Count);
+
+            if (ss2012 != null)
+            {
+                if (state2012Count < ss2012.SkillPanel.Duration)
+                {
+                    state2012Count++;
+                }
+
+                //Debug.Log("2012:" + ss2012.SkillPanel.Percent * state2012Count);
+
+                this.AttributeBonus.SetSkillAttr(AttributeEnum.MulAttr, 2012, ss2012.SkillPanel.Percent * state2012Count);
+                this.AttributeBonus.SetSkillAttr(AttributeEnum.MulHp, 2012, ss2012.SkillPanel.Damage * state2012Count);
+            }
+        }
+
+
         public SkillState GetSkillByPriority(int priority)
         {
             SkillState state = SelectSkillList.Where(m => m.SkillPanel.SkillData.SkillConfig.Priority == priority).FirstOrDefault();
@@ -327,6 +363,9 @@ namespace Game
             {
                 //Debug.Log("Player Use Prioriry Skill:" + skill.SkillPanel.SkillData.SkillConfig.Name);
                 skill.Do();
+
+                //行动结算
+
                 return AttckSpeed;
             }
 
@@ -344,6 +383,7 @@ namespace Game
                 if (skill != null)
                 {
                     skill.Do();
+
                     return AttckSpeed;
                 }
             }
@@ -356,6 +396,7 @@ namespace Game
                 if (skill != null)
                 {
                     skill.Do();
+
                     return AttckSpeed;
                 }
             }

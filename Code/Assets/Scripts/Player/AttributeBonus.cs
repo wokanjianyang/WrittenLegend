@@ -42,7 +42,7 @@ namespace Game
             }
         }
 
-        public void SetSkillAttr(AttributeEnum attrType, AttributeFrom attrKey, double attrValue)
+        public void SetSkillAttr(AttributeEnum attrType, int attrKey, double attrValue)
         {
             int key = (int)attrKey;
             SkillDict[attrType][key] = attrValue;
