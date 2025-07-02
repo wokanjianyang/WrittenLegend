@@ -15,6 +15,10 @@ namespace Game
         private GameObject Message_Prefab = null;
 
         private List<Sprite> PlayerList = new List<Sprite>();
+        private List<Sprite> ValetList = new List<Sprite>();
+        private List<Sprite> MonsterList = new List<Sprite>();
+        private List<Sprite> MonsterWorldList = new List<Sprite>();
+        private Sprite MonsterDefend = null;
 
         private static PrefabHelper instance = null;
 
@@ -52,6 +56,23 @@ namespace Game
             PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion4"));
             PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion5"));
             PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion6"));
+
+            ValetList.Add(Resources.Load<Sprite>("UI/Player/Player_Valet1"));
+            ValetList.Add(Resources.Load<Sprite>("UI/Player/Player_Valet2"));
+            ValetList.Add(Resources.Load<Sprite>("UI/Player/Player_Valet3"));
+
+            MonsterList.Add(Resources.Load<Sprite>("UI/Player/Player_Monster1"));
+            MonsterList.Add(Resources.Load<Sprite>("UI/Player/Player_Monster2"));
+            MonsterList.Add(Resources.Load<Sprite>("UI/Player/Player_Monster3"));
+            MonsterList.Add(Resources.Load<Sprite>("UI/Player/Player_Monster4"));
+            MonsterList.Add(Resources.Load<Sprite>("UI/Player/Player_Monster5"));
+
+            MonsterWorldList.Add(Resources.Load<Sprite>("UI/Player/Player_World1"));
+            MonsterWorldList.Add(Resources.Load<Sprite>("UI/Player/Player_World2"));
+            MonsterWorldList.Add(Resources.Load<Sprite>("UI/Player/Player_World3"));
+            MonsterWorldList.Add(Resources.Load<Sprite>("UI/Player/Player_World4"));
+
+            MonsterDefend = Resources.Load<Sprite>("UI/Player/Player_Defend");
         }
 
         public GameObject GetBoxPrefab(int quanlity)
@@ -108,6 +129,31 @@ namespace Game
         public Sprite GetFashion(int id)
         {
             return PlayerList[id - 1];
+        }
+
+        public Sprite GetValet(int id)
+        {
+            return ValetList[id - 1];
+        }
+
+        public Sprite GetMonster(int id)
+        {
+            if (id < 1 || id > 6)
+            {
+                id = 1;
+            }
+
+            return MonsterList[id - 1];
+        }
+
+        public Sprite GetMonsterWorld(int id)
+        {
+            return MonsterWorldList[id - 1];
+        }
+
+        public Sprite GetDefend()
+        {
+            return MonsterDefend;
         }
     }
 }

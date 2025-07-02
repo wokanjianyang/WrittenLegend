@@ -15,12 +15,6 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
     [LabelText("背景图片")]
     public Image image_Background;
 
-    public Sprite[] Hero_Backgrounds;
-    public Sprite[] Monster_Backgrounds;
-    public Sprite[] Valet_Backgrounds;
-    public Sprite[] World_Backgrounds;
-    public Sprite[] Other_Backgrounds;
-
     [Title("信息")]
     [LabelText("信息")]
     public Transform tran_Info;
@@ -176,52 +170,36 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
         {
             case PlayerType.Hero:
             case PlayerType.Duplication:
-                if (SelfPlayer.FashionId > 0) {
+            case PlayerType.HeroPhatom:
+                if (SelfPlayer.FashionId > 0)
+                {
                     this.image_Background.sprite = PrefabHelper.Instance().GetFashion(SelfPlayer.FashionId);
                 }
                 break;
-            case PlayerType.HeroPhatom:
-                this.image_Background.sprite = Hero_Backgrounds[0];
-                if (SelfPlayer.RingType > 0)
-                {
-                    SourRingEffect.gameObject.SetActive(true);
-                }
-                break;
             case PlayerType.Valet:
-                if (this.SelfPlayer.ModelType == MondelType.YueLing)
+                if (SelfPlayer.FashionId == 3)
                 {
-                    this.image_Background.sprite = Valet_Backgrounds[1];
+                    this.image_Background.rectTransform.sizeDelta = new Vector2(300, 300);
                 }
-                else
-                {
-                    this.image_Background.sprite = Valet_Backgrounds[0];
-                }
+                this.image_Background.sprite = PrefabHelper.Instance().GetValet(SelfPlayer.FashionId);
                 break;
             case PlayerType.Defend:
-                this.image_Background.sprite = Other_Backgrounds[0];
+                this.image_Background.sprite = PrefabHelper.Instance().GetDefend();
                 break;
             case PlayerType.Enemy:
                 int index = this.SelfPlayer.Quality;
 
                 if (SelfPlayer.RuleType == RuleType.World)
                 {
-                    Vector2 spriteSize = this.image_Background.sprite.rect.size;
                     this.image_Background.rectTransform.sizeDelta = new Vector2(300, 300);
-                    this.image_Background.sprite = World_Backgrounds[index - 1];
+                    this.image_Background.sprite = PrefabHelper.Instance().GetMonsterWorld(SelfPlayer.FashionId);
                     break;
-                }
-
-
-                if (index >= 1 && index <= 6)
-                {
-                    index = index - 1;
                 }
                 else
                 {
-                    index = 0;
+                    this.image_Background.sprite = PrefabHelper.Instance().GetMonster(index);
+                    break;
                 }
-                this.image_Background.sprite = Monster_Backgrounds[index];
-                break;
         }
     }
 

@@ -15,7 +15,7 @@ public class Monster_World : APlayer
     {
         this.GroupId = 2;
         this.RuleType = RuleType.World;
-        this.Quality = mapId;
+        this.FashionId = mapId;
         this.Level = level;
         this.Step = step;
 
