@@ -50,6 +50,12 @@ namespace Game
             double riseRate = 1;
             double riseHpRate = 1;
             double riseStrong = 1;
+            double riseMulAttr = 1;
+
+            if (Progeress > 40000)
+            {
+                riseMulAttr *= Math.Pow(1.01, Progeress - 40000);
+            }
 
             if (Progeress > 35000)
             {
@@ -98,6 +104,7 @@ namespace Game
             double attr = 300000000000.0;
             double def = 100000000000000.0;
             double strong = 10000;
+            double mulAtt = 10000;
 
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp * riseHpRate);
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr * riseRate);
@@ -118,6 +125,10 @@ namespace Game
             if (this.Progeress > 35000)
             {
                 AttributeBonus.SetAttr(AttributeEnum.Strong, AttributeFrom.HeroBase, strong * riseStrong);
+            }
+            if (this.Progeress > 40000)
+            {
+                AttributeBonus.SetAttr(AttributeEnum.MulAttr, AttributeFrom.HeroBase, mulAtt * riseMulAttr);
             }
 
             //回满当前血量
