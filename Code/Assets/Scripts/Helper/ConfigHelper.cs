@@ -12,7 +12,7 @@ namespace Game
 
         public const int Channel_Tap = 1;
 
-        public const int Version = 386;
+        public const int Version = 387;
 
         public const long PackTime = 1751420883; //打包时间，防止作弊
 
@@ -92,7 +92,7 @@ namespace Game
 
         public const int PillDefaultTime = 60;
         public const int BabelCount = 300;
-        public const int BabelMax = 40000;
+        public const int BabelMax = 45000;
 
         public const int PillMax = 20;
         public const int PillMax2 = 10;
