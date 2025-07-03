@@ -157,16 +157,17 @@ namespace Game
 
             User user = GameProcessor.Inst.User;
 
-            if (this.SkillPanel.SkillData.MagicLevel.Data >= user.GetSkillLimit(this.SkillPanel.SkillData.SkillConfig))
+            int limitLevel = user.GetSkillLimit(this.SkillPanel.SkillData.SkillConfig);
+            if (this.SkillPanel.SkillData.MagicLevel.Data >= limitLevel)
             {
                 this.Btn_UpLevel.gameObject.SetActive(false);
             }
 
             Recovery.isOn = skillPanel.SkillData.Recovery;
 
-            this.tmp_Level.text = string.Format("LV:{0}", SkillPanel.Level);
+            this.tmp_Level.text = string.Format("LV:{0} (上限:{1})", SkillPanel.Level, limitLevel);
             this.tmp_CD.text = string.Format("CD：{0}秒", SkillPanel.CD);
-            this.txt_Dis.text = SkillPanel.Dis > 0 ? string.Format("施法距离：{0}格", SkillPanel.Dis) : "施法距离：无";
+            this.txt_Dis.text = SkillPanel.Dis > 0 ? string.Format("距离：{0}格", SkillPanel.Dis) : "施法距离：无";
             this.tmp_Des.text = SkillPanel.Desc;
 
             var expProgress = this.GetComponentInChildren<Com_Progress>();

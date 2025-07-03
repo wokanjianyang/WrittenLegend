@@ -54,7 +54,20 @@ namespace Game
                     //Debug.Log("dm:" + StringHelper.FormatNumber(dm) + "  edm:" + StringHelper.FormatNumber(edm));
                     var dr = DamageHelper.CalcDamage(SelfPlayer.AttributeBonus, enemy.AttributeBonus, FromSkill != null ? FromSkill : SkillPanel);
 
-                    dr.Damage = dr.Damage * SkillPanel.Percent / 100;
+                    //Debug.Log("base .damage：" + dr.Damage);
+
+                    if (FromSkill != null && FromSkill.DivineLevel > 0)
+                    {
+                        double disPercent = this.FromSkill.Dis * this.FromSkill.DivineLevel * this.FromSkill.DivineAttrConfig.Param;
+
+                        //Debug.Log("DivineLevel.Percent：" + disPercent);
+
+                        dr.Damage = dr.Damage * (100 + disPercent) / 100;
+                    }
+
+                    dr.Damage = dr.Damage * (100 + SkillPanel.Percent) / 100;
+
+                    //Debug.Log("SkillPanel.Percent：" + SkillPanel.Percent);
 
                     dr.FromId = attackData.Tid;
                     enemy.OnHit(dr);

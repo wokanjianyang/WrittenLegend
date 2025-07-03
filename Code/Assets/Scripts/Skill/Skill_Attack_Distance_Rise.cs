@@ -64,6 +64,9 @@ namespace Game
                     //Debug.Log("distance:" + distance + " rise percent:" + percent);
 
                     var dr = DamageHelper.CalcDamage(SelfPlayer.AttributeBonus, enemy.AttributeBonus, SkillPanel);
+
+                    //Debug.Log("base damage:" + dr.Damage);
+
                     dr.Damage = dr.Damage * (100 + percent) / 100;
 
                     dr.FromId = attackData.Tid;

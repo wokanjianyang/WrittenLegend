@@ -122,7 +122,7 @@ namespace Game
 		public int MaxLevel { get; set; }
 		/// <summary>RiseMaxLevel</summary>
 		[ProtoMember(16)]
-		public int RiseMaxLevel { get; set; }
+		public double RiseMaxLevel { get; set; }
 		/// <summary>MythRate</summary>
 		[ProtoMember(17)]
 		public int MythRate { get; set; }

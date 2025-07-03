@@ -165,7 +165,7 @@ namespace Game
 
         public int GetSkillLimit(SkillConfig skillConfig)
         {
-            long limit = skillConfig.MaxLevel + skillConfig.RiseMaxLevel * GetLimitLevel();
+            double limit = (int)(skillConfig.MaxLevel + skillConfig.RiseMaxLevel * GetLimitLevel());
             limit = limit * (100 + GetArtifactValue(ArtifactType.SkillLimit)) / 100;
             return (int)limit;
         }
