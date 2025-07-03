@@ -242,7 +242,12 @@ namespace Game
                 SkillPanel from = null;
                 if (skillPanel.SkillData.SkillConfig.FromId > 0)
                 {
-                    SkillData fromData = user.SkillList.Where(m => m.SkillId == 1002).FirstOrDefault();
+                    SkillData fromData = user.SkillList.Where(m => m.SkillId == skillPanel.SkillData.SkillConfig.FromId).FirstOrDefault();
+
+                    if (fromData == null)
+                    {
+                        continue;
+                    }
 
                     from = new SkillPanel(fromData, user.GetRuneList(fromData.SkillId, null), user.GetSuitList(fromData.SkillId), true, RuleType, petRate);
                 }

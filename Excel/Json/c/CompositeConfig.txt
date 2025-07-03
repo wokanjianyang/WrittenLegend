@@ -121,4 +121,5 @@
 {"_t":"CompositeConfig","_id":504,"Type":"其他","ItemTypeList":[5,5],"ItemIdList":[4024,4111],"ItemCountList":[6,100000],"ItemQualityList":[0,0],"TargetName":"金色魂心","TargetId":4025,"TargetType":5,"AutoHide":0},
 {"_t":"CompositeConfig","_id":505,"Type":"其他","ItemTypeList":[5,5],"ItemIdList":[4028,4111],"ItemCountList":[40,100000],"ItemQualityList":[0,0],"TargetName":"青龙神器","TargetId":35,"TargetType":4,"AutoHide":0},
 {"_t":"CompositeConfig","_id":506,"Type":"其他","ItemTypeList":[5,5],"ItemIdList":[4029,4111],"ItemCountList":[40,100000],"ItemQualityList":[0,0],"TargetName":"白虎神器","TargetId":37,"TargetType":4,"AutoHide":0},
+{"_t":"CompositeConfig","_id":508,"Type":"其他","ItemTypeList":[5,5],"ItemIdList":[4030,4111],"ItemCountList":[40,100000],"ItemQualityList":[0,0],"TargetName":"朱雀神器","TargetId":38,"TargetType":4,"AutoHide":0},
 ]}

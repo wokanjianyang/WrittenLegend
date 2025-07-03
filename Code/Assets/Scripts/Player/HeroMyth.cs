@@ -121,7 +121,20 @@ namespace Game
 
                 SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, true, RuleType, petRate);
 
-                SkillState skill = new SkillState(this, skillPanel, null, i, 0);
+                SkillPanel from = null;
+                if (skillPanel.SkillData.SkillConfig.FromId > 0)
+                {
+                    SkillData fromData = user.SkillList.Where(m => m.SkillId == skillPanel.SkillData.SkillConfig.FromId).FirstOrDefault();
+
+                    if (fromData == null)
+                    {
+                        continue;
+                    }
+
+                    from = new SkillPanel(fromData, user.GetRuneList(fromData.SkillId, null), user.GetSuitList(fromData.SkillId), true, RuleType, petRate);
+                }
+
+                SkillState skill = new SkillState(this, skillPanel, from, i, 0);
                 SelectSkillList.Add(skill);
 
                 //Debug.Log(skillData.SkillConfig.Name + " Percent  :" + skillPanel.Percent);

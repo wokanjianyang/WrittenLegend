@@ -30,7 +30,7 @@
 {"_t":"FestiveConfig","_id":29,"Step":0,"RequireCycle":0,"Cost":30000,"Max":10,"Title":"兑换特戒自选*1","TargetName":"特戒自选","TargetType":4,"TargetId":22,"TargetCount":1},
 {"_t":"FestiveConfig","_id":30,"Step":0,"RequireCycle":0,"Cost":50000,"Max":5,"Title":"兑换神技自选*1","TargetName":"神技自选","TargetType":4,"TargetId":26,"TargetCount":1},
 {"_t":"FestiveConfig","_id":31,"Step":0,"RequireCycle":0,"Cost":200000,"Max":2,"Title":"兑换法宝自选*1","TargetName":"法宝自选","TargetType":4,"TargetId":25,"TargetCount":1},
-{"_t":"FestiveConfig","_id":32,"Step":0,"RequireCycle":0,"Cost":300000,"Max":8,"Title":"兑换魂骨自选*1","TargetName":"魂骨自选","TargetType":4,"TargetId":28,"TargetCount":1},
+{"_t":"FestiveConfig","_id":32,"Step":0,"RequireCycle":0,"Cost":300000,"Max":5,"Title":"兑换魂骨自选*1","TargetName":"魂骨自选","TargetType":4,"TargetId":28,"TargetCount":1},
 {"_t":"FestiveConfig","_id":33,"Step":0,"RequireCycle":0,"Cost":400000,"Max":2,"Title":"兑换极矿工礼包*1","TargetName":"极矿工礼包","TargetType":4,"TargetId":30,"TargetCount":1},
 {"_t":"FestiveConfig","_id":34,"Step":0,"RequireCycle":0,"Cost":500000,"Max":1,"Title":"兑换极法宝自选*1","TargetName":"极法宝自选","TargetType":4,"TargetId":31,"TargetCount":1},
 {"_t":"FestiveConfig","_id":35,"Step":0,"RequireCycle":0,"Cost":5000,"Max":400,"Title":"兑换改造石","TargetName":"改造石","TargetType":5,"TargetId":4021,"TargetCount":1},

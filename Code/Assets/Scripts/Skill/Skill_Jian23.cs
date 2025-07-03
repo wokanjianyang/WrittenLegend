@@ -17,7 +17,10 @@ namespace Game
 
             this.FromSkill = fromSkill;
 
-            this.FromSkill.IgnoreDef += this.SkillPanel.IgnoreDef;
+            if (this.FromSkill != null)
+            {
+                this.FromSkill.IgnoreDef += this.SkillPanel.IgnoreDef;
+            }
         }
 
         public override void Do(SkillRunType runType)
@@ -49,7 +52,7 @@ namespace Game
                     }
 
                     //Debug.Log("dm:" + StringHelper.FormatNumber(dm) + "  edm:" + StringHelper.FormatNumber(edm));
-                    var dr = DamageHelper.CalcDamage(SelfPlayer.AttributeBonus, enemy.AttributeBonus, FromSkill);
+                    var dr = DamageHelper.CalcDamage(SelfPlayer.AttributeBonus, enemy.AttributeBonus, FromSkill != null ? FromSkill : SkillPanel);
 
                     dr.Damage = dr.Damage * SkillPanel.Percent / 100;
 

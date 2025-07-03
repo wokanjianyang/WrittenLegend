@@ -122,7 +122,12 @@ namespace Game
                 SkillPanel from = null;
                 if (skillPanel.SkillData.SkillConfig.FromId > 0)
                 {
-                    SkillData fromData = new SkillData(1002, 0);
+                    SkillData fromData = new SkillData(skillPanel.SkillData.SkillConfig.FromId, 0);
+
+                    if (fromData == null)
+                    {
+                        continue;
+                    }
 
                     from = new SkillPanel(fromData, SkillRuneConfigCategory.Instance.GetAllRune(fromData.SkillId, this.Quality), SkillSuitHelper.GetAllSuit(skillData.SkillId, this.Quality), false);
                 }
