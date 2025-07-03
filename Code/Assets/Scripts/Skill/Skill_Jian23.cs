@@ -25,6 +25,8 @@ namespace Game
 
         public override void Do(SkillRunType runType)
         {
+            DamageResult baseDr = null;
+
             List<Vector3Int> playCells = GetPlayCells();
 
             this.skillGraphic?.PlayAnimation(playCells);
@@ -72,6 +74,11 @@ namespace Game
                     dr.FromId = attackData.Tid;
                     enemy.OnHit(dr);
 
+                    if (enemy.ID == SelfPlayer.Enemy.ID)
+                    {
+                        baseDr = dr;
+                    }
+
                     //后行特效
                     foreach (EffectData effect in SkillPanel.EffectIdList.Values)
                     {
@@ -84,6 +91,8 @@ namespace Game
                     }
                 }
             }
+
+            DoChediding(runType, baseDr);
         }
 
 
