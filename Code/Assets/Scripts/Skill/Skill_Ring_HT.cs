@@ -24,7 +24,7 @@ namespace Game
                 Content = SkillPanel.SkillData.SkillConfig.Name
             });
 
-            int percent = this.SkillPanel.Percent;
+            double percent = this.SkillPanel.Percent;
 
             double maxHp = this.SelfPlayer.AttributeBonus.GetBaseAttr(AttributeEnum.HP);
             double sp = maxHp * percent / 100.0;

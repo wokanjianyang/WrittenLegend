@@ -29,7 +29,7 @@ namespace Game
                 DoEffect(this.SelfPlayer, this.SelfPlayer, 0, 0, effect);
             }
 
-            int percent = this.SkillPanel.Percent;
+            double percent = this.SkillPanel.Percent;
             double maxHp = this.SelfPlayer.AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP);
             double hp = maxHp * percent / 100.0;
 

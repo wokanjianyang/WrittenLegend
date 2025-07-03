@@ -12,8 +12,8 @@ namespace Game
         public SkillData SkillData { get; set; }
         public int SkillId { get; }
 
-        public long Damage { get; }
-        public int Percent { get; set; }
+        public double Damage { get; }
+        public double Percent { get; set; }
         public int Dis { get; }
         public int EnemyMax { get; }
         public int CD { get; }
@@ -218,8 +218,11 @@ namespace Game
             //}
             if (ruleType == RuleType.Myth)
             {
-                this.Percent = Math.Max(this.Percent / mythRate, this.Percent > 0 ? 1 : 0);
-                this.Damage = Math.Max(this.Damage / mythRate, this.Damage > 0 ? 1 : 0);
+                //this.Percent = Math.Max(this.Percent / mythRate, this.Percent > 0 ? 1 : 0);
+                //this.Damage = Math.Max(this.Damage / mythRate, this.Damage > 0 ? 1 : 0);
+
+                this.Percent = this.Percent / mythRate;
+                this.Damage = this.Damage / mythRate;
             }
 
             if (isPlayer)
@@ -237,7 +240,7 @@ namespace Game
                     int effectId = effectParams[0];
                     int duration = effectParams[1];
                     int max = effectParams[2];
-                    int percent = effectParams[3];
+                    double percent = effectParams[3];
 
                     List<SkillSuit> itemSuitList = effectSuitList.Where(m => m.EffectId == effectId).ToList();
 
