@@ -81,7 +81,7 @@ namespace Game
         {
             int role = RandomHelper.RandomNumber(1, 4);
 
-            List<SkillConfig> configs = SkillConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Role == role && m.Id < 4000).ToList();
+            List<SkillConfig> configs = SkillConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Role == role && m.Id < 4000 && m.SkillLayer < 12).ToList();
 
             //1 随机去掉不能重复的技能
             List<int> repeatIdList = configs.Where(m => m.Repet > 0).Select(m => m.Repet).ToList();
