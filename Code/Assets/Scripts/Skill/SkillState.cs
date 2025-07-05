@@ -92,6 +92,10 @@ namespace Game
             {
                 this.skillLogic = new Skill_Jian23(player, skillPanel, fromSkill, isShow);
             }
+            else if (skillPanel.SkillId == 4004)
+            {
+                this.skillLogic = new Skill_Attack_Area_From(player, skillPanel, fromSkill, isShow);
+            }
             else if (skillPanel.SkillData.SkillConfig.Type == (int)SkillType.Attack)
             {
                 if (this.SkillPanel.DivineLevel > 0)

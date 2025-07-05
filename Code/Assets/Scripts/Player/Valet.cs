@@ -143,9 +143,10 @@ namespace Game
 
         private void SetAttr12()
         {
-            int sp = (int)this.Master.AttributeBonus.GetAttackAttr(AttributeEnum.SkillValetSpeed);
+            int sp = (int)(this.Master.AttributeBonus.GetAttackAttr(AttributeEnum.SkillValetSpeed) + this.Master.AttributeBonus.GetAttackAttr(AttributeEnum.Speed) / 2);
 
             this.SetAttackSpeed(ModelConfig.SpeedRate + sp);
+            this.SetMoveSpeed(ModelConfig.SpeedRate + sp);
 
             int role = SkillPanel.SkillData.SkillConfig.Role;
 
@@ -153,24 +154,34 @@ namespace Game
             double roleHp = Master.AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP);
             double roleDef = Master.AttributeBonus.GetAttackDoubleAttr(AttributeEnum.Def);
 
-            double InheritAdvance = this.Master.AttributeBonus.GetAttackAttr(AttributeEnum.InheritAdvance) / 100.0;
+            //Debug.Log("base attr " + roleAttr + " roleHp" + roleHp + "def " + roleDef);
+
+            double InheritIncrea = 1 + this.Master.AttributeBonus.GetAttackAttr(AttributeEnum.InheritIncrea) / 100.0;
+            double InheritAdvance = 1 + this.Master.AttributeBonus.GetAttackAttr(AttributeEnum.InheritAdvance) / 100.0;
             double valteHp = 1 + this.Master.AttributeBonus.GetAttackAttr(AttributeEnum.SkillValetHp) / 100.0; //无极属性
 
-            double MaxInheritAdvance = Math.Min(InheritAdvance, 1);
+            double skillRate = 1 + SkillPanel.Percent / 100;
+
+            Debug.Log("普通继承属性比例 InheritIncrea:" + InheritIncrea);
+
+            Debug.Log("高级继承属性比例 InheritAdvance:" + InheritAdvance);
+
+            Debug.Log("无极生命比例 SkillValetHp:" + valteHp);
+
 
             //Debug.Log("valet InheritIncrea:" + InheritIncrea);
             //Debug.Log("valet InheritAdvance:" + InheritAdvance);
 
             this.AttributeBonus = new AttributeBonus();
-            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, roleHp * ModelConfig.HpRate * valteHp / 100.0);
-            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroPanel, roleAttr * ModelConfig.AttrRate / 100.0);
-            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroPanel, roleAttr * ModelConfig.AttrRate / 100.0);
-            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroPanel, roleAttr * ModelConfig.AttrRate / 100.0);
+            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, roleHp * valteHp * InheritIncrea * InheritAdvance * skillRate * ModelConfig.HpRate / 100.0);
+            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroPanel, roleAttr * InheritIncrea * InheritAdvance * skillRate * ModelConfig.AttrRate / 100.0);
+            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroPanel, roleAttr * InheritIncrea * InheritAdvance * skillRate * ModelConfig.AttrRate / 100.0);
+            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroPanel, roleAttr * InheritIncrea * InheritAdvance * skillRate * ModelConfig.AttrRate / 100.0);
             AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroPanel, roleDef * ModelConfig.DefRate / 100.0); //降低50%继承
 
             AttributeBonus.SetAttr(AttributeEnum.DamageIncrea, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.DamageIncrea, false));
             AttributeBonus.SetAttr(AttributeEnum.DamageResist, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.DamageResist, false));
-            AttributeBonus.SetAttr(AttributeEnum.CritDamage, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.CritDamage, false));
+            AttributeBonus.SetAttr(AttributeEnum.CritDamage, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.CritDamage, false) * InheritAdvance); //白虎爆伤继承无极倍率
             AttributeBonus.SetAttr(AttributeEnum.CritDamageResist, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.CritDamageResist, false));
             AttributeBonus.SetAttr(AttributeEnum.CritRate, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.CritRate, false));
             AttributeBonus.SetAttr(AttributeEnum.CritRateResist, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.CritRateResist, false));
@@ -192,8 +203,8 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.MagicDamage, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.MagicDamage));
             AttributeBonus.SetAttr(AttributeEnum.SpiritDamage, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.SpiritDamage));
 
-            AttributeBonus.SetAttr(AttributeEnum.MulDamageIncrea, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.MulDamageIncrea));
-            AttributeBonus.SetAttr(AttributeEnum.MulDamageResist, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.MulDamageResist));
+            AttributeBonus.SetAttr(AttributeEnum.MulDamageIncrea, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.MulDamageIncrea) * InheritAdvance); //白虎增伤继承无极倍率
+            AttributeBonus.SetAttr(AttributeEnum.MulDamageResist, AttributeFrom.HeroPanel, Master.AttributeBonus.CalMulDamageResistAttack());
 
             AttributeBonus.SetAttr(AttributeEnum.DefIgnore, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.DefIgnore));
             AttributeBonus.SetAttr(AttributeEnum.DefendRate, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.DefendRate));
@@ -208,6 +219,8 @@ namespace Game
 
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
+
+            //Debug.Log("白虎 速度:" + StringHelper.FormatNumber(ModelConfig.SpeedRate + sp));
         }
 
         private void SetSkill()
@@ -220,7 +233,7 @@ namespace Game
                     SkillData skillData = GameProcessor.Inst.User.SkillList.Where(m => m.SkillConfig.Id == skillId).FirstOrDefault();
 
 
-                    if (skillData != null && Master.Camp == PlayerType.Hero)
+                    if (Master.Camp == PlayerType.Hero)
                     {
                         User user = GameProcessor.Inst.User;
 
@@ -230,20 +243,45 @@ namespace Game
                             buffRuneList = user.DefendData.GetBuffRuneList(skillData.SkillId);
                         }
 
+                        if (skillData == null)
+                        {
+                            //白虎的飓风破
+                            skillData = new SkillData(skillId, (int)SkillPosition.Default);
+                            skillData.MagicLevel.Data = SkillPanel.Level;
+                        }
+
+                        int petRate = user.GetPetSkillRate(skillData.SkillConfig.Role);
+
+                        SkillPanel from = null;
+                        if (skillData.SkillConfig.FromId > 0)
+                        {
+                            SkillData fromData = user.SkillList.Where(m => m.SkillId == skillData.SkillConfig.FromId).FirstOrDefault();
+
+                            if (fromData == null)
+                            {
+                                fromData = new SkillData(skillId, (int)SkillPosition.Default);
+                                fromData.MagicLevel.Data = SkillPanel.Level;
+                            }
+
+                            from = new SkillPanel(fromData, user.GetRuneList(fromData.SkillId, null), user.GetSuitList(fromData.SkillId), true, RuleType, petRate);
+                        }
+
                         List<SkillRune> runeList = user.GetRuneList(skillData.SkillId, buffRuneList);
                         List<SkillSuit> suitList = user.GetSuitList(skillData.SkillId);
 
                         SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, false, RuleType, 0);
 
-                        SkillState skill = new SkillState(this, skillPanel, skillData.Position, 0);
+                        SkillState skill = new SkillState(this, skillPanel, from, skillData.Position, 0);
                         SelectSkillList.Add(skill);
                     }
                     else
                     {
                         skillData = new SkillData(skillId, (int)SkillPosition.Default);
+                        skillData.MagicLevel.Data = SkillPanel.Level;
 
                         List<SkillRune> runeList = new List<SkillRune>();
                         List<SkillSuit> suitList = new List<SkillSuit>();
+
 
                         SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, false);
 
@@ -296,5 +334,12 @@ namespace Game
 
         //    return mm != null ? mm : base.CalcEnemy();
         //}
+
+        public override void OnHit(DamageResult dr)
+        {
+            //Debug.Log("valet hit damage:" + StringHelper.FormatNumber(dr.Damage) + " maxHP:" + StringHelper.FormatNumber(this.AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP)));
+
+            base.OnHit(dr);
+        }
     }
 }
