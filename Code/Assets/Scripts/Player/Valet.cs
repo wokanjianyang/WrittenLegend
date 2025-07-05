@@ -143,7 +143,7 @@ namespace Game
 
         private void SetAttr12()
         {
-            int sp = (int)(this.Master.AttributeBonus.GetAttackAttr(AttributeEnum.SkillValetSpeed) + this.Master.AttributeBonus.GetAttackAttr(AttributeEnum.Speed) / 2);
+            int sp = (int)(this.Master.AttributeBonus.GetAttackAttr(AttributeEnum.SkillValetSpeed) + this.Master.AttributeBonus.GetAttackAttr(AttributeEnum.Speed));
 
             this.SetAttackSpeed(ModelConfig.SpeedRate + sp);
             this.SetMoveSpeed(ModelConfig.SpeedRate + sp);
