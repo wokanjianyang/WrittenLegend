@@ -100,7 +100,7 @@ namespace Game
         {
             List<SkillData> list = new List<SkillData>();
 
-            List<int> rdList = SkillConfigCategory.Instance.RandomList(Quality);
+            List<int> rdList = SkillConfigCategory.Instance.RandomList(Quality, this.Progress);
 
             for (int i = 0; i < rdList.Count; i++)
             {
