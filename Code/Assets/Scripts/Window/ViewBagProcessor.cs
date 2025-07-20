@@ -209,7 +209,7 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<SelectGiftEvent>(this.OnSelectGift);
             GameProcessor.Inst.EventCenter.AddListener<EquipLockEvent>(this.OnEquipLockEvent);
             GameProcessor.Inst.EventCenter.AddListener<ExchangeEvent>(this.OnExchangeEvent);
-            GameProcessor.Inst.EventCenter.AddListener<ChangeExclusiveEvent>(this.OnChangeExclusiveEvent);
+            //GameProcessor.Inst.EventCenter.AddListener<ChangeExclusiveEvent>(this.OnChangeExclusiveEvent);
             GameProcessor.Inst.EventCenter.AddListener<ChangeEquipGoldenEvent>(this.OnChangeEquipGoldenEvent);
             GameProcessor.Inst.EventCenter.AddListener<ChangeEquipDarkGoldEvent>(this.OnChangeEquipDarkGoldEvent);
 
@@ -307,11 +307,11 @@ namespace Game
                 //yield return null;
             }
 
-            //穿戴专属
-            foreach (var kvp in user.ExclusivePanelList[user.ExclusiveIndex])
-            {
-                this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
-            }
+            ////穿戴专属
+            //foreach (var kvp in user.ExclusivePanelList[user.ExclusiveIndex])
+            //{
+            //    this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
+            //}
 
             var emptyPrefab = Resources.Load<GameObject>("Prefab/Window/Box_Empty");
             yield return null;
@@ -425,7 +425,7 @@ namespace Game
                 BoxItem item = list[BoxId];
                 item.BoxId = BoxId;
 
-                Com_Box box = this.CreateBox(item);
+                Com_Box box = PrefabHelper.Instance().CreateComBox(item);
                 box.transform.SetParent(bagBox);
                 box.transform.localPosition = Vector3.zero;
                 box.transform.localScale = Vector3.one;
@@ -437,59 +437,6 @@ namespace Game
         protected override bool CheckPageType(ViewPageType page)
         {
             return page == ViewPageType.View_Bag;
-        }
-
-
-        private Com_Box CreateBox(BoxItem item)
-        {
-            GameObject prefab = PrefabHelper.Instance().GetBoxPrefab(item.Item.GetQuality());
-            ////if (item.Item.Type == ItemType.Material || item.Item.Type == ItemType.SkillBox)
-            ////{
-            ////    prefab = Resources.Load<GameObject>("Prefab/Window/Box_SkillOrMat");
-            ////}
-            ////else
-            ////{
-            //switch (item.Item.GetQuality())
-            //{
-            //    case 0:
-            //    case 1:
-            //        {
-            //            prefab = Resources.Load<GameObject>("Prefab/Window/Box_White");
-            //        }
-            //        break;
-            //    case 2:
-            //        {
-            //            prefab = Resources.Load<GameObject>("Prefab/Window/Box_Green");
-            //        }
-            //        break;
-            //    case 3:
-            //        {
-            //            prefab = Resources.Load<GameObject>("Prefab/Window/Box_Blue");
-            //        }
-            //        break;
-            //    case 4:
-            //        {
-            //            prefab = Resources.Load<GameObject>("Prefab/Window/Box_Pink");
-            //        }
-            //        break;
-            //    case 5:
-            //        {
-            //            prefab = Resources.Load<GameObject>("Prefab/Window/Box_Orange");
-            //        }
-            //        break;
-            //    case 6:
-            //        {
-            //            prefab = Resources.Load<GameObject>("Prefab/Window/Box6");
-            //        }
-            //        break;
-            //        //}
-            //}
-
-            var go = GameObject.Instantiate(prefab);
-            var comItem = go.GetComponent<Com_Box>();
-            comItem.SetBoxId(item.BoxId);
-            comItem.SetItem(item);
-            return comItem;
         }
 
         private void OnCompositeEvent(CompositeEvent e)
@@ -634,23 +581,23 @@ namespace Game
             }
         }
 
-        private void OnChangeExclusiveEvent(ChangeExclusiveEvent e)
-        {
-            User user = GameProcessor.Inst.User;
-            user.ExclusiveIndex = e.Index;
+        //private void OnChangeExclusiveEvent(ChangeExclusiveEvent e)
+        //{
+        //    User user = GameProcessor.Inst.User;
+        //    user.ExclusiveIndex = e.Index;
 
-            for (int i = 15; i <= 20; i++)
-            {
-                this.ClearEquipPanelItem(i);
-            }
+        //    for (int i = 15; i <= 20; i++)
+        //    {
+        //        this.ClearEquipPanelItem(i);
+        //    }
 
-            foreach (var kvp in user.ExclusivePanelList[e.Index])
-            {
-                this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
-            }
+        //    foreach (var kvp in user.ExclusivePanelList[e.Index])
+        //    {
+        //        this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
+        //    }
 
-            //Debug.Log("OnChangeExclusiveEvent");
-        }
+        //    //Debug.Log("OnChangeExclusiveEvent");
+        //}
 
         private void OnChangeEquipGoldenEvent(ChangeEquipGoldenEvent e)
         {
@@ -694,14 +641,20 @@ namespace Game
 
             if (user.ExclusiveSetting)
             {
-                //user.ExclusiveIndex = index;
-                GameProcessor.Inst.EventCenter.Raise(new ChangeExclusiveEvent() { Index = index });
+                user.ExclusiveIndex = index;
+                //GameProcessor.Inst.EventCenter.Raise(new ChangeExclusiveEvent() { Index = index });
             }
 
             if (user.EquipGoldenSetting)
             {
-                //user.EquipGoldenIndex = index;
+                user.EquipGoldenIndex = index;
                 GameProcessor.Inst.EventCenter.Raise(new ChangeEquipGoldenEvent() { Index = index });
+            }
+
+            if (user.EquipDarkGoldSetting)
+            {
+                user.EquipDarkGoldIndex = index;
+                GameProcessor.Inst.EventCenter.Raise(new ChangeEquipDarkGoldEvent() { Index = index });
             }
 
             user.SkillPanelIndex = index;
@@ -1437,7 +1390,7 @@ namespace Game
                 }
                 boxItem.BoxId = lastBoxId;
 
-                var item = this.CreateBox(boxItem);
+                var item = PrefabHelper.Instance().CreateComBox(boxItem);
                 item.transform.SetParent(this.Bag_List[bagType].content.GetChild(lastBoxId));
                 item.transform.localPosition = Vector3.zero;
                 item.transform.localScale = Vector3.one;
@@ -1507,9 +1460,7 @@ namespace Game
                     slot = DialogEquipDarkGold.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == Position).First();
                 }
 
-                Com_Box comItem = slot.GetEquip();
                 slot.UnEquip();
-                GameObject.Destroy(comItem.gameObject);
 
                 AddBoxItem(ep[Position]);
             }
@@ -1524,13 +1475,36 @@ namespace Game
             user.EventCenter.Raise(new HeroUseEquipEvent { });
         }
 
+        private IDictionary<int, ExclusiveItem> GetExclusivePanel(ExclusiveItem exclusive)
+        {
+            User user = GameProcessor.Inst.User;
+
+            return user.ExclusivePanelList[user.ExclusiveIndex];
+
+            //if (exclusive.ExclusiveConfig.Cycle == 1)
+            //{
+            //    return user.ExclusivePanelList[user.ExclusiveIndex];
+            //}
+            //else if (exclusive.ExclusiveConfig.Cycle == 2)
+            //{
+            //    return user.ExclusivePanelList[user.ExclusiveIndex];
+
+            //}
+            //else if (exclusive.ExclusiveConfig.Cycle == 3)
+            //{
+            //    return user.ExclusivePanelList[user.ExclusiveIndex];
+            //}
+
+            //return null;
+        }
+
         public void WearExclusive(BoxItem boxItem)
         {
             User user = GameProcessor.Inst.User;
 
             var exclusive = boxItem.Item as ExclusiveItem;
 
-            var ep = user.ExclusivePanelList[user.ExclusiveIndex];
+            IDictionary<int, ExclusiveItem> ep = GetExclusivePanel(exclusive);
             int Position = exclusive.Part;
 
             //从包袱移除
@@ -1540,19 +1514,21 @@ namespace Game
             if (ep.ContainsKey(Position))
             {
                 //装备栏卸载
-                SlotBox slot = ExclusiveDialog.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == Position).First();
+                SlotBox slot = ExclusiveDialog.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == Position).FirstOrDefault();
 
-                Com_Box comItem = slot.GetEquip();
-                slot.UnEquip();
-                GameObject.Destroy(comItem.gameObject);
+                if (slot != null)
+                {
+                    slot.UnEquip();
+                }
 
                 AddBoxItem(ep[Position]);
             }
 
             //穿戴到格子上
-            this.CreateEquipPanelItem(-1, Position, exclusive);
+            ExclusiveDialog.Wear(exclusive);
+            //this.CreateEquipPanelItem(-1, Position, exclusive);
 
-            user.ExclusivePanelList[user.ExclusiveIndex][Position] = exclusive;
+            ep[Position] = exclusive;
 
             //通知英雄更新属性
             user.EventCenter.Raise(new HeroUseEquipEvent { });
@@ -1561,13 +1537,7 @@ namespace Game
         private void ClearEquipPanelItem(int position)
         {
             SlotBox slot = GetCurrentPanelEquipSolt(position);
-
-            Com_Box comItem = slot.GetEquip();
-            if (comItem != null)
-            {
-                slot.UnEquip();
-                GameObject.Destroy(comItem.gameObject);
-            }
+            slot.UnEquip();
         }
 
         private SlotBox GetCurrentPanelEquipSolt(int position)
@@ -1613,11 +1583,17 @@ namespace Game
             }
             else if (position >= 11 && position <= 14)
             {
-                slot = EquipInfoSpecial.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+                slot = EquipInfoSpecial.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).FirstOrDefault();
             }
-            else if (position >= 15 && position <= 20)
+            else if ((position >= 15 && position <= 20) || position > 1000)
             {
-                slot = ExclusiveDialog.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+                //slot = ExclusiveDialog.ItemList.Where(s => s.Part == position).First();
+
+                //if (slot == null)
+                //{
+                //    return; //没有切换到这个，就跳过
+                //}
+                return;
             }
             else if (position >= 21 && position <= 30)
             {
@@ -1634,7 +1610,7 @@ namespace Game
             boxItem.MagicNubmer.Data = 1;
             boxItem.BoxId = -1;
 
-            Com_Box comItem = this.CreateBox(boxItem);
+            Com_Box comItem = PrefabHelper.Instance().CreateComBox(boxItem);
             comItem.transform.SetParent(slot.transform);
             comItem.transform.localPosition = Vector3.zero;
             comItem.transform.localScale = Vector3.one;
@@ -1674,9 +1650,7 @@ namespace Game
                 slot = DialogEquipDarkGold.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
 
-            Com_Box comItem = slot.GetEquip();
             slot.UnEquip();
-            GameObject.Destroy(comItem.gameObject);
 
             //装备移动到包裹里面
             AddBoxItem(equip);
@@ -1718,16 +1692,18 @@ namespace Game
             int position = exclusive.Part;
 
             //装备栏卸载
-            SlotBox slot = ExclusiveDialog.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
-
-            Com_Box comItem = slot.GetEquip();
-            slot.UnEquip();
-            GameObject.Destroy(comItem.gameObject);
+            SlotBox slot = ExclusiveDialog.ItemList.Where(s => s.Part == position).First();
+            if (slot != null)
+            {
+                slot.UnEquip();
+            }
 
             //装备移动到包裹里面
             AddBoxItem(exclusive);
 
-            user.ExclusivePanelList[user.ExclusiveIndex].Remove(position);
+            var ep = GetExclusivePanel(exclusive);
+
+            ep.Remove(position);
 
             //通知英雄更新属性
             user.EventCenter.Raise(new HeroUnUseEquipEvent() { });

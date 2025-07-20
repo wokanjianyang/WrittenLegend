@@ -51,6 +51,12 @@ public class ViewForgeProcessor : AViewPage
     public Toggle toggle_ExclusiveUp;
     public Panel_Exclusive_Up PanelExclusiveUp;
 
+    public Toggle toggle_ExclusiveGold;
+    public Panel_Devour_Golden PanelDevourGolden;
+
+    public Toggle toggle_ExclusiveDark;
+    //public Panel_Exclusive_Up PanelExclusiveUp;
+
     public Toggle toggle_GradeSpecail;
     public Panel_Grade_Specail PanelGradeSpecail;
 
@@ -127,6 +133,12 @@ public class ViewForgeProcessor : AViewPage
         {
             PanelExclusiveUp.gameObject.SetActive(isOn);
         });
+
+        this.toggle_ExclusiveGold.onValueChanged.AddListener((isOn) =>
+        {
+            PanelDevourGolden.gameObject.SetActive(isOn);
+        });
+
 
         this.toggle_GradeSpecail.onValueChanged.AddListener((isOn) =>
         {

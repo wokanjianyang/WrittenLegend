@@ -78,35 +78,38 @@ namespace Game
 		/// <summary>ID</summary>
 		[ProtoMember(1)]
 		public int Id { get; set; }
-		/// <summary>Level</summary>
+		/// <summary>Cycle</summary>
 		[ProtoMember(2)]
+		public int Cycle { get; set; }
+		/// <summary>Level</summary>
+		[ProtoMember(3)]
 		public int Level { get; set; }
 		/// <summary>AttrIdList</summary>
-		[ProtoMember(3)]
+		[ProtoMember(4)]
 		public int[] AttrIdList { get; set; }
 		/// <summary>AttrValueList</summary>
-		[ProtoMember(4)]
+		[ProtoMember(5)]
 		public int[] AttrValueList { get; set; }
 		/// <summary>AttchValueList</summary>
-		[ProtoMember(5)]
+		[ProtoMember(6)]
 		public int[] AttchValueList { get; set; }
 		/// <summary>Name</summary>
-		[ProtoMember(6)]
+		[ProtoMember(7)]
 		public string Name { get; set; }
 		/// <summary>Part</summary>
-		[ProtoMember(7)]
+		[ProtoMember(8)]
 		public int Part { get; set; }
 		/// <summary>Type</summary>
-		[ProtoMember(8)]
+		[ProtoMember(9)]
 		public int Type { get; set; }
 		/// <summary>品质</summary>
-		[ProtoMember(9)]
+		[ProtoMember(10)]
 		public int Quality { get; set; }
 		/// <summary>词条</summary>
-		[ProtoMember(10)]
+		[ProtoMember(11)]
 		public int RuneId { get; set; }
 		/// <summary>套装</summary>
-		[ProtoMember(11)]
+		[ProtoMember(12)]
 		public int SuitId { get; set; }
 
 	}

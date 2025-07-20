@@ -11,8 +11,16 @@ namespace Game
     {
         public Button Btn_Close;
 
-        public List<Toggle> Toggle_Plan_List = new List<Toggle>();
+        public Transform Tf_Plan;
+        public Transform Tf_Cycle;
+
+        private List<Toggle> Toggle_Plan_List = new List<Toggle>();
+        private List<Toggle> Toggle_Cycle_List = new List<Toggle>();
+
+        public List<SlotBox> ItemList = new List<SlotBox>();
+
         //public List<Button> Btn_Plan_List = new List<Button>();
+        private int CycleIndex = 0;
 
         public Toggle toggle;
 
@@ -35,6 +43,10 @@ namespace Game
 
         public void OnBattleStart()
         {
+            Toggle_Plan_List = Tf_Plan.GetComponentsInChildren<Toggle>().ToList();
+            Toggle_Cycle_List = Tf_Cycle.GetComponentsInChildren<Toggle>().ToList();
+            ItemList = this.GetComponentsInChildren<SlotBox>().ToList();
+
             GameProcessor.Inst.EventCenter.AddListener<ShowExclusiveEvent>(this.OnShowExclusive);
 
             var prefab = Resources.Load<GameObject>("Prefab/Window/Box_Info");
@@ -59,6 +71,20 @@ namespace Game
                     }
                 });
             }
+
+            for (int i = 0; i < Toggle_Cycle_List.Count; i++)
+            {
+                int index = i;
+                Toggle_Cycle_List[i].onValueChanged.AddListener((isOn) =>
+                {
+                    if (isOn)
+                    {
+                        ChangeCycle(index);
+                    }
+                });
+            }
+
+            this.Show();
         }
 
         private void InitPlanName()
@@ -81,10 +107,79 @@ namespace Game
 
         private void ChangePlan(int i)
         {
-            GameProcessor.Inst.EventCenter.Raise(new ChangeExclusiveEvent() { Index = i });
+            User user = GameProcessor.Inst.User;
+            user.ExclusiveIndex = i;
+
+            this.Show();
+            //GameProcessor.Inst.EventCenter.Raise(new ChangeExclusiveEvent() { Index = i });
 
             GameProcessor.Inst.User.EventCenter.Raise(new SkillChangePlanEvent());
             GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
+        }
+
+        private void ChangeCycle(int i)
+        {
+            this.CycleIndex = i;
+            this.Show();
+        }
+
+        private void Show()
+        {
+            Debug.Log("exclusive show");
+            List<ExclusiveConfig> configs = ExclusiveConfigCategory.Instance.GetByCycle(CycleIndex + 1);
+
+            User user = GameProcessor.Inst.User;
+
+            for (int i = 0; i < configs.Count; i++)
+            {
+                ExclusiveConfig config = configs[i];
+
+                //先重置初始状态
+                SlotBox slot = ItemList[i];
+                slot.UnEquip();
+                slot.SetPart(config.Part, config.Name);
+
+                //装载已装备的装备
+                IDictionary<int, ExclusiveItem> currentPanel = user.ExclusivePanelList[user.ExclusiveIndex];
+                int part = config.Part;
+
+                //Debug.Log("part:" + part);
+
+                if (currentPanel.ContainsKey(part))
+                {
+                    CreateEquipPanelItem(slot, config, currentPanel[part]);
+                }
+            }
+        }
+
+        private void CreateEquipPanelItem(SlotBox slot, ExclusiveConfig config, Item equip)
+        {
+            //生成格子
+            BoxItem boxItem = new BoxItem();
+            boxItem.Item = equip;
+            boxItem.MagicNubmer.Data = 1;
+            boxItem.BoxId = -1;
+
+            Com_Box comItem = PrefabHelper.Instance().CreateComBox(boxItem);
+            comItem.transform.SetParent(slot.transform);
+            comItem.transform.localPosition = Vector3.zero;
+            comItem.transform.localScale = Vector3.one;
+            comItem.SetBoxId(-1);
+            comItem.SetEquipPosition(config.Part);
+
+            //穿戴
+            slot.Equip(comItem);
+        }
+
+        public void Wear(ExclusiveItem exclusive)
+        {
+            int part = exclusive.ExclusiveConfig.Part;
+
+            SlotBox slot = ItemList.Where(m => m.Part == part).FirstOrDefault();
+            if (slot != null)
+            {
+                CreateEquipPanelItem(slot, exclusive.ExclusiveConfig, exclusive);
+            }
         }
 
         public void OnShowExclusive(ShowExclusiveEvent e)

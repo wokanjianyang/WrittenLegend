@@ -80,6 +80,17 @@ namespace Game
             return ComBoxList[quanlity];
         }
 
+        public Com_Box CreateComBox(BoxItem item)
+        {
+            var prefab = GetBoxPrefab(item.Item.GetQuality());
+            var box = GameObject.Instantiate(prefab);
+            Com_Box comItem = box.GetComponent<Com_Box>();
+
+            comItem.SetItem(item);
+
+            return comItem;
+        }
+
         public Box_Select CreateBoxSelect(Transform parent, BoxItem item, ComBoxType type)
         {
             var go = GameObject.Instantiate(BoxSelectPrefab);

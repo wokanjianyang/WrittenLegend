@@ -1,0 +1,6 @@
+{"list":[
+{"_t":"ExclusiveSuitConfig","_id":1,"Name":"橙色套装","Cycle":1,"AttrId":301,"AttrValue":1,"Desc":"技能上阵栏位+1"},
+{"_t":"ExclusiveSuitConfig","_id":2,"Name":"金色套装","Cycle":2,"AttrId":54,"AttrValue":10,"Desc":"幸运增幅+10%"},
+{"_t":"ExclusiveSuitConfig","_id":3,"Name":"暗金套装","Cycle":3,"AttrId":55,"AttrValue":10,"Desc":"暴击增幅+10%"},
+{"_t":"ExclusiveSuitConfig","_id":4,"Name":"xx套装","Cycle":4,"AttrId":-1,"AttrValue":10,"Desc":"10"},
+]}

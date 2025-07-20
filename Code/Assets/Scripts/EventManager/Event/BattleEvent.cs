@@ -408,10 +408,10 @@ namespace Game
 
     }
 
-    public class ChangeExclusiveEvent : SDD.Events.Event
-    {
-        public int Index { get; set; }
-    }
+    //public class ChangeExclusiveEvent : SDD.Events.Event
+    //{
+    //    public int Index { get; set; }
+    //}
 
     public class ChangeEquipGoldenEvent : SDD.Events.Event
     {

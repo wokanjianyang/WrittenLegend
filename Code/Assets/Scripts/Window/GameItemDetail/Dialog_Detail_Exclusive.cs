@@ -192,7 +192,7 @@ namespace Game
 
                 ExclusiveSuit exclusiveSuit = user.GetExclusiveSuit(exclusive.ExclusiveConfig);
 
-                tran_GroupAttribute.Find("Title").GetComponent<Text>().text = string.Format("[套装属性] ({0}/6)   增加一个上阵技能栏", exclusiveSuit.ActiveCount);
+                tran_GroupAttribute.Find("Title").GetComponent<Text>().text = string.Format("[套装属性] ({0}/6)   {1}", exclusiveSuit.ActiveCount, exclusiveSuit.SuitConfig.Desc);
 
                 for (int index = 0; index < 3; index++)
                 {

@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
-public class Panel_Devour : MonoBehaviour
+public class Panel_Devour_Dark : MonoBehaviour
 {
     public ScrollRect ds_Panel;
 
@@ -27,8 +27,6 @@ public class Panel_Devour : MonoBehaviour
     public Item_Rune_Suit AddItem;
 
     public Button Btn_OK;
-
-    int StartLayer = 0;
 
     private const int MaxMain = 6; //10件装备
     private const int MaxMaterial = 24;
@@ -112,7 +110,7 @@ public class Panel_Devour : MonoBehaviour
             return;
         }
 
-        int maxLevel = user.GetExclusiveLimit() + StartLayer;
+        int maxLevel = user.GetExclusiveLimit();
 
         IDictionary<int, ExclusiveItem> dict = user.ExclusivePanelList[user.ExclusiveIndex];
 
@@ -155,7 +153,7 @@ public class Panel_Devour : MonoBehaviour
         {
             ExclusiveItem exclusiveMain = e.Box.BoxItem.Item as ExclusiveItem;
 
-            int maxLevel = GameProcessor.Inst.User.GetExclusiveLimit() + StartLayer;
+            int maxLevel = GameProcessor.Inst.User.GetExclusiveLimit();
 
             if (exclusiveMain.GetLayer() >= maxLevel)
             {
@@ -192,7 +190,7 @@ public class Panel_Devour : MonoBehaviour
         this.config = ExclusiveDevourConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Level == nextLayer).FirstOrDefault();
 
         this.Check();
-        int maxLevel = GameProcessor.Inst.User.GetExclusiveLimit() + StartLayer;
+        int maxLevel = GameProcessor.Inst.User.GetExclusiveLimit();
 
         if (nextLayer >= maxLevel) //不能超过上限
         {

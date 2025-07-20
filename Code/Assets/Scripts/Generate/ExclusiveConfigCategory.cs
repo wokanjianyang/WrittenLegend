@@ -7,6 +7,10 @@ namespace Game
 
     public partial class ExclusiveConfigCategory
     {
+        public List<ExclusiveConfig> GetByCycle(int cycle)
+        {
+            return this.list.Where(m => m.Cycle == cycle).ToList();
+        }
 
     }
 
@@ -21,7 +25,7 @@ namespace Game
 
             ExclusiveConfig config = ExclusiveConfigCategory.Instance.Get(configId);
 
-            int quality = config.Quality;
+            int quality = 0;
             int runeId = config.RuneId;
             int suitId = config.SuitId;
 
@@ -113,6 +117,13 @@ namespace Game
 
     public class ExclusiveSuit
     {
+        public ExclusiveSuit(int cycle)
+        {
+            this.SuitConfig = ExclusiveSuitConfigCategory.Instance.Get(cycle);
+        }
+
+        public ExclusiveSuitConfig SuitConfig { get; set; }
+
         public bool Active { get; set; } = false;
 
         public int ActiveCount { get; set; } = 0;

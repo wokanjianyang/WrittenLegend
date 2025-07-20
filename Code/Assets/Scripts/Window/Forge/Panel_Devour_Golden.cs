@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
-public class Panel_Devour : MonoBehaviour
+public class Panel_Devour_Golden : MonoBehaviour
 {
     public ScrollRect ds_Panel;
 
@@ -28,6 +28,8 @@ public class Panel_Devour : MonoBehaviour
 
     public Button Btn_OK;
 
+    int MinQuality = 7;
+    int StartPart = 1007;
     int StartLayer = 0;
 
     private const int MaxMain = 6; //10件装备
@@ -118,7 +120,7 @@ public class Panel_Devour : MonoBehaviour
 
         for (int BoxId = 0; BoxId < MaxMain; BoxId++)
         {
-            int postion = BoxId + 15;
+            int postion = BoxId + StartPart;
 
             var bagBox = this.ds_Panel.content.GetChild(BoxId);
             if (bagBox == null || !dict.ContainsKey(postion))
@@ -128,7 +130,7 @@ public class Panel_Devour : MonoBehaviour
 
             ExclusiveItem exclusive = dict[postion];
 
-            if (exclusive.GetQuality() < 5) //|| exclusive.GetLayer() >= maxLevel
+            if (exclusive.GetQuality() < MinQuality) //|| exclusive.GetLayer() >= maxLevel
             {
                 continue;
             }
@@ -217,7 +219,7 @@ public class Panel_Devour : MonoBehaviour
         //选择符合条件的exclusive
         User user = GameProcessor.Inst.User;
 
-        List<BoxItem> list = user.Bags.Where(m => m.Item.Type == ItemType.Exclusive && m.Item.GetQuality() == 5 && !m.Item.IsLock).ToList();
+        List<BoxItem> list = user.Bags.Where(m => m.Item.Type == ItemType.Exclusive && m.Item.GetQuality() == MinQuality && !m.Item.IsLock).ToList();
         //Debug.Log("es:" + list.Count);
         int BoxId = 0;
         for (int i = 0; i < list.Count; i++)

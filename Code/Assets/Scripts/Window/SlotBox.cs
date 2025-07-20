@@ -15,6 +15,9 @@ namespace Game
 
         private Com_Box baseInfo;
 
+        public int Part = 0;
+        public string Name = "";
+
         // Start is called before the first frame update
         void Start()
         {
@@ -40,6 +43,15 @@ namespace Game
             this.Init(prefab);
         }
 
+        public void SetPart(int part, string name)
+        {
+            this.Part = part;
+            this.Name = name;
+
+            baseInfo.tmp_Title.text = this.Name;
+        }
+
+
         public void Equip(Com_Box equip)
         {
             this.equip = equip;
@@ -47,7 +59,12 @@ namespace Game
         }
         public void UnEquip()
         {
-            this.equip = null;
+            if (this.equip != null)
+            {
+                Com_Box comItem = this.equip;
+                this.equip = null;
+                GameObject.Destroy(comItem.gameObject);
+            }
             baseInfo.gameObject.SetActive(true);
         }
         public Com_Box GetEquip()

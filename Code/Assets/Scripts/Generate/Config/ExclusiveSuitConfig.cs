@@ -7,32 +7,32 @@ namespace Game
 {
     [ProtoContract]
     [Config]
-    public partial class ExclusiveConfigCategory : ProtoObject, IMerge
+    public partial class ExclusiveSuitConfigCategory : ProtoObject, IMerge
     {
-        public static ExclusiveConfigCategory Instance;
+        public static ExclusiveSuitConfigCategory Instance;
 		
         [ProtoIgnore]
         [BsonIgnore]
-        private Dictionary<int, ExclusiveConfig> dict = new Dictionary<int, ExclusiveConfig>();
+        private Dictionary<int, ExclusiveSuitConfig> dict = new Dictionary<int, ExclusiveSuitConfig>();
 		
         [BsonElement]
         [ProtoMember(1)]
-        private List<ExclusiveConfig> list = new List<ExclusiveConfig>();
+        private List<ExclusiveSuitConfig> list = new List<ExclusiveSuitConfig>();
 		
-        public ExclusiveConfigCategory()
+        public ExclusiveSuitConfigCategory()
         {
             Instance = this;
         }
         
         public void Merge(object o)
         {
-            ExclusiveConfigCategory s = o as ExclusiveConfigCategory;
+            ExclusiveSuitConfigCategory s = o as ExclusiveSuitConfigCategory;
             this.list.AddRange(s.list);
         }
 		
         public override void EndInit()
         {
-            foreach (ExclusiveConfig config in list)
+            foreach (ExclusiveSuitConfig config in list)
             {
                 config.EndInit();
                 this.dict.Add(config.Id, config);
@@ -40,13 +40,13 @@ namespace Game
             this.AfterEndInit();
         }
 		
-        public ExclusiveConfig Get(int id)
+        public ExclusiveSuitConfig Get(int id)
         {
-            this.dict.TryGetValue(id, out ExclusiveConfig item);
+            this.dict.TryGetValue(id, out ExclusiveSuitConfig item);
 
             if (item == null)
             {
-                throw new Exception($"配置找不到，配置表名: {nameof (ExclusiveConfig)}，配置id: {id}");
+                throw new Exception($"配置找不到，配置表名: {nameof (ExclusiveSuitConfig)}，配置id: {id}");
             }
 
             return item;
@@ -57,12 +57,12 @@ namespace Game
             return this.dict.ContainsKey(id);
         }
 
-        public Dictionary<int, ExclusiveConfig> GetAll()
+        public Dictionary<int, ExclusiveSuitConfig> GetAll()
         {
             return this.dict;
         }
 
-        public ExclusiveConfig GetOne()
+        public ExclusiveSuitConfig GetOne()
         {
             if (this.dict == null || this.dict.Count <= 0)
             {
@@ -73,7 +73,7 @@ namespace Game
     }
 
     [ProtoContract]
-	public partial class ExclusiveConfig: ProtoObject, IConfig
+	public partial class ExclusiveSuitConfig: ProtoObject, IConfig
 	{
 		/// <summary>ID</summary>
 		[ProtoMember(1)]
@@ -84,27 +84,15 @@ namespace Game
 		/// <summary>Cycle</summary>
 		[ProtoMember(3)]
 		public int Cycle { get; set; }
-		/// <summary>Part</summary>
+		/// <summary>AttrId</summary>
 		[ProtoMember(4)]
-		public int Part { get; set; }
-		/// <summary>Type</summary>
+		public int AttrId { get; set; }
+		/// <summary>AttrValue</summary>
 		[ProtoMember(5)]
-		public int Type { get; set; }
-		/// <summary>Level</summary>
+		public int AttrValue { get; set; }
+		/// <summary>Desc</summary>
 		[ProtoMember(6)]
-		public int Level { get; set; }
-		/// <summary>StartQuality</summary>
-		[ProtoMember(7)]
-		public int StartQuality { get; set; }
-		/// <summary>EndQuality</summary>
-		[ProtoMember(8)]
-		public int EndQuality { get; set; }
-		/// <summary>词条</summary>
-		[ProtoMember(9)]
-		public int RuneId { get; set; }
-		/// <summary>套装</summary>
-		[ProtoMember(10)]
-		public int SuitId { get; set; }
+		public string Desc { get; set; }
 
 	}
 }

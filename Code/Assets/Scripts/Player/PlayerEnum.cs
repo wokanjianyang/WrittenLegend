@@ -66,10 +66,6 @@ namespace Game
         CritFinal = 54,//暴击增幅
         LuckyFinal = 55,//幸运增幅
 
-        AurasDamageResist = 201, //光环减伤
-        AurasDamageIncrea = 202, //光环增伤
-        AurasAttrIncrea = 203,//
-
         EquipBaseIncrea = 101, //装备基础属性百分比
         EquipRandomIncrea = 102, //装备随机属性百分比
         EquipStrengthIncrea = 103, //装备强化属性百分比
@@ -90,6 +86,11 @@ namespace Game
         Relic5 = 121, //神器2
 
 
+        AurasDamageResist = 201, //光环减伤
+        AurasDamageIncrea = 202, //光环增伤
+        AurasAttrIncrea = 203,//
+
+        SkillUpCount = 301, //技能栏出战数量
         SkillPhyDamage = 302, //物理伤害
         SkillMagicDamage = 303,//魔法伤害
         SkillSpiritDamage = 304, //道术伤害

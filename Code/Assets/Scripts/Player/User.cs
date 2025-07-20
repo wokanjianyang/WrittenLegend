@@ -65,6 +65,10 @@ namespace Game
 
         public IDictionary<int, IDictionary<int, ExclusiveItem>> ExclusivePanelList { get; set; } = new Dictionary<int, IDictionary<int, ExclusiveItem>>();
 
+        public IDictionary<int, IDictionary<int, ExclusiveItem>> ExclusivePanelGoldenList { get; set; } = new Dictionary<int, IDictionary<int, ExclusiveItem>>();
+
+        public IDictionary<int, IDictionary<int, ExclusiveItem>> ExclusivePanelDarkList { get; set; } = new Dictionary<int, IDictionary<int, ExclusiveItem>>();
+
         public IDictionary<int, ExclusiveItem> ExclusiveList { get; set; } = new Dictionary<int, ExclusiveItem>();
 
         public int EquipPanelIndex { get; set; } = 0;
@@ -130,12 +134,7 @@ namespace Game
 
         public IDictionary<string, bool> GiftListNew { get; set; } = new Dictionary<string, bool>();
 
-        public IDictionary<string, bool> GiftList { get; set; } = new Dictionary<string, bool>();
-
         public Dictionary<int, long> VersionLog { get; } = new Dictionary<int, long>();
-
-        public bool OldCJCheck = false;
-        public bool OldRingCheck = false;
 
         public int GetArtifactValue(ArtifactType type)
         {
@@ -206,7 +205,7 @@ namespace Game
 
         public int GetExclusiveLimit()
         {
-            long limit = 2 + GetArtifactValue(ArtifactType.ExclusiveLimit);
+            long limit = GetArtifactValue(ArtifactType.ExclusiveLimit);
             return (int)limit;
         }
 
@@ -1222,13 +1221,13 @@ namespace Game
 
         public ExclusiveSuit GetExclusiveSuit(ExclusiveConfig config)
         {
-            ExclusiveSuit suit = new ExclusiveSuit();
+            ExclusiveSuit suit = new ExclusiveSuit(config.Cycle);
             suit.ActiveCount = 0;
             suit.Active = true;
 
             //suit.Self = new ExclusiveSuitItem(config.Id, config.Name, true);
 
-            List<ExclusiveConfig> configs = ExclusiveConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Type == config.Type && m.Quality < 0).ToList();
+            List<ExclusiveConfig> configs = ExclusiveConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Type == config.Type).ToList();
 
             foreach (ExclusiveConfig item in configs)
             {

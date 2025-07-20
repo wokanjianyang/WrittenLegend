@@ -7,9 +7,9 @@ namespace Game
 
     public partial class ExclusiveAttrConfigCategory
     {
-        public ExclusiveAttrConfig GetByLevel(int level)
+        public ExclusiveAttrConfig GetAttr(int cycle, int level)
         {
-            return this.list.Where(m => m.Level == level).FirstOrDefault();
+            return this.list.Where(m => m.Cycle == cycle && m.Level == level).FirstOrDefault();
         }
     }
 }

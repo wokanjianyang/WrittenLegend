@@ -95,7 +95,8 @@ namespace Game
 
             IDictionary<int, long> BaseAttrList = new Dictionary<int, long>();
 
-            ExclusiveAttrConfig attrConfig = ExclusiveAttrConfigCategory.Instance.GetByLevel(layer);
+            ExclusiveAttrConfig attrConfig = ExclusiveAttrConfigCategory.Instance.GetAttr(ExclusiveConfig.Cycle, layer);
+
             for (int i = 0; i < attrConfig.AttrIdList.Length; i++)
             {
                 BaseAttrList.Add(attrConfig.AttrIdList[i], attrConfig.AttrValueList[i] * Quality + attrConfig.AttchValueList[i] * level);
