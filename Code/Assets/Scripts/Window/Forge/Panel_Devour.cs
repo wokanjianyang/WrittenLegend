@@ -28,7 +28,8 @@ public class Panel_Devour : MonoBehaviour
 
     public Button Btn_OK;
 
-    int StartLayer = 0;
+    int Cycle = 1;
+    int StartLayer = 2;
 
     private const int MaxMain = 6; //10¼þ×°±¸
     private const int MaxMaterial = 24;
@@ -189,7 +190,7 @@ public class Panel_Devour : MonoBehaviour
         ExclusiveItem exclusiveMain = SelectMain.BoxItem.Item as ExclusiveItem;
 
         int nextLayer = exclusiveMain.GetLayer();
-        this.config = ExclusiveDevourConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Level == nextLayer).FirstOrDefault();
+        this.config = ExclusiveDevourConfigCategory.Instance.GetByCycleAndLevel(this.Cycle, nextLayer);
 
         this.Check();
         int maxLevel = GameProcessor.Inst.User.GetExclusiveLimit() + StartLayer;

@@ -64,7 +64,7 @@ namespace Game
 
                         if (SelfPlayer.RuleType == RuleType.Myth)
                         {
-                            disPercent = disPercent * 2 / 3; //如果是神话之路，削弱1/3
+                            disPercent = disPercent * 1 / 3; //如果是神话之路，削弱为1/3
                         }
                         //Debug.Log("DivineLevel.Percent：" + disPercent);
 

@@ -47,7 +47,7 @@ namespace Game
             this.Txt_Name.text = item.Item.Name;
 
             int quality = item.Item.GetQuality();
-            image_Background.sprite = list_Backgrounds[quality - 1];
+            image_Background.sprite = PrefabHelper.Instance().GetBoxImage(quality);  //list_Backgrounds[quality - 1];
 
             Color color = ColorHelper.HexToColor(QualityConfigHelper.GetQualityColor(quality));
             Txt_Name.color = color;

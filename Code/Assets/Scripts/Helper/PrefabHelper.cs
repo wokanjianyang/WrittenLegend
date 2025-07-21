@@ -14,6 +14,7 @@ namespace Game
         private GameObject BoxDropPrefab = null;
         private GameObject Message_Prefab = null;
 
+        private List<Sprite> BoxImageList = new List<Sprite>();
         private List<Sprite> PlayerList = new List<Sprite>();
         private List<Sprite> ValetList = new List<Sprite>();
         private List<Sprite> MonsterList = new List<Sprite>();
@@ -50,6 +51,15 @@ namespace Game
 
             Message_Prefab = Resources.Load<GameObject>("Prefab/Dialog/Msg");
 
+            BoxImageList.Add(Resources.Load<Sprite>("UI/Bag/Box1"));
+            BoxImageList.Add(Resources.Load<Sprite>("UI/Bag/Box2"));
+            BoxImageList.Add(Resources.Load<Sprite>("UI/Bag/Box3"));
+            BoxImageList.Add(Resources.Load<Sprite>("UI/Bag/Box4"));
+            BoxImageList.Add(Resources.Load<Sprite>("UI/Bag/Box5"));
+            BoxImageList.Add(Resources.Load<Sprite>("UI/Bag/Box6"));
+            BoxImageList.Add(Resources.Load<Sprite>("UI/Bag/Box7"));
+            BoxImageList.Add(Resources.Load<Sprite>("UI/Bag/Box8"));
+
             PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion1"));
             PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion2"));
             PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion3"));
@@ -79,6 +89,12 @@ namespace Game
         {
             return ComBoxList[quanlity];
         }
+
+        public Sprite GetBoxImage(int quanlity)
+        {
+            return BoxImageList[quanlity - 1];
+        }
+
 
         public Com_Box CreateComBox(BoxItem item)
         {

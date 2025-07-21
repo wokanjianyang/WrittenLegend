@@ -28,6 +28,11 @@ public class Panel_Devour_Dark : MonoBehaviour
 
     public Button Btn_OK;
 
+    int Cycle = 3;
+    int MinQuality = 8;
+    int StartPart = 1013;
+    int StartLayer = 1;
+
     private const int MaxMain = 6; //10件装备
     private const int MaxMaterial = 24;
 
@@ -110,13 +115,13 @@ public class Panel_Devour_Dark : MonoBehaviour
             return;
         }
 
-        int maxLevel = user.GetExclusiveLimit();
+        int maxLevel = user.GetExclusiveLimit() + StartLayer;
 
         IDictionary<int, ExclusiveItem> dict = user.ExclusivePanelList[user.ExclusiveIndex];
 
         for (int BoxId = 0; BoxId < MaxMain; BoxId++)
         {
-            int postion = BoxId + 15;
+            int postion = BoxId + StartPart;
 
             var bagBox = this.ds_Panel.content.GetChild(BoxId);
             if (bagBox == null || !dict.ContainsKey(postion))
@@ -126,7 +131,7 @@ public class Panel_Devour_Dark : MonoBehaviour
 
             ExclusiveItem exclusive = dict[postion];
 
-            if (exclusive.GetQuality() < 5) //|| exclusive.GetLayer() >= maxLevel
+            if (exclusive.GetQuality() < MinQuality) //|| exclusive.GetLayer() >= maxLevel
             {
                 continue;
             }
@@ -153,7 +158,7 @@ public class Panel_Devour_Dark : MonoBehaviour
         {
             ExclusiveItem exclusiveMain = e.Box.BoxItem.Item as ExclusiveItem;
 
-            int maxLevel = GameProcessor.Inst.User.GetExclusiveLimit();
+            int maxLevel = GameProcessor.Inst.User.GetExclusiveLimit() + StartLayer;
 
             if (exclusiveMain.GetLayer() >= maxLevel)
             {
@@ -187,10 +192,10 @@ public class Panel_Devour_Dark : MonoBehaviour
         ExclusiveItem exclusiveMain = SelectMain.BoxItem.Item as ExclusiveItem;
 
         int nextLayer = exclusiveMain.GetLayer();
-        this.config = ExclusiveDevourConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Level == nextLayer).FirstOrDefault();
+        this.config = ExclusiveDevourConfigCategory.Instance.GetByCycleAndLevel(this.Cycle, nextLayer);
 
         this.Check();
-        int maxLevel = GameProcessor.Inst.User.GetExclusiveLimit();
+        int maxLevel = GameProcessor.Inst.User.GetExclusiveLimit() + StartLayer;
 
         if (nextLayer >= maxLevel) //不能超过上限
         {
@@ -215,7 +220,7 @@ public class Panel_Devour_Dark : MonoBehaviour
         //选择符合条件的exclusive
         User user = GameProcessor.Inst.User;
 
-        List<BoxItem> list = user.Bags.Where(m => m.Item.Type == ItemType.Exclusive && m.Item.GetQuality() == 5 && !m.Item.IsLock).ToList();
+        List<BoxItem> list = user.Bags.Where(m => m.Item.Type == ItemType.Exclusive && m.Item.GetQuality() == MinQuality && !m.Item.IsLock).ToList();
         //Debug.Log("es:" + list.Count);
         int BoxId = 0;
         for (int i = 0; i < list.Count; i++)
@@ -275,6 +280,9 @@ public class Panel_Devour_Dark : MonoBehaviour
                 this.check = false;
             }
 
+            ItemConfig itemConfig = ItemConfigCategory.Instance.Get(ItemIdList[i]);
+
+            TxtCommissionNameList[i].text = itemConfig.Name;
             TxtCommissionCountList[i].text = string.Format("<color={0}>({1}/{2})</color>", color, count, MaxCount);
         }
     }

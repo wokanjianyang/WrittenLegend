@@ -1033,6 +1033,8 @@ namespace Game
             int speicalStone = 0;
             int exclusiveStone = 0;
             int cardStone = 0;
+            int exclusiveGoldenStone = 0;
+            int exclusiveDarkStone = 0;
 
             Dictionary<int, int> recoveryDict = new Dictionary<int, int>();
 
@@ -1069,7 +1071,20 @@ namespace Game
                 }
                 else if (box.Item.Type == ItemType.Exclusive)
                 {
-                    exclusiveStone += box.Item.GetQuality() * 1;
+                    ExclusiveItem exclusive = box.Item as ExclusiveItem;
+
+                    if (exclusive.ExclusiveConfig.Cycle == 2 && exclusive.GetQuality() >= 7)
+                    {
+                        exclusiveGoldenStone += 1;
+                    }
+                    else if (exclusive.ExclusiveConfig.Cycle == 3 && exclusive.GetQuality() >= 8)
+                    {
+                        exclusiveDarkStone += 1;
+                    }
+                    else
+                    {
+                        exclusiveStone += box.Item.GetQuality() * 1;
+                    }
                 }
                 else if (box.Item.Type == ItemType.Card)
                 {
@@ -1105,6 +1120,18 @@ namespace Game
                 Item exStoneItem = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Stone, exclusiveStone);
                 AddBoxItem(exStoneItem);
                 itemList.Add(exStoneItem);
+            }
+            if (exclusiveGoldenStone > 0)
+            {
+                Item exgStoneItem = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Golden, exclusiveGoldenStone);
+                AddBoxItem(exgStoneItem);
+                itemList.Add(exgStoneItem);
+            }
+            if (exclusiveDarkStone > 0)
+            {
+                Item exdStoneItem = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Dark, exclusiveDarkStone);
+                AddBoxItem(exdStoneItem);
+                itemList.Add(exdStoneItem);
             }
             if (speicalStone > 0)
             {

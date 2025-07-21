@@ -28,9 +28,10 @@ public class Panel_Devour_Golden : MonoBehaviour
 
     public Button Btn_OK;
 
+    int Cycle = 2;
     int MinQuality = 7;
     int StartPart = 1007;
-    int StartLayer = 0;
+    int StartLayer = 1;
 
     private const int MaxMain = 6; //10¼þ×°±¸
     private const int MaxMaterial = 24;
@@ -191,7 +192,7 @@ public class Panel_Devour_Golden : MonoBehaviour
         ExclusiveItem exclusiveMain = SelectMain.BoxItem.Item as ExclusiveItem;
 
         int nextLayer = exclusiveMain.GetLayer();
-        this.config = ExclusiveDevourConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Level == nextLayer).FirstOrDefault();
+        this.config = ExclusiveDevourConfigCategory.Instance.GetByCycleAndLevel(this.Cycle, nextLayer);
 
         this.Check();
         int maxLevel = GameProcessor.Inst.User.GetExclusiveLimit() + StartLayer;
@@ -279,6 +280,9 @@ public class Panel_Devour_Golden : MonoBehaviour
                 this.check = false;
             }
 
+            ItemConfig itemConfig = ItemConfigCategory.Instance.Get(ItemIdList[i]);
+
+            TxtCommissionNameList[i].text = itemConfig.Name;
             TxtCommissionCountList[i].text = string.Format("<color={0}>({1}/{2})</color>", color, count, MaxCount);
         }
     }
