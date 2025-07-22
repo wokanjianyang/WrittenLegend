@@ -162,11 +162,11 @@ namespace Game
 
             double skillRate = 1 + SkillPanel.Percent / 100;
 
-            Debug.Log("普通继承属性比例 InheritIncrea:" + InheritIncrea);
+            //Debug.Log("普通继承属性比例 InheritIncrea:" + InheritIncrea);
 
-            Debug.Log("高级继承属性比例 InheritAdvance:" + InheritAdvance);
+            //Debug.Log("高级继承属性比例 InheritAdvance:" + InheritAdvance);
 
-            Debug.Log("无极生命比例 SkillValetHp:" + valteHp);
+            //Debug.Log("无极生命比例 SkillValetHp:" + valteHp);
 
 
             //Debug.Log("valet InheritIncrea:" + InheritIncrea);

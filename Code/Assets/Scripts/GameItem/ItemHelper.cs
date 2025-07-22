@@ -40,7 +40,7 @@ namespace Game
             }
             else if (type == ItemType.Exclusive)
             {
-                item = ExclusiveHelper.Build(configId, seed);
+                item = ExclusiveHelper.Build(configId, qualityRate, seed);
             }
             else if (type == ItemType.GiftPackExclusive)
             {

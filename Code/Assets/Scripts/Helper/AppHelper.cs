@@ -15,6 +15,9 @@ namespace Game
 
         public static bool PetEgging = false;
 
+        public static int TempRecord = 0;
+        public static int TempRecord1 = 0;
+
         public static string getKey()
         {
             return "fb2d1feffd645dae1c574954fd702a80";

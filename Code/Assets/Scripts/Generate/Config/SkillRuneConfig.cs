@@ -90,74 +90,80 @@ namespace Game
 		/// <summary>技能ID</summary>
 		[ProtoMember(5)]
 		public int SkillId { get; set; }
-		/// <summary>词条名字</summary>
+		/// <summary>StartQuality</summary>
 		[ProtoMember(6)]
+		public int StartQuality { get; set; }
+		/// <summary>EndQuality</summary>
+		[ProtoMember(7)]
+		public int EndQuality { get; set; }
+		/// <summary>词条名字</summary>
+		[ProtoMember(8)]
 		public string Name { get; set; }
 		/// <summary>技能描述</summary>
-		[ProtoMember(7)]
+		[ProtoMember(9)]
 		public string Des { get; set; }
 		/// <summary>词条叠加数量</summary>
-		[ProtoMember(8)]
+		[ProtoMember(10)]
 		public int Max { get; set; }
 		/// <summary>减少冷却时间</summary>
-		[ProtoMember(9)]
+		[ProtoMember(11)]
 		public int CD { get; set; }
 		/// <summary>修改施法类型</summary>
-		[ProtoMember(10)]
+		[ProtoMember(12)]
 		public int CastType { get; set; }
 		/// <summary>增加攻击距离</summary>
-		[ProtoMember(11)]
+		[ProtoMember(13)]
 		public int Dis { get; set; }
 		/// <summary>修改攻击区域</summary>
-		[ProtoMember(12)]
+		[ProtoMember(14)]
 		public string Area { get; set; }
 		/// <summary>持续时间</summary>
-		[ProtoMember(13)]
+		[ProtoMember(15)]
 		public int Duration { get; set; }
 		/// <summary>增加最大敌人数量</summary>
-		[ProtoMember(14)]
+		[ProtoMember(16)]
 		public int EnemyMax { get; set; }
 		/// <summary>行</summary>
-		[ProtoMember(15)]
+		[ProtoMember(17)]
 		public int Row { get; set; }
 		/// <summary>列</summary>
-		[ProtoMember(16)]
+		[ProtoMember(18)]
 		public int Column { get; set; }
 		/// <summary>增加伤害比例</summary>
-		[ProtoMember(17)]
+		[ProtoMember(19)]
 		public int Percent { get; set; }
 		/// <summary>固定伤害</summary>
-		[ProtoMember(18)]
+		[ProtoMember(20)]
 		public int Damage { get; set; }
 		/// <summary>无视防御</summary>
-		[ProtoMember(19)]
+		[ProtoMember(21)]
 		public int IgnoreDef { get; set; }
 		/// <summary>暴击率</summary>
-		[ProtoMember(20)]
+		[ProtoMember(22)]
 		public int CritRate { get; set; }
 		/// <summary>暴击倍率</summary>
-		[ProtoMember(21)]
+		[ProtoMember(23)]
 		public int CritDamage { get; set; }
 		/// <summary>伤害加成</summary>
-		[ProtoMember(22)]
+		[ProtoMember(24)]
 		public int DamageIncrea { get; set; }
 		/// <summary>攻击加成</summary>
-		[ProtoMember(23)]
+		[ProtoMember(25)]
 		public int AttrIncrea { get; set; }
 		/// <summary>最终加成</summary>
-		[ProtoMember(24)]
+		[ProtoMember(26)]
 		public int FinalIncrea { get; set; }
 		/// <summary>继承加成</summary>
-		[ProtoMember(25)]
+		[ProtoMember(27)]
 		public int InheritIncrea { get; set; }
 		/// <summary>附带效果</summary>
-		[ProtoMember(26)]
+		[ProtoMember(28)]
 		public int EffectId { get; set; }
 		/// <summary>系数倍率</summary>
-		[ProtoMember(27)]
+		[ProtoMember(29)]
 		public int PercentRate { get; set; }
 		/// <summary>SkillLayer</summary>
-		[ProtoMember(28)]
+		[ProtoMember(30)]
 		public int SkillLayer { get; set; }
 
 	}

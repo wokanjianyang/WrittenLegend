@@ -20,13 +20,13 @@ namespace Game
             return level * (level + 1) / 2;
         }
 
-        public static double ConvertionDropRate(long rate)
+        public static double ConvertionDropRate(long rate, int rise)
         {
             double r = 0;
 
             for (int i = 1; i < 1000; i++)
             {
-                int pr = i * 100;
+                int pr = (i - 1) * rise + 100;
 
                 if (rate >= pr)
                 {
@@ -81,7 +81,8 @@ namespace Game
             return count;
         }
 
-        public static double CalRealResist(double val) {
+        public static double CalRealResist(double val)
+        {
             double r = 0;
 
             while (val > 0)

@@ -108,6 +108,32 @@ namespace Game
             return this.list.Where(m => (m.SkillId == skillId) || (m.SkillLayer == skillLayer)).ToList();
 
         }
+
+        public SkillRuneConfig GetExclusiveRune(int quality, int seed)
+        {
+            List<SkillRuneConfig> tempList = this.list.Where(m => m.StartQuality <= quality && quality <= m.EndQuality).ToList();
+
+            if (tempList.Count == 1)
+            {
+                return tempList[0];
+            }
+
+            int maxRate = tempList.Select(m => m.BuildRate).Sum();
+            int rd = RandomHelper.RandomNumber(seed, 1, maxRate + 1);
+
+            int tempRate = 0;
+            for (int i = 0; i < tempList.Count; i++)
+            {
+                tempRate += tempList[i].BuildRate;
+
+                if (rd <= tempRate)
+                {
+                    return tempList[i];
+                }
+            }
+
+            return null;
+        }
     }
 
 
