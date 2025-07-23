@@ -194,6 +194,25 @@ public class ViewForgeProcessor : AViewPage
         {
             toggle_Stone.gameObject.SetActive(false);
         }
+
+
+        if (user.MapId >= 1130)
+        {
+            toggle_ExclusiveGold.gameObject.SetActive(true);
+        }
+        else
+        {
+            toggle_ExclusiveGold.gameObject.SetActive(false);
+        }
+
+        if (user.MapId >= 1164)
+        {
+            toggle_ExclusiveDark.gameObject.SetActive(true);
+        }
+        else
+        {
+            toggle_ExclusiveDark.gameObject.SetActive(false);
+        }
     }
 
     public override void OnBattleStart()

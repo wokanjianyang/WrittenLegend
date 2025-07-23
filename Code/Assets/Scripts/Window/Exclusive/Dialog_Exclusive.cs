@@ -39,6 +39,26 @@ namespace Game
         void Start()
         {
             toggle.isOn = GameProcessor.Inst.User.ExclusiveSetting;
+
+            User user = GameProcessor.Inst.User;
+
+            if (user.MapId >= 1130)
+            {
+                Toggle_Cycle_List[1].gameObject.SetActive(true);
+            }
+            else
+            {
+                Toggle_Cycle_List[1].gameObject.SetActive(false);
+            }
+
+            if (user.MapId >= 1164)
+            {
+                Toggle_Cycle_List[2].gameObject.SetActive(true);
+            }
+            else
+            {
+                Toggle_Cycle_List[2].gameObject.SetActive(false);
+            }
         }
 
         public void OnBattleStart()
