@@ -233,7 +233,7 @@ namespace Game
                     SkillData skillData = GameProcessor.Inst.User.SkillList.Where(m => m.SkillConfig.Id == skillId).FirstOrDefault();
 
 
-                    if (Master.Camp == PlayerType.Hero)
+                    if (Master.Camp == PlayerType.Hero && skillData != null)
                     {
                         User user = GameProcessor.Inst.User;
 
