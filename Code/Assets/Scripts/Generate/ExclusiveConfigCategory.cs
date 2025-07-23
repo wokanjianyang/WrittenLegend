@@ -156,7 +156,7 @@ namespace Game
 
         private static int RandomNewQuality(double qualityRate)
         {
-            int[] rates = { 1, 10, 100, 1000, 3000, 10000, 50000 };
+            int[] rates = { 1, 10, 100, 1000, 10000, 50000, 250000 };
 
             //int[] rates = { 1, 10, 200, 300, 400, 500, 600 };
 

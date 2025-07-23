@@ -34,7 +34,7 @@ public class Panel_Devour_Dark : MonoBehaviour
     int StartLayer = 1;
 
     private const int MaxMain = 6; //10¼þ×°±¸
-    private const int MaxMaterial = 24;
+    private const int MaxMaterial = 240;
 
     private bool check = false;
     private ExclusiveDevourConfig config = null;
@@ -234,7 +234,7 @@ public class Panel_Devour_Dark : MonoBehaviour
 
             BoxItem item = list[i];
             ExclusiveItem exclusive = item.Item as ExclusiveItem;
-            if (exclusive.GetLayer() > 1 || exclusive.GetLevel() > 0)
+            if (exclusive.GetLayer() > 1 || exclusive.GetLevel() > 0 || exclusive.ExclusiveConfig.Cycle != this.Cycle)
             {
                 continue;
             }

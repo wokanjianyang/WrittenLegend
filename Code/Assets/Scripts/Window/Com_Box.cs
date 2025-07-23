@@ -61,10 +61,18 @@ namespace Game
                         this.Layer.text = ConfigHelper.LayerChinaList[(exclusive.GetLayer() - 1)] + "阶"; ;
                         this.Layer.gameObject.SetActive(true);
                     }
-                    if (exclusive.GetLevel() > 0)
+                    else if (exclusive.GetLevel() > 0)
                     {
                         this.tmp_Count.text = exclusive.GetLevel() + "级";
                         this.tmp_Count.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        if (exclusive.SkillRuneConfig != null && exclusive.SkillRuneConfig.Name.Length >= 2)
+                        {
+                            this.tmp_Count.text = exclusive.SkillRuneConfig.Name.Substring(0, 2);
+                            this.tmp_Count.gameObject.SetActive(true);
+                        }
                     }
                 }
                 else if (BoxItem.Item.Type == ItemType.Equip)

@@ -32,7 +32,7 @@ public class Panel_Devour : MonoBehaviour
     int StartLayer = 2;
 
     private const int MaxMain = 6; //10¼þ×°±¸
-    private const int MaxMaterial = 24;
+    private const int MaxMaterial = 240;
 
     private bool check = false;
     private ExclusiveDevourConfig config = null;
