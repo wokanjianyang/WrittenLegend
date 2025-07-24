@@ -23,4 +23,10 @@
 {"_t":"ExclusiveConfig","_id":22,"Name":"永恒屠龙","Cycle":4,"Part":1022,"Type":4,"Level":1,"StartQuality":1,"EndQuality":8,"RuneId":-1,"SuitId":-1},
 {"_t":"ExclusiveConfig","_id":23,"Name":"永恒倚天","Cycle":4,"Part":1023,"Type":4,"Level":1,"StartQuality":1,"EndQuality":8,"RuneId":-1,"SuitId":-1},
 {"_t":"ExclusiveConfig","_id":24,"Name":"永恒天命","Cycle":4,"Part":1024,"Type":4,"Level":1,"StartQuality":1,"EndQuality":8,"RuneId":-1,"SuitId":-1},
+{"_t":"ExclusiveConfig","_id":1000001,"Name":"神圣怒斩","Cycle":0,"Part":15,"Type":1,"Level":1,"StartQuality":1,"EndQuality":1,"RuneId":14,"SuitId":10010},
+{"_t":"ExclusiveConfig","_id":1000002,"Name":"神圣怒斩","Cycle":0,"Part":15,"Type":1,"Level":1,"StartQuality":1,"EndQuality":1,"RuneId":15,"SuitId":10024},
+{"_t":"ExclusiveConfig","_id":1000003,"Name":"神圣怒斩","Cycle":0,"Part":15,"Type":1,"Level":1,"StartQuality":1,"EndQuality":1,"RuneId":16,"SuitId":10038},
+{"_t":"ExclusiveConfig","_id":1000004,"Name":"神圣噬魂","Cycle":0,"Part":16,"Type":1,"Level":1,"StartQuality":1,"EndQuality":1,"RuneId":14,"SuitId":10010},
+{"_t":"ExclusiveConfig","_id":1000005,"Name":"神圣噬魂","Cycle":0,"Part":16,"Type":1,"Level":1,"StartQuality":1,"EndQuality":1,"RuneId":15,"SuitId":10024},
+{"_t":"ExclusiveConfig","_id":1000006,"Name":"神圣噬魂","Cycle":0,"Part":16,"Type":1,"Level":1,"StartQuality":1,"EndQuality":1,"RuneId":16,"SuitId":10038},
 ]}

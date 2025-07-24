@@ -887,11 +887,22 @@ namespace Game
             this.SkillNumber = ConfigHelper.SkillNumber;
 
             //专属
-            if (this.ExclusivePanelList[ExclusiveIndex].Count >= 6)
+            if (this.ExclusivePanelList[ExclusiveIndex].Select(m => m.Key <= 6).Count() >= 6)
             {
                 this.SkillNumber += 1;
             }
 
+            List<ExclusiveSuitConfig> exclusiveSuits = ExclusiveSuitConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
+            for (int i = 0; i < exclusiveSuits.Count; i++)
+            {
+                ExclusiveSuitConfig exclusiveSuit = exclusiveSuits[i];
+                int esc = this.ExclusivePanelList[ExclusiveIndex].Where(m => exclusiveSuit.StartPart <= m.Key && m.Key <= exclusiveSuit.EndPart).Count();
+                Debug.Log("exclusive suit " + i + " " + esc);
+                if (esc >= 6)
+                {
+                    AttributeBonus.SetAttr((AttributeEnum)exclusiveSuit.AttrId, AttributeFrom.Exclusive, 100, exclusiveSuit.AttrValue);
+                }
+            }
 
 
             //成就

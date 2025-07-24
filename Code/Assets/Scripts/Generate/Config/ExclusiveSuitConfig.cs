@@ -84,14 +84,20 @@ namespace Game
 		/// <summary>Cycle</summary>
 		[ProtoMember(3)]
 		public int Cycle { get; set; }
-		/// <summary>AttrId</summary>
+		/// <summary>StartPart</summary>
 		[ProtoMember(4)]
+		public int StartPart { get; set; }
+		/// <summary>EndPart</summary>
+		[ProtoMember(5)]
+		public int EndPart { get; set; }
+		/// <summary>AttrId</summary>
+		[ProtoMember(6)]
 		public int AttrId { get; set; }
 		/// <summary>AttrValue</summary>
-		[ProtoMember(5)]
+		[ProtoMember(7)]
 		public int AttrValue { get; set; }
 		/// <summary>Desc</summary>
-		[ProtoMember(6)]
+		[ProtoMember(8)]
 		public string Desc { get; set; }
 
 	}
