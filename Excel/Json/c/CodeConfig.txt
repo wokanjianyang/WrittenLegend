@@ -7,6 +7,10 @@
 {"_t":"CodeConfig","_id":6,"Type":1,"code":"qq2000","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013],"ItemQuanlityList":[2888,288,288]},
 {"_t":"CodeConfig","_id":41,"Type":1,"code":"gx389","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013],"ItemQuanlityList":[1000,100,100]},
 {"_t":"CodeConfig","_id":42,"Type":1,"code":"anyu389","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013],"ItemQuanlityList":[20000,2000,1600]},
+{"_t":"CodeConfig","_id":43,"Type":1,"code":"gx390","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013],"ItemQuanlityList":[1000,100,100]},
+{"_t":"CodeConfig","_id":44,"Type":1,"code":"bc389","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013],"ItemQuanlityList":[1000,100,100]},
+{"_t":"CodeConfig","_id":45,"Type":1,"code":"gx391","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013],"ItemQuanlityList":[1000,100,100]},
+{"_t":"CodeConfig","_id":46,"Type":1,"code":"bc390","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013],"ItemQuanlityList":[1000,100,100]},
 {"_t":"CodeConfig","_id":109,"Type":1,"code":"anyu13tb","ItemTypeList":[9,5,9,4,4],"ItemIdList":[4003,4004,4013,28,26],"ItemQuanlityList":[5888,588,500,5,5]},
 {"_t":"CodeConfig","_id":10001,"Type":99,"code":"dki309d!34","ItemTypeList":[99],"ItemIdList":[0],"ItemQuanlityList":[360]},
 {"_t":"CodeConfig","_id":10002,"Type":99,"code":"z#y9kdckp4","ItemTypeList":[99],"ItemIdList":[0],"ItemQuanlityList":[360]},
@@ -361,4 +365,7 @@
 {"_t":"CodeConfig","_id":25707,"Type":1,"code":"jn12o13","ItemTypeList":[4],"ItemIdList":[42],"ItemQuanlityList":[1]},
 {"_t":"CodeConfig","_id":25708,"Type":1,"code":"jn12o14","ItemTypeList":[4],"ItemIdList":[42],"ItemQuanlityList":[1]},
 {"_t":"CodeConfig","_id":25709,"Type":1,"code":"jn12o15","ItemTypeList":[4],"ItemIdList":[42],"ItemQuanlityList":[1]},
+{"_t":"CodeConfig","_id":25801,"Type":1,"code":"zso1","ItemTypeList":[4,4],"ItemIdList":[95,106],"ItemQuanlityList":[6,10]},
+{"_t":"CodeConfig","_id":25802,"Type":1,"code":"zso2","ItemTypeList":[4,4],"ItemIdList":[95,106],"ItemQuanlityList":[6,10]},
+{"_t":"CodeConfig","_id":25803,"Type":1,"code":"zso3","ItemTypeList":[4,4],"ItemIdList":[95,106],"ItemQuanlityList":[6,10]},
 ]}

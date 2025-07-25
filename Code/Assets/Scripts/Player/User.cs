@@ -897,7 +897,7 @@ namespace Game
             {
                 ExclusiveSuitConfig exclusiveSuit = exclusiveSuits[i];
                 int esc = this.ExclusivePanelList[ExclusiveIndex].Where(m => exclusiveSuit.StartPart <= m.Key && m.Key <= exclusiveSuit.EndPart).Count();
-                Debug.Log("exclusive suit " + i + " " + esc);
+                //Debug.Log("exclusive suit " + i + " " + esc);
                 if (esc >= 6)
                 {
                     AttributeBonus.SetAttr((AttributeEnum)exclusiveSuit.AttrId, AttributeFrom.Exclusive, 100, exclusiveSuit.AttrValue);

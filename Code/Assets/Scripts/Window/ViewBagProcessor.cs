@@ -829,7 +829,7 @@ namespace Game
                     newList.Add(item);
                 }
 
-                Dictionary<int, int> useMeterial = ExclusiveDevourConfigCategory.Instance.GetUseList(oldExclusive.GetLayer());
+                Dictionary<int, int> useMeterial = ExclusiveDevourConfigCategory.Instance.GetUseList(oldExclusive.ExclusiveConfig.Cycle, oldExclusive.GetLayer());
                 foreach (KeyValuePair<int, int> kv in useMeterial)
                 {
                     //int mc = Math.Max(1, (int)(kv.Value * 0.8));
@@ -1541,7 +1541,7 @@ namespace Game
             if (ep.ContainsKey(Position))
             {
                 //装备栏卸载
-                SlotBox slot = ExclusiveDialog.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == Position).FirstOrDefault();
+                SlotBox slot = ExclusiveDialog.ItemList.Where(s => s.Part == Position).FirstOrDefault();
 
                 if (slot != null)
                 {
@@ -1584,7 +1584,7 @@ namespace Game
             }
             else if (position >= 15 && position <= 20)
             {
-                slot = ExclusiveDialog.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+                slot = ExclusiveDialog.ItemList.Where(s => s.Part == position).First();
             }
             else if (position >= 21 && position <= 30)
             {
@@ -1666,7 +1666,7 @@ namespace Game
             }
             else if (position >= 15 && position <= 20)
             {
-                slot = ExclusiveDialog.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+                slot = ExclusiveDialog.ItemList.Where(s => s.Part == position).First();
             }
             else if (position >= 21 && position <= 30)
             {

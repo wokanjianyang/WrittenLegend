@@ -12,11 +12,11 @@ namespace Game
             return this.list.Where(m => m.Cycle == cycle && m.Level == level).First();
         }
 
-        public Dictionary<int, int> GetUseList(int level)
+        public Dictionary<int, int> GetUseList(int cycle, int level)
         {
             Dictionary<int, int> useList = new Dictionary<int, int>();
 
-            List<ExclusiveDevourConfig> configs = this.list.Where(m => m.Level < level).ToList();
+            List<ExclusiveDevourConfig> configs = this.list.Where(m => m.Cycle == cycle && m.Level < level).ToList();
 
             foreach (ExclusiveDevourConfig config in configs)
             {

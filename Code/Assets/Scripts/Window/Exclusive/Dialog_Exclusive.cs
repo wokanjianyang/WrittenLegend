@@ -145,7 +145,7 @@ namespace Game
 
         private void Show()
         {
-            Debug.Log("exclusive show");
+            //Debug.Log("exclusive show");
             List<ExclusiveConfig> configs = ExclusiveConfigCategory.Instance.GetByCycle(CycleIndex + 1);
 
             User user = GameProcessor.Inst.User;

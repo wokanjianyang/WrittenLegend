@@ -97,9 +97,12 @@ namespace Game
 
             ExclusiveAttrConfig attrConfig = ExclusiveAttrConfigCategory.Instance.GetAttr(ExclusiveConfig.Cycle, layer);
 
-            for (int i = 0; i < attrConfig.AttrIdList.Length; i++)
+            if (attrConfig != null)
             {
-                BaseAttrList.Add(attrConfig.AttrIdList[i], attrConfig.AttrValueList[i] * Quality + attrConfig.AttchValueList[i] * level);
+                for (int i = 0; i < attrConfig.AttrIdList.Length; i++)
+                {
+                    BaseAttrList.Add(attrConfig.AttrIdList[i], attrConfig.AttrValueList[i] * Quality + attrConfig.AttchValueList[i] * level);
+                }
             }
 
             return BaseAttrList;
