@@ -1584,7 +1584,7 @@ namespace Game
             }
             else if (position >= 15 && position <= 20)
             {
-                slot = ExclusiveDialog.ItemList.Where(s => s.Part == position).First();
+                //slot = ExclusiveDialog.ItemList.Where(s => s.Part == position).First();
             }
             else if (position >= 21 && position <= 30)
             {
