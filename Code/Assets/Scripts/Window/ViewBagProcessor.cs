@@ -1631,6 +1631,11 @@ namespace Game
                 slot = DialogEquipDarkGold.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
 
+            if (slot.GetEquip() != null) //防止叠加，无限刷道具
+            {
+                return;
+            }
+
             //生成格子
             BoxItem boxItem = new BoxItem();
             boxItem.Item = equip;

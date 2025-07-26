@@ -174,6 +174,11 @@ namespace Game
 
         private void CreateEquipPanelItem(SlotBox slot, ExclusiveConfig config, Item equip)
         {
+            if (slot.GetEquip() != null) //防止叠加，无限刷道具
+            {
+                return;
+            }
+
             //生成格子
             BoxItem boxItem = new BoxItem();
             boxItem.Item = equip;
