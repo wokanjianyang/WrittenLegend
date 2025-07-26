@@ -52,7 +52,7 @@ namespace Game
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Wing_Stone, 1200));  //羽毛
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Pill_Ticket, 100));  //幻境劵
 
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Stone, 1000)); //专属碎片
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Shuye3, 100)); //专属碎片
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Heart, 100)); //专属之心
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_EquipRefineStone, 1999999999)); //四格碎片
 
@@ -522,7 +522,7 @@ namespace Game
             //-------书页汇总-----------
             if (skillBox > 0)
             {
-                itemList.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Moon_Cake, skillBox));
+                itemList.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Shuye1, skillBox));
                 message += $"，<color=#{QualityConfigHelper.GetQualityColor(3)}>[{"书页"}]</color>" + skillBox + "个";
             }
 

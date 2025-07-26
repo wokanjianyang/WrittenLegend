@@ -253,7 +253,7 @@ public class Dialog_Pet_Travel : MonoBehaviour
         //-------书页汇总-----------
         if (skillBox > 0)
         {
-            itemList.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Moon_Cake, skillBox));
+            itemList.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Shuye1, skillBox));
             message += $"，<color=#{QualityConfigHelper.GetQualityColor(3)}>[{"书页"}]</color>" + skillBox + "个";
         }
 

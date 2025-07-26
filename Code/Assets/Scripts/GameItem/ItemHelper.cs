@@ -113,7 +113,6 @@ namespace Game
         public static int SpecialId_Copy_Ticket = 4003; //装备副本卷
         public static int SpecialId_Boss_Ticket = 4004; //BOSS挑战卷
         public static int SpecialId_Exclusive_Stone = 4005; //专属碎片
-        public static int SpecialId_Moon_Cake = 4006; //书页
         public static int SpecialId_Equip_Speical_Stone = 4007; //四格碎片
         public static int SpecialId_Wing_Stone = 4008; //凤凰之羽
         //public static int SpecialId_Exclusive_Core = 4009; //专属精华
@@ -140,9 +139,12 @@ namespace Game
         public static int SpecialId_Stone_Set = 4027; //魂宠口粮
 
         public static int SpecialId_Card_Stone = 4101;
-        public static int SpecialId_Skil_Advance = 4102;
 
         public static int SpecialId_Chunjie = 4111;
+
+        public static int SpecialId_Shuye1 = 4006; //书页
+        public static int SpecialId_Shuye2 = 4102;
+        public static int SpecialId_Shuye3 = 4112;
 
         public static int SpecailEquipRefreshId = 4201; //橙装精华
 
