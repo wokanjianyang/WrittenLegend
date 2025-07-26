@@ -29,10 +29,10 @@ namespace Game
             Txt_Name.text = name;
         }
 
-        public void Up(BoxItem boxItem)
+        public void Up(BoxItem boxItem, int cycle)
         {
             Txt_Name.gameObject.SetActive(false);
-            BoxSelect.SetItem(boxItem, ComBoxType.Box_Ready);
+            BoxSelect.SetItem(boxItem, ComBoxType.Box_Ready, cycle);
             BoxSelect.gameObject.SetActive(true);
         }
 

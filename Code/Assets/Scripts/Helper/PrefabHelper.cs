@@ -107,11 +107,11 @@ namespace Game
             return comItem;
         }
 
-        public Box_Select CreateBoxSelect(Transform parent, BoxItem item, ComBoxType type)
+        public Box_Select CreateBoxSelect(Transform parent, BoxItem item, ComBoxType type, int cycle)
         {
             var go = GameObject.Instantiate(BoxSelectPrefab);
             Box_Select comItem = go.GetComponent<Box_Select>();
-            comItem.SetItem(item, type);
+            comItem.SetItem(item, type, cycle);
 
             comItem.transform.SetParent(parent);
             comItem.transform.localPosition = Vector3.zero;

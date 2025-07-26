@@ -22,6 +22,8 @@ namespace Game
 
         public ComBoxType Type { get; set; } = ComBoxType.Bag;
 
+        public int Cycle = 0;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -39,10 +41,11 @@ namespace Game
             this.ShowName();
         }
 
-        public void SetItem(BoxItem item, ComBoxType type)
+        public void SetItem(BoxItem item, ComBoxType type, int cycle)
         {
             this.BoxItem = item;
             this.Type = type;
+            this.Cycle = cycle;
 
             this.Txt_Name.text = item.Item.Name;
 
@@ -104,22 +107,22 @@ namespace Game
 
             if (this.Type == ComBoxType.Exclusive_Up_Main)
             {
-                GameProcessor.Inst.EventCenter.Raise(new BoxSelectEvent() { Box = this, Type = this.Type });
+                GameProcessor.Inst.EventCenter.Raise(new BoxSelectEvent() { Box = this, Type = this.Type, Cycle = this.Cycle });
                 return;
             }
             else if (this.Type == ComBoxType.Exclusive_Up_Material)
             {
-                GameProcessor.Inst.EventCenter.Raise(new BoxSelectEvent() { Box = this, Type = this.Type });
+                GameProcessor.Inst.EventCenter.Raise(new BoxSelectEvent() { Box = this, Type = this.Type, Cycle = this.Cycle });
                 return;
             }
             else if (this.Type == ComBoxType.Exclusive_Devour_Main)
             {
-                GameProcessor.Inst.EventCenter.Raise(new BoxSelectEvent() { Box = this, Type = this.Type });
+                GameProcessor.Inst.EventCenter.Raise(new BoxSelectEvent() { Box = this, Type = this.Type, Cycle = this.Cycle });
                 return;
             }
             else if (this.Type == ComBoxType.Exclusive_Devour_Material)
             {
-                GameProcessor.Inst.EventCenter.Raise(new BoxSelectEvent() { Box = this, Type = this.Type });
+                GameProcessor.Inst.EventCenter.Raise(new BoxSelectEvent() { Box = this, Type = this.Type, Cycle = this.Cycle });
                 return;
             }
             else if (this.Type == ComBoxType.Box_Ready)

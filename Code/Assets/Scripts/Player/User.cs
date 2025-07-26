@@ -1238,7 +1238,7 @@ namespace Game
 
             //suit.Self = new ExclusiveSuitItem(config.Id, config.Name, true);
 
-            List<ExclusiveConfig> configs = ExclusiveConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Type == config.Type).ToList();
+            List<ExclusiveConfig> configs = ExclusiveConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Cycle == config.Cycle).ToList();
 
             foreach (ExclusiveConfig item in configs)
             {

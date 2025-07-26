@@ -27,6 +27,7 @@ public class Panel_Exclusive_Up : MonoBehaviour
 
     public Button Btn_OK;
 
+    private int Cycle = 1;
     private const int MaxMain = 6; //10¼þ×°±¸
     private const int MaxMaterial = 24;
 
@@ -132,7 +133,7 @@ public class Panel_Exclusive_Up : MonoBehaviour
             boxItem.Item = exclusive;
             boxItem.MagicNubmer.Data = 1;
 
-            Box_Select box = PrefabHelper.Instance().CreateBoxSelect(bagBox, boxItem, ComBoxType.Exclusive_Up_Main);
+            Box_Select box = PrefabHelper.Instance().CreateBoxSelect(bagBox, boxItem, ComBoxType.Exclusive_Up_Main, this.Cycle);
             this.items.Add(box);
         }
 
@@ -142,17 +143,22 @@ public class Panel_Exclusive_Up : MonoBehaviour
 
     private void OnBoxSelect(BoxSelectEvent e)
     {
+        if (e.Cycle != this.Cycle)
+        {
+            return;
+        }
+
         if (e.Type == ComBoxType.Exclusive_Up_Main)
         {
             this.SelectMain = e.Box;
-            Box_Ready_Main.Up(e.Box.BoxItem);
+            Box_Ready_Main.Up(e.Box.BoxItem, this.Cycle);
 
             this.ShowMain();
         }
         else if (e.Type == ComBoxType.Exclusive_Up_Material)
         {
             this.SelectMaterial = e.Box;
-            Box_Ready_Material.Up(e.Box.BoxItem);
+            Box_Ready_Material.Up(e.Box.BoxItem, this.Cycle);
 
             this.ShowMaterial();
         }
@@ -211,7 +217,7 @@ public class Panel_Exclusive_Up : MonoBehaviour
 
             BoxItem item = list[i];
             ExclusiveItem exclusive = item.Item as ExclusiveItem;
-            if (exclusive.GetLayer() > 1)
+            if (exclusive.GetLayer() > 1 || exclusive.GetLevel() > 0 || exclusive.ExclusiveConfig.Cycle != this.Cycle)
             {
                 continue;
             }
@@ -220,7 +226,7 @@ public class Panel_Exclusive_Up : MonoBehaviour
                 continue;
             }
 
-            Box_Select box = PrefabHelper.Instance().CreateBoxSelect(bagBox, item, ComBoxType.Exclusive_Up_Material);
+            Box_Select box = PrefabHelper.Instance().CreateBoxSelect(bagBox, item, ComBoxType.Exclusive_Up_Material, this.Cycle);
             this.sourceList.Add(box);
 
             BoxId++;
