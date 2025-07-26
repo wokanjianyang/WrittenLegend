@@ -56,21 +56,25 @@ namespace Game
                 if (BoxItem.Item.Type == ItemType.Exclusive)
                 {
                     ExclusiveItem exclusive = BoxItem.Item as ExclusiveItem;
-                    if (exclusive.GetLayer() > 1)
-                    {
-                        this.Layer.text = ConfigHelper.LayerChinaList[(exclusive.GetLayer() - 1)] + "阶"; ;
-                        this.Layer.gameObject.SetActive(true);
-                    }
-                    else if (exclusive.GetLevel() > 0)
-                    {
-                        this.tmp_Count.text = exclusive.GetLevel() + "级";
-                        this.tmp_Count.gameObject.SetActive(true);
-                    }
-                    else
+
+                    if (exclusive.GetLayer() <= 1 && exclusive.GetLevel() <= 0)
                     {
                         if (exclusive.SkillRuneConfig != null && exclusive.SkillRuneConfig.Name.Length >= 2)
                         {
                             this.tmp_Count.text = exclusive.SkillRuneConfig.Name.Substring(0, 2);
+                            this.tmp_Count.gameObject.SetActive(true);
+                        }
+                    }
+                    else
+                    {
+                        if (exclusive.GetLayer() > 1)
+                        {
+                            this.Layer.text = ConfigHelper.LayerChinaList[(exclusive.GetLayer() - 1)] + "阶"; ;
+                            this.Layer.gameObject.SetActive(true);
+                        }
+                        if (exclusive.GetLevel() > 0)
+                        {
+                            this.tmp_Count.text = exclusive.GetLevel() + "级";
                             this.tmp_Count.gameObject.SetActive(true);
                         }
                     }
