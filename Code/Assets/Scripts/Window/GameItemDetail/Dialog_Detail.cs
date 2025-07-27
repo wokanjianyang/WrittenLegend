@@ -76,6 +76,8 @@ namespace Game
         {
             this.gameObject.SetActive(true);
 
+            User user = GameProcessor.Inst.User;
+
             this.Btn_Recovery.gameObject.SetActive(false);
             this.Btn_Recovery_All.gameObject.SetActive(false);
             this.Btn_Lose.gameObject.SetActive(false);
@@ -100,13 +102,19 @@ namespace Game
             long number = this.boxItem.MagicNubmer.Data;
 
             string color = "green";
+
+            if (user.Cycle.Data < this.boxItem.Item.Level)
+            {
+                color = "red";
+            }
+
             if (this.boxItem.Item.ItemConfig != null)
             {
                 Txt_Memo.text = this.boxItem.Item.ItemConfig.Des;
             }
-            Txt_NeedLevel.text = string.Format("<color={0}>需要等级{1}</color>", color, this.boxItem.Item.Level);
+            Txt_NeedLevel.text = string.Format("<color={0}>需要轮回{1}转</color>", color, this.boxItem.Item.Level);
 
-            User user = GameProcessor.Inst.User;
+
 
             switch ((ItemType)this.boxItem.Item.Type)
             {
@@ -189,7 +197,7 @@ namespace Game
                 }
             }
 
-            if (this.BoxType != ComBoxType.Bag) //不可操作
+            if (this.BoxType != ComBoxType.Bag || user.Cycle.Data < this.boxItem.Item.Level) //不可操作
             {
                 this.Btn_Recovery.gameObject.SetActive(false);
                 this.Btn_Recovery_All.gameObject.SetActive(false);

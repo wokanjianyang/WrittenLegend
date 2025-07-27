@@ -78,7 +78,7 @@ public class Item_Exchange : MonoBehaviour
 
             if (i == 0)
             {
-                count = user.Bags.Where(m => m.Item.Type == ItemType.Exclusive && m.Item.GetQuality() == 5 && !m.Item.IsLock).Count();
+                count = user.Bags.Where(m => m.Item.Type == ItemType.Exclusive && m.Item.GetQuality() == 5 && !m.Item.IsLock && (m.Item as ExclusiveItem).GetLevel() < 1 && (m.Item as ExclusiveItem).GetLayer() <= 1).Count();
                 MaxCount = 1;
             }
             else
