@@ -46,10 +46,10 @@ namespace Game
         {
             List<Item> items = new List<Item>();
 
-            items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Legacy_Ticket, 300)); //传世卷
-            items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Copy_Ticket, 6000)); //装备卷
-            items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, 300)); //BOSS卷
-            items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Wing_Stone, 6000));  //羽毛
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Legacy_Ticket, 300)); //传世卷
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Copy_Ticket, 6000)); //装备卷
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, 300)); //BOSS卷
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Wing_Stone, 6000));  //羽毛
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Pill_Ticket, 100));  //幻境劵
 
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Shuye3, 100)); //专属碎片
@@ -73,7 +73,7 @@ namespace Game
 
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Pill, 6000000));
 
-            user.SaveArtifactLevel(180001, 1); //boss杀手
+            //user.SaveArtifactLevel(180001, 1); //boss杀手
             //user.SaveArtifactLevel(180019, 1); //副本杀手
 
             //user.SaveArtifactLevel(180005, 10); //卖身契
@@ -98,7 +98,7 @@ namespace Game
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 22, 1, 1)); //特戒
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 32, 1, 1)); //普通金宠包
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 33, 1, 1)); //满资质金宠包
-            items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 41, 1, 8)); //神器自选
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 41, 1, 8)); //神器自选
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 36, 1, 1)); //宝石自选
 
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 26, 1, 1));  //神技
@@ -106,9 +106,9 @@ namespace Game
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 28, 1, 6));  //魂骨
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 29, 1, 3));  //11技能
 
-            items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 106, 1, 3)); //白银
-            items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 107, 1, 1)); //黄金
-            items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 108, 1, 1)); //钻石
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 106, 1, 3)); //白银
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 107, 1, 1)); //黄金
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 108, 1, 1)); //钻石
 
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 109, 1, 5));  //战士经验
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 110, 1, 1)); //法师经验
