@@ -489,7 +489,12 @@ namespace Game
                 if (i == 0)
                 {
                     User user = GameProcessor.Inst.User;
-                    BoxItem boxItem = user.Bags.Where(m => m.Item.Type == ItemType.Exclusive && m.Item.GetQuality() == 5 && !m.Item.IsLock && (m.Item as ExclusiveItem).GetLevel() < 1 && (m.Item as ExclusiveItem).GetLayer() <= 0).FirstOrDefault();
+                    BoxItem boxItem = user.Bags.Where(m => m.Item.Type == ItemType.Exclusive && m.Item.GetQuality() == 5 && !m.Item.IsLock && (m.Item as ExclusiveItem).GetLevel() < 1 && (m.Item as ExclusiveItem).GetLayer() <= 1).FirstOrDefault();
+
+                    if (boxItem == null)
+                    {
+                        return;
+                    }
 
                     GameProcessor.Inst.EventCenter.Raise(new BagRemoveEvent()
                     {
