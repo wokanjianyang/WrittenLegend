@@ -233,15 +233,11 @@ namespace Game
                     SkillData skillData = GameProcessor.Inst.User.SkillList.Where(m => m.SkillConfig.Id == skillId).FirstOrDefault();
 
 
-                    if (Master.Camp == PlayerType.Hero && skillData != null)
+                    if (Master.Camp == PlayerType.Hero)
                     {
                         User user = GameProcessor.Inst.User;
 
                         List<SkillRuneConfig> buffRuneList = null;
-                        if (RuleType == RuleType.Defend)
-                        {
-                            buffRuneList = user.DefendData.GetBuffRuneList(skillData.SkillId);
-                        }
 
                         if (skillData == null)
                         {
