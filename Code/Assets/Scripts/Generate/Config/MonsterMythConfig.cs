@@ -96,29 +96,32 @@ namespace Game
 		/// <summary>HP</summary>
 		[ProtoMember(7)]
 		public string HP { get; set; }
-		/// <summary>DamageIncrea</summary>
+		/// <summary>Speed</summary>
 		[ProtoMember(8)]
+		public int Speed { get; set; }
+		/// <summary>DamageIncrea</summary>
+		[ProtoMember(9)]
 		public int DamageIncrea { get; set; }
 		/// <summary>DamageResist</summary>
-		[ProtoMember(9)]
+		[ProtoMember(10)]
 		public int DamageResist { get; set; }
 		/// <summary>CritRateResist</summary>
-		[ProtoMember(10)]
+		[ProtoMember(11)]
 		public int CritRateResist { get; set; }
 		/// <summary>CritDamageResist</summary>
-		[ProtoMember(11)]
+		[ProtoMember(12)]
 		public int CritDamageResist { get; set; }
 		/// <summary>Protect</summary>
-		[ProtoMember(12)]
+		[ProtoMember(13)]
 		public int Protect { get; set; }
 		/// <summary>ResotrePercent</summary>
-		[ProtoMember(13)]
+		[ProtoMember(14)]
 		public int ResotrePercent { get; set; }
 		/// <summary>SkillIdList</summary>
-		[ProtoMember(14)]
+		[ProtoMember(15)]
 		public int[] SkillIdList { get; set; }
 		/// <summary>SkillLevelList</summary>
-		[ProtoMember(15)]
+		[ProtoMember(16)]
 		public int[] SkillLevelList { get; set; }
 
 	}

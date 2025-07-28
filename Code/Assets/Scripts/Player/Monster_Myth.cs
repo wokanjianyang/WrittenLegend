@@ -80,6 +80,9 @@ public class Monster_Myth : APlayer
         AttributeBonus.SetAttr(AttributeEnum.RestoreHpPercent, AttributeFrom.HeroBase, config.ResotrePercent);
         AttributeBonus.SetAttr(AttributeEnum.Protect, AttributeFrom.HeroBase, config.Protect);
 
+        this.SetAttackSpeed(config.Speed);
+        this.SetMoveSpeed(config.Speed);
+
         double MaxHP = AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
         SetHP(MaxHP);
     }
