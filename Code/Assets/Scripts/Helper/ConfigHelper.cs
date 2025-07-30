@@ -12,17 +12,17 @@ namespace Game
 
         public const int Channel_Tap = 1;
 
-        public const int Version = 392;
+        public const int Version = 400;
 
-        public const long PackTime = 1753582100; //打包时间，防止作弊
+        public const long PackTime = 1753840170; //打包时间，防止作弊
 
-        public const long PackEndTime = 1755310100; //超过此时间,游戏不能使用，需要更新
+        public const long PackEndTime = 1755568170; //超过此时间,游戏不能使用，需要更新
 
         public const long Max_Level = 120000; //最大人物等级和强化等级
 
         public const long Cycle_Level = 10000; //每次轮回增加等级
 
-        public const long Cycle_Max = 25;
+        public const long Cycle_Max = 26;
 
         public const long Max_Legacy_Level = 20; //最大传世副本等级 
 
