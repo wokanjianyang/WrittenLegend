@@ -75,7 +75,7 @@ public class Init : MonoBehaviour
                 "Window/Dialog_Exclusive_Detail",
                 "Window/Defend/Dialog_Defend",
                 "Window/Dialog_OfflineExp",
-                "Window/Dialog_Settings",
+                "Window/Setting/Dialog_Settings",
 
                 "Window/Relic/Dialog_Relic",
                 "Window/SoulRing/Dialog_SoulRing",
