@@ -30,7 +30,24 @@ namespace Game
         void Start()
         {
             this.Btn_Close.onClick.AddListener(this.OnClick_Close);
+
+            tog_Recovery.onValueChanged.AddListener((isOn) =>
+            {
+                this.com_Recovery.gameObject.SetActive(isOn);
+            });
+
+            tog_Other.onValueChanged.AddListener((isOn) =>
+            {
+                this.com_Other.gameObject.SetActive(isOn);
+            });
+
+            tog_Base.onValueChanged.AddListener((isOn) =>
+            {
+                this.com_Settings.gameObject.SetActive(isOn);
+            });
         }
+
+
 
         public void OnBattleStart()
         {
