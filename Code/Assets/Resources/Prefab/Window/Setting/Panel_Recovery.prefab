@@ -1352,8 +1352,8 @@ MonoBehaviour:
   if_Red_Exp: {fileID: 4828254917207865659}
   if_Red_DropRate: {fileID: 5143544911949697241}
   if_Red_DropQuality: {fileID: 5827857513806606581}
-  Equip_Golden_Recovery: {fileID: 6120042317988809291}
-  Equip_Golden_Keep: {fileID: 3448077226354014577}
+  Equip_Golden_Recovery: {fileID: 7552186834917482797}
+  Equip_Golden_Keep: {fileID: 550818538694428950}
   if_Golden_Total: {fileID: 5992297191384457521}
   Equip_Dark_Recovery: {fileID: 594002037028466741}
   Equip_Dark_Keep: {fileID: 7238266332133625664}

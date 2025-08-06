@@ -183,7 +183,7 @@ namespace Game
                 }
                 else if (cycle == 2)
                 {
-                    if (!EquipiGoldenRecovery)
+                    if (!RedRecovery)
                     {
                         return false;
                     }
@@ -229,7 +229,7 @@ namespace Game
                         }
                     }
 
-                    if (keepSkill)
+                    if (keepSkill && RedKeep)
                     {
                         item.IsKeep = true;
                         return false;
@@ -251,7 +251,7 @@ namespace Game
                         return false;
                     }
 
-                    if (keepSkill)
+                    if (keepSkill && EquipiGoldenKeep)
                     {
                         item.IsKeep = true;
                         return false;
@@ -273,7 +273,7 @@ namespace Game
                         return false;
                     }
 
-                    if (keepSkill)
+                    if (keepSkill && EquipiDarkKeep)
                     {
                         item.IsKeep = true;
                         return false;
@@ -356,7 +356,8 @@ namespace Game
             }
             else if (item.Type == ItemType.Pet)
             {
-                if (item.GetQuality() <= PetQuality)
+                Pet pet = item as Pet;
+                if (item.GetQuality() <= PetQuality && pet.PetLayer.Data == 1 && pet.PetLayer.Data == 1)
                 {
                     return true;
                 }
