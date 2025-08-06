@@ -73,7 +73,7 @@ namespace Game
 
         public int PetQuality { get; set; } = 0;
 
-        private int ExclusiveStartQuality = 3;
+        private int KeepStartQuality = 3;
 
         public RecoverySettingNew()
         {
@@ -90,6 +90,12 @@ namespace Game
             if (item.Type == ItemType.Equip)
             {
                 Equip equip = item as Equip;
+
+                if (equip.Layer > 1)
+                {
+                    return false;
+                }
+
                 int role = equip.EquipConfig.Role;
                 int cycle = equip.EquipConfig.Cycle;
                 int level = equip.Level;
@@ -114,7 +120,7 @@ namespace Game
                     //普通回收
 
                     //先判断保留
-                    if (quality >= EquipQualityKeep)
+                    if (EquipQualityKeep > 0 && quality >= EquipQualityKeep + KeepStartQuality)
                     {
                         if (GoldTotal > 0)
                         {
@@ -302,7 +308,7 @@ namespace Game
 
                 if (cycle == 1)
                 {
-                    if (Exclusive_Keep > 0 && quality >= Exclusive_Keep + ExclusiveStartQuality && keepSkill)
+                    if (Exclusive_Keep > 0 && quality >= Exclusive_Keep + KeepStartQuality && keepSkill)
                     {
                         item.IsKeep = true;
                         return false;
@@ -315,7 +321,7 @@ namespace Game
                 }
                 else if (cycle == 2)
                 {
-                    if (Exclusive_Keep_Golden > 0 && quality >= Exclusive_Keep_Golden + ExclusiveStartQuality && keepSkill)
+                    if (Exclusive_Keep_Golden > 0 && quality >= Exclusive_Keep_Golden + KeepStartQuality && keepSkill)
                     {
                         item.IsKeep = true;
                         return false;
@@ -328,7 +334,7 @@ namespace Game
                 }
                 else if (cycle == 3)
                 {
-                    if (Exclusive_Keep_Dark > 0 && quality >= Exclusive_Keep_Dark + ExclusiveStartQuality && keepSkill)
+                    if (Exclusive_Keep_Dark > 0 && quality >= Exclusive_Keep_Dark + KeepStartQuality && keepSkill)
                     {
                         item.IsKeep = true;
                         return false;
