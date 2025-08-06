@@ -73,6 +73,7 @@ namespace Game
 
         public int PetQuality { get; set; } = 0;
 
+        private int ExclusiveStartQuality = 3;
 
         public RecoverySettingNew()
         {
@@ -86,136 +87,280 @@ namespace Game
                 return false;
             }
 
-            //int qality = item.GetQuality();
-            //SkillReserveQuanlity.TryGetValue(qality, out bool rq);
+            if (item.Type == ItemType.Equip)
+            {
+                Equip equip = item as Equip;
+                int role = equip.EquipConfig.Role;
+                int cycle = equip.EquipConfig.Cycle;
+                int level = equip.Level;
+                int quality = equip.GetQuality();
+                long ar = equip.GetAttrRateCount();
+                bool keepSkill = false;
+                if (equip.SkillSuitConfig != null)
+                {
+                    keepSkill = GameProcessor.Inst.User.CheckKeepSkill(equip.SkillRuneConfig.SkillId, equip.SkillRuneConfig.SkillLayer);
+                }
 
-            //if (item.Type == ItemType.Equip)
-            //{
-            //    Equip equip = item as Equip;
-            //    int role = equip.EquipConfig.Role;
+                if (cycle == 0)
+                {
+                    //四格回收
+                    if (cycle == 0 && level < SpecailLevel)
+                    {
+                        return true;
+                    }
+                }
+                else if (cycle == 1)
+                {
+                    //普通回收
 
-            //    if (GoldTotal > 0)
-            //    {
-            //        long gt = equip.AttrEntryList.Where(m => m.Key == (int)AttributeEnum.GoldIncrea).Select(m => m.Value).Sum();
-            //        if (gt >= GoldTotal && rq)
-            //        {
-            //            item.IsKeep = true;
-            //            return false;
-            //        }
-            //    }
+                    //先判断保留
+                    if (quality >= EquipQualityKeep)
+                    {
+                        if (GoldTotal > 0)
+                        {
+                            long gt = equip.AttrEntryList.Where(m => m.Key == (int)AttributeEnum.GoldIncrea).Select(m => m.Value).Sum();
+                            if (gt >= GoldTotal)
+                            {
+                                item.IsKeep = true;
+                                return false;
+                            }
+                        }
 
-            //    if (ExpTotal > 0)
-            //    {
-            //        long et = equip.AttrEntryList.Where(m => m.Key == (int)AttributeEnum.ExpIncrea).Select(m => m.Value).Sum();
-            //        if (et >= ExpTotal && rq)
-            //        {
-            //            item.IsKeep = true;
-            //            return false;
-            //        }
-            //    }
+                        if (ExpTotal > 0)
+                        {
+                            long et = equip.AttrEntryList.Where(m => m.Key == (int)AttributeEnum.ExpIncrea).Select(m => m.Value).Sum();
+                            if (et >= ExpTotal)
+                            {
+                                item.IsKeep = true;
+                                return false;
+                            }
+                        }
 
-            //    if (LuckyTotal > 0)
-            //    {
-            //        long lucky = equip.AttrEntryList.Where(m => m.Key == (int)AttributeEnum.Lucky).Select(m => m.Value).Sum();
-            //        if (lucky >= LuckyTotal && rq)
-            //        {
-            //            item.IsKeep = true;
-            //            return false;
-            //        }
-            //    }
+                        if (LuckyTotal > 0)
+                        {
+                            long lucky = equip.AttrEntryList.Where(m => m.Key == (int)AttributeEnum.Lucky).Select(m => m.Value).Sum();
+                            if (lucky >= LuckyTotal)
+                            {
+                                item.IsKeep = true;
+                                return false;
+                            }
+                        }
 
-            //    if (DropRate > 0)
-            //    {
-            //        long rateTotal = equip.AttrEntryList.Where(m => m.Key == (int)AttributeEnum.BurstIncrea).Select(m => m.Value).Sum();
-            //        if (rateTotal >= DropRate && rq)
-            //        {
-            //            item.IsKeep = true;
-            //            return false;
-            //        }
-            //    }
+                        if (DropRate > 0)
+                        {
+                            long rateTotal = equip.AttrEntryList.Where(m => m.Key == (int)AttributeEnum.BurstIncrea).Select(m => m.Value).Sum();
+                            if (rateTotal >= DropRate)
+                            {
+                                item.IsKeep = true;
+                                return false;
+                            }
+                        }
 
-            //    if (DropQuality > 0)
-            //    {
-            //        long qualityTotal = equip.AttrEntryList.Where(m => m.Key == (int)AttributeEnum.QualityIncrea).Select(m => m.Value).Sum();
-            //        if (qualityTotal >= DropQuality && rq)
-            //        {
-            //            item.IsKeep = true;
-            //            return false;
-            //        }
-            //    }
+                        if (DropQuality > 0)
+                        {
+                            long qualityTotal = equip.AttrEntryList.Where(m => m.Key == (int)AttributeEnum.QualityIncrea).Select(m => m.Value).Sum();
+                            if (qualityTotal >= DropQuality)
+                            {
+                                item.IsKeep = true;
+                                return false;
+                            }
+                        }
 
-            //    if (equip.SkillSuitConfig != null)
-            //    {
-            //        int c = GameProcessor.Inst.User.SkillList.Where(m => m.SkillId == equip.SkillSuitConfig.SkillId && m.Recovery).Count();
-            //        if (c == 1 && item.Level >= EquipLevel && rq)
-            //        {
-            //            item.IsKeep = true;
-            //            return false;
-            //        }
-            //    }
+                        if (equip.SkillSuitConfig != null)
+                        {
+                            if (item.Level >= EquipLevel && keepSkill)
+                            {
+                                item.IsKeep = true;
+                                return false;
+                            }
+                        }
+                    }
 
-            //    if (equip.Part <= 10)
-            //    {
-            //        //if (item.Level < EquipLevel && item.GetQuality() <= 5 && EquipQuanlity.GetValueOrDefault(item.GetQuality(), false)) //如果勾选了橙色，低于等级就回收
-            //        //{
-            //        //    return true;
-            //        //}
+                    if (equip.Level < EquipLevel || EquipRole.GetValueOrDefault(role, false) || quality <= EquipQualityRecovery)
+                    {
+                        return true;
+                    }
+                }
+                else if (cycle == 2)
+                {
+                    if (!EquipiGoldenRecovery)
+                    {
+                        return false;
+                    }
 
-            //        if ((EquipQuanlity.GetValueOrDefault(item.GetQuality(), false) || item.Level < EquipLevel || EquipRole.GetValueOrDefault(role, false))
-            //            && equip.Quality < 6)
-            //        {
-            //            return true;
-            //        }
+                    //红装回收
+                    if (RedGoldTotal > 0)
+                    {
+                        long gt = equip.AttrEntryList.Where(m => m.Key == (int)AttributeEnum.GoldIncrea).Select(m => m.Value).Count();
+                        if (gt >= RedGoldTotal)
+                        {
+                            item.IsKeep = true;
+                            return false;
+                        }
+                    }
 
-            //        if (EquipQuanlity.GetValueOrDefault(6, false) && equip.Quality == 6 && equip.Layer <= 1) //红色回收
-            //        {
-            //            return true;
-            //        }
-            //    }
+                    if (RedExpTotal > 0)
+                    {
+                        long et = equip.AttrEntryList.Where(m => m.Key == (int)AttributeEnum.ExpIncrea).Select(m => m.Value).Count();
+                        if (et >= RedExpTotal)
+                        {
+                            item.IsKeep = true;
+                            return false;
+                        }
+                    }
 
-            //    if (equip.Part > 10 && equip.Level < SpecailLevel)
-            //    {
-            //        return true;
-            //    }
-            //}
-            //else if (item.Type == ItemType.Exclusive)
-            //{
-            //    ExclusiveItem exclusive = item as ExclusiveItem;
+                    if (RedDropRate > 0)
+                    {
+                        long rateTotal = equip.AttrEntryList.Where(m => m.Key == (int)AttributeEnum.BurstIncrea).Select(m => m.Value).Count();
+                        if (rateTotal >= RedDropRate)
+                        {
+                            item.IsKeep = true;
+                            return false;
+                        }
+                    }
 
-            //    if (exclusive.GetLayer() > 1)
-            //    {
-            //        return false;
-            //    }
+                    if (RedDropQuality > 0)
+                    {
+                        long qualityTotal = equip.AttrEntryList.Where(m => m.Key == (int)AttributeEnum.QualityIncrea).Select(m => m.Value).Count();
+                        if (qualityTotal >= RedDropQuality)
+                        {
+                            item.IsKeep = true;
+                            return false;
+                        }
+                    }
 
-            //    if (exclusive.SkillSuitConfig != null)
-            //    {
-            //        int c = GameProcessor.Inst.User.SkillList.Where(m => m.SkillId == exclusive.SkillSuitConfig.SkillId && m.Recovery).Count();
-            //        if (c == 1 && rq)
-            //        {
-            //            item.IsKeep = true;
-            //            return false;
-            //        }
-            //    }
+                    if (keepSkill)
+                    {
+                        item.IsKeep = true;
+                        return false;
+                    }
 
-            //    if (ExclusiveQuanlity.GetValueOrDefault(qality, false))
-            //    {
-            //        return true;
-            //    }
-            //}
-            //else if (item.Type == ItemType.Halidom && type == RecoveryType.Drop)
-            //{
-            //    if (item.ConfigId >= 40000051 && item.ConfigId <= 41000000 && item.ItemConfig.UseParam < HalidomLevel)
-            //    {
-            //        return true;
-            //    }
-            //}
-            //else if (item.Type == ItemType.Material && type == RecoveryType.Drop)
-            //{
-            //    if (item.ConfigId >= 50000001 && item.ConfigId <= 51000000 && item.ItemConfig.UseParam < RedStoneLevel)
-            //    {
-            //        return true;
-            //    }
-            //}
+                    return true;
+                }
+                else if (cycle == 3)
+                {
+                    if (!EquipiGoldenRecovery)
+                    {
+                        return false;
+                    }
+
+                    //金装回收
+                    if (EquipGoldenTotal > 0 && equip.GetAttrRateCount() >= EquipGoldenTotal)
+                    {
+                        item.IsKeep = true;
+                        return false;
+                    }
+
+                    if (keepSkill)
+                    {
+                        item.IsKeep = true;
+                        return false;
+                    }
+
+                    return true;
+                }
+                else if (cycle == 4)
+                {
+                    if (!EquipiDarkRecovery)
+                    {
+                        return false;
+                    }
+
+                    //暗金回收
+                    if (EquipDarkTotal > 0 && equip.GetAttrRateCount() >= EquipDarkTotal)
+                    {
+                        item.IsKeep = true;
+                        return false;
+                    }
+
+                    if (keepSkill)
+                    {
+                        item.IsKeep = true;
+                        return false;
+                    }
+
+                    return true;
+                }
+            }
+            else if (item.Type == ItemType.Exclusive)
+            {
+                ExclusiveItem exclusive = item as ExclusiveItem;
+
+                if (exclusive.GetLayer() > 1 || exclusive.GetLevel() > 1)
+                {
+                    return false;
+                }
+
+                int cycle = exclusive.ExclusiveConfig.Cycle;
+                int quality = exclusive.GetQuality();
+
+                bool keepSkill = false;
+                if (exclusive.SkillSuitConfig != null)
+                {
+                    keepSkill = GameProcessor.Inst.User.CheckKeepSkill(exclusive.SkillSuitConfig.SkillId, exclusive.SkillSuitConfig.SkillLayer);
+                }
+
+                if (cycle == 1)
+                {
+                    if (Exclusive_Keep > 0 && quality >= Exclusive_Keep + ExclusiveStartQuality && keepSkill)
+                    {
+                        item.IsKeep = true;
+                        return false;
+                    }
+
+                    if (Exclusive_Recovery > 0 && quality <= Exclusive_Recovery)
+                    {
+                        return true;
+                    }
+                }
+                else if (cycle == 2)
+                {
+                    if (Exclusive_Keep_Golden > 0 && quality >= Exclusive_Keep_Golden + ExclusiveStartQuality && keepSkill)
+                    {
+                        item.IsKeep = true;
+                        return false;
+                    }
+
+                    if (Exclusive_Recovery_Golden > 0 && quality <= Exclusive_Recovery_Golden)
+                    {
+                        return true;
+                    }
+                }
+                else if (cycle == 3)
+                {
+                    if (Exclusive_Keep_Dark > 0 && quality >= Exclusive_Keep_Dark + ExclusiveStartQuality && keepSkill)
+                    {
+                        item.IsKeep = true;
+                        return false;
+                    }
+
+                    if (Exclusive_Recovery_Dark > 0 && quality <= Exclusive_Recovery_Dark)
+                    {
+                        return true;
+                    }
+                }
+            }
+            else if (item.Type == ItemType.Halidom && type == RecoveryType.Drop)
+            {
+                if (item.ConfigId >= 40000051 && item.ConfigId <= 41000000 && item.ItemConfig.UseParam < HalidomLevel)
+                {
+                    return true;
+                }
+            }
+            else if (item.Type == ItemType.Material && type == RecoveryType.Drop)
+            {
+                if (item.ConfigId >= 50000001 && item.ConfigId <= 51000000 && item.ItemConfig.UseParam < RedStoneLevel)
+                {
+                    return true;
+                }
+            }
+            else if (item.Type == ItemType.Pet)
+            {
+                if (item.GetQuality() <= PetQuality)
+                {
+                    return true;
+                }
+            }
 
             return false;
         }

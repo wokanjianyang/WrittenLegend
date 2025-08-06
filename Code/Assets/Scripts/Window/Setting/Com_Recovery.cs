@@ -30,34 +30,34 @@ namespace Game
         public InputField if_EquipLevel;
 
         [Title("红色装备")]
-        public Toggle Equip_Red_Open;
-        public Toggle Equip_Red_Skill;
+        public Toggle Equip_Red_Recovery;
+        public Toggle Equip_Red_Keep;
         public InputField if_Red_Gold;
         public InputField if_Red_Exp;
         public InputField if_Red_DropRate;
         public InputField if_Red_DropQuality;
 
         [Title("金色装备")]
-        public Toggle Equip_Golden_Open;
-        public Toggle Equip_Golden_Skill;
+        public Toggle Equip_Golden_Recovery;
+        public Toggle Equip_Golden_Keep;
         public InputField if_Golden_Total;
 
         [Title("暗金装备")]
-        public Toggle Equip_Dark_Open;
-        public Toggle Equip_Dark_Skill;
+        public Toggle Equip_Dark_Recovery;
+        public Toggle Equip_Dark_Keep;
         public InputField if_Dark_Total;
 
         [Title("普通专属")]
-        public Dropdown dp_Exclusive_Base_Skill;
-        public Dropdown dp_Exclusive_Base;
+        public Dropdown dp_Exclusive_Keep;
+        public Dropdown dp_Exclusive_Recovery;
 
         [Title("传奇专属")]
-        public Dropdown dp_Golden_Skill;
-        public Dropdown dp_Exclusive_Golden;
+        public Dropdown dp_Exclusive_Golden_Keep;
+        public Dropdown dp_Exclusive_Golden_Recovery;
 
         [Title("不朽专属")]
-        public Dropdown dp_Dark_Skill;
-        public Dropdown dp_Exclusive_Dark;
+        public Dropdown dp_Exclusive_Dark_Keep; 
+        public Dropdown dp_Exclusive_Dark_Recovery;
 
 
         [Title("其他")]
@@ -128,25 +128,25 @@ namespace Game
             dp_Pet.AddOptions(new List<string>() { "无", "白色", "绿色", "蓝色", "紫色", "橙色", "红色" });
 
             //专属
-            dp_Exclusive_Base_Skill.ClearOptions();
-            dp_Exclusive_Base_Skill.AddOptions(new List<string>() { "无", "紫色", "橙色" });
+            dp_Exclusive_Keep.ClearOptions();
+            dp_Exclusive_Keep.AddOptions(new List<string>() { "无", "紫色", "橙色" });
 
-            dp_Exclusive_Base.ClearOptions();
-            dp_Exclusive_Base.AddOptions(new List<string>() { "无", "白色", "绿色", "蓝色", "紫色", "橙色" });
+            dp_Exclusive_Recovery.ClearOptions();
+            dp_Exclusive_Recovery.AddOptions(new List<string>() { "无", "白色", "绿色", "蓝色", "紫色", "橙色" });
 
             //传奇专属
-            dp_Golden_Skill.ClearOptions();
-            dp_Golden_Skill.AddOptions(new List<string>() { "无", "橙色", "红色", "金色" });
+            dp_Exclusive_Golden_Keep.ClearOptions();
+            dp_Exclusive_Golden_Keep.AddOptions(new List<string>() { "无", "紫色", "橙色", "红色", "金色" });
 
-            dp_Exclusive_Golden.ClearOptions();
-            dp_Exclusive_Golden.AddOptions(new List<string>() { "无", "白色", "绿色", "蓝色", "紫色", "橙色", "红色", "金色" });
+            dp_Exclusive_Golden_Recovery.ClearOptions();
+            dp_Exclusive_Golden_Recovery.AddOptions(new List<string>() { "无", "白色", "绿色", "蓝色", "紫色", "橙色", "红色", "金色" });
 
             //不朽专属
-            dp_Dark_Skill.ClearOptions();
-            dp_Dark_Skill.AddOptions(new List<string>() { "无", "橙色", "红色", "金色", "暗金" });
+            dp_Exclusive_Dark_Keep.ClearOptions();
+            dp_Exclusive_Dark_Keep.AddOptions(new List<string>() { "无", "紫色", "橙色", "红色", "金色", "暗金" });
 
-            dp_Exclusive_Dark.ClearOptions();
-            dp_Exclusive_Dark.AddOptions(new List<string>() { "无", "白色", "绿色", "蓝色", "紫色", "橙色", "红色", "金色", "暗金" });
+            dp_Exclusive_Dark_Recovery.ClearOptions();
+            dp_Exclusive_Dark_Recovery.AddOptions(new List<string>() { "无", "白色", "绿色", "蓝色", "紫色", "橙色", "红色", "金色", "暗金" });
 
             //
 
@@ -186,8 +186,8 @@ namespace Game
             }
 
             //红色装备
-            Equip_Red_Open.isOn = setting.RedRecovery;
-            Equip_Red_Skill.isOn = setting.RedKeep;
+            Equip_Red_Recovery.isOn = setting.RedRecovery;
+            Equip_Red_Keep.isOn = setting.RedKeep;
 
             if_Red_Exp.text = setting.RedExpTotal.ToString();
             if_Red_Gold.text = setting.RedGoldTotal.ToString();
@@ -195,60 +195,26 @@ namespace Game
             if_Red_DropQuality.text = setting.RedDropQuality.ToString();
 
             //金色装备
-            Equip_Golden_Open.isOn = setting.EquipiGoldenRecovery;
-            Equip_Golden_Skill.isOn = setting.EquipiGoldenKeep;
+            Equip_Golden_Recovery.isOn = setting.EquipiGoldenRecovery;
+            Equip_Golden_Keep.isOn = setting.EquipiGoldenKeep;
             if_Golden_Total.text = setting.EquipGoldenTotal.ToString();
 
             //暗金装备
-            Equip_Dark_Open.isOn = setting.EquipiDarkRecovery;
-            Equip_Dark_Skill.isOn = setting.EquipiDarkKeep;
+            Equip_Dark_Recovery.isOn = setting.EquipiDarkRecovery;
+            Equip_Dark_Keep.isOn = setting.EquipiDarkKeep;
             if_Dark_Total.text = setting.EquipDarkTotal.ToString();
 
             //普通专属
-            dp_Exclusive_Base_Skill.value = setting.Exclusive_Recovery;
-            dp_Exclusive_Base.value = setting.Exclusive_Keep;
+            dp_Exclusive_Recovery.value = setting.Exclusive_Recovery;
+            dp_Exclusive_Keep.value = setting.Exclusive_Keep;
 
             //传奇专属
-            dp_Golden_Skill.value = setting.Exclusive_Recovery_Golden;
-            dp_Exclusive_Golden.value = setting.Exclusive_Keep_Golden;
+            dp_Exclusive_Golden_Recovery.value = setting.Exclusive_Recovery_Golden;
+            dp_Exclusive_Golden_Keep.value = setting.Exclusive_Keep_Golden;
 
             //不朽专属
-            dp_Dark_Skill.value = setting.Exclusive_Recovery_Dark;
-            dp_Exclusive_Dark.value = setting.Exclusive_Keep_Dark;
-
-            //for (int i = 0; i < equipQualityToggles.Length; i++)
-            //{
-            //    if (!setting.EquipQuanlity.ContainsKey(i + 1))
-            //    {
-            //        setting.EquipQuanlity[i + 1] = false;
-            //    }
-            //    equipQualityToggles[i].isOn = setting.EquipQuanlity[i + 1];
-            //}
-
-            //if (user.Cycle.Data >= 4)
-            //{
-            //    equipQualityToggles[5].gameObject.SetActive(true);
-            //}
-            //else
-            //{
-            //    equipQualityToggles[5].isOn = false;
-            //    equipQualityToggles[5].gameObject.SetActive(false);
-            //}
-
-            //foreach (int quality in setting.ExclusiveQuanlity.Keys)
-            //{
-            //    exclusiveToggles[quality - 1].isOn = setting.ExclusiveQuanlity[quality];
-            //}
-
-
-            //for (int i = 0; i < skillToggles.Length; i++)
-            //{
-            //    skillToggles[i].isOn = setting.GetSkillReserveQuanlity(i + startQuality);//紫色开始
-            //}
-
-            //ifSpeicalLevel.text = setting.SpecailLevel.ToString();
-            //if_RedStone.text = setting.RedStoneLevel.ToString();
-            //if_Halidom.text = setting.HalidomLevel.ToString();
+            dp_Exclusive_Dark_Recovery.value = setting.Exclusive_Recovery_Dark;
+            dp_Exclusive_Dark_Keep.value = setting.Exclusive_Keep_Dark;
         }
 
 
@@ -291,8 +257,8 @@ namespace Game
             }
 
             //红色装备回收
-            setting.RedRecovery = Equip_Red_Open.isOn;
-            setting.RedKeep = Equip_Red_Skill.isOn;
+            setting.RedRecovery = Equip_Red_Recovery.isOn;
+            setting.RedKeep = Equip_Red_Keep.isOn;
 
             int.TryParse(if_Red_Exp.text, out int redexp);
             setting.RedExpTotal = redexp;
@@ -307,14 +273,14 @@ namespace Game
             setting.RedDropQuality = reddropQuality;
 
             //金色装备
-            setting.EquipiGoldenRecovery = Equip_Golden_Open.isOn;
-            setting.EquipiGoldenKeep = Equip_Golden_Skill.isOn;
+            setting.EquipiGoldenRecovery = Equip_Golden_Recovery.isOn;
+            setting.EquipiGoldenKeep = Equip_Golden_Keep.isOn;
             int.TryParse(if_Golden_Total.text, out int goldenexp);
             setting.EquipGoldenTotal = goldenexp;
 
             //暗金装备
-            setting.EquipiDarkRecovery = Equip_Dark_Open.isOn;
-            setting.EquipiDarkKeep = Equip_Dark_Skill.isOn;
+            setting.EquipiDarkRecovery = Equip_Dark_Recovery.isOn;
+            setting.EquipiDarkKeep = Equip_Dark_Keep.isOn;
             int.TryParse(if_Dark_Total.text, out int darkexp);
             setting.EquipDarkTotal = darkexp;
 
@@ -330,28 +296,27 @@ namespace Game
             int.TryParse(if_RedStone.text, out int redStoneLevel);
             setting.RedStoneLevel = redStoneLevel;
 
-
             //普通专属
-            setting.Exclusive_Recovery = dp_Exclusive_Base_Skill.value;
-            setting.Exclusive_Keep = dp_Exclusive_Base.value;
+            setting.Exclusive_Recovery = dp_Exclusive_Recovery.value;
+            setting.Exclusive_Keep = dp_Exclusive_Keep.value;
 
             //传奇专属
-            setting.Exclusive_Recovery_Golden = dp_Golden_Skill.value;
-            setting.Exclusive_Keep_Golden = dp_Exclusive_Golden.value;
+            setting.Exclusive_Recovery_Golden = dp_Exclusive_Golden_Recovery.value;
+            setting.Exclusive_Keep_Golden = dp_Exclusive_Golden_Keep.value;
 
             //不朽专属
-            setting.Exclusive_Recovery_Dark = dp_Dark_Skill.value;
-            setting.Exclusive_Keep_Dark = dp_Exclusive_Dark.value;
+            setting.Exclusive_Recovery_Dark = dp_Exclusive_Dark_Recovery.value;
+            setting.Exclusive_Keep_Dark = dp_Exclusive_Dark_Keep.value;
 
 
 
 
             //立即执行一次回收
-            //GameProcessor.Inst.EventCenter.Raise(new AutoRecoveryEvent() { RuleType = RuleType.Normal });
+            GameProcessor.Inst.EventCenter.Raise(new AutoRecoveryEvent() { RuleType = RuleType.Normal });
 
-            //TaskHelper.CheckTask(TaskType.Recovery, 1);
+            TaskHelper.CheckTask(TaskType.Recovery, 1);
 
-            //GameProcessor.Inst.SaveData();
+            GameProcessor.Inst.SaveData();
 
             GameProcessor.Inst.EventCenter.Raise(new DialogSettingEvent());
 

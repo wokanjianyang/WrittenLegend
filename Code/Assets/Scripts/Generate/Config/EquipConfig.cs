@@ -78,44 +78,47 @@ namespace Game
 		/// <summary>_id</summary>
 		[ProtoMember(1)]
 		public int Id { get; set; }
-		/// <summary>LevelRequired</summary>
+		/// <summary>Cycle</summary>
 		[ProtoMember(2)]
+		public int Cycle { get; set; }
+		/// <summary>LevelRequired</summary>
+		[ProtoMember(3)]
 		public int LevelRequired { get; set; }
 		/// <summary>Name</summary>
-		[ProtoMember(3)]
+		[ProtoMember(4)]
 		public string Name { get; set; }
 		/// <summary>Part</summary>
-		[ProtoMember(4)]
+		[ProtoMember(5)]
 		public int Part { get; set; }
 		/// <summary>Position</summary>
-		[ProtoMember(5)]
+		[ProtoMember(6)]
 		public int[] Position { get; set; }
 		/// <summary>基础属性列表</summary>
-		[ProtoMember(6)]
+		[ProtoMember(7)]
 		public int[] BaseArray { get; set; }
 		/// <summary>基础属性值</summary>
-		[ProtoMember(7)]
+		[ProtoMember(8)]
 		public long[] AttributeBase { get; set; }
 		/// <summary>随机属性</summary>
-		[ProtoMember(8)]
+		[ProtoMember(9)]
 		public int RandomAttr { get; set; }
 		/// <summary>品质</summary>
-		[ProtoMember(9)]
+		[ProtoMember(10)]
 		public int Quality { get; set; }
 		/// <summary>词条</summary>
-		[ProtoMember(10)]
+		[ProtoMember(11)]
 		public int RuneId { get; set; }
 		/// <summary>套装</summary>
-		[ProtoMember(11)]
+		[ProtoMember(12)]
 		public int SuitId { get; set; }
 		/// <summary>Price</summary>
-		[ProtoMember(12)]
+		[ProtoMember(13)]
 		public long Price { get; set; }
 		/// <summary>Role</summary>
-		[ProtoMember(13)]
+		[ProtoMember(14)]
 		public int Role { get; set; }
 		/// <summary>RecoveryItemId</summary>
-		[ProtoMember(14)]
+		[ProtoMember(15)]
 		public int RecoveryItemId { get; set; }
 
 	}

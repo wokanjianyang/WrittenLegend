@@ -358,5 +358,10 @@ namespace Game
                 mlist[ItemHelper.SpecialId_Red_Stone] += redNumber;
             }
         }
+
+        public long GetAttrRateCount()
+        {
+            return AttrEntryList.Where(m => (m.Key == 2001 || m.Key == 2004 || m.Key == 2005 || m.Key == 2006 || m.Key == 2010)).Count();
+        }
     }
 }

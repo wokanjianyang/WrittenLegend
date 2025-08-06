@@ -337,7 +337,7 @@ namespace Game
         private void OnRefreshBag()
         {
             User user = GameProcessor.Inst.User;
-            List<BoxItem> recoveryList = user.Bags.Where(m => !m.Item.IsLock && user.RecoverySetting.CheckRecovery(m.Item, RecoveryType.Other)).ToList();
+            List<BoxItem> recoveryList = user.Bags.Where(m => !m.Item.IsLock && user.RecoveryNew.CheckRecovery(m.Item, RecoveryType.Other)).ToList();
             this.RecoveryAll(recoveryList, RuleType.Normal);
 
             RefreshBag();
@@ -785,7 +785,7 @@ namespace Game
         private void FirstRecovery()
         {
             User user = GameProcessor.Inst.User;
-            List<BoxItem> recoveryList = user.Bags.Where(m => !m.Item.IsLock && user.RecoverySetting.CheckRecovery(m.Item, RecoveryType.Other)).ToList();
+            List<BoxItem> recoveryList = user.Bags.Where(m => !m.Item.IsLock && user.RecoveryNew.CheckRecovery(m.Item, RecoveryType.Other)).ToList();
             this.RecoveryAll(recoveryList, RuleType.Normal);
         }
 
@@ -984,7 +984,7 @@ namespace Game
         private void OnAutoRecoveryEvent(AutoRecoveryEvent e)
         {
             User user = GameProcessor.Inst.User;
-            List<BoxItem> recoveryList = user.Bags.Where(m => !m.Item.IsLock && user.RecoverySetting.CheckRecovery(m.Item, RecoveryType.Other)).ToList();
+            List<BoxItem> recoveryList = user.Bags.Where(m => !m.Item.IsLock && user.RecoveryNew.CheckRecovery(m.Item, RecoveryType.Other)).ToList();
             this.RecoveryAll(recoveryList, e.RuleType);
         }
 
@@ -1094,6 +1094,21 @@ namespace Game
                 else if (box.Item.Type == ItemType.Card)
                 {
                     cardStone += box.Item.GetQuality() * ((int)box.MagicNubmer.Data);
+                }
+                else if (box.Item.Type == ItemType.Pet)
+                {
+                    int quality = box.Item.GetQuality();
+
+                    Item item = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Pet_Exp, quality * 100);
+                    AddBoxItem(item);
+                    itemList.Add(item);
+
+                    if (quality >= 5)
+                    {
+                        Item item1 = ItemHelper.BuildMaterial(ItemHelper.Specail_Pet_Layer[quality - 5], 1);
+                        AddBoxItem(item1);
+                        itemList.Add(item1);
+                    }
                 }
                 else if (box.Item.ItemConfig.RecoveryItemId > 0)
                 {

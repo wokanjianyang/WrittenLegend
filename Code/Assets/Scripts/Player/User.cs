@@ -2017,7 +2017,7 @@ namespace Game
             List<Item> newList = new List<Item>();
             recoveryGold = 0;
 
-            List<Item> recoveryList = items.Where(m => RecoverySetting.CheckRecovery(m, RecoveryType.Drop)).ToList();
+            List<Item> recoveryList = items.Where(m => RecoveryNew.CheckRecovery(m, RecoveryType.Drop)).ToList();
             recoveryCount = recoveryList.Count;
             if (recoveryList.Count > 0)
             {
@@ -2078,11 +2078,18 @@ namespace Game
                     }
                 }
 
-                items.RemoveAll(m => RecoverySetting.CheckRecovery(m, RecoveryType.Drop));
+                items.RemoveAll(m => RecoveryNew.CheckRecovery(m, RecoveryType.Drop));
                 items.AddRange(newList);
             }
 
             return newList;
+        }
+
+        public bool CheckKeepSkill(int skillId, int skillLayer)
+        {
+            int c = GameProcessor.Inst.User.SkillList.Where(m => (m.SkillId == skillId || m.SkillConfig.SkillLayer == skillLayer) && m.Recovery).Count();
+
+            return c > 0;
         }
     }
 
