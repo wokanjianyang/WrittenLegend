@@ -31,12 +31,14 @@ public class Panel_Refresh : MonoBehaviour
     public Transform Tf_Setting;
     public Transform Tf_Setting_Item_List;
     public InputField If_Max;
+    public Toggle Tg_Batch;
     private List<Refresh_Setting_Item> ItemList = new List<Refresh_Setting_Item>();
 
     public Button Btn_Auto;
     public Button Btn_Auto_Close;
     private int AutoCount = 0;
     private int AutoMax = 200;
+    private int AutoBatch = 20;
 
     private int RefreshCount = 0;
     private int AutoSaveCount = 0;
@@ -85,49 +87,57 @@ public class Panel_Refresh : MonoBehaviour
             AutoTotal++;
             if (AutoTotal % AutoFrequency == 0)
             {
-                //自动洗练
-                if (!DoFrefresh(5))
+                int batch = Tg_Batch.isOn ? 20 : 1;
+
+                for (int i = 0; i < batch; i++)
                 {
-                    Auto = false;
+                    //自动洗练
+                    if (!DoFrefresh(5))
+                    {
+                        Auto = false;
+                    }
+
+                    //check
+                    bool check = true;
+
+                    List<KeyValuePair<int, long>> keyValues = SelectEquip.Data.GetAttrList();
+                    foreach (var kv in AutoAttrDict)
+                    {
+                        int n = keyValues.Where(m => m.Key == kv.Key).Count();
+                        if (n < kv.Value)
+                        {
+                            check = false;
+                            break;
+                        }
+                    }
+
+                    if (check)
+                    {
+                        //success
+                        Auto = false;
+
+                        this.Btn_Auto_Close.gameObject.SetActive(false);
+                        this.Btn_OK.gameObject.SetActive(true);
+                        this.Btn_Cancle.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        this.SelectEquip.Refesh(false);
+
+                        if (AutoCount >= AutoMax)
+                        {
+                            Auto = false;
+                            this.Btn_Auto_Close.gameObject.SetActive(false);
+                            this.Btn_Auto.gameObject.SetActive(true);
+
+                            this.ShowResult(5);
+                            return;
+                        }
+                    }
                 }
 
                 AutoCount++;
-
-                //check
-                bool check = true;
-
-                List<KeyValuePair<int, long>> keyValues = SelectEquip.Data.GetAttrList();
-                foreach (var kv in AutoAttrDict)
-                {
-                    int n = keyValues.Where(m => m.Key == kv.Key).Count();
-                    if (n < kv.Value)
-                    {
-                        check = false;
-                        break;
-                    }
-                }
-
-                if (check)
-                {
-                    //success
-                    Auto = false;
-
-                    this.Btn_Auto_Close.gameObject.SetActive(false);
-                    this.Btn_OK.gameObject.SetActive(true);
-                    this.Btn_Cancle.gameObject.SetActive(true);
-                }
-                else
-                {
-                    this.SelectEquip.Refesh(false);
-
-                    if (AutoCount >= AutoMax)
-                    {
-                        Auto = false;
-                        this.Btn_Auto_Close.gameObject.SetActive(false);
-                        this.Btn_Auto.gameObject.SetActive(true);
-                        return;
-                    }
-                }
+                this.ShowResult(5);
             }
         }
     }
@@ -270,11 +280,18 @@ public class Panel_Refresh : MonoBehaviour
 
     public void OnClickReferesh()
     {
+        if (SelectEquip == null)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "请先选择一个装备", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
+
         this.Btn_Refesh.gameObject.SetActive(false);
         this.Btn_OK.gameObject.SetActive(true);
         this.Btn_Cancle.gameObject.SetActive(true);
 
         DoFrefresh(1);
+        this.ShowResult(1);
     }
 
 
@@ -299,6 +316,15 @@ public class Panel_Refresh : MonoBehaviour
             Quantity = upCount
         });
 
+        user.RedRefreshCount.Data++;
+
+        return true;
+    }
+
+    private void ShowResult(int type)
+    {
+        User user = GameProcessor.Inst.User;
+
         List<KeyValuePair<int, long>> keyValues = SelectEquip.Data.GetAttrList();
 
         int runeId = SelectEquip.Data.GetRuneId();
@@ -308,11 +334,11 @@ public class Panel_Refresh : MonoBehaviour
         AttrNew.gameObject.SetActive(true);
         AttrNew.Show(keyValues, runeId, suitId);
 
-        user.RedRefreshCount.Data++;
         this.txt_Total.text = "今日洗练总次数：" + user.RedRefreshCount.Data + "次";
 
-
-        stoneTotal = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == specialId).Select(m => m.MagicNubmer.Data).Sum();
+        int specialId = ItemHelper.SpecailEquipRefreshId;
+        int upCount = GetUpCount();
+        long stoneTotal = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == specialId).Select(m => m.MagicNubmer.Data).Sum();
         string color = stoneTotal >= upCount ? "#11FF11" : "#FF0000";
         this.TxtCostCount.text = string.Format("<color={0}>{1}/{2}</color>", color, stoneTotal, upCount);
 
@@ -331,8 +357,6 @@ public class Panel_Refresh : MonoBehaviour
                 GameProcessor.Inst.SaveNetData();
             }
         }
-
-        return true;
     }
 
     public void OnClickOK()
