@@ -20,6 +20,8 @@ public class Dialog_Pet_Forge : MonoBehaviour
 
     public Button Btn_Close;
     public Button Btn_OK;
+    public Button Btn_OK_Batch;
+
     public Button Btn_OK_Layer;
 
     private Pet SelectPet;
@@ -30,6 +32,8 @@ public class Dialog_Pet_Forge : MonoBehaviour
     {
         Btn_Close.onClick.AddListener(OnClick_Close);
         Btn_OK.onClick.AddListener(OnClick_Ok);
+        Btn_OK_Batch.onClick.AddListener(OnClick_Ok_Batch);
+
         Btn_OK_Layer.onClick.AddListener(OnClick_Ok_Layer);
     }
 
@@ -94,6 +98,7 @@ public class Dialog_Pet_Forge : MonoBehaviour
     public void OnClick_Ok()
     {
         this.Btn_OK.gameObject.SetActive(false);
+        this.Btn_OK_Batch.gameObject.SetActive(false);
 
         User user = GameProcessor.Inst.User;
 
@@ -140,8 +145,64 @@ public class Dialog_Pet_Forge : MonoBehaviour
         user.EventCenter.Raise(new UserAttrChangeEvent());
 
         this.Btn_OK.gameObject.SetActive(true);
+        this.Btn_OK_Batch.gameObject.SetActive(true);
     }
 
+    public void OnClick_Ok_Batch()
+    {
+        this.Btn_OK.gameObject.SetActive(false);
+        this.Btn_OK_Batch.gameObject.SetActive(false);
+
+        User user = GameProcessor.Inst.User;
+
+        for (int i = 0; i < 50; i++)
+        {
+            long max = PetConfigCategory.Instance.GetPetFee(SelectPet.PetLevel.Data);
+            long current = SelectPet.LevelExp.Data;
+            long currentLevel = SelectPet.PetLevel.Data;
+            int maxLevel = SelectPet.GetQuality() * 30;
+
+            if (currentLevel >= maxLevel)
+            {
+                //GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "不能超过最大等级", ToastType = ToastTypeEnum.Failure });
+                break;
+            }
+
+            long stoneTotal = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Pet_Exp).Select(m => m.MagicNubmer.Data).Sum();
+            if (stoneTotal <= 0)
+            {
+                //GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "口粮不足", ToastType = ToastTypeEnum.Failure });
+                break;
+            }
+
+            long fee = Math.Min(stoneTotal, max - current);
+
+            //Debug.Log("pet fee:" + fee);
+
+            if (fee <= 0)
+            {
+                SelectPet.AddExp(0);
+            }
+            else
+            {
+                GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
+                {
+                    Type = ItemType.Material,
+                    ItemId = ItemHelper.SpecialId_Pet_Exp,
+                    Quantity = fee
+                });
+
+                SelectPet.AddExp(fee);
+            }
+        }
+
+        this.Show();
+
+        user.EventCenter.Raise(new UserAttrChangeEvent());
+
+        this.Btn_OK.gameObject.SetActive(true);
+        this.Btn_OK_Batch.gameObject.SetActive(true);
+    }
 
     public void OnClick_Ok_Layer()
     {

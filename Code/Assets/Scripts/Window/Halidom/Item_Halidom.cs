@@ -154,24 +154,35 @@ namespace Game
         public void SetContent(HalidomConfig config, long level)
         {
             this.Config = config;
+            this.Show(level);
+        }
 
+        public void Refresh()
+        {
+            User user = GameProcessor.Inst.User;
+            long level = user.GetHalidomLevel(this.Config.Id);
+            this.Show(level);
+        }
+
+        private void Show(long level)
+        {
             string color = level > 8 ? QualityConfigHelper.GetQualityColor(7) : QualityConfigHelper.GetQualityColor(6);
 
-            this.Txt_Name.text = string.Format("<color=#{0}>{1}</color>", color, config.Name);
+            this.Txt_Name.text = string.Format("<color=#{0}>{1}</color>", color, this.Config.Name);
 
             if (level > 0)
             {
-                long val = config.AttrValue + (level - 1) * config.RiseAttr;
+                long val = this.Config.AttrValue + (level - 1) * this.Config.RiseAttr;
                 this.Txt_Level.text = ConfigHelper.LayerNameList[level - 1] + "阶";
-                this.Txt_Attr_Current.text = StringHelper.FormatAttrText(config.AttrId, val);
-                this.Txt_Attr_Rise.text = "升阶增加:" + StringHelper.FormatAttrValueText(config.AttrId, config.RiseAttr);
+                this.Txt_Attr_Current.text = StringHelper.FormatAttrText(this.Config.AttrId, val);
+                this.Txt_Attr_Rise.text = "升阶增加:" + StringHelper.FormatAttrValueText(this.Config.AttrId, this.Config.RiseAttr);
             }
             else
             {
 
                 this.Txt_Level.text = "未激活";
-                this.Txt_Attr_Current.text = StringHelper.FormatAttrValueName(config.AttrId);
-                this.Txt_Attr_Rise.text = "激活增加:" + StringHelper.FormatAttrValueText(config.AttrId, config.AttrValue);
+                this.Txt_Attr_Current.text = StringHelper.FormatAttrValueName(this.Config.AttrId);
+                this.Txt_Attr_Rise.text = "激活增加:" + StringHelper.FormatAttrValueText(this.Config.AttrId, this.Config.AttrValue);
             }
         }
     }
