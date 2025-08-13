@@ -99,7 +99,7 @@ namespace Game
 
         public MagicData LegacyPoint { get; } = new MagicData();
 
-        public RecoverySetting RecoverySetting { get; set; } = new RecoverySetting();
+        //public RecoverySetting RecoverySetting { get; set; } = new RecoverySetting();
 
         public RecoverySettingNew RecoveryNew { get; set; } = new RecoverySettingNew();
 

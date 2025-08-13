@@ -123,4 +123,9 @@
 {"_t":"HalidomConfig","_id":40000172,"ItemId":40000172,"Layer":4,"Name":"深渊魔核","AttrId":2012,"AttrValue":25,"RiseAttr":25,"MaxLevel":4,"Des":"韧性倍率"},
 {"_t":"HalidomConfig","_id":40000173,"ItemId":40000173,"Layer":4,"Name":"深渊龙甲","AttrId":2002,"AttrValue":50,"RiseAttr":50,"MaxLevel":4,"Des":"防御倍率"},
 {"_t":"HalidomConfig","_id":40000174,"ItemId":40000174,"Layer":4,"Name":"深渊龙爪","AttrId":2003,"AttrValue":40,"RiseAttr":40,"MaxLevel":4,"Des":"生命倍率"},
+{"_t":"HalidomConfig","_id":40000175,"ItemId":40000175,"Layer":5,"Name":"混沌鸡爪","AttrId":2004,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"物攻倍率"},
+{"_t":"HalidomConfig","_id":40000176,"ItemId":40000176,"Layer":5,"Name":"混沌鹿茸","AttrId":2005,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"魔法倍率"},
+{"_t":"HalidomConfig","_id":40000177,"ItemId":40000177,"Layer":5,"Name":"混沌草帽","AttrId":2006,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"道术倍率"},
+{"_t":"HalidomConfig","_id":40000178,"ItemId":40000178,"Layer":5,"Name":"混沌猫爪","AttrId":2010,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"增伤倍率"},
+{"_t":"HalidomConfig","_id":40000179,"ItemId":40000179,"Layer":5,"Name":"混沌花朵","AttrId":2012,"AttrValue":25,"RiseAttr":25,"MaxLevel":4,"Des":"韧性倍率"},
 ]}

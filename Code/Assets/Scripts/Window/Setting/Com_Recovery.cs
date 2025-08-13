@@ -47,6 +47,11 @@ namespace Game
         public Toggle Equip_Dark_Keep;
         public InputField if_Dark_Total;
 
+        [Title("混沌装备")]
+        public Dropdown dp_Equip_Recovery_Hundun;
+        public Toggle tg_Equip_Keep_Hundun;
+        public InputField if_Equip_Total_Hundun;
+
         [Title("普通专属")]
         public Dropdown dp_Exclusive_Keep;
         public Dropdown dp_Exclusive_Recovery;
@@ -56,7 +61,7 @@ namespace Game
         public Dropdown dp_Exclusive_Golden_Recovery;
 
         [Title("不朽专属")]
-        public Dropdown dp_Exclusive_Dark_Keep; 
+        public Dropdown dp_Exclusive_Dark_Keep;
         public Dropdown dp_Exclusive_Dark_Recovery;
 
 
@@ -126,6 +131,10 @@ namespace Game
 
             dp_Pet.ClearOptions();
             dp_Pet.AddOptions(new List<string>() { "无", "白色", "绿色", "蓝色", "紫色", "橙色", "红色" });
+
+            //混沌装备
+            dp_Equip_Recovery_Hundun.ClearOptions();
+            dp_Equip_Recovery_Hundun.AddOptions(new List<string>() { "无", "白色", "绿色", "蓝色", "紫色", "橙色", "红色", "金色", "暗金", "混沌" });
 
             //专属
             dp_Exclusive_Keep.ClearOptions();
@@ -283,6 +292,12 @@ namespace Game
             setting.EquipiDarkKeep = Equip_Dark_Keep.isOn;
             int.TryParse(if_Dark_Total.text, out int darkexp);
             setting.EquipDarkTotal = darkexp;
+
+            //混沌装备
+            setting.Equip_Hundun_Recovery = dp_Equip_Recovery_Hundun.value;
+            setting.Equip_Hundun_Keep = tg_Equip_Keep_Hundun.isOn;
+            int.TryParse(if_Equip_Total_Hundun.text, out int equipHundunTotal);
+            setting.Equip_Hundun_Total = equipHundunTotal;
 
             //其他回收
             setting.PetQuality = dp_Pet.value;

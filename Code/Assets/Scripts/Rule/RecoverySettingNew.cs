@@ -3,6 +3,7 @@ namespace Game
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
+    using UnityEngine;
 
     public class RecoverySettingNew
     {
@@ -50,6 +51,12 @@ namespace Game
         public bool EquipiDarkKeep { get; set; } = false;
 
         public int EquipDarkTotal { get; set; } = 0;
+
+        //混沌装备
+        public int Equip_Hundun_Recovery { get; set; } = 0;
+        public bool Equip_Hundun_Keep { get; set; } = false;
+
+        public int Equip_Hundun_Total { get; set; } = 0;
 
         //普通专属
         public int Exclusive_Recovery { get; set; } = 0;
@@ -286,6 +293,25 @@ namespace Game
                     }
 
                     return true;
+                }
+                else if (cycle == 5)
+                {
+                    if (Equip_Hundun_Total > 0 && equip.GetAttrRateCount() >= Equip_Hundun_Total)
+                    {
+                        item.IsKeep = true;
+                        return false;
+                    }
+
+                    if (keepSkill && Equip_Hundun_Keep)
+                    {
+                        item.IsKeep = true;
+                        return false;
+                    }
+
+                    if (quality <= Equip_Hundun_Recovery)
+                    {
+                        return true;
+                    }
                 }
             }
             else if (item.Type == ItemType.Exclusive)
