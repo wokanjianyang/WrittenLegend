@@ -385,6 +385,10 @@ namespace Game
             {
                 redTitle.text = string.Format("<color=#{0}>[暗金属性]</color>", color);
             }
+            else if (quality == 9)
+            {
+                redTitle.text = string.Format("<color=#{0}>[混沌属性]</color>", color);
+            }
 
             Item_Equip_Red[] reds = tran_RedAttribute.GetComponentsInChildren<Item_Equip_Red>(true);
 

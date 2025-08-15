@@ -44,6 +44,7 @@ namespace Game
             ComBoxList.Add(Resources.Load<GameObject>("Prefab/Window/Box6"));
             ComBoxList.Add(Resources.Load<GameObject>("Prefab/Window/Box7"));
             ComBoxList.Add(Resources.Load<GameObject>("Prefab/Window/Box8"));
+            ComBoxList.Add(Resources.Load<GameObject>("Prefab/Window/Box9"));
 
             BoxSelectPrefab = Resources.Load<GameObject>("Prefab/Window/GameItem/BoxSelect");
 

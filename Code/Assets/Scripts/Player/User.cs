@@ -60,6 +60,8 @@ namespace Game
 
         public IDictionary<int, IDictionary<int, Equip>> EquipPanelDarkGoldList { get; set; } = new Dictionary<int, IDictionary<int, Equip>>();
 
+        public IDictionary<int, IDictionary<int, Equip>> EquipPanelHundunList { get; set; } = new Dictionary<int, IDictionary<int, Equip>>();
+
         public IDictionary<int, Equip> EquipPanelSpecial { get; set; } = new Dictionary<int, Equip>();
 
 
@@ -82,6 +84,8 @@ namespace Game
         public int EquipGoldenIndex { get; set; } = 0;
 
         public int EquipDarkGoldIndex { get; set; } = 0;
+
+        public int EquipHundunIndex { get; set; } = 0;
 
         public int SkillPanelIndex { get; set; } = 0;
 
@@ -1165,6 +1169,10 @@ namespace Game
             else if (quality == 8)
             {
                 equips = this.EquipPanelDarkGoldList[EquipDarkGoldIndex].Select(m => m.Value).Where(m => m.GetQuality() == quality && m.EquipConfig.Role == role).ToList();
+            }
+            else if (quality == 9)
+            {
+                equips = this.EquipPanelHundunList[EquipHundunIndex].Select(m => m.Value).Where(m => m.GetQuality() == quality && m.EquipConfig.Role == role).ToList();
             }
 
             List<int> layers = equips.Select(m => m.Layer).OrderByDescending(m => m).ToList();

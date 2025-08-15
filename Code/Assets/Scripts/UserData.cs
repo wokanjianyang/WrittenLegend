@@ -174,6 +174,17 @@ namespace Game
                     }
                 }
 
+                if (user.EquipPanelHundunList.Count < 7)
+                {
+                    for (int i = 0; i < 7; i++)
+                    {
+                        if (!user.EquipPanelHundunList.ContainsKey(i))
+                        {
+                            user.EquipPanelHundunList[i] = new Dictionary<int, Equip>();
+                        }
+                    }
+                }
+
                 if (user.ExclusivePanelList.Count < 7)
                 {
                     for (int i = 0; i < 7; i++)

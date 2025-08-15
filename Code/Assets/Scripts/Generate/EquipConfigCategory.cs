@@ -21,6 +21,12 @@ namespace Game
 
             EquipConfig config = EquipConfigCategory.Instance.Get(configId);
 
+            if (config.Cycle == 5)
+            {
+                //»ìãç×°±¸
+                return BuildEquipNew(config, staticQuality, qualityRate, seed);
+            }
+
             int runeId = config.RuneId;
             int suitId = config.SuitId;
             int quality = config.Quality;
@@ -62,6 +68,65 @@ namespace Game
             equip.Count = 1;
             return equip;
         }
+
+        public static Equip BuildEquipNew(EquipConfig config, int staticQuality, int qualityRate, int seed)
+        {
+
+            double realRate = MathHelper.ConvertionDropRate(qualityRate, 100);
+            int quality = RandomQuanlityCycle5(realRate);
+
+            int runeId = 0;
+            int suitId = 0;
+
+            if (quality > 2)
+            {
+                SkillRuneConfig runeConfig = SkillRuneConfigCategory.Instance.GeEquipRune(quality, seed);
+
+                runeId = runeConfig.Id;
+
+                if (quality == 8)
+                {
+                    suitId = SkillSuitConfigCategory.Instance.GetSuitIdBySkillLayer(runeConfig.SkillLayer);
+                }
+                else
+                {
+                    suitId = SkillSuitHelper.RandomSuit(seed, runeConfig.SkillId, runeConfig.Type).Id;
+                }
+        
+            }
+
+            Equip equip = new Equip(config.Id, runeId, suitId, quality);
+            if (seed < 0)
+            {
+                seed = AppHelper.InitSeed();
+            }
+            equip.Init(seed);
+
+            equip.Count = 1;
+            return equip;
+        }
+
+        private static int RandomQuanlityCycle5(double realRate)
+        {
+            //int[] rates = { 1, 10, 100, 1000, 10000, 50000, 250000, 1000000, 5000000 };
+
+            int[] rates = { 1, 10, 200, 300, 400, 500, 600, 7000, 8000, 10000 };
+
+            int r = RandomHelper.RandomNumber(0, rates[8]);
+
+            r = (int)(r / realRate);
+
+            for (int i = 0; i < rates.Length; i++)
+            {
+                if (r < rates[i])
+                {
+                    return 9 - i;
+                }
+            }
+
+            return 1;
+        }
+
 
         public static Equip BuildByPack(int configId)
         {
