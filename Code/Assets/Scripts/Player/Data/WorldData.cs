@@ -18,9 +18,28 @@ namespace Game
         public Dictionary<int, List<int>> DictItemList = new Dictionary<int, List<int>>();
 
 
+        public Dictionary<int, List<int>> DictItemListNew = new Dictionary<int, List<int>>();
+
         public bool Check()
         {
             long nt = TimeHelper.ClientNowSeconds();
+
+            List<WorldConfig> worlds = WorldConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
+
+            //如果新增了仙兽，配置掉落
+            if (worlds.Count > DictItemListNew.Count)
+            {
+                for (int i = 0; i < worlds.Count; i++)
+                {
+                    int mapId = worlds[i].Id;
+                    if (!this.DictItemList.ContainsKey(mapId))
+                    {
+                        List<int> list = WorldDropConfigCategory.Instance.GetAllDropIdList(mapId);
+
+                        DictItemListNew.Add(mapId, list);
+                    }
+                }
+            }
 
             if (Ticket == 0 || nt - Ticket >= 86400 * 10)
             {
@@ -34,20 +53,21 @@ namespace Game
                 }
 
                 Record.Clear();
-                DictItemList.Clear();
+                DictItemList = DictItemListNew;
+
+                DictItemListNew.Clear();
 
                 for (int mapId = 1; mapId <= 3; mapId++)
                 {
                     List<int> list = WorldDropConfigCategory.Instance.GetAllDropIdList(mapId);
 
-                    DictItemList.Add(mapId, list);
+                    DictItemListNew.Add(mapId, list);
                 }
 
                 return true;
             }
 
-            List<WorldConfig> worlds = WorldConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
-
+            //如果新增了仙兽，配置掉落
             if (worlds.Count > DictItemList.Count)
             {
                 for (int i = 0; i < worlds.Count; i++)
