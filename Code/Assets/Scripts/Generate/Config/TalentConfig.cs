@@ -84,35 +84,38 @@ namespace Game
 		/// <summary>Name</summary>
 		[ProtoMember(3)]
 		public string Name { get; set; }
-		/// <summary>RequireId</summary>
+		/// <summary>Logo</summary>
 		[ProtoMember(4)]
+		public string Logo { get; set; }
+		/// <summary>RequireId</summary>
+		[ProtoMember(5)]
 		public int RequireId { get; set; }
 		/// <summary>RequireLevel</summary>
-		[ProtoMember(5)]
+		[ProtoMember(6)]
 		public int RequireLevel { get; set; }
 		/// <summary>MaxLevel</summary>
-		[ProtoMember(6)]
+		[ProtoMember(7)]
 		public int MaxLevel { get; set; }
 		/// <summary>AttrId</summary>
-		[ProtoMember(7)]
+		[ProtoMember(8)]
 		public int AttrId { get; set; }
 		/// <summary>AttrValue</summary>
-		[ProtoMember(8)]
+		[ProtoMember(9)]
 		public int AttrValue { get; set; }
 		/// <summary>RiseType</summary>
-		[ProtoMember(9)]
+		[ProtoMember(10)]
 		public int RiseType { get; set; }
 		/// <summary>RiseValue</summary>
-		[ProtoMember(10)]
+		[ProtoMember(11)]
 		public int RiseValue { get; set; }
 		/// <summary>RiseUnit</summary>
-		[ProtoMember(11)]
+		[ProtoMember(12)]
 		public string RiseUnit { get; set; }
 		/// <summary>Fee</summary>
-		[ProtoMember(12)]
+		[ProtoMember(13)]
 		public int Fee { get; set; }
 		/// <summary>desc</summary>
-		[ProtoMember(13)]
+		[ProtoMember(14)]
 		public string desc { get; set; }
 
 	}

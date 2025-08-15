@@ -15,22 +15,39 @@ public class Dialog_Talent : MonoBehaviour, IBattleLife
     public Text Txt_Enable;
     public Text Txt_Used;
 
+    public Transform Tf_Layer;
+    private List<Toggle> tgLevelList;
+
     public HP_Progress ExpProgress;
 
+    public List<Transform> tfs;
     private List<Item_Talent> ItemList = new List<Item_Talent>();
     public Button Btn_Close;
     public Button Btn_Reset;
 
     private const int LevelExp = 10000;
 
+    private int SelectLayer = 0;
+
     public int Order => (int)ComponentOrder.Dialog;
 
     private void Awake()
     {
+        tgLevelList = Tf_Layer.GetComponentsInChildren<Toggle>().ToList();
+
         Btn_Close.onClick.AddListener(OnClick_Close);
         Btn_Reset.onClick.AddListener(OnClick_Reset);
 
-        ItemList = this.GetComponentsInChildren<Item_Talent>().ToList();
+
+
+        for (int i = 0; i < tgLevelList.Count; i++)
+        {
+            int index = i;
+            tgLevelList[i].onValueChanged.AddListener((isOn) =>
+            {
+                this.ChangeLevel(index);
+            });
+        }
     }
 
     public void OnBattleStart()
@@ -41,6 +58,30 @@ public class Dialog_Talent : MonoBehaviour, IBattleLife
 
     private void Start()
     {
+        this.ChangeLevel(0);
+
+        this.Show();
+    }
+
+
+    private void ChangeLevel(int layer)
+    {
+        this.SelectLayer = layer;
+
+        for (int i = 0; i < tgLevelList.Count; i++)
+        {
+            Transform tf = tfs[i];
+            if (i == SelectLayer)
+            {
+                tf.gameObject.SetActive(true);
+                ItemList = tf.GetComponentsInChildren<Item_Talent>().ToList();
+            }
+            else
+            {
+                tf.gameObject.SetActive(false);
+            }
+        }
+
         this.Show();
     }
 
@@ -70,9 +111,10 @@ public class Dialog_Talent : MonoBehaviour, IBattleLife
         Txt_Enable.text = "剩余天赋点：" + enabled;
         Txt_Used.text = "已分配天赋点：" + used;
 
+        int startId = SelectLayer * 100;
         for (int i = 0; i < ItemList.Count; i++)
         {
-            ItemList[i].SetContent(i + 1);
+            ItemList[i].SetContent(i + 1 + startId);
         }
     }
 

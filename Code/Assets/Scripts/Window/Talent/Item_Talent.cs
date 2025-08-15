@@ -64,7 +64,7 @@ namespace Game
             }
             TalentConfig config = TalentConfigCategory.Instance.Get(tid);
 
-            Texture2D texture = Resources.Load<Texture2D>("UI/Talent/" + config.Name);
+            Texture2D texture = Resources.Load<Texture2D>("UI/Talent/" + config.Logo);
             Img_Bg.sprite = Sprite.Create(texture, new Rect(0, 0, 160, 160), Vector2.zero);
 
 
