@@ -103,6 +103,9 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.Strong, AttributeFrom.HeroBase, strong);
             AttributeBonus.SetAttr(AttributeEnum.MulDamageIncrea, AttributeFrom.HeroBase, damageMul);
 
+            this.SetAttackSpeed(Config.Speed);
+            this.SetMoveSpeed(Config.Speed);
+
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
         }

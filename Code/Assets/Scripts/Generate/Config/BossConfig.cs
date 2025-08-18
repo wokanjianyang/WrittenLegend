@@ -114,29 +114,32 @@ namespace Game
 		/// <summary>CritDamage</summary>
 		[ProtoMember(13)]
 		public int CritDamage { get; set; }
-		/// <summary>Miss</summary>
+		/// <summary>Speed</summary>
 		[ProtoMember(14)]
+		public int Speed { get; set; }
+		/// <summary>Miss</summary>
+		[ProtoMember(15)]
 		public int Miss { get; set; }
 		/// <summary>Accuracy</summary>
-		[ProtoMember(15)]
+		[ProtoMember(16)]
 		public int Accuracy { get; set; }
 		/// <summary>Protect</summary>
-		[ProtoMember(16)]
+		[ProtoMember(17)]
 		public double Protect { get; set; }
 		/// <summary>经验</summary>
-		[ProtoMember(17)]
+		[ProtoMember(18)]
 		public long Exp { get; set; }
 		/// <summary>掉落金币</summary>
-		[ProtoMember(18)]
+		[ProtoMember(19)]
 		public long Gold { get; set; }
 		/// <summary>地图Id掉落</summary>
-		[ProtoMember(19)]
+		[ProtoMember(20)]
 		public int[] DropIdList { get; set; }
 		/// <summary>掉落概率列表</summary>
-		[ProtoMember(20)]
+		[ProtoMember(21)]
 		public int[] DropRateList { get; set; }
 		/// <summary>模型</summary>
-		[ProtoMember(21)]
+		[ProtoMember(22)]
 		public int ModelType { get; set; }
 
 	}

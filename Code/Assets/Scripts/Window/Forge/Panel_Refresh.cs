@@ -95,6 +95,7 @@ public class Panel_Refresh : MonoBehaviour
                     if (!DoFrefresh(5))
                     {
                         Auto = false;
+                        break;
                     }
 
                     //check
