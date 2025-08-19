@@ -84,7 +84,7 @@ namespace Game
 
         private void ChangePlan(int i)
         {
-            GameProcessor.Inst.EventCenter.Raise(new ChangeEquipDarkGoldEvent() { Index = i });
+            GameProcessor.Inst.EventCenter.Raise(new ChangeEquipPlanEvent() { Type = 4, Index = i });
 
             GameProcessor.Inst.User.EventCenter.Raise(new SkillChangePlanEvent());
             GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());

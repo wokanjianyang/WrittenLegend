@@ -413,13 +413,9 @@ namespace Game
     //    public int Index { get; set; }
     //}
 
-    public class ChangeEquipGoldenEvent : SDD.Events.Event
+    public class ChangeEquipPlanEvent : SDD.Events.Event
     {
-        public int Index { get; set; }
-    }
-
-    public class ChangeEquipDarkGoldEvent : SDD.Events.Event
-    {
+        public int Type { get; set; }
         public int Index { get; set; }
     }
 

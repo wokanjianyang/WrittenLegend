@@ -51,6 +51,7 @@ namespace Game
 
         public Button btn_Equip_Golden;
         public Button btn_Equip_Dark_Gold;
+        public Button btn_Equip_Hundun;
         public Button btn_Relic;
 
         [Title("功能框")]
@@ -64,6 +65,7 @@ namespace Game
         public Dialog_Pill DialogPill;
         public Dialog_EquipGolden DialogEquipGolden;
         public Dialog_Equip_Dark_Gold DialogEquipDarkGold;
+        public Dialog_Equip_Hundun DialogEquipHundun;
 
         private List<Com_Box> items = new List<Com_Box>();
 
@@ -96,6 +98,7 @@ namespace Game
             this.btn_Pill.onClick.AddListener(OnOpenPill);
             this.btn_Equip_Golden.onClick.AddListener(OnOpenEquipGolden);
             this.btn_Equip_Dark_Gold.onClick.AddListener(OnOpenEquipDarkGold);
+            this.btn_Equip_Hundun.onClick.AddListener(OnOpenEquipHundun);
             this.btn_Talent.onClick.AddListener(OnOpenTalent);
             this.btn_Relic.onClick.AddListener(OnOpenRelic);
 
@@ -175,6 +178,15 @@ namespace Game
                 this.btn_Equip_Dark_Gold.gameObject.SetActive(false);
             }
 
+            if (user.MapId >= 1164)
+            {
+                this.btn_Equip_Hundun.gameObject.SetActive(true);
+            }
+            else
+            {
+                this.btn_Equip_Hundun.gameObject.SetActive(false);
+            }
+
             if (user.Cycle.Data > 0 || user.MagicLevel.Data >= 50000 || user.PetList.Count > 0)
             {
                 this.btn_Pet.gameObject.SetActive(true);
@@ -210,9 +222,7 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<EquipLockEvent>(this.OnEquipLockEvent);
             GameProcessor.Inst.EventCenter.AddListener<ExchangeEvent>(this.OnExchangeEvent);
             //GameProcessor.Inst.EventCenter.AddListener<ChangeExclusiveEvent>(this.OnChangeExclusiveEvent);
-            GameProcessor.Inst.EventCenter.AddListener<ChangeEquipGoldenEvent>(this.OnChangeEquipGoldenEvent);
-            GameProcessor.Inst.EventCenter.AddListener<ChangeEquipDarkGoldEvent>(this.OnChangeEquipDarkGoldEvent);
-
+            GameProcessor.Inst.EventCenter.AddListener<ChangeEquipPlanEvent>(this.OnChangeEquipPlanEvent);
 
             GameProcessor.Inst.EventCenter.AddListener<PetBattleUpEvent>(this.PetBattleUp);
 
@@ -276,6 +286,13 @@ namespace Game
                 yield return null;
             }
 
+            List<SlotBox> hunduns = DialogEquipHundun.GetComponentsInChildren<SlotBox>().ToList();
+            for (int i = 0; i < dgds.Count; i++)
+            {
+                hunduns[i].Init(prefab, 41 + i);
+                yield return null;
+            }
+
 
             foreach (var kvEp in user.EquipPanelList)
             {
@@ -302,6 +319,13 @@ namespace Game
 
             //穿戴暗金装
             foreach (var kvp in user.EquipPanelDarkGoldList[user.EquipDarkGoldIndex])
+            {
+                this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
+                //yield return null;
+            }
+
+            //穿戴混沌装
+            foreach (var kvp in user.EquipPanelHundunList[user.EquipHundunIndex])
             {
                 this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
                 //yield return null;
@@ -604,37 +628,52 @@ namespace Game
         //    //Debug.Log("OnChangeExclusiveEvent");
         //}
 
-        private void OnChangeEquipGoldenEvent(ChangeEquipGoldenEvent e)
+        private void OnChangeEquipPlanEvent(ChangeEquipPlanEvent e)
         {
             User user = GameProcessor.Inst.User;
-            user.EquipGoldenIndex = e.Index;
 
-            for (int i = 21; i <= 30; i++)
+            if (e.Type == 3)
             {
-                this.ClearEquipPanelItem(i);
+                user.EquipGoldenIndex = e.Index;
+
+                for (int i = 21; i <= 30; i++)
+                {
+                    this.ClearEquipPanelItem(i);
+                }
+
+                foreach (var kvp in user.EquipPanelGoldenList[e.Index])
+                {
+                    this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
+                }
             }
-
-            foreach (var kvp in user.EquipPanelGoldenList[e.Index])
+            else if (e.Type == 4)
             {
-                this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
+                user.EquipDarkGoldIndex = e.Index;
+
+                for (int i = 31; i <= 40; i++)
+                {
+                    this.ClearEquipPanelItem(i);
+                }
+
+                foreach (var kvp in user.EquipPanelDarkGoldList[e.Index])
+                {
+                    this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
+                }
+
             }
-
-            //Debug.Log("OnChangeExclusiveEvent");
-        }
-
-        private void OnChangeEquipDarkGoldEvent(ChangeEquipDarkGoldEvent e)
-        {
-            User user = GameProcessor.Inst.User;
-            user.EquipDarkGoldIndex = e.Index;
-
-            for (int i = 31; i <= 40; i++)
+            else if (e.Type == 5)
             {
-                this.ClearEquipPanelItem(i);
-            }
+                user.EquipHundunIndex = e.Index;
 
-            foreach (var kvp in user.EquipPanelDarkGoldList[e.Index])
-            {
-                this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
+                for (int i = 41; i <= 50; i++)
+                {
+                    this.ClearEquipPanelItem(i);
+                }
+
+                foreach (var kvp in user.EquipPanelHundunList[e.Index])
+                {
+                    this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
+                }
             }
         }
 
@@ -653,13 +692,19 @@ namespace Game
             if (user.EquipGoldenSetting)
             {
                 user.EquipGoldenIndex = index;
-                GameProcessor.Inst.EventCenter.Raise(new ChangeEquipGoldenEvent() { Index = index });
+                GameProcessor.Inst.EventCenter.Raise(new ChangeEquipPlanEvent() { Type = 3, Index = index });
             }
 
             if (user.EquipDarkGoldSetting)
             {
                 user.EquipDarkGoldIndex = index;
-                GameProcessor.Inst.EventCenter.Raise(new ChangeEquipDarkGoldEvent() { Index = index });
+                GameProcessor.Inst.EventCenter.Raise(new ChangeEquipPlanEvent() { Type = 4, Index = index });
+            }
+
+            if (user.EquipHundunSetting)
+            {
+                user.EquipHundunIndex = index;
+                GameProcessor.Inst.EventCenter.Raise(new ChangeEquipPlanEvent() { Type = 5, Index = index });
             }
 
             user.SkillPanelIndex = index;
@@ -1471,6 +1516,10 @@ namespace Game
             {
                 ep = user.EquipPanelDarkGoldList[user.EquipDarkGoldIndex];
             }
+            else if (Part >= 41 && Part <= 50)
+            {
+                ep = user.EquipPanelHundunList[user.EquipHundunIndex];
+            }
 
             //增加一次穿戴记录，用做轮流穿戴左右
             if (!user.EquipRecord.ContainsKey(Part))
@@ -1505,6 +1554,10 @@ namespace Game
                 else if (Position >= 31 && Position <= 40)
                 {
                     slot = DialogEquipDarkGold.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == Position).First();
+                }
+                else if (Position >= 41 && Position <= 50)
+                {
+                    slot = DialogEquipHundun.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == Position).First();
                 }
 
                 slot.UnEquip();
@@ -1650,6 +1703,10 @@ namespace Game
             {
                 slot = DialogEquipDarkGold.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
+            else if (position >= 41 && position <= 50)
+            {
+                slot = DialogEquipHundun.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+            }
 
             if (slot.GetEquip() != null) //防止叠加，无限刷道具
             {
@@ -1697,9 +1754,13 @@ namespace Game
             {
                 slot = DialogEquipGolden.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
-            else if (position >= 30 && position <= 40)
+            else if (position >= 31 && position <= 40)
             {
                 slot = DialogEquipDarkGold.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+            }
+            else if (position >= 41 && position <= 50)
+            {
+                slot = DialogEquipHundun.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
 
             slot.UnEquip();
@@ -1728,6 +1789,10 @@ namespace Game
             else if (position >= 31 && position <= 40)
             {
                 user.EquipPanelDarkGoldList[user.EquipDarkGoldIndex].Remove(position);
+            }
+            else if (position >= 41 && position <= 50)
+            {
+                user.EquipPanelHundunList[user.EquipHundunIndex].Remove(position);
             }
 
             //通知英雄更新属性
@@ -1866,6 +1931,11 @@ namespace Game
         public void OnOpenEquipDarkGold()
         {
             DialogEquipDarkGold.Show();
+        }
+
+        public void OnOpenEquipHundun()
+        {
+            DialogEquipHundun.Show();
         }
 
         public void OnOpenTalent()

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Game
 {
-    public class Dialog_EquipGolden : MonoBehaviour, IBattleLife
+    public class Dialog_Equip_Hundun : MonoBehaviour, IBattleLife
     {
         public Button Btn_Close;
 
@@ -23,7 +23,7 @@ namespace Game
 
             toggle.onValueChanged.AddListener((isOn) =>
             {
-                GameProcessor.Inst.User.EquipGoldenSetting = isOn;
+                GameProcessor.Inst.User.EquipHundunSetting = isOn;
             });
         }
 
@@ -60,7 +60,7 @@ namespace Game
         {
             this.gameObject.SetActive(true);
 
-            toggle.isOn = GameProcessor.Inst.User.EquipGoldenSetting;
+            toggle.isOn = GameProcessor.Inst.User.EquipHundunSetting;
             this.InitPlanName();
         }
 
@@ -68,8 +68,8 @@ namespace Game
         {
             User user = GameProcessor.Inst.User;
 
-            int EquipGoldenIndex = user.EquipGoldenIndex;
-            Toggle_Plan_List[EquipGoldenIndex].isOn = true;
+            int EquipHundunIndex = user.EquipHundunIndex;
+            Toggle_Plan_List[EquipHundunIndex].isOn = true;
 
             for (int i = 0; i < Toggle_Plan_List.Count; i++)
             {
@@ -84,7 +84,7 @@ namespace Game
 
         private void ChangePlan(int i)
         {
-            GameProcessor.Inst.EventCenter.Raise(new ChangeEquipPlanEvent() { Type = 3, Index = i });
+            GameProcessor.Inst.EventCenter.Raise(new ChangeEquipPlanEvent() { Type = 5, Index = i });
 
             GameProcessor.Inst.User.EventCenter.Raise(new SkillChangePlanEvent());
             GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());

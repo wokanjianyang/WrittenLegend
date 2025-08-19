@@ -81,6 +81,9 @@ namespace Game
 
         public bool EquipGoldenSetting { get; set; } = false;
         public bool EquipDarkGoldSetting { get; set; } = false;
+
+        public bool EquipHundunSetting { get; set; } = false;
+
         public int EquipGoldenIndex { get; set; } = 0;
 
         public int EquipDarkGoldIndex { get; set; } = 0;
@@ -482,6 +485,15 @@ namespace Game
             //装备属性-暗金色装备
             foreach (KeyValuePair<int, Equip> kvp in EquipPanelDarkGoldList[EquipDarkGoldIndex])
             {
+                foreach (KeyValuePair<int, double> a in kvp.Value.GetTotalAttrList(0))
+                {
+                    AttributeBonus.SetAttr((AttributeEnum)a.Key, AttributeFrom.EquipBase, kvp.Key, a.Value);
+                }
+            }
+
+            //装备属性-混沌装备
+            foreach (KeyValuePair<int, Equip> kvp in EquipPanelHundunList[EquipHundunIndex])
+            {   
                 foreach (KeyValuePair<int, double> a in kvp.Value.GetTotalAttrList(0))
                 {
                     AttributeBonus.SetAttr((AttributeEnum)a.Key, AttributeFrom.EquipBase, kvp.Key, a.Value);
@@ -1051,6 +1063,9 @@ namespace Game
             //金装词条
             skillList.AddRange(this.EquipPanelGoldenList[EquipGoldenIndex].Where(m => m.Value.SkillRuneConfig != null && m.Value.SkillRuneConfig.SkillId == skillId).Select(m => m.Value.SkillRuneConfig.Id).ToList());
 
+            //混沌词条
+            skillList.AddRange(this.EquipPanelHundunList[EquipHundunIndex].Where(m => m.Value.SkillRuneConfig != null && m.Value.SkillRuneConfig.SkillId == skillId).Select(m => m.Value.SkillRuneConfig.Id).ToList());
+
             //暗金词条
             if (skillLayer > 0)
             {
@@ -1098,6 +1113,9 @@ namespace Game
 
             //金装套装
             skillList.AddRange(this.EquipPanelGoldenList[EquipGoldenIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SkillSuitConfig.SkillId == skillId).Select(m => m.Value.SkillSuitConfig).ToList());
+
+            //混沌套装
+            skillList.AddRange(this.EquipPanelHundunList[EquipHundunIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SkillSuitConfig.SkillId == skillId).Select(m => m.Value.SkillSuitConfig).ToList());
 
             //暗金词条
             if (skillLayer > 0)
