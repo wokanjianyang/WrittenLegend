@@ -28,13 +28,13 @@ namespace Game
                 return list[0];
             }
 
-            int maxRate = list.Select(m => m.BuildRate).Sum();
+            int maxRate = list.Select(m => m.EquipRate).Sum();
             int rd = RandomHelper.RandomNumber(seed, 1, maxRate + 1);
 
             int tempRate = 0;
             for (int i = 0; i < list.Count; i++)
             {
-                tempRate += list[i].BuildRate;
+                tempRate += list[i].EquipRate;
 
                 if (rd <= tempRate)
                 {

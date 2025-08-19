@@ -24,7 +24,7 @@ namespace Game
             if (config.Cycle == 5)
             {
                 //»ìãç×°±¸
-                return BuildEquipNew(config, staticQuality, qualityRate, seed);
+                return BuildEquipCycle5(config, staticQuality, qualityRate, seed);
             }
 
             int runeId = config.RuneId;
@@ -69,7 +69,7 @@ namespace Game
             return equip;
         }
 
-        public static Equip BuildEquipNew(EquipConfig config, int staticQuality, int qualityRate, int seed)
+        public static Equip BuildEquipCycle5(EquipConfig config, int staticQuality, int qualityRate, int seed)
         {
 
             double realRate = MathHelper.ConvertionDropRate(qualityRate, 100);
@@ -80,7 +80,7 @@ namespace Game
 
             if (quality > 2)
             {
-                SkillRuneConfig runeConfig = SkillRuneConfigCategory.Instance.GeEquipRune(quality, seed);
+                SkillRuneConfig runeConfig = SkillRuneConfigCategory.Instance.GeEquipRuneCycle5(quality, config.Role, seed);
 
                 runeId = runeConfig.Id;
 
@@ -92,7 +92,7 @@ namespace Game
                 {
                     suitId = SkillSuitHelper.RandomSuit(seed, runeConfig.SkillId, runeConfig.Type).Id;
                 }
-        
+
             }
 
             Equip equip = new Equip(config.Id, runeId, suitId, quality);

@@ -288,11 +288,18 @@ public class Panel_Refresh : MonoBehaviour
         }
 
         this.Btn_Refesh.gameObject.SetActive(false);
-        this.Btn_OK.gameObject.SetActive(true);
-        this.Btn_Cancle.gameObject.SetActive(true);
 
-        DoFrefresh(1);
-        this.ShowResult(1);
+        if (DoFrefresh(1))
+        {
+            this.ShowResult(1);
+
+            this.Btn_OK.gameObject.SetActive(true);
+            this.Btn_Cancle.gameObject.SetActive(true);
+        }
+        else
+        {
+            this.Btn_Refesh.gameObject.SetActive(true);
+        }
     }
 
 
