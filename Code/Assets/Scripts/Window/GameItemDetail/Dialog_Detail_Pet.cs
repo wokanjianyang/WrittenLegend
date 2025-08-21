@@ -237,7 +237,6 @@ namespace Game
                     GameProcessor.Inst.EventCenter.Raise(new RecoveryEvent()
                     {
                         BoxItem = this.boxItem,
-                        Quantity = 1
                     });
                 }, () =>
                 {
@@ -251,7 +250,6 @@ namespace Game
                 GameProcessor.Inst.EventCenter.Raise(new RecoveryEvent()
                 {
                     BoxItem = this.boxItem,
-                    Quantity = 1
                 });
             }
 

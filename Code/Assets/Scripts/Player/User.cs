@@ -493,7 +493,7 @@ namespace Game
 
             //装备属性-混沌装备
             foreach (KeyValuePair<int, Equip> kvp in EquipPanelHundunList[EquipHundunIndex])
-            {   
+            {
                 foreach (KeyValuePair<int, double> a in kvp.Value.GetTotalAttrList(0))
                 {
                     AttributeBonus.SetAttr((AttributeEnum)a.Key, AttributeFrom.EquipBase, kvp.Key, a.Value);
@@ -2038,60 +2038,31 @@ namespace Game
             return limitId + 1020;
         }
 
-        public List<Item> CheckRecovery(List<Item> items, out long recoveryGold, out int recoveryCount)
+        public List<Item> CheckRecovery(List<Item> items, out long gold, out int recoveryCount)
         {
             List<Item> newList = new List<Item>();
-            recoveryGold = 0;
+            gold = 0;
 
             List<Item> recoveryList = items.Where(m => RecoveryNew.CheckRecovery(m, RecoveryType.Drop)).ToList();
             recoveryCount = recoveryList.Count;
             if (recoveryList.Count > 0)
             {
                 Dictionary<int, int> recoveryDict = new Dictionary<int, int>();
-                recoveryDict[ItemHelper.SpecialId_EquipRefineStone] = 0;
-                recoveryDict[ItemHelper.SpecialId_Equip_Speical_Stone] = 0;
-                recoveryDict[ItemHelper.SpecialId_Exclusive_Stone] = 0;
 
                 foreach (Item item in recoveryList)
                 {
-                    if (item.Type == ItemType.Equip)
+                    Dictionary<int, int> dict = Recovery(item, out long recoveryGold);
+
+                    gold += recoveryGold;
+
+                    foreach (var sp in dict)
                     {
-                        Equip equip = item as Equip;
-
-                        if (equip.Part <= 10)
+                        if (!recoveryDict.ContainsKey(sp.Key))
                         {
-                            recoveryDict[ItemHelper.SpecialId_EquipRefineStone] += CalStone(equip);
-                        }
-                        else
-                        {
-                            recoveryDict[ItemHelper.SpecialId_Equip_Speical_Stone] += CalSpecailStone(equip);
+                            recoveryDict[sp.Key] = 0;
                         }
 
-                        int RecoveryItemId = equip.EquipConfig.RecoveryItemId;
-                        if (equip.GetQuality() >= 5 && RecoveryItemId > 0)
-                        {
-                            if (!recoveryDict.ContainsKey(RecoveryItemId))
-                            {
-                                recoveryDict[RecoveryItemId] = 0;
-                            }
-                            recoveryDict[RecoveryItemId] += 1;
-                        }
-
-                        recoveryGold += equip.EquipConfig.Price;
-                    }
-                    else if (item.Type == ItemType.Exclusive)
-                    {
-                        recoveryDict[ItemHelper.SpecialId_Exclusive_Stone] += item.GetQuality() * 1;
-                    }
-                    else if (item.ItemConfig.RecoveryItemId > 0)
-                    {
-                        int RecoveryItemId = item.ItemConfig.RecoveryItemId;
-
-                        if (!recoveryDict.ContainsKey(RecoveryItemId))
-                        {
-                            recoveryDict[RecoveryItemId] = 0;
-                        }
-                        recoveryDict[RecoveryItemId] += item.ItemConfig.RecoveryCount;
+                        recoveryDict[sp.Key] += sp.Value;
                     }
                 }
 
@@ -2109,6 +2080,87 @@ namespace Game
             }
 
             return newList;
+        }
+
+        public Dictionary<int, int> Recovery(Item item, out long recoveryGold)
+        {
+            recoveryGold = 0;
+
+            Dictionary<int, int> dict = new Dictionary<int, int>();
+
+            if (item.Type == ItemType.Equip)
+            {
+                Equip equip = item as Equip;
+
+                if (equip.EquipConfig.Cycle == 0)
+                {
+                    dict[ItemHelper.SpecialId_Equip_Speical_Stone] = CalSpecailStone(equip);
+                }
+                else if (equip.EquipConfig.Cycle == 1)
+                {
+                    dict[ItemHelper.SpecialId_EquipRefineStone] = CalStone(equip);
+                }
+                else if (equip.EquipConfig.Cycle >= 2 && equip.EquipConfig.Cycle <= 4)
+                {
+                    int RecoveryItemId = equip.EquipConfig.RecoveryItemId;
+                    if (RecoveryItemId > 0)
+                    {
+                        dict[RecoveryItemId] = 1;
+                    }
+                }
+                else if (equip.EquipConfig.Cycle == 5)
+                {
+                    if (equip.GetQuality() == 9)
+                    {
+                        dict[ItemHelper.SpecialId_Equip_Hundun] = 1;
+                    }
+                    else
+                    {
+                        dict[ItemHelper.SpecialId_EquipRefineStone] = CalStone(equip);
+                    }
+                }
+
+                recoveryGold += equip.EquipConfig.Price;
+            }
+            else if (item.Type == ItemType.Exclusive)
+            {
+                ExclusiveItem exclusive = item as ExclusiveItem;
+
+                if (exclusive.ExclusiveConfig.Cycle == 2 && exclusive.GetQuality() >= 7)
+                {
+                    dict[ItemHelper.SpecialId_Exclusive_Golden] = 1;
+                }
+                else if (exclusive.ExclusiveConfig.Cycle == 3 && exclusive.GetQuality() >= 8)
+                {
+                    dict[ItemHelper.SpecialId_Exclusive_Dark] += 1;
+                }
+                else
+                {
+                    dict[ItemHelper.SpecialId_Exclusive_Stone] += item.GetQuality() * 1;
+                }
+            }
+            else if (item.Type == ItemType.Pet)
+            {
+                int quality = item.GetQuality();
+                dict[ItemHelper.SpecialId_Pet_Exp] = quality * 100;
+
+                if (quality >= 5)
+                {
+                    dict[ItemHelper.Specail_Pet_Layer[quality - 5]] = 1;
+                }
+            }
+            else if (item.ItemConfig.RecoveryItemId > 0)
+            {
+                int RecoveryItemId = item.ItemConfig.RecoveryItemId;
+
+                dict[RecoveryItemId] = item.ItemConfig.RecoveryCount;
+            }
+            else
+            {
+                recoveryGold += item.ItemConfig.Price * item.Count;
+            }
+
+            return dict;
         }
 
         public bool CheckKeepSkill(int skillId, int skillLayer)

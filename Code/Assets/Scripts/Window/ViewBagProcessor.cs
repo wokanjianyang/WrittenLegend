@@ -836,11 +836,12 @@ namespace Game
 
         private void OnRecoveryEvent(RecoveryEvent e)
         {
-            //手动点击回收的
+            //回收部分
             if (e.Quantity > 0)
             {
                 this.RecoverySingle(e.BoxItem, e.Quantity);
             }
+            //回收全部
             else
             {
                 List<BoxItem> recoveryList = new List<BoxItem>();
@@ -1043,27 +1044,18 @@ namespace Game
 
             List<Item> itemList = new List<Item>();
 
-            if (boxItem.Item.Type == ItemType.Pet)
+            Dictionary<int, int> recoveryDict = user.Recovery(boxItem.Item, out long recoveryGold);
+
+            gold += recoveryGold * boxItem.MagicNubmer.Data;
+
+            foreach (var kvp in recoveryDict)
             {
-                int quality = boxItem.Item.GetQuality();
-
-                Item item = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Pet_Exp, quality * 100);
-                AddBoxItem(item);
-                itemList.Add(item);
-
-                if (quality >= 5)
+                if (kvp.Value > 0)
                 {
-                    Item item1 = ItemHelper.BuildMaterial(ItemHelper.Specail_Pet_Layer[quality - 5], 1);
-                    AddBoxItem(item1);
-                    itemList.Add(item1);
+                    Item recoveryItem = ItemHelper.BuildMaterial(kvp.Key, kvp.Value * boxItem.MagicNubmer.Data);
+                    AddBoxItem(recoveryItem);
+                    itemList.Add(recoveryItem);
                 }
-
-            }
-            else if (boxItem.Item.ItemConfig.RecoveryItemId > 0)
-            {
-                Item item = ItemHelper.BuildMaterial(boxItem.Item.ItemConfig.RecoveryItemId, quantity * boxItem.Item.ItemConfig.RecoveryCount);
-                AddBoxItem(item);
-                itemList.Add(item);
             }
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
@@ -1079,92 +1071,26 @@ namespace Game
 
             List<Item> itemList = new List<Item>();
 
-            int refineStone = 0;
-            int speicalStone = 0;
-            int exclusiveStone = 0;
-            int cardStone = 0;
-            int exclusiveGoldenStone = 0;
-            int exclusiveDarkStone = 0;
-
             Dictionary<int, int> recoveryDict = new Dictionary<int, int>();
 
             long gold = 0;
 
             foreach (BoxItem box in recoveryList)
             {
-                //gold += box.Item.Gold * box.MagicNubmer.Data;
+                Dictionary<int, int> dict = user.Recovery(box.Item, out long recoveryGold);
 
-                if (box.Item.Type == ItemType.Equip)
+                gold += recoveryGold;
+
+                foreach (var sp in dict)
                 {
-                    Equip equip = box.Item as Equip;
-
-                    if (equip.Part <= 10)
+                    if (!recoveryDict.ContainsKey(sp.Key))
                     {
-                        refineStone += user.CalStone(equip);
-                    }
-                    else
-                    {
-                        speicalStone += user.CalSpecailStone(equip);
+                        recoveryDict[sp.Key] = 0;
                     }
 
-                    int RecoveryItemId = equip.EquipConfig.RecoveryItemId;
-                    if (equip.GetQuality() >= 5 && RecoveryItemId > 0)
-                    {
-                        if (!recoveryDict.ContainsKey(RecoveryItemId))
-                        {
-                            recoveryDict[RecoveryItemId] = 0;
-                        }
-                        recoveryDict[RecoveryItemId] += 1;
-                    }
+                    recoveryDict[sp.Key] += (int)(sp.Value * box.MagicNubmer.Data);
+                }
 
-                    gold += equip.EquipConfig.Price;
-                }
-                else if (box.Item.Type == ItemType.Exclusive)
-                {
-                    ExclusiveItem exclusive = box.Item as ExclusiveItem;
-
-                    if (exclusive.ExclusiveConfig.Cycle == 2 && exclusive.GetQuality() >= 7)
-                    {
-                        exclusiveGoldenStone += 1;
-                    }
-                    else if (exclusive.ExclusiveConfig.Cycle == 3 && exclusive.GetQuality() >= 8)
-                    {
-                        exclusiveDarkStone += 1;
-                    }
-                    else
-                    {
-                        exclusiveStone += box.Item.GetQuality() * 1;
-                    }
-                }
-                else if (box.Item.Type == ItemType.Card)
-                {
-                    cardStone += box.Item.GetQuality() * ((int)box.MagicNubmer.Data);
-                }
-                else if (box.Item.Type == ItemType.Pet)
-                {
-                    int quality = box.Item.GetQuality();
-
-                    Item item = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Pet_Exp, quality * 100);
-                    AddBoxItem(item);
-                    itemList.Add(item);
-
-                    if (quality >= 5)
-                    {
-                        Item item1 = ItemHelper.BuildMaterial(ItemHelper.Specail_Pet_Layer[quality - 5], 1);
-                        AddBoxItem(item1);
-                        itemList.Add(item1);
-                    }
-                }
-                else if (box.Item.ItemConfig.RecoveryItemId > 0)
-                {
-                    Item item = ItemHelper.BuildMaterial(box.Item.ItemConfig.RecoveryItemId, box.MagicNubmer.Data * box.Item.ItemConfig.RecoveryCount);
-                    AddBoxItem(item);
-                    itemList.Add(item);
-                }
-                else
-                {
-                    gold += box.Item.ItemConfig.Price * ((int)box.MagicNubmer.Data);
-                }
 
                 UseBoxItem(box, box.MagicNubmer.Data);
             }
@@ -1174,47 +1100,14 @@ namespace Game
                 user.AddExpAndGold(0, gold);
             }
 
-            if (refineStone > 0)
-            {
-                Item item = ItemHelper.BuildRefineStone(refineStone);
-                AddBoxItem(item);
-                itemList.Add(item);
-            }
-            if (exclusiveStone > 0)
-            {
-                Item exStoneItem = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Stone, exclusiveStone);
-                AddBoxItem(exStoneItem);
-                itemList.Add(exStoneItem);
-            }
-            if (exclusiveGoldenStone > 0)
-            {
-                Item exgStoneItem = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Golden, exclusiveGoldenStone);
-                AddBoxItem(exgStoneItem);
-                itemList.Add(exgStoneItem);
-            }
-            if (exclusiveDarkStone > 0)
-            {
-                Item exdStoneItem = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Dark, exclusiveDarkStone);
-                AddBoxItem(exdStoneItem);
-                itemList.Add(exdStoneItem);
-            }
-            if (speicalStone > 0)
-            {
-                Item speicalStoneItem = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Equip_Speical_Stone, speicalStone);
-                AddBoxItem(speicalStoneItem);
-                itemList.Add(speicalStoneItem);
-            }
-            if (cardStone > 0)
-            {
-                Item cardItem = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Card_Stone, cardStone);
-                AddBoxItem(cardItem);
-                itemList.Add(cardItem);
-            }
             foreach (var kvp in recoveryDict)
             {
-                Item recoveryItem = ItemHelper.BuildMaterial(kvp.Key, kvp.Value);
-                AddBoxItem(recoveryItem);
-                itemList.Add(recoveryItem);
+                if (kvp.Value > 0)
+                {
+                    Item recoveryItem = ItemHelper.BuildMaterial(kvp.Key, kvp.Value);
+                    AddBoxItem(recoveryItem);
+                    itemList.Add(recoveryItem);
+                }
             }
 
             if (recoveryList.Count > 0)
