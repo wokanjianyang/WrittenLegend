@@ -121,9 +121,9 @@ namespace Game
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 127, 1, 1)); //金装自选
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 128, 1, 1)); //暗金自选
 
-            //items.AddRange(AddRedEquipDaoshi());
+            //items.AddRange(AddGoldenEquip());
             //items.AddRange(AddExclusiveHuoXing());
-            //items.AddRange(AddExclusiveZhanshi());
+            //items.AddRange(AddRedEquip());
 
 
             foreach (var item in items)
@@ -648,12 +648,29 @@ namespace Game
             //list.Add(ItemHelper.BuildEquip(22205801, 7, 1, 0));
             //list.Add(ItemHelper.BuildEquip(22205802, 7, 1, 0));
 
+            //金色
             for (int i = 0; i < 10; i++)
             {
-                list.Add(ItemHelper.BuildEquip(22205801, 7, 1, 0));
-                list.Add(ItemHelper.BuildEquip(22205801, 7, 1, 0));
+                list.Add(ItemHelper.BuildEquip(21205801, 7, 1, 0)); //
+                list.Add(ItemHelper.BuildEquip(22205801, 7, 1, 0)); //
+                list.Add(ItemHelper.BuildEquip(23205801, 7, 1, 0)); //
             }
 
+            //暗金
+            for (int i = 0; i < 10; i++)
+            {
+                list.Add(ItemHelper.BuildEquip(21305801, 8, 1, 0)); //
+                list.Add(ItemHelper.BuildEquip(22305801, 8, 1, 0)); //
+                list.Add(ItemHelper.BuildEquip(23305801, 8, 1, 0)); //
+            }
+
+            //混沌
+            for (int i = 0; i < 10; i++)
+            {
+                list.Add(ItemHelper.BuildEquip(21405801, 9, 1, 0)); //
+                list.Add(ItemHelper.BuildEquip(22405801, 9, 1, 0)); //
+                list.Add(ItemHelper.BuildEquip(23405801, 9, 1, 0)); //
+            }
             return list;
         }
 
