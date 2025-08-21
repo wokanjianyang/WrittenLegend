@@ -104,12 +104,12 @@ namespace Game
                 }
             }
 
-            if (RuneConfigId > 0 && (Part <= 10 || Part >= 21))
+            if (RuneConfigId > 0 && (EquipConfig.Cycle > 0))
             {
                 SkillRuneConfig = SkillRuneConfigCategory.Instance.Get(RuneConfigId);
             }
 
-            if (SuitConfigId > 0 && (Part <= 10 || Part >= 21))
+            if (SuitConfigId > 0 && (EquipConfig.Cycle > 0))
             {
                 SkillSuitConfig = SkillSuitConfigCategory.Instance.Get(SuitConfigId);
             }
@@ -122,7 +122,7 @@ namespace Game
             {
                 long AttributeBase = EquipConfig.AttributeBase[i];
 
-                if (this.Part <= 10 || (this.Part >= 21))
+                if (EquipConfig.Cycle == 1)
                 {
                     if (Quality <= 4)
                     {
@@ -132,19 +132,45 @@ namespace Game
                     {
                         AttributeBase = AttributeBase * 2;
                     }
-                    else if (Quality == 6)
-                    {
-                        AttributeBase = AttributeBase * GetLayerRate(Layer);
-                    }
-                    else if (Quality == 7)
-                    {
-                        AttributeBase = AttributeBase * GetLayerRate(Layer);
-                    }
-                    else if (Quality == 8)
-                    {
-                        AttributeBase = AttributeBase * GetLayerRate(Layer);
-                    }
                 }
+                else if (EquipConfig.Cycle == 2 || EquipConfig.Cycle == 3)
+                { //红色，金色
+                    AttributeBase = AttributeBase * GetLayerRate(Layer);
+                }
+                else if (EquipConfig.Cycle == 4)
+                {
+                    //暗金，有倍率，所以最高2的7次方基础属性
+                    AttributeBase = AttributeBase * GetLayerRate(Math.Min(Layer, 7));
+                }
+                else if (EquipConfig.Cycle == 5)
+                {
+                    AttributeBase = AttributeBase * Quality * Layer;
+                }
+
+
+                //if (this.Part <= 10 || (this.Part >= 21))
+                //{
+                //    if (Quality <= 4)
+                //    {
+                //        AttributeBase = AttributeBase * (Quality * 20 + 20) / 100;
+                //    }
+                //    else if (Quality == 5)
+                //    {
+                //        AttributeBase = AttributeBase * 2;
+                //    }
+                //    else if (Quality == 6)
+                //    {
+                //        AttributeBase = AttributeBase * GetLayerRate(Layer);
+                //    }
+                //    else if (Quality == 7)
+                //    {
+                //        AttributeBase = AttributeBase * GetLayerRate(Layer);
+                //    }
+                //    else if (Quality == 8)
+                //    {
+                //        AttributeBase = AttributeBase * GetLayerRate(Layer);
+                //    }
+                //}
 
                 BaseAttrList.Add(EquipConfig.BaseArray[i], AttributeBase);
             }

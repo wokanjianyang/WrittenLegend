@@ -1667,6 +1667,10 @@ namespace Game
             {
                 slot = DialogEquipDarkGold.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
+            else if (position >= 41 && position <= 50)
+            {
+                slot = DialogEquipHundun.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+            }
 
             return slot;
         }

@@ -32,6 +32,9 @@ namespace Game
         public int InheritIncrea { get; }
         public int EffectId { get; } //
 
+        public int Accuracy { get; }
+        public int Miss { get; }
+
         public SkillRune(int runeId, int quantity)
         {
             this.SkillRuneConfig = SkillRuneConfigCategory.Instance.Get(runeId);
@@ -58,6 +61,8 @@ namespace Game
             this.InheritIncrea = SkillRuneConfig.InheritIncrea;
 
             this.EffectId = SkillRuneConfig.EffectId;
+            this.Accuracy = SkillRuneConfig.Accuracy;
+            this.Miss = SkillRuneConfig.Miss;
         }
 
         public void AddCount(int count)

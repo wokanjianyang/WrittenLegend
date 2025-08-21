@@ -152,7 +152,7 @@ namespace Game
             }
             else if (equip.Part >= 21 && equip.Quality >= 7)
             {
-                basePercent = 100;
+                basePercent = 0;
                 qualityPercent = 100 * (equip.Layer - 1);
             }
 
@@ -192,7 +192,7 @@ namespace Game
 
                 var AttrEntryList = equip.AttrEntryList.ToList();
 
-                for (int index = 0; index < 8; index++)
+                for (int index = 0; index < 9; index++)
                 {
                     var child = gridRandom.Find(string.Format("Attribute_{0}", index));
 

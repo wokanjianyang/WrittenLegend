@@ -29,6 +29,8 @@ namespace Game
         public int InheritIncrea { get; }
         public int EffectId { get; } //
 
+        public int Accuracy { get; }
+        public int Miss { get; }
         //public string Center { get; }
 
         public SkillSuit(int suitId)
@@ -57,6 +59,8 @@ namespace Game
             //this.Center = SkillSuitConfig.Center;
 
             this.EffectId = SkillSuitConfig.EffectId;
+            this.Accuracy = SkillSuitConfig.Accuracy;
+            this.Miss = SkillSuitConfig.Miss;
         }
     }
 }

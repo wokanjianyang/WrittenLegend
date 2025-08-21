@@ -25,6 +25,10 @@ namespace Game
 
         public int Duration { get; }
 
+        public int Accuracy { get; }
+
+        public int Miss { get; }
+
         public int IgnoreDef { get; set; }  //无视防御
 
         public int CritRate { get; } //暴击率
@@ -164,6 +168,12 @@ namespace Game
             int runeInheritIncrea = baseRuneList.Select(m => m.InheritIncrea).Sum();
             int suitInheritIncrea = baseSuitList.Select(m => m.InheritIncrea).Sum();
 
+            int runeAc = baseRuneList.Select(m => m.Accuracy).Sum();
+            int suitAc = baseSuitList.Select(m => m.Accuracy).Sum();
+
+            int runeMiss = baseRuneList.Select(m => m.Miss).Sum();
+            int suitMiss = baseSuitList.Select(m => m.Miss).Sum();
+
             int[] divineAttrList = new int[] { 0, 0, 0 };
 
             foreach (KeyValuePair<int, Data.MagicData> v in skillData.DivineData)
@@ -201,6 +211,9 @@ namespace Game
             this.CritRate = skillData.SkillConfig.CritRate + runeCritRate + suitCritRate;
             this.CritDamage = skillData.SkillConfig.CritDamage + runeCritDamage + suitCritDamage;
             this.DamageIncrea = skillData.SkillConfig.DamageIncrea + runeDamageIncrea + suitDamageIncrea;
+
+            this.Accuracy = runeAc + suitAc;
+            this.Miss = runeMiss + suitMiss;
 
             this.AttrIncrea = 0 + runeAttrIncrea + suitAttrIncrea + divineAttrList[1];
             this.FinalIncrea = 0 + runeFinalIncrea + suitFinalIncrea + divineAttrList[2];

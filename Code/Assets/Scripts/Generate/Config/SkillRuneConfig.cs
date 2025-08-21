@@ -168,6 +168,12 @@ namespace Game
 		/// <summary>SkillLayer</summary>
 		[ProtoMember(31)]
 		public int SkillLayer { get; set; }
+		/// <summary>命中</summary>
+		[ProtoMember(32)]
+		public int Accuracy { get; set; }
+		/// <summary>闪避</summary>
+		[ProtoMember(33)]
+		public int Miss { get; set; }
 
 	}
 }
