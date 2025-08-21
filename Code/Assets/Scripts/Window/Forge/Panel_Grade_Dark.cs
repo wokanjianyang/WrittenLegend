@@ -138,6 +138,7 @@ public class Panel_Grade_Dark : MonoBehaviour
 
         if (config == null)
         {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "已经满级了", ToastType = ToastTypeEnum.Failure });
             return;
         }
 

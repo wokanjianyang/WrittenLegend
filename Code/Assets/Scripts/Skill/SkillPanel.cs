@@ -52,8 +52,8 @@ namespace Game
 
         public string CenterType { get; }
 
-        public List<KeyValuePair<string, int>> RuneTextList { get; } = new List<KeyValuePair<string, int>>();
-        public List<KeyValuePair<string, int>> SuitTextList { get; } = new List<KeyValuePair<string, int>>();
+        public List<KeyValuePair<int, int>> RuneTextList { get; } = new List<KeyValuePair<int, int>>();
+        public List<KeyValuePair<int, int>> SuitTextList { get; } = new List<KeyValuePair<int, int>>();
 
         public string Desc { get; set; }
 
@@ -90,14 +90,14 @@ namespace Game
                 foreach (SkillRuneConfig config in skillRuneConfigs)
                 {
                     int count = runeList.Where(m => m.SkillRuneConfig.Id == config.Id).Select(m => m.AvailableQuantity).Sum();
-                    RuneTextList.Add(new KeyValuePair<string, int>(config.Name, count));
+                    RuneTextList.Add(new KeyValuePair<int, int>(config.Id, count));
                 }
 
                 List<SkillSuitConfig> skillSuitConfigs = SkillSuitConfigCategory.Instance.GetSkillAllConfigs(SkillId, skillData.SkillConfig.SkillLayer);
                 foreach (SkillSuitConfig config in skillSuitConfigs)
                 {
                     int count = suitList.Where(m => m.SkillSuitConfig.Id == config.Id).Count();
-                    SuitTextList.Add(new KeyValuePair<string, int>(config.Name, count));
+                    SuitTextList.Add(new KeyValuePair<int, int>(config.Id, count));
                 }
 
                 User user = GameProcessor.Inst.User;

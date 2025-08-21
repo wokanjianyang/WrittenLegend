@@ -31,9 +31,22 @@ namespace Game
         public Button Btn_Divine;
         public Text Txt_Divine;
 
-        List<Text> runeList = new List<Text>();
-        List<Text> suitList = new List<Text>();
+        public Transform Tf_Rune;
+        public Transform Tf_Suit;
+
+        List<Item_Skill_Rune> rList = new List<Item_Skill_Rune>();
+        List<Item_Skill_Rune> sList = new List<Item_Skill_Rune>();
+
+        //List<Text> runeList = new List<Text>();
+        //List<Text> suitList = new List<Text>();
+
         public SkillPanel SkillPanel { get; private set; }
+
+        void Awake()
+        {
+            rList = Tf_Rune.GetComponentsInChildren<Item_Skill_Rune>().ToList();
+            sList = Tf_Suit.GetComponentsInChildren<Item_Skill_Rune>().ToList();
+        }
 
         // Start is called before the first frame update
         void Start()
@@ -55,35 +68,8 @@ namespace Game
 
         }
 
-        private void Init()
-        {
-            if (runeList.Count > 0)
-            {
-                return;
-            }
-
-            for (int i = 1; i <= 8; i++)
-            {
-                Text text = this.transform.Find(string.Format("Txt_Rune{0}", i)).GetComponent<Text>();
-                if (text != null)
-                {
-                    runeList.Add(text);
-                }
-            }
-
-            for (int i = 1; i <= 6; i++)
-            {
-                Text text = this.transform.Find(string.Format("Txt_Suit{0}", i)).GetComponent<Text>();
-                if (text != null)
-                {
-                    suitList.Add(text);
-                }
-            }
-        }
-
         public void SetItem(SkillPanel skillPanel)
         {
-            this.Init();
             this.SkillPanel = skillPanel;
 
             string name = "";
@@ -129,29 +115,29 @@ namespace Game
             }
 
 
-            for (int i = 0; i < runeList.Count; i++)
+            for (int i = 0; i < rList.Count; i++)
             {
                 if (i < skillPanel.RuneTextList.Count)
                 {
-                    runeList[i].gameObject.SetActive(true);
-                    runeList[i].text = formatText(skillPanel.RuneTextList[i]);
+                    rList[i].gameObject.SetActive(true);
+                    rList[i].SetRune(skillPanel.RuneTextList[i].Key, skillPanel.RuneTextList[i].Value);
                 }
                 else
                 {
-                    runeList[i].gameObject.SetActive(false);
+                    rList[i].gameObject.SetActive(false);
                 }
             }
 
-            for (int i = 0; i < suitList.Count; i++)
+            for (int i = 0; i < sList.Count; i++)
             {
                 if (i < skillPanel.SuitTextList.Count)
                 {
-                    suitList[i].gameObject.SetActive(true);
-                    suitList[i].text = formatText(skillPanel.SuitTextList[i]);
+                    sList[i].gameObject.SetActive(true);
+                    sList[i].SetSuit(skillPanel.SuitTextList[i].Key, skillPanel.SuitTextList[i].Value);
                 }
                 else
                 {
-                    suitList[i].gameObject.SetActive(false);
+                    sList[i].gameObject.SetActive(false);
                 }
             }
 
