@@ -2132,11 +2132,11 @@ namespace Game
                 }
                 else if (exclusive.ExclusiveConfig.Cycle == 3 && exclusive.GetQuality() >= 8)
                 {
-                    dict[ItemHelper.SpecialId_Exclusive_Dark] += 1;
+                    dict[ItemHelper.SpecialId_Exclusive_Dark] = 1;
                 }
                 else
                 {
-                    dict[ItemHelper.SpecialId_Exclusive_Stone] += item.GetQuality() * 1;
+                    dict[ItemHelper.SpecialId_Exclusive_Stone] = item.GetQuality() * 1;
                 }
             }
             else if (item.Type == ItemType.Pet)
