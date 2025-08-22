@@ -108,9 +108,9 @@ namespace Game
 
         private static int RandomQuanlityCycle5(double realRate)
         {
-            //int[] rates = { 1, 10, 100, 1000, 10000, 50000, 250000, 1000000, 5000000 };
+            int[] rates = { 1, 10, 100, 1000, 10000, 50000, 250000, 1000000, 5000000 };
 
-            int[] rates = { 1, 10, 200, 300, 400, 500, 600, 7000, 8000, 10000 };
+            //int[] rates = { 1, 10, 200, 300, 400, 500, 600, 7000, 8000, 10000 };
 
             int r = RandomHelper.RandomNumber(0, rates[8]);
 

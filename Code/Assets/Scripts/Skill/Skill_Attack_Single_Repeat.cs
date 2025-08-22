@@ -102,7 +102,7 @@ namespace Game
                     {
                         this.skillGraphic?.PlayAnimation(enemy.Cell);
 
-                        if (DamageHelper.IsMiss(SelfPlayer, enemy))
+                        if (DamageHelper.IsMiss(SelfPlayer, enemy, SkillPanel.Accuracy))
                         {
                             enemy.ShowMiss();
                             continue;

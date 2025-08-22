@@ -38,7 +38,7 @@ namespace Game
 
                 if (enemy != null)
                 {
-                    if (DamageHelper.IsMiss(SelfPlayer, enemy))
+                    if (DamageHelper.IsMiss(SelfPlayer, enemy, SkillPanel.Accuracy))
                     {
                         enemy.ShowMiss();
                         return;

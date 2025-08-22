@@ -140,9 +140,9 @@ namespace Game
             return new DamageResult(Math.Max(1, attack), extendDamage, type, (RoleType)role); //
         }
 
-        public static bool IsMiss(APlayer self, APlayer enemy)
+        public static bool IsMiss(APlayer self, APlayer enemy, double skillAccuracy)
         {
-            double accuracy = self.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Accuracy);
+            double accuracy = self.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Accuracy) + skillAccuracy;
             double miss = enemy.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Miss);
 
             double rate = 100 + accuracy - miss;
