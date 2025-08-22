@@ -37,7 +37,7 @@ namespace Game
 
                 if (enemy != null)
                 {
-                    Debug.Log("chediding acc:" + SkillPanel.Accuracy);
+                    //Debug.Log("chediding acc:" + SkillPanel.Accuracy);
                     if (DamageHelper.IsMiss(SelfPlayer, enemy, SkillPanel.Accuracy))
                     {
                         enemy.ShowMiss();

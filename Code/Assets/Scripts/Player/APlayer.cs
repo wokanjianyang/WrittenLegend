@@ -235,6 +235,7 @@ namespace Game
                     state2012Count = 0;
                     ss2012 = ss;
 
+
                     //Debug.Log("init 2012:");
                 }
             }
@@ -246,12 +247,14 @@ namespace Game
 
             if (ss2012 != null)
             {
+                int state2012Max = ss2012.SkillPanel.EnemyMax;
+
                 if (state2012Count < ss2012.SkillPanel.Duration)
                 {
-                    state2012Count++;
+                    state2012Count += state2012Max;
                 }
 
-                //Debug.Log("skill 2012 percent:" + ss2012.SkillPanel.Percent + " count:" + state2012Count + " total:" + ss2012.SkillPanel.Percent * state2012Count);
+                Debug.Log("skill 2012 percent:" + ss2012.SkillPanel.Percent + " count:" + state2012Count + " total:" + ss2012.SkillPanel.Percent * state2012Count);
 
                 this.AttributeBonus.SetSkillAttr(AttributeEnum.MulAttrMagic, 2012, ss2012.SkillPanel.Percent * state2012Count);
                 this.AttributeBonus.SetSkillAttr(AttributeEnum.MulHp, 2012, ss2012.SkillPanel.Damage * state2012Count);

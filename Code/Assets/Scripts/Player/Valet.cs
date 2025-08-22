@@ -196,8 +196,8 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.AurasDamageIncrea, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.AurasDamageIncrea, false));
             AttributeBonus.SetAttr(AttributeEnum.AurasDamageResist, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.AurasDamageResist, false));
 
-            AttributeBonus.SetAttr(AttributeEnum.Miss, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Miss));
-            AttributeBonus.SetAttr(AttributeEnum.Accuracy, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Accuracy));
+            AttributeBonus.SetAttr(AttributeEnum.Miss, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Miss) + SkillPanel.Miss);
+            AttributeBonus.SetAttr(AttributeEnum.Accuracy, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Accuracy) + SkillPanel.Accuracy);
 
             AttributeBonus.SetAttr(AttributeEnum.PhyDamage, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.PhyDamage));
             AttributeBonus.SetAttr(AttributeEnum.MagicDamage, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.MagicDamage));
@@ -264,6 +264,16 @@ namespace Game
 
                         List<SkillRune> runeList = user.GetRuneList(skillData.SkillId, buffRuneList);
                         List<SkillSuit> suitList = user.GetSuitList(skillData.SkillId);
+
+                        if (skillId == 4004)
+                        {
+                            //飓风破，使用白虎的吸血效果
+                            SkillRune rune = user.GetRuneList(3012, null).FirstOrDefault();
+                            if (rune != null)
+                            {
+                                runeList.Add(rune);
+                            }
+                        }
 
                         SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, false, RuleType, 0);
 
