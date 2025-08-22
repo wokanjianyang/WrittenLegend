@@ -265,15 +265,15 @@ namespace Game
                         List<SkillRune> runeList = user.GetRuneList(skillData.SkillId, buffRuneList);
                         List<SkillSuit> suitList = user.GetSuitList(skillData.SkillId);
 
-                        if (skillId == 4004)
-                        {
-                            //飓风破，使用白虎的吸血效果
-                            SkillRune rune = user.GetRuneList(3012, null).FirstOrDefault();
-                            if (rune != null)
-                            {
-                                runeList.Add(rune);
-                            }
-                        }
+                        //if (skillId == 4004)
+                        //{
+                        //    //飓风破，使用白虎的吸血效果
+                        //    SkillRune rune = user.GetRuneList(3012, null).Where(m => m.EffectId == 101).FirstOrDefault();
+                        //    if (rune != null)
+                        //    {
+                        //        runeList.Add(rune);
+                        //    }
+                        //}
 
                         SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, false, RuleType, 0);
 
