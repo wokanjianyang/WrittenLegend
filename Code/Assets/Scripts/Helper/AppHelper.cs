@@ -18,6 +18,14 @@ namespace Game
         public static int TempRecord = 0;
         public static int TempRecord1 = 0;
 
+        public static int CopyCount = 0;
+
+        public static int GetLossQuality()
+        {
+            //如果次数少于500次，则品质-1
+            return CopyCount > 300 ? 0 : 1;
+        }
+
         public static string getKey()
         {
             return "fb2d1feffd645dae1c574954fd702a80";

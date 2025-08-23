@@ -186,6 +186,7 @@ namespace Game
             });
 
             user.MagicRecord[AchievementSourceType.BossFamily].Data += rate;
+            AppHelper.CopyCount += rate * 10;
 
             scrollRect.gameObject.SetActive(false);
 

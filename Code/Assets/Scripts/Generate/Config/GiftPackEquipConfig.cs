@@ -93,6 +93,9 @@ namespace Game
 		/// <summary>Quality</summary>
 		[ProtoMember(6)]
 		public int Quality { get; set; }
+		/// <summary>Cycle</summary>
+		[ProtoMember(7)]
+		public int Cycle { get; set; }
 
 	}
 }

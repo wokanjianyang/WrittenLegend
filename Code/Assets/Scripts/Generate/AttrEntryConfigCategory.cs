@@ -8,14 +8,13 @@ namespace Game
 
     public partial class AttrEntryConfigCategory
     {
-        public List<KeyValuePair<int, long>> Build(int part, int level, int quality, int role, int seed)
+        public List<KeyValuePair<int, long>> Build(int part, int cycle, int quality, int role, int seed)
         {
             List<KeyValuePair<int, long>> rsList = new List<KeyValuePair<int, long>>();
 
             List<AttrEntryConfig> configs = list.FindAll(m =>
             m.PartList.Contains(part)
-            && m.StartLevel <= level && level <= m.EndLevel
-            && m.StartQuality <= quality && quality <= m.EndQuality
+            && m.Cycle == cycle
             && (m.Role == role || m.Role == 0));
 
             if (configs.Count <= 0)
@@ -46,14 +45,13 @@ namespace Game
             return rsList;
         }
 
-        public List<KeyValuePair<int, long>> Build(int part, int level, int quality, int role)
+        public List<KeyValuePair<int, long>> Build(int part, int cycle, int quality, int role)
         {
             List<KeyValuePair<int, long>> rsList = new List<KeyValuePair<int, long>>();
 
             List<AttrEntryConfig> configs = list.FindAll(m =>
             m.PartList.Contains(part)
-            && m.StartLevel <= level && level <= m.EndLevel
-            && m.StartQuality <= quality && quality <= m.EndQuality
+            && m.Cycle == cycle
             && (m.Role == role || m.Role == 0));
 
             if (configs.Count <= 0)
@@ -81,14 +79,13 @@ namespace Game
             return rsList;
         }
 
-        public List<KeyValuePair<int, long>> BuildNew(int part, int level, int quality, int role, RandomRecord record)
+        public List<KeyValuePair<int, long>> BuildNew(int part, int cycle, int quality, int role, RandomRecord record)
         {
             List<KeyValuePair<int, long>> rsList = new List<KeyValuePair<int, long>>();
 
             List<AttrEntryConfig> configs = list.FindAll(m =>
             m.PartList.Contains(part)
-            && m.StartLevel <= level && level <= m.EndLevel
-            && m.StartQuality <= quality && quality <= m.EndQuality
+            && m.Cycle <= cycle
             && (m.Role == role || m.Role == 0));
 
             if (configs.Count <= 0)
@@ -136,12 +133,12 @@ namespace Game
 
         public List<AttrEntryConfig> GetRedAttrList()
         {
-            return this.list.Where(m => m.Type == 1 && m.EndQuality == 6).ToList();
+            return this.list.Where(m => m.Cycle == 2).ToList();
         }
 
-        public AttrEntryConfig GetRedConfig(int attrId, int quality)
+        public AttrEntryConfig GetRedConfig(int attrId, int cycle)
         {
-            return this.list.Where(m => m.Type == 1 && m.EndQuality == quality && m.AttrId == attrId).FirstOrDefault();
+            return this.list.Where(m => m.Cycle == cycle && m.AttrId == attrId).FirstOrDefault();
         }
     }
 }

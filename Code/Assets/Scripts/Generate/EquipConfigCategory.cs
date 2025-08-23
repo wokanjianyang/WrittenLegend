@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Game
 {
@@ -72,8 +73,7 @@ namespace Game
         public static Equip BuildEquipCycle5(EquipConfig config, int staticQuality, int qualityRate, int seed)
         {
 
-            double realRate = MathHelper.ConvertionDropRate(qualityRate, 100);
-            int quality = RandomQuanlityCycle5(realRate);
+            int quality = RandomQuanlityCycle5(qualityRate);
 
             int runeId = 0;
             int suitId = 0;
@@ -108,11 +108,15 @@ namespace Game
 
         private static int RandomQuanlityCycle5(double realRate)
         {
-            int[] rates = { 1, 10, 100, 1000, 10000, 50000, 250000, 1000000, 5000000 };
+            int start = 0;
+
+            int[] rates = { 1, 4, 15, 50, 250, 2000, 10000, 100000, 500000 };
 
             //int[] rates = { 1, 10, 200, 300, 400, 500, 600, 7000, 8000, 10000 };
 
             int r = RandomHelper.RandomNumber(0, rates[8]);
+
+            Debug.Log("quality start :" + AppHelper.CopyCount);
 
             r = (int)(r / realRate);
 
@@ -120,7 +124,13 @@ namespace Game
             {
                 if (r < rates[i])
                 {
-                    return 9 - i;
+                    if (i == 0)
+                    {
+                        //防止SL，给最高品质-1
+                        start = AppHelper.GetLossQuality();
+                    }
+
+                    return 9 - i - start;
                 }
             }
 
@@ -139,7 +149,7 @@ namespace Game
             for (int i = 0; i < config.AttrIdList.Length; i++)
             {
                 int attrId = config.AttrIdList[i];
-                AttrEntryConfig entryConfig = AttrEntryConfigCategory.Instance.GetRedConfig(attrId, config.Quality);
+                AttrEntryConfig entryConfig = AttrEntryConfigCategory.Instance.GetRedConfig(attrId, config.Cycle);
                 AttrEntryList.Add(new KeyValuePair<int, long>(attrId, entryConfig.MaxValue));
             }
 

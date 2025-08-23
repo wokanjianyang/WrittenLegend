@@ -209,7 +209,7 @@ namespace Game
             if (this.Data == null || this.Data.RuneIdList.Count == 0)
             {
                 this.Data = new EquipData();
-                this.Data.Refresh(this.Part, this.Level, this.Quality, this.EquipConfig.Role);
+                this.Data.Refresh(this.Part, this.EquipConfig.Cycle, this.Quality, this.EquipConfig.Role);
             }
         }
 
@@ -227,7 +227,7 @@ namespace Game
                 this.SkillSuitConfig = SkillSuitConfigCategory.Instance.Get(SuitConfigId);
             }
 
-            Data.Refresh(this.Part, this.Level, this.Quality, this.EquipConfig.Role);
+            Data.Refresh(this.Part, this.EquipConfig.Cycle, this.Quality, this.EquipConfig.Role);
         }
 
         public void Init(int seed)
@@ -235,13 +235,13 @@ namespace Game
             //根据品质,生成随机属性
             if (EquipConfig.RandomAttr == 0 && (Part <= 10 || Part >= 20))
             {
-                this.AttrEntryList.AddRange(AttrEntryConfigCategory.Instance.Build(this.Part, this.Level, this.Quality, this.EquipConfig.Role, seed));
+                this.AttrEntryList.AddRange(AttrEntryConfigCategory.Instance.Build(this.Part, this.EquipConfig.Cycle, this.Quality, this.EquipConfig.Role, seed));
             }
 
             if (this.Part <= 10 && this.Quality >= 6)
             {
                 this.Data = new EquipData();
-                this.Data.Refresh(this.Part, this.Level, this.Quality, this.EquipConfig.Role);
+                this.Data.Refresh(this.Part, this.EquipConfig.Cycle, this.Quality, this.EquipConfig.Role);
             }
         }
 

@@ -29,7 +29,7 @@ namespace Game
             return SuitIdList[0];
         }
 
-        public void Refresh(int part, int level, int quality, int role)
+        public void Refresh(int part, int cycle, int quality, int role)
         {
             if (RuneIdList.Count > 0)
             {
@@ -42,14 +42,14 @@ namespace Game
             {
                 if (GameProcessor.Inst.Net)
                 {
-                    AttrList.Add(AttrEntryConfigCategory.Instance.Build(part, level, quality, role));
+                    AttrList.Add(AttrEntryConfigCategory.Instance.Build(part, cycle, quality, role));
                 }
                 else
                 {
-                    AttrList.Add(AttrEntryConfigCategory.Instance.BuildNew(part, level, quality, role, GameProcessor.Inst.User.RandomRecord));
+                    AttrList.Add(AttrEntryConfigCategory.Instance.BuildNew(part, cycle, quality, role, GameProcessor.Inst.User.RandomRecord));
                 }
 
-                SkillRuneConfig config = SkillRuneConfigCategory.Instance.RandomRune(-1, -1, role, 1, quality, level);
+                SkillRuneConfig config = SkillRuneConfigCategory.Instance.RandomRune(-1, -1, role, 1, quality, 750);
                 RuneIdList.Add(config.Id);
                 SuitIdList.Add(SkillSuitHelper.RandomSuit(-1, config.SkillId, config.Type).Id);
             }

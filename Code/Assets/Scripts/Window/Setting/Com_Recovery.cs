@@ -134,7 +134,7 @@ namespace Game
 
             //混沌装备
             dp_Equip_Recovery_Hundun.ClearOptions();
-            dp_Equip_Recovery_Hundun.AddOptions(new List<string>() { "无", "白色", "绿色", "蓝色", "紫色", "橙色", "红色", "金色", "暗金", "混沌" });
+            dp_Equip_Recovery_Hundun.AddOptions(new List<string>() { "无", "白色", "绿色", "蓝色", "紫色", "橙色", "红色", "金色", "暗金" }); //, "混沌"
 
             //专属
             dp_Exclusive_Keep.ClearOptions();
@@ -212,6 +212,11 @@ namespace Game
             Equip_Dark_Recovery.isOn = setting.EquipiDarkRecovery;
             Equip_Dark_Keep.isOn = setting.EquipiDarkKeep;
             if_Dark_Total.text = setting.EquipDarkTotal.ToString();
+
+            //混沌装备
+            dp_Equip_Recovery_Hundun.value = setting.Equip_Hundun_Recovery;
+            tg_Equip_Keep_Hundun.isOn = setting.Equip_Hundun_Keep;
+            if_Equip_Total_Hundun.text = setting.Equip_Hundun_Total.ToString();
 
             //普通专属
             dp_Exclusive_Recovery.value = setting.Exclusive_Recovery;

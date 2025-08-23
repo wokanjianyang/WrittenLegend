@@ -256,7 +256,7 @@ namespace Game
                 //items.AddRange(DropLimitHelper.Build((int)DropLimitType.JieRi, this.MapId, dropRate, modelRate, limit, countRate));
             }
 
-            int qualityRate = qualityConfig.QualityRate * (100 + (int)user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea)) / 100;
+            int qualityRate = qualityConfig.QualityRate * user.GetRealQualityRate();
             items.AddRange(DropHelper.BuildDropItem(dropList, qualityRate));
 
             int mapIndex = Config.MapId - ConfigHelper.MapStartId;

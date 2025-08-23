@@ -67,6 +67,7 @@ public class MapEquipCopy : MonoBehaviour, IBattleLife
         user.MagicCopyTikerCount.Data -= Math.Abs(rate);
 
         user.SetAchievementProgeress(AchievementSourceType.EquipCopy, rate);
+        AppHelper.CopyCount += rate;
 
         //GameProcessor.Inst.SaveData();
 
