@@ -19,6 +19,7 @@ namespace Game
         public static int TempRecord1 = 0;
 
         public static int CopyCount = 0;
+        public static int HundunCount = 0;
 
         public static int GetLossQuality()
         {
