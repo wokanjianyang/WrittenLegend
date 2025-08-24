@@ -236,6 +236,11 @@ namespace Game
 
         public static double StringToNumber(string text)
         {
+            if (String.IsNullOrEmpty(text))
+            {
+                return 0;
+            }
+
             int e = 0;
             string res = "";
 

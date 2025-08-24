@@ -254,7 +254,7 @@ namespace Game
                     state2012Count += state2012Max;
                 }
 
-                Debug.Log("skill 2012 percent:" + ss2012.SkillPanel.Percent + " count:" + state2012Count + " total:" + ss2012.SkillPanel.Percent * state2012Count);
+                //Debug.Log("skill 2012 percent:" + ss2012.SkillPanel.Percent + " count:" + state2012Count + " total:" + ss2012.SkillPanel.Percent * state2012Count);
 
                 this.AttributeBonus.SetSkillAttr(AttributeEnum.MulAttrMagic, 2012, ss2012.SkillPanel.Percent * state2012Count);
                 this.AttributeBonus.SetSkillAttr(AttributeEnum.MulHp, 2012, ss2012.SkillPanel.Damage * state2012Count);

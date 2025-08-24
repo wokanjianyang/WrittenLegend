@@ -99,38 +99,41 @@ namespace Game
 		/// <summary>Strong</summary>
 		[ProtoMember(8)]
 		public string Strong { get; set; }
-		/// <summary>DamageMul</summary>
+		/// <summary>Parry</summary>
 		[ProtoMember(9)]
+		public string Parry { get; set; }
+		/// <summary>DamageMul</summary>
+		[ProtoMember(10)]
 		public string DamageMul { get; set; }
 		/// <summary>DamageIncrea</summary>
-		[ProtoMember(10)]
+		[ProtoMember(11)]
 		public int DamageIncrea { get; set; }
 		/// <summary>DamageResist</summary>
-		[ProtoMember(11)]
+		[ProtoMember(12)]
 		public int DamageResist { get; set; }
 		/// <summary>CritRate</summary>
-		[ProtoMember(12)]
+		[ProtoMember(13)]
 		public int CritRate { get; set; }
 		/// <summary>CritDamage</summary>
-		[ProtoMember(13)]
+		[ProtoMember(14)]
 		public int CritDamage { get; set; }
 		/// <summary>Speed</summary>
-		[ProtoMember(14)]
+		[ProtoMember(15)]
 		public int Speed { get; set; }
 		/// <summary>Miss</summary>
-		[ProtoMember(15)]
+		[ProtoMember(16)]
 		public int Miss { get; set; }
 		/// <summary>Accuracy</summary>
-		[ProtoMember(16)]
+		[ProtoMember(17)]
 		public int Accuracy { get; set; }
 		/// <summary>Protect</summary>
-		[ProtoMember(17)]
+		[ProtoMember(18)]
 		public double Protect { get; set; }
 		/// <summary>经验</summary>
-		[ProtoMember(18)]
+		[ProtoMember(19)]
 		public long Exp { get; set; }
 		/// <summary>掉落金币</summary>
-		[ProtoMember(19)]
+		[ProtoMember(20)]
 		public long Gold { get; set; }
 
 	}

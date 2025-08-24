@@ -40,7 +40,19 @@ namespace Game
             double strong = enemy.GetAttackDoubleAttr(AttributeEnum.Strong);
             if (strong > 0)
             {
-                attack = attack / strong;
+                attack = attack / (1 + strong);
+            }
+
+            double shatter = enemy.GetAttackDoubleAttr(AttributeEnum.Shatter);
+            if (shatter > 0)
+            {
+                attack = attack * (1 + shatter);
+            }
+
+            double parry = enemy.GetAttackDoubleAttr(AttributeEnum.Parry);
+            if (parry > 0)
+            {
+                attack = attack / (1 + parry);
             }
 
             //技能系数
@@ -130,7 +142,7 @@ namespace Game
             if (at > 0)
             {
                 double maxHp = attcher.GetAttackDoubleAttr(AttributeEnum.HP);
-                extendDamage = maxHp * at;
+                extendDamage = maxHp / (1 + parry) * at;
                 //Debug.Log("maxHp:" + StringHelper.FormatNumber(maxHp) + " extendDamage:" + StringHelper.FormatNumber(extendDamage));
             }
 

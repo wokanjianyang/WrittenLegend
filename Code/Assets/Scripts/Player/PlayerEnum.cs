@@ -66,7 +66,11 @@ namespace Game
         CritFinal = 54,//暴击增幅
         LuckyFinal = 55,//幸运增幅
 
-        MythAttr= 91,  //神话攻击加成
+        Parry = 60,//格挡
+        Shatter = 61,//破击
+
+
+        MythAttr = 91,  //神话攻击加成
         MythDef = 92,  //神话防御加成
         MythHp = 93,  //神话生命加成
         EquipBaseIncrea = 101, //装备基础属性百分比
