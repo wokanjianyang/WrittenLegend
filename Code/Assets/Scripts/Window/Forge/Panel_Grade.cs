@@ -128,6 +128,11 @@ public class Panel_Grade : MonoBehaviour
 
     private void OnSelect(GradeSelectEvent e)
     {
+        if (e.Equip.EquipConfig.Cycle != 2)
+        {
+            return;
+        }
+
         this.SelectEquip = e.Equip;
         this.Show();
     }

@@ -193,6 +193,11 @@ namespace Game
 
             this.Damage += skillData.SkillConfig.Damage + runeDamage + suitDamage + levelDamage;
 
+            if (SkillData.SkillConfig.SkillLayer == 11)
+            {
+                this.Damage = this.Damage * (100 + runePercentRate + suitPercentRate + petRate) / 100;
+            }
+
             this.Percent += skillData.SkillConfig.Percent + runePercent + suitPercent + levelPercent;
             //系数倍率
             this.Percent = this.Percent * (100 + runePercentRate + suitPercentRate + petRate) / 100;
@@ -240,7 +245,7 @@ namespace Game
 
             if (isPlayer)
             {
-                Desc = string.Format(SkillData.SkillConfig.Des, EnemyMax, Percent, Duration, Row, Column, Damage);
+                Desc = string.Format(SkillData.SkillConfig.Des, EnemyMax, (int)Percent, Duration, Row, Column, (int)Damage);
             }
 
             //技能的特效

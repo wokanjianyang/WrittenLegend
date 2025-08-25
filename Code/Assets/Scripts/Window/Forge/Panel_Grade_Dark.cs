@@ -123,6 +123,11 @@ public class Panel_Grade_Dark : MonoBehaviour
 
     private void OnSelect(GradeSelectEvent e)
     {
+        if (e.Equip.EquipConfig.Cycle != 4)
+        {
+            return;
+        }
+
         this.SelectEquip = e.Equip;
         this.Show();
     }

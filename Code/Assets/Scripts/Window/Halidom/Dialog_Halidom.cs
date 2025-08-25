@@ -90,7 +90,7 @@ public class Dialog_Halidom : MonoBehaviour
     public void OnClickReset()
     {
 
-        GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("是否确认花费1垓金币重生遗物到天阶？", true,
+        GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke("是否确认花费1垓金币重生遗物到宇阶？", true,
         () =>
         {
 
@@ -101,6 +101,8 @@ public class Dialog_Halidom : MonoBehaviour
                 GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "金币不足1垓", ToastType = ToastTypeEnum.Failure });
                 return;
             }
+
+            user.SubGold(ConfigHelper.RestoreGold * 20000.0);
 
             int total = 0;
 
