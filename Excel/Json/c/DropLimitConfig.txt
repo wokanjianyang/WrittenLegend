@@ -205,6 +205,6 @@
 {"_t":"DropLimitConfig","_id":2013,"Name":"项链头盔暗金","Type":98,"StartMapId":1141,"EndMapId":1141,"DropId":209991,"StartRate":360000,"Rate":1800000,"EndRate":0,"MinRate":100000,"ShareRise":0,"ShareDz":0,"StartDate":"2023-10-21","EndDate":"2025-10-21"},
 {"_t":"DropLimitConfig","_id":2014,"Name":"手镯戒指暗金","Type":98,"StartMapId":1142,"EndMapId":1142,"DropId":209992,"StartRate":360000,"Rate":1800000,"EndRate":0,"MinRate":100000,"ShareRise":0,"ShareDz":0,"StartDate":"2023-10-21","EndDate":"2025-10-21"},
 {"_t":"DropLimitConfig","_id":2015,"Name":"腰带鞋子暗金","Type":98,"StartMapId":1143,"EndMapId":1143,"DropId":209993,"StartRate":360000,"Rate":1800000,"EndRate":0,"MinRate":100000,"ShareRise":0,"ShareDz":0,"StartDate":"2023-10-21","EndDate":"2025-10-21"},
-{"_t":"DropLimitConfig","_id":2016,"Name":"随机暗金","Type":98,"StartMapId":1144,"EndMapId":1174,"DropId":209994,"StartRate":360000,"Rate":1800000,"EndRate":0,"MinRate":100000,"ShareRise":0,"ShareDz":0,"StartDate":"2023-10-21","EndDate":"2025-10-21"},
+{"_t":"DropLimitConfig","_id":2016,"Name":"随机暗金","Type":98,"StartMapId":1144,"EndMapId":1209,"DropId":209994,"StartRate":360000,"Rate":1800000,"EndRate":0,"MinRate":100000,"ShareRise":0,"ShareDz":0,"StartDate":"2023-10-21","EndDate":"2025-10-21"},
 {"_t":"DropLimitConfig","_id":2017,"Name":"随机金装","Type":98,"StartMapId":1140,"EndMapId":1174,"DropId":209999,"StartRate":180000,"Rate":900000,"EndRate":0,"MinRate":50000,"ShareRise":0,"ShareDz":0,"StartDate":"2023-10-21","EndDate":"2025-10-21"},
 ]}
