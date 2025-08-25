@@ -23,7 +23,7 @@ public class Panel_Grade_Dark : MonoBehaviour
     private const int Quality = 8;
 
     private const int StartPosition = 31;
-    private const int MaxLevel = 7;
+    private const int MaxLevel = 13;
 
     Equip SelectEquip;
 

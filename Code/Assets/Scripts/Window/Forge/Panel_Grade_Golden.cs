@@ -23,7 +23,7 @@ public class Panel_Grade_Golden : MonoBehaviour
     private const int Quality = 7;
 
     private const int StartPosition = 21;
-    private const int MaxLevel = 14;
+    private const int MaxLevel = 20;
 
     Equip SelectEquip;
 
