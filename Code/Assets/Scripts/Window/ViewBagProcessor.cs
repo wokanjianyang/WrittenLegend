@@ -1052,7 +1052,7 @@ namespace Game
             {
                 if (kvp.Value > 0)
                 {
-                    Item recoveryItem = ItemHelper.BuildMaterial(kvp.Key, kvp.Value * boxItem.MagicNubmer.Data);
+                    Item recoveryItem = ItemHelper.BuildMaterial(kvp.Key, kvp.Value * quantity);
                     AddBoxItem(recoveryItem);
                     itemList.Add(recoveryItem);
                 }

@@ -329,7 +329,7 @@ namespace Game
 
             if (equip.Part <= 10 || equip.Part >= 21)
             {
-                if (equip.GetQuality() >= 6)
+                if (equip.GetQuality() >= 6 && equip.GetQuality() == 4 + equip.EquipConfig.Cycle)
                 {
                     tran_RedAttribute.gameObject.SetActive(true);
 

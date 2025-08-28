@@ -92,7 +92,7 @@ namespace Game
 		public double RiseAttr { get; set; }
 		/// <summary>RiseType</summary>
 		[ProtoMember(6)]
-		public int RiseType { get; set; }
+		public double RiseType { get; set; }
 		/// <summary>Des</summary>
 		[ProtoMember(7)]
 		public string Des { get; set; }

@@ -2109,6 +2109,11 @@ namespace Game
                 else if (equip.EquipConfig.Cycle == 1)
                 {
                     dict[ItemHelper.SpecialId_EquipRefineStone] = CalStone(equip);
+
+                    if (equip.GetQuality() >= 5)
+                    {
+                        dict[ItemHelper.SpecailEquipRefreshId] = 1;
+                    }
                 }
                 else if (equip.EquipConfig.Cycle >= 2 && equip.EquipConfig.Cycle <= 4)
                 {
