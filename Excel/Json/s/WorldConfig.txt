@@ -2,4 +2,5 @@
 {"_t":"WorldConfig","_id":1,"MapName":"青龙","Cycle":4},
 {"_t":"WorldConfig","_id":2,"MapName":"白虎","Cycle":6},
 {"_t":"WorldConfig","_id":3,"MapName":"朱雀","Cycle":8},
+{"_t":"WorldConfig","_id":4,"MapName":"玄武","Cycle":10},
 ]}

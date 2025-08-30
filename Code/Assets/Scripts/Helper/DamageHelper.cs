@@ -40,6 +40,15 @@ namespace Game
             double strong = enemy.GetAttackDoubleAttr(AttributeEnum.Strong);
             if (strong > 0)
             {
+                double relic4 = attcher.GetAttackDoubleAttr(AttributeEnum.Relic4);
+                double miss = attcher.GetAttackDoubleAttr(AttributeEnum.Miss);
+                if (relic4 * miss >= 1)
+                {
+                    strong = strong / (relic4 * miss);
+
+                    //Debug.Log("relic4:" + relic4 * miss);
+                }
+
                 attack = attack / (1 + strong);
             }
 

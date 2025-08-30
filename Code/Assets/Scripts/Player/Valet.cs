@@ -127,6 +127,7 @@ namespace Game
 
                 AttributeBonus.SetAttr(AttributeEnum.LuckyHit, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.LuckyHit) * sd * 0.01);
                 AttributeBonus.SetAttr(AttributeEnum.Relic3, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Relic3) * sd * 0.01);
+                AttributeBonus.SetAttr(AttributeEnum.Relic4, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Relic4) * sd * 0.01);
                 //Debug.Log("lucky hit:" + AttributeBonus.GetTotalAttrDouble(AttributeEnum.LuckyHit) * AttributeBonus.GetAttackDoubleAttr(AttributeEnum.Lucky));
             }
 
@@ -216,6 +217,7 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.LuckyHit, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.LuckyHit));
             AttributeBonus.SetAttr(AttributeEnum.Relic2, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Relic2));
             AttributeBonus.SetAttr(AttributeEnum.Relic3, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Relic3));
+            AttributeBonus.SetAttr(AttributeEnum.Relic4, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Relic4));
 
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));

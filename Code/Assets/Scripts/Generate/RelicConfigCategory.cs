@@ -46,7 +46,7 @@ namespace Game
             {
                 if (this.RiseType == 2)
                 {
-                    return this.AttrValue * Math.Pow(this.RiseAttr, level - 1);
+                    return this.AttrValue * Math.Round(Math.Pow(this.RiseAttr, level - 1), 2);
                 }
                 else if (this.RiseType == 1)
                 {
