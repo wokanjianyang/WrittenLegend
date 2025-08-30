@@ -567,7 +567,7 @@ namespace Game
                 {
                     for (int i = 0; i < reformConfig.AttrList.Length; i++)
                     {
-                        AttributeBonus.SetAttr((AttributeEnum)reformConfig.AttrList[i], AttributeFrom.EquipReform, position, reformLevel * reformConfig.AttrValueList[i]);
+                        AttributeBonus.SetAttr((AttributeEnum)reformConfig.AttrList[i], AttributeFrom.EquipReform, position, reformConfig.GetAttr(reformLevel, i));
                     }
                 }
             }

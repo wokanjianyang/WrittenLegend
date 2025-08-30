@@ -24,9 +24,23 @@ namespace Game
 
     public partial class EquipReformFeeConfig
     {
-        public long GetFee(long level)
+        public double GetFee(long level)
         {
             return BaseFee + (level - StartLevel) * RiseFee;
+        }
+    }
+
+    public partial class EquipReformConfig
+    {
+        public long GetAttr(long level, long index)
+        {
+            if (level <= RequireLevel[index])
+            {
+                return 0;
+            }
+
+            return AttrValueList[index] * (level - RequireLevel[index]);
+
         }
     }
 

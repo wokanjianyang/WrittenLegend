@@ -86,10 +86,10 @@ namespace Game
 		public long EndLevel { get; set; }
 		/// <summary>BaseFee</summary>
 		[ProtoMember(4)]
-		public long BaseFee { get; set; }
+		public double BaseFee { get; set; }
 		/// <summary>RiseFee</summary>
 		[ProtoMember(5)]
-		public long RiseFee { get; set; }
+		public double RiseFee { get; set; }
 		/// <summary>StoneFee</summary>
 		[ProtoMember(6)]
 		public int StoneFee { get; set; }

@@ -97,12 +97,12 @@ public class Panel_Reform : MonoBehaviour
 
             if (user.MagicGold.Data >= realNeedGold)
             {
-                Reform_Txt_Fee1.text = string.Format("需要金币：<color={0}>{1}京</color>", "#FFFF00", needGold);
+                Reform_Txt_Fee1.text = string.Format("需要金币：<color={0}>{1}</color>", "#FFFF00", StringHelper.FormatNumber(realNeedGold) );
                 Btn_Reform.gameObject.SetActive(true);
             }
             else
             {
-                Reform_Txt_Fee1.text = string.Format("需要金币：<color={0}>{1}京</color>", "#FF0000", needGold);
+                Reform_Txt_Fee1.text = string.Format("需要金币：<color={0}>{1}</color>", "#FF0000", StringHelper.FormatNumber(realNeedGold));
                 Btn_Reform.gameObject.SetActive(false);
             }
         }
@@ -112,12 +112,12 @@ public class Panel_Reform : MonoBehaviour
 
         for (int i = 0; i < AttrList.Length; i++)
         {
-            if (i < reformConfig.AttrList.Length)
+            if (i < reformConfig.AttrList.Length && currentLevel >= reformConfig.RequireLevel[i])
             {
                 int attrId = reformConfig.AttrList[i];
 
                 long attrAdd = reformConfig.AttrValueList[i];
-                long attrCurrent = reformConfig.AttrValueList[i] * currentLevel;
+                long attrCurrent = reformConfig.GetAttr(currentLevel, i);
 
                 AttrList[i].SetContent(attrId, attrCurrent, attrAdd);
                 AttrList[i].gameObject.SetActive(true);
