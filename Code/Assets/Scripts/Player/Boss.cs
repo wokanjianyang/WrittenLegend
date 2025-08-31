@@ -229,8 +229,7 @@ namespace Game
             double gold = (this.Gold * (100.0 + user.AttributeBonus.GetTotalAttr(AttributeEnum.GoldIncrea)) / 100 * rewardModelRate);
 
             QualityConfig qualityConfig = QualityConfigCategory.Instance.Get(Quality);
-            int qualityRate1 = (100 + (int)user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea)) / 100;
-            Debug.Log("qualityRate:" + qualityRate1);
+
             //user.AddStartRate(this.MapId, qualityConfig.CountRate * countModelRate);
 
             double dropRate = user.GetRealDropRate();
