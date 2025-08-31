@@ -73,6 +73,10 @@ namespace Game
             PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion10"));
             PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion11"));
             PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion12"));
+            PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion13"));
+            PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion14"));
+            PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion15"));
+            PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion16"));
 
             ValetList.Add(Resources.Load<Sprite>("UI/Player/Player_Valet1"));
             ValetList.Add(Resources.Load<Sprite>("UI/Player/Player_Valet2"));
