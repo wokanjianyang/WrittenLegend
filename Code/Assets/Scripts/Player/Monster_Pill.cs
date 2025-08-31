@@ -121,10 +121,10 @@ public class Monster_Pill : APlayer
             Message = BattleMsgHelper.BuildMonsterDeadMessage(this, 0, 0, items, itemCount)
         });
 
-        if (itemCount > 0)
-        {
-            items.AddRange(ItemHelper.BurstMul(items, itemCount, 1));
-        }
+        //if (itemCount > 0)
+        //{
+        //    items.AddRange(ItemHelper.BurstMul(items, itemCount, 1));
+        //}
 
 
     }

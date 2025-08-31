@@ -155,7 +155,7 @@ namespace Game
                     int index = RandomHelper.RandomNumber(dropData.Seed, 0, dropConfig.ItemIdList.Length);
                     int configId = dropConfig.ItemIdList[index];
 
-                    Item item = ItemHelper.BuildItem((ItemType)dropConfig.ItemType, configId, 1, dropConfig.Quantity, dropData.Seed);
+                    Item item = ItemHelper.BuildItem((ItemType)dropConfig.ItemType, configId, 1, dropConfig.Quantity, dropData.Seed, RuleType.Normal);
                     list.Add(item);
                 }
             }

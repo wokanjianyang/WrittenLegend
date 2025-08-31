@@ -10,21 +10,26 @@ namespace Game
     {
         public static Equip BuildEquip(int configId, int staticQuality, int qualityRate, int seed)
         {
-            return EquipHelper.BuildEquip(configId, staticQuality, qualityRate, seed);
+            return EquipHelper.BuildEquip(configId, staticQuality, qualityRate, seed, RuleType.Normal);
         }
 
         public static Item BuildItem(ItemType type, int configId, int qualityRate, long number)
         {
-            return BuildItem(type, configId, qualityRate, number, -1);
+            return BuildItem(type, configId, qualityRate, number, -1, RuleType.Normal);
         }
 
-        public static Item BuildItem(ItemType type, int configId, int qualityRate, long number, int seed)
+        public static Item BuildItem(ItemType type, int configId, int qualityRate, long number, RuleType ruleType)
+        {
+            return BuildItem(type, configId, qualityRate, number, -1, ruleType);
+        }
+
+        public static Item BuildItem(ItemType type, int configId, int qualityRate, long number, int seed, RuleType ruleType)
         {
             Item item = null;
 
             if (type == ItemType.Equip)
             {
-                item = EquipHelper.BuildEquip(configId, 0, qualityRate, seed);
+                item = EquipHelper.BuildEquip(configId, 0, qualityRate, seed, ruleType);
             }
             else if (type == ItemType.SkillBox)
             {
@@ -92,14 +97,14 @@ namespace Game
             return item;
         }
 
-        public static IEnumerable<Item> BurstMul(List<Item> items, int count, int qualityRate)
+        public static IEnumerable<Item> BurstMul(List<Item> items, int count, int qualityRate, RuleType ruleType)
         {
             List<Item> newList = new List<Item>();
             for (int c = 0; c < count; c++)
             {
                 for (int i = 0; i < items.Count; i++)
                 {
-                    Item newItem = ItemHelper.BuildItem(items[i].Type, items[i].ConfigId, qualityRate, items[i].Count);
+                    Item newItem = ItemHelper.BuildItem(items[i].Type, items[i].ConfigId, qualityRate, items[i].Count, ruleType);
 
                     newList.Add(newItem);
                 }

@@ -148,7 +148,7 @@ public class Battle_Defend : ABattleRule
 
         dropList.Add(new KeyValuePair<double, DropConfig>(1, dropConfig));
 
-        List<Item> items = DropHelper.BuildDropItem(dropList, 1);
+        List<Item> items = DropHelper.BuildDropItem(dropList);
 
         if (items.Count > 0)
         {

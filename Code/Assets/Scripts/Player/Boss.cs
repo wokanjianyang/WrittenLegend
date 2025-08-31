@@ -229,7 +229,8 @@ namespace Game
             double gold = (this.Gold * (100.0 + user.AttributeBonus.GetTotalAttr(AttributeEnum.GoldIncrea)) / 100 * rewardModelRate);
 
             QualityConfig qualityConfig = QualityConfigCategory.Instance.Get(Quality);
-
+            int qualityRate1 = (100 + (int)user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea)) / 100;
+            Debug.Log("qualityRate:" + qualityRate1);
             //user.AddStartRate(this.MapId, qualityConfig.CountRate * countModelRate);
 
             double dropRate = user.GetRealDropRate();
@@ -259,7 +260,7 @@ namespace Game
             }
 
             int qualityRate = qualityConfig.QualityRate * user.GetRealQualityRate();
-            items.AddRange(DropHelper.BuildDropItem(dropList, qualityRate));
+            items.AddRange(DropHelper.BuildDropItem(dropList, qualityRate, RuleType.BossFamily));
 
             int mapIndex = Config.MapId - ConfigHelper.MapStartId;
             int quantity = mapIndex / 10 + 1 + user.SoulRingNumber + user.GetArtifactValue(ArtifactType.SoulStone);
@@ -292,7 +293,7 @@ namespace Game
             {
                 exp += exp * itemCount;
                 gold += gold * itemCount;
-                items.AddRange(ItemHelper.BurstMul(items, itemCount, qualityRate));
+                items.AddRange(ItemHelper.BurstMul(items, itemCount, qualityRate,RuleType.BossFamily));
             }
 
             if (soulRise > 0)

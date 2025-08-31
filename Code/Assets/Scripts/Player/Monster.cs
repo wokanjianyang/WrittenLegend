@@ -245,7 +245,7 @@ namespace Game
             }
 
             int qualityRate = qualityConfig.QualityRate * user.GetRealQualityRate();
-            items.AddRange(DropHelper.BuildDropItem(dropList, qualityRate));
+            items.AddRange(DropHelper.BuildDropItem(dropList, qualityRate, RuleType.Normal));
 
             double rs = user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstMul);
             int itemCount = MathHelper.RandomBurstMul(rs);
@@ -272,7 +272,7 @@ namespace Game
             {
                 exp += exp * itemCount;
                 gold += gold * itemCount;
-                items.AddRange(ItemHelper.BurstMul(items, itemCount, qualityRate));
+                items.AddRange(ItemHelper.BurstMul(items, itemCount, qualityRate,RuleType.Normal));
             }
 
             if (soulRise > 0)

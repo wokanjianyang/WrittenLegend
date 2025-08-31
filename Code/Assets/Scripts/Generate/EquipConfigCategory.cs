@@ -13,7 +13,7 @@ namespace Game
 
     public class EquipHelper
     {
-        public static Equip BuildEquip(int configId, int staticQuality, int qualityRate, int seed)
+        public static Equip BuildEquip(int configId, int staticQuality, int qualityRate, int seed, RuleType ruleType)
         {
             //if (seed <= 0)
             //{
@@ -34,7 +34,8 @@ namespace Game
 
             if (config.Quality == 0)  //随机生成品质
             {
-                quality = RandomHelper.RandomEquipQuality(config.LevelRequired, qualityRate);
+                int rate = ruleType == RuleType.BossFamily ? 8 : 1;
+                quality = RandomHelper.RandomEquipQuality(config.LevelRequired, qualityRate * rate);
             }
             if (staticQuality > 0)
             {

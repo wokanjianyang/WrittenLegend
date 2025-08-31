@@ -144,7 +144,7 @@ public class BattleRule_Infinite : ABattleRule
 
         InfiniteDropConfig infiniteDropConfig = InfiniteDropConfigCategory.Instance.GetConfig(dropId, level);
 
-        List<Item> items = DropHelper.BuildDropItem(dropList, 1);
+        List<Item> items = DropHelper.BuildDropItem(dropList);
 
         if (infiniteDropConfig != null && infiniteDropConfig.Number > 1)
         {

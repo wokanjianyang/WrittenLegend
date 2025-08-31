@@ -102,7 +102,7 @@ public class Monster_Specail : APlayer
             dropList.Add(new KeyValuePair<double, DropConfig>(config.DropRateList[i], dropConfig));
         }
 
-        List<Item> items = DropHelper.BuildDropItem(dropList, 1);
+        List<Item> items = DropHelper.BuildDropItem(dropList);
 
         if (items.Count > 0)
         {
