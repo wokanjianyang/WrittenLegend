@@ -70,6 +70,9 @@ namespace Game
 
             double strong = StringHelper.StringToNumber(Config.Strong);
             strong += strong * Config.StrongRise * riseLevel;
+
+            double parry = StringHelper.StringToNumber(Config.Parry);
+
             //Debug.Log("Infinit " + this.Progress + " HP:" + StringHelper.FormatNumber(hp));
             //Debug.Log("Infinit " + this.Progress + " Def:" + StringHelper.FormatNumber(def));
             //Debug.Log("Infinit " + this.Progress + " Attr:" + StringHelper.FormatNumber(attr));
@@ -92,6 +95,12 @@ namespace Game
 
             AttributeBonus.SetAttr(AttributeEnum.Strong, AttributeFrom.HeroBase, strong);
             AttributeBonus.SetAttr(AttributeEnum.MulDamageIncrea, AttributeFrom.HeroBase, damageMul);
+
+            AttributeBonus.SetAttr(AttributeEnum.Parry, AttributeFrom.HeroBase, parry);
+
+            SetAttackSpeed(Config.Speed);
+            SetMoveSpeed(Config.Speed);
+
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
         }
