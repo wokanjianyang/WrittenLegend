@@ -73,7 +73,7 @@ namespace Game
 
             if (config.Quality == 0)  //随机生成品质
             {
-                int rate = ruleType == RuleType.BossFamily ? 8 : 1;
+                int rate = ruleType == RuleType.BossFamily ? 6 : 1;
                 quality = RandomHelper.RandomEquipQuality(config.LevelRequired, qualityRate * rate);
             }
             if (staticQuality > 0)

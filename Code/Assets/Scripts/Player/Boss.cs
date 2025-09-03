@@ -234,7 +234,7 @@ namespace Game
 
             double dropRate = user.GetRealDropRate();
             double modelRate = dropModelRate * qualityConfig.DropRate;
-            double countRate = countModelRate * qualityConfig.CountRate;
+            double countRate = countModelRate * qualityConfig.CountRate / 2;
             int soulPercent = (int)user.AttributeBonus.GetTotalAttr(AttributeEnum.SoulPercent);
 
             List<Item> items = new List<Item>();
@@ -292,7 +292,7 @@ namespace Game
             {
                 exp += exp * itemCount;
                 gold += gold * itemCount;
-                items.AddRange(ItemHelper.BurstMul(items, itemCount, qualityRate,RuleType.BossFamily));
+                items.AddRange(ItemHelper.BurstMul(items, itemCount, qualityRate, RuleType.BossFamily));
             }
 
             if (soulRise > 0)

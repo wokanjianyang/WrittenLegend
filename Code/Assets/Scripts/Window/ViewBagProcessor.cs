@@ -873,10 +873,12 @@ namespace Game
                 ExclusiveItem oldExclusive = boxItem.Item as ExclusiveItem;
 
                 ExclusiveItem exclusive = new ExclusiveItem(oldExclusive.ConfigId, oldExclusive.RuneConfigId, oldExclusive.SuitConfigId, oldExclusive.Quality, oldExclusive.DoubleHitId);
+                exclusive.Count = 1;
                 newList.Add(exclusive);
                 for (int i = 0; i < oldExclusive.RuneConfigIdList.Count; i++)
                 {
                     ExclusiveItem item = new ExclusiveItem(oldExclusive.ConfigId, oldExclusive.RuneConfigIdList[i], oldExclusive.SuitConfigIdList[i], oldExclusive.Quality, oldExclusive.DoubleHitId);
+                    item.Count = 1;
                     newList.Add(item);
                 }
 
@@ -898,6 +900,7 @@ namespace Game
                     for (int i = 0; i < runeLevel; i++)
                     {
                         ExclusiveItem item = new ExclusiveItem(oldExclusive.ConfigId, runeId, suitId, oldExclusive.Quality, oldExclusive.DoubleHitId);
+                        item.Count = 1;
                         newList.Add(item);
                     }
 
@@ -1088,7 +1091,8 @@ namespace Game
                         recoveryDict[sp.Key] = 0;
                     }
 
-                    recoveryDict[sp.Key] += (int)(sp.Value * box.MagicNubmer.Data);
+                    long count = Math.Max(1, box.MagicNubmer.Data);
+                    recoveryDict[sp.Key] += (int)(sp.Value * count);
                 }
 
 
