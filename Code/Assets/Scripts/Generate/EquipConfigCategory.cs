@@ -1,3 +1,4 @@
+using Game.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,44 @@ namespace Game
             if (config.Cycle == 5)
             {
                 //混沌装备
+                User user = GameProcessor.Inst.User;
+                if (user != null)
+                {
+                    int dropLimitId = AppHelper.EquipHundun_MaxDropId;
+                    DropData dropData = user.DropDataList.Where(m => m.DropLimitId == dropLimitId).FirstOrDefault();
+                    if (dropData == null)
+                    {
+                        dropData = new DropData(dropLimitId);
+                        dropData.Init(user.DeviceId.GetHashCode() + dropLimitId);
+                        user.DropDataList.Add(dropData);
+                    }
+                    //Debug.Log("hundun max number:" + dropData.Number);
+                    if (dropData.Number > AppHelper.EquipHundun_MaxCount)
+                    {
+                        //触发保底
+                        if (RandomHelper.RandomResult(AppHelper.EquipHundun_MinRate))
+                        {
+                            staticQuality = 9;
+                            seed = TimeHelper.TodaySeed() + dropData.Seed;
+                            //Debug.Log("hundun 保底" + dropData.Seed);
+
+                            dropData.Number = 0;
+                            dropData.Seed++;
+                        }
+                    }
+                    else
+                    {
+                        if (ruleType == RuleType.BossFamily)
+                        {
+                            dropData.Number += 0;
+                        }
+                        else
+                        {
+                            dropData.Number += 3;
+                        }
+                    }
+                }
+
                 return BuildEquipCycle5(config, staticQuality, qualityRate, seed);
             }
 
@@ -74,7 +113,11 @@ namespace Game
         public static Equip BuildEquipCycle5(EquipConfig config, int staticQuality, int qualityRate, int seed)
         {
 
-            int quality = RandomQuanlityCycle5(qualityRate);
+            int quality = staticQuality;
+            if (quality <= 0)
+            {
+                quality = RandomQuanlityCycle5(qualityRate);
+            }
 
             int runeId = 0;
             int suitId = 0;

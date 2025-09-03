@@ -1036,7 +1036,7 @@ namespace Game
         {
             this.EventCenter.Raise(new CopyViewCloseEvent());
 
-            Debug.Log("auto type :" + ruleType);
+            //Debug.Log("auto type :" + ruleType);
 
             switch (ruleType)
             {

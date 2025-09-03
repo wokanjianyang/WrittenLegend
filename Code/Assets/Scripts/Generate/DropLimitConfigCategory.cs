@@ -146,16 +146,18 @@ namespace Game
                 if (RandomHelper.RandomResult(rate))
                 {
                     dropData.Number = 0;
-                    dropData.Seed = AppHelper.RefreshSeed(dropData.Seed);
+                    dropData.Seed++;
+
+                    int seed = TimeHelper.TodaySeed() + dropData.Seed;
 
 
                     int dropId = dropLimit.DropId;
                     DropConfig dropConfig = DropConfigCategory.Instance.Get(dropId);
 
-                    int index = RandomHelper.RandomNumber(dropData.Seed, 0, dropConfig.ItemIdList.Length);
+                    int index = RandomHelper.RandomNumber(seed, 0, dropConfig.ItemIdList.Length);
                     int configId = dropConfig.ItemIdList[index];
 
-                    Item item = ItemHelper.BuildItem((ItemType)dropConfig.ItemType, configId, 1, dropConfig.Quantity, dropData.Seed, RuleType.Normal);
+                    Item item = ItemHelper.BuildItem((ItemType)dropConfig.ItemType, configId, 1, dropConfig.Quantity, seed, RuleType.Normal);
                     list.Add(item);
                 }
             }
