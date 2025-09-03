@@ -28,7 +28,7 @@ namespace Game
         public static int GetLossQuality()
         {
             //如果次数少于500次，则品质-1
-            return CopyCount > 300 ? 0 : 1;
+            return CopyCount > 600 ? 0 : 1;
         }
 
         public static string getKey()

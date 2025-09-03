@@ -16,7 +16,7 @@ public class BattleRule_EquipCopy : ABattleRule
     private List<int> QualityList;
 
     private const int MaxQuanlity = 20; //最多数量
-    private const int MaxFreshQuanlity = 1; //最多刷新数量
+    private int MaxFreshQuanlity = 1; //最多刷新数量
     protected override RuleType ruleType => RuleType.EquipCopy;
 
     public BattleRule_EquipCopy(Dictionary<string, object> param)
@@ -24,11 +24,13 @@ public class BattleRule_EquipCopy : ABattleRule
         param.TryGetValue("MapId", out object mapId);
         param.TryGetValue("MapTime", out object mapTime);
         param.TryGetValue("MapRate", out object mapRate);
+        param.TryGetValue("MonsterFaster", out object monsterFaster);
 
         this.MapId = (int)mapId;
         this.MapTime = (long)mapTime;
         this.MapRate = (int)mapRate;
         this.Start = true;
+        this.MaxFreshQuanlity += (int)monsterFaster;
 
         QualityList = new List<int>();
 

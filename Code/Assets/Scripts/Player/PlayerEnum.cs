@@ -77,6 +77,7 @@ namespace Game
         EquipRandomIncrea = 102, //装备随机属性百分比
         EquipStrengthIncrea = 103, //装备强化属性百分比
 
+        MonsterFaster = 107,//副刷新速度加快
         DropFinal = 108, //稀有爆率增幅
         MetailFinal = 109, //挖矿
         SoulPercent = 110, //炼魂夺魄

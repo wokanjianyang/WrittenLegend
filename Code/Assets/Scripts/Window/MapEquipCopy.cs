@@ -94,6 +94,8 @@ public class MapEquipCopy : MonoBehaviour, IBattleLife
         param.Add("MapId", e.MapId);
         param.Add("MapTime", MapTime);
         param.Add("MapRate", e.Rate);
+        param.Add("MonsterFaster", (int)GameProcessor.Inst.User.AttributeBonus.GetAttackAttr(AttributeEnum.MonsterFaster));
+
 
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {
@@ -122,6 +124,7 @@ public class MapEquipCopy : MonoBehaviour, IBattleLife
         param.Add("MapId", this.CopyMapId);
         param.Add("MapTime", MapTime);
         param.Add("MapRate", rate); //×Ô¶¯ÊÇ1±¶
+        param.Add("MonsterFaster", (int)GameProcessor.Inst.User.AttributeBonus.GetAttackAttr(AttributeEnum.MonsterFaster));
 
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {
