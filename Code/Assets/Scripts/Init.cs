@@ -147,7 +147,7 @@ public class Init : MonoBehaviour
             var timeTaks = TimeCheatingDetector.GetOnlineTimeTask("https://www.baidu.com/");
             await timeTaks;
             currentTimeSecond = (long)timeTaks.Result.onlineSecondsUtc;
-            Log.Debug("time:" + currentTimeSecond);
+            Log.Debug("net time:" + currentTimeSecond);
 
             AN_Preloader.UnlockScreen();
         }

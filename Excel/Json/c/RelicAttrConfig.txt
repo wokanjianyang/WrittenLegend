@@ -1,8 +1,0 @@
-{"list":[
-{"_t":"RelicAttrConfig","_id":1,"ItemId":61000001,"Layer":4,"Name":"盘古斧身","AttrId":2003,"AttrValue":20,"RiseAttr":20,"Des":"生命倍率"},
-{"_t":"RelicAttrConfig","_id":2,"ItemId":61000002,"Layer":4,"Name":"盘古斧背","AttrId":2002,"AttrValue":30,"RiseAttr":30,"Des":"防御倍率"},
-{"_t":"RelicAttrConfig","_id":3,"ItemId":61000003,"Layer":4,"Name":"盘古斧柄","AttrId":2001,"AttrValue":5,"RiseAttr":5,"Des":"攻击倍率"},
-{"_t":"RelicAttrConfig","_id":4,"ItemId":61000004,"Layer":4,"Name":"盘古斧刃","AttrId":2011,"AttrValue":5,"RiseAttr":5,"Des":"增伤倍率"},
-{"_t":"RelicAttrConfig","_id":5,"ItemId":61000005,"Layer":4,"Name":"盘古心核","AttrId":2012,"AttrValue":10,"RiseAttr":10,"Des":"韧性倍率"},
-{"_t":"RelicAttrConfig","_id":6,"ItemId":61000006,"Layer":4,"Name":"盘古斧","AttrId":2003,"AttrValue":0.01,"RiseAttr":0.01,"Des":"幸运一击"},
-]}

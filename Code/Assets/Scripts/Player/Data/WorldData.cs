@@ -26,6 +26,14 @@ namespace Game
 
             List<WorldConfig> worlds = WorldConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
 
+            int seed = AppHelper.GetDeviceIdentifier().GetHashCode();
+            User user = GameProcessor.Inst.User;
+            if (user != null && user.Account != null)
+            {
+                seed = user.Account.GetHashCode();
+            }
+            seed += TimeHelper.WeekSeed();
+
             //如果新增了仙兽，配置掉落
             if (worlds.Count > DictItemListNew.Count)
             {
@@ -34,7 +42,7 @@ namespace Game
                     int mapId = worlds[i].Id;
                     if (!this.DictItemList.ContainsKey(mapId))
                     {
-                        List<int> list = WorldDropConfigCategory.Instance.GetAllDropIdList(mapId);
+                        List<int> list = WorldDropConfigCategory.Instance.GetAllDropIdList(mapId, seed);
 
                         DictItemListNew.Add(mapId, list);
                     }
@@ -57,9 +65,9 @@ namespace Game
 
                 DictItemListNew.Clear();
 
-                for (int mapId = 1; mapId <= 3; mapId++)
+                for (int mapId = 1; mapId <= 4; mapId++)
                 {
-                    List<int> list = WorldDropConfigCategory.Instance.GetAllDropIdList(mapId);
+                    List<int> list = WorldDropConfigCategory.Instance.GetAllDropIdList(mapId, 0);
 
                     DictItemListNew.Add(mapId, list);
                 }
@@ -75,7 +83,7 @@ namespace Game
                     int mapId = worlds[i].Id;
                     if (!this.DictItemList.ContainsKey(mapId))
                     {
-                        List<int> list = WorldDropConfigCategory.Instance.GetAllDropIdList(mapId);
+                        List<int> list = WorldDropConfigCategory.Instance.GetAllDropIdList(mapId, seed);
 
                         DictItemList.Add(mapId, list);
                     }

@@ -122,6 +122,7 @@
 {"_t":"CompositeConfig","_id":505,"Type":"其他","ItemTypeList":[5,5],"ItemIdList":[4028,4111],"ItemCountList":[40,100000],"ItemQualityList":[0,0],"TargetName":"青龙神器","TargetId":35,"TargetType":4,"AutoHide":0},
 {"_t":"CompositeConfig","_id":506,"Type":"其他","ItemTypeList":[5,5],"ItemIdList":[4029,4111],"ItemCountList":[40,100000],"ItemQualityList":[0,0],"TargetName":"白虎神器","TargetId":37,"TargetType":4,"AutoHide":0},
 {"_t":"CompositeConfig","_id":508,"Type":"其他","ItemTypeList":[5,5],"ItemIdList":[4030,4111],"ItemCountList":[40,100000],"ItemQualityList":[0,0],"TargetName":"朱雀神器","TargetId":38,"TargetType":4,"AutoHide":0},
+{"_t":"CompositeConfig","_id":509,"Type":"其他","ItemTypeList":[5,5],"ItemIdList":[4031,4111],"ItemCountList":[40,100000],"ItemQualityList":[0,0],"TargetName":"玄武神器","TargetId":39,"TargetType":4,"AutoHide":0},
 {"_t":"CompositeConfig","_id":521,"Type":"其他","ItemTypeList":[5,5],"ItemIdList":[4005,4111],"ItemCountList":[20000,1000],"ItemQualityList":[0,0],"TargetName":"传奇精华","TargetId":4035,"TargetType":5,"AutoHide":0},
 {"_t":"CompositeConfig","_id":531,"Type":"其他","ItemTypeList":[5,5],"ItemIdList":[4112,4111],"ItemCountList":[10,10000],"ItemQualityList":[0,0],"TargetName":"12阶技能","TargetId":42,"TargetType":4,"AutoHide":0},
 ]}
