@@ -20,6 +20,7 @@ public class Dialog_Talent_Detail : MonoBehaviour
     public Text Txt_Require;
 
     public Button Btn_OK;
+    public Button Btn_OK_Batch;
 
     private int Tid = 0;
 
@@ -27,6 +28,7 @@ public class Dialog_Talent_Detail : MonoBehaviour
     {
         Btn_Close.onClick.AddListener(OnClick_Close);
         Btn_OK.onClick.AddListener(OnClick_Ok);
+        Btn_OK_Batch.onClick.AddListener(OnClick_Ok_Batch);
     }
 
     public void Open(int tid)
@@ -73,10 +75,12 @@ public class Dialog_Talent_Detail : MonoBehaviour
         if (level < config.MaxLevel && config.RequireLevel <= totalLevel && config.Fee <= enablePoint)
         {
             Btn_OK.gameObject.SetActive(true);
+            Btn_OK_Batch.gameObject.SetActive(true);
         }
         else
         {
-            Btn_OK.gameObject.SetActive(false); ;
+            Btn_OK.gameObject.SetActive(false);
+            Btn_OK_Batch.gameObject.SetActive(false);
         }
     }
 
@@ -87,12 +91,15 @@ public class Dialog_Talent_Detail : MonoBehaviour
 
     public void OnClick_Ok()
     {
+        Btn_OK.gameObject.SetActive(false);
+        Btn_OK_Batch.gameObject.SetActive(false);
+
         TalentConfig config = TalentConfigCategory.Instance.Get(this.Tid);
 
         User user = GameProcessor.Inst.User;
 
         long total = user.TalentExp.Data / 10000;
-        long use = user.TalentData.Select(m => m.Value.Data).Sum();
+        long use = user.TalentPoint;
 
 
         long level = user.GetTalentLevel(this.Tid);
@@ -108,5 +115,38 @@ public class Dialog_Talent_Detail : MonoBehaviour
             Dialog_Talent parent = this.GetComponentInParent<Dialog_Talent>();
             parent.Refresh();
         }
+    }
+
+    public void OnClick_Ok_Batch()
+    {
+        Btn_OK.gameObject.SetActive(false);
+        Btn_OK_Batch.gameObject.SetActive(false);
+
+        TalentConfig config = TalentConfigCategory.Instance.Get(this.Tid);
+
+        User user = GameProcessor.Inst.User;
+
+        int level = (int)user.GetTalentLevel(this.Tid);
+
+        long total = user.TalentExp.Data / 10000;
+
+        for (int i = level; i < config.MaxLevel; i++)
+        {
+            if (config.Fee <= (total - user.TalentPoint))
+            {
+                user.AddTalentLevel(Tid, config.Fee);
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        this.Show();
+
+        GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
+
+        Dialog_Talent parent = this.GetComponentInParent<Dialog_Talent>();
+        parent.Refresh();
     }
 }
