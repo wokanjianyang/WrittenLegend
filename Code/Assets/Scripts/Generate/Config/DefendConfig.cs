@@ -120,44 +120,50 @@ namespace Game
 		/// <summary>MulRise</summary>
 		[ProtoMember(15)]
 		public double MulRise { get; set; }
-		/// <summary>DamageIncrea</summary>
+		/// <summary>Parry</summary>
 		[ProtoMember(16)]
+		public string Parry { get; set; }
+		/// <summary>ParryRise</summary>
+		[ProtoMember(17)]
+		public double ParryRise { get; set; }
+		/// <summary>DamageIncrea</summary>
+		[ProtoMember(18)]
 		public int DamageIncrea { get; set; }
 		/// <summary>DamageResist</summary>
-		[ProtoMember(17)]
+		[ProtoMember(19)]
 		public int DamageResist { get; set; }
 		/// <summary>CritRate</summary>
-		[ProtoMember(18)]
+		[ProtoMember(20)]
 		public int CritRate { get; set; }
 		/// <summary>CritDamage</summary>
-		[ProtoMember(19)]
+		[ProtoMember(21)]
 		public int CritDamage { get; set; }
 		/// <summary>Accuracy</summary>
-		[ProtoMember(20)]
+		[ProtoMember(22)]
 		public int Accuracy { get; set; }
 		/// <summary>RiseAccuracy</summary>
-		[ProtoMember(21)]
+		[ProtoMember(23)]
 		public int RiseAccuracy { get; set; }
 		/// <summary>Miss</summary>
-		[ProtoMember(22)]
+		[ProtoMember(24)]
 		public int Miss { get; set; }
 		/// <summary>RiseMiss</summary>
-		[ProtoMember(23)]
+		[ProtoMember(25)]
 		public int RiseMiss { get; set; }
 		/// <summary>MulDamageResist</summary>
-		[ProtoMember(24)]
+		[ProtoMember(26)]
 		public int MulDamageResist { get; set; }
 		/// <summary>Protect</summary>
-		[ProtoMember(25)]
+		[ProtoMember(27)]
 		public double Protect { get; set; }
 		/// <summary>Speed</summary>
-		[ProtoMember(26)]
+		[ProtoMember(28)]
 		public int Speed { get; set; }
 		/// <summary>Exp</summary>
-		[ProtoMember(27)]
+		[ProtoMember(29)]
 		public double Exp { get; set; }
 		/// <summary>Gold</summary>
-		[ProtoMember(28)]
+		[ProtoMember(30)]
 		public double Gold { get; set; }
 
 	}

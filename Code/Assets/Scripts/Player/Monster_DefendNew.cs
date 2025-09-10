@@ -57,6 +57,7 @@ namespace Game
             double riseMul = Math.Pow(Config.MulRise, riseLevel);
             double riseMiss = Config.RiseMiss * riseLevel;
             double RiseAccuracy = Config.RiseAccuracy * riseLevel;
+            double riseParry = Math.Pow(Config.ParryRise, riseLevel);
             //Debug.Log("pw:" + (Progress - Config.StartLevel));
 
             //if (Progress >= 100)
@@ -72,6 +73,7 @@ namespace Game
 
             double strong = StringHelper.StringToNumber(Config.Strong) * (1 + riseStrong);
             double damageMul = StringHelper.StringToNumber(Config.DamageMul) * (1 + riseMul);
+            double parry = StringHelper.StringToNumber(Config.Parry) * (1 + riseParry);
             //if (Progress >= 100)
             //{
             //    Debug.Log("hp:" + hp);
@@ -98,6 +100,7 @@ namespace Game
 
             AttributeBonus.SetAttr(AttributeEnum.Strong, AttributeFrom.HeroBase, strong);
             AttributeBonus.SetAttr(AttributeEnum.MulDamageIncrea, AttributeFrom.HeroBase, damageMul);
+            AttributeBonus.SetAttr(AttributeEnum.Parry, AttributeFrom.HeroBase, parry);
 
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));

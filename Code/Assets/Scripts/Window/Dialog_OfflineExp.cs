@@ -205,6 +205,18 @@ namespace Game
         //items.Add(ItemHelper.BuildMaterial(8107, ic)); //魂骨
         //items.Add(ItemHelper.BuildMaterial(8108, ic)); //魂骨
 
+            //int ic = 10000;
+            //items.Add(ItemHelper.BuildMaterial(60000001, ic)); //攻击宝石
+            //items.Add(ItemHelper.BuildMaterial(60000002, ic)); //防御宝石
+            //items.Add(ItemHelper.BuildMaterial(60000003, ic)); //生命宝石
+            //items.Add(ItemHelper.BuildMaterial(60000004, ic)); //命中宝石
+            //items.Add(ItemHelper.BuildMaterial(60000005, ic)); //闪避宝石
+            //items.Add(ItemHelper.BuildMaterial(60000006, ic)); //物理宝石
+            //items.Add(ItemHelper.BuildMaterial(60000007, ic)); //魔法宝石
+            //items.Add(ItemHelper.BuildMaterial(60000008, ic)); //道术宝石
+            //items.Add(ItemHelper.BuildMaterial(60000009, ic)); //增伤宝石
+            //items.Add(ItemHelper.BuildMaterial(60000010, ic)); //韧性宝石
+
         public void TestInfinityDrop()
         {
 
