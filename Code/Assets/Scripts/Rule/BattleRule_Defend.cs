@@ -150,6 +150,15 @@ public class Battle_Defend : ABattleRule
 
         List<Item> items = DropHelper.BuildDropItem(dropList);
 
+        DefendDropConfig defendDropConfig = DefendDropConfigCategory.Instance.GetConfig(this.Level, dropId);
+        if (defendDropConfig != null && defendDropConfig.Number > 1)
+        {
+            foreach (Item item in items)
+            {
+                item.Count = item.Count * defendDropConfig.Number;
+            }
+        }
+
         if (items.Count > 0)
         {
             user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });

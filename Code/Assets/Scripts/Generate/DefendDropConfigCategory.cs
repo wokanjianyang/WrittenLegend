@@ -7,6 +7,12 @@ namespace Game
 
     public partial class DefendDropConfigCategory
     {
+
+        public DefendDropConfig GetConfig(int layer, int dropId)
+        {
+            return this.list.Where(m => m.DropId == dropId && m.Layer == layer).FirstOrDefault();
+        }
+
         public List<int> GetAllDropIdList(int layer)
         {
             List<int> rates = new List<int>();

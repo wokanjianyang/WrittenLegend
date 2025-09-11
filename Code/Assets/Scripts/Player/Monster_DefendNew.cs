@@ -120,7 +120,13 @@ namespace Game
 
             if (this.Layer >= 6)
             {
-                List<PlayerModel> models = PlayerModelCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Quality >= 5).ToList();
+                int mapId = 0;
+                if (this.Layer == 7)
+                {
+                    mapId = 1176;
+                }
+
+                List<PlayerModel> models = PlayerModelCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Quality >= 5 && m.StartMapId >= mapId).ToList();
                 int index = RandomHelper.RandomNumber(0, models.Count);
                 PlayerModel model = models[index];
 
