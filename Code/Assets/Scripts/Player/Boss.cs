@@ -259,7 +259,7 @@ namespace Game
             }
 
             int qualityRate = qualityConfig.QualityRate * user.GetRealQualityRate();
-            items.AddRange(DropHelper.BuildDropItem(dropList, qualityRate, RuleType.BossFamily));
+            items.AddRange(DropHelper.BuildDropItem(dropList, qualityRate, RuleType.BossFamily, 0));
 
             int mapIndex = Config.MapId - ConfigHelper.MapStartId;
             int quantity = mapIndex / 10 + 1 + user.SoulRingNumber + user.GetArtifactValue(ArtifactType.SoulStone);

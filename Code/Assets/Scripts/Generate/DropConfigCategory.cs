@@ -83,11 +83,17 @@ namespace Game
             return list;
         }
 
+        public static List<Item> BuildDropItem(List<KeyValuePair<double, DropConfig>> dropList, int seed)
+        {
+            return BuildDropItem(dropList, 1, RuleType.Normal, seed);
+        }
+
         public static List<Item> BuildDropItem(List<KeyValuePair<double, DropConfig>> dropList)
         {
-            return BuildDropItem(dropList, 1, RuleType.Normal);
+            return BuildDropItem(dropList, 1, RuleType.Normal, 0);
         }
-        public static List<Item> BuildDropItem(List<KeyValuePair<double, DropConfig>> dropList, int qualityRate, RuleType ruleType)
+
+        public static List<Item> BuildDropItem(List<KeyValuePair<double, DropConfig>> dropList, int qualityRate, RuleType ruleType, int seed)
         {
             List<Item> list = new List<Item>();
 
@@ -98,7 +104,7 @@ namespace Game
 
                 if (RandomHelper.RandomResult(rate))
                 {
-                    int index = RandomHelper.RandomNumber(0, config.ItemIdList.Length);
+                    int index = RandomHelper.RandomNumber(seed, 0, config.ItemIdList.Length);
                     int configId = config.ItemIdList[index];
 
                     Item item = ItemHelper.BuildItem((ItemType)config.ItemType, configId, qualityRate, config.Quantity, ruleType);

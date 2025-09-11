@@ -148,7 +148,14 @@ public class Battle_Defend : ABattleRule
 
         dropList.Add(new KeyValuePair<double, DropConfig>(1, dropConfig));
 
-        List<Item> items = DropHelper.BuildDropItem(dropList);
+        int seed = AppHelper.GetDeviceIdentifier().GetHashCode();
+        if (user != null && user.Account != null)
+        {
+            seed = user.Account.GetHashCode();
+        }
+        seed += TimeHelper.TodaySeed() + (int)this.Progress;
+
+        List<Item> items = DropHelper.BuildDropItem(dropList, seed);
 
         DefendDropConfig defendDropConfig = DefendDropConfigCategory.Instance.GetConfig(this.Level, dropId);
         if (defendDropConfig != null && defendDropConfig.Number > 1)

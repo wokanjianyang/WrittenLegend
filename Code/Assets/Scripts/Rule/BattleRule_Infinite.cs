@@ -144,7 +144,14 @@ public class BattleRule_Infinite : ABattleRule
 
         InfiniteDropConfig infiniteDropConfig = InfiniteDropConfigCategory.Instance.GetConfig(dropId, level);
 
-        List<Item> items = DropHelper.BuildDropItem(dropList);
+        int seed = AppHelper.GetDeviceIdentifier().GetHashCode();
+        if (user != null && user.Account != null)
+        {
+            seed = user.Account.GetHashCode();
+        }
+        seed += TimeHelper.TodaySeed() + (int)level;
+
+        List<Item> items = DropHelper.BuildDropItem(dropList, seed);
 
         if (infiniteDropConfig != null && infiniteDropConfig.Number > 1)
         {

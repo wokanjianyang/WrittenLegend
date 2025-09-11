@@ -66,5 +66,5 @@
 {"_t":"DefendDropConfig","_id":72,"Layer":7,"DropId":220041,"Name":"改造石","Rate":8,"StartLevel":10,"EndLevel":98,"RateLevel":1,"Max":15,"Number":1},
 {"_t":"DefendDropConfig","_id":73,"Layer":7,"DropId":1010,"Name":"传奇精华","Rate":10,"StartLevel":70,"EndLevel":100,"RateLevel":1,"Max":5,"Number":1},
 {"_t":"DefendDropConfig","_id":74,"Layer":7,"DropId":1011,"Name":"混沌精华","Rate":8,"StartLevel":95,"EndLevel":100,"RateLevel":1,"Max":2,"Number":1},
-{"_t":"DefendDropConfig","_id":75,"Layer":7,"DropId":601,"Name":"随机宝石","Rate":8,"StartLevel":20,"EndLevel":100,"RateLevel":0,"Max":20,"Number":1},
+{"_t":"DefendDropConfig","_id":75,"Layer":7,"DropId":601,"Name":"随机宝石","Rate":12,"StartLevel":20,"EndLevel":100,"RateLevel":1,"Max":20,"Number":1},
 ]}
