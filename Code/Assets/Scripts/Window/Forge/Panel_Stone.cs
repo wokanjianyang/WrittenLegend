@@ -24,15 +24,18 @@ public class Panel_Stone : MonoBehaviour
     public Text Txt_Fee;
     public Text Txt_Fee_Set;
 
-    public Button Btn_OK;
+
     public Button Btn_Active;
     public Button Btn_Restore;
+    public Button Btn_OK;
+    public Button Btn_OK_Batch;
 
     private const int MaxCount = 10; //10¼þ×°±¸
     private const int Quality = 7;
 
     private const int StartPosition = 21;
     private const int MaxLevel = 14;
+    private const int BatchCount = 5;
 
     private int SelectPosition = 0;
     private int MainIndex = 0;
@@ -49,6 +52,7 @@ public class Panel_Stone : MonoBehaviour
 
         this.Btn_OK.onClick.AddListener(OnClickOK);
         this.Btn_Active.onClick.AddListener(OnClickActive);
+        this.Btn_OK_Batch.onClick.AddListener(OnClickOKBatch);
         this.Btn_Restore.onClick.AddListener(OnRestore);
     }
 
@@ -189,6 +193,7 @@ public class Panel_Stone : MonoBehaviour
     private void ShowStoneMain()
     {
         this.Btn_OK.gameObject.SetActive(false);
+        this.Btn_OK_Batch.gameObject.SetActive(false);
 
         User user = GameProcessor.Inst.User;
         StoneRecord record = user.GetStoneRecord(SelectPosition);
@@ -271,6 +276,7 @@ public class Panel_Stone : MonoBehaviour
         if (materialCount >= fee)
         {
             this.Btn_OK.gameObject.SetActive(true);
+            this.Btn_OK_Batch.gameObject.SetActive(true);
         }
 
         int currentAttr = config.GetAttr(level);
@@ -280,9 +286,51 @@ public class Panel_Stone : MonoBehaviour
         AttrItem.SetContent(config.AttrId, currentAttr, nextAtt - currentAttr);
     }
 
+    public void OnClickOKBatch()
+    {
+        this.Btn_OK.gameObject.SetActive(false);
+        this.Btn_OK_Batch.gameObject.SetActive(false);
+
+        User user = GameProcessor.Inst.User;
+
+        StoneRecord record = user.GetStoneRecord(SelectPosition);
+
+        for (int i = 0; i < BatchCount; i++)
+        {
+            int level = record.GetStoneLevel(MainIndex);
+
+            StoneConfig config = StoneConfigCategory.Instance.Get(StoneId);
+
+            int fee = config.GetFee(level + 1);
+
+            long materialCount = user.GetMaterialCount(config.ItemId);
+
+            if (materialCount < fee)
+            {
+                break;
+            }
+
+            GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
+            {
+                Type = ItemType.Material,
+                ItemId = config.ItemId,
+                Quantity = fee
+            });
+
+            record.AddLevel(MainIndex, StoneId);
+        }
+
+        GameProcessor.Inst.UpdateInfo();
+
+        ShowForgeItem();
+        ShowStoneMain();
+        ShowStone();
+    }
+
     public void OnClickOK()
     {
         this.Btn_OK.gameObject.SetActive(false);
+        this.Btn_OK_Batch.gameObject.SetActive(false);
 
         User user = GameProcessor.Inst.User;
 
@@ -317,7 +365,6 @@ public class Panel_Stone : MonoBehaviour
         ShowStoneMain();
         ShowStone();
     }
-
 
     public void OnClickActive()
     {
