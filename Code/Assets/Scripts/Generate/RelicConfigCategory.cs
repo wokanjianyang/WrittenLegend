@@ -18,7 +18,7 @@ namespace Game
     {
         public int GetFee(int level)
         {
-            int rise = level / 10;
+            int rise = Math.Min(level / 10, 2);
             return rise + 1;
         }
 
