@@ -79,7 +79,7 @@ namespace Game
             //º∆À„Buff
             if (RuleType == RuleType.Defend)
             {
-                List<DefendBuffConfig> buffList = user.DefendData.GetBuffList(DefendBuffType.Attr);
+                List<DefendBuffConfig> buffList = user.DefendData.GetBuffList();
 
                 this.AttributeBonus.SetBuffList(buffList);
             }
@@ -161,7 +161,7 @@ namespace Game
             //º∆À„Buff
             if (RuleType == RuleType.Defend)
             {
-                List<DefendBuffConfig> buffList = GameProcessor.Inst.User.DefendData.GetBuffList(DefendBuffType.Attr);
+                List<DefendBuffConfig> buffList = GameProcessor.Inst.User.DefendData.GetBuffList();
                 this.AttributeBonus.SetBuffList(buffList);
 
                 double maxHP = AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
@@ -204,22 +204,6 @@ namespace Game
 
             list.Add(new SkillData(9001, (int)SkillPosition.Default));
 
-            if (RuleType == RuleType.Defend)
-            {
-                List<int> ids = user.GetCurrentSkillList();
-
-                List<DefendBuffConfig> buffList = user.DefendData.GetBuffList(DefendBuffType.Skill);
-                foreach (DefendBuffConfig config in buffList)
-                {
-                    if (!ids.Contains(config.SkillId))
-                    {
-                        var sd = new SkillData(config.SkillId, (int)SkillPosition.Default);
-                        sd.MagicLevel.Data = 20;
-                        list.Add(sd);
-                    }
-                }
-            }
-
             //Debug.Log("skill list:" + list.Select(m => m.SkillId).ToList().ListToString());
 
             for (int i = 0; i < list.Count; i++)
@@ -227,10 +211,6 @@ namespace Game
                 SkillData skillData = list[i];
 
                 List<SkillRuneConfig> buffRuneList = null;
-                if (RuleType == RuleType.Defend)
-                {
-                    buffRuneList = user.DefendData.GetBuffRuneList(skillData.SkillId);
-                }
 
                 List<SkillRune> runeList = user.GetRuneList(skillData.SkillId, buffRuneList);
 

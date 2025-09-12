@@ -81,29 +81,32 @@ namespace Game
 		/// <summary>Name</summary>
 		[ProtoMember(2)]
 		public string Name { get; set; }
-		/// <summary>Type</summary>
+		/// <summary>StartCycle</summary>
 		[ProtoMember(3)]
-		public int Type { get; set; }
-		/// <summary>MaxCount</summary>
+		public int StartCycle { get; set; }
+		/// <summary>EndCycle</summary>
 		[ProtoMember(4)]
+		public int EndCycle { get; set; }
+		/// <summary>MaxCount</summary>
+		[ProtoMember(5)]
 		public int MaxCount { get; set; }
 		/// <summary>AttrId</summary>
-		[ProtoMember(5)]
+		[ProtoMember(6)]
 		public int AttrId { get; set; }
 		/// <summary>AttrValue</summary>
-		[ProtoMember(6)]
+		[ProtoMember(7)]
 		public int AttrValue { get; set; }
 		/// <summary>SkillId</summary>
-		[ProtoMember(7)]
+		[ProtoMember(8)]
 		public int SkillId { get; set; }
 		/// <summary>RuneId</summary>
-		[ProtoMember(8)]
+		[ProtoMember(9)]
 		public int RuneId { get; set; }
 		/// <summary>Memo</summary>
-		[ProtoMember(9)]
+		[ProtoMember(10)]
 		public string Memo { get; set; }
 		/// <summary>Rate</summary>
-		[ProtoMember(10)]
+		[ProtoMember(11)]
 		public int Rate { get; set; }
 
 	}

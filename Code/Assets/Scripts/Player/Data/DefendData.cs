@@ -111,7 +111,7 @@ namespace Game
             return DropList[0];
         }
 
-        public List<DefendBuffConfig> GetBuffList(DefendBuffType type)
+        public List<DefendBuffConfig> GetBuffList()
         {
             int level = AppHelper.DefendLevel;
             CurrentDict.TryGetValue(level, out DefendRecord Current);
@@ -123,10 +123,8 @@ namespace Game
                 foreach (var kv in Current.BuffDict)
                 {
                     DefendBuffConfig config = DefendBuffConfigCategory.Instance.Get(kv.Value);
-                    if (config.Type == (int)type)
-                    {
-                        list.Add(config);
-                    }
+
+                    list.Add(config);
                 }
             }
             return list;
@@ -159,22 +157,6 @@ namespace Game
             return list;
         }
 
-        public List<SkillRuneConfig> GetBuffRuneList(int skillId)
-        {
-            List<SkillRuneConfig> list = new List<SkillRuneConfig>();
-
-            List<DefendBuffConfig> configs = GetBuffList(DefendBuffType.Rune);
-
-            foreach (DefendBuffConfig config in configs)
-            {
-                SkillRuneConfig runeConfig = SkillRuneConfigCategory.Instance.Get(config.RuneId);
-                if (runeConfig.SkillId == skillId)
-                {
-                    list.Add(runeConfig);
-                }
-            }
-            return list;
-        }
     }
 
     public class DefendRecord

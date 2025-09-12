@@ -53,7 +53,7 @@ public class Dialog_Buff : MonoBehaviour, IBattleLife
 
             List<int> excludeList = user.DefendData.GetExcludeList();
 
-            List<DefendBuffConfig> list = DefendBuffConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => !excludeList.Contains(m.Id)).ToList();
+            List<DefendBuffConfig> list = DefendBuffConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => !excludeList.Contains(m.Id) && m.StartCycle <= Level && Level <= m.EndCycle).ToList();
 
             for (int i = 0; i < ItemList.Count; i++)
             {
@@ -93,14 +93,7 @@ public class Dialog_Buff : MonoBehaviour, IBattleLife
         record.BuffDict[this.Progress] = config.Id;
         GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Defend, Message = "您选择了 " + config.Name });
 
-        if (config.Type == 1)
-        {
-            GameProcessor.Inst.PlayerManager.GetHero().EventCenter.Raise(new HeroBuffChangeEvent());
-        }
-        else
-        {
-            GameProcessor.Inst.User.EventCenter.Raise(new HeroUpdateSkillEvent());
-        }
+        GameProcessor.Inst.PlayerManager.GetHero().EventCenter.Raise(new HeroBuffChangeEvent());
 
         Log.Debug("您选择了 " + config.Name);
     }
