@@ -1047,7 +1047,7 @@ namespace Game
 
             List<Item> itemList = new List<Item>();
 
-            Dictionary<int, int> recoveryDict = user.Recovery(boxItem.Item, out long recoveryGold);
+            Dictionary<int, long> recoveryDict = user.Recovery(boxItem.Item, out long recoveryGold);
 
             gold += recoveryGold * boxItem.MagicNubmer.Data;
 
@@ -1074,13 +1074,13 @@ namespace Game
 
             List<Item> itemList = new List<Item>();
 
-            Dictionary<int, int> recoveryDict = new Dictionary<int, int>();
+            Dictionary<int, long> recoveryDict = new Dictionary<int, long>();
 
             long gold = 0;
 
             foreach (BoxItem box in recoveryList)
             {
-                Dictionary<int, int> dict = user.Recovery(box.Item, out long recoveryGold);
+                Dictionary<int, long> dict = user.Recovery(box.Item, out long recoveryGold);
 
                 gold += recoveryGold;
 
@@ -1092,7 +1092,7 @@ namespace Game
                     }
 
                     long count = Math.Max(1, box.MagicNubmer.Data);
-                    recoveryDict[sp.Key] += (int)(sp.Value * count);
+                    recoveryDict[sp.Key] += (sp.Value * count);
                 }
 
 
@@ -1228,7 +1228,7 @@ namespace Game
                 List<Item> items = new List<Item>();
                 for (int i = 0; i < pc.ItemIdList.Length; i++)
                 {
-                    Item item = ItemHelper.BuildItem((ItemType)pc.ItemTypeList[i], pc.ItemIdList[i], 1, (int)(quantity * pc.ItemCountList[i]));
+                    Item item = ItemHelper.BuildItem((ItemType)pc.ItemTypeList[i], pc.ItemIdList[i], 1, (quantity * pc.ItemCountList[i]));
                     //this.AddBoxItem(item);
                     items.Add(item);
                 }

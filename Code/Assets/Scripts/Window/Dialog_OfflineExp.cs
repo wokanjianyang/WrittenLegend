@@ -83,6 +83,7 @@ namespace Game
             //user.SaveArtifactLevel(180009, 1); //圣者
             //user.SaveArtifactLevel(180011, 1); //锤子
             //user.SaveArtifactLevel(180013, 1); //金蛟剪
+            //user.SaveArtifactLevel(180015, 1); //财富契约
             //user.SaveArtifactLevel(180020, 1); //传世之源
             //user.SaveArtifactLevel(180021, 1); //神戒之源
             //user.SaveArtifactLevel(180030, 45); //极。卖身契
@@ -145,6 +146,11 @@ namespace Game
         //items.Add(ItemHelper.BuildMaterial(50000111, 10000)); //二一阶装备升阶石
         //items.Add(ItemHelper.BuildMaterial(50000112, 10000)); //二二阶装备升阶石
 
+        //user.SaveItemMeterialCount(1998001, 5); //暗金图鉴青龙
+        //user.SaveItemMeterialCount(1998002, 5); //暗金图鉴白虎
+        //user.SaveItemMeterialCount(1998003, 5); //暗金图鉴朱雀
+        //user.SaveItemMeterialCount(1998004, 5); //暗金图鉴玄武
+        //user.SaveItemMeterialCount(1998005, 5); //暗金图鉴麒麟
 
         //for (int i = 1; i <= 8; i++)
         //{
@@ -205,17 +211,17 @@ namespace Game
         //items.Add(ItemHelper.BuildMaterial(8107, ic)); //魂骨
         //items.Add(ItemHelper.BuildMaterial(8108, ic)); //魂骨
 
-            //int ic = 10000;
-            //items.Add(ItemHelper.BuildMaterial(60000001, ic)); //攻击宝石
-            //items.Add(ItemHelper.BuildMaterial(60000002, ic)); //防御宝石
-            //items.Add(ItemHelper.BuildMaterial(60000003, ic)); //生命宝石
-            //items.Add(ItemHelper.BuildMaterial(60000004, ic)); //命中宝石
-            //items.Add(ItemHelper.BuildMaterial(60000005, ic)); //闪避宝石
-            //items.Add(ItemHelper.BuildMaterial(60000006, ic)); //物理宝石
-            //items.Add(ItemHelper.BuildMaterial(60000007, ic)); //魔法宝石
-            //items.Add(ItemHelper.BuildMaterial(60000008, ic)); //道术宝石
-            //items.Add(ItemHelper.BuildMaterial(60000009, ic)); //增伤宝石
-            //items.Add(ItemHelper.BuildMaterial(60000010, ic)); //韧性宝石
+        //int ic = 10000;
+        //items.Add(ItemHelper.BuildMaterial(60000001, ic)); //攻击宝石
+        //items.Add(ItemHelper.BuildMaterial(60000002, ic)); //防御宝石
+        //items.Add(ItemHelper.BuildMaterial(60000003, ic)); //生命宝石
+        //items.Add(ItemHelper.BuildMaterial(60000004, ic)); //命中宝石
+        //items.Add(ItemHelper.BuildMaterial(60000005, ic)); //闪避宝石
+        //items.Add(ItemHelper.BuildMaterial(60000006, ic)); //物理宝石
+        //items.Add(ItemHelper.BuildMaterial(60000007, ic)); //魔法宝石
+        //items.Add(ItemHelper.BuildMaterial(60000008, ic)); //道术宝石
+        //items.Add(ItemHelper.BuildMaterial(60000009, ic)); //增伤宝石
+        //items.Add(ItemHelper.BuildMaterial(60000010, ic)); //韧性宝石
 
         public void TestInfinityDrop()
         {

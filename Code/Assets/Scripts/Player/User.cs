@@ -968,14 +968,16 @@ namespace Game
             return count;
         }
 
-        public int CalSpecailStone(Equip equip)
+        public long CalSpecailStone(Equip equip)
         {
-            int count = 1;
-            for (int i = 0; i < equip.Level; i++)
+            int level = equip.Level;
+
+            if (level <= 10)
             {
-                count *= 2;
+                return (long)Math.Pow(2, level);
             }
-            return count;
+
+            return CompositeConfigCategory.Instance.GetTotalFee(level);
         }
 
         private void HeroChange(HeroChangeEvent e)
@@ -2058,11 +2060,11 @@ namespace Game
             recoveryCount = recoveryList.Count;
             if (recoveryList.Count > 0)
             {
-                Dictionary<int, int> recoveryDict = new Dictionary<int, int>();
+                Dictionary<int, long> recoveryDict = new Dictionary<int, long>();
 
                 foreach (Item item in recoveryList)
                 {
-                    Dictionary<int, int> dict = Recovery(item, out long recoveryGold);
+                    Dictionary<int, long> dict = Recovery(item, out long recoveryGold);
 
                     gold += recoveryGold;
 
@@ -2093,11 +2095,11 @@ namespace Game
             return newList;
         }
 
-        public Dictionary<int, int> Recovery(Item item, out long recoveryGold)
+        public Dictionary<int, long> Recovery(Item item, out long recoveryGold)
         {
             recoveryGold = 0;
 
-            Dictionary<int, int> dict = new Dictionary<int, int>();
+            Dictionary<int, long> dict = new Dictionary<int, long>();
 
             if (item.Type == ItemType.Equip)
             {

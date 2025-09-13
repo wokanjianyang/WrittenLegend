@@ -21,6 +21,11 @@ namespace Game
 
             return list;
         }
+
+        public long GetTotalFee(int level)
+        {
+            return this.list.Where(m => m.Id >= 101 && m.Id < 100 + level).Select(m => m.ItemCountList[1]).Sum() + 2;
+        }
     }
 
 }
