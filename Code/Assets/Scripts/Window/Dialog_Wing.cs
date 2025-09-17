@@ -16,13 +16,16 @@ public class Dialog_Wing : MonoBehaviour, IBattleLife
     public Button Btn_Active;
     public Button Btn_Strong;
 
-    public List<StrenthAttrItem> AtrrList;
+    public Transform tf_attr;
+    private List<StrenthAttrItem> AtrrList;
 
     public int Order => (int)ComponentOrder.Dialog;
 
     // Start is called before the first frame update
     void Start()
     {
+        AtrrList = tf_attr.GetComponentsInChildren<StrenthAttrItem>(true).ToList();
+
         Btn_Full.onClick.AddListener(OnClick_Close);
         Btn_Active.onClick.AddListener(OnStrong);
         Btn_Strong.onClick.AddListener(OnStrong);

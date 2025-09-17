@@ -65,6 +65,7 @@ namespace Game
         QualityFinal = 53, //品质增幅
         CritFinal = 54,//暴击增幅
         LuckyFinal = 55,//幸运增幅
+        CritDamageFinal = 56, //爆伤增幅
 
         Parry = 60,//格挡
         Shatter = 61,//破击
