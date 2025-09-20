@@ -81,15 +81,21 @@ namespace Game
 		/// <summary>Cycle</summary>
 		[ProtoMember(2)]
 		public int Cycle { get; set; }
-		/// <summary>Level</summary>
+		/// <summary>Layer</summary>
 		[ProtoMember(3)]
-		public int Level { get; set; }
+		public int Layer { get; set; }
 		/// <summary>ItemIdList</summary>
 		[ProtoMember(4)]
 		public int[] ItemIdList { get; set; }
 		/// <summary>ItemCountList</summary>
 		[ProtoMember(5)]
 		public int[] ItemCountList { get; set; }
+		/// <summary>UpItemIdList</summary>
+		[ProtoMember(6)]
+		public int[] UpItemIdList { get; set; }
+		/// <summary>UpItemCountList</summary>
+		[ProtoMember(7)]
+		public int[] UpItemCountList { get; set; }
 
 	}
 }

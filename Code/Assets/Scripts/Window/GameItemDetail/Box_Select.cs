@@ -84,7 +84,8 @@ namespace Game
                     {
                         if (exclusive.SkillRuneConfig != null && exclusive.SkillRuneConfig.Name.Length >= 2)
                         {
-                            this.Txt_Level.text = exclusive.SkillRuneConfig.Name.Substring(0, 2);
+                            string txt = exclusive.SkillRuneConfig.Name.Replace("阶·专精", "专");
+                            this.Txt_Level.text = txt.Substring(0, 2);
                             this.Txt_Level.gameObject.SetActive(true);
                         }
                     }
