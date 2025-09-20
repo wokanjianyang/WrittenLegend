@@ -77,7 +77,7 @@ namespace Game
                         this.Txt_Layer.text = ConfigHelper.LayerChinaList[(exclusive.GetLayer() - 1)] + "阶"; ;
                         this.Txt_Layer.gameObject.SetActive(true);
                     }
-                    if (exclusive.GetLevel() > 1)
+                    if (exclusive.GetLevel() >= 1)
                     {
                         this.Txt_Level.text = exclusive.GetLevel() + "级";
                         this.Txt_Level.gameObject.SetActive(true);
@@ -93,6 +93,11 @@ namespace Game
                     }
                 }
             }
+        }
+
+        public void Refresh()
+        {
+            this.ShowName();
         }
 
         private void OnSelect(bool isOn)

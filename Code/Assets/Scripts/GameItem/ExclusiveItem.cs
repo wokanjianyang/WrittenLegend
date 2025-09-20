@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
 using System.Linq;
+using Game.Data;
 
 namespace Game
 {
@@ -21,6 +22,8 @@ namespace Game
         public List<int> SuitConfigIdList { get; set; } = new List<int>();
 
         public Dictionary<int, int> LevelDict { get; set; } = new Dictionary<int, int>();
+
+        public int ExclusiveLevel { get; set; } = 0;
 
         public override int GetQuality()
         {
@@ -187,7 +190,7 @@ namespace Game
 
         public int GetLevel()
         {
-            return LevelDict.Select(m => m.Value).Sum();
+            return LevelDict.Select(m => m.Value).Sum() + ExclusiveLevel;
         }
 
         public void Devour(ExclusiveItem exclusive)
@@ -206,6 +209,11 @@ namespace Game
             }
 
             LevelDict[runeId]++;
+        }
+
+        public void UpNew()
+        {
+            this.ExclusiveLevel++;
         }
 
         public void GetSkillRune(List<SkillRune> runeList, int skillId)

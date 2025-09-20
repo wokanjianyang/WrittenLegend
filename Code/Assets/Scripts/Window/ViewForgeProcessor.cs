@@ -51,6 +51,9 @@ public class ViewForgeProcessor : AViewPage
     public Toggle toggle_ExclusiveUp;
     public Panel_Exclusive_Up PanelExclusiveUp;
 
+    public Toggle toggle_ExclusiveUpGolden;
+    public Panel_Exclusive_Up_Golden PanelExclusiveUpGolden;
+
     public Toggle toggle_ExclusiveGold;
     public Panel_Devour_Golden PanelDevourGolden;
 
@@ -134,6 +137,11 @@ public class ViewForgeProcessor : AViewPage
             PanelExclusiveUp.gameObject.SetActive(isOn);
         });
 
+        this.toggle_ExclusiveUpGolden.onValueChanged.AddListener((isOn) =>
+        {
+            PanelExclusiveUpGolden.gameObject.SetActive(isOn);
+        });
+
         this.toggle_ExclusiveGold.onValueChanged.AddListener((isOn) =>
         {
             PanelDevourGolden.gameObject.SetActive(isOn);
@@ -199,10 +207,12 @@ public class ViewForgeProcessor : AViewPage
         if (user.MapId >= 1130)
         {
             toggle_ExclusiveGold.gameObject.SetActive(true);
+            toggle_ExclusiveUpGolden.gameObject.SetActive(true);
         }
         else
         {
             toggle_ExclusiveGold.gameObject.SetActive(false);
+            toggle_ExclusiveUpGolden.gameObject.SetActive(false);
         }
 
         if (user.MapId >= 1164)

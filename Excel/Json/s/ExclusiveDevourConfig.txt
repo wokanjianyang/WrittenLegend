@@ -5,7 +5,7 @@
 {"_t":"ExclusiveDevourConfig","_id":11,"Cycle":2,"Level":1,"ItemIdList":[4035,4010],"ItemCountList":[150,3000]},
 {"_t":"ExclusiveDevourConfig","_id":12,"Cycle":2,"Level":2,"ItemIdList":[4035,4010],"ItemCountList":[450,6000]},
 {"_t":"ExclusiveDevourConfig","_id":13,"Cycle":2,"Level":3,"ItemIdList":[4035,4010],"ItemCountList":[1350,12000]},
-{"_t":"ExclusiveDevourConfig","_id":21,"Cycle":3,"Level":1,"ItemIdList":[4036,4010],"ItemCountList":[150,3000]},
-{"_t":"ExclusiveDevourConfig","_id":22,"Cycle":3,"Level":2,"ItemIdList":[4036,4010],"ItemCountList":[450,6000]},
-{"_t":"ExclusiveDevourConfig","_id":23,"Cycle":3,"Level":3,"ItemIdList":[4036,4010],"ItemCountList":[1350,12000]},
+{"_t":"ExclusiveDevourConfig","_id":21,"Cycle":3,"Level":1,"ItemIdList":[4039,4010],"ItemCountList":[150,3000]},
+{"_t":"ExclusiveDevourConfig","_id":22,"Cycle":3,"Level":2,"ItemIdList":[4039,4010],"ItemCountList":[450,6000]},
+{"_t":"ExclusiveDevourConfig","_id":23,"Cycle":3,"Level":3,"ItemIdList":[4039,4010],"ItemCountList":[1350,12000]},
 ]}
