@@ -178,7 +178,7 @@ namespace Game
                 this.btn_Equip_Dark_Gold.gameObject.SetActive(false);
             }
 
-            if (user.MapId >= 1164)
+            if (user.MapId >= 1174)
             {
                 this.btn_Equip_Hundun.gameObject.SetActive(true);
             }

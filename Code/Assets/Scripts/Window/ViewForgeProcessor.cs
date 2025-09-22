@@ -215,7 +215,7 @@ public class ViewForgeProcessor : AViewPage
             toggle_ExclusiveUpGolden.gameObject.SetActive(false);
         }
 
-        if (user.MapId >= 1164)
+        if (user.MapId >= 1169)
         {
             toggle_ExclusiveDark.gameObject.SetActive(true);
         }
