@@ -47,10 +47,25 @@ namespace Game
         {
             this.AttributeBonus = new AttributeBonus();
 
+            double riseMiss = 0;
+            double riseAccuracy = 0;
+
             double riseRate = 1;
             double riseHpRate = 1;
             double riseStrong = 1;
             double riseMulAttr = 1;
+            double riseParry = 1;
+            double riseShatter = 1;
+
+            if (Progeress > 45000)
+            {
+                riseParry *= Math.Pow(1.02, Progeress - 45000);
+                riseShatter *= Math.Pow(1.02, Progeress - 45000);
+                riseStrong *= Math.Pow(1.01, Progeress - 45000);
+                riseMulAttr *= Math.Pow(1.01, Progeress - 45000) * 1000;
+                riseMiss += 180;
+                riseAccuracy += 360;
+            }
 
             if (Progeress > 40000)
             {
@@ -105,6 +120,9 @@ namespace Game
             double def = 100000000000000.0;
             double strong = 10000;
             double mulAtt = 10000;
+            double parray = 10000;
+            double shatter = 10000;
+
 
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp * riseHpRate);
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr * riseRate);
@@ -117,8 +135,8 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.CritRate, AttributeFrom.HeroBase, Progeress * 0.05);
             AttributeBonus.SetAttr(AttributeEnum.CritDamage, AttributeFrom.HeroBase, Progeress * 0.1);
 
-            AttributeBonus.SetAttr(AttributeEnum.Accuracy, AttributeFrom.HeroBase, Progeress * 0.005);
-            AttributeBonus.SetAttr(AttributeEnum.Miss, AttributeFrom.HeroBase, Progeress * 0.005);
+            AttributeBonus.SetAttr(AttributeEnum.Accuracy, AttributeFrom.HeroBase, riseAccuracy + Progeress * 0.005);
+            AttributeBonus.SetAttr(AttributeEnum.Miss, AttributeFrom.HeroBase, riseMiss + Progeress * 0.005);
 
             AttributeBonus.SetAttr(AttributeEnum.Protect, AttributeFrom.HeroBase, 90);
 
@@ -130,24 +148,37 @@ namespace Game
             {
                 AttributeBonus.SetAttr(AttributeEnum.MulAttr, AttributeFrom.HeroBase, mulAtt * riseMulAttr);
             }
+            if (this.Progeress > 45000)
+            {
+                AttributeBonus.SetAttr(AttributeEnum.Parry, AttributeFrom.HeroBase, parray * riseParry);
+                AttributeBonus.SetAttr(AttributeEnum.Shatter, AttributeFrom.HeroBase, shatter * riseShatter);
+
+            }
 
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
 
-            int speed = (this.Progeress - 30000) / 10000;
+            int speed = (this.Progeress - 30000) / 5000;
 
-            this.SetAttackSpeed(speed * 100 + 100);
-            this.SetMoveSpeed(speed * 100 + 100);
+            this.SetAttackSpeed(speed * 50 + 100);
+            this.SetMoveSpeed(speed * 50 + 100);
 
-            //Debug.Log("HP:" + AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
+            //Debug.Log("MISS:" + AttributeBonus.GetAttackDoubleAttr(AttributeEnum.Miss));
         }
 
         private void SetSkill()
         {
             List<SkillData> list = new List<SkillData>();
 
-            int[] SkillIdList = MonsterConfig.SkillIdList;
-            for (int i = 0; i < SkillIdList.Length; i++)
+            List<int> SkillIdList = MonsterConfig.SkillIdList.ToList();
+
+            if (this.Progeress > 45000)
+            {
+                SkillIdList.Add(1012);
+                SkillIdList.Add(2012);
+            }
+
+            for (int i = 0; i < SkillIdList.Count; i++)
             {
                 int skillId = SkillIdList[i];
 

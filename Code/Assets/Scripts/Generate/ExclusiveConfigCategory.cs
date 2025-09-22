@@ -229,7 +229,7 @@ namespace Game
 
         private static int RandomNewQualityCycle3(double qualityRate)
         {
-            int[] rates = { 1, 5, 25, 250, 2500, 25000, 200000, 1000000 };
+            int[] rates = { 1, 4, 16, 100, 1000, 10000, 50000, 500000 };
 
             //int[] rates = { 1, 10, 200, 300, 400, 500, 600, 600 };
             int start = 0;
