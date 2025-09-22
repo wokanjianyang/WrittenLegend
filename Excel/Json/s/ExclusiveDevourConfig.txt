@@ -5,7 +5,7 @@
 {"_t":"ExclusiveDevourConfig","_id":11,"Cycle":2,"Layer":1,"ItemIdList":[4035,4010],"ItemCountList":[150,3000],"UpItemIdList":[4035,4010],"UpItemCountList":[40,400]},
 {"_t":"ExclusiveDevourConfig","_id":12,"Cycle":2,"Layer":2,"ItemIdList":[4035,4010],"ItemCountList":[450,6000],"UpItemIdList":[4035,4010],"UpItemCountList":[40,400]},
 {"_t":"ExclusiveDevourConfig","_id":13,"Cycle":2,"Layer":3,"ItemIdList":[4035,4010],"ItemCountList":[1350,12000],"UpItemIdList":[4035,4010],"UpItemCountList":[40,400]},
-{"_t":"ExclusiveDevourConfig","_id":21,"Cycle":3,"Layer":1,"ItemIdList":[4039,4010],"ItemCountList":[150,3000],"UpItemIdList":[4039,4010],"UpItemCountList":[40,400]},
-{"_t":"ExclusiveDevourConfig","_id":22,"Cycle":3,"Layer":2,"ItemIdList":[4039,4010],"ItemCountList":[450,6000],"UpItemIdList":[4039,4010],"UpItemCountList":[40,400]},
-{"_t":"ExclusiveDevourConfig","_id":23,"Cycle":3,"Layer":3,"ItemIdList":[4039,4010],"ItemCountList":[1350,12000],"UpItemIdList":[4039,4010],"UpItemCountList":[40,400]},
+{"_t":"ExclusiveDevourConfig","_id":21,"Cycle":3,"Layer":1,"ItemIdList":[4039,4010],"ItemCountList":[150,5000],"UpItemIdList":[4039,4010],"UpItemCountList":[40,400]},
+{"_t":"ExclusiveDevourConfig","_id":22,"Cycle":3,"Layer":2,"ItemIdList":[4039,4010],"ItemCountList":[450,10000],"UpItemIdList":[4039,4010],"UpItemCountList":[40,400]},
+{"_t":"ExclusiveDevourConfig","_id":23,"Cycle":3,"Layer":3,"ItemIdList":[4039,4010],"ItemCountList":[1350,20000],"UpItemIdList":[4039,4010],"UpItemCountList":[40,400]},
 ]}
