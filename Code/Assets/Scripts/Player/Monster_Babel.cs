@@ -172,12 +172,6 @@ namespace Game
 
             List<int> SkillIdList = MonsterConfig.SkillIdList.ToList();
 
-            if (this.Progeress > 45000)
-            {
-                SkillIdList.Add(1012);
-                SkillIdList.Add(2012);
-            }
-
             for (int i = 0; i < SkillIdList.Count; i++)
             {
                 int skillId = SkillIdList[i];
@@ -191,8 +185,8 @@ namespace Game
 
             foreach (SkillData skillData in list)
             {
-                List<SkillRune> runeList = SkillRuneConfigCategory.Instance.GetAllRune(skillData.SkillId, 4);
-                List<SkillSuit> suitList = SkillSuitHelper.GetAllSuit(skillData.SkillId, 4);
+                List<SkillRune> runeList = SkillRuneConfigCategory.Instance.GetAllRune(skillData.SkillId, MonsterConfig.RuneCount);
+                List<SkillSuit> suitList = SkillSuitHelper.GetAllSuit(skillData.SkillId, MonsterConfig.RuneCount);
 
                 SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, false);
 

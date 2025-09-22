@@ -96,6 +96,9 @@ namespace Game
 		/// <summary>AttrRate</summary>
 		[ProtoMember(7)]
 		public double AttrRate { get; set; }
+		/// <summary>RuneCount</summary>
+		[ProtoMember(8)]
+		public int RuneCount { get; set; }
 
 	}
 }
