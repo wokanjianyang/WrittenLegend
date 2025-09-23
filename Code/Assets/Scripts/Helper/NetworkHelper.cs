@@ -130,8 +130,25 @@ namespace Game
             long babel = user.BabelData.Data;
             paramDict.Add("babel", babel + "");
 
+            long bossTicket = user.GetMaterialCount(ItemHelper.SpecialId_Boss_Ticket);
+            paramDict.Add("bossTicket", bossTicket + "");
+
+            long copyTicket = user.GetMaterialCount(ItemHelper.SpecialId_Copy_Ticket) + user.MagicCopyTikerCount.Data;
+            paramDict.Add("copyTicket", copyTicket + "");
+
+            long legacyTicket = user.GetMaterialCount(ItemHelper.SpecialId_Legacy_Ticket) + user.LegacyTikerCount.Data;
+            paramDict.Add("legacyTicket", legacyTicket + "");
+
+            long relic = user.RelicData.Select(m => m.Value.Data).Sum();
+            paramDict.Add("relic", relic + "");
+
+            long stone = user.StoneData.Select(m => m.Value.GetTotalLevel()).Sum();
+            paramDict.Add("stone", stone + "");
+
             long artifactMetal = user.GetArtifactLevel(30);
             paramDict.Add("artifactMetal", artifactMetal + "");
+
+            paramDict.Add("channel", ConfigHelper.Channel + "");
 
             if (user.First_Create_Time > 0)
             {

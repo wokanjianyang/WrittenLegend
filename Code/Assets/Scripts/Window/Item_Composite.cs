@@ -59,7 +59,7 @@ public class Item_Composite : MonoBehaviour
             }
         }
 
-        if (this.Config.Type == "ÆäËû")
+        if (this.Config.Id >= 500)
         {
             this.Btn_Ok_All.gameObject.SetActive(true);
         }

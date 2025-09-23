@@ -2144,11 +2144,11 @@ namespace Game
             {
                 ExclusiveItem exclusive = item as ExclusiveItem;
 
-                if (exclusive.ExclusiveConfig.Cycle == 2 && exclusive.GetQuality() >= 7)
+                if (exclusive.ExclusiveConfig.Cycle >= 2 && exclusive.GetQuality() == 7)
                 {
                     dict[ItemHelper.SpecialId_Exclusive_Golden] = 1;
                 }
-                else if (exclusive.ExclusiveConfig.Cycle == 3 && exclusive.GetQuality() >= 8)
+                else if (exclusive.ExclusiveConfig.Cycle >= 3 && exclusive.GetQuality() == 8)
                 {
                     dict[ItemHelper.SpecialId_Exclusive_Dark] = 1;
                 }

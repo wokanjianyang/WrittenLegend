@@ -77,5 +77,10 @@ namespace Game
 
             List[index].StoneLevel.Data++;
         }
+
+        public long GetTotalLevel()
+        {
+            return this.List.Select(m => m.Value.StoneLevel.Data).Sum();
+        }
     }
 }

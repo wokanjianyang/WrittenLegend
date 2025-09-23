@@ -138,4 +138,10 @@
 {"_t":"CompositeConfig","_id":521,"Type":"其他","ItemTypeList":[5,5],"ItemIdList":[4005,4111],"ItemCountList":[20000,1000],"ItemQualityList":[0,0],"TargetName":"传奇精华","TargetId":4035,"TargetType":5,"AutoHide":0},
 {"_t":"CompositeConfig","_id":522,"Type":"其他","ItemTypeList":[5,5],"ItemIdList":[4005,4111],"ItemCountList":[30000,1500],"ItemQualityList":[0,0],"TargetName":"不朽精华","TargetId":4039,"TargetType":5,"AutoHide":0},
 {"_t":"CompositeConfig","_id":531,"Type":"其他","ItemTypeList":[5,5],"ItemIdList":[4112,4111],"ItemCountList":[10,10000],"ItemQualityList":[0,0],"TargetName":"12阶技能","TargetId":42,"TargetType":4,"AutoHide":0},
+{"_t":"CompositeConfig","_id":601,"Type":"宝石","ItemTypeList":[5,5],"ItemIdList":[60000006,4111],"ItemCountList":[1,100],"ItemQualityList":[0,0],"TargetName":"魔法宝石","TargetId":60000007,"TargetType":5,"AutoHide":0},
+{"_t":"CompositeConfig","_id":602,"Type":"宝石","ItemTypeList":[5,5],"ItemIdList":[60000006,4111],"ItemCountList":[1,100],"ItemQualityList":[0,0],"TargetName":"道术宝石","TargetId":60000008,"TargetType":5,"AutoHide":0},
+{"_t":"CompositeConfig","_id":603,"Type":"宝石","ItemTypeList":[5,5],"ItemIdList":[60000007,4111],"ItemCountList":[1,100],"ItemQualityList":[0,0],"TargetName":"物理宝石","TargetId":60000006,"TargetType":5,"AutoHide":0},
+{"_t":"CompositeConfig","_id":604,"Type":"宝石","ItemTypeList":[5,5],"ItemIdList":[60000007,4111],"ItemCountList":[1,100],"ItemQualityList":[0,0],"TargetName":"道术宝石","TargetId":60000008,"TargetType":5,"AutoHide":0},
+{"_t":"CompositeConfig","_id":605,"Type":"宝石","ItemTypeList":[5,5],"ItemIdList":[60000008,4111],"ItemCountList":[1,100],"ItemQualityList":[0,0],"TargetName":"物理宝石","TargetId":60000006,"TargetType":5,"AutoHide":0},
+{"_t":"CompositeConfig","_id":606,"Type":"宝石","ItemTypeList":[5,5],"ItemIdList":[60000008,4111],"ItemCountList":[1,100],"ItemQualityList":[0,0],"TargetName":"魔法宝石","TargetId":60000007,"TargetType":5,"AutoHide":0},
 ]}
