@@ -28,10 +28,16 @@ namespace Game
             }
             else if (config.Cycle == 2)
             {
+                //AppHelper.TestExclusive2++;
+                //Debug.Log("TestExclusive2:" + AppHelper.TestExclusive2);
+
                 return BuildCycle2(configId, qualityRate, seed);
             }
             else if (config.Cycle == 3)
             {
+                //AppHelper.TestExclusive3++;
+                //Debug.Log("TestExclusive3:" + AppHelper.TestExclusive3);
+
                 return BuildCycle3(configId, qualityRate, seed);
             }
 
@@ -229,12 +235,12 @@ namespace Game
 
         private static int RandomNewQualityCycle3(double qualityRate)
         {
-            int[] rates = { 1, 4, 16, 100, 1000, 10000, 100000, 800000 };
+            int[] rates = { 1, 4, 16, 100, 1000, 10000, 100000, 500000 };
 
             //int[] rates = { 1, 10, 200, 300, 400, 500, 600, 600 };
             int start = 0;
 
-            int r = RandomHelper.RandomNumber(0, rates[6]);
+            int r = RandomHelper.RandomNumber(0, rates[7]);
 
             r = (int)(r / qualityRate);
 

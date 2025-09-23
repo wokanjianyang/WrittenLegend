@@ -25,6 +25,9 @@ namespace Game
         public const int EquipHundun_MaxCount = 8000; //混沌装备，保底数量
         public const int EquipHundun_MinRate = 100; //保底概率
 
+        public static int TestExclusive2 = 0;
+        public static int TestExclusive3 = 0;
+
         public static int GetLossQuality()
         {
             //如果次数少于500次，则品质-1
