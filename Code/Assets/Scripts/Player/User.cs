@@ -1048,6 +1048,7 @@ namespace Game
         {
             List<SkillRune> list = new List<SkillRune>();
 
+            int skillLayer = SkillConfigCategory.Instance.Get(skillId).SkillLayer;
 
             //专属词条
             Dictionary<int, int> skillDict = new Dictionary<int, int>();
@@ -1055,10 +1056,12 @@ namespace Game
             foreach (var ex in this.ExclusivePanelList[ExclusiveIndex].Values)
             {
                 ex.GetRuneList(skillId, skillDict);
+
+                if (skillLayer > 0)
+                {
+                    ex.GetRuneListByLayer(skillLayer, skillDict);
+                }
             }
-
-            int skillLayer = SkillConfigCategory.Instance.Get(skillId).SkillLayer;
-
             //计算装备的词条加成
             List<int> skillList = this.EquipPanelList[EquipPanelIndex].Where(m => m.Value.SkillRuneConfig != null && m.Value.SkillRuneConfig.SkillId == skillId).Select(m => m.Value.SkillRuneConfig.Id).ToList();
 
@@ -1128,6 +1131,10 @@ namespace Game
             foreach (var ex in this.ExclusivePanelList[ExclusiveIndex].Values)
             {
                 skillList.AddRange(ex.GetSuitList(skillId));
+
+                if (skillLayer > 0) {
+                    skillList.AddRange(ex.GetSuitListByLayer(skillLayer));
+                }
             }
 
             var suitGroup = skillList.GroupBy(m => m.Id);

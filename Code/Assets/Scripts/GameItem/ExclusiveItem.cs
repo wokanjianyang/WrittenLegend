@@ -157,6 +157,37 @@ namespace Game
             }
         }
 
+        public void GetRuneListByLayer(int skillLayer, Dictionary<int, int> dict)
+        {
+
+            if (SkillRuneConfig != null && SkillRuneConfig.SkillLayer == skillLayer)
+            {
+                int runeId = SkillRuneConfig.Id;
+
+                if (!dict.ContainsKey(runeId))
+                {
+                    dict[runeId] = 0;
+                }
+
+                dict[runeId] += 1;
+            }
+
+            for (int i = 0; i < RuneConfigIdList.Count; i++)
+            {
+                int runeId = RuneConfigIdList[i];
+                SkillRuneConfig config = SkillRuneConfigCategory.Instance.Get(runeId);
+
+                if (config.SkillLayer == skillLayer)
+                {
+                    if (!dict.ContainsKey(runeId))
+                    {
+                        dict[runeId] = 0;
+                    }
+                    dict[runeId] += 1;
+                }
+            }
+        }
+
         public List<SkillSuitConfig> GetSuitList(int skillId)
         {
             List<SkillSuitConfig> list = new List<SkillSuitConfig>();
@@ -170,6 +201,27 @@ namespace Game
             {
                 SkillSuitConfig config = SkillSuitConfigCategory.Instance.Get(SuitConfigIdList[i]);
                 if (config.SkillId == skillId)
+                {
+                    list.Add(config);
+                }
+            }
+
+            return list;
+        }
+
+        public List<SkillSuitConfig> GetSuitListByLayer(int skillLayer)
+        {
+            List<SkillSuitConfig> list = new List<SkillSuitConfig>();
+
+            if (SkillSuitConfig != null && SkillSuitConfig.SkillLayer == skillLayer)
+            {
+                list.Add(SkillSuitConfig);
+            }
+
+            for (int i = 0; i < SuitConfigIdList.Count; i++)
+            {
+                SkillSuitConfig config = SkillSuitConfigCategory.Instance.Get(SuitConfigIdList[i]);
+                if (config.SkillLayer == skillLayer)
                 {
                     list.Add(config);
                 }
