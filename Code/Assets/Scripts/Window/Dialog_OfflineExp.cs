@@ -663,14 +663,38 @@ namespace Game
             //定制红
             List<Equip> list = new List<Equip>();
 
-            //list.Add(ItemHelper.BuildEquip(22205801, 7, 1, 0));
-            //list.Add(ItemHelper.BuildEquip(22205802, 7, 1, 0));
+            //list.Add(ItemHelper.BuildEquip(22205801, 6, 1, 0)); //红色战
+            //list.Add(ItemHelper.BuildEquip(22205801, 6, 1, 0)); //红色法
+            //list.Add(ItemHelper.BuildEquip(22205801, 6, 1, 0)); //红色道
+
+            //list.Add(ItemHelper.BuildEquip(22205802, 7, 1, 0)); //金色战
+            //list.Add(ItemHelper.BuildEquip(22205802, 7, 1, 0)); //金色法
+            //list.Add(ItemHelper.BuildEquip(22205802, 7, 1, 0)); //金色道
+
+            //list.Add(ItemHelper.BuildEquip(22205802, 8, 1, 0)); //暗金战
+            //list.Add(ItemHelper.BuildEquip(22205802, 8, 1, 0)); //暗金法
+            //list.Add(ItemHelper.BuildEquip(22205802, 8, 1, 0)); //暗金道
+
+            //list.Add(ItemHelper.BuildEquip(22205802, 9, 1, 0)); //混沌战
+            //list.Add(ItemHelper.BuildEquip(22205802, 9, 1, 0)); //混沌法
+            //list.Add(ItemHelper.BuildEquip(22205802, 9, 1, 0)); //混沌道
+
+            int role = 3; //战士1，法师2，道士3
+            int quality = 8; //6红，7金，8暗金，9混沌
 
             //金色
             for (int i = 0; i < 1; i++)
             {
-                list.Add(ItemHelper.BuildEquip(21105801, 6, 1, 0)); //
-
+                list.Add(ItemHelper.BuildEquip(20000000 + role * 1000000 + (quality - 5) * 100000 + 5801, quality, 1, 0)); //
+                list.Add(ItemHelper.BuildEquip(20000000 + role * 1000000 + (quality - 5) * 100000 + 5802, quality, 1, 0)); //
+                list.Add(ItemHelper.BuildEquip(20000000 + role * 1000000 + (quality - 5) * 100000 + 5803, quality, 1, 0)); //
+                list.Add(ItemHelper.BuildEquip(20000000 + role * 1000000 + (quality - 5) * 100000 + 5804, quality, 1, 0)); //
+                list.Add(ItemHelper.BuildEquip(20000000 + role * 1000000 + (quality - 5) * 100000 + 5805, quality, 1, 0)); //
+                list.Add(ItemHelper.BuildEquip(20000000 + role * 1000000 + (quality - 5) * 100000 + 5805, quality, 1, 0)); //
+                list.Add(ItemHelper.BuildEquip(20000000 + role * 1000000 + (quality - 5) * 100000 + 5807, quality, 1, 0)); //
+                list.Add(ItemHelper.BuildEquip(20000000 + role * 1000000 + (quality - 5) * 100000 + 5807, quality, 1, 0)); //
+                list.Add(ItemHelper.BuildEquip(20000000 + role * 1000000 + (quality - 5) * 100000 + 5809, quality, 1, 0)); //
+                list.Add(ItemHelper.BuildEquip(20000000 + role * 1000000 + (quality - 5) * 100000 + 5810, quality, 1, 0)); //
             }
 
 
@@ -1145,7 +1169,8 @@ namespace Game
             return list;
         }
 
-        private void DoRedEquip(Equip equip1) {
+        private void DoRedEquip(Equip equip1)
+        {
             List<KeyValuePair<int, long>> AttrEntryList1 = new List<KeyValuePair<int, long>>();
             AttrEntryList1.Add(new KeyValuePair<int, long>(2003, 3));
             AttrEntryList1.Add(new KeyValuePair<int, long>(19, 50));
