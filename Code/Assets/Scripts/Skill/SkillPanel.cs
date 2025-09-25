@@ -193,7 +193,7 @@ namespace Game
 
             this.Damage += skillData.SkillConfig.Damage + runeDamage + suitDamage + levelDamage;
 
-            if (SkillData.SkillConfig.SkillLayer == 11)
+            if (SkillData.SkillConfig.SkillLayer >= 11)
             {
                 this.Damage = this.Damage * (100 + runePercentRate + suitPercentRate + petRate) / 100;
             }

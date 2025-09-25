@@ -60,6 +60,10 @@ namespace Game
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Red_Stone, 999)); //红装精华
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Golden_Stone, 999)); //金色精华
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Dark_Stone, 999)); //暗金精华
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Equip_Hundun, 999)); //混沌精华
+
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Golden, 999)); //传奇精华
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Dark, 999)); //不朽精华
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Stone_Set, 999)); //开孔石
 
             //items.Add(ItemHelper.BuildMaterial(50000106, 10000)); //十六阶装备升阶石
@@ -100,6 +104,8 @@ namespace Game
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 32, 1, 1)); //普通金宠包
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 33, 1, 1)); //满资质金宠包
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 41, 1, 8)); //神器自选
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 95, 1, 6)); //传奇自选
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 90, 1, 6)); //不朽自选
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 36, 1, 1)); //宝石自选
 
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 26, 1, 1));  //神技
@@ -110,6 +116,9 @@ namespace Game
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 106, 1, 3)); //白银
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 107, 1, 1)); //黄金
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 108, 1, 1)); //钻石
+
+
+
 
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 109, 1, 5));  //战士经验
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 110, 1, 1)); //法师经验
