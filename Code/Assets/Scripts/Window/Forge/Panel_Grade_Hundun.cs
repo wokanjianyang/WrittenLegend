@@ -90,6 +90,11 @@ public class Panel_Grade_Hundun : MonoBehaviour
 
             Equip equip = dict[postion];
 
+            if (equip.GetQuality() < Quality) 
+            {
+                continue;
+            }
+
             ItemGrade box = this.CreateItem(equip, bagBox);
             this.items.Add(box);
         }
