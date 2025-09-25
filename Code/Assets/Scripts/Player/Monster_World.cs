@@ -102,6 +102,12 @@ public class Monster_World : APlayer
         double strongRise = Math.Pow(Config.StrongRise, riseLevel);
         strong = strong * strongRise;
 
+        double parray = StringHelper.StringToNumber(Config.Parray);
+        if (parray > 0)
+        {
+            double parrayRise = Math.Pow(Config.ParrayRise, riseLevel);
+            parray = parray * parrayRise;
+        }
         //Debug.Log("strongRise " + StringHelper.FormatNumber(strongRise) + " strong:" + StringHelper.FormatNumber(strong));
 
         AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp);
@@ -121,6 +127,7 @@ public class Monster_World : APlayer
         AttributeBonus.SetAttr(AttributeEnum.Protect, AttributeFrom.HeroBase, Config.Protect);
 
         AttributeBonus.SetAttr(AttributeEnum.Strong, AttributeFrom.HeroBase, strong);
+        AttributeBonus.SetAttr(AttributeEnum.Parry, AttributeFrom.HeroBase, parray);
         AttributeBonus.SetAttr(AttributeEnum.MulDamageIncrea, AttributeFrom.HeroBase, damageMul);
 
         //回满当前血量
