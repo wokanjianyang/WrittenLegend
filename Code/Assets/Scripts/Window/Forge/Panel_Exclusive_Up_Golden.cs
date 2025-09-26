@@ -94,7 +94,7 @@ public class Panel_Exclusive_Up_Golden : MonoBehaviour
 
             ExclusiveItem exclusive = dict[postion];
 
-            if (exclusive.GetQuality() < 5)
+            if (exclusive.GetQuality() < 7 || exclusive.GetLayer() <= 2)
             {
                 continue;
             }

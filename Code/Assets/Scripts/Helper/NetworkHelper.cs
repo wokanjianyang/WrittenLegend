@@ -141,9 +141,15 @@ namespace Game
 
             long relic = user.RelicData.Select(m => m.Value.Data).Sum();
             paramDict.Add("relic", relic + "");
+            user.SaveRecordMax((int)AbcType.Relic, relic);
 
             long stone = user.StoneData.Select(m => m.Value.GetTotalLevel()).Sum();
             paramDict.Add("stone", stone + "");
+            user.SaveRecordMax((int)AbcType.Stone, stone);
+
+            long talent = user.TalentExp.Data / 10000;
+            paramDict.Add("talent", talent + "");
+            user.SaveRecordMax((int)AbcType.Talent, talent);
 
             long artifactMetal = user.GetArtifactLevel(30);
             paramDict.Add("artifactMetal", artifactMetal + "");

@@ -616,7 +616,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u5347\u7EA7\u53EA\u4F1A\u63D0\u9AD8\u5C5E\u6027\uFF0C\u4E0D\u4F1A\u63D0\u9AD8\u8BCD\u6761\uFF0C\u6700\u9AD820\u7EA7"
+  m_Text: "\u6EE1\u9636\u4E4B\u540E\u53EF\u4EE5\u5347\u7EA7\uFF0C\u5347\u7EA7\u53EA\u4F1A\u63D0\u9AD8\u5C5E\u6027\uFF0C\u4E0D\u4F1A\u63D0\u9AD8\u8BCD\u6761\uFF0C\u6700\u9AD820\u7EA7"
 --- !u!1 &4495348928483216781
 GameObject:
   m_ObjectHideFlags: 0

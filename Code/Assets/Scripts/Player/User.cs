@@ -64,6 +64,7 @@ namespace Game
 
         public IDictionary<int, Equip> EquipPanelSpecial { get; set; } = new Dictionary<int, Equip>();
 
+        public Dictionary<int, long> RecordMax = new Dictionary<int, long>();
 
         public IDictionary<int, IDictionary<int, ExclusiveItem>> ExclusivePanelList { get; set; } = new Dictionary<int, IDictionary<int, ExclusiveItem>>();
 
@@ -669,11 +670,13 @@ namespace Game
             }
 
             //神器
+            long relicRecord = GetRecordMax((int)AbcType.Relic);
+            long relicMax = AbcHelper.GetRecord((int)AbcType.Relic);
             foreach (var rl in RelicData)
             {
                 int rid = rl.Key;
                 int level = (int)rl.Value.Data;
-                if (level > 0)
+                if (level > 0 && relicRecord < relicMax)
                 {
                     RelicConfig relicConfig = RelicConfigCategory.Instance.Get(rid);
                     for (int i = 0; i < relicConfig.AttrIdList.Length; i++)
@@ -688,7 +691,7 @@ namespace Game
             foreach (var relicGroupConfig in relicGroups)
             {
                 int groupLevel = GetRelicGroupLevel(relicGroupConfig.Id);
-                if (groupLevel > 0)
+                if (groupLevel > 0 && relicRecord < relicMax)
                 {
                     double groupValue = relicGroupConfig.GetAttrValue(groupLevel);
                     AttributeBonus.SetAttr((AttributeEnum)relicGroupConfig.AttrId, AttributeFrom.Relic, 999, groupValue);
@@ -696,6 +699,9 @@ namespace Game
             }
 
             //宝石
+            long stoneRecord = GetRecordMax((int)AbcType.Stone);
+            long stoneMax = AbcHelper.GetRecord((int)AbcType.Stone);
+
             foreach (var sp in StoneData)
             {
                 int ps = sp.Key;
@@ -710,7 +716,10 @@ namespace Game
                     StoneConfig stoneConfig = StoneConfigCategory.Instance.Get(stoneId);
                     int attrValue = stoneConfig.GetAttr(stoneLevel);
 
-                    AttributeBonus.SetAttr((AttributeEnum)stoneConfig.AttrId, AttributeFrom.Stone, ps * 10 + ss.Key, attrValue);
+                    if (stoneLevel > 0 && stoneRecord < stoneMax)
+                    {
+                        AttributeBonus.SetAttr((AttributeEnum)stoneConfig.AttrId, AttributeFrom.Stone, ps * 10 + ss.Key, attrValue);
+                    }
                 }
             }
 
@@ -879,9 +888,12 @@ namespace Game
             }
 
             //天赋
+            //神器
+            long talentRecord = GetRecordMax((int)AbcType.Talent);
+            long talentMax = AbcHelper.GetRecord((int)AbcType.Talent);
             foreach (var sp in this.TalentData)
             {
-                if (sp.Value.Data > 0)
+                if (sp.Value.Data > 0 && talentRecord < talentMax)
                 {
                     TalentConfig talentConfig = TalentConfigCategory.Instance.Get(sp.Key);
                     AttributeBonus.SetAttr((AttributeEnum)talentConfig.AttrId, AttributeFrom.Talent, sp.Key, talentConfig.GetAttrValue(sp.Value.Data));
@@ -1130,7 +1142,8 @@ namespace Game
             {
                 skillList.AddRange(ex.GetSuitList(skillId));
 
-                if (skillLayer > 0) {
+                if (skillLayer > 0)
+                {
                     skillList.AddRange(ex.GetSuitListByLayer(skillLayer));
                 }
             }
@@ -2191,6 +2204,28 @@ namespace Game
             int c = GameProcessor.Inst.User.SkillList.Where(m => (m.SkillId == skillId || m.SkillConfig.SkillLayer == skillLayer) && m.Recovery).Count();
 
             return c > 0;
+        }
+
+        private long GetRecordMax(int key)
+        {
+            if (RecordMax.ContainsKey(key))
+            {
+                return RecordMax[key];
+            }
+            return 0;
+        }
+
+        public void SaveRecordMax(int key, long v)
+        {
+            if (!RecordMax.ContainsKey(key))
+            {
+                RecordMax[key] = v + 3;
+            }
+
+            if (RecordMax[key] < v)
+            {
+                RecordMax[key] = v + 5;
+            }
         }
     }
 
