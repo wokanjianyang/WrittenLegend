@@ -25,8 +25,8 @@ public class Panel_Exclusive_Up_Golden : MonoBehaviour
     private const int StartPosition = 1007;
 
     private bool check = false;
-    private int[] ItemIdList = new int[] { ItemHelper.SpecialId_Exclusive_Golden, ItemHelper.SpecialId_Exclusive_Heart };
-    private int[] ItemCountList = new int[] { 40, 1000 };
+    private int[] ItemIdList = null;
+    private int[] ItemCountList = null;
     private const int MaxLevel = 20;
 
     private Item_Forge_Main SelectMain;
@@ -45,6 +45,10 @@ public class Panel_Exclusive_Up_Golden : MonoBehaviour
     void Start()
     {
         //GameProcessor.Inst.EventCenter.AddListener<BoxSelectEvent>(this.OnBoxSelect);
+        ExclusiveDevourConfig config = ExclusiveDevourConfigCategory.Instance.GetByCycleAndLevel(2, 1);
+
+        ItemIdList = config.UpItemIdList;
+        ItemCountList = config.UpItemCountList;
     }
 
     void OnEnable()
