@@ -20,7 +20,7 @@
 {"_t":"PetConfig","_id":19,"AttrId":32,"AttrValue":0.2,"StartQuality":6,"EndQuality":6,"Role":0,"Desc":"命中"},
 {"_t":"PetConfig","_id":20,"AttrId":2001,"AttrValue":5,"StartQuality":6,"EndQuality":6,"Role":0,"Desc":"攻击倍率"},
 {"_t":"PetConfig","_id":21,"AttrId":50,"AttrValue":0.1,"StartQuality":7,"EndQuality":7,"Role":0,"Desc":"经验增幅"},
-{"_t":"PetConfig","_id":22,"AttrId":51,"AttrValue":0.1,"StartQuality":7,"EndQuality":7,"Role":0,"Desc":"爆率增幅"},
-{"_t":"PetConfig","_id":23,"AttrId":52,"AttrValue":0.1,"StartQuality":7,"EndQuality":7,"Role":0,"Desc":"金币增幅"},
+{"_t":"PetConfig","_id":22,"AttrId":51,"AttrValue":0.1,"StartQuality":7,"EndQuality":7,"Role":0,"Desc":"金币增幅"},
+{"_t":"PetConfig","_id":23,"AttrId":52,"AttrValue":0.1,"StartQuality":7,"EndQuality":7,"Role":0,"Desc":"爆率增幅"},
 {"_t":"PetConfig","_id":24,"AttrId":53,"AttrValue":0.1,"StartQuality":7,"EndQuality":7,"Role":0,"Desc":"品质增幅"},
 ]}
