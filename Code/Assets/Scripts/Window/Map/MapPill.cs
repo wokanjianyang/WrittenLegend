@@ -53,7 +53,7 @@ public class MapPill : MonoBehaviour, IBattleLife
         Dictionary<string, object> param = new Dictionary<string, object>();
         param.Add("Layer", e.Layer);
 
-        MonsterPillConfig config = MonsterPillConfigCategory.Instance.Get(e.Layer);
+        MonsterPillConfig config = MonsterPillConfigCategory.Instance.GetByTypeAndLayer(e.Type, e.Layer);
         Txt_Name.text = config.MapName;
 
         if (e.Type == 1)
@@ -70,6 +70,14 @@ public class MapPill : MonoBehaviour, IBattleLife
             {
                 GameProcessor.Inst.OnDestroy();
                 GameProcessor.Inst.LoadMap(RuleType.Pill2, this.transform, param);
+            });
+        }
+        else if (e.Type == 3)
+        {
+            GameProcessor.Inst.DelayAction(0.1f, () =>
+            {
+                GameProcessor.Inst.OnDestroy();
+                GameProcessor.Inst.LoadMap(RuleType.Pill3, this.transform, param);
             });
         }
     }
@@ -127,6 +135,10 @@ public class MapPill : MonoBehaviour, IBattleLife
             this.Exit();
         }
         else if (e.Time == MapTime && e.Type == RuleType.Pill2)
+        {
+            this.Exit();
+        }
+        else if (e.Time == MapTime && e.Type == RuleType.Pill3)
         {
             this.Exit();
         }

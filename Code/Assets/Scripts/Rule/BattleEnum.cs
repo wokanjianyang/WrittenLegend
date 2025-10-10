@@ -41,6 +41,7 @@ namespace Game
         Myth,
         World,
         Pill2,
+        Pill3,
     }
 
     public enum ComponentOrder

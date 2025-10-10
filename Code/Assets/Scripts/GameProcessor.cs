@@ -466,6 +466,9 @@ namespace Game
                 case RuleType.Pill2:
                     this.BattleRule = new BattleRule_Pill2(param);
                     break;
+                case RuleType.Pill3:
+                    this.BattleRule = new BattleRule_Pill3(param);
+                    break;
                 case RuleType.Babel:
                     this.BattleRule = new BattleRule_Babel(param);
                     break;
@@ -743,6 +746,7 @@ namespace Game
                 case RuleType.Myth:
                 case RuleType.World:
                 case RuleType.Pill2:
+                case RuleType.Pill3:
                 case RuleType.Babel:
                     ie_autoExitKey = StartCoroutine(this.AutoExitMap(ruleType, time, ConfigHelper.AutoExitMapTime));
                     break;

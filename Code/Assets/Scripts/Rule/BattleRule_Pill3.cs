@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class BattleRule_Pill2 : ABattleRule
+public class BattleRule_Pill3 : ABattleRule
 {
     private bool Start = false;
 
@@ -17,9 +17,9 @@ public class BattleRule_Pill2 : ABattleRule
 
     private const int MaxQuanlity = 10;
 
-    protected override RuleType ruleType => RuleType.Pill2;
+    protected override RuleType ruleType => RuleType.Pill3;
 
-    public BattleRule_Pill2(Dictionary<string, object> param)
+    public BattleRule_Pill3(Dictionary<string, object> param)
     {
         //param.TryGetValue("MapTime", out object mapTime);
         param.TryGetValue("Layer", out object layer);
@@ -27,7 +27,7 @@ public class BattleRule_Pill2 : ABattleRule
         //this.MapTime = (long)mapTime;
         this.Layer = (int)layer;
 
-        //Debug.Log("pill2 layer:" + layer);
+        //Debug.Log("pill3 layer:" + layer);
 
         MapTime = 0;
     }
@@ -49,11 +49,11 @@ public class BattleRule_Pill2 : ABattleRule
 
                 for (int i = 0; i < 10; i++)
                 {
-                    var enemy = new Monster_Pill2(2,Layer);
+                    var enemy = new Monster_Pill2(3,Layer);
                     GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
                 }
 
-                GameProcessor.Inst.EventCenter.Raise(new ShowPillInfoEvent() { Type = 2 });
+                GameProcessor.Inst.EventCenter.Raise(new ShowPillInfoEvent() { Type = 3 });
             }
             return;
         }
@@ -69,7 +69,7 @@ public class BattleRule_Pill2 : ABattleRule
 
             BuildReward();
 
-            GameProcessor.Inst.CloseBattle(RuleType.Pill2, 0);
+            GameProcessor.Inst.CloseBattle(RuleType.Pill3, 0);
         }
     }
 
@@ -77,7 +77,7 @@ public class BattleRule_Pill2 : ABattleRule
     {
         List<Item> items = new List<Item>();
 
-        items.Add(ItemHelper.BuildItem(ItemType.Material, ItemHelper.SpecialId_Pill2, 1, Layer * 20 + 220));
+        items.Add(ItemHelper.BuildItem(ItemType.Material, ItemHelper.SpecialId_Pill3, 1, Layer * 20 + 220));
 
         GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
 
@@ -90,9 +90,9 @@ public class BattleRule_Pill2 : ABattleRule
         var heroCamp = GameProcessor.Inst.PlayerManager.GetHero();
         if (heroCamp.HP <= 0)
         {
-            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Pill2, Message = "ÌôÕ½Ê§°Ü£¡" });
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Pill3, Message = "ÌôÕ½Ê§°Ü£¡" });
             GameProcessor.Inst.SetGameOver(PlayerType.Enemy);
-            GameProcessor.Inst.HeroDie(RuleType.Pill2, 0);
+            GameProcessor.Inst.HeroDie(RuleType.Pill3, 0);
         }
     }
 }

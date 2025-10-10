@@ -1444,6 +1444,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toggle1: {fileID: 1607707596348745760}
   toggle2: {fileID: 1342872370026427185}
+  toggle3: {fileID: 102853767792507479}
   Txt_Desc: {fileID: 4128867420670513605}
   sr_Boss: {fileID: 2539121787863522929}
   Txt_Time: {fileID: 1814872559918043902}

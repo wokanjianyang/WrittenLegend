@@ -12,11 +12,12 @@ public class Monster_Pill2 : APlayer
     int Type = 2;
     int Layer = 0;
 
-    public Monster_Pill2(int layer)
+    public Monster_Pill2(int type, int layer)
     {
         this.GroupId = 2;
         this.Layer = layer;
         this.RuleType = RuleType.Pill;
+        this.Type = type;
 
         config = MonsterPillConfigCategory.Instance.GetByTypeAndLayer(this.Type, this.Layer);
 
@@ -79,6 +80,8 @@ public class Monster_Pill2 : APlayer
 
         double strong = StringHelper.StringToNumber(config.Strong);
 
+        double parry = StringHelper.StringToNumber(config.Parray);
+
         //Debug.Log(this.Layer + " strong:" + strong.ToString());
 
         AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp);
@@ -99,6 +102,7 @@ public class Monster_Pill2 : APlayer
 
         AttributeBonus.SetAttr(AttributeEnum.Strong, AttributeFrom.HeroBase, strong);
         AttributeBonus.SetAttr(AttributeEnum.MulDamageIncrea, AttributeFrom.HeroBase, damageMul);
+        AttributeBonus.SetAttr(AttributeEnum.Parry, AttributeFrom.HeroBase, parry);
 
         SetMoveSpeed((int)config.Speed);
         SetAttackSpeed((int)config.Speed);
