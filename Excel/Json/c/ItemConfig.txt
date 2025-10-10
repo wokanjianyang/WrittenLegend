@@ -73,6 +73,7 @@
 {"_t":"ItemConfig","_id":4037,"Name":"永恒精华","Type":5,"Des":"升阶永恒专属的材料","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":9,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
 {"_t":"ItemConfig","_id":4038,"Name":"混沌精华","Type":5,"Des":"分解粉色混沌装备获取，混沌装备升阶材料","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":9,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
 {"_t":"ItemConfig","_id":4039,"Name":"不朽精华","Type":5,"Des":"升阶不朽专属的材料","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":8,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
+{"_t":"ItemConfig","_id":4040,"Name":"炼神丹","Type":5,"Des":"修炼材料","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":6,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
 {"_t":"ItemConfig","_id":4101,"Name":"图鉴碎片","Type":5,"Des":"兑换万能图鉴的碎片","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":5,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
 {"_t":"ItemConfig","_id":4102,"Name":"高级书页","Type":5,"Des":"升级10阶技能","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":5,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
 {"_t":"ItemConfig","_id":4103,"Name":"废弃","Type":5,"Des":"废弃道具","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":5,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},

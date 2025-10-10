@@ -102,38 +102,41 @@ namespace Game
 		/// <summary>Strong</summary>
 		[ProtoMember(9)]
 		public string Strong { get; set; }
-		/// <summary>DamageMul</summary>
+		/// <summary>Parray</summary>
 		[ProtoMember(10)]
+		public string Parray { get; set; }
+		/// <summary>DamageMul</summary>
+		[ProtoMember(11)]
 		public string DamageMul { get; set; }
 		/// <summary>DamageIncrea</summary>
-		[ProtoMember(11)]
+		[ProtoMember(12)]
 		public int DamageIncrea { get; set; }
 		/// <summary>DamageResist</summary>
-		[ProtoMember(12)]
+		[ProtoMember(13)]
 		public int DamageResist { get; set; }
 		/// <summary>CritRateResist</summary>
-		[ProtoMember(13)]
+		[ProtoMember(14)]
 		public int CritRateResist { get; set; }
 		/// <summary>CritDamage</summary>
-		[ProtoMember(14)]
+		[ProtoMember(15)]
 		public int CritDamage { get; set; }
 		/// <summary>ResotrePercent</summary>
-		[ProtoMember(15)]
+		[ProtoMember(16)]
 		public int ResotrePercent { get; set; }
 		/// <summary>Miss</summary>
-		[ProtoMember(16)]
+		[ProtoMember(17)]
 		public int Miss { get; set; }
 		/// <summary>Accuracy</summary>
-		[ProtoMember(17)]
+		[ProtoMember(18)]
 		public int Accuracy { get; set; }
 		/// <summary>Protect</summary>
-		[ProtoMember(18)]
+		[ProtoMember(19)]
 		public int Protect { get; set; }
 		/// <summary>Speed</summary>
-		[ProtoMember(19)]
+		[ProtoMember(20)]
 		public double Speed { get; set; }
 		/// <summary>SkillIdList</summary>
-		[ProtoMember(20)]
+		[ProtoMember(21)]
 		public int[] SkillIdList { get; set; }
 
 	}

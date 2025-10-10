@@ -172,6 +172,7 @@ namespace Game
         Pill2 = 28,
         CardSpeical = 29,//暗金图鉴
         FashionSpeical = 30,//暗金时装
+        Pill3 = 31,
 
         Dingzhi = 98,
         /// <summary>
