@@ -78,7 +78,7 @@ public class Map_Dialog_Pill : MonoBehaviour
         ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Pill/Map_Pill_Item");
 
         long cycle = user.Cycle.Data;
-        List<MonsterPillConfig> list = MonsterPillConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Type == index && m.Layer <= cycle).ToList();
+        List<MonsterPillConfig> list = MonsterPillConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Type == index && m.RequireCycle <= cycle).ToList();
 
         for (int i = 0; i < list.Count; i++)
         {

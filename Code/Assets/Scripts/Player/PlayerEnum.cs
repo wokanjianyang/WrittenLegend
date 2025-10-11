@@ -68,7 +68,6 @@ namespace Game
         CritDamageFinal = 56, //爆伤增幅
 
         Parry = 60,//格挡
-        Shatter = 61,//破击
 
 
         MythAttr = 91,  //神话攻击加成
@@ -134,6 +133,7 @@ namespace Game
         MulDamageIncrea = 2010,  //增伤倍率
         MulDamageResist = 2011, //减伤倍率
         StrongMul = 2012,//韧性倍率
+        Shatter = 2013,//破韧倍率
     }
 
     /// <summary>

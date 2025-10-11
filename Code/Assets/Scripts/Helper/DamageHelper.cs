@@ -49,13 +49,13 @@ namespace Game
                     //Debug.Log("relic4:" + relic4 * miss);
                 }
 
-                attack = attack / (1 + strong);
-            }
+                double shatter = enemy.GetAttackDoubleAttr(AttributeEnum.Shatter) / 100;
+                if (shatter > 0)
+                {
+                    strong = strong / (1 + shatter);
+                }
 
-            double shatter = enemy.GetAttackDoubleAttr(AttributeEnum.Shatter);
-            if (shatter > 0)
-            {
-                attack = attack * (1 + shatter);
+                attack = attack / (1 + strong);
             }
 
             double parry = enemy.GetAttackDoubleAttr(AttributeEnum.Parry);
