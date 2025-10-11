@@ -151,8 +151,10 @@ namespace Game
             if (this.Progeress > 45000)
             {
                 AttributeBonus.SetAttr(AttributeEnum.Parry, AttributeFrom.HeroBase, parray * riseParry);
+            }
+            if (this.Progeress > 49900)
+            {
                 AttributeBonus.SetAttr(AttributeEnum.Shatter, AttributeFrom.HeroBase, shatter * riseShatter);
-
             }
 
             //回满当前血量
