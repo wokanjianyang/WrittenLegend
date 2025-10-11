@@ -152,7 +152,7 @@ namespace Game
             {
                 AttributeBonus.SetAttr(AttributeEnum.Parry, AttributeFrom.HeroBase, parray * riseParry);
             }
-            if (this.Progeress > 49900)
+            if (this.Progeress > 50000)
             {
                 AttributeBonus.SetAttr(AttributeEnum.Shatter, AttributeFrom.HeroBase, shatter * riseShatter);
             }
