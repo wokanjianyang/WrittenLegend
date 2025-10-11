@@ -3,7 +3,7 @@
 {"_t":"PillConfig3","_id":2,"Type":1,"Position":2,"AttrId":7,"AttrValue":16,"Fee":10},
 {"_t":"PillConfig3","_id":3,"Type":1,"Position":3,"AttrId":12,"AttrValue":10,"Fee":10},
 {"_t":"PillConfig3","_id":4,"Type":1,"Position":4,"AttrId":13,"AttrValue":10,"Fee":10},
-{"_t":"PillConfig3","_id":5,"Type":1,"Position":5,"AttrId":9,"AttrValue":10,"Fee":10},
+{"_t":"PillConfig3","_id":5,"Type":1,"Position":5,"AttrId":9,"AttrValue":20,"Fee":10},
 {"_t":"PillConfig3","_id":6,"Type":1,"Position":6,"AttrId":20,"AttrValue":10,"Fee":10},
 {"_t":"PillConfig3","_id":7,"Type":1,"Position":7,"AttrId":18,"AttrValue":10,"Fee":10},
 {"_t":"PillConfig3","_id":8,"Type":1,"Position":8,"AttrId":19,"AttrValue":10,"Fee":10},
