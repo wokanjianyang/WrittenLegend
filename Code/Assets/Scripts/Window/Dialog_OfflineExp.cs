@@ -133,7 +133,7 @@ namespace Game
 
             //items.AddRange(AddGoldenEquip());
             //items.AddRange(AddExclusiveHuoXing());
-            //items.AddRange(AddRedEquip());
+            //items.AddRange(AddRedEquip1());
 
 
             foreach (var item in items)
@@ -1181,12 +1181,21 @@ namespace Game
         private void DoRedEquip(Equip equip1)
         {
             List<KeyValuePair<int, long>> AttrEntryList1 = new List<KeyValuePair<int, long>>();
-            AttrEntryList1.Add(new KeyValuePair<int, long>(2003, 3));
+            //AttrEntryList1.Add(new KeyValuePair<int, long>(2003, 3));
+            //AttrEntryList1.Add(new KeyValuePair<int, long>(19, 50));
+            //AttrEntryList1.Add(new KeyValuePair<int, long>(19, 50));
+            //AttrEntryList1.Add(new KeyValuePair<int, long>(19, 50));
+            //AttrEntryList1.Add(new KeyValuePair<int, long>(24, 50));
+            //AttrEntryList1.Add(new KeyValuePair<int, long>(24, 50));
+
             AttrEntryList1.Add(new KeyValuePair<int, long>(19, 50));
             AttrEntryList1.Add(new KeyValuePair<int, long>(19, 50));
             AttrEntryList1.Add(new KeyValuePair<int, long>(19, 50));
-            AttrEntryList1.Add(new KeyValuePair<int, long>(24, 50));
-            AttrEntryList1.Add(new KeyValuePair<int, long>(24, 50));
+            AttrEntryList1.Add(new KeyValuePair<int, long>(19, 50));
+            AttrEntryList1.Add(new KeyValuePair<int, long>(19, 50));
+            AttrEntryList1.Add(new KeyValuePair<int, long>(19, 50));
+
+
             equip1.AttrEntryList = AttrEntryList1;
         }
 
@@ -1258,54 +1267,54 @@ namespace Game
             List<Equip> list = new List<Equip>();
 
             //武器 倍率，幸运4,爆裂
-            Equip equip1 = new Equip(23105801, 10047, 10021, 6);
+            Equip equip1 = new Equip(23105801, 20, 4, 6);
             DoRedEquip(equip1);
             list.Add(equip1);
 
             //项链  倍率，幸运4，爆裂
-            Equip equip2 = new Equip(23105803, 3, 10021, 6);
+            Equip equip2 = new Equip(23105803, 20, 4, 6);
             DoRedEquip(equip2);
             list.Add(equip2);
 
             //衣服 爆裂
-            Equip equip3 = new Equip(23105802, 3, 10022, 6);
+            Equip equip3 = new Equip(23105802, 16, 10037, 6);
             DoRedEquip(equip3);
             list.Add(equip3);
 
             //头盔 爆裂
-            Equip equip4 = new Equip(23105804, 3, 10022, 6);
+            Equip equip4 = new Equip(23105804, 16, 10037, 6);
             DoRedEquip(equip4);
             list.Add(equip4);
 
             //手镯 法力精通
-            Equip equip5 = new Equip(23105805, 10049, 8, 6);
+            Equip equip5 = new Equip(23105805, 10064, 9, 6);
             DoRedEquip(equip5);
             list.Add(equip5);
 
             //手镯 法力精通
-            Equip equip6 = new Equip(23105805, 10049, 8, 6);
+            Equip equip6 = new Equip(23105805, 10064, 9, 6);
             DoRedEquip(equip6);
             list.Add(equip6);
 
 
             //戒指 魔法盾
-            Equip equip7 = new Equip(23105807, 15, 10023, 6);
+            Equip equip7 = new Equip(23105807, 20, 15, 6);
             DoRedEquip(equip7);
             list.Add(equip7);
 
             //戒指 魔法盾
-            Equip equip8 = new Equip(23105807, 15, 10023, 6);
+            Equip equip8 = new Equip(23105807, 20, 15, 6);
             DoRedEquip(equip8);
             list.Add(equip8);
 
 
             //腰带 魔法盾
-            Equip equip9 = new Equip(23105809, 15, 10024, 6);
+            Equip equip9 = new Equip(23105809, 28, 18, 6);
             DoRedEquip(equip9);
             list.Add(equip9);
 
             //鞋子 魔法盾
-            Equip equip10 = new Equip(23105810, 10048, 10024, 6);
+            Equip equip10 = new Equip(23105810, 28, 18, 6);
             DoRedEquip(equip10);
             list.Add(equip10);
 
