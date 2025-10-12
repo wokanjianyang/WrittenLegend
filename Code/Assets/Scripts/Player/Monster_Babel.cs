@@ -55,12 +55,15 @@ namespace Game
             double riseStrong = 1;
             double riseMulAttr = 1;
             double riseParry = 1;
-            double riseShatter = 1;
+            double riseShatterError = 1;
 
             if (Progeress > 45000)
             {
                 riseParry *= Math.Pow(1.02, Progeress - 45000);
-                riseShatter *= Math.Pow(1.02, Progeress - 45000);
+                if (this.Progeress < 50000)
+                {
+                    riseShatterError *= Math.Pow(1.02, Progeress - 45000);
+                }
                 riseStrong *= Math.Pow(1.01, Progeress - 45000);
                 riseMulAttr *= Math.Pow(1.01, Progeress - 45000) * 1000;
                 riseMiss += 180;
@@ -118,7 +121,7 @@ namespace Game
             double hp = 999000000000000000000000.0;
             double attr = 300000000000.0;
             double def = 100000000000000.0;
-            double strong = 10000;
+            double strong = 10000 * riseStrong;
             double mulAtt = 10000;
             double parray = 10000;
             double shatter = 10000;
@@ -140,10 +143,7 @@ namespace Game
 
             AttributeBonus.SetAttr(AttributeEnum.Protect, AttributeFrom.HeroBase, 90);
 
-            if (this.Progeress > 35000)
-            {
-                AttributeBonus.SetAttr(AttributeEnum.Strong, AttributeFrom.HeroBase, strong * riseStrong);
-            }
+
             if (this.Progeress > 40000)
             {
                 AttributeBonus.SetAttr(AttributeEnum.MulAttr, AttributeFrom.HeroBase, mulAtt * riseMulAttr);
@@ -151,11 +151,16 @@ namespace Game
             if (this.Progeress > 45000)
             {
                 AttributeBonus.SetAttr(AttributeEnum.Parry, AttributeFrom.HeroBase, parray * riseParry);
+                strong = strong / (1 + 100 * riseShatterError);
             }
-            if (this.Progeress > 50000)
+            if (this.Progeress > 35000)
             {
-                AttributeBonus.SetAttr(AttributeEnum.Shatter, AttributeFrom.HeroBase, shatter * riseShatter);
+                AttributeBonus.SetAttr(AttributeEnum.Strong, AttributeFrom.HeroBase, strong);
             }
+            //if (this.Progeress > 50000)
+            //{
+            //    AttributeBonus.SetAttr(AttributeEnum.Shatter, AttributeFrom.HeroBase, shatter * riseShatter);
+            //}
 
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
