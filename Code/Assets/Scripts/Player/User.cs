@@ -105,6 +105,10 @@ namespace Game
 
         public IDictionary<int, StoneRecord> StoneData { get; set; } = new Dictionary<int, StoneRecord>();
 
+        public IDictionary<int, MagicData> PetSpeicalLayerData { get; set; } = new Dictionary<int, MagicData>();
+
+        public IDictionary<int, MagicData> PetSpeicalLevelData { get; set; } = new Dictionary<int, MagicData>();
+
         public MagicData LegacyPoint { get; } = new MagicData();
 
         //public RecoverySetting RecoverySetting { get; set; } = new RecoverySetting();
@@ -723,6 +727,25 @@ namespace Game
                         AttributeBonus.SetAttr((AttributeEnum)stoneConfig.AttrId, AttributeFrom.Stone, ps * 10 + ss.Key, attrValue);
                     }
                 }
+            }
+
+            //神宠
+            for (int id = 1; id <= 3; id++)
+            {
+                int layer = GetPetSpeicalLayer(id);
+                int level = GetPetSpeicalLevel(id);
+
+                List<PetSpeicalAttrConfig> configs = PetSpeicalAttrConfigCategory.Instance.GetList(id, layer);
+
+
+                for (int i = 0; i < configs.Count; i++)
+                {
+                    PetSpeicalAttrConfig config = configs[i];
+                    double attrValue = config.AttrValue * level;
+
+                    AttributeBonus.SetAttr((AttributeEnum)config.AttrId, AttributeFrom.PetSpeical, id, attrValue);
+                }
+
             }
 
             //宠物
@@ -2238,6 +2261,52 @@ namespace Game
                 RecordMax[key] = v + 5;
             }
         }
+
+        public int GetPetSpeicalLevel(int rid)
+        {
+            if (!PetSpeicalLevelData.ContainsKey(rid))
+            {
+                PetSpeicalLevelData[rid] = new MagicData();
+            }
+            return (int)PetSpeicalLevelData[rid].Data;
+        }
+
+        public void AddPetSpeicalLevel(int rid)
+        {
+            if (!PetSpeicalLevelData.ContainsKey(rid))
+            {
+                PetSpeicalLevelData[rid] = new MagicData();
+            }
+            PetSpeicalLevelData[rid].Data++;
+        }
+        public int GetPetSpeicalLayer(int rid)
+        {
+            if (!PetSpeicalLayerData.ContainsKey(rid))
+            {
+                PetSpeicalLayerData[rid] = new MagicData();
+            }
+            return (int)PetSpeicalLayerData[rid].Data;
+        }
+
+        public void AddPetSpeicalLayer(int rid)
+        {
+            if (!PetSpeicalLayerData.ContainsKey(rid))
+            {
+                PetSpeicalLayerData[rid] = new MagicData();
+            }
+            PetSpeicalLayerData[rid].Data++;
+        }
+
+        public int GetPetSpeicalGroupLevel()
+        {
+            if (PetSpeicalLayerData.Count < 3)
+            {
+                return 0;
+            }
+
+            return (int)PetSpeicalLayerData.Select(m => m.Value.Data).Min();
+        }
+
     }
 
     public enum UserChangeType

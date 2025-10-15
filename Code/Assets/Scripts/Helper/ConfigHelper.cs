@@ -107,6 +107,8 @@ namespace Game
 
         public const int MaxWorld = 800;
 
+        public const int PetSpeicalMaxLayer = 3;
+
         public static int GetFloorRate(long floor)
         {
             if (floor > 100 && floor < FastFloor)

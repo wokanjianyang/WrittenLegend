@@ -157,5 +157,7 @@ namespace Game
         public static int SpecailEquipRefreshId = 4201; //³È×°¾«»ª
 
         public static int[] Specail_Pet_Layer = { 4023, 4024, 4025 };
+
+        public static int Specail_Pet_Speical = 4041;
     }
 }
