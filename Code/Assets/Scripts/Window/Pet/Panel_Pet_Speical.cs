@@ -24,7 +24,8 @@ public class Panel_Pet_Speical : MonoBehaviour
 
     private int SelectId = 0;
 
-    private int MaxLayer = 3;
+    private int LayerRate = 30;
+
     private
 
     // Start is called before the first frame update
@@ -114,7 +115,7 @@ public class Panel_Pet_Speical : MonoBehaviour
         int maxLayer = ConfigHelper.PetSpeicalMaxLayer;
 
         int currentLevel = user.GetPetSpeicalLevel(id);
-        int maxLevel = layer * 50;
+        int maxLevel = layer * LayerRate;
 
         List<PetSpeicalAttrConfig> configs = PetSpeicalAttrConfigCategory.Instance.GetList(id, Math.Max(layer, 1));
 

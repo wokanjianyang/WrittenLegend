@@ -51,12 +51,12 @@ public class Map_Dialog_Pill : MonoBehaviour
         this.Init(1);
 
         User user = GameProcessor.Inst.User;
-        if (user.Cycle.Data <= 10)
+        if (user.Cycle.Data < 10)
         {
             toggle2.gameObject.SetActive(false);
         }
 
-        if (user.Cycle.Data <= 20)
+        if (user.Cycle.Data < 20)
         {
             toggle3.gameObject.SetActive(false);
         }
