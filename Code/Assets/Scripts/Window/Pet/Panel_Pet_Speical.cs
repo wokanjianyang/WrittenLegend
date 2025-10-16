@@ -72,7 +72,7 @@ public class Panel_Pet_Speical : MonoBehaviour
 
         int groupLevel = user.GetPetSpeicalGroupLevel();
 
-        string des = "(每阶增加宠物20级等级上限，每3阶增加一个宠物位置，额外增加的宠物位不能上阵同种宠物)"; // string.Format(groupConfig.Des, groupValue, (nextValue - groupValue));
+        string des = "(每阶增加宠物20级等级上限，第3阶增加一个宠物位置)"; // ，额外增加的宠物位不能上阵同种宠物
 
         long maxLevel = ConfigHelper.PetSpeicalMaxLayer;
 
