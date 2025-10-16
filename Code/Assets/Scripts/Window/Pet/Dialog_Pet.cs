@@ -57,7 +57,6 @@ public class Dialog_Pet : MonoBehaviour, IBattleLife
         if (index == 1)
         {
             panelPet.gameObject.SetActive(true);
-            panelPet.Show();
             panelSpeical.gameObject.SetActive(false);
         }
         else if (index == 2)

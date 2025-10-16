@@ -25,6 +25,11 @@ public class Panel_Pet : MonoBehaviour, IBattleLife
         this.Init();
     }
 
+    private void OnEnable()
+    {
+        this.Show();
+    }
+
     public void OnBattleStart()
     {
         GameProcessor.Inst.EventCenter.AddListener<PetBattleDownEvent>(this.PetBattleDown);

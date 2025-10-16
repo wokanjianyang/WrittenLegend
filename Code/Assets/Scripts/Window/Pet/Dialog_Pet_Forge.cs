@@ -26,6 +26,9 @@ public class Dialog_Pet_Forge : MonoBehaviour
 
     private Pet SelectPet;
 
+    private int PetQualityRate = 30;
+    private int PetSpeicalRate = 20;
+
     public int Order => (int)ComponentOrder.Dialog;
 
     private void Awake()
@@ -48,12 +51,14 @@ public class Dialog_Pet_Forge : MonoBehaviour
 
     private void Show()
     {
-        int maxLevel = SelectPet.GetQuality() * 30;
+        User user = GameProcessor.Inst.User;
+        int psg = user.GetPetSpeicalGroupLevel();
+
+        int maxLevel = SelectPet.GetQuality() * PetQualityRate + psg * PetSpeicalRate;
         long currentLevel = SelectPet.PetLevel.Data;
 
         Txt_Level.text = "当前等级：" + currentLevel + "级（最高等级" + maxLevel + "级）";
 
-        User user = GameProcessor.Inst.User;
         long stoneTotal = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Pet_Exp).Select(m => m.MagicNubmer.Data).Sum();
         Txt_Cost.text = "拥有口粮：" + stoneTotal;
 
@@ -102,11 +107,13 @@ public class Dialog_Pet_Forge : MonoBehaviour
 
         User user = GameProcessor.Inst.User;
 
+        int psg = user.GetPetSpeicalGroupLevel();
+
         long max = PetConfigCategory.Instance.GetPetFee(SelectPet.PetLevel.Data);
         long current = SelectPet.LevelExp.Data;
 
         long currentLevel = SelectPet.PetLevel.Data;
-        int maxLevel = SelectPet.GetQuality() * 30;
+        int maxLevel = SelectPet.GetQuality() * PetQualityRate + psg * PetSpeicalRate;
         if (currentLevel >= maxLevel)
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "不能超过最大等级", ToastType = ToastTypeEnum.Failure });
@@ -155,12 +162,14 @@ public class Dialog_Pet_Forge : MonoBehaviour
 
         User user = GameProcessor.Inst.User;
 
+        int psg = user.GetPetSpeicalGroupLevel();
+
         for (int i = 0; i < 50; i++)
         {
             long max = PetConfigCategory.Instance.GetPetFee(SelectPet.PetLevel.Data);
             long current = SelectPet.LevelExp.Data;
             long currentLevel = SelectPet.PetLevel.Data;
-            int maxLevel = SelectPet.GetQuality() * 30;
+            int maxLevel = SelectPet.GetQuality() * PetQualityRate + psg * PetSpeicalRate;
 
             if (currentLevel >= maxLevel)
             {
@@ -255,6 +264,7 @@ public class Dialog_Pet_Forge : MonoBehaviour
         this.SelectPet = null;
         this.gameObject.SetActive(false);
 
-        GameProcessor.Inst.EventCenter.Raise(new PetShowEvent());
+        Panel_Pet panel_Pet = this.GetComponentInParent<Panel_Pet>();
+        panel_Pet.Show();
     }
 }
