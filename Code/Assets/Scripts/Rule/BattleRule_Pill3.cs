@@ -49,7 +49,7 @@ public class BattleRule_Pill3 : ABattleRule
 
                 for (int i = 0; i < 10; i++)
                 {
-                    var enemy = new Monster_Pill2(3,Layer);
+                    var enemy = new Monster_Pill2(3, Layer);
                     GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
                 }
 
@@ -77,7 +77,12 @@ public class BattleRule_Pill3 : ABattleRule
     {
         List<Item> items = new List<Item>();
 
-        items.Add(ItemHelper.BuildItem(ItemType.Material, ItemHelper.SpecialId_Pill3, 1, Layer * 20 + 220));
+        User user = GameProcessor.Inst.User;
+
+        int percent = user.GetArtifactValue(ArtifactType.Pill3);
+        int count = (Layer * 20 + 220) * (100 + percent) / 100;
+
+        items.Add(ItemHelper.BuildItem(ItemType.Material, ItemHelper.SpecialId_Pill3, 1, count));
 
         GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
 

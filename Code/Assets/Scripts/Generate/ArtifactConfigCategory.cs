@@ -42,10 +42,12 @@ namespace Game
         LegacyLimit = 20,
         RingLimit = 21,
         LegacyTicketAd = 22,
+        CardBaseLimit = 23,
         MineCount2 = 30,
         FashinPercentLimit = 39,
-        CardBaseLimit = 40,
-
+        Pill = 40,
+        Pill2 = 41,
+        Pill3 = 42,
     }
 
 }
