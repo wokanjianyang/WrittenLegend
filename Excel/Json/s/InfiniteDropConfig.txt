@@ -20,6 +20,7 @@
 {"_t":"InfiniteDropConfig","_id":19,"DropId":1013,"Name":"时装精华","Rate":1,"StartLevel":1007,"EndLevel":4000,"RateLevel":53,"Max":2,"Number":1},
 {"_t":"InfiniteDropConfig","_id":20,"DropId":1014,"Name":"超级书页","Rate":1,"StartLevel":2003,"EndLevel":5000,"RateLevel":61,"Max":1,"Number":1},
 {"_t":"InfiniteDropConfig","_id":21,"DropId":1015,"Name":"传奇精华","Rate":3,"StartLevel":4001,"EndLevel":5000,"RateLevel":5,"Max":5,"Number":1},
+{"_t":"InfiniteDropConfig","_id":22,"DropId":1016,"Name":"不朽精华","Rate":2,"StartLevel":5001,"EndLevel":6000,"RateLevel":7,"Max":3,"Number":1},
 {"_t":"InfiniteDropConfig","_id":24,"DropId":1018,"Name":"混沌精华","Rate":3,"StartLevel":4803,"EndLevel":5800,"RateLevel":5,"Max":5,"Number":1},
 {"_t":"InfiniteDropConfig","_id":25,"DropId":601,"Name":"随机宝石","Rate":20,"StartLevel":4215,"EndLevel":6000,"RateLevel":3,"Max":100,"Number":1},
 {"_t":"InfiniteDropConfig","_id":151,"DropId":220036,"Name":"等级丹*10","Rate":12,"StartLevel":300,"EndLevel":1500,"RateLevel":1,"Max":25,"Number":1},
@@ -99,4 +100,5 @@
 {"_t":"InfiniteDropConfig","_id":11009,"DropId":220105,"Name":"橙色宠物","Rate":15,"StartLevel":2001,"EndLevel":2500,"RateLevel":52,"Max":1,"Number":1},
 {"_t":"InfiniteDropConfig","_id":11010,"DropId":220106,"Name":"红色宠物","Rate":7,"StartLevel":2501,"EndLevel":3000,"RateLevel":52,"Max":1,"Number":1},
 {"_t":"InfiniteDropConfig","_id":11011,"DropId":220107,"Name":"金色宠物","Rate":3,"StartLevel":3001,"EndLevel":3500,"RateLevel":52,"Max":1,"Number":1},
+{"_t":"InfiniteDropConfig","_id":11012,"DropId":220042,"Name":"暗金魂心","Rate":1,"StartLevel":5001,"EndLevel":5500,"RateLevel":61,"Max":1,"Number":1},
 ]}
