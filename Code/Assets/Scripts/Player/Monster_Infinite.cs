@@ -72,6 +72,7 @@ namespace Game
             strong += strong * Config.StrongRise * riseLevel;
 
             double parry = StringHelper.StringToNumber(Config.Parry);
+            parry += parry * Config.ParrayRise * riseLevel;
 
             //Debug.Log("Infinit " + this.Progress + " HP:" + StringHelper.FormatNumber(hp));
             //Debug.Log("Infinit " + this.Progress + " Def:" + StringHelper.FormatNumber(def));
