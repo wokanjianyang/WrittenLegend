@@ -25,6 +25,7 @@ public class Panel_Pet_Speical : MonoBehaviour
     private int SelectId = 0;
 
     private int LayerRate = 30;
+    private int PetExpRate = 3;
 
     private
 
@@ -156,7 +157,7 @@ public class Panel_Pet_Speical : MonoBehaviour
         {
             //ÏÔÊ¾Éý¼¶°´Å¥
             long stoneTotal = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Pet_Exp).Select(m => m.MagicNubmer.Data).Sum();
-            long levelFee = PetConfigCategory.Instance.GetPetFee(currentLevel) * 2;
+            long levelFee = PetConfigCategory.Instance.GetPetFee(currentLevel) * PetExpRate;
 
 
             string color = stoneTotal >= levelFee ? "#FFFF00" : "#FF0000";
@@ -230,7 +231,7 @@ public class Panel_Pet_Speical : MonoBehaviour
         int currentLevel = user.GetPetSpeicalLevel(this.SelectId);
 
         long stoneTotal = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Pet_Exp).Select(m => m.MagicNubmer.Data).Sum();
-        long levelFee = PetConfigCategory.Instance.GetPetFee(currentLevel) * 2;
+        long levelFee = PetConfigCategory.Instance.GetPetFee(currentLevel) * PetExpRate;
 
         if (stoneTotal <= levelFee)
         {
