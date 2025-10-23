@@ -40,6 +40,17 @@ public class Dialog_Pet : MonoBehaviour, IBattleLife
     private void Start()
     {
         this.ShowPanel(1);
+
+        User user = GameProcessor.Inst.User;
+
+        if (user.Cycle.Data >= 10)
+        {
+            this.toggles[1].gameObject.SetActive(true);
+        }
+        else
+        {
+            this.toggles[1].gameObject.SetActive(false);
+        }
     }
 
     public void OnBattleStart()

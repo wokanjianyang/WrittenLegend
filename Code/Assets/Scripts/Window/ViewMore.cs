@@ -41,12 +41,16 @@ namespace Game
         public Button Btn_World;
         public Map_Dialog_World MapDialogWorld;
 
+        public Button Btn_Festive;
+        public Map_Dialog_Festive MapDialogFestive;
+
         public Text Txt_Limit;
 
         void Start()
         {
 
             Btn_World.onClick.AddListener(OnClick_World);
+            Btn_Festive.onClick.AddListener(OnClick_Festive);
         }
 
         void OnEnable()
@@ -116,6 +120,9 @@ namespace Game
             {
                 LegacyItem.gameObject.SetActive(false);
             }
+
+            //如果是节日期间
+
         }
 
         public override void OnBattleStart()
@@ -136,6 +143,10 @@ namespace Game
         private void OnClick_World()
         {
             this.MapDialogWorld.gameObject.SetActive(true);
+        }
+        private void OnClick_Festive()
+        {
+            this.MapDialogFestive.gameObject.SetActive(true);
         }
 
         public void OnClose(CloseViewMoreEvent e)

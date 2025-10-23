@@ -178,8 +178,10 @@ public class Panel_SoulRing : MonoBehaviour
             long fee = nextConfig.GetFee(currentLevel + 1);
             string color = materialCount >= fee ? "#FFFF00" : "#FF0000";
 
+            string feeText = StringHelper.FormatNumber(fee);
+
             Fee.gameObject.SetActive(true);
-            Fee.text = string.Format("<color={0}>{1}</color>", color, "需要:" + fee + " 魂环碎片");
+            Fee.text = string.Format("<color={0}>{1}</color>", color, "需要:" + feeText + " 魂环碎片");
         }
 
         SoulRingAttrConfig showConfig = currentConfig == null ? nextConfig : currentConfig;

@@ -107,7 +107,7 @@ namespace Game
 		public int AurasRise { get; set; }
 		/// <summary>Fee</summary>
 		[ProtoMember(11)]
-		public int Fee { get; set; }
+		public long Fee { get; set; }
 		/// <summary>RiseFee</summary>
 		[ProtoMember(12)]
 		public int RiseFee { get; set; }
