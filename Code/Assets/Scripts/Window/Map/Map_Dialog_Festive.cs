@@ -39,7 +39,7 @@ public class Map_Dialog_Festive : MonoBehaviour
             return;
         }
 
-        int max = user.MythData.GetMax();
+        int max = user.FestiveMapData.Record;
 
         for (int i = 0; i < items.Count; i++)
         {
@@ -51,11 +51,11 @@ public class Map_Dialog_Festive : MonoBehaviour
     {
         User user = GameProcessor.Inst.User;
 
-        user.MythData.Check();
+        user.FestiveMapData.Check();
 
-        ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Map/Map_Festiver_Item");
+        ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Map/Map_Festive_Item");
 
-        List<MythConfig> list = MythConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
+        List<FestiveCopyConfig> list = FestiveCopyConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
 
         for (int i = 0; i < list.Count; i++)
         {
@@ -65,7 +65,7 @@ public class Map_Dialog_Festive : MonoBehaviour
         this.ShowItemMax();
     }
 
-    private void BuildItem(MythConfig config)
+    private void BuildItem(FestiveCopyConfig config)
     {
         var item = GameObject.Instantiate(ItemPrefab);
         var com = item.GetComponent<Map_Festive_Item>();

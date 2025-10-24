@@ -479,6 +479,9 @@ namespace Game
                 case RuleType.World:
                     this.BattleRule = new BattleRule_World(param);
                     break;
+                case RuleType.Festive:
+                    this.BattleRule = new BattleRule_Festive(param);
+                    break;
             }
 
             if (autoHero)
@@ -748,6 +751,7 @@ namespace Game
                 case RuleType.Pill2:
                 case RuleType.Pill3:
                 case RuleType.Babel:
+                case RuleType.Festive:
                     ie_autoExitKey = StartCoroutine(this.AutoExitMap(ruleType, time, ConfigHelper.AutoExitMapTime));
                     break;
                 default:

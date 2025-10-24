@@ -281,6 +281,13 @@ namespace Game
             GameProcessor.Inst.EventCenter.Raise(new MythStartEvent() { Id = id });
         }
 
+        public void StartFestive(int id)
+        {
+            scrollRect.gameObject.SetActive(false);
+
+            GameProcessor.Inst.EventCenter.Raise(new FestiveStartEvent() { Id = id });
+        }
+
         public void StartWorld(int id)
         {
             scrollRect.gameObject.SetActive(false);

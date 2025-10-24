@@ -21,7 +21,7 @@ public class Map_Festive : MonoBehaviour, IBattleLife
     private int msgId = 0;
     private List<Text> msgPool = new List<Text>();
 
-    private long MapTime = 14;
+    private long MapTime = 17;
 
     public int Order => (int)ComponentOrder.BattleRule;
 
@@ -37,38 +37,36 @@ public class Map_Festive : MonoBehaviour, IBattleLife
 
         GameProcessor.Inst.EventCenter.AddListener<BattleMsgEvent>(this.OnBattleMsgEvent);
         GameProcessor.Inst.EventCenter.AddListener<ShowWorldInfoEvent>(this.OnShowInfo);
-        GameProcessor.Inst.EventCenter.AddListener<WorldStartEvent>(this.OnStart);
+        GameProcessor.Inst.EventCenter.AddListener<FestiveStartEvent>(this.OnStart);
         GameProcessor.Inst.EventCenter.AddListener<BattleLoseEvent>(this.OnBattleLoseEvent);
 
         this.gameObject.SetActive(false);
     }
 
 
-    public void OnStart(WorldStartEvent e)
+    public void OnStart(FestiveStartEvent e)
     {
         this.gameObject.SetActive(true);
 
-        int layer = GameProcessor.Inst.User.WorldData.GetLayer(e.Id);
+        long count = GameProcessor.Inst.User.FestiveMapData.Number.Data;
 
-        if (layer > ConfigHelper.MaxWorld)
+        if (count <= 0)
         {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "已通关，请等下次", ToastType = ToastTypeEnum.Failure });
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "挑战不足", ToastType = ToastTypeEnum.Failure });
             return;
         }
 
         Dictionary<string, object> param = new Dictionary<string, object>();
         param.Add("MapId", e.Id);
-        param.Add("Layer", layer);
 
         WorldConfig config = WorldConfigCategory.Instance.Get(e.Id);
 
         Txt_Name.text = config.MapName;
-        Txt_Time.text = layer + "轮";
 
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {
             GameProcessor.Inst.OnDestroy();
-            GameProcessor.Inst.LoadMap(RuleType.World, this.transform, param);
+            GameProcessor.Inst.LoadMap(RuleType.Festive, this.transform, param);
         });
     }
 
@@ -118,7 +116,7 @@ public class Map_Festive : MonoBehaviour, IBattleLife
 
     private void OnBattleLoseEvent(BattleLoseEvent e)
     {
-        if (e.Time == MapTime && e.Type == RuleType.World)
+        if (e.Time == MapTime && e.Type == RuleType.Festive)
         {
             this.Exit();
         }

@@ -533,6 +533,17 @@ namespace Game
         public int Layer { get; set; }
         public int Time { get; set; }
     }
+
+    //--Myth
+    public class FestiveStartEvent : SDD.Events.Event
+    {
+        public int Id { get; set; }
+    }
+    public class ShowFestiveInfoEvent : SDD.Events.Event
+    {
+        public int Layer { get; set; }
+        public int Time { get; set; }
+    }
     //--------Fashion
     public class OpenFashionDialogEvent : SDD.Events.Event
     {

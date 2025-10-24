@@ -64,7 +64,7 @@ public class BattleRule_Pill2 : ABattleRule
         {
             this.Over = true;
 
-            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Myth, Message = "挑战通关！" });
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Pill2, Message = "挑战通关！" });
             GameProcessor.Inst.User.PillTime.Time.Data -= ConfigHelper.PillDefaultTime * 10 - 1;
 
             BuildReward();
