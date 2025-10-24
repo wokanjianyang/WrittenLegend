@@ -101,6 +101,6 @@
 {"_t":"InfiniteDropConfig","_id":11008,"DropId":220104,"Name":"紫色宠物","Rate":8,"StartLevel":1501,"EndLevel":2000,"RateLevel":20,"Max":1,"Number":1},
 {"_t":"InfiniteDropConfig","_id":11009,"DropId":220105,"Name":"橙色宠物","Rate":15,"StartLevel":2001,"EndLevel":2500,"RateLevel":52,"Max":1,"Number":1},
 {"_t":"InfiniteDropConfig","_id":11010,"DropId":220106,"Name":"红色宠物","Rate":7,"StartLevel":2501,"EndLevel":3000,"RateLevel":52,"Max":1,"Number":1},
-{"_t":"InfiniteDropConfig","_id":11011,"DropId":220107,"Name":"金色宠物","Rate":3,"StartLevel":3001,"EndLevel":3800,"RateLevel":52,"Max":1,"Number":1},
+{"_t":"InfiniteDropConfig","_id":11011,"DropId":220107,"Name":"金色宠物","Rate":3,"StartLevel":3001,"EndLevel":3800,"RateLevel":62,"Max":1,"Number":1},
 {"_t":"InfiniteDropConfig","_id":11012,"DropId":220042,"Name":"暗金魂心","Rate":1,"StartLevel":5001,"EndLevel":5500,"RateLevel":61,"Max":1,"Number":1},
 ]}

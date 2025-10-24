@@ -13,7 +13,6 @@ public class Map_Festive_Item : MonoBehaviour
     public Text Txt_Over;
 
     private FestiveCopyConfig Config;
-    private int MaxId = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -33,8 +32,9 @@ public class Map_Festive_Item : MonoBehaviour
 
     private void Show()
     {
+        int maxId = GameProcessor.Inst.User.FestiveMapData.Record;
 
-        if (this.Config.Id - 1 == MaxId)
+        if (this.Config.Id - 1 == maxId)
         {
             this.Btn_Start.gameObject.SetActive(true);
             this.Btn_Auto.gameObject.SetActive(false);
@@ -73,8 +73,25 @@ public class Map_Festive_Item : MonoBehaviour
             return;
         }
 
+
+        List<Item> items = new List<Item>();
+        FestiveCopyConfig mythConfig = FestiveCopyConfigCategory.Instance.Get(this.Config.Id);
+
+        //非首通
+        for (int i = 0; i < mythConfig.ItemIdList.Length; i++)
+        {
+            items.Add(ItemHelper.BuildItem((ItemType)mythConfig.ItemType[i], mythConfig.ItemIdList[i], 1, mythConfig.ItemQuantity[i]));
+        }
+
+        user.FestiveMapData.Number.Data -= 1;
+
+        GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+
+        string message = "节日副本" + mythConfig.MapName + "通关奖励";
+        GameProcessor.Inst.EventCenter.Raise(new ShowDropEvent() { Message = message, Items = items });
+
         var dialog = this.GetComponentInParent<Map_Dialog_Festive>();
-        dialog.gameObject.SetActive(false);
+        dialog.ShowCount();
     }
 
 
@@ -89,8 +106,6 @@ public class Map_Festive_Item : MonoBehaviour
 
     public void SetMax(int maxId)
     {
-        this.MaxId = maxId;
-
         if (Config.Id - 1 <= maxId)
         {
             this.gameObject.SetActive(true);

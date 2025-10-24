@@ -13,6 +13,8 @@ public class Map_Dialog_Festive : MonoBehaviour
     public ScrollRect sr_Boss;
     public Button Btn_Close;
 
+    public Text Txt_Count;
+
     private GameObject ItemPrefab;
     List<Map_Festive_Item> items = new List<Map_Festive_Item>();
 
@@ -27,7 +29,7 @@ public class Map_Dialog_Festive : MonoBehaviour
     private void OnEnable()
     {
         this.ShowItemMax();
-    }   
+    }
 
 
     private void ShowItemMax()
@@ -39,12 +41,19 @@ public class Map_Dialog_Festive : MonoBehaviour
             return;
         }
 
-        int max = user.FestiveMapData.Record;
+        int maxId = user.FestiveMapData.Record;
 
         for (int i = 0; i < items.Count; i++)
         {
-            items[i].SetMax(max);
+            items[i].SetMax(maxId);
         }
+
+        ShowCount();
+    }
+
+    public void ShowCount() {
+        User user = GameProcessor.Inst.User;
+        Txt_Count.text = "Ê£ÓàÌôÕ½´ÎÊý£º" + user.FestiveMapData.Number.Data;
     }
 
     private void Init()

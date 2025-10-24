@@ -81,14 +81,32 @@ public class BattleRule_Festive : ABattleRule
 
     private void BuildReward(int mapId)
     {
+
+        User user = GameProcessor.Inst.User;
+
         List<Item> items = new List<Item>();
 
         FestiveCopyConfig mythConfig = FestiveCopyConfigCategory.Instance.Get(mapId);
 
-        for (int i = 0; i < mythConfig.ItemIdList.Length; i++)
+        if (mapId > user.FestiveMapData.Record)
         {
-            items.Add(ItemHelper.BuildItem((ItemType)mythConfig.ItemType[i], mythConfig.ItemIdList[i], 1, mythConfig.ItemQuantity[i]));
+            //首通
+            for (int i = 0; i < mythConfig.FirstItemIdList.Length; i++)
+            {
+                items.Add(ItemHelper.BuildItem((ItemType)mythConfig.FirstItemType[i], mythConfig.FirstItemIdList[i], 1, mythConfig.FirstItemQuantity[i]));
+            }
         }
+        else
+        {
+            //非首通
+            for (int i = 0; i < mythConfig.ItemIdList.Length; i++)
+            {
+                items.Add(ItemHelper.BuildItem((ItemType)mythConfig.ItemType[i], mythConfig.ItemIdList[i], 1, mythConfig.ItemQuantity[i]));
+            }
+        }
+
+        user.FestiveMapData.Record = mapId;
+        user.FestiveMapData.Number.Data -= 1;
 
         GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
 
