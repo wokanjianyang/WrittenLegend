@@ -60,7 +60,7 @@ public class Map_Dialog_Festive : MonoBehaviour
     {
         User user = GameProcessor.Inst.User;
 
-        user.FestiveMapData.Check();
+        //user.FestiveMapData.Check();
 
         ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Map/Map_Festive_Item");
 
