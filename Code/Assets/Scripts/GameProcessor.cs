@@ -480,6 +480,7 @@ namespace Game
                     this.BattleRule = new BattleRule_World(param);
                     break;
                 case RuleType.Festive:
+                    autoHero = false;
                     this.BattleRule = new BattleRule_Festive(param);
                     break;
             }

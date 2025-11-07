@@ -17,6 +17,20 @@ namespace Game
             && DateTime.Parse(m.StartDate).Ticks <= time && time <= DateTime.Parse(m.EndDate).Ticks).ToList();
             return drops;
         }
+
+        public bool CheckIsTime()
+        {
+            long time = DateTime.Now.Ticks;
+            DropLimitConfig dropLimit = DropLimitConfigCategory.Instance.Get(1);
+            if ((DateTime.Parse(dropLimit.StartDate).Ticks <= time && time <= DateTime.Parse(dropLimit.EndDate).Ticks))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 
     public class DropLimitHelper

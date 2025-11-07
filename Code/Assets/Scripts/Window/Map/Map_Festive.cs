@@ -59,7 +59,7 @@ public class Map_Festive : MonoBehaviour, IBattleLife
         Dictionary<string, object> param = new Dictionary<string, object>();
         param.Add("MapId", e.Id);
 
-        WorldConfig config = WorldConfigCategory.Instance.Get(e.Id);
+        FestiveCopyConfig config = FestiveCopyConfigCategory.Instance.Get(e.Id);
 
         Txt_Name.text = config.MapName;
 

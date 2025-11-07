@@ -87,7 +87,7 @@ public class Map_Festive_Item : MonoBehaviour
 
         GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
 
-        string message = "节日副本" + mythConfig.MapName + "通关奖励";
+        string message = "节日副本" + mythConfig.MapName + "扫荡奖励";
         GameProcessor.Inst.EventCenter.Raise(new ShowDropEvent() { Message = message, Items = items });
 
         var dialog = this.GetComponentInParent<Map_Dialog_Festive>();

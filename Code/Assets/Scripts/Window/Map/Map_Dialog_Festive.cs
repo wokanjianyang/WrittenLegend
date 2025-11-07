@@ -51,7 +51,8 @@ public class Map_Dialog_Festive : MonoBehaviour
         ShowCount();
     }
 
-    public void ShowCount() {
+    public void ShowCount()
+    {
         User user = GameProcessor.Inst.User;
         Txt_Count.text = " £”‡ÃÙ’Ω¥Œ ˝£∫" + user.FestiveMapData.Number.Data;
     }
@@ -60,7 +61,10 @@ public class Map_Dialog_Festive : MonoBehaviour
     {
         User user = GameProcessor.Inst.User;
 
-        //user.FestiveMapData.Check();
+        if (DropLimitConfigCategory.Instance.CheckIsTime())
+        {
+            user.FestiveMapData.Check();
+        }
 
         ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Map/Map_Festive_Item");
 

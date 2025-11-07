@@ -123,6 +123,13 @@ namespace Game
 
             //如果是节日期间
 
+            if (DropLimitConfigCategory.Instance.CheckIsTime())
+            {
+                Btn_Festive.gameObject.SetActive(true);
+            }
+            else {
+                Btn_Festive.gameObject.SetActive(false);
+            }
         }
 
         public override void OnBattleStart()

@@ -1629,23 +1629,23 @@ namespace Game
 
         public int GetFestiveCount(int id)
         {
-            if (!this.FestiveData_1002.ContainsKey(id))
+            if (!this.FestiveData_1102.ContainsKey(id))
             {
-                this.FestiveData_1002[id] = 0;
+                this.FestiveData_1102[id] = 0;
             }
 
-            return this.FestiveData_1002[id];
+            return this.FestiveData_1102[id];
         }
 
         public void SaveFestiveCount(int configId, int count)
         {
-            if (this.FestiveData_1002.ContainsKey(configId))
+            if (this.FestiveData_1102.ContainsKey(configId))
             {
-                this.FestiveData_1002[configId] += count;
+                this.FestiveData_1102[configId] += count;
             }
             else
             {
-                this.FestiveData_1002[configId] = count;
+                this.FestiveData_1102[configId] = count;
             }
         }
 

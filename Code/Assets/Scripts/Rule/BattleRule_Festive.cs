@@ -15,7 +15,7 @@ public class BattleRule_Festive : ABattleRule
 
     private int MaxTime = 20;
     private int CurrentLayer = 1;
-    private int[] LayerCount = new int[] { 10, 8, 6, 4, 2 };
+    private int[] LayerCount = new int[] { 20, 15, 12, 10, 8 };
 
     protected override RuleType ruleType => RuleType.Festive;
 
@@ -57,7 +57,7 @@ public class BattleRule_Festive : ABattleRule
         {
             for (int i = 0; i < LayerCount[CurrentLayer - 1]; i++)
             {
-                var enemy = new Monster_Myth(MapId, CurrentLayer);
+                var enemy = new Monster_Festive(MapId, CurrentLayer);
                 GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
             }
 
@@ -81,27 +81,34 @@ public class BattleRule_Festive : ABattleRule
 
     private void BuildReward(int mapId)
     {
+        //如果不是节日时间，则没有奖励
+        if (!DropLimitConfigCategory.Instance.CheckIsTime())
+        {
+            //Debug.Log("非时间内");
+            return;
+        }
+
 
         User user = GameProcessor.Inst.User;
 
         List<Item> items = new List<Item>();
 
-        FestiveCopyConfig mythConfig = FestiveCopyConfigCategory.Instance.Get(mapId);
+        FestiveCopyConfig config = FestiveCopyConfigCategory.Instance.Get(mapId);
 
         if (mapId > user.FestiveMapData.Record)
         {
             //首通
-            for (int i = 0; i < mythConfig.FirstItemIdList.Length; i++)
+            for (int i = 0; i < config.FirstItemIdList.Length; i++)
             {
-                items.Add(ItemHelper.BuildItem((ItemType)mythConfig.FirstItemType[i], mythConfig.FirstItemIdList[i], 1, mythConfig.FirstItemQuantity[i]));
+                items.Add(ItemHelper.BuildItem((ItemType)config.FirstItemType[i], config.FirstItemIdList[i], 1, config.FirstItemQuantity[i]));
             }
         }
         else
         {
             //非首通
-            for (int i = 0; i < mythConfig.ItemIdList.Length; i++)
+            for (int i = 0; i < config.ItemIdList.Length; i++)
             {
-                items.Add(ItemHelper.BuildItem((ItemType)mythConfig.ItemType[i], mythConfig.ItemIdList[i], 1, mythConfig.ItemQuantity[i]));
+                items.Add(ItemHelper.BuildItem((ItemType)config.ItemType[i], config.ItemIdList[i], 1, config.ItemQuantity[i]));
             }
         }
 
@@ -110,7 +117,7 @@ public class BattleRule_Festive : ABattleRule
 
         GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
 
-        string message = "节日副本" + mythConfig.MapName + "通关奖励";
+        string message = "节日副本" + config.MapName + "首通奖励";
         GameProcessor.Inst.EventCenter.Raise(new ShowDropEvent() { Message = message, Items = items });
     }
 
