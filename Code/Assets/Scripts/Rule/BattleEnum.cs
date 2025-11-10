@@ -43,6 +43,7 @@ namespace Game
         Pill2,
         Pill3,
         Festive,
+        Shengxiao,
     }
 
     public enum ComponentOrder

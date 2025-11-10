@@ -1,0 +1,6 @@
+{"list":[
+{"_t":"ShengxiaoCopyConfig","_id":1,"MapName":"天级副本","ItemType":[5,9,5,9,15,4],"ItemIdList":[4111,4003,4004,4013,4014,36],"ItemQuantity":[10000,100,10,10,50,2]},
+{"_t":"ShengxiaoCopyConfig","_id":2,"MapName":"地级副本","ItemType":[5,9,5,9,15,4],"ItemIdList":[4111,4003,4004,4013,4014,36],"ItemQuantity":[11000,110,11,11,55,2]},
+{"_t":"ShengxiaoCopyConfig","_id":3,"MapName":"玄级副本","ItemType":[5,9,5,9,15,4],"ItemIdList":[4111,4003,4004,4013,4014,36],"ItemQuantity":[12000,120,12,12,60,2]},
+{"_t":"ShengxiaoCopyConfig","_id":4,"MapName":"黄级副本","ItemType":[5,9,5,9,15,4],"ItemIdList":[4111,4003,4004,4013,4014,36],"ItemQuantity":[13000,130,13,13,65,2]},
+]}

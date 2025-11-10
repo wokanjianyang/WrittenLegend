@@ -44,6 +44,9 @@ namespace Game
         public Button Btn_Festive;
         public Map_Dialog_Festive MapDialogFestive;
 
+        public Button Btn_Shengxiao;
+        public Map_Dialog_Shengxiao MapDialogShengxiao;
+
         public Text Txt_Limit;
 
         void Start()
@@ -51,6 +54,7 @@ namespace Game
 
             Btn_World.onClick.AddListener(OnClick_World);
             Btn_Festive.onClick.AddListener(OnClick_Festive);
+            Btn_Shengxiao.onClick.AddListener(OnClick_Shengxiao);
         }
 
         void OnEnable()
@@ -130,6 +134,14 @@ namespace Game
             else {
                 Btn_Festive.gameObject.SetActive(false);
             }
+
+            if (user.Cycle.Data >= 10)
+            {
+                Btn_Shengxiao.gameObject.SetActive(true);
+            }
+            else {
+                Btn_Shengxiao.gameObject.SetActive(false);
+            }
         }
 
         public override void OnBattleStart()
@@ -154,6 +166,11 @@ namespace Game
         private void OnClick_Festive()
         {
             this.MapDialogFestive.gameObject.SetActive(true);
+        }
+
+        private void OnClick_Shengxiao()
+        {
+            this.MapDialogShengxiao.gameObject.SetActive(true);
         }
 
         public void OnClose(CloseViewMoreEvent e)
@@ -293,6 +310,13 @@ namespace Game
             scrollRect.gameObject.SetActive(false);
 
             GameProcessor.Inst.EventCenter.Raise(new FestiveStartEvent() { Id = id });
+        }
+
+        public void StartShengxiao(int id)
+        {
+            scrollRect.gameObject.SetActive(false);
+
+            GameProcessor.Inst.EventCenter.Raise(new ShengxiaoStartEvent() { Id = id });
         }
 
         public void StartWorld(int id)

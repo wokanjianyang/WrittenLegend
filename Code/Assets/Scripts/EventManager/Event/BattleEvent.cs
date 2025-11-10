@@ -534,7 +534,7 @@ namespace Game
         public int Time { get; set; }
     }
 
-    //--Myth
+    //--festive
     public class FestiveStartEvent : SDD.Events.Event
     {
         public int Id { get; set; }
@@ -544,6 +544,18 @@ namespace Game
         public int Layer { get; set; }
         public int Time { get; set; }
     }
+
+    //--festive
+    public class ShengxiaoStartEvent : SDD.Events.Event
+    {
+        public int Id { get; set; }
+    }
+    public class ShowShengxiaoInfoEvent : SDD.Events.Event
+    {
+        public int Count  { get; set; }
+        public int Time { get; set; }
+    }
+
     //--------Fashion
     public class OpenFashionDialogEvent : SDD.Events.Event
     {

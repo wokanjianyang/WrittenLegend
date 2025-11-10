@@ -483,6 +483,10 @@ namespace Game
                     autoHero = false;
                     this.BattleRule = new BattleRule_Festive(param);
                     break;
+                case RuleType.Shengxiao:
+                    autoHero = false;
+                    this.BattleRule = new BattleRule_Shengxiao(param);
+                    break;
             }
 
             if (autoHero)

@@ -72,7 +72,6 @@ public class BattleRule_Festive : ABattleRule
             this.Start = false;
 
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Festive, Message = "ÃÙ’ΩÕ®πÿ£°" });
-            GameProcessor.Inst.User.MythData.SetOver(this.MapId);
             BuildReward(MapId);
 
             GameProcessor.Inst.CloseBattle(RuleType.Festive, 17);

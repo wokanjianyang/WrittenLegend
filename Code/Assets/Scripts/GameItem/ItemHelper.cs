@@ -158,6 +158,7 @@ namespace Game
 
         public static int[] Specail_Pet_Layer = { 4023, 4024, 4025 };
 
-        public static int Specail_Pet_Speical = 4041;
+        public static int Specail_Pet_Speical = 4041; //°µ½ğ»êĞÄ
+        public static int Specail_Shengxiao = 4042; //ÉúĞ¤
     }
 }

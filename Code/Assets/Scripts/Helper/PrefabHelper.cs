@@ -61,22 +61,10 @@ namespace Game
             BoxImageList.Add(Resources.Load<Sprite>("UI/Bag/Box7"));
             BoxImageList.Add(Resources.Load<Sprite>("UI/Bag/Box8"));
 
-            PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion1"));
-            PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion2"));
-            PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion3"));
-            PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion4"));
-            PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion5"));
-            PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion6"));
-            PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion7"));
-            PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion8"));
-            PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion9"));
-            PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion10"));
-            PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion11"));
-            PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion12"));
-            PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion13"));
-            PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion14"));
-            PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion15"));
-            PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion16"));
+            for (int i = 1; i <= 20; i++)
+            {
+                PlayerList.Add(Resources.Load<Sprite>("UI/Player/Fashion" + i));
+            }
 
             ValetList.Add(Resources.Load<Sprite>("UI/Player/Player_Valet1"));
             ValetList.Add(Resources.Load<Sprite>("UI/Player/Player_Valet2"));
