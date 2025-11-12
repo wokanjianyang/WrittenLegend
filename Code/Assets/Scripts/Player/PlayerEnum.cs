@@ -73,6 +73,7 @@ namespace Game
         MythAttr = 91,  //神话攻击加成
         MythDef = 92,  //神话防御加成
         MythHp = 93,  //神话生命加成
+        MythAll=94, //神话全属性
         EquipBaseIncrea = 101, //装备基础属性百分比
         EquipRandomIncrea = 102, //装备随机属性百分比
         EquipStrengthIncrea = 103, //装备强化属性百分比

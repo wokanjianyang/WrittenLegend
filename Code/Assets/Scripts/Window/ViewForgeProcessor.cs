@@ -17,6 +17,7 @@ public class ViewForgeProcessor : AViewPage
 
     public Transform Nav_Equip;
     public Transform Nav_Exclusive;
+    public Transform Nav_Other;
 
     public Toggle toggle_Refine;
     public Panel_Refine PanelRefine;
@@ -66,6 +67,11 @@ public class ViewForgeProcessor : AViewPage
     public Toggle toggle_GradeSpecail;
     public Panel_Grade_Specail PanelGradeSpecail;
 
+    public Toggle toggle_Other;
+
+    public Toggle toggle_Shengxiao;
+    public Panel_Up_Shengxiao PanelShengxiao;
+
     public Toggle toggle_Stone;
     public Panel_Stone PanelStone;
 
@@ -79,6 +85,11 @@ public class ViewForgeProcessor : AViewPage
         {
             this.Nav_Exclusive.gameObject.SetActive(isOn);
         });
+        this.toggle_Other.onValueChanged.AddListener((isOn) =>
+        {
+            this.Nav_Other.gameObject.SetActive(isOn);
+        });
+
         this.toggle_Compound.onValueChanged.AddListener((isOn) =>
         {
             this.PanelCompound.Show(isOn);
@@ -170,6 +181,11 @@ public class ViewForgeProcessor : AViewPage
         this.toggle_Stone.onValueChanged.AddListener((isOn) =>
         {
             PanelStone.gameObject.SetActive(isOn);
+        });
+
+        this.toggle_Shengxiao.onValueChanged.AddListener((isOn) =>
+        {
+            PanelShengxiao.gameObject.SetActive(isOn);
         });
     }
 

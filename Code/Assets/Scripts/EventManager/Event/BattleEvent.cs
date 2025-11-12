@@ -33,6 +33,15 @@ namespace Game
         public int EquipPosition { get; set; }
     }
 
+    public class ShowShengxiaoDetailEvent : SDD.Events.Event
+    {
+        //public Vector3 Position { get; set; }
+
+        public ComBoxType Type { get; set; }
+        public BoxItem boxItem { get; set; }
+        public int EquipPosition { get; set; }
+    }
+
     public class ShowPetDetailEvent : SDD.Events.Event
     {
         public BoxItem boxItem { get; set; }

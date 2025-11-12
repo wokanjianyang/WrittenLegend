@@ -102,6 +102,7 @@ namespace Game
         Halidom = 14,
         Material_Usable = 15,
         Pet = 16,
+        Shengxiao = 17,
 
         Artifact = 18,
         Ring = 19,

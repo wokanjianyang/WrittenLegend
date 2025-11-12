@@ -48,13 +48,6 @@ public class Map_Shengxiao : MonoBehaviour, IBattleLife
     {
         this.gameObject.SetActive(true);
 
-        long count = GameProcessor.Inst.User.FestiveMapData.Number.Data;
-
-        if (count <= 0)
-        {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "ÌôÕ½²»×ã", ToastType = ToastTypeEnum.Failure });
-            return;
-        }
 
         Dictionary<string, object> param = new Dictionary<string, object>();
         param.Add("MapId", e.Id);

@@ -74,6 +74,8 @@ namespace Game
 
         public IDictionary<int, ExclusiveItem> ExclusiveList { get; set; } = new Dictionary<int, ExclusiveItem>();
 
+        public IDictionary<int, Shengxiao> ShengxiaoList { get; set; } = new Dictionary<int, Shengxiao>();
+
         public int EquipPanelIndex { get; set; } = 0;
         public IDictionary<int, string> PlanNameList { get; set; } = new Dictionary<int, string>();
 
@@ -1228,6 +1230,40 @@ namespace Game
             }
 
             return list;
+        }
+
+        public ShengxiaoGroup GetShengxiaoGroup()
+        {
+            List<Shengxiao> equips = this.ShengxiaoList.Select(m => m.Value).ToList();
+
+            List<ShengxiaoGroupItem> redList = new List<ShengxiaoGroupItem>();
+
+            for (int i = 3; i <= 12; i += 3)
+            {
+                List<ShengxiaoGroupConfig> list = ShengxiaoGroupConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Count == i).OrderByDescending(m => m.Quality).ToList();
+
+                for (int j = 0; j < list.Count; j++)
+                {
+                    ShengxiaoGroupConfig config = list[j];
+
+                    int count = equips.Where(m => m.GetQuality() >= config.Quality).Count();
+
+                    if (count >= config.Count || config.Quality == 6) //如果激活了，则显示激活的颜色，如果没激活，则显示最低紫色的
+                    {
+                        ShengxiaoGroupItem redItem = new ShengxiaoGroupItem();
+                        redItem.Count = count;
+                        redItem.Config = config;
+                        redList.Add(redItem);
+
+                        break;
+                    }
+                }
+            }
+
+            ShengxiaoGroup red = new ShengxiaoGroup();
+            red.List = redList;
+
+            return red;
         }
 
         public EquipRedSuit GetEquipRedConfig(int role, int quality)

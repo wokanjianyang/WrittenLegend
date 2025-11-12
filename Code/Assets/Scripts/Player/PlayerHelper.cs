@@ -56,6 +56,10 @@ namespace Game
             {nameof(AttributeEnum.CritDamageFinal), "爆伤增幅" },
             {nameof(AttributeEnum.Shatter), "破韧倍率" },
 
+            {nameof(AttributeEnum.MythAttr), "神话攻击" },
+            {nameof(AttributeEnum.MythDef), "神话防御" },
+            {nameof(AttributeEnum.MythHp), "神话生命" },
+            {nameof(AttributeEnum.MythAll), "神话攻防血" },
             {nameof(AttributeEnum.SoulPercent), "炼魂" },
             {nameof(AttributeEnum.SpRate), "护盾固防" },
             {nameof(AttributeEnum.RealMulDamageResist), "完全减伤" },

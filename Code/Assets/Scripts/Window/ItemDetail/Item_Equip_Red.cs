@@ -41,5 +41,33 @@ namespace Game
 
             this.Txt_Des.text = string.Format("<color=#{0}>{1}</color>", color, StringHelper.FormatAttrText(redItem.Config.AttrId, attr, "+"));
         }
+
+
+        public void SetShengxiaoGroup(ShengxiaoGroupItem item)
+        {
+            string color = item.Count >= item.Config.Count ? QualityConfigHelper.GetQualityColor(item.Config.Quality) : "CCCCCC";
+
+            string qn = "红色";
+            if (item.Config.Quality == 7)
+            {
+                qn = "金色";
+            }
+            else if (item.Config.Quality == 8)
+            {
+                qn = "暗金";
+            }
+            else if (item.Config.Quality == 9)
+            {
+                qn = "粉色";
+            }
+
+            string name = qn + "生肖" + string.Format("({0}/{1})", item.Count, item.Config.Count);
+
+            this.Txt_Name.text = string.Format("<color=#{0}>{1}</color>", color, name);
+
+            int attr = (int)(item.Config.AttrValue);
+
+            this.Txt_Des.text = string.Format("<color=#{0}>{1}</color>", color, StringHelper.FormatAttrText(item.Config.AttrId, attr, "+"));
+        }
     }
 }

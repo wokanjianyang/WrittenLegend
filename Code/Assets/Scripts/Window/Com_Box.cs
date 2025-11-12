@@ -89,6 +89,17 @@ namespace Game
                         this.Layer.gameObject.SetActive(true);
                     }
                 }
+                else if (BoxItem.Item.Type == ItemType.Shengxiao)
+                {
+                    Shengxiao item = BoxItem.Item as Shengxiao;
+
+                    if (item.LevelData.Data > 0)
+                    {
+                        this.tmp_Count.text = item.LevelData.Data + "级";
+                        this.tmp_Count.gameObject.SetActive(true);
+                    }
+
+                }
             }
         }
 
@@ -122,6 +133,16 @@ namespace Game
             else if (this.BoxItem.Item.Type == ItemType.Equip)
             {
                 GameProcessor.Inst.EventCenter.Raise(new ShowEquipDetailEvent()
+                {
+                    boxItem = this.BoxItem,
+                    EquipPosition = this.EquipPosition,
+                    Type = this.Type
+                });
+                return;
+            }
+            else if (this.BoxItem.Item.Type == ItemType.Shengxiao)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowShengxiaoDetailEvent()
                 {
                     boxItem = this.BoxItem,
                     EquipPosition = this.EquipPosition,

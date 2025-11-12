@@ -140,5 +140,32 @@ namespace Game
         {
             return this.list.Where(m => m.Cycle == cycle && m.AttrId == attrId).FirstOrDefault();
         }
+
+        public List<KeyValuePair<int, long>> BuildShengxiao(int part, int quality, int seed)
+        {
+            List<KeyValuePair<int, long>> rsList = new List<KeyValuePair<int, long>>();
+
+            List<AttrEntryConfig> configs = list.Where(m => m.Cycle == 99 && m.Type <= quality && m.PartList.Contains(part)).ToList();
+
+            for (int i = 0; i < configs.Count; i++)
+            {
+                AttrEntryConfig config = configs[i];
+
+                long attrValue = 0;
+
+                if (config.Type == 6)
+                {
+                    attrValue = RandomHelper.RandomNumber(seed, config.MinValue, config.MaxValue + quality - 4);
+                }
+                else
+                {
+                    attrValue = RandomHelper.RandomNumber(seed, config.MinValue, config.MaxValue + 1);
+                }
+
+                rsList.Add(new KeyValuePair<int, long>(config.AttrId, attrValue));
+            }
+
+            return rsList;
+        }
     }
 }

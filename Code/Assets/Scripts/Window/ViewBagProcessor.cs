@@ -41,6 +41,8 @@ namespace Game
         public Button btn_Wing;
         public Button btn_Exclusive;
         public Button btn_Card;
+        public Button btn_Shengxiao;
+
         public Button btn_Fashion;
         public Button btn_Halidom;
         public Button btn_Artifact;
@@ -54,6 +56,7 @@ namespace Game
         public Button btn_Equip_Hundun;
         public Button btn_Relic;
 
+
         [Title("功能框")]
         public Dialog_Exclusive ExclusiveDialog;
         public Dialog_Card DialogCard;
@@ -66,6 +69,7 @@ namespace Game
         public Dialog_EquipGolden DialogEquipGolden;
         public Dialog_Equip_Dark_Gold DialogEquipDarkGold;
         public Dialog_Equip_Hundun DialogEquipHundun;
+        public Dialog_Shengxiao_Panel DialogShengxiaoPanel;
 
         private List<Com_Box> items = new List<Com_Box>();
 
@@ -101,6 +105,7 @@ namespace Game
             this.btn_Equip_Hundun.onClick.AddListener(OnOpenEquipHundun);
             this.btn_Talent.onClick.AddListener(OnOpenTalent);
             this.btn_Relic.onClick.AddListener(OnOpenRelic);
+            this.btn_Shengxiao.onClick.AddListener(OnOpenShengxiao);
 
             this.Btn_Reset.onClick.AddListener(OnRefreshBag);
             this.Btn_ReName.onClick.AddListener(OnSetPlanName);
@@ -767,6 +772,10 @@ namespace Game
                 {
                     this.WearExclusive(e.BoxItem);
                 }
+                else if (e.BoxItem.Item.Type == ItemType.Shengxiao)
+                {
+                    this.WearShengxiao(e.BoxItem);
+                }
                 else
                 {
                     this.WearEquipment(e.BoxItem);
@@ -777,6 +786,10 @@ namespace Game
                 if (e.BoxItem.Item.Type == ItemType.Exclusive)
                 {
                     this.RmoveExclusive(e.BoxItem);
+                }
+                else if (e.BoxItem.Item.Type == ItemType.Shengxiao)
+                {
+                    this.RemoveShengxiao(e.BoxItem);
                 }
                 else
                 {
@@ -1540,6 +1553,42 @@ namespace Game
             user.EventCenter.Raise(new HeroUseEquipEvent { });
         }
 
+        public void WearShengxiao(BoxItem boxItem)
+        {
+            User user = GameProcessor.Inst.User;
+
+            var exclusive = boxItem.Item as Shengxiao;
+
+            IDictionary<int, Shengxiao> ep = user.ShengxiaoList;
+            int Position = exclusive.ShengxiaoConfig.Part;
+
+            //从包袱移除
+            UseBoxItem(boxItem, 1);
+
+            //如果存在旧装备，增加到包裹
+            if (ep.ContainsKey(Position))
+            {
+                //装备栏卸载
+                SlotBox slot = DialogShengxiaoPanel.ItemList.Where(s => s.Part == Position).FirstOrDefault();
+
+                if (slot != null)
+                {
+                    slot.UnEquip();
+                }
+
+                AddBoxItem(ep[Position]);
+            }
+
+            //穿戴到格子上
+            DialogShengxiaoPanel.Wear(exclusive);
+            //this.CreateEquipPanelItem(-1, Position, exclusive);
+
+            ep[Position] = exclusive;
+
+            //通知英雄更新属性
+            //user.EventCenter.Raise(new HeroUseEquipEvent { });
+        }
+
         private void ClearEquipPanelItem(int position)
         {
             SlotBox slot = GetCurrentPanelEquipSolt(position);
@@ -1736,6 +1785,31 @@ namespace Game
             user.EventCenter.Raise(new HeroUnUseEquipEvent() { });
         }
 
+        private void RemoveShengxiao(BoxItem boxItem)
+        {
+            User user = GameProcessor.Inst.User;
+
+            var exclusive = boxItem.Item as Shengxiao;
+            int position = exclusive.ShengxiaoConfig.Part;
+
+            //装备栏卸载
+            SlotBox slot = DialogShengxiaoPanel.ItemList.Where(s => s.Part == position).First();
+            if (slot != null)
+            {
+                slot.UnEquip();
+            }
+
+            //装备移动到包裹里面
+            AddBoxItem(exclusive);
+
+            var ep = user.ShengxiaoList;
+
+            ep.Remove(position);
+
+            //通知英雄更新属性
+            user.EventCenter.Raise(new HeroUnUseEquipEvent() { });
+        }
+
         private void OnHeroBagUpdateEvent(HeroBagUpdateEvent e)
         {
             User user = GameProcessor.Inst.User;
@@ -1856,6 +1930,11 @@ namespace Game
         public void OnOpenRelic()
         {
             GameProcessor.Inst.EventCenter.Raise(new RelicShowEvent());
+        }
+
+        public void OnOpenShengxiao()
+        {
+            DialogShengxiaoPanel.gameObject.SetActive(true);
         }
 
 

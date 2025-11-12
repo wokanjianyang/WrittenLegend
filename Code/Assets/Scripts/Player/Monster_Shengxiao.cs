@@ -114,31 +114,46 @@ public class Monster_Shengxiao : APlayer
         BuildReword();
     }
 
+    private int[] dropCount = { 1, 2, 4, 8, 20 };
+
     private void BuildReword()
     {
         User user = GameProcessor.Inst.User;
 
+        double dropRate = 100 / (user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstIncrea) / 500000 + 1);
+        double qualityRate = user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea) / 500000 + 1;
 
         //生肖掉落
         List<Item> items = new List<Item>();
-        items.Add(ItemHelper.BuildMaterial(ItemHelper.Specail_Shengxiao, Quality));
+        items.Add(ItemHelper.BuildMaterial(ItemHelper.Specail_Shengxiao, dropCount[Quality - 1] * this.config.Id));
 
-        if (RandomHelper.RandomResult(100)) { 
-          //生肖
+        Debug.Log("this dropRate :" + dropRate + "  qualityRate:" + qualityRate);
+
+        if (RandomHelper.RandomResult(dropRate))
+        {
+            //生肖
+            items.Add(ShengxiaoConfigCategory.Instance.Build(1, qualityRate, this.config.Id + 5, 0));
         }
+
+        GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+        {
+            Type = RuleType,
+            Message = BattleMsgHelper.BuildMonsterDeadMessage(this, 0, 0, items, 0)
+        });
+
 
         //先回收
-        List<Item> recoveryList = user.CheckRecovery(items, out long recoveryGold, out int recoveryCount);
+        //List<Item> recoveryList = user.CheckRecovery(items, out long recoveryGold, out int recoveryCount);
 
-        bool showMessage = QualityConfigHelper.GetMaxColor(items) >= user.InfoColor;
-        if (recoveryCount > 0 && showMessage)
-        {
-            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
-            {
-                Type = RuleType,
-                Message = BattleMsgHelper.BuildAutoRecoveryMessage(recoveryCount, recoveryList, recoveryGold)
-            });
-        }
+        //bool showMessage = QualityConfigHelper.GetMaxColor(items) >= user.InfoColor;
+        //if (recoveryCount > 0 && showMessage)
+        //{
+        //    GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+        //    {
+        //        Type = RuleType,
+        //        Message = BattleMsgHelper.BuildAutoRecoveryMessage(recoveryCount, recoveryList, recoveryGold)
+        //    });
+        //}
 
         if (items.Count > 0)
         {
