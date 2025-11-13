@@ -80,6 +80,8 @@ namespace Game
 
         public int PetQuality { get; set; } = 0;
 
+        public int ShengxiaoQuality { get; set; } = 0;
+
         private int KeepStartQuality = 3;
 
         public RecoverySettingNew()
@@ -389,7 +391,15 @@ namespace Game
             else if (item.Type == ItemType.Pet)
             {
                 Pet pet = item as Pet;
-                if (item.GetQuality() <= PetQuality && pet.PetLayer.Data == 1 && pet.PetLayer.Data == 1)
+                if (item.GetQuality() <= PetQuality && pet.PetLayer.Data == 1 && pet.PetLevel.Data == 1)
+                {
+                    return true;
+                }
+            }
+            else if (item.Type == ItemType.Shengxiao)
+            {
+                Shengxiao shengxaio = item as Shengxiao;
+                if (item.GetQuality() <= ShengxiaoQuality && shengxaio.LayerData.Data < 1 && shengxaio.LevelData.Data < 1)
                 {
                     return true;
                 }
@@ -397,5 +407,11 @@ namespace Game
 
             return false;
         }
+    }
+
+    public enum RecoveryType
+    {
+        Drop = 1,//´ò¹ÖµôÂä
+        Other = 2, //ÆäËû
     }
 }

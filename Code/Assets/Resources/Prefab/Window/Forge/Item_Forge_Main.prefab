@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 0
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -180,6 +180,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9f248eec4d9337741ae2d3ac102e138a, type: 3}
   - {fileID: 21300000, guid: b368cc7bdcfb9e84486ef2d982f6f59d, type: 3}
   - {fileID: 21300000, guid: ee2ea1857d3171a409676507476f92b1, type: 3}
+  - {fileID: 21300000, guid: 91e61992e0a8adc43b01c0a4bd3841d7, type: 3}
   toggle: {fileID: 5992272355798385684}
   Txt_Name: {fileID: 5145446972010010552}
   Txt_Layer: {fileID: 1688976160610146232}

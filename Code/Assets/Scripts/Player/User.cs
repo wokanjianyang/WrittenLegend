@@ -2257,6 +2257,18 @@ namespace Game
                     dict[ItemHelper.Specail_Pet_Layer[quality - 5]] = 1;
                 }
             }
+            else if (item.Type == ItemType.Shengxiao)
+            {
+                int quality = item.GetQuality();
+                if (quality <= 6)
+                {
+                    dict[ItemHelper.Specail_Shengxiao] = quality * 1000;
+                }
+                else
+                {
+                    dict[ItemHelper.Specail_Shengxiao1] = (int)(Math.Pow(3, quality - 6));
+                }
+            }
             else if (item.ItemConfig.RecoveryItemId > 0)
             {
                 int RecoveryItemId = item.ItemConfig.RecoveryItemId;

@@ -70,7 +70,7 @@ public class ViewForgeProcessor : AViewPage
     public Toggle toggle_Other;
 
     public Toggle toggle_Shengxiao;
-    public Panel_Up_Shengxiao PanelShengxiao;
+    public Panel_Shengxiao_Up PanelShengxiao;
 
     public Toggle toggle_Stone;
     public Panel_Stone PanelStone;

@@ -174,7 +174,7 @@ namespace Game
             this.btn_Equip.gameObject.SetActive(this.boxItem.BoxId != -1);
             this.btn_UnEquip.gameObject.SetActive(this.boxItem.BoxId == -1);
 
-            if (equip.LevelData.Data > 1)
+            if (equip.LevelData.Data > 1 || equip.LayerData.Data > 1)
             {
                 this.btn_Restore.gameObject.SetActive(this.boxItem.BoxId != -1 && !this.boxItem.Item.IsLock);
                 this.btn_Recovery.gameObject.SetActive(false);

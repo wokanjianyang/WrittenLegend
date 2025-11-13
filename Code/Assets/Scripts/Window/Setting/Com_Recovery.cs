@@ -70,6 +70,7 @@ namespace Game
         public InputField if_Halidom;
         public InputField if_RedStone;
         public Dropdown dp_Pet;
+        public Dropdown dp_Shengxiao;
 
         public Button btn_Done;
 
@@ -132,6 +133,9 @@ namespace Game
             dp_Pet.ClearOptions();
             dp_Pet.AddOptions(new List<string>() { "无", "白色", "绿色", "蓝色", "紫色", "橙色", "红色" });
 
+            dp_Shengxiao.ClearOptions();
+            dp_Shengxiao.AddOptions(new List<string>() { "无", "白色", "绿色", "蓝色", "紫色", "橙色", "红色", "金色", "暗金" }); //, "混沌"
+
             //混沌装备
             dp_Equip_Recovery_Hundun.ClearOptions();
             dp_Equip_Recovery_Hundun.AddOptions(new List<string>() { "无", "白色", "绿色", "蓝色", "紫色", "橙色", "红色", "金色", "暗金" }); //, "混沌"
@@ -192,6 +196,10 @@ namespace Game
             if (setting.PetQuality > 0)
             {
                 dp_Pet.value = setting.PetQuality;
+            }
+            if (setting.ShengxiaoQuality > 0)
+            {
+                dp_Shengxiao.value = setting.ShengxiaoQuality;
             }
 
             //红色装备
@@ -306,6 +314,7 @@ namespace Game
 
             //其他回收
             setting.PetQuality = dp_Pet.value;
+            setting.ShengxiaoQuality = dp_Shengxiao.value;
 
             int.TryParse(ifSpeicalLevel.text, out int speicalLevel);
             setting.SpecailLevel = speicalLevel;

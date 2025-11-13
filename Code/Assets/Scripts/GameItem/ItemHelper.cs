@@ -159,6 +159,7 @@ namespace Game
         public static int[] Specail_Pet_Layer = { 4023, 4024, 4025 };
 
         public static int Specail_Pet_Speical = 4041; //暗金魂心
-        public static int Specail_Shengxiao = 4042; //生肖
+        public static int Specail_Shengxiao = 4042; //生肖精华
+        public static int Specail_Shengxiao1 = 4043; //生肖本源
     }
 }
