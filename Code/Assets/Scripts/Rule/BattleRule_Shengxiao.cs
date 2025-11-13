@@ -9,7 +9,7 @@ public class BattleRule_Shengxiao : ABattleRule
 {
     private int MapId = 0;
 
-    private double MapTime = 0;
+    private double TotalTime = 0;
 
     private int Count = 0;
 
@@ -28,30 +28,55 @@ public class BattleRule_Shengxiao : ABattleRule
         HeroMyth hero = new HeroMyth();
         GameProcessor.Inst.PlayerManager.LoadHero(hero);
 
-        MapTime = 0;
+        TotalTime = 0;
+        Count = 0;
     }
+
+
 
     public override void DoMapLogic(int roundNum, double currentRoundTime)
     {
-        if (roundNum % 2 != 0)
-        {
-            return;
-        }
+        TotalTime += currentRoundTime;
 
         var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
-        if (enemys.Count >= 20)
+        if (enemys.Count >= 30)
         {
             return;
         }
 
-        int quality = RandomHelper.RandomNumber(1, 6);
+        int quality = BuildQuality();
 
         var enemy = new Monster_Shengxiao(MapId, quality);
         GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
 
         Count++;
-        GameProcessor.Inst.EventCenter.Raise(new ShowShengxiaoInfoEvent() { Count = Count });
+        GameProcessor.Inst.EventCenter.Raise(new ShowShengxiaoInfoEvent() { Count = Count, Time = (int)TotalTime });
 
+    }
+
+    private int BuildQuality()
+    {
+        int rd = RandomHelper.RandomNumber(1, 501);
+        if (rd > 499)
+        {
+            return 5;
+        }
+        else if (rd > 495)
+        {
+            return 4;
+        }
+        else if (rd > 480)
+        {
+            return 3;
+        }
+        else if (rd > 400)
+        {
+            return 2;
+        }
+        else
+        {
+            return 1;
+        }
     }
 
 

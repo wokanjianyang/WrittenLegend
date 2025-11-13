@@ -10,6 +10,7 @@ public class Map_Shengxiao : MonoBehaviour, IBattleLife
 {
     public Text Txt_Name;
     public Text Txt_Time;
+    public Text Txt_Total;
 
     public ScrollRect sr_BattleMsg;
 
@@ -65,7 +66,8 @@ public class Map_Shengxiao : MonoBehaviour, IBattleLife
 
     public void OnShowInfo(ShowShengxiaoInfoEvent e)
     {
-        Txt_Time.text = "累计怪物为:" + e.Count;
+        Txt_Total.text = "累计怪物为:" + e.Count;
+        Txt_Time.text = "累积时间为：" + e.Time;
 
     }
 

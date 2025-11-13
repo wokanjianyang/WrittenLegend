@@ -12,6 +12,8 @@ public class Map_Shengxiao_Item : MonoBehaviour
 
     private ShengxiaoCopyConfig Config;
 
+    private int MaxId = 1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,9 +31,7 @@ public class Map_Shengxiao_Item : MonoBehaviour
 
     private void Show()
     {
-        int maxId = 1;
-
-        if (maxId >= Config.Id)
+        if (Config.Id <= MaxId)
         {
             this.gameObject.SetActive(true);
         }
@@ -58,6 +58,12 @@ public class Map_Shengxiao_Item : MonoBehaviour
 
         Txt_Name.text = config.MapName;
 
+        this.Show();
+    }
+
+    public void SetMax(int max)
+    {
+        this.MaxId = max;
         this.Show();
     }
 }

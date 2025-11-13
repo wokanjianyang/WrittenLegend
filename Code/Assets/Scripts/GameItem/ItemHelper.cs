@@ -113,6 +113,33 @@ namespace Game
             return newList;
         }
 
+        public static IEnumerable<Item> BurstMul(List<Item> items, int count, double qualityRate, RuleType ruleType, int maxQuality)
+        {
+            List<Item> newList = new List<Item>();
+            for (int c = 0; c < count; c++)
+            {
+                for (int i = 0; i < items.Count; i++)
+                {
+
+                    if (items[i].Type == ItemType.Shengxiao)
+                    {
+                        Item newItem = ShengxiaoConfigCategory.Instance.Build(items[i].ConfigId, qualityRate, maxQuality, 0);
+
+                        newList.Add(newItem);
+                    }
+                    else
+                    {
+                        Item newItem = ItemHelper.BuildItem(items[i].Type, items[i].ConfigId, (int)qualityRate, items[i].Count, ruleType);
+
+                        newList.Add(newItem);
+                    }
+                }
+            }
+
+            return newList;
+        }
+
+
         public static int SpecialId_SoulRingShard = 4001; //魂环碎片
         public static int SpecialId_EquipRefineStone = 4002; //精炼石
         public static int SpecialId_Copy_Ticket = 4003; //装备副本卷

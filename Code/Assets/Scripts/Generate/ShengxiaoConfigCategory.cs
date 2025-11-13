@@ -11,13 +11,13 @@ namespace Game
     {
         public Shengxiao Build(int configId, double qualityRate, int maxQuality, int seed)
         {
-            ShengxiaoConfig config = Instance.Get(configId);
+            ShengxiaoConfig config = this.Get(configId);
 
             int quality = RandomQuanlity(qualityRate, maxQuality);
 
             List<KeyValuePair<int, long>> list = AttrEntryConfigCategory.Instance.BuildShengxiao(config.Part, quality, seed);
 
-            Shengxiao item = new Shengxiao(config.Id, quality);
+            Shengxiao item = new Shengxiao(configId, quality);
             item.Init(list);
 
             item.Count = 1;

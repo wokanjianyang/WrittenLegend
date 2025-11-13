@@ -38,6 +38,17 @@ public class Map_Dialog_Shengxiao : MonoBehaviour
         {
             return;
         }
+
+        ShengxiaoGroup gp = user.GetShengxiaoGroup();
+
+        ShengxiaoGroupItem item = gp.List.Where(m => m.Config.Count == 12).FirstOrDefault();
+
+        int max = item.Count >= item.Config.Count ? item.Config.Quality - 5 : 0;
+
+        for (int i = 0; i < items.Count; i++)
+        {
+            items[i].SetMax(max+1);
+        }
     }
 
 

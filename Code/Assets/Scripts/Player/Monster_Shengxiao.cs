@@ -7,14 +7,18 @@ using System;
 
 public class Monster_Shengxiao : APlayer
 {
-    MonsterFestiveConfig config;
+    MonsterShengxiaoConfig config;
 
-    private double[] HpRateist = { 1, 1.2, 1.4, 1.6, 2 };
+    private double[] HpRateist = { 1, 5, 10, 25, 100 };
     private double[] AttrRateist = { 1, 1.1, 1.2, 1.3, 1.5 };
     private double[] DefRateist = { 1, 1.1, 1.15, 1.2, 1.25 };
 
-    private double Exp = 1;
-    private double Gold = 1;
+    private double[] DropRateList = { 1, 2, 4, 10, 40 };
+    private double[] QualityRateList = { 1, 1.1, 1.2, 1.5, 2 };
+
+    private string[] NameList = { "鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗", "猪" };
+
+    private int NameId = 1;
 
     public Monster_Shengxiao(int mapId, int quality)
     {
@@ -22,7 +26,8 @@ public class Monster_Shengxiao : APlayer
         this.RuleType = RuleType.Shengxiao;
         this.Quality = quality;
 
-        config = MonsterFestiveConfigCategory.Instance.Get(mapId);
+        config = MonsterShengxiaoConfigCategory.Instance.Get(mapId);
+        NameId = RandomHelper.RandomNumber(1, 13);
 
         this.Init();
 
@@ -32,7 +37,7 @@ public class Monster_Shengxiao : APlayer
     private void Init()
     {
         this.Camp = PlayerType.Enemy;
-        this.Name = config.MonsterName;
+        this.Name = config.MonsterName + NameList[NameId - 1];
         this.Level = config.Id * 10 + this.Quality;
         this.ModelType = MondelType.Nomal;
 
@@ -43,18 +48,31 @@ public class Monster_Shengxiao : APlayer
         this.Logic.SetData(null); //设置UI
     }
 
+    private int[] SkillRate = { 100, 10, 20 };
+
+    private int[][] SkillList = new int[][]
+    {
+        new int[] { 2002, 1002, 2012 },
+        new int[] { 2007, 1004, 2009,3012 },
+        new int[] { 1008, 1005, 3008 }
+    };
+
     private void SetSkill()
     {
         //加载技能
         List<SkillData> list = new List<SkillData>();
 
-
-        for (int i = 0; i < config.SkillIdList.Length; i++)
+        for (int i = 0; i < 3; i++)
         {
-            int skillId = config.SkillIdList[i];
-            SkillData skillData = new SkillData(skillId, i);
-            skillData.MagicLevel.Data = config.Id * 10;
-            list.Add(skillData);
+            if (RandomHelper.RandomRate(SkillRate[i]))
+            {
+                int rd = RandomHelper.RandomNumber(0, SkillList[i].Length);
+
+                int skillId = SkillList[i][rd];
+                SkillData skillData = new SkillData(skillId, i);
+                skillData.MagicLevel.Data = config.Id * 10;
+                list.Add(skillData);
+            }
         }
 
         list.Add(new SkillData(9001, (int)SkillPosition.Default)); //增加默认技能
@@ -114,46 +132,59 @@ public class Monster_Shengxiao : APlayer
         BuildReword();
     }
 
-    private int[] dropCount = { 1, 2, 4, 8, 20 };
-
     private void BuildReword()
     {
+        int maxQuality = this.config.Id + 5;
+
         User user = GameProcessor.Inst.User;
 
-        double dropRate = 100 / (user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstIncrea) / 500000 + 1);
-        double qualityRate = user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea) / 500000 + 1;
+        double exp = (this.config.Exp * (100.0 + user.AttributeBonus.GetTotalAttr(AttributeEnum.ExpIncrea)) / 100);
+        double gold = (this.config.Gold * (100.0 + user.AttributeBonus.GetTotalAttr(AttributeEnum.GoldIncrea)) / 100);
+
+        double dropRate = 100 / (user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstIncrea) / 500000 + 1) / DropRateList[Quality - 1];
+        double qualityRate = (user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea) / 500000 + 1) * QualityRateList[Quality - 1];
 
         //生肖掉落
         List<Item> items = new List<Item>();
-        items.Add(ItemHelper.BuildMaterial(ItemHelper.Specail_Shengxiao, dropCount[Quality - 1] * this.config.Id));
+        items.Add(ItemHelper.BuildMaterial(ItemHelper.Specail_Shengxiao, Quality * this.config.Id));
 
-        Debug.Log("this dropRate :" + dropRate + "  qualityRate:" + qualityRate);
+        //Debug.Log("this dropRate :" + dropRate + "  qualityRate:" + qualityRate + " nameId:" + NameId + " - " + Name + " quality:" + Quality);
 
         if (RandomHelper.RandomResult(dropRate))
         {
             //生肖
-            items.Add(ShengxiaoConfigCategory.Instance.Build(1, qualityRate, this.config.Id + 5, 0));
+            items.Add(ShengxiaoConfigCategory.Instance.Build(NameId, qualityRate, maxQuality, 0));
         }
+
+        double rs = user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstMul);
+        int itemCount = MathHelper.RandomBurstMul(rs);
 
         GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
         {
             Type = RuleType,
-            Message = BattleMsgHelper.BuildMonsterDeadMessage(this, 0, 0, items, 0)
+            Message = BattleMsgHelper.BuildMonsterDeadMessage(this, exp, gold, items, itemCount)
         });
 
+        if (itemCount > 0)
+        {
+            exp += exp * itemCount;
+            gold += gold * itemCount;
+            items.AddRange(ItemHelper.BurstMul(items, itemCount, qualityRate, RuleType.Normal, maxQuality));
+        }
 
         //先回收
-        //List<Item> recoveryList = user.CheckRecovery(items, out long recoveryGold, out int recoveryCount);
+        List<Item> recoveryList = user.CheckRecovery(items, out long recoveryGold, out int recoveryCount);
+        bool showMessage = QualityConfigHelper.GetMaxColor(items) >= user.InfoColor;
+        if (recoveryCount > 0 && showMessage)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+            {
+                Type = RuleType,
+                Message = BattleMsgHelper.BuildAutoRecoveryMessage(recoveryCount, recoveryList, recoveryGold)
+            });
+        }
 
-        //bool showMessage = QualityConfigHelper.GetMaxColor(items) >= user.InfoColor;
-        //if (recoveryCount > 0 && showMessage)
-        //{
-        //    GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
-        //    {
-        //        Type = RuleType,
-        //        Message = BattleMsgHelper.BuildAutoRecoveryMessage(recoveryCount, recoveryList, recoveryGold)
-        //    });
-        //}
+        user.AddExpAndGold(exp, gold);
 
         if (items.Count > 0)
         {
