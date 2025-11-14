@@ -162,6 +162,15 @@ namespace Game
                 case AttributeEnum.QualityIncrea:
                     total = CalTotal(AttributeEnum.QualityIncrea, haveBuff, AttributeEnum.QualityFinal);
                     break;
+                case AttributeEnum.MythAttr:
+                    total = CalTotal(AttributeEnum.MythAttr, haveBuff) + CalTotal(AttributeEnum.MythAll, haveBuff);
+                    break;
+                case AttributeEnum.MythDef:
+                    total = CalTotal(AttributeEnum.MythDef, haveBuff) + CalTotal(AttributeEnum.MythAll, haveBuff);
+                    break;
+                case AttributeEnum.MythHp:
+                    total = CalTotal(AttributeEnum.MythHp, haveBuff) + CalTotal(AttributeEnum.MythAll, haveBuff);
+                    break;
                 default:
                     if ((int)attrType < 2001)
                     {
@@ -225,6 +234,9 @@ namespace Game
             //增伤倍率
             double mdi = GetTotalAttrDouble(AttributeEnum.MulDamageIncrea);
             powerDamage *= (1 + mdi / 100);
+            //破刃倍率
+            double sdi = GetTotalAttrDouble(AttributeEnum.Shatter);
+            powerDamage *= (1 + sdi);
 
 
             double powerDef = GetTotalAttrDouble(AttributeEnum.HP) / 10 + GetTotalAttrDouble(AttributeEnum.Def) * 3;

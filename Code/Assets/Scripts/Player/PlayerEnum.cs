@@ -175,6 +175,7 @@ namespace Game
         FashionSpeical = 30,//°µ½ðÊ±×°
         Pill3 = 31,
         PetSpeical = 32,
+        Shengxiao = 33,
 
         Dingzhi = 98,
         /// <summary>

@@ -9,6 +9,6 @@
 {"_t":"ShengxiaoConfig","_id":8,"Name":"生肖·羊","Part":8,"Cycle":1,"AttrIdList":[2001,2002,2003,2013],"AttrValueList":[5,10,10,5],"AttchValueList":[5,10,10,5]},
 {"_t":"ShengxiaoConfig","_id":9,"Name":"生肖·猴","Part":9,"Cycle":1,"AttrIdList":[2001,2002,2003,2013],"AttrValueList":[5,10,10,5],"AttchValueList":[5,10,10,5]},
 {"_t":"ShengxiaoConfig","_id":10,"Name":"生肖·鸡","Part":10,"Cycle":1,"AttrIdList":[2001,2002,2003,2013],"AttrValueList":[5,10,10,5],"AttchValueList":[5,10,10,5]},
-{"_t":"ShengxiaoConfig","_id":11,"Name":"生肖·猪","Part":11,"Cycle":1,"AttrIdList":[2001,2002,2003,2013],"AttrValueList":[5,10,10,5],"AttchValueList":[5,10,10,5]},
-{"_t":"ShengxiaoConfig","_id":12,"Name":"生肖·狗","Part":12,"Cycle":1,"AttrIdList":[2001,2002,2003,2013],"AttrValueList":[5,10,10,5],"AttchValueList":[5,10,10,5]},
+{"_t":"ShengxiaoConfig","_id":11,"Name":"生肖·狗","Part":11,"Cycle":1,"AttrIdList":[2001,2002,2003,2013],"AttrValueList":[5,10,10,5],"AttchValueList":[5,10,10,5]},
+{"_t":"ShengxiaoConfig","_id":12,"Name":"生肖·猪","Part":12,"Cycle":1,"AttrIdList":[2001,2002,2003,2013],"AttrValueList":[5,10,10,5],"AttchValueList":[5,10,10,5]},
 ]}

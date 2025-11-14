@@ -47,7 +47,36 @@ namespace Game
         /// </summary>
         public IDictionary<int, long> GetTotalAttrList()
         {
-            return this.GetBaseAttrList();
+            IDictionary<int, long> AttrList = new Dictionary<int, long>();
+
+            //根据基础属性和词条属性，计算总属性
+            IDictionary<int, long> BaseAttrList = this.GetBaseAttrList();
+
+            foreach (int attrId in BaseAttrList.Keys)
+            {
+                if (!AttrList.ContainsKey(attrId))
+                {
+                    AttrList[attrId] = 0;
+                }
+
+                AttrList[attrId] += BaseAttrList[attrId];
+            }
+
+            //计算随机属性
+            for (int i = 0; i < AttrEntryList.Count; i++)
+            {
+                int attrId = AttrEntryList[i].Key;
+                long attrTotalValue = AttrEntryList[i].Value;
+
+                if (!AttrList.ContainsKey(attrId))
+                {
+                    AttrList[attrId] = 0;
+                }
+
+                AttrList[attrId] += attrTotalValue;
+            }
+
+            return AttrList;
         }
 
         private int[] QualityRate = { 1, 2, 3, 4, 5, 10, 20, 30, 40 };

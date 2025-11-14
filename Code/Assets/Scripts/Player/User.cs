@@ -509,6 +509,26 @@ namespace Game
                 }
             }
 
+            //装备属性-生肖
+            foreach (KeyValuePair<int, Shengxiao> kvp in ShengxiaoList)
+            {
+                foreach (KeyValuePair<int, long> a in kvp.Value.GetTotalAttrList())
+                {
+                    AttributeBonus.SetAttr((AttributeEnum)a.Key, AttributeFrom.Shengxiao, kvp.Key, a.Value);
+                }
+            }
+
+            //生肖-套装
+            ShengxiaoGroup shengxiaoGroup = this.GetShengxiaoGroup();
+            foreach (ShengxiaoGroupItem sp in shengxiaoGroup.List)
+            {
+                if (sp.Count >= sp.Config.Count)
+                {
+                    AttributeBonus.SetAttr((AttributeEnum)sp.Config.AttrId, AttributeFrom.Shengxiao, 100 + sp.Config.Id, sp.Config.AttrValue);
+                }
+            }
+
+
             //套装属性
             List<EquipGroupConfig> suitList = GetEquipGroups();
             foreach (EquipGroupConfig item in suitList)
