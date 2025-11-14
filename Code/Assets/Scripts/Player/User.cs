@@ -2280,7 +2280,7 @@ namespace Game
             else if (item.Type == ItemType.Shengxiao)
             {
                 int quality = item.GetQuality();
-                if (quality <= 6)
+                if (quality <= 5)
                 {
                     dict[ItemHelper.Specail_Shengxiao] = quality * 1000;
                 }

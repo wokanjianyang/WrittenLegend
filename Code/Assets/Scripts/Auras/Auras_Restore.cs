@@ -16,15 +16,15 @@ namespace Game
 
         public override void Do()
         {
-            List<APlayer> enemys = GameProcessor.Inst.PlayerManager.GetAllPlayers().Where(m => m.GroupId == this.SelfPlayer.GroupId).ToList();
+            //List<APlayer> enemys = GameProcessor.Inst.PlayerManager.GetAllPlayers().Where(m => m.GroupId == this.SelfPlayer.GroupId).ToList();
 
-            double damage = this.SelfPlayer.GetRoleAttack(1, true) + this.SelfPlayer.GetRoleAttack(2, true) + this.SelfPlayer.GetRoleAttack(3, true);
-            damage = damage * Config.AttrValue / 100;
+            //double damage = this.SelfPlayer.GetRoleAttack(1, true) + this.SelfPlayer.GetRoleAttack(2, true) + this.SelfPlayer.GetRoleAttack(3, true);
+            //damage = damage * Config.AttrValue / 100;
 
-            foreach (var enemy in enemys)
-            {
-                enemy.OnRestore(0, damage);    //光环回复,来源为0
-            }
+            //foreach (var enemy in enemys)
+            //{
+            //    enemy.OnRestore(0, damage);    //光环回复,来源为0
+            //}
         }
     }
 }

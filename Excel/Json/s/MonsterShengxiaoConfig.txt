@@ -1,6 +1,6 @@
 {"list":[
-{"_t":"MonsterShengxiaoConfig","_id":1,"MonsterName":"天级·","Attr":"200000","Def":"200000","HP":"1000000000","Speed":0,"DamageIncrea":100,"DamageResist":100,"CritRateResist":1800,"CritDamageResist":1800,"Protect":99,"Gold":10000000000,"Exp":10000000000},
-{"_t":"MonsterShengxiaoConfig","_id":2,"MonsterName":"地级·","Attr":"500000","Def":"500000","HP":"5000000000","Speed":100,"DamageIncrea":100,"DamageResist":1800,"CritRateResist":1800,"CritDamageResist":1800,"Protect":99,"Gold":30000000000,"Exp":30000000000},
-{"_t":"MonsterShengxiaoConfig","_id":3,"MonsterName":"玄级·","Attr":"1500000","Def":"1500000","HP":"25000000000","Speed":200,"DamageIncrea":100,"DamageResist":1800,"CritRateResist":1800,"CritDamageResist":1800,"Protect":99,"Gold":100000000000,"Exp":100000000000},
-{"_t":"MonsterShengxiaoConfig","_id":4,"MonsterName":"黄级·","Attr":"4000000","Def":"4000000","HP":"80000000000","Speed":300,"DamageIncrea":100,"DamageResist":1800,"CritRateResist":1800,"CritDamageResist":1800,"Protect":99,"Gold":300000000000,"Exp":300000000000},
+{"_t":"MonsterShengxiaoConfig","_id":1,"MonsterName":"天级·","Attr":"200000","Def":"200000","HP":"1000000000","Speed":0,"DamageIncrea":25,"DamageResist":100,"CritRateResist":1800,"CritDamageResist":1800,"Protect":99,"Gold":10000000000,"Exp":10000000000},
+{"_t":"MonsterShengxiaoConfig","_id":2,"MonsterName":"地级·","Attr":"400000","Def":"400000","HP":"3000000000","Speed":50,"DamageIncrea":50,"DamageResist":1800,"CritRateResist":1800,"CritDamageResist":1800,"Protect":99,"Gold":30000000000,"Exp":30000000000},
+{"_t":"MonsterShengxiaoConfig","_id":3,"MonsterName":"玄级·","Attr":"800000","Def":"800000","HP":"9000000000","Speed":100,"DamageIncrea":75,"DamageResist":1800,"CritRateResist":1800,"CritDamageResist":1800,"Protect":99,"Gold":100000000000,"Exp":100000000000},
+{"_t":"MonsterShengxiaoConfig","_id":4,"MonsterName":"黄级·","Attr":"2000000","Def":"2000000","HP":"20000000000","Speed":150,"DamageIncrea":100,"DamageResist":1800,"CritRateResist":1800,"CritDamageResist":1800,"Protect":99,"Gold":300000000000,"Exp":300000000000},
 ]}

@@ -52,8 +52,8 @@ public class Monster_Shengxiao : APlayer
 
     private int[][] SkillList = new int[][]
     {
-        new int[] { 2002, 1002, 2012 },
-        new int[] { 2007, 1004, 2009,3012 },
+        new int[] { 2002, 1002,  },
+        new int[] { 2007, 1004, 2009 },
         new int[] { 1008, 1005, 3008 }
     };
 
@@ -62,18 +62,40 @@ public class Monster_Shengxiao : APlayer
         //加载技能
         List<SkillData> list = new List<SkillData>();
 
+        List<int> IdList = new List<int>();
+
+
         for (int i = 0; i < 3; i++)
         {
             if (RandomHelper.RandomRate(SkillRate[i]))
             {
                 int rd = RandomHelper.RandomNumber(0, SkillList[i].Length);
-
-                int skillId = SkillList[i][rd];
-                SkillData skillData = new SkillData(skillId, i);
-                skillData.MagicLevel.Data = config.Id * 10;
-                list.Add(skillData);
+                IdList.Add(SkillList[i][rd]);
             }
         }
+
+        if (Quality >= 5 && !IdList.Contains(3008))
+        {
+            IdList.Add(3008);
+        }
+        if (Quality >= 5 && !IdList.Contains(1012))
+        {
+            IdList.Add(1012);
+        }
+        if (Quality >= 4 && !IdList.Contains(2007))
+        {
+            IdList.Add(2007);
+        }
+
+        for (int i = 0; i < IdList.Count; i++)
+        {
+            int skillId = IdList[i];
+            SkillData skillData = new SkillData(skillId, i);
+            skillData.MagicLevel.Data = config.Id * 10;
+            list.Add(skillData);
+        }
+
+
 
         list.Add(new SkillData(9001, (int)SkillPosition.Default)); //增加默认技能
 

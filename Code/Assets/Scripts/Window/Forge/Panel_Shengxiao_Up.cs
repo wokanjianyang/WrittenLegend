@@ -26,7 +26,7 @@ public class Panel_Shengxiao_Up : MonoBehaviour
 
     private bool check = false;
     private int[] ItemIdList = { 4042, 4043 };
-    private int[] ItemCountList = { 10000, 100 };
+    private int[] ItemCountList = { 5000000, 30 };
     private const int MaxLevel = 10;
 
     private Item_Forge_Main SelectMain;
@@ -44,11 +44,7 @@ public class Panel_Shengxiao_Up : MonoBehaviour
     // Update is called once per frame
     void Start()
     {
-        //GameProcessor.Inst.EventCenter.AddListener<BoxSelectEvent>(this.OnBoxSelect);
-        ExclusiveDevourConfig config = ExclusiveDevourConfigCategory.Instance.GetByCycleAndLevel(2, 1);
 
-        ItemIdList = config.UpItemIdList;
-        ItemCountList = config.UpItemCountList;
     }
 
     void OnEnable()

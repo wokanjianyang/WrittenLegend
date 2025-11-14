@@ -54,7 +54,7 @@ namespace Game
             }
 
             var tempCells = GameProcessor.Inst.MapData.AllCells.ToList();
-            var allPlayerCells = GameProcessor.Inst.PlayerManager.GetAllPlayers().Select(p => p.Cell).ToList();
+            var allPlayerCells = GameProcessor.Inst.PlayerManager.GetAllPlayers(true).Select(p => p.Cell).ToList();
             tempCells.RemoveAll(p => allPlayerCells.Contains(p));
 
 
@@ -95,7 +95,7 @@ namespace Game
             }
 
             var tempCells = GameProcessor.Inst.MapData.AllCells.ToList();
-            var allPlayerCells = GameProcessor.Inst.PlayerManager.GetAllPlayers().Select(p => p.Cell).ToList();
+            var allPlayerCells = GameProcessor.Inst.PlayerManager.GetAllPlayers(true).Select(p => p.Cell).ToList();
             tempCells.RemoveAll(p => allPlayerCells.Contains(p));
 
 
@@ -151,7 +151,7 @@ namespace Game
         {
             var centerCell = maseter.Cell;
             var tempCells = GameProcessor.Inst.MapData.AllCells.ToList();
-            var allPlayerCells = GameProcessor.Inst.PlayerManager.GetAllPlayers().Select(p => p.Cell).ToList();
+            var allPlayerCells = GameProcessor.Inst.PlayerManager.GetAllPlayers(true).Select(p => p.Cell).ToList();
             tempCells.RemoveAll(p => allPlayerCells.Contains(p));
 
             tempCells = tempCells.OrderBy(m => Mathf.Abs(m.x - centerCell.x) + Mathf.Abs(m.y - centerCell.y) + Mathf.Abs(m.z - centerCell.z)).ToList();
@@ -215,7 +215,7 @@ namespace Game
         public APlayer LoadMonster(APlayer enemy)
         {
             var tempCells = GameProcessor.Inst.MapData.AllCells.ToList();
-            var allPlayerCells = GameProcessor.Inst.PlayerManager.GetAllPlayers().Select(p => p.Cell).ToList();
+            var allPlayerCells = GameProcessor.Inst.PlayerManager.GetAllPlayers(true).Select(p => p.Cell).ToList();
             tempCells.RemoveAll(p => allPlayerCells.Contains(p));
 
             if (tempCells.Count > 0)
@@ -250,7 +250,7 @@ namespace Game
         public APlayer LoadMonsterDefend(APlayer enemy)
         {
             var tempCells = GameProcessor.Inst.MapData.AllCells.ToList();
-            var allPlayerCells = GameProcessor.Inst.PlayerManager.GetAllPlayers().Select(p => p.Cell).ToList();
+            var allPlayerCells = GameProcessor.Inst.PlayerManager.GetAllPlayers(true).Select(p => p.Cell).ToList();
             tempCells.RemoveAll(p => allPlayerCells.Contains(p));
 
             if (tempCells.Count > 0)
@@ -280,7 +280,7 @@ namespace Game
             var centerCell = player.Cell;
 
             var tempCells = GameProcessor.Inst.MapData.AllCells.ToList();
-            var allPlayerCells = GameProcessor.Inst.PlayerManager.GetAllPlayers().Select(p => p.Cell).ToList();
+            var allPlayerCells = GameProcessor.Inst.PlayerManager.GetAllPlayers(true).Select(p => p.Cell).ToList();
             tempCells.RemoveAll(p => allPlayerCells.Contains(p));
 
             tempCells = tempCells.OrderBy(m => Mathf.Abs(m.x - centerCell.x) + Mathf.Abs(m.y - centerCell.y) + Mathf.Abs(m.z - centerCell.z)).ToList();
@@ -380,7 +380,7 @@ namespace Game
         public Vector3Int RandomCell(Vector3Int currentCell)
         {
             var tempCells = GameProcessor.Inst.MapData.AllCells.ToList();
-            var allPlayerCells = GameProcessor.Inst.PlayerManager.GetAllPlayers().Select(p => p.Cell).ToList();
+            var allPlayerCells = GameProcessor.Inst.PlayerManager.GetAllPlayers(true).Select(p => p.Cell).ToList();
             tempCells.RemoveAll(p => allPlayerCells.Contains(p));
 
             if (tempCells.Count > 0)
