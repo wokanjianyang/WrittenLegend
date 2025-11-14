@@ -1586,7 +1586,7 @@ namespace Game
             ep[Position] = exclusive;
 
             //通知英雄更新属性
-            //user.EventCenter.Raise(new HeroUseEquipEvent { });
+            user.EventCenter.Raise(new HeroUseEquipEvent { });
         }
 
         private void ClearEquipPanelItem(int position)

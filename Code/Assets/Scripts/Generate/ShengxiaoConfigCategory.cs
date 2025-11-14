@@ -44,24 +44,17 @@ namespace Game
             return 1;
         }
 
-        public static Equip BuildByPack(int configId)
+        public Shengxiao BuildByPack(int configId)
         {
-            GiftPackEquipConfig config = GiftPackEquipConfigCategory.Instance.Get(configId);
+            ShengxiaoConfig config = this.Get(configId);
 
-            Equip item = new Equip(config.EquipId, config.RuneId, config.SuitId, config.Quality);
+            List<KeyValuePair<int, long>> list = AttrEntryConfigCategory.Instance.BuildMaxShengxiao(config.Part, 9);
 
-            List<KeyValuePair<int, long>> AttrEntryList = new List<KeyValuePair<int, long>>();
-
-            for (int i = 0; i < config.AttrIdList.Length; i++)
-            {
-                int attrId = config.AttrIdList[i];
-                AttrEntryConfig entryConfig = AttrEntryConfigCategory.Instance.GetRedConfig(attrId, config.Cycle);
-                AttrEntryList.Add(new KeyValuePair<int, long>(attrId, entryConfig.MaxValue));
-            }
-
-            item.AttrEntryList = AttrEntryList;
+            Shengxiao item = new Shengxiao(configId, 9);
+            item.Init(list);
 
             item.Count = 1;
+
             return item;
         }
     }

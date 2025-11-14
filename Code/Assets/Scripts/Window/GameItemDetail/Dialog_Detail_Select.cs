@@ -182,6 +182,15 @@ namespace Game
                     Type = ComBoxType.Gift,
                 });
             }
+            else if (select.BoxItem.Item.Type == ItemType.Shengxiao)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowShengxiaoDetailEvent()
+                {
+                    boxItem = select.BoxItem,
+                    EquipPosition = -2,
+                    Type = ComBoxType.Gift,
+                });
+            }
             else if (select.BoxItem.Item.Type == ItemType.Pet)
             {
                 GameProcessor.Inst.EventCenter.Raise(new ShowPetDetailEvent()
