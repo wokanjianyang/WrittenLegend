@@ -15,8 +15,8 @@
 {"_t":"FashionSpecialConfig","_id":14,"Name":"金币多多","AttrIdList":[2001,2002,2003,51],"AttrValueList":[200,400,600,10],"UpAttrId":51,"UpAttrValue":10,"Fee":30},
 {"_t":"FashionSpecialConfig","_id":15,"Name":"爆率多多","AttrIdList":[2001,2002,2003,52],"AttrValueList":[200,400,600,10],"UpAttrId":52,"UpAttrValue":10,"Fee":30},
 {"_t":"FashionSpecialConfig","_id":16,"Name":"品质高高","AttrIdList":[2001,2002,2003,53],"AttrValueList":[200,400,600,10],"UpAttrId":53,"UpAttrValue":10,"Fee":30},
-{"_t":"FashionSpecialConfig","_id":17,"Name":"刀","AttrIdList":[2001,2002,2003,2013],"AttrValueList":[200,400,600,300],"UpAttrId":2013,"UpAttrValue":200,"Fee":30},
-{"_t":"FashionSpecialConfig","_id":18,"Name":"枪","AttrIdList":[2001,2002,2003,2013],"AttrValueList":[200,400,600,300],"UpAttrId":2013,"UpAttrValue":200,"Fee":30},
-{"_t":"FashionSpecialConfig","_id":19,"Name":"剑","AttrIdList":[2001,2002,2003,2013],"AttrValueList":[200,400,600,300],"UpAttrId":2013,"UpAttrValue":200,"Fee":30},
-{"_t":"FashionSpecialConfig","_id":20,"Name":"戟","AttrIdList":[2001,2002,2003,2013],"AttrValueList":[200,400,600,300],"UpAttrId":2013,"UpAttrValue":200,"Fee":30},
+{"_t":"FashionSpecialConfig","_id":17,"Name":"刀","AttrIdList":[2001,2002,2003,2013],"AttrValueList":[200,400,600,400],"UpAttrId":2013,"UpAttrValue":200,"Fee":30},
+{"_t":"FashionSpecialConfig","_id":18,"Name":"枪","AttrIdList":[2001,2002,2003,2013],"AttrValueList":[200,400,600,400],"UpAttrId":2013,"UpAttrValue":200,"Fee":30},
+{"_t":"FashionSpecialConfig","_id":19,"Name":"剑","AttrIdList":[2001,2002,2003,2013],"AttrValueList":[200,400,600,400],"UpAttrId":2013,"UpAttrValue":200,"Fee":30},
+{"_t":"FashionSpecialConfig","_id":20,"Name":"戟","AttrIdList":[2001,2002,2003,2013],"AttrValueList":[200,400,600,400],"UpAttrId":2013,"UpAttrValue":200,"Fee":30},
 ]}

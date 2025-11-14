@@ -52,7 +52,7 @@ public class Monster_Shengxiao : APlayer
 
     private int[][] SkillList = new int[][]
     {
-        new int[] { 2002, 1002,  },
+        new int[] { 2002, 1002,3002  },
         new int[] { 2007, 1004, 2009 },
         new int[] { 1008, 1005, 3008 }
     };
@@ -174,6 +174,8 @@ public class Monster_Shengxiao : APlayer
 
         if (RandomHelper.RandomResult(dropRate))
         {
+            AppHelper.TempRecord++;
+            Debug.Log("shengxiao count:" + AppHelper.TempRecord);
             //生肖
             items.Add(ShengxiaoConfigCategory.Instance.Build(NameId, qualityRate, maxQuality, 0));
         }
