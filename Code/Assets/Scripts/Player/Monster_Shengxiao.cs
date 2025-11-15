@@ -183,11 +183,15 @@ public class Monster_Shengxiao : APlayer
         double rs = user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstMul);
         int itemCount = MathHelper.RandomBurstMul(rs);
 
-        GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+        bool showMessage = QualityConfigHelper.GetMaxColor(items) >= user.InfoColor;
+        if (showMessage)
         {
-            Type = RuleType,
-            Message = BattleMsgHelper.BuildMonsterDeadMessage(this, exp, gold, items, itemCount)
-        });
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+            {
+                Type = RuleType,
+                Message = BattleMsgHelper.BuildMonsterDeadMessage(this, exp, gold, items, itemCount)
+            });
+        }
 
         if (itemCount > 0)
         {
@@ -198,7 +202,6 @@ public class Monster_Shengxiao : APlayer
 
         //先回收
         List<Item> recoveryList = user.CheckRecovery(items, out long recoveryGold, out int recoveryCount);
-        bool showMessage = QualityConfigHelper.GetMaxColor(items) >= user.InfoColor;
         if (recoveryCount > 0 && showMessage)
         {
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()

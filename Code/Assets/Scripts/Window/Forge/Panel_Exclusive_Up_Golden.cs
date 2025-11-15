@@ -239,6 +239,7 @@ public class Panel_Exclusive_Up_Golden : MonoBehaviour
 
         this.ShowMain();
 
+        GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
         GameProcessor.Inst.SaveData();
     }
 }

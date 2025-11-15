@@ -83,8 +83,8 @@ namespace Game
 
         public IDictionary<int, long> GetBaseAttrList()
         {
-            long layer = this.LevelData.Data;
-            long level = this.LayerData.Data;
+            long level = this.LevelData.Data;
+            long layer = this.LayerData.Data;
 
             IDictionary<int, long> BaseAttrList = new Dictionary<int, long>();
 
