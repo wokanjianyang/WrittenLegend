@@ -220,10 +220,12 @@ public class ViewForgeProcessor : AViewPage
 
         if (user.Cycle.Data > 3)
         {
+            toggle_Other.gameObject.SetActive(true);
             toggle_Stone.gameObject.SetActive(true);
         }
         else
         {
+            toggle_Other.gameObject.SetActive(false);
             toggle_Stone.gameObject.SetActive(false);
         }
 
@@ -255,6 +257,14 @@ public class ViewForgeProcessor : AViewPage
         else
         {
             toggle_Grade_Hundun.gameObject.SetActive(false);
+        }
+
+        if (user.Cycle.Data >= 10)
+        {
+            toggle_Shengxiao.gameObject.SetActive(true);
+        }
+        else {
+            toggle_Shengxiao.gameObject.SetActive(false);
         }
     }
 

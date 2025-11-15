@@ -1012,6 +1012,28 @@ namespace Game
 
                 newList.Add(pet);
             }
+            else if (boxItem.Item.Type == ItemType.Shengxiao)
+            {
+                Shengxiao pet = boxItem.Item as Shengxiao;
+                long level = pet.LevelData.Data;
+                long layer = pet.LayerData.Data;
+                int quality = pet.GetQuality();
+
+                pet.LevelData.Data = 0;
+                pet.LayerData.Data = 0;
+
+                //Debug.Log("pet exp count:" + expCount);
+                if (level > 0)
+                {
+                    Item levelItem = ItemHelper.BuildMaterial(ItemHelper.Specail_Shengxiao, 5000000 * level);
+                    newList.Add(levelItem);
+
+                    Item layerItem1 = ItemHelper.BuildMaterial(ItemHelper.Specail_Shengxiao1, 30*level);
+                    newList.Add(layerItem1);
+                }
+
+                newList.Add(pet);
+            }
 
             //Fee
             user.SubGold(ConfigHelper.RestoreGold);
