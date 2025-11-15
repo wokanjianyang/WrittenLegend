@@ -117,8 +117,6 @@ namespace Game
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 107, 1, 1)); //黄金
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 108, 1, 1)); //钻石
 
-
-
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 109, 1, 5));  //战士经验
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 110, 1, 1)); //法师经验
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 111, 1, 1)); //道士经验
@@ -235,7 +233,7 @@ namespace Game
         {
 
             List<Item> dropList = new List<Item>();
-            for (int i = 0; i < 3600 * 5 * 24 * 30; i++)
+            for (int i = 0; i < 3600 * 5 * 24 * 10; i++)
             {
                 int quality = BuildQuality();
                 int configId = RandomHelper.RandomNumber(7, 25) % 12 + 1;
@@ -244,6 +242,8 @@ namespace Game
             }
 
             Debug.Log("dropList Count:" + dropList.Count);
+
+            //Debug.Log("shengxiao metail Count:" + AppHelper.TempRecord);
 
             for (int i = 1; i <= 9; i++)
             {
@@ -254,7 +254,7 @@ namespace Game
 
             List<Item> recoveryList = user.CheckRecovery(dropList, out long recoveryGold, out int recoveryCount);
 
-            dropList.AddRange(recoveryList);
+            //dropList.AddRange(recoveryList);
 
             return dropList;
         }
@@ -283,7 +283,7 @@ namespace Game
 
             if (RandomHelper.RandomResult(dropRate))
             {
-                AppHelper.TempRecord++;
+                //AppHelper.TempRecord++;
                 //Debug.Log("shengxiao count:" + AppHelper.TempRecord);
                 //生肖
                 items.Add(ShengxiaoConfigCategory.Instance.Build(NameId, qualityRate, maxQuality, 0));
@@ -298,6 +298,8 @@ namespace Game
                 gold += gold * itemCount;
                 items.AddRange(ItemHelper.BurstMul(items, itemCount, qualityRate, RuleType.Normal, maxQuality));
             }
+
+            AppHelper.TempRecord += Quality * config.Id * (1 + itemCount);
 
             return items;
         }
