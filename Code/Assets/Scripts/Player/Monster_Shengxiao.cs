@@ -27,7 +27,7 @@ public class Monster_Shengxiao : APlayer
         this.Quality = quality;
 
         config = MonsterShengxiaoConfigCategory.Instance.Get(mapId);
-        NameId = RandomHelper.RandomNumber(1, 13);
+        NameId = RandomHelper.RandomNumber(7, 25) % 12 + 1;
 
         this.Init();
 
@@ -163,8 +163,11 @@ public class Monster_Shengxiao : APlayer
         double exp = (this.config.Exp * (100.0 + user.AttributeBonus.GetTotalAttr(AttributeEnum.ExpIncrea)) / 100);
         double gold = (this.config.Gold * (100.0 + user.AttributeBonus.GetTotalAttr(AttributeEnum.GoldIncrea)) / 100);
 
-        double dropRate = 100 / (user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstIncrea) / 500000 + 1) / DropRateList[Quality - 1];
-        double qualityRate = (user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea) / 500000 + 1) * QualityRateList[Quality - 1];
+        long BurstIncrea = Math.Min(user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstIncrea), 1500000);
+        long QualityIncrea = Math.Min(user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea), 1500000);
+
+        double dropRate = 400.0 / (BurstIncrea / 750000.0 + 1) / DropRateList[Quality - 1];
+        double qualityRate = (QualityIncrea / 750000.0 + 1) * QualityRateList[Quality - 1];
 
         //生肖掉落
         List<Item> items = new List<Item>();
@@ -174,8 +177,8 @@ public class Monster_Shengxiao : APlayer
 
         if (RandomHelper.RandomResult(dropRate))
         {
-            AppHelper.TempRecord++;
-            Debug.Log("shengxiao count:" + AppHelper.TempRecord);
+            //AppHelper.TempRecord++;
+            //Debug.Log("shengxiao count:" + AppHelper.TempRecord);
             //生肖
             items.Add(ShengxiaoConfigCategory.Instance.Build(NameId, qualityRate, maxQuality, 0));
         }

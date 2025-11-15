@@ -119,7 +119,6 @@ namespace Game
 
 
 
-
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 109, 1, 5));  //战士经验
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 110, 1, 1)); //法师经验
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 111, 1, 1)); //道士经验
@@ -231,6 +230,99 @@ namespace Game
         //items.Add(ItemHelper.BuildMaterial(60000008, ic)); //道术宝石
         //items.Add(ItemHelper.BuildMaterial(60000009, ic)); //增伤宝石
         //items.Add(ItemHelper.BuildMaterial(60000010, ic)); //韧性宝石
+
+        private void TestShengxiao() {
+            List<Item> dropList = new List<Item>();
+            for (int i = 0; i < 3600 * 5 * 24 * 30; i++)
+            {
+                int quality = BuildQuality();
+                int configId = RandomHelper.RandomNumber(7, 25) % 12 + 1;
+
+                dropList.AddRange(BuildReword(4, quality, configId));
+            }
+
+            Debug.Log("dropList Count:" + dropList.Count);
+
+            for (int i = 1; i <= 9; i++)
+            {
+                int count = dropList.Where(m => m.GetQuality() == i).Count();
+
+                Debug.Log("Quality" + i + " Count:" + count);
+            }
+
+            List<Item> recoveryList = user.CheckRecovery(dropList, out long recoveryGold, out int recoveryCount);
+
+            items.AddRange(recoveryList);
+            items.AddRange(dropList);
+        }
+
+        private double[] DropRateList = { 1, 2, 4, 10, 40 };
+        private double[] QualityRateList = { 1, 1.1, 1.2, 1.5, 2 };
+        private List<Item> BuildReword(int mapId, int Quality, int NameId)
+        {
+            MonsterShengxiaoConfig config = MonsterShengxiaoConfigCategory.Instance.Get(mapId);
+
+            int maxQuality = config.Id + 5;
+
+            User user = GameProcessor.Inst.User;
+
+            double exp = (config.Exp * (100.0 + user.AttributeBonus.GetTotalAttr(AttributeEnum.ExpIncrea)) / 100);
+            double gold = (config.Gold * (100.0 + user.AttributeBonus.GetTotalAttr(AttributeEnum.GoldIncrea)) / 100);
+
+            double dropRate = 400.0 / (user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstIncrea) / 750000.0 + 1) / DropRateList[Quality - 1];
+            double qualityRate = (user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea) / 750000.0 + 1) * QualityRateList[Quality - 1];
+
+            //生肖掉落
+            List<Item> items = new List<Item>();
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.Specail_Shengxiao, Quality * config.Id));
+
+            //Debug.Log("this dropRate :" + dropRate + "  qualityRate:" + qualityRate + " nameId:" + NameId + " - " + Name + " quality:" + Quality);
+
+            if (RandomHelper.RandomResult(dropRate))
+            {
+                AppHelper.TempRecord++;
+                //Debug.Log("shengxiao count:" + AppHelper.TempRecord);
+                //生肖
+                items.Add(ShengxiaoConfigCategory.Instance.Build(NameId, qualityRate, maxQuality, 0));
+            }
+
+            double rs = user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstMul);
+            int itemCount = MathHelper.RandomBurstMul(rs);
+
+            if (itemCount > 0)
+            {
+                exp += exp * itemCount;
+                gold += gold * itemCount;
+                items.AddRange(ItemHelper.BurstMul(items, itemCount, qualityRate, RuleType.Normal, maxQuality));
+            }
+
+            return items;
+        }
+
+        private int BuildQuality()
+        {
+            int rd = RandomHelper.RandomNumber(1, 501);
+            if (rd > 499)
+            {
+                return 5;
+            }
+            else if (rd > 495)
+            {
+                return 4;
+            }
+            else if (rd > 480)
+            {
+                return 3;
+            }
+            else if (rd > 400)
+            {
+                return 2;
+            }
+            else
+            {
+                return 1;
+            }
+        }
 
         public void TestInfinityDrop()
         {

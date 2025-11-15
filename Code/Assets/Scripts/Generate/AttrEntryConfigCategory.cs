@@ -155,7 +155,7 @@ namespace Game
 
                 if (config.Type == 6)
                 {
-                    attrValue = RandomHelper.RandomNumber(seed, config.MinValue, config.MaxValue + quality - 3);
+                    attrValue = RandomHelper.RandomNumber(seed, config.MinValue + quality - 3, config.MaxValue + quality - 3);
                 }
                 else
                 {

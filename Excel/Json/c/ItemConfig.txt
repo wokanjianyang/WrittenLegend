@@ -75,7 +75,7 @@
 {"_t":"ItemConfig","_id":4039,"Name":"不朽精华","Type":5,"Des":"升阶不朽专属的材料","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":8,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
 {"_t":"ItemConfig","_id":4040,"Name":"炼神丹","Type":5,"Des":"修炼材料","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":6,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
 {"_t":"ItemConfig","_id":4041,"Name":"暗金魂心","Type":5,"Des":"神宠进阶材料","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":8,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
-{"_t":"ItemConfig","_id":4042,"Name":"生肖精华","Type":5,"Des":"升级生肖的材料","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":5,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
+{"_t":"ItemConfig","_id":4042,"Name":"生肖精华","Type":5,"Des":"升级生肖的材料","Price":1,"MaxNum":1999999999,"LevelRequired":0,"Quality":5,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
 {"_t":"ItemConfig","_id":4043,"Name":"生肖本源","Type":5,"Des":"升级生肖的材料","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":7,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
 {"_t":"ItemConfig","_id":4101,"Name":"图鉴碎片","Type":5,"Des":"兑换万能图鉴的碎片","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":5,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
 {"_t":"ItemConfig","_id":4102,"Name":"高级书页","Type":5,"Des":"升级10阶技能","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":5,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},

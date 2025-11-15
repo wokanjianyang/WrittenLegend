@@ -236,7 +236,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u4EBA\u7269\u5C5E\u6027\u89C4\u5219\u548C\u795E\u8BDD\u4E4B\u8DEF\u4E00\u81F4\u3002\n\u6B64\u526F\u672C\u6CA1\u6709\u4EFB\u4F55\u6D88\u8017\uFF0C\u53EF\u4EE5\u65E0\u9650\u653B\u6253"
+  m_Text: "\u4EBA\u7269\u5C5E\u6027\u89C4\u5219\u548C\u795E\u8BDD\u4E4B\u8DEF\u4E00\u81F4\n\u6B64\u526F\u672C\u6CA1\u6709\u4EFB\u4F55\u6D88\u8017\uFF0C\u53EF\u4EE5\u65E0\u9650\u653B\u6253\n\u51D1\u9F50\u4E00\u5957\u7EA2\u8272\u53EF\u4EE5\u89E3\u9501\u5730\u7EA7\u526F\u672C\uFF0C\u53EF\u4EE5\u6389\u843D\u91D1\u8272\u751F\u8096\n\u51D1\u9F50\u4E00\u5957\u91D1\u8272\u53EF\u4EE5\u89E3\u9501\u7384\u7EA7\u526F\u672C\uFF0C\u53EF\u4EE5\u6389\u843D\u6697\u91D1\u751F\u8096\n\u51D1\u9F50\u4E00\u5957\u6697\u91D1\u53EF\u4EE5\u89E3\u9501\u9EC4\u7EA7\u526F\u672C\uFF0C\u53EF\u4EE5\u6389\u843D\u7C89\u8272\u751F\u8096"
 --- !u!1 &2292919634062528486
 GameObject:
   m_ObjectHideFlags: 0
@@ -583,7 +583,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &577385528753620977
 RectTransform:
   m_ObjectHideFlags: 0
@@ -726,7 +726,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -914,7 +914,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sr_Boss: {fileID: 5720070224422751025}
   Btn_Close: {fileID: 1372248669669268840}
-  Txt_Count: {fileID: 0}
 --- !u!1 &6499191318749565617
 GameObject:
   m_ObjectHideFlags: 0

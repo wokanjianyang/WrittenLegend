@@ -27,7 +27,7 @@ namespace Game
 
         private int RandomQuanlity(double realRate, int maxQuality)
         {
-            int[] rates = { 1, 5, 25, 50, 300, 600, 2000, 6000, 16000 };
+            int[] rates = { 1, 4, 10, 33, 250, 1000, 3000, 9000, 50000 };
 
             int r = RandomHelper.RandomNumber(0, rates[maxQuality - 1]);
 
