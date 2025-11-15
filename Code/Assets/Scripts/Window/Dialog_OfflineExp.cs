@@ -231,7 +231,9 @@ namespace Game
         //items.Add(ItemHelper.BuildMaterial(60000009, ic)); //增伤宝石
         //items.Add(ItemHelper.BuildMaterial(60000010, ic)); //韧性宝石
 
-        private void TestShengxiao() {
+        private List<Item> TestShengxiao(User user)
+        {
+
             List<Item> dropList = new List<Item>();
             for (int i = 0; i < 3600 * 5 * 24 * 30; i++)
             {
@@ -252,8 +254,9 @@ namespace Game
 
             List<Item> recoveryList = user.CheckRecovery(dropList, out long recoveryGold, out int recoveryCount);
 
-            items.AddRange(recoveryList);
-            items.AddRange(dropList);
+            dropList.AddRange(recoveryList);
+
+            return dropList;
         }
 
         private double[] DropRateList = { 1, 2, 4, 10, 40 };
