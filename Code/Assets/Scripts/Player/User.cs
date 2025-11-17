@@ -2284,6 +2284,9 @@ namespace Game
                 {
                     dict[ItemHelper.Specail_Shengxiao] = quality * 500;
                 }
+                else if (quality == 9) {
+                    dict[ItemHelper.Specail_Shengxiao2] = 1;
+                }
                 else
                 {
                     dict[ItemHelper.Specail_Shengxiao1] = (int)(Math.Pow(3, quality - 6));
