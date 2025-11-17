@@ -189,7 +189,7 @@ namespace Game
             var playerList = new List<APlayer>();
             foreach (var player in this.AllPlayers)
             {
-                if (includDeath)
+                if (player.Camp == PlayerType.Hero)
                 {
                     playerList.Add(player);
                 }

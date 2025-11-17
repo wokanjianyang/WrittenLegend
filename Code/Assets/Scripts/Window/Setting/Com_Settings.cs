@@ -97,7 +97,7 @@ namespace Game
 
             List<CodeConfig> list = CodeConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
 
-            List<CodeConfig> configs = list.Where(m => m.code == code).ToList();
+            List<CodeConfig> configs = list.Where(m => m.code == code && m.Id < 200).ToList();
 
             if (configs.Count != 1)
             {
