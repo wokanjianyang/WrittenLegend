@@ -53,17 +53,22 @@ namespace Game
             double defRise = 1 + user.AttributeBonus.GetTotalAttr(AttributeEnum.MythDef) / 100.0;
             double hpRise = 1 + user.AttributeBonus.GetTotalAttr(AttributeEnum.MythHp) / 100.0;
 
+            //Debug.Log("myth base:" + attr * attrRate);
+
+            //Debug.Log("myth attrRise:" + attrRise);
+
             this.SetAttackSpeed((int)user.AttributeBonus.GetTotalAttr(AttributeEnum.Speed));
             this.SetMoveSpeed((int)user.AttributeBonus.GetTotalAttr(AttributeEnum.MoveSpeed));
 
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, attr * attrRate * 150 * hpRise);
 
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroPanel, attr * attrRate * attrRise);
-            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroPanel, attr * attrRate);
-            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroPanel, attr * attrRate);
+            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroPanel, attr * attrRate * attrRise);
+            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroPanel, attr * attrRate * attrRise);
             AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroPanel, attr * attrRate * 10 * defRise);
 
             AttributeBonus.SetAttr(AttributeEnum.Speed, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Speed) / 2);
+
             //Debug.Log("myth PhyAtt:" + AttributeBonus.GetTotalAttrDouble(AttributeEnum.PhyAtt));
 
             //回满当前血量
