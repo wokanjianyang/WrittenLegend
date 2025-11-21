@@ -330,8 +330,8 @@ namespace Game
                 User user = GameProcessor.Inst.User;
                 SkillData skillData = user.SkillList.Where(m => m.SkillConfig.Id == 3010).FirstOrDefault();
 
-                int[] ringId = { 2, 4, 6 };
-                int[] skillId = { 4002, 1008, 3008 };
+                int[] ringId = { 2, 4, }; //6
+                int[] skillId = { 4002, 1008 }; //3008
 
                 if (skillData != null && skillData.GetDivineLevel() > 0)
                 {
