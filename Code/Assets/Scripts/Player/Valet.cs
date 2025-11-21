@@ -330,16 +330,22 @@ namespace Game
                 User user = GameProcessor.Inst.User;
                 SkillData skillData = user.SkillList.Where(m => m.SkillConfig.Id == 3010).FirstOrDefault();
 
+                int[] ringId = { 2, 4, 6 };
+                int[] skillId = { 4002, 1008, 3008 };
+
                 if (skillData != null && skillData.GetDivineLevel() > 0)
                 {
-                    long ringLevel = user.GetRingLevel(2);
-                    SkillData sd = new SkillData(4002, 0);
-                    long rp = Math.Max(1, ringLevel * skillData.GetDivineLevel() * 20 / 100);
-                    sd.MagicLevel.Data = rp;
+                    for (int i = 0; i < ringId.Length; i++)
+                    {
+                        long ringLevel = user.GetRingLevel(ringId[i]);
+                        SkillData sd = new SkillData(skillId[i], 0);
+                        long rp = Math.Max(1, ringLevel * skillData.GetDivineLevel() * 20 / 100);
+                        sd.MagicLevel.Data = rp;
 
-                    SkillPanel skillPanel = new SkillPanel(sd, null, null, false);
-                    SkillState skill = new SkillState(this, skillPanel, 0, 0);
-                    SelectSkillList.Add(skill);
+                        SkillPanel skillPanel = new SkillPanel(sd, null, null, false);
+                        SkillState skill = new SkillState(this, skillPanel, 0, 0);
+                        SelectSkillList.Add(skill);
+                    }
                 }
             }
         }
