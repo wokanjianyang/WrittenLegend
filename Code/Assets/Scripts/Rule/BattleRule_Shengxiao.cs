@@ -37,6 +37,7 @@ public class BattleRule_Shengxiao : ABattleRule
     public override void DoMapLogic(int roundNum, double currentRoundTime)
     {
         TotalTime += currentRoundTime;
+        GameProcessor.Inst.EventCenter.Raise(new ShowShengxiaoInfoEvent() { Count = Count, Time = (int)TotalTime });
 
         var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
         if (enemys.Count >= 30)
@@ -50,8 +51,6 @@ public class BattleRule_Shengxiao : ABattleRule
         GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
 
         Count++;
-        GameProcessor.Inst.EventCenter.Raise(new ShowShengxiaoInfoEvent() { Count = Count, Time = (int)TotalTime });
-
     }
 
     private int BuildQuality()

@@ -34,7 +34,7 @@ namespace Game
         {
             this.SelfPlayer = player;
             this.SkillPanel = skillPanel;
-            this.Priority = position; // - skillPanel.SkillData.SkillConfig.Priority;
+            this.Priority = skillPanel.SkillData.SkillConfig.Priority; // - skillPanel.SkillData.SkillConfig.Priority;
             this.Position = position;
             this.CD = 0;
             this.Rate = skillPanel.Rate;
@@ -94,7 +94,7 @@ namespace Game
             }
             else if (skillPanel.SkillId == 4004)
             {
-                this.skillLogic = new Skill_Attack_Area_From(player, skillPanel, fromSkill, isShow);
+                this.skillLogic = new Skill_Jufengpo(player, skillPanel, fromSkill, isShow);
             }
             else if (skillPanel.SkillData.SkillConfig.Type == (int)SkillType.Attack)
             {

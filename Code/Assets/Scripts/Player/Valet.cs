@@ -342,10 +342,26 @@ namespace Game
                         long rp = Math.Max(1, ringLevel * skillData.GetDivineLevel() * 20 / 100);
                         sd.MagicLevel.Data = rp;
 
-                        SkillPanel skillPanel = new SkillPanel(sd, null, null, false);
+                        SkillPanel skillPanel = new SkillPanel(sd, null, null, false, RuleType, 0);
                         SkillState skill = new SkillState(this, skillPanel, 0, 0);
                         SelectSkillList.Add(skill);
                     }
+
+                    //for (int i = 0; i < ringId.Length; i++)
+                    //{
+                    //    long ringLevel = user.GetRingLevel(ringId[i]);
+                    //    SkillData sd = new SkillData(skillId[i], 0);
+                    //    long rp = Math.Max(1, ringLevel * skillData.GetDivineLevel() * 20 / 100);
+                    //    sd.MagicLevel.Data = rp;
+
+                    //    List<SkillRune> runeList = user.GetRuneList(skillData.SkillId, null);
+                    //    List<SkillSuit> suitList = user.GetSuitList(skillData.SkillId);
+
+                    //    SkillPanel skillPanel = new SkillPanel(sd, runeList, suitList, false, RuleType, 0);
+
+                    //    SkillState skill = new SkillState(this, skillPanel, 0, 0);
+                    //    SelectSkillList.Add(skill);
+                    //}
                 }
             }
         }
