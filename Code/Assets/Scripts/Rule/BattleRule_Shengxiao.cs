@@ -84,8 +84,11 @@ public class BattleRule_Shengxiao : ABattleRule
         var heroCamp = GameProcessor.Inst.PlayerManager.GetHero();
         if (heroCamp.HP <= 0)
         {
+            AppHelper.Shengxiao_Id = this.MapId;
+
             GameProcessor.Inst.SetGameOver(PlayerType.Enemy);
-            GameProcessor.Inst.HeroDie(RuleType.Shengxiao, 0);
+            GameProcessor.Inst.HeroDie(RuleType.Shengxiao, 18);
+
         }
     }
 }

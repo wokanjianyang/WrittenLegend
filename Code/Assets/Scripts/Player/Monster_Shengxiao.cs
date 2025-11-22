@@ -54,7 +54,7 @@ public class Monster_Shengxiao : APlayer
     {
         new int[] { 2002, 1002,3002  },
         new int[] { 2007, 1004, 2009 },
-        new int[] { 1008, 1005, 3008 }
+        new int[] {  1005, 3008 }
     };
 
     private void SetSkill()

@@ -13,6 +13,8 @@ public class Map_Dialog_Shengxiao : MonoBehaviour
     public ScrollRect sr_Boss;
     public Button Btn_Close;
 
+    public Toggle toggle_Auto;
+
     private GameObject ItemPrefab;
     List<Map_Shengxiao_Item> items = new List<Map_Shengxiao_Item>();
 
@@ -22,6 +24,11 @@ public class Map_Dialog_Shengxiao : MonoBehaviour
 
         Btn_Close.onClick.AddListener(OnClick_Close);
         this.Init();
+
+        toggle_Auto.onValueChanged.AddListener((isOn) =>
+        {
+            AppHelper.Shengxiao_Auto = isOn;
+        });
     }
 
     private void OnEnable()

@@ -759,6 +759,16 @@ namespace Game
                 case RuleType.Festive:
                     ie_autoExitKey = StartCoroutine(this.AutoExitMap(ruleType, time, ConfigHelper.AutoExitMapTime));
                     break;
+                case RuleType.Shengxiao:
+                    if (AppHelper.Shengxiao_Auto)
+                    {
+                        ie_autoExitKey = StartCoroutine(this.AutoExitMap(ruleType, time, ConfigHelper.AutoExitMapTime));
+                    }
+                    else
+                    {
+                        ie_AutoResurrection = StartCoroutine(this.AutoResurrection());
+                    }
+                    break;
                 default:
                     ie_AutoResurrection = StartCoroutine(this.AutoResurrection());
                     break;
@@ -912,6 +922,10 @@ namespace Game
                 {
                     this.AutoStartMap(ruleType);
                 }
+            }
+            else if (ruleType == RuleType.Shengxiao && AppHelper.Shengxiao_Auto)
+            {
+                this.AutoStartMap(ruleType);
             }
         }
 
@@ -1067,6 +1081,9 @@ namespace Game
                     break;
                 case RuleType.EquipCopy:
                     this.EventCenter.Raise(new AutoStartCopyEvent());
+                    break;
+                case RuleType.Shengxiao:
+                    this.EventCenter.Raise(new ShengxiaoStartEvent() { Id = AppHelper.Shengxiao_Id });
                     break;
 
             }

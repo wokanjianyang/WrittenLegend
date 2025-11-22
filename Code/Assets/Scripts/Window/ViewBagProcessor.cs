@@ -200,6 +200,15 @@ namespace Game
             {
                 this.btn_Pet.gameObject.SetActive(false);
             }
+
+            if (user.Cycle.Data >= 10)
+            {
+                this.btn_Shengxiao.gameObject.SetActive(true);
+            }
+            else
+            {
+                this.btn_Shengxiao.gameObject.SetActive(false);
+            }
         }
 
         // Update is called once per frame
@@ -1028,7 +1037,7 @@ namespace Game
                     Item levelItem = ItemHelper.BuildMaterial(ItemHelper.Specail_Shengxiao, 5000000 * level);
                     newList.Add(levelItem);
 
-                    Item layerItem1 = ItemHelper.BuildMaterial(ItemHelper.Specail_Shengxiao1, 30*level);
+                    Item layerItem1 = ItemHelper.BuildMaterial(ItemHelper.Specail_Shengxiao1, 30 * level);
                     newList.Add(layerItem1);
                 }
 
