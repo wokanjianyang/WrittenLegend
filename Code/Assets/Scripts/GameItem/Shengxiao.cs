@@ -90,7 +90,7 @@ namespace Game
 
             for (int i = 0; i < ShengxiaoConfig.AttrIdList.Length; i++)
             {
-                BaseAttrList.Add(ShengxiaoConfig.AttrIdList[i], ShengxiaoConfig.AttrValueList[i] * QualityRate[Quality - 1] + ShengxiaoConfig.AttrValueList[i] * level);
+                BaseAttrList.Add(ShengxiaoConfig.AttrIdList[i], ShengxiaoConfig.AttrValueList[i] * QualityRate[Quality - 1] + ShengxiaoConfig.AttchValueList[i] * level);
             }
 
             return BaseAttrList;

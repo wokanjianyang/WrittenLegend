@@ -98,6 +98,8 @@ namespace Game
 
             Shengxiao equip = this.boxItem.Item as Shengxiao;
 
+            ShengxiaoConfig config = equip.ShengxiaoConfig;
+
             string name = equip.Name;
 
             if (equip.LevelData.Data > 0)
@@ -129,7 +131,7 @@ namespace Game
 
                     if (index < btList.Count())
                     {
-                        child.GetComponent<Text>().text = FormatAttrText(btList[index].Key, btList[index].Value);
+                        child.GetComponent<Text>().text = FormatAttrText(btList[index].Key, btList[index].Value, 0);
                         child.gameObject.SetActive(true);
                     }
                     else
@@ -156,7 +158,7 @@ namespace Game
                         int attrId = AttrEntryList[index].Key;
                         long attrBaseValue = AttrEntryList[index].Value;
 
-                        child.GetComponent<Text>().text = FormatAttrText(attrId, attrBaseValue);
+                        child.GetComponent<Text>().text = FormatAttrText(attrId, attrBaseValue, config.LayerValueList[index] * equip.LayerData.Data);
                         child.gameObject.SetActive(true);
                     }
                     else
@@ -225,7 +227,7 @@ namespace Game
             }
         }
 
-        private string FormatAttrText(int attr, double val)
+        private string FormatAttrText(int attr, double val, double rise)
         {
             string unit = "";
 
@@ -236,9 +238,14 @@ namespace Game
                 unit = "%";
             }
 
-            string text = PlayerHelper.PlayerAttributeMap[((AttributeEnum)attr).ToString()] + " + " + StringHelper.FormatNumber(val) + unit;
-
-            return text;
+            if (rise > 0)
+            {
+                return PlayerHelper.PlayerAttributeMap[((AttributeEnum)attr).ToString()] + " + " + StringHelper.FormatNumber(val) + "+" + rise + unit;
+            }
+            else
+            {
+                return PlayerHelper.PlayerAttributeMap[((AttributeEnum)attr).ToString()] + " + " + StringHelper.FormatNumber(val) + unit;
+            }
         }
 
 
