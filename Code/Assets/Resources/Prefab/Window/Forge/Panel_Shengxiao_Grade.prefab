@@ -159,7 +159,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u5347\u7EA7"
+  m_Text: "\u5347\u9636"
 --- !u!1 &2453856309165678628
 GameObject:
   m_ObjectHideFlags: 0
@@ -360,7 +360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.79607844, g: 0.74509805, b: 0.64705884, a: 1}
+  m_Color: {r: 1, g: 0.5019608, b: 0.7529412, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -380,7 +380,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u751F\u8096\u7CBE\u534E"
+  m_Text: "\u751F\u8096\u6838\u5FC3"
 --- !u!1 &3345769396858448590
 GameObject:
   m_ObjectHideFlags: 0
@@ -616,7 +616,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u7C89\u8272\u751F\u8096\u53EF\u4EE5\u5347\u7EA7\uFF0C\u6700\u9AD810\u7EA7"
+  m_Text: "\u7C89\u8272\u751F\u8096\u53EF\u4EE5\u5347\u9636\uFF0C\u6700\u9AD82\u9636"
 --- !u!1 &4495348928483216781
 GameObject:
   m_ObjectHideFlags: 0
@@ -708,9 +708,9 @@ GameObject:
   - component: {fileID: 500063488168391883}
   - component: {fileID: 3270742827527112015}
   - component: {fileID: 1238226694481284155}
-  - component: {fileID: 8716564600188117811}
+  - component: {fileID: 9111826190530764631}
   m_Layer: 5
-  m_Name: Panel_Shengxiao_Up
+  m_Name: Panel_Shengxiao_Grade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -777,7 +777,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8716564600188117811
+--- !u!114 &9111826190530764631
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -786,7 +786,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5609592698472184792}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68a60d26147d7044ea2d55c43f328d48, type: 3}
+  m_Script: {fileID: 11500000, guid: 231bc3a8df9cc3a4babc4863870d5bb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ds_Panel: {fileID: 1325481444794462779}
@@ -989,7 +989,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u751F\u8096\u5347\u7EA7"
+  m_Text: "\u751F\u8096\u5347\u9636"
 --- !u!1 &6955623846345276754
 GameObject:
   m_ObjectHideFlags: 0

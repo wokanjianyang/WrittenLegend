@@ -92,6 +92,21 @@ namespace Game
                         this.Txt_Layer.gameObject.SetActive(true);
                     }
                 }
+                else if (GameItem.Type == ItemType.Shengxiao)
+                {
+                    Shengxiao shengxiao = GameItem as Shengxiao;
+                    if (shengxiao.LayerData.Data > 0)
+                    {
+                        this.Txt_Layer.text = ConfigHelper.LayerChinaList[(shengxiao.LayerData.Data)] + "阶"; ;
+                        this.Txt_Layer.gameObject.SetActive(true);
+                    }
+                    if (shengxiao.LevelData.Data > 0)
+                    {
+                        this.Txt_Level.text = shengxiao.LevelData.Data + "级";
+                        this.Txt_Level.gameObject.SetActive(true);
+                    }
+
+                }
             }
         }
 

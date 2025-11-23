@@ -63,10 +63,11 @@ namespace Game
             }
 
             //计算随机属性
+            long layer = this.LayerData.Data;
             for (int i = 0; i < AttrEntryList.Count; i++)
             {
                 int attrId = AttrEntryList[i].Key;
-                long attrTotalValue = AttrEntryList[i].Value;
+                long attrTotalValue = AttrEntryList[i].Value + ShengxiaoConfig.LayerValueList[i] * layer;
 
                 if (!AttrList.ContainsKey(attrId))
                 {
@@ -84,13 +85,12 @@ namespace Game
         public IDictionary<int, long> GetBaseAttrList()
         {
             long level = this.LevelData.Data;
-            long layer = this.LayerData.Data;
 
             IDictionary<int, long> BaseAttrList = new Dictionary<int, long>();
 
             for (int i = 0; i < ShengxiaoConfig.AttrIdList.Length; i++)
             {
-                BaseAttrList.Add(ShengxiaoConfig.AttrIdList[i], ShengxiaoConfig.AttrValueList[i] * QualityRate[Quality - 1] + ShengxiaoConfig.AttchValueList[i] * level);
+                BaseAttrList.Add(ShengxiaoConfig.AttrIdList[i], ShengxiaoConfig.AttrValueList[i] * QualityRate[Quality - 1] + ShengxiaoConfig.AttrValueList[i] * level);
             }
 
             return BaseAttrList;
@@ -102,7 +102,10 @@ namespace Game
         {
             this.LevelData.Data++;
         }
+        public void Grade()
+        {
+            this.LayerData.Data++;
 
-
+        }
     }
 }

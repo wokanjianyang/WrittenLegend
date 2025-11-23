@@ -96,6 +96,9 @@ namespace Game
 		/// <summary>AttchValueList</summary>
 		[ProtoMember(7)]
 		public int[] AttchValueList { get; set; }
+		/// <summary>LayerValueList</summary>
+		[ProtoMember(8)]
+		public int[] LayerValueList { get; set; }
 
 	}
 }

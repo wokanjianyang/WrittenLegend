@@ -72,6 +72,9 @@ public class ViewForgeProcessor : AViewPage
     public Toggle toggle_Shengxiao;
     public Panel_Shengxiao_Up PanelShengxiao;
 
+    public Toggle toggle_Shengxiao_Grade;
+    public Panel_Shengxiao_Grade PanelShengxiaoGrade;
+
     public Toggle toggle_Stone;
     public Panel_Stone PanelStone;
 
@@ -186,6 +189,12 @@ public class ViewForgeProcessor : AViewPage
         this.toggle_Shengxiao.onValueChanged.AddListener((isOn) =>
         {
             PanelShengxiao.gameObject.SetActive(isOn);
+        });
+
+
+        this.toggle_Shengxiao_Grade.onValueChanged.AddListener((isOn) =>
+        {
+            PanelShengxiaoGrade.gameObject.SetActive(isOn);
         });
     }
 

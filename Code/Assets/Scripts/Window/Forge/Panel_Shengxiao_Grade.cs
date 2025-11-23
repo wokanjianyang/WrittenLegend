@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
-public class Panel_Shengxiao_Up : MonoBehaviour
+public class Panel_Shengxiao_Grade : MonoBehaviour
 {
     public ScrollRect ds_Panel;
     public Transform Tf_Attr;
@@ -25,9 +25,9 @@ public class Panel_Shengxiao_Up : MonoBehaviour
     private const int StartPosition = 1;
 
     private bool check = false;
-    private int[] ItemIdList = { 4042, 4043 };
-    private int[] ItemCountList = { 5000000, 30 };
-    private const int MaxLevel = 10;
+    private int[] ItemIdList = { 4044, 4043 };
+    private int[] ItemCountList = { 1, 20 };
+    private const int MaxLevel = 2;
 
     private Item_Forge_Main SelectMain;
 
@@ -153,11 +153,12 @@ public class Panel_Shengxiao_Up : MonoBehaviour
 
         ShengxiaoConfig attrConfig = exclusiveMain.ShengxiaoConfig;
 
-        IDictionary<int, long> ExclusiveAttrList = exclusiveMain.GetBaseAttrList();
+        List<KeyValuePair<int, long>> AttrEntryList = exclusiveMain.AttrEntryList;
+        long layer = exclusiveMain.LayerData.Data;
 
         for (int i = 0; i < AttrList.Count; i++)
         {
-            if (i >= attrConfig.AttrIdList.Length)
+            if (i >= AttrEntryList.Count)
             {
                 AttrList[i].gameObject.SetActive(false);
             }
@@ -165,14 +166,14 @@ public class Panel_Shengxiao_Up : MonoBehaviour
             {
                 AttrList[i].gameObject.SetActive(true);
 
-                int attrId = attrConfig.AttrIdList[i];
-                AttrList[i].SetContent(attrId, ExclusiveAttrList[attrId], attrConfig.AttchValueList[i]);
+                KeyValuePair<int, long> attr = AttrEntryList[i];
+                AttrList[i].SetContent(attr.Key, attr.Value + layer * attrConfig.LayerValueList[i], attrConfig.LayerValueList[i]);
             }
         }
 
-        if (exclusiveMain.LevelData.Data >= MaxLevel) //最高99级
+        if (exclusiveMain.LayerData.Data >= MaxLevel) //最高99级
         {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "已经满级了", ToastType = ToastTypeEnum.Failure });
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "已经满阶了", ToastType = ToastTypeEnum.Failure });
             return;
         }
 
@@ -231,7 +232,7 @@ public class Panel_Shengxiao_Up : MonoBehaviour
             });
         }
 
-        exclusiveMain.Up();
+        exclusiveMain.Grade();
 
         this.ShowMain();
 

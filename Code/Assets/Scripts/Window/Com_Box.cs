@@ -98,6 +98,11 @@ namespace Game
                         this.tmp_Count.text = item.LevelData.Data + "级";
                         this.tmp_Count.gameObject.SetActive(true);
                     }
+                    if (item.LayerData.Data > 0)
+                    {
+                        this.Layer.text = ConfigHelper.LayerChinaList[item.LayerData.Data] + "阶";
+                        this.Layer.gameObject.SetActive(true);
+                    }
 
                 }
             }

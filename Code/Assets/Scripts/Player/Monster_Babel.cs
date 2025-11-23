@@ -57,6 +57,11 @@ namespace Game
             double riseParry = 1;
             double riseShatterError = 1;
 
+            if (Progeress > 55000)
+            {
+                riseParry *= 100000 * Math.Pow(1.02, Progeress - 55000);
+            }
+
             if (Progeress > 45000)
             {
                 riseParry *= Math.Pow(1.02, Progeress - 45000);

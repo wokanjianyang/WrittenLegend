@@ -1041,6 +1041,15 @@ namespace Game
                     newList.Add(layerItem1);
                 }
 
+                if (layer > 0)
+                {
+                    Item layerItem = ItemHelper.BuildMaterial(ItemHelper.Specail_Shengxiao1, 20 * layer);
+                    newList.Add(layerItem);
+
+                    Item layerItem1 = ItemHelper.BuildMaterial(ItemHelper.Specail_Shengxiao2, layer);
+                    newList.Add(layerItem1);
+                }
+
                 newList.Add(pet);
             }
 
