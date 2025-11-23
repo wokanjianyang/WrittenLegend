@@ -56,19 +56,26 @@ namespace Game
             double riseMulAttr = 1;
             double riseParry = 1;
             double riseShatterError = 1;
+            double riseShatter = 1;
 
-            if (Progeress > 55000)
+            if (Progeress >= 55000)
             {
-                riseParry *= 100000 * Math.Pow(1.02, Progeress - 55000);
+                riseRate *= 1E30; //守关难度关卡，开新难度去掉
+            }
+
+            if (Progeress >= 50000)
+            {
+                riseParry *= 10000; // * Math.Pow(1.01, Progeress - 50000)
+                riseShatter *= 10000 * Math.Pow(1.01, Progeress - 50000);
             }
 
             if (Progeress > 45000)
             {
                 riseParry *= Math.Pow(1.02, Progeress - 45000);
-                if (this.Progeress < 50000)
-                {
-                    riseShatterError *= Math.Pow(1.02, Progeress - 45000);
-                }
+
+                int sep = Math.Min(50000, this.Progeress);
+                riseShatterError *= Math.Pow(1.02, sep - 45000);
+
                 riseStrong *= Math.Pow(1.01, Progeress - 45000);
                 riseMulAttr *= Math.Pow(1.01, Progeress - 45000) * 1000;
                 riseMiss += 180;
@@ -162,10 +169,10 @@ namespace Game
             {
                 AttributeBonus.SetAttr(AttributeEnum.Strong, AttributeFrom.HeroBase, strong);
             }
-            //if (this.Progeress > 50000)
-            //{
-            //    AttributeBonus.SetAttr(AttributeEnum.Shatter, AttributeFrom.HeroBase, shatter * riseShatter);
-            //}
+            if (this.Progeress >= 50000)
+            {
+                AttributeBonus.SetAttr(AttributeEnum.Shatter, AttributeFrom.HeroBase, shatter * riseShatter);
+            }
 
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
