@@ -28,6 +28,6 @@
 {"_t":"SkillModelConfig","_id":3007,"ModelName":"召唤神兽","ModelTime":0.75,"ScaleType":1},
 {"_t":"SkillModelConfig","_id":3008,"ModelName":"隐身术","ModelTime":0.75,"ScaleType":1},
 {"_t":"SkillModelConfig","_id":3009,"ModelName":"召唤月灵","ModelTime":0.75,"ScaleType":1},
-{"_t":"SkillModelConfig","_id":4004,"ModelName":"飓风破","ModelTime":0.5,"ScaleType":1},
+{"_t":"SkillModelConfig","_id":4004,"ModelName":"飓风破","ModelTime":0.3,"ScaleType":1},
 {"_t":"SkillModelConfig","_id":9001,"ModelName":"普攻","ModelTime":0.2,"ScaleType":0},
 ]}
