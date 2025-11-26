@@ -18,6 +18,7 @@ namespace Game
 
         static string fileName = "data.json"; //文件名
         static string ppKey = "key";
+        static string mdKey = "mdkey";
 
         static string[] BackKeyList = { "key1", "key2", "key3" };
         static string backPath = "back";
@@ -40,9 +41,9 @@ namespace Game
             //Debug.Log("备份路径:" + index + " " + filePath);
             string backKey = GetBackKey(index);
             string key = PlayerPrefs.GetString(backKey);
-            //Debug.Log("备份Key:" + index + " " + key);
+            string mkey = PlayerPrefs.GetString(mdKey);
 
-            if (key == "")
+            if (key == "" || mkey != AppHelper.GetDeviceIdentifier())
             {
                 return null;
             }
@@ -83,28 +84,25 @@ namespace Game
                 {
                     //PlayerPrefs.DeleteAll();
                     string key = PlayerPrefs.GetString(ppKey);
+                    string mkey = PlayerPrefs.GetString(mdKey);
 
-                    //读取文件
-                    System.IO.StreamReader sr = new System.IO.StreamReader(filePath);
-                    string str_json = sr.ReadToEnd();
-                    sr.Close();
-
-                    if (str_json.Length > 0)
+                    if (mkey == "" || mkey == AppHelper.GetDeviceIdentifier())
                     {
-                        if (key == "" && ConfigHelper.Version <= 209)
-                        {
-                            str_json = EncryptionHelper.AesDecrypt(str_json);
-                        }
-                        else
+                        //读取文件
+                        System.IO.StreamReader sr = new System.IO.StreamReader(filePath);
+                        string str_json = sr.ReadToEnd();
+                        sr.Close();
+
+                        if (str_json.Length > 0)
                         {
                             str_json = EncryptionHelper.AesDecrypt(str_json, key);
-                        }
 
-                        user = JsonConvert.DeserializeObject<User>(str_json, new JsonSerializerSettings
-                        {
-                            TypeNameHandling = TypeNameHandling.Auto
-                        });
-                        //Debug.Log("成功读取");
+                            user = JsonConvert.DeserializeObject<User>(str_json, new JsonSerializerSettings
+                            {
+                                TypeNameHandling = TypeNameHandling.Auto
+                            });
+                            //Debug.Log("成功读取");
+                        }
                     }
 
                     if (user == null)
@@ -378,6 +376,7 @@ namespace Game
             {
                 File.WriteAllText(filePath, str_json);
                 PlayerPrefs.SetString(ppKey, key);
+                PlayerPrefs.SetString(mdKey, AppHelper.GetDeviceIdentifier());
                 PlayerPrefs.Save();
 
                 Debug.Log("saved successfully.");
@@ -430,6 +429,7 @@ namespace Game
             {
                 File.WriteAllText(filePath, str_json);
                 PlayerPrefs.SetString(pk, pv);
+                PlayerPrefs.SetString(mdKey, AppHelper.GetDeviceIdentifier());
                 PlayerPrefs.Save();
 
                 Debug.Log("save back successfully.");
