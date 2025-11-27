@@ -407,7 +407,8 @@ namespace Game
                       if (GameProcessor.Inst.LoadInit(str_json, account))
                       {
                           this.txt_Info.text = "读取存档成功,请退出重进";
-                          GameProcessor.Inst.SaveData(); ;
+                          UserData.Save();
+                          //GameProcessor.Inst.SaveData(); ;
                       }
                       else
                       {

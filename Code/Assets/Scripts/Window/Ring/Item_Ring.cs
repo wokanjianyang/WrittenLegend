@@ -40,6 +40,8 @@ namespace Game
             Txt_Name.text = config.Name;
             Txt_Level.text = "";
             this.image_Background.sprite = list_Backgrounds[config.Id - 1];
+
+            Txt_Name.color = ColorHelper.GetColorByQuality(config.Type + 5);
         }
 
         public void SetContent(long level)

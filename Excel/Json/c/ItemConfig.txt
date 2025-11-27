@@ -675,4 +675,10 @@
 {"_t":"ItemConfig","_id":190004,"Name":"护体指环","Type":19,"Des":"激活或者升级对应神戒","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":6,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
 {"_t":"ItemConfig","_id":190005,"Name":"破空指环","Type":19,"Des":"激活或者升级对应神戒","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":6,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
 {"_t":"ItemConfig","_id":190006,"Name":"须弥指环","Type":19,"Des":"激活或者升级对应神戒","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":6,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
+{"_t":"ItemConfig","_id":190007,"Name":"定身极戒","Type":19,"Des":"激活或者升级对应神戒","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":7,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
+{"_t":"ItemConfig","_id":190008,"Name":"神盾极戒","Type":19,"Des":"激活或者升级对应神戒","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":7,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
+{"_t":"ItemConfig","_id":190009,"Name":"复生极戒","Type":19,"Des":"激活或者升级对应神戒","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":7,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
+{"_t":"ItemConfig","_id":190010,"Name":"护体极戒","Type":19,"Des":"激活或者升级对应神戒","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":7,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
+{"_t":"ItemConfig","_id":190011,"Name":"破空极戒","Type":19,"Des":"激活或者升级对应神戒","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":7,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
+{"_t":"ItemConfig","_id":190012,"Name":"须弥极戒","Type":19,"Des":"激活或者升级对应神戒","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":7,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
 ]}

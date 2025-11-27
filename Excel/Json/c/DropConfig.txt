@@ -432,6 +432,7 @@
 {"_t":"DropConfig","_id":220040,"Level":0,"Name":"图鉴碎片","Quantity":300,"ItemType":5,"ItemIdList":[4101]},
 {"_t":"DropConfig","_id":220041,"Level":0,"Name":"改造石","Quantity":1,"ItemType":5,"ItemIdList":[4021]},
 {"_t":"DropConfig","_id":220042,"Level":0,"Name":"暗金魂心","Quantity":1,"ItemType":5,"ItemIdList":[4041]},
+{"_t":"DropConfig","_id":220043,"Level":0,"Name":"六大极戒","Quantity":1,"ItemType":19,"ItemIdList":[190007,190008,190009,190010,190011,190012]},
 {"_t":"DropConfig","_id":220101,"Level":0,"Name":"白色宠物","Quantity":1,"ItemType":16,"ItemIdList":[8201]},
 {"_t":"DropConfig","_id":220102,"Level":0,"Name":"绿色宠物","Quantity":1,"ItemType":16,"ItemIdList":[8202]},
 {"_t":"DropConfig","_id":220103,"Level":0,"Name":"蓝色宠物","Quantity":1,"ItemType":16,"ItemIdList":[8203]},

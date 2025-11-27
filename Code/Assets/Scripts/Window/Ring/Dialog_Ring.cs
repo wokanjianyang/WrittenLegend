@@ -25,12 +25,18 @@ public class Dialog_Ring : MonoBehaviour
     public Button Btn_Close;
     public Text Txt_OK;
 
+    public Transform Tf_Nav;
+    private List<Toggle> toggles;
+    private int Type = 1;
+
     private RingConfig CurrentConfig = null;
 
     public int Order => (int)ComponentOrder.Dialog;
 
     private void Awake()
     {
+        toggles = Tf_Nav.GetComponentsInChildren<Toggle>().ToList();
+
         Btn_Close.onClick.AddListener(OnClick_Close);
         Btn_Ok.onClick.AddListener(OnClick_Ok);
         Tg_Select.onValueChanged.AddListener((isOn) =>
@@ -53,8 +59,26 @@ public class Dialog_Ring : MonoBehaviour
             });
         }
 
+        for (int i = 0; i < toggles.Count; i++)
+        {
+            int index = i + 1;
+            toggles[i].onValueChanged.AddListener((isOn) =>
+            {
+                ChangePanel(index);
+            });
+        }
+
+        this.ChangePanel(1);
+    }
+
+    private void ChangePanel(int index)
+    {
+        this.Type = index;
+
+        this.Init();
+
         User user = GameProcessor.Inst.User;
-        List<RingConfig> configs = RingConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
+        List<RingConfig> configs = RingConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Type == Type).ToList();
         for (int i = 0; i < configs.Count; i++)
         {
             RingConfig config = configs[i];
@@ -70,9 +94,7 @@ public class Dialog_Ring : MonoBehaviour
     {
         ToggleGroup toggleGroup = Tran_Item_List.GetComponent<ToggleGroup>();
 
-        User user = GameProcessor.Inst.User;
-
-        List<RingConfig> configs = RingConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
+        List<RingConfig> configs = RingConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Type == Type).ToList();
 
         for (int i = 0; i < configs.Count; i++)
         {
@@ -142,6 +164,10 @@ public class Dialog_Ring : MonoBehaviour
             SkillPanel sp = new SkillPanel(skillData, null, null, true);
 
             Txt_Desc.text = sp.SkillData.SkillConfig.Name + "Lv." + currentLevel + " : " + sp.Desc;
+        }
+        else
+        {
+            Txt_Desc.text = CurrentConfig.Name + "Lv." + currentLevel;
         }
 
         bool select = user.RingSelect.ContainsKey(config.Id);

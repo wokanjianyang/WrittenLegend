@@ -94,7 +94,7 @@
 {"_t":"InfiniteDropConfig","_id":11001,"DropId":220016,"Name":"六大神戒","Rate":5,"StartLevel":150,"EndLevel":1200,"RateLevel":20,"Max":2,"Number":1},
 {"_t":"InfiniteDropConfig","_id":11002,"DropId":4001,"Name":"神技","Rate":5,"StartLevel":200,"EndLevel":1000,"RateLevel":30,"Max":2,"Number":1},
 {"_t":"InfiniteDropConfig","_id":11003,"DropId":4002,"Name":"魂骨","Rate":15,"StartLevel":1050,"EndLevel":1500,"RateLevel":51,"Max":2,"Number":1},
-{"_t":"InfiniteDropConfig","_id":11004,"DropId":4002,"Name":"魂骨","Rate":5,"StartLevel":4001,"EndLevel":6000,"RateLevel":53,"Max":2,"Number":1},
+{"_t":"InfiniteDropConfig","_id":11004,"DropId":4002,"Name":"魂骨","Rate":5,"StartLevel":4001,"EndLevel":6000,"RateLevel":79,"Max":2,"Number":1},
 {"_t":"InfiniteDropConfig","_id":11005,"DropId":220101,"Name":"白色宠物","Rate":20,"StartLevel":101,"EndLevel":500,"RateLevel":10,"Max":1,"Number":1},
 {"_t":"InfiniteDropConfig","_id":11006,"DropId":220102,"Name":"绿色宠物","Rate":15,"StartLevel":501,"EndLevel":1000,"RateLevel":10,"Max":1,"Number":1},
 {"_t":"InfiniteDropConfig","_id":11007,"DropId":220103,"Name":"蓝色宠物","Rate":10,"StartLevel":1001,"EndLevel":1500,"RateLevel":20,"Max":1,"Number":1},
@@ -103,4 +103,5 @@
 {"_t":"InfiniteDropConfig","_id":11010,"DropId":220106,"Name":"红色宠物","Rate":7,"StartLevel":2501,"EndLevel":3000,"RateLevel":52,"Max":1,"Number":1},
 {"_t":"InfiniteDropConfig","_id":11011,"DropId":220107,"Name":"金色宠物","Rate":3,"StartLevel":3001,"EndLevel":3800,"RateLevel":62,"Max":1,"Number":1},
 {"_t":"InfiniteDropConfig","_id":11012,"DropId":220042,"Name":"暗金魂心","Rate":1,"StartLevel":5001,"EndLevel":5500,"RateLevel":61,"Max":1,"Number":1},
+{"_t":"InfiniteDropConfig","_id":11013,"DropId":220043,"Name":"六大极戒","Rate":5,"StartLevel":5501,"EndLevel":6000,"RateLevel":39,"Max":1,"Number":1},
 ]}

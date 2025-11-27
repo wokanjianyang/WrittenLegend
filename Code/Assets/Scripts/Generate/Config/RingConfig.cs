@@ -78,9 +78,9 @@ namespace Game
 		/// <summary>ID</summary>
 		[ProtoMember(1)]
 		public int Id { get; set; }
-		/// <summary>Role</summary>
+		/// <summary>Type</summary>
 		[ProtoMember(2)]
-		public int Role { get; set; }
+		public int Type { get; set; }
 		/// <summary>ItemId</summary>
 		[ProtoMember(3)]
 		public int ItemId { get; set; }
