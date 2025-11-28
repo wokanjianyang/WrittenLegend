@@ -50,6 +50,16 @@ public class Dialog_Ring : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        User user = GameProcessor.Inst.User;
+        if (user.Cycle.Data >= 15)
+        {
+            toggles[1].gameObject.SetActive(true);
+        }
+        else
+        {
+            toggles[1].gameObject.SetActive(false);
+        }
+
         for (int i = 0; i < items.Count; i++)
         {
             var item = items[i];

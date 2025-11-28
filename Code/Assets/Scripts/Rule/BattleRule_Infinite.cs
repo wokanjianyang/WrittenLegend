@@ -20,6 +20,7 @@ public class BattleRule_Infinite : ABattleRule
     private int[] MonsterList = new int[] { 5, 4, 4, 3, 3, 3, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1 };
     private long AttckTime = 0;
     private long UseTime = 0;
+    private double OverTime = 0;
 
     protected override RuleType ruleType => RuleType.Infinite;
 
@@ -35,6 +36,11 @@ public class BattleRule_Infinite : ABattleRule
     {
         if (!this.Over)
         {
+            OverTime += currentRoundTime;
+            if (OverTime > 30)
+            {
+                GameProcessor.Inst.CloseBattle(RuleType.Infinite, 0);
+            }
             return;
         }
 
@@ -88,6 +94,10 @@ public class BattleRule_Infinite : ABattleRule
             {
                 long ar = progess / 1000;
                 ap = Math.Min(progess - currentProgres, 10 + ar * 5);
+                if (MaxProgress > currentProgres)
+                {
+                    ap = Math.Min(ap, MaxProgress - currentProgres);
+                }
             }
 
             if (progess < currentProgres)
@@ -111,7 +121,6 @@ public class BattleRule_Infinite : ABattleRule
             this.Over = false;
             user.InfiniteData.Complete();
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Infinite, Message = "无尽闯关成功，您就是神！！！" });
-            GameProcessor.Inst.CloseBattle(RuleType.Infinite, 0);
             return;
         }
     }

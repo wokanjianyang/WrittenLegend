@@ -106,13 +106,13 @@ namespace Game
 
             attack *= (1 + roleDamageRise / 100);
 
-            //增伤倍率
-            double mdi = attcher.GetAttackDoubleAttr(AttributeEnum.MulDamageIncrea);
-            attack *= (1 + mdi / 100);
-
             //减伤倍率
             double mdr = enemy.CalMulDamageResistAttack();
             attack *= (1 - mdr / 100);
+
+            //增伤倍率
+            double mdi = attcher.GetAttackDoubleAttr(AttributeEnum.MulDamageIncrea);
+            attack *= (1 + mdi / 100);
 
             //承受者的易伤
             long ExtraDamage = enemy.GetAttackAttr(AttributeEnum.ExtraDamage);
@@ -155,6 +155,10 @@ namespace Game
                 //Debug.Log("maxHp:" + StringHelper.FormatNumber(maxHp) + " extendDamage:" + StringHelper.FormatNumber(extendDamage));
             }
 
+            if (double.IsInfinity(attack) || attack > ConfigHelper.MaxNumber)
+            {
+                attack = ConfigHelper.MaxNumber;
+            }
             //Debug.Log("attack:" + StringHelper.FormatNumber(attack));
 
             //强制最少1点伤害
