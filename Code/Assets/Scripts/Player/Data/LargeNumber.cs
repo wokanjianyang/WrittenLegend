@@ -17,35 +17,68 @@ namespace Game
 
         }
 
-        public void Mul(double val)
+        public LargeNumber Mul(double val)
         {
             double d = ExtractExponent(val, out int s);
 
             this.data *= d;
             this.size += s;
+
+            return this;
         }
 
+        public LargeNumber div(double val)
+        {
+            double d = ExtractExponent(val, out int s);
+
+            this.data = this.data / d;
+            this.size = this.size - s;
+
+            return this;
+        }
+
+        public LargeNumber add(double val)
+        {
+            double d = ExtractExponent(val, out int s);
+
+            if (this.size > s)
+            {
+                int p = this.size - s;
+                d = d / Math.Pow(10, p);
+            }
+            else
+            {
+                int p = s - this.size;
+                this.data = this.data / Math.Pow(10, p);
+
+                this.size = s;
+            }
+
+            this.data += d;
+
+            return this;
+        }
 
         public double data = 0;
 
         public int size = 0;
 
-        public double ExtractExponent(double val, out int size)
+        public double ExtractExponent(double val, out int s)
         {
-            size = 0;
+            s = 0;
 
             string text = val.ToString("E");
             string[] parts = text.ToUpper().Split('E');
 
             if (parts.Length == 2)
             {
-                size = Convert.ToInt32(parts[1]);
+                s = Convert.ToInt32(parts[1]);
             }
 
-            double exp = Math.Pow(10, size);
-            data = val / exp;
+            double exp = Math.Pow(10, s);
+            double tmp = val / exp;
 
-            return data;
+            return tmp;
         }
 
         public double GetMythScale()
@@ -59,8 +92,28 @@ namespace Game
             return "data;" + data + " size:" + size;
         }
 
+        private void ReExponent()
+        {
+            if (this.data > 10)
+            {
+                string text = this.data.ToString("E");
+                string[] parts = text.ToUpper().Split('E');
+
+                if (parts.Length == 2)
+                {
+                    int s = Convert.ToInt32(parts[1]);
+                    double exp = Math.Pow(10, s);
+
+                    this.data = this.data / exp;
+                    this.size += s;
+                }
+            }
+        }
+
         public string FormatUnit()
         {
+            this.ReExponent();
+
             string[] UnitList = StringHelper.UnitList;
 
             string unit = "";

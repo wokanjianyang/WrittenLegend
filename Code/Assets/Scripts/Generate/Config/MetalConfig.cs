@@ -90,7 +90,7 @@ namespace Game
 		/// <summary>RiseAttr</summary>
 		[ProtoMember(5)]
 		public int RiseAttr { get; set; }
-		/// <summary>RiseLog</summary>
+		/// <summary>80</summary>
 		[ProtoMember(6)]
 		public int RiseLog { get; set; }
 		/// <summary>RisePower</summary>

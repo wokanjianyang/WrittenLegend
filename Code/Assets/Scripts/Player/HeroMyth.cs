@@ -25,8 +25,9 @@ namespace Game
             this.Level = user.MagicLevel.Data;
             this.FashionId = user.FashionUpId;
 
-            double power = user.AttributeBonus.GetPower();
-            double scale = Math.Log10(power) - 9;
+            //double power = user.AttributeBonus.GetPower();
+            //double scale = Math.Log10(power) - 9;
+            double scale = user.AttributeBonus.GetPowerNew().GetMythScale();
             this.Scale = (int)scale;
 
             this.SetAttr(user);  //…Ë÷√ Ù–‘÷µ

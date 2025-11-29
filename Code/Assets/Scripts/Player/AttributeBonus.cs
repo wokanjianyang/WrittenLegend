@@ -253,9 +253,64 @@ namespace Game
             return newPower;
         }
 
+        public LargeNumber GetPowerNew()
+        {
+            double p1 = GetTotalAttrDouble(AttributeEnum.PhyAtt);
+            double p2 = GetTotalAttrDouble(AttributeEnum.MagicAtt);
+            double p3 = GetTotalAttrDouble(AttributeEnum.SpiritAtt);
+
+            int role = 1;
+            double powerDamage = p1;
+
+            if (p2 > powerDamage)
+            {
+                role = 2;
+                powerDamage = p2;
+            }
+            if (p3 > powerDamage)
+            {
+                role = 3;
+                powerDamage = p3;
+            }
+
+            LargeNumber lg = new LargeNumber(powerDamage);
+
+            lg.Mul(CalPercent(AttributeEnum.AurasAttrIncrea));
+            lg.Mul(CalPercent(AttributeEnum.DamageIncrea) * CalPercent(AttributeEnum.AurasDamageIncrea));
+            lg.Mul((1 + GetTotalAttrDouble(AttributeEnum.Lucky) * 0.1));
+            lg.Mul((1 + Math.Min(GetTotalAttrDouble(AttributeEnum.CritRate), 1) * (GetTotalAttrDouble(AttributeEnum.CritDamage) + 150) / 100));
+    
+            double roleDamageRise = DamageHelper.GetRoleDamageAttackRise(this, role, true);
+            lg.Mul((1 + roleDamageRise / 100));
+
+            //增伤倍率
+            double mdi = GetTotalAttrDouble(AttributeEnum.MulDamageIncrea);
+            lg.Mul((1 + mdi / 100));
+            //破刃倍率
+            double sdi = GetTotalAttrDouble(AttributeEnum.Shatter);
+            lg.Mul((1 + sdi));
+            lg.Mul((1 + Math.Min(GetTotalAttrDouble(AttributeEnum.CritRateResist), 1) * (GetTotalAttrDouble(AttributeEnum.CritDamageResist) + 100) / 100));
+
+            double powerDef = GetTotalAttrDouble(AttributeEnum.HP) / 10 + GetTotalAttrDouble(AttributeEnum.Def) * 3;
+            powerDef *= (1 + CalPercent(AttributeEnum.DamageResist) * CalPercent(AttributeEnum.AurasDamageResist));
+            powerDef *= (1 + CalPercent(AttributeEnum.Miss));
+            powerDef *= (1 + GetTotalAttrDouble(AttributeEnum.Strong));
+
+            //减伤倍率
+            double mdr = CalMulDamageResist(false);
+            powerDef *= 1 / (1 - mdr / 100);
+
+            lg.add(powerDef);
+            lg.div(20);
+
+            return lg;
+        }
+
         public string GetPowerText()
         {
-            return StringHelper.FormatNumber(GetPower());
+            //return StringHelper.FormatNumber(GetPower());
+
+            return GetPowerNew().FormatUnit();
         }
 
         private double CalPercent(AttributeEnum type)
