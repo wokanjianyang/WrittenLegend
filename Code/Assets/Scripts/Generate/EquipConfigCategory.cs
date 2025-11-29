@@ -131,7 +131,7 @@ namespace Game
                 suitId = SkillSuitHelper.RandomSuit(seed, runeConfig.SkillId, runeConfig.Type).Id;
             }
 
-            Equip equip = new Equip(config.Id, 32010, 32110, quality);
+            Equip equip = new Equip(config.Id, runeId, suitId, quality);
             if (seed < 0)
             {
                 seed = AppHelper.InitSeed();

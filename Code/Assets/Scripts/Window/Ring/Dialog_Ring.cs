@@ -31,6 +31,8 @@ public class Dialog_Ring : MonoBehaviour
 
     private RingConfig CurrentConfig = null;
 
+    int maxLevel = 10;
+
     public int Order => (int)ComponentOrder.Dialog;
 
     private void Awake()
@@ -128,7 +130,8 @@ public class Dialog_Ring : MonoBehaviour
         this.CurrentConfig = config;
 
         long currentLevel = user.GetRingLevel(config.Id);
-        long maxRingLevel = user.GetArtifactValue(ArtifactType.RingLimit) + 15;
+
+        long maxRingLevel = config.Type == 1 ? user.GetArtifactValue(ArtifactType.RingLimit) + 15 : maxLevel;
 
         currentItem.SetContent(currentLevel);
 
@@ -154,7 +157,7 @@ public class Dialog_Ring : MonoBehaviour
         if (currentLevel < maxRingLevel)
         {
             Txt_Metail.text = "ÏûºÄ" + config.Name + "";
-            Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2}", color, total, needNumber);
+            Txt_Fee.text = string.Format("<color={0}>{1}</color> /{2} (Âú¼¶£º{3})", color, total, needNumber, maxRingLevel);
         }
         else
         {
