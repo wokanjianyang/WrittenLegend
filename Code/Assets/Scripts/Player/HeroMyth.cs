@@ -84,9 +84,10 @@ namespace Game
             foreach (KeyValuePair<int, Data.MagicData> sp in user.RingData)
             {
                 long ringLevel = sp.Value.Data;
-                if (ringLevel > 0 && !user.RingSelect.ContainsKey(sp.Key))
+                RingConfig ringConfig = RingConfigCategory.Instance.Get(sp.Key);
+
+                if (ringLevel >= ringConfig.RequireLevel && !user.RingSelect.ContainsKey(sp.Key))
                 {
-                    RingConfig ringConfig = RingConfigCategory.Instance.Get(sp.Key);
                     if (ringConfig.SkillId > 0)
                     {
                         SkillData sd = list.Where(m => m.SkillId == ringConfig.SkillId).FirstOrDefault();

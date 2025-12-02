@@ -165,6 +165,15 @@ public class Dialog_Ring : MonoBehaviour
             Txt_Fee.text = "";
         }
 
+        if (config.SkillId > 0)
+        {
+            Tg_Select.gameObject.SetActive(true);
+        }
+        else
+        {
+            Tg_Select.gameObject.SetActive(false);
+        }
+
         if (config.Desc != null && config.Desc.Length > 0)
         {
             Txt_Desc.text = config.Desc;
