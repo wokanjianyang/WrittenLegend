@@ -138,4 +138,9 @@
 {"_t":"HalidomConfig","_id":40000187,"ItemId":40000187,"Layer":5,"Name":"混沌鹰羽","AttrId":2002,"AttrValue":50,"RiseAttr":50,"MaxLevel":4,"Des":"防御倍率"},
 {"_t":"HalidomConfig","_id":40000188,"ItemId":40000188,"Layer":5,"Name":"混沌虫角","AttrId":2003,"AttrValue":40,"RiseAttr":40,"MaxLevel":4,"Des":"生命倍率"},
 {"_t":"HalidomConfig","_id":40000189,"ItemId":40000189,"Layer":5,"Name":"混沌蜈膏","AttrId":2004,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"物攻倍率"},
+{"_t":"HalidomConfig","_id":40000190,"ItemId":40000190,"Layer":5,"Name":"混沌虫心","AttrId":2005,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"魔法倍率"},
+{"_t":"HalidomConfig","_id":40000191,"ItemId":40000191,"Layer":5,"Name":"混沌龙皮","AttrId":2006,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"道术倍率"},
+{"_t":"HalidomConfig","_id":40000192,"ItemId":40000192,"Layer":5,"Name":"混沌猪皮","AttrId":2010,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"增伤倍率"},
+{"_t":"HalidomConfig","_id":40000193,"ItemId":40000193,"Layer":5,"Name":"混沌猪心","AttrId":2013,"AttrValue":15,"RiseAttr":15,"MaxLevel":4,"Des":"破韧倍率"},
+{"_t":"HalidomConfig","_id":40000194,"ItemId":40000194,"Layer":5,"Name":"混沌蝎皮","AttrId":2007,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"物伤倍率"},
 ]}
