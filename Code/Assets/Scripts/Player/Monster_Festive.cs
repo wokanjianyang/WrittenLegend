@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
+using Newtonsoft.Json;
 
 public class Monster_Festive : APlayer
 {
     MonsterFestiveConfig config;
 
-    private double[] HpRateist = { 1, 1.2, 1.4, 1.6, 2 };
-    private double[] AttrRateist = { 1, 1.1, 1.2, 1.3, 1.5 };
+    private double[] HpRateist = { 10, 15, 20, 30, 50 };
+    private double[] AttrRateist = { 4, 4.5, 5, 6, 8 };
     private double[] DefRateist = { 1, 1.1, 1.15, 1.2, 1.25 };
 
 
@@ -39,17 +40,54 @@ public class Monster_Festive : APlayer
         this.Logic.SetData(null); //设置UI
     }
 
+    private int[] SkillRate = { 100, 10, 20 };
+
+    private int[][] SkillPlan = new int[][]
+    {
+        new int[] { 2002, 2008  },
+        new int[] { 1002, 1004 },
+        new int[] { 1012, 1008 }
+    };
+
+    private int[] SkillList = new int[] { 2007, 3008 };
+
     private void SetSkill()
     {
         //加载技能
         List<SkillData> list = new List<SkillData>();
 
+        List<int> IdList = new List<int>();
 
-        for (int i = 0; i < config.SkillIdList.Length; i++)
+        //先随机一个方案
+        int p = RandomHelper.RandomNumber(0, SkillPlan.Length);
+        int[] plan = SkillPlan[p];
+
+        //if (Quality == 5)
+        //{
+        //    plan = SkillPlan[2];
+        //}
+
+        for (int i = 0; i < plan.Length; i++)
         {
-            int skillId = config.SkillIdList[i];
+            IdList.Add(plan[i]);
+        }
+
+        if (Quality >= 4 || RandomHelper.RandomRate(3)) //首领以上必随机一个技能，首领以下1/3概率随机一个技能
+        {
+            int rd = RandomHelper.RandomNumber(0, SkillList.Length);
+            IdList.Add(SkillList[rd]);
+        }
+
+        //if (Quality >= 4)
+        //{
+        //    Debug.Log("skill id list :" + JsonConvert.SerializeObject(IdList, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto }));
+        //}
+
+        for (int i = 0; i < IdList.Count; i++)
+        {
+            int skillId = IdList[i];
             SkillData skillData = new SkillData(skillId, i);
-            skillData.MagicLevel.Data = config.Id * 10;
+            skillData.MagicLevel.Data = 1;
             list.Add(skillData);
         }
 
@@ -58,7 +96,7 @@ public class Monster_Festive : APlayer
         foreach (SkillData skillData in list)
         {
             List<SkillRune> runeList = SkillRuneConfigCategory.Instance.GetAllRune(skillData.SkillConfig.Id, 4);
-            List<SkillSuit> suitList = SkillSuitHelper.GetAllSuit(skillData.SkillConfig.Id, 4);
+            List<SkillSuit> suitList = SkillSuitHelper.GetAllSuit(skillData.SkillConfig.Id, 99);
 
             SkillPanel skillPanel = new SkillPanel(skillData, runeList, suitList, false, RuleType.Normal, 0);
 
@@ -92,9 +130,9 @@ public class Monster_Festive : APlayer
         this.SetAttackSpeed(config.Speed);
         this.SetMoveSpeed(config.Speed);
 
-        Debug.Log("hp:" + AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP));
-        Debug.Log("attr:" + AttributeBonus.GetAttackDoubleAttr(AttributeEnum.PhyAtt));
-        Debug.Log("def:" + AttributeBonus.GetAttackDoubleAttr(AttributeEnum.Def));
+        //Debug.Log("hp:" + AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP));
+        //Debug.Log("attr:" + AttributeBonus.GetAttackDoubleAttr(AttributeEnum.PhyAtt));
+        //Debug.Log("def:" + AttributeBonus.GetAttackDoubleAttr(AttributeEnum.Def));
 
         double MaxHP = AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
         SetHP(MaxHP);

@@ -127,11 +127,12 @@ namespace Game
 
             //如果是节日期间
 
-            if (DropLimitConfigCategory.Instance.CheckIsTime())
+            if (DropLimitConfigCategory.Instance.CheckIsTime() && user.Cycle.Data >= 1)
             {
                 Btn_Festive.gameObject.SetActive(true);
             }
-            else {
+            else
+            {
                 Btn_Festive.gameObject.SetActive(false);
             }
 
@@ -139,7 +140,8 @@ namespace Game
             {
                 Btn_Shengxiao.gameObject.SetActive(true);
             }
-            else {
+            else
+            {
                 Btn_Shengxiao.gameObject.SetActive(false);
             }
         }

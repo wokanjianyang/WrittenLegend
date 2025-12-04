@@ -70,7 +70,7 @@ namespace Game
 
             AttributeBonus.SetAttr(AttributeEnum.Speed, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Speed) / 2);
 
-            //Debug.Log("myth PhyAtt:" + AttributeBonus.GetTotalAttrDouble(AttributeEnum.PhyAtt));
+            //Debug.Log("myth PhyAtt:" + AttributeBonus.GetTotalAttrDouble(AttributeEnum.Def));
 
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
@@ -322,6 +322,16 @@ namespace Game
                     return;
                 }
             }
+        }
+
+        public override void OnHit(DamageResult dr)
+        {
+            //if (dr.Damage > 10000)
+            //{
+            //    Debug.Log("heor hit by skill " + dr.SkillId + " damage:" + StringHelper.FormatNumber(dr.Damage) + " maxHP:" + StringHelper.FormatNumber(this.AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP)));
+            //}
+
+            base.OnHit(dr);
         }
     }
 }

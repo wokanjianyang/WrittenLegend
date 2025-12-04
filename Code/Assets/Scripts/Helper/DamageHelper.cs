@@ -162,7 +162,7 @@ namespace Game
             //Debug.Log("attack:" + StringHelper.FormatNumber(attack));
 
             //强制最少1点伤害
-            return new DamageResult(Math.Max(1, attack), extendDamage, type, (RoleType)role); //
+            return new DamageResult(Math.Max(1, attack), extendDamage, type, (RoleType)role, skill.SkillId); //
         }
 
         public static bool IsMiss(APlayer self, APlayer enemy, double skillAccuracy)
@@ -375,12 +375,13 @@ namespace Game
 
     public class DamageResult
     {
-        public DamageResult(double damage, double extendDamage, MsgType type, RoleType roleType)
+        public DamageResult(double damage, double extendDamage, MsgType type, RoleType roleType,int skillId)
         {
             this.Damage = damage;
             this.ExtendDamage = extendDamage;
             this.Type = type;
             this.RoleType = roleType;
+            this.SkillId = skillId;
         }
 
         public DamageResult(int formId, double damage, MsgType type, RoleType roleType)
@@ -397,5 +398,7 @@ namespace Game
         public double Damage { get; set; }
         public double ExtendDamage { get; set; }
         public int FromId { get; set; }
+
+        public int SkillId { get; set; }
     }
 }

@@ -36,7 +36,7 @@ public class Map_Festive : MonoBehaviour, IBattleLife
         this.msgPrefab = Resources.Load<GameObject>("Prefab/Window/Item/Item_DropMsg");
 
         GameProcessor.Inst.EventCenter.AddListener<BattleMsgEvent>(this.OnBattleMsgEvent);
-        GameProcessor.Inst.EventCenter.AddListener<ShowWorldInfoEvent>(this.OnShowInfo);
+        GameProcessor.Inst.EventCenter.AddListener<ShowFestiveInfoEvent>(this.OnShowInfo);
         GameProcessor.Inst.EventCenter.AddListener<FestiveStartEvent>(this.OnStart);
         GameProcessor.Inst.EventCenter.AddListener<BattleLoseEvent>(this.OnBattleLoseEvent);
 
@@ -48,7 +48,7 @@ public class Map_Festive : MonoBehaviour, IBattleLife
     {
         this.gameObject.SetActive(true);
 
-        long count = GameProcessor.Inst.User.FestiveMapData.Number.Data;
+        long count = GameProcessor.Inst.User.FestiveMapData12.Number.Data;
 
         if (count <= 0)
         {
@@ -70,9 +70,9 @@ public class Map_Festive : MonoBehaviour, IBattleLife
         });
     }
 
-    public void OnShowInfo(ShowWorldInfoEvent e)
+    public void OnShowInfo(ShowFestiveInfoEvent e)
     {
-        if (e.Layer < 5)
+        if (e.Time > 1)
         {
             Txt_Time.text = "下波出怪时间：" + (e.Time);
         }

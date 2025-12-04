@@ -58,7 +58,7 @@ namespace Game
 
                     //Debug.Log("dm:" + StringHelper.FormatNumber(dm) + "  edm:" + StringHelper.FormatNumber(edm));
 
-                    DamageResult dr = new DamageResult(dm, edm, MsgType.Damage, RoleType.Warrior); //
+                    DamageResult dr = new DamageResult(dm, edm, MsgType.Damage, RoleType.Warrior, SkillPanel.SkillId); //
                     dr.FromId = attackData.Tid;
                     enemy.OnHit(dr);
 

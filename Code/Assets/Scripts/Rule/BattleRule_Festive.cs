@@ -13,9 +13,9 @@ public class BattleRule_Festive : ABattleRule
 
     private double MapTime = 0;
 
-    private int MaxTime = 20;
+    private int MaxTime = 60;
     private int CurrentLayer = 1;
-    private int[] LayerCount = new int[] { 20, 15, 12, 10, 8 };
+    private int[] LayerCount = new int[] { 20, 15, 10, 8, 6 };
 
     protected override RuleType ruleType => RuleType.Festive;
 
@@ -53,7 +53,7 @@ public class BattleRule_Festive : ABattleRule
         //Debug.Log("create pill MapTime:" + MapTime);
         var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
 
-        if (CurrentLayer <= LayerCount.Length && MapTime >= 1 && (MapTime >= MaxTime || enemys.Count <= 0))
+        if (CurrentLayer <= LayerCount.Length && MapTime >= 1 && ((MapTime >= MaxTime && enemys.Count <= 5) || enemys.Count <= 0))
         {
             for (int i = 0; i < LayerCount[CurrentLayer - 1]; i++)
             {
@@ -94,7 +94,7 @@ public class BattleRule_Festive : ABattleRule
 
         FestiveCopyConfig config = FestiveCopyConfigCategory.Instance.Get(mapId);
 
-        if (mapId > user.FestiveMapData.Record)
+        if (mapId > user.FestiveMapData12.Record)
         {
             //Ê×Í¨
             for (int i = 0; i < config.FirstItemIdList.Length; i++)
@@ -111,8 +111,8 @@ public class BattleRule_Festive : ABattleRule
             }
         }
 
-        user.FestiveMapData.Record = mapId;
-        user.FestiveMapData.Number.Data -= 1;
+        user.FestiveMapData12.Record = mapId;
+        user.FestiveMapData12.Number.Data -= 1;
 
         GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
 

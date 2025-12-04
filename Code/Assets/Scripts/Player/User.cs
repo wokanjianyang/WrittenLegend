@@ -319,7 +319,7 @@ namespace Game
 
         public MythData MythData { get; set; } = new MythData();
 
-        public FestiveMapData FestiveMapData { get; set; } = new FestiveMapData();
+        public FestiveMapData FestiveMapData12 { get; set; } = new FestiveMapData();
 
         public WorldData WorldData { get; set; } = new WorldData();
         public MagicData WingData { get; set; } = new MagicData();

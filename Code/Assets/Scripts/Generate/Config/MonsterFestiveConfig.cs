@@ -108,9 +108,6 @@ namespace Game
 		/// <summary>Protect</summary>
 		[ProtoMember(11)]
 		public int Protect { get; set; }
-		/// <summary>SkillIdList</summary>
-		[ProtoMember(12)]
-		public int[] SkillIdList { get; set; }
 
 	}
 }
