@@ -183,6 +183,13 @@ namespace Game
             }
         }
 
+        public void ToDie()
+        {
+            this.SelfPlayer.SetSP(0);
+            this.SelfPlayer.SetHP(0);
+            this.IsSurvice = false;
+        }
+
         private IEnumerator ClearPlayer()
         {
             yield return new WaitForSeconds(ConfigHelper.DelayShowTime);
