@@ -321,6 +321,8 @@ namespace Game
 
         public FestiveMapData FestiveMapData12 { get; set; } = new FestiveMapData();
 
+        public Dictionary<int, MagicData> FestiveAttrData { get; } = new Dictionary<int, MagicData>();
+
         public WorldData WorldData { get; set; } = new WorldData();
         public MagicData WingData { get; set; } = new MagicData();
 
@@ -2284,7 +2286,8 @@ namespace Game
                 {
                     dict[ItemHelper.Specail_Shengxiao] = quality * 500;
                 }
-                else if (quality == 9) {
+                else if (quality == 9)
+                {
                     dict[ItemHelper.Specail_Shengxiao2] = 1;
                 }
                 else
@@ -2380,6 +2383,24 @@ namespace Game
             return (int)PetSpeicalLayerData.Select(m => m.Value.Data).Min();
         }
 
+
+        public long GetFestiveAttrLevel(int key)
+        {
+            if (!FestiveAttrData.ContainsKey(key))
+            {
+                FestiveAttrData[key] = new MagicData();
+            }
+            return FestiveAttrData[key].Data;
+        }
+
+        public void SaveFestiveAttrLevel(int key)
+        {
+            if (!FestiveAttrData.ContainsKey(key))
+            {
+                FestiveAttrData[key] = new MagicData();
+            }
+            FestiveAttrData[key].Data++;
+        }
     }
 
     public enum UserChangeType

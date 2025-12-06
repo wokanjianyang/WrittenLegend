@@ -13,6 +13,9 @@ public class Map_Dialog_Festive : MonoBehaviour
     public ScrollRect sr_Boss;
     public Button Btn_Close;
 
+    public Button Btn_Attr;
+    public Dialog_Festive_Attr DialogAttr;
+
     public Text Txt_Count;
 
     private GameObject ItemPrefab;
@@ -23,6 +26,7 @@ public class Map_Dialog_Festive : MonoBehaviour
     {
 
         Btn_Close.onClick.AddListener(OnClick_Close);
+        Btn_Attr.onClick.AddListener(OnClick_Attr);
         this.Init();
     }
 
@@ -89,6 +93,11 @@ public class Map_Dialog_Festive : MonoBehaviour
         item.transform.localScale = Vector3.one;
 
         items.Add(com);
+    }
+
+    public void OnClick_Attr()
+    {
+        DialogAttr.gameObject.SetActive(true);
     }
 
     public void OnClick_Close()

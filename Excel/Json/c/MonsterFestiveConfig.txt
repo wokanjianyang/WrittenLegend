@@ -17,6 +17,6 @@
 {"_t":"MonsterFestiveConfig","_id":16,"MonsterName":"节日巨魔","Attr":"1000000","Def":"1000000","HP":"16000000000","Speed":160,"DamageIncrea":100,"DamageResist":1800,"CritRateResist":1800,"CritDamageResist":1800,"Protect":99},
 {"_t":"MonsterFestiveConfig","_id":17,"MonsterName":"卧龙小兵","Attr":"1200000","Def":"1200000","HP":"20400000000","Speed":170,"DamageIncrea":100,"DamageResist":1800,"CritRateResist":1800,"CritDamageResist":1800,"Protect":99},
 {"_t":"MonsterFestiveConfig","_id":18,"MonsterName":"节日蝙蝠","Attr":"1400000","Def":"1400000","HP":"25200000000","Speed":180,"DamageIncrea":100,"DamageResist":1800,"CritRateResist":1800,"CritDamageResist":1800,"Protect":99},
-{"_t":"MonsterFestiveConfig","_id":19,"MonsterName":"节日骨魔","Attr":"1700000","Def":"1700000","HP":"32300000000","Speed":190,"DamageIncrea":100,"DamageResist":1800,"CritRateResist":1800,"CritDamageResist":1800,"Protect":99},
-{"_t":"MonsterFestiveConfig","_id":20,"MonsterName":"节日金龙","Attr":"2000000","Def":"2000000","HP":"40000000000","Speed":200,"DamageIncrea":100,"DamageResist":1800,"CritRateResist":1800,"CritDamageResist":1800,"Protect":99},
+{"_t":"MonsterFestiveConfig","_id":19,"MonsterName":"节日骨魔","Attr":"1600000","Def":"1600000","HP":"30400000000","Speed":190,"DamageIncrea":100,"DamageResist":1800,"CritRateResist":1800,"CritDamageResist":1800,"Protect":99},
+{"_t":"MonsterFestiveConfig","_id":20,"MonsterName":"节日金龙","Attr":"1800000","Def":"1800000","HP":"36000000000","Speed":200,"DamageIncrea":100,"DamageResist":1800,"CritRateResist":1800,"CritDamageResist":1800,"Protect":99},
 ]}

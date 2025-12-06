@@ -297,6 +297,7 @@ namespace Game
                     request.SetRequestHeader("deviceId", deviceId);
                     request.SetRequestHeader("fileId", fileId);
                     request.SetRequestHeader("level", level);
+                    request.SetRequestHeader("channel", ConfigHelper.Channel + "");
                     request.SetRequestHeader("version", ConfigHelper.Version + "");
                     request.SetRequestHeader("sign", BuildSign());
                     request.SetRequestHeader("code", BuildCode());

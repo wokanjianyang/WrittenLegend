@@ -180,10 +180,13 @@ namespace Game
         public static int SpecialId_Card_Stone = 4101;
 
         public static int SpecialId_Chunjie = 4111;
+  
 
         public static int SpecialId_Shuye1 = 4006; //书页
-        public static int SpecialId_Shuye2 = 4102;
-        public static int SpecialId_Shuye3 = 4112;
+        public static int SpecialId_Shuye2 = 4102; //高级书页
+        public static int SpecialId_Shuye3 = 4112; //超级书页
+
+        public static int Speical_Festive_Attr = 4113; //快乐精粹
 
         public static int SpecailEquipRefreshId = 4201; //橙装精华
 
