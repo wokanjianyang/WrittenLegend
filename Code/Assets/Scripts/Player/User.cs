@@ -357,12 +357,12 @@ namespace Game
 
         public FestiveWeekData WeekData = new FestiveWeekData();
 
-        public IDictionary<int, int> FestiveData_1002 { get; set; } = new Dictionary<int, int>();
+        public IDictionary<int, int> FestiveData_0202 { get; set; } = new Dictionary<int, int>();
         public IDictionary<int, int> FestiveData_1102 { get; set; } = new Dictionary<int, int>();
 
         public IDictionary<int, int> FestiveData_1202 { get; set; } = new Dictionary<int, int>();
 
-        public IDictionary<int, int> FestiveData_0902 { get; set; } = new Dictionary<int, int>();
+        public IDictionary<int, int> FestiveData_0102 { get; set; } = new Dictionary<int, int>();
 
         public IDictionary<int, int> SevenDayData { get; set; } = new Dictionary<int, int>();
 
@@ -772,6 +772,20 @@ namespace Game
                     AttributeBonus.SetAttr((AttributeEnum)config.AttrId, AttributeFrom.PetSpeical, id, attrValue);
                 }
 
+            }
+
+            for (int type = 1; type <= 1; type++)
+            {
+                long level = GetFestiveAttrLevel(type);
+                List<FestiveAttrConfig> configs = FestiveAttrConfigCategory.Instance.GetList(type, level);
+
+                for (int i = 0; i < configs.Count; i++)
+                {
+                    FestiveAttrConfig config = configs[i];
+                    double attrValue = config.AttrValue * level;
+
+                    AttributeBonus.SetAttr((AttributeEnum)config.AttrId, AttributeFrom.Festive, type, attrValue);
+                }
             }
 
             //宠物
@@ -1687,23 +1701,23 @@ namespace Game
 
         public int GetFestiveCount(int id)
         {
-            if (!this.FestiveData_1102.ContainsKey(id))
+            if (!this.FestiveData_1202.ContainsKey(id))
             {
-                this.FestiveData_1102[id] = 0;
+                this.FestiveData_1202[id] = 0;
             }
 
-            return this.FestiveData_1102[id];
+            return this.FestiveData_1202[id];
         }
 
         public void SaveFestiveCount(int configId, int count)
         {
-            if (this.FestiveData_1102.ContainsKey(configId))
+            if (this.FestiveData_1202.ContainsKey(configId))
             {
-                this.FestiveData_1102[configId] += count;
+                this.FestiveData_1202[configId] += count;
             }
             else
             {
-                this.FestiveData_1102[configId] = count;
+                this.FestiveData_1202[configId] = count;
             }
         }
 

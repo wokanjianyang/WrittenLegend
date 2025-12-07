@@ -25,7 +25,7 @@ public class BattleRule_Shengxiao : ABattleRule
 
     private void LoadHero()
     {
-        HeroMyth hero = new HeroMyth();
+        HeroMyth hero = new HeroMyth(RuleType.Shengxiao);
         GameProcessor.Inst.PlayerManager.LoadHero(hero);
 
         TotalTime = 0;

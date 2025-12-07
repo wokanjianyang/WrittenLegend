@@ -29,7 +29,7 @@ public class BattleRule_Myth : ABattleRule
 
     private void LoadHero()
     {
-        HeroMyth hero = new HeroMyth();
+        HeroMyth hero = new HeroMyth(RuleType.Myth);
         GameProcessor.Inst.PlayerManager.LoadHero(hero);
 
         Start = true;

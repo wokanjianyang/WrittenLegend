@@ -29,7 +29,7 @@ public class BattleRule_Festive : ABattleRule
 
     private void LoadHero()
     {
-        HeroMyth hero = new HeroMyth();
+        HeroMyth hero = new HeroMyth(RuleType.Festive);
         GameProcessor.Inst.PlayerManager.LoadHero(hero);
 
         Start = true;

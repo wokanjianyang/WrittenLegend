@@ -42,7 +42,7 @@ public class Dialog_Festive_Attr : MonoBehaviour
 
         this.txt_Level.text = "µÈ¼¶:" + currentLevel;
 
-        List<FestiveAttrConfig> configs = FestiveAttrConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Type == GroupId && m.StartLevel <= nextLevel).ToList();
+        List<FestiveAttrConfig> configs = FestiveAttrConfigCategory.Instance.GetList(GroupId, nextLevel);
 
         if (currentLevel >= MaxLevel)
         {
