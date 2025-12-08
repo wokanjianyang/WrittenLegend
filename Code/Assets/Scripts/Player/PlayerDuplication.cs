@@ -21,6 +21,7 @@ namespace Game
             this.SkillPanel = skill;
             this.RuleType = player.RuleType;
             this.Life = skill.Duration;
+            this.IsFestive = player.IsFestive;
 
             this.BirthDay = TimeHelper.ClientNowSeconds();
 
@@ -73,8 +74,8 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroPanel, magicAtt * rate);
             AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroPanel, spiritAtt * 0.5);
 
-            Debug.Log("dupulication ruleType:" + this.RuleType);
-            if (this.RuleType != RuleType.Festive)
+            //Debug.Log("dupulication ruleType:" + this.RuleType);
+            if (!this.IsFestive)
             {
                 AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Def));
             }

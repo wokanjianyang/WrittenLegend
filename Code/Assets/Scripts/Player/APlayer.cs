@@ -43,6 +43,8 @@ namespace Game
 
         public int RingType { get; set; } = 0;
 
+        public bool IsFestive { get; set; } = false;
+
         public Vector3Int Cell { get; set; }
 
         public AttributeBonus AttributeBonus { get; set; }

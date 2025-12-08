@@ -9,10 +9,11 @@ namespace Game
     {
         private int Scale = 0;
 
-        public HeroMyth(RuleType ruleType) : base()
+        public HeroMyth(bool isfestive) : base()
         {
             this.GroupId = 1;
-            this.RuleType = ruleType;
+            this.RuleType = RuleType.Myth;
+            this.IsFestive = isfestive;
 
             this.Init();
         }
