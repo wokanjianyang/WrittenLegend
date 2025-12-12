@@ -2285,12 +2285,17 @@ namespace Game
             }
             else if (item.Type == ItemType.Pet)
             {
+                Pet pet = item as Pet;
                 int quality = item.GetQuality();
                 dict[ItemHelper.SpecialId_Pet_Exp] = quality * 100;
 
                 if (quality >= 5)
                 {
                     dict[ItemHelper.Specail_Pet_Layer[quality - 5]] = 1;
+                }
+                if (pet.DevourFlairs.Count > 0)
+                {
+                    dict[ItemHelper.Specail_Pet_Layer[quality - 5]] += pet.DevourFlairs.Count;
                 }
             }
             else if (item.Type == ItemType.Shengxiao)

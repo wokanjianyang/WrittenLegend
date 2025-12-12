@@ -57,14 +57,10 @@ namespace Game
         public Item_Pet Item { get; set; }
     }
 
-    public class PetForgeEvent : SDD.Events.Event
+    public class OpenPetForgeEvent : SDD.Events.Event
     {
+        public int Type { get; set; }
         public Item_Pet Item { get; set; }
-    }
-
-    public class PetOpenTravelEvent : SDD.Events.Event
-    {
-        public Pet Pet { get; set; }
     }
 
     public class PetStartTravelEvent : SDD.Events.Event

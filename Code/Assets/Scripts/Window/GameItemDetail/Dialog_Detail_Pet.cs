@@ -106,23 +106,35 @@ namespace Game
             this.TxtLevel.text = pet.PetLevel.Data + "";
             this.TxtLayer.text = pet.PetLayer.Data + "";
 
-            List<KeyValuePair<int, MagicData>> flairs = pet.Flairs;
+            List<KeyValuePair<int, long>> flairs = pet.GetTotalFlairs().ToList();
 
             if (flairs != null && flairs.Count > 0)
             {
                 tran_BaseAttribute.gameObject.SetActive(true);
                 Transform gridBase = tran_BaseAttribute.Find("Grid_Base");
 
-                long RiseFlairs = (pet.PetLayer.Data - 1) * Pet.LayerRiseAttr;
-
-                for (int index = 0; index < 8; index++)
+                for (int index = 0; index < 10; index++)
                 {
                     var child = gridBase.Find(string.Format("Attribute_{0}", index));
 
                     if (index < flairs.Count())
                     {
-                        long tf = flairs[index].Value.Data + RiseFlairs;
-                        child.GetComponent<Text>().text = StringHelper.FormatAttrValueName(flairs[index].Key) + "：" + tf;
+                        child.GetComponent<Text>().text = StringHelper.FormatAttrValueName(flairs[index].Key) + "：" + flairs[index].Value;
+                        child.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        child.gameObject.SetActive(false);
+                    }
+                }
+
+                int fc = pet.GetDevourCount();
+                for (int index = 0; index < 2; index++)
+                {
+                    var child = gridBase.Find(string.Format("Attribute_{0}", 10 + index));
+                    if (index < pet.DevourFlairs.Count() && fc <= index)
+                    {
+                        child.GetComponent<Text>().text = StringHelper.FormatAttrValueName(pet.DevourFlairs[index].Key) + "：" + pet.DevourFlairs[index].Value.Data;
                         child.gameObject.SetActive(true);
                     }
                     else
@@ -132,6 +144,7 @@ namespace Game
                 }
             }
 
+
             List<KeyValuePair<int, double>> attrList = pet.GetBaseAttr().ToList();
 
             if (attrList.Count > 0)
@@ -139,7 +152,7 @@ namespace Game
                 tran_FinalAttribute.gameObject.SetActive(true);
                 Transform gridBase = tran_FinalAttribute.Find("Grid_Base");
 
-                for (int index = 0; index < 8; index++)
+                for (int index = 0; index < 10; index++)
                 {
                     var child = gridBase.Find(string.Format("Attribute_{0}", index));
 

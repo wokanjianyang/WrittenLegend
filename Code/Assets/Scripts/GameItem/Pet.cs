@@ -21,6 +21,8 @@ namespace Game
         //public MagicData LayerExp { get; set; } = new MagicData();
         public List<KeyValuePair<int, MagicData>> Flairs { get; set; } = new List<KeyValuePair<int, MagicData>>();
 
+        public List<KeyValuePair<int, MagicData>> DevourFlairs { get; set; } = new List<KeyValuePair<int, MagicData>>();
+
         public int Status { get; set; }
 
         public int Role { get; set; }
@@ -42,28 +44,64 @@ namespace Game
             this.Name = ConfigHelper.PetName[Role - 1];
         }
 
-        public Dictionary<int, double> GetBaseAttr()
+        public int GetDevourCount()
         {
-            Dictionary<int, double> attrs = new Dictionary<int, double>();
+            if (PetLayer.Data >= 10)
+            {
+                return DevourFlairs.Count;
+            }
+
+            return 0;
+        }
+
+        public Dictionary<int, long> GetTotalFlairs()
+        {
+            Dictionary<int, long> flairs = new Dictionary<int, long>();
+
+            long layer = PetLayer.Data;
+
+            int fc = GetDevourCount();
 
             for (int i = 0; i < Flairs.Count; i++)
             {
                 int attrId = Flairs[i].Key;
-                long level = PetLevel.Data;
-                long layer = PetLayer.Data;
+
+                long flair = Flairs[i].Value.Data * (100 + fc * 20) / 100 + (layer - 1) * LayerRiseAttr;
+
+                flairs[attrId] = flair;
+            }
+
+            for (int i = 0; i < fc; i++)
+            {
+                int attrId = DevourFlairs[i].Key;
+
+                long flair = DevourFlairs[i].Value.Data * (100 + fc * 20) / 100 + (layer - 1) * LayerRiseAttr;
+
+                flairs[attrId] = flair;
+            }
+
+            return flairs;
+        }
+
+        public Dictionary<int, double> GetBaseAttr()
+        {
+            Dictionary<int, double> attrs = new Dictionary<int, double>();
+
+            long level = PetLevel.Data;
+            long rise = level / 10;
+            double riseRate = (1 + rise * 0.05);
+
+            Dictionary<int, long> flairs = this.GetTotalFlairs();
+
+            foreach (KeyValuePair<int, long> sp in flairs)
+            {
+                int attrId = sp.Key;
 
                 PetConfig config = PetConfigCategory.Instance.GetByAttrId(attrId);
 
-                long rise = level / 10;
-                long flairs = Flairs[i].Value.Data + (layer - 1) * LayerRiseAttr;
-                double attrValue = (flairs * config.AttrValue / 100 * level) * (1 + rise * 0.05);
+                double attrValue = (sp.Value * config.AttrValue / 100 * level) * riseRate;
 
-                if (!attrs.ContainsKey(attrId))
-                {
-                    attrs[attrId] = 0;
-                }
-
-                attrs[attrId] += attrValue;
+                attrs[attrId] = attrValue;
             }
 
             return attrs;
@@ -82,9 +120,32 @@ namespace Game
             }
         }
 
+        public void Devour(int attrId, long attrValue)
+        {
+            MagicData far = new MagicData();
+            far.Data = attrValue;
+
+            DevourFlairs.Add(new KeyValuePair<int, MagicData>(attrId, far));
+        }
+
+        public bool IsDevour(int attrId)
+        {
+            if (Flairs.Select(m => m.Key).Contains(attrId))
+            {
+                return false;
+            }
+            if (DevourFlairs.Select(m => m.Key).Contains(attrId))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public long GetSkillPercent()
         {
-            return PetSkillRise[Flairs.Count - 1] + (PetLayer.Data - 1) * LayerRiseSkill;
+            int fc = GetDevourCount();
+            return PetSkillRise[Flairs.Count - 1] + (PetLayer.Data - 1) * LayerRiseSkill + fc * 4;
         }
 
         private int[] PetSkillRise = new int[] { 5, 6, 7, 8, 10, 12, 15 };

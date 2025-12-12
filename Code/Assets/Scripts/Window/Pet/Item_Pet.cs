@@ -16,6 +16,7 @@ namespace Game
         public Button Btn_Down;
         public Button Btn_Up_Level;
         public Button Btn_Travel;
+        public Button Btn_Devour;
 
         public Button Btn_Image;
         public Image image_Background;
@@ -30,6 +31,7 @@ namespace Game
             this.Btn_Down.onClick.AddListener(OnDown);
             this.Btn_Up_Level.onClick.AddListener(OnUpLevel);
             this.Btn_Travel.onClick.AddListener(OnTravel);
+            this.Btn_Devour.onClick.AddListener(OnDevour);
         }
 
         // Update is called once per frame
@@ -71,20 +73,17 @@ namespace Game
 
         private void OnUpLevel()
         {
-
-            GameProcessor.Inst.EventCenter.Raise(new PetForgeEvent()
-            {
-                Item = this
-            });
+            GameProcessor.Inst.EventCenter.Raise(new OpenPetForgeEvent() { Type = 1, Item = this });
         }
 
         private void OnTravel()
         {
-            GameProcessor.Inst.EventCenter.Raise(new PetOpenTravelEvent()
-            {
-                Pet = pet
-            });
+            GameProcessor.Inst.EventCenter.Raise(new OpenPetForgeEvent() { Type = 2, Item = this });
+        }
 
+        private void OnDevour()
+        {
+            GameProcessor.Inst.EventCenter.Raise(new OpenPetForgeEvent() { Type = 3, Item = this });
         }
 
         public void Init(Pet pet)
@@ -99,6 +98,15 @@ namespace Game
             Txt_Layer.color = ColorHelper.GetColorByQuality(pet.GetQuality());
 
             this.image_Background.sprite = list_Backgrounds[pet.Role - 1];
+
+            if (pet.DevourFlairs.Count == 0 && pet.PetLayer.Data >= 10)
+            {
+                this.Btn_Devour.gameObject.SetActive(true);
+            }
+            else
+            {
+                this.Btn_Devour.gameObject.SetActive(false);
+            }
         }
     }
 }
