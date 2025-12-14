@@ -80,6 +80,7 @@ namespace Game
             MonsterWorldList.Add(Resources.Load<Sprite>("UI/Player/Player_World2"));
             MonsterWorldList.Add(Resources.Load<Sprite>("UI/Player/Player_World3"));
             MonsterWorldList.Add(Resources.Load<Sprite>("UI/Player/Player_World4"));
+            MonsterWorldList.Add(Resources.Load<Sprite>("UI/Player/Player_World5"));
 
             MonsterDefend = Resources.Load<Sprite>("UI/Player/Player_Defend");
         }

@@ -3,4 +3,5 @@
 {"_t":"RelicGroupConfig","_id":2,"Name":"白虎之命","AttrId":118,"AttrValue":0.5,"RiseAttr":2.24,"RiseType":2,"Des":"每点减伤属性额外提高生命*{0}%（下一级+{1}）（乘法）"},
 {"_t":"RelicGroupConfig","_id":3,"Name":"朱雀之神","AttrId":119,"AttrValue":10,"RiseAttr":2.24,"RiseType":2,"Des":"额外增加(自身命中*{0})%（下一级+{1}）的伤害（乘法）"},
 {"_t":"RelicGroupConfig","_id":4,"Name":"玄武之破","AttrId":120,"AttrValue":10,"RiseAttr":3.5,"RiseType":2,"Des":"降低敌人(自身闪避*{0})倍（下一级+{1}）的韧性（乘法）"},
+{"_t":"RelicGroupConfig","_id":5,"Name":"麒麟之速","AttrId":121,"AttrValue":10,"RiseAttr":3,"RiseType":2,"Des":"额外增加(自身攻速*{0})%（下一级+{1}）的伤害（乘法）"},
 ]}

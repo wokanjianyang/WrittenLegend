@@ -124,6 +124,7 @@ namespace Game
                 AttributeBonus.SetAttr(AttributeEnum.LuckyHit, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.LuckyHit) * sd);
                 AttributeBonus.SetAttr(AttributeEnum.Relic3, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Relic3) * sd);
                 AttributeBonus.SetAttr(AttributeEnum.Relic4, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Relic4) * sd);
+                AttributeBonus.SetAttr(AttributeEnum.Relic5, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Relic5) * sd);
                 AttributeBonus.SetAttr(AttributeEnum.Shatter, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Shatter) * sd);
             }
 

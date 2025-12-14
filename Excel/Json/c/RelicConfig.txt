@@ -31,4 +31,12 @@
 {"_t":"RelicConfig","_id":30,"Type":4,"ItemId":61000030,"Name":"玄武护戒","AttrIdList":[2001,2002,2003,31],"AttrValueList":[10,15,20,0.6],"AttrRiseList":[10,15,20,0.6]},
 {"_t":"RelicConfig","_id":31,"Type":4,"ItemId":61000031,"Name":"玄武腰带","AttrIdList":[2001,2002,2003,31],"AttrValueList":[10,15,20,0.6],"AttrRiseList":[10,15,20,0.6]},
 {"_t":"RelicConfig","_id":32,"Type":4,"ItemId":61000032,"Name":"玄武战靴","AttrIdList":[2001,2002,2003,31],"AttrValueList":[10,15,20,0.6],"AttrRiseList":[10,15,20,0.6]},
+{"_t":"RelicConfig","_id":33,"Type":5,"ItemId":61000033,"Name":"麒麟神剑","AttrIdList":[2001,2002,2003,2013],"AttrValueList":[10,15,20,20],"AttrRiseList":[10,15,20,20]},
+{"_t":"RelicConfig","_id":34,"Type":5,"ItemId":61000034,"Name":"麒麟神甲","AttrIdList":[2001,2002,2003,2013],"AttrValueList":[10,15,20,20],"AttrRiseList":[10,15,20,20]},
+{"_t":"RelicConfig","_id":35,"Type":5,"ItemId":61000035,"Name":"麒麟面罩","AttrIdList":[2001,2002,2003,2013],"AttrValueList":[10,15,20,20],"AttrRiseList":[10,15,20,20]},
+{"_t":"RelicConfig","_id":36,"Type":5,"ItemId":61000036,"Name":"麒麟项链","AttrIdList":[2001,2002,2003,2013],"AttrValueList":[10,15,20,20],"AttrRiseList":[10,15,20,20]},
+{"_t":"RelicConfig","_id":37,"Type":5,"ItemId":61000037,"Name":"麒麟护腕","AttrIdList":[2001,2002,2003,2013],"AttrValueList":[10,15,20,20],"AttrRiseList":[10,15,20,20]},
+{"_t":"RelicConfig","_id":38,"Type":5,"ItemId":61000038,"Name":"麒麟护戒","AttrIdList":[2001,2002,2003,2013],"AttrValueList":[10,15,20,20],"AttrRiseList":[10,15,20,20]},
+{"_t":"RelicConfig","_id":39,"Type":5,"ItemId":61000039,"Name":"麒麟腰带","AttrIdList":[2001,2002,2003,2013],"AttrValueList":[10,15,20,20],"AttrRiseList":[10,15,20,20]},
+{"_t":"RelicConfig","_id":40,"Type":5,"ItemId":61000040,"Name":"麒麟战靴","AttrIdList":[2001,2002,2003,2013],"AttrValueList":[10,15,20,20],"AttrRiseList":[10,15,20,20]},
 ]}

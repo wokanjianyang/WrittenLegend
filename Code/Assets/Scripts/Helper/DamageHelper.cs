@@ -141,6 +141,17 @@ namespace Game
                 //Debug.Log("relic3:" + relic3 + "  rise:" + (accuracy * relic3 + 100) / 100);
             }
 
+            double relic5 = attcher.GetAttackDoubleAttr(AttributeEnum.Relic5);
+            if (relic5 > 0)
+            {
+                double speed = attcher.GetAttackDoubleAttr(AttributeEnum.Speed);
+                //attack = attack * (speed * relic5 + 100) / 100;
+
+                //Debug.Log("attack:" + attack);
+
+                //Debug.Log("relic5:" + relic5 + "  rise:" + (speed * relic5 + 100) / 100);
+            }
+
             double protect = enemy.GetAttackAttr(AttributeEnum.Protect);
             attack = attack * (100 - protect) / 100;
 
@@ -375,7 +386,7 @@ namespace Game
 
     public class DamageResult
     {
-        public DamageResult(double damage, double extendDamage, MsgType type, RoleType roleType,int skillId)
+        public DamageResult(double damage, double extendDamage, MsgType type, RoleType roleType, int skillId)
         {
             this.Damage = damage;
             this.ExtendDamage = extendDamage;
