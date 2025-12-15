@@ -99,7 +99,7 @@ namespace Game
 
             this.image_Background.sprite = list_Backgrounds[pet.Role - 1];
 
-            if (pet.DevourFlairs.Count == 0 && pet.PetLayer.Data >= 10)
+            if (pet.GetQuality() >= 7 && pet.DevourFlairs.Count == 0 && pet.PetLayer.Data >= 10)
             {
                 this.Btn_Devour.gameObject.SetActive(true);
             }
