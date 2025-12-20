@@ -343,7 +343,7 @@ namespace Game
         {
             scrollRect.gameObject.SetActive(false);
 
-            GameProcessor.Inst.EventCenter.Raise(new ShengxiaoStartEvent() { Id = id });
+            GameProcessor.Inst.EventCenter.Raise(new SpiritStartEvent() { Id = id });
         }
 
         public void StartWorld(int id)

@@ -65,6 +65,8 @@ namespace Game
                 return;
             }
 
+            this.gameObject.gameObject.SetActive(false);
+
             GameProcessor.Inst.EventCenter.Raise(new PetBattleDownEvent()
             {
                 Item = this

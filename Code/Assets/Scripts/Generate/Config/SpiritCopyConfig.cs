@@ -81,32 +81,35 @@ namespace Game
 		/// <summary>MapName</summary>
 		[ProtoMember(2)]
 		public string MapName { get; set; }
-		/// <summary>Attr</summary>
+		/// <summary>MonsterName</summary>
 		[ProtoMember(3)]
+		public string MonsterName { get; set; }
+		/// <summary>Attr</summary>
+		[ProtoMember(4)]
 		public string Attr { get; set; }
 		/// <summary>Def</summary>
-		[ProtoMember(4)]
+		[ProtoMember(5)]
 		public string Def { get; set; }
 		/// <summary>HP</summary>
-		[ProtoMember(5)]
+		[ProtoMember(6)]
 		public string HP { get; set; }
 		/// <summary>Speed</summary>
-		[ProtoMember(6)]
+		[ProtoMember(7)]
 		public int Speed { get; set; }
 		/// <summary>DamageIncrea</summary>
-		[ProtoMember(7)]
+		[ProtoMember(8)]
 		public int DamageIncrea { get; set; }
 		/// <summary>DamageResist</summary>
-		[ProtoMember(8)]
+		[ProtoMember(9)]
 		public int DamageResist { get; set; }
 		/// <summary>CritRateResist</summary>
-		[ProtoMember(9)]
+		[ProtoMember(10)]
 		public int CritRateResist { get; set; }
 		/// <summary>CritDamageResist</summary>
-		[ProtoMember(10)]
+		[ProtoMember(11)]
 		public int CritDamageResist { get; set; }
 		/// <summary>Protect</summary>
-		[ProtoMember(11)]
+		[ProtoMember(12)]
 		public int Protect { get; set; }
 
 	}

@@ -1063,10 +1063,10 @@ namespace Game
             {
                 this.items.Remove(boxUI);
                 GameObject.Destroy(boxUI.gameObject);
-            }
 
-            //生成新的
-            user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = newList });
+                //生成新的
+                user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = newList });
+            }
         }
 
         private void OnLoseEvent(LoseEvent e)
@@ -1868,7 +1868,7 @@ namespace Game
                         //user.MetalData
                         user.SaveArtifactLevel(newItem.ConfigId, (int)newItem.Count);
                     }
-                    else if (newItem.Type == ItemType.Card || newItem.Type == ItemType.Fashion || (newItem.Type == ItemType.Material && newItem.ConfigId == ItemHelper.SpecialId_Card_Stone))
+                    else if (newItem.Type == ItemType.Card || newItem.Type == ItemType.Fashion || newItem.Type == ItemType.Spirit || (newItem.Type == ItemType.Material && newItem.ConfigId == ItemHelper.SpecialId_Card_Stone))
                     {
                         user.SaveItemMeterialCount(newItem.ConfigId, newItem.Count);
                     }

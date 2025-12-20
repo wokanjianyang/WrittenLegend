@@ -108,7 +108,9 @@ namespace Game
         Ring = 19,
         GiftPackEquip = 20,
         GiftPackPet = 21,
-        GiftPackShengxiao=22,
+        GiftPackShengxiao = 22,
+
+        Spirit = 30,
 
         Metal = 98,
         Ad = 99,

@@ -157,6 +157,9 @@ namespace Game
             long sx = user.ShengxiaoList.Where(m => m.Value.GetQuality() >= 9).Count();
             paramDict.Add("shengxiao", sx + "");
 
+            long petLayer = user.PetList.Where(m => m.GetQuality() >= 7).Select(m => m.PetLayer.Data).Sum();
+            paramDict.Add("petLayer", petLayer + "");
+
             paramDict.Add("channel", ConfigHelper.Channel + "");
 
             if (user.First_Create_Time > 0)

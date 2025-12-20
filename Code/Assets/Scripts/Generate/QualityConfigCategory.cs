@@ -50,7 +50,7 @@ namespace Game
                     titleColor = "76B0FF";
                     break;
                 case 4:
-                    titleColor = "EE66EE";
+                    titleColor = "D380FF";
                     break;
                 case 5:
                     titleColor = "FF6600";

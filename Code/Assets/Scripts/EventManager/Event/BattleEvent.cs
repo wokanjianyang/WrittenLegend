@@ -550,14 +550,26 @@ namespace Game
         public int Time { get; set; }
     }
 
-    //--festive
+    //--shengxiao
     public class ShengxiaoStartEvent : SDD.Events.Event
     {
         public int Id { get; set; }
     }
     public class ShowShengxiaoInfoEvent : SDD.Events.Event
     {
-        public int Count  { get; set; }
+        public int Count { get; set; }
+        public int Time { get; set; }
+    }
+
+    //--spirit
+    public class SpiritStartEvent : SDD.Events.Event
+    {
+        public int Id { get; set; }
+    }
+    public class ShowSpiritInfoEvent : SDD.Events.Event
+    {
+        public int Stage { get; set; }
+        public int Count { get; set; }
         public int Time { get; set; }
     }
 

@@ -77,7 +77,7 @@ namespace Game
             //Debug.Log("dupulication ruleType:" + this.RuleType);
             if (!this.IsFestive)
             {
-                AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Def));
+                //AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Def));
             }
             AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroPanel, 0);
             AttributeBonus.SetAttr(AttributeEnum.Speed, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttr(AttributeEnum.Speed));

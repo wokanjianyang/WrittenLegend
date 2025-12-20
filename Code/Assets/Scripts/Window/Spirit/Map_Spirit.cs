@@ -9,6 +9,8 @@ using UnityEngine.UI;
 public class Map_Spirit : MonoBehaviour, IBattleLife
 {
     public Text Txt_Name;
+    public Text Txt_Level;
+    public Text Txt_Count;
     public Text Txt_Time;
 
     public ScrollRect sr_BattleMsg;
@@ -36,55 +38,61 @@ public class Map_Spirit : MonoBehaviour, IBattleLife
         this.msgPrefab = Resources.Load<GameObject>("Prefab/Window/Item/Item_DropMsg");
 
         GameProcessor.Inst.EventCenter.AddListener<BattleMsgEvent>(this.OnBattleMsgEvent);
-        GameProcessor.Inst.EventCenter.AddListener<ShowFestiveInfoEvent>(this.OnShowInfo);
-        GameProcessor.Inst.EventCenter.AddListener<FestiveStartEvent>(this.OnStart);
+        GameProcessor.Inst.EventCenter.AddListener<ShowSpiritInfoEvent>(this.OnShowInfo);
+        GameProcessor.Inst.EventCenter.AddListener<SpiritStartEvent>(this.OnStart);
         GameProcessor.Inst.EventCenter.AddListener<BattleLoseEvent>(this.OnBattleLoseEvent);
 
         this.gameObject.SetActive(false);
     }
 
 
-    public void OnStart(FestiveStartEvent e)
+    public void OnStart(SpiritStartEvent e)
     {
         this.gameObject.SetActive(true);
-
-        long count = GameProcessor.Inst.User.FestiveMapData12.Number.Data;
-
-        if (count <= 0)
-        {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "挑战不足", ToastType = ToastTypeEnum.Failure });
-            return;
-        }
 
         Dictionary<string, object> param = new Dictionary<string, object>();
         param.Add("MapId", e.Id);
 
-        FestiveCopyConfig config = FestiveCopyConfigCategory.Instance.Get(e.Id);
+        SpiritCopyConfig config = SpiritCopyConfigCategory.Instance.Get(e.Id);
 
         Txt_Name.text = config.MapName;
 
         GameProcessor.Inst.DelayAction(0.1f, () =>
         {
             GameProcessor.Inst.OnDestroy();
-            GameProcessor.Inst.LoadMap(RuleType.Festive, this.transform, param);
+            GameProcessor.Inst.LoadMap(RuleType.Spirit, this.transform, param);
         });
     }
 
-    public void OnShowInfo(ShowFestiveInfoEvent e)
+    public void OnShowInfo(ShowSpiritInfoEvent e)
     {
-        if (e.Time > 1)
+        this.Txt_Time.text = "挑战时长：" + e.Time;
+
+        if (e.Stage == 1)
         {
-            Txt_Time.text = "下波出怪时间：" + (e.Time);
+            this.Txt_Level.text = "第一阶段：击杀3分钟小怪";
         }
-        else
+        else if (e.Stage == 2)
         {
-            Txt_Time.text = "击杀所有怪物通关";
+            this.Txt_Level.text = "第一阶段：击杀完所有怪物";
+        }
+        if (e.Stage == 3)
+        {
+            this.Txt_Level.text = "第三阶段：击杀完所有怪物";
+        }
+        if (e.Stage == 4)
+        {
+            this.Txt_Level.text = "第四阶段：击杀完所有怪物";
+        }
+        if (e.Stage >= 5)
+        {
+            this.Txt_Level.text = "挑战成功";
         }
     }
 
     private void OnBattleMsgEvent(BattleMsgEvent e)
     {
-        if (e.Type != RuleType.World)
+        if (e.Type != RuleType.Spirit)
         {
             return;
         }
@@ -116,7 +124,7 @@ public class Map_Spirit : MonoBehaviour, IBattleLife
 
     private void OnBattleLoseEvent(BattleLoseEvent e)
     {
-        if (e.Time == MapTime && e.Type == RuleType.Festive)
+        if (e.Time == MapTime && e.Type == RuleType.Spirit)
         {
             this.Exit();
         }
@@ -132,7 +140,7 @@ public class Map_Spirit : MonoBehaviour, IBattleLife
         GameProcessor.Inst.OnDestroy();
         this.gameObject.SetActive(false);
 
-        GameProcessor.Inst.EventCenter.Raise(new BattlerEndEvent() { Type = RuleType.World });
+        GameProcessor.Inst.EventCenter.Raise(new BattlerEndEvent() { Type = RuleType.Spirit });
 
         GameProcessor.Inst.SetGameOver(PlayerType.Hero);
         GameProcessor.Inst.DelayAction(0.1f, () =>

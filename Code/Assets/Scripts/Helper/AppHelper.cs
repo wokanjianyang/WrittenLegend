@@ -30,6 +30,7 @@ namespace Game
 
         public static bool Shengxiao_Auto = false;
         public static int Shengxiao_Id = 1;
+        public static int Spirit_Id = 1;
         public static int GetLossQuality()
         {
             //如果次数少于500次，则品质-1

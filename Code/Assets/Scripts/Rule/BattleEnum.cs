@@ -44,6 +44,7 @@ namespace Game
         Pill3,
         Festive,
         Shengxiao,
+        Spirit,
     }
 
     public enum ComponentOrder

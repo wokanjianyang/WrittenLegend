@@ -487,6 +487,10 @@ namespace Game
                     autoHero = false;
                     this.BattleRule = new BattleRule_Shengxiao(param);
                     break;
+                case RuleType.Spirit:
+                    autoHero = false;
+                    this.BattleRule = new BattleRule_Spirit(param);
+                    break;
             }
 
             if (autoHero)
@@ -1085,7 +1089,9 @@ namespace Game
                 case RuleType.Shengxiao:
                     this.EventCenter.Raise(new ShengxiaoStartEvent() { Id = AppHelper.Shengxiao_Id });
                     break;
-
+                case RuleType.Spirit:
+                    this.EventCenter.Raise(new SpiritStartEvent() { Id = AppHelper.Spirit_Id });
+                    break;
             }
         }
 
