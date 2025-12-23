@@ -10,7 +10,7 @@ public class Monster_Spirit : APlayer
 {
     SpiritCopyConfig config;
 
-    private double[] HpRateist = { 10, 15, 20, 30, 50 };
+    private double[] HpRateist = { 10, 20, 40, 70, 100 };
     private double[] AttrRateist = { 4, 4.5, 5, 6, 8 };
     private double[] DefRateist = { 1, 1.1, 1.15, 1.2, 1.25 };
 

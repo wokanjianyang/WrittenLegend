@@ -27,6 +27,13 @@ public class Dialog_Spirit : MonoBehaviour
         this.Init(1);
     }
 
+    public void Refresh()
+    {
+        foreach (Item_Spirit item in items) {
+            item.Show();
+        }
+    }
+
     private void Init(int type)
     {
         foreach (var sp in items)

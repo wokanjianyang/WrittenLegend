@@ -114,7 +114,7 @@ namespace Game
         {
             this.ReExponent();
 
-            string[] UnitList = StringHelper.UnitList;
+            string[] UnitList = ConfigHelper.UnitList;
 
             string unit = "";
 

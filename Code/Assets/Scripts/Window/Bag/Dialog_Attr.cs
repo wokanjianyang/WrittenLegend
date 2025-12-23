@@ -33,7 +33,7 @@ public class Dialog_Attr : MonoBehaviour, IBattleLife
         AttributeEnum[] list = new AttributeEnum[] {
             AttributeEnum.AttIncrea, AttributeEnum.HpIncrea, AttributeEnum.DefIncrea,
             AttributeEnum.PhyAttIncrea, AttributeEnum.MagicAttIncrea, AttributeEnum.SpiritAttIncrea,
-            AttributeEnum.MoveSpeed, AttributeEnum.DefIgnore, AttributeEnum.Miss,
+            AttributeEnum.MoveSpeed, AttributeEnum.DefIgnore,
             AttributeEnum.AurasDamageIncrea,   AttributeEnum.AurasDamageResist,AttributeEnum.AurasAttrIncrea,
 
             //AttributeEnum.PanelHp, AttributeEnum.PanelAtt, AttributeEnum.PanelDef,
@@ -46,16 +46,15 @@ public class Dialog_Attr : MonoBehaviour, IBattleLife
 
             AttributeEnum.MulDamageIncrea, AttributeEnum.MulDamageResist,
 
-            AttributeEnum.Accuracy, AttributeEnum.BurstMul,
-
-            AttributeEnum.ExpFinal, AttributeEnum.GoldFinal,
+            AttributeEnum.BurstMul, AttributeEnum.ExpFinal, AttributeEnum.GoldFinal,
             AttributeEnum.BurstFinal, AttributeEnum.QualityFinal,
 
-            AttributeEnum.StrongMul,AttributeEnum.SecondExp,AttributeEnum.SecondExp,
+            AttributeEnum.Strong,AttributeEnum.StrongMul,
+            AttributeEnum.SecondExp,AttributeEnum.SecondExp,
             AttributeEnum.CritDamage,AttributeEnum.CritRateResist,AttributeEnum.CritFinal,
             AttributeEnum.LuckyFinal,AttributeEnum.MetailFinal,AttributeEnum.DropFinal,
             AttributeEnum.Shatter,AttributeEnum.MythAttr,AttributeEnum.MythDef
-            ,AttributeEnum.MythHp,AttributeEnum.MythAll,
+            ,AttributeEnum.MythHp,AttributeEnum.MythAll,  AttributeEnum.SpiritAll,
         };
 
         for (int i = 0; i < items.Length; i++)

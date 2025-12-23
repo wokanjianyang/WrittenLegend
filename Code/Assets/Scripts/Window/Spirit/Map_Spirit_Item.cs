@@ -12,7 +12,7 @@ public class Map_Spirit_Item : MonoBehaviour
 
     private SpiritCopyConfig Config;
 
-    private int MaxId = 1;
+    private long MaxId = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +31,7 @@ public class Map_Spirit_Item : MonoBehaviour
 
     private void Show()
     {
-        if (Config.Id <= MaxId)
+        if (Config.Require <= MaxId)
         {
             this.gameObject.SetActive(true);
         }
@@ -61,7 +61,7 @@ public class Map_Spirit_Item : MonoBehaviour
         this.Show();
     }
 
-    public void SetMax(int max)
+    public void SetMax(long max)
     {
         this.MaxId = max;
         this.Show();

@@ -50,11 +50,11 @@ public class Map_Dialog_Spirit : MonoBehaviour
             return;
         }
 
-        int maxId = 4;
+        long total = user.AttributeBonus.GetTotalAttr(AttributeEnum.SpiritAll);
 
         for (int i = 0; i < items.Count; i++)
         {
-            items[i].SetMax(maxId);
+            items[i].SetMax(total);
         }
     }
 

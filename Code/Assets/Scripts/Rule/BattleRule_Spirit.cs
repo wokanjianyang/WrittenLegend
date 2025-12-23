@@ -210,7 +210,7 @@ public class BattleRule_Spirit : ABattleRule
 
         IDictionary<int, int> dropDict = new Dictionary<int, int>();
 
-        int rate = 1 + Math.Min(4, this.total / 1000);
+        int rate = 1 + Math.Min(4, this.total / 500);
         for (int i = 0; i < rate; i++)
         {
             foreach (SpiritDropConfig sdpConfig in dropList)

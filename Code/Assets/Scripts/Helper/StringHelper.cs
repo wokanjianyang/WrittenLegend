@@ -199,11 +199,6 @@ namespace Game
             return FormatNumber(val.ToString("0"), "");
         }
 
-        public static string[] UnitList = { "万", "亿", "兆", "京", "垓", "秭", "穰", "沟", "涧", "正", "载", "极", "恒", "河", "沙", "阿", "僧", "祇"
-                , "那", "由", "他", "不", "可", "思" , "议", "无", "量", "大", "数", "古", "戈", "尔" , "频", "波", "罗"
-                , "天", "地", "玄", "黄","宇","宙","洪","荒","日","月","盈","昃" ,"辰","宿","列","张","寒","来","暑","往"
-                ,"秋","收","冬","藏","闰","余","成","岁"}; // 律吕调阳
-
         private const int Start = 1;
 
         private static string FormatNumber(string val, string unit)
@@ -218,9 +213,9 @@ namespace Game
 
             while (index > 0)
             {
-                int unitIndex = Math.Min(index, UnitList.Length);
+                int unitIndex = Math.Min(index,ConfigHelper.UnitList.Length);
                 index -= unitIndex;
-                unit = UnitList[unitIndex - 1] + unit;
+                unit = ConfigHelper.UnitList[unitIndex - 1] + unit;
             }
 
             //加上点
@@ -249,7 +244,7 @@ namespace Game
             for (int i = 0; i < text.Length; i++)
             {
                 string t = text[i] + "";
-                int index = Array.IndexOf(UnitList, t);
+                int index = Array.IndexOf(ConfigHelper.UnitList, t);
 
                 if (index >= 0)
                 {

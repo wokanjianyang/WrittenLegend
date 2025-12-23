@@ -139,6 +139,9 @@ public class Dialog_Spirit_Forge : MonoBehaviour
 
     public void OnClick_Close()
     {
+        Dialog_Spirit dialog = this.GetComponentInParent<Dialog_Spirit>();
+        dialog.Refresh();
+
         this.gameObject.SetActive(false);
     }
 }
