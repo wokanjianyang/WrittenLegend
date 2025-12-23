@@ -14,7 +14,7 @@ public class Monster_Spirit : APlayer
     private double[] AttrRateist = { 4, 4.5, 5, 6, 8 };
     private double[] DefRateist = { 1, 1.1, 1.15, 1.2, 1.25 };
 
-    private string[] NameList = { "黄巾小兵", "黄巾队长", "黄巾首领", "黄巾将军" };
+    private string[] NameList = { "黄巾小兵", "黄巾队长", "黄巾精英", "黄巾首领" };
 
     public Monster_Spirit(int mapId, int quality)
     {

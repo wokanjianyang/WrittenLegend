@@ -14,10 +14,13 @@ public class BattleRule_Spirit : ABattleRule
 
     private double MapTime = 0;
 
-    private int MaxTime = 3;
+    private int MaxTime = 180;
 
     private int CurrentLayer = 1;  //此模式分4阶段，1 小兵 2 紫怪  3 boss 4 boss+紫怪
     private int[] LayerCount = new int[] { 20, 15, 10, 8, 6 };
+
+    private int MaxMonster = 20;
+    private int total = 0;
 
     protected override RuleType ruleType => RuleType.Spirit;
 
@@ -27,15 +30,18 @@ public class BattleRule_Spirit : ABattleRule
 
         this.MapId = (int)mapId;
         this.LoadHero();
+
+        AppHelper.Spirit_Id = MapId;
     }
 
     private void LoadHero()
     {
-        HeroMyth hero = new HeroMyth(true);
+        HeroSpirit hero = new HeroSpirit();
         GameProcessor.Inst.PlayerManager.LoadHero(hero);
 
         Start = true;
         MapTime = 0;
+        total = -MaxMonster;
     }
 
     public override void DoMapLogic(int roundNum, double currentRoundTime)
@@ -51,7 +57,7 @@ public class BattleRule_Spirit : ABattleRule
             MapTime += currentRoundTime;
         }
 
-        GameProcessor.Inst.EventCenter.Raise(new ShowSpiritInfoEvent() { Stage = CurrentLayer, Time = (int)MapTime });
+        GameProcessor.Inst.EventCenter.Raise(new ShowSpiritInfoEvent() { Stage = CurrentLayer, Time = (int)MapTime, Count = Math.Max(0, total) });
 
         var enemys = GameProcessor.Inst.PlayerManager.GetPlayersByCamp(PlayerType.Enemy);
 
@@ -60,14 +66,16 @@ public class BattleRule_Spirit : ABattleRule
             if (MapTime < MaxTime)
             {
                 //刷怪
-                if (enemys.Count < 20)
+                if (enemys.Count < MaxMonster)
                 {
-                    for (int i = 0; i < 20 - enemys.Count; i++)
+                    int count = Math.Min(MaxMonster - enemys.Count, 6);
+                    for (int i = 0; i < count; i++)
                     {
                         int quality = BuildQuality();
                         var enemy = new Monster_Spirit(MapId, quality);
                         GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
                     }
+                    total += count;
                 }
 
                 return;
@@ -89,7 +97,7 @@ public class BattleRule_Spirit : ABattleRule
 
                     for (int i = 0; i < 20; i++)
                     {
-                        var enemy = new Monster_Spirit(MapId, 4);
+                        var enemy = new Monster_Spirit(MapId, 3);
                         GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
                     }
 
@@ -113,7 +121,7 @@ public class BattleRule_Spirit : ABattleRule
 
                     for (int i = 0; i < 10; i++)
                     {
-                        var enemy = new Monster_Spirit(MapId, 5);
+                        var enemy = new Monster_Spirit(MapId, 4);
                         GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
                     }
 
@@ -135,11 +143,6 @@ public class BattleRule_Spirit : ABattleRule
                 {
                     Next = false;
 
-                    for (int i = 0; i < 10; i++)
-                    {
-                        var enemy = new Monster_Spirit(MapId, 4);
-                        GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
-                    }
                     for (int i = 0; i < 10; i++)
                     {
                         var enemy = new Monster_Spirit(MapId, 5);
@@ -203,11 +206,12 @@ public class BattleRule_Spirit : ABattleRule
         SpiritCopyConfig config = SpiritCopyConfigCategory.Instance.Get(this.MapId);
 
         int stage = this.CurrentLayer - 1;
-        List<SpiritDropConfig> dropList = SpiritDropConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.MapId == this.MapId && m.Stage <= stage).ToList();
+        List<SpiritDropConfig> dropList = SpiritDropConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.MapId == this.MapId && m.Stage < stage).ToList();
 
         IDictionary<int, int> dropDict = new Dictionary<int, int>();
 
-        for (int i = 0; i < 10; i++)
+        int rate = 1 + Math.Min(4, this.total / 1000);
+        for (int i = 0; i < rate; i++)
         {
             foreach (SpiritDropConfig sdpConfig in dropList)
             {
@@ -231,11 +235,18 @@ public class BattleRule_Spirit : ABattleRule
             items.Add(ItemHelper.BuildItem(ItemType.Spirit, sp.Key, 0, sp.Value));
         }
 
+        string message = stage > 1 ? "英灵积分" + total + "，获取" + rate + "倍奖励" : "没通关第一阶段，无奖励。";
+
         GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
         {
             Type = RuleType.Spirit,
-            Message = BattleMsgHelper.BuildRewardMessage("英灵奖励" + stage + "奖励:", 0, 0, items),
+            Message = BattleMsgHelper.BuildRewardMessage(message, 0, 0, items),
         });
+
+        if (items.Count > 0)
+        {
+            user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+        }
     }
 
     public override void CheckGameResult()
@@ -243,12 +254,12 @@ public class BattleRule_Spirit : ABattleRule
         var heroCamp = GameProcessor.Inst.PlayerManager.GetHero();
         if (heroCamp.HP <= 0)
         {
-            this.BuildReward();
-
-            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Spirit, Message = "挑战结束！" });
-
-
-            GameProcessor.Inst.CloseBattle(RuleType.Spirit, 19);
+            if (Start)
+            {
+                this.BuildReward();
+                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Spirit, Message = "挑战结束！" });
+                GameProcessor.Inst.CloseBattle(RuleType.Spirit, 19);
+            }
         }
     }
 }

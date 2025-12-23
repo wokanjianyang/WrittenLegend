@@ -18,7 +18,7 @@ namespace Game
         public Text Txt_Name;
 
         private int Id = 0;
-        private string[] names = { "天龙", "神风", "圣麟" };
+        private string[] names = { "天龙", "神凤", "圣麟" };
 
         [SerializeField]
         private PetSpeicalItemSelectEvent _onValueChanged = new PetSpeicalItemSelectEvent();

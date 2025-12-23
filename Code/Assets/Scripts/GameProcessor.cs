@@ -761,6 +761,7 @@ namespace Game
                 case RuleType.Pill3:
                 case RuleType.Babel:
                 case RuleType.Festive:
+                case RuleType.Spirit:
                     ie_autoExitKey = StartCoroutine(this.AutoExitMap(ruleType, time, ConfigHelper.AutoExitMapTime));
                     break;
                 case RuleType.Shengxiao:
@@ -931,108 +932,11 @@ namespace Game
             {
                 this.AutoStartMap(ruleType);
             }
+            else if (ruleType == RuleType.Spirit && AppHelper.Spirit_Auto)
+            {
+                this.AutoStartMap(ruleType);
+            }
         }
-
-        //private void AutoEquipCopy()
-        //{
-        //    ShowSecondaryConfirmationDialog?.Invoke(ConfigHelper.AutoStartMapTime + "S后自动挑战装备副本", true,
-        //    () =>
-        //    {
-        //        StopCoroutine(ie_autoStartCopy);
-        //        AutoStartCopy();
-        //    }, () =>
-        //    {
-        //        StopCoroutine(ie_autoStartCopy);
-        //    });
-
-        //    ie_autoStartCopy = StartCoroutine(this.ShowAutoStartCopy());
-        //}
-        //private IEnumerator ShowAutoStartCopy()
-        //{
-        //    int cd = ConfigHelper.AutoStartMapTime;
-        //    for (int i = 0; i < 2; i++)
-        //    {
-        //        this.EventCenter.Raise(new SecondaryConfirmTextEvent() { Text = $"{(cd - i)}秒后自动挑战副本" });
-        //        yield return new WaitForSeconds(1f);
-        //    }
-
-        //    this.EventCenter.Raise(new SecondaryConfirmCloseEvent());
-
-        //    AutoStartCopy();
-        //}
-
-        //private void AutoStartCopy()
-        //{
-        //    this.EventCenter.Raise(new CopyViewCloseEvent());
-        //    this.EventCenter.Raise(new AutoStartCopyEvent());
-        //}
-
-        //private void AutoBossFamily()
-        //{
-        //    ShowSecondaryConfirmationDialog?.Invoke(ConfigHelper.AutoStartMapTime + "S后自动挑战BOSS之家", true,
-        //    () =>
-        //    {
-        //        StopCoroutine(ie_autoBossFamily);
-        //        AutoStartBossFamily();
-        //    }, () =>
-        //    {
-        //        StopCoroutine(ie_autoBossFamily);
-        //    });
-
-        //    ie_autoBossFamily = StartCoroutine(this.ShowAutoStartBossFamily());
-        //}
-        //private IEnumerator ShowAutoStartBossFamily()
-        //{
-        //    int cd = ConfigHelper.AutoStartMapTime;
-        //    for (int i = 0; i < cd; i++)
-        //    {
-        //        this.EventCenter.Raise(new SecondaryConfirmTextEvent() { Text = $"{(cd - i)}秒后自动挑战BOSS之家" });
-        //        yield return new WaitForSeconds(1f);
-        //    }
-
-        //    this.EventCenter.Raise(new SecondaryConfirmCloseEvent());
-
-        //    AutoStartBossFamily();
-        //}
-        //private void AutoStartBossFamily()
-        //{
-        //    this.EventCenter.Raise(new CopyViewCloseEvent());
-        //    this.EventCenter.Raise(new AutoStartBossFamily());
-        //}
-
-        //private void AutoPhantom()
-        //{
-        //    GameProcessor.Inst.ShowSecondaryConfirmationDialog?.Invoke(ConfigHelper.AutoStartMapTime + "S后自动幻影挑战", true,
-        //    () =>
-        //    {
-        //        StopCoroutine(ie_autoPhatom);
-        //        AutoStartPhantom();
-        //    }, () =>
-        //    {
-        //        StopCoroutine(ie_autoPhatom);
-        //    });
-
-        //    ie_autoPhatom = StartCoroutine(this.ShowAutoStartPhantom());
-        //}
-        //private IEnumerator ShowAutoStartPhantom()
-        //{
-        //    int cd = ConfigHelper.AutoStartMapTime;
-        //    for (int i = 0; i < cd; i++)
-        //    {
-        //        this.EventCenter.Raise(new SecondaryConfirmTextEvent() { Text = $"{(cd - i)}S后自动幻影挑战" });
-        //        yield return new WaitForSeconds(1f);
-        //    }
-
-        //    this.EventCenter.Raise(new SecondaryConfirmCloseEvent());
-
-        //    AutoStartPhantom();
-        //}
-        //private void AutoStartPhantom()
-        //{
-        //    this.EventCenter.Raise(new CopyViewCloseEvent());
-        //    this.EventCenter.Raise(new PhantomStartEvent() { PhantomId = Phantom_Auto_Id });
-        //}
-
 
         private void AutoStartMap(RuleType ruleType)
         {

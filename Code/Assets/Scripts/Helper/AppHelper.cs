@@ -30,6 +30,8 @@ namespace Game
 
         public static bool Shengxiao_Auto = false;
         public static int Shengxiao_Id = 1;
+
+        public static bool Spirit_Auto = false;
         public static int Spirit_Id = 1;
         public static int GetLossQuality()
         {

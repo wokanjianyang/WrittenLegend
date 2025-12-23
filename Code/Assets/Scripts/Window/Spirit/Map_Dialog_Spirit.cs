@@ -16,6 +16,8 @@ public class Map_Dialog_Spirit : MonoBehaviour
     public Button Btn_Attr;
     public Dialog_Spirit DialogSpirit;
 
+    public Toggle toggle_Auto;
+
     private GameObject ItemPrefab;
     List<Map_Spirit_Item> items = new List<Map_Spirit_Item>();
 
@@ -26,6 +28,11 @@ public class Map_Dialog_Spirit : MonoBehaviour
         Btn_Close.onClick.AddListener(OnClick_Close);
         Btn_Attr.onClick.AddListener(OnClick_Attr);
         this.Init();
+
+        toggle_Auto.onValueChanged.AddListener((isOn) =>
+        {
+            AppHelper.Spirit_Auto = isOn;
+        });
     }
 
     private void OnEnable()

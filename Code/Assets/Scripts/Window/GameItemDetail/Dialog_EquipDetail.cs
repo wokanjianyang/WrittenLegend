@@ -448,9 +448,9 @@ namespace Game
         {
             string unit = "";
 
-            List<int> percents = ConfigHelper.PercentAttrIdList.ToList().ToList(); ;
+            List<int> percents = ConfigHelper.BaseAttrIdList.ToList().ToList(); ;
 
-            if (percents.Contains(attr))
+            if (!percents.Contains(attr))
             {
                 unit = "%";
             }
@@ -471,9 +471,9 @@ namespace Game
         {
             string unit = "";
 
-            List<int> percents = ConfigHelper.PercentAttrIdList.ToList().ToList(); ;
+            List<int> percents = ConfigHelper.BaseAttrIdList.ToList().ToList(); ;
 
-            if (percents.Contains(attrId))
+            if (!percents.Contains(attrId))
             {
                 unit = "%";
             }

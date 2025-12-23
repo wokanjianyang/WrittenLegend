@@ -16,6 +16,7 @@ public class Dialog_Spirit : MonoBehaviour
 
     private List<Item_Spirit> items = new List<Item_Spirit>();
 
+    public Dialog_Spirit_Forge DialogSpiritForge;
 
     public int Order => (int)ComponentOrder.Dialog;
 
@@ -49,6 +50,11 @@ public class Dialog_Spirit : MonoBehaviour
 
             items.Add(com);
         }
+    }
+
+    public void ShowForge(int id)
+    {
+        DialogSpiritForge.Init(id);
     }
 
     public void OnClick_Close()

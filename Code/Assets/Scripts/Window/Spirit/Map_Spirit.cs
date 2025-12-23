@@ -23,7 +23,7 @@ public class Map_Spirit : MonoBehaviour, IBattleLife
     private int msgId = 0;
     private List<Text> msgPool = new List<Text>();
 
-    private long MapTime = 17;
+    private long MapTime = 19;
 
     public int Order => (int)ComponentOrder.BattleRule;
 
@@ -67,6 +67,7 @@ public class Map_Spirit : MonoBehaviour, IBattleLife
     public void OnShowInfo(ShowSpiritInfoEvent e)
     {
         this.Txt_Time.text = "挑战时长：" + e.Time;
+        this.Txt_Count.text = "积分：" + e.Count;
 
         if (e.Stage == 1)
         {
@@ -74,15 +75,15 @@ public class Map_Spirit : MonoBehaviour, IBattleLife
         }
         else if (e.Stage == 2)
         {
-            this.Txt_Level.text = "第一阶段：击杀完所有怪物";
+            this.Txt_Level.text = "第一阶段：击杀所有精英";
         }
         if (e.Stage == 3)
         {
-            this.Txt_Level.text = "第三阶段：击杀完所有怪物";
+            this.Txt_Level.text = "第三阶段：击杀所有首领";
         }
         if (e.Stage == 4)
         {
-            this.Txt_Level.text = "第四阶段：击杀完所有怪物";
+            this.Txt_Level.text = "第四阶段：击杀所有BOSS";
         }
         if (e.Stage >= 5)
         {

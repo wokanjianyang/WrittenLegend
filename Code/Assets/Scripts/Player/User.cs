@@ -353,6 +353,8 @@ namespace Game
 
         public Dictionary<int, int> PetCountData { get; } = new Dictionary<int, int>();
 
+        public Dictionary<int, SpiritData> SpiritRecord { get; } = new Dictionary<int, SpiritData>();
+
         public List<DropData> DropDataList { get; } = new List<DropData>();
 
         public FestiveWeekData WeekData = new FestiveWeekData();
@@ -527,6 +529,20 @@ namespace Game
                 if (sp.Count >= sp.Config.Count)
                 {
                     AttributeBonus.SetAttr((AttributeEnum)sp.Config.AttrId, AttributeFrom.Shengxiao, 100 + sp.Config.Id, sp.Config.AttrValue);
+                }
+            }
+
+            //英灵
+            foreach (var sp in SpiritRecord)
+            {
+                SpiritConfig spiritConfig = SpiritConfigCategory.Instance.Get(sp.Key);
+                long splevel = sp.Value.Level.Data;
+                if (splevel > 0)
+                {
+                    for (int i = 0; i < spiritConfig.AttrIdList.Length; i++)
+                    {
+                        AttributeBonus.SetAttr((AttributeEnum)spiritConfig.AttrIdList[i], AttributeFrom.Spirit, spiritConfig.Id, spiritConfig.AttrValueList[i] * splevel);
+                    }
                 }
             }
 
@@ -2419,6 +2435,27 @@ namespace Game
                 FestiveAttrData[key] = new MagicData();
             }
             FestiveAttrData[key].Data++;
+        }
+
+
+        public void SaveSpiritLevel(int cardId, long level)
+        {
+            if (!SpiritRecord.ContainsKey(cardId))
+            {
+                SpiritRecord[cardId] = new SpiritData();
+            }
+
+            SpiritRecord[cardId].Level.Data += level;
+        }
+
+        public int GetSpiritLevel(int cardId)
+        {
+            if (!SpiritRecord.ContainsKey(cardId))
+            {
+                SpiritRecord[cardId] = new SpiritData();
+            }
+
+            return (int)SpiritRecord[cardId].Level.Data;
         }
     }
 

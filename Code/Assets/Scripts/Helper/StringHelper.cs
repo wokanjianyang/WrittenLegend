@@ -93,7 +93,7 @@ namespace Game
             string nt = "";
             string unit = "";
 
-            List<int> percents = ConfigHelper.PercentAttrIdList.ToList();
+            List<int> percents = ConfigHelper.BaseAttrIdList.ToList();
             //List<int> rates = ConfigHelper.RateAttrIdList.ToList();
 
             if (attrId == 2011 && val > 99.99999999 && val < 100)
@@ -101,7 +101,7 @@ namespace Game
                 return BuildMulResist(val);
             }
 
-            if (percents.Contains(attrId))
+            if (!percents.Contains(attrId))
             {
                 unit = "%";
             }

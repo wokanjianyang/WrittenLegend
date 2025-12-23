@@ -149,14 +149,14 @@ namespace Game
                 Btn_Shengxiao.gameObject.SetActive(false);
             }
 
-            //if (user.Cycle.Data >= 15)
-            //{
-            //    Btn_Spirit.gameObject.SetActive(true);
-            //}
-            //else
-            //{
-            //    Btn_Spirit.gameObject.SetActive(false);
-            //}
+            if (user.Cycle.Data >= 15)
+            {
+                Btn_Spirit.gameObject.SetActive(true);
+            }
+            else
+            {
+                Btn_Spirit.gameObject.SetActive(false);
+            }
         }
 
         public override void OnBattleStart()
