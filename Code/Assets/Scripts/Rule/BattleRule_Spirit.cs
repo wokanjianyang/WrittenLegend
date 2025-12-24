@@ -68,7 +68,7 @@ public class BattleRule_Spirit : ABattleRule
                 //刷怪
                 if (enemys.Count < MaxMonster)
                 {
-                    int count = Math.Min(MaxMonster - enemys.Count, 6);
+                    int count = Math.Min(MaxMonster - enemys.Count, 3);
                     for (int i = 0; i < count; i++)
                     {
                         int quality = BuildQuality();
@@ -165,7 +165,7 @@ public class BattleRule_Spirit : ABattleRule
 
         if (CurrentLayer == 5 && enemys.Count <= 0)
         {
-            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Spirit, Message = "挑战通关！" });
+            //GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Spirit, Message = "挑战通关！" });
             BuildReward();
 
             GameProcessor.Inst.CloseBattle(RuleType.Spirit, 19);
@@ -199,14 +199,27 @@ public class BattleRule_Spirit : ABattleRule
     {
         this.Start = false;
 
+        int stage = this.CurrentLayer - 1;
+
+        if (stage <= 0)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+            {
+                Type = RuleType.Spirit,
+                Message = BattleMsgHelper.BuildRewardMessage("挑战失败，没通关第一阶段，无奖励。", 0, 0, null),
+            });
+            return;
+        }
+
         User user = GameProcessor.Inst.User;
 
         List<Item> items = new List<Item>();
 
         SpiritCopyConfig config = SpiritCopyConfigCategory.Instance.Get(this.MapId);
 
-        int stage = this.CurrentLayer - 1;
-        List<SpiritDropConfig> dropList = SpiritDropConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.MapId == this.MapId && m.Stage < stage).ToList();
+        List<SpiritDropConfig> dropList = SpiritDropConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.MapId == this.MapId && m.Stage <= stage).ToList();
+
+        //Debug.Log("spirit drop list :" + dropList.Count);
 
         IDictionary<int, int> dropDict = new Dictionary<int, int>();
 
@@ -230,12 +243,15 @@ public class BattleRule_Spirit : ABattleRule
             }
         }
 
+        dropDict.OrderBy(m => m.Key);
+
         foreach (var sp in dropDict)
         {
             items.Add(ItemHelper.BuildItem(ItemType.Spirit, sp.Key, 0, sp.Value));
         }
 
-        string message = stage > 1 ? "英灵积分" + total + "，获取" + rate + "倍奖励" : "没通关第一阶段，无奖励。";
+        string message = stage >= 4 ? "挑战通关" : "通过第" + stage + "阶段";
+        message += ",累计积分" + total + "，获取" + rate + "倍奖励";
 
         GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
         {
@@ -257,7 +273,7 @@ public class BattleRule_Spirit : ABattleRule
             if (Start)
             {
                 this.BuildReward();
-                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Spirit, Message = "挑战结束！" });
+                //GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Spirit, Message = "挑战结束！" });
                 GameProcessor.Inst.CloseBattle(RuleType.Spirit, 19);
             }
         }

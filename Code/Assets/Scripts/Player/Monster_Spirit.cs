@@ -11,7 +11,7 @@ public class Monster_Spirit : APlayer
     SpiritCopyConfig config;
 
     private double[] HpRateist = { 5, 10, 30, 60, 150 };
-    private double[] AttrRateist = { 8, 10, 12, 15, 24 };
+    private double[] AttrRateist = { 6, 8, 10, 15, 20 };
     private double[] DefRateist = { 1, 1.1, 1.15, 1.2, 1.25 };
 
     private string[] NameList = { "黄巾小兵", "黄巾队长", "黄巾精英", "黄巾首领" };

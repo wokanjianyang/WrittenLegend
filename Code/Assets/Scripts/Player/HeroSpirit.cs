@@ -327,10 +327,10 @@ namespace Game
 
         public override void OnHit(DamageResult dr)
         {
-            if (dr.Damage > 10000)
-            {
-                Debug.Log("heor hit by skill " + dr.SkillId + " damage:" + StringHelper.FormatNumber(dr.Damage) + " maxHP:" + StringHelper.FormatNumber(this.AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP)));
-            }
+            //if (dr.Damage > 10000)
+            //{
+            //    Debug.Log("heor hit by skill " + dr.SkillId + " damage:" + StringHelper.FormatNumber(dr.Damage) + " maxHP:" + StringHelper.FormatNumber(this.AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP)));
+            //}
 
             base.OnHit(dr);
         }
