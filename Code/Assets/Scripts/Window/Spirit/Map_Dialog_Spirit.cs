@@ -16,6 +16,7 @@ public class Map_Dialog_Spirit : MonoBehaviour
     public Button Btn_Attr;
     public Dialog_Spirit DialogSpirit;
 
+    public Text Txt_Require;
     public Toggle toggle_Auto;
 
     private GameObject ItemPrefab;
@@ -51,6 +52,12 @@ public class Map_Dialog_Spirit : MonoBehaviour
         }
 
         long total = user.AttributeBonus.GetTotalAttr(AttributeEnum.SpiritAll);
+
+        Debug.Log("total:" + total);
+
+        int nextRequire = SpiritCopyConfigCategory.Instance.GetAll().Select(m => m.Value.Require).Where(m => m > total).FirstOrDefault();
+
+        Txt_Require.text = "当前英灵加成：" + total + "%，" + (nextRequire > 0 ? "下一个副本解锁需要：" + nextRequire + "%" : "已全部解锁副本");
 
         for (int i = 0; i < items.Count; i++)
         {

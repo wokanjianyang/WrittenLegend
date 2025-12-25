@@ -22,7 +22,7 @@ public class Dialog_Spirit_Forge : MonoBehaviour
     private int ConfigId = 0;
     private SpiritConfig Config = null;
 
-    private int MaxLevel = 100;
+    private int MaxLevel = 50;
 
     public int Order => (int)ComponentOrder.Dialog;
 
@@ -99,7 +99,7 @@ public class Dialog_Spirit_Forge : MonoBehaviour
     {
         if (level <= 100)
         {
-            return Math.Min(100 - 5 + level * 5, 300);
+            return Math.Min(100 - 5 + level * 5, 500);
         }
         else
         {
