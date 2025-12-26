@@ -198,6 +198,11 @@ namespace Game
             return SendRequest("save_user_file", bytes, headers, successAction, failAction);
         }
 
+        public static IEnumerator CreateAccountNew(byte[] bytes, Dictionary<string, string> headers, Action<WebResultWrapper> successAction, Action failAction)
+        {
+            return SendRequest("create_user_new", bytes, headers, successAction, failAction);
+        }
+
         public static IEnumerator GetDownParam(Action<WebResultWrapper> successAction, Action failAction)
         {
             return SendRequest("get_user_file", Encoding.UTF8.GetBytes(""), successAction, failAction);

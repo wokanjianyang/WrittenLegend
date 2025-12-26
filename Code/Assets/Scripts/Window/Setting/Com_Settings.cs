@@ -10,6 +10,7 @@ using System.Linq;
 using static UnityEngine.UI.Dropdown;
 using System;
 using Game.Data;
+using Newtonsoft.Json;
 
 namespace Game
 {
@@ -27,6 +28,7 @@ namespace Game
         public Button btn_Code;
 
         private const int CHARACTER_LIMIT = 10;
+        private long ticket = 0;
 
         // Start is called before the first frame update
         void Start()
@@ -69,9 +71,40 @@ namespace Game
             {
                 code = code.Trim();
 
-                if (code == "yd1")
+                if (code.Length == 46)
                 {
-                    GameProcessor.Inst.Yundang = true;
+                    //GameProcessor.Inst.Yundang = true;
+
+                    long ct = TimeHelper.ClientNowSeconds();
+                    if (ct - ticket <= 10)
+                    {
+                        GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "请稍后再试", ToastType = ToastTypeEnum.Failure });
+                    }
+
+                    ticket = ct;
+
+                    User user = GameProcessor.Inst.User;
+                    string str_json = JsonConvert.SerializeObject(user, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
+                    str_json = EncryptionHelper.AesEncrypt(str_json);
+
+                    string md5 = EncryptionHelper.Md5(str_json);
+                    byte[] bytes = Encoding.UTF8.GetBytes(str_json);
+
+                    Dictionary<string, string> headers = new Dictionary<string, string>();
+                    headers.Add("md5", md5);
+
+
+                    StartCoroutine(NetworkHelper.CreateAccountNew(bytes, headers,
+                            (WebResultWrapper result) =>
+                            {
+                                if (result.Code == StatusMessage.OK)
+                                {
+                                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "提交成功", ToastType = ToastTypeEnum.Failure });
+                                }
+
+                            },
+                           null));
+
                 }
                 else if (code.Length > 20)
                 {
