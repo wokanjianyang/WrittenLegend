@@ -206,6 +206,7 @@ public class ViewForgeProcessor : AViewPage
         {
             return;
         }
+        bool ac = ConfigHelper.AC == ConfigHelper.Channel_Tap || user.Account == "";
 
         if (user.Cycle.Data > 0)
         {
@@ -227,7 +228,7 @@ public class ViewForgeProcessor : AViewPage
             toggle_Equip.gameObject.SetActive(false);
         }
 
-        if (user.Cycle.Data > 3)
+        if (user.Cycle.Data > 3 && !ac)
         {
             toggle_Other.gameObject.SetActive(true);
             toggle_Stone.gameObject.SetActive(true);
@@ -272,7 +273,8 @@ public class ViewForgeProcessor : AViewPage
         {
             toggle_Shengxiao.gameObject.SetActive(true);
         }
-        else {
+        else
+        {
             toggle_Shengxiao.gameObject.SetActive(false);
         }
     }

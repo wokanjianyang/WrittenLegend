@@ -118,6 +118,21 @@ namespace Game
             long copy = user.GetAchievementProgeress(AchievementSourceType.EquipCopy);
             paramDict.Add("equip", copy + "");
 
+            long equip1 = 0;
+            foreach (var sp in user.EquipPanelGoldenList[user.EquipGoldenIndex])
+            {
+                equip1 += sp.Value.GetFull();
+            }
+            foreach (var sp in user.EquipPanelDarkGoldList[user.EquipDarkGoldIndex])
+            {
+                equip1 += sp.Value.GetFull();
+            }
+            foreach (var sp in user.EquipPanelHundunList[user.EquipHundunIndex])
+            {
+                equip1 += sp.Value.GetFull();
+            }
+            paramDict.Add("equip1", equip1 + "");
+
             long legacy = user.GetAchievementProgeress(AchievementSourceType.Legacy);
             paramDict.Add("legacy", legacy + "");
 
@@ -156,6 +171,11 @@ namespace Game
 
             long sx = user.ShengxiaoList.Where(m => m.Value.GetQuality() >= 9).Count();
             paramDict.Add("shengxiao", sx + "");
+
+            long minVersion = user.VersionLog.Select(m => m.Key).Min();
+            paramDict.Add("minVersion", minVersion + "");
+
+            paramDict.Add("versionCount", user.VersionLog.Count + "");
 
             long petLayer = user.PetList.Where(m => m.GetQuality() >= 7).Select(m => m.PetLayer.Data).Sum();
             paramDict.Add("petLayer", petLayer + "");

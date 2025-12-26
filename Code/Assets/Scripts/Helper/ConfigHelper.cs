@@ -13,7 +13,7 @@ namespace Game
 #if IS_TAPTAP
         public const int AC = 1; //Tap 1 QQ 2
 #else
-        public const int AC = 1; //Tap 1 QQ 2
+        public const int AC = 2; //Tap 1 QQ 2
 #endif
 
         public const int Channel_Tap = 1;

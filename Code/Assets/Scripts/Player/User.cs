@@ -360,7 +360,7 @@ namespace Game
         public FestiveWeekData WeekData = new FestiveWeekData();
 
         public IDictionary<int, int> FestiveData_0202 { get; set; } = new Dictionary<int, int>();
-        public IDictionary<int, int> FestiveData_1102 { get; set; } = new Dictionary<int, int>();
+        public IDictionary<int, int> FestiveData_0302 { get; set; } = new Dictionary<int, int>();
 
         public IDictionary<int, int> FestiveData_1202 { get; set; } = new Dictionary<int, int>();
 
@@ -1717,23 +1717,23 @@ namespace Game
 
         public int GetFestiveCount(int id)
         {
-            if (!this.FestiveData_1202.ContainsKey(id))
+            if (!this.FestiveData_0102.ContainsKey(id))
             {
-                this.FestiveData_1202[id] = 0;
+                this.FestiveData_0102[id] = 0;
             }
 
-            return this.FestiveData_1202[id];
+            return this.FestiveData_0102[id];
         }
 
         public void SaveFestiveCount(int configId, int count)
         {
-            if (this.FestiveData_1202.ContainsKey(configId))
+            if (this.FestiveData_0102.ContainsKey(configId))
             {
-                this.FestiveData_1202[configId] += count;
+                this.FestiveData_0102[configId] += count;
             }
             else
             {
-                this.FestiveData_1202[configId] = count;
+                this.FestiveData_0102[configId] = count;
             }
         }
 

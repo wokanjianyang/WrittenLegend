@@ -389,5 +389,31 @@ namespace Game
         {
             return AttrEntryList.Where(m => (m.Key == 2001 || m.Key == 2004 || m.Key == 2005 || m.Key == 2006 || m.Key == 2010)).Count();
         }
+
+        public int GetFull()
+        {
+            int full = 0;
+
+            foreach (var sp in this.AttrEntryList)
+            {
+                AttrEntryConfig config = AttrEntryConfigCategory.Instance.GetRedConfig(sp.Key, this.EquipConfig.Cycle);
+                if (config == null)
+                {
+                    return 1;
+                }
+
+                if (sp.Value == config.MaxValue)
+                {
+                    full++;
+                }
+
+            }
+
+            if (full == this.AttrEntryList.Count) {
+                return 1;
+            }
+
+            return 0;
+        }
     }
 }
