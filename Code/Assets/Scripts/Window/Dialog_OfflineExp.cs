@@ -132,7 +132,7 @@ namespace Game
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 128, 1, 1)); //暗金自选
 
             //items.AddRange(AddGoldenEquip());
-            //items.AddRange(AddExclusiveHuoXing());
+            //items.AddRange(AddExclusiveDaoshi());
             //items.AddRange(AddRedEquip1());
 
 
@@ -1055,7 +1055,7 @@ namespace Game
             //定制红
             List<ExclusiveItem> list = new List<ExclusiveItem>();
 
-            ////火符
+            //火符
             //ExclusiveItem exclusive1 = new ExclusiveItem(1, 20, 10031, 5, 2);
             //exclusive1.RuneConfigIdList.Add(20);
             //exclusive1.RuneConfigIdList.Add(20);
@@ -1080,13 +1080,13 @@ namespace Game
             //list.Add(exclusive2);
 
             ////精通
-            //ExclusiveItem exclusive3 = new ExclusiveItem(3, 9, 3, 5, 1);
-            //exclusive3.RuneConfigIdList.Add(9);
-            //exclusive3.RuneConfigIdList.Add(9);
-            //exclusive3.RuneConfigIdList.Add(21);
-            //exclusive3.SuitConfigIdList.Add(3);
-            //exclusive3.SuitConfigIdList.Add(9);
-            //exclusive3.SuitConfigIdList.Add(9);
+            //ExclusiveItem exclusive3 = new ExclusiveItem(3, 20, 4, 5, 1);
+            //exclusive3.RuneConfigIdList.Add(20);
+            //exclusive3.RuneConfigIdList.Add(20);
+            //exclusive3.RuneConfigIdList.Add(20);
+            //exclusive3.SuitConfigIdList.Add(4);
+            //exclusive3.SuitConfigIdList.Add(19);
+            //exclusive3.SuitConfigIdList.Add(19);
             //exclusive3.LevelDict[29] = 99;
             //exclusive3.Count = 1;
             //list.Add(exclusive3);
