@@ -39,6 +39,13 @@ public class Dialog_Fashion : MonoBehaviour, IBattleLife
         }
 
         this.ChangePanel(0);
+
+        User user = GameProcessor.Inst.User;
+        bool ac = ConfigHelper.AC == ConfigHelper.Channel_Tap || user.Account == "";
+        if (ac)
+        {
+            toggles[2].gameObject.SetActive(false);
+        }
     }
 
     public void OnBattleStart()
@@ -51,14 +58,16 @@ public class Dialog_Fashion : MonoBehaviour, IBattleLife
         this.gameObject.SetActive(true);
     }
 
-    private void ChangePanel(int index) {
+    private void ChangePanel(int index)
+    {
 
         if (index == 2)
         {
             PanelFashion.gameObject.SetActive(false);
             PanelFashionSpecial.Show();
         }
-        else {
+        else
+        {
             PanelFashion.Show(index);
             PanelFashionSpecial.gameObject.SetActive(false);
         }

@@ -66,7 +66,11 @@ public class Dialog_BossFamily : MonoBehaviour, IBattleLife
 
     private void OnOpenBossFamily(OpenBossFamilyEvent e)
     {
-        int layer = (GameProcessor.Inst.User.MapId - ConfigHelper.MapStartId) / 35;
+        User user = GameProcessor.Inst.User;
+        bool ac = ConfigHelper.AC == ConfigHelper.Channel_Tap || user.Account == "";
+
+        int layer = (user.MapId - ConfigHelper.MapStartId) / 35;
+        layer = ac ? Math.Min(3, layer) : layer;
 
         for (int i = 0; i < BtnStartList.Count; i++)
         {

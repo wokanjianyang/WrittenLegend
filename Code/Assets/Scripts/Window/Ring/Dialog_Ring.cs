@@ -53,7 +53,9 @@ public class Dialog_Ring : MonoBehaviour
     void Start()
     {
         User user = GameProcessor.Inst.User;
-        if (user.Cycle.Data >= 15)
+        bool ac = ConfigHelper.AC == ConfigHelper.Channel_Tap || user.Account == "";
+
+        if (user.Cycle.Data >= 15 && !ac)
         {
             toggles[1].gameObject.SetActive(true);
         }

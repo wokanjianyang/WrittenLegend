@@ -13,7 +13,7 @@ public class BattleRule_Infinite : ABattleRule
 
     //private long Progress = 1;
 
-    private const int MaxProgress = ConfigHelper.Infinit_Max; //
+    private int MaxProgress = ConfigHelper.Infinit_Max; //
     private const int SkipTime = 15;
     private const int SkipCount = 10;
 
@@ -30,6 +30,12 @@ public class BattleRule_Infinite : ABattleRule
         param.TryGetValue("count", out object count);
 
         //this.Progress = (long)progress;
+        User user = GameProcessor.Inst.User;
+        bool ac = ConfigHelper.AC == ConfigHelper.Channel_Tap || user.Account == "";
+        if (ac)
+        {
+            this.MaxProgress = MaxProgress / 2;
+        }
     }
 
     public override void DoMapLogic(int roundNum, double currentRoundTime)

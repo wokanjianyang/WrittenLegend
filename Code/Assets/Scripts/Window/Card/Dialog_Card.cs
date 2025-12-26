@@ -37,6 +37,13 @@ public class Dialog_Card : MonoBehaviour
         }
 
         this.ChangePanel(0);
+
+        User user = GameProcessor.Inst.User;
+        bool ac = ConfigHelper.AC == ConfigHelper.Channel_Tap || user.Account == "";
+        if (ac)
+        {
+            toggleStageList[toggleStageList.Count - 1].gameObject.SetActive(false);
+        }
     }
 
     private void ChangePanel(int index)

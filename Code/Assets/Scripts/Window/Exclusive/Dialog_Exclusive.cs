@@ -41,8 +41,9 @@ namespace Game
             toggle.isOn = GameProcessor.Inst.User.ExclusiveSetting;
 
             User user = GameProcessor.Inst.User;
+            bool ac = ConfigHelper.AC == ConfigHelper.Channel_Tap || user.Account == "";
 
-            if (user.MapId >= 1130)
+            if (user.MapId >= 1130 && !ac)
             {
                 Toggle_Cycle_List[1].gameObject.SetActive(true);
             }
@@ -51,7 +52,7 @@ namespace Game
                 Toggle_Cycle_List[1].gameObject.SetActive(false);
             }
 
-            if (user.MapId >= 1169)
+            if (user.MapId >= 1169 && !ac)
             {
                 Toggle_Cycle_List[2].gameObject.SetActive(true);
             }

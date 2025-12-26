@@ -64,6 +64,7 @@ public class Map_Dialog_Festive : MonoBehaviour
     private void Init()
     {
         User user = GameProcessor.Inst.User;
+        bool ac = ConfigHelper.AC == ConfigHelper.Channel_Tap || user.Account == "";
 
         if (DropLimitConfigCategory.Instance.CheckIsTime())
         {
@@ -76,7 +77,13 @@ public class Map_Dialog_Festive : MonoBehaviour
 
         for (int i = 0; i < list.Count; i++)
         {
-            BuildItem(list[i]);
+            if (ac && i > 2)
+            {
+            }
+            else
+            {
+                BuildItem(list[i]);
+            }
         }
 
         this.ShowItemMax();

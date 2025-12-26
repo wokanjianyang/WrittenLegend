@@ -121,9 +121,9 @@ namespace Game
             ShowEquipPanel();
 
             User user = GameProcessor.Inst.User;
+            bool ac = ConfigHelper.AC == ConfigHelper.Channel_Tap || user.Account == "";
 
             string account = user.Account;
-            long day = (TimeHelper.ClientNowSeconds() - user.First_Create_Time) / 86400 + 1;
 
             if (account.Length > 0 || user.GetLimitId() >= 1030)
             {
@@ -131,7 +131,7 @@ namespace Game
                 this.Btn_Cycle.onClick.AddListener(this.OnClick_Cycle);
             }
 
-            if (user.Cycle.Data <= 0 && user.MagicLevel.Data < ConfigHelper.Max_Level)
+            if (user.Cycle.Data <= 0 && user.MagicLevel.Data < ConfigHelper.Max_Level - 10000)
             {
                 this.Btn_Cycle.gameObject.SetActive(false);
             }
@@ -174,7 +174,7 @@ namespace Game
                 this.btn_Equip_Golden.gameObject.SetActive(false);
             }
 
-            if (user.MapId >= 1139)
+            if (user.MapId >= 1139 && !ac)
             {
                 this.btn_Equip_Dark_Gold.gameObject.SetActive(true);
             }
@@ -183,7 +183,7 @@ namespace Game
                 this.btn_Equip_Dark_Gold.gameObject.SetActive(false);
             }
 
-            if (user.MapId >= 1174)
+            if (user.MapId >= 1174 && !ac)
             {
                 this.btn_Equip_Hundun.gameObject.SetActive(true);
             }

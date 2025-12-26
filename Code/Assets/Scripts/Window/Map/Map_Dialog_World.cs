@@ -82,6 +82,7 @@ public class Map_Dialog_World : MonoBehaviour
     private void Init()
     {
         User user = GameProcessor.Inst.User;
+        bool ac = ConfigHelper.AC == ConfigHelper.Channel_Tap || user.Account == "";
 
         if (user.WorldData.Check())
         {
@@ -97,7 +98,13 @@ public class Map_Dialog_World : MonoBehaviour
 
         for (int i = 0; i < list.Count; i++)
         {
-            BuildItem(list[i]);
+            if (ac && i > 0)
+            {
+            }
+            else
+            {
+                BuildItem(list[i]);
+            }
         }
     }
 

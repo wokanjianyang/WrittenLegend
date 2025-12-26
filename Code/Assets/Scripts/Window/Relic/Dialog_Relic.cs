@@ -26,15 +26,24 @@ public class Dialog_Relic : MonoBehaviour, IBattleLife
 
         Btn_Full.onClick.AddListener(OnClick_Close);
 
+        User user = GameProcessor.Inst.User;
+        bool ac = ConfigHelper.AC == ConfigHelper.Channel_Tap || user.Account == "";
+
         for (int i = 0; i < toggles.Count; i++)
         {
             int index = i + 1;
 
-            toggles[i].onValueChanged.AddListener((isOn) =>
+            if (ac && index > 1)
             {
-                this.ShowPanel(index);
-            });
-
+                toggles[i].gameObject.SetActive(false);
+            }
+            else
+            {
+                toggles[i].onValueChanged.AddListener((isOn) =>
+                {
+                    this.ShowPanel(index);
+                });
+            }
         }
 
         this.ShowPanel(1);

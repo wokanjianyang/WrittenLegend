@@ -134,8 +134,13 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
             item.gameObject.SetActive(false);
         }
 
-        int MapId = GameProcessor.Inst.User.MapId;
-        this.MaxLayer = (MapId - ConfigHelper.MapStartId) / 35;
+        User user = GameProcessor.Inst.User;
+        bool ac = ConfigHelper.AC == ConfigHelper.Channel_Tap || user.Account == "";
+
+        int MapId = user.MapId;
+        int layer = (MapId - ConfigHelper.MapStartId) / 35;
+        layer = ac ? Math.Min(3, layer) : layer;
+        this.MaxLayer = layer;
 
         if (this.SelectLayer < 0)
         {

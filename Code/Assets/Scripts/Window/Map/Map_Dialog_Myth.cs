@@ -27,7 +27,7 @@ public class Map_Dialog_Myth : MonoBehaviour
     private void OnEnable()
     {
         this.ShowItemMax();
-    }   
+    }
 
 
     private void ShowItemMax()
@@ -50,6 +50,7 @@ public class Map_Dialog_Myth : MonoBehaviour
     private void Init()
     {
         User user = GameProcessor.Inst.User;
+        bool ac = ConfigHelper.AC == ConfigHelper.Channel_Tap || user.Account == "";
 
         user.MythData.Check();
 
@@ -59,7 +60,13 @@ public class Map_Dialog_Myth : MonoBehaviour
 
         for (int i = 0; i < list.Count; i++)
         {
-            BuildItem(list[i]);
+            if (ac && i >= 10)
+            {
+            }
+            else
+            {
+                BuildItem(list[i]);
+            }
         }
 
         this.ShowItemMax();

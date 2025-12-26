@@ -10,6 +10,12 @@ namespace Game
         public const int Channel = 2; //Tap 1 QQ 2
 #endif
 
+#if IS_TAPTAP
+        public const int AC = 1; //Tap 1 QQ 2
+#else
+        public const int AC = 1; //Tap 1 QQ 2
+#endif
+
         public const int Channel_Tap = 1;
 
         public const int Version = 422;

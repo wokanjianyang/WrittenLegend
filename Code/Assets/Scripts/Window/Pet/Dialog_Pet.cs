@@ -42,8 +42,9 @@ public class Dialog_Pet : MonoBehaviour, IBattleLife
         this.ShowPanel(1);
 
         User user = GameProcessor.Inst.User;
+        bool ac = ConfigHelper.AC == ConfigHelper.Channel_Tap || user.Account == "";
 
-        if (user.Cycle.Data >= 10)
+        if (user.Cycle.Data >= 10 && !ac)
         {
             this.toggles[1].gameObject.SetActive(true);
         }
