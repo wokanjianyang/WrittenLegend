@@ -34,6 +34,11 @@ public class Dialog_Festive_Attr : MonoBehaviour
         Show();
     }
 
+    private void OnEnable()
+    {
+        this.Show();
+    }
+
     private void Show()
     {
         User user = GameProcessor.Inst.User;
@@ -58,6 +63,15 @@ public class Dialog_Festive_Attr : MonoBehaviour
             string color = materialCount >= fee ? "#FFFF00" : "#FF0000";
             txt_Fee.gameObject.SetActive(true);
             txt_Fee.text = string.Format("<color={0}>¿ìÀÖ¾«´â:{2}/{1}</color>", color, fee, materialCount);
+
+            if (materialCount >= fee)
+            {
+                this.Btn_Strong.gameObject.SetActive(true);
+            }
+            else
+            {
+                this.Btn_Strong.gameObject.SetActive(false);
+            }
         }
 
         for (int i = 0; i < AttrList.Count; i++)
@@ -86,6 +100,7 @@ public class Dialog_Festive_Attr : MonoBehaviour
 
     public void OnStrong()
     {
+        this.Btn_Strong.gameObject.SetActive(false);
 
         User user = GameProcessor.Inst.User;
 

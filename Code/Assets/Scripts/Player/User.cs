@@ -319,7 +319,7 @@ namespace Game
 
         public MythData MythData { get; set; } = new MythData();
 
-        public FestiveMapData FestiveMapData12 { get; set; } = new FestiveMapData();
+        public FestiveMapData FestiveMapData01 { get; set; } = new FestiveMapData();
 
         public Dictionary<int, MagicData> FestiveAttrData { get; } = new Dictionary<int, MagicData>();
 

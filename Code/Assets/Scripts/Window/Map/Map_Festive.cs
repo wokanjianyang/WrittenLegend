@@ -48,7 +48,7 @@ public class Map_Festive : MonoBehaviour, IBattleLife
     {
         this.gameObject.SetActive(true);
 
-        long count = GameProcessor.Inst.User.FestiveMapData12.Number.Data;
+        long count = GameProcessor.Inst.User.FestiveMapData01.Number.Data;
 
         if (count <= 0)
         {

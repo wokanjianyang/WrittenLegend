@@ -6,5 +6,5 @@
 {"_t":"SpiritCopyConfig","_id":5,"MapName":"宇级英灵战场","MonsterName":"管亥","Require":300,"Attr":"3200000","Def":"3200000","HP":"16000000000","Speed":200,"DamageIncrea":100,"DamageResist":1800,"CritRateResist":1800,"CritDamageResist":1800,"Protect":99},
 {"_t":"SpiritCopyConfig","_id":6,"MapName":"宙级英灵战场","MonsterName":"张梁","Require":500,"Attr":"6400000","Def":"6400000","HP":"38400000000","Speed":240,"DamageIncrea":100,"DamageResist":1800,"CritRateResist":1800,"CritDamageResist":1800,"Protect":99},
 {"_t":"SpiritCopyConfig","_id":7,"MapName":"洪级英灵战场","MonsterName":"张宝","Require":700,"Attr":"12000000","Def":"12000000","HP":"84000000000","Speed":280,"DamageIncrea":100,"DamageResist":1800,"CritRateResist":1800,"CritDamageResist":1800,"Protect":99},
-{"_t":"SpiritCopyConfig","_id":8,"MapName":"荒级英灵战场","MonsterName":"张角","Require":1000,"Attr":"16000000","Def":"16000000","HP":"128000000000","Speed":320,"DamageIncrea":100,"DamageResist":1800,"CritRateResist":1800,"CritDamageResist":1800,"Protect":99},
+{"_t":"SpiritCopyConfig","_id":8,"MapName":"荒级英灵战场","MonsterName":"张角","Require":900,"Attr":"16000000","Def":"16000000","HP":"128000000000","Speed":320,"DamageIncrea":100,"DamageResist":1800,"CritRateResist":1800,"CritDamageResist":1800,"Protect":99},
 ]}
