@@ -99,11 +99,18 @@ namespace Game
                             {
                                 if (result.Code == StatusMessage.OK)
                                 {
-                                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "提交成功", ToastType = ToastTypeEnum.Failure });
+                                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "提交成功", ToastType = ToastTypeEnum.Success });
+                                }
+                                else
+                                {
+                                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = result.Msg, ToastType = ToastTypeEnum.Failure });
                                 }
 
                             },
-                           null));
+                           () =>
+                           {
+                               GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "网络错误", ToastType = ToastTypeEnum.Failure });
+                           }));
 
                 }
                 else if (code.Length > 20)
