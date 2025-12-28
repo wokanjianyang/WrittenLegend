@@ -263,6 +263,13 @@ public class BattleRule_Spirit : ABattleRule
         {
             user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
         }
+
+        if (!user.SpiritOfflineFlag)
+        {  //没有启用的时候，刷新记录
+            user.SpiritOfflineLog[1] = MapId;
+            user.SpiritOfflineLog[2] = (int)MapTime;
+            user.SpiritOfflineLog[3] = total;
+        }
     }
 
     public override void CheckGameResult()

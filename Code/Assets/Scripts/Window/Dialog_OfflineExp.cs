@@ -377,7 +377,11 @@ namespace Game
             }
             OfflineMessage += "\n";
 
-            if (user.OffLineMapId > 0)
+            if (user.SpiritOfflineFlag)
+            {
+                items.AddRange(BuildOfflineSpirit(user, tempTime, ref rewardExp, ref rewardGold, ref OfflineMessage));
+            }
+            else if (user.OffLineMapId > 0)
             {
                 //离线暗殿
                 items.AddRange(BuildOfflineAndian(user, tempTime, ref rewardExp, ref rewardGold, ref OfflineMessage));
@@ -525,6 +529,66 @@ namespace Game
 
             totalExp += rewardExp;
             totalGold += rewardGold;
+
+            return itemList;
+        }
+
+
+        private List<Item> BuildOfflineSpirit(User user, long offlineTime, ref long rewardExp, ref long rewardGold, ref string message)
+        {
+            MonsterModelConfig modelConfig = MonsterModelConfigCategory.Instance.Get(1); //暗殿
+
+            List<Item> itemList = new List<Item>();
+
+            int mapId = user.SpiritOfflineLog[1];
+            int time = user.SpiritOfflineLog[2];
+            int total = user.SpiritOfflineLog[3];
+
+            long count = offlineTime / time;
+
+            SpiritCopyConfig config = SpiritCopyConfigCategory.Instance.Get(mapId);
+
+            message += "\n离线英灵副本(" + config.MapName + ")，计算为通关次数：" + count + "，获得";
+
+            List<SpiritDropConfig> dropList = SpiritDropConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.MapId == mapId).ToList();
+
+            //Debug.Log("spirit drop list :" + dropList.Count);
+
+            IDictionary<int, int> dropDict = new Dictionary<int, int>();
+
+            int rate = 1 + Math.Min(4, total / 500);
+
+            foreach (SpiritDropConfig sdpConfig in dropList)
+            {
+                long dropCount = sdpConfig.DropRate * rate * count / 100;
+
+                DropConfig dropConfig = DropConfigCategory.Instance.Get(sdpConfig.DropId);
+
+                for (int i = 0; i < dropCount; i++)
+                {
+                    int index = i % dropConfig.ItemIdList.Length;
+
+                    int dropId = dropConfig.ItemIdList[index];
+
+                    if (!dropDict.ContainsKey(dropId))
+                    {
+                        dropDict[dropId] = 0;
+                    }
+
+                    dropDict[dropId]++;
+                }
+            }
+
+            dropDict.OrderBy(m => m.Key);
+
+            foreach (var sp in dropDict)
+            {
+                itemList.Add(ItemHelper.BuildItem(ItemType.Spirit, sp.Key, 0, sp.Value));
+
+                ItemConfig spiritConfig = ItemConfigCategory.Instance.Get(sp.Key);
+
+                message += $"，<color=#{QualityConfigHelper.GetQualityColor(spiritConfig.Quality)}>[" + spiritConfig.Name + "]</color>" + sp.Value + "个";
+            }
 
             return itemList;
         }

@@ -30,6 +30,9 @@ namespace Game
 
         public int OffLineMapId { get; set; }
 
+        public bool SpiritOfflineFlag { get; set; } = false;
+        public Dictionary<int, int> SpiritOfflineLog { get; set; } = new Dictionary<int, int>();
+
         public RandomRecord RandomRecord { get; set; } = new RandomRecord();
 
         public MagicData Cycle { get; set; } = new MagicData();
