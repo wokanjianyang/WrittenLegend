@@ -135,6 +135,12 @@ namespace Game
             //items.AddRange(AddExclusiveDaoshi());
             //items.AddRange(AddRedEquip1());
 
+            //user.SaveItemMeterialCount(2100001, 11125); //英灵关羽
+            //user.SaveItemMeterialCount(2100002, 11125); //英灵刘备
+            //user.SaveItemMeterialCount(2100003, 11125); //英灵诸葛
+            //user.SaveItemMeterialCount(2100004, 11125); //英灵关羽
+            //user.SaveItemMeterialCount(2100005, 11125); //英灵关羽
+            //user.SaveItemMeterialCount(2100006, 11125); //英灵关羽
 
             foreach (var item in items)
             {
