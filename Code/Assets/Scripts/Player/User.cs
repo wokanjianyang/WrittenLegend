@@ -1624,6 +1624,12 @@ namespace Game
             return count;
         }
 
+        public long GetTicketCount(int id)
+        {
+            long count = this.Bags.Where(m => m.Item.Type == ItemType.Ticket && m.Item.ConfigId == id).Select(m => m.MagicNubmer.Data).Sum();
+            return count;
+        }
+
         public List<int> GetCurrentSkillList()
         {
             if (!SkillPanelList.ContainsKey(SkillPanelIndex))

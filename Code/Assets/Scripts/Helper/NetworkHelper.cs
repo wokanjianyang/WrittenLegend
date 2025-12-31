@@ -148,10 +148,10 @@ namespace Game
             long bossTicket = user.GetMaterialCount(ItemHelper.SpecialId_Boss_Ticket);
             paramDict.Add("bossTicket", bossTicket + "");
 
-            long copyTicket = user.GetMaterialCount(ItemHelper.SpecialId_Copy_Ticket) + user.MagicCopyTikerCount.Data;
+            long copyTicket = user.GetTicketCount(ItemHelper.SpecialId_Copy_Ticket) + user.MagicCopyTikerCount.Data;
             paramDict.Add("copyTicket", copyTicket + "");
 
-            long legacyTicket = user.GetMaterialCount(ItemHelper.SpecialId_Legacy_Ticket) + user.LegacyTikerCount.Data;
+            long legacyTicket = user.GetTicketCount(ItemHelper.SpecialId_Legacy_Ticket) + user.LegacyTikerCount.Data;
             paramDict.Add("legacyTicket", legacyTicket + "");
 
             long relic = user.RelicData.Select(m => m.Value.Data).Sum();
