@@ -264,11 +264,17 @@ public class BattleRule_Spirit : ABattleRule
             user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
         }
 
-        if (!user.SpiritOfflineFlag)
+        if (!user.SpiritOfflineFlag && stage >= 4)
         {  //没有启用的时候，刷新记录
             user.SpiritOfflineLog[1] = MapId;
             user.SpiritOfflineLog[2] = (int)MapTime;
             user.SpiritOfflineLog[3] = total;
+
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+            {
+                Type = RuleType.Spirit,
+                Message = BattleMsgHelper.BuildRewardMessage("已刷新通关记录", 0, 0, null),
+            });
         }
     }
 
