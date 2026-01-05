@@ -547,7 +547,7 @@ namespace Game
             List<Item> itemList = new List<Item>();
 
             int mapId = user.SpiritOfflineLog[1];
-            int time = user.SpiritOfflineLog[2];
+            int time = user.SpiritOfflineLog[2] + 30;
             int total = user.SpiritOfflineLog[3];
 
             long count = offlineTime / time;
