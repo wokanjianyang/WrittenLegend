@@ -10,7 +10,7 @@ namespace Game
     public class AbcHelper
     {
 
-        private static int[] data = new int[] { 1200, 780, 500 };
+        private static int[] data = new int[] { 1800, 1200, 600 };
 
 
 

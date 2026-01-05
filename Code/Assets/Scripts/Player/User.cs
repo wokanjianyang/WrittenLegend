@@ -723,6 +723,7 @@ namespace Game
             //神器
             long relicRecord = GetRecordMax((int)AbcType.Relic);
             long relicMax = AbcHelper.GetRecord((int)AbcType.Relic);
+            int relicRise = GetRelicRise();
             foreach (var rl in RelicData)
             {
                 int rid = rl.Key;
@@ -732,7 +733,7 @@ namespace Game
                     RelicConfig relicConfig = RelicConfigCategory.Instance.Get(rid);
                     for (int i = 0; i < relicConfig.AttrIdList.Length; i++)
                     {
-                        AttributeBonus.SetAttr((AttributeEnum)relicConfig.AttrIdList[i], AttributeFrom.Relic, rid, relicConfig.GetAttrValue(i, level));
+                        AttributeBonus.SetAttr((AttributeEnum)relicConfig.AttrIdList[i], AttributeFrom.Relic, rid, relicConfig.GetAttrValue(i, level + relicRise));
                     }
                 }
             }
@@ -2048,7 +2049,12 @@ namespace Game
 
             long groupLevel = RelicData.Where(m => m.Key >= startId && m.Key <= endId).Select(m => m.Value.Data).DefaultIfEmpty(0).Min();
 
-            return (int)Math.Min(groupLevel, Cycle.Data);
+            return (int)Math.Min(groupLevel, Cycle.Data) + this.GetRelicRise();
+        }
+
+        public int GetRelicRise()
+        {
+            return (int)Math.Min(this.Cycle.Data - 30, 10);
         }
 
         public int GetRelicLevel(int rid)

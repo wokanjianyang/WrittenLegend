@@ -110,6 +110,7 @@ public class Panel_Relic : MonoBehaviour
         User user = GameProcessor.Inst.User;
 
         int level = user.GetRelicLevel(id);
+        int rise = user.GetRelicRise();
 
         RelicConfig config = RelicConfigCategory.Instance.Get(id);
 
@@ -123,7 +124,7 @@ public class Panel_Relic : MonoBehaviour
             {
                 AttrList[i].gameObject.SetActive(true);
 
-                double attrValue = config.GetAttrValue(i, level);
+                double attrValue = config.GetAttrValue(i, level + rise);
                 AttrList[i].SetContent(config.AttrIdList[i], attrValue, config.AttrRiseList[i]);
             }
         }

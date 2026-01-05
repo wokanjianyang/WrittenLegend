@@ -60,7 +60,8 @@ namespace Game
 
             User user = GameProcessor.Inst.User;
             int level = user.GetRelicLevel(Config.Id);
-            this.Txt_Level.text = level + "";
+            int rise = user.GetRelicRise();
+            this.Txt_Level.text = level + "+" + rise;
         }
 
         private void Select()
