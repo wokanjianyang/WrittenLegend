@@ -1609,7 +1609,9 @@ namespace Game
         {
             double levelAttr = LevelConfigCategory.GetLevelAttr(MagicLevel.Data);
             LevelConfig config = LevelConfigCategory.Instance.GetAll().Where(m => m.Value.StartLevel <= MagicLevel.Data && m.Value.EndLevel >= MagicLevel.Data).First().Value;
-            MagicUpExp.Data = levelAttr * config.Exp;
+
+            double exp = StringHelper.StringToNumber(config.Exp);
+            MagicUpExp.Data = levelAttr * exp;
         }
 
         public long GetBagItemCount(int id)

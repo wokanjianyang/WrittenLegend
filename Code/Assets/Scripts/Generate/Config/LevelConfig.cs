@@ -86,7 +86,7 @@ namespace Game
 		public long EndLevel { get; set; }
 		/// <summary>Exp</summary>
 		[ProtoMember(4)]
-		public double Exp { get; set; }
+		public string Exp { get; set; }
 
 	}
 }

@@ -53,6 +53,7 @@ namespace Game
             {nameof(AttributeEnum.LuckyFinal), "幸运增幅" },
             {nameof(AttributeEnum.DropFinal), "特殊爆率" },
             {nameof(AttributeEnum.MetailFinal), "挖矿速度" },
+            {nameof(AttributeEnum.RelicRise), "神器掌控" },
             {nameof(AttributeEnum.CritDamageFinal), "爆伤增幅" },
             {nameof(AttributeEnum.Shatter), "破韧倍率" },
 

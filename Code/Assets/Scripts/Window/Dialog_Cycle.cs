@@ -15,8 +15,9 @@ public class Dialog_Cycle : MonoBehaviour
     public Toggle toggle_Type1;
     public Toggle toggle_Type2;
     public Toggle toggle_Type3;
+    public Toggle toggle_Type4;
 
-    public StrenthAttrItem[] AttrList;
+    private StrenthAttrItem[] AttrList;
 
     public Text Txt_Fee;
 
@@ -24,7 +25,7 @@ public class Dialog_Cycle : MonoBehaviour
     public Button Btn_Close;
     public Text Txt_Ok;
 
-    private string[] BtnName = { "轮回", "练气", "修仙" };
+    private string[] BtnName = { "轮回", "练气", "修仙", "成圣" };
 
     public int Order => (int)ComponentOrder.Dialog;
 
@@ -47,6 +48,10 @@ public class Dialog_Cycle : MonoBehaviour
         toggle_Type3.onValueChanged.AddListener((isOn) =>
         {
             this.Show(2);
+        });
+        toggle_Type4.onValueChanged.AddListener((isOn) =>
+        {
+            this.Show(3);
         });
 
         AttrList = this.GetComponentsInChildren<StrenthAttrItem>();
@@ -73,6 +78,10 @@ public class Dialog_Cycle : MonoBehaviour
         if (GameProcessor.Inst.User.Cycle.Data < 20)
         {
             toggle_Type3.gameObject.SetActive(false);
+        }
+        if (GameProcessor.Inst.User.Cycle.Data < 30)
+        {
+            toggle_Type4.gameObject.SetActive(false);
         }
     }
 
