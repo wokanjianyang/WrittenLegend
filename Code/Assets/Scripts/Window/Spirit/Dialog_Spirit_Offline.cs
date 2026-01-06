@@ -59,6 +59,7 @@ public class Dialog_Spirit_Offline : MonoBehaviour
         }
         else
         {
+            Btn_Ok.gameObject.SetActive(false);
             Txt_Content.text = "还没有记录通关副本和时间，请先通关副本";
         }
 
@@ -68,6 +69,12 @@ public class Dialog_Spirit_Offline : MonoBehaviour
 
     public void OnOk()
     {
+        User user = GameProcessor.Inst.User;
+        if (user.SpiritOfflineLog != null && user.SpiritOfflineLog.Count > 1)
+        {
+            return;
+        }
+
         GameProcessor.Inst.User.SpiritOfflineFlag = true;
         Btn_Cancle.gameObject.SetActive(true);
         Btn_Ok.gameObject.SetActive(false);
