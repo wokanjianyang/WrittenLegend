@@ -416,7 +416,7 @@ namespace Game
 
             foreach (var item in items)
             {
-                if (item.Type == ItemType.Card || item.Type == ItemType.Fashion || (item.Type == ItemType.Material && item.ConfigId == ItemHelper.SpecialId_Card_Stone))
+                if (item.Type == ItemType.Card || item.Type == ItemType.Fashion || item.Type == ItemType.Spirit || (item.Type == ItemType.Material && item.ConfigId == ItemHelper.SpecialId_Card_Stone))
                 {
                     user.SaveItemMeterialCount(item.ConfigId, item.Count);
                 }
