@@ -2054,6 +2054,11 @@ namespace Game
 
         public int GetRelicRise()
         {
+            if (this.Cycle.Data <= 30)
+            {
+                return 0;
+            }
+
             return (int)Math.Min(this.Cycle.Data - 30, 10);
         }
 
