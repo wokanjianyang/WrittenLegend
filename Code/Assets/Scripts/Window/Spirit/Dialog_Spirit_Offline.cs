@@ -69,15 +69,18 @@ public class Dialog_Spirit_Offline : MonoBehaviour
 
     public void OnOk()
     {
+        Btn_Ok.gameObject.SetActive(false);
+
         User user = GameProcessor.Inst.User;
-        if (user.SpiritOfflineLog != null && user.SpiritOfflineLog.Count > 1)
+        if (user.SpiritOfflineLog == null || user.SpiritOfflineLog.Count != 3)
         {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "请先通关副本", ToastType = ToastTypeEnum.Failure });
             return;
         }
 
         GameProcessor.Inst.User.SpiritOfflineFlag = true;
         Btn_Cancle.gameObject.SetActive(true);
-        Btn_Ok.gameObject.SetActive(false);
+
     }
 
     public void OnCancle()
