@@ -59,6 +59,13 @@ namespace Game
 
         public void SetContent(PhantomConfig config, int level)
         {
+            User user = GameProcessor.Inst.User;
+            if (user.Cycle.Data < config.RequireCycle)
+            {
+                this.gameObject.SetActive(false);
+                return;
+            }
+
             this.ConfigId = config.Id;
             PhantomAttrConfig currentConfig = PhantomConfigCategory.Instance.GetAttrConfig(config.Id, level - 1);
 

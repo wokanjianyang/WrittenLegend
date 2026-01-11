@@ -17,17 +17,6 @@ namespace Game
 
     public partial class PhantomAttrConfig
     {
-        public double GetAttrRate(int level)
-        {
-            double rate = 1;
-            for (int i = 1; i < level; i++)
-            {
-                rate *= this.AttrRise;
-            }
-
-            return rate;
-        }
-
         public double GetAttrAdvanceRate(int level)
         {
             return (level - 1) * this.AttrAdvanceRise; ;

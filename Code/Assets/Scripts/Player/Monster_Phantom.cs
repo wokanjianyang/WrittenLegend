@@ -82,16 +82,56 @@ public class Monster_Phantom : APlayer
 
     private void SetAttr()
     {
-        double attrRate = this.attrConfig.GetAttrRate(Layer);
         double advanceRate = this.attrConfig.GetAttrAdvanceRate(Layer);
+
+        int riseLevel = Layer - 1;
 
         //Debug.Log("attrRate:" + attrRate);
         //Debug.Log("advanceRate:" + advanceRate);
 
-        double attr = Double.Parse(attrConfig.Attr) * attrRate;
-        double hp = Double.Parse(attrConfig.Hp) * attrRate;
-        double def = Double.Parse(attrConfig.Def) * attrRate;
+        double hp = StringHelper.StringToNumber(attrConfig.Hp);
+        double hpRise = Math.Pow(attrConfig.HpRise, riseLevel);
+        hp = hp * hpRise;
 
+        if (Percent >= 10)
+        {
+            Debug.Log("hpRise " + hpRise + " hp:" + hp);
+        }
+
+        double attr = StringHelper.StringToNumber(attrConfig.Attr);
+        double attrRise = Math.Pow(attrConfig.AttrRise, riseLevel);
+        attr = attr * attrRise;
+
+        if (Percent >= 10)
+        {
+            Debug.Log("attrRise " + attrRise + " attr:" + attr);
+        }
+
+        double def = StringHelper.StringToNumber(attrConfig.Def);
+        double defRise = Math.Pow(attrConfig.DefRise, riseLevel);
+        def = def * defRise;
+
+        double damageMul = StringHelper.StringToNumber(attrConfig.DamageMul);
+        double mulRise = Math.Pow(attrConfig.MulRise, riseLevel);
+        damageMul = damageMul * mulRise;
+
+        if (Percent >= 10)
+        {
+            Debug.Log("mulRise " + mulRise + " damageMul:" + damageMul);
+        }
+
+        double strong = StringHelper.StringToNumber(attrConfig.Strong);
+        double strongRise = Math.Pow(attrConfig.StrongRise, riseLevel);
+        strong = strong * strongRise;
+
+        double parray = StringHelper.StringToNumber(attrConfig.Parray);
+        if (parray > 0)
+        {
+            double parrayRise = Math.Pow(attrConfig.ParrayRise, riseLevel);
+            parray = parray * parrayRise;
+        }
+
+        int speed = attrConfig.Speed + (int)(Layer * attrConfig.SpeedRise);
 
         AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp);
         AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr);
@@ -110,8 +150,8 @@ public class Monster_Phantom : APlayer
             {
                 int attrId = attrConfig.AttrIdList[i];
                 double attrValue = attrConfig.AttrValueList[i];
-                double attrRise = (Layer - 1) * attrConfig.AttrRiseList[i];
-                double total = attrValue + attrRise;
+                double attRise = (Layer - 1) * attrConfig.AttrRiseList[i];
+                double total = attrValue + attRise;
                 if (attrId == (int)AttributeEnum.MulDamageResist)
                 {
                     total = MathHelper.CalRealResist(total);
@@ -120,6 +160,16 @@ public class Monster_Phantom : APlayer
                 AttributeBonus.SetAttr((AttributeEnum)attrId, AttributeFrom.HeroBase, total);
             }
         }
+
+        AttributeBonus.SetAttr(AttributeEnum.Accuracy, AttributeFrom.HeroBase, attrConfig.Accuracy + riseLevel * attrConfig.AccuracyRise);
+        AttributeBonus.SetAttr(AttributeEnum.Miss, AttributeFrom.HeroBase, attrConfig.Miss + riseLevel * attrConfig.MissRise);
+
+        AttributeBonus.SetAttr(AttributeEnum.Strong, AttributeFrom.HeroBase, strong);
+        AttributeBonus.SetAttr(AttributeEnum.Parry, AttributeFrom.HeroBase, parray);
+        AttributeBonus.SetAttr(AttributeEnum.MulDamageIncrea, AttributeFrom.HeroBase, damageMul);
+
+        this.SetAttackSpeed(speed);
+        this.SetMoveSpeed(speed);
 
         double MaxHP = AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
         double CurrentHp = Percent * MaxHP / 10;

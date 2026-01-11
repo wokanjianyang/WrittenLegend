@@ -80,7 +80,7 @@
 {"_t":"DefendDropConfig","_id":90,"Layer":8,"DropId":180018,"Name":"摄魂瓶","Rate":5000,"StartLevel":1,"EndLevel":10000,"RateLevel":100,"Max":1,"Number":1},
 {"_t":"DefendDropConfig","_id":91,"Layer":8,"DropId":220038,"Name":"天赋秘籍","Rate":5000,"StartLevel":99,"EndLevel":99,"RateLevel":100,"Max":1,"Number":2},
 {"_t":"DefendDropConfig","_id":92,"Layer":8,"DropId":220036,"Name":"等级丹*10","Rate":3,"StartLevel":10,"EndLevel":98,"RateLevel":1,"Max":5,"Number":1},
-{"_t":"DefendDropConfig","_id":93,"Layer":8,"DropId":220041,"Name":"改造石","Rate":8,"StartLevel":10,"EndLevel":98,"RateLevel":1,"Max":15,"Number":2},
+{"_t":"DefendDropConfig","_id":93,"Layer":8,"DropId":220041,"Name":"改造石","Rate":100,"StartLevel":1,"EndLevel":98,"RateLevel":1,"Max":80,"Number":2},
 {"_t":"DefendDropConfig","_id":94,"Layer":8,"DropId":1016,"Name":"不朽精华","Rate":10,"StartLevel":70,"EndLevel":100,"RateLevel":1,"Max":5,"Number":1},
 {"_t":"DefendDropConfig","_id":95,"Layer":8,"DropId":1011,"Name":"混沌精华","Rate":8,"StartLevel":95,"EndLevel":100,"RateLevel":1,"Max":2,"Number":1},
 {"_t":"DefendDropConfig","_id":96,"Layer":8,"DropId":601,"Name":"随机宝石","Rate":12,"StartLevel":20,"EndLevel":100,"RateLevel":1,"Max":20,"Number":1},

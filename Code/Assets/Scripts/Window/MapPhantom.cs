@@ -88,7 +88,7 @@ public class MapPhantom : MonoBehaviour, IBattleLife
         });
 
         PhantomConfig config = PhantomConfigCategory.Instance.Get(PhantomId);
-        Txt_Name.text = config.Name;
+        Txt_Name.text = config.Name + "(" + phLevel + "ת)";
     }
 
     public void OnShowPhantomInfoEvent(ShowPhantomInfoEvent e)

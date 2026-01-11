@@ -81,8 +81,11 @@ namespace Game
 		/// <summary>Name</summary>
 		[ProtoMember(2)]
 		public string Name { get; set; }
-		/// <summary>Desc</summary>
+		/// <summary>RequireCycle</summary>
 		[ProtoMember(3)]
+		public int RequireCycle { get; set; }
+		/// <summary>Desc</summary>
+		[ProtoMember(4)]
 		public string Desc { get; set; }
 
 	}
