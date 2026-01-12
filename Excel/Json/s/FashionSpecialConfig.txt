@@ -19,4 +19,8 @@
 {"_t":"FashionSpecialConfig","_id":18,"Name":"枪","AttrIdList":[2001,2002,2003,2013],"AttrValueList":[200,400,600,400],"UpAttrId":2013,"UpAttrValue":200,"Fee":30},
 {"_t":"FashionSpecialConfig","_id":19,"Name":"剑","AttrIdList":[2001,2002,2003,2013],"AttrValueList":[200,400,600,400],"UpAttrId":2013,"UpAttrValue":200,"Fee":30},
 {"_t":"FashionSpecialConfig","_id":20,"Name":"戟","AttrIdList":[2001,2002,2003,2013],"AttrValueList":[200,400,600,400],"UpAttrId":2013,"UpAttrValue":200,"Fee":30},
+{"_t":"FashionSpecialConfig","_id":21,"Name":"神攻","AttrIdList":[2001,2003,2013,91],"AttrValueList":[200,600,300,10],"UpAttrId":91,"UpAttrValue":5,"Fee":30},
+{"_t":"FashionSpecialConfig","_id":22,"Name":"神血","AttrIdList":[2001,2003,2013,92],"AttrValueList":[200,600,300,10],"UpAttrId":92,"UpAttrValue":5,"Fee":30},
+{"_t":"FashionSpecialConfig","_id":23,"Name":"神防","AttrIdList":[2001,2003,2013,93],"AttrValueList":[200,600,300,10],"UpAttrId":93,"UpAttrValue":5,"Fee":30},
+{"_t":"FashionSpecialConfig","_id":24,"Name":"神攻防血","AttrIdList":[2001,2003,2013,94],"AttrValueList":[200,600,300,6],"UpAttrId":94,"UpAttrValue":3,"Fee":30},
 ]}
