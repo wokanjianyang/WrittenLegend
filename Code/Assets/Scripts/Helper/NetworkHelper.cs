@@ -86,36 +86,54 @@ namespace Game
             paramDict.Add("level", user.MagicLevel.Data + "");
             paramDict.Add("cycle", user.Cycle.Data + "");
 
-            long ringTotal = user.SoulRingData.Select(m => m.Value.Data).Sum();
-            paramDict.Add("ring", ringTotal + "");
-
-            long soulBoneTotal = user.SoulBoneData.Select(m => m.Value.Data).Sum();
-            paramDict.Add("bone", soulBoneTotal + "");
-
-            paramDict.Add("swing", user.WingData.Data + "");
-
-            long metalTotal = user.MetalData.Select(m => m.Value.Data).Sum();
-            paramDict.Add("metal", metalTotal + "");
-
-            long strongTotal = user.MagicEquipStrength.Select(m => m.Value.Data).Sum();
-            paramDict.Add("strong", strongTotal + "");
-
-            long refineTotal = user.MagicEquipRefine.Select(m => m.Value.Data).Sum();
-            paramDict.Add("refine", refineTotal + "");
+            long advert = user.GetAchievementProgeress(AchievementSourceType.RealAdvert);
+            paramDict.Add("advert", advert + "");
 
             long artifactTotal = user.ArtifactData.Select(m => m.Value.Data).Sum();
             paramDict.Add("artifact", artifactTotal + "");
 
-            long ad1 = user.GetAchievementProgeress(AchievementSourceType.RealAdvert);
-            paramDict.Add("advert1", ad1 + "");
+            long artifactMetal = user.ArtifactData.Where(m => m.Key >= 30).Select(m => m.Value.Data).Sum();
+            paramDict.Add("artifactMetal", artifactMetal + "");
 
-            long ad2 = user.GetAchievementProgeress(AchievementSourceType.Advert);
-            paramDict.Add("advert2", ad2 + "");
+            long babel = user.BabelData.Data;
+            paramDict.Add("babel", babel + "");
+
+            long soulBoneTotal = user.SoulBoneData.Select(m => m.Value.Data).Sum();
+            soulBoneTotal += GetTotal(user.Bags, 8101, 8108);
+            soulBoneTotal += GetTotal(user.Bags, 28);
+            paramDict.Add("bone", soulBoneTotal + "");
 
             long boss = user.GetAchievementProgeress(AchievementSourceType.BossFamily);
+            boss += user.GetMaterialCount(ItemHelper.SpecialId_Boss_Ticket);
             paramDict.Add("boss", boss + "");
 
+            long divineTotal = GetTotal(user.Bags, 8001, 8010);
+            divineTotal += GetTotal(user.Bags, 2);
+            long skill11 = 0;
+            long skill12 = 0;
+            foreach (var sp in user.SkillList)
+            {
+                if (sp.DivineData != null)
+                {
+                    foreach (var di in sp.DivineData)
+                    {
+                        divineTotal += MathHelper.GetSequence1(di.Value.Data);
+                    }
+                }
+
+                if (sp.SkillConfig.SkillLayer == 11)
+                {
+                    skill11 += sp.MagicLevel.Data;
+                }
+                else if (sp.SkillConfig.SkillLayer == 12)
+                {
+                    skill12 += sp.MagicLevel.Data;
+                }
+            }
+            paramDict.Add("divine", divineTotal + "");
+
             long copy = user.GetAchievementProgeress(AchievementSourceType.EquipCopy);
+            copy += user.GetTicketCount(ItemHelper.SpecialId_Copy_Ticket) + user.MagicCopyTikerCount.Data;
             paramDict.Add("equip", copy + "");
 
             long equip1 = 0;
@@ -133,52 +151,146 @@ namespace Game
             }
             paramDict.Add("equip1", equip1 + "");
 
-            long legacy = user.GetAchievementProgeress(AchievementSourceType.Legacy);
-            paramDict.Add("legacy", legacy + "");
+            long fashion = GetTotal(user.Bags, ItemHelper.SpecialId_Fashion);
+            foreach (var sp in user.FashionSpecialData)
+            {
+                if (sp.Value.Data > 0)
+                {
+                    FashionSpecialConfig fashionConfig = FashionSpecialConfigCategory.Instance.Get(sp.Key);
+                    fashion += sp.Value.Data * fashionConfig.Fee;
+                }
+            }
+            paramDict.Add("fashion", fashion + "");
 
-            long pill = user.PillData.Data;
-            paramDict.Add("pill", pill + "");
+            long halidom = user.HalidomData.Select(m => m.Value.Data).Sum();
+            paramDict.Add("halidom", halidom + "");
 
             long infiniteMax = user.GetAchievementProgeress(AchievementSourceType.Infinite);
             paramDict.Add("infinite", infiniteMax + "");
 
-            long babel = user.BabelData.Data;
-            paramDict.Add("babel", babel + "");
+            long legacy = user.GetAchievementProgeress(AchievementSourceType.Legacy);
+            legacy += user.GetTicketCount(ItemHelper.SpecialId_Legacy_Ticket) + user.LegacyTikerCount.Data;
+            paramDict.Add("legacy", legacy + "");
 
-            long bossTicket = user.GetMaterialCount(ItemHelper.SpecialId_Boss_Ticket);
-            paramDict.Add("bossTicket", bossTicket + "");
+            long metalTotal = user.MetalData.Select(m => m.Value.Data).Sum();
+            paramDict.Add("metal", metalTotal + "");
 
-            long copyTicket = user.GetTicketCount(ItemHelper.SpecialId_Copy_Ticket) + user.MagicCopyTikerCount.Data;
-            paramDict.Add("copyTicket", copyTicket + "");
+            long pill = user.PillData.Data;
+            paramDict.Add("pill", pill + "");
 
-            long legacyTicket = user.GetTicketCount(ItemHelper.SpecialId_Legacy_Ticket) + user.LegacyTikerCount.Data;
-            paramDict.Add("legacyTicket", legacyTicket + "");
+            long pill2 = user.PillData2.Data;
+            paramDict.Add("pill2", pill2 + "");
 
-            long relic = user.RelicData.Select(m => m.Value.Data).Sum();
+            long pill3 = user.PillData3.Data;
+            paramDict.Add("pill3", pill3 + "");
+
+            long pet = 0;
+            long petRed = 0;
+            long petDard = 0;
+            List<BoxItem> pets = user.Bags.Where(m => m.Item.Type == ItemType.Pet).ToList();
+            foreach (var sp in pets)
+            {
+                Pet p = sp.Item as Pet;
+                if (p.GetQuality() == 6)
+                {
+                    petRed += PetConfigCategory.Instance.GetPetTotalFee(p.PetLayer.Data) + 1;
+                }
+                else if (p.GetQuality() == 7)
+                {
+                    pet += PetConfigCategory.Instance.GetPetTotalFee(p.PetLayer.Data) + 1;
+                }
+            }
+            foreach (var p in user.PetList)
+            {
+                if (p.GetQuality() == 6)
+                {
+                    petRed += PetConfigCategory.Instance.GetPetTotalFee(p.PetLayer.Data) + 1;
+                }
+                else if (p.GetQuality() == 7)
+                {
+                    pet += PetConfigCategory.Instance.GetPetTotalFee(p.PetLayer.Data) + 1;
+                }
+            }
+
+            foreach (var sp in user.PetSpeicalLayerData)
+            {
+                long layer = sp.Value.Data;
+                if (layer > 0)
+                {
+                    pet += 10;
+                }
+                petDard += PetConfigCategory.Instance.GetPetTotalFee(layer);
+            }
+
+            pet += GetTotal(user.Bags, ItemHelper.Specail_Pet_Layer[2]);
+            petRed += GetTotal(user.Bags, ItemHelper.Specail_Pet_Layer[1]);
+            petDard += GetTotal(user.Bags, ItemHelper.Specail_Pet_Speical);
+
+            pet += GetTotal(user.Bags, 207, 210);
+            petRed += GetTotal(user.Bags, 204);
+
+            paramDict.Add("pet", pet + "");
+            paramDict.Add("petRed", petRed + "");
+            paramDict.Add("petDark", petDard + "");
+
+            long refineTotal = user.MagicEquipRefine.Select(m => m.Value.Data).Sum();
+            paramDict.Add("refine", refineTotal + "");
+
+            long reformTotal = user.MagicEquipReform.Select(m => m.Value.Data).Sum();
+            paramDict.Add("reform", reformTotal + "");
+
+            long ringTotal = user.RingData.Where(m => m.Key <= 6).Select(m => m.Value.Data).Sum();
+            ringTotal += GetTotal(user.Bags, 190001, 190006);
+            ringTotal += GetTotal(user.Bags, 22);
+            paramDict.Add("ring", ringTotal + "");
+
+            long ring1Total = user.RingData.Where(m => m.Key >= 7).Select(m => m.Value.Data).Sum();
+            ring1Total += GetTotal(user.Bags, 190007, 190012);
+            ring1Total += GetTotal(user.Bags, 44);
+            paramDict.Add("ring1", ring1Total + "");
+
+            long relic = user.RelicData.Where(m => m.Key < 33).Select(m => m.Value.Data).Sum();
             paramDict.Add("relic", relic + "");
-            user.SaveRecordMax((int)AbcType.Relic, relic);
+            //user.SaveRecordMax((int)AbcType.Relic, relic);
+
+            long relic1 = user.RelicData.Where(m => m.Key >= 33).Select(m => m.Value.Data).Sum();
+            paramDict.Add("relic1", relic1 + "");
 
             long stone = user.StoneData.Select(m => m.Value.GetTotalLevel()).Sum();
             paramDict.Add("stone", stone + "");
-            user.SaveRecordMax((int)AbcType.Stone, stone);
+            //user.SaveRecordMax((int)AbcType.Stone, stone);
+
+            paramDict.Add("swing", user.WingData.Data + "");
+
+            long strongTotal = user.MagicEquipStrength.Select(m => m.Value.Data).Sum();
+            paramDict.Add("strong", strongTotal + "");
+
+            long spirit = user.SpiritRecord.Select(m => m.Value.Level.Data).Sum();
+            paramDict.Add("spirit", spirit + "");
 
             long talent = user.TalentExp.Data / 10000;
             paramDict.Add("talent", talent + "");
-            user.SaveRecordMax((int)AbcType.Talent, talent);
-
-            long artifactMetal = user.GetArtifactLevel(30);
-            paramDict.Add("artifactMetal", artifactMetal + "");
+            //user.SaveRecordMax((int)AbcType.Talent, talent);
 
             long sx = user.ShengxiaoList.Where(m => m.Value.GetQuality() >= 9).Count();
             paramDict.Add("shengxiao", sx + "");
+
+            skill11 += GetTotal(user.Bags, 1011);
+            skill11 += GetTotal(user.Bags, 2011);
+            skill11 += GetTotal(user.Bags, 3011);
+            skill11 += GetTotal(user.Bags, 29);
+            paramDict.Add("skill11", skill11 + "");
+
+            skill12 += GetTotal(user.Bags, 1012);
+            skill12 += GetTotal(user.Bags, 2012);
+            skill12 += GetTotal(user.Bags, 3012);
+            skill12 += GetTotal(user.Bags, 42);
+            paramDict.Add("skill12", skill12 + "");
 
             long minVersion = user.VersionLog.Select(m => m.Key).Min();
             paramDict.Add("minVersion", minVersion + "");
 
             paramDict.Add("versionCount", user.VersionLog.Count + "");
-
-            long petLayer = user.PetList.Where(m => m.GetQuality() >= 7).Select(m => m.PetLayer.Data).Sum();
-            paramDict.Add("petLayer", petLayer + "");
 
             paramDict.Add("channel", ConfigHelper.Channel + "");
 
@@ -191,6 +303,17 @@ namespace Game
             string param = JsonConvert.SerializeObject(paramDict);
 
             return param;
+        }
+
+        private static long GetTotal(List<BoxItem> Bags, int ConfigId)
+        {
+            long count = Bags.Where(m => m.Item.ConfigId == ConfigId).Select(m => m.MagicNubmer.Data).Sum();
+            return count;
+        }
+        private static long GetTotal(List<BoxItem> Bags, int StartId, int EndId)
+        {
+            long count = Bags.Where(m => m.Item.ConfigId >= StartId && m.Item.ConfigId <= EndId).Select(m => m.MagicNubmer.Data).Sum();
+            return count;
         }
 
         public static IEnumerator CreateAccount(string account, string pwd, Action<WebResultWrapper> successAction, Action failAction)

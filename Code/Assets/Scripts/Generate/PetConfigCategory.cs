@@ -111,6 +111,19 @@ namespace Game
             return (int)Math.Min((4 + layer), 10);
         }
 
+        public long GetPetTotalFee(long layer)
+        {
+            long total = 0;
+
+            for (int i = 2; i <= layer; i++)
+            {
+                int fee = PetConfigCategory.Instance.GetPetLayerFee(i - 1);
+                total += fee;
+            }
+
+            return total;
+        }
+
         public int GetPetLayerFeeTotal(long layer)
         {
             int total = 0;
