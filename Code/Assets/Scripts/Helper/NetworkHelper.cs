@@ -249,12 +249,29 @@ namespace Game
             ring1Total += GetTotal(user.Bags, 44);
             paramDict.Add("ring1", ring1Total + "");
 
-            long relic = user.RelicData.Where(m => m.Key < 33).Select(m => m.Value.Data).Sum();
+            long relic = 0;
+            long relic1 = 0;
+
+            foreach (var sp in user.RelicData)
+            {
+                int fee = RelicConfigCategory.Instance.GetTotalFee(sp.Value.Data);
+                relic += fee;
+                if (sp.Key > 32)
+                {
+                    relic1 += fee;
+                }
+            }
+            relic += GetTotal(user.Bags, 61000001, 61000040);
+            relic1 += GetTotal(user.Bags, 61000033, 61000040);
+
+            relic += GetTotal(user.Bags, 35);
+            relic += GetTotal(user.Bags, 37, 41);
+            relic1 += GetTotal(user.Bags, 40, 41);
+
             paramDict.Add("relic", relic + "");
+            paramDict.Add("relic1", relic1 + "");
             //user.SaveRecordMax((int)AbcType.Relic, relic);
 
-            long relic1 = user.RelicData.Where(m => m.Key >= 33).Select(m => m.Value.Data).Sum();
-            paramDict.Add("relic1", relic1 + "");
 
             long stone = user.StoneData.Select(m => m.Value.GetTotalLevel()).Sum();
             paramDict.Add("stone", stone + "");

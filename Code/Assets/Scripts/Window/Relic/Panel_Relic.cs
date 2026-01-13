@@ -129,7 +129,7 @@ public class Panel_Relic : MonoBehaviour
             }
         }
 
-        int fee = config.GetFee(level);
+        int fee = RelicConfigCategory.Instance.GetFee(level);
 
         long materialCount = user.GetMaterialCount(config.ItemId);
         string color = materialCount >= fee ? "#FFFF00" : "#FF0000";
@@ -153,7 +153,7 @@ public class Panel_Relic : MonoBehaviour
 
         int level = user.GetRelicLevel(this.SelectId);
 
-        long fee = config.GetFee(level);
+        long fee = RelicConfigCategory.Instance.GetFee(level);
 
         if (materialCount < fee)
         {

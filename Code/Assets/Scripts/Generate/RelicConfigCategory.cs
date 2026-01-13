@@ -11,17 +11,28 @@ namespace Game
         {
             return this.list.Where(m => m.Type == type).ToList();
         }
-    }
 
+        public int GetTotalFee(long level)
+        {
+            int total = 0;
+            for (int i = 1; i <= level; i++)
+            {
+                total += GetFee(i);
+            }
 
-    public partial class RelicConfig
-    {
+            return total;
+        }
+
         public int GetFee(int level)
         {
             int rise = Math.Min(level / 10, 2);
             return rise + 1;
         }
+    }
 
+
+    public partial class RelicConfig
+    {
         public double GetAttrValue(int index, int level)
         {
             if (level <= 0)
