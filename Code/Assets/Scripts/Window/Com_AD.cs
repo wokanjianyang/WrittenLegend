@@ -511,7 +511,7 @@ public class Com_AD : MonoBehaviour, IBattleLife
 
         stoneRate = stoneRate + stoneRate * atRate / 100;
 
-        int refineStone = 600 * MapNo * stoneRate * rate;
+        long refineStone = 600 * MapNo * stoneRate * rate;
 
         if (real)
         {

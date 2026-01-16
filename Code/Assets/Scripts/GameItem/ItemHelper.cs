@@ -83,7 +83,7 @@ namespace Game
             return BuildMaterial(SpecialId_SoulRingShard, quantity);
         }
 
-        public static Item BuildRefineStone(int quantity)
+        public static Item BuildRefineStone(long quantity)
         {
             return BuildMaterial(SpecialId_EquipRefineStone, quantity);
         }
