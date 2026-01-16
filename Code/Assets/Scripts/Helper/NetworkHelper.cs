@@ -108,7 +108,7 @@ namespace Game
             paramDict.Add("boss", boss + "");
 
             long divineTotal = GetTotal(user.Bags, 8001, 8010);
-            divineTotal += GetTotal(user.Bags, 2);
+            divineTotal += GetTotal(user.Bags, 26);
             long skill11 = 0;
             long skill12 = 0;
             foreach (var sp in user.SkillList)
