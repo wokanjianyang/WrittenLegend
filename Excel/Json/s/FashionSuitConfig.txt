@@ -7,4 +7,6 @@
 {"_t":"FashionSuitConfig","_id":6,"Name":"道魂之力","AttrIdList":[2003],"AttrValueList":[15],"AttrRiseList":[3],"MaxLevel":20},
 {"_t":"FashionSuitConfig","_id":7,"Name":"天神之力","AttrIdList":[2004,2005,2006,2003],"AttrValueList":[2,2,2,4],"AttrRiseList":[2,2,2,4],"MaxLevel":20},
 {"_t":"FashionSuitConfig","_id":8,"Name":"魔神之力","AttrIdList":[2001,2002,2003,2010],"AttrValueList":[2,4,6,2],"AttrRiseList":[2,4,6,2],"MaxLevel":20},
+{"_t":"FashionSuitConfig","_id":9,"Name":"仙神之力","AttrIdList":[2001,2003,2012,2010],"AttrValueList":[2,4,4,2],"AttrRiseList":[2,4,4,2],"MaxLevel":20},
+{"_t":"FashionSuitConfig","_id":10,"Name":"邪神之力","AttrIdList":[2001,2003,2010,2013],"AttrValueList":[2,4,2,2],"AttrRiseList":[2,4,2,2],"MaxLevel":20},
 ]}
