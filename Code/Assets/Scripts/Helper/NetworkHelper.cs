@@ -494,12 +494,21 @@ namespace Game
                     {
                         Debug.Log("Upload Error:" + request.error);
                         failAction?.Invoke();
+
+                        if (action == "save_user_file")
+                        {
+                            AppHelper.SaveFailCount = 0;
+                        }
                     }
                     else
                     {
                         if (action == "save_user_file")
                         {
-                            user.SaveCount--; //如果请求失败了，则退回序号，防止断网卡序号
+                            AppHelper.SaveFailCount++;
+                            if (AppHelper.SaveFailCount > 1)
+                            {
+                                user.SaveCount--; //如果请求失败了，则退回序号，防止断网卡序号
+                            }
                         }
 
                         Debug.Log("Upload complete! Server response: " + request.downloadHandler.text);
