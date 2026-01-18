@@ -12,6 +12,8 @@ namespace Game.Data
         public static int OK = 200;
 
         public static int BlackList = 302;
+
+        public static int OldFile = 404;
     }
 
 

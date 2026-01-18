@@ -11,8 +11,8 @@ namespace Game
 {
     public class User
     {
-        public long Essence { get; set; }
-        public int LastCityId { get; set; }
+        public bool OldFile { get; set; } = false;
+        public int SaveCount { get; set; } = 0;
 
         public long Power { get; set; }
 

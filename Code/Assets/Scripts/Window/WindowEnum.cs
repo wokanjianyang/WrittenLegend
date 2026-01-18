@@ -15,5 +15,6 @@
         LoadError = 2,
         BlackList = 3,
         Time = 4,
+        OldFile = 5,
     }
 }

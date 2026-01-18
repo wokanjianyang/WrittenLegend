@@ -45,6 +45,7 @@ namespace Game
 
     public class NewVersionEvent : SDD.Events.Event
     {
+        public int Type { get; set; }
         public int Version { get; set; }
     }
 

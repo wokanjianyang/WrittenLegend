@@ -455,10 +455,11 @@ namespace Game
             {
                 using (var uh = new UploadHandlerRaw(bytes))
                 {
-                    string account = GameProcessor.Inst.User.Account;
+                    User user = GameProcessor.Inst.User;
+                    string account = user.Account;
                     string deviceId = AppHelper.GetDeviceIdentifier();
-                    string fileId = GameProcessor.Inst.User.DeviceId;
-                    string level = GameProcessor.Inst.User.MagicLevel.Data + "";
+                    string fileId = user.DeviceId;
+                    string level = user.MagicLevel.Data + "";
                     string sign = BuildSign();
 
                     request.SetRequestHeader("account", account);
@@ -469,6 +470,13 @@ namespace Game
                     request.SetRequestHeader("version", ConfigHelper.Version + "");
                     request.SetRequestHeader("sign", BuildSign());
                     request.SetRequestHeader("code", BuildCode());
+                    if (action == "save_user_file")
+                    {
+                        user.SaveCount++;
+                        request.SetRequestHeader("SaveCount", user.SaveCount + "");
+
+                        UserData.Save();
+                    }
 
                     if (headers != null)
                     {
@@ -489,6 +497,11 @@ namespace Game
                     }
                     else
                     {
+                        if (action == "save_user_file")
+                        {
+                            user.SaveCount--; //如果请求失败了，则退回序号，防止断网卡序号
+                        }
+
                         Debug.Log("Upload complete! Server response: " + request.downloadHandler.text);
 
                         WebResultWrapper result = JsonConvert.DeserializeObject<WebResultWrapper>(request.downloadHandler.text);
@@ -497,10 +510,15 @@ namespace Game
                         {
                             GameProcessor.Inst.EventCenter.Raise(new CheckGameCheatEvent());
                         }
+                        else if (result.Code == StatusMessage.OldFile)
+                        {
+                            GameProcessor.Inst.EventCenter.Raise(new NewVersionEvent() { Type = 1 });
+                        }
                         else if (result.Version > ConfigHelper.Version)
                         {
-                            GameProcessor.Inst.EventCenter.Raise(new NewVersionEvent() { Version = result.Version });
+                            GameProcessor.Inst.EventCenter.Raise(new NewVersionEvent() { Type = 2, Version = result.Version });
                         }
+
 
                         successAction?.Invoke(result);
                     }

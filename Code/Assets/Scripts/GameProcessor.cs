@@ -347,6 +347,11 @@ namespace Game
                 StartCoroutine(this.AutoExitApp(ExitType.Version));
                 return;
             }
+            if (this.User.OldFile)
+            {
+                StartCoroutine(this.AutoExitApp(ExitType.OldFile));
+                return;
+            }
             if (isCheckError || User.GameDoCheat211)
             {
                 StartCoroutine(this.AutoExitApp(ExitType.Change));
@@ -564,11 +569,22 @@ namespace Game
         }
         public void NewVersion(NewVersionEvent e)
         {
-            if (User != null)
+            if (e.Type == 1)
             {
-                User.VersionLog[e.Version] = TimeHelper.ClientNowSeconds();
+                if (User != null)
+                {
+                    User.OldFile = true;
+                }
+                StartCoroutine(this.AutoExitApp(ExitType.OldFile));
             }
-            StartCoroutine(this.AutoExitApp(ExitType.Version));
+            else
+            {
+                if (User != null)
+                {
+                    User.VersionLog[e.Version] = TimeHelper.ClientNowSeconds();
+                }
+                StartCoroutine(this.AutoExitApp(ExitType.Version));
+            }
         }
 
         private void OnEndCopy(BattlerEndEvent e)
@@ -1042,6 +1058,9 @@ namespace Game
             {
                 case ExitType.Version:
                     text = "后自动关闭游戏,请更新";
+                    break;
+                case ExitType.OldFile:
+                    text = "后自动关闭游戏,请读取最新存档玩";
                     break;
                 case ExitType.Change:
                     text = "后自动关闭游戏,请不要作弊";
