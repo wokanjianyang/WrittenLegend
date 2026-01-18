@@ -12,7 +12,7 @@ namespace Game
     public class User
     {
         public bool OldFile { get; set; } = false;
-        public int SaveCount { get; set; } = 0;
+        public int Serial { get; set; } = 0;
 
         public long Power { get; set; }
 

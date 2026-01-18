@@ -16,7 +16,7 @@ namespace Game
     {
         //private static string home = "http://127.0.0.1:11111/public/";
         private static string home = "http://47.120.73.196/public/";
-        //private static string home = "http://192.168.2.102:11111/public/";
+        //private static string home = "http://192.168.10.5:11111/public/";
 
 
         public static string[] GetAddressIPs()
@@ -406,6 +406,11 @@ namespace Game
             return SendRequest("get_pet", bytes, successAction, failAction);
         }
 
+        public static IEnumerator GetSerial(Action<WebResultWrapper> successAction, Action failAction)
+        {
+            return SendRequest("get_serial", null, successAction, failAction);
+        }
+
         public static IEnumerator DownData(Action<byte[]> successAction, Action failAction)
         {
             string url = home + "down_user_file";
@@ -472,10 +477,10 @@ namespace Game
                     request.SetRequestHeader("code", BuildCode());
                     if (action == "save_user_file")
                     {
-                        user.SaveCount++;
-                        request.SetRequestHeader("SaveCount", user.SaveCount + "");
+                        Debug.Log("Start Serial:" + user.Serial);
 
-                        UserData.Save();
+                        int serial = user.Serial + 1;
+                        request.SetRequestHeader("SaveCount", serial + "");
                     }
 
                     if (headers != null)
@@ -494,24 +499,10 @@ namespace Game
                     {
                         Debug.Log("Upload Error:" + request.error);
                         failAction?.Invoke();
-
-                        if (action == "save_user_file")
-                        {
-                            AppHelper.SaveFailCount = 0;
-                        }
                     }
                     else
                     {
-                        if (action == "save_user_file")
-                        {
-                            AppHelper.SaveFailCount++;
-                            if (AppHelper.SaveFailCount > 1)
-                            {
-                                user.SaveCount--; //如果请求失败了，则退回序号，防止断网卡序号
-                            }
-                        }
-
-                        Debug.Log("Upload complete! Server response: " + request.downloadHandler.text);
+                        //Debug.Log("Upload complete! Server response: " + request.downloadHandler.text);
 
                         WebResultWrapper result = JsonConvert.DeserializeObject<WebResultWrapper>(request.downloadHandler.text);
 
@@ -528,6 +519,13 @@ namespace Game
                             GameProcessor.Inst.EventCenter.Raise(new NewVersionEvent() { Type = 2, Version = result.Version });
                         }
 
+                        if (action == "save_user_file")
+                        {
+                            user.Serial++;
+                            UserData.Save();
+
+                            Debug.Log("End Serial:" + user.Serial);
+                        }
 
                         successAction?.Invoke(result);
                     }
