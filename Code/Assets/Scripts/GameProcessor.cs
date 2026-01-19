@@ -1061,7 +1061,7 @@ namespace Game
                     text = "后自动关闭游戏,请更新";
                     break;
                 case ExitType.OldFile:
-                    text = "后自动关闭游戏,请读取最新存档玩";
+                    text = "后自动关闭游戏,这不是最新存档。\n可以卸载重新安装游戏，再绑定之后读取最新存档";
                     break;
                 case ExitType.Change:
                     text = "后自动关闭游戏,请不要作弊";

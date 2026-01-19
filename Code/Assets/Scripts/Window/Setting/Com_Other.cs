@@ -366,89 +366,6 @@ namespace Game
             }
         }
 
-        private void loadData()
-        {
-            User user = GameProcessor.Inst.User;
-            user.LoadTicketTime = TimeHelper.ClientNowSeconds();
-
-            btn_Load.gameObject.SetActive(false);
-
-            this.txt_Info.text = "读档中......";
-            string account = user.Account;
-
-            try
-            {
-                StartCoroutine(NetworkHelper.GetSerial((WebResultWrapper result) =>
-                {
-                    if (result.Code == StatusMessage.OK)
-                    {
-                        int serial = int.Parse(result.Data["serial"]);
-
-
-                        StartCoroutine(NetworkHelper.DownData(
-                        (byte[] bytes) =>
-                        {
-                            Time.timeScale = 0;
-
-                            if (bytes == null)
-                            {
-                                this.txt_Info.text = "读档失败,还没有存档或者其他错误.";
-                                user.LoadTicketTime = TimeHelper.ClientNowSeconds() - CdLoadTime + 10;
-                                return;
-                            }
-
-                            string str_json = Encoding.UTF8.GetString(bytes);
-
-                            if (str_json.Length < 100)
-                            {
-                                WebResultWrapper result = JsonConvert.DeserializeObject<WebResultWrapper>(str_json);
-                                this.txt_Info.text = result.Msg;
-                                user.LoadTicketTime = TimeHelper.ClientNowSeconds() - CdLoadTime + 10;
-                                return;
-                            }
-
-                            str_json = EncryptionHelper.AesDecrypt(str_json);
-
-                            if (GameProcessor.Inst.LoadInit(str_json, account, serial))
-                            {
-                                this.txt_Info.text = "读取存档成功,请退出重进";
-                                UserData.Save();
-                                //GameProcessor.Inst.SaveData(); ;
-                            }
-                            else
-                            {
-                                this.txt_Info.text = "读取失败,存档损坏,取消读档,请退出重进";
-                                user.LoadTicketTime = TimeHelper.ClientNowSeconds() - CdLoadTime + 10;
-
-                            }
-                            Application.Quit();
-                        },
-                        () =>
-                        {
-                            btn_Load.gameObject.SetActive(true);
-                            user.LoadTicketTime = TimeHelper.ClientNowSeconds() - CdLoadTime + 10;
-                            this.txt_Info.text = "读档失败.";
-                        }
-                        ));
-                    }
-                    else
-                    {
-                        this.txt_Info.text = "读档失败，请稍等一会重试...";
-                    }
-
-                },
-                () =>
-                {
-                    this.txt_Info.text = "读档失败，请稍等一会重试...";
-                }
-                ));
-            }
-            catch (Exception ex)
-            {
-                this.txt_Info.text = "读档失败，请稍等一会重试...";
-            }
-        }
-
         //private void loadData()
         //{
         //    User user = GameProcessor.Inst.User;
@@ -461,57 +378,140 @@ namespace Game
 
         //    try
         //    {
+        //        StartCoroutine(NetworkHelper.GetSerial((WebResultWrapper result) =>
+        //        {
+        //            if (result.Code == StatusMessage.OK)
+        //            {
+        //                int serial = int.Parse(result.Data["serial"]);
 
-        //        StartCoroutine(NetworkHelper.DownData(
-        //          (byte[] bytes) =>
-        //          {
-        //              Time.timeScale = 0;
 
-        //              if (bytes == null)
-        //              {
-        //                  this.txt_Info.text = "读档失败,还没有存档或者其他错误.";
-        //                  user.LoadTicketTime = TimeHelper.ClientNowSeconds() - CdLoadTime + 10;
-        //                  return;
-        //              }
+        //                StartCoroutine(NetworkHelper.DownData(
+        //                (byte[] bytes) =>
+        //                {
+        //                    Time.timeScale = 0;
 
-        //              string str_json = Encoding.UTF8.GetString(bytes);
+        //                    if (bytes == null)
+        //                    {
+        //                        this.txt_Info.text = "读档失败,还没有存档或者其他错误.";
+        //                        user.LoadTicketTime = TimeHelper.ClientNowSeconds() - CdLoadTime + 10;
+        //                        return;
+        //                    }
 
-        //              if (str_json.Length < 100)
-        //              {
-        //                  WebResultWrapper result = JsonConvert.DeserializeObject<WebResultWrapper>(str_json);
-        //                  this.txt_Info.text = result.Msg;
-        //                  user.LoadTicketTime = TimeHelper.ClientNowSeconds() - CdLoadTime + 10;
-        //                  return;
-        //              }
+        //                    string str_json = Encoding.UTF8.GetString(bytes);
 
-        //              str_json = EncryptionHelper.AesDecrypt(str_json);
+        //                    if (str_json.Length < 100)
+        //                    {
+        //                        WebResultWrapper result = JsonConvert.DeserializeObject<WebResultWrapper>(str_json);
+        //                        this.txt_Info.text = result.Msg;
+        //                        user.LoadTicketTime = TimeHelper.ClientNowSeconds() - CdLoadTime + 10;
+        //                        return;
+        //                    }
 
-        //              if (GameProcessor.Inst.LoadInit(str_json, account,0))
-        //              {
-        //                  this.txt_Info.text = "读取存档成功,请退出重进";
-        //                  UserData.Save();
-        //                  //GameProcessor.Inst.SaveData(); ;
-        //              }
-        //              else
-        //              {
-        //                  this.txt_Info.text = "读取失败,存档损坏,取消读档,请退出重进";
-        //                  user.LoadTicketTime = TimeHelper.ClientNowSeconds() - CdLoadTime + 10;
+        //                    str_json = EncryptionHelper.AesDecrypt(str_json);
 
-        //              }
-        //              Application.Quit();
-        //          },
-        //          () =>
-        //          {
-        //              btn_Load.gameObject.SetActive(true);
-        //              user.LoadTicketTime = TimeHelper.ClientNowSeconds() - CdLoadTime + 10;
-        //              this.txt_Info.text = "读档失败.";
-        //          }
-        //          ));
+        //                    if (GameProcessor.Inst.LoadInit(str_json, account, serial))
+        //                    {
+        //                        this.txt_Info.text = "读取存档成功,请退出重进";
+        //                        UserData.Save();
+        //                        //GameProcessor.Inst.SaveData(); ;
+        //                    }
+        //                    else
+        //                    {
+        //                        this.txt_Info.text = "读取失败,存档损坏,取消读档,请退出重进";
+        //                        user.LoadTicketTime = TimeHelper.ClientNowSeconds() - CdLoadTime + 10;
+
+        //                    }
+        //                    Application.Quit();
+        //                },
+        //                () =>
+        //                {
+        //                    btn_Load.gameObject.SetActive(true);
+        //                    user.LoadTicketTime = TimeHelper.ClientNowSeconds() - CdLoadTime + 10;
+        //                    this.txt_Info.text = "读档失败.";
+        //                }
+        //                ));
+        //            }
+        //            else
+        //            {
+        //                this.txt_Info.text = "读档失败，请稍等一会重试...";
+        //            }
+
+        //        },
+        //        () =>
+        //        {
+        //            this.txt_Info.text = "读档失败，请稍等一会重试...";
+        //        }
+        //        ));
         //    }
         //    catch (Exception ex)
         //    {
         //        this.txt_Info.text = "读档失败，请稍等一会重试...";
         //    }
         //}
+
+        private void loadData()
+        {
+            User user = GameProcessor.Inst.User;
+            user.LoadTicketTime = TimeHelper.ClientNowSeconds();
+
+            btn_Load.gameObject.SetActive(false);
+
+            this.txt_Info.text = "读档中......";
+            string account = user.Account;
+
+            try
+            {
+
+                StartCoroutine(NetworkHelper.DownData(
+                  (byte[] bytes) =>
+                  {
+                      Time.timeScale = 0;
+
+                      if (bytes == null)
+                      {
+                          this.txt_Info.text = "读档失败,还没有存档或者其他错误.";
+                          user.LoadTicketTime = TimeHelper.ClientNowSeconds() - CdLoadTime + 10;
+                          return;
+                      }
+
+                      string str_json = Encoding.UTF8.GetString(bytes);
+
+                      if (str_json.Length < 100)
+                      {
+                          WebResultWrapper result = JsonConvert.DeserializeObject<WebResultWrapper>(str_json);
+                          this.txt_Info.text = result.Msg;
+                          user.LoadTicketTime = TimeHelper.ClientNowSeconds() - CdLoadTime + 10;
+                          return;
+                      }
+
+                      str_json = EncryptionHelper.AesDecrypt(str_json);
+
+                      if (GameProcessor.Inst.LoadInit(str_json, account, 0))
+                      {
+                          this.txt_Info.text = "读取存档成功,请退出重进";
+                          UserData.Save();
+                          GameProcessor.Inst.SaveData(); ;
+                      }
+                      else
+                      {
+                          this.txt_Info.text = "读取失败,存档损坏,取消读档,请退出重进";
+                          user.LoadTicketTime = TimeHelper.ClientNowSeconds() - CdLoadTime + 10;
+
+                      }
+                      Application.Quit();
+                  },
+                  () =>
+                  {
+                      btn_Load.gameObject.SetActive(true);
+                      user.LoadTicketTime = TimeHelper.ClientNowSeconds() - CdLoadTime + 10;
+                      this.txt_Info.text = "读档失败.";
+                  }
+                  ));
+            }
+            catch (Exception ex)
+            {
+                this.txt_Info.text = "读档失败，请稍等一会重试...";
+            }
+        }
     }
 }
