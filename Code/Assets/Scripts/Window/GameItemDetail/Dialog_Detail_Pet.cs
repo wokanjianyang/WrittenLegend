@@ -198,6 +198,15 @@ namespace Game
             {
                 this.btn_Lock.gameObject.SetActive(true);
             }
+
+            User user = GameProcessor.Inst.User;
+            if (user.Cycle.Data < 15)
+            {
+                btn_Equip.gameObject.SetActive(false);
+            }
+            else {
+                btn_Equip.gameObject.SetActive(true);
+            }
         }
 
         private void OnEquip()

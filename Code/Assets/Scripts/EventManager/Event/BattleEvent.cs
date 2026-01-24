@@ -56,6 +56,10 @@ namespace Game
     {
         public Item_Pet Item { get; set; }
     }
+    public class Pet1BattleDownEvent : SDD.Events.Event
+    {
+        public Item_Pet Item { get; set; }
+    }
 
     public class OpenPetForgeEvent : SDD.Events.Event
     {

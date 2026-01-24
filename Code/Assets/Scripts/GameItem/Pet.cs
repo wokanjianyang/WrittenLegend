@@ -36,12 +36,20 @@ namespace Game
             return Flairs.Count;
         }
 
-        public Pet(int role)
+        public Pet(int configId, int role)
         {
             this.Type = ItemType.Pet;
             this.Role = role;
+            this.ConfigId = configId;
 
-            this.Name = ConfigHelper.PetName[Role - 1];
+            if (configId == 8209)
+            {
+                this.Name = ConfigHelper.PetName1[Role - 1];
+            }
+            else
+            {
+                this.Name = ConfigHelper.PetName[Role - 1];
+            }
         }
 
         public int GetDevourCount()
@@ -111,7 +119,15 @@ namespace Game
         {
             this.LevelExp.Data += exp;
 
-            long fee = PetConfigCategory.Instance.GetPetFee(PetLevel.Data);
+            long fee = 0;
+            if (this.GetQuality() == 9)
+            {
+                fee = PetConfigCategory.Instance.GetPetFee1(PetLevel.Data);
+            }
+            else
+            {
+                fee = PetConfigCategory.Instance.GetPetFee(PetLevel.Data);
+            }
 
             if (this.LevelExp.Data >= fee)
             {
@@ -148,6 +164,6 @@ namespace Game
             return PetSkillRise[Flairs.Count - 1] + (PetLayer.Data - 1) * LayerRiseSkill + fc * 4;
         }
 
-        private int[] PetSkillRise = new int[] { 5, 6, 7, 8, 10, 12, 15 };
+        private int[] PetSkillRise = new int[] { 5, 6, 7, 8, 10, 12, 15, 20, 25 };
     }
 }

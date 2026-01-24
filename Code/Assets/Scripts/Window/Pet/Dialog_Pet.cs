@@ -14,6 +14,7 @@ public class Dialog_Pet : MonoBehaviour, IBattleLife
 
     public Panel_Pet panelPet;
     public Panel_Pet_Speical panelSpeical;
+    public Panel_Pet1 panelPet1;
 
     public Button Btn_Close;
 
@@ -52,6 +53,15 @@ public class Dialog_Pet : MonoBehaviour, IBattleLife
         {
             this.toggles[1].gameObject.SetActive(false);
         }
+
+        if (user.Cycle.Data >= 15 && !ac)
+        {
+            this.toggles[2].gameObject.SetActive(true);
+        }
+        else
+        {
+            this.toggles[2].gameObject.SetActive(false);
+        }
     }
 
     public void OnBattleStart()
@@ -66,15 +76,21 @@ public class Dialog_Pet : MonoBehaviour, IBattleLife
 
     private void ShowPanel(int index)
     {
+        panelPet.gameObject.SetActive(false);
+        panelSpeical.gameObject.SetActive(false);
+        panelPet1.gameObject.SetActive(false);
+
         if (index == 1)
         {
             panelPet.gameObject.SetActive(true);
-            panelSpeical.gameObject.SetActive(false);
         }
         else if (index == 2)
         {
-            panelPet.gameObject.SetActive(false);
             panelSpeical.gameObject.SetActive(true);
+        }
+        else if (index == 3)
+        {
+            panelPet1.gameObject.SetActive(true);
         }
     }
 

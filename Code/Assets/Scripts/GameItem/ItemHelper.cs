@@ -180,7 +180,7 @@ namespace Game
         public static int SpecialId_Card_Stone = 4101;
 
         public static int SpecialId_Chunjie = 4111;
-  
+
 
         public static int SpecialId_Shuye1 = 4006; //书页
         public static int SpecialId_Shuye2 = 4102; //高级书页
@@ -190,7 +190,7 @@ namespace Game
 
         public static int SpecailEquipRefreshId = 4201; //橙装精华
 
-        public static int[] Specail_Pet_Layer = { 4023, 4024, 4025 };
+        public static int[] Specail_Pet_Layer = { 4023, 4024, 4025, 4041, 4045 };
 
         public static int Specail_Pet_Speical = 4041; //暗金魂心
         public static int Specail_Shengxiao = 4042; //生肖精华

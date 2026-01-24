@@ -67,10 +67,14 @@ namespace Game
 
             this.gameObject.gameObject.SetActive(false);
 
-            GameProcessor.Inst.EventCenter.Raise(new PetBattleDownEvent()
+            if (pet.GetQuality() == 9)
             {
-                Item = this
-            });
+                GameProcessor.Inst.EventCenter.Raise(new Pet1BattleDownEvent() { Item = this });
+            }
+            else
+            {
+                GameProcessor.Inst.EventCenter.Raise(new PetBattleDownEvent() { Item = this });
+            }
         }
 
         private void OnUpLevel()
@@ -108,6 +112,11 @@ namespace Game
             else
             {
                 this.Btn_Devour.gameObject.SetActive(false);
+            }
+
+            if (pet.GetQuality() == 9)
+            {
+                Btn_Travel.gameObject.SetActive(false); //粉宠暂时不开放打工功能
             }
         }
     }

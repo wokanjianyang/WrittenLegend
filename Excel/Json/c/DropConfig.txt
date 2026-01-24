@@ -443,6 +443,7 @@
 {"_t":"DropConfig","_id":220105,"Level":0,"Name":"橙色宠物","Quantity":1,"ItemType":16,"ItemIdList":[8205]},
 {"_t":"DropConfig","_id":220106,"Level":0,"Name":"红色宠物","Quantity":1,"ItemType":16,"ItemIdList":[8206]},
 {"_t":"DropConfig","_id":220107,"Level":0,"Name":"金色宠物","Quantity":1,"ItemType":16,"ItemIdList":[8207]},
+{"_t":"DropConfig","_id":220109,"Level":0,"Name":"粉色宠物","Quantity":1,"ItemType":16,"ItemIdList":[8209]},
 {"_t":"DropConfig","_id":101,"Level":0,"Name":"一阶四格","Quantity":1,"ItemType":2,"ItemIdList":[101,201,301,401]},
 {"_t":"DropConfig","_id":102,"Level":0,"Name":"二阶四格","Quantity":1,"ItemType":2,"ItemIdList":[102,202,302,402]},
 {"_t":"DropConfig","_id":103,"Level":0,"Name":"三阶四格","Quantity":1,"ItemType":2,"ItemIdList":[103,203,303,403]},

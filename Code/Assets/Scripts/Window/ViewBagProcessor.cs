@@ -814,34 +814,46 @@ namespace Game
         {
             User user = GameProcessor.Inst.User;
 
-            int pg = Math.Min(3, user.GetPetSpeicalGroupLevel() / 3);
-
-            if (user.PetList.Count >= ConfigHelper.PetMax + pg)
-            {
-                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "宠物上阵位置已经满了", ToastType = ToastTypeEnum.Failure });
-                return;
-            }
-
             Pet pet = e.BoxItem.Item as Pet;
 
-            int roleCount = user.PetList.Where(m => m.Role == pet.Role).Count();
-            if (roleCount >= 3)
+            if (pet.GetQuality() == 9)
             {
-                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "同种宠物上阵数量已满", ToastType = ToastTypeEnum.Failure });
-                return;
+                int key = pet.Role;
+                if (user.PetDict.ContainsKey(key))
+                {
+                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "已经上阵了此仙宠", ToastType = ToastTypeEnum.Failure });
+                    return;
+                }
+                UseBoxItem(e.BoxItem, 1);
+
+                user.PetDict.Add(key, pet);
             }
+            else
+            {
+                int pg = Math.Min(3, user.GetPetSpeicalGroupLevel() / 3);
 
-            //从包袱移除
-            UseBoxItem(e.BoxItem, 1);
+                if (user.PetList.Count >= ConfigHelper.PetMax + pg)
+                {
+                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "宠物上阵位置已经满了", ToastType = ToastTypeEnum.Failure });
+                    return;
+                }
 
-            user.PetList.Add(pet);
+                int roleCount = user.PetList.Where(m => m.Role == pet.Role).Count();
+                if (roleCount >= 3)
+                {
+                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "同种宠物上阵数量已满", ToastType = ToastTypeEnum.Failure });
+                    return;
+                }
+
+                //从包袱移除
+                UseBoxItem(e.BoxItem, 1);
+
+                user.PetList.Add(pet);
+            }
 
             //通知英雄更新属性
             user.EventCenter.Raise(new HeroUseEquipEvent { });
         }
-
-
-
 
         private void OnSkillBookLearn(SkillBookLearnEvent e)
         {

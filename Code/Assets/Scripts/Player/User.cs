@@ -145,6 +145,7 @@ namespace Game
         public HeroPhatomData HeroPhatomData { get; set; }
 
         public List<Pet> PetList { get; set; } = new List<Pet>();
+        public Dictionary<int, Pet> PetDict { get; set; } = new Dictionary<int, Pet>();
 
         /// <summary>
         /// 包裹
@@ -817,6 +818,17 @@ namespace Game
                 foreach (var sp in attrList)
                 {
                     AttributeBonus.SetAttr((AttributeEnum)sp.Key, AttributeFrom.Pet, i, sp.Value);
+                }
+            }
+
+            foreach (var pp in PetDict)
+            {
+                Pet pet = pp.Value;
+                var attrList = pet.GetBaseAttr();
+
+                foreach (var sp in attrList)
+                {
+                    AttributeBonus.SetAttr((AttributeEnum)sp.Key, AttributeFrom.Pet1, pp.Key, sp.Value);
                 }
             }
 
