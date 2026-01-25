@@ -70,16 +70,20 @@ public class Panel_Pet : MonoBehaviour, IBattleLife
 
     private void OpenPetForge(OpenPetForgeEvent e)
     {
-        if (e.Type == 1)
+        if (e.Cycle == 1)
         {
-            DialogPetForge.Open(e.Item.pet);
-        }
-        else if (e.Type == 2)
-        {
-            DialogPetTravel.Open(e.Item.pet);
-        }
-        else if (e.Type == 3) {
-            DialogPetDevour.Open(e.Item.pet);
+            if (e.Type == 1)
+            {
+                DialogPetForge.Open(e.Item.pet);
+            }
+            else if (e.Type == 2)
+            {
+                DialogPetTravel.Open(e.Item.pet);
+            }
+            else if (e.Type == 3)
+            {
+                DialogPetDevour.Open(e.Item.pet);
+            }
         }
     }
 

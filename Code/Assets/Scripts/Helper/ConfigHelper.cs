@@ -18,11 +18,11 @@ namespace Game
 
         public const int Channel_Tap = 1;
 
-        public const int Version = 426;
+        public const int Version = 427;
 
-        public const long PackTime = 1768816401; //打包时间，防止作弊
+        public const long PackTime = 1769309743; //打包时间，防止作弊
 
-        public const long PackEndTime = 1770544401; //超过此时间,游戏不能使用，需要更新
+        public const long PackEndTime = 1771037743; //超过此时间,游戏不能使用，需要更新
 
         public const long Max_Level = 120000; //最大人物等级和强化等级
 
@@ -119,7 +119,7 @@ namespace Game
 
         public static string[] RoleName = { "战士", "法师", "道士" };
         public static string[] PetName = { "战魂", "法魂", "道魂" };
-        public static string[] PetName1 = { "仙宠青龙", "仙宠朱雀", "仙宠麒麟" };
+        public static string[] PetName1 = { "仙宠斗魂", "仙宠魔魂", "仙宠圣魂" };
         public const int PetMax = 2;
 
         public const int MaxWorld = 800;

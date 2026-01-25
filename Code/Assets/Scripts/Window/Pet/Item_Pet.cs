@@ -23,6 +23,7 @@ namespace Game
         public Sprite[] list_Backgrounds;
 
         public Pet pet;
+        private int PetCycle = 1;
 
         // Start is called before the first frame update
         void Start()
@@ -79,17 +80,17 @@ namespace Game
 
         private void OnUpLevel()
         {
-            GameProcessor.Inst.EventCenter.Raise(new OpenPetForgeEvent() { Type = 1, Item = this });
+            GameProcessor.Inst.EventCenter.Raise(new OpenPetForgeEvent() { Type = 1, Cycle = PetCycle, Item = this });
         }
 
         private void OnTravel()
         {
-            GameProcessor.Inst.EventCenter.Raise(new OpenPetForgeEvent() { Type = 2, Item = this });
+            GameProcessor.Inst.EventCenter.Raise(new OpenPetForgeEvent() { Type = 2, Cycle = PetCycle, Item = this });
         }
 
         private void OnDevour()
         {
-            GameProcessor.Inst.EventCenter.Raise(new OpenPetForgeEvent() { Type = 3, Item = this });
+            GameProcessor.Inst.EventCenter.Raise(new OpenPetForgeEvent() { Type = 3, Cycle = PetCycle, Item = this });
         }
 
         public void Init(Pet pet)
@@ -103,7 +104,9 @@ namespace Game
             Txt_Level.color = ColorHelper.GetColorByQuality(pet.GetQuality());
             Txt_Layer.color = ColorHelper.GetColorByQuality(pet.GetQuality());
 
-            this.image_Background.sprite = list_Backgrounds[pet.Role - 1];
+            this.PetCycle = pet.GetQuality() == 9 ? 2 : 1;
+
+            this.image_Background.sprite = list_Backgrounds[pet.Role - 1 + PetCycle * 3 - 3];
 
             if (pet.GetQuality() >= 7 && pet.DevourFlairs.Count == 0 && pet.PetLayer.Data >= 10)
             {

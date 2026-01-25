@@ -64,6 +64,8 @@ namespace Game
     public class OpenPetForgeEvent : SDD.Events.Event
     {
         public int Type { get; set; }
+
+        public int Cycle { get; set; }
         public Item_Pet Item { get; set; }
     }
 
