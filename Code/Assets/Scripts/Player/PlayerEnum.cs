@@ -180,7 +180,7 @@ namespace Game
         Shengxiao = 33,
         Festive = 34,
         Spirit = 35,
-        Pet1 = 34,
+        Pet1 = 36,
 
         Dingzhi = 98,
         /// <summary>

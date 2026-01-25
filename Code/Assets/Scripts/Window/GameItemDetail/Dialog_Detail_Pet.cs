@@ -48,6 +48,8 @@ namespace Game
 
         private BoxItem boxItem;
 
+        private ComBoxType BoxType;
+
         private RectTransform rectTransform;
 
         // Start is called before the first frame update
@@ -97,6 +99,7 @@ namespace Game
             this.btn_Unlock.gameObject.SetActive(false);
 
             this.boxItem = e.boxItem;
+            this.BoxType = e.Type;
 
             string titleColor = QualityConfigHelper.GetColor(this.boxItem.Item);
 
@@ -176,6 +179,12 @@ namespace Game
                 TxtSkillDes.text = "系数增幅" + pet.GetSkillPercent() + "%";
             }
 
+            User user = GameProcessor.Inst.User;
+            if (user.Cycle.Data < 15)
+            {
+                btn_Equip.gameObject.SetActive(false);
+            }
+
             this.btn_Equip.gameObject.SetActive(this.boxItem.BoxId != -1);
 
             if (!this.boxItem.Item.IsLock)
@@ -199,13 +208,14 @@ namespace Game
                 this.btn_Lock.gameObject.SetActive(true);
             }
 
-            User user = GameProcessor.Inst.User;
-            if (user.Cycle.Data < 15)
+            if (this.BoxType != ComBoxType.Bag) //不可操作
             {
-                btn_Equip.gameObject.SetActive(false);
-            }
-            else {
-                btn_Equip.gameObject.SetActive(true);
+                this.btn_Equip.gameObject.SetActive(false);
+                this.btn_UnEquip.gameObject.SetActive(false);
+                this.btn_Recovery.gameObject.SetActive(false);
+                this.btn_Lock.gameObject.SetActive(false);
+                this.btn_Unlock.gameObject.SetActive(false);
+                this.btn_Restore.gameObject.SetActive(false);
             }
         }
 

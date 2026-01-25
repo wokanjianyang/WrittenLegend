@@ -177,12 +177,12 @@ namespace Game
                 case ItemType.Card:
                     {
                         //this.Btn_Recovery.gameObject.SetActive(true);
-                        //this.Btn_Lose.gameObject.SetActive(false);
+                        this.Btn_Lose.gameObject.SetActive(true);
                     }
                     break;
                 default:
                     {
-
+                        this.Btn_Lose.gameObject.SetActive(true);
                     }
                     break;
             }

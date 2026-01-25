@@ -160,6 +160,7 @@ namespace Game
                 GameProcessor.Inst.EventCenter.Raise(new ShowPetDetailEvent()
                 {
                     boxItem = this.BoxItem,
+                    Type = this.Type
                 });
                 return;
             }

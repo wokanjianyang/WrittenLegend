@@ -196,6 +196,7 @@ namespace Game
                 GameProcessor.Inst.EventCenter.Raise(new ShowPetDetailEvent()
                 {
                     boxItem = select.BoxItem,
+                    Type = ComBoxType.Gift,
                 });
             }
             else

@@ -187,6 +187,7 @@ namespace Game
             long pet = 0;
             long petRed = 0;
             long petDard = 0;
+            long petHundun = 0;
             List<BoxItem> pets = user.Bags.Where(m => m.Item.Type == ItemType.Pet).ToList();
             foreach (var sp in pets)
             {
@@ -211,6 +212,10 @@ namespace Game
                     pet += PetConfigCategory.Instance.GetPetTotalFee(p.PetLayer.Data) + 1;
                 }
             }
+            foreach (var p in user.PetDict.Values)
+            {
+                petHundun += PetConfigCategory.Instance.GetPetTotalFee(p.PetLayer.Data) + 1;
+            }
 
             foreach (var sp in user.PetSpeicalLayerData)
             {
@@ -225,13 +230,16 @@ namespace Game
             pet += GetTotal(user.Bags, ItemHelper.Specail_Pet_Layer[2]);
             petRed += GetTotal(user.Bags, ItemHelper.Specail_Pet_Layer[1]);
             petDard += GetTotal(user.Bags, ItemHelper.Specail_Pet_Speical);
+            petHundun += GetTotal(user.Bags, ItemHelper.Specail_Pet_Layer[4]);
 
             pet += GetTotal(user.Bags, 207, 210);
             petRed += GetTotal(user.Bags, 204);
+            petHundun += GetTotal(user.Bags, 211, 212);
 
             paramDict.Add("pet", pet + "");
             paramDict.Add("petRed", petRed + "");
             paramDict.Add("petDark", petDard + "");
+            paramDict.Add("petHundun", petHundun + "");
 
             long refineTotal = user.MagicEquipRefine.Select(m => m.Value.Data).Sum();
             paramDict.Add("refine", refineTotal + "");

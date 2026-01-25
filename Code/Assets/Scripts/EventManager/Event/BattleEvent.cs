@@ -44,6 +44,7 @@ namespace Game
 
     public class ShowPetDetailEvent : SDD.Events.Event
     {
+        public ComBoxType Type { get; set; }
         public BoxItem boxItem { get; set; }
     }
 
