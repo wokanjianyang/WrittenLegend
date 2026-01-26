@@ -1697,6 +1697,7 @@ namespace Game
         public int GetPetSkillRate(int role)
         {
             long rate = this.PetList.Where(m => m.Role == role).Select(m => m.GetSkillPercent()).Sum();
+            rate += this.PetDict.Select(m => m.Value).Where(m => m.Role == role).Select(m => m.GetSkillPercent()).Sum();
 
             return (int)rate;
         }
