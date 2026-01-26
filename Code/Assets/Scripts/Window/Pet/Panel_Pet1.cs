@@ -15,7 +15,7 @@ public class Panel_Pet1 : MonoBehaviour, IBattleLife
     private List<Item_Pet> PetItems = new List<Item_Pet>();
 
     public Dialog_Pet_Forge1 DialogPetForge;
-    //public Dialog_Pet_Travel DialogPetTravel;
+    public Dialog_Pet_Travel1 DialogPetTravel1;
 
     public int Order => (int)ComponentOrder.Dialog;
 
@@ -75,10 +75,10 @@ public class Panel_Pet1 : MonoBehaviour, IBattleLife
             {
                 DialogPetForge.Open(e.Item.pet);
             }
-            //else if (e.Type == 2)
-            //{
-            //    DialogPetTravel.Open(e.Item.pet);
-            //}
+            else if (e.Type == 2)
+            {
+                DialogPetTravel1.Open(e.Item.pet);
+            }
             //else if (e.Type == 3) {
             //    DialogPetDevour.Open(e.Item.pet);
             //}

@@ -85,8 +85,20 @@ public class Dialog_Spirit_Offline : MonoBehaviour
 
     public void OnCancle()
     {
-        GameProcessor.Inst.User.SpiritOfflineFlag = false;
         Btn_Cancle.gameObject.SetActive(false);
+
+        User user = GameProcessor.Inst.User;
+
+        foreach (var sp in user.PetDict)
+        {
+            if (sp.Value.RunMapId > 0)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "请先结束宠物打工，然后再关闭离线", ToastType = ToastTypeEnum.Failure });
+                return;
+            }
+        }
+
+        user.SpiritOfflineFlag = false;
         Btn_Ok.gameObject.SetActive(true);
     }
 
