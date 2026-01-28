@@ -13,12 +13,27 @@ public class Map_Dialog_Myth : MonoBehaviour
     public ScrollRect sr_Boss;
     public Button Btn_Close;
 
+    public Transform Tf_Layer;
+    private List<Toggle> tgLevelList;
+
     private GameObject ItemPrefab;
     List<Map_Myth_Item> items = new List<Map_Myth_Item>();
+
+    private int SelectLayer = 1;
 
     // Start is called before the first frame update
     void Start()
     {
+        tgLevelList = Tf_Layer.GetComponentsInChildren<Toggle>().ToList();
+
+        for (int i = 0; i < tgLevelList.Count; i++)
+        {
+            int index = i + 1;
+            tgLevelList[i].onValueChanged.AddListener((isOn) =>
+            {
+                this.ChangeLevel(index);
+            });
+        }
 
         Btn_Close.onClick.AddListener(OnClick_Close);
         this.Init();
@@ -28,6 +43,13 @@ public class Map_Dialog_Myth : MonoBehaviour
     {
         this.ShowItemMax();
     }
+
+    private void ChangeLevel(int layer)
+    {
+        this.SelectLayer = layer;
+        this.ShowItemMax();
+    }
+
 
 
     private void ShowItemMax()
@@ -43,7 +65,7 @@ public class Map_Dialog_Myth : MonoBehaviour
 
         for (int i = 0; i < items.Count; i++)
         {
-            items[i].SetMax(max);
+            items[i].SetMax(SelectLayer, max);
         }
     }
 
