@@ -75,7 +75,7 @@ namespace Game
     [ProtoContract]
 	public partial class SpiritCopyConfig: ProtoObject, IConfig
 	{
-		/// <summary>ID</summary>
+		/// <summary>Id</summary>
 		[ProtoMember(1)]
 		public int Id { get; set; }
 		/// <summary>MapName</summary>

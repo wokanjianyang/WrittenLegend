@@ -71,7 +71,8 @@ namespace Game
 
             AttributeBonus.SetAttr(AttributeEnum.Speed, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Speed) / 2);
 
-            //Debug.Log("myth PhyAtt:" + AttributeBonus.GetTotalAttrDouble(AttributeEnum.Def));
+            Debug.Log("myth Def:" + AttributeBonus.GetTotalAttrDouble(AttributeEnum.Def));
+            Debug.Log("myth PhyAtt:" + AttributeBonus.GetTotalAttrDouble(AttributeEnum.PhyAtt));
 
             //回满当前血量
             SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
@@ -327,10 +328,10 @@ namespace Game
 
         public override void OnHit(DamageResult dr)
         {
-            //if (dr.Damage > 10000)
-            //{
-            //    Debug.Log("heor hit by skill " + dr.SkillId + " damage:" + StringHelper.FormatNumber(dr.Damage) + " maxHP:" + StringHelper.FormatNumber(this.AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP)));
-            //}
+            if (dr.Damage > 10000000)
+            {
+                Debug.Log("heor hit by skill " + dr.SkillId + " damage:" + StringHelper.FormatNumber(dr.Damage) + " HP:" + StringHelper.FormatNumber(this.HP) + "/" + StringHelper.FormatNumber(this.AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP)));
+            }
 
             base.OnHit(dr);
         }

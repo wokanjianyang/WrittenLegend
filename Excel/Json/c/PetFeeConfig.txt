@@ -1,4 +1,0 @@
-{"list":[
-{"_t":"PetFeeConfig","_id":1,"StartLevel":1,"EndLevel":50,"BaseFee":0,"RiseFee":60},
-{"_t":"PetFeeConfig","_id":2,"StartLevel":51,"EndLevel":100,"BaseFee":0,"RiseFee":70},
-]}

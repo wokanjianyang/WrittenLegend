@@ -507,7 +507,7 @@ public class Com_AD : MonoBehaviour, IBattleLife
         int atRate = user.GetArtifactValue(ArtifactType.EquipStoneAd);
 
         int MapNo = (user.MapId - ConfigHelper.MapStartId + 1);
-        int stoneRate = (MapNo / 2) + 1;
+        long stoneRate = (MapNo / 2) + 1;
 
         stoneRate = stoneRate + stoneRate * atRate / 100;
 
@@ -515,7 +515,7 @@ public class Com_AD : MonoBehaviour, IBattleLife
 
         if (real)
         {
-            refineStone = (int)(refineStone * 1.2);
+            refineStone = (long)(refineStone * 1.2);
         }
 
         Item item = ItemHelper.BuildRefineStone(refineStone);
