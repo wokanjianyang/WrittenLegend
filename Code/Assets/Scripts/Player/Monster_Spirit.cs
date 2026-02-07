@@ -14,7 +14,7 @@ public class Monster_Spirit : APlayer
     private double[] AttrRateist = { 6, 8, 10, 15, 20 };
     private double[] DefRateist = { 1, 1.1, 1.15, 1.2, 1.25 };
 
-    private string[] NameList = { "黄巾小兵", "黄巾队长", "黄巾精英", "黄巾首领" };
+    private string[] NameList = { "黄巾小兵", "黄巾队长", "黄巾精英", "黄巾首领", "蜀国小兵", "蜀国队长", "蜀国精英", "蜀国首领" };
 
     public Monster_Spirit(int mapId, int quality)
     {
@@ -33,7 +33,8 @@ public class Monster_Spirit : APlayer
 
         if (this.Quality <= 4)
         {
-            this.Name = NameList[this.Quality - 1];
+            int index = (config.Cycle - 1) * 4 + this.Quality - 1;
+            this.Name = NameList[index];
         }
         else
         {

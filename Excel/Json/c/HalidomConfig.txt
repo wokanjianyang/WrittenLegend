@@ -153,4 +153,9 @@
 {"_t":"HalidomConfig","_id":40000202,"ItemId":40000202,"Layer":5,"Name":"混沌尸心","AttrId":2005,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"魔法倍率"},
 {"_t":"HalidomConfig","_id":40000203,"ItemId":40000203,"Layer":5,"Name":"混沌法杖","AttrId":2006,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"道术倍率"},
 {"_t":"HalidomConfig","_id":40000204,"ItemId":40000204,"Layer":5,"Name":"混沌权杖","AttrId":2010,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"增伤倍率"},
+{"_t":"HalidomConfig","_id":40000205,"ItemId":40000205,"Layer":5,"Name":"混沌战锤","AttrId":2007,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"物伤倍率"},
+{"_t":"HalidomConfig","_id":40000206,"ItemId":40000206,"Layer":5,"Name":"混沌血核","AttrId":2008,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"法伤倍率"},
+{"_t":"HalidomConfig","_id":40000207,"ItemId":40000207,"Layer":5,"Name":"混沌魔核","AttrId":2009,"AttrValue":7,"RiseAttr":7,"MaxLevel":4,"Des":"道伤倍率"},
+{"_t":"HalidomConfig","_id":40000208,"ItemId":40000208,"Layer":5,"Name":"混沌龙甲","AttrId":2013,"AttrValue":15,"RiseAttr":15,"MaxLevel":4,"Des":"破韧倍率"},
+{"_t":"HalidomConfig","_id":40000209,"ItemId":40000209,"Layer":5,"Name":"混沌龙爪","AttrId":2003,"AttrValue":40,"RiseAttr":40,"MaxLevel":4,"Des":"生命倍率"},
 ]}

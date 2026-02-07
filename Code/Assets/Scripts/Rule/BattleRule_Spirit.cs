@@ -243,9 +243,9 @@ public class BattleRule_Spirit : ABattleRule
             }
         }
 
-        dropDict.OrderBy(m => m.Key);
+        var dd = dropDict.OrderByDescending(m => m.Key);
 
-        foreach (var sp in dropDict)
+        foreach (var sp in dd)
         {
             items.Add(ItemHelper.BuildItem(ItemType.Spirit, sp.Key, 0, sp.Value));
         }

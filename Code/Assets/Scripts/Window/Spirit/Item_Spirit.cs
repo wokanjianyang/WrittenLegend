@@ -51,6 +51,18 @@ namespace Game
             Txt_Count.text = "拥有：" + total;
         }
 
+        public void Refresh(int type)
+        {
+            if (this.Config.Type != type)
+            {
+                this.gameObject.SetActive(false);
+            }
+            else
+            {
+                this.gameObject.SetActive(true);
+            }
+        }
+
         public void SetContent(SpiritConfig config)
         {
             this.Config = config;

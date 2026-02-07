@@ -14,6 +14,10 @@ public class Dialog_Spirit : MonoBehaviour
 
     private int Type = 1;
 
+    public Transform tf_tgs;
+
+    private List<Toggle> toggles;
+
     private List<Item_Spirit> items = new List<Item_Spirit>();
 
     public Dialog_Spirit_Forge DialogSpiritForge;
@@ -23,18 +27,35 @@ public class Dialog_Spirit : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        toggles = tf_tgs.GetComponentsInChildren<Toggle>().ToList();
+
         this.btn_Close.onClick.AddListener(OnClick_Close);
-        this.Init(1);
+        this.Init();
+
+        for (int i = 0; i < toggles.Count; i++)
+        {
+            int index = i + 1;
+
+
+            toggles[i].onValueChanged.AddListener((isOn) =>
+            {
+                this.ShowPanel(index);
+            });
+
+        }
+
+        this.ShowPanel(Type);
     }
 
     public void Refresh()
     {
-        foreach (Item_Spirit item in items) {
+        foreach (Item_Spirit item in items)
+        {
             item.Show();
         }
     }
 
-    private void Init(int type)
+    private void Init()
     {
         foreach (var sp in items)
         {
@@ -42,7 +63,7 @@ public class Dialog_Spirit : MonoBehaviour
         }
         items.Clear();
 
-        List<SpiritConfig> configs = SpiritConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Type == type).ToList();
+        List<SpiritConfig> configs = SpiritConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
 
         GameObject ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Spirit/Item_Spirit");
         for (int i = 0; i < configs.Count; i++)
@@ -56,6 +77,16 @@ public class Dialog_Spirit : MonoBehaviour
             item.transform.localScale = Vector3.one;
 
             items.Add(com);
+        }
+    }
+
+    private void ShowPanel(int type)
+    {
+        this.Type = type;
+
+        for (int i = 0; i < items.Count; i++)
+        {
+            items[i].Refresh(type);
         }
     }
 

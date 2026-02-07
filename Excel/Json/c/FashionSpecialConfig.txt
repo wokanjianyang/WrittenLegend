@@ -23,4 +23,8 @@
 {"_t":"FashionSpecialConfig","_id":22,"Name":"神血","AttrIdList":[2001,2003,2013,92],"AttrValueList":[200,600,300,10],"UpAttrId":92,"UpAttrValue":5,"Fee":30},
 {"_t":"FashionSpecialConfig","_id":23,"Name":"神防","AttrIdList":[2001,2003,2013,93],"AttrValueList":[200,600,300,10],"UpAttrId":93,"UpAttrValue":5,"Fee":30},
 {"_t":"FashionSpecialConfig","_id":24,"Name":"神攻防血","AttrIdList":[2001,2003,2013,94],"AttrValueList":[200,600,300,6],"UpAttrId":94,"UpAttrValue":3,"Fee":30},
+{"_t":"FashionSpecialConfig","_id":25,"Name":"神攻","AttrIdList":[2001,2003,2007,91],"AttrValueList":[200,600,300,10],"UpAttrId":91,"UpAttrValue":5,"Fee":30},
+{"_t":"FashionSpecialConfig","_id":26,"Name":"神血","AttrIdList":[2001,2003,2008,92],"AttrValueList":[200,600,300,10],"UpAttrId":92,"UpAttrValue":5,"Fee":30},
+{"_t":"FashionSpecialConfig","_id":27,"Name":"神防","AttrIdList":[2001,2003,2009,93],"AttrValueList":[200,600,300,10],"UpAttrId":93,"UpAttrValue":5,"Fee":30},
+{"_t":"FashionSpecialConfig","_id":28,"Name":"神攻防血","AttrIdList":[2001,2003,2010,94],"AttrValueList":[200,600,200,6],"UpAttrId":94,"UpAttrValue":3,"Fee":30},
 ]}

@@ -22,12 +22,18 @@ public class Map_Dialog_Spirit : MonoBehaviour
     public Text Txt_Require;
     public Toggle toggle_Auto;
 
+    public Transform tf_tgs;
+    private List<Toggle> toggles;
+    private int Type = 1;
+
     private GameObject ItemPrefab;
     List<Map_Spirit_Item> items = new List<Map_Spirit_Item>();
+
 
     // Start is called before the first frame update
     void Start()
     {
+        toggles = tf_tgs.GetComponentsInChildren<Toggle>().ToList();
 
         Btn_Close.onClick.AddListener(OnClick_Close);
         Btn_Attr.onClick.AddListener(OnClick_Attr);
@@ -38,6 +44,20 @@ public class Map_Dialog_Spirit : MonoBehaviour
         {
             AppHelper.Spirit_Auto = isOn;
         });
+
+        for (int i = 0; i < toggles.Count; i++)
+        {
+            int index = i + 1;
+
+
+            toggles[i].onValueChanged.AddListener((isOn) =>
+            {
+                this.ShowPanel(index);
+            });
+
+        }
+
+        this.ShowItemMax();
     }
 
     private void OnEnable()
@@ -45,6 +65,11 @@ public class Map_Dialog_Spirit : MonoBehaviour
         this.ShowItemMax();
     }
 
+    private void ShowPanel(int type)
+    {
+        this.Type = type;
+        ShowItemMax();
+    }
 
     private void ShowItemMax()
     {
@@ -57,15 +82,15 @@ public class Map_Dialog_Spirit : MonoBehaviour
 
         long total = user.AttributeBonus.GetTotalAttr(AttributeEnum.SpiritAll);
 
-        Debug.Log("total:" + total);
+        int nextRequire = SpiritCopyConfigCategory.Instance.GetAll().Where(m => m.Value.Cycle == Type && m.Value.Require > total).Select(m => m.Value.Require).FirstOrDefault();
 
-        int nextRequire = SpiritCopyConfigCategory.Instance.GetAll().Select(m => m.Value.Require).Where(m => m > total).FirstOrDefault();
+        Debug.Log("Type:+" + Type + " total:" + total + " nextRequire" + nextRequire);
 
         Txt_Require.text = "当前英灵加成：" + total + "%，" + (nextRequire > 0 ? "下一个副本解锁需要：" + nextRequire + "%" : "已全部解锁副本");
 
         for (int i = 0; i < items.Count; i++)
         {
-            items[i].SetMax(total);
+            items[i].SetMax(total, Type);
         }
     }
 
