@@ -142,6 +142,13 @@ namespace Game
             //user.SaveItemMeterialCount(2100005, 11125); //英灵关羽
             //user.SaveItemMeterialCount(2100006, 11125); //英灵关羽
 
+            //user.SaveItemMeterialCount(2100028, 11125); //英灵关羽
+            //user.SaveItemMeterialCount(2100029, 11125); //英灵刘备
+            //user.SaveItemMeterialCount(2100030, 11125); //英灵诸葛
+            //user.SaveItemMeterialCount(2100031, 11125); //英灵关羽
+            //user.SaveItemMeterialCount(2100032, 11125); //英灵关羽
+            //user.SaveItemMeterialCount(2100033, 11125); //英灵关羽
+
             foreach (var item in items)
             {
                 BoxItem boxItem = new BoxItem();
