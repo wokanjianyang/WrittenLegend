@@ -221,9 +221,14 @@ namespace Game
                     user.InfiniteData = new InfiniteData();
                 }
 
-                if (user.GetLimitId() <= 1030)
+                long maxVersion = user.VersionLog.Select(m => m.Key).Max();
+                if (maxVersion <= 429)
                 {
-                    CycleConfigCategory.Instance.Init();
+                    if (user.FestiveMapData02.Ticket <= 0)
+                    {
+                        user.FestiveMapData02.Ticket = user.FestiveMapData01.Ticket;
+                        user.FestiveMapData02.Number.Data = user.FestiveMapData01.Number.Data;
+                    }
                 }
 
                 if (user.LegacyData == null)

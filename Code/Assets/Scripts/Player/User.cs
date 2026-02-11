@@ -325,6 +325,8 @@ namespace Game
 
         public FestiveMapData FestiveMapData01 { get; set; } = new FestiveMapData();
 
+        public FestiveMapData FestiveMapData02 { get; set; } = new FestiveMapData();
+
         public Dictionary<int, MagicData> FestiveAttrData { get; } = new Dictionary<int, MagicData>();
 
         public WorldData WorldData { get; set; } = new WorldData();

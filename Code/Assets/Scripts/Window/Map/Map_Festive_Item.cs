@@ -32,7 +32,7 @@ public class Map_Festive_Item : MonoBehaviour
 
     private void Show()
     {
-        int maxId = GameProcessor.Inst.User.FestiveMapData01.Record;
+        int maxId = GameProcessor.Inst.User.FestiveMapData02.Record;
 
         if (this.Config.Id - 1 == maxId)
         {
@@ -50,7 +50,7 @@ public class Map_Festive_Item : MonoBehaviour
     {
         User user = GameProcessor.Inst.User;
 
-        if (user.FestiveMapData01.Number.Data <= 0)
+        if (user.FestiveMapData02.Number.Data <= 0)
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有挑战次数了", ToastType = ToastTypeEnum.Failure });
             return;
@@ -67,7 +67,7 @@ public class Map_Festive_Item : MonoBehaviour
     {
         User user = GameProcessor.Inst.User;
 
-        if (user.FestiveMapData01.Number.Data <= 0)
+        if (user.FestiveMapData02.Number.Data <= 0)
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "没有挑战次数了", ToastType = ToastTypeEnum.Failure });
             return;
@@ -83,7 +83,7 @@ public class Map_Festive_Item : MonoBehaviour
             items.Add(ItemHelper.BuildItem((ItemType)mythConfig.ItemType[i], mythConfig.ItemIdList[i], 1, mythConfig.ItemQuantity[i]));
         }
 
-        user.FestiveMapData01.Number.Data -= 1;
+        user.FestiveMapData02.Number.Data -= 1;
 
         GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
 
