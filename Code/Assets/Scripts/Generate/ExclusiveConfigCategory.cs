@@ -187,7 +187,7 @@ namespace Game
 
             ExclusiveConfig config = ExclusiveConfigCategory.Instance.Get(configId);
 
-            int quality = RandomNewQualityCycle3(qualityRate);
+            int quality = RandomNewQualityCycle4(qualityRate);
 
             int runeId = 0;
             int suitId = 0;
@@ -297,6 +297,34 @@ namespace Game
                     }
 
                     return 8 - i - start;
+                }
+            }
+
+            return 1;
+        }
+
+        private static int RandomNewQualityCycle4(double qualityRate)
+        {
+            //int[] rates = { 1, 4, 16, 100, 1000, 10000, 100000, 600000, 1200000 };
+
+            int[] rates = { 1, 10, 200, 300, 400, 500, 600, 700, 800 };
+            int start = 0;
+
+            int r = RandomHelper.RandomNumber(0, rates[8]);
+
+            r = (int)(r / qualityRate);
+
+            for (int i = 0; i < rates.Length; i++)
+            {
+                if (r < rates[i])
+                {
+                    if (i == 0)
+                    {
+                        //防止SL，给最高品质-1
+                        start = AppHelper.GetLossQuality();
+                    }
+
+                    return 9 - i - start;
                 }
             }
 
