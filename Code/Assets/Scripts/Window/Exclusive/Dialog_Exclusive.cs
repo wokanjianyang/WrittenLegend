@@ -60,6 +60,15 @@ namespace Game
             {
                 Toggle_Cycle_List[2].gameObject.SetActive(false);
             }
+
+            if (user.MapId >= 1209 && !ac)
+            {
+                Toggle_Cycle_List[3].gameObject.SetActive(true);
+            }
+            else
+            {
+                Toggle_Cycle_List[3].gameObject.SetActive(false);
+            }
         }
 
         public void OnBattleStart()

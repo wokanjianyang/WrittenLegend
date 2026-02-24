@@ -40,6 +40,10 @@ namespace Game
 
                 return BuildCycle3(configId, qualityRate, seed);
             }
+            else if (config.Cycle == 4)
+            {
+                return BuildCycle4(configId, qualityRate, seed);
+            }
 
             return null;
         }
@@ -165,6 +169,44 @@ namespace Game
             //    AppHelper.TempRecord1++;
             //    Debug.Log("TempRecord Golden:" + AppHelper.TempRecord1);
             //}
+
+            ExclusiveItem item = new ExclusiveItem(configId, runeId, suitId, quality, 0);
+            if (seed < 0)
+            {
+                seed = AppHelper.InitSeed();
+            }
+            item.Init(seed);
+
+            item.Count = 1;
+            return item;
+        }
+
+        public static ExclusiveItem BuildCycle4(int configId, int qualityRate, int seed)
+        {
+            //if (seed < 0)
+
+            ExclusiveConfig config = ExclusiveConfigCategory.Instance.Get(configId);
+
+            int quality = RandomNewQualityCycle3(qualityRate);
+
+            int runeId = 0;
+            int suitId = 0;
+
+            SkillRuneConfig runeConfig = SkillRuneConfigCategory.Instance.GetExclusiveRune(quality, seed);
+
+            if (runeConfig != null)
+            {
+                runeId = runeConfig.Id;
+
+                if (runeConfig.SkillId == 0)
+                {
+                    suitId = SkillSuitConfigCategory.Instance.GetSuitIdBySkillLayer(runeConfig.SkillLayer);
+                }
+                else
+                {
+                    suitId = SkillSuitHelper.RandomSuit(seed, runeConfig.SkillId, runeConfig.Type).Id;
+                }
+            }
 
             ExclusiveItem item = new ExclusiveItem(configId, runeId, suitId, quality, 0);
             if (seed < 0)

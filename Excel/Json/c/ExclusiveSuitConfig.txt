@@ -2,5 +2,5 @@
 {"_t":"ExclusiveSuitConfig","_id":1,"Name":"橙色套装","Cycle":1,"StartPart":15,"EndPart":20,"AttrId":301,"AttrValue":1,"Desc":"技能上阵栏位+1"},
 {"_t":"ExclusiveSuitConfig","_id":2,"Name":"金色套装","Cycle":2,"StartPart":1007,"EndPart":1012,"AttrId":55,"AttrValue":10,"Desc":"幸运增幅+10%"},
 {"_t":"ExclusiveSuitConfig","_id":3,"Name":"暗金套装","Cycle":3,"StartPart":1013,"EndPart":1018,"AttrId":54,"AttrValue":10,"Desc":"暴击增幅+10%"},
-{"_t":"ExclusiveSuitConfig","_id":4,"Name":"xx套装","Cycle":4,"StartPart":1019,"EndPart":1024,"AttrId":-1,"AttrValue":10,"Desc":"10"},
+{"_t":"ExclusiveSuitConfig","_id":4,"Name":"粉色套装","Cycle":4,"StartPart":1019,"EndPart":1024,"AttrId":94,"AttrValue":10,"Desc":"神话全属性+10%"},
 ]}
