@@ -2331,6 +2331,10 @@ namespace Game
                 {
                     dict[ItemHelper.SpecialId_Exclusive_Dark] = 1;
                 }
+                else if (exclusive.ExclusiveConfig.Cycle >= 4 && exclusive.GetQuality() == 9)
+                {
+                    dict[ItemHelper.SpecialId_Exclusive_Hundun] = 1;
+                }
                 else
                 {
                     dict[ItemHelper.SpecialId_Exclusive_Stone] = item.GetQuality() * 1;

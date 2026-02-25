@@ -70,6 +70,10 @@ namespace Game
         public int Exclusive_Recovery_Dark { get; set; } = 0;
         public int Exclusive_Keep_Dark { get; set; } = 0;
 
+        //混沌专属
+        public int Exclusive_Recovery_Hundun { get; set; } = 0;
+        public int Exclusive_Keep_Hundun { get; set; } = 0;
+
         //其他回收
 
         public int SpecailLevel { get; set; } = 0;
@@ -369,6 +373,19 @@ namespace Game
                     }
 
                     if (Exclusive_Recovery_Dark > 0 && quality <= Exclusive_Recovery_Dark)
+                    {
+                        return true;
+                    }
+                }
+                else if (cycle == 4)
+                {
+                    if (Exclusive_Keep_Hundun > 0 && quality >= Exclusive_Keep_Hundun + KeepStartQuality + 2 && keepSkill)
+                    {
+                        item.IsKeep = true;
+                        return false;
+                    }
+
+                    if (Exclusive_Recovery_Hundun > 0 && quality <= Exclusive_Recovery_Hundun)
                     {
                         return true;
                     }

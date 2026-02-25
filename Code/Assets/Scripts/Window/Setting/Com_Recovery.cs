@@ -64,6 +64,9 @@ namespace Game
         public Dropdown dp_Exclusive_Dark_Keep;
         public Dropdown dp_Exclusive_Dark_Recovery;
 
+        [Title("永恒专属")]
+        public Dropdown dp_Exclusive_Hundun_Keep;
+        public Dropdown dp_Exclusive_Hundun_Recovery;
 
         [Title("其他")]
         public InputField ifSpeicalLevel;
@@ -161,7 +164,12 @@ namespace Game
             dp_Exclusive_Dark_Recovery.ClearOptions();
             dp_Exclusive_Dark_Recovery.AddOptions(new List<string>() { "无", "白色", "绿色", "蓝色", "紫色", "橙色", "红色", "金色", "暗金" });
 
-            //
+            //永恒专属
+            dp_Exclusive_Hundun_Keep.ClearOptions();
+            dp_Exclusive_Hundun_Keep.AddOptions(new List<string>() { "无", "红色", "金色", "暗金", "粉色" });
+
+            dp_Exclusive_Hundun_Recovery.ClearOptions();
+            dp_Exclusive_Hundun_Recovery.AddOptions(new List<string>() { "无", "白色", "绿色", "蓝色", "紫色", "橙色", "红色", "金色", "暗金", "粉色" });
 
             User user = GameProcessor.Inst.User;
             RecoverySettingNew setting = user.RecoveryNew;
@@ -237,6 +245,10 @@ namespace Game
             //不朽专属
             dp_Exclusive_Dark_Recovery.value = setting.Exclusive_Recovery_Dark;
             dp_Exclusive_Dark_Keep.value = setting.Exclusive_Keep_Dark;
+
+            //永恒专属
+            dp_Exclusive_Hundun_Recovery.value = setting.Exclusive_Recovery_Hundun;
+            dp_Exclusive_Hundun_Keep.value = setting.Exclusive_Keep_Hundun;
         }
 
 
@@ -337,7 +349,9 @@ namespace Game
             setting.Exclusive_Recovery_Dark = dp_Exclusive_Dark_Recovery.value;
             setting.Exclusive_Keep_Dark = dp_Exclusive_Dark_Keep.value;
 
-
+            //混沌专属
+            setting.Exclusive_Recovery_Hundun = dp_Exclusive_Hundun_Recovery.value;
+            setting.Exclusive_Keep_Hundun = dp_Exclusive_Hundun_Keep.value;
 
 
             //立即执行一次回收
