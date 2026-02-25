@@ -93,17 +93,11 @@ namespace Game
 		/// <summary>Level</summary>
 		[ProtoMember(6)]
 		public int Level { get; set; }
-		/// <summary>StartQuality</summary>
-		[ProtoMember(7)]
-		public int StartQuality { get; set; }
-		/// <summary>EndQuality</summary>
-		[ProtoMember(8)]
-		public int EndQuality { get; set; }
 		/// <summary>词条</summary>
-		[ProtoMember(9)]
+		[ProtoMember(7)]
 		public int RuneId { get; set; }
 		/// <summary>套装</summary>
-		[ProtoMember(10)]
+		[ProtoMember(8)]
 		public int SuitId { get; set; }
 
 	}

@@ -305,9 +305,9 @@ namespace Game
 
         private static int RandomNewQualityCycle4(double qualityRate)
         {
-            //int[] rates = { 1, 4, 16, 100, 1000, 10000, 100000, 600000, 1200000 };
+            int[] rates = { 1, 4, 16, 100, 1000, 10000, 100000, 600000, 1200000 };
 
-            int[] rates = { 1, 10, 200, 300, 400, 500, 600, 700, 800 };
+            //int[] rates = { 1, 10, 200, 300, 400, 500, 600, 700, 800 };
             int start = 0;
 
             int r = RandomHelper.RandomNumber(0, rates[8]);
