@@ -64,6 +64,14 @@ public class ViewForgeProcessor : AViewPage
     public Toggle toggle_ExclusiveDark;
     public Panel_Devour_Dark PanelDevourDark;
 
+    public Toggle toggle_ExclusiveDarkUp;
+    public Panel_Exclusive_Up_Dark PanelDevourUpDark;
+
+    public Toggle toggle_ExclusiveHundun;
+    public Panel_Devour_Hundun PanelDevourHundun;
+
+    public Toggle toggle_ExclusiveHundunUp;
+
     public Toggle toggle_GradeSpecail;
     public Panel_Grade_Specail PanelGradeSpecail;
 
@@ -172,6 +180,16 @@ public class ViewForgeProcessor : AViewPage
         this.toggle_ExclusiveDark.onValueChanged.AddListener((isOn) =>
         {
             PanelDevourDark.gameObject.SetActive(isOn);
+        });
+
+        this.toggle_ExclusiveDarkUp.onValueChanged.AddListener((isOn) =>
+        {
+            PanelDevourUpDark.gameObject.SetActive(isOn);
+        });
+
+        this.toggle_ExclusiveHundun.onValueChanged.AddListener((isOn) =>
+        {
+            PanelDevourHundun.gameObject.SetActive(isOn);
         });
 
 

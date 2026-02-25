@@ -587,7 +587,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u4E0D\u673D\u7CBE\u534E"
+  m_Text: "\u6C38\u6052\u7CBE\u534E"
 --- !u!1 &3345769396858448590
 GameObject:
   m_ObjectHideFlags: 0
@@ -823,7 +823,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u6750\u6599\u4E3A0\u4ECB\u6697\u91D1\u4E0D\u673D\u4E13\u5C5E\uFF0C\u5206\u89E3\u6697\u91D1\u4E0D\u673D\u4E13\u5C5E\u83B7\u53D6\u4E0D\u673D\u7CBE\u534E,\n\u6BCF\u4E2A\u7834\u9650\u53EF\u4EE5\u89E3\u95011\u9636\u4E0A\u9650\uFF0C\u6700\u9AD8\u4E8C\u9636\u3002"
+  m_Text: "\u6750\u6599\u4E3A0\u4ECB\u7C89\u8272\u6C38\u6052\u4E13\u5C5E\uFF0C\u5206\u89E3\u7C89\u8272\u6C38\u6052\u4E13\u5C5E\u83B7\u53D6\u6C38\u6052\u7CBE\u534E,\n\u6BCF\u4E2A\u7834\u9650\u53EF\u4EE5\u89E3\u95011\u9636\u4E0A\u9650\uFF0C\u6700\u9AD8\u4E8C\u9636\u3002"
 --- !u!1 &4495348928483216781
 GameObject:
   m_ObjectHideFlags: 0
@@ -1151,9 +1151,9 @@ GameObject:
   - component: {fileID: 500063488168391883}
   - component: {fileID: 3270742827527112015}
   - component: {fileID: 1238226694481284155}
-  - component: {fileID: 5820912348394579170}
+  - component: {fileID: 1756691660336763345}
   m_Layer: 5
-  m_Name: Panel_Devour_Dark
+  m_Name: Panel_Devour_Hundn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1221,7 +1221,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5820912348394579170
+--- !u!114 &1756691660336763345
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1230,7 +1230,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5609592698472184792}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c01d23a10c33d654694110dded779411, type: 3}
+  m_Script: {fileID: 11500000, guid: c9236bda422d58e4fb53fe5a6ffd3c87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ds_Panel: {fileID: 1325481444794462779}
@@ -1453,7 +1453,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u4E0D\u673D\u5347\u9636"
+  m_Text: "\u6C38\u6052\u5347\u9636"
 --- !u!1 &6955623846345276754
 GameObject:
   m_ObjectHideFlags: 0

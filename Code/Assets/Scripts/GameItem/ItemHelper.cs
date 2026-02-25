@@ -164,7 +164,7 @@ namespace Game
         public static int SpecialId_Fashion = 4034; //行气丹
         public static int SpecialId_Exclusive_Golden = 4035; //传奇精华
         public static int SpecialId_Exclusive_Dark = 4039; //不朽精华
-        public static int SpecialId_Exclusive_New = 4037; //永恒精华
+        public static int SpecialId_Exclusive_Hundun = 4037; //永恒精华
 
         public static int SpecialId_Equip_Hundun = 4038; //混沌装备精华
 

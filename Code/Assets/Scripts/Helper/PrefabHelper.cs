@@ -60,6 +60,7 @@ namespace Game
             BoxImageList.Add(Resources.Load<Sprite>("UI/Bag/Box6"));
             BoxImageList.Add(Resources.Load<Sprite>("UI/Bag/Box7"));
             BoxImageList.Add(Resources.Load<Sprite>("UI/Bag/Box8"));
+            BoxImageList.Add(Resources.Load<Sprite>("UI/Bag/Box9"));
 
             for (int i = 1; i <= 28; i++)
             {
