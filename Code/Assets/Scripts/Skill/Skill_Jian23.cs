@@ -20,6 +20,8 @@ namespace Game
             if (this.FromSkill != null)
             {
                 this.FromSkill.IgnoreDef += this.SkillPanel.IgnoreDef;
+                this.FromSkill.FinalIncrea = this.FromSkill.FinalIncrea * (100 + this.SkillPanel.FinalIncrea) / 100;
+                this.FromSkill.AttrIncrea = this.FromSkill.AttrIncrea * (100 + this.SkillPanel.AttrIncrea) / 100;
             }
         }
 
