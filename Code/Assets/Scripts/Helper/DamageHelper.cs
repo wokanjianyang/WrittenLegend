@@ -166,9 +166,13 @@ namespace Game
                 //Debug.Log("maxHp:" + StringHelper.FormatNumber(maxHp) + " extendDamage:" + StringHelper.FormatNumber(extendDamage));
             }
 
-            if (double.IsInfinity(attack) || attack > ConfigHelper.MaxNumber)
+            if (double.IsInfinity(attack) || double.IsNaN(attack) || attack > ConfigHelper.MaxNumber)
             {
                 attack = ConfigHelper.MaxNumber;
+            }
+            if (double.IsInfinity(extendDamage) || double.IsNaN(extendDamage) || extendDamage > ConfigHelper.MaxNumber)
+            {
+                extendDamage = ConfigHelper.MaxNumber;
             }
             //Debug.Log("attack:" + StringHelper.FormatNumber(attack));
 
