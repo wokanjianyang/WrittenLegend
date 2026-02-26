@@ -108,10 +108,12 @@ namespace Game
                 color = "red";
             }
 
+            //道具详情
             if (this.boxItem.Item.ItemConfig != null)
             {
                 Txt_Memo.text = this.boxItem.Item.ItemConfig.Des;
             }
+
             Txt_NeedLevel.text = string.Format("<color={0}>需要轮回{1}转</color>", color, this.boxItem.Item.Level);
 
 
@@ -133,10 +135,11 @@ namespace Game
                 case ItemType.GiftPack:
                     {
                         GiftPack giftPack = this.boxItem.Item as GiftPack;
-                        Txt_Memo.text = giftPack.Des;
                         this.Btn_Use.gameObject.SetActive(true);
 
                         GiftPackConfig giftPackConfig = GiftPackConfigCategory.Instance.Get(giftPack.ConfigId);
+                        Txt_Memo.text = giftPackConfig.Des;
+
                         if (giftPackConfig.OpenType == 1)
                         {
                             this.Btn_UseAll.gameObject.SetActive(true);
