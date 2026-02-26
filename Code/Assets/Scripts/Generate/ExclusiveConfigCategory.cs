@@ -42,6 +42,8 @@ namespace Game
             }
             else if (config.Cycle == 4)
             {
+                //AppHelper.TestExclusive3++;
+                //Debug.Log("TestExclusive4:" + AppHelper.TestExclusive3);
                 return BuildCycle4(configId, qualityRate, seed);
             }
 
@@ -313,6 +315,8 @@ namespace Game
             int r = RandomHelper.RandomNumber(0, rates[8]);
 
             r = (int)(r / qualityRate);
+
+            //Debug.Log("qualityRate :" + qualityRate + " Rate:" + r);
 
             for (int i = 0; i < rates.Length; i++)
             {

@@ -221,20 +221,6 @@ namespace Game
                     user.InfiniteData = new InfiniteData();
                 }
 
-                if (user.VersionLog.Count > 0)
-                {
-                    long maxVersion = user.VersionLog.Select(m => m.Key).Max();
-                    if (maxVersion <= 429)
-                    {
-                        if (user.FestiveMapData02.Ticket <= 0)
-                        {
-                            user.FestiveMapData02.Ticket = user.FestiveMapData01.Ticket;
-                            user.FestiveMapData02.Number.Data = user.FestiveMapData01.Number.Data;
-                            user.FestiveMapData01.Number.Data = 0;
-                        }
-                    }
-                }
-
                 if (user.LegacyData == null)
                 {
                     user.LegacyData = new LegacyData();

@@ -323,7 +323,7 @@ namespace Game
 
         public MythData MythData { get; set; } = new MythData();
 
-        public FestiveMapData FestiveMapData01 { get; set; } = new FestiveMapData();
+        public FestiveMapData FestiveMapData03 { get; set; } = new FestiveMapData();
 
         public FestiveMapData FestiveMapData02 { get; set; } = new FestiveMapData();
 
@@ -370,7 +370,7 @@ namespace Game
 
         public IDictionary<int, int> FestiveData_0402 { get; set; } = new Dictionary<int, int>();
 
-        public IDictionary<int, int> FestiveData_0102 { get; set; } = new Dictionary<int, int>();
+        public IDictionary<int, int> FestiveData_0502 { get; set; } = new Dictionary<int, int>();
 
         public IDictionary<int, int> SevenDayData { get; set; } = new Dictionary<int, int>();
 
@@ -1744,23 +1744,23 @@ namespace Game
 
         public int GetFestiveCount(int id)
         {
-            if (!this.FestiveData_0202.ContainsKey(id))
+            if (!this.FestiveData_0302.ContainsKey(id))
             {
-                this.FestiveData_0202[id] = 0;
+                this.FestiveData_0302[id] = 0;
             }
 
-            return this.FestiveData_0202[id];
+            return this.FestiveData_0302[id];
         }
 
         public void SaveFestiveCount(int configId, int count)
         {
-            if (this.FestiveData_0202.ContainsKey(configId))
+            if (this.FestiveData_0302.ContainsKey(configId))
             {
-                this.FestiveData_0202[configId] += count;
+                this.FestiveData_0302[configId] += count;
             }
             else
             {
-                this.FestiveData_0202[configId] = count;
+                this.FestiveData_0302[configId] = count;
             }
         }
 

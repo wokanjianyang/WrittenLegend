@@ -77,11 +77,13 @@ public class Panel_Pill : MonoBehaviour
         {
             Txt_Fee.text = "ÐÞÁ¶ÒÑÂú";
             Btn_Active.gameObject.SetActive(false);
+            Btn_Active_Batch.gameObject.SetActive(false);
         }
         else
         {
             Txt_Fee.text = string.Format("<color={0}>ÏûºÄ´ãÌåµ¤:{1}/{2}</color>", color, fee, materialCount);
             Btn_Active.gameObject.SetActive(true);
+            Btn_Active_Batch.gameObject.SetActive(true);
         }
 
         Dictionary<int, long> attrDict = PillConfigCategory.Instance.ParseLevel(currentLevel);

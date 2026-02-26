@@ -18,11 +18,11 @@ namespace Game
 
         public const int Channel_Tap = 1;
 
-        public const int Version = 430;
+        public const int Version = 431;
 
-        public const long PackTime = 1770622014; //打包时间，防止作弊
+        public const long PackTime = 1772087412; //打包时间，防止作弊
 
-        public const long PackEndTime = 1772782014; //超过此时间,游戏不能使用，需要更新
+        public const long PackEndTime = 1773815412; //超过此时间,游戏不能使用，需要更新
 
         public const long Max_Level = 120000; //最大人物等级和强化等级
 
@@ -111,7 +111,8 @@ namespace Game
         public const int BabelMax = 55000;
 
         public const int PillMax = 20;
-        public const int PillMax2 = 10;
+        public const int PillMax2 = 15;
+        public const int PillMax3 = 10;
 
         public const int Mine_Time = 60;
 

@@ -45,7 +45,7 @@ public class Map_Dialog_Festive : MonoBehaviour
             return;
         }
 
-        int maxId = user.FestiveMapData02.Record;
+        int maxId = user.FestiveMapData03.Record;
 
         for (int i = 0; i < items.Count; i++)
         {
@@ -58,7 +58,7 @@ public class Map_Dialog_Festive : MonoBehaviour
     public void ShowCount()
     {
         User user = GameProcessor.Inst.User;
-        Txt_Count.text = "剩余挑战次数：" + user.FestiveMapData02.Number.Data;
+        Txt_Count.text = "剩余挑战次数：" + user.FestiveMapData03.Number.Data;
     }
 
     private void Init()
@@ -68,7 +68,7 @@ public class Map_Dialog_Festive : MonoBehaviour
 
         if (DropLimitConfigCategory.Instance.CheckIsTime())
         {
-            user.FestiveMapData02.Check();
+            user.FestiveMapData03.Check();
         }
 
         ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Map/Map_Festive_Item");
