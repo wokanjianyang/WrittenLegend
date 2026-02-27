@@ -38,7 +38,7 @@
 {"_t":"FestiveConfig","_id":37,"Step":0,"RequireCycle":0,"Cost":3000,"Max":200,"Title":"兑换红装精华*1","TargetName":"红装精华","TargetType":5,"TargetId":4011,"TargetCount":1},
 {"_t":"FestiveConfig","_id":38,"Step":0,"RequireCycle":0,"Cost":20000,"Max":50,"Title":"兑换遗物粉尘*10","TargetName":"遗物粉尘","TargetType":5,"TargetId":4018,"TargetCount":10},
 {"_t":"FestiveConfig","_id":39,"Step":0,"RequireCycle":0,"Cost":20000,"Max":40,"Title":"兑换天赋秘籍*1","TargetName":"天赋秘籍","TargetType":15,"TargetId":4020,"TargetCount":1},
-{"_t":"FestiveConfig","_id":40,"Step":0,"RequireCycle":0,"Cost":388888,"Max":1,"Title":"兑换红宠自选","TargetName":"红宠自选","TargetType":4,"TargetId":204,"TargetCount":1},
+{"_t":"FestiveConfig","_id":40,"Step":0,"RequireCycle":0,"Cost":208888,"Max":1,"Title":"兑换红宠自选","TargetName":"红宠自选","TargetType":4,"TargetId":204,"TargetCount":1},
 {"_t":"FestiveConfig","_id":41,"Step":0,"RequireCycle":4,"Cost":300000,"Max":2,"Title":"兑换开孔石","TargetName":"开孔石","TargetType":5,"TargetId":4027,"TargetCount":1},
 {"_t":"FestiveConfig","_id":42,"Step":0,"RequireCycle":4,"Cost":10000,"Max":200,"Title":"宝石集合包","TargetName":"攻击宝石","TargetType":4,"TargetId":36,"TargetCount":1},
 {"_t":"FestiveConfig","_id":43,"Step":0,"RequireCycle":0,"Cost":50000,"Max":50,"Title":"兑换低级法宝自选*1","TargetName":"低级法宝自选","TargetType":4,"TargetId":24,"TargetCount":1},
