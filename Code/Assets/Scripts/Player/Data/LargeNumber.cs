@@ -17,6 +17,12 @@ namespace Game
 
         }
 
+        public LargeNumber(double d, int s)
+        {
+            this.data = d;
+            this.size = s;
+        }
+
         public LargeNumber Mul(double val)
         {
             double d = ExtractExponent(val, out int s);
@@ -58,6 +64,75 @@ namespace Game
 
             return this;
         }
+
+        public LargeNumber add(LargeNumber lg)
+        {
+            this.ReExponent();
+            lg.ReExponent();
+
+            int s = this.size - lg.size;
+
+            if (s >= 4)
+            {
+                return this;
+            }
+            else if (s <= -4)
+            {
+                return lg;
+            }
+            else if (s < 4 && s >= 0)
+            {
+                //this 大
+                lg.data = lg.data / Math.Pow(10, s);
+
+                this.data = this.data + lg.data;
+                return this;
+            }
+            else if (s > -4 && s <= 0)
+            {
+                //lg大
+                this.data = this.data / Math.Pow(10, -s);
+                lg.data = lg.data + this.data;
+                return lg;
+            }
+
+            return this;
+        }
+
+        public LargeNumber sub(LargeNumber lg)
+        {
+            this.ReExponent();
+            lg.ReExponent();
+
+            int s = this.size - lg.size;
+
+            if (s >= 4)
+            {
+                return this;
+            }
+            else if (s <= -4)
+            {
+                return lg;
+            }
+            else if (s < 4 && s >= 0)
+            {
+                //this 大
+                lg.data = lg.data / Math.Pow(10, s);
+
+                this.data = this.data - lg.data;
+                return this;
+            }
+            else if (s > -4 && s <= 0)
+            {
+                //lg大
+                this.data = this.data / Math.Pow(10, -s);
+                lg.data = lg.data - this.data;
+                return lg;
+            }
+
+            return this;
+        }
+
 
         public double data = 0;
 
@@ -107,6 +182,10 @@ namespace Game
                     this.data = this.data / exp;
                     this.size += s;
                 }
+            }
+            else if (this.data < 1)
+            {
+
             }
         }
 

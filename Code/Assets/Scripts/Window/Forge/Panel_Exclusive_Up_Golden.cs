@@ -27,7 +27,7 @@ public class Panel_Exclusive_Up_Golden : MonoBehaviour
     private bool check = false;
     private int[] ItemIdList = null;
     private int[] ItemCountList = null;
-    private const int MaxLevel = 20;
+    private const int MaxLevel = 30;
 
     private Item_Forge_Main SelectMain;
 

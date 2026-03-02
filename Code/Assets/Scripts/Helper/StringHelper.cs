@@ -264,6 +264,28 @@ namespace Game
             return Convert.ToDouble(res);
         }
 
+        public static LargeNumber StringToLargNumber(string text)
+        {
+            if (String.IsNullOrEmpty(text))
+            {
+                return new LargeNumber(0, 0);
+            }
+
+            if (text.Contains("E+"))
+            {
+                int index = text.IndexOf("E+");
+                string data = text.Substring(0, index);
+                string size = text.Substring(index + 2);
+
+                double d = Convert.ToDouble(data);
+                int s = Convert.ToInt32(size);
+
+                LargeNumber lg = new LargeNumber(d, s);
+                return lg;
+            }
+
+            return new LargeNumber(StringToNumber(text));
+        }
 
         private static string[] LayerChinaList = { "零", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十",
             "十一", "十二", "十三", "十四", "十五", "十六", "十七", "十八","十九", "二十" };

@@ -292,15 +292,18 @@ namespace Game
             lg.Mul((1 + Math.Min(GetTotalAttrDouble(AttributeEnum.CritRateResist), 1) * (GetTotalAttrDouble(AttributeEnum.CritDamageResist) + 100) / 100));
 
             double powerDef = GetTotalAttrDouble(AttributeEnum.HP) / 10 + GetTotalAttrDouble(AttributeEnum.Def) * 3;
-            powerDef *= (1 + CalPercent(AttributeEnum.DamageResist) * CalPercent(AttributeEnum.AurasDamageResist));
-            powerDef *= (1 + CalPercent(AttributeEnum.Miss));
-            powerDef *= (1 + GetTotalAttrDouble(AttributeEnum.Strong));
+
+            LargeNumber lg1 = new LargeNumber(powerDef);
+
+            lg1.Mul(1 + CalPercent(AttributeEnum.DamageResist) * CalPercent(AttributeEnum.AurasDamageResist));
+            lg1.Mul(1 + CalPercent(AttributeEnum.Miss));
+            lg1.Mul(1 + GetTotalAttrDouble(AttributeEnum.Strong));
 
             //减伤倍率
             double mdr = CalMulDamageResist(false);
-            powerDef *= 1 / (1 - mdr / 100);
+            lg1.Mul(1 / (1 - mdr / 100));
 
-            lg.add(powerDef);
+            lg.add(lg1);
             lg.div(20);
 
             return lg;
