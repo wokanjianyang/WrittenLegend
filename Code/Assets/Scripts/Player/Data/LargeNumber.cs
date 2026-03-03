@@ -131,6 +131,51 @@ namespace Game
             return this.Add(lg);
         }
 
+        public int Compare(LargeNumber b)
+        {
+            this.ReExponent();
+            b.ReExponent();
+
+            if (this.size > b.size)
+            {
+                return 1;
+            }
+            else if (this.size == b.size)
+            {
+                if (this.data > b.data)
+                {
+                    return 1;
+                }
+                else if (this.data == b.data)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
+        public int Compare(double b)
+        {
+            return this.Compare(new LargeNumber(b));
+        }
+
+        public double ConvertToDouble()
+        {
+            if (this.size >= 307)
+            {
+                return double.MaxValue;
+            }
+
+            string text = this.data + "E+" + this.size;
+            return Convert.ToDouble(text);
+        }
 
         public double data = 0;
 

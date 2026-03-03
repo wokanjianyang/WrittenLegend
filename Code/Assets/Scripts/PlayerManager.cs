@@ -323,21 +323,21 @@ namespace Game
             return valet;
         }
 
-        public void UnloadValet(APlayer player, SkillPanel skill)
-        {
-            var cache = valetCache.FirstOrDefault(c => c.OwnerId == player.ID && c.SkillId == skill.SkillId);
-            if (cache != null)
-            {
-                foreach (var valet in cache.Valets)
-                {
-                    if (valet.IsSurvice)
-                    {
-                        valet.OnHit(new DamageResult(player.ID, valet.HP, MsgType.Damage, RoleType.All));
-                    }
-                }
-                cache.Valets.Clear();
-            }
-        }
+        //public void UnloadValet(APlayer player, SkillPanel skill)
+        //{
+        //    var cache = valetCache.FirstOrDefault(c => c.OwnerId == player.ID && c.SkillId == skill.SkillId);
+        //    if (cache != null)
+        //    {
+        //        foreach (var valet in cache.Valets)
+        //        {
+        //            if (valet.IsSurvice)
+        //            {
+        //                valet.OnHit(new DamageResult(player.ID, valet.HP, MsgType.Damage, RoleType.All));
+        //            }
+        //        }
+        //        cache.Valets.Clear();
+        //    }
+        //}
 
         public List<Valet> GetValets(APlayer player, SkillPanel skill)
         {
