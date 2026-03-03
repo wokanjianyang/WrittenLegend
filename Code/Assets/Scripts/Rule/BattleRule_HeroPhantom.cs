@@ -46,7 +46,7 @@ public class BattleRule_HeroPhantom : ABattleRule
         }
 
         var hero = GameProcessor.Inst.PlayerManager.GetHero();
-        if (hero.HP <= 0)
+        if (hero.IsDie())
         {
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.HeroPhantom, Message = "你没有通过挑战！" });
             Start = false;
@@ -91,7 +91,7 @@ public class BattleRule_HeroPhantom : ABattleRule
     public override void CheckGameResult()
     {
         var heroCamp = GameProcessor.Inst.PlayerManager.GetHero();
-        if (heroCamp.HP == 0)
+        if (heroCamp.IsDie())
         {
             GameOver();
         }

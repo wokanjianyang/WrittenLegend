@@ -202,14 +202,14 @@ public class Battle_Defend : ABattleRule
     public override void CheckGameResult()
     {
         var hero = GameProcessor.Inst.PlayerManager.GetHero();
-        if (hero.HP == 0)
+        if (hero.IsDie())
         {
             GameProcessor.Inst.SetGameOver(PlayerType.Enemy);
             GameProcessor.Inst.HeroDie(RuleType.Defend, 0);
         }
 
         var defend = GameProcessor.Inst.PlayerManager.GetDefend();
-        if (defend.HP <= 0)
+        if (defend.IsDie())
         {
             this.Over = false;
             GameProcessor.Inst.User.DefendData.Complete();

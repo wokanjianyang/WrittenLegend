@@ -82,7 +82,7 @@ public class BattleRule_Shengxiao : ABattleRule
     public override void CheckGameResult()
     {
         var heroCamp = GameProcessor.Inst.PlayerManager.GetHero();
-        if (heroCamp.HP <= 0)
+        if (heroCamp.IsDie())
         {
             AppHelper.Shengxiao_Id = this.MapId;
 

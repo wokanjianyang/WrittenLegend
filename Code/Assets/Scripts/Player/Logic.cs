@@ -71,7 +71,7 @@ namespace Game
 
             //BattleAttributeMap.Clear();
 
-            SelfPlayer.HP = SelfPlayer.AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP);
+            SelfPlayer.SetMaxHp();
             this.SelfPlayer.EventCenter.Raise(new SetPlayerHPEvent { });
             //this.SelfPlayer.SetPosition(GameProcessor.Inst.PlayerManager.RandomCell(this.SelfPlayer.Cell));
         }

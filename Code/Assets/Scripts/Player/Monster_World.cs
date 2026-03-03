@@ -158,7 +158,7 @@ public class Monster_World : APlayer
             int nowPercent = (int)(this.HP * 100 / maxHp);
             int stepPercent = 100 - this.Step * 20;
 
-            if (HP > 0 && stepPercent >= nowPercent)  //只有本体，从90%开始,过了每10%的界限
+            if (!IsDie() && stepPercent >= nowPercent)  //只有本体，从90%开始,过了每10%的界限
             {
                 Step++;
 

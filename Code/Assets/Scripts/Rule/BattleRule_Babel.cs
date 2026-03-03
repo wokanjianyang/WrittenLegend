@@ -57,7 +57,7 @@ public class BattleRule_Babel : ABattleRule
         GameProcessor.Inst.EventCenter.Raise(new ShowBabelInfoEvent() { Progress = this.Progress, Time = TimeTotal, Count = user.BabelCount.Data });
 
         var hero = GameProcessor.Inst.PlayerManager.GetHero();
-        if (hero.HP <= 0 || TimeTotal <= 0 || user.BabelCount.Data <= 0)
+        if (hero.IsDie() || TimeTotal <= 0 || user.BabelCount.Data <= 0)
         {
             Over = true;
 

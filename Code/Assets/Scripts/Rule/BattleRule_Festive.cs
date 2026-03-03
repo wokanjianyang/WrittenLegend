@@ -123,7 +123,7 @@ public class BattleRule_Festive : ABattleRule
     public override void CheckGameResult()
     {
         var heroCamp = GameProcessor.Inst.PlayerManager.GetHero();
-        if (heroCamp.HP <= 0)
+        if (heroCamp.IsDie())
         {
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Festive, Message = "ÌôÕ½Ê§°Ü£¡" });
             GameProcessor.Inst.SetGameOver(PlayerType.Enemy);

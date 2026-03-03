@@ -50,7 +50,7 @@ public class BattleRule_Phantom : ABattleRule
         Time--;
 
         var hero = GameProcessor.Inst.PlayerManager.GetHero();
-        if (hero.HP <= 0)
+        if (hero.IsDie())
         {
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Phantom, Message = RealBoss.Name + "：你没有通过挑战！" });
             PhanStart = false;
@@ -65,7 +65,7 @@ public class BattleRule_Phantom : ABattleRule
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Phantom, Message = RealBoss.Name + "：勇士,你是要来挑战我吗?" });
         }
 
-        if (RealBoss.HP <= 0 && Time > 0)
+        if (RealBoss.IsDie() && Time > 0)
         {
             GameProcessor.Inst.User.PhantomRecord[PhanId] = Layer + 1;
 
@@ -96,7 +96,7 @@ public class BattleRule_Phantom : ABattleRule
     public override void CheckGameResult()
     {
         var heroCamp = GameProcessor.Inst.PlayerManager.GetHero();
-        if (heroCamp.HP == 0)
+        if (heroCamp.IsDie())
         {
             GameProcessor.Inst.SetGameOver(PlayerType.Enemy);
             GameProcessor.Inst.HeroDie(RuleType.Phantom, MapTime);

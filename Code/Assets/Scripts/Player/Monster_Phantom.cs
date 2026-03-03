@@ -207,7 +207,7 @@ public class Monster_Phantom : APlayer
 
         int nowPercent = (int)(this.HP * 10 / maxHp);
 
-        if (HP > 0 && HpPercent > nowPercent && Real)  //只有本体，从90%开始,过了每10%的界限
+        if (!IsDie() && HpPercent > nowPercent && Real)  //只有本体，从90%开始,过了每10%的界限
         {
             HpPercent = nowPercent;
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Phantom, Message = this.Name + "：看我鬼影无踪!" });

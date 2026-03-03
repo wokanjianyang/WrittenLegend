@@ -97,7 +97,7 @@ namespace Game
         virtual public void CheckGameResult()
         {
             var heroCamp = GameProcessor.Inst.PlayerManager.GetHero();
-            if (heroCamp != null && heroCamp.HP <= 0)
+            if (heroCamp != null && heroCamp.IsDie())
             {
                 this.currentRoundTime = 0;
 

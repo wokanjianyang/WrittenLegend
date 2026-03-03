@@ -204,7 +204,7 @@ public class BattleRule_Infinite : ABattleRule
     public override void CheckGameResult()
     {
         var hero = GameProcessor.Inst.PlayerManager.GetHero();
-        if (hero != null && hero.HP == 0)
+        if (hero != null && hero.IsDie())
         {
             User user = GameProcessor.Inst.User;
             InfiniteRecord record = user.InfiniteData.GetCurrentRecord();

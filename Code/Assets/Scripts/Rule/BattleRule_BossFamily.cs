@@ -80,7 +80,7 @@ public class Battle_BossFamily : ABattleRule
     public override void CheckGameResult()
     {
         var heroCamp = GameProcessor.Inst.PlayerManager.GetHero();
-        if (heroCamp.HP == 0)
+        if (heroCamp.IsDie())
         {
             GameProcessor.Inst.SetGameOver(PlayerType.Enemy);
             GameProcessor.Inst.HeroDie(RuleType.BossFamily, MapTime);

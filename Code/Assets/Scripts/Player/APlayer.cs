@@ -66,7 +66,7 @@ namespace Game
         {
             get
             {
-                return this.Logic.IsSurvice && this.HP > 0;
+                return this.Logic.IsSurvice && !this.IsDie();
             }
         }
 
@@ -584,6 +584,16 @@ namespace Game
         public void SetHP(double hp)
         {
             this.HP = hp;
+        }
+
+        public bool IsDie() {
+            if (this.HP <= 0)
+            {
+                return true;
+            }
+            else {
+                return false;
+            }
         }
 
         public void AddSP(double sp)

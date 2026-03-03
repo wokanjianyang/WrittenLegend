@@ -281,7 +281,7 @@ public class BattleRule_Spirit : ABattleRule
     public override void CheckGameResult()
     {
         var heroCamp = GameProcessor.Inst.PlayerManager.GetHero();
-        if (heroCamp.HP <= 0)
+        if (heroCamp.IsDie())
         {
             if (Start)
             {

@@ -84,7 +84,7 @@ public class Battle_AnDian : ABattleRule
     public override void CheckGameResult()
     {
         var hero = GameProcessor.Inst.PlayerManager.GetHero();
-        if (hero.HP == 0)
+        if (hero.IsDie())
         {
             GameProcessor.Inst.SetGameOver(PlayerType.Enemy);
             GameProcessor.Inst.HeroDie(RuleType.AnDian, 0);
