@@ -50,7 +50,7 @@ public class Defend : APlayer
 
     public override void OnHit(DamageResult dr)
     {
-        dr.Damage = 1;
+        dr.DamageLg = new LargeNumber(1, 0);
         base.OnHit(dr);
     }
 }

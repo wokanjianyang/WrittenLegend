@@ -110,7 +110,7 @@ namespace Game
             }
             else if (Data.Config.SourceAttr == 0)
             {
-                m = m * SelfPlayer.HP / 100;
+                m = m * SelfPlayer.HP.ConvertToDouble() / 100; //TODO
             }
             else if (Data.Config.SourceAttr >= 1)
             {
@@ -130,7 +130,7 @@ namespace Game
             }
             else //伤害
             {
-                SelfPlayer.OnHit(new DamageResult(0, hp, MsgType.Damage, RoleType.All));
+                SelfPlayer.OnHit(new DamageResult(hp, 0, MsgType.Damage, RoleType.All, 0));
             }
         }
 

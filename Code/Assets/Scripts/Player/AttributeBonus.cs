@@ -63,6 +63,11 @@ namespace Game
 
         public void SetAttrLarge(AttributeEnum attrType, int attrKey, LargeNumber attrValue)
         {
+            if (!LargeDict.ContainsKey(attrType))
+            {
+                LargeDict.Add(attrType, new Dictionary<int, LargeNumber>());
+            }
+
             LargeDict[attrType][attrKey] = attrValue;
         }
 
@@ -232,6 +237,33 @@ namespace Game
             {
                 return CalMulTotal(false, attrType);
             }
+        }
+
+        public LargeNumber GetBaseAttrLarge(AttributeEnum attrType)
+        {
+            double total = GetBaseAttr(attrType);
+
+            LargeNumber lg = new LargeNumber(total);
+
+            if (LargeDict.ContainsKey(attrType))
+            {
+                if ((int)attrType < 2001)
+                {
+                    foreach (LargeNumber val in LargeDict[attrType].Values)
+                    {
+                        lg.Add(val);
+                    }
+                }
+                else
+                {
+                    foreach (LargeNumber val in LargeDict[attrType].Values)
+                    {
+                        lg.Mul(val);
+                    }
+                }
+            }
+
+            return lg;
         }
 
 

@@ -222,7 +222,7 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
 
     private void OnSetPlayerHPEvent(SetPlayerHPEvent e)
     {
-        if (SelfPlayer.SP > 0 && SelfPlayer.MaxSP > 0)
+        if (SelfPlayer.SP.data > 0 && SelfPlayer.MaxSP.data > 0)
         {
             this.sp_Progress.gameObject.SetActive(true);
             this.sp_Progress.SetProgress(this.SelfPlayer.SP, SelfPlayer.MaxSP);
@@ -234,7 +234,7 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
             this.sp_Progress.gameObject.SetActive(false);
 
             this.hp_Progress.ShowTitle();
-            this.hp_Progress.SetProgress(this.SelfPlayer.HP, SelfPlayer.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
+            this.hp_Progress.SetProgress(this.SelfPlayer.HP, SelfPlayer.AttributeBonus.GetTotalAttrLarge(AttributeEnum.HP));
         }
     }
 

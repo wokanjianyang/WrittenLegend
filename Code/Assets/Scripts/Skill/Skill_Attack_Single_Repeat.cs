@@ -143,7 +143,7 @@ namespace Game
                         {
                             if (effect.Config.Priority >= 0)
                             {
-                                double total = dr.Damage * effect.Percent / 100;
+                                double total = dr.DamageLg.ConvertToDouble() * effect.Percent / 100;
                                 //Debug.Log("restor:" + total);
                                 DoEffect(enemy, this.SelfPlayer, total, 0, effect);
                             }
@@ -156,7 +156,7 @@ namespace Game
                             {
                                 if (effect.Config.Priority >= 0)
                                 {
-                                    double total = dr.Damage * effect.Percent / 100;
+                                    double total = dr.DamageLg.ConvertToDouble() * effect.Percent / 100;
                                     //Debug.Log("restor:" + total);
                                     DoEffect(enemy, this.SelfPlayer, total, 0, effect);
                                     //Debug.Log("Run Ring Effect:" + effect.Config.Name);

@@ -96,8 +96,8 @@ public class Monster_Legacy : APlayer
     {
         double maxHp = this.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
         double maxDamage = maxHp / 15;
-        dr.Damage = Math.Min(dr.Damage, maxDamage);
-        dr.ExtendDamage = Math.Min(dr.ExtendDamage, maxDamage);
+        dr.DamageLg = new LargeNumber(maxDamage);
+        dr.ExtendDamageLg = new LargeNumber(maxDamage);
 
         base.OnHit(dr);
     }

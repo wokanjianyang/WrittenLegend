@@ -85,32 +85,30 @@ namespace Game
 
             if (SelfPlayer.Camp == PlayerType.Hero)
             {
-                //Debug.Log($"{(this.SelfPlayer.Name)} 受到伤害:{(StringHelper.FormatNumber(dr.Damage))}");
+                Debug.Log($"{(this.SelfPlayer.Name)} 受到伤害:{(dr.DamageLg.FormatUnit())}");
             }
 
-            double totalDamage = dr.Damage + dr.ExtendDamage;
+            LargeNumber totalDamage = new LargeNumber(dr.DamageLg.data, dr.DamageLg.size).Add(dr.ExtendDamageLg);
 
-            double currentSP = this.SelfPlayer.SP;
-            if (currentSP > 0)
+            if (this.SelfPlayer.SP.Compare(0) == 1)
             {
-                double spDamge = totalDamage;
+                LargeNumber spDamge = new LargeNumber(totalDamage.data, totalDamage.size);
 
                 double spRate = this.SelfPlayer.AttributeBonus.GetTotalAttrDouble(AttributeEnum.SpRate);
                 if (spRate > 0)
                 {
-                    double maxHp = this.SelfPlayer.AttributeBonus.GetBaseAttr(AttributeEnum.HP);
-                    double maxSpDamge = maxHp * (100 - spRate) / 100;
+                    LargeNumber maxSpDamge = this.SelfPlayer.AttributeBonus.GetBaseAttrLarge(AttributeEnum.HP);
+                    maxSpDamge.Mul(100 - spRate).Div(100);
 
-                    spDamge = Math.Min(spDamge, maxSpDamge);
+                    spDamge = spDamge.Compare(maxSpDamge) == -1 ? spDamge : maxSpDamge;
                     //Debug.Log("maxHp:" + maxHp + " spDamage:" + spDamge);
                 }
 
-                currentSP -= spDamge;
-                if (currentSP <= 0)
+                this.SelfPlayer.SP.Sub(spDamge);
+                if (this.SelfPlayer.SP.Compare(0) != 1)
                 {
-                    currentSP = 0;
+                    this.SelfPlayer.SP.SetZero();
                 }
-                this.SelfPlayer.SetSP(currentSP);
 
                 if ((this.SelfPlayer.Camp == PlayerType.Enemy && GameProcessor.Inst.User.ShowMonsterDamage)
                  || (this.SelfPlayer.Camp != PlayerType.Enemy && GameProcessor.Inst.User.ShowPlayerEffect))
@@ -118,7 +116,7 @@ namespace Game
                     this.SelfPlayer.EventCenter.Raise(new ShowMsgEvent
                     {
                         Type = MsgType.SP,
-                        Content = "-" + StringHelper.FormatNumber(spDamge)
+                        Content = "-" + spDamge.FormatUnit()
                     });
                 }
 
@@ -127,25 +125,27 @@ namespace Game
                 return;
             }
 
-            double currentHP = this.SelfPlayer.HP;
+            this.SelfPlayer.HP.Sub(totalDamage);
 
-            currentHP -= totalDamage;
-            if (currentHP <= 0)
+            if (this.SelfPlayer.HP.Compare(0) != 1)
             {
-                currentHP = 0;
+                this.SelfPlayer.HP.SetZero();
             }
 
-            this.SelfPlayer.SetHP(currentHP);
+            if (SelfPlayer.Camp == PlayerType.Hero)
+            {
+                Debug.Log($"{(this.SelfPlayer.Name)} 现在血量:{(this.SelfPlayer.HP.FormatUnit())}");
+            }
 
             if ((this.SelfPlayer.Camp == PlayerType.Enemy && GameProcessor.Inst.User.ShowMonsterDamage)
              || (this.SelfPlayer.Camp != PlayerType.Enemy && GameProcessor.Inst.User.ShowPlayerEffect))
             {
                 if (GameProcessor.Inst.User.ShowMonsterDamage)
                 {
-                    string content = "-" + StringHelper.FormatNumber(dr.Damage);
-                    if (dr.ExtendDamage > 0)
+                    string content = "-" + dr.DamageLg.FormatUnit();
+                    if (dr.ExtendDamageLg.data > 0)
                     {
-                        content += "+" + StringHelper.FormatNumber(dr.ExtendDamage);
+                        content += "+" + dr.ExtendDamageLg.FormatUnit();
 
                         //Debug.Log("DM:" + StringHelper.FormatNumber(dr.Damage) + "  EDM:" + StringHelper.FormatNumber(dr.ExtendDamage));
                     }
@@ -159,7 +159,7 @@ namespace Game
 
             this.SelfPlayer.EventCenter.Raise(new SetPlayerHPEvent { });
 
-            if (currentHP <= 0)
+            if (this.SelfPlayer.IsDie())
             {
                 var skillFuhuo = this.SelfPlayer.GetSkillByPriority(-1);
                 if (skillFuhuo != null)
@@ -185,8 +185,8 @@ namespace Game
 
         public void ToDie()
         {
-            this.SelfPlayer.SetSP(0);
-            this.SelfPlayer.SetHP(0);
+            this.SelfPlayer.SetSP(new LargeNumber(0, 0));
+            this.SelfPlayer.SetHP(new LargeNumber(0, 0));
             this.IsSurvice = false;
         }
 
@@ -199,24 +199,24 @@ namespace Game
 
         public void OnRestore(double hp)
         {
-            double currentHP = this.SelfPlayer.HP;
+            LargeNumber currentHP = this.SelfPlayer.HP;
 
-            if (currentHP <= 0)
+            if (this.SelfPlayer.IsDie())
             {
                 //?是否先判断死亡，再判断回复
                 return;
             }
 
-            double maxHp = this.SelfPlayer.AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP);
+            LargeNumber maxHp = this.SelfPlayer.AttributeBonus.GetTotalAttrLarge(AttributeEnum.HP);
 
-            if (maxHp <= currentHP)
+            if (maxHp.Compare(currentHP) == 1)
             {
                 //满血不回复
                 return;
             }
 
-            currentHP += hp;
-            if (maxHp <= currentHP)
+            currentHP.Add(hp);
+            if (maxHp.Compare(currentHP) == -1)
             {
                 currentHP = maxHp; //最多只能回复满血
             }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Game
 {
@@ -14,7 +15,6 @@ namespace Game
 
             this.data = d;
             this.size = s;
-
         }
 
         public LargeNumber(double d, int s)
@@ -177,15 +177,38 @@ namespace Game
             return this.Compare(new LargeNumber(b));
         }
 
+        public LargeNumber SetZero()
+        {
+            this.data = 0;
+            this.size = 0;
+
+            return this;
+        }
+
         public double ConvertToDouble()
         {
+            if (this.data == 0)
+            {
+                return 0;
+            }
+
+
             if (this.size >= 307)
             {
                 return double.MaxValue;
             }
 
-            string text = this.data + "E+" + this.size;
-            return Convert.ToDouble(text);
+            string text = this.data + (this.size>=0? "E+":"E") + this.size;
+
+            try
+            {
+                return Convert.ToDouble(text);
+            }
+            catch (Exception ex) {
+                Debug.Log("Error text:" + text);
+            }
+
+            return 1;
         }
 
         public double data = 0;

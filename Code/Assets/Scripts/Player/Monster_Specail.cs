@@ -77,7 +77,7 @@ public class Monster_Specail : APlayer
 
     public override void OnHit(DamageResult dr)
     {
-        dr.Damage = 1;
+        dr.DamageLg = new LargeNumber(1);
         base.OnHit(dr);
     }
 

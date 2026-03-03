@@ -88,11 +88,11 @@ namespace Game
             }
 
             //按损失血量排序
-            teamList = teamList.OrderBy(m => m.HP / m.AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP)).ToList();
+            //teamList = teamList.OrderBy(m => m.HP / m.AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP)).ToList();
 
             foreach (var teamer in teamList)
             {
-                if (teamer.AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP) > teamer.HP)
+                if (teamer.IsLossHp())
                 {
                     attackDatas.Add(new AttackData()
                     {

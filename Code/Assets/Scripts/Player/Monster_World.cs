@@ -146,16 +146,17 @@ public class Monster_World : APlayer
     {
         //Debug.Log("damage:" + StringHelper.FormatNumber(dr.Damage));
 
-        double maxHp = this.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
-        double maxDamage = maxHp * Config.LoseRate / 1000;
-        dr.Damage = Math.Min(dr.Damage, maxDamage);
-        dr.ExtendDamage = Math.Min(dr.ExtendDamage, maxDamage);
+        LargeNumber maxHp = this.AttributeBonus.GetTotalAttrLarge(AttributeEnum.HP);
+        LargeNumber maxDamage = new LargeNumber(maxHp.data, maxHp.size).Mul(Config.LoseRate / 1000.0);
+
+        dr.DamageLg = dr.DamageLg.Compare(maxDamage) == 1 ? dr.DamageLg : new LargeNumber(maxDamage.data, maxDamage.size);
+        dr.ExtendDamageLg = dr.ExtendDamageLg.Compare(maxDamage) == 1 ? dr.ExtendDamageLg : new LargeNumber(maxDamage.data, maxDamage.size);
 
         base.OnHit(dr);
 
         if (Config.Step == 1 && Step < 5)
         {
-            int nowPercent = (int)(this.HP * 100 / maxHp);
+            int nowPercent = (int)(new LargeNumber(this.HP.data, this.HP.size).Mul(100).Div(maxHp)).ConvertToDouble();
             int stepPercent = 100 - this.Step * 20;
 
             if (!IsDie() && stepPercent >= nowPercent)  //只有本体，从90%开始,过了每10%的界限

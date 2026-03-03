@@ -39,5 +39,17 @@ namespace Game
             this.img_Progress.fillAmount = (float)value;
             this.tmp_Progress.text = StringHelper.FormatNumber(current);
         }
+
+        public void SetProgress(LargeNumber current, LargeNumber total)
+        {
+            double value = current.Mul(total).ConvertToDouble();
+            if (value > 1)
+            {
+                value = 1f;
+            }
+            this.img_Progress.fillAmount = (float)value;
+            this.tmp_Progress.text = string.Format("{0}/{1}", current.FormatUnit(), total.FormatUnit());
+
+        }
     }
 }

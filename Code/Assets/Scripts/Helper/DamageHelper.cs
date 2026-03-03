@@ -6,7 +6,7 @@ namespace Game
 {
     public class DamageHelper
     {
-        public static DamageResult CalcDamage(AttributeBonus attcher, AttributeBonus enemy, SkillPanel skill)
+        public static DamageResult CalcDamageOld(AttributeBonus attcher, AttributeBonus enemy, SkillPanel skill)
         {
             //计算公式  ((攻击 - 防御) * 百分比系数 + 固定数值) * 暴击?.暴击倍率 * (伤害加成-伤害减免) * (幸运)
 
@@ -177,10 +177,11 @@ namespace Game
             //Debug.Log("attack:" + StringHelper.FormatNumber(attack));
 
             //强制最少1点伤害
-            return new DamageResult(Math.Max(1, attack), extendDamage, type, (RoleType)role, skill.SkillId); //
+            //return new DamageResult(Math.Max(1, attack), extendDamage, type, (RoleType)role, skill.SkillId); //
+            return new DamageResult(new LargeNumber(Math.Max(1, attack)), new LargeNumber(extendDamage), type, (RoleType)role, skill.SkillId);
         }
 
-        public static DamageResult CalcDamageLg(AttributeBonus attcher, AttributeBonus enemy, SkillPanel skill)
+        public static DamageResult CalcDamage(AttributeBonus attcher, AttributeBonus enemy, SkillPanel skill)
         {
             //计算公式  ((攻击 - 防御) * 百分比系数 + 固定数值) * 暴击?.暴击倍率 * (伤害加成-伤害减免) * (幸运)
 
@@ -188,9 +189,9 @@ namespace Game
 
             double roleAttr = GetRoleAttack(attcher, role, true);
 
-            LargeNumber lg = new LargeNumber(roleAttr);
-
             roleAttr = roleAttr * (100 + skill.AttrIncrea + attcher.GetAttackAttr(AttributeEnum.AurasAttrIncrea)) / 100;  //职业攻击
+
+            LargeNumber lg = new LargeNumber(roleAttr);
 
             //防御 = 目标防御 * (100-无视防御)/100
             double def = enemy.GetAttackDoubleAttr(AttributeEnum.Def);
@@ -201,17 +202,7 @@ namespace Game
 
             double defRate = def * ConfigHelper.Def_Rate * defRiseRate / (def * ConfigHelper.Def_Rate * defRiseRate + roleAttr);
 
-            //if (defRiseRate > 1)
-            //{
-            //    Debug.Log("defRiseRate:" + defRiseRate + " defRate:" + defRate);
-            //}
-            double attack = roleAttr * (1 - defRate); //攻击 - 防御
-
-            if (attack <= 0)
-            {   //因为精度问题，最高16位，所以防御减伤最高16位
-                defRate = def * ConfigHelper.Def_Rate * defRiseRate / roleAttr;
-                attack = roleAttr / defRate;
-            }
+            lg.Mul(1 - defRate);
 
             //韧性减伤
             double strong = enemy.GetAttackDoubleAttr(AttributeEnum.Strong);
@@ -232,17 +223,19 @@ namespace Game
                     strong = strong / (1 + shatter);
                 }
 
-                attack = attack / (1 + strong);
+                lg.Div(1 + strong);
             }
 
             double parry = enemy.GetAttackDoubleAttr(AttributeEnum.Parry);
             if (parry > 0)
             {
-                attack = attack / (1 + parry);
+                lg.Div(1 + parry);
             }
 
             //技能系数
-            attack = attack * (skill.Percent + GetRolePercent(attcher, role)) / 100 + skill.Damage + GetRoleDamage(attcher, role);  // *百分比系数 + 固定数值
+            double skillRate = (skill.Percent + GetRolePercent(attcher, role)) / 100;
+            double skillDamage = skill.Damage + GetRoleDamage(attcher, role);
+            lg.Mul(skillRate).Add(skillDamage);  // *百分比系数 + 固定数值
 
             //暴击率 = 攻击者暴击率+技能暴击倍率-被攻击者暴击抵抗率
             long CritRate = attcher.GetAttackAttr(AttributeEnum.CritRate) + skill.CritRate - enemy.GetAttackAttr(AttributeEnum.CritRateResist);
@@ -254,58 +247,58 @@ namespace Game
             {
                 //暴击倍率（ 不低于0 ） = 50基础爆伤+技能爆伤 + 攻击者爆伤 - 被攻击者爆伤减免
                 long CritDamage = Math.Max(0, 50 + attcher.GetAttackAttr(AttributeEnum.CritDamage) + skill.CritDamage - enemy.GetAttackAttr(AttributeEnum.CritDamageResist));
-                attack = attack * (CritDamage + 100) / 100;
+                lg.Mul((CritDamage + 100) / 100.0);
             }
 
             //绝杀-暴击溢出
             double rcr = attcher.GetAttackDoubleAttr(AttributeEnum.RealCritRate);
             if (rcr > 0 && CritRate > 100)
             {
-                attack = attack * (rcr * (CritRate - 100) / 100 + 1);
+                lg.Mul(rcr * (CritRate - 100) / 100.0 + 1);
             }
 
             //伤害加成（不低于5） = 100基础伤害+技能伤害加成 + 攻击者伤害加成 — 被攻击者伤害减免 
             long DamageIncrea = Math.Max(5, 100 + attcher.GetAttackAttr(AttributeEnum.DamageIncrea) + skill.DamageIncrea - enemy.GetAttackAttr(AttributeEnum.DamageResist));
-            attack = attack * DamageIncrea / 100;
+            lg.Mul(DamageIncrea / 100.0);
 
             //光环伤害加成（不低于5） = 100基础伤害+技能伤害加成 + 攻击者伤害加成 — 被攻击者伤害减免 
             long AurasDamageIncrea = Math.Max(5, 100 + attcher.GetAttackAttr(AttributeEnum.AurasDamageIncrea) - enemy.GetAttackAttr(AttributeEnum.AurasDamageResist));
-            attack = attack * AurasDamageIncrea / 100;
+            lg.Mul(AurasDamageIncrea / 100.0);
 
             //技能伤害加成
             long SkillDamage = GetSkillDamage(attcher, role);
-            attack = attack * SkillDamage / 100;
+            lg.Mul(SkillDamage / 100.0);
 
             //职业伤害倍率(物伤加成，法伤加成，道伤加成)
             double roleDamageRise = GetRoleDamageAttackRise(attcher, role, true);
 
             //Debug.Log("roleDamageRise:" + roleDamageRise);
 
-            attack *= (1 + roleDamageRise / 100);
+            lg.Mul(1 + roleDamageRise / 100.0);
 
             //减伤倍率
             double mdr = enemy.CalMulDamageResistAttack();
-            attack *= (1 - mdr / 100);
+            lg.Mul(1 - mdr / 100.0);
 
             //增伤倍率
             double mdi = attcher.GetAttackDoubleAttr(AttributeEnum.MulDamageIncrea);
-            attack *= (1 + mdi / 100);
+            lg.Mul(1 + mdi / 100.0);
 
             //承受者的易伤
             long ExtraDamage = enemy.GetAttackAttr(AttributeEnum.ExtraDamage);
-            attack = attack * (100 + ExtraDamage) / 100;
+            lg.Mul((100 + ExtraDamage) / 100.0);
 
             //最终伤害加成
-            attack = attack * (100 + skill.FinalIncrea) / 100;
+            lg.Mul((100 + skill.FinalIncrea) / 100.0);
 
             //幸运，每点造成10%最终伤害
             long lucky = attcher.GetAttackAttr(AttributeEnum.Lucky);
-            attack = attack * (lucky * 10 + 100) / 100;
+            lg.Mul((lucky * 10 + 100) / 100.0);
 
             double luckyHit = attcher.GetAttackDoubleAttr(AttributeEnum.LuckyHit);
             if (luckyHit > 0)
             {
-                attack = attack * (luckyHit * lucky + 100) / 100;
+                lg.Mul((luckyHit * lucky + 100) / 100.0);
                 //Debug.Log("luckyHit:" + luckyHit + "  rise:" + (luckyHit * lucky + 100) / 100);
             }
 
@@ -313,7 +306,7 @@ namespace Game
             if (relic3 > 0)
             {
                 double accuracy = attcher.GetAttackDoubleAttr(AttributeEnum.Accuracy);
-                attack = attack * (accuracy * relic3 + 100) / 100;
+                lg.Mul((accuracy * relic3 + 100) / 100.0);
 
                 //Debug.Log("relic3:" + relic3 + "  rise:" + (accuracy * relic3 + 100) / 100);
             }
@@ -330,7 +323,7 @@ namespace Game
             }
 
             double protect = enemy.GetAttackAttr(AttributeEnum.Protect);
-            attack = attack * (100 - protect) / 100;
+            lg.Mul((100 - protect) / 100.0);
 
             MsgType type = isCrit ? MsgType.Crit : MsgType.Damage;
 
@@ -338,8 +331,7 @@ namespace Game
             double at = attcher.GetAttackDoubleAttr(AttributeEnum.RealHpDamage);
             if (at > 0)
             {
-                double maxHp = attcher.GetAttackDoubleAttr(AttributeEnum.HP);
-                extendDamageLg = new LargeNumber(maxHp);
+                extendDamageLg = attcher.GetTotalAttrLarge(AttributeEnum.HP);
                 extendDamageLg.Div(1 + parry);
                 extendDamageLg.Mul(at);
                 //Debug.Log("maxHp:" + StringHelper.FormatNumber(maxHp) + " extendDamage:" + StringHelper.FormatNumber(extendDamage));
@@ -566,20 +558,20 @@ namespace Game
     {
         public DamageResult(double damage, double extendDamage, MsgType type, RoleType roleType, int skillId)
         {
-            this.Damage = damage;
-            this.ExtendDamage = extendDamage;
+            this.DamageLg = new LargeNumber(damage);
+            this.ExtendDamageLg = new LargeNumber(extendDamage);
             this.Type = type;
             this.RoleType = roleType;
             this.SkillId = skillId;
         }
 
-        public DamageResult(int formId, double damage, MsgType type, RoleType roleType)
-        {
-            this.FromId = formId;
-            this.Damage = damage;
-            this.Type = type;
-            this.RoleType = roleType;
-        }
+        //public DamageResult(int formId, double damage, MsgType type, RoleType roleType)
+        //{
+        //    this.FromId = formId;
+        //    this.Damage = damage;
+        //    this.Type = type;
+        //    this.RoleType = roleType;
+        //}
 
         public DamageResult(LargeNumber damage, LargeNumber extendDamage, MsgType type, RoleType roleType, int skillId)
         {
@@ -593,8 +585,6 @@ namespace Game
         public MsgType Type { get; set; }
 
         public RoleType RoleType { get; set; }
-        public double Damage { get; set; }
-        public double ExtendDamage { get; set; }
 
         public LargeNumber DamageLg { get; set; }
 
@@ -606,7 +596,6 @@ namespace Game
 
         public void Mul(double rate)
         {
-            this.Damage *= rate;
             if (this.DamageLg != null)
             {
                 this.DamageLg.Mul(rate);
@@ -615,7 +604,6 @@ namespace Game
 
         public void Div(double rate)
         {
-            this.Damage /= rate;
             if (this.DamageLg != null)
             {
                 this.DamageLg.Div(rate);

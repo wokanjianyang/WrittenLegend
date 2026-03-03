@@ -19,10 +19,10 @@ namespace Game
 
         public long Level { get; set; }
 
-        public double SP { get; set; }
+        public LargeNumber SP { get; set; } = new LargeNumber(0, 0);
 
-        public double MaxSP { get; set; }
-        public double HP { get; set; }
+        public LargeNumber MaxSP { get; set; } = new LargeNumber(0, 0);
+        public LargeNumber HP { get; set; } = new LargeNumber(0, 0);
         public int Quality { get; set; }
 
         public bool IsHide { get; set; } = false;
@@ -80,19 +80,20 @@ namespace Game
 
         public void ChangeMaxHp(int fromId, double total)
         {
-            double PreMaxHp = this.AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP);
+            LargeNumber rate = new LargeNumber(this.HP.data, this.HP.size);
+            LargeNumber PreMaxHp = this.AttributeBonus.GetTotalAttrLarge(AttributeEnum.HP);
             //Debug.Log("PreMaxHp:" + PreMaxHp);
-            double rate = this.HP * 1f / PreMaxHp;
+            rate.Div(PreMaxHp);
             //Debug.Log("rate:" + rate);
             //Debug.Log("effect maxHp Rate:" + total);
 
             this.AttributeBonus.SetAttr(AttributeEnum.PanelHp, fromId, total);
 
-            double CurrentMaxHp = this.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
+            LargeNumber CurrentMaxHp = this.AttributeBonus.GetTotalAttrLarge(AttributeEnum.HP);
             //Debug.Log("CurrentMaxHp:" + CurrentMaxHp);
-            double currentHp = CurrentMaxHp * rate;
+            CurrentMaxHp.Mul(rate);
             //Debug.Log("effect MaxHp:" + StringHelper.FormatNumber(currentHp));
-            this.HP = currentHp;
+            this.SetHP(CurrentMaxHp);
 
             this.EventCenter.Raise(new SetPlayerHPEvent { });
         }
@@ -576,34 +577,56 @@ namespace Game
             this.Logic.OnRestore(hp);
         }
 
-        public void SetMaxHp() {
-            double MaxHP = AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
-            this.SetHP(MaxHP);
+        public void SetMaxHp()
+        {
+            this.SetHP(AttributeBonus.GetTotalAttrLarge(AttributeEnum.HP));
         }
 
         public void SetHP(double hp)
         {
-            this.HP = hp;
+            this.SetHP(new LargeNumber(hp));
         }
 
-        public bool IsDie() {
-            if (this.HP <= 0)
+        public void SetHP(LargeNumber hp)
+        {
+            this.HP.data = hp.data;
+            this.HP.size = hp.size;
+        }
+
+        public bool IsDie()
+        {
+            if (this.HP.Compare(0) == 0)
             {
                 return true;
             }
-            else {
+            else
+            {
                 return false;
             }
         }
 
-        public void AddSP(double sp)
+        public bool IsLossHp()
         {
-            this.MaxSP = sp;
-            this.SP = sp;
+            LargeNumber maxHp = this.AttributeBonus.GetTotalAttrLarge(AttributeEnum.HP);
+
+            if (maxHp.Compare(this.HP) == 1) //最高血量大于当前血量
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
-        public void SetSP(double sp)
+
+        public void AddSP(LargeNumber sp)
         {
-            this.SP = sp;
+            this.MaxSP = new LargeNumber(sp.data, sp.size);
+            this.SP = new LargeNumber(sp.data, sp.size);
+        }
+        public void SetSP(LargeNumber sp)
+        {
+            this.SP = new LargeNumber(sp.data, sp.size);
         }
 
 

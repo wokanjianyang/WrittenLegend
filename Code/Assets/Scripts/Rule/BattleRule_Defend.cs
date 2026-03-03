@@ -107,7 +107,7 @@ public class Battle_Defend : ABattleRule
             DefendRecord record = user.DefendData.GetCurrentRecord(this.Level);
 
             record.Progress.Data = this.Progress;
-            record.Hp.Data = (long)defendPlayer.HP;
+            record.Hp.Data = (long)defendPlayer.HP.ConvertToDouble();
 
             return;
         }

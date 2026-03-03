@@ -169,7 +169,7 @@ namespace Game
             //Debug.Log("life:" + lf);
             if (lf >= Life) //auto dead
             {
-                this.HP = 0;
+                this.HP.SetZero();
 
                 GameProcessor.Inst.PlayerManager.RemoveDeadPlayers(this);
 

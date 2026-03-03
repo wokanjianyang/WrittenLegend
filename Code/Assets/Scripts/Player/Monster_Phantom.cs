@@ -171,11 +171,11 @@ public class Monster_Phantom : APlayer
         this.SetAttackSpeed(speed);
         this.SetMoveSpeed(speed);
 
-        double MaxHP = AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
-        double CurrentHp = Percent * MaxHP / 10;
+        LargeNumber MaxHP = AttributeBonus.GetTotalAttrLarge(AttributeEnum.HP);
+        MaxHP.Mul(Percent).Div(10);
 
         //Debug.Log("Phan CurrentHp:" + CurrentHp);
-        SetHP(CurrentHp);
+        SetHP(MaxHP);
     }
 
     public override float DoEvent()
@@ -198,14 +198,15 @@ public class Monster_Phantom : APlayer
             }
         }
 
-        double maxHp = this.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
-        double maxDamage = maxHp / 10;
-        dr.Damage = Math.Min(dr.Damage, maxDamage);
-        dr.ExtendDamage = Math.Min(dr.ExtendDamage, maxDamage);
+        LargeNumber maxHp = this.AttributeBonus.GetTotalAttrLarge(AttributeEnum.HP);
+        LargeNumber maxDamage = new LargeNumber(maxHp.data, maxHp.size).Mul(10);
+
+        dr.DamageLg = dr.DamageLg.Compare(maxDamage) == 1 ? dr.DamageLg : new LargeNumber(maxDamage.data, maxDamage.size);
+        dr.ExtendDamageLg = dr.ExtendDamageLg.Compare(maxDamage) == 1 ? dr.ExtendDamageLg : new LargeNumber(maxDamage.data, maxDamage.size);
 
         base.OnHit(dr);
 
-        int nowPercent = (int)(this.HP * 10 / maxHp);
+        int nowPercent = (int)(new LargeNumber(this.HP.data, this.HP.size).Mul(10).Div(maxHp).ConvertToDouble());
 
         if (!IsDie() && HpPercent > nowPercent && Real)  //只有本体，从90%开始,过了每10%的界限
         {
