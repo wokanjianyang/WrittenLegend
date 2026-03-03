@@ -149,8 +149,8 @@ public class Monster_World : APlayer
         LargeNumber maxHp = this.AttributeBonus.GetTotalAttrLarge(AttributeEnum.HP);
         LargeNumber maxDamage = new LargeNumber(maxHp.data, maxHp.size).Mul(Config.LoseRate / 1000.0);
 
-        dr.DamageLg = dr.DamageLg.Compare(maxDamage) == 1 ? dr.DamageLg : new LargeNumber(maxDamage.data, maxDamage.size);
-        dr.ExtendDamageLg = dr.ExtendDamageLg.Compare(maxDamage) == 1 ? dr.ExtendDamageLg : new LargeNumber(maxDamage.data, maxDamage.size);
+        dr.DamageLg = dr.DamageLg.Compare(maxDamage) == -1 ? dr.DamageLg : new LargeNumber(maxDamage.data, maxDamage.size);
+        dr.ExtendDamageLg = dr.ExtendDamageLg.Compare(maxDamage) == -1 ? dr.ExtendDamageLg : new LargeNumber(maxDamage.data, maxDamage.size);
 
         base.OnHit(dr);
 
