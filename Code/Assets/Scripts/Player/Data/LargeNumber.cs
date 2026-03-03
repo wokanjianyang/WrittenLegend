@@ -126,9 +126,7 @@ namespace Game
 
         public LargeNumber Sub(LargeNumber lg)
         {
-            lg.data *= -1;
-
-            return this.Add(lg);
+            return this.Add(new LargeNumber(-lg.data, lg.size));
         }
 
         public int Compare(LargeNumber b)
@@ -136,15 +134,28 @@ namespace Game
             this.ReExponent();
             b.ReExponent();
 
-            if (this.size > b.size)
+            if (this.data >= 0 && b.data < 0)
             {
                 return 1;
+            }
+            if (this.data < 0 && b.data >= 0)
+            {
+                return -1;
+            }
+
+            //判定正负
+            int pre = this.data >= 0 ? 1 : -1;
+
+            //再判定大小
+            if (this.size > b.size)
+            {
+                return 1 * pre;
             }
             else if (this.size == b.size)
             {
                 if (this.data > b.data)
                 {
-                    return 1;
+                    return 1 * pre;
                 }
                 else if (this.data == b.data)
                 {
@@ -152,12 +163,12 @@ namespace Game
                 }
                 else
                 {
-                    return -1;
+                    return -1 * pre;
                 }
             }
             else
             {
-                return -1;
+                return -1 * pre;
             }
         }
 
