@@ -82,8 +82,7 @@ public class Monster_Pill : APlayer
         AttributeBonus.SetAttr(AttributeEnum.Miss, AttributeFrom.HeroBase, config.Miss);
         AttributeBonus.SetAttr(AttributeEnum.Protect, AttributeFrom.HeroBase, config.Protect);
 
-        double MaxHP = AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
-        SetHP(MaxHP);
+        SetMaxHp();
     }
 
     public override float DoEvent()

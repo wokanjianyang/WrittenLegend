@@ -132,7 +132,7 @@ namespace Game
             this.RingType = Master.RingType;
 
             //回满当前血量
-            SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
+            SetMaxHp();
 
             //if (this.RuleType == RuleType.Myth || 1==1)
             //{

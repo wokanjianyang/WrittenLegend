@@ -83,8 +83,7 @@ public class Monster_Myth : APlayer
         this.SetAttackSpeed(config.Speed);
         this.SetMoveSpeed(config.Speed);
 
-        double MaxHP = AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
-        SetHP(MaxHP);
+        SetMaxHp();
     }
 
     public override float DoEvent()

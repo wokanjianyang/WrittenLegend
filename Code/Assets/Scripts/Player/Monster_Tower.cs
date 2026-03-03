@@ -121,7 +121,7 @@ public class Monster_Tower : APlayer
 
 
         //回满当前血量
-        SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
+        SetMaxHp();
 
         if (Floor % 30 == 0)
         { //每30层,掉落装备一件(),每1000层一件4件套

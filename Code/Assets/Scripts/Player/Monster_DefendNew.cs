@@ -103,7 +103,7 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.Parry, AttributeFrom.HeroBase, parry);
 
             //回满当前血量
-            SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
+            SetMaxHp();
 
             //回满当前血量
             this.SetAttackSpeed(Config.Speed);

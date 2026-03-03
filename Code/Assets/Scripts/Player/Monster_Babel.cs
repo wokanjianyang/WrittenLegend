@@ -175,7 +175,7 @@ namespace Game
             }
 
             //回满当前血量
-            SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
+            SetMaxHp();
 
             int speed = (this.Progeress - 30000) / 5000;
 

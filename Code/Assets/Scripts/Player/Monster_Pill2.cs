@@ -107,8 +107,7 @@ public class Monster_Pill2 : APlayer
         SetMoveSpeed((int)config.Speed);
         SetAttackSpeed((int)config.Speed);
 
-        double MaxHP = AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
-        SetHP(MaxHP);
+        SetMaxHp();
     }
 
     public override float DoEvent()

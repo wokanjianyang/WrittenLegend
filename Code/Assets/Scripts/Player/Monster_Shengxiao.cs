@@ -140,8 +140,7 @@ public class Monster_Shengxiao : APlayer
         //Debug.Log("attr:" + AttributeBonus.GetAttackDoubleAttr(AttributeEnum.PhyAtt));
         //Debug.Log("def:" + AttributeBonus.GetAttackDoubleAttr(AttributeEnum.Def));
 
-        double MaxHP = AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
-        SetHP(MaxHP);
+        SetMaxHp();
     }
 
     public override float DoEvent()

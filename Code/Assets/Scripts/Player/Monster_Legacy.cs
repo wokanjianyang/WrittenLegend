@@ -84,8 +84,7 @@ public class Monster_Legacy : APlayer
         AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr);
         AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, def);
 
-        double MaxHP = AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
-        SetHP(MaxHP);
+        SetMaxHp();
     }
 
     public override float DoEvent()

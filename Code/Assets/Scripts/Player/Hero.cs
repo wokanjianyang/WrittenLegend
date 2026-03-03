@@ -65,8 +65,7 @@ namespace Game
             this.SetAttr(user);  //设置属性值
             this.SetSkill(user); //设置技能
 
-            double maxHP = AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
-            SetHP(maxHP);
+            SetMaxHp();
 
             base.Load();
             this.Logic.SetData(null); //设置UI
@@ -166,8 +165,7 @@ namespace Game
                 List<DefendBuffConfig> buffList = GameProcessor.Inst.User.DefendData.GetBuffList();
                 this.AttributeBonus.SetBuffList(buffList);
 
-                double maxHP = AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
-                SetHP(maxHP);
+                SetMaxHp();
                 //Debug.Log("Hero Hp:" + StringHelper.FormatNumber(maxHP));
             }
         }

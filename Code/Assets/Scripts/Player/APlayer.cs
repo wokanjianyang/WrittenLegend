@@ -576,6 +576,11 @@ namespace Game
             this.Logic.OnRestore(hp);
         }
 
+        public void SetMaxHp() {
+            double MaxHP = AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
+            this.SetHP(MaxHP);
+        }
+
         public void SetHP(double hp)
         {
             this.HP = hp;

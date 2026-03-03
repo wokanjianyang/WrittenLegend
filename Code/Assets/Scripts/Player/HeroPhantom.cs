@@ -114,7 +114,7 @@ namespace Game
             }
 
             //回满当前血量
-            SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
+            SetMaxHp();
         }
 
         private List<SkillRune> RandomSkillRuneList(int skillId)

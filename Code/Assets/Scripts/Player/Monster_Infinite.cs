@@ -103,7 +103,7 @@ namespace Game
             SetMoveSpeed(Config.Speed);
 
             //回满当前血量
-            SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
+            SetMaxHp();
         }
 
         private void SetSkill()

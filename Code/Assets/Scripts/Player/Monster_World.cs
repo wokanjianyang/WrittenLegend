@@ -134,8 +134,7 @@ public class Monster_World : APlayer
         this.SetAttackSpeed(Config.Speed);
         this.SetMoveSpeed(Config.Speed);
 
-        double MaxHP = AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
-        SetHP(MaxHP);
+        SetMaxHp();
     }
 
     public override float DoEvent()

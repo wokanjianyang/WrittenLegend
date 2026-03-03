@@ -33,8 +33,7 @@ namespace Game
             this.SetAttr(user);  //设置属性值
             this.SetSkill(user); //设置技能
 
-            double maxHP = AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
-            SetHP(maxHP);
+            SetMaxHp();
 
             base.Load();
             this.Logic.SetData(null); //设置UI
@@ -74,7 +73,7 @@ namespace Game
             //Debug.Log("myth PhyAtt:" + AttributeBonus.GetTotalAttrDouble(AttributeEnum.Def));
 
             //回满当前血量
-            SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
+            SetMaxHp();
         }
 
         private void SetSkill(User user)

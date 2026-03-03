@@ -133,7 +133,7 @@ namespace Game
             }
 
             //回满当前血量
-            SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
+            SetMaxHp();
 
             //if (this.RuleType == RuleType.Myth || 1 == 1)
             //{
@@ -223,7 +223,7 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.Shatter, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Shatter));
 
             //回满当前血量
-            SetHP(AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
+            SetMaxHp();
 
             //Debug.Log("白虎 速度:" + StringHelper.FormatNumber(ModelConfig.SpeedRate + sp));
         }
