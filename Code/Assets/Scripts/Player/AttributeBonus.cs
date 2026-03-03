@@ -97,18 +97,21 @@ namespace Game
             double total = GetTotalAttrDouble(attrType);
             LargeNumber lg = new LargeNumber(total);
 
-            if ((int)attrType < 2001)
+            if (LargeDict.ContainsKey(attrType))
             {
-                foreach (LargeNumber val in LargeDict[attrType].Values)
+                if ((int)attrType < 2001)
                 {
-                    lg.Add(val);
+                    foreach (LargeNumber val in LargeDict[attrType].Values)
+                    {
+                        lg.Add(val);
+                    }
                 }
-            }
-            else
-            {
-                foreach (LargeNumber val in LargeDict[attrType].Values)
+                else
                 {
-                    lg.Mul(val);
+                    foreach (LargeNumber val in LargeDict[attrType].Values)
+                    {
+                        lg.Mul(val);
+                    }
                 }
             }
 
