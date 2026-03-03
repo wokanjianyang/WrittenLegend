@@ -14,6 +14,8 @@ namespace Game
 
         private Dictionary<AttributeEnum, Dictionary<int, double>> SkillDict = new Dictionary<AttributeEnum, Dictionary<int, double>>();
 
+        private Dictionary<AttributeEnum, Dictionary<int, LargeNumber>> LargeDict = new Dictionary<AttributeEnum, Dictionary<int, LargeNumber>>();
+
         public AttributeBonus()
         {
             foreach (AttributeEnum item in Enum.GetValues(typeof(AttributeEnum)))
@@ -59,6 +61,10 @@ namespace Game
             AllAttrDict[attrType][attrKey] = attrValue;
         }
 
+        public void SetAttrLarge(AttributeEnum attrType, int attrKey, LargeNumber attrValue)
+        {
+            LargeDict[attrType][attrKey] = attrValue;
+        }
 
         public void SetAttr(AttributeEnum attrType, AttributeFrom attrKey, int Position, double attrValue)
         {
@@ -84,6 +90,29 @@ namespace Game
         public double GetTotalAttrDouble(AttributeEnum attrType)
         {
             return GetTotalAttrDouble(attrType, true);
+        }
+
+        public LargeNumber GetTotalAttrLarge(AttributeEnum attrType)
+        {
+            double total = GetTotalAttrDouble(attrType);
+            LargeNumber lg = new LargeNumber(total);
+
+            if ((int)attrType < 2001)
+            {
+                foreach (LargeNumber val in LargeDict[attrType].Values)
+                {
+                    lg.Add(val);
+                }
+            }
+            else
+            {
+                foreach (LargeNumber val in LargeDict[attrType].Values)
+                {
+                    lg.Mul(val);
+                }
+            }
+
+            return lg;
         }
 
         public double GetTotalAttrDouble(AttributeEnum attrType, bool haveBuff)
@@ -279,7 +308,7 @@ namespace Game
             lg.Mul(CalPercent(AttributeEnum.DamageIncrea) * CalPercent(AttributeEnum.AurasDamageIncrea));
             lg.Mul((1 + GetTotalAttrDouble(AttributeEnum.Lucky) * 0.1));
             lg.Mul((1 + Math.Min(GetTotalAttrDouble(AttributeEnum.CritRate), 1) * (GetTotalAttrDouble(AttributeEnum.CritDamage) + 150) / 100));
-    
+
             double roleDamageRise = DamageHelper.GetRoleDamageAttackRise(this, role, true);
             lg.Mul((1 + roleDamageRise / 100));
 
@@ -303,8 +332,8 @@ namespace Game
             double mdr = CalMulDamageResist(false);
             lg1.Mul(1 / (1 - mdr / 100));
 
-            lg.add(lg1);
-            lg.div(20);
+            lg.Add(lg1);
+            lg.Div(20);
 
             return lg;
         }

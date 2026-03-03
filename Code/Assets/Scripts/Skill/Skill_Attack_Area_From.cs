@@ -85,10 +85,10 @@ namespace Game
 
                         //Debug.Log("DivineLevel.Percent：" + disPercent);
 
-                        dr.Damage = dr.Damage * (100 + disPercent) / 100;
+                        dr.Mul((100 + disPercent) / 100);
                     }
 
-                    dr.Damage = dr.Damage * (100 + SkillPanel.Percent) / 100;
+                    dr.Mul((100 + SkillPanel.Percent) / 100);
 
                     //Debug.Log("SkillPanel.Percent：" + SkillPanel.Percent);
 

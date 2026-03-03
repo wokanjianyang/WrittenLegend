@@ -67,7 +67,7 @@ namespace Game
 
                     //Debug.Log("base damage:" + dr.Damage);
 
-                    dr.Damage = dr.Damage * (100 + percent) / 100;
+                    dr.Mul((100 + percent) / 100);
 
                     dr.FromId = attackData.Tid;
                     enemy.OnHit(dr);

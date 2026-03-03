@@ -21,6 +21,7 @@ namespace Game
         {
             this.data = d;
             this.size = s;
+            this.ReExponent();
         }
 
         public LargeNumber Mul(double val)
@@ -30,20 +31,36 @@ namespace Game
             this.data *= d;
             this.size += s;
 
-            return this;
+            return this.ReExponent();
         }
 
-        public LargeNumber div(double val)
+        public LargeNumber Mul(LargeNumber lg)
+        {
+            this.data *= lg.data;
+            this.size += lg.size;
+
+            return this.ReExponent();
+        }
+
+        public LargeNumber Div(double val)
         {
             double d = ExtractExponent(val, out int s);
 
             this.data = this.data / d;
             this.size = this.size - s;
 
-            return this;
+            return this.ReExponent();
         }
 
-        public LargeNumber add(double val)
+        public LargeNumber Div(LargeNumber val)
+        {
+            this.data = this.data / val.data;
+            this.size = this.size - val.size;
+
+            return this.ReExponent();
+        }
+
+        public LargeNumber Add(double val)
         {
             double d = ExtractExponent(val, out int s);
 
@@ -62,13 +79,14 @@ namespace Game
 
             this.data += d;
 
-            return this;
+            return this.ReExponent();
         }
 
-        public LargeNumber add(LargeNumber lg)
+        public LargeNumber Add(LargeNumber val)
         {
             this.ReExponent();
-            lg.ReExponent();
+
+            LargeNumber lg = new LargeNumber(val.data, val.size);
 
             int s = this.size - lg.size;
 
@@ -78,7 +96,8 @@ namespace Game
             }
             else if (s <= -4)
             {
-                return lg;
+                this.data = lg.data;
+                this.size = lg.size;
             }
             else if (s < 4 && s >= 0)
             {
@@ -86,51 +105,30 @@ namespace Game
                 lg.data = lg.data / Math.Pow(10, s);
 
                 this.data = this.data + lg.data;
-                return this;
             }
             else if (s > -4 && s <= 0)
             {
                 //lg大
                 this.data = this.data / Math.Pow(10, -s);
                 lg.data = lg.data + this.data;
-                return lg;
+
+                this.data = lg.data;
+                this.size = lg.size;
             }
 
-            return this;
+            return this.ReExponent();
         }
 
-        public LargeNumber sub(LargeNumber lg)
+        public LargeNumber Sub(double val)
         {
-            this.ReExponent();
-            lg.ReExponent();
+            return this.Add(-val);
+        }
 
-            int s = this.size - lg.size;
+        public LargeNumber Sub(LargeNumber lg)
+        {
+            lg.data *= -1;
 
-            if (s >= 4)
-            {
-                return this;
-            }
-            else if (s <= -4)
-            {
-                return lg;
-            }
-            else if (s < 4 && s >= 0)
-            {
-                //this 大
-                lg.data = lg.data / Math.Pow(10, s);
-
-                this.data = this.data - lg.data;
-                return this;
-            }
-            else if (s > -4 && s <= 0)
-            {
-                //lg大
-                this.data = this.data / Math.Pow(10, -s);
-                lg.data = lg.data - this.data;
-                return lg;
-            }
-
-            return this;
+            return this.Add(lg);
         }
 
 
@@ -167,9 +165,9 @@ namespace Game
             return "data;" + data + " size:" + size;
         }
 
-        private void ReExponent()
+        private LargeNumber ReExponent()
         {
-            if (this.data > 10)
+            if (this.data > 10 || (this.data < 1 && this.data > 0))
             {
                 string text = this.data.ToString("E");
                 string[] parts = text.ToUpper().Split('E');
@@ -183,15 +181,18 @@ namespace Game
                     this.size += s;
                 }
             }
-            else if (this.data < 1)
-            {
 
-            }
+            return this;
         }
 
         public string FormatUnit()
         {
             this.ReExponent();
+
+            if (this.size < -2)
+            {
+                return "0";
+            }
 
             string[] UnitList = ConfigHelper.UnitList;
 
