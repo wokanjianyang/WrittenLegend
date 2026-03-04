@@ -24,6 +24,13 @@ namespace Game
             this.ReExponent();
         }
 
+        public LargeNumber(LargeNumber lg)
+        {
+            this.data = lg.data;
+            this.size = lg.size;
+            this.ReExponent();
+        }
+
         public LargeNumber Mul(double val)
         {
             double d = ExtractExponent(val, out int s);

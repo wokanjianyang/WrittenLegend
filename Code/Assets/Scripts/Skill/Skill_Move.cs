@@ -44,7 +44,7 @@ namespace Game
 
                 //Debug.Log("Effect " + effect.Config.Id + " _Percetn:" + total);
 
-                DoEffect(this.SelfPlayer, this.SelfPlayer, 0, rolePercent, effect);
+                DoEffect(this.SelfPlayer, this.SelfPlayer, new LargeNumber(0), rolePercent, effect);
             }
         }
 

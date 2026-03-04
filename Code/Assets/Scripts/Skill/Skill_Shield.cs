@@ -31,7 +31,7 @@ namespace Game
 
                 //Debug.Log("Effect_Id:" + effect.Config.Id + " Effect_Percent:" + effect.Percent);
 
-                DoEffect(this.SelfPlayer, this.SelfPlayer, 0, rolePercent, effect);
+                DoEffect(this.SelfPlayer, this.SelfPlayer, new LargeNumber(0), rolePercent, effect);
             }
 
             //if (this.SkillPanel.DivineLevel > 0)

@@ -67,7 +67,7 @@ namespace Game
                     {
                         if (effect.Config.Priority >= 0)
                         {
-                            double total = dr.DamageLg.ConvertToDouble() * effect.Percent / 100;
+                            LargeNumber total = new LargeNumber(dr.DamageLg).Mul(effect.Percent / 100.0);
                             //Debug.Log("restor:" + total);
                             DoEffect(enemy, this.SelfPlayer, total, 0, effect);
                         }

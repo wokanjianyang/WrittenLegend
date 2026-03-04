@@ -35,12 +35,12 @@ namespace Game
                     //Debug.Log("valets count:" + valets.Count);
                     foreach (Valet valet in valets)
                     {
-                        DoEffect(valet, this.SelfPlayer, 0, rolePercent, effect);
+                        DoEffect(valet, this.SelfPlayer, new LargeNumber(0), rolePercent, effect);
                     }
                 }
                 else
                 {
-                    DoEffect(this.SelfPlayer, this.SelfPlayer, 0, rolePercent, effect);
+                    DoEffect(this.SelfPlayer, this.SelfPlayer, new LargeNumber(0), rolePercent, effect);
                 }
             }
         }

@@ -45,7 +45,7 @@ namespace Game
                 foreach (EffectData effect in SkillPanel.EffectIdList.Values)
                 {
                     //Debug.Log("Restore Effect Percent:" + effect.Percent);
-                    double total = hp * effect.Percent / 100;
+                    LargeNumber total = new LargeNumber(hp).Mul(effect.Percent / 100.0);
                     //Debug.Log("Restore Effect :" + total);
 
                     DoEffect(this.SelfPlayer, this.SelfPlayer, total, 0, effect);
