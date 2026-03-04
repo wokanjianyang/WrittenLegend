@@ -97,11 +97,12 @@ namespace Game
 
         private LargeNumber CalBaseValue()
         {
-            LargeNumber m = new LargeNumber(Data.Percent);
+            double percent = Data.Percent;
+            LargeNumber m = new LargeNumber(percent);
 
             if (Data.Config.ExpertRise > 0)
             {
-                m.Add(RolePercent * Data.Config.ExpertRise / 100.0);
+                percent += RolePercent * Data.Config.ExpertRise / 100;
             }
 
             if (Data.Config.SourceAttr == -1)
@@ -110,11 +111,11 @@ namespace Game
             }
             else if (Data.Config.SourceAttr == 0)
             {
-                m.Mul(SelfPlayer.HP).Div(100); //TODO
+                m = new LargeNumber(SelfPlayer.HP).Mul(percent / 100.0); //TODO
             }
             else if (Data.Config.SourceAttr >= 1)
             {
-                m.Mul(SelfPlayer.AttributeBonus.GetTotalAttrLarge((AttributeEnum)Data.Config.SourceAttr)).Div(100);
+                m = new LargeNumber(SelfPlayer.AttributeBonus.GetTotalAttrLarge((AttributeEnum)Data.Config.SourceAttr)).Mul(percent / 100.0);
             }
 
             return m;

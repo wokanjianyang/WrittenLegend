@@ -94,7 +94,10 @@ namespace Game
 
             //Debug.Log("relic2:" + relic2);
 
-            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP) * relic2);
+            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, 1 * relic2);
+            AttributeBonus.SetAttrLarge(AttributeEnum.HP, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrLarge(AttributeEnum.HP));
+            //AttributeBonus.SetAttrLarge(AttributeEnum.HP, (int)AttributeFrom.HeroPanel, new LargeNumber(1, 400));
+
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.PhyAtt));
             AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.MagicAtt));
             AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.SpiritAtt));

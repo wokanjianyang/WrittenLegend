@@ -125,11 +125,11 @@ public class Monster_Spirit : APlayer
         double attrRate = AttrRateist[this.Quality - 1]; ;
         double defRate = DefRateist[this.Quality - 1]; ;
 
-        AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, Double.Parse(config.HP) * HpRate);
-        AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, Double.Parse(config.Attr) * attrRate);
-        AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, Double.Parse(config.Attr) * attrRate);
-        AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, Double.Parse(config.Attr) * attrRate);
-        AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, Double.Parse(config.Def) * defRate);
+        AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, double.Parse(config.HP) * HpRate);
+        AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, double.Parse(config.Attr) * attrRate);
+        AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, double.Parse(config.Attr) * attrRate);
+        AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, double.Parse(config.Attr) * attrRate);
+        AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, double.Parse(config.Def) * defRate);
 
         AttributeBonus.SetAttr(AttributeEnum.DamageIncrea, AttributeFrom.HeroBase, config.DamageIncrea);
         AttributeBonus.SetAttr(AttributeEnum.DamageResist, AttributeFrom.HeroBase, config.DamageResist);

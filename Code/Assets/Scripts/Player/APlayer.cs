@@ -78,7 +78,7 @@ namespace Game
 
         //private Dictionary<int, int> SkillUseRoundCache = new Dictionary<int, int>();
 
-        public void ChangeMaxHp(int fromId, double total)
+        public void ChangeMaxHp(int fromId, double risePercent)  //盾的比例
         {
             LargeNumber rate = new LargeNumber(this.HP.data, this.HP.size);
             LargeNumber PreMaxHp = this.AttributeBonus.GetTotalAttrLarge(AttributeEnum.HP);
@@ -87,12 +87,12 @@ namespace Game
             //Debug.Log("rate:" + rate);
             //Debug.Log("effect maxHp Rate:" + total);
 
-            this.AttributeBonus.SetAttr(AttributeEnum.PanelHp, fromId, total);
+            this.AttributeBonus.SetAttr(AttributeEnum.PanelHp, fromId, risePercent);
 
             LargeNumber CurrentMaxHp = this.AttributeBonus.GetTotalAttrLarge(AttributeEnum.HP);
             //Debug.Log("CurrentMaxHp:" + CurrentMaxHp);
             CurrentMaxHp.Mul(rate);
-            //Debug.Log("effect MaxHp:" + StringHelper.FormatNumber(currentHp));
+            //Debug.Log("effect MaxHp:" + CurrentMaxHp.FormatUnit());
             this.SetHP(CurrentMaxHp);
 
             this.EventCenter.Raise(new SetPlayerHPEvent { });

@@ -83,10 +83,10 @@ namespace Game
                 return;
             }
 
-            if (SelfPlayer.Camp == PlayerType.Hero)
-            {
-                Debug.Log($"{(this.SelfPlayer.Name)} 受到伤害:{(dr.DamageLg.FormatUnit())}");
-            }
+            //if (SelfPlayer.Camp == PlayerType.Hero)
+            //{
+            //    Debug.Log($"{(this.SelfPlayer.Name)} 受到伤害:{(dr.DamageLg.FormatUnit())}");
+            //}
 
             LargeNumber totalDamage = new LargeNumber(dr.DamageLg.data, dr.DamageLg.size).Add(dr.ExtendDamageLg);
 
@@ -132,10 +132,10 @@ namespace Game
                 this.SelfPlayer.HP.SetZero();
             }
 
-            if (SelfPlayer.Camp == PlayerType.Hero)
-            {
-                Debug.Log($"{(this.SelfPlayer.Name)} 现在血量:{(this.SelfPlayer.HP.FormatUnit())}");
-            }
+            //if (SelfPlayer.Camp == PlayerType.Hero)
+            //{
+            //    Debug.Log($"{(this.SelfPlayer.Name)} 现在血量:{(this.SelfPlayer.HP.FormatUnit())}");
+            //}
 
             if ((this.SelfPlayer.Camp == PlayerType.Enemy && GameProcessor.Inst.User.ShowMonsterDamage)
              || (this.SelfPlayer.Camp != PlayerType.Enemy && GameProcessor.Inst.User.ShowPlayerEffect))
