@@ -193,18 +193,19 @@ namespace Game
             }
 
 
-            if (this.size >= 307)
+            if (this.size >= 300)
             {
-                return double.MaxValue;
+                return 1E300;
             }
 
-            string text = this.data + (this.size>=0? "E+":"E") + this.size;
+            string text = this.data + "E" + this.size;
 
             try
             {
                 return Convert.ToDouble(text);
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 Debug.Log("Error text:" + text);
             }
 
