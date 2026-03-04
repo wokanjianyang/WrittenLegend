@@ -58,7 +58,14 @@ namespace Game
             double riseShatterError = 1;
             double riseShatter = 1;
 
+            double RiseRate55 = 1;
+
             if (Progeress >= 55000)
+            {
+                RiseRate55 = 1 * Math.Pow(1.01, Progeress - 55000);
+            }
+
+            if (Progeress >= 60000)
             {
                 riseRate *= 1E30; //守关难度关卡，开新难度去掉
             }
@@ -139,10 +146,10 @@ namespace Game
             double shatter = 10000;
 
 
-            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp * riseHpRate);
-            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr * riseRate);
-            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr * riseRate);
-            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr * riseRate);
+            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp * riseHpRate * RiseRate55);
+            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr * riseRate * RiseRate55);
+            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr * riseRate * RiseRate55);
+            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr * riseRate * RiseRate55);
             AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, def * riseRate);
 
             AttributeBonus.SetAttr(AttributeEnum.DamageIncrea, AttributeFrom.HeroBase, Progeress * 0.1);
@@ -150,7 +157,7 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.CritRate, AttributeFrom.HeroBase, Progeress * 0.05);
             AttributeBonus.SetAttr(AttributeEnum.CritDamage, AttributeFrom.HeroBase, Progeress * 0.1);
 
-            AttributeBonus.SetAttr(AttributeEnum.Accuracy, AttributeFrom.HeroBase, riseAccuracy + Progeress * 0.005);
+            AttributeBonus.SetAttr(AttributeEnum.Accuracy, AttributeFrom.HeroBase, riseAccuracy + Progeress * 0.01);
             AttributeBonus.SetAttr(AttributeEnum.Miss, AttributeFrom.HeroBase, riseMiss + Progeress * 0.005);
 
             AttributeBonus.SetAttr(AttributeEnum.Protect, AttributeFrom.HeroBase, 90);
@@ -158,20 +165,20 @@ namespace Game
 
             if (this.Progeress > 40000)
             {
-                AttributeBonus.SetAttr(AttributeEnum.MulAttr, AttributeFrom.HeroBase, mulAtt * riseMulAttr);
+                AttributeBonus.SetAttr(AttributeEnum.MulDamageIncrea, AttributeFrom.HeroBase, mulAtt * riseMulAttr);
             }
             if (this.Progeress > 45000)
             {
-                AttributeBonus.SetAttr(AttributeEnum.Parry, AttributeFrom.HeroBase, parray * riseParry);
+                AttributeBonus.SetAttr(AttributeEnum.Parry, AttributeFrom.HeroBase, parray * riseParry * RiseRate55);
                 strong = strong / (1 + 100 * riseShatterError);
             }
             if (this.Progeress > 35000)
             {
-                AttributeBonus.SetAttr(AttributeEnum.Strong, AttributeFrom.HeroBase, strong);
+                AttributeBonus.SetAttr(AttributeEnum.Strong, AttributeFrom.HeroBase, strong * RiseRate55);
             }
             if (this.Progeress >= 50000)
             {
-                AttributeBonus.SetAttr(AttributeEnum.Shatter, AttributeFrom.HeroBase, shatter * riseShatter);
+                AttributeBonus.SetAttr(AttributeEnum.Shatter, AttributeFrom.HeroBase, shatter * riseShatter * RiseRate55);
             }
 
             //回满当前血量
