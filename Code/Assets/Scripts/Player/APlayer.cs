@@ -331,9 +331,8 @@ namespace Game
         public void AutoRestore()
         {
             //回血
-            double restoreHp = AttributeBonus.GetAttackAttr(AttributeEnum.RestoreHp) +
-                 AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP) / 100.0 * AttributeBonus.GetAttackAttr(AttributeEnum.RestoreHpPercent);
-            if (restoreHp > 0)
+            LargeNumber restoreHp = AttributeBonus.GetTotalAttrLarge(AttributeEnum.HP).Div(AttributeBonus.GetAttackAttr(AttributeEnum.RestoreHpPercent) / 100.0).Add(AttributeBonus.GetAttackAttr(AttributeEnum.RestoreHp));
+            if (restoreHp.Compare(0) == 1)
             {
                 this.OnRestore(this.ID, restoreHp);
             }
@@ -431,12 +430,12 @@ namespace Game
             return 1f;
         }
 
-        public void RunEffect(APlayer attchPlayer, EffectData effectData, double damage, long rolePercent)
+        public void RunEffect(APlayer attchPlayer, EffectData effectData, LargeNumber damage, long rolePercent)
         {
             Effect effect = new Effect(this, effectData, damage, rolePercent, 0);
             effect.Do(1f);
         }
-        public void AddEffect(APlayer attchPlayer, EffectData effectData, double damage, long rolePercent)
+        public void AddEffect(APlayer attchPlayer, EffectData effectData, LargeNumber damage, long rolePercent)
         {
             if (!EffectMap.TryGetValue(effectData.FromId, out List<Effect> list))
             {
@@ -567,7 +566,7 @@ namespace Game
             this.Logic.OnDamage(dr);
         }
 
-        public void OnRestore(int fromId, double hp)
+        public void OnRestore(int fromId, LargeNumber hp)
         {
             if (this.RuleType == RuleType.Infinite && this.Camp == PlayerType.Enemy) //无尽的怪不能回血
             {

@@ -44,7 +44,7 @@ public class Defend : APlayer
 
     public override float DoEvent()
     {
-        this.OnRestore(0, 1);
+        this.OnRestore(0, new LargeNumber(1));
         return AttckSpeed;
     }
 

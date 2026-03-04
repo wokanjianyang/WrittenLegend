@@ -9,7 +9,7 @@ namespace Game
         public APlayer SelfPlayer { get; }
         public EffectData Data { get; }
         public int FromId { get; }
-        public double Damage { get; set; }
+        public LargeNumber Damage { get; set; }
         public long RolePercent { get; set; }
 
         public int UID { get; private set; }
@@ -30,12 +30,12 @@ namespace Game
 
         public bool Active = true;
 
-        public Effect(APlayer player, EffectData effectData, double damage, long rolePercent, int layer)
+        public Effect(APlayer player, EffectData effectData, LargeNumber damage, long rolePercent, int layer)
         {
             this.SelfPlayer = player;
             this.Data = effectData;
 
-            this.Damage = damage;
+            this.Damage = new LargeNumber(damage);
             this.RolePercent = rolePercent;
 
             this.FromId = Data.FromId;
@@ -95,26 +95,26 @@ namespace Game
             //Debug.Log("Do Effect:" + TotalTime);
         }
 
-        private double CalBaseValue()
+        private LargeNumber CalBaseValue()
         {
-            double m = Data.Percent;
+            LargeNumber m = new LargeNumber(Data.Percent);
 
             if (Data.Config.ExpertRise > 0)
             {
-                m += RolePercent * Data.Config.ExpertRise / 100;
+                m.Add(RolePercent * Data.Config.ExpertRise / 100.0);
             }
 
             if (Data.Config.SourceAttr == -1)
             {
-                m = Damage;
+                m = new LargeNumber(Damage);
             }
             else if (Data.Config.SourceAttr == 0)
             {
-                m = m * SelfPlayer.HP.ConvertToDouble() / 100; //TODO
+                m.Mul(SelfPlayer.HP).Div(100); //TODO
             }
             else if (Data.Config.SourceAttr >= 1)
             {
-                m = m * SelfPlayer.AttributeBonus.GetTotalAttr((AttributeEnum)Data.Config.SourceAttr) / 100;
+                m.Mul(SelfPlayer.AttributeBonus.GetTotalAttrLarge((AttributeEnum)Data.Config.SourceAttr)).Div(100);
             }
 
             return m;
@@ -122,7 +122,7 @@ namespace Game
 
         private void DamageAndRestore()
         {
-            double hp = CalBaseValue();
+            LargeNumber hp = CalBaseValue();
 
             if (Data.Config.CalType > 0) //回血
             {
@@ -130,13 +130,13 @@ namespace Game
             }
             else //伤害
             {
-                SelfPlayer.OnHit(new DamageResult(hp, 0, MsgType.Damage, RoleType.All, 0));
+                SelfPlayer.OnHit(new DamageResult(hp, new LargeNumber(0), MsgType.Damage, RoleType.All, 0));
             }
         }
 
         private void ChangeAttr()
         {
-            double attr = CalBaseValue() * Data.Config.CalType;
+            double attr = CalBaseValue().ConvertToDouble() * Data.Config.CalType;
 
             if (RunCount == 1) //第一次增加属性
             {

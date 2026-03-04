@@ -556,23 +556,6 @@ namespace Game
 
     public class DamageResult
     {
-        public DamageResult(double damage, double extendDamage, MsgType type, RoleType roleType, int skillId)
-        {
-            this.DamageLg = new LargeNumber(damage);
-            this.ExtendDamageLg = new LargeNumber(extendDamage);
-            this.Type = type;
-            this.RoleType = roleType;
-            this.SkillId = skillId;
-        }
-
-        //public DamageResult(int formId, double damage, MsgType type, RoleType roleType)
-        //{
-        //    this.FromId = formId;
-        //    this.Damage = damage;
-        //    this.Type = type;
-        //    this.RoleType = roleType;
-        //}
-
         public DamageResult(LargeNumber damage, LargeNumber extendDamage, MsgType type, RoleType roleType, int skillId)
         {
             this.DamageLg = damage;

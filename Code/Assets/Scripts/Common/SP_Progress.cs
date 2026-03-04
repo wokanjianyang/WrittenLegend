@@ -42,7 +42,7 @@ namespace Game
 
         public void SetProgress(LargeNumber current, LargeNumber total)
         {
-            double value = current.Mul(total).ConvertToDouble();
+            double value = new LargeNumber(current.data, current.size).Div(total).ConvertToDouble();
             if (value > 1)
             {
                 value = 1f;

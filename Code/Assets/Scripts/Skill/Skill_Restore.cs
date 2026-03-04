@@ -30,11 +30,11 @@ namespace Game
             {
                 var teamer = GameProcessor.Inst.PlayerManager.GetPlayer(attackData.Tid);
 
-                var hp = CalcFormula();
+                LargeNumber hp = CalcFormula();
 
                 if (teamer.Camp == PlayerType.Defend)
                 {
-                    hp = 10;
+                    hp = new LargeNumber(0);
                 }
 
                 teamer.OnRestore(attackData.Tid, hp);
@@ -53,7 +53,7 @@ namespace Game
             }
         }
 
-        public double CalcFormula()
+        public LargeNumber CalcFormula()
         {
             //恢复不计暴击增伤幸运等
             int role = SkillPanel.SkillData.SkillConfig.Role;
@@ -63,7 +63,7 @@ namespace Game
             //技能系数
             double attack = roleAttr * (SkillPanel.Percent + SelfPlayer.GetRolePercent(role)) / 100 + SkillPanel.Damage + SelfPlayer.GetRoleDamage(role);  // *百分比系数 + 固定数值
 
-            return attack;
+            return new LargeNumber(attack);
         }
 
         public List<AttackData> GetAllTargets()

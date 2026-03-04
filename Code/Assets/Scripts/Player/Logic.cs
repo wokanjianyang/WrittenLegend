@@ -197,7 +197,7 @@ namespace Game
             yield return null;
         }
 
-        public void OnRestore(double hp)
+        public void OnRestore(LargeNumber hp)
         {
             LargeNumber currentHP = this.SelfPlayer.HP;
 
@@ -231,7 +231,7 @@ namespace Game
             this.SelfPlayer.EventCenter.Raise(new ShowMsgEvent
             {
                 Type = MsgType.Restore,
-                Content = StringHelper.FormatNumber(hp)
+                Content = hp.FormatUnit()
             });
             this.SelfPlayer.EventCenter.Raise(new SetPlayerHPEvent { });
         }

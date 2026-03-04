@@ -52,11 +52,11 @@ namespace Game
 
             if (data.Duration > 0)
             {  //持续Buff
-                effectTarget.AddEffect(effectTarget, data, damage.ConvertToDouble(), rolePercent);
+                effectTarget.AddEffect(effectTarget, data, damage, rolePercent);
             }
             else
             {
-                effectTarget.RunEffect(effectTarget, data, damage.ConvertToDouble(), rolePercent);
+                effectTarget.RunEffect(effectTarget, data, damage, rolePercent);
             }
         }
         public void SetParent(APlayer player)

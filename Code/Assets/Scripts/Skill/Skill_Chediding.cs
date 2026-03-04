@@ -53,8 +53,8 @@ namespace Game
                         }
                     }
 
-                    double dm = baseDr.DamageLg.ConvertToDouble() * 0.2 * SkillPanel.Percent;
-                    double edm = baseDr.ExtendDamageLg.ConvertToDouble() * 0.2 * SkillPanel.Percent;
+                    LargeNumber dm = new LargeNumber(baseDr.DamageLg).Mul(0.2 * SkillPanel.Percent);
+                    LargeNumber edm = new LargeNumber(baseDr.ExtendDamageLg).Mul(0.2 * SkillPanel.Percent);
 
                     //Debug.Log("dm:" + StringHelper.FormatNumber(dm) + "  edm:" + StringHelper.FormatNumber(edm));
 
