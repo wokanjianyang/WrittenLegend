@@ -254,6 +254,12 @@ namespace Game
 
         private LargeNumber ReExponent()
         {
+            if (this.data == 0)
+            {
+                this.size = 0;
+                return this;
+            }
+
             if (this.data > 10 || (this.data < 1 && this.data > 0))
             {
                 string text = this.data.ToString("E");

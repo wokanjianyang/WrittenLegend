@@ -331,7 +331,8 @@ namespace Game
         public void AutoRestore()
         {
             //回血
-            LargeNumber restoreHp = AttributeBonus.GetTotalAttrLarge(AttributeEnum.HP).Div(AttributeBonus.GetAttackAttr(AttributeEnum.RestoreHpPercent) / 100.0).Add(AttributeBonus.GetAttackAttr(AttributeEnum.RestoreHp));
+            LargeNumber restoreHp = AttributeBonus.GetTotalAttrLarge(AttributeEnum.HP).Mul(AttributeBonus.GetAttackAttr(AttributeEnum.RestoreHpPercent)).Div(100.0).Add(AttributeBonus.GetAttackAttr(AttributeEnum.RestoreHp));
+
             if (restoreHp.Compare(0) == 1)
             {
                 this.OnRestore(this.ID, restoreHp);

@@ -209,11 +209,14 @@ namespace Game
 
             LargeNumber maxHp = this.SelfPlayer.AttributeBonus.GetTotalAttrLarge(AttributeEnum.HP);
 
-            if (maxHp.Compare(currentHP) == 1)
+            if (maxHp.Compare(currentHP) <= 0)
             {
-                //满血不回复
+                //Debug.Log("满血不回复：" + maxHp + " " + currentHP + " " + maxHp.Compare(currentHP));
+                //
                 return;
             }
+
+            //Debug.Log("恢复血量：" + hp.FormatUnit() + " " + hp);
 
             currentHP.Add(hp);
             if (maxHp.Compare(currentHP) == -1)
