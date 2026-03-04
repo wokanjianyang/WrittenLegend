@@ -113,7 +113,7 @@ namespace Game
                         {
                             if (effect.Config.Priority < 0)
                             {
-                                DoEffect(enemy, this.SelfPlayer, 0, 0, effect);
+                                DoEffect(enemy, this.SelfPlayer, effect);
                             }
                         }
 
@@ -123,7 +123,7 @@ namespace Game
                             {
                                 if (effect.Config.Priority < 0)
                                 {
-                                    DoEffect(enemy, this.SelfPlayer, 0, 0, effect);
+                                    DoEffect(enemy, this.SelfPlayer, effect);
                                     //Debug.Log("Run Ring Effect:" + effect.Config.Name);
                                 }
                             }

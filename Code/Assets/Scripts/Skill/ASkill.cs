@@ -39,6 +39,11 @@ namespace Game
             return Math.Abs(from.x - to.x) + Math.Abs(from.y - to.y);
         }
 
+        public void DoEffect(APlayer enemy, APlayer self, EffectData data)
+        {
+            this.DoEffect(enemy, self, 0, 0, data);
+        }
+
         public void DoEffect(APlayer enemy, APlayer self, double damage, long rolePercent, EffectData data)
         {
             EffectConfig config = data.Config;

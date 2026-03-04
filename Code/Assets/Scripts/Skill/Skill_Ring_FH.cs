@@ -26,7 +26,7 @@ namespace Game
 
             foreach (EffectData effect in SkillPanel.EffectIdList.Values)
             {
-                DoEffect(this.SelfPlayer, this.SelfPlayer, 0, 0, effect);
+                DoEffect(this.SelfPlayer, this.SelfPlayer, effect);
             }
 
             double percent = this.SkillPanel.Percent;
