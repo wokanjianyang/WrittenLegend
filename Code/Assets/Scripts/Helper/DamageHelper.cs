@@ -322,7 +322,7 @@ namespace Game
                 //Debug.Log("relic5:" + relic5 + "  rise:" + (speed * relic5 + 100) / 100);
             }
 
-            double protect = enemy.GetAttackAttr(AttributeEnum.Protect);
+            double protect = Math.Min(enemy.GetAttackAttr(AttributeEnum.Protect), 100);
             lg.Mul((100 - protect) / 100.0);
 
             MsgType type = isCrit ? MsgType.Crit : MsgType.Damage;
@@ -337,8 +337,12 @@ namespace Game
                 //Debug.Log("maxHp:" + StringHelper.FormatNumber(maxHp) + " extendDamage:" + StringHelper.FormatNumber(extendDamage));
             }
 
-
             //Debug.Log("attack:" + StringHelper.FormatNumber(attack));
+            if (lg.Compare(1) <= 0)
+            {
+                //Debug.Log("伤害小于1:" + lg);
+                lg = new LargeNumber(1);
+            }
 
             //强制最少1点伤害
             return new DamageResult(lg, extendDamageLg, type, (RoleType)role, skill.SkillId); //

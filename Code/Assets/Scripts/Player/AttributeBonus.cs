@@ -252,7 +252,7 @@ namespace Game
 
             if (LargeDict.ContainsKey(attrType))
             {
-                if ((int)attrType < 2001)
+                if ((int)attrType < -999999)
                 {
                     foreach (LargeNumber val in LargeDict[attrType].Values)
                     {

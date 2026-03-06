@@ -153,7 +153,7 @@ namespace Game
             int role = SkillPanel.SkillData.SkillConfig.Role;
 
             double roleAttr = Master.GetRoleAttack(role, false); //Ö°Òµ¹¥»÷
-            double roleHp = Master.AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP);
+            LargeNumber roleHp = Master.AttributeBonus.GetTotalAttrLarge(AttributeEnum.HP);
             double roleDef = Master.AttributeBonus.GetAttackDoubleAttr(AttributeEnum.Def);
 
             //Debug.Log("base attr " + roleAttr + " roleHp" + roleHp + "def " + roleDef);
@@ -175,7 +175,9 @@ namespace Game
             //Debug.Log("valet InheritAdvance:" + InheritAdvance);
 
             this.AttributeBonus = new AttributeBonus();
-            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, roleHp * valteHp * InheritIncrea * InheritAdvance * skillRate * ModelConfig.HpRate / 100.0);
+            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, valteHp * InheritIncrea * InheritAdvance * skillRate * ModelConfig.HpRate / 100.0);
+            AttributeBonus.SetAttrLarge(AttributeEnum.HP, AttributeFrom.HeroPanel, roleHp);
+
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroPanel, roleAttr * InheritIncrea * InheritAdvance * skillRate * ModelConfig.AttrRate / 100.0);
             AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroPanel, roleAttr * InheritIncrea * InheritAdvance * skillRate * ModelConfig.AttrRate / 100.0);
             AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroPanel, roleAttr * InheritIncrea * InheritAdvance * skillRate * ModelConfig.AttrRate / 100.0);

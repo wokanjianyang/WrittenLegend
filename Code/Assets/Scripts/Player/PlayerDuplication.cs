@@ -68,7 +68,8 @@ namespace Game
                 //Debug.Log("dupulication myth PhyAtt:" + phyAtt);
             }
 
-            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
+            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, 1);
+            AttributeBonus.SetAttrLarge(AttributeEnum.HP, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrLarge(AttributeEnum.HP));
 
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroPanel, phyAtt * 0.5);
             AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroPanel, magicAtt * rate);
