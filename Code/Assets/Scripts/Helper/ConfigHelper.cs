@@ -18,7 +18,7 @@ namespace Game
 
         public const int Channel_Tap = 1;
 
-        public const int Version = 432;
+        public const int Version = 431;
 
         public const long PackTime = 1772087412; //打包时间，防止作弊
 
@@ -117,7 +117,7 @@ namespace Game
 
         public const int Mine_Time = 60;
 
-        public const int Infinit_Max = 6500;
+        public const int Infinit_Max = 7000;
 
         public static string[] RoleName = { "战士", "法师", "道士" };
         public static string[] PetName = { "战魂", "法魂", "道魂" };
