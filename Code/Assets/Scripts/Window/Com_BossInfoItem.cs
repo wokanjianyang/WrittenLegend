@@ -7,11 +7,12 @@ using UnityEngine.UI;
 
 public class Com_BossInfoItem : MonoBehaviour
 {
-    public Text txt_BossName;
+
     public Text txt_MapName;
-    public Text txt_Time;
+    public Text txt_Info;
     //public Text txt_MapName;
 
+    public Text txt_BossName;
     public Button btn_Start;
     public Text txt_Start;
 
@@ -22,7 +23,6 @@ public class Com_BossInfoItem : MonoBehaviour
     void Start()
     {
         btn_Start.gameObject.SetActive(true);
-        txt_Time.gameObject.SetActive(false);
 
         btn_Start.onClick.AddListener(OnClick_NavigateMap);
     }
@@ -57,7 +57,7 @@ public class Com_BossInfoItem : MonoBehaviour
         txt_MapName.text = mapConfig.Name;
         if (mapConfig.Memo != "")
         {
-            txt_MapName.text += "(" + mapConfig.Memo + ")";
+            txt_Info.text = "(" + mapConfig.Memo + ")";
         }
 
         txt_BossName.text = mapConfig.LevelRequired + "";
