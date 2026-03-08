@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Game.Data;
 
 public class BattleRule_Legacy : ABattleRule
 {
@@ -45,17 +46,65 @@ public class BattleRule_Legacy : ABattleRule
 
         User user = GameProcessor.Inst.User;
 
-        if (checkAuto())
+        if (AppHelper.LegacyAuto)  //每次死怪，自动换最低分的图
         {
-            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Legacy, Message = "当前积分已经达标，或者阶数已满，自动停止挑战！" });
-            Start = false;
-            return;
-        }
+            long[] powerList = new long[] { 0, 0, 0 };
 
+            foreach (KeyValuePair<int, MagicData> kv in user.LegacyLayer)
+            {
+                LegacyConfig legacy = LegacyConfigCategory.Instance.Get(kv.Key);
+
+                for (int i = 0; i < legacy.PowerList.Length; i++)
+                {
+                    powerList[i] += kv.Value.Data * legacy.PowerList[i];
+                }
+            }
+
+            int index = 1;
+            if (powerList[0] > powerList[1])
+            {
+                index = 2;
+            }
+            if (powerList[1] > powerList[2])
+            {
+                index = 3;
+            }
+
+            LegacyMapConfig Config = LegacyMapConfigCategory.Instance.Get(index);
+            int layer = (int)Config.CalMaxLayer(powerList, user.GetArtifactValue(ArtifactType.LegacyLimit));
+            //Debug.Log("Legacy Map-" + index + " power:" + powerList[index] + " Layer :" + layer + " currentLayer:" + this.Layer);
+
+            //自动切换到最低分的副本
+
+            if (this.MapId != index || this.Layer != layer)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Legacy, Message = "自动切换到最低分数的（" + Config.Name + "-" + layer + "）" });
+                this.MapId = index;
+                this.Layer = layer;
+            }
+
+            if (this.Layer >= ConfigHelper.Max_Legacy_Level + user.GetArtifactValue(ArtifactType.LegacyLimit))
+            {
+                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Legacy, Message = "阶数已满，自动停止挑战！" });
+
+                Start = false;
+                return;
+            }
+        }
+        else
+        {
+            if (checkAuto())
+            {
+                GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Legacy, Message = "当前积分已经达标，或者阶数已满，自动停止挑战！" });
+
+                Start = false;
+                return;
+            }
+        }
 
         long LecacyCount = user.LegacyTikerCount.Data;
 
-        GameProcessor.Inst.EventCenter.Raise(new ShowLegacyInfoEvent() { Count = LecacyCount });
+        GameProcessor.Inst.EventCenter.Raise(new ShowLegacyInfoEvent() { MapId = this.MapId, Layer = this.Layer, Count = LecacyCount });
 
         if (LecacyCount > 0)
         {

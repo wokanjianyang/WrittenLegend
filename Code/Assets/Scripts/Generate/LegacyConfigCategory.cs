@@ -40,7 +40,7 @@ namespace Game
 
             int rd = RandomHelper.RandomNumber(1, 101);
 
-            layer = Math.Min(layer * 5, 33);
+            layer = Math.Min(layer * 5, 35);
 
             if (rd <= 40 - layer)
             {

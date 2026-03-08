@@ -90,11 +90,15 @@ namespace Game
 
         public bool EquipHundunSetting { get; set; } = false;
 
+        public bool EquipXuwuSetting { get; set; } = false;
+
         public int EquipGoldenIndex { get; set; } = 0;
 
         public int EquipDarkGoldIndex { get; set; } = 0;
 
         public int EquipHundunIndex { get; set; } = 0;
+
+        public int EquipXuwuIndex { get; set; } = 0;
 
         public int SkillPanelIndex { get; set; } = 0;
 

@@ -66,6 +66,9 @@ public class MapLegacy : MonoBehaviour, IBattleLife
 
     public void OnShowInfo(ShowLegacyInfoEvent e)
     {
+        LegacyMapConfig mapConfig = LegacyMapConfigCategory.Instance.Get(e.MapId);
+
+        Txt_Name.text = mapConfig.Name + "(" + e.Layer + "½×)";
         Txt_Count.text = "Ê£ÓàÌôÕ½´ÎÊý£º" + e.Count;
     }
 

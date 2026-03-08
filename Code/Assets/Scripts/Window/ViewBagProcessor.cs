@@ -54,6 +54,7 @@ namespace Game
         public Button btn_Equip_Golden;
         public Button btn_Equip_Dark_Gold;
         public Button btn_Equip_Hundun;
+        public Button btn_Equip_Xuwu;
         public Button btn_Relic;
 
 
@@ -69,6 +70,7 @@ namespace Game
         public Dialog_EquipGolden DialogEquipGolden;
         public Dialog_Equip_Dark_Gold DialogEquipDarkGold;
         public Dialog_Equip_Hundun DialogEquipHundun;
+        public Dialog_Equip_Xuwu DialogEquipXuwu;
         public Dialog_Shengxiao_Panel DialogShengxiaoPanel;
 
         private List<Com_Box> items = new List<Com_Box>();
@@ -103,6 +105,7 @@ namespace Game
             this.btn_Equip_Golden.onClick.AddListener(OnOpenEquipGolden);
             this.btn_Equip_Dark_Gold.onClick.AddListener(OnOpenEquipDarkGold);
             this.btn_Equip_Hundun.onClick.AddListener(OnOpenEquipHundun);
+            this.btn_Equip_Xuwu.onClick.AddListener(OnOpenEquipXuwu);
             this.btn_Talent.onClick.AddListener(OnOpenTalent);
             this.btn_Relic.onClick.AddListener(OnOpenRelic);
             this.btn_Shengxiao.onClick.AddListener(OnOpenShengxiao);
@@ -190,6 +193,15 @@ namespace Game
             else
             {
                 this.btn_Equip_Hundun.gameObject.SetActive(false);
+            }
+
+            if (user.MapId >= 1210 && !ac)
+            {
+                this.btn_Equip_Xuwu.gameObject.SetActive(true);
+            }
+            else
+            {
+                this.btn_Equip_Xuwu.gameObject.SetActive(false);
             }
 
             if (user.Cycle.Data > 0 || user.MagicLevel.Data >= 50000 || user.PetList.Count > 0)
@@ -301,12 +313,18 @@ namespace Game
             }
 
             List<SlotBox> hunduns = DialogEquipHundun.GetComponentsInChildren<SlotBox>().ToList();
-            for (int i = 0; i < dgds.Count; i++)
+            for (int i = 0; i < hunduns.Count; i++)
             {
                 hunduns[i].Init(prefab, 41 + i);
                 yield return null;
             }
 
+            List<SlotBox> xuwus = DialogEquipXuwu.GetComponentsInChildren<SlotBox>().ToList();
+            for (int i = 0; i < xuwus.Count; i++)
+            {
+                xuwus[i].Init(prefab, 51 + i);
+                yield return null;
+            }
 
             foreach (var kvEp in user.EquipPanelList)
             {
@@ -1980,6 +1998,11 @@ namespace Game
         public void OnOpenEquipHundun()
         {
             DialogEquipHundun.Show();
+        }
+
+        public void OnOpenEquipXuwu()
+        {
+            DialogEquipXuwu.Show();
         }
 
         public void OnOpenTalent()

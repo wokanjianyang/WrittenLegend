@@ -35,6 +35,9 @@ namespace Game
 
         public static bool Spirit_Auto = false;
         public static int Spirit_Id = 1;
+
+        public static bool LegacyAuto = true;
+
         public static int GetLossQuality()
         {
             //如果次数少于500次，则品质-1

@@ -483,6 +483,9 @@ namespace Game
 
     public class ShowLegacyInfoEvent : SDD.Events.Event
     {
+        public int MapId { get; set; }
+
+        public int Layer { get; set; }
         public long Count { get; set; }
     }
 

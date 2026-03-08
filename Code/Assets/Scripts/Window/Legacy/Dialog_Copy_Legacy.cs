@@ -13,6 +13,8 @@ public class Dialog_Copy_Legacy : MonoBehaviour
     public Button Btn_Close;
     public Button Btn_Info;
 
+    public Toggle toggle_Auto;
+
     public List<Item_Copy_Legacy> ItemList;
 
     public int Order => (int)ComponentOrder.Dialog;
@@ -22,6 +24,11 @@ public class Dialog_Copy_Legacy : MonoBehaviour
     {
         this.Btn_Close.onClick.AddListener(OnClick_Close);
         this.Btn_Info.onClick.AddListener(OnClick_Info);
+
+        toggle_Auto.onValueChanged.AddListener((isOn) =>
+        {
+            AppHelper.LegacyAuto = isOn;
+        });
 
         this.Init();
     }
