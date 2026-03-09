@@ -166,6 +166,39 @@ namespace Game
 
             return null;
         }
+
+
+        public SkillRuneConfig GeEquipRuneCycle6(int quality, int role, int seed)
+        {
+            List<SkillRuneConfig> tempList = this.list.Where(m => (m.Role == role) && m.Type == 6 && m.StartQuality <= quality && quality <= m.EndQuality).ToList();
+
+            if (tempList.Count == 0)
+            {
+                //如果品质不匹配，则使用低级的词条
+                tempList = this.list.Where(m => (m.Role == role) && m.Type == 1).ToList();
+            }
+
+            if (tempList.Count == 1)
+            {
+                return tempList[0];
+            }
+
+            int maxRate = tempList.Select(m => m.EquipRate).Sum();
+            int rd = RandomHelper.RandomNumber(seed, 1, maxRate + 1);
+
+            int tempRate = 0;
+            for (int i = 0; i < tempList.Count; i++)
+            {
+                tempRate += tempList[i].EquipRate;
+
+                if (rd <= tempRate)
+                {
+                    return tempList[i];
+                }
+            }
+
+            return null;
+        }
     }
 
 

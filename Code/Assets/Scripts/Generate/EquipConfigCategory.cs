@@ -200,7 +200,7 @@ namespace Game
 
             if (quality > 2)
             {
-                SkillRuneConfig runeConfig = SkillRuneConfigCategory.Instance.GeEquipRuneCycle5(quality, config.Role, seed);
+                SkillRuneConfig runeConfig = SkillRuneConfigCategory.Instance.GeEquipRuneCycle6(quality, config.Role, seed);
 
                 runeId = runeConfig.Id;
 
