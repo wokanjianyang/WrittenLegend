@@ -52,6 +52,11 @@ namespace Game
         public Toggle tg_Equip_Keep_Hundun;
         public InputField if_Equip_Total_Hundun;
 
+        [Title("虚无装备")]
+        public Dropdown dp_Equip_Recovery_Xuwu;
+        public Toggle tg_Equip_Keep_Xuwu;
+        public InputField if_Equip_Total_Xuwu;
+
         [Title("普通专属")]
         public Dropdown dp_Exclusive_Keep;
         public Dropdown dp_Exclusive_Recovery;
@@ -142,6 +147,10 @@ namespace Game
             //混沌装备
             dp_Equip_Recovery_Hundun.ClearOptions();
             dp_Equip_Recovery_Hundun.AddOptions(new List<string>() { "无", "白色", "绿色", "蓝色", "紫色", "橙色", "红色", "金色", "暗金" }); //, "混沌"
+
+            //虚无装备
+            dp_Equip_Recovery_Xuwu.ClearOptions();
+            dp_Equip_Recovery_Xuwu.AddOptions(new List<string>() { "无", "白色", "绿色", "蓝色", "紫色", "橙色", "红色", "金色", "暗金", "粉色" }); //, "混沌"
 
             //专属
             dp_Exclusive_Keep.ClearOptions();
@@ -234,6 +243,11 @@ namespace Game
             tg_Equip_Keep_Hundun.isOn = setting.Equip_Hundun_Keep;
             if_Equip_Total_Hundun.text = setting.Equip_Hundun_Total.ToString();
 
+            //虚无装备
+            dp_Equip_Recovery_Xuwu.value = setting.Equip_Xuwu_Recovery;
+            tg_Equip_Keep_Xuwu.isOn = setting.Equip_Xuwu_Keep;
+            if_Equip_Total_Xuwu.text = setting.Equip_Xuwu_Total.ToString();
+
             //普通专属
             dp_Exclusive_Recovery.value = setting.Exclusive_Recovery;
             dp_Exclusive_Keep.value = setting.Exclusive_Keep;
@@ -323,6 +337,12 @@ namespace Game
             setting.Equip_Hundun_Keep = tg_Equip_Keep_Hundun.isOn;
             int.TryParse(if_Equip_Total_Hundun.text, out int equipHundunTotal);
             setting.Equip_Hundun_Total = equipHundunTotal;
+
+            //混沌装备
+            setting.Equip_Xuwu_Recovery = dp_Equip_Recovery_Xuwu.value;
+            setting.Equip_Xuwu_Keep = tg_Equip_Keep_Xuwu.isOn;
+            int.TryParse(if_Equip_Total_Xuwu.text, out int equipXuwuTotal);
+            setting.Equip_Xuwu_Total = equipXuwuTotal;
 
             //其他回收
             setting.PetQuality = dp_Pet.value;

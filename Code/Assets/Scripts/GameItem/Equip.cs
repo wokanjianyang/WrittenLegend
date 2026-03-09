@@ -387,7 +387,7 @@ namespace Game
 
         public long GetAttrRateCount()
         {
-            return AttrEntryList.Where(m => (m.Key == 2001 || m.Key == 2004 || m.Key == 2005 || m.Key == 2006 || m.Key == 2010)).Count();
+            return AttrEntryList.Where(m => (m.Key == 2001 || m.Key == 2004 || m.Key == 2005 || m.Key == 2006 || m.Key == 2010 || m.Key == 2013)).Count();
         }
 
         public int GetFull()
@@ -409,7 +409,8 @@ namespace Game
 
             }
 
-            if (full == this.AttrEntryList.Count) {
+            if (full == this.AttrEntryList.Count)
+            {
                 return 1;
             }
 

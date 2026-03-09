@@ -869,7 +869,7 @@ namespace Game
             //list.Add(ItemHelper.BuildEquip(22205802, 9, 1, 0)); //混沌道
 
             int role = 3; //战士1，法师2，道士3
-            int quality = 8; //6红，7金，8暗金，9混沌
+            int quality = 10; //6红，7金，8暗金，9混沌，10虚无
 
             //金色
             for (int i = 0; i < 1; i++)

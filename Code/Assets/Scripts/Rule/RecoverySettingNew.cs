@@ -58,6 +58,12 @@ namespace Game
 
         public int Equip_Hundun_Total { get; set; } = 0;
 
+        //虚无装备
+        public int Equip_Xuwu_Recovery { get; set; } = 0;
+        public bool Equip_Xuwu_Keep { get; set; } = false;
+
+        public int Equip_Xuwu_Total { get; set; } = 0;
+
         //普通专属
         public int Exclusive_Recovery { get; set; } = 0;
         public int Exclusive_Keep { get; set; } = 0;
@@ -315,6 +321,24 @@ namespace Game
                     }
 
                     if (quality <= Equip_Hundun_Recovery)
+                    {
+                        return true;
+                    }
+                }
+                else if (cycle == 6) {
+                    if (Equip_Xuwu_Total > 0 && equip.GetAttrRateCount() >= Equip_Xuwu_Total)
+                    {
+                        item.IsKeep = true;
+                        return false;
+                    }
+
+                    if (keepSkill && Equip_Xuwu_Keep)
+                    {
+                        item.IsKeep = true;
+                        return false;
+                    }
+
+                    if (quality <= Equip_Xuwu_Recovery)
                     {
                         return true;
                     }

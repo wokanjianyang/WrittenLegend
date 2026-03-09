@@ -27,6 +27,10 @@ namespace Game
         public const int EquipHundun_MaxCount = 8000; //混沌装备，保底数量
         public const int EquipHundun_MinRate = 100; //保底概率
 
+        public const int EquipXuwu_MaxDropId = 1000002; //混沌装备，保底id
+        public const int EquipXuwu_MaxCount = 16000; //混沌装备，保底数量
+        public const int EquipXuwu_MinRate = 200; //保底概率
+
         public static int TestExclusive2 = 0;
         public static int TestExclusive3 = 0;
 
