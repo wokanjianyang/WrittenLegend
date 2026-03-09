@@ -45,6 +45,7 @@ namespace Game
             ComBoxList.Add(Resources.Load<GameObject>("Prefab/Window/Box7"));
             ComBoxList.Add(Resources.Load<GameObject>("Prefab/Window/Box8"));
             ComBoxList.Add(Resources.Load<GameObject>("Prefab/Window/Box9"));
+            ComBoxList.Add(Resources.Load<GameObject>("Prefab/Window/Box10"));
 
             BoxSelectPrefab = Resources.Load<GameObject>("Prefab/Window/GameItem/BoxSelect");
 
@@ -61,6 +62,7 @@ namespace Game
             BoxImageList.Add(Resources.Load<Sprite>("UI/Bag/Box7"));
             BoxImageList.Add(Resources.Load<Sprite>("UI/Bag/Box8"));
             BoxImageList.Add(Resources.Load<Sprite>("UI/Bag/Box9"));
+            BoxImageList.Add(Resources.Load<Sprite>("UI/Bag/Box10"));
 
             for (int i = 1; i <= 28; i++)
             {

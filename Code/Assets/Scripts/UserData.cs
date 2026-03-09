@@ -183,6 +183,17 @@ namespace Game
                     }
                 }
 
+                if (user.EquipPanelXuwuList.Count < 7)
+                {
+                    for (int i = 0; i < 7; i++)
+                    {
+                        if (!user.EquipPanelXuwuList.ContainsKey(i))
+                        {
+                            user.EquipPanelXuwuList[i] = new Dictionary<int, Equip>();
+                        }
+                    }
+                }
+
                 if (user.ExclusivePanelList.Count < 7)
                 {
                     for (int i = 0; i < 7; i++)

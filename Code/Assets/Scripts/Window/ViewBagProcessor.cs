@@ -363,6 +363,13 @@ namespace Game
                 //yield return null;
             }
 
+            //穿戴虚无装
+            foreach (var kvp in user.EquipPanelXuwuList[user.EquipXuwuIndex])
+            {
+                this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
+                //yield return null;
+            }
+
             ////穿戴专属
             //foreach (var kvp in user.ExclusivePanelList[user.ExclusiveIndex])
             //{
@@ -703,6 +710,20 @@ namespace Game
                 }
 
                 foreach (var kvp in user.EquipPanelHundunList[e.Index])
+                {
+                    this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
+                }
+            }
+            else if (e.Type == 6)
+            {
+                user.EquipXuwuIndex = e.Index;
+
+                for (int i = 41; i <= 50; i++)
+                {
+                    this.ClearEquipPanelItem(i);
+                }
+
+                foreach (var kvp in user.EquipPanelXuwuList[e.Index])
                 {
                     this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
                 }
@@ -1517,6 +1538,10 @@ namespace Game
             {
                 ep = user.EquipPanelHundunList[user.EquipHundunIndex];
             }
+            else if (Part >= 51 && Part <= 60)
+            {
+                ep = user.EquipPanelXuwuList[user.EquipXuwuIndex];
+            }
 
             //增加一次穿戴记录，用做轮流穿戴左右
             if (!user.EquipRecord.ContainsKey(Part))
@@ -1555,6 +1580,10 @@ namespace Game
                 else if (Position >= 41 && Position <= 50)
                 {
                     slot = DialogEquipHundun.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == Position).First();
+                }
+                else if (Position >= 51 && Position <= 60)
+                {
+                    slot = DialogEquipXuwu.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == Position).First();
                 }
 
                 slot.UnEquip();
@@ -1704,6 +1733,10 @@ namespace Game
             {
                 slot = DialogEquipHundun.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
+            else if (position >= 51 && position <= 60)
+            {
+                slot = DialogEquipXuwu.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+            }
 
             return slot;
         }
@@ -1743,6 +1776,10 @@ namespace Game
             else if (position >= 41 && position <= 50)
             {
                 slot = DialogEquipHundun.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+            }
+            else if (position >= 41 && position <= 60)
+            {
+                slot = DialogEquipXuwu.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
 
             if (slot.GetEquip() != null) //防止叠加，无限刷道具
@@ -1799,6 +1836,10 @@ namespace Game
             {
                 slot = DialogEquipHundun.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
+            else if (position >= 51 && position <= 60)
+            {
+                slot = DialogEquipXuwu.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+            }
 
             slot.UnEquip();
 
@@ -1830,6 +1871,10 @@ namespace Game
             else if (position >= 41 && position <= 50)
             {
                 user.EquipPanelHundunList[user.EquipHundunIndex].Remove(position);
+            }
+            else if (position >= 51 && position <= 60)
+            {
+                user.EquipPanelXuwuList[user.EquipXuwuIndex].Remove(position);
             }
 
             //通知英雄更新属性

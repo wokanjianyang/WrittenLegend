@@ -64,6 +64,7 @@ namespace Game
         public IDictionary<int, IDictionary<int, Equip>> EquipPanelDarkGoldList { get; set; } = new Dictionary<int, IDictionary<int, Equip>>();
 
         public IDictionary<int, IDictionary<int, Equip>> EquipPanelHundunList { get; set; } = new Dictionary<int, IDictionary<int, Equip>>();
+        public IDictionary<int, IDictionary<int, Equip>> EquipPanelXuwuList { get; set; } = new Dictionary<int, IDictionary<int, Equip>>();
 
         public IDictionary<int, Equip> EquipPanelSpecial { get; set; } = new Dictionary<int, Equip>();
 
@@ -516,6 +517,15 @@ namespace Game
 
             //装备属性-混沌装备
             foreach (KeyValuePair<int, Equip> kvp in EquipPanelHundunList[EquipHundunIndex])
+            {
+                foreach (KeyValuePair<int, double> a in kvp.Value.GetTotalAttrList(0))
+                {
+                    AttributeBonus.SetAttr((AttributeEnum)a.Key, AttributeFrom.EquipBase, kvp.Key, a.Value);
+                }
+            }
+
+            //装备属性-虚无装备
+            foreach (KeyValuePair<int, Equip> kvp in EquipPanelXuwuList[EquipXuwuIndex])
             {
                 foreach (KeyValuePair<int, double> a in kvp.Value.GetTotalAttrList(0))
                 {
@@ -1193,6 +1203,9 @@ namespace Game
             //混沌词条
             skillList.AddRange(this.EquipPanelHundunList[EquipHundunIndex].Where(m => m.Value.SkillRuneConfig != null && m.Value.SkillRuneConfig.SkillId == skillId).Select(m => m.Value.SkillRuneConfig.Id).ToList());
 
+            //虚无词条
+            skillList.AddRange(this.EquipPanelXuwuList[EquipXuwuIndex].Where(m => m.Value.SkillRuneConfig != null && m.Value.SkillRuneConfig.SkillId == skillId).Select(m => m.Value.SkillRuneConfig.Id).ToList());
+
             //暗金词条
             if (skillLayer > 0)
             {
@@ -1244,6 +1257,9 @@ namespace Game
             //混沌套装
             skillList.AddRange(this.EquipPanelHundunList[EquipHundunIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SkillSuitConfig.SkillId == skillId).Select(m => m.Value.SkillSuitConfig).ToList());
 
+            //虚无套装
+            skillList.AddRange(this.EquipPanelXuwuList[EquipXuwuIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SkillSuitConfig.SkillId == skillId).Select(m => m.Value.SkillSuitConfig).ToList());
+
             //暗金词条
             if (skillLayer > 0)
             {
@@ -1281,6 +1297,7 @@ namespace Game
             count += this.EquipPanelGoldenList[EquipGoldenIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SuitConfigId == suitId).Count();
             count += this.EquipPanelDarkGoldList[EquipDarkGoldIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SuitConfigId == suitId).Count();
             count += this.EquipPanelHundunList[EquipHundunIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SuitConfigId == suitId).Count();
+            count += this.EquipPanelXuwuList[EquipXuwuIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SuitConfigId == suitId).Count();
 
             return count;
         }
@@ -1358,6 +1375,10 @@ namespace Game
             else if (quality == 9)
             {
                 equips = this.EquipPanelHundunList[EquipHundunIndex].Select(m => m.Value).Where(m => m.GetQuality() == quality && m.EquipConfig.Role == role).ToList();
+            }
+            else if (quality == 10)
+            {
+                equips = this.EquipPanelXuwuList[EquipXuwuIndex].Select(m => m.Value).Where(m => m.GetQuality() == quality && m.EquipConfig.Role == role).ToList();
             }
 
             List<int> layers = equips.Select(m => m.Layer).OrderByDescending(m => m).ToList();
@@ -2314,6 +2335,17 @@ namespace Game
                     if (equip.GetQuality() == 9)
                     {
                         dict[ItemHelper.SpecialId_Equip_Hundun] = 1;
+                    }
+                    else
+                    {
+                        dict[ItemHelper.SpecialId_EquipRefineStone] = CalStone(equip);
+                    }
+                }
+                else if (equip.EquipConfig.Cycle == 6)
+                {
+                    if (equip.GetQuality() == 10)
+                    {
+                        dict[ItemHelper.SpecialId_Equip_Xuwu] = 1;
                     }
                     else
                     {

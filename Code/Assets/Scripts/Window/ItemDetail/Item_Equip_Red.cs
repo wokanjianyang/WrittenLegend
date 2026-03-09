@@ -32,6 +32,10 @@ namespace Game
             {
                 qn = "»ìãç";
             }
+            else if (quality == 10)
+            {
+                qn = "ÐéÎÞ";
+            }
 
             string name = ConfigHelper.LayerChinaList[showLevel] + "½×" + qn + string.Format("({0}/{1})", redItem.Count, redItem.Config.Count);
 

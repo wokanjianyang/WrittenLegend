@@ -167,6 +167,7 @@ namespace Game
         public static int SpecialId_Exclusive_Hundun = 4037; //永恒精华
 
         public static int SpecialId_Equip_Hundun = 4038; //混沌装备精华
+        public static int SpecialId_Equip_Xuwu = 4046; //混沌装备精华
 
         public static int SpecialId_Pill_Ticket = 4017; //幻境挑战卷
         public static int SpecialId_Halidom_Chip = 4018; //遗物粉尘
