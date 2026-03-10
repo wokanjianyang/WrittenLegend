@@ -146,7 +146,11 @@ namespace Game
                 {
                     AttributeBase = AttributeBase * Quality * Layer;
                 }
-
+                else if (EquipConfig.Cycle == 5)
+                {
+                    int layerRate = Layer <= 10 ? 50 : 100; //10阶前，增加50%，10阶后增加100%
+                    AttributeBase = AttributeBase * Quality * layerRate / 100;
+                }
 
                 //if (this.Part <= 10 || (this.Part >= 21))
                 //{

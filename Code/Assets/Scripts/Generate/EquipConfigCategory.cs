@@ -80,7 +80,7 @@ namespace Game
                         dropData.Init(user.DeviceId.GetHashCode() + dropLimitId);
                         user.DropDataList.Add(dropData);
                     }
-                    Debug.Log("xuwu equip max number:" + dropData.Number);
+                    //Debug.Log("xuwu equip max number:" + dropData.Number);
                     if (dropData.Number > AppHelper.EquipXuwu_MaxCount)
                     {
                         //触发保底
@@ -88,7 +88,7 @@ namespace Game
                         {
                             staticQuality = 9;
                             seed = TimeHelper.TodaySeed() + dropData.Seed;
-                            Debug.Log("xuwu 保底" + dropData.Seed);
+                            //Debug.Log("xuwu 保底" + dropData.Seed);
 
                             dropData.Number = 0;
                             dropData.Seed++;
