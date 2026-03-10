@@ -43,6 +43,9 @@ public class ViewForgeProcessor : AViewPage
     public Toggle toggle_Grade_Hundun;
     public Panel_Grade_Hundun PanelGradeHundun;
 
+    public Toggle toggle_Grade_Xuwu;
+    public Panel_Grade_Xuwu PanelGradeXuwu;
+
     public Toggle toggle_Hone;
     public Panel_Hone PanelHone;
 
@@ -155,6 +158,11 @@ public class ViewForgeProcessor : AViewPage
         this.toggle_Grade_Hundun.onValueChanged.AddListener((isOn) =>
         {
             PanelGradeHundun.gameObject.SetActive(isOn);
+        });
+
+        this.toggle_Grade_Xuwu.onValueChanged.AddListener((isOn) =>
+        {
+            PanelGradeXuwu.gameObject.SetActive(isOn);
         });
 
         this.toggle_Hone.onValueChanged.AddListener((isOn) =>
@@ -285,6 +293,24 @@ public class ViewForgeProcessor : AViewPage
         else
         {
             toggle_Grade_Hundun.gameObject.SetActive(false);
+        }
+
+        if (user.MapId >= 1200)
+        {
+            toggle_ExclusiveHundun.gameObject.SetActive(true);
+        }
+        else
+        {
+            toggle_ExclusiveHundun.gameObject.SetActive(false);
+        }
+
+        if (user.MapId >= 1201)
+        {
+            toggle_Grade_Xuwu.gameObject.SetActive(true);
+        }
+        else
+        {
+            toggle_Grade_Xuwu.gameObject.SetActive(false);
         }
 
         if (user.Cycle.Data >= 10)

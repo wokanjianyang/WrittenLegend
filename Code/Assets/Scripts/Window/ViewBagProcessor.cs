@@ -718,7 +718,7 @@ namespace Game
             {
                 user.EquipXuwuIndex = e.Index;
 
-                for (int i = 41; i <= 50; i++)
+                for (int i = 51; i <= 60; i++)
                 {
                     this.ClearEquipPanelItem(i);
                 }
