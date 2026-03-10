@@ -17,12 +17,12 @@ namespace Game
 
             this.FromSkill = fromSkill;
 
-            if (this.FromSkill != null)
-            {
-                this.FromSkill.IgnoreDef += this.SkillPanel.IgnoreDef;
-                this.FromSkill.FinalIncrea = this.FromSkill.FinalIncrea * (100 + this.SkillPanel.FinalIncrea) / 100;
-                this.FromSkill.AttrIncrea = this.FromSkill.AttrIncrea * (100 + this.SkillPanel.AttrIncrea) / 100;
-            }
+            //if (this.FromSkill != null)
+            //{
+            //    this.FromSkill.IgnoreDef += this.SkillPanel.IgnoreDef;
+            //    this.FromSkill.FinalIncrea = this.FromSkill.FinalIncrea * (100 + this.SkillPanel.FinalIncrea) / 100;
+            //    this.FromSkill.AttrIncrea = this.FromSkill.AttrIncrea * (100 + this.SkillPanel.AttrIncrea) / 100;
+            //}
         }
 
         public override void Do(SkillRunType runType)
@@ -56,7 +56,15 @@ namespace Game
                     }
 
                     //Debug.Log("dm:" + StringHelper.FormatNumber(dm) + "  edm:" + StringHelper.FormatNumber(edm));
-                    var dr = DamageHelper.CalcDamage(SelfPlayer.AttributeBonus, enemy.AttributeBonus, FromSkill != null ? FromSkill : SkillPanel);
+                    DamageResult dr = null;
+                    if (FromSkill != null)
+                    {
+                        dr = DamageHelper.CalcDamage(SelfPlayer.AttributeBonus, enemy.AttributeBonus, FromSkill, SkillPanel);
+                    }
+                    else
+                    {
+                        dr = DamageHelper.CalcDamage(SelfPlayer.AttributeBonus, enemy.AttributeBonus, SkillPanel);
+                    }
 
                     //Debug.Log("base .damage：" + dr.Damage);
 
