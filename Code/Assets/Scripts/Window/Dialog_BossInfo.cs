@@ -26,7 +26,7 @@ public class Dialog_BossInfo : MonoBehaviour, IBattleLife
     private List<Toggle> tgLevelList;
     private int LevelCount = 35; //每个难度多少个
     private int ShowCount = 10; //隐藏的时候显示多少个
-    private int MaxCycle = 5; //现在多少个难度-1
+    private int MaxCycle = 6; //现在多少个难度-1
 
     private int MaxLayer = -1;
     private int SelectLayer = -1;
