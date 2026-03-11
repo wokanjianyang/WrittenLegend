@@ -13582,6 +13582,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Panel_Grade_Xuwu
       objectReference: {fileID: 0}
+    - target: {fileID: 5609592698472184792, guid: a9f8cb3f2d1d5584e896c4678cd7c042, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5695768848838425408, guid: a9f8cb3f2d1d5584e896c4678cd7c042, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1

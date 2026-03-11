@@ -61,6 +61,7 @@ namespace Game
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Golden_Stone, 999)); //金色精华
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Dark_Stone, 999)); //暗金精华
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Equip_Hundun, 999)); //混沌精华
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Equip_Xuwu, 999)); //虚无精华
 
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Golden, 150)); //传奇精华
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Dark, 150)); //不朽精华

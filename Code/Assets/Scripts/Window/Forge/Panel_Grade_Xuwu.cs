@@ -128,7 +128,7 @@ public class Panel_Grade_Xuwu : MonoBehaviour
 
     private void OnSelect(GradeSelectEvent e)
     {
-        if (e.Equip.EquipConfig.Cycle != 5)
+        if (e.Equip.EquipConfig.Cycle != 6)
         {
             return;
         }
@@ -154,7 +154,7 @@ public class Panel_Grade_Xuwu : MonoBehaviour
 
         metailList[0].gameObject.SetActive(true);
         metailList[0].SetContent(config.MetailId, config.MetailCount);
-
+                                                                                                   
         metailList[1].gameObject.SetActive(true);
         metailList[1].SetContent(config.MetailId1, config.MetailCount1);
     }
