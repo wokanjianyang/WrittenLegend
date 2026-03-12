@@ -68,10 +68,10 @@ namespace Game
         {
             List<Item> list = new List<Item>();
 
-            List<DropConfig> drops = DropConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Level == equipLevel && m.ItemType == 2).ToList(); //获取当前等级的装备
-            if (drops.Count > 0)
+            DropConfig drop = DropConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Level <= equipLevel && m.Level > 0 && m.ItemType == 2).LastOrDefault(); //获取当前等级的装备
+            if (drop != null)
             {
-                int[] ids = drops[0].ItemIdList;
+                int[] ids = drop.ItemIdList;
                 if (ids != null && ids.Length > 0)
                 {
                     int index = RandomHelper.RandomNumber(0, ids.Length);
