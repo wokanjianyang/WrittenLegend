@@ -275,7 +275,7 @@ namespace Game
                         start = AppHelper.GetLossQuality();
                     }
 
-                    return 9 - i - start;
+                    return 10 - i - start;
                 }
             }
 
