@@ -9,7 +9,7 @@
 {"_t":"TalentConfig","_id":8,"Cycle":1,"Name":"贪狼","Logo":"贪狼","RequireId":0,"RequireLevel":20,"MaxLevel":10,"AttrId":114,"AttrValue":100,"RiseType":2,"RiseValue":10,"RiseUnit":"倍","Fee":3,"desc":"附加自身生命上限*{0}倍的伤害，不计入吸血"},
 {"_t":"TalentConfig","_id":9,"Cycle":1,"Name":"律己","Logo":"律己","RequireId":0,"RequireLevel":20,"MaxLevel":10,"AttrId":113,"AttrValue":9,"RiseType":1,"RiseValue":9,"RiseUnit":"%","Fee":3,"desc":"拥有护体盾的时候，任意伤害不会超过面板生命的（100-{0}）%"},
 {"_t":"TalentConfig","_id":10,"Cycle":1,"Name":"固守","Logo":"固守","RequireId":0,"RequireLevel":40,"MaxLevel":1,"AttrId":115,"AttrValue":1,"RiseType":1,"RiseValue":0,"RiseUnit":"","Fee":10,"desc":"溢出的减伤倍率，会额外计算"},
-{"_t":"TalentConfig","_id":11,"Cycle":1,"Name":"破敌","Logo":"破敌","RequireId":0,"RequireLevel":60,"MaxLevel":1,"AttrId":107,"AttrValue":1,"RiseType":1,"RiseValue":0,"RiseUnit":"","Fee":20,"desc":"副本刷怪速度加快1倍"},
+{"_t":"TalentConfig","_id":11,"Cycle":1,"Name":"破敌","Logo":"破敌","RequireId":0,"RequireLevel":60,"MaxLevel":2,"AttrId":107,"AttrValue":1,"RiseType":1,"RiseValue":1,"RiseUnit":"","Fee":20,"desc":"副本刷怪速度加快{0}倍"},
 {"_t":"TalentConfig","_id":101,"Cycle":2,"Name":"生命·壹","Logo":"生命","RequireId":0,"RequireLevel":90,"MaxLevel":10,"AttrId":2003,"AttrValue":30,"RiseType":1,"RiseValue":30,"RiseUnit":"%","Fee":1,"desc":"提高生命倍率{0}%"},
 {"_t":"TalentConfig","_id":102,"Cycle":2,"Name":"防御·壹","Logo":"防御","RequireId":0,"RequireLevel":90,"MaxLevel":10,"AttrId":2002,"AttrValue":25,"RiseType":1,"RiseValue":25,"RiseUnit":"%","Fee":1,"desc":"提高防御倍率{0}%"},
 {"_t":"TalentConfig","_id":103,"Cycle":2,"Name":"韧性·壹","Logo":"韧性","RequireId":0,"RequireLevel":90,"MaxLevel":10,"AttrId":2012,"AttrValue":20,"RiseType":1,"RiseValue":20,"RiseUnit":"%","Fee":1,"desc":"提高韧性倍率{0}%"},
