@@ -103,8 +103,8 @@ namespace Game
 
         public const int EquipRefreshCount = 10;
 
-        public const int AutoExitMapTime = 2;
-        public const int AutoStartMapTime = 2;
+        public const int AutoExitMapTime = 1;
+        public const int AutoStartMapTime = 1;
         public const int AutoResurrectionTime = 10;
 
         public const int PillDefaultTime = 60;
