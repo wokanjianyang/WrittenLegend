@@ -254,14 +254,14 @@ namespace Game
         {
             int start = 0;
 
-            int[] rates = { 1, 4, 15, 50, 500, 5000, 20000, 100000, 500000, 7500000 };
+            int[] rates = { 1, 4, 15, 50, 500, 5000, 20000, 100000, 500000, 600000 };
 
             //int[] rates = { 1, 10, 200, 300, 400, 500, 600, 7000, 8000, 10000 };
 
             int r = RandomHelper.RandomNumber(0, rates[9]);
 
-            AppHelper.HundunCount++;
-            //Debug.Log("quality start :" + AppHelper.CopyCount + "hundun count :" + AppHelper.HundunCount);
+            AppHelper.XuwuCount++;
+            //Debug.Log("quality start :" + AppHelper.CopyCount + "xuwu count :" + AppHelper.XuwuCount);
 
             r = (int)(r / realRate);
 
