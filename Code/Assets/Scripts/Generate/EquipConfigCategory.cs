@@ -80,7 +80,7 @@ namespace Game
                         dropData.Init(user.DeviceId.GetHashCode() + dropLimitId);
                         user.DropDataList.Add(dropData);
                     }
-                    Debug.Log("xuwu equip max number:" + dropData.Number);
+                    //Debug.Log("xuwu equip max number:" + dropData.Number);
                     if (dropData.Number > AppHelper.EquipXuwu_MaxCount)
                     {
                         //´¥·¢±£µ×
@@ -262,7 +262,7 @@ namespace Game
             int r = RandomHelper.RandomNumber(0, rates[9]);
 
             AppHelper.XuwuCount++;
-            Debug.Log("quality start :" + AppHelper.CopyCount + "xuwu count :" + AppHelper.XuwuCount + " realRate:" + realRate);
+            //Debug.Log("quality start :" + AppHelper.CopyCount + "xuwu count :" + AppHelper.XuwuCount + " realRate:" + realRate);
 
             r = (int)(r / realRate);
 
