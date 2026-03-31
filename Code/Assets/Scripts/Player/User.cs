@@ -2423,7 +2423,7 @@ namespace Game
                         dict[ItemHelper.Specail_Shengxiao1] = (int)(Math.Pow(3, quality - 6));
                     }
                 }
-                else if (item.ConfigId <= 13)
+                else if (item.ConfigId <= 24)
                 {
                     if (quality <= 5)
                     {

@@ -86,6 +86,12 @@ public class ViewForgeProcessor : AViewPage
     public Toggle toggle_Shengxiao_Grade;
     public Panel_Shengxiao_Grade PanelShengxiaoGrade;
 
+    public Toggle toggle_Shengxiao1;
+    public Panel_Shengxiao1_Up PanelShengxiao1;
+
+    public Toggle toggle_Shengxiao_Grade1;
+    public Panel_Shengxiao1_Grade PanelShengxiaoGrade1;
+
     public Toggle toggle_Stone;
     public Panel_Stone PanelStone;
 
@@ -222,6 +228,17 @@ public class ViewForgeProcessor : AViewPage
         {
             PanelShengxiaoGrade.gameObject.SetActive(isOn);
         });
+
+        this.toggle_Shengxiao1.onValueChanged.AddListener((isOn) =>
+        {
+            PanelShengxiao1.gameObject.SetActive(isOn);
+        });
+
+
+        this.toggle_Shengxiao_Grade1.onValueChanged.AddListener((isOn) =>
+        {
+            PanelShengxiaoGrade1.gameObject.SetActive(isOn);
+        });
     }
 
     void OnEnable()
@@ -316,10 +333,23 @@ public class ViewForgeProcessor : AViewPage
         if (user.Cycle.Data >= 10)
         {
             toggle_Shengxiao.gameObject.SetActive(true);
+            toggle_Shengxiao_Grade.gameObject.SetActive(true);
         }
         else
         {
             toggle_Shengxiao.gameObject.SetActive(false);
+            toggle_Shengxiao_Grade.gameObject.SetActive(false);
+        }
+
+        if (user.Cycle.Data >= 20)
+        {
+            toggle_Shengxiao1.gameObject.SetActive(true);
+            toggle_Shengxiao_Grade1.gameObject.SetActive(true);
+        }
+        else
+        {
+            toggle_Shengxiao1.gameObject.SetActive(false);
+            toggle_Shengxiao_Grade1.gameObject.SetActive(false);
         }
     }
 
