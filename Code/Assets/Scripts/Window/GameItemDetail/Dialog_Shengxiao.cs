@@ -171,7 +171,7 @@ namespace Game
 
             ShengxiaoGroup group = user.GetShengxiaoGroup();
 
-            this.ShowGroup(group);
+            this.ShowGroup(group, config.Cycle);
 
             if (user.Cycle.Data >= 10)
             {
@@ -205,7 +205,7 @@ namespace Game
             }
         }
 
-        private void ShowGroup(ShengxiaoGroup group)
+        private void ShowGroup(ShengxiaoGroup group, int cycle)
         {
             tran_GroupAttribute.gameObject.SetActive(true);
 
@@ -218,7 +218,7 @@ namespace Game
                 if (i < group.List.Count)
                 {
                     reds[i].gameObject.SetActive(true);
-                    reds[i].SetShengxiaoGroup(group.List[i]);
+                    reds[i].SetShengxiaoGroup(group.List[i], cycle);
                 }
                 else
                 {

@@ -2394,17 +2394,36 @@ namespace Game
             else if (item.Type == ItemType.Shengxiao)
             {
                 int quality = item.GetQuality();
-                if (quality <= 5)
+
+                if (item.ConfigId <= 12)
                 {
-                    dict[ItemHelper.Specail_Shengxiao] = quality * 500;
+                    if (quality <= 5)
+                    {
+                        dict[ItemHelper.Specail_Shengxiao] = quality * 500;
+                    }
+                    else if (quality == 9)
+                    {
+                        dict[ItemHelper.Specail_Shengxiao2] = 1;
+                    }
+                    else
+                    {
+                        dict[ItemHelper.Specail_Shengxiao1] = (int)(Math.Pow(3, quality - 6));
+                    }
                 }
-                else if (quality == 9)
+                else if (item.ConfigId <= 13)
                 {
-                    dict[ItemHelper.Specail_Shengxiao2] = 1;
-                }
-                else
-                {
-                    dict[ItemHelper.Specail_Shengxiao1] = (int)(Math.Pow(3, quality - 6));
+                    if (quality <= 5)
+                    {
+                        dict[ItemHelper.Specail_Xingzuo] = quality * 500;
+                    }
+                    else if (quality == 9)
+                    {
+                        dict[ItemHelper.Specail_Xingzuo2] = 1;
+                    }
+                    else
+                    {
+                        dict[ItemHelper.Specail_Xingzuo1] = (int)(Math.Pow(3, quality - 6));
+                    }
                 }
             }
             else if (item.ItemConfig.RecoveryItemId > 0)

@@ -13,14 +13,20 @@ public class Map_Dialog_Shengxiao : MonoBehaviour
     public ScrollRect sr_Boss;
     public Button Btn_Close;
 
+    public Transform Tf_Type;
+    private List<Toggle> tgTypeList;
+
     public Toggle toggle_Auto;
 
     private GameObject ItemPrefab;
     List<Map_Shengxiao_Item> items = new List<Map_Shengxiao_Item>();
 
+    private int SelectLayer = 1;
+
     // Start is called before the first frame update
     void Start()
     {
+        tgTypeList = Tf_Type.GetComponentsInChildren<Toggle>().ToList();
 
         Btn_Close.onClick.AddListener(OnClick_Close);
         this.Init();
@@ -29,6 +35,15 @@ public class Map_Dialog_Shengxiao : MonoBehaviour
         {
             AppHelper.Shengxiao_Auto = isOn;
         });
+
+        for (int i = 0; i < tgTypeList.Count; i++)
+        {
+            int index = i + 1;
+            tgTypeList[i].onValueChanged.AddListener((isOn) =>
+            {
+                this.ChangeType(index);
+            });
+        }
     }
 
     private void OnEnable()
@@ -36,6 +51,29 @@ public class Map_Dialog_Shengxiao : MonoBehaviour
         this.ShowItemMax();
     }
 
+
+    private void ChangeType(int layer)
+    {
+        this.SelectLayer = layer;
+
+        User user = GameProcessor.Inst.User;
+
+        if (user == null)
+        {
+            return;
+        }
+
+        ShengxiaoGroup gp = user.GetShengxiaoGroup();
+
+        ShengxiaoGroupItem item = gp.List.Where(m => m.Config.Count == 12).FirstOrDefault();
+
+        int max = item.Config.Quality - 5;
+
+        foreach (Map_Shengxiao_Item si in items)
+        {
+            si.SetMax(SelectLayer, max + 1);
+        }
+    }
 
     private void ShowItemMax()
     {
@@ -56,7 +94,7 @@ public class Map_Dialog_Shengxiao : MonoBehaviour
 
         for (int i = 0; i < items.Count; i++)
         {
-            items[i].SetMax(max + 1);
+            items[i].SetMax(SelectLayer, max + 1);
         }
     }
 

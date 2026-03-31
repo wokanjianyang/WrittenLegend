@@ -197,5 +197,9 @@ namespace Game
         public static int Specail_Shengxiao = 4042; //生肖精华
         public static int Specail_Shengxiao1 = 4043; //生肖本源
         public static int Specail_Shengxiao2 = 4044; //生肖核心
+
+        public static int Specail_Xingzuo = 4047; //星座精华
+        public static int Specail_Xingzuo1 = 4048; //星座本源
+        public static int Specail_Xingzuo2 = 4049; //星座核心
     }
 }

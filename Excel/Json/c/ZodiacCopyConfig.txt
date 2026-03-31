@@ -1,0 +1,6 @@
+{"list":[
+{"_t":"ZodiacCopyConfig","_id":1,"MapName":"天级副本","Type":1},
+{"_t":"ZodiacCopyConfig","_id":2,"MapName":"地级副本","Type":1},
+{"_t":"ZodiacCopyConfig","_id":3,"MapName":"玄级副本","Type":1},
+{"_t":"ZodiacCopyConfig","_id":4,"MapName":"黄级副本","Type":1},
+]}

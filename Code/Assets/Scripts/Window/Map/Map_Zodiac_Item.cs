@@ -5,14 +5,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Map_Shengxiao_Item : MonoBehaviour
+public class Map_Zodiac_Item : MonoBehaviour
 {
     public Text Txt_Name;
     public Button Btn_Start;
 
     private ShengxiaoCopyConfig Config;
 
-    private int Cycle = 1;
     private int MaxId = 1;
 
     // Start is called before the first frame update
@@ -32,7 +31,7 @@ public class Map_Shengxiao_Item : MonoBehaviour
 
     private void Show()
     {
-        if (Config.Id <= MaxId && Config.Type == Cycle)
+        if (Config.Id <= MaxId)
         {
             this.gameObject.SetActive(true);
         }
@@ -62,9 +61,8 @@ public class Map_Shengxiao_Item : MonoBehaviour
         this.Show();
     }
 
-    public void SetMax(int cycle, int max)
+    public void SetMax(int max)
     {
-        this.Cycle = cycle;
         this.MaxId = max;
         this.Show();
     }

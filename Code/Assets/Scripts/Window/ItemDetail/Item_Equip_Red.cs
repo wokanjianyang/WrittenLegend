@@ -47,7 +47,7 @@ namespace Game
         }
 
 
-        public void SetShengxiaoGroup(ShengxiaoGroupItem item)
+        public void SetShengxiaoGroup(ShengxiaoGroupItem item, int cycle)
         {
             string color = item.Count >= item.Config.Count ? QualityConfigHelper.GetQualityColor(item.Config.Quality) : "CCCCCC";
 
@@ -65,7 +65,9 @@ namespace Game
                 qn = "·ÛÉ«";
             }
 
-            string name = qn + "ÉúÐ¤" + string.Format("({0}/{1})", item.Count, item.Config.Count);
+            string[] cycleName = { "ÉúÐ¤", "ÐÇ×ù" };
+
+            string name = qn + cycleName[cycle - 1] + string.Format("({0}/{1})", item.Count, item.Config.Count);
 
             this.Txt_Name.text = string.Format("<color=#{0}>{1}</color>", color, name);
 

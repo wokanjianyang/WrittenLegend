@@ -13,12 +13,31 @@ namespace Game
 
         public List<SlotBox> ItemList = new List<SlotBox>();
 
+        public Transform Tf_Cycle;
+        private List<Toggle> Toggle_Cycle_List = new List<Toggle>();
+
+        private int SelectCycle = 1;
+
         public int Order => (int)ComponentOrder.Dialog;
 
         void Awake()
         {
             Btn_Close.onClick.AddListener(OnClick_Close);
             ItemList = this.GetComponentsInChildren<SlotBox>().ToList();
+
+            Toggle_Cycle_List = Tf_Cycle.GetComponentsInChildren<Toggle>().ToList();
+
+            for (int i = 0; i < Toggle_Cycle_List.Count; i++)
+            {
+                int index = i + 1;
+                Toggle_Cycle_List[i].onValueChanged.AddListener((isOn) =>
+                {
+                    if (isOn)
+                    {
+                        ChangeCycle(index);
+                    }
+                });
+            }
         }
 
         void Start()
@@ -33,10 +52,16 @@ namespace Game
             this.Show();
         }
 
+        private void ChangeCycle(int cycle)
+        {
+            this.SelectCycle = cycle;
+            this.Show();
+        }
+
         private void Show()
         {
             //Debug.Log("exclusive show");
-            List<ShengxiaoConfig> configs = ShengxiaoConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
+            List<ShengxiaoConfig> configs = ShengxiaoConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Cycle == SelectCycle).ToList();
 
             User user = GameProcessor.Inst.User;
 
