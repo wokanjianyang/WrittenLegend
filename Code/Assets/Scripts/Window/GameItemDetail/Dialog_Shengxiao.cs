@@ -169,7 +169,7 @@ namespace Game
             }
 
 
-            ShengxiaoGroup group = user.GetShengxiaoGroup();
+            ShengxiaoGroup group = user.GetShengxiaoGroup(config.Cycle);
 
             this.ShowGroup(group, config.Cycle);
 

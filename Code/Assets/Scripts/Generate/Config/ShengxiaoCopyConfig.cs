@@ -81,8 +81,11 @@ namespace Game
 		/// <summary>Type</summary>
 		[ProtoMember(2)]
 		public int Type { get; set; }
-		/// <summary>MapName</summary>
+		/// <summary>Step</summary>
 		[ProtoMember(3)]
+		public int Step { get; set; }
+		/// <summary>MapName</summary>
+		[ProtoMember(4)]
 		public string MapName { get; set; }
 
 	}

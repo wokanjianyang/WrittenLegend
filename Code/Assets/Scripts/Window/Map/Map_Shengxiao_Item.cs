@@ -32,7 +32,7 @@ public class Map_Shengxiao_Item : MonoBehaviour
 
     private void Show()
     {
-        if (Config.Id <= MaxId && Config.Type == Cycle)
+        if (Config.Step <= MaxId && Config.Type == Cycle)
         {
             this.gameObject.SetActive(true);
         }

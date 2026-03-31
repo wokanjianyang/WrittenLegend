@@ -56,23 +56,7 @@ public class Map_Dialog_Shengxiao : MonoBehaviour
     {
         this.SelectLayer = layer;
 
-        User user = GameProcessor.Inst.User;
-
-        if (user == null)
-        {
-            return;
-        }
-
-        ShengxiaoGroup gp = user.GetShengxiaoGroup();
-
-        ShengxiaoGroupItem item = gp.List.Where(m => m.Config.Count == 12).FirstOrDefault();
-
-        int max = item.Config.Quality - 5;
-
-        foreach (Map_Shengxiao_Item si in items)
-        {
-            si.SetMax(SelectLayer, max + 1);
-        }
+        ShowItemMax();
     }
 
     private void ShowItemMax()
@@ -86,7 +70,7 @@ public class Map_Dialog_Shengxiao : MonoBehaviour
 
         bool ac = ConfigHelper.AC == ConfigHelper.Channel_Tap || user.Account == "";
 
-        ShengxiaoGroup gp = user.GetShengxiaoGroup();
+        ShengxiaoGroup gp = user.GetShengxiaoGroup(SelectLayer);
 
         ShengxiaoGroupItem item = gp.List.Where(m => m.Config.Count == 12).FirstOrDefault();
 

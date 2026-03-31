@@ -543,8 +543,18 @@ namespace Game
             }
 
             //生肖-套装
-            ShengxiaoGroup shengxiaoGroup = this.GetShengxiaoGroup();
+            ShengxiaoGroup shengxiaoGroup = this.GetShengxiaoGroup(1);
             foreach (ShengxiaoGroupItem sp in shengxiaoGroup.List)
+            {
+                if (sp.Count >= sp.Config.Count)
+                {
+                    AttributeBonus.SetAttr((AttributeEnum)sp.Config.AttrId, AttributeFrom.Shengxiao, 100 + sp.Config.Id, sp.Config.AttrValue);
+                }
+            }
+
+            //星座-套装
+            ShengxiaoGroup shengxiaoGroup2 = this.GetShengxiaoGroup(2);
+            foreach (ShengxiaoGroupItem sp in shengxiaoGroup2.List)
             {
                 if (sp.Count >= sp.Config.Count)
                 {
@@ -1323,15 +1333,18 @@ namespace Game
             return list;
         }
 
-        public ShengxiaoGroup GetShengxiaoGroup()
+        public ShengxiaoGroup GetShengxiaoGroup(int cycle)
         {
-            List<Shengxiao> equips = this.ShengxiaoList.Select(m => m.Value).ToList();
+            int startKey = (cycle - 1) * 12 + 1;
+            int endKey = (cycle - 1) * 12 + 12;
+
+            List<Shengxiao> equips = this.ShengxiaoList.Where(m => m.Key >= startKey && m.Key <= endKey).Select(m => m.Value).ToList();
 
             List<ShengxiaoGroupItem> redList = new List<ShengxiaoGroupItem>();
 
             for (int i = 3; i <= 12; i += 3)
             {
-                List<ShengxiaoGroupConfig> list = ShengxiaoGroupConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Count == i).OrderByDescending(m => m.Quality).ToList();
+                List<ShengxiaoGroupConfig> list = ShengxiaoGroupConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Count == i && m.Cycle == cycle).OrderByDescending(m => m.Quality).ToList();
 
                 for (int j = 0; j < list.Count; j++)
                 {
