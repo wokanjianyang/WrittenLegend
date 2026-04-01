@@ -134,7 +134,7 @@ public class Monster_Shengxiao : APlayer
        {
         new int[] { 2002, 2008  },
         new int[] { 1002, 1004 },
-        new int[] { 1012, 1008 }
+        new int[] { 1012 }
        };
 
         int[] SkillList = new int[] { 2007, 3008 };
