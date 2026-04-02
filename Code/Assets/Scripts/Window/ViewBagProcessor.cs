@@ -760,6 +760,12 @@ namespace Game
                 GameProcessor.Inst.EventCenter.Raise(new ChangeEquipPlanEvent() { Type = 5, Index = index });
             }
 
+            if (user.EquipHundunSetting)
+            {
+                user.EquipXuwuIndex = index;
+                GameProcessor.Inst.EventCenter.Raise(new ChangeEquipPlanEvent() { Type = 6, Index = index });
+            }
+
             user.SkillPanelIndex = index;
 
             ShowEquipPanel();

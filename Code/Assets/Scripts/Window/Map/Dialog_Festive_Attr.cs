@@ -19,19 +19,19 @@ public class Dialog_Festive_Attr : MonoBehaviour
     private List<StrenthAttrItem> AttrList;
 
     private int GroupId = 1;
-    private int MaxLevel = 80;
+    private int MaxLevel = 100;
 
     public int Order => (int)ComponentOrder.Dialog;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         AttrList = tf_attr.GetComponentsInChildren<StrenthAttrItem>(true).ToList();
 
         Btn_Full.onClick.AddListener(OnClick_Close);
         Btn_Strong.onClick.AddListener(OnStrong);
 
-        Show();
+        //Show();
     }
 
     private void OnEnable()

@@ -330,7 +330,7 @@ namespace Game
 
         public FestiveMapData FestiveMapData03 { get; set; } = new FestiveMapData();
 
-        public FestiveMapData FestiveMapData02 { get; set; } = new FestiveMapData();
+        public FestiveMapData FestiveMapData04 { get; set; } = new FestiveMapData();
 
         public Dictionary<int, MagicData> FestiveAttrData { get; } = new Dictionary<int, MagicData>();
 
@@ -1780,25 +1780,35 @@ namespace Game
             return currentStep;
         }
 
+        public IDictionary<int, int> GetCurrentFestive()
+        {
+            return this.FestiveData_0402;
+        }
+
+        public FestiveMapData GetCurrentMapFestive()
+        {
+            return this.FestiveMapData04;
+        }
+
         public int GetFestiveCount(int id)
         {
-            if (!this.FestiveData_0302.ContainsKey(id))
+            if (!this.GetCurrentFestive().ContainsKey(id))
             {
-                this.FestiveData_0302[id] = 0;
+                this.GetCurrentFestive()[id] = 0;
             }
 
-            return this.FestiveData_0302[id];
+            return this.GetCurrentFestive()[id];
         }
 
         public void SaveFestiveCount(int configId, int count)
         {
-            if (this.FestiveData_0302.ContainsKey(configId))
+            if (this.GetCurrentFestive().ContainsKey(configId))
             {
-                this.FestiveData_0302[configId] += count;
+                this.GetCurrentFestive()[configId] += count;
             }
             else
             {
-                this.FestiveData_0302[configId] = count;
+                this.GetCurrentFestive()[configId] = count;
             }
         }
 

@@ -13,7 +13,7 @@ namespace Game
         {
             ShengxiaoConfig config = this.Get(configId);
 
-            int quality = RandomQuanlity(qualityRate, maxQuality);
+            int quality = RandomQuanlity(config.Cycle, qualityRate, maxQuality);
 
             List<KeyValuePair<int, long>> list = AttrEntryConfigCategory.Instance.BuildShengxiao(config.Part, quality, seed);
 
@@ -25,9 +25,13 @@ namespace Game
             return item;
         }
 
-        private int RandomQuanlity(double realRate, int maxQuality)
+        private int RandomQuanlity(int cycle, double realRate, int maxQuality)
         {
             int[] rates = { 1, 4, 10, 33, 250, 1000, 3000, 9000, 40000 };
+            if (cycle == 2)
+            {
+                rates = new int[] { 1, 3, 6, 18, 250, 1000, 3000, 9000, 60000 };
+            }
 
             int r = RandomHelper.RandomNumber(0, rates[maxQuality - 1]);
 

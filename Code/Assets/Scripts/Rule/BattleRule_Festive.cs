@@ -94,7 +94,7 @@ public class BattleRule_Festive : ABattleRule
 
         FestiveCopyConfig config = FestiveCopyConfigCategory.Instance.Get(mapId);
 
-        if (mapId > user.FestiveMapData03.Record)
+        if (mapId > user.GetCurrentMapFestive().Record)
         {
             //Ê×Í¨
             for (int i = 0; i < config.FirstItemIdList.Length; i++)
@@ -111,8 +111,8 @@ public class BattleRule_Festive : ABattleRule
             }
         }
 
-        user.FestiveMapData03.Record = mapId;
-        user.FestiveMapData03.Number.Data -= 1;
+        user.GetCurrentMapFestive().Record = mapId;
+        user.GetCurrentMapFestive().Number.Data -= 1;
 
         GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
 
