@@ -87,17 +87,20 @@ namespace Game
 		/// <summary>Cycle</summary>
 		[ProtoMember(4)]
 		public int Cycle { get; set; }
-		/// <summary>AttrIdList</summary>
+		/// <summary>Required</summary>
 		[ProtoMember(5)]
+		public int Required { get; set; }
+		/// <summary>AttrIdList</summary>
+		[ProtoMember(6)]
 		public int[] AttrIdList { get; set; }
 		/// <summary>AttrValueList</summary>
-		[ProtoMember(6)]
+		[ProtoMember(7)]
 		public int[] AttrValueList { get; set; }
 		/// <summary>AttchValueList</summary>
-		[ProtoMember(7)]
+		[ProtoMember(8)]
 		public int[] AttchValueList { get; set; }
 		/// <summary>LayerValueList</summary>
-		[ProtoMember(8)]
+		[ProtoMember(9)]
 		public int[] LayerValueList { get; set; }
 
 	}

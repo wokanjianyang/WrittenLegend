@@ -173,7 +173,7 @@ namespace Game
 
             this.ShowGroup(group, config.Cycle);
 
-            if (user.Cycle.Data >= 10)
+            if (user.Cycle.Data >= config.Required)
             {
                 this.btn_Equip.gameObject.SetActive(this.boxItem.BoxId != -1);
                 this.btn_UnEquip.gameObject.SetActive(this.boxItem.BoxId == -1);
