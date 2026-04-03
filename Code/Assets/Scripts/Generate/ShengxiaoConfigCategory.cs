@@ -30,7 +30,7 @@ namespace Game
             int[] rates = { 1, 4, 10, 33, 250, 1000, 3000, 9000, 40000 };
             if (cycle == 2)
             {
-                rates = new int[] { 1, 3, 6, 18, 250, 1000, 3000, 9000, 60000 };
+                rates = new int[] { 1, 3, 6, 18, 250, 2000, 6000, 20000, 60000 };
             }
 
             int r = RandomHelper.RandomNumber(0, rates[maxQuality - 1]);
