@@ -243,11 +243,6 @@ namespace Game
                 this.Damage = this.Damage / mythRate;
             }
 
-            if (isPlayer)
-            {
-                Desc = string.Format(SkillData.SkillConfig.Des, EnemyMax, (int)Percent, Duration, Row, Column, (int)Damage);
-            }
-
             //技能的特效
             string[] skilEffectList = skillData.SkillConfig.EffectList;
             if (skilEffectList != null && skilEffectList.Length > 0)
@@ -368,6 +363,10 @@ namespace Game
                 {
 
                 }
+                else if (SkillId == 1006 || SkillId == 2006 || SkillId == 3006)
+                {
+                    this.Percent *= (1 + DivineLevel * DivineAttrConfig.Param / 100.0);
+                }
             }
 
             //TEST skill
@@ -375,6 +374,11 @@ namespace Game
             //this.Row = 2;
             //this.Column = 2;
             //this.Duration = 3;
+
+            if (isPlayer)
+            {
+                Desc = string.Format(SkillData.SkillConfig.Des, EnemyMax, (int)Percent, Duration, Row, Column, (int)Damage);
+            }
         }
 
         private int GetFromId(int effectId)

@@ -84,23 +84,26 @@ namespace Game
 		/// <summary>Name</summary>
 		[ProtoMember(3)]
 		public string Name { get; set; }
-		/// <summary>Desc</summary>
+		/// <summary>Type</summary>
 		[ProtoMember(4)]
+		public int Type { get; set; }
+		/// <summary>Desc</summary>
+		[ProtoMember(5)]
 		public string Desc { get; set; }
 		/// <summary>DamageType</summary>
-		[ProtoMember(5)]
+		[ProtoMember(6)]
 		public int DamageType { get; set; }
 		/// <summary>Param</summary>
-		[ProtoMember(6)]
+		[ProtoMember(7)]
 		public int Param { get; set; }
 		/// <summary>ParamRate</summary>
-		[ProtoMember(7)]
+		[ProtoMember(8)]
 		public int ParamRate { get; set; }
 		/// <summary>PercentRate</summary>
-		[ProtoMember(8)]
+		[ProtoMember(9)]
 		public int PercentRate { get; set; }
 		/// <summary>LevelRequire</summary>
-		[ProtoMember(9)]
+		[ProtoMember(10)]
 		public int LevelRequire { get; set; }
 
 	}

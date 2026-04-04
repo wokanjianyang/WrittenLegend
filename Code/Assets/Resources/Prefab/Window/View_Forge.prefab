@@ -11907,6 +11907,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Panel_Shengxiao1_Up
       objectReference: {fileID: 0}
+    - target: {fileID: 5609592698472184792, guid: 62f1b88a2a19f864b8158dfb8ddbc711, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62f1b88a2a19f864b8158dfb8ddbc711, type: 3}
 --- !u!224 &606561841710044775 stripped
@@ -14205,6 +14209,10 @@ PrefabInstance:
     - target: {fileID: 5609592698472184792, guid: a318d63986c47d0458dd0b9f77b69cd9, type: 3}
       propertyPath: m_Name
       value: Panel_Shengxiao1_Grade
+      objectReference: {fileID: 0}
+    - target: {fileID: 5609592698472184792, guid: a318d63986c47d0458dd0b9f77b69cd9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a318d63986c47d0458dd0b9f77b69cd9, type: 3}
