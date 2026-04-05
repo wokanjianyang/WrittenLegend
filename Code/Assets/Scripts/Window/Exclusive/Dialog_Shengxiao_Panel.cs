@@ -65,6 +65,11 @@ namespace Game
 
             User user = GameProcessor.Inst.User;
 
+            if (user.Cycle.Data < 20)
+            {
+                Toggle_Cycle_List[1].gameObject.SetActive(false);
+            }
+
             for (int i = 0; i < configs.Count; i++)
             {
                 ShengxiaoConfig config = configs[i];

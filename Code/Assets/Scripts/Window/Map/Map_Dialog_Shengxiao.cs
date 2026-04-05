@@ -24,7 +24,7 @@ public class Map_Dialog_Shengxiao : MonoBehaviour
     private int SelectLayer = 1;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         tgTypeList = Tf_Type.GetComponentsInChildren<Toggle>().ToList();
 
@@ -44,6 +44,7 @@ public class Map_Dialog_Shengxiao : MonoBehaviour
                 this.ChangeType(index);
             });
         }
+
     }
 
     private void OnEnable()
@@ -66,6 +67,11 @@ public class Map_Dialog_Shengxiao : MonoBehaviour
         if (user == null)
         {
             return;
+        }
+
+        if (user.Cycle.Data < 20)
+        {
+            tgTypeList[1].gameObject.SetActive(false);
         }
 
         bool ac = ConfigHelper.AC == ConfigHelper.Channel_Tap || user.Account == "";
