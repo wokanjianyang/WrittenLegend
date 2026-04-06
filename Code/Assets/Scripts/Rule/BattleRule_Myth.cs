@@ -71,7 +71,9 @@ public class BattleRule_Myth : ABattleRule
         {
             this.Start = false;
 
-            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Myth, Message = "挑战通关！" });
+            MythConfig mythConfig = MythConfigCategory.Instance.Get(this.MapId);
+
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.Myth, Message = mythConfig.MapName + " 挑战通关！" });
             GameProcessor.Inst.User.MythData.SetOver(this.MapId);
             BuildReward(MapId);
 

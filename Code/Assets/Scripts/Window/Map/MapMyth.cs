@@ -46,6 +46,12 @@ public class MapMyth : MonoBehaviour, IBattleLife
 
     public void OnStart(MythStartEvent e)
     {
+        User user = GameProcessor.Inst.User;
+        if (e.Id <= user.MythData.GetMax())
+        {
+            return;
+        }
+
         this.gameObject.SetActive(true);
 
         Dictionary<string, object> param = new Dictionary<string, object>();

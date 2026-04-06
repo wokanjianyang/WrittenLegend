@@ -181,6 +181,7 @@ namespace Game
         Festive = 34,
         Spirit = 35,
         Pet1 = 36,
+        Pill4 = 37,
 
         Dingzhi = 98,
         /// <summary>

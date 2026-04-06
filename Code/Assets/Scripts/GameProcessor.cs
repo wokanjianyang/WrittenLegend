@@ -772,13 +772,15 @@ namespace Game
                 case RuleType.BossFamily:
                 case RuleType.HeroPhantom:
                 case RuleType.Phantom:
-                case RuleType.Myth:
                 case RuleType.World:
                 case RuleType.Pill2:
                 case RuleType.Pill3:
                 case RuleType.Babel:
                 case RuleType.Festive:
                 case RuleType.Spirit:
+                    ie_autoExitKey = StartCoroutine(this.AutoExitMap(ruleType, time, ConfigHelper.AutoExitMapTime));
+                    break;
+                case RuleType.Myth:
                     ie_autoExitKey = StartCoroutine(this.AutoExitMap(ruleType, time, ConfigHelper.AutoExitMapTime));
                     break;
                 case RuleType.Shengxiao:
@@ -953,6 +955,10 @@ namespace Game
             {
                 this.AutoStartMap(ruleType);
             }
+            else if (ruleType == RuleType.Myth && AppHelper.Myth_Auto)
+            {
+                this.AutoStartMap(ruleType);
+            }
         }
 
         private void AutoStartMap(RuleType ruleType)
@@ -986,9 +992,20 @@ namespace Game
 
         private void AutoRunMap(RuleType ruleType)
         {
-            this.EventCenter.Raise(new CopyViewCloseEvent());
 
-            //Debug.Log("auto type :" + ruleType);
+            if (ruleType != RuleType.Myth)
+            {
+                this.EventCenter.Raise(new CopyViewCloseEvent());
+            }
+            else
+            {
+                int mapId = this.User.MythData.GetMax() + 1;
+                if (mapId > MythConfigCategory.Instance.GetAll().Count)
+                {
+                    return;
+                }
+                this.EventCenter.Raise(new CopyViewCloseEvent());
+            }
 
             switch (ruleType)
             {
@@ -1012,6 +1029,10 @@ namespace Game
                     break;
                 case RuleType.Spirit:
                     this.EventCenter.Raise(new SpiritStartEvent() { Id = AppHelper.Spirit_Id });
+                    break;
+                case RuleType.Myth:
+                    int mapId = this.User.MythData.GetMax() + 1;
+                    this.EventCenter.Raise(new MythStartEvent() { Id = mapId });
                     break;
             }
         }

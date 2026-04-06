@@ -343,6 +343,8 @@ namespace Game
 
         public MagicData PillData3 { get; set; } = new MagicData();
 
+        public MagicData PillData4 { get; set; } = new MagicData();
+
         public PillTime PillTime { get; set; } = new PillTime();
 
         public Dictionary<int, Dictionary<int, MagicData>> FashionData { get; set; } = new Dictionary<int, Dictionary<int, MagicData>>();
@@ -1016,6 +1018,15 @@ namespace Game
                 if (kv.Value > 0)
                 {
                     AttributeBonus.SetAttr((AttributeEnum)kv.Key, AttributeFrom.Pill3, kv.Value);
+                }
+            }
+
+            Dictionary<int, double> pillDict4 = PillConfig3Category.Instance.ParseLevel(PillData4.Data);
+            foreach (var kv in pillDict4)
+            {
+                if (kv.Value > 0)
+                {
+                    AttributeBonus.SetAttr((AttributeEnum)kv.Key, AttributeFrom.Pill4, kv.Value);
                 }
             }
 

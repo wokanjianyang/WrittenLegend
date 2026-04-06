@@ -161,6 +161,7 @@ namespace Game
         public static int SpecialId_Pill = 4016; //淬体丹
         public static int SpecialId_Pill2 = 4033; //行气丹
         public static int SpecialId_Pill3 = 4040; //炼神丹
+        public static int SpecialId_Pill4 = 4050; //淬魂丹
         public static int SpecialId_Fashion = 4034; //行气丹
         public static int SpecialId_Exclusive_Golden = 4035; //传奇精华
         public static int SpecialId_Exclusive_Dark = 4039; //不朽精华

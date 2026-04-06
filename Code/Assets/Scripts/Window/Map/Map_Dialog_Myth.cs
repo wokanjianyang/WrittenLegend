@@ -16,6 +16,8 @@ public class Map_Dialog_Myth : MonoBehaviour
     public Transform Tf_Layer;
     private List<Toggle> tgLevelList;
 
+    public Toggle toggle_Auto;
+
     private GameObject ItemPrefab;
     List<Map_Myth_Item> items = new List<Map_Myth_Item>();
 
@@ -34,6 +36,11 @@ public class Map_Dialog_Myth : MonoBehaviour
                 this.ChangeLevel(index);
             });
         }
+
+        toggle_Auto.onValueChanged.AddListener((isOn) =>
+        {
+            AppHelper.Myth_Auto = isOn;
+        });
 
         Btn_Close.onClick.AddListener(OnClick_Close);
         this.Init();

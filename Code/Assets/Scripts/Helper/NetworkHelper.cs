@@ -188,6 +188,9 @@ namespace Game
             long pill3 = user.PillData3.Data;
             paramDict.Add("pill3", pill3 + "");
 
+            long pill4 = user.PillData4.Data;
+            paramDict.Add("pill4", pill4 + "");
+
             long pet = 0;
             long petRed = 0;
             long petDard = 0;

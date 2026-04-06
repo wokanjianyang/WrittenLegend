@@ -83,6 +83,7 @@
 {"_t":"ItemConfig","_id":4047,"Name":"星座精华","Type":5,"Des":"升级星座的材料","Price":1,"MaxNum":1999999999,"LevelRequired":0,"Quality":5,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
 {"_t":"ItemConfig","_id":4048,"Name":"星座本源","Type":5,"Des":"升级星座的材料","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":7,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
 {"_t":"ItemConfig","_id":4049,"Name":"星座心核","Type":5,"Des":"升阶星座的材料","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":9,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
+{"_t":"ItemConfig","_id":4050,"Name":"炼魂丹","Type":5,"Des":"修炼材料","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":6,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
 {"_t":"ItemConfig","_id":4101,"Name":"图鉴碎片","Type":5,"Des":"兑换万能图鉴的碎片","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":5,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
 {"_t":"ItemConfig","_id":4102,"Name":"高级书页","Type":5,"Des":"升级10阶技能","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":5,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
 {"_t":"ItemConfig","_id":4103,"Name":"废弃","Type":5,"Des":"废弃道具","Price":1,"MaxNum":9999999,"LevelRequired":0,"Quality":5,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},

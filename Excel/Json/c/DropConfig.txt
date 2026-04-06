@@ -496,7 +496,7 @@
 {"_t":"DropConfig","_id":103,"Level":0,"Name":"三阶四格","Quantity":1,"ItemType":2,"ItemIdList":[103,203,303,403]},
 {"_t":"DropConfig","_id":104,"Level":0,"Name":"四阶四格","Quantity":1,"ItemType":2,"ItemIdList":[104,204,304,404]},
 {"_t":"DropConfig","_id":105,"Level":0,"Name":"五阶四格","Quantity":1,"ItemType":2,"ItemIdList":[105,205,305,405]},
-{"_t":"DropConfig","_id":106,"Level":0,"Name":"六阶四格","Quantity":1,"ItemType":2,"ItemIdList":[106,205,306,406]},
+{"_t":"DropConfig","_id":106,"Level":0,"Name":"六阶四格","Quantity":1,"ItemType":2,"ItemIdList":[106,206,306,406]},
 {"_t":"DropConfig","_id":501,"Level":0,"Name":"专属第一批","Quantity":1,"ItemType":10,"ItemIdList":[1,2]},
 {"_t":"DropConfig","_id":502,"Level":0,"Name":"专属第一批","Quantity":1,"ItemType":10,"ItemIdList":[3,4]},
 {"_t":"DropConfig","_id":503,"Level":0,"Name":"专属第一批","Quantity":1,"ItemType":10,"ItemIdList":[5,6]},

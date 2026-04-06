@@ -43,6 +43,8 @@ namespace Game
 
         public static bool LegacyAuto = true;
 
+        public static bool Myth_Auto = true;
+
         public static int GetLossQuality()
         {
             //如果次数少于500次，则品质-1
