@@ -23,4 +23,12 @@
 {"_t":"SoulBoneConfig","_id":22,"Sid":6,"Name":"泰坦巨猿骨·道","StartLevel":181,"EndLevel":270,"AttrIdList":[14,15,16,18,20,19,24,2003,2001,2002],"AttrValueList":[10,10,10,1,1,0.5,0.5,0.1,0.08,0.07],"ItemId":8106},
 {"_t":"SoulBoneConfig","_id":23,"Sid":7,"Name":"天青牛蟒骨·道","StartLevel":181,"EndLevel":270,"AttrIdList":[14,15,16,18,20,19,24,2006,2003,2001],"AttrValueList":[10,10,10,1,1,0.5,0.5,0.1,0.08,0.07],"ItemId":8107},
 {"_t":"SoulBoneConfig","_id":24,"Sid":8,"Name":"魔鲸王骨·道","StartLevel":181,"EndLevel":270,"AttrIdList":[14,15,16,18,20,19,24,2001,2003,2010],"AttrValueList":[10,10,10,1,1,0.5,0.5,0.1,0.08,0.07],"ItemId":8108},
+{"_t":"SoulBoneConfig","_id":25,"Sid":1,"Name":"八蛛魂骨·道","StartLevel":271,"EndLevel":360,"AttrIdList":[14,15,16,18,20,19,24,2003,2002,2001,2013],"AttrValueList":[10,10,10,1,1,0.5,0.5,0.1,0.08,0.07],"ItemId":8101},
+{"_t":"SoulBoneConfig","_id":26,"Sid":2,"Name":"智慧头骨·道","StartLevel":271,"EndLevel":360,"AttrIdList":[14,15,16,18,20,19,24,2004,2003,2001,2013],"AttrValueList":[10,10,10,1,1,0.5,0.5,0.1,0.08,0.07,0.05],"ItemId":8102},
+{"_t":"SoulBoneConfig","_id":27,"Sid":3,"Name":"蓝银皇骨·道","StartLevel":271,"EndLevel":360,"AttrIdList":[14,15,16,18,20,19,24,2002,2001,2003,2013],"AttrValueList":[10,10,10,1,1,0.5,0.5,0.1,0.08,0.07,0.05],"ItemId":8103},
+{"_t":"SoulBoneConfig","_id":28,"Sid":4,"Name":"柔骨兔骨·道","StartLevel":271,"EndLevel":360,"AttrIdList":[14,15,16,18,20,19,24,2003,2002,2001,2013],"AttrValueList":[10,10,10,1,1,0.5,0.5,0.1,0.08,0.07,0.05],"ItemId":8104},
+{"_t":"SoulBoneConfig","_id":29,"Sid":5,"Name":"邪魔腿骨·道","StartLevel":271,"EndLevel":360,"AttrIdList":[14,15,16,18,20,19,24,2005,2003,2001,2013],"AttrValueList":[10,10,10,1,1,0.5,0.5,0.1,0.08,0.07,0.05],"ItemId":8105},
+{"_t":"SoulBoneConfig","_id":30,"Sid":6,"Name":"泰坦巨猿骨·道","StartLevel":271,"EndLevel":360,"AttrIdList":[14,15,16,18,20,19,24,2003,2001,2002,2013],"AttrValueList":[10,10,10,1,1,0.5,0.5,0.1,0.08,0.07,0.05],"ItemId":8106},
+{"_t":"SoulBoneConfig","_id":31,"Sid":7,"Name":"天青牛蟒骨·道","StartLevel":271,"EndLevel":360,"AttrIdList":[14,15,16,18,20,19,24,2006,2003,2001,2013],"AttrValueList":[10,10,10,1,1,0.5,0.5,0.1,0.08,0.07,0.05],"ItemId":8107},
+{"_t":"SoulBoneConfig","_id":32,"Sid":8,"Name":"魔鲸王骨·道","StartLevel":271,"EndLevel":360,"AttrIdList":[14,15,16,18,20,19,24,2001,2003,2010,2013],"AttrValueList":[10,10,10,1,1,0.5,0.5,0.1,0.08,0.07,0.05],"ItemId":8108},
 ]}
