@@ -223,14 +223,14 @@ namespace Game
             lg.Mul(1 - defRate);
 
             //韧性减伤
-            double strong = enemy.GetAttackDoubleAttr(AttributeEnum.Strong);
-            if (strong > 0)
+            LargeNumber strong = enemy.GetTotalAttrLarge(AttributeEnum.Strong);
+            if (strong.data != 0)
             {
                 double relic4 = attcher.GetAttackDoubleAttr(AttributeEnum.Relic4);
                 double miss = attcher.GetAttackDoubleAttr(AttributeEnum.Miss);
                 if (relic4 * miss >= 1)
                 {
-                    strong = strong / (relic4 * miss);
+                    strong.Div(relic4 * miss);
 
                     //Debug.Log("relic4:" + relic4 * miss);
                 }
@@ -238,17 +238,14 @@ namespace Game
                 double shatter = attcher.GetAttackDoubleAttr(AttributeEnum.Shatter) / 100;
                 if (shatter > 0)
                 {
-                    strong = strong / (1 + shatter);
+                    strong.Div(1 + shatter);
                 }
 
-                lg.Div(1 + strong);
+                lg.Div(strong.Add(1));
             }
 
-            double parry = enemy.GetAttackDoubleAttr(AttributeEnum.Parry);
-            if (parry > 0)
-            {
-                lg.Div(1 + parry);
-            }
+            LargeNumber parry = enemy.GetTotalAttrLarge(AttributeEnum.Parry).Add(1);
+            lg.Div(parry);
 
             //技能系数
             double skillRate = (skill.Percent + GetRolePercent(attcher, role)) / 100;
@@ -299,8 +296,8 @@ namespace Game
             lg.Mul(1 - mdr / 100.0);
 
             //增伤倍率
-            double mdi = attcher.GetAttackDoubleAttr(AttributeEnum.MulDamageIncrea);
-            lg.Mul(1 + mdi / 100.0);
+            LargeNumber mdi = attcher.GetTotalAttrLarge(AttributeEnum.MulDamageIncrea).Div(100).Add(1);
+            lg.Mul(mdi);
 
             //承受者的易伤
             long ExtraDamage = enemy.GetAttackAttr(AttributeEnum.ExtraDamage);
@@ -356,7 +353,7 @@ namespace Game
             if (at > 0)
             {
                 extendDamageLg = attcher.GetTotalAttrLarge(AttributeEnum.HP);
-                extendDamageLg.Div(1 + parry);
+                extendDamageLg.Div(parry);
                 extendDamageLg.Mul(at);
                 //Debug.Log("maxHp:" + StringHelper.FormatNumber(maxHp) + " extendDamage:" + StringHelper.FormatNumber(extendDamage));
             }

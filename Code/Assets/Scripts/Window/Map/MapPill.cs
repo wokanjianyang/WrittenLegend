@@ -150,6 +150,10 @@ public class MapPill : MonoBehaviour, IBattleLife
         {
             this.Exit();
         }
+        else if (e.Time == MapTime && e.Type == RuleType.Pill4)
+        {
+            this.Exit();
+        }
     }
 
     private void OnClick_Exit()

@@ -67,28 +67,37 @@ public class Monster_Pill2 : APlayer
 
     private void SetAttr()
     {
-        double hp = StringHelper.StringToNumber(config.HP);
-        //Debug.Log(this.Layer + " Hp:" + StringHelper.FormatNumber(hp));
+        //double hp = StringHelper.StringToNumber(config.HP);
 
-        double attr = StringHelper.StringToNumber(config.Attr);
+        LargeNumber hp = StringHelper.StringToLargNumber(config.HP);
+        Debug.Log(this.Layer + " Hp:" + hp + " " + config.HP);
+
+        LargeNumber attr = StringHelper.StringToLargNumber(config.Attr);
         //Debug.Log(this.Layer + " Attr:" + StringHelper.FormatNumber(attr));
 
-        double def = StringHelper.StringToNumber(config.Def);
+        LargeNumber def = StringHelper.StringToLargNumber(config.Def);
         //Debug.Log(this.Layer + " Def:" + StringHelper.FormatNumber(def));
 
-        double damageMul = StringHelper.StringToNumber(config.DamageMul);
+        LargeNumber damageMul = StringHelper.StringToLargNumber(config.DamageMul);
 
-        double strong = StringHelper.StringToNumber(config.Strong);
+        LargeNumber strong = StringHelper.StringToLargNumber(config.Strong);
 
-        double parry = StringHelper.StringToNumber(config.Parray);
+        LargeNumber parry = StringHelper.StringToLargNumber(config.Parray);
 
         //Debug.Log(this.Layer + " strong:" + strong.ToString());
 
-        AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp);
-        AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr);
-        AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr);
-        AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr);
-        AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, def);
+        AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, 1);
+        AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, 1);
+        AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, 1);
+        AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, 1);
+        AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, 1);
+
+
+        AttributeBonus.SetAttrLarge(AttributeEnum.HP, AttributeFrom.HeroBase, hp);
+        AttributeBonus.SetAttrLarge(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr);
+        AttributeBonus.SetAttrLarge(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr);
+        AttributeBonus.SetAttrLarge(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr);
+        AttributeBonus.SetAttrLarge(AttributeEnum.Def, AttributeFrom.HeroBase, def);
 
         AttributeBonus.SetAttr(AttributeEnum.DamageIncrea, AttributeFrom.HeroBase, config.DamageIncrea);
         AttributeBonus.SetAttr(AttributeEnum.DamageResist, AttributeFrom.HeroBase, config.DamageResist);
@@ -100,9 +109,13 @@ public class Monster_Pill2 : APlayer
         AttributeBonus.SetAttr(AttributeEnum.Accuracy, AttributeFrom.HeroBase, config.Accuracy);
         AttributeBonus.SetAttr(AttributeEnum.Protect, AttributeFrom.HeroBase, config.Protect);
 
-        AttributeBonus.SetAttr(AttributeEnum.Strong, AttributeFrom.HeroBase, strong);
-        AttributeBonus.SetAttr(AttributeEnum.MulDamageIncrea, AttributeFrom.HeroBase, damageMul);
-        AttributeBonus.SetAttr(AttributeEnum.Parry, AttributeFrom.HeroBase, parry);
+        AttributeBonus.SetAttr(AttributeEnum.Strong, AttributeFrom.HeroBase, 1);
+        AttributeBonus.SetAttr(AttributeEnum.MulDamageIncrea, AttributeFrom.HeroBase, 1);
+        AttributeBonus.SetAttr(AttributeEnum.Parry, AttributeFrom.HeroBase, 1);
+
+        AttributeBonus.SetAttrLarge(AttributeEnum.Strong, AttributeFrom.HeroBase, strong);
+        AttributeBonus.SetAttrLarge(AttributeEnum.MulDamageIncrea, AttributeFrom.HeroBase, damageMul);
+        AttributeBonus.SetAttrLarge(AttributeEnum.Parry, AttributeFrom.HeroBase, parry);
 
         SetMoveSpeed((int)config.Speed);
         SetAttackSpeed((int)config.Speed);

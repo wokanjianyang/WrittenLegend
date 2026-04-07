@@ -49,7 +49,7 @@ public class BattleRule_Pill4 : ABattleRule
 
                 for (int i = 0; i < 10; i++)
                 {
-                    var enemy = new Monster_Pill2(3, Layer);
+                    var enemy = new Monster_Pill2(4, Layer);
                     GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
                 }
 
