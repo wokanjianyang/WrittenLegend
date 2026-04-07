@@ -48,6 +48,7 @@ namespace Game
         Pill = 40,
         Pill2 = 41,
         Pill3 = 42,
+        Pill4 = 43,
     }
 
 }

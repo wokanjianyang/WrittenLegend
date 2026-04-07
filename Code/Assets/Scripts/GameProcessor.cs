@@ -475,6 +475,9 @@ namespace Game
                 case RuleType.Pill3:
                     this.BattleRule = new BattleRule_Pill3(param);
                     break;
+                case RuleType.Pill4:
+                    this.BattleRule = new BattleRule_Pill4(param);
+                    break;
                 case RuleType.Babel:
                     this.BattleRule = new BattleRule_Babel(param);
                     break;
@@ -775,6 +778,7 @@ namespace Game
                 case RuleType.World:
                 case RuleType.Pill2:
                 case RuleType.Pill3:
+                case RuleType.Pill4:
                 case RuleType.Babel:
                 case RuleType.Festive:
                 case RuleType.Spirit:

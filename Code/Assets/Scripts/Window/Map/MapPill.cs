@@ -80,6 +80,14 @@ public class MapPill : MonoBehaviour, IBattleLife
                 GameProcessor.Inst.LoadMap(RuleType.Pill3, this.transform, param);
             });
         }
+        else if (e.Type == 4)
+        {
+            GameProcessor.Inst.DelayAction(0.1f, () =>
+            {
+                GameProcessor.Inst.OnDestroy();
+                GameProcessor.Inst.LoadMap(RuleType.Pill4, this.transform, param);
+            });
+        }
     }
 
     public void OnShowInfo(ShowPillInfoEvent e)

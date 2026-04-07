@@ -42,6 +42,7 @@ namespace Game
         World,
         Pill2,
         Pill3,
+        Pill4,
         Festive,
         Shengxiao,
         Spirit,
