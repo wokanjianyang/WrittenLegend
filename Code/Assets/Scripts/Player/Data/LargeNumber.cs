@@ -192,6 +192,29 @@ namespace Game
             return this;
         }
 
+        public static LargeNumber Pow(double x, int y)
+        {
+            if (y == 0)
+            {
+                return new LargeNumber(1);
+            }
+
+            LargeNumber lg = new LargeNumber(x);
+
+            for (int i = 1; i < y; i++)
+            {
+                lg.data *= x;
+
+                if (lg.data > 1E+300)
+                {
+                    lg.ReExponent();
+                }
+            }
+
+            lg.ReExponent();
+
+            return lg;
+        }
         public double ConvertToDouble()
         {
             if (this.data == 0)
