@@ -31,7 +31,7 @@ public class Dialog_Ring : MonoBehaviour
 
     private RingConfig CurrentConfig = null;
 
-    int maxLevel = 15;
+    int maxLevel = 20;
 
     public int Order => (int)ComponentOrder.Dialog;
 

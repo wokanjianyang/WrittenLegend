@@ -8,7 +8,7 @@
 {"_t":"SkillDivineAttrConfig","_id":10,"SkillId":1010,"Name":"神技·裂地斩","Type":1,"Desc":"裂地斩增加{0}%的触发概率，神话之路会削弱","DamageType":0,"Param":12,"ParamRate":1,"PercentRate":100,"LevelRequire":135},
 {"_t":"SkillDivineAttrConfig","_id":11,"SkillId":2010,"Name":"神技·分身术","Type":1,"Desc":"分身享受{0}%的天赋、无视防御、韧性效果，神话之路会削弱","DamageType":0,"Param":20,"ParamRate":1,"PercentRate":7,"LevelRequire":135},
 {"_t":"SkillDivineAttrConfig","_id":12,"SkillId":3010,"Name":"神技·无极道体","Type":1,"Desc":"宠物享受{0}%的天赋、无视防御、韧性效果，护体神戒、神话之路会削弱","DamageType":0,"Param":20,"ParamRate":1,"PercentRate":5,"LevelRequire":135},
-{"_t":"SkillDivineAttrConfig","_id":13,"SkillId":1006,"Name":"神技·武力精通","Type":2,"Desc":"武力精通额外提高{0}%的独立增幅","DamageType":0,"Param":25,"ParamRate":1,"PercentRate":1,"LevelRequire":5000},
-{"_t":"SkillDivineAttrConfig","_id":14,"SkillId":2006,"Name":"神技·法力精通","Type":2,"Desc":"法力精通额外提高{0}%的独立增幅","DamageType":0,"Param":25,"ParamRate":1,"PercentRate":1,"LevelRequire":5000},
-{"_t":"SkillDivineAttrConfig","_id":15,"SkillId":3006,"Name":"神技·道力精通","Type":2,"Desc":"道力精通额外提高{0}%的独立增幅","DamageType":0,"Param":25,"ParamRate":1,"PercentRate":1,"LevelRequire":5000},
+{"_t":"SkillDivineAttrConfig","_id":13,"SkillId":1006,"Name":"神技·武力精通","Type":2,"Desc":"武力精通额外提高{0}%的独立增幅","DamageType":0,"Param":10,"ParamRate":1,"PercentRate":1,"LevelRequire":5000},
+{"_t":"SkillDivineAttrConfig","_id":14,"SkillId":2006,"Name":"神技·法力精通","Type":2,"Desc":"法力精通额外提高{0}%的独立增幅","DamageType":0,"Param":10,"ParamRate":1,"PercentRate":1,"LevelRequire":5000},
+{"_t":"SkillDivineAttrConfig","_id":15,"SkillId":3006,"Name":"神技·道力精通","Type":2,"Desc":"道力精通额外提高{0}%的独立增幅","DamageType":0,"Param":10,"ParamRate":1,"PercentRate":1,"LevelRequire":5000},
 ]}

@@ -26,7 +26,7 @@ public class Dialog_Pet_Forge1 : MonoBehaviour
 
     private Pet SelectPet;
 
-    private int MaxLevel  = 50;
+    private int MaxLevel  = 100;
 
     public int Order => (int)ComponentOrder.Dialog;
 

@@ -81,10 +81,11 @@ namespace Game
             Dictionary<string, string> paramDict = new Dictionary<string, string>();
             paramDict.Add("account", user.Account);
             paramDict.Add("name", user.Name);
-            paramDict.Add("power", user.AttributeBonus.GetPowerText());
+            paramDict.Add("power", user.AttributeBonus.GetPowerNew().size + "");
             paramDict.Add("gold", StringHelper.FormatNumber(user.MagicGold.Data));
             paramDict.Add("level", user.MagicLevel.Data + "");
             paramDict.Add("cycle", user.Cycle.Data + "");
+            paramDict.Add("mapId", user.MapId + "");
 
             long advert = user.GetAchievementProgeress(AchievementSourceType.RealAdvert);
             paramDict.Add("advert", advert + "");
