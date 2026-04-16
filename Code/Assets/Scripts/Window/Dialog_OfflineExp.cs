@@ -53,8 +53,9 @@ namespace Game
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Wing_Stone, 100));  //幻境劵
 
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Reform_Stone, 2000)); //专属碎片
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Pill2, 10000)); //专属之心
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Pill3, 10000)); //四格碎片
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Pill2, 10000)); //练气
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Pill3, 10000)); //炼神
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Pill4, 10000)); //炼魂
 
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Talent_Book, 80)); //精炼石
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Red_Stone, 999)); //红装精华

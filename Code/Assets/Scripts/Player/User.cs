@@ -717,7 +717,7 @@ namespace Game
                 if (phLevel > 0)
                 {
                     PhantomAttrConfig phantomAttrConfig = PhantomConfigCategory.Instance.GetAttrConfig(sp.Key, phLevel);
-                    int phAttr = phantomAttrConfig.GetRewardAttr(phLevel);
+                    double phAttr = phantomAttrConfig.GetRewardAttr(phLevel);
                     AttributeBonus.SetAttr((AttributeEnum)phantomAttrConfig.RewardId, AttributeFrom.Phantom, phAttr);
                 }
             }

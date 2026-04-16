@@ -23,4 +23,8 @@
 {"_t":"PhantomConfig","_id":22,"Name":"幻神猪皇","RequireCycle":12,"Desc":"只有道士技能，才能造成伤害"},
 {"_t":"PhantomConfig","_id":23,"Name":"幻神蝎王","RequireCycle":15,"Desc":""},
 {"_t":"PhantomConfig","_id":24,"Name":"幻神恶魔教主","RequireCycle":15,"Desc":""},
+{"_t":"PhantomConfig","_id":25,"Name":"幻神恶魔教皇","RequireCycle":18,"Desc":""},
+{"_t":"PhantomConfig","_id":26,"Name":"幻神邪魔教主","RequireCycle":18,"Desc":""},
+{"_t":"PhantomConfig","_id":27,"Name":"幻神邪魔教皇","RequireCycle":18,"Desc":""},
+{"_t":"PhantomConfig","_id":28,"Name":"幻神虹魔猪王","RequireCycle":18,"Desc":""},
 ]}

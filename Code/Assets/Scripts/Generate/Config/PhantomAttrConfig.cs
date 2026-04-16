@@ -179,10 +179,10 @@ namespace Game
 		public int RewardId { get; set; }
 		/// <summary>RewardBase</summary>
 		[ProtoMember(35)]
-		public int RewardBase { get; set; }
+		public double RewardBase { get; set; }
 		/// <summary>RewardRise</summary>
 		[ProtoMember(36)]
-		public int RewardRise { get; set; }
+		public double RewardRise { get; set; }
 		/// <summary>SkillIdList</summary>
 		[ProtoMember(37)]
 		public int[] SkillIdList { get; set; }

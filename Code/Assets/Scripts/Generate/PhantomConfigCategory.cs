@@ -22,7 +22,7 @@ namespace Game
             return (level - 1) * this.AttrAdvanceRise; ;
         }
 
-        public int GetRewardAttr(int level)
+        public double GetRewardAttr(int level)
         {
             return this.RewardBase + (level - 1) * this.RewardRise;
         }
