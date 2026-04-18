@@ -235,7 +235,15 @@ namespace Game
             //加载技能
             if (this.ModelConfig.SkillList != null)
             {
-                foreach (int skillId in this.ModelConfig.SkillList)
+                List<int> skillList = this.ModelConfig.SkillList.ToList();
+
+                if (Master.Camp == PlayerType.Hero && this.Master.SelectSkillList.Select(m => m.SkillPanel.SkillId).Contains(3006))
+                {
+                    skillList.Add(3006);
+                }
+
+
+                foreach (int skillId in skillList)
                 {
                     SkillData skillData = GameProcessor.Inst.User.SkillList.Where(m => m.SkillConfig.Id == skillId).FirstOrDefault();
 
@@ -286,6 +294,18 @@ namespace Game
 
                         SkillState skill = new SkillState(this, skillPanel, from, skillData.Position, 0);
                         SelectSkillList.Add(skill);
+
+                        //职业专精技能的属性
+                        if (skillData.SkillConfig.Type == (int)SkillType.Expert)
+                        {
+                            int attrKey = (int)AttributeFrom.Skill * 10000 + skillData.SkillId;
+
+                            if (skillData.SkillConfig.Role == (int)RoleType.Warlock)
+                            {
+                                AttributeBonus.SetAttr(AttributeEnum.WarlockSkillPercent, attrKey, skillPanel.Percent);
+                                AttributeBonus.SetAttr(AttributeEnum.WarlockSkillDamage, attrKey, skillPanel.Damage);
+                            }
+                        }
                     }
                     else
                     {
@@ -371,6 +391,8 @@ namespace Game
                     //}
                 }
             }
+
+
         }
 
         private void SetSkill12()
