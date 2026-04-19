@@ -199,6 +199,14 @@ namespace Game
                     Type = ComBoxType.Gift,
                 });
             }
+            else if (select.BoxItem.Item.Type == ItemType.Steed)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowSteedDetailEvent()
+                {
+                    boxItem = select.BoxItem,
+                    Type = ComBoxType.Gift,
+                });
+            }
             else
             {
                 GameProcessor.Inst.EventCenter.Raise(new ShowDetailEvent()

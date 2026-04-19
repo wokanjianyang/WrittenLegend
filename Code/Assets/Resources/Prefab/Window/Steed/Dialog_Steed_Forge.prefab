@@ -756,7 +756,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -150, y: -150}
+  m_AnchoredPosition: {x: 0, y: -150}
   m_SizeDelta: {x: 200, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7370716668735773569
@@ -1435,7 +1435,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8900284681530860510}
   - component: {fileID: 4700570627691751315}
-  - component: {fileID: 3757760401574844230}
+  - component: {fileID: 692567389249589295}
   m_Layer: 5
   m_Name: Dialog_Steed_Forge
   m_TagString: Untagged
@@ -1480,7 +1480,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TouchIgnore: 0
---- !u!114 &3757760401574844230
+--- !u!114 &692567389249589295
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1489,7 +1489,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5666275668401246167}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7503506ce401349b2b4735f1c8373a, type: 3}
+  m_Script: {fileID: 11500000, guid: cfca6a4a602613042ad353786b0d8d00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ExpProgress: {fileID: 485042642666835782}
@@ -1597,7 +1597,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7451102081703223247
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2463,4 +2463,4 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u53E3\u7CAE\u5347\u7EA7"
+  m_Text: "\u517D\u7CAE\u5347\u7EA7"

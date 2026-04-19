@@ -67,6 +67,10 @@ namespace Game
             {
                 item = PetConfigCategory.Instance.BuildPet(configId);
             }
+            else if (type == ItemType.Steed)
+            {
+                item = SteedConfigCategory.Instance.BuildSteed(configId);
+            }
             else
             {
                 item = new Item(configId);

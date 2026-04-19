@@ -1102,7 +1102,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8900284681530860510}
   - component: {fileID: 4700570627691751315}
-  - component: {fileID: 3560880581581466535}
+  - component: {fileID: 1033123389736033308}
   m_Layer: 5
   m_Name: Dialog_Steed
   m_TagString: Untagged
@@ -1147,7 +1147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TouchIgnore: 0
---- !u!114 &3560880581581466535
+--- !u!114 &1033123389736033308
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1156,13 +1156,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5666275668401246167}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a35230c432256f47b509286f261a19a, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c260df90e76f5c4f8fe71450041f814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   tf_tgs: {fileID: 8142283733071067618}
-  panelPet: {fileID: 0}
-  panelSpeical: {fileID: 0}
-  panelPet1: {fileID: 0}
+  panelPet: {fileID: 68581882368902968}
   Btn_Close: {fileID: 6779914700175958588}
 --- !u!1 &6705229637963675287
 GameObject:
@@ -1568,6 +1566,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8900284681530860510}
     m_Modifications:
+    - target: {fileID: 274906666509894939, guid: 0d28351fb0d848d4088b613f8bbe9c6e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 274906666509894939, guid: 0d28351fb0d848d4088b613f8bbe9c6e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 274906666509894939, guid: 0d28351fb0d848d4088b613f8bbe9c6e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 274906666509894939, guid: 0d28351fb0d848d4088b613f8bbe9c6e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2510465553362603192, guid: 0d28351fb0d848d4088b613f8bbe9c6e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2510465553362603192, guid: 0d28351fb0d848d4088b613f8bbe9c6e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3195532145401590578, guid: 0d28351fb0d848d4088b613f8bbe9c6e, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1587,6 +1609,14 @@ PrefabInstance:
     - target: {fileID: 5666275668401246167, guid: 0d28351fb0d848d4088b613f8bbe9c6e, type: 3}
       propertyPath: m_Name
       value: Panel_Steed
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721568813172348987, guid: 0d28351fb0d848d4088b613f8bbe9c6e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721568813172348987, guid: 0d28351fb0d848d4088b613f8bbe9c6e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8900284681530860510, guid: 0d28351fb0d848d4088b613f8bbe9c6e, type: 3}
       propertyPath: m_Pivot.x
@@ -1674,6 +1704,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d28351fb0d848d4088b613f8bbe9c6e, type: 3}
+--- !u!114 &68581882368902968 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8702939615083353023, guid: 0d28351fb0d848d4088b613f8bbe9c6e, type: 3}
+  m_PrefabInstance: {fileID: 8661736702359344263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d0a10cdcc93c3b4291d90b1f614d25a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &265855729131911001 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8900284681530860510, guid: 0d28351fb0d848d4088b613f8bbe9c6e, type: 3}

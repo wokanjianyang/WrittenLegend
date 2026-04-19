@@ -53,7 +53,7 @@ namespace Game
 
                 return type <= 0 ? 3 : type - 1; //四格等全职业装备放战士包裹
             }
-            if (this.Item.Type == ItemType.Exclusive || this.Item.Type == ItemType.Pet || this.Item.Type == ItemType.Shengxiao)
+            if (this.Item.Type == ItemType.Exclusive || this.Item.Type == ItemType.Pet || this.Item.Type == ItemType.Steed || this.Item.Type == ItemType.Shengxiao)
             {
                 return 3;
             }

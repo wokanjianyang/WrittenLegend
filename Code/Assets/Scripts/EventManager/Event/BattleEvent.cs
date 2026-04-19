@@ -75,6 +75,36 @@ namespace Game
         public int MapId { get; set; }
     }
 
+
+    //steed
+    public class ShowSteedDetailEvent : SDD.Events.Event
+    {
+        public ComBoxType Type { get; set; }
+        public BoxItem boxItem { get; set; }
+    }
+
+    public class SteedBattleUpEvent : SDD.Events.Event
+    {
+        public BoxItem BoxItem { get; set; }
+    }
+
+    public class SteedBattleDownEvent : SDD.Events.Event
+    {
+        public Item_Steed Item { get; set; }
+    }
+
+    public class SteedOpenForgeEvent : SDD.Events.Event
+    {
+        public int Type { get; set; }
+        public Item_Steed Item { get; set; }
+    }
+
+    public class SteedStartTravelEvent : SDD.Events.Event
+    {
+    }
+
+
+
     public class ComBoxSelectEvent : SDD.Events.Event
     {
         public BoxItem BoxItem { get; set; }

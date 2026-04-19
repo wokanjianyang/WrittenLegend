@@ -15,6 +15,7 @@ public class Dialog_Pet : MonoBehaviour, IBattleLife
     public Panel_Pet panelPet;
     public Panel_Pet_Speical panelSpeical;
     public Panel_Pet1 panelPet1;
+    public Panel_Steed panelSteed;
 
     public Button Btn_Close;
 
@@ -79,6 +80,7 @@ public class Dialog_Pet : MonoBehaviour, IBattleLife
         panelPet.gameObject.SetActive(false);
         panelSpeical.gameObject.SetActive(false);
         panelPet1.gameObject.SetActive(false);
+        panelSteed.gameObject.SetActive(false);
 
         if (index == 1)
         {
@@ -91,6 +93,10 @@ public class Dialog_Pet : MonoBehaviour, IBattleLife
         else if (index == 3)
         {
             panelPet1.gameObject.SetActive(true);
+        }
+        else if (index == 4)
+        {
+            panelSteed.gameObject.SetActive(true);
         }
     }
 

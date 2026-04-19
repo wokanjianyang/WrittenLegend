@@ -122,6 +122,7 @@ namespace Game
         public static string[] RoleName = { "战士", "法师", "道士" };
         public static string[] PetName = { "战魂", "法魂", "道魂" };
         public static string[] PetName1 = { "仙宠斗魂", "仙宠魔魂", "仙宠圣魂" };
+        public static string[] SteedName = { "绝影", "的卢", "赤兔" };
         public const int PetMax = 2;
 
         public const int MaxWorld = 800;

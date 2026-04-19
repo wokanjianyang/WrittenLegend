@@ -164,6 +164,15 @@ namespace Game
                 });
                 return;
             }
+            else if (this.BoxItem.Item.Type == ItemType.Steed)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowSteedDetailEvent()
+                {
+                    boxItem = this.BoxItem,
+                    Type = this.Type
+                });
+                return;
+            }
 
             GameProcessor.Inst.EventCenter.Raise(new ShowDetailEvent()
             {

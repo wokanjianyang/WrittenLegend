@@ -152,6 +152,8 @@ namespace Game
         public List<Pet> PetList { get; set; } = new List<Pet>();
         public Dictionary<int, Pet> PetDict { get; set; } = new Dictionary<int, Pet>();
 
+        public List<Steed> SteedList { get; set; } = new List<Steed>();
+
         /// <summary>
         /// 包裹
         /// </summary>

@@ -13,7 +13,7 @@
 {"_t":"FestiveWeekConfig","_id":33,"Cycle":0,"Cost":30000,"Max":2,"Title":"兑换特戒自选*1","TargetName":"特戒自选","TargetType":4,"TargetId":22,"TargetCount":1},
 {"_t":"FestiveWeekConfig","_id":34,"Cycle":0,"Cost":50000,"Max":1,"Title":"兑换神技自选*1","TargetName":"神技自选","TargetType":4,"TargetId":26,"TargetCount":1},
 {"_t":"FestiveWeekConfig","_id":36,"Cycle":6,"Cost":300000,"Max":1,"Title":"兑换魂骨自选*1","TargetName":"魂骨自选","TargetType":4,"TargetId":28,"TargetCount":1},
-{"_t":"FestiveWeekConfig","_id":37,"Cycle":6,"Cost":5000,"Max":100,"Title":"兑换宠物口粮*100","TargetName":"宠物口粮","TargetType":5,"TargetId":4022,"TargetCount":100},
+{"_t":"FestiveWeekConfig","_id":37,"Cycle":6,"Cost":1000,"Max":100,"Title":"兑换宠物口粮*100","TargetName":"宠物口粮","TargetType":5,"TargetId":4022,"TargetCount":100},
 {"_t":"FestiveWeekConfig","_id":38,"Cycle":6,"Cost":100000,"Max":1,"Title":"兑换时装精华","TargetName":"时装精华","TargetType":5,"TargetId":4034,"TargetCount":1},
 {"_t":"FestiveWeekConfig","_id":39,"Cycle":6,"Cost":150000,"Max":1,"Title":"兑换超级书页","TargetName":"超级书页","TargetType":5,"TargetId":4112,"TargetCount":1},
 {"_t":"FestiveWeekConfig","_id":40,"Cycle":10,"Cost":20000,"Max":20,"Title":"兑换天赋秘籍*1","TargetName":"天赋秘籍","TargetType":5,"TargetId":4020,"TargetCount":1},

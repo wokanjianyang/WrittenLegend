@@ -118,5 +118,9 @@
 {"_t":"InfiniteDropConfig","_id":11012,"DropId":220042,"Name":"暗金魂心","Rate":1,"StartLevel":5001,"EndLevel":6000,"RateLevel":61,"Max":1,"Number":1},
 {"_t":"InfiniteDropConfig","_id":11013,"DropId":220043,"Name":"六大极戒","Rate":3,"StartLevel":5501,"EndLevel":6000,"RateLevel":43,"Max":1,"Number":1},
 {"_t":"InfiniteDropConfig","_id":11014,"DropId":220107,"Name":"金色宠物","Rate":2,"StartLevel":5501,"EndLevel":6500,"RateLevel":67,"Max":1,"Number":1},
-{"_t":"InfiniteDropConfig","_id":11015,"DropId":220109,"Name":"粉色宠物","Rate":1,"StartLevel":6401,"EndLevel":6900,"RateLevel":91,"Max":1,"Number":1},
+{"_t":"InfiniteDropConfig","_id":11015,"DropId":220109,"Name":"粉色宠物","Rate":1,"StartLevel":6401,"EndLevel":7400,"RateLevel":91,"Max":1,"Number":1},
+{"_t":"InfiniteDropConfig","_id":11305,"DropId":220305,"Name":"橙色坐骑","Rate":4,"StartLevel":3401,"EndLevel":5400,"RateLevel":67,"Max":1,"Number":1},
+{"_t":"InfiniteDropConfig","_id":11306,"DropId":220306,"Name":"红色坐骑","Rate":3,"StartLevel":5401,"EndLevel":6400,"RateLevel":71,"Max":1,"Number":1},
+{"_t":"InfiniteDropConfig","_id":11307,"DropId":220307,"Name":"金色坐骑","Rate":2,"StartLevel":6401,"EndLevel":7400,"RateLevel":83,"Max":1,"Number":1},
+{"_t":"InfiniteDropConfig","_id":11308,"DropId":220308,"Name":"暗金坐骑","Rate":1,"StartLevel":7401,"EndLevel":8400,"RateLevel":91,"Max":1,"Number":1},
 ]}

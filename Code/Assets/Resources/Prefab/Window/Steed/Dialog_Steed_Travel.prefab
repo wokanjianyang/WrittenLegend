@@ -801,7 +801,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8900284681530860510}
   - component: {fileID: 4700570627691751315}
-  - component: {fileID: 5392729767997162291}
+  - component: {fileID: 619654158383343538}
   m_Layer: 5
   m_Name: Dialog_Steed_Travel
   m_TagString: Untagged
@@ -844,7 +844,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TouchIgnore: 0
---- !u!114 &5392729767997162291
+--- !u!114 &619654158383343538
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -853,7 +853,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5666275668401246167}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e17278b64c1c86458f43bce325ffe81, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f031385c859daa49b634c89f405c58f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Txt_Content: {fileID: 503299568360789087}
