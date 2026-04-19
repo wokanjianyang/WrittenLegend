@@ -55,7 +55,7 @@ public class Panel_Steed : MonoBehaviour, IBattleLife
         SteedItems.Remove(item);
         GameObject.Destroy(item.gameObject);
 
-        user.SteedList.Remove(steed);
+        user.SteedDict.Remove(steed.Role);
 
         List<Item> items = new List<Item>();
         items.Add(steed);
@@ -69,7 +69,14 @@ public class Panel_Steed : MonoBehaviour, IBattleLife
 
     private void OpenForge(SteedOpenForgeEvent e)
     {
-        DialogForge.Open(e.Item.steed);
+        if (e.Type == 1)
+        {
+            DialogForge.Open(e.Item.steed);
+        }
+        else if (e.Type == 2)
+        {
+            DialogTravel.Open(e.Item.steed);
+        }
     }
 
 
@@ -91,7 +98,7 @@ public class Panel_Steed : MonoBehaviour, IBattleLife
         }
         SteedItems.Clear();
 
-        List<Steed> steeds = user.SteedList;
+        List<Steed> steeds = user.SteedDict.Select(m => m.Value).ToList(); ;
 
         for (int i = 0; i < steeds.Count; i++)
         {

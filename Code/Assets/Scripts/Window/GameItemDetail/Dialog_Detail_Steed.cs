@@ -99,8 +99,8 @@ namespace Game
             Steed steed = this.boxItem.Item as Steed;
 
             this.TxtName.text = string.Format("<color=#{0}>{1}</color>", titleColor, steed.Name);
-            this.TxtLevel.text = steed.PetLevel.Data + "";
-            this.TxtLayer.text = steed.PetLayer.Data + "";
+            this.TxtLevel.text = steed.SteedLevel.Data + "";
+            this.TxtLayer.text = steed.SteedLayer.Data + "";
 
             List<KeyValuePair<int, long>> flairs = steed.GetTotalFlairs().ToList();
 
@@ -167,7 +167,7 @@ namespace Game
 
             if (!this.boxItem.Item.IsLock)
             {
-                if (steed.PetLevel.Data > 1)
+                if (steed.SteedLevel.Data > 1)
                 {
                     this.btn_Restore.gameObject.SetActive(this.boxItem.BoxId != -1);
                 }
@@ -201,7 +201,7 @@ namespace Game
         {
             this.gameObject.SetActive(false);
 
-            GameProcessor.Inst.EventCenter.Raise(new PetBattleUpEvent()
+            GameProcessor.Inst.EventCenter.Raise(new SteedBattleUpEvent()
             {
                 BoxItem = this.boxItem,
             });

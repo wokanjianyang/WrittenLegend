@@ -37,8 +37,8 @@ namespace Game
             int role = RandomHelper.RandomNumber(1, 4);
             Steed steed = new Steed(configId, role);
 
-            steed.PetLevel.Data = 1;
-            steed.PetLayer.Data = 1;
+            steed.SteedLevel.Data = 1;
+            steed.SteedLayer.Data = 1;
 
             List<KeyValuePair<int, int>> flairs = BuildAttr(configId, role);
 
@@ -62,7 +62,7 @@ namespace Game
 
             int quality = itemConfig.Quality;
 
-            int total = 9 * 45;
+            int total = quality >= 8 ? quality * 45 : quality * 30;
             int tempTotal = 0;
 
             for (int i = 1; i <= quality; i++)
@@ -73,7 +73,7 @@ namespace Game
 
                 //Debug.Log("avg:" + avg);
 
-                int attrValue = RandomHelper.RandomNumber(Math.Max(20, avg - 22), Math.Min(70, avg + 23));
+                int attrValue = quality >= 8 ? RandomHelper.RandomNumber(Math.Max(20, avg - 22), Math.Min(70, avg + 23)) : RandomHelper.RandomNumber(Math.Max(10, avg - 15), Math.Min(50, avg + 15)); ;
 
                 flairs.Add(new KeyValuePair<int, int>(config.AttrId, Math.Min(70, attrValue)));
 
@@ -90,7 +90,7 @@ namespace Game
             return this.list.Where(m => m.AttrId == attrId).FirstOrDefault();
         }
 
-        public long GetPetFee(long level)
+        public long GetFee(long level)
         {
             return 1000 + (level - 1) * 100;
         }
@@ -100,11 +100,28 @@ namespace Game
             long total = 0;
             for (int i = 1; i < level; i++)
             {
-                total += GetPetFee(i);
+                total += GetFee(i);
             }
             return total;
         }
 
+        public int GetLayerId(long quality)
+        {
+            if (quality == 7)
+            {
+                return ItemHelper.SpecialId_Steed_Layer1;
+            }
+            else if (quality == 8)
+            {
+                return ItemHelper.SpecialId_Steed_Layer2;
+            }
+            else if (quality == 9)
+            {
+                return ItemHelper.SpecialId_Steed_Layer3;
+            }
+
+            return 0;
+        }
 
         public int GetLayerFee(long layer)
         {

@@ -152,7 +152,7 @@ namespace Game
         public List<Pet> PetList { get; set; } = new List<Pet>();
         public Dictionary<int, Pet> PetDict { get; set; } = new Dictionary<int, Pet>();
 
-        public List<Steed> SteedList { get; set; } = new List<Steed>();
+        public Dictionary<int, Steed> SteedDict { get; set; } = new Dictionary<int, Steed>();
 
         /// <summary>
         /// 包裹
@@ -2425,6 +2425,25 @@ namespace Game
                 if (pet.DevourFlairs.Count > 0)
                 {
                     dict[ItemHelper.Specail_Pet_Layer[quality - 5]] += pet.DevourFlairs.Count;
+                }
+            }
+            else if (item.Type == ItemType.Steed)
+            {
+                Pet pet = item as Pet;
+                int quality = item.GetQuality();
+                dict[ItemHelper.SpecialId_Steed_Exp] = quality * 100;
+
+                if (quality == 7)
+                {
+                    dict[ItemHelper.SpecialId_Steed_Layer1] = 1;
+                }
+                else if (quality == 8)
+                {
+                    dict[ItemHelper.SpecialId_Steed_Layer2] = 1;
+                }
+                else if (quality == 9)
+                {
+                    dict[ItemHelper.SpecialId_Steed_Layer3] = 1;
                 }
             }
             else if (item.Type == ItemType.Shengxiao)

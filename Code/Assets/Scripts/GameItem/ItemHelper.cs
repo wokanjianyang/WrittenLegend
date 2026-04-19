@@ -187,6 +187,10 @@ namespace Game
 
         public static int SpecialId_Chunjie = 4111;
 
+        public static int SpecialId_Steed_Exp = 4051; //兽粮
+        public static int SpecialId_Steed_Layer1 = 4052; //金色兽魂
+        public static int SpecialId_Steed_Layer2 = 4053; //暗金兽魂
+        public static int SpecialId_Steed_Layer3 = 4054; //粉色兽魂
 
         public static int SpecialId_Shuye1 = 4006; //书页
         public static int SpecialId_Shuye2 = 4102; //高级书页

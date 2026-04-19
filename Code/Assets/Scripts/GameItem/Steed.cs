@@ -13,8 +13,8 @@ namespace Game
         public const int LayerRiseAttr = 5;
         public const int LayerRiseSkill = 3;
 
-        public MagicData PetLevel { get; set; } = new MagicData();
-        public MagicData PetLayer { get; set; } = new MagicData();
+        public MagicData SteedLevel { get; set; } = new MagicData();
+        public MagicData SteedLayer { get; set; } = new MagicData();
 
         public MagicData LevelExp { get; set; } = new MagicData();
 
@@ -45,7 +45,7 @@ namespace Game
         {
             Dictionary<int, long> flairs = new Dictionary<int, long>();
 
-            long layer = PetLayer.Data;
+            long layer = SteedLayer.Data;
 
             for (int i = 0; i < Flairs.Count; i++)
             {
@@ -63,7 +63,7 @@ namespace Game
         {
             Dictionary<int, double> attrs = new Dictionary<int, double>();
 
-            long level = PetLevel.Data;
+            long level = SteedLevel.Data;
             long rise = level / 10;
             double riseRate = (1 + rise * 0.05);
 
@@ -90,24 +90,24 @@ namespace Game
             long fee = 0;
             if (this.GetQuality() == 9)
             {
-                fee = PetConfigCategory.Instance.GetPetFee1(PetLevel.Data);
+                fee = PetConfigCategory.Instance.GetPetFee1(SteedLevel.Data);
             }
             else
             {
-                fee = PetConfigCategory.Instance.GetPetFee(PetLevel.Data);
+                fee = PetConfigCategory.Instance.GetPetFee(SteedLevel.Data);
             }
 
             if (this.LevelExp.Data >= fee)
             {
                 this.LevelExp.Data -= fee;
-                this.PetLevel.Data++;
+                this.SteedLevel.Data++;
             }
         }
 
 
         public long GetSkillPercent()
         {
-            return PetSkillRise[Flairs.Count - 1] + (PetLayer.Data - 1) * LayerRiseSkill;
+            return PetSkillRise[Flairs.Count - 1] + (SteedLayer.Data - 1) * LayerRiseSkill;
         }
 
         private int[] PetSkillRise = new int[] { 5, 6, 7, 8, 10, 15, 20, 25, 35 };

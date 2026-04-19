@@ -251,6 +251,7 @@ namespace Game
             GameProcessor.Inst.EventCenter.AddListener<ChangeEquipPlanEvent>(this.OnChangeEquipPlanEvent);
 
             GameProcessor.Inst.EventCenter.AddListener<PetBattleUpEvent>(this.PetBattleUp);
+            GameProcessor.Inst.EventCenter.AddListener<SteedBattleUpEvent>(this.SteedBattleUp);
 
             int EquipPanelIndex = GameProcessor.Inst.User.EquipPanelIndex;
             Toggle_Plan_List[EquipPanelIndex].isOn = true;
@@ -895,6 +896,27 @@ namespace Game
 
                 user.PetList.Add(pet);
             }
+
+            //通知英雄更新属性
+            user.EventCenter.Raise(new HeroUseEquipEvent { });
+        }
+
+        private void SteedBattleUp(SteedBattleUpEvent e)
+        {
+            User user = GameProcessor.Inst.User;
+
+            Steed steed = e.BoxItem.Item as Steed;
+
+            int key = steed.Role;
+            if (user.SteedDict.ContainsKey(key))
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "已经上阵了此坐骑", ToastType = ToastTypeEnum.Failure });
+                return;
+            }
+            UseBoxItem(e.BoxItem, 1);
+
+            user.SteedDict.Add(key, steed);
+
 
             //通知英雄更新属性
             user.EventCenter.Raise(new HeroUseEquipEvent { });

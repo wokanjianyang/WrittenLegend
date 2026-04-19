@@ -22,7 +22,7 @@ namespace Game
         public Sprite[] list_Backgrounds;
 
         public Steed steed;
-        private int PetCycle = 1;
+        private int SteedCycle = 1;
 
         // Start is called before the first frame update
         void Start()
@@ -50,7 +50,7 @@ namespace Game
             box.Item = steed;
             box.BoxId = -1;
 
-            GameProcessor.Inst.EventCenter.Raise(new ShowPetDetailEvent()
+            GameProcessor.Inst.EventCenter.Raise(new ShowSteedDetailEvent()
             {
                 boxItem = box,
                 Type = ComBoxType.Gift
@@ -87,15 +87,15 @@ namespace Game
             this.steed = sd;
 
             Txt_Name.text = steed.Name;
-            Txt_Level.text = steed.PetLevel.Data + "¼¶";
-            Txt_Layer.text = steed.PetLayer.Data + "½×";
+            Txt_Level.text = steed.SteedLevel.Data + "¼¶";
+            Txt_Layer.text = steed.SteedLayer.Data + "½×";
 
             Txt_Level.color = ColorHelper.GetColorByQuality(steed.GetQuality());
             Txt_Layer.color = ColorHelper.GetColorByQuality(steed.GetQuality());
 
-            this.PetCycle = steed.GetQuality() == 9 ? 2 : 1;
+            this.SteedCycle = steed.GetQuality() == 9 ? 2 : 1;
 
-            this.image_Background.sprite = list_Backgrounds[steed.Role - 1 + PetCycle * 3 - 3];
+            this.image_Background.sprite = list_Backgrounds[steed.Role - 1 + SteedCycle * 3 - 3];
         }
     }
 }

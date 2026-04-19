@@ -26,8 +26,8 @@ public class Dialog_Steed_Forge : MonoBehaviour
 
     private Steed SelectSteed;
 
-    private int PetQualityRate = 30;
-    private int PetSpeicalRate = 20;
+    private int QualityRate = 30;
+    private int SpeicalRate = 20;
 
     public int Order => (int)ComponentOrder.Dialog;
 
@@ -52,17 +52,17 @@ public class Dialog_Steed_Forge : MonoBehaviour
     private void Show()
     {
         User user = GameProcessor.Inst.User;
-        int psg = user.GetPetSpeicalGroupLevel();
+        int psg = 0;
 
-        int maxLevel = SelectSteed.GetQuality() * PetQualityRate + psg * PetSpeicalRate;
-        long currentLevel = SelectSteed.PetLevel.Data;
+        int maxLevel = SelectSteed.GetQuality() * QualityRate + psg * SpeicalRate;
+        long currentLevel = SelectSteed.SteedLevel.Data;
 
         Txt_Level.text = "当前等级：" + currentLevel + "级（最高等级" + maxLevel + "级）";
 
-        long stoneTotal = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Pet_Exp).Select(m => m.MagicNubmer.Data).Sum();
-        Txt_Cost.text = "拥有口粮：" + stoneTotal;
+        long stoneTotal = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Steed_Exp).Select(m => m.MagicNubmer.Data).Sum();
+        Txt_Cost.text = "拥有兽粮：" + stoneTotal;
 
-        long fee = PetConfigCategory.Instance.GetPetFee(SelectSteed.PetLevel.Data);
+        long fee = SteedConfigCategory.Instance.GetFee(SelectSteed.SteedLevel.Data);
         ExpProgress.SetProgress(SelectSteed.LevelExp.Data, fee);
 
         if (currentLevel >= maxLevel || stoneTotal <= 0)
@@ -75,17 +75,17 @@ public class Dialog_Steed_Forge : MonoBehaviour
         }
 
         long maxLayer = currentLevel / 20 + 1;
-        long currentLayer = SelectSteed.PetLayer.Data;
+        long currentLayer = SelectSteed.SteedLayer.Data;
 
         Txt_Layer.text = "当前等阶：" + currentLayer + "阶（最高等阶" + maxLayer + "阶）";
 
-        int quanlity = SelectSteed.GetQuality();
-        int materailId = ItemHelper.Specail_Pet_Layer[quanlity - 5];
+        int quality = SelectSteed.GetQuality();
+        int materilId = SteedConfigCategory.Instance.GetLayerId(quality); ;
 
-        ItemConfig itemConfig = ItemConfigCategory.Instance.Get(materailId);
+        ItemConfig itemConfig = ItemConfigCategory.Instance.Get(materilId);
 
-        long haveCount = user.GetMaterialCount(materailId);
-        long needCount = PetConfigCategory.Instance.GetPetLayerFee(currentLayer);
+        long haveCount = user.GetMaterialCount(materilId);
+        long needCount = SteedConfigCategory.Instance.GetLayerFee(currentLayer);
 
         Txt_Name_Layer.text = itemConfig.Name;
         Txt_Cost_Layer.text = haveCount + "/" + needCount;
@@ -107,20 +107,20 @@ public class Dialog_Steed_Forge : MonoBehaviour
 
         User user = GameProcessor.Inst.User;
 
-        int psg = user.GetPetSpeicalGroupLevel();
+        int psg = 0;
 
-        long max = PetConfigCategory.Instance.GetPetFee(SelectSteed.PetLevel.Data);
+        long max = SteedConfigCategory.Instance.GetFee(SelectSteed.SteedLevel.Data);
         long current = SelectSteed.LevelExp.Data;
 
-        long currentLevel = SelectSteed.PetLevel.Data;
-        int maxLevel = SelectSteed.GetQuality() * PetQualityRate + psg * PetSpeicalRate;
+        long currentLevel = SelectSteed.SteedLevel.Data;
+        int maxLevel = SelectSteed.GetQuality() * QualityRate + psg * SpeicalRate;
         if (currentLevel >= maxLevel)
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "不能超过最大等级", ToastType = ToastTypeEnum.Failure });
             return;
         }
 
-        long stoneTotal = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Pet_Exp).Select(m => m.MagicNubmer.Data).Sum();
+        long stoneTotal = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Steed_Exp).Select(m => m.MagicNubmer.Data).Sum();
         if (stoneTotal <= 0)
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "兽粮不足", ToastType = ToastTypeEnum.Failure });
@@ -129,7 +129,7 @@ public class Dialog_Steed_Forge : MonoBehaviour
 
         long fee = Math.Min(stoneTotal, max - current);
 
-        //Debug.Log("pet fee:" + fee);
+        //Debug.Log("steed fee:" + fee);
 
         if (fee <= 0)
         {
@@ -140,7 +140,7 @@ public class Dialog_Steed_Forge : MonoBehaviour
             GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
             {
                 Type = ItemType.Material,
-                ItemId = ItemHelper.SpecialId_Pet_Exp,
+                ItemId = ItemHelper.SpecialId_Steed_Exp,
                 Quantity = fee
             });
 
@@ -162,14 +162,14 @@ public class Dialog_Steed_Forge : MonoBehaviour
 
         User user = GameProcessor.Inst.User;
 
-        int psg = user.GetPetSpeicalGroupLevel();
+        int psg = 0;
 
         for (int i = 0; i < 50; i++)
         {
-            long max = PetConfigCategory.Instance.GetPetFee(SelectSteed.PetLevel.Data);
+            long max = SteedConfigCategory.Instance.GetFee(SelectSteed.SteedLevel.Data);
             long current = SelectSteed.LevelExp.Data;
-            long currentLevel = SelectSteed.PetLevel.Data;
-            int maxLevel = SelectSteed.GetQuality() * PetQualityRate + psg * PetSpeicalRate;
+            long currentLevel = SelectSteed.SteedLevel.Data;
+            int maxLevel = SelectSteed.GetQuality() * QualityRate + psg * SpeicalRate;
 
             if (currentLevel >= maxLevel)
             {
@@ -177,16 +177,16 @@ public class Dialog_Steed_Forge : MonoBehaviour
                 break;
             }
 
-            long stoneTotal = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Pet_Exp).Select(m => m.MagicNubmer.Data).Sum();
+            long stoneTotal = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Steed_Exp).Select(m => m.MagicNubmer.Data).Sum();
             if (stoneTotal <= 0)
             {
-                //GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "口粮不足", ToastType = ToastTypeEnum.Failure });
+                //GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "兽粮不足", ToastType = ToastTypeEnum.Failure });
                 break;
             }
 
             long fee = Math.Min(stoneTotal, max - current);
 
-            //Debug.Log("pet fee:" + fee);
+            //Debug.Log("steed fee:" + fee);
 
             if (fee <= 0)
             {
@@ -197,7 +197,7 @@ public class Dialog_Steed_Forge : MonoBehaviour
                 GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
                 {
                     Type = ItemType.Material,
-                    ItemId = ItemHelper.SpecialId_Pet_Exp,
+                    ItemId = ItemHelper.SpecialId_Steed_Exp,
                     Quantity = fee
                 });
 
@@ -225,8 +225,8 @@ public class Dialog_Steed_Forge : MonoBehaviour
 
         User user = GameProcessor.Inst.User;
 
-        long max = SelectSteed.PetLevel.Data / 20 + 1;
-        long current = SelectSteed.PetLayer.Data;
+        long max = SelectSteed.SteedLevel.Data / 20 + 1;
+        long current = SelectSteed.SteedLayer.Data;
 
         if (current >= max)
         {
@@ -234,8 +234,8 @@ public class Dialog_Steed_Forge : MonoBehaviour
             return;
         }
 
-        int materilId = ItemHelper.Specail_Pet_Layer[quality - 5];
-        long fee = PetConfigCategory.Instance.GetPetLayerFee(current);
+        int materilId = SteedConfigCategory.Instance.GetLayerId(quality);
+        long fee = SteedConfigCategory.Instance.GetLayerFee(current);
 
         long stoneTotal = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == materilId).Select(m => m.MagicNubmer.Data).Sum();
         if (stoneTotal < fee)
@@ -251,7 +251,7 @@ public class Dialog_Steed_Forge : MonoBehaviour
             Quantity = fee
         });
 
-        SelectSteed.PetLayer.Data++;
+        SelectSteed.SteedLayer.Data++;
 
         this.Show();
 
@@ -259,12 +259,13 @@ public class Dialog_Steed_Forge : MonoBehaviour
 
         this.Btn_OK_Layer.gameObject.SetActive(true);
     }
+
     public void OnClick_Close()
     {
         this.SelectSteed = null;
         this.gameObject.SetActive(false);
 
-        Panel_Pet panel_Pet = this.GetComponentInParent<Panel_Pet>();
-        panel_Pet.Show();
+        Panel_Steed panel = this.GetComponentInParent<Panel_Steed>();
+        panel.Show();
     }
 }
