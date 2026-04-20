@@ -19,6 +19,9 @@ public class Map_Dialog_Spirit : MonoBehaviour
     public Button Btn_Offline;
     public Dialog_Spirit_Offline DialogSpiritOffline;
 
+    public Button Btn_Convert;
+    public Spirit_Convert spiritConvert;
+
     public Text Txt_Require;
     public Toggle toggle_Auto;
 
@@ -38,6 +41,7 @@ public class Map_Dialog_Spirit : MonoBehaviour
         Btn_Close.onClick.AddListener(OnClick_Close);
         Btn_Attr.onClick.AddListener(OnClick_Attr);
         Btn_Offline.onClick.AddListener(OnClick_Offline);
+        Btn_Convert.onClick.AddListener(OnClick_Convert);
         this.Init();
 
         toggle_Auto.onValueChanged.AddListener((isOn) =>
@@ -132,6 +136,10 @@ public class Map_Dialog_Spirit : MonoBehaviour
     public void OnClick_Offline()
     {
         DialogSpiritOffline.gameObject.SetActive(true);
+    }
+    public void OnClick_Convert()
+    {
+        spiritConvert.Open();
     }
 
     public void OnClick_Close()

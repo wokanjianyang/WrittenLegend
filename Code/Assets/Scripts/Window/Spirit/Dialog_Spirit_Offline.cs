@@ -89,11 +89,11 @@ public class Dialog_Spirit_Offline : MonoBehaviour
 
         User user = GameProcessor.Inst.User;
 
-        foreach (var sp in user.PetDict)
+        foreach (var sp in user.SteedDict)
         {
             if (sp.Value.RunMapId > 0)
             {
-                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "请先结束宠物打工，然后再关闭离线", ToastType = ToastTypeEnum.Failure });
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "请先结束坐骑打工，然后再关闭离线", ToastType = ToastTypeEnum.Failure });
                 return;
             }
         }
