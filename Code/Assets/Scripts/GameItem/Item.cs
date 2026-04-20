@@ -109,10 +109,11 @@ namespace Game
         GiftPackEquip = 20,
         GiftPackPet = 21,
         GiftPackShengxiao = 22,
+        GiftPackSteed = 23,
 
-        Steed = 23,
 
         Spirit = 30,
+        Steed = 31,
 
         Metal = 98,
         Ad = 99,

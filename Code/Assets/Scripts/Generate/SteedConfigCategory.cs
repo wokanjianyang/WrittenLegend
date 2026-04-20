@@ -9,28 +9,28 @@ namespace Game
 
     public partial class SteedConfigCategory
     {
-        //public Steed BuildByPack(int configId)
-        //{
+        public Steed BuildByPack(int configId)
+        {
 
-        //    GiftPackPet packPet = GiftPackPetCategory.Instance.Get(configId);
+            GiftPackPet config = GiftPackPetCategory.Instance.Get(configId);
 
-        //    Pet pet = new Pet(packPet.ItemId, packPet.Role);
+            Steed steed = new Steed(configId, config.Role);
 
-        //    pet.PetLevel.Data = 1;
-        //    pet.PetLayer.Data = 1;
+            steed.SteedLevel.Data = 1;
+            steed.SteedLayer.Data = 1;
 
 
-        //    for (int i = 0; i < packPet.AttrIdList.Length; i++)
-        //    {
-        //        int attrId = packPet.AttrIdList[i];
-        //        MagicData attrValue = new MagicData();
-        //        attrValue.Data = packPet.AttrValueList[i];
+            for (int i = 0; i < config.AttrIdList.Length; i++)
+            {
+                int attrId = config.AttrIdList[i];
+                MagicData attrValue = new MagicData();
+                attrValue.Data = config.AttrValueList[i];
 
-        //        pet.Flairs.Add(new KeyValuePair<int, MagicData>(attrId, attrValue));
-        //    }
+                steed.Flairs.Add(new KeyValuePair<int, MagicData>(attrId, attrValue));
+            }
 
-        //    return pet;
-        //}
+            return steed;
+        }
 
         public Steed BuildSteed(int configId)
         {

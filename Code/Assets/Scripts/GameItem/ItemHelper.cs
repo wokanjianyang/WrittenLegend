@@ -59,6 +59,10 @@ namespace Game
             {
                 item = PetConfigCategory.Instance.BuildByPack(configId);
             }
+            else if (type == ItemType.GiftPackSteed)
+            {
+                item = SteedConfigCategory.Instance.BuildByPack(configId);
+            }
             else if (type == ItemType.GiftPackShengxiao)
             {
                 item = ShengxiaoConfigCategory.Instance.BuildByPack(configId);
