@@ -182,6 +182,7 @@ namespace Game
         Spirit = 35,
         Pet1 = 36,
         Pill4 = 37,
+        Steed = 38,
 
         Dingzhi = 98,
         /// <summary>

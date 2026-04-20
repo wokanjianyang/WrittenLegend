@@ -861,6 +861,17 @@ namespace Game
                     AttributeBonus.SetAttr((AttributeEnum)sp.Key, AttributeFrom.Pet1, pp.Key, sp.Value);
                 }
             }
+            //坐骑
+            foreach (var pp in SteedDict)
+            {
+                Steed steed = pp.Value;
+                var attrList = steed.GetBaseAttr();
+
+                foreach (var sp in attrList)
+                {
+                    AttributeBonus.SetAttr((AttributeEnum)sp.Key, AttributeFrom.Steed, pp.Key, sp.Value);
+                }
+            }
 
             //翅膀
             long wingLevel = WingData.Data;
