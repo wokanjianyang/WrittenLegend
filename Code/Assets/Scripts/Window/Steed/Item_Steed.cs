@@ -22,7 +22,6 @@ namespace Game
         public Sprite[] list_Backgrounds;
 
         public Steed steed;
-        private int SteedCycle = 1;
 
         // Start is called before the first frame update
         void Start()
@@ -93,9 +92,12 @@ namespace Game
             Txt_Level.color = ColorHelper.GetColorByQuality(steed.GetQuality());
             Txt_Layer.color = ColorHelper.GetColorByQuality(steed.GetQuality());
 
-            this.SteedCycle = steed.GetQuality() == 9 ? 2 : 1;
+            if (steed.GetQuality() < 7)
+            {
+                Btn_Up_Level.gameObject.SetActive(false);
+            }
 
-            this.image_Background.sprite = list_Backgrounds[steed.Role - 1 + SteedCycle * 3 - 3];
+            this.image_Background.sprite = list_Backgrounds[steed.Role - 1];
         }
     }
 }

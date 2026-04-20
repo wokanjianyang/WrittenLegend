@@ -9,6 +9,7 @@ using UnityEngine.UI;
 
 public class Dialog_Steed_Travel : MonoBehaviour
 {
+    public Text Txt_Des;
     public Text Txt_Content;
     public Text Txt_Time;
 
@@ -44,9 +45,17 @@ public class Dialog_Steed_Travel : MonoBehaviour
         this.Show();
     }
 
+    private int GetTimeRate(int quality)
+    {
+        return Math.Max(3, 13 - quality);
+    }
+
     public void Show()
     {
         User user = GameProcessor.Inst.User;
+
+        int rate = GetTimeRate(SelectSteed.GetQuality());
+        Txt_Des.text = "坐骑打工获取英灵收益,\n 此坐骑时间为人物英灵通关时间 * " + rate + "\n切换难度先结束打工，再去英灵离线处关闭离线";
 
         if (user.SpiritOfflineLog.Count != 3)
         {
@@ -63,7 +72,6 @@ public class Dialog_Steed_Travel : MonoBehaviour
         int total = user.SpiritOfflineLog[3];
 
         SpiritCopyConfig config = SpiritCopyConfigCategory.Instance.Get(mapId);
-
         Txt_Content.text = string.Format("记录离线副本为：{0}，\n通关时间为{1}秒，通关积分为{2}", config.MapName, time, total);
 
 
@@ -72,7 +80,7 @@ public class Dialog_Steed_Travel : MonoBehaviour
             long runTime = TimeHelper.ClientNowSeconds() - SelectSteed.RunTime;
             runTime = Math.Min(runTime, 86400);
 
-            int minTime = time * 3 + 30;
+            int minTime = time * rate;
             long count = runTime / minTime;
 
             Txt_Time.text = "已经打工 " + runTime + " 秒\n（" + minTime + " 秒获取一次奖励，当前可获取 " + count + " 次奖励）";
@@ -132,7 +140,7 @@ public class Dialog_Steed_Travel : MonoBehaviour
         int time = user.SpiritOfflineLog[2];
         //int total = user.SpiritOfflineLog[3];
 
-        int minTime = time * 3 + 30;
+        int minTime = time * GetTimeRate(SelectSteed.GetQuality());
         long runTime = TimeHelper.ClientNowSeconds() - SelectSteed.RunTime;
         runTime = Math.Min(runTime, 86400);
 
@@ -164,7 +172,7 @@ public class Dialog_Steed_Travel : MonoBehaviour
         List<Item> itemList = new List<Item>();
 
         int mapId = user.SpiritOfflineLog[1];
-        //int time = user.SpiritOfflineLog[2] + 30;
+        //int time = user.SpiritOfflineLog[2];
         int total = user.SpiritOfflineLog[3];
 
         SpiritCopyConfig config = SpiritCopyConfigCategory.Instance.Get(mapId);

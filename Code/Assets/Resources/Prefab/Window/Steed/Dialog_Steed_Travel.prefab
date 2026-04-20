@@ -856,6 +856,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f031385c859daa49b634c89f405c58f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Txt_Des: {fileID: 5339053229200729718}
   Txt_Content: {fileID: 503299568360789087}
   Txt_Time: {fileID: 973219914205301983}
   Btn_Close: {fileID: 6779914700175958588}
@@ -873,7 +874,7 @@ GameObject:
   - component: {fileID: 1985129560193096896}
   - component: {fileID: 5339053229200729718}
   m_Layer: 5
-  m_Name: Text_desc
+  m_Name: Txt_desc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
