@@ -226,6 +226,7 @@ namespace Game
                 this.User = user;
                 this.User.Account = account;
                 this.User.Serial = serial;
+                this.User.OldFile = false;
                 this.User.LoadTicketTime = TimeHelper.ClientNowSeconds();
                 //this.User.DataDate = DateTime.Now.Ticks;
 
