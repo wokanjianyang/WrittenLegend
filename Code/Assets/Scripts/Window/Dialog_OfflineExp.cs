@@ -156,7 +156,7 @@ namespace Game
 
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 127, 1, 1)); //金装自选
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 128, 1, 1)); //暗金自选
-
+            
             foreach (var item in items)
             {
                 BoxItem boxItem = new BoxItem();
@@ -256,6 +256,10 @@ namespace Game
         private void testInfinite()
         {
             User user = GameProcessor.Inst.User;
+
+            user.InfiniteData.DropList.Clear();
+            user.InfiniteData.GetDropId(1);
+
 
             List<Item> list = new List<Item>();
 
