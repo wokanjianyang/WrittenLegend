@@ -93,9 +93,9 @@ namespace Game
             //user.SaveArtifactLevel(180015, 1); //财富契约
             //user.SaveArtifactLevel(180020, 1); //传世之源
             //user.SaveArtifactLevel(180021, 1); //神戒之源
-            //user.SaveArtifactLevel(180030, 45); //极。卖身契
-            //user.SaveArtifactLevel(180033, 45); //极。BOSS
-            //user.SaveArtifactLevel(180035, 45); //极。魔法
+            //user.SaveArtifactLevel(180030, 1); //极。卖身契
+            //user.SaveArtifactLevel(180033, 1); //极。BOSS
+            //user.SaveArtifactLevel(180035, 1); //极。魔法
 
             //user.Record.AddRecord(RecordType.AdReal, -800);
             //user.MagicGold.Data = 100000000000000000L;//10京金币
@@ -113,8 +113,10 @@ namespace Game
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 43, 1, 1)); //生肖自选
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 44, 1, 1)); //极戒自选
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 212, 1, 1)); //粉宠物
-            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 89, 1, 6)); //粉专属
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 89, 1, 1)); //粉专属
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 46, 1, 1)); //星座自选
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 303, 1, 1)); //暗金坐骑
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 304, 1, )); //暗金坐骑
 
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 26, 1, 1));  //神技
 
