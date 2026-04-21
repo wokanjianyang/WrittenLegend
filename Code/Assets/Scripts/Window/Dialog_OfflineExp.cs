@@ -116,7 +116,7 @@ namespace Game
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 89, 1, 1)); //粉专属
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 46, 1, 1)); //星座自选
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 303, 1, 1)); //暗金坐骑
-            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 304, 1, )); //暗金坐骑
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 304, 1, 1)); //暗金坐骑
 
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 26, 1, 1));  //神技
 
@@ -252,6 +252,70 @@ namespace Game
         //items.Add(ItemHelper.BuildMaterial(60000008, ic)); //道术宝石
         //items.Add(ItemHelper.BuildMaterial(60000009, ic)); //增伤宝石
         //items.Add(ItemHelper.BuildMaterial(60000010, ic)); //韧性宝石
+
+        private void testInfinite()
+        {
+            User user = GameProcessor.Inst.User;
+
+            List<Item> list = new List<Item>();
+
+            for (int level = 1; level <= ConfigHelper.Infinit_Max; level++)
+            {
+
+
+                List<KeyValuePair<double, DropConfig>> dropList = new List<KeyValuePair<double, DropConfig>>();
+
+                //掉落道具
+                int dropId = user.InfiniteData.GetDropId((int)level);
+                //Debug.Log("dropId:" + dropId);
+                if (dropId > 0)
+                {
+                    DropConfig dropConfig = DropConfigCategory.Instance.Get(dropId);
+                    dropList.Add(new KeyValuePair<double, DropConfig>(1, dropConfig));
+                }
+
+                InfiniteDropConfig infiniteDropConfig = InfiniteDropConfigCategory.Instance.GetConfig(dropId, level);
+
+                int seed = AppHelper.GetDeviceIdentifier().GetHashCode();
+                if (user != null && user.Account != null)
+                {
+                    seed = user.Account.GetHashCode();
+                }
+                seed += TimeHelper.TodaySeed() + (int)level;
+
+                List<Item> items = DropHelper.BuildDropItem(dropList, seed);
+
+                if (infiniteDropConfig != null && infiniteDropConfig.Number > 1)
+                {
+                    foreach (Item item in items)
+                    {
+                        item.Count = item.Count * infiniteDropConfig.Number;
+                    }
+                }
+
+                list.AddRange(items);
+            }
+
+            foreach (var newItem in list)
+            {
+                BoxItem boxItem = user.Bags.Find(m => m.Item.Type == newItem.Type && m.Item.ConfigId == newItem.ConfigId);
+
+
+                if (boxItem != null)
+                {
+                    boxItem.AddStack(newItem.Count);
+                }
+                else
+                {
+                    boxItem = new BoxItem();
+                    boxItem.Item = newItem;
+                    boxItem.MagicNubmer.Data = newItem.Count;
+                    boxItem.BoxId = -1;
+
+                    user.Bags.Add(boxItem);
+                }
+            }
+        }
 
         private List<Item> TestShengxiao(User user)
         {
