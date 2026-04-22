@@ -125,7 +125,7 @@ namespace Game
 
         public int GetLayerFee(long layer)
         {
-            return (int)Math.Min((4 + layer), 10);
+            return 5;
         }
 
         public int GetLayerFeeTotal(long layer)

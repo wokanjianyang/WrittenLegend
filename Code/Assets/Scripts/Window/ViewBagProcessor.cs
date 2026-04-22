@@ -1108,6 +1108,51 @@ namespace Game
 
                 newList.Add(pet);
             }
+            else if (boxItem.Item.Type == ItemType.Steed)
+            {
+                Steed steed = boxItem.Item as Steed;
+                long level = steed.SteedLevel.Data;
+                long layer = steed.SteedLayer.Data;
+                int quality = steed.GetQuality();
+
+                long expCount = steed.LevelExp.Data;
+
+                expCount += SteedConfigCategory.Instance.GetFeeTotal(level);
+                long layerCount = SteedConfigCategory.Instance.GetLayerFeeTotal(layer);
+
+                steed.SteedLevel.Data = 1;
+                steed.SteedLayer.Data = 1;
+                steed.LevelExp.Data = 0;
+
+
+                //Debug.Log("pet exp count:" + expCount);
+                if (expCount > 0)
+                {
+                    Item levelItem = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Steed_Exp, expCount);
+                    newList.Add(levelItem);
+                }
+
+                if (layerCount > 0)
+                {
+                    if (quality == 7)
+                    {
+                        Item layerItem = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Steed_Layer1, layerCount);
+                        newList.Add(layerItem);
+                    }
+                    else if (quality == 8)
+                    {
+                        Item layerItem = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Steed_Layer2, layerCount);
+                        newList.Add(layerItem);
+                    }
+                    else if (quality == 9)
+                    {
+                        Item layerItem = ItemHelper.BuildMaterial(ItemHelper.SpecialId_Steed_Layer3, layerCount);
+                        newList.Add(layerItem);
+                    }
+                }
+
+                newList.Add(steed);
+            }
             else if (boxItem.Item.Type == ItemType.Shengxiao)
             {
                 Shengxiao pet = boxItem.Item as Shengxiao;
