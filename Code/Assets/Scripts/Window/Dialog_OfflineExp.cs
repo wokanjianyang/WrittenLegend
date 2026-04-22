@@ -115,8 +115,8 @@ namespace Game
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 212, 1, 1)); //粉宠物
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 89, 1, 1)); //粉专属
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 46, 1, 1)); //星座自选
-            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 303, 1, 1)); //暗金坐骑
-            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 304, 1, 1)); //暗金坐骑
+            items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 301, 1, 10)); //暗金坐骑
+            items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 304, 1, 10)); //暗金坐骑
 
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 26, 1, 1));  //神技
 
