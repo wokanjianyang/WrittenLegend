@@ -73,7 +73,7 @@ namespace Game
             {
                 int attrId = sp.Key;
 
-                PetConfig config = PetConfigCategory.Instance.GetByAttrId(attrId);
+                SteedConfig config = SteedConfigCategory.Instance.GetByAttrId(attrId);
 
                 double attrValue = (sp.Value * config.AttrValue / 100 * level) * riseRate;
 
@@ -87,15 +87,7 @@ namespace Game
         {
             this.LevelExp.Data += exp;
 
-            long fee = 0;
-            if (this.GetQuality() == 9)
-            {
-                fee = PetConfigCategory.Instance.GetPetFee1(SteedLevel.Data);
-            }
-            else
-            {
-                fee = PetConfigCategory.Instance.GetPetFee(SteedLevel.Data);
-            }
+            long fee =  SteedConfigCategory.Instance.GetFee(SteedLevel.Data);
 
             if (this.LevelExp.Data >= fee)
             {
@@ -107,9 +99,9 @@ namespace Game
 
         public long GetSkillPercent()
         {
-            return PetSkillRise[Flairs.Count - 1] + (SteedLayer.Data - 1) * LayerRiseSkill;
+            return SkillRise[Flairs.Count - 1] + (SteedLayer.Data - 1) * LayerRiseSkill;
         }
 
-        private int[] PetSkillRise = new int[] { 5, 6, 7, 8, 10, 15, 20, 25, 35 };
+        private int[] SkillRise = new int[] { 5, 6, 7, 8, 10, 15, 20, 25, 35 };
     }
 }

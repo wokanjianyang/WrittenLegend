@@ -27,6 +27,7 @@ public class Dialog_Pet_Forge1 : MonoBehaviour
     private Pet SelectPet;
 
     private int MaxLevel = 100;
+    private int LayerRate = 50;
 
     public int Order => (int)ComponentOrder.Dialog;
 
@@ -74,30 +75,30 @@ public class Dialog_Pet_Forge1 : MonoBehaviour
             Btn_OK_Batch.gameObject.SetActive(true);
         }
 
-        //long maxLayer = currentLevel / 20 + 1;
-        //long currentLayer = SelectPet.PetLayer.Data;
+        long maxLayer = currentLevel / LayerRate + 1;
+        long currentLayer = SelectPet.PetLayer.Data;
 
-        //Txt_Layer.text = "当前等阶：" + currentLayer + "阶（最高等阶" + maxLayer + "阶）";
+        Txt_Layer.text = "当前等阶：" + currentLayer + "阶（最高等阶" + maxLayer + "阶）";
 
-        //int quanlity = SelectPet.GetQuality();
-        //int materailId = ItemHelper.Specail_Pet_Layer[quanlity - 5];
+        int quanlity = SelectPet.GetQuality();
+        int materailId = ItemHelper.Specail_Pet_Layer[quanlity - 5];
 
-        //ItemConfig itemConfig = ItemConfigCategory.Instance.Get(materailId);
+        ItemConfig itemConfig = ItemConfigCategory.Instance.Get(materailId);
 
-        //long haveCount = user.GetMaterialCount(materailId);
-        //long needCount = PetConfigCategory.Instance.GetPetLayerFee(currentLayer);
+        long haveCount = user.GetMaterialCount(materailId);
+        long needCount = PetConfigCategory.Instance.GetPetLayerFee1(currentLayer);
 
-        //Txt_Name_Layer.text = itemConfig.Name;
-        //Txt_Cost_Layer.text = haveCount + "/" + needCount;
+        Txt_Name_Layer.text = itemConfig.Name;
+        Txt_Cost_Layer.text = haveCount + "/" + needCount;
 
-        //if (currentLayer >= maxLayer || haveCount < needCount)
-        //{
-        //    Btn_OK_Layer.gameObject.SetActive(false);
-        //}
-        //else
-        //{
-        //    Btn_OK_Layer.gameObject.SetActive(true);
-        //}
+        if (currentLayer >= maxLayer || haveCount < needCount)
+        {
+            Btn_OK_Layer.gameObject.SetActive(false);
+        }
+        else
+        {
+            Btn_OK_Layer.gameObject.SetActive(true);
+        }
     }
 
     public void OnClick_Ok()
@@ -217,7 +218,7 @@ public class Dialog_Pet_Forge1 : MonoBehaviour
 
         User user = GameProcessor.Inst.User;
 
-        long max = SelectPet.PetLevel.Data / 20 + 1;
+        long max = SelectPet.PetLevel.Data / LayerRate + 1;
         long current = SelectPet.PetLayer.Data;
 
         if (current >= max)
@@ -227,7 +228,7 @@ public class Dialog_Pet_Forge1 : MonoBehaviour
         }
 
         int materilId = ItemHelper.Specail_Pet_Layer[quality - 5];
-        long fee = PetConfigCategory.Instance.GetPetLayerFee(current);
+        long fee = PetConfigCategory.Instance.GetPetLayerFee1(current);
 
         long stoneTotal = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == materilId).Select(m => m.MagicNubmer.Data).Sum();
         if (stoneTotal < fee)

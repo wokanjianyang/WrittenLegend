@@ -165,6 +165,11 @@ namespace Game
             return (int)Math.Min((4 + layer), 10);
         }
 
+        public int GetPetLayerFee1(long layer)
+        {
+            return 5;
+        }
+
         public long GetPetTotalFee(long layer)
         {
             long total = 0;
@@ -185,6 +190,17 @@ namespace Game
             for (int i = 1; i < layer; i++)
             {
                 total += GetPetLayerFee(i);
+            }
+            return total;
+        }
+
+        public int GetPetLayerFeeTotal1(long layer)
+        {
+            int total = 0;
+
+            for (int i = 1; i < layer; i++)
+            {
+                total += GetPetLayerFee1(i);
             }
             return total;
         }

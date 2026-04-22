@@ -1078,15 +1078,18 @@ namespace Game
                 int quality = pet.GetQuality();
 
                 long expCount = pet.LevelExp.Data;
+                long layerCount = 0;
                 if (quality == 9)
                 {
                     expCount += PetConfigCategory.Instance.GetFeeTotal1(level);
+                    layerCount = PetConfigCategory.Instance.GetPetLayerFeeTotal1(layer);
                 }
                 else
                 {
                     expCount += PetConfigCategory.Instance.GetFeeTotal(level);
+                    layerCount = PetConfigCategory.Instance.GetPetLayerFeeTotal(layer);
                 }
-                long layerCount = PetConfigCategory.Instance.GetPetLayerFeeTotal(layer);
+      
 
                 pet.PetLayer.Data = 1;
                 pet.PetLevel.Data = 1;
