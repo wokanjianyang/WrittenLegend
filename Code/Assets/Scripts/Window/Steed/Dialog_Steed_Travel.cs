@@ -19,6 +19,8 @@ public class Dialog_Steed_Travel : MonoBehaviour
 
     private Steed SelectSteed;
 
+    int maxTime = 86400 * 2;
+
     public int Order => (int)ComponentOrder.Dialog;
 
     // Start is called before the first frame update
@@ -55,7 +57,7 @@ public class Dialog_Steed_Travel : MonoBehaviour
         User user = GameProcessor.Inst.User;
 
         int rate = GetTimeRate(SelectSteed.GetQuality());
-        Txt_Des.text = "坐骑打工获取英灵收益,\n 此坐骑时间为人物英灵通关时间 * " + rate + "\n切换难度先结束打工，再去英灵离线处关闭离线";
+        Txt_Des.text = "坐骑打工获取英灵收益,最长离线2天\n 此坐骑时间为人物英灵通关时间 * " + rate + "\n切换难度先结束打工，再去英灵离线处关闭离线";
 
         if (user.SpiritOfflineLog.Count != 3)
         {
@@ -78,7 +80,7 @@ public class Dialog_Steed_Travel : MonoBehaviour
         if (SelectSteed.RunTime > 0)
         {
             long runTime = TimeHelper.ClientNowSeconds() - SelectSteed.RunTime;
-            runTime = Math.Min(runTime, 86400);
+            runTime = Math.Min(runTime, maxTime);
 
             int minTime = time * rate;
             long count = runTime / minTime;
@@ -142,12 +144,15 @@ public class Dialog_Steed_Travel : MonoBehaviour
 
         int minTime = time * GetTimeRate(SelectSteed.GetQuality());
         long runTime = TimeHelper.ClientNowSeconds() - SelectSteed.RunTime;
-        runTime = Math.Min(runTime, 86400);
+        runTime = Math.Min(runTime, maxTime);
 
         long count = runTime / minTime;
 
+        long exp = runTime / 60;
+
         this.SelectSteed.RunMapId = 0;
         this.SelectSteed.RunTime = 0;
+        this.SelectSteed.AddExp(exp);
 
         if (count >= 1)
         {

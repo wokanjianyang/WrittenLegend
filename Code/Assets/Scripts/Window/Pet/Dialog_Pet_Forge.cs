@@ -68,10 +68,12 @@ public class Dialog_Pet_Forge : MonoBehaviour
         if (currentLevel >= maxLevel || stoneTotal <= 0)
         {
             Btn_OK.gameObject.SetActive(false);
+            Btn_OK_Batch.gameObject.SetActive(false);
         }
         else
         {
             Btn_OK.gameObject.SetActive(true);
+            Btn_OK_Batch.gameObject.SetActive(true);
         }
 
         long maxLayer = currentLevel / 20 + 1;
@@ -150,9 +152,6 @@ public class Dialog_Pet_Forge : MonoBehaviour
         this.Show();
 
         user.EventCenter.Raise(new UserAttrChangeEvent());
-
-        this.Btn_OK.gameObject.SetActive(true);
-        this.Btn_OK_Batch.gameObject.SetActive(true);
     }
 
     public void OnClick_Ok_Batch()
@@ -208,9 +207,6 @@ public class Dialog_Pet_Forge : MonoBehaviour
         this.Show();
 
         user.EventCenter.Raise(new UserAttrChangeEvent());
-
-        this.Btn_OK.gameObject.SetActive(true);
-        this.Btn_OK_Batch.gameObject.SetActive(true);
     }
 
     public void OnClick_Ok_Layer()

@@ -1118,22 +1118,33 @@ namespace Game
                 pet.LevelData.Data = 0;
                 pet.LayerData.Data = 0;
 
+                int id1 = ItemHelper.Specail_Shengxiao;
+                int id2 = ItemHelper.Specail_Shengxiao1;
+                int id3 = ItemHelper.Specail_Shengxiao2;
+
+                if (pet.ShengxiaoConfig.Cycle == 2)
+                {
+                    id1 = ItemHelper.Specail_Xingzuo;
+                    id2 = ItemHelper.Specail_Xingzuo1;
+                    id3 = ItemHelper.Specail_Xingzuo2;
+                }
+
                 //Debug.Log("pet exp count:" + expCount);
                 if (level > 0)
                 {
-                    Item levelItem = ItemHelper.BuildMaterial(ItemHelper.Specail_Shengxiao, 5000000 * level);
+                    Item levelItem = ItemHelper.BuildMaterial(id1, 5000000 * level);
                     newList.Add(levelItem);
 
-                    Item layerItem1 = ItemHelper.BuildMaterial(ItemHelper.Specail_Shengxiao1, 30 * level);
+                    Item layerItem1 = ItemHelper.BuildMaterial(id2, 30 * level);
                     newList.Add(layerItem1);
                 }
 
                 if (layer > 0)
                 {
-                    Item layerItem = ItemHelper.BuildMaterial(ItemHelper.Specail_Shengxiao1, 20 * layer);
+                    Item layerItem = ItemHelper.BuildMaterial(id2, 20 * layer);
                     newList.Add(layerItem);
 
-                    Item layerItem1 = ItemHelper.BuildMaterial(ItemHelper.Specail_Shengxiao2, layer);
+                    Item layerItem1 = ItemHelper.BuildMaterial(id3, layer);
                     newList.Add(layerItem1);
                 }
 

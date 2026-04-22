@@ -26,7 +26,7 @@ public class Dialog_Pet_Forge1 : MonoBehaviour
 
     private Pet SelectPet;
 
-    private int MaxLevel  = 100;
+    private int MaxLevel = 100;
 
     public int Order => (int)ComponentOrder.Dialog;
 
@@ -52,7 +52,7 @@ public class Dialog_Pet_Forge1 : MonoBehaviour
     {
         User user = GameProcessor.Inst.User;
 
-        int maxLevel = 50;
+        int maxLevel = this.MaxLevel;
         long currentLevel = SelectPet.PetLevel.Data;
 
         Txt_Level.text = "当前等级：" + currentLevel + "级（最高等级" + maxLevel + "级）";
@@ -66,10 +66,12 @@ public class Dialog_Pet_Forge1 : MonoBehaviour
         if (currentLevel >= maxLevel || stoneTotal <= 0)
         {
             Btn_OK.gameObject.SetActive(false);
+            Btn_OK_Batch.gameObject.SetActive(false);
         }
         else
         {
             Btn_OK.gameObject.SetActive(true);
+            Btn_OK_Batch.gameObject.SetActive(true);
         }
 
         //long maxLayer = currentLevel / 20 + 1;
@@ -146,9 +148,6 @@ public class Dialog_Pet_Forge1 : MonoBehaviour
         this.Show();
 
         user.EventCenter.Raise(new UserAttrChangeEvent());
-
-        this.Btn_OK.gameObject.SetActive(true);
-        this.Btn_OK_Batch.gameObject.SetActive(true);
     }
 
     public void OnClick_Ok_Batch()
@@ -204,9 +203,6 @@ public class Dialog_Pet_Forge1 : MonoBehaviour
         this.Show();
 
         user.EventCenter.Raise(new UserAttrChangeEvent());
-
-        this.Btn_OK.gameObject.SetActive(true);
-        this.Btn_OK_Batch.gameObject.SetActive(true);
     }
 
     public void OnClick_Ok_Layer()

@@ -26,7 +26,7 @@ public class Dialog_Steed_Forge : MonoBehaviour
 
     private Steed SelectSteed;
 
-    private int QualityRate = 30;
+    private int MaxLevel = 100;
     private int SpeicalRate = 20;
 
     public int Order => (int)ComponentOrder.Dialog;
@@ -35,7 +35,7 @@ public class Dialog_Steed_Forge : MonoBehaviour
     {
         Btn_Close.onClick.AddListener(OnClick_Close);
         Btn_OK.onClick.AddListener(OnClick_Ok);
-        Btn_OK_Batch.onClick.AddListener(OnClick_Ok_Batch);
+        //Btn_OK_Batch.onClick.AddListener(OnClick_Ok_Batch);
 
         Btn_OK_Layer.onClick.AddListener(OnClick_Ok_Layer);
     }
@@ -52,9 +52,8 @@ public class Dialog_Steed_Forge : MonoBehaviour
     private void Show()
     {
         User user = GameProcessor.Inst.User;
-        int psg = 0;
 
-        int maxLevel = SelectSteed.GetQuality() * QualityRate + psg * SpeicalRate;
+        int maxLevel = MaxLevel;
         long currentLevel = SelectSteed.SteedLevel.Data;
 
         Txt_Level.text = "当前等级：" + currentLevel + "级（最高等级" + maxLevel + "级）";
@@ -68,13 +67,15 @@ public class Dialog_Steed_Forge : MonoBehaviour
         if (currentLevel >= maxLevel || stoneTotal <= 0)
         {
             Btn_OK.gameObject.SetActive(false);
+            //Btn_OK_Batch.gameObject.SetActive(false);
         }
         else
         {
             Btn_OK.gameObject.SetActive(true);
+            //Btn_OK_Batch.gameObject.SetActive(true);
         }
 
-        long maxLayer = currentLevel / 20 + 1;
+        long maxLayer = currentLevel / 50 + 1;
         long currentLayer = SelectSteed.SteedLayer.Data;
 
         Txt_Layer.text = "当前等阶：" + currentLayer + "阶（最高等阶" + maxLayer + "阶）";
@@ -107,13 +108,11 @@ public class Dialog_Steed_Forge : MonoBehaviour
 
         User user = GameProcessor.Inst.User;
 
-        int psg = 0;
-
         long max = SteedConfigCategory.Instance.GetFee(SelectSteed.SteedLevel.Data);
         long current = SelectSteed.LevelExp.Data;
 
         long currentLevel = SelectSteed.SteedLevel.Data;
-        int maxLevel = SelectSteed.GetQuality() * QualityRate + psg * SpeicalRate;
+        int maxLevel = MaxLevel;
         if (currentLevel >= maxLevel)
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "不能超过最大等级", ToastType = ToastTypeEnum.Failure });
@@ -151,8 +150,8 @@ public class Dialog_Steed_Forge : MonoBehaviour
 
         user.EventCenter.Raise(new UserAttrChangeEvent());
 
-        this.Btn_OK.gameObject.SetActive(true);
-        this.Btn_OK_Batch.gameObject.SetActive(true);
+        //this.Btn_OK.gameObject.SetActive(true);
+        //this.Btn_OK_Batch.gameObject.SetActive(true);
     }
 
     public void OnClick_Ok_Batch()
@@ -169,7 +168,7 @@ public class Dialog_Steed_Forge : MonoBehaviour
             long max = SteedConfigCategory.Instance.GetFee(SelectSteed.SteedLevel.Data);
             long current = SelectSteed.LevelExp.Data;
             long currentLevel = SelectSteed.SteedLevel.Data;
-            int maxLevel = SelectSteed.GetQuality() * QualityRate + psg * SpeicalRate;
+            int maxLevel = this.MaxLevel;
 
             if (currentLevel >= maxLevel)
             {
@@ -209,8 +208,8 @@ public class Dialog_Steed_Forge : MonoBehaviour
 
         user.EventCenter.Raise(new UserAttrChangeEvent());
 
-        this.Btn_OK.gameObject.SetActive(true);
-        this.Btn_OK_Batch.gameObject.SetActive(true);
+        //this.Btn_OK.gameObject.SetActive(true);
+        //this.Btn_OK_Batch.gameObject.SetActive(true);
     }
 
     public void OnClick_Ok_Layer()
