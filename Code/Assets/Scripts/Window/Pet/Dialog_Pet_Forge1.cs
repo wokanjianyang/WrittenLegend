@@ -37,7 +37,7 @@ public class Dialog_Pet_Forge1 : MonoBehaviour
         Btn_OK.onClick.AddListener(OnClick_Ok);
         Btn_OK_Batch.onClick.AddListener(OnClick_Ok_Batch);
 
-        //Btn_OK_Layer.onClick.AddListener(OnClick_Ok_Layer);
+        Btn_OK_Layer.onClick.AddListener(OnClick_Ok_Layer);
     }
 
 
@@ -209,7 +209,7 @@ public class Dialog_Pet_Forge1 : MonoBehaviour
     public void OnClick_Ok_Layer()
     {
         int quality = SelectPet.GetQuality();
-        if (quality < 5)
+        if (quality < 9)
         {
             return;
         }

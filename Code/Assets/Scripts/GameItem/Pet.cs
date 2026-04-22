@@ -10,7 +10,8 @@ namespace Game
 {
     public class Pet : Item
     {
-        public const int LayerRiseAttr = 3;
+        public const int LayerRise1 = 3;
+        public const int LayerRise2 = 5;
         public const int LayerRiseSkill = 2;
 
         public MagicData PetLevel { get; set; } = new MagicData();
@@ -69,6 +70,8 @@ namespace Game
             long layer = PetLayer.Data;
 
             int fc = GetDevourCount();
+
+            int LayerRiseAttr = GetQuality() >= 9 ? LayerRise2 : LayerRise1;
 
             for (int i = 0; i < Flairs.Count; i++)
             {
