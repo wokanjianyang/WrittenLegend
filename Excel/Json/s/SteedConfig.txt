@@ -9,7 +9,7 @@
 {"_t":"SteedConfig","_id":8,"Cycle":1,"AttrId":2012,"AttrValue":10,"StartQuality":4,"EndQuality":4,"Role":0,"Desc":"韧性倍率"},
 {"_t":"SteedConfig","_id":9,"Cycle":1,"AttrId":2001,"AttrValue":5,"StartQuality":5,"EndQuality":5,"Role":0,"Desc":"攻击倍率"},
 {"_t":"SteedConfig","_id":10,"Cycle":1,"AttrId":31,"AttrValue":0.4,"StartQuality":6,"EndQuality":6,"Role":0,"Desc":"闪避"},
-{"_t":"SteedConfig","_id":11,"Cycle":1,"AttrId":2013,"AttrValue":5,"StartQuality":7,"EndQuality":7,"Role":0,"Desc":"破韧倍率"},
-{"_t":"SteedConfig","_id":12,"Cycle":1,"AttrId":32,"AttrValue":0.2,"StartQuality":8,"EndQuality":8,"Role":0,"Desc":"命中"},
+{"_t":"SteedConfig","_id":11,"Cycle":1,"AttrId":32,"AttrValue":0.2,"StartQuality":7,"EndQuality":7,"Role":0,"Desc":"命中"},
+{"_t":"SteedConfig","_id":12,"Cycle":1,"AttrId":2013,"AttrValue":5,"StartQuality":8,"EndQuality":8,"Role":0,"Desc":"破韧倍率"},
 {"_t":"SteedConfig","_id":13,"Cycle":1,"AttrId":2010,"AttrValue":5,"StartQuality":9,"EndQuality":9,"Role":0,"Desc":"增伤倍率"},
 ]}

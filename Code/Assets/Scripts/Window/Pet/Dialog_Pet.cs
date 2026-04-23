@@ -49,10 +49,12 @@ public class Dialog_Pet : MonoBehaviour, IBattleLife
         if (user.Cycle.Data >= 10 && !ac)
         {
             this.toggles[1].gameObject.SetActive(true);
+            this.toggles[3].gameObject.SetActive(true);
         }
         else
         {
             this.toggles[1].gameObject.SetActive(false);
+            this.toggles[3].gameObject.SetActive(false);
         }
 
         if (user.Cycle.Data >= 15 && !ac)
