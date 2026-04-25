@@ -35,7 +35,7 @@ public class Dialog_Steed_Forge : MonoBehaviour
     {
         Btn_Close.onClick.AddListener(OnClick_Close);
         Btn_OK.onClick.AddListener(OnClick_Ok);
-        //Btn_OK_Batch.onClick.AddListener(OnClick_Ok_Batch);
+        Btn_OK_Batch.onClick.AddListener(OnClick_Ok_Batch);
 
         Btn_OK_Layer.onClick.AddListener(OnClick_Ok_Layer);
     }
@@ -67,12 +67,12 @@ public class Dialog_Steed_Forge : MonoBehaviour
         if (currentLevel >= maxLevel || stoneTotal <= 0)
         {
             Btn_OK.gameObject.SetActive(false);
-            //Btn_OK_Batch.gameObject.SetActive(false);
+            Btn_OK_Batch.gameObject.SetActive(false);
         }
         else
         {
             Btn_OK.gameObject.SetActive(true);
-            //Btn_OK_Batch.gameObject.SetActive(true);
+            Btn_OK_Batch.gameObject.SetActive(true);
         }
 
         long maxLayer = currentLevel / 50 + 1;
@@ -149,9 +149,6 @@ public class Dialog_Steed_Forge : MonoBehaviour
         this.Show();
 
         user.EventCenter.Raise(new UserAttrChangeEvent());
-
-        //this.Btn_OK.gameObject.SetActive(true);
-        //this.Btn_OK_Batch.gameObject.SetActive(true);
     }
 
     public void OnClick_Ok_Batch()

@@ -34,7 +34,7 @@ public class Spirit_Convert : MonoBehaviour
         this.Show();
     }
 
-    private int[] Rates = { 1, 2, 3, 4, 6, 8, 10, 12, 15 };
+    private double[] Rates = { 0.1, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.5, 2 };
     private int[] CRates = { 1, 2, 3 };
 
     public void Show()
@@ -50,9 +50,10 @@ public class Spirit_Convert : MonoBehaviour
                 SpiritConfig config = SpiritConfigCategory.Instance.Get(sp.Key);
 
                 long mc = user.GetItemMeterialCount(config.ItemId);
-                int rate = Rates[config.Quality - 1];
+                double rate = Rates[config.Quality - 1];
+                int crate = CRates[config.Type - 1];
 
-                total += mc;
+                total += (int)(mc * crate * rate);
             }
         }
 
@@ -90,9 +91,9 @@ public class Spirit_Convert : MonoBehaviour
                 {
                     user.UseItemMeterialCount(config.ItemId, mc);
 
-                    int rate = Rates[config.Quality - 1];
+                    double rate = Rates[config.Quality - 1];
                     int crate = CRates[config.Type - 1];
-                    total += mc * rate * crate;
+                    total += (int)(mc * crate * rate);
                 }
             }
         }
