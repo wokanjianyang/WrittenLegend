@@ -20,9 +20,9 @@ namespace Game
 
         public const int Version = 439;
 
-        public const long PackTime = 1776395546; //打包时间，防止作弊
+        public const long PackTime = 1777084866; //打包时间，防止作弊
 
-        public const long PackEndTime = 1778123546; //超过此时间,游戏不能使用，需要更新
+        public const long PackEndTime = 1778812866; //超过此时间,游戏不能使用，需要更新
 
         public const long Max_Level = 120000; //最大人物等级和强化等级
 
