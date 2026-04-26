@@ -57,13 +57,19 @@ namespace Game
             //Debug.Log("Config " + this.Progress + " HP:" + StringHelper.FormatNumber(hp));
             hp.Mul(Config.HpRise * riseLevel).Mul(HpRate[Quality - 1]);
 
-            LargeNumber attr = StringHelper.StringToLargNumber(Config.Attr);
-            //Debug.Log("Config " + this.Progress + " Attr:" + StringHelper.FormatNumber(attr));
-            attr.Mul(Config.AttrRise * riseLevel).Mul(AttrRate[Quality - 1]);
+            double attr = StringHelper.StringToNumber(Config.Attr);
+            attr += attr * Config.AttrRise * riseLevel;
 
-            LargeNumber def = StringHelper.StringToLargNumber(Config.Def);
-            //Debug.Log("Config " + this.Progress + " Def:" + StringHelper.FormatNumber(def));
-            def.Mul(Config.DefRise * riseLevel).Mul(DefRate[Quality - 1]);
+            //LargeNumber attr = StringHelper.StringToLargNumber(Config.Attr);
+            ////Debug.Log("Config " + this.Progress + " Attr:" + StringHelper.FormatNumber(attr));
+            //attr.Mul(Config.AttrRise * riseLevel).Mul(AttrRate[Quality - 1]);
+
+            double def = StringHelper.StringToNumber(Config.Def);
+            def += def * Config.DefRise * riseLevel;
+
+            //LargeNumber def = StringHelper.StringToLargNumber(Config.Def);
+            ////Debug.Log("Config " + this.Progress + " Def:" + StringHelper.FormatNumber(def));
+            //def.Mul(Config.DefRise * riseLevel).Mul(DefRate[Quality - 1]);
 
             LargeNumber damageMul = StringHelper.StringToLargNumber(Config.DamageMul);
             damageMul.Mul(Config.MulRise * riseLevel);
@@ -78,21 +84,18 @@ namespace Game
             //Debug.Log("Infinit " + this.Progress + " Def:" + StringHelper.FormatNumber(def));
             //Debug.Log("Infinit " + this.Progress + " Attr:" + StringHelper.FormatNumber(attr));
 
+            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr);
+            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr);
+            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr);
+            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, def);
+
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, 1);
-            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, 1);
-            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, 1);
-            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, 1);
-            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, 1);
             AttributeBonus.SetAttr(AttributeEnum.Strong, AttributeFrom.HeroBase, 1);
             AttributeBonus.SetAttr(AttributeEnum.MulDamageIncrea, AttributeFrom.HeroBase, 1);
             AttributeBonus.SetAttr(AttributeEnum.Parry, AttributeFrom.HeroBase, 1);
 
 
             AttributeBonus.SetAttrLarge(AttributeEnum.HP, AttributeFrom.HeroBase, hp);
-            AttributeBonus.SetAttrLarge(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr);
-            AttributeBonus.SetAttrLarge(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr);
-            AttributeBonus.SetAttrLarge(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr);
-            AttributeBonus.SetAttrLarge(AttributeEnum.Def, AttributeFrom.HeroBase, def);
             AttributeBonus.SetAttrLarge(AttributeEnum.Strong, AttributeFrom.HeroBase, strong);
             AttributeBonus.SetAttrLarge(AttributeEnum.MulDamageIncrea, AttributeFrom.HeroBase, damageMul);
             AttributeBonus.SetAttrLarge(AttributeEnum.Parry, AttributeFrom.HeroBase, parry);
