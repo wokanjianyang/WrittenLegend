@@ -55,7 +55,7 @@ namespace Game
 
             LargeNumber hp = StringHelper.StringToLargNumber(Config.HP);
             //Debug.Log("Config " + this.Progress + " HP:" + StringHelper.FormatNumber(hp));
-            hp.Mul(Config.HpRise * riseLevel).Mul(HpRate[Quality - 1]);
+            hp.Mul(1 + Config.HpRise * riseLevel).Mul(HpRate[Quality - 1]);
 
             double attr = StringHelper.StringToNumber(Config.Attr);
             attr += attr * Config.AttrRise * riseLevel;
@@ -72,13 +72,13 @@ namespace Game
             //def.Mul(Config.DefRise * riseLevel).Mul(DefRate[Quality - 1]);
 
             LargeNumber damageMul = StringHelper.StringToLargNumber(Config.DamageMul);
-            damageMul.Mul(Config.MulRise * riseLevel);
+            damageMul.Mul(1 + Config.MulRise * riseLevel);
 
             LargeNumber strong = StringHelper.StringToLargNumber(Config.Strong);
-            strong.Mul(Config.StrongRise * riseLevel);
+            strong.Mul(1 + Config.StrongRise * riseLevel);
 
             LargeNumber parry = StringHelper.StringToLargNumber(Config.Parry);
-            parry.Mul(Config.ParrayRise * riseLevel);
+            parry.Mul(1 + Config.ParrayRise * riseLevel);
 
             //Debug.Log("Infinit " + this.Progress + " HP:" + StringHelper.FormatNumber(hp));
             //Debug.Log("Infinit " + this.Progress + " Def:" + StringHelper.FormatNumber(def));
