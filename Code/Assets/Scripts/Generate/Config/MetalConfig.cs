@@ -90,23 +90,20 @@ namespace Game
 		/// <summary>RiseAttr</summary>
 		[ProtoMember(5)]
 		public int RiseAttr { get; set; }
-		/// <summary>80</summary>
+		/// <summary>RiseLog</summary>
 		[ProtoMember(6)]
 		public int RiseLog { get; set; }
 		/// <summary>RisePower</summary>
 		[ProtoMember(7)]
 		public int RisePower { get; set; }
-		/// <summary>MaxLevel</summary>
-		[ProtoMember(8)]
-		public int MaxLevel { get; set; }
 		/// <summary>Quality</summary>
-		[ProtoMember(9)]
+		[ProtoMember(8)]
 		public int Quality { get; set; }
 		/// <summary>RiseQuality</summary>
-		[ProtoMember(10)]
+		[ProtoMember(9)]
 		public int RiseQuality { get; set; }
 		/// <summary>Des</summary>
-		[ProtoMember(11)]
+		[ProtoMember(10)]
 		public string Des { get; set; }
 
 	}
