@@ -178,7 +178,15 @@ namespace Game
 
         public Sprite GetMonsterWorld(int id)
         {
-            return MonsterWorldList[id - 1];
+            if (id > 5)
+            {
+                return MonsterWorldList[id - 6];
+            }
+            else
+            {
+                return MonsterWorldList[id - 1];
+            }
+
         }
 
         public Sprite GetDefend()

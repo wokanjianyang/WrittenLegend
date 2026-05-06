@@ -33,8 +33,12 @@ public class BattleRule_World : ABattleRule
     {
         Start = true;
 
-        var enemy = new Monster_World(MapId, Layer, 1);
-        GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
+        int count = this.MapId >= 5 ? 3 : 1;
+        for (int i = 0; i < count; i++)
+        {
+            var enemy = new Monster_World(MapId, Layer, 1);
+            GameProcessor.Inst.PlayerManager.LoadMonster(enemy);
+        }
     }
 
     public override void DoMapLogic(int roundNum, double currentRoundTime)

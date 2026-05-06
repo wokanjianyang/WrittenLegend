@@ -193,6 +193,10 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
                 {
                     this.image_Background.rectTransform.sizeDelta = new Vector2(300, 300);
                     this.image_Background.sprite = PrefabHelper.Instance().GetMonsterWorld(SelfPlayer.FashionId);
+                    if (SelfPlayer.FashionId > 5)
+                    {
+                        this.image_Background.color = Color.red;
+                    }
                     break;
                 }
                 else

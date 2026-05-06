@@ -79,7 +79,14 @@ namespace Game
             this.Config = config;
             this.Show();
 
-            this.image_Background.sprite = list_Backgrounds[Config.Id - 1];
+            if (Config.Id <= 5)
+            {
+                this.image_Background.sprite = list_Backgrounds[Config.Id - 1];
+            }
+            else
+            {
+                this.image_Background.sprite = list_Backgrounds[Config.Id - 6];
+            }
         }
     }
 }

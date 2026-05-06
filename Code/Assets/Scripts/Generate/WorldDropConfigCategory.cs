@@ -11,6 +11,11 @@ namespace Game
         {
             List<int> rates = new List<int>();
 
+            Dictionary<int, int> dict = new Dictionary<int, int>();
+
+            int stoneDropId = mapId <= 5 ? 0 : -1;
+            List<WorldDropConfig> dropConfigs = this.list.Where(m => (m.MapId == mapId || m.MapId == stoneDropId)).ToList();
+
             for (int level = 1; level <= ConfigHelper.MaxWorld; level++)
             {
                 if (seed > 0)
@@ -18,18 +23,31 @@ namespace Game
                     seed++;
                 }
 
-                List<WorldDropConfig> dropConfigs = this.list.Where(m => (m.MapId == mapId || m.MapId == 0)
-                && m.StartLevel <= level && m.EndLevel >= level
+                List<WorldDropConfig> temps = dropConfigs.Where(m => m.StartLevel <= level && m.EndLevel >= level
                 && ((level - m.StartLevel) % m.RateLevel == 0)
                 && (m.ExcludeStart > level || m.ExcludeLevel == 0 || level % m.ExcludeLevel != 0)).ToList();
 
-                rates.Add(RandomDropId(dropConfigs, seed));
+                WorldDropConfig config = RandomDropId(temps, seed);
+
+                rates.Add(config.ItemId);
+
+                if (!dict.ContainsKey(config.Id))
+                {
+                    dict[config.Id] = 0;
+                }
+
+                dict[config.Id]++;
+
+                if (dict[config.Id] >= config.Max)
+                {
+                    dropConfigs.Remove(config); //掉落上限的，去掉
+                }
             }
 
             return rates;
         }
 
-        private int RandomDropId(List<WorldDropConfig> dropConfigs, int seed)
+        private WorldDropConfig RandomDropId(List<WorldDropConfig> dropConfigs, int seed)
         {
             int total = dropConfigs.Select(m => m.Rate).Sum();
 
@@ -42,11 +60,11 @@ namespace Game
 
                 if (rd <= endRate)
                 {
-                    return dropConfigs[i].ItemId;
+                    return dropConfigs[i];
                 }
             }
 
-            return -1;
+            return null;
         }
     }
 }

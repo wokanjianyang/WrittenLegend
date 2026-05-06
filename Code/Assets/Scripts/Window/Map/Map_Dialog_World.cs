@@ -18,6 +18,7 @@ public class Map_Dialog_World : MonoBehaviour
     public Toggle toggle_Auto;
 
     private GameObject ItemPrefab;
+    private GameObject ItemPrefab1;
     List<Item_World> items = new List<Item_World>();
 
     // Start is called before the first frame update
@@ -91,6 +92,7 @@ public class Map_Dialog_World : MonoBehaviour
         }
 
         ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Map/Item_World");
+        ItemPrefab1 = Resources.Load<GameObject>("Prefab/Window/Map/Item_World_1");
 
         long cycle = user.Cycle.Data;
 
@@ -110,7 +112,8 @@ public class Map_Dialog_World : MonoBehaviour
 
     private void BuildItem(WorldConfig config)
     {
-        var item = GameObject.Instantiate(ItemPrefab);
+        var item = GameObject.Instantiate(config.Id <= 5 ? ItemPrefab : ItemPrefab1);
+
         var com = item.GetComponent<Item_World>();
 
         com.SetContent(config);
