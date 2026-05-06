@@ -72,17 +72,17 @@ public class Monster_World : APlayer
 
     private void SetAttr()
     {
-        long riseLevel = this.Level - 1;
+        int riseLevel = (int)(this.Level - 1);
 
-        double hp = StringHelper.StringToNumber(Config.Hp);
-        double hpRise = Math.Pow(Config.RiseHp, riseLevel);
-        hp = hp * hpRise;
+        LargeNumber hp = StringHelper.StringToLargNumber(Config.Hp);
+        LargeNumber hpRise = LargeNumber.Pow(Config.RiseHp, riseLevel);
+        hp.Mul(hpRise);
 
         //Debug.Log("hpRise " + StringHelper.FormatNumber(hpRise) + " hp:" + StringHelper.FormatNumber(hp));
 
-        double attr = StringHelper.StringToNumber(Config.Attr);
-        double attrRise = Math.Pow(Config.AttrRise, riseLevel);
-        attr = attr * attrRise;
+        LargeNumber attr = StringHelper.StringToLargNumber(Config.Attr);
+        LargeNumber attrRise = LargeNumber.Pow(Config.AttrRise, riseLevel);
+        attr.Mul(attrRise);
 
         //Debug.Log("attrRise " + StringHelper.FormatNumber(attrRise) + " attr:" + StringHelper.FormatNumber(attr));
 
@@ -92,30 +92,35 @@ public class Monster_World : APlayer
 
         //Debug.Log("defRise " + StringHelper.FormatNumber(defRise) + " def:" + StringHelper.FormatNumber(def));
 
-        double damageMul = StringHelper.StringToNumber(Config.DamageMul);
-        double mulRise = Math.Pow(Config.MulRise, riseLevel);
-        damageMul = damageMul * mulRise;
+        LargeNumber damageMul = StringHelper.StringToLargNumber(Config.DamageMul);
+        LargeNumber mulRise = LargeNumber.Pow(Config.MulRise, riseLevel);
+        damageMul.Mul(mulRise);
 
         //Debug.Log("mulRise " + StringHelper.FormatNumber(mulRise) + " damageMul:" + StringHelper.FormatNumber(damageMul));
 
-        double strong = StringHelper.StringToNumber(Config.Strong);
-        double strongRise = Math.Pow(Config.StrongRise, riseLevel);
-        strong = strong * strongRise;
+        LargeNumber strong = StringHelper.StringToLargNumber(Config.Strong);
+        LargeNumber strongRise = LargeNumber.Pow(Config.StrongRise, riseLevel);
+        strong.Mul(strongRise);
 
-        double parray = StringHelper.StringToNumber(Config.Parray);
-        if (parray > 0)
+        LargeNumber parray = StringHelper.StringToLargNumber(Config.Parray);
+        if (parray.data > 0)
         {
-            double parrayRise = Math.Pow(Config.ParrayRise, riseLevel);
-            parray = parray * parrayRise;
+            LargeNumber parrayRise = LargeNumber.Pow(Config.ParrayRise, riseLevel);
+            parray.Mul(parrayRise);
         }
         //Debug.Log("strongRise " + StringHelper.FormatNumber(strongRise) + " strong:" + StringHelper.FormatNumber(strong));
 
-        AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp);
-        AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr);
-        AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr);
-        AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr);
-        AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, def);
+        AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, 1);
+        AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, 1);
+        AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, 1);
+        AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, 1);
 
+        AttributeBonus.SetAttrLarge(AttributeEnum.HP, AttributeFrom.HeroBase, hp);
+        AttributeBonus.SetAttrLarge(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr);
+        AttributeBonus.SetAttrLarge(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr);
+        AttributeBonus.SetAttrLarge(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr);
+
+        AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, def);
         AttributeBonus.SetAttr(AttributeEnum.CritRate, AttributeFrom.HeroBase, Config.CritRate + riseLevel * 1);
         AttributeBonus.SetAttr(AttributeEnum.CritDamage, AttributeFrom.HeroBase, Config.CritDamage + riseLevel * 10);
         AttributeBonus.SetAttr(AttributeEnum.CritRateResist, AttributeFrom.HeroBase, Config.CritRateResist + riseLevel * 10);
@@ -126,9 +131,13 @@ public class Monster_World : APlayer
         //Debug.Log("Miss " + AttributeBonus.GetAttackDoubleAttr(AttributeEnum.Miss));
         AttributeBonus.SetAttr(AttributeEnum.Protect, AttributeFrom.HeroBase, Config.Protect);
 
-        AttributeBonus.SetAttr(AttributeEnum.Strong, AttributeFrom.HeroBase, strong);
-        AttributeBonus.SetAttr(AttributeEnum.Parry, AttributeFrom.HeroBase, parray);
-        AttributeBonus.SetAttr(AttributeEnum.MulDamageIncrea, AttributeFrom.HeroBase, damageMul);
+        AttributeBonus.SetAttr(AttributeEnum.Strong, AttributeFrom.HeroBase, 1);
+        AttributeBonus.SetAttr(AttributeEnum.Parry, AttributeFrom.HeroBase, 1);
+        AttributeBonus.SetAttr(AttributeEnum.MulDamageIncrea, AttributeFrom.HeroBase, 1);
+
+        AttributeBonus.SetAttrLarge(AttributeEnum.Strong, AttributeFrom.HeroBase, strong);
+        AttributeBonus.SetAttrLarge(AttributeEnum.Parry, AttributeFrom.HeroBase, parray);
+        AttributeBonus.SetAttrLarge(AttributeEnum.MulDamageIncrea, AttributeFrom.HeroBase, damageMul);
 
         //回满当前血量
         this.SetAttackSpeed(Config.Speed);

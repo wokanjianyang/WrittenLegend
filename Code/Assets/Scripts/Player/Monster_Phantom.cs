@@ -93,19 +93,19 @@ public class Monster_Phantom : APlayer
         LargeNumber hpRise = LargeNumber.Pow(attrConfig.HpRise, riseLevel);
         hp.Mul(hpRise);
 
-        if (Percent >= 10)
-        {
-            Debug.Log("hpRise " + hpRise + " hp:" + hp);
-        }
+        //if (Percent >= 10)
+        //{
+        //    Debug.Log("hpRise " + hpRise + " hp:" + hp);
+        //}
 
         LargeNumber attr = StringHelper.StringToLargNumber(attrConfig.Attr);
         LargeNumber attrRise = LargeNumber.Pow(attrConfig.AttrRise, riseLevel);
         attr.Mul(attrRise);
 
-        if (Percent >= 10)
-        {
-            Debug.Log("attrRise " + attrRise + " attr:" + attr);
-        }
+        //if (Percent >= 10)
+        //{
+        //    Debug.Log("attrRise " + attrRise + " attr:" + attr);
+        //}
 
         LargeNumber def = StringHelper.StringToLargNumber(attrConfig.Def);
         LargeNumber defRise = LargeNumber.Pow(attrConfig.DefRise, riseLevel);
@@ -115,10 +115,10 @@ public class Monster_Phantom : APlayer
         LargeNumber mulRise = LargeNumber.Pow(attrConfig.MulRise, riseLevel);
         damageMul.Mul(mulRise);
 
-        if (Percent >= 10)
-        {
-            Debug.Log("mulRise " + mulRise + " damageMul:" + damageMul);
-        }
+        //if (Percent >= 10)
+        //{
+        //    Debug.Log("mulRise " + mulRise + " damageMul:" + damageMul);
+        //}
 
         LargeNumber strong = StringHelper.StringToLargNumber(attrConfig.Strong);
         LargeNumber strongRise = LargeNumber.Pow(attrConfig.StrongRise, riseLevel);
