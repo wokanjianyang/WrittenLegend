@@ -92,7 +92,7 @@ namespace Game
 
             double relic2 = 1 + user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Relic2) * user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.DamageResist) / 100;
 
-            //Debug.Log("relic2:" + relic2);
+            //Debug.Log("LuckyHit:" + user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.LuckyHit));
 
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, 1 * relic2);
             AttributeBonus.SetAttrLarge(AttributeEnum.HP, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrLarge(AttributeEnum.HP));

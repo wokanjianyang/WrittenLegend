@@ -89,11 +89,11 @@ namespace Game
         RealHpDamage = 114,//真实血量伤害
         RealMulDamageResist = 115, //溢出减伤迭代计算
         RealCritRate = 116,//溢出暴击转为伤害加成
-        LuckyHit = 117, //青龙之力-幸运一击
-        Relic2 = 118, //神器2
-        Relic3 = 119, //神器2
-        Relic4 = 120, //神器2
-        Relic5 = 121, //神器2
+        LuckyHit = 3117, //青龙之力-幸运一击
+        Relic2 = 3118, //神器2
+        Relic3 = 3119, //神器2
+        Relic4 = 3120, //神器2
+        Relic5 = 3121, //神器2
         RelicRise = 122, //所有神器等级+1
 
 

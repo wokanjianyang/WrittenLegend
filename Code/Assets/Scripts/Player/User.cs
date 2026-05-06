@@ -784,7 +784,7 @@ namespace Game
                 if (groupLevel > 0 && relicRecord < relicMax)
                 {
                     double groupValue = relicGroupConfig.GetAttrValue(groupLevel);
-                    AttributeBonus.SetAttr((AttributeEnum)relicGroupConfig.AttrId, AttributeFrom.Relic, 999, groupValue);
+                    AttributeBonus.SetAttr((AttributeEnum)relicGroupConfig.AttrId, AttributeFrom.Relic, 999 + relicGroupConfig.Id * 1000, groupValue);
                 }
             }
 
