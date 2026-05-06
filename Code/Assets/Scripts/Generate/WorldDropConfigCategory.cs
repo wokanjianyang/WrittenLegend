@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Game
 {
@@ -11,7 +12,7 @@ namespace Game
         {
             List<int> rates = new List<int>();
 
-            Dictionary<int, int> dict = new Dictionary<int, int>();
+            //Dictionary<int, int> dict = new Dictionary<int, int>();
 
             int stoneDropId = mapId <= 5 ? 0 : -1;
             List<WorldDropConfig> dropConfigs = this.list.Where(m => (m.MapId == mapId || m.MapId == stoneDropId)).ToList();
@@ -31,18 +32,25 @@ namespace Game
 
                 rates.Add(config.ItemId);
 
-                if (!dict.ContainsKey(config.Id))
-                {
-                    dict[config.Id] = 0;
-                }
+                //if (!dict.ContainsKey(config.Id))
+                //{
+                //    dict[config.Id] = 0;
+                //}
 
-                dict[config.Id]++;
-
-                if (dict[config.Id] >= config.Max)
-                {
-                    dropConfigs.Remove(config); //掉落上限的，去掉
-                }
+                //dict[config.Id]++;
             }
+
+            //string text = "";
+            //var dd = dict.OrderBy(m => m.Key).ToList();
+            //foreach (var sp in dd)
+            //{
+            //    if (sp.Key > 100)
+            //    {
+            //        text += sp.Key + "-" + sp.Value + " ， ";
+            //    }
+            //}
+
+            //Debug.Log(text);
 
             return rates;
         }

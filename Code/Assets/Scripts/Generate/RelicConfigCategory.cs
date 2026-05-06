@@ -12,21 +12,28 @@ namespace Game
             return this.list.Where(m => m.Type == type).ToList();
         }
 
-        public int GetTotalFee(long level)
+        public int GetTotalFee(int id, long level)
         {
             int total = 0;
             for (int i = 1; i <= level; i++)
             {
-                total += GetFee(i);
+                total += GetFee(id, i);
             }
 
             return total;
         }
 
-        public int GetFee(int level)
+        public int GetFee(int id, int level)
         {
-            int rise = Math.Min(level / 10, 2);
-            return rise + 1;
+            if (id <= 5)
+            {
+                int rise = Math.Min(level / 10, 2);
+                return rise + 1;
+            }
+            else
+            {
+                return 1;
+            }
         }
     }
 

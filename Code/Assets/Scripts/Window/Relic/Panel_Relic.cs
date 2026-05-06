@@ -60,7 +60,7 @@ public class Panel_Relic : MonoBehaviour
 
         int count = user.RelicData.Where(m => m.Key >= startId && m.Key <= endId && m.Value.Data > 0).Count();
 
-        int groupLevel = user.GetRelicGroupLevel(Rid);
+        int groupLevel = user.GetRelicGroupLevel(groupConfig.Cyle, Rid);
 
         double groupValue = groupConfig.GetAttrValue(groupLevel);
 
@@ -107,12 +107,14 @@ public class Panel_Relic : MonoBehaviour
         this.SelectId = id;
         this.Btn_Active.gameObject.SetActive(false);
 
+        RelicConfig config = RelicConfigCategory.Instance.Get(id);
+
         User user = GameProcessor.Inst.User;
 
         int level = user.GetRelicLevel(id);
-        int rise = user.GetRelicRise();
+        int rise = user.GetRelicRise(config.Cycle);
 
-        RelicConfig config = RelicConfigCategory.Instance.Get(id);
+
 
         for (int i = 0; i < AttrList.Count; i++)
         {
@@ -129,11 +131,19 @@ public class Panel_Relic : MonoBehaviour
             }
         }
 
-        int fee = RelicConfigCategory.Instance.GetFee(level);
+        int fee = RelicConfigCategory.Instance.GetFee(config.Id, level);
 
         long materialCount = user.GetMaterialCount(config.ItemId);
         string color = materialCount >= fee ? "#FFFF00" : "#FF0000";
-        txt_Fee.text = string.Format("<color={0}>{1}</color>（每10级多1个）", color, config.Name + ":" + materialCount + "/ " + fee);
+
+        if (config.Id <= 5)
+        {
+            txt_Fee.text = string.Format("<color={0}>{1}</color>（每10级多1个）", color, config.Name + ":" + materialCount + "/ " + fee);
+        }
+        else
+        {
+            txt_Fee.text = string.Format("<color={0}>{1}</color>（固定为1个）", color, config.Name + ":" + materialCount + "/ " + fee);
+        }
 
         if (materialCount >= fee)
         {
@@ -153,7 +163,7 @@ public class Panel_Relic : MonoBehaviour
 
         int level = user.GetRelicLevel(this.SelectId);
 
-        long fee = RelicConfigCategory.Instance.GetFee(level);
+        long fee = RelicConfigCategory.Instance.GetFee(config.Id, level);
 
         if (materialCount < fee)
         {

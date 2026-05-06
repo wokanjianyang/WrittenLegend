@@ -759,7 +759,6 @@ namespace Game
             //神器
             long relicRecord = GetRecordMax((int)AbcType.Relic);
             long relicMax = AbcHelper.GetRecord((int)AbcType.Relic);
-            int relicRise = GetRelicRise();
             foreach (var rl in RelicData)
             {
                 int rid = rl.Key;
@@ -767,6 +766,9 @@ namespace Game
                 if (level > 0 && relicRecord < relicMax)
                 {
                     RelicConfig relicConfig = RelicConfigCategory.Instance.Get(rid);
+
+                    int relicRise = GetRelicRise(relicConfig.Cycle);
+
                     for (int i = 0; i < relicConfig.AttrIdList.Length; i++)
                     {
                         AttributeBonus.SetAttr((AttributeEnum)relicConfig.AttrIdList[i], AttributeFrom.Relic, rid, relicConfig.GetAttrValue(i, level + relicRise));
@@ -778,7 +780,7 @@ namespace Game
             List<RelicGroupConfig> relicGroups = RelicGroupConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
             foreach (var relicGroupConfig in relicGroups)
             {
-                int groupLevel = GetRelicGroupLevel(relicGroupConfig.Id);
+                int groupLevel = GetRelicGroupLevel(relicGroupConfig.Cyle, relicGroupConfig.Id);
                 if (groupLevel > 0 && relicRecord < relicMax)
                 {
                     double groupValue = relicGroupConfig.GetAttrValue(groupLevel);
@@ -2135,24 +2137,33 @@ namespace Game
             SoulBoneData[sid].Data++;
         }
 
-        public int GetRelicGroupLevel(int gid)
+        public int GetRelicGroupLevel(int cycle, int gid)
         {
             int startId = 1 + (gid - 1) * 8;
             int endId = gid * 8;
 
             long groupLevel = RelicData.Where(m => m.Key >= startId && m.Key <= endId).Select(m => m.Value.Data).DefaultIfEmpty(0).Min();
 
-            return (int)Math.Min(groupLevel, Cycle.Data) + this.GetRelicRise();
+            return (int)Math.Min(groupLevel, Cycle.Data) + this.GetRelicRise(cycle);
         }
 
-        public int GetRelicRise()
+        public int GetRelicRise(int cycle)
         {
             if (this.Cycle.Data <= 30)
             {
                 return 0;
             }
 
-            return (int)Math.Min(this.Cycle.Data - 30, 10);
+            if (cycle == 1)
+            {
+                return (int)Math.Min(this.Cycle.Data - 30, 10);
+            }
+            else if (cycle == 2)
+            {
+                return (int)Math.Min(this.Cycle.Data - 40, 10);
+            }
+
+            return 0;
         }
 
         public int GetRelicLevel(int rid)

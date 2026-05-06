@@ -270,7 +270,7 @@ namespace Game
 
             foreach (var sp in user.RelicData)
             {
-                int fee = RelicConfigCategory.Instance.GetTotalFee(sp.Value.Data);
+                int fee = RelicConfigCategory.Instance.GetTotalFee(sp.Key, sp.Value.Data);
                 relic += fee;
                 if (sp.Key > 32)
                 {

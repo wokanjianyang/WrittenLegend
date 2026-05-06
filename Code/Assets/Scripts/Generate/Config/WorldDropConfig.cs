@@ -102,9 +102,6 @@ namespace Game
 		/// <summary>ExcludeLevel</summary>
 		[ProtoMember(9)]
 		public int ExcludeLevel { get; set; }
-		/// <summary>Max</summary>
-		[ProtoMember(10)]
-		public int Max { get; set; }
 
 	}
 }
