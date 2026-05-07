@@ -18,17 +18,17 @@ namespace Game
 
         public const int Channel_Tap = 1;
 
-        public const int Version = 440;
+        public const int Version = 441;
 
-        public const long PackTime = 1777084866; //打包时间，防止作弊
+        public const long PackTime = 1778142665; //打包时间，防止作弊
 
-        public const long PackEndTime = 1778812866; //超过此时间,游戏不能使用，需要更新
+        public const long PackEndTime = 1779870665; //超过此时间,游戏不能使用，需要更新
 
         public const long Max_Level = 120000; //最大人物等级和强化等级
 
         public const long Cycle_Level = 10000; //每次轮回增加等级
 
-        public const long Cycle_Max = 36;
+        public const long Cycle_Max = 38;
 
         public const long Max_Legacy_Level = 20; //最大传世副本等级 
 
@@ -82,7 +82,7 @@ namespace Game
                 , "那", "由", "他", "不", "可", "思" , "议", "无", "量", "大", "数", "古", "戈", "尔" , "频", "波", "罗"
                 , "天", "地", "玄", "黄","宇","宙","洪","荒","日","月","盈","昃" ,"辰","宿","列","张","寒","来","暑","往"
                 ,"秋","收","冬","藏","闰","余","成","岁","律","吕","调","阳","云","腾","致","雨"
-                ,"露","结","为","霜","金","生","丽","水"}; // 
+                ,"露","结","为","霜","金","生","丽","水","剑","号","巨","阙","珠","称","夜","光"}; // 果珍李柰，菜重芥姜 海咸河淡，鳞潜羽翔 龙师火帝，鸟官人皇
 
         public const int MapStartId = 1000;
 
