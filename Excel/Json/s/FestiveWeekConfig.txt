@@ -20,4 +20,5 @@
 {"_t":"FestiveWeekConfig","_id":41,"Cycle":4,"Cost":3000,"Max":50,"Title":"兑换红装精华*1","TargetName":"红装精华","TargetType":5,"TargetId":4011,"TargetCount":1},
 {"_t":"FestiveWeekConfig","_id":42,"Cycle":8,"Cost":15000,"Max":20,"Title":"兑换金装精华*1","TargetName":"金装精华","TargetType":5,"TargetId":4019,"TargetCount":1},
 {"_t":"FestiveWeekConfig","_id":43,"Cycle":10,"Cost":30000,"Max":20,"Title":"兑换暗金精华*1","TargetName":"暗金精华","TargetType":5,"TargetId":4026,"TargetCount":1},
+{"_t":"FestiveWeekConfig","_id":44,"Cycle":0,"Cost":150000,"Max":2,"Title":"兑换极矿工礼包*1","TargetName":"极矿工礼包","TargetType":4,"TargetId":30,"TargetCount":1},
 ]}

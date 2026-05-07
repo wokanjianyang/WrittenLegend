@@ -205,6 +205,12 @@ namespace Game
 
             LargeNumber lg = new LargeNumber(roleAttr);
 
+            LargeNumber la = attcher.GetTotalAttrLarge(AttributeEnum.LargeAtk);
+            if (la.data > 0)
+            {
+                lg.Mul(la);
+            }
+
             //防御 = 目标防御 * (100-无视防御)/100
             double def = enemy.GetAttackDoubleAttr(AttributeEnum.Def);
 
@@ -220,7 +226,14 @@ namespace Game
 
             double defRate = def * ConfigHelper.Def_Rate * defRiseRate / (def * ConfigHelper.Def_Rate * defRiseRate + roleAttr);
 
-            lg.Mul(1 - defRate);
+            if (defRate >= 1)
+            {
+                lg.Div(1E+20);
+            }
+            else
+            {
+                lg.Mul(1 - defRate);
+            }
 
             //韧性减伤
             LargeNumber strong = enemy.GetTotalAttrLarge(AttributeEnum.Strong);

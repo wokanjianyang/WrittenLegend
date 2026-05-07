@@ -137,6 +137,8 @@ namespace Game
         MulDamageResist = 2011, //减伤倍率
         StrongMul = 2012,//韧性倍率
         Shatter = 2013,//破韧倍率
+
+        LargeAtk = 3001, //倍率攻击
     }
 
     /// <summary>

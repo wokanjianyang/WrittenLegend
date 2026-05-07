@@ -98,9 +98,8 @@ public class Monster_Phantom : APlayer
         //    Debug.Log("hpRise " + hpRise + " hp:" + hp);
         //}
 
-        LargeNumber attr = StringHelper.StringToLargNumber(attrConfig.Attr);
+        double attr = StringHelper.StringToNumber(attrConfig.Attr);
         LargeNumber attrRise = LargeNumber.Pow(attrConfig.AttrRise, riseLevel);
-        attr.Mul(attrRise);
 
         //if (Percent >= 10)
         //{
@@ -134,16 +133,16 @@ public class Monster_Phantom : APlayer
         int speed = attrConfig.Speed + (int)(Layer * attrConfig.SpeedRise);
 
         AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, 1);
-        AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, 1);
-        AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, 1);
-        AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, 1);
+        AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr);
+        AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr);
+        AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr);
         AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, 1);
 
         AttributeBonus.SetAttrLarge(AttributeEnum.HP, AttributeFrom.HeroBase, hp);
-        AttributeBonus.SetAttrLarge(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr);
-        AttributeBonus.SetAttrLarge(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr);
-        AttributeBonus.SetAttrLarge(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr);
         AttributeBonus.SetAttrLarge(AttributeEnum.Def, AttributeFrom.HeroBase, def);
+
+        AttributeBonus.SetAttr(AttributeEnum.LargeAtk, AttributeFrom.HeroBase, 1);
+        AttributeBonus.SetAttrLarge(AttributeEnum.LargeAtk, AttributeFrom.HeroBase, attrRise);
 
         AttributeBonus.SetAttr(AttributeEnum.CritRate, AttributeFrom.HeroBase, attrConfig.CritRate + advanceRate);
         AttributeBonus.SetAttr(AttributeEnum.CritDamage, AttributeFrom.HeroBase, attrConfig.CritDamage + advanceRate);

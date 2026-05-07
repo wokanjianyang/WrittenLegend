@@ -80,9 +80,8 @@ public class Monster_World : APlayer
 
         //Debug.Log("hpRise " + StringHelper.FormatNumber(hpRise) + " hp:" + StringHelper.FormatNumber(hp));
 
-        LargeNumber attr = StringHelper.StringToLargNumber(Config.Attr);
+        double attr = StringHelper.StringToNumber(Config.Attr);
         LargeNumber attrRise = LargeNumber.Pow(Config.AttrRise, riseLevel);
-        attr.Mul(attrRise);
 
         //Debug.Log("attrRise " + StringHelper.FormatNumber(attrRise) + " attr:" + StringHelper.FormatNumber(attr));
 
@@ -111,14 +110,14 @@ public class Monster_World : APlayer
         //Debug.Log("strongRise " + StringHelper.FormatNumber(strongRise) + " strong:" + StringHelper.FormatNumber(strong));
 
         AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, 1);
-        AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, 1);
-        AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, 1);
-        AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, 1);
+        AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr);
+        AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr);
+        AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr);
 
         AttributeBonus.SetAttrLarge(AttributeEnum.HP, AttributeFrom.HeroBase, hp);
-        AttributeBonus.SetAttrLarge(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr);
-        AttributeBonus.SetAttrLarge(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr);
-        AttributeBonus.SetAttrLarge(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr);
+
+        AttributeBonus.SetAttr(AttributeEnum.LargeAtk, AttributeFrom.HeroBase, 1);
+        AttributeBonus.SetAttrLarge(AttributeEnum.LargeAtk, AttributeFrom.HeroBase, attrRise);
 
         AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, def);
         AttributeBonus.SetAttr(AttributeEnum.CritRate, AttributeFrom.HeroBase, Config.CritRate + riseLevel * 1);
