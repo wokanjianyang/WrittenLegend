@@ -136,7 +136,7 @@ public class Panel_Relic : MonoBehaviour
         long materialCount = user.GetMaterialCount(config.ItemId);
         string color = materialCount >= fee ? "#FFFF00" : "#FF0000";
 
-        if (config.Id <= 5)
+        if (config.Id <= 40)
         {
             txt_Fee.text = string.Format("<color={0}>{1}</color>（每10级多1个）", color, config.Name + ":" + materialCount + "/ " + fee);
         }

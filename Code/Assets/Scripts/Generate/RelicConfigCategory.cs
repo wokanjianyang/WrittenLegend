@@ -25,7 +25,7 @@ namespace Game
 
         public int GetFee(int id, int level)
         {
-            if (id <= 5)
+            if (id <= 40)
             {
                 int rise = Math.Min(level / 10, 2);
                 return rise + 1;
