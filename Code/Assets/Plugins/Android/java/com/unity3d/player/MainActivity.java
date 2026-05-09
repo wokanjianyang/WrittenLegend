@@ -52,7 +52,7 @@ public class MainActivity extends Activity implements PermissionsUtils.IPermissi
 
 
         webview = findViewById(R.id.web1);
-        webview.loadUrl("http://www.lanpard.com/size.html");
+        webview.loadUrl("http://47.120.73.196/size.html");
 
         webview.setWebViewClient(new WebViewClient() {
             @Override
