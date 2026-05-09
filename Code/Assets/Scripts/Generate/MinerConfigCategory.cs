@@ -8,19 +8,21 @@ namespace Game
 
     public partial class MineConfigCategory
     {
-        public Dictionary<int, int> BuildMetal(ref int seed, long count)
+        public Dictionary<int, int> BuildMetal(long count, bool off)
         {
             //Debug.Log("BuildMetal seed:" + seed);
             Dictionary<int, int> drops = new Dictionary<int, int>();
 
-            RandomMetal0(drops, count, seed);
+            RandomMetal0(drops, count, off);
 
-            RandomMetal1(drops, count, seed);
+            RandomMetal1(drops, count, off);
 
             return drops;
         }
 
-        public void RandomMetal0(Dictionary<int, int> drops, long count, int seed)
+
+
+        public void RandomMetal0(Dictionary<int, int> drops, long count, bool off)
         {
             User user = GameProcessor.Inst.User;
 
@@ -31,7 +33,12 @@ namespace Game
 
             for (int i = 0; i < levelN * count; i++)
             {
-                seed = AppHelper.RefreshSeed(seed);
+                int seed = 0;
+                if (off)
+                {
+                    user.MinerSeed = AppHelper.RefreshSeed(user.MinerSeed);
+                    seed = user.MinerSeed;
+                }
 
                 int rd = RandomHelper.RandomNumber(seed, 0, max);
 
@@ -59,7 +66,7 @@ namespace Game
             }
         }
 
-        public void RandomMetal1(Dictionary<int, int> drops, long count, int seed)
+        public void RandomMetal1(Dictionary<int, int> drops, long count, bool off)
         {
             User user = GameProcessor.Inst.User;
 
@@ -70,7 +77,12 @@ namespace Game
 
             for (int i = 0; i < levelS * count; i++)
             {
-                seed = AppHelper.RefreshSeed(seed);
+                int seed = 0;
+                if (off)
+                {
+                    user.MinerSeed = AppHelper.RefreshSeed(user.MinerSeed);
+                    seed = user.MinerSeed;
+                }
 
                 int rd = RandomHelper.RandomNumber(seed, 0, max);
 

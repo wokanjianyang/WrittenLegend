@@ -156,7 +156,7 @@ namespace Game
 
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 127, 1, 1)); //金装自选
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 128, 1, 1)); //暗金自选
-            
+
             foreach (var item in items)
             {
                 BoxItem boxItem = new BoxItem();
@@ -898,7 +898,7 @@ namespace Game
             }
 
             //miner
-            Dictionary<int, int> offlineMetal = MineConfigCategory.Instance.BuildMetal(ref user.MinerSeed, count);
+            Dictionary<int, int> offlineMetal = MineConfigCategory.Instance.BuildMetal(count, true);
 
             var sortedDict = offlineMetal.OrderBy(kvp => kvp.Key).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
