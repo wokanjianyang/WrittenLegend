@@ -2149,17 +2149,22 @@ namespace Game
 
         public int GetRelicRise(int cycle)
         {
-            if (this.Cycle.Data <= 30)
-            {
-                return 0;
-            }
-
             if (cycle == 1)
             {
+                if (this.Cycle.Data <= 30)
+                {
+                    return 0;
+                }
+
                 return (int)Math.Min(this.Cycle.Data - 30, 10);
             }
             else if (cycle == 2)
             {
+                if (this.Cycle.Data <= 40)
+                {
+                    return 0;
+                }
+
                 return (int)Math.Min(this.Cycle.Data - 40, 10);
             }
 

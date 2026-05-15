@@ -62,10 +62,10 @@ namespace Game
 
             if (Progeress >= 55000)
             {
-                RiseRate55 = 1 * Math.Pow(1.01, Progeress - 55000);
+                RiseRate55 = 1 * Math.Pow(1.008, Progeress - 55000);
             }
 
-            if (Progeress >= 60000)
+            if (Progeress >= ConfigHelper.BabelMax)
             {
                 riseRate *= 1E30; //守关难度关卡，开新难度去掉
             }
