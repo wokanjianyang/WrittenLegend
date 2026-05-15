@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
-public class Panel_Stone : MonoBehaviour
+public class Panel_Stone1 : MonoBehaviour
 {
     public ScrollRect sr_Panel;
 
@@ -31,18 +31,16 @@ public class Panel_Stone : MonoBehaviour
     public Button Btn_OK_Batch;
 
     private const int MaxCount = 10; //10件装备
-    private const int Quality = 7;
 
-    private const int StartPosition = 21;
-    private const int MaxLevel = 14;
     private const int BatchCount = 5;
 
     private int SelectPosition = 0;
     private int MainIndex = 0;
     private int StoneId = 0;
 
-    private int Cycle = 1;
-
+    private int StartPosition = 10;
+    private int StartSet = 4;
+    private int Cycle = 2;
     // Start is called before the first frame update
     void Awake()
     {
@@ -61,7 +59,7 @@ public class Panel_Stone : MonoBehaviour
     // Update is called once per frame
     void Start()
     {
-        this.SelectPosition = 1;
+        this.SelectPosition = StartSet;
         this.MainIndex = 1;
         this.StoneId = 0;
 
@@ -82,7 +80,7 @@ public class Panel_Stone : MonoBehaviour
 
             Item_Forge_Item item = empty.GetComponent<Item_Forge_Item>();
             item.toggle.group = ItemGroup;
-            item.SetContent(i, i);
+            item.SetContent1(StartPosition + i, StartPosition + i);
 
             item.AddListener(SelectForgeItem);
 
@@ -99,7 +97,7 @@ public class Panel_Stone : MonoBehaviour
         for (int i = 0; i < stoneConfigs.Count; i++)
         {
             stoneList[i].toggle.group = tg_Stone;
-            stoneList[i].SetContent(stoneConfigs[i]);
+            stoneList[i].SetContent1(stoneConfigs[i]);
 
             stoneList[i].AddListener(SelectStone);
         }
@@ -119,6 +117,11 @@ public class Panel_Stone : MonoBehaviour
         ShowStoneMain();
     }
 
+    private int GetSetFee(int sc)
+    {
+        return (sc + 1) * 5;
+    }
+
     private void ShowForgeItem()
     {
         User user = GameProcessor.Inst.User;
@@ -130,7 +133,7 @@ public class Panel_Stone : MonoBehaviour
         {
             Stone_Item_Main main = mainList[i];
 
-            if (i <= setCount)
+            if (i + StartSet - 1 <= setCount)
             {
                 //Debug.Log("SelectForgeItem-stoneId:" + stoneId);
 
@@ -139,7 +142,7 @@ public class Panel_Stone : MonoBehaviour
 
                 //可以镶嵌
                 main.toggle.interactable = true;
-                main.SetContent(i + 1, stoneId, level);
+                main.SetContent(i + StartSet, stoneId, level);
             }
             else
             {
@@ -153,9 +156,9 @@ public class Panel_Stone : MonoBehaviour
             stoneList[i].Show();
         }
 
-        if (record.GetSetCount() < 2)
+        if (record.GetSetCount() < StartSet + 1)
         {
-            long fee = setCount + 1;
+            long fee = GetSetFee(setCount);
             long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_Stone_Set);
             ItemConfig itemConfig = ItemConfigCategory.Instance.Get(ItemHelper.SpecialId_Stone_Set);
 
@@ -378,7 +381,7 @@ public class Panel_Stone : MonoBehaviour
 
         int setCount = record.GetSetCount();
 
-        long fee = setCount + 1;
+        long fee = GetSetFee(setCount);
         long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_Stone_Set);
 
         if (materialCount < fee)

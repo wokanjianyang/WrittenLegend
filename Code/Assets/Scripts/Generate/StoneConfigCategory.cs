@@ -7,7 +7,9 @@ namespace Game
 
     public partial class StoneConfigCategory
     {
-
+        public List<StoneConfig> GetListByCycle(int cycle) {
+            return this.list.Where(m => m.Cycle == cycle).ToList();
+        }
     }
 
     public partial class StoneConfig

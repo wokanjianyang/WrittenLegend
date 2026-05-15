@@ -95,6 +95,10 @@ public class ViewForgeProcessor : AViewPage
     public Toggle toggle_Stone;
     public Panel_Stone PanelStone;
 
+
+    public Toggle toggle_Stone1;
+    public Panel_Stone1 PanelStone1;
+
     private void Awake()
     {
         this.toggle_Equip.onValueChanged.AddListener((isOn) =>
@@ -218,6 +222,11 @@ public class ViewForgeProcessor : AViewPage
             PanelStone.gameObject.SetActive(isOn);
         });
 
+        this.toggle_Stone1.onValueChanged.AddListener((isOn) =>
+        {
+            PanelStone1.gameObject.SetActive(isOn);
+        });
+
         this.toggle_Shengxiao.onValueChanged.AddListener((isOn) =>
         {
             PanelShengxiao.gameObject.SetActive(isOn);
@@ -275,11 +284,13 @@ public class ViewForgeProcessor : AViewPage
         {
             toggle_Other.gameObject.SetActive(true);
             toggle_Stone.gameObject.SetActive(true);
+            toggle_Stone1.gameObject.SetActive(true);
         }
         else
         {
             toggle_Other.gameObject.SetActive(false);
             toggle_Stone.gameObject.SetActive(false);
+            toggle_Stone1.gameObject.SetActive(true);
         }
 
 

@@ -70,5 +70,13 @@ namespace Game
 
             this.Show();
         }
+
+        public void SetContent1(int index, int id)
+        {
+            this.Id = id;
+            this.image_Background.sprite = list_Backgrounds[index - 11];
+
+            this.Show();
+        }
     }
 }

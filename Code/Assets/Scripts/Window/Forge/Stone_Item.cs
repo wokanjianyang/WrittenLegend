@@ -79,5 +79,13 @@ namespace Game
             this.image_Background.sprite = list_Backgrounds[config.Id - 1];
             this.Show();
         }
+
+        public void SetContent1(StoneConfig config)
+        {
+            this.Config = config;
+
+            this.image_Background.sprite = list_Backgrounds[config.Id - 11];
+            this.Show();
+        }
     }
 }
