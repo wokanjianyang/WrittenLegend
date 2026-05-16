@@ -19,6 +19,7 @@ namespace Game
         private List<Sprite> ValetList = new List<Sprite>();
         private List<Sprite> MonsterList = new List<Sprite>();
         private List<Sprite> MonsterWorldList = new List<Sprite>();
+        private Dictionary<int, Sprite> StoneList = new Dictionary<int, Sprite>();
         private Sprite MonsterDefend = null;
 
         private static PrefabHelper instance = null;
@@ -98,6 +99,15 @@ namespace Game
             return BoxImageList[quanlity - 1];
         }
 
+        public Sprite GetStoneImage(int id)
+        {
+            if (!StoneList.ContainsKey(id))
+            {
+                StoneList[id] = Resources.Load<Sprite>("UI/Stone/Stone" + id);
+            }
+
+            return StoneList[id];
+        }
 
         public Com_Box CreateComBox(BoxItem item)
         {

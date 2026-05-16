@@ -18,7 +18,6 @@ namespace Game
         public Toggle toggle;
 
         public Image image_Background;
-        public Sprite[] list_Backgrounds;
 
         public StoneConfig Config { get; set; }
 
@@ -76,15 +75,7 @@ namespace Game
         {
             this.Config = config;
 
-            this.image_Background.sprite = list_Backgrounds[config.Id - 1];
-            this.Show();
-        }
-
-        public void SetContent1(StoneConfig config)
-        {
-            this.Config = config;
-
-            this.image_Background.sprite = list_Backgrounds[config.Id - 11];
+            this.image_Background.sprite = PrefabHelper.Instance().GetStoneImage(config.Id);
             this.Show();
         }
     }

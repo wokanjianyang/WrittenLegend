@@ -143,7 +143,7 @@ public class Panel_Stone : MonoBehaviour
             }
             else
             {
-                main.toggle.interactable = false;
+                main.SetNoLock();
             }
         }
 

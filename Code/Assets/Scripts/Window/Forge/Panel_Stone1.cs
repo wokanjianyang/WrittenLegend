@@ -96,7 +96,7 @@ public class Panel_Stone1 : MonoBehaviour
         for (int i = 0; i < stoneConfigs.Count; i++)
         {
             stoneList[i].toggle.group = tg_Stone;
-            stoneList[i].SetContent1(stoneConfigs[i]);
+            stoneList[i].SetContent(stoneConfigs[i]);
 
             stoneList[i].AddListener(SelectStone);
         }
@@ -145,7 +145,7 @@ public class Panel_Stone1 : MonoBehaviour
             }
             else
             {
-                main.toggle.interactable = false;
+                main.SetNoLock();
             }
         }
 

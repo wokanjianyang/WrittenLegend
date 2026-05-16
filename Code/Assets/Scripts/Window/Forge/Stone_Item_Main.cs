@@ -18,7 +18,6 @@ namespace Game
         public Toggle toggle;
 
         public Image image_Background;
-        public Sprite[] list_Backgrounds;
 
         private int MainIndex { get; set; } = 0;
         private int StoneId { get; set; } = 0;
@@ -57,28 +56,16 @@ namespace Game
 
 
             this.Txt_Level.gameObject.SetActive(false);
+            this.image_Background.sprite = PrefabHelper.Instance().GetStoneImage(StoneId);
 
-            if (this.StoneId == 0)
+            if (StoneLevel > 0)
             {
-                this.image_Background.sprite = list_Backgrounds[0];
-                return;
+                this.Txt_Level.gameObject.SetActive(true);
+                this.Txt_Level.text = StoneLevel + "";
             }
-            else
-            {
-                int index = StoneId > 10 ? StoneId - 10 : StoneId;
-                this.image_Background.sprite = list_Backgrounds[index];
-
-                if (StoneLevel > 0)
-                {
-                    this.Txt_Level.gameObject.SetActive(true);
-                    this.Txt_Level.text = StoneLevel + "";
-                }
+            else {
+                this.Txt_Level.gameObject.SetActive(false);
             }
-            //this.Txt_Name.text = Config.Name.Insert(2, "\n"); ;
-
-            //User user = GameProcessor.Inst.User;
-            //int level = user.GetRelicLevel(Config.Id);
-            //this.Txt_Level.text = level + "";
         }
 
         private void Select()
@@ -97,6 +84,11 @@ namespace Game
             this.StoneLevel = stoneLevel;
 
             this.Show();
+        }
+
+        public void SetNoLock() {
+            toggle.interactable = false;
+            this.Txt_Level.gameObject.SetActive(false);
         }
     }
 }
