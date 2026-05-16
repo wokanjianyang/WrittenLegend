@@ -324,6 +324,9 @@ namespace Game
         public Dictionary<int, MagicData> RelicData { get; } = new Dictionary<int, MagicData>();
 
         public MagicData TalentExp { get; set; } = new MagicData();
+
+        public int TalentPlanIndex { get; set; } = 0;
+
         public Dictionary<int, MagicData> TalentData { get; } = new Dictionary<int, MagicData>();
 
         public int TalentPoint { get; set; } = 0;

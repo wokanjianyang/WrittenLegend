@@ -18,6 +18,9 @@ public class Dialog_Talent : MonoBehaviour, IBattleLife
     public Transform Tf_Layer;
     private List<Toggle> tgLevelList;
 
+    public Transform Tf_Plan;
+    private List<Toggle> tgPlanList;
+
     public HP_Progress ExpProgress;
 
     public List<Transform> tfs;
@@ -34,11 +37,19 @@ public class Dialog_Talent : MonoBehaviour, IBattleLife
     private void Awake()
     {
         tgLevelList = Tf_Layer.GetComponentsInChildren<Toggle>().ToList();
+        tgPlanList = Tf_Plan.GetComponentsInChildren<Toggle>().ToList();
 
         Btn_Close.onClick.AddListener(OnClick_Close);
         Btn_Reset.onClick.AddListener(OnClick_Reset);
 
-
+        for (int i = 0; i < tgPlanList.Count; i++)
+        {
+            int index = i;
+            tgPlanList[i].onValueChanged.AddListener((isOn) =>
+            {
+                this.ChangePlan(index);
+            });
+        }
 
         for (int i = 0; i < tgLevelList.Count; i++)
         {
@@ -63,6 +74,10 @@ public class Dialog_Talent : MonoBehaviour, IBattleLife
         this.Show();
     }
 
+    private void ChangePlan(int p)
+    {
+        GameProcessor.Inst.User.TalentPlanIndex = p;
+    }
 
     private void ChangeLevel(int layer)
     {

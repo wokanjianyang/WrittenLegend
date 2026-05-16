@@ -67,7 +67,7 @@ public class BattleRule_World : ABattleRule
             int ap = 1;
             if (progess > this.Layer)  //如果历史最高记录大于当前，跳关
             {
-                long ar = progess / 400 + 1;
+                long ar = progess / 200 + 1;
                 ap = (int)Math.Min(progess - this.Layer, ar * 5);
             }
 
