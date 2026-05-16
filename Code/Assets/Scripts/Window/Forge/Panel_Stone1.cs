@@ -39,7 +39,6 @@ public class Panel_Stone1 : MonoBehaviour
     private int StoneId = 0;
 
     private int StartPosition = 10;
-    private int StartSet = 4;
     private int Cycle = 2;
     // Start is called before the first frame update
     void Awake()
@@ -59,7 +58,7 @@ public class Panel_Stone1 : MonoBehaviour
     // Update is called once per frame
     void Start()
     {
-        this.SelectPosition = StartSet;
+        this.SelectPosition = StartPosition + 1;
         this.MainIndex = 1;
         this.StoneId = 0;
 
@@ -133,7 +132,7 @@ public class Panel_Stone1 : MonoBehaviour
         {
             Stone_Item_Main main = mainList[i];
 
-            if (i + StartSet - 1 <= setCount)
+            if (i < setCount)
             {
                 //Debug.Log("SelectForgeItem-stoneId:" + stoneId);
 
@@ -142,7 +141,7 @@ public class Panel_Stone1 : MonoBehaviour
 
                 //可以镶嵌
                 main.toggle.interactable = true;
-                main.SetContent(i + StartSet, stoneId, level);
+                main.SetContent(i + 1, stoneId, level);
             }
             else
             {
@@ -156,7 +155,7 @@ public class Panel_Stone1 : MonoBehaviour
             stoneList[i].Show();
         }
 
-        if (record.GetSetCount() < StartSet + 1)
+        if (record.GetSetCount() < 3)
         {
             long fee = GetSetFee(setCount);
             long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_Stone_Set);
@@ -215,7 +214,7 @@ public class Panel_Stone1 : MonoBehaviour
 
             for (int i = 0; i < stoneList.Count; i++)
             {
-                StoneConfig stoneConfig = StoneConfigCategory.Instance.Get(i + 1);
+                StoneConfig stoneConfig = stoneList[i].Config;
 
                 if (setConfig.TypeList.Contains(stoneConfig.Type) && !excludeList.Contains(stoneConfig.Id))
                 {
@@ -267,6 +266,7 @@ public class Panel_Stone1 : MonoBehaviour
         //显示属性，费用
         User user = GameProcessor.Inst.User;
         StoneRecord record = user.GetStoneRecord(SelectPosition);
+        int setCount = record.GetSetCount();
 
         int level = record.GetStoneLevel(MainIndex);
 
@@ -278,7 +278,7 @@ public class Panel_Stone1 : MonoBehaviour
         string color = materialCount >= fee ? "#FFFF00" : "#FF0000";
         Txt_Fee.text = string.Format("<color={0}>{1}</color>", color, config.Name + ":" + materialCount + "/ " + fee);
 
-        if (materialCount >= fee)
+        if (materialCount >= fee && setCount >= MainIndex)
         {
             this.Btn_OK.gameObject.SetActive(true);
             this.Btn_OK_Batch.gameObject.SetActive(true);

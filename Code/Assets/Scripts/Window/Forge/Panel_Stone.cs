@@ -212,7 +212,7 @@ public class Panel_Stone : MonoBehaviour
 
             for (int i = 0; i < stoneList.Count; i++)
             {
-                StoneConfig stoneConfig = StoneConfigCategory.Instance.Get(i + 1);
+                StoneConfig stoneConfig = stoneList[i].Config;
 
                 if (setConfig.TypeList.Contains(stoneConfig.Type) && !excludeList.Contains(stoneConfig.Id))
                 {

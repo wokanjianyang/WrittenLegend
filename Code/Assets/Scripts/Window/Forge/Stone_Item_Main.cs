@@ -65,7 +65,8 @@ namespace Game
             }
             else
             {
-                this.image_Background.sprite = list_Backgrounds[StoneId];
+                int index = StoneId > 10 ? StoneId - 10 : StoneId;
+                this.image_Background.sprite = list_Backgrounds[index];
 
                 if (StoneLevel > 0)
                 {
