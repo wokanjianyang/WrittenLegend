@@ -82,7 +82,7 @@ public class Panel_Stone : MonoBehaviour
 
             Item_Forge_Item item = empty.GetComponent<Item_Forge_Item>();
             item.toggle.group = ItemGroup;
-            item.SetContent(i, i);
+            item.SetContent(i);
 
             item.AddListener(SelectForgeItem);
 

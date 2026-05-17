@@ -63,18 +63,18 @@ namespace Game
         }
 
 
-        public void SetContent(int index, int id)
+        public void SetContent(int id)
         {
             this.Id = id;
-            this.image_Background.sprite = list_Backgrounds[index - 1];
+            this.image_Background.sprite = list_Backgrounds[id - 1];
 
             this.Show();
         }
 
-        public void SetContent1(int index, int id)
+        public void SetContent1(int id)
         {
             this.Id = id;
-            this.image_Background.sprite = list_Backgrounds[index - 11];
+            this.image_Background.sprite = list_Backgrounds[id - 11];
 
             this.Show();
         }

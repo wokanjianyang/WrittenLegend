@@ -79,7 +79,7 @@ public class Panel_Stone1 : MonoBehaviour
 
             Item_Forge_Item item = empty.GetComponent<Item_Forge_Item>();
             item.toggle.group = ItemGroup;
-            item.SetContent1(StartPosition + i, StartPosition + i);
+            item.SetContent1(StartPosition + i);
 
             item.AddListener(SelectForgeItem);
 
@@ -235,7 +235,7 @@ public class Panel_Stone1 : MonoBehaviour
         {
             for (int i = 0; i < stoneList.Count; i++)
             {
-                if (stoneId == i + 1)
+                if (stoneId == i + 1 + StartPosition)
                 {
                     stoneList[i].toggle.interactable = true;
                     stoneList[i].toggle.isOn = true;
