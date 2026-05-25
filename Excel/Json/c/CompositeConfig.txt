@@ -147,4 +147,10 @@
 {"_t":"CompositeConfig","_id":604,"Type":"宝石","ItemTypeList":[5,5],"ItemIdList":[60000007,4111],"ItemCountList":[1,100],"ItemQualityList":[0,0],"TargetName":"道术宝石","TargetId":60000008,"TargetType":5,"AutoHide":0},
 {"_t":"CompositeConfig","_id":605,"Type":"宝石","ItemTypeList":[5,5],"ItemIdList":[60000008,4111],"ItemCountList":[1,100],"ItemQualityList":[0,0],"TargetName":"物理宝石","TargetId":60000006,"TargetType":5,"AutoHide":0},
 {"_t":"CompositeConfig","_id":606,"Type":"宝石","ItemTypeList":[5,5],"ItemIdList":[60000008,4111],"ItemCountList":[1,100],"ItemQualityList":[0,0],"TargetName":"魔法宝石","TargetId":60000007,"TargetType":5,"AutoHide":0},
+{"_t":"CompositeConfig","_id":607,"Type":"宝石","ItemTypeList":[5,5],"ItemIdList":[60000016,4111],"ItemCountList":[1,100],"ItemQualityList":[0,0],"TargetName":"极魔法宝石","TargetId":60000017,"TargetType":5,"AutoHide":0},
+{"_t":"CompositeConfig","_id":608,"Type":"宝石","ItemTypeList":[5,5],"ItemIdList":[60000006,4111],"ItemCountList":[1,100],"ItemQualityList":[0,0],"TargetName":"极道术宝石","TargetId":60000018,"TargetType":5,"AutoHide":0},
+{"_t":"CompositeConfig","_id":609,"Type":"宝石","ItemTypeList":[5,5],"ItemIdList":[60000017,4111],"ItemCountList":[1,100],"ItemQualityList":[0,0],"TargetName":"极物理宝石","TargetId":60000016,"TargetType":5,"AutoHide":0},
+{"_t":"CompositeConfig","_id":610,"Type":"宝石","ItemTypeList":[5,5],"ItemIdList":[60000017,4111],"ItemCountList":[1,100],"ItemQualityList":[0,0],"TargetName":"极道术宝石","TargetId":60000018,"TargetType":5,"AutoHide":0},
+{"_t":"CompositeConfig","_id":611,"Type":"宝石","ItemTypeList":[5,5],"ItemIdList":[60000018,4111],"ItemCountList":[1,100],"ItemQualityList":[0,0],"TargetName":"极物理宝石","TargetId":60000016,"TargetType":5,"AutoHide":0},
+{"_t":"CompositeConfig","_id":612,"Type":"宝石","ItemTypeList":[5,5],"ItemIdList":[60000018,4111],"ItemCountList":[1,100],"ItemQualityList":[0,0],"TargetName":"极魔法宝石","TargetId":60000017,"TargetType":5,"AutoHide":0},
 ]}
