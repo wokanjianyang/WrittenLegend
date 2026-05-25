@@ -14,7 +14,7 @@ public class Monster_Spirit : APlayer
     private double[] AttrRateist = { 6, 8, 10, 15, 20 };
     private double[] DefRateist = { 1, 1.1, 1.15, 1.2, 1.25 };
 
-    private string[] NameList = { "黄巾小兵", "黄巾队长", "黄巾精英", "黄巾首领", "蜀国小兵", "蜀国队长", "蜀国精英", "蜀国首领" };
+    private string[] NameList = { "黄巾小兵", "黄巾队长", "黄巾精英", "黄巾首领", "蜀国小兵", "蜀国队长", "蜀国精英", "蜀国首领", "魏国小兵", "魏国队长", "魏国精英", "魏国首领" };
 
     public Monster_Spirit(int mapId, int quality)
     {

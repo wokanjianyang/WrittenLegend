@@ -168,4 +168,9 @@
 {"_t":"HalidomConfig","_id":40000217,"ItemId":40000217,"Layer":6,"Name":"虚无魂火","AttrId":2009,"AttrValue":8,"RiseAttr":8,"MaxLevel":4,"Des":"道伤倍率"},
 {"_t":"HalidomConfig","_id":40000218,"ItemId":40000218,"Layer":6,"Name":"虚无腐肉","AttrId":2013,"AttrValue":16,"RiseAttr":16,"MaxLevel":4,"Des":"破韧倍率"},
 {"_t":"HalidomConfig","_id":40000219,"ItemId":40000219,"Layer":6,"Name":"虚无蛇胆","AttrId":2003,"AttrValue":50,"RiseAttr":50,"MaxLevel":4,"Des":"生命倍率"},
+{"_t":"HalidomConfig","_id":40000220,"ItemId":40000220,"Layer":6,"Name":"虚无狼爪","AttrId":2001,"AttrValue":8,"RiseAttr":8,"MaxLevel":4,"Des":"攻击倍率"},
+{"_t":"HalidomConfig","_id":40000221,"ItemId":40000221,"Layer":6,"Name":"虚无虫皮","AttrId":2004,"AttrValue":8,"RiseAttr":8,"MaxLevel":4,"Des":"物攻倍率"},
+{"_t":"HalidomConfig","_id":40000222,"ItemId":40000222,"Layer":6,"Name":"虚无鹰羽","AttrId":2005,"AttrValue":8,"RiseAttr":8,"MaxLevel":4,"Des":"魔法倍率"},
+{"_t":"HalidomConfig","_id":40000223,"ItemId":40000223,"Layer":6,"Name":"虚无虫角","AttrId":2006,"AttrValue":8,"RiseAttr":8,"MaxLevel":4,"Des":"道术倍率"},
+{"_t":"HalidomConfig","_id":40000224,"ItemId":40000224,"Layer":6,"Name":"虚无蜈膏","AttrId":2010,"AttrValue":8,"RiseAttr":8,"MaxLevel":4,"Des":"增伤倍率"},
 ]}
