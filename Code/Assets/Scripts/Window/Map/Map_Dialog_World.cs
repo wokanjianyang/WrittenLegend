@@ -38,13 +38,6 @@ public class Map_Dialog_World : MonoBehaviour
     private float doTime = 0;
     private void Update()
     {
-        this.doTime += Time.unscaledDeltaTime;
-
-        if (doTime > 0.5)
-        {
-            this.doTime = 0;
-            this.Show();
-        }
     }
 
 
@@ -57,26 +50,11 @@ public class Map_Dialog_World : MonoBehaviour
             return;
         }
 
-        long refeshTime = user.WorldData.Ticket - TimeHelper.ClientNowSeconds() + 86400 * 10;
-
-        //Debug.Log("refeshTime:" + refeshTime);
-
-        long day = refeshTime / 86400;
-        refeshTime = refeshTime - day * 86400;
-
-        string dayText = (day > 0 ? day + "天" : "");
-        if (refeshTime > 0)
+        Txt_Des.text = "每周日凌晨0点刷新";
+        if (user.WorldData.Check())
         {
-            Txt_Des.text = "重置时间倒计时：" + dayText + TimeSpan.FromSeconds(refeshTime).ToString(@"hh\:mm\:ss");
-        }
-        else
-        {
-            Txt_Des.text = "刷新中...";
-            if (user.WorldData.Check())
-            {
-                GameProcessor.Inst.SaveData();
-                GameProcessor.Inst.SaveNetData();
-            }
+            GameProcessor.Inst.SaveData();
+            GameProcessor.Inst.SaveNetData();
         }
     }
 

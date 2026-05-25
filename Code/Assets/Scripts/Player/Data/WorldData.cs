@@ -22,8 +22,6 @@ namespace Game
 
         public bool Check()
         {
-            long nt = TimeHelper.ClientNowSeconds();
-
             List<WorldConfig> worlds = WorldConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
 
             int seed = AppHelper.GetDeviceIdentifier().GetHashCode();
@@ -49,16 +47,15 @@ namespace Game
                 }
             }
 
-            if (Ticket == 0 || nt - Ticket >= 86400 * 10)
+            DateTime today = DateTime.Today;
+            int difference = ((int)DayOfWeek.Monday - (int)today.DayOfWeek);
+            DateTime currentMonday = today.AddDays(difference);
+
+            long nt = currentMonday.Ticks;
+
+            if (Ticket == 0 || nt > Ticket)
             {
-                if (Ticket == 0)
-                {
-                    Ticket = nt;
-                }
-                else
-                {
-                    Ticket += 86400 * 10;
-                }
+                Ticket = nt;
 
                 Record.Clear();
                 DictItemList = DictItemListNew;

@@ -546,7 +546,6 @@ namespace Game
                 user.DataDate = DateTime.Now.Ticks;
                 //保存到Tap
             }
-            user.WorldData.Check();
             GameProcessor.Inst.SaveData();
 
             this.gameObject.SetActive(true);
