@@ -146,6 +146,13 @@ namespace Game
             //user.SaveItemMeterialCount(2100032, 11125); //英灵关羽
             //user.SaveItemMeterialCount(2100033, 11125); //英灵关羽
 
+            //user.SaveItemMeterialCount(2100055, 11125); //英灵关羽
+            //user.SaveItemMeterialCount(2100056, 11125); //英灵刘备
+            //user.SaveItemMeterialCount(2100057, 11125); //英灵诸葛
+            //user.SaveItemMeterialCount(2100058, 11125); //英灵关羽
+            //user.SaveItemMeterialCount(2100059, 11125); //英灵关羽
+            //user.SaveItemMeterialCount(2100060, 11125); //英灵关羽
+
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 109, 1, 5));  //战士经验
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 110, 1, 1)); //法师经验
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 111, 1, 1)); //道士经验
