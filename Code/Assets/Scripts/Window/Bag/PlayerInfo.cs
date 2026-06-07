@@ -65,8 +65,13 @@ namespace Game
 
         public void UpdateAttrInfo(User user)
         {
-            double hp = user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
-            HP.text = StringHelper.FormatNumber(user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
+            LargeNumber hp = new LargeNumber(user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
+            LargeNumber lgHp = user.AttributeBonus.CalMulTotalLarge(AttributeEnum.MulHp);
+            if (lgHp.data > 0)
+            {
+                hp.Mul(lgHp);
+            }
+            HP.text = hp.FormatUnit(); ;
 
             Text[] txtAtks = new Text[] { PhyAtt, MagicAtt, SpiritAtt };
             AttributeEnum[] atrAtks = new AttributeEnum[] { AttributeEnum.PhyAtt, AttributeEnum.MagicAtt, AttributeEnum.SpiritAtt };
@@ -75,12 +80,12 @@ namespace Game
             for (int i = 0; i < 3; i++)
             {
                 LargeNumber lg = user.AttributeBonus.GetTotalAttrLarge(atrAtks[i]);
-                LargeNumber lg1 = user.AttributeBonus.GetUserAtkLarge(atrMulAtks[i]);
+                LargeNumber lg1 = user.AttributeBonus.CalMulTotalLarge(atrMulAtks[i]);
                 if (lg1.data > 0)
                 {
                     lg.Mul(lg1);
                 }
-                LargeNumber lg2 = user.AttributeBonus.GetUserAtkLarge(AttributeEnum.MulAttr);
+                LargeNumber lg2 = user.AttributeBonus.CalMulTotalLarge(AttributeEnum.MulAttr);
                 if (lg2.data > 0)
                 {
                     lg.Mul(lg2);

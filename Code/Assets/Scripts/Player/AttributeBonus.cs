@@ -182,10 +182,41 @@ namespace Game
             return lg;
         }
 
-        public LargeNumber GetUserAtkLarge(AttributeEnum attrType)
+        public LargeNumber CalMulTotalLarge(AttributeEnum attrType)
         {
-            double atk = 1 + GetTotalAttrDouble(attrType) / 100;
-            return new LargeNumber(atk);
+            return CalMulTotalLarge(false, attrType);
+        }
+
+        public LargeNumber CalMulTotalLarge(bool haveBuff, params AttributeEnum[] mulTypes)
+        {
+            LargeNumber lg = new LargeNumber(1);
+
+            for (int i = 0; i < mulTypes.Length; i++)
+            {
+                AttributeEnum percentType = mulTypes[i];
+                foreach (double pc in AllAttrDict[percentType].Values)
+                {
+                    lg.Mul((100.0 + pc) / 100.0);
+                }
+
+                if (haveBuff && BuffDict.ContainsKey(percentType))
+                {
+                    foreach (var item in BuffDict[percentType])
+                    {
+                        lg.Mul((100.0 + item.AttrValue) / 100.0);
+                    }
+
+                }
+                if (haveBuff && SkillDict.ContainsKey(percentType))
+                {
+                    foreach (var item in SkillDict[percentType])
+                    {
+                        lg.Mul((100.0 + item.Value) / 100.0);
+                    }
+                }
+            }
+
+            return lg;
         }
 
         public double GetTotalAttrDouble(AttributeEnum attrType, bool haveBuff)
@@ -197,8 +228,8 @@ namespace Game
             {
                 case AttributeEnum.HP:
                     total = CalTotal(AttributeEnum.HP, haveBuff, AttributeEnum.HpIncrea) * (CalTotal(AttributeEnum.PanelHp, haveBuff) + 100) / 100;
-                    mr = 1 + CalMulTotal(haveBuff, AttributeEnum.MulHp) / 100;
-                    total *= mr;
+                    //mr = 1 + CalMulTotal(haveBuff, AttributeEnum.MulHp) / 100;
+                    //total *= mr;
                     break;
                 case AttributeEnum.PhyAtt:
                     total = CalTotal(AttributeEnum.PhyAtt, haveBuff, AttributeEnum.AttIncrea, AttributeEnum.PhyAttIncrea) * (CalTotal(AttributeEnum.PanelPhyAtt, haveBuff) + 100) / 100;
@@ -392,26 +423,26 @@ namespace Game
             int role = 1;
             double powerDamage = p1;
 
-            LargeNumber mulRoleAtk = GetUserAtkLarge(AttributeEnum.MulAttrPhy);
+            LargeNumber mulRoleAtk = CalMulTotalLarge(AttributeEnum.MulAttrPhy);
 
             if (p2 > powerDamage)
             {
                 role = 2;
                 powerDamage = p2;
 
-                mulRoleAtk = GetUserAtkLarge(AttributeEnum.MulAttrMagic);
+                mulRoleAtk = CalMulTotalLarge(AttributeEnum.MulAttrMagic);
             }
             if (p3 > powerDamage)
             {
                 role = 3;
                 powerDamage = p3;
 
-                mulRoleAtk = GetUserAtkLarge(AttributeEnum.MulAttrSpirit);
+                mulRoleAtk = CalMulTotalLarge(AttributeEnum.MulAttrSpirit);
             }
 
             LargeNumber lg = new LargeNumber(powerDamage);
 
-            LargeNumber mulAtk = GetUserAtkLarge(AttributeEnum.MulAttr);
+            LargeNumber mulAtk = CalMulTotalLarge(AttributeEnum.MulAttr);
             if (mulAtk.data > 0)
             {
                 lg.Mul(mulAtk);
@@ -553,6 +584,8 @@ namespace Game
 
             return total - 100;
         }
+
+
 
         public double CalMulDamageResist(bool haveBuff)
         {
