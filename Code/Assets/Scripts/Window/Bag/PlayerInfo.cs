@@ -67,9 +67,32 @@ namespace Game
         {
             double hp = user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP);
             HP.text = StringHelper.FormatNumber(user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
-            PhyAtt.text = StringHelper.FormatNumber(user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.PhyAtt));
-            SpiritAtt.text = StringHelper.FormatNumber(user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.SpiritAtt));
-            MagicAtt.text = StringHelper.FormatNumber(user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.MagicAtt));
+
+            Text[] txtAtks = new Text[] { PhyAtt, MagicAtt, SpiritAtt };
+            AttributeEnum[] atrAtks = new AttributeEnum[] { AttributeEnum.PhyAtt, AttributeEnum.MagicAtt, AttributeEnum.SpiritAtt };
+            AttributeEnum[] atrMulAtks = new AttributeEnum[] { AttributeEnum.MulAttrPhy, AttributeEnum.MulAttrMagic, AttributeEnum.MulAttrSpirit };
+
+            for (int i = 0; i < 3; i++)
+            {
+                LargeNumber lg = user.AttributeBonus.GetTotalAttrLarge(atrAtks[i]);
+                LargeNumber lg1 = user.AttributeBonus.GetUserAtkLarge(atrMulAtks[i]);
+                if (lg1.data > 0)
+                {
+                    lg.Mul(lg1);
+                }
+                LargeNumber lg2 = user.AttributeBonus.GetUserAtkLarge(AttributeEnum.MulAttr);
+                if (lg2.data > 0)
+                {
+                    lg.Mul(lg2);
+                }
+
+                txtAtks[i].text = lg.FormatUnit();
+            }
+
+            //PhyAtt.text = StringHelper.FormatNumber(user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.PhyAtt));
+            //SpiritAtt.text = StringHelper.FormatNumber(user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.SpiritAtt));
+            //MagicAtt.text = StringHelper.FormatNumber(user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.MagicAtt));
+
             double def = user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Def);
             Def.text = StringHelper.FormatNumber(user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Def));
 

@@ -211,6 +211,12 @@ namespace Game
                 lg.Mul(la);
             }
 
+            LargeNumber lga = attcher.GetTotalAtkLarge(role);
+            if (lga.data > 0)
+            {
+                lg.Mul(lga);
+            }
+
             //防御 = 目标防御 * (100-无视防御)/100
             double def = enemy.GetAttackDoubleAttr(AttributeEnum.Def);
 
