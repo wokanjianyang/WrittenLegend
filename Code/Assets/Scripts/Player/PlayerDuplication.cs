@@ -69,12 +69,19 @@ namespace Game
             }
 
             AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, 1);
-            AttributeBonus.SetAttrLarge(AttributeEnum.HP, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrLarge(AttributeEnum.HP));
-
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroPanel, phyAtt * 0.5);
             AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroPanel, magicAtt * rate);
             AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroPanel, spiritAtt * 0.5);
 
+            //解决攻击溢出问题
+            AttributeBonus.SetAttrLarge(AttributeEnum.HP, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrLarge(AttributeEnum.HP));
+
+            AttributeBonus.SetAttrLarge(AttributeEnum.MulAttr, AttributeFrom.HeroPanel, Master.AttributeBonus.GetSingleAttrLarge(AttributeEnum.MulAttr));
+            AttributeBonus.SetAttrLarge(AttributeEnum.MulAttrPhy, AttributeFrom.HeroPanel, Master.AttributeBonus.GetSingleAttrLarge(AttributeEnum.MulAttrPhy));
+            AttributeBonus.SetAttrLarge(AttributeEnum.MulAttrMagic, AttributeFrom.HeroPanel, Master.AttributeBonus.GetSingleAttrLarge(AttributeEnum.MulAttrMagic));
+            AttributeBonus.SetAttrLarge(AttributeEnum.MulAttrPhy, AttributeFrom.HeroPanel, Master.AttributeBonus.GetSingleAttrLarge(AttributeEnum.MulAttrPhy));
+
+         
             //Debug.Log("dupulication ruleType:" + this.RuleType);
             if (!this.IsFestive)
             {
