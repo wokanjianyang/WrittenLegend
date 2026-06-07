@@ -98,6 +98,12 @@ namespace Game
             AttributeBonus.SetAttrLarge(AttributeEnum.HP, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrLarge(AttributeEnum.HP));
             //AttributeBonus.SetAttrLarge(AttributeEnum.HP, (int)AttributeFrom.HeroPanel, new LargeNumber(1, 400));
 
+            //解决攻击溢出问题
+            //AttributeBonus.SetAttrLarge(AttributeEnum.MulAttr, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrLarge(AttributeEnum.MulAttr));
+            //AttributeBonus.SetAttrLarge(AttributeEnum.MulAttrPhy, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrLarge(AttributeEnum.MulAttrPhy));
+            //AttributeBonus.SetAttrLarge(AttributeEnum.MulAttrMagic, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrLarge(AttributeEnum.MulAttrMagic));
+            //AttributeBonus.SetAttrLarge(AttributeEnum.MulAttrPhy, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrLarge(AttributeEnum.MulAttrPhy));
+
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.PhyAtt));
             AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.MagicAtt));
             AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.SpiritAtt));

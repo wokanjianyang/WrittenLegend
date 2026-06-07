@@ -42,7 +42,7 @@
 {"_t":"FestiveConfig","_id":41,"Step":0,"RequireCycle":4,"Cost":300000,"Max":2,"Title":"兑换开孔石","TargetName":"开孔石","TargetType":5,"TargetId":4027,"TargetCount":1},
 {"_t":"FestiveConfig","_id":42,"Step":0,"RequireCycle":4,"Cost":10000,"Max":200,"Title":"宝石集合包","TargetName":"攻击宝石","TargetType":4,"TargetId":36,"TargetCount":1},
 {"_t":"FestiveConfig","_id":43,"Step":0,"RequireCycle":0,"Cost":50000,"Max":50,"Title":"兑换低级法宝自选*1","TargetName":"低级法宝自选","TargetType":4,"TargetId":24,"TargetCount":1},
-{"_t":"FestiveConfig","_id":44,"Step":0,"RequireCycle":10,"Cost":1000,"Max":500,"Title":"兑换坐骑兽粮*100","TargetName":"坐骑兽粮*100","TargetType":5,"TargetId":4022,"TargetCount":100},
+{"_t":"FestiveConfig","_id":44,"Step":0,"RequireCycle":10,"Cost":1000,"Max":500,"Title":"兑换坐骑兽粮*100","TargetName":"坐骑兽粮*100","TargetType":5,"TargetId":4051,"TargetCount":100},
 {"_t":"FestiveConfig","_id":50,"Step":0,"RequireCycle":0,"Cost":100000,"Max":10,"Title":"兑换时装精华","TargetName":"时装精华","TargetType":5,"TargetId":4034,"TargetCount":1},
 {"_t":"FestiveConfig","_id":51,"Step":0,"RequireCycle":0,"Cost":150000,"Max":2,"Title":"超级书页","TargetName":"超级书页","TargetType":5,"TargetId":4112,"TargetCount":1},
 {"_t":"FestiveConfig","_id":52,"Step":0,"RequireCycle":10,"Cost":80000,"Max":20,"Title":"行气丹*500","TargetName":"行气丹","TargetType":5,"TargetId":4033,"TargetCount":500},
