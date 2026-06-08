@@ -184,7 +184,7 @@ namespace Game
 
         public LargeNumber CalMulTotalLarge(AttributeEnum attrType)
         {
-            return CalMulTotalLarge(false, attrType);
+            return CalMulTotalLarge(true, attrType);
         }
 
         public LargeNumber CalMulTotalLarge(bool haveBuff, params AttributeEnum[] mulTypes)
@@ -228,24 +228,23 @@ namespace Game
             {
                 case AttributeEnum.HP:
                     total = CalTotal(AttributeEnum.HP, haveBuff, AttributeEnum.HpIncrea) * (CalTotal(AttributeEnum.PanelHp, haveBuff) + 100) / 100;
-                    //mr = 1 + CalMulTotal(haveBuff, AttributeEnum.MulHp) / 100;
-                    //total *= mr;
+                    mr = 1 + CalMulBattle(haveBuff, AttributeEnum.MulHp) / 100;
+                    total *= mr;
                     break;
                 case AttributeEnum.PhyAtt:
                     total = CalTotal(AttributeEnum.PhyAtt, haveBuff, AttributeEnum.AttIncrea, AttributeEnum.PhyAttIncrea) * (CalTotal(AttributeEnum.PanelPhyAtt, haveBuff) + 100) / 100;
-                    //mr = 1 + CalMulTotal(haveBuff, AttributeEnum.MulAttr, AttributeEnum.MulAttrPhy) / 100;
-                    //total *= mr;
+                    mr = 1 + CalMulBattle(haveBuff, AttributeEnum.MulAttr, AttributeEnum.MulAttrPhy) / 100;
+                    total *= mr;
                     break;
                 case AttributeEnum.MagicAtt:
                     total = CalTotal(AttributeEnum.MagicAtt, haveBuff, AttributeEnum.AttIncrea, AttributeEnum.MagicAttIncrea) * (CalTotal(AttributeEnum.PanelMagicAtt, haveBuff) + 100) / 100;
-                    //mr = 1 + CalMulTotal(haveBuff, AttributeEnum.MulAttr) / 100;
-                    //mr *= 1 + CalMulTotal(haveBuff, AttributeEnum.MulAttrMagic) / 100;
-                    //total *= mr;
+                    mr = 1 + CalMulBattle(haveBuff, AttributeEnum.MulAttr, AttributeEnum.MulAttrMagic) / 100;
+                    total *= mr;
                     break;
                 case AttributeEnum.SpiritAtt:
                     total = CalTotal(AttributeEnum.SpiritAtt, haveBuff, AttributeEnum.AttIncrea, AttributeEnum.SpiritAttIncrea) * (CalTotal(AttributeEnum.PanelSpiritAtt, haveBuff) + 100) / 100;
-                    //mr = 1 + CalMulTotal(haveBuff, AttributeEnum.MulAttr, AttributeEnum.MulAttrSpirit) / 100;
-                    //total *= mr;
+                    mr = 1 + CalMulBattle(haveBuff, AttributeEnum.MulAttr, AttributeEnum.MulAttrSpirit) / 100;
+                    total *= mr;
                     break;
                 case AttributeEnum.Def:
                     total = CalTotal(AttributeEnum.Def, haveBuff, AttributeEnum.DefIncrea) * (CalTotal(AttributeEnum.PanelDef, haveBuff) + 100) / 100;
@@ -585,6 +584,33 @@ namespace Game
             return total - 100;
         }
 
+        public double CalMulBattle(bool haveBuff, params AttributeEnum[] mulTypes)
+        {
+            double total = 100;
+
+            for (int i = 0; i < mulTypes.Length; i++)
+            {
+                AttributeEnum percentType = mulTypes[i];
+   
+                if (haveBuff && BuffDict.ContainsKey(percentType))
+                {
+                    foreach (var item in BuffDict[percentType])
+                    {
+                        total *= (100.0 + item.AttrValue) / 100.0;
+                    }
+
+                }
+                if (haveBuff && SkillDict.ContainsKey(percentType))
+                {
+                    foreach (var item in SkillDict[percentType])
+                    {
+                        total *= (100.0 + item.Value) / 100.0;
+                    }
+                }
+            }
+
+            return total - 100;
+        }
 
 
         public double CalMulDamageResist(bool haveBuff)
