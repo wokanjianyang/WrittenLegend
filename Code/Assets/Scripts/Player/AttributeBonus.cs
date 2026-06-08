@@ -182,42 +182,60 @@ namespace Game
             return lg;
         }
 
-        public LargeNumber CalMulTotalLarge(AttributeEnum attrType)
-        {
-            return CalMulTotalLarge(true, attrType);
-        }
-
-        public LargeNumber CalMulTotalLarge(bool haveBuff, params AttributeEnum[] mulTypes)
+        public LargeNumber CalUserMulTotalLarge(AttributeEnum percentType)
         {
             LargeNumber lg = new LargeNumber(1);
 
-            for (int i = 0; i < mulTypes.Length; i++)
+            if (AllAttrDict.ContainsKey(percentType))
             {
-                AttributeEnum percentType = mulTypes[i];
                 foreach (double pc in AllAttrDict[percentType].Values)
                 {
                     lg.Mul((100.0 + pc) / 100.0);
-                }
-
-                if (haveBuff && BuffDict.ContainsKey(percentType))
-                {
-                    foreach (var item in BuffDict[percentType])
-                    {
-                        lg.Mul((100.0 + item.AttrValue) / 100.0);
-                    }
-
-                }
-                if (haveBuff && SkillDict.ContainsKey(percentType))
-                {
-                    foreach (var item in SkillDict[percentType])
-                    {
-                        lg.Mul((100.0 + item.Value) / 100.0);
-                    }
                 }
             }
 
             return lg;
         }
+
+        public double GetUserTotalAttrDouble(AttributeEnum attrType)
+        {
+            double total = 0;
+
+            switch (attrType)
+            {
+                case AttributeEnum.HP:
+                    total = CalTotal(AttributeEnum.HP, false, AttributeEnum.HpIncrea) * (CalTotal(AttributeEnum.PanelHp, false) + 100) / 100;
+                    break;
+                case AttributeEnum.PhyAtt:
+                    total = CalTotal(AttributeEnum.PhyAtt, false, AttributeEnum.AttIncrea, AttributeEnum.PhyAttIncrea) * (CalTotal(AttributeEnum.PanelPhyAtt, false) + 100) / 100;
+                    break;
+                case AttributeEnum.MagicAtt:
+                    total = CalTotal(AttributeEnum.MagicAtt, false, AttributeEnum.AttIncrea, AttributeEnum.MagicAttIncrea) * (CalTotal(AttributeEnum.PanelMagicAtt, false) + 100) / 100;
+                    break;
+                case AttributeEnum.SpiritAtt:
+                    total = CalTotal(AttributeEnum.SpiritAtt, false, AttributeEnum.AttIncrea, AttributeEnum.SpiritAttIncrea) * (CalTotal(AttributeEnum.PanelSpiritAtt, false) + 100) / 100;
+                    break;
+                case AttributeEnum.Strong:
+                    total = CalTotal(AttributeEnum.Strong, false);
+                    break;
+                case AttributeEnum.PhyDamage:
+                    total = 100 + CalTotal(AttributeEnum.PhyDamage, false);
+                    break;
+                case AttributeEnum.MagicDamage:
+                    total = 100 + CalTotal(AttributeEnum.MagicDamage, false);
+                    break;
+                case AttributeEnum.SpiritDamage:
+                    total = 100 + CalTotal(AttributeEnum.SpiritDamage, false);
+                    break;
+                default:
+                    throw new Exception("not implete type " + attrType.ToString());
+                    break;
+            }
+
+            return total;
+        }
+
+
 
         public double GetTotalAttrDouble(AttributeEnum attrType, bool haveBuff)
         {
@@ -228,22 +246,22 @@ namespace Game
             {
                 case AttributeEnum.HP:
                     total = CalTotal(AttributeEnum.HP, haveBuff, AttributeEnum.HpIncrea) * (CalTotal(AttributeEnum.PanelHp, haveBuff) + 100) / 100;
-                    mr = 1 + CalMulBattle(haveBuff, AttributeEnum.MulHp) / 100;
+                    mr = 1 + CalMulTotal(haveBuff, AttributeEnum.MulHp) / 100;
                     total *= mr;
                     break;
                 case AttributeEnum.PhyAtt:
                     total = CalTotal(AttributeEnum.PhyAtt, haveBuff, AttributeEnum.AttIncrea, AttributeEnum.PhyAttIncrea) * (CalTotal(AttributeEnum.PanelPhyAtt, haveBuff) + 100) / 100;
-                    mr = 1 + CalMulBattle(haveBuff, AttributeEnum.MulAttr, AttributeEnum.MulAttrPhy) / 100;
+                    mr = 1 + CalMulTotal(haveBuff, AttributeEnum.MulAttr, AttributeEnum.MulAttrPhy) / 100;
                     total *= mr;
                     break;
                 case AttributeEnum.MagicAtt:
                     total = CalTotal(AttributeEnum.MagicAtt, haveBuff, AttributeEnum.AttIncrea, AttributeEnum.MagicAttIncrea) * (CalTotal(AttributeEnum.PanelMagicAtt, haveBuff) + 100) / 100;
-                    mr = 1 + CalMulBattle(haveBuff, AttributeEnum.MulAttr, AttributeEnum.MulAttrMagic) / 100;
+                    mr = 1 + CalMulTotal(haveBuff, AttributeEnum.MulAttr, AttributeEnum.MulAttrMagic) / 100;
                     total *= mr;
                     break;
                 case AttributeEnum.SpiritAtt:
                     total = CalTotal(AttributeEnum.SpiritAtt, haveBuff, AttributeEnum.AttIncrea, AttributeEnum.SpiritAttIncrea) * (CalTotal(AttributeEnum.PanelSpiritAtt, haveBuff) + 100) / 100;
-                    mr = 1 + CalMulBattle(haveBuff, AttributeEnum.MulAttr, AttributeEnum.MulAttrSpirit) / 100;
+                    mr = 1 + CalMulTotal(haveBuff, AttributeEnum.MulAttr, AttributeEnum.MulAttrSpirit) / 100;
                     total *= mr;
                     break;
                 case AttributeEnum.Def:
@@ -363,85 +381,35 @@ namespace Game
         }
 
 
-        public double GetPower()
-        {
-            double p1 = GetTotalAttrDouble(AttributeEnum.PhyAtt);
-            double p2 = GetTotalAttrDouble(AttributeEnum.MagicAtt);
-            double p3 = GetTotalAttrDouble(AttributeEnum.SpiritAtt);
-
-            int role = 1;
-            double powerDamage = p1;
-
-            if (p2 > powerDamage)
-            {
-                role = 2;
-                powerDamage = p2;
-            }
-            if (p3 > powerDamage)
-            {
-                role = 3;
-                powerDamage = p3;
-            }
-
-            powerDamage *= CalPercent(AttributeEnum.AurasAttrIncrea);
-            powerDamage *= CalPercent(AttributeEnum.DamageIncrea) * CalPercent(AttributeEnum.AurasDamageIncrea);
-            powerDamage *= (1 + GetTotalAttrDouble(AttributeEnum.Lucky) * 0.1);
-            powerDamage *= (1 + Math.Min(GetTotalAttrDouble(AttributeEnum.CritRate), 1) * (GetTotalAttrDouble(AttributeEnum.CritDamage) + 150) / 100);
-
-            double roleDamageRise = DamageHelper.GetRoleDamageAttackRise(this, role, true);
-            powerDamage *= (1 + roleDamageRise / 100);
-
-            //增伤倍率
-            double mdi = GetTotalAttrDouble(AttributeEnum.MulDamageIncrea);
-            powerDamage *= (1 + mdi / 100);
-            //破刃倍率
-            double sdi = GetTotalAttrDouble(AttributeEnum.Shatter);
-            powerDamage *= (1 + sdi);
-
-
-            double powerDef = GetTotalAttrDouble(AttributeEnum.HP) / 10 + GetTotalAttrDouble(AttributeEnum.Def) * 3;
-            powerDef *= (1 + CalPercent(AttributeEnum.DamageResist) * CalPercent(AttributeEnum.AurasDamageResist));
-            powerDamage *= (1 + Math.Min(GetTotalAttrDouble(AttributeEnum.CritRateResist), 1) * (GetTotalAttrDouble(AttributeEnum.CritDamageResist) + 100) / 100);
-            powerDef *= (1 + CalPercent(AttributeEnum.Miss));
-            powerDef *= (1 + GetTotalAttrDouble(AttributeEnum.Strong));
-
-            //减伤倍率
-            double mdr = CalMulDamageResist(false);
-            powerDef *= 1 / (1 - mdr / 100);
-
-            double newPower = (powerDamage + powerDef) / 20;
-            return newPower;
-        }
-
         public LargeNumber GetPowerNew()
         {
-            double p1 = GetTotalAttrDouble(AttributeEnum.PhyAtt);
-            double p2 = GetTotalAttrDouble(AttributeEnum.MagicAtt);
-            double p3 = GetTotalAttrDouble(AttributeEnum.SpiritAtt);
+            double p1 = GetUserTotalAttrDouble(AttributeEnum.PhyAtt);
+            double p2 = GetUserTotalAttrDouble(AttributeEnum.MagicAtt);
+            double p3 = GetUserTotalAttrDouble(AttributeEnum.SpiritAtt);
 
             int role = 1;
             double powerDamage = p1;
 
-            LargeNumber mulRoleAtk = CalMulTotalLarge(AttributeEnum.MulAttrPhy);
+            LargeNumber mulRoleAtk = CalUserMulTotalLarge(AttributeEnum.MulAttrPhy);
 
             if (p2 > powerDamage)
             {
                 role = 2;
                 powerDamage = p2;
 
-                mulRoleAtk = CalMulTotalLarge(AttributeEnum.MulAttrMagic);
+                mulRoleAtk = CalUserMulTotalLarge(AttributeEnum.MulAttrMagic);
             }
             if (p3 > powerDamage)
             {
                 role = 3;
                 powerDamage = p3;
 
-                mulRoleAtk = CalMulTotalLarge(AttributeEnum.MulAttrSpirit);
+                mulRoleAtk = CalUserMulTotalLarge(AttributeEnum.MulAttrSpirit);
             }
 
             LargeNumber lg = new LargeNumber(powerDamage);
 
-            LargeNumber mulAtk = CalMulTotalLarge(AttributeEnum.MulAttr);
+            LargeNumber mulAtk = CalUserMulTotalLarge(AttributeEnum.MulAttr);
             if (mulAtk.data > 0)
             {
                 lg.Mul(mulAtk);
@@ -564,34 +532,6 @@ namespace Game
                     total *= (100.0 + pc) / 100.0;
                 }
 
-                if (haveBuff && BuffDict.ContainsKey(percentType))
-                {
-                    foreach (var item in BuffDict[percentType])
-                    {
-                        total *= (100.0 + item.AttrValue) / 100.0;
-                    }
-
-                }
-                if (haveBuff && SkillDict.ContainsKey(percentType))
-                {
-                    foreach (var item in SkillDict[percentType])
-                    {
-                        total *= (100.0 + item.Value) / 100.0;
-                    }
-                }
-            }
-
-            return total - 100;
-        }
-
-        public double CalMulBattle(bool haveBuff, params AttributeEnum[] mulTypes)
-        {
-            double total = 100;
-
-            for (int i = 0; i < mulTypes.Length; i++)
-            {
-                AttributeEnum percentType = mulTypes[i];
-   
                 if (haveBuff && BuffDict.ContainsKey(percentType))
                 {
                     foreach (var item in BuffDict[percentType])

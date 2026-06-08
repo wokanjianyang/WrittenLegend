@@ -94,20 +94,17 @@ namespace Game
 
             //Debug.Log("LuckyHit:" + user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.LuckyHit));
 
-            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP) * relic2);
-
-            AttributeBonus.SetAttrLarge(AttributeEnum.HP, AttributeFrom.HeroPanel, user.AttributeBonus.CalMulTotalLarge(AttributeEnum.MulHp));
-            //AttributeBonus.SetAttrLarge(AttributeEnum.HP, (int)AttributeFrom.HeroPanel, new LargeNumber(1, 400));
+            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, user.AttributeBonus.GetUserTotalAttrDouble(AttributeEnum.HP) * relic2);
+            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroPanel, user.AttributeBonus.GetUserTotalAttrDouble(AttributeEnum.PhyAtt));
+            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroPanel, user.AttributeBonus.GetUserTotalAttrDouble(AttributeEnum.MagicAtt));
+            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroPanel, user.AttributeBonus.GetUserTotalAttrDouble(AttributeEnum.SpiritAtt));
 
             //解决攻击溢出问题
-            AttributeBonus.SetAttrLarge(AttributeEnum.MulAttr, AttributeFrom.HeroPanel, user.AttributeBonus.CalMulTotalLarge(AttributeEnum.MulAttr));
-            AttributeBonus.SetAttrLarge(AttributeEnum.MulAttrPhy, AttributeFrom.HeroPanel, user.AttributeBonus.CalMulTotalLarge(AttributeEnum.MulAttrPhy));
-            AttributeBonus.SetAttrLarge(AttributeEnum.MulAttrMagic, AttributeFrom.HeroPanel, user.AttributeBonus.CalMulTotalLarge(AttributeEnum.MulAttrMagic));
-            AttributeBonus.SetAttrLarge(AttributeEnum.MulAttrPhy, AttributeFrom.HeroPanel, user.AttributeBonus.CalMulTotalLarge(AttributeEnum.MulAttrPhy));
-
-            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.PhyAtt));
-            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.MagicAtt));
-            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.SpiritAtt));
+            AttributeBonus.SetAttrLarge(AttributeEnum.HP, AttributeFrom.HeroPanel, user.AttributeBonus.CalUserMulTotalLarge(AttributeEnum.MulHp));
+            AttributeBonus.SetAttrLarge(AttributeEnum.MulAttr, AttributeFrom.HeroPanel, user.AttributeBonus.CalUserMulTotalLarge(AttributeEnum.MulAttr));
+            AttributeBonus.SetAttrLarge(AttributeEnum.MulAttrPhy, AttributeFrom.HeroPanel, user.AttributeBonus.CalUserMulTotalLarge(AttributeEnum.MulAttrPhy));
+            AttributeBonus.SetAttrLarge(AttributeEnum.MulAttrMagic, AttributeFrom.HeroPanel, user.AttributeBonus.CalUserMulTotalLarge(AttributeEnum.MulAttrMagic));
+            AttributeBonus.SetAttrLarge(AttributeEnum.MulAttrPhy, AttributeFrom.HeroPanel, user.AttributeBonus.CalUserMulTotalLarge(AttributeEnum.MulAttrPhy));
 
             AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Def));
             AttributeBonus.SetAttr(AttributeEnum.Speed, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Speed));
