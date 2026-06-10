@@ -104,7 +104,7 @@ namespace Game
             AttributeBonus.SetAttrLarge(AttributeEnum.MulAttr, AttributeFrom.HeroPanel, user.AttributeBonus.CalUserMulTotalLarge(AttributeEnum.MulAttr));
             AttributeBonus.SetAttrLarge(AttributeEnum.MulAttrPhy, AttributeFrom.HeroPanel, user.AttributeBonus.CalUserMulTotalLarge(AttributeEnum.MulAttrPhy));
             AttributeBonus.SetAttrLarge(AttributeEnum.MulAttrMagic, AttributeFrom.HeroPanel, user.AttributeBonus.CalUserMulTotalLarge(AttributeEnum.MulAttrMagic));
-            AttributeBonus.SetAttrLarge(AttributeEnum.MulAttrPhy, AttributeFrom.HeroPanel, user.AttributeBonus.CalUserMulTotalLarge(AttributeEnum.MulAttrPhy));
+            AttributeBonus.SetAttrLarge(AttributeEnum.MulAttrSpirit, AttributeFrom.HeroPanel, user.AttributeBonus.CalUserMulTotalLarge(AttributeEnum.MulAttrSpirit));
 
             AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Def));
             AttributeBonus.SetAttr(AttributeEnum.Speed, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Speed));

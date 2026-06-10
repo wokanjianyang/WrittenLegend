@@ -146,11 +146,11 @@ namespace Game
 
             //混沌装备
             dp_Equip_Recovery_Hundun.ClearOptions();
-            dp_Equip_Recovery_Hundun.AddOptions(new List<string>() { "无", "白色", "绿色", "蓝色", "紫色", "橙色", "红色", "金色", "暗金" }); //, "混沌"
+            dp_Equip_Recovery_Hundun.AddOptions(new List<string>() { "无", "白色", "绿色", "蓝色", "紫色", "橙色", "红色", "金色", "暗金", "粉色" }); //, "混沌"
 
             //虚无装备
             dp_Equip_Recovery_Xuwu.ClearOptions();
-            dp_Equip_Recovery_Xuwu.AddOptions(new List<string>() { "无", "白色", "绿色", "蓝色", "紫色", "橙色", "红色", "金色", "暗金", "粉色" }); //, "混沌"
+            dp_Equip_Recovery_Xuwu.AddOptions(new List<string>() { "无", "白色", "绿色", "蓝色", "紫色", "橙色", "红色", "金色", "暗金", "粉色", "青色" }); //, "混沌"
 
             //专属
             dp_Exclusive_Keep.ClearOptions();

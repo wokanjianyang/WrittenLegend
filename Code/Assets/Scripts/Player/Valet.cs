@@ -149,11 +149,10 @@ namespace Game
 
             this.SetAttackSpeed(ModelConfig.SpeedRate + sp);
             this.SetMoveSpeed(ModelConfig.SpeedRate + sp);
-
             int role = SkillPanel.SkillData.SkillConfig.Role;
 
             double roleAttr = Master.GetRoleAttack(role, false); //Ö°Òµ¹¥»÷
-            LargeNumber roleHp = Master.AttributeBonus.GetTotalAttrLarge(AttributeEnum.HP);
+            double roleHp = Master.AttributeBonus.GetAttackDoubleAttr(AttributeEnum.HP);
             double roleDef = Master.AttributeBonus.GetAttackDoubleAttr(AttributeEnum.Def);
 
             //Debug.Log("base attr " + roleAttr + " roleHp" + roleHp + "def " + roleDef);
@@ -175,14 +174,18 @@ namespace Game
             //Debug.Log("valet InheritAdvance:" + InheritAdvance);
 
             this.AttributeBonus = new AttributeBonus();
-            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, valteHp * InheritIncrea * InheritAdvance * skillRate * ModelConfig.HpRate / 100.0);
-            AttributeBonus.SetAttrLarge(AttributeEnum.HP, AttributeFrom.HeroPanel, roleHp);
-
+            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroPanel, roleHp * valteHp * InheritIncrea * InheritAdvance * skillRate * ModelConfig.HpRate / 100.0);
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroPanel, roleAttr * InheritIncrea * InheritAdvance * skillRate * ModelConfig.AttrRate / 100.0);
             AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroPanel, roleAttr * InheritIncrea * InheritAdvance * skillRate * ModelConfig.AttrRate / 100.0);
             AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroPanel, roleAttr * InheritIncrea * InheritAdvance * skillRate * ModelConfig.AttrRate / 100.0);
-            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroPanel, roleDef * ModelConfig.DefRate / 100.0); //½µµÍ50%¼Ì³Ð
 
+            AttributeBonus.SetAttrLarge(AttributeEnum.HP, AttributeFrom.HeroPanel, Master.AttributeBonus.GetSingleAttrLarge(AttributeEnum.HP));
+            AttributeBonus.SetAttrLarge(AttributeEnum.MulAttr, AttributeFrom.HeroPanel, Master.AttributeBonus.GetSingleAttrLarge(AttributeEnum.MulAttr));
+            AttributeBonus.SetAttrLarge(AttributeEnum.MulAttrPhy, AttributeFrom.HeroPanel, Master.AttributeBonus.GetSingleAttrLarge(AttributeEnum.MulAttrPhy));
+            AttributeBonus.SetAttrLarge(AttributeEnum.MulAttrMagic, AttributeFrom.HeroPanel, Master.AttributeBonus.GetSingleAttrLarge(AttributeEnum.MulAttrMagic));
+            AttributeBonus.SetAttrLarge(AttributeEnum.MulAttrSpirit, AttributeFrom.HeroPanel, Master.AttributeBonus.GetSingleAttrLarge(AttributeEnum.MulAttrSpirit));
+
+            AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroPanel, roleDef * ModelConfig.DefRate / 100.0); //½µµÍ50%¼Ì³Ð
             AttributeBonus.SetAttr(AttributeEnum.DamageIncrea, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.DamageIncrea, false));
             AttributeBonus.SetAttr(AttributeEnum.DamageResist, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.DamageResist, false));
             AttributeBonus.SetAttr(AttributeEnum.CritDamage, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.CritDamage, false) * InheritAdvance); //°×»¢±¬ÉË¼Ì³ÐÎÞ¼«±¶ÂÊ

@@ -18,7 +18,7 @@ namespace Game
 
         public const int Channel_Tap = 1;
 
-        public const int Version = 445;
+        public const int Version = 446;
 
         public const long PackTime = 1780901528; //打包时间，防止作弊
 

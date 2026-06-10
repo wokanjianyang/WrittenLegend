@@ -145,7 +145,7 @@ namespace Game
             }
             else
             {
-                lg1 = GetSingleAttrLarge(AttributeEnum.MulAttrPhy);
+                lg1 = GetSingleAttrLarge(AttributeEnum.MulAttrSpirit);
             }
 
             if (lg1.data > 0)

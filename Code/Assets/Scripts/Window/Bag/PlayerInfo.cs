@@ -65,7 +65,7 @@ namespace Game
 
         public void UpdateAttrInfo(User user)
         {
-            LargeNumber hp = new LargeNumber(user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
+            LargeNumber hp = new LargeNumber(user.AttributeBonus.GetUserTotalAttrDouble(AttributeEnum.HP));
             LargeNumber lgHp = user.AttributeBonus.CalUserMulTotalLarge(AttributeEnum.MulHp);
             if (lgHp.data > 0)
             {
@@ -79,7 +79,7 @@ namespace Game
 
             for (int i = 0; i < 3; i++)
             {
-                LargeNumber lg = user.AttributeBonus.GetTotalAttrLarge(atrAtks[i]);
+                LargeNumber lg = new LargeNumber(user.AttributeBonus.GetUserTotalAttrDouble(atrAtks[i]));
                 LargeNumber lg1 = user.AttributeBonus.CalUserMulTotalLarge(atrMulAtks[i]);
                 if (lg1.data > 0)
                 {

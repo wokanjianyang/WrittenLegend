@@ -79,9 +79,9 @@ namespace Game
             AttributeBonus.SetAttrLarge(AttributeEnum.MulAttr, AttributeFrom.HeroPanel, Master.AttributeBonus.GetSingleAttrLarge(AttributeEnum.MulAttr));
             AttributeBonus.SetAttrLarge(AttributeEnum.MulAttrPhy, AttributeFrom.HeroPanel, Master.AttributeBonus.GetSingleAttrLarge(AttributeEnum.MulAttrPhy));
             AttributeBonus.SetAttrLarge(AttributeEnum.MulAttrMagic, AttributeFrom.HeroPanel, Master.AttributeBonus.GetSingleAttrLarge(AttributeEnum.MulAttrMagic));
-            AttributeBonus.SetAttrLarge(AttributeEnum.MulAttrPhy, AttributeFrom.HeroPanel, Master.AttributeBonus.GetSingleAttrLarge(AttributeEnum.MulAttrPhy));
+            AttributeBonus.SetAttrLarge(AttributeEnum.MulAttrSpirit, AttributeFrom.HeroPanel, Master.AttributeBonus.GetSingleAttrLarge(AttributeEnum.MulAttrSpirit));
 
-         
+
             //Debug.Log("dupulication ruleType:" + this.RuleType);
             if (!this.IsFestive)
             {
