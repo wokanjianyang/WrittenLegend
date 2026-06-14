@@ -84,6 +84,13 @@ namespace Game
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroPanel, baseAttr * ModelConfig.AttrRate / 100.0);
             AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroPanel, baseAttr * ModelConfig.AttrRate / 100.0);
             AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroPanel, baseAttr * ModelConfig.AttrRate / 100.0);
+
+            AttributeBonus.SetAttrLarge(AttributeEnum.HP, AttributeFrom.HeroPanel, Master.AttributeBonus.GetSingleAttrLarge(AttributeEnum.HP));
+            AttributeBonus.SetAttrLarge(AttributeEnum.MulAttr, AttributeFrom.HeroPanel, Master.AttributeBonus.GetSingleAttrLarge(AttributeEnum.MulAttr));
+            AttributeBonus.SetAttrLarge(AttributeEnum.MulAttrPhy, AttributeFrom.HeroPanel, Master.AttributeBonus.GetSingleAttrLarge(AttributeEnum.MulAttrPhy));
+            AttributeBonus.SetAttrLarge(AttributeEnum.MulAttrMagic, AttributeFrom.HeroPanel, Master.AttributeBonus.GetSingleAttrLarge(AttributeEnum.MulAttrMagic));
+            AttributeBonus.SetAttrLarge(AttributeEnum.MulAttrSpirit, AttributeFrom.HeroPanel, Master.AttributeBonus.GetSingleAttrLarge(AttributeEnum.MulAttrSpirit));
+
             AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroPanel, baseAttr * ModelConfig.DefRate / 100.0); //½µµÍ50%¼Ì³Ð
 
             AttributeBonus.SetAttr(AttributeEnum.DamageIncrea, AttributeFrom.HeroPanel, Master.AttributeBonus.GetTotalAttrDouble(AttributeEnum.DamageIncrea, false) * InheritIncrea);
