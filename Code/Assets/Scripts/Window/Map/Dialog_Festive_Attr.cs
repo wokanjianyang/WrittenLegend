@@ -19,7 +19,7 @@ public class Dialog_Festive_Attr : MonoBehaviour
     private List<StrenthAttrItem> AttrList;
 
     private int GroupId = 1;
-    private int MaxLevel = 100;
+    private int MaxLevel = 120;
 
     public int Order => (int)ComponentOrder.Dialog;
 

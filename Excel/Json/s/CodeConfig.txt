@@ -10,6 +10,7 @@
 {"_t":"CodeConfig","_id":43,"Type":1,"code":"duanwu2026","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013],"ItemQuanlityList":[3000,300,300]},
 {"_t":"CodeConfig","_id":44,"Type":1,"code":"bc444","ItemTypeList":[5],"ItemIdList":[4051],"ItemQuanlityList":[100000]},
 {"_t":"CodeConfig","_id":45,"Type":1,"code":"bc445","ItemTypeList":[9,5,9],"ItemIdList":[4003,4004,4013],"ItemQuanlityList":[3000,300,300]},
+{"_t":"CodeConfig","_id":99,"Type":1,"code":"tt447","ItemTypeList":[9,5,9,18],"ItemIdList":[4003,4004,4013,180030],"ItemQuanlityList":[5000,500,500,10]},
 {"_t":"CodeConfig","_id":113,"Type":1,"code":"anyult22rst","ItemTypeList":[9,5,9,5,4,4,4,5],"ItemIdList":[4003,4004,4013,4008,22,26,28,4034],"ItemQuanlityList":[18888,1888,1888,388,10,6,6,10]},
 {"_t":"CodeConfig","_id":10001,"Type":99,"code":"dki309d!34","ItemTypeList":[99],"ItemIdList":[0],"ItemQuanlityList":[360]},
 {"_t":"CodeConfig","_id":10002,"Type":99,"code":"z#y9kdckp4","ItemTypeList":[99],"ItemIdList":[0],"ItemQuanlityList":[360]},

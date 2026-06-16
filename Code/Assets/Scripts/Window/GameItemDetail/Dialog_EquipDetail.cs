@@ -168,7 +168,7 @@ namespace Game
 
                 List<KeyValuePair<int, double>> btList = BaseAttrList.ToList();
 
-                for (int index = 0; index < 8; index++)
+                for (int index = 0; index < 10; index++)
                 {
                     var child = gridBase.Find(string.Format("Attribute_{0}", index));
 
