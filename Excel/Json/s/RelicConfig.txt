@@ -47,4 +47,12 @@
 {"_t":"RelicConfig","_id":46,"Type":6,"Cycle":2,"ItemId":61000046,"Name":"极龙护戒","AttrIdList":[2001,2012,2003,2013],"AttrValueList":[15,20,25,15],"AttrRiseList":[15,20,25,15]},
 {"_t":"RelicConfig","_id":47,"Type":6,"Cycle":2,"ItemId":61000047,"Name":"极龙腰带","AttrIdList":[2001,2012,2003,2013],"AttrValueList":[15,20,25,15],"AttrRiseList":[15,20,25,15]},
 {"_t":"RelicConfig","_id":48,"Type":6,"Cycle":2,"ItemId":61000048,"Name":"极龙战靴","AttrIdList":[2001,2012,2003,2013],"AttrValueList":[15,20,25,15],"AttrRiseList":[15,20,25,15]},
+{"_t":"RelicConfig","_id":49,"Type":6,"Cycle":2,"ItemId":61000049,"Name":"极虎神剑","AttrIdList":[2001,2012,2003,2013],"AttrValueList":[15,20,25,15],"AttrRiseList":[15,20,25,15]},
+{"_t":"RelicConfig","_id":50,"Type":6,"Cycle":2,"ItemId":61000050,"Name":"极虎神甲","AttrIdList":[2001,2012,2003,2013],"AttrValueList":[15,20,25,15],"AttrRiseList":[15,20,25,15]},
+{"_t":"RelicConfig","_id":51,"Type":6,"Cycle":2,"ItemId":61000051,"Name":"极虎面罩","AttrIdList":[2001,2012,2003,2013],"AttrValueList":[15,20,25,15],"AttrRiseList":[15,20,25,15]},
+{"_t":"RelicConfig","_id":52,"Type":6,"Cycle":2,"ItemId":61000052,"Name":"极虎项链","AttrIdList":[2001,2012,2003,2013],"AttrValueList":[15,20,25,15],"AttrRiseList":[15,20,25,15]},
+{"_t":"RelicConfig","_id":53,"Type":6,"Cycle":2,"ItemId":61000053,"Name":"极虎护腕","AttrIdList":[2001,2012,2003,2013],"AttrValueList":[15,20,25,15],"AttrRiseList":[15,20,25,15]},
+{"_t":"RelicConfig","_id":54,"Type":6,"Cycle":2,"ItemId":61000054,"Name":"极虎护戒","AttrIdList":[2001,2012,2003,2013],"AttrValueList":[15,20,25,15],"AttrRiseList":[15,20,25,15]},
+{"_t":"RelicConfig","_id":55,"Type":6,"Cycle":2,"ItemId":61000055,"Name":"极虎腰带","AttrIdList":[2001,2012,2003,2013],"AttrValueList":[15,20,25,15],"AttrRiseList":[15,20,25,15]},
+{"_t":"RelicConfig","_id":56,"Type":6,"Cycle":2,"ItemId":61000056,"Name":"极虎战靴","AttrIdList":[2001,2012,2003,2013],"AttrValueList":[15,20,25,15],"AttrRiseList":[15,20,25,15]},
 ]}
