@@ -884,12 +884,12 @@ namespace Game
                     return;
                 }
 
-                int roleCount = user.PetList.Where(m => m.Role == pet.Role).Count();
-                if (roleCount >= 3)
-                {
-                    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "同种宠物上阵数量已满", ToastType = ToastTypeEnum.Failure });
-                    return;
-                }
+                //int roleCount = user.PetList.Where(m => m.Role == pet.Role).Count();
+                //if (roleCount >= 3)
+                //{
+                //    GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "同种宠物上阵数量已满", ToastType = ToastTypeEnum.Failure });
+                //    return;
+                //}
 
                 //从包袱移除
                 UseBoxItem(e.BoxItem, 1);

@@ -28,7 +28,7 @@ namespace Game
 
         public const long Cycle_Level = 10000; //每次轮回增加等级
 
-        public const long Cycle_Max = 38;
+        public const long Cycle_Max = 40;
 
         public const long Max_Legacy_Level = 20; //最大传世副本等级 
 
@@ -127,7 +127,7 @@ namespace Game
 
         public const int MaxWorld = 800;
 
-        public const int PetSpeicalMaxLayer = 3;
+        public const int PetSpeicalMaxLayer = 6;
 
         public const double MaxNumber = 1E300;
 

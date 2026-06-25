@@ -78,9 +78,9 @@ public class Map_Dialog_Shengxiao : MonoBehaviour
 
         ShengxiaoGroup gp = user.GetShengxiaoGroup(SelectLayer);
 
-        ShengxiaoGroupItem item = gp.List.Where(m => m.Config.Count == 12).FirstOrDefault();
+        ShengxiaoGroupItem item = gp.List.Where(m => m.Config.Count == 9).FirstOrDefault();
 
-        int max = item.Count >= item.Config.Count && !ac ? item.Config.Quality - 5 : 0;
+        int max = item.Count >= 11 && !ac ? item.Config.Quality - 5 : 0;
 
         for (int i = 0; i < items.Count; i++)
         {
