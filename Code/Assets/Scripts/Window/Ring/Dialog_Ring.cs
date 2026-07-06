@@ -31,7 +31,7 @@ public class Dialog_Ring : MonoBehaviour
 
     private RingConfig CurrentConfig = null;
 
-    int maxLevel = 20;
+    int[] maxLevelList = { 15, 20, 10 };
 
     public int Order => (int)ComponentOrder.Dialog;
 
@@ -133,7 +133,11 @@ public class Dialog_Ring : MonoBehaviour
 
         long currentLevel = user.GetRingLevel(config.Id);
 
-        long maxRingLevel = config.Type == 1 ? user.GetArtifactValue(ArtifactType.RingLimit) + 15 : maxLevel;
+        long maxRingLevel = maxLevelList[config.Type - 1];
+        if (config.Type == 1)
+        {
+            maxRingLevel += user.GetArtifactValue(ArtifactType.RingLimit);
+        }
 
         currentItem.SetContent(currentLevel);
 

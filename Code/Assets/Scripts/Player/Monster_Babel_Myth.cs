@@ -17,7 +17,7 @@ namespace Game
         public Monster_Babel_Myth(long progress, int type) : base()
         {
             this.GroupId = 2;
-            this.RuleType = RuleType.Babel;
+            this.RuleType = RuleType.BabelMyth;
             this.Quality = 2 + type;
 
             this.Progeress = (int)progress;

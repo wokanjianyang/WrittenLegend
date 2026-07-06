@@ -788,6 +788,7 @@ namespace Game
                 case RuleType.Babel:
                 case RuleType.Festive:
                 case RuleType.Spirit:
+                case RuleType.BabelMyth:
                     ie_autoExitKey = StartCoroutine(this.AutoExitMap(ruleType, time, ConfigHelper.AutoExitMapTime));
                     break;
                 case RuleType.Myth:

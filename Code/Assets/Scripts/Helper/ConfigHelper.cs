@@ -119,7 +119,7 @@ namespace Game
 
         public const int Mine_Time = 60;
 
-        public const int Infinit_Max = 8000;
+        public const int Infinit_Max = 8500;
 
         public static string[] RoleName = { "战士", "法师", "道士" };
         public static string[] PetName = { "战魂", "法魂", "道魂" };

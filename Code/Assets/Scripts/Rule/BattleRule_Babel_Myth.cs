@@ -72,7 +72,7 @@ public class BattleRule_Babel_Myth : ABattleRule
 
             user.BabelMythCount.Data--;
             GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent() { Type = RuleType.BabelMyth, Message = "ÃÙ’Ω ß∞‹£°" });
-            GameProcessor.Inst.HeroDie(RuleType.Babel, 0);
+            GameProcessor.Inst.HeroDie(RuleType.BabelMyth, 0);
             return;
         }
 

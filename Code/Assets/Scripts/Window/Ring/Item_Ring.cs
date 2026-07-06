@@ -39,7 +39,9 @@ namespace Game
 
             Txt_Name.text = config.Name;
             Txt_Level.text = "";
-            this.image_Background.sprite = list_Backgrounds[config.Id - 1];
+
+            int index = (config.Id - 1) % 6;
+            this.image_Background.sprite = list_Backgrounds[index];
 
             Txt_Name.color = ColorHelper.GetColorByQuality(config.Type + 5);
         }
