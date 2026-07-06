@@ -550,6 +550,7 @@ namespace Game
                 }
 
                 user.BabelCount.Data = BabelCount;
+                user.BabelMythCount.Data = ConfigHelper.BabelMythCount;
 
                 user.DataDate = DateTime.Now.Ticks;
                 //保存到Tap

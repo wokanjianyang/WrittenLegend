@@ -99,6 +99,9 @@ namespace Game
             long babel = user.BabelData.Data;
             paramDict.Add("babel", babel + "");
 
+            long babelMyth = user.BabelMythData.Data;
+            paramDict.Add("babelMyth", babelMyth + "");
+
             long soulBoneTotal = user.SoulBoneData.Select(m => m.Value.Data).Sum();
             soulBoneTotal += GetTotal(user.Bags, 8101, 8108);
             soulBoneTotal += GetTotal(user.Bags, 28);

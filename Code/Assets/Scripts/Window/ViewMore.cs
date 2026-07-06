@@ -50,6 +50,9 @@ namespace Game
         public Button Btn_Spirit;
         public Map_Dialog_Spirit MapDialogSpirit;
 
+        public Button Btn_Babel_Myth;
+        public Map_Dialog_Babel_Myth Dlg_Babel_Myth;
+
         public Text Txt_Limit;
 
         void Start()
@@ -59,6 +62,7 @@ namespace Game
             Btn_Festive.onClick.AddListener(OnClick_Festive);
             Btn_Shengxiao.onClick.AddListener(OnClick_Shengxiao);
             Btn_Spirit.onClick.AddListener(OnClick_Spirit);
+            Btn_Babel_Myth.onClick.AddListener(OnClick_BabelMyth);
         }
 
         void OnEnable()
@@ -192,6 +196,12 @@ namespace Game
         {
             this.MapDialogSpirit.gameObject.SetActive(true);
         }
+
+        private void OnClick_BabelMyth()
+        {
+            this.Dlg_Babel_Myth.gameObject.SetActive(true);
+        }
+
 
         public void OnClose(CloseViewMoreEvent e)
         {
@@ -368,6 +378,22 @@ namespace Game
             scrollRect.gameObject.SetActive(false);
 
             GameProcessor.Inst.EventCenter.Raise(new BabelStartEvent() { });
+        }
+
+        public void StartBabelMyth()
+        {
+            User user = GameProcessor.Inst.User;
+
+            if (user.BabelMythData.Data >= ConfigHelper.BabelMythMax)
+            {
+                GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "你已经通关了，请等待开放上限", ToastType = ToastTypeEnum.Failure });
+                return;
+            }
+
+
+            scrollRect.gameObject.SetActive(false);
+
+            GameProcessor.Inst.EventCenter.Raise(new BabelMythStartEvent() { });
         }
 
         protected override bool CheckPageType(ViewPageType page)

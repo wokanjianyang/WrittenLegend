@@ -82,6 +82,7 @@ namespace Game
         public bool EquipCopySetting_Spe = true;
         public bool EquipBossFamily_Auto = false;
         public bool Babel_Auto = false;
+        public bool Babel_Myth_Auto = false;
         public bool Phantom_Auto = false;
         public int Phantom_Auto_Id = 0;
 
@@ -481,6 +482,10 @@ namespace Game
                     break;
                 case RuleType.Babel:
                     this.BattleRule = new BattleRule_Babel(param);
+                    break;
+                case RuleType.BabelMyth:
+                    autoHero = false;
+                    this.BattleRule = new BattleRule_Babel_Myth(param);
                     break;
                 case RuleType.Myth:
                     autoHero = false;
@@ -948,6 +953,13 @@ namespace Game
             else if (ruleType == RuleType.Babel && Babel_Auto)
             {
                 if (User.BabelCount.Data > 0)
+                {
+                    this.AutoStartMap(ruleType);
+                }
+            }
+            else if (ruleType == RuleType.BabelMyth && Babel_Myth_Auto)
+            {
+                if (User.BabelMythCount.Data > 0)
                 {
                     this.AutoStartMap(ruleType);
                 }

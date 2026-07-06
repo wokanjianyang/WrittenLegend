@@ -12,7 +12,7 @@ namespace Game
         public static int DefendLevel = 0;
 
         public static int BabelRecord = 0;
-
+        public static int BabelMythRecord = 0;
         public static int SaveFailCount = 0;
 
         public static bool PetEgging = false;

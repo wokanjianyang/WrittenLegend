@@ -50,6 +50,9 @@ namespace Game
         public MagicData BabelData { get; } = new MagicData();
         public MagicData BabelCount { get; } = new MagicData();
 
+        public MagicData BabelMythData { get; } = new MagicData();
+        public MagicData BabelMythCount { get; } = new MagicData();
+
         public MagicData RedRefreshCount { get; } = new MagicData();
 
         public IDictionary<int, double> KillRecord { get; } = new Dictionary<int, double>();

@@ -38,6 +38,7 @@ namespace Game
         Legacy,
         Pill,
         Babel,
+        BabelMyth,
         Myth,
         World,
         Pill2,

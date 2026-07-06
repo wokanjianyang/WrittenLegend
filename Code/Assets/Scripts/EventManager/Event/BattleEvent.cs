@@ -552,6 +552,10 @@ namespace Game
     {
     }
 
+    public class BabelMythStartEvent : SDD.Events.Event
+    {
+    }
+
     //--Myth
     public class OpenMythEvent : SDD.Events.Event
     {
