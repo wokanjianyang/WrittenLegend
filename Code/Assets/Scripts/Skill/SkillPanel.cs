@@ -101,11 +101,14 @@ namespace Game
                 }
 
                 User user = GameProcessor.Inst.User;
-                RingConfig ringConfig = RingConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.SkillId == SkillId).FirstOrDefault();
-                if (ringConfig != null)
+                List<RingConfig> ringConfigs = RingConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.SkillId == SkillId).ToList();
+                if (ringConfigs != null)
                 {
-                    long ringLevel = user.GetRingLevel(ringConfig.Id);
-                    riseLevel = ringLevel * ringConfig.RiseSkillLevel;
+                    foreach (var ringConfig in ringConfigs)
+                    {
+                        long ringLevel = user.GetRingLevel(ringConfig.Id);
+                        riseLevel += ringLevel * ringConfig.RiseSkillLevel;
+                    }
                 }
             }
 
