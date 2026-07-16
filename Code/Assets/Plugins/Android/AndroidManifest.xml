@@ -35,7 +35,7 @@
       <meta-data android:name="com.unity3d.player.ADUnityPlayerActivity" android:value="true" />
       <meta-data android:name="android.notch_support" android:value="true" />
     </activity>
-    <!--<activity android:name="com.qq.e.ads.PortraitADActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenSize" android:screenOrientation="portrait" tools:replace="android:screenOrientation" />
+    <activity android:name="com.qq.e.ads.PortraitADActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenSize" android:screenOrientation="portrait" tools:replace="android:screenOrientation" />
     <activity android:name="com.qq.e.ads.LandscapeADActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenSize" android:screenOrientation="sensorLandscape" tools:replace="android:screenOrientation" />
     <provider android:name="com.qq.e.comm.GDTFileProvider" android:authorities="com.lcgame.wujinanyu.gdt.fileprovider" android:exported="false" android:grantUriPermissions="true">
       <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/gdt_file_path" />
@@ -43,7 +43,7 @@
     <provider android:name="com.bytedance.sdk.openadsdk.TTFileProvider" android:authorities="com.lcgame.wujinanyu.TTFileProvider" android:exported="false" android:grantUriPermissions="true">
       <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/csj_file_paths" />
     </provider>
-    <provider android:name="com.bytedance.sdk.openadsdk.multipro.TTMultiProvider" android:authorities="com.lcgame.wujinanyu.TTMultiProvider" tools:replace="android:authorities" android:exported="false" />-->
+    <provider android:name="com.bytedance.sdk.openadsdk.multipro.TTMultiProvider" android:authorities="com.lcgame.wujinanyu.TTMultiProvider" tools:replace="android:authorities" android:exported="false" />
     <meta-data android:name="unity.splash-mode" android:value="0" />
     <meta-data android:name="unity.splash-enable" android:value="True" />
     <meta-data android:name="unity.launch-fullscreen" android:value="True" />
