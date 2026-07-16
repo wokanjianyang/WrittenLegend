@@ -109,10 +109,11 @@ public class BattleRule_Festive : ABattleRule
             {
                 items.Add(ItemHelper.BuildItem((ItemType)config.ItemType[i], config.ItemIdList[i], 1, config.ItemQuantity[i]));
             }
+
+            user.GetCurrentMapFestive().Number.Data -= 1;
         }
 
         user.GetCurrentMapFestive().Record = mapId;
-        user.GetCurrentMapFestive().Number.Data -= 1;
 
         GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
 

@@ -21,12 +21,30 @@ public class Dialog_Festive_Attr : MonoBehaviour
     private int GroupId = 1;
     private int MaxLevel = 120;
 
+    public Transform Tf_Nav;
+    private List<Toggle> toggles;
+
+    public Image Img_Bg;
+
+    private int[] mcList = { 4113, 4114 };
+
     public int Order => (int)ComponentOrder.Dialog;
 
     // Start is called before the first frame update
     void Awake()
     {
         AttrList = tf_attr.GetComponentsInChildren<StrenthAttrItem>(true).ToList();
+        toggles = Tf_Nav.GetComponentsInChildren<Toggle>().ToList();
+
+        for (int i = 0; i < toggles.Count; i++)
+        {
+            int index = i + 1;
+
+            toggles[i].onValueChanged.AddListener((isOn) =>
+            {
+                this.ShowCycle(index);
+            });
+        }
 
         Btn_Full.onClick.AddListener(OnClick_Close);
         Btn_Strong.onClick.AddListener(OnStrong);
@@ -36,6 +54,17 @@ public class Dialog_Festive_Attr : MonoBehaviour
 
     private void OnEnable()
     {
+        this.Show();
+    }
+
+    Color[] cls = new Color[] { Color.white, Color.red };
+
+    private void ShowCycle(int cycle)
+    {
+        this.GroupId = cycle;
+
+        this.Img_Bg.color = cls[cycle - 1];
+
         this.Show();
     }
 
@@ -49,6 +78,10 @@ public class Dialog_Festive_Attr : MonoBehaviour
 
         List<FestiveAttrConfig> configs = FestiveAttrConfigCategory.Instance.GetList(GroupId, nextLevel);
 
+        int mcId = mcList[GroupId - 1];
+        ItemConfig itemConfig = ItemConfigCategory.Instance.Get(mcId);
+
+
         if (currentLevel >= MaxLevel)
         {
             this.Btn_Strong.gameObject.SetActive(false);
@@ -57,12 +90,12 @@ public class Dialog_Festive_Attr : MonoBehaviour
         else
         {
             //Fee
-            long materialCount = user.GetMaterialCount(ItemHelper.Speical_Festive_Attr);
+            long materialCount = user.GetMaterialCount(mcId);
             long fee = GetFee(nextLevel);
 
             string color = materialCount >= fee ? "#FFFF00" : "#FF0000";
             txt_Fee.gameObject.SetActive(true);
-            txt_Fee.text = string.Format("<color={0}>¿ìÀÖ¾«´â:{2}/{1}</color>", color, fee, materialCount);
+            txt_Fee.text = string.Format("<color={0}>{3}:{2}/{1}</color>", color, fee, materialCount, itemConfig.Name);
 
             if (materialCount >= fee)
             {
@@ -112,7 +145,9 @@ public class Dialog_Festive_Attr : MonoBehaviour
             return;
         }
 
-        long materialCount = user.GetMaterialCount(ItemHelper.Speical_Festive_Attr);
+        int mcId = mcList[GroupId - 1];
+
+        long materialCount = user.GetMaterialCount(mcId);
 
         long fee = GetFee(nextLevel);
         if (materialCount < fee)
@@ -126,7 +161,7 @@ public class Dialog_Festive_Attr : MonoBehaviour
         GameProcessor.Inst.EventCenter.Raise(new SystemUseEvent()
         {
             Type = ItemType.Material,
-            ItemId = ItemHelper.Speical_Festive_Attr,
+            ItemId = mcId,
             Quantity = fee
         });
 
