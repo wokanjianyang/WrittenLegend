@@ -1820,12 +1820,12 @@ namespace Game
 
         public IDictionary<int, int> GetCurrentFestive()
         {
-            return this.FestiveData_0702;
+            return this.FestiveData_0703;
         }
 
         public FestiveMapData GetCurrentMapFestive()
         {
-            return this.FestiveMapData07;
+            return this.FestiveMapData7_2;
         }
 
         public int GetFestiveCount(int id)
