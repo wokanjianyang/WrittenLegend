@@ -1030,6 +1030,9 @@ namespace Game
                 case RuleType.Babel:
                     this.EventCenter.Raise(new BabelStartEvent() { });
                     break;
+                case RuleType.BabelMyth:
+                    this.EventCenter.Raise(new BabelMythStartEvent() { });
+                    break;
                 case RuleType.World:
                     this.EventCenter.Raise(new WorldStartEvent() { Id = World_Auto_Id });
                     break;
