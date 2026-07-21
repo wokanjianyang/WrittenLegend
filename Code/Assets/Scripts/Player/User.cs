@@ -330,6 +330,8 @@ namespace Game
 
         public int TalentPlanIndex { get; set; } = 0;
 
+        public Dictionary<int, Dictionary<int, int>> TalentList { get; set; } = new Dictionary<int, Dictionary<int, int>>();
+
         public Dictionary<int, MagicData> TalentData { get; } = new Dictionary<int, MagicData>();
 
         public int TalentPoint { get; set; } = 0;
@@ -1060,12 +1062,16 @@ namespace Game
             //神器
             long talentRecord = GetRecordMax((int)AbcType.Talent);
             long talentMax = AbcHelper.GetRecord((int)AbcType.Talent);
-            foreach (var sp in this.TalentData)
+
+            if (this.TalentList.ContainsKey(TalentPlanIndex))
             {
-                if (sp.Value.Data > 0 && talentRecord < talentMax)
+                foreach (var sp in this.TalentList[TalentPlanIndex])
                 {
-                    TalentConfig talentConfig = TalentConfigCategory.Instance.Get(sp.Key);
-                    AttributeBonus.SetAttr((AttributeEnum)talentConfig.AttrId, AttributeFrom.Talent, sp.Key, talentConfig.GetAttrValue(sp.Value.Data));
+                    if (sp.Value > 0 && talentRecord < talentMax)
+                    {
+                        TalentConfig talentConfig = TalentConfigCategory.Instance.Get(sp.Key);
+                        AttributeBonus.SetAttr((AttributeEnum)talentConfig.AttrId, AttributeFrom.Talent, sp.Key, talentConfig.GetAttrValue(sp.Value));
+                    }
                 }
             }
 
@@ -2197,21 +2203,30 @@ namespace Game
 
         public long GetTalentLevel(int tid)
         {
-            if (!TalentData.ContainsKey(tid))
+            if (!TalentList.ContainsKey(TalentPlanIndex))
             {
-                TalentData[tid] = new MagicData();
+                TalentList[TalentPlanIndex] = new Dictionary<int, int>();
             }
-            return TalentData[tid].Data;
+
+            if (!TalentList[TalentPlanIndex].ContainsKey(tid))
+            {
+                TalentList[TalentPlanIndex][tid] = 0;
+            }
+            return TalentList[TalentPlanIndex][tid];
         }
 
         public void AddTalentLevel(int tid, int fee)
         {
-            if (!TalentData.ContainsKey(tid))
+            if (!TalentList.ContainsKey(TalentPlanIndex))
             {
-                TalentData[tid] = new MagicData();
+                TalentList[TalentPlanIndex] = new Dictionary<int, int>();
             }
-            TalentData[tid].Data++;
-            TalentPoint += fee;
+
+            if (!TalentList[TalentPlanIndex].ContainsKey(tid))
+            {
+                TalentList[TalentPlanIndex][tid] = 0;
+            }
+            TalentList[TalentPlanIndex][tid]++;
         }
 
         public long GetHalidomLevel(int id)
@@ -2646,6 +2661,23 @@ namespace Game
             }
 
             return (int)SpiritRecord[cardId].Level.Data;
+        }
+
+        public long GetTalentPoint()
+        {
+            if (!this.TalentList.ContainsKey(TalentPlanIndex))
+            {
+                this.TalentList[TalentPlanIndex] = new Dictionary<int, int>();
+            }
+
+            long total = 0;
+            foreach (var sp in this.TalentList[TalentPlanIndex])
+            {
+                TalentConfig config = TalentConfigCategory.Instance.Get(sp.Key);
+                total += config.Fee * sp.Value;
+            }
+
+            return total;
         }
     }
 

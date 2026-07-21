@@ -46,10 +46,10 @@ public class Dialog_Talent_Detail : MonoBehaviour
         User user = GameProcessor.Inst.User;
 
         long totalPoint = user.TalentExp.Data / 10000;
-        long usedPoint = user.TalentPoint;
+        long usedPoint = user.GetTalentPoint();
         long enablePoint = totalPoint - usedPoint;
 
-        long totalLevel = user.TalentData.Select(m => m.Value.Data).Sum();
+        long totalLevel = user.TalentList[user.TalentPlanIndex].Select(m => m.Value).Sum();
         long level = user.GetTalentLevel(this.Tid);
         double attrVal = config.GetAttrValue(level);
 
@@ -99,7 +99,7 @@ public class Dialog_Talent_Detail : MonoBehaviour
         User user = GameProcessor.Inst.User;
 
         long total = user.TalentExp.Data / 10000;
-        long use = user.TalentPoint;
+        long use = user.GetTalentPoint();
 
 
         long level = user.GetTalentLevel(this.Tid);
@@ -132,7 +132,7 @@ public class Dialog_Talent_Detail : MonoBehaviour
 
         for (int i = level; i < config.MaxLevel; i++)
         {
-            if (config.Fee <= (total - user.TalentPoint))
+            if (config.Fee <= (total - user.GetTalentPoint()))
             {
                 user.AddTalentLevel(Tid, config.Fee);
             }

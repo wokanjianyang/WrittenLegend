@@ -77,6 +77,9 @@ public class Dialog_Talent : MonoBehaviour, IBattleLife
     private void ChangePlan(int p)
     {
         GameProcessor.Inst.User.TalentPlanIndex = p;
+        this.Show();
+
+        GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
     }
 
     private void ChangeLevel(int layer)
@@ -116,7 +119,7 @@ public class Dialog_Talent : MonoBehaviour, IBattleLife
         User user = GameProcessor.Inst.User;
 
         long total = user.TalentExp.Data / LevelExp;
-        long used = user.TalentPoint;
+        long used = user.GetTalentPoint();
         long enabled = total - used;
 
         long exp = user.TalentExp.Data % LevelExp;
@@ -138,7 +141,7 @@ public class Dialog_Talent : MonoBehaviour, IBattleLife
         User user = GameProcessor.Inst.User;
 
         long total = user.TalentExp.Data / LevelExp;
-        long used = user.TalentPoint;
+        long used = user.GetTalentPoint();
         long enabled = total - used;
 
         long exp = user.TalentExp.Data % LevelExp;
@@ -183,8 +186,7 @@ public class Dialog_Talent : MonoBehaviour, IBattleLife
 
         user.SubGold(ConfigHelper.RestoreGold * 20000.0);
 
-        user.TalentData.Clear();
-        user.TalentPoint = 0;
+        user.TalentList[user.TalentPlanIndex].Clear();
 
         GameProcessor.Inst.User.EventCenter.Raise(new UserAttrChangeEvent());
         this.Refresh();
