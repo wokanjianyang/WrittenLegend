@@ -110,14 +110,21 @@ namespace Game
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 95, 1, 6)); //传奇自选
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 90, 1, 6)); //不朽自选
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 36, 1, 1)); //宝石自选
-            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 43, 1, 1)); //生肖自选
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 54, 1, 1)); //极宝石自选
+
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 44, 1, 1)); //极戒自选
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 53, 1, 1)); //道戒自选
+
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 212, 1, 1)); //粉宠物
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 89, 1, 1)); //粉专属
+
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 43, 1, 1)); //生肖自选
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 46, 1, 1)); //星座自选
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 55, 1, 1)); //命宫自选
+
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 301, 1, 1)); //暗金坐骑
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 304, 1, 1)); //暗金坐骑
-            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 47, 1, 8)); //极青龙
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 47, 1, 8)); //极青龙，
 
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 26, 1, 1));  //神技
 
