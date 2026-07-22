@@ -238,6 +238,10 @@ public class Monster_Shengxiao : APlayer
         {
             BuildReword2();
         }
+        else if (this.config.Cycle == 3)
+        {
+            BuildReword3();
+        }
     }
 
     private void BuildReword()
@@ -335,6 +339,74 @@ public class Monster_Shengxiao : APlayer
             //Debug.Log("shengxiao count:" + AppHelper.TempRecord);
             //生肖
             items.Add(ShengxiaoConfigCategory.Instance.Build(NameId + 12, qualityRate, maxQuality, 0));
+        }
+
+        double rs = user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstMul);
+        int itemCount = MathHelper.RandomBurstMul(rs);
+
+        bool showMessage = QualityConfigHelper.GetMaxColor(items) >= user.InfoColor;
+        if (showMessage)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+            {
+                Type = RuleType,
+                Message = BattleMsgHelper.BuildMonsterDeadMessage(this, exp, gold, items, itemCount)
+            });
+        }
+
+        if (itemCount > 0)
+        {
+            exp += exp * itemCount;
+            gold += gold * itemCount;
+            items.AddRange(ItemHelper.BurstMul(items, itemCount, qualityRate, RuleType.Normal, maxQuality));
+        }
+
+        //先回收
+        List<Item> recoveryList = user.CheckRecovery(items, out long recoveryGold, out int recoveryCount);
+        if (recoveryCount > 0 && showMessage)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
+            {
+                Type = RuleType,
+                Message = BattleMsgHelper.BuildAutoRecoveryMessage(recoveryCount, recoveryList, recoveryGold)
+            });
+        }
+
+        user.AddExpAndGold(exp, gold);
+
+        if (items.Count > 0)
+        {
+            user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+        }
+    }
+
+    private void BuildReword3()
+    {
+        int maxQuality = this.config.Quality + 5;
+
+        User user = GameProcessor.Inst.User;
+
+        double exp = (this.config.Exp * (100.0 + user.AttributeBonus.GetTotalAttr(AttributeEnum.ExpIncrea)) / 100);
+        double gold = (this.config.Gold * (100.0 + user.AttributeBonus.GetTotalAttr(AttributeEnum.GoldIncrea)) / 100);
+
+        long BurstIncrea = Math.Min(user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstIncrea), 1500000);
+        long QualityIncrea = Math.Min(user.AttributeBonus.GetTotalAttr(AttributeEnum.QualityIncrea), 1500000);
+
+        double dropRate = 300.0 / (BurstIncrea / 1500000.0 + 1) / DropRateList[Quality - 1];
+        double qualityRate = (QualityIncrea / 2000000.0 + 1) * QualityRateList[Quality - 1];
+
+        //生肖掉落
+        List<Item> items = new List<Item>();
+        items.Add(ItemHelper.BuildMaterial(ItemHelper.Specail_Minggong, Quality * this.config.Quality));
+
+        //Debug.Log("this dropRate :" + dropRate + "  qualityRate:" + qualityRate + " nameId:" + NameId + " - " + Name + " quality:" + Quality);
+
+        if (RandomHelper.RandomResult(dropRate))
+        {
+            //AppHelper.TempRecord++;
+            //Debug.Log("shengxiao count:" + AppHelper.TempRecord);
+            //生肖
+            items.Add(ShengxiaoConfigCategory.Instance.Build(NameId + 24, qualityRate, maxQuality, 0));
         }
 
         double rs = user.AttributeBonus.GetTotalAttr(AttributeEnum.BurstMul);

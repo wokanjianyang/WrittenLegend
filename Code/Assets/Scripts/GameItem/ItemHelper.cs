@@ -214,5 +214,9 @@ namespace Game
         public static int Specail_Xingzuo = 4047; //星座精华
         public static int Specail_Xingzuo1 = 4048; //星座本源
         public static int Specail_Xingzuo2 = 4049; //星座核心
+
+        public static int Specail_Minggong = 4060; //星座精华
+        public static int Specail_Minggong1 = 4061; //星座本源
+        public static int Specail_Minggong2 = 4062; //星座核心
     }
 }

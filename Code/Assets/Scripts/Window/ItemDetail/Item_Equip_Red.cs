@@ -65,7 +65,7 @@ namespace Game
                 qn = "·ÛÉ«";
             }
 
-            string[] cycleName = { "ÉúÐ¤", "ÐÇ×ù" };
+            string[] cycleName = { "ÉúÐ¤", "ÐÇ×ù", "Ãü¹¬" };
 
             string name = qn + cycleName[cycle - 1] + string.Format("({0}/{1})", item.Count, item.Config.Count);
 

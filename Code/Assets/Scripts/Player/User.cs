@@ -2534,6 +2534,21 @@ namespace Game
                         dict[ItemHelper.Specail_Xingzuo1] = (int)(Math.Pow(3, quality - 6));
                     }
                 }
+                else if (item.ConfigId <= 36)
+                {
+                    if (quality <= 5)
+                    {
+                        dict[ItemHelper.Specail_Minggong] = quality * 500;
+                    }
+                    else if (quality == 9)
+                    {
+                        dict[ItemHelper.Specail_Minggong2] = 1;
+                    }
+                    else
+                    {
+                        dict[ItemHelper.Specail_Minggong1] = (int)(Math.Pow(3, quality - 6));
+                    }
+                }
             }
             else if (item.ItemConfig.RecoveryItemId > 0)
             {

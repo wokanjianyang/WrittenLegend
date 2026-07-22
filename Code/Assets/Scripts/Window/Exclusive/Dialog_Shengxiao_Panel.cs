@@ -69,6 +69,10 @@ namespace Game
             {
                 Toggle_Cycle_List[1].gameObject.SetActive(false);
             }
+            if (user.Cycle.Data < 25)
+            {
+                Toggle_Cycle_List[2].gameObject.SetActive(false);
+            }
 
             for (int i = 0; i < configs.Count; i++)
             {

@@ -1176,6 +1176,11 @@ namespace Game
                     id2 = ItemHelper.Specail_Xingzuo1;
                     id3 = ItemHelper.Specail_Xingzuo2;
                 }
+                else if (pet.ShengxiaoConfig.Cycle == 3) {
+                    id1 = ItemHelper.Specail_Minggong;
+                    id2 = ItemHelper.Specail_Minggong1;
+                    id3 = ItemHelper.Specail_Minggong2;
+                }
 
                 //Debug.Log("pet exp count:" + expCount);
                 if (level > 0)
