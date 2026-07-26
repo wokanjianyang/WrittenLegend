@@ -344,6 +344,10 @@ namespace Game
 
         public FestiveMapData FestiveMapData09 { get; set; } = new FestiveMapData();
 
+        public FestiveMapData FestiveMapData10 { get; set; } = new FestiveMapData();
+
+        public FestiveMapData FestiveMapData11 { get; set; } = new FestiveMapData();
+
         public FestiveMapData FestiveMapData7_2 { get; set; } = new FestiveMapData();
 
         public Dictionary<int, MagicData> FestiveAttrData { get; } = new Dictionary<int, MagicData>();
@@ -390,7 +394,11 @@ namespace Game
 
         public IDictionary<int, int> FestiveData_0802 { get; set; } = new Dictionary<int, int>();
 
-        public IDictionary<int, int> FestiveData_0902 { get; set; } = new Dictionary<int, int>();
+        public IDictionary<int, int> FestiveData_0901 { get; set; } = new Dictionary<int, int>();
+
+        public IDictionary<int, int> FestiveData_1001 { get; set; } = new Dictionary<int, int>();
+
+        public IDictionary<int, int> FestiveData_1101 { get; set; } = new Dictionary<int, int>();
 
         public IDictionary<int, int> FestiveData_0703 { get; set; } = new Dictionary<int, int>();
 
@@ -1826,12 +1834,12 @@ namespace Game
 
         public IDictionary<int, int> GetCurrentFestive()
         {
-            return this.FestiveData_0703;
+            return this.FestiveData_0802;
         }
 
         public FestiveMapData GetCurrentMapFestive()
         {
-            return this.FestiveMapData7_2;
+            return this.FestiveMapData08;
         }
 
         public int GetFestiveCount(int id)
