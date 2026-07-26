@@ -27,7 +27,8 @@ public class Dialog_Steed_Forge : MonoBehaviour
     private Steed SelectSteed;
 
     private int MaxLevel = 100;
-    private int SpeicalRate = 20;
+    private int LevelRate = 30;
+    private int LayerRate = 50;
 
     public int Order => (int)ComponentOrder.Dialog;
 
@@ -53,8 +54,10 @@ public class Dialog_Steed_Forge : MonoBehaviour
     {
         User user = GameProcessor.Inst.User;
 
-        int maxLevel = MaxLevel;
         long currentLevel = SelectSteed.SteedLevel.Data;
+        long currentLayer = SelectSteed.SteedLayer.Data;
+
+        long maxLevel = MaxLevel + (currentLayer - 1) * LevelRate;
 
         Txt_Level.text = "当前等级：" + currentLevel + "级（最高等级" + maxLevel + "级）";
 
@@ -75,8 +78,7 @@ public class Dialog_Steed_Forge : MonoBehaviour
             Btn_OK_Batch.gameObject.SetActive(true);
         }
 
-        long maxLayer = currentLevel / 50 + 1;
-        long currentLayer = SelectSteed.SteedLayer.Data;
+        long maxLayer = currentLevel / LayerRate + 1;
 
         Txt_Layer.text = "当前等阶：" + currentLayer + "阶（最高等阶" + maxLayer + "阶）";
 
@@ -112,7 +114,9 @@ public class Dialog_Steed_Forge : MonoBehaviour
         long current = SelectSteed.LevelExp.Data;
 
         long currentLevel = SelectSteed.SteedLevel.Data;
-        int maxLevel = MaxLevel;
+        long currentLayer = SelectSteed.SteedLayer.Data;
+
+        long maxLevel = MaxLevel + (currentLayer - 1) * LevelRate;
         if (currentLevel >= maxLevel)
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "不能超过最大等级", ToastType = ToastTypeEnum.Failure });
@@ -165,7 +169,9 @@ public class Dialog_Steed_Forge : MonoBehaviour
             long max = SteedConfigCategory.Instance.GetFee(SelectSteed.SteedLevel.Data);
             long current = SelectSteed.LevelExp.Data;
             long currentLevel = SelectSteed.SteedLevel.Data;
-            int maxLevel = this.MaxLevel;
+            long currentLayer = SelectSteed.SteedLayer.Data;
+
+            long maxLevel = MaxLevel + (currentLayer - 1) * LevelRate;
 
             if (currentLevel >= maxLevel)
             {
@@ -221,7 +227,7 @@ public class Dialog_Steed_Forge : MonoBehaviour
 
         User user = GameProcessor.Inst.User;
 
-        long max = SelectSteed.SteedLevel.Data / 20 + 1;
+        long max = SelectSteed.SteedLevel.Data / LayerRate + 1;
         long current = SelectSteed.SteedLayer.Data;
 
         if (current >= max)
