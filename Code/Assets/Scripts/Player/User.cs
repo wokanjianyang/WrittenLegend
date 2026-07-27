@@ -848,7 +848,7 @@ namespace Game
 
             }
 
-            for (int type = 1; type <= 1; type++)
+            for (int type = 1; type <= 2; type++)
             {
                 long level = GetFestiveAttrLevel(type);
                 List<FestiveAttrConfig> configs = FestiveAttrConfigCategory.Instance.GetList(type, level);
