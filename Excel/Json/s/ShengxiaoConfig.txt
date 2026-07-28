@@ -27,7 +27,7 @@
 {"_t":"ShengxiaoConfig","_id":26,"Name":"天机星","Part":26,"Cycle":3,"Required":25,"AttrIdList":[2001,2012,2003,2013],"AttrValueList":[5,10,10,5],"AttchValueList":[20,20,20,20],"LayerValueList":[2,20,20,20]},
 {"_t":"ShengxiaoConfig","_id":27,"Name":"太阳星","Part":27,"Cycle":3,"Required":25,"AttrIdList":[2001,2012,2003,2013],"AttrValueList":[5,10,10,5],"AttchValueList":[20,20,20,20],"LayerValueList":[2,20,20,20]},
 {"_t":"ShengxiaoConfig","_id":28,"Name":"太阴星","Part":28,"Cycle":3,"Required":25,"AttrIdList":[2001,2012,2003,2013],"AttrValueList":[5,10,10,5],"AttchValueList":[20,20,20,20],"LayerValueList":[2,20,20,20]},
-{"_t":"ShengxiaoConfig","_id":29,"Name":"天机星","Part":29,"Cycle":3,"Required":25,"AttrIdList":[2001,2012,2003,2013],"AttrValueList":[5,10,10,5],"AttchValueList":[20,20,20,20],"LayerValueList":[2,20,20,20]},
+{"_t":"ShengxiaoConfig","_id":29,"Name":"天府星","Part":29,"Cycle":3,"Required":25,"AttrIdList":[2001,2012,2003,2013],"AttrValueList":[5,10,10,5],"AttchValueList":[20,20,20,20],"LayerValueList":[2,20,20,20]},
 {"_t":"ShengxiaoConfig","_id":30,"Name":"武曲星","Part":30,"Cycle":3,"Required":25,"AttrIdList":[2001,2012,2003,2013],"AttrValueList":[5,10,10,5],"AttchValueList":[20,20,20,20],"LayerValueList":[2,20,20,20]},
 {"_t":"ShengxiaoConfig","_id":31,"Name":"巨门星","Part":31,"Cycle":3,"Required":25,"AttrIdList":[2001,2012,2003,2013],"AttrValueList":[5,10,10,5],"AttchValueList":[20,20,20,20],"LayerValueList":[2,20,20,20]},
 {"_t":"ShengxiaoConfig","_id":32,"Name":"天相星","Part":32,"Cycle":3,"Required":25,"AttrIdList":[2001,2012,2003,2013],"AttrValueList":[5,10,10,5],"AttchValueList":[20,20,20,20],"LayerValueList":[2,20,20,20]},
