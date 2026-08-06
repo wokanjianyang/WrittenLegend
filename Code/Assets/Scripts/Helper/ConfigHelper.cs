@@ -134,6 +134,7 @@ namespace Game
 
         public const double MaxNumber = 1E300;
 
+        public const int MaxFashionLevel = 2;
         public static int GetFloorRate(long floor)
         {
             if (floor > 100 && floor < FastFloor)

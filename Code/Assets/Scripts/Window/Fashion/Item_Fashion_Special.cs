@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class Item_Fashion_Special : MonoBehaviour
 {
     public Image Icon;
-    public Text Txt_Name;
+    public Text Txt_Level;
 
     public Transform Tf_Attr;
     private List<StrenthAttrItem> AttrList;
@@ -22,6 +22,8 @@ public class Item_Fashion_Special : MonoBehaviour
     public Button Btn_Up;
 
     public FashionSpecialConfig Config { get; set; }
+
+    private int MaxLevel = ConfigHelper.MaxFashionLevel;
 
     // Start is called before the first frame update
     void Awake()
@@ -42,7 +44,6 @@ public class Item_Fashion_Special : MonoBehaviour
     {
         this.Config = config;
 
-        Txt_Name.text = this.Config.Name;
         Icon.sprite = PrefabHelper.Instance().GetFashion(Config.Id);
 
         this.Show();
@@ -55,43 +56,42 @@ public class Item_Fashion_Special : MonoBehaviour
             return;
         }
 
-        for (int i = 0; i < AttrList.Count; i++)
-        {
-            AttrList[i].SetContent(this.Config.AttrIdList[i], this.Config.AttrValueList[i], 0);
-        }
-
-        Txt_Attr_Active.text = "出战属性：" + StringHelper.FormatAttrText(this.Config.UpAttrId, this.Config.UpAttrValue);
-
         User user = GameProcessor.Inst.User;
 
         long fashionLevel = user.GetFashionSpecialLevel(this.Config.Id);
 
-        if (fashionLevel > 0)
+        for (int i = 0; i < AttrList.Count; i++)
         {
-            Btn_Active.gameObject.SetActive(false);
+            AttrList[i].SetContent(this.Config.AttrIdList[i], this.Config.AttrValueList[i] * fashionLevel, fashionLevel < MaxLevel ? this.Config.AttrValueList[i] : 0);
+        }
 
-            if (this.Config.Id == user.FashionUpId)
-            {
-                Btn_Up.gameObject.SetActive(false);
-            }
-            else
-            {
-                Btn_Up.gameObject.SetActive(true);
-            }
-            Txt_Fee.gameObject.SetActive(false);
+        Txt_Attr_Active.text = "出战属性：" + StringHelper.FormatAttrText(this.Config.UpAttrId, this.Config.UpAttrValue * fashionLevel);
+        Txt_Level.text = fashionLevel <= 0 ? "未激活" : ConfigHelper.LayerChinaList[fashionLevel] + "阶";
+
+        if (this.Config.Id == user.FashionUpId)
+        {
+            Btn_Up.gameObject.SetActive(false);
         }
         else
         {
-            Btn_Active.gameObject.SetActive(true);
-            Btn_Up.gameObject.SetActive(false);
-            Txt_Fee.gameObject.SetActive(true);
+            Btn_Up.gameObject.SetActive(true);
+        }
 
+        if (fashionLevel < MaxLevel)
+        {
             long materialCount = user.GetMaterialCount(ItemHelper.SpecialId_Fashion);
 
             int fee = this.Config.Fee;
             string color = materialCount >= fee ? "#00FF00" : "#FF0000";
 
             Txt_Fee.text = string.Format("<color={0}>时装精华:{1}/{2}</color>", color, materialCount, fee);
+
+            Btn_Active.gameObject.SetActive(true);
+        }
+        else
+        {
+            Txt_Fee.gameObject.SetActive(false);
+            Btn_Active.gameObject.SetActive(false);
         }
     }
 
@@ -102,9 +102,9 @@ public class Item_Fashion_Special : MonoBehaviour
         User user = GameProcessor.Inst.User;
         long fashionLevel = user.GetFashionSpecialLevel(Config.Id);
 
-        if (fashionLevel > 0)
+        if (fashionLevel >= MaxLevel)
         {
-            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "已经激活了", ToastType = ToastTypeEnum.Failure });
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "时装已经满级了", ToastType = ToastTypeEnum.Failure });
             return;
         }
 

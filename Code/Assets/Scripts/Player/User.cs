@@ -964,19 +964,19 @@ namespace Game
             {
                 int fsId = sp.Key;
                 long fsLevel = sp.Value.Data;
-                if (fsLevel > 0)
+                if (fsLevel > 0 && fsLevel <= ConfigHelper.MaxFashionLevel)
                 {
                     FashionSpecialConfig fashionSpecialConfig = FashionSpecialConfigCategory.Instance.Get(fsId);
 
                     for (int i = 0; i < fashionSpecialConfig.AttrIdList.Length; i++)
                     {
-                        long fsValue = fashionSpecialConfig.AttrValueList[i];
+                        long fsValue = fashionSpecialConfig.AttrValueList[i] * fsLevel;
                         AttributeBonus.SetAttr((AttributeEnum)fashionSpecialConfig.AttrIdList[i], AttributeFrom.FashionSpeical, fsId, fsValue);
                     }
 
                     if (fsId == FashionUpId)
                     {
-                        AttributeBonus.SetAttr((AttributeEnum)fashionSpecialConfig.UpAttrId, AttributeFrom.FashionSpeical, 0, fashionSpecialConfig.UpAttrValue);
+                        AttributeBonus.SetAttr((AttributeEnum)fashionSpecialConfig.UpAttrId, AttributeFrom.FashionSpeical, 0, fashionSpecialConfig.UpAttrValue * fsLevel);
                     }
 
                 }

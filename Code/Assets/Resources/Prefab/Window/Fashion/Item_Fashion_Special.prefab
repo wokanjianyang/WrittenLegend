@@ -324,12 +324,12 @@ GameObject:
   - component: {fileID: 563343843921864599}
   - component: {fileID: 7216102092765933895}
   m_Layer: 0
-  m_Name: Txt_Name
+  m_Name: Txt_Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4270278009705187636
 RectTransform:
   m_ObjectHideFlags: 0
@@ -342,13 +342,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3771067150633968204}
-  m_RootOrder: 0
+  m_Father: {fileID: 8788837374395113449}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -350.89, y: -90}
+  m_SizeDelta: {x: 161.7862, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &563343843921864599
 CanvasRenderer:
@@ -391,7 +391,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u5C0F\u5C0F\u6CD5\u5E08"
+  m_Text: "\u672A\u6FC0\u6D3B"
 --- !u!1 &3782664123806579919
 GameObject:
   m_ObjectHideFlags: 0
@@ -548,14 +548,13 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4270278009705187636}
+  m_Children: []
   m_Father: {fileID: 8788837374395113449}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -354.6, y: 0}
+  m_AnchoredPosition: {x: -350.89, y: 30}
   m_SizeDelta: {x: 133, y: 133}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5685015174759908175
@@ -713,7 +712,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 327.2, y: 0}
+  m_AnchoredPosition: {x: 327.2, y: -100}
   m_SizeDelta: {x: 160, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6552252917059539866
@@ -956,6 +955,7 @@ RectTransform:
   - {fileID: 8542104527989667634}
   - {fileID: 8095517765644520609}
   - {fileID: 7354844257411791756}
+  - {fileID: 4270278009705187636}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -977,7 +977,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Icon: {fileID: 5347046582363415770}
-  Txt_Name: {fileID: 7216102092765933895}
+  Txt_Level: {fileID: 7216102092765933895}
   Tf_Attr: {fileID: 685650234727859012}
   Txt_Fee: {fileID: 6975297805740636203}
   Txt_Attr_Active: {fileID: 8682306385756220018}
@@ -1062,7 +1062,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u6FC0\u6D3B"
+  m_Text: "\u5347\u9636"
 --- !u!1001 &1368595258131362785
 PrefabInstance:
   m_ObjectHideFlags: 0
