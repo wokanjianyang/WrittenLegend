@@ -62,7 +62,7 @@ namespace Game
 
             if (Progeress >= 55000)
             {
-                RiseRate55 = 1 * Math.Pow(1.005, Progeress - 55000);
+                RiseRate55 = 1 * Math.Pow(1.003, Progeress - 55000);
             }
 
             if (Progeress >= ConfigHelper.BabelMax)

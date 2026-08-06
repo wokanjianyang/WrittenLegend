@@ -6,4 +6,5 @@
 {"_t":"WorldConfig","_id":5,"MapName":"麒麟","Cycle":15},
 {"_t":"WorldConfig","_id":6,"MapName":"极青龙","Cycle":20},
 {"_t":"WorldConfig","_id":7,"MapName":"极白虎","Cycle":23},
+{"_t":"WorldConfig","_id":8,"MapName":"极朱雀","Cycle":26},
 ]}
