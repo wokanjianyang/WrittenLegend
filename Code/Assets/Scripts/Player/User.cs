@@ -338,8 +338,6 @@ namespace Game
 
         public MythData MythData { get; set; } = new MythData();
 
-        public FestiveMapData FestiveMapData07 { get; set; } = new FestiveMapData();
-
         public FestiveMapData FestiveMapData08 { get; set; } = new FestiveMapData();
 
         public FestiveMapData FestiveMapData09 { get; set; } = new FestiveMapData();
@@ -389,8 +387,6 @@ namespace Game
         public List<DropData> DropDataList { get; } = new List<DropData>();
 
         public FestiveWeekData WeekData = new FestiveWeekData();
-
-        public IDictionary<int, int> FestiveData_0702 { get; set; } = new Dictionary<int, int>();
 
         public IDictionary<int, int> FestiveData_0802 { get; set; } = new Dictionary<int, int>();
 

@@ -5,5 +5,6 @@
 {"_t":"RelicGroupConfig","_id":4,"Name":"玄武之破","Cyle":1,"AttrId":3120,"AttrValue":10,"RiseAttr":3.5,"RiseType":2,"Des":"降低敌人(自身闪避*{0})倍（下一级+{1}）的韧性（乘法）"},
 {"_t":"RelicGroupConfig","_id":5,"Name":"麒麟之速","Cyle":1,"AttrId":3121,"AttrValue":10,"RiseAttr":3,"RiseType":2,"Des":"额外增加(自身攻速*{0})%（下一级+{1}）的伤害（乘法）"},
 {"_t":"RelicGroupConfig","_id":6,"Name":"极龙之力","Cyle":2,"AttrId":3117,"AttrValue":300,"RiseAttr":3,"RiseType":2,"Des":"青龙之力的伤害提高{0}%（下一级+{1}）的伤害"},
-{"_t":"RelicGroupConfig","_id":7,"Name":"极虎之力","Cyle":2,"AttrId":3118,"AttrValue":300,"RiseAttr":3,"RiseType":2,"Des":"白虎之命的血量提高{0}%（下一级+{1}）"},
+{"_t":"RelicGroupConfig","_id":7,"Name":"极虎之命","Cyle":2,"AttrId":3118,"AttrValue":300,"RiseAttr":3,"RiseType":2,"Des":"白虎之命的血量提高{0}%（下一级+{1}）"},
+{"_t":"RelicGroupConfig","_id":8,"Name":"极雀之神","Cyle":2,"AttrId":3119,"AttrValue":300,"RiseAttr":3,"RiseType":2,"Des":"朱雀之神的伤害提高{0}%（下一级+{1}）"},
 ]}
