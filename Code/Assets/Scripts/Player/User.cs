@@ -564,22 +564,16 @@ namespace Game
             }
 
             //生肖-套装
-            ShengxiaoGroup shengxiaoGroup = this.GetShengxiaoGroup(1);
-            foreach (ShengxiaoGroupItem sp in shengxiaoGroup.List)
-            {
-                if (sp.Count >= sp.Config.Count)
-                {
-                    AttributeBonus.SetAttr((AttributeEnum)sp.Config.AttrId, AttributeFrom.Shengxiao, 100 + sp.Config.Id, sp.Config.AttrValue);
-                }
-            }
 
-            //星座-套装
-            ShengxiaoGroup shengxiaoGroup2 = this.GetShengxiaoGroup(2);
-            foreach (ShengxiaoGroupItem sp in shengxiaoGroup2.List)
+            for (int s = 1; s <= 3; s++)
             {
-                if (sp.Count >= sp.Config.Count)
+                ShengxiaoGroup shengxiaoGroup = this.GetShengxiaoGroup(s);
+                foreach (ShengxiaoGroupItem sp in shengxiaoGroup.List)
                 {
-                    AttributeBonus.SetAttr((AttributeEnum)sp.Config.AttrId, AttributeFrom.Shengxiao, 100 + sp.Config.Id, sp.Config.AttrValue);
+                    if (sp.Count >= sp.Config.Count)
+                    {
+                        AttributeBonus.SetAttr((AttributeEnum)sp.Config.AttrId, AttributeFrom.Shengxiao, 100 * s + sp.Config.Id, sp.Config.AttrValue);
+                    }
                 }
             }
 
