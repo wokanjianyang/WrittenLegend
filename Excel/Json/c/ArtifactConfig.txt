@@ -35,4 +35,6 @@
 {"_t":"ArtifactConfig","_id":41,"ItemId":180041,"Name":"极·炼气证明","Type":41,"AttrValue":5,"MaxCount":40,"Quality":7,"Des":"炼气秘境的产出提高5%"},
 {"_t":"ArtifactConfig","_id":42,"ItemId":180042,"Name":"极·炼神证明","Type":42,"AttrValue":5,"MaxCount":40,"Quality":7,"Des":"炼神秘境的产出提高5%"},
 {"_t":"ArtifactConfig","_id":43,"ItemId":180043,"Name":"极·炼魂证明","Type":43,"AttrValue":5,"MaxCount":40,"Quality":7,"Des":"炼魂秘境的产出提高5%"},
+{"_t":"ArtifactConfig","_id":44,"ItemId":180044,"Name":"极戒之源","Type":44,"AttrValue":1,"MaxCount":20,"Quality":7,"Des":"极戒等级上限+1"},
+{"_t":"ArtifactConfig","_id":45,"ItemId":180045,"Name":"道戒之源","Type":45,"AttrValue":1,"MaxCount":20,"Quality":7,"Des":"道戒等级上限+1"},
 ]}

@@ -49,6 +49,8 @@ namespace Game
         Pill2 = 41,
         Pill3 = 42,
         Pill4 = 43,
+        RingLimit1 = 44,
+        RingLimit2 = 45,
     }
 
 }

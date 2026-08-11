@@ -107,6 +107,8 @@
 {"_t":"InfiniteDropConfig","_id":10040,"DropId":180041,"Name":"极·炼气证明","Rate":3,"StartLevel":4000,"EndLevel":5000,"RateLevel":100,"Max":1,"Number":1},
 {"_t":"InfiniteDropConfig","_id":10041,"DropId":180042,"Name":"极·炼神证明","Rate":3,"StartLevel":5000,"EndLevel":6000,"RateLevel":100,"Max":1,"Number":1},
 {"_t":"InfiniteDropConfig","_id":10042,"DropId":180043,"Name":"极·炼魂证明","Rate":3,"StartLevel":6000,"EndLevel":7000,"RateLevel":100,"Max":1,"Number":1},
+{"_t":"InfiniteDropConfig","_id":10043,"DropId":180044,"Name":"极戒之源","Rate":3,"StartLevel":7000,"EndLevel":8000,"RateLevel":100,"Max":1,"Number":1},
+{"_t":"InfiniteDropConfig","_id":10044,"DropId":180045,"Name":"道戒之源","Rate":3,"StartLevel":8000,"EndLevel":9000,"RateLevel":100,"Max":1,"Number":1},
 {"_t":"InfiniteDropConfig","_id":11001,"DropId":220016,"Name":"六大神戒","Rate":5,"StartLevel":150,"EndLevel":1200,"RateLevel":20,"Max":2,"Number":1},
 {"_t":"InfiniteDropConfig","_id":11002,"DropId":4001,"Name":"神技","Rate":5,"StartLevel":200,"EndLevel":1000,"RateLevel":30,"Max":2,"Number":1},
 {"_t":"InfiniteDropConfig","_id":11003,"DropId":4002,"Name":"魂骨","Rate":15,"StartLevel":1050,"EndLevel":1500,"RateLevel":51,"Max":2,"Number":1},

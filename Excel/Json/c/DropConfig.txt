@@ -447,6 +447,8 @@
 {"_t":"DropConfig","_id":180041,"Level":0,"Name":"极·炼气证明","Quantity":1,"ItemType":18,"ItemIdList":[180041]},
 {"_t":"DropConfig","_id":180042,"Level":0,"Name":"极·炼神证明","Quantity":1,"ItemType":18,"ItemIdList":[180042]},
 {"_t":"DropConfig","_id":180043,"Level":0,"Name":"极·炼魂证明","Quantity":1,"ItemType":18,"ItemIdList":[180043]},
+{"_t":"DropConfig","_id":180044,"Level":0,"Name":"极戒之源","Quantity":1,"ItemType":18,"ItemIdList":[180044]},
+{"_t":"DropConfig","_id":180045,"Level":0,"Name":"道戒之源","Quantity":1,"ItemType":18,"ItemIdList":[180045]},
 {"_t":"DropConfig","_id":220000,"Level":0,"Name":"副本劵","Quantity":1,"ItemType":9,"ItemIdList":[4003]},
 {"_t":"DropConfig","_id":220001,"Level":0,"Name":"Boss劵","Quantity":1,"ItemType":5,"ItemIdList":[4004]},
 {"_t":"DropConfig","_id":220002,"Level":0,"Name":"四格碎片","Quantity":50,"ItemType":5,"ItemIdList":[4007]},
