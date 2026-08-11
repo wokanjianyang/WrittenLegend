@@ -883,6 +883,8 @@
 {"_t":"ItemConfig","_id":180041,"Name":"极·炼气证明","Type":18,"Des":"激活或者升级对应法宝","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":7,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
 {"_t":"ItemConfig","_id":180042,"Name":"极·炼神证明","Type":18,"Des":"激活或者升级对应法宝","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":7,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
 {"_t":"ItemConfig","_id":180043,"Name":"极·炼魂证明","Type":18,"Des":"激活或者升级对应法宝","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":7,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
+{"_t":"ItemConfig","_id":180044,"Name":"极戒之源","Type":18,"Des":"激活或者升级对应法宝","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":7,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
+{"_t":"ItemConfig","_id":180045,"Name":"道戒之源","Type":18,"Des":"激活或者升级对应法宝","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":7,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
 {"_t":"ItemConfig","_id":190001,"Name":"定身指环","Type":19,"Des":"激活或者升级对应神戒","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":6,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
 {"_t":"ItemConfig","_id":190002,"Name":"神盾指环","Type":19,"Des":"激活或者升级对应神戒","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":6,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},
 {"_t":"ItemConfig","_id":190003,"Name":"复生指环","Type":19,"Des":"激活或者升级对应神戒","Price":1,"MaxNum":99999,"LevelRequired":0,"Quality":6,"UseParam":0,"RecoveryItemId":0,"RecoveryCount":0},

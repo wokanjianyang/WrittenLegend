@@ -90,6 +90,8 @@ namespace Game
 
         public int PetQuality { get; set; } = 0;
 
+        public int SteedQuality { get; set; } = 0;
+
         public int ShengxiaoQuality { get; set; } = 0;
 
         private int KeepStartQuality = 3;
@@ -325,7 +327,8 @@ namespace Game
                         return true;
                     }
                 }
-                else if (cycle == 6) {
+                else if (cycle == 6)
+                {
                     if (Equip_Xuwu_Total > 0 && equip.GetAttrRateCount() >= Equip_Xuwu_Total)
                     {
                         item.IsKeep = true;
@@ -433,6 +436,14 @@ namespace Game
             {
                 Pet pet = item as Pet;
                 if (item.GetQuality() <= PetQuality && pet.PetLayer.Data == 1 && pet.PetLevel.Data == 1)
+                {
+                    return true;
+                }
+            }
+            else if (item.Type == ItemType.Steed)
+            {
+                Steed steed = item as Steed;
+                if (item.GetQuality() <= SteedQuality && steed.SteedLayer.Data == 1 && steed.SteedLevel.Data == 1)
                 {
                     return true;
                 }

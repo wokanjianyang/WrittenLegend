@@ -79,6 +79,7 @@ namespace Game
         public InputField if_RedStone;
         public Dropdown dp_Pet;
         public Dropdown dp_Shengxiao;
+        public Dropdown dp_Steed;
 
         public Button btn_Done;
 
@@ -140,6 +141,9 @@ namespace Game
 
             dp_Pet.ClearOptions();
             dp_Pet.AddOptions(new List<string>() { "无", "白色", "绿色", "蓝色", "紫色", "橙色", "红色" });
+
+            dp_Steed.ClearOptions();
+            dp_Steed.AddOptions(new List<string>() { "无", "白色", "绿色", "蓝色", "紫色", "橙色", "红色", "金色" });
 
             dp_Shengxiao.ClearOptions();
             dp_Shengxiao.AddOptions(new List<string>() { "无", "白色", "绿色", "蓝色", "紫色", "橙色", "红色", "金色", "暗金" }); //, "混沌"
@@ -213,6 +217,10 @@ namespace Game
             if (setting.PetQuality > 0)
             {
                 dp_Pet.value = setting.PetQuality;
+            }
+            if (setting.SteedQuality > 0)
+            {
+                dp_Steed.value = setting.SteedQuality;
             }
             if (setting.ShengxiaoQuality > 0)
             {
@@ -346,6 +354,7 @@ namespace Game
 
             //其他回收
             setting.PetQuality = dp_Pet.value;
+            setting.SteedQuality = dp_Steed.value;
             setting.ShengxiaoQuality = dp_Shengxiao.value;
 
             int.TryParse(ifSpeicalLevel.text, out int speicalLevel);
