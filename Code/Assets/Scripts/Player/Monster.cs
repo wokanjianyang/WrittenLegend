@@ -79,14 +79,19 @@ namespace Game
             double attrModelRate = ModelConfig == null ? 1 : ModelConfig.AttrRate;
             double defModelRate = ModelConfig == null ? 1 : ModelConfig.DefRate;
 
-            double hp = StringHelper.StringToNumber(Config.HP);
+ 
             double attr = StringHelper.StringToNumber(Config.Attr);
             double def = StringHelper.StringToNumber(Config.Def);
             double strong = StringHelper.StringToNumber(Config.Strong);
             double damageMul = StringHelper.StringToNumber(Config.DamageMul);
             double parry = StringHelper.StringToNumber(Config.Parry);
 
-            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, (hp * hpModelRate * QualityConfig.HpRate));
+            LargeNumber hp = StringHelper.StringToLargNumber(Config.HP);
+            hp.Mul(hpModelRate * QualityConfig.HpRate);
+
+            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, 1);
+            AttributeBonus.SetAttrLarge(AttributeEnum.HP, AttributeFrom.HeroBase, hp);
+
             AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, (attr * attrModelRate * QualityConfig.AttrRate));
             AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, (attr * attrModelRate * QualityConfig.AttrRate));
             AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, (attr * attrModelRate * QualityConfig.AttrRate));

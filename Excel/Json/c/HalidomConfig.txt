@@ -183,4 +183,9 @@
 {"_t":"HalidomConfig","_id":40000232,"ItemId":40000232,"Layer":6,"Name":"虚无雕像","AttrId":2005,"AttrValue":8,"RiseAttr":8,"MaxLevel":4,"Des":"魔法倍率"},
 {"_t":"HalidomConfig","_id":40000233,"ItemId":40000233,"Layer":6,"Name":"虚无神像","AttrId":2006,"AttrValue":8,"RiseAttr":8,"MaxLevel":4,"Des":"道术倍率"},
 {"_t":"HalidomConfig","_id":40000234,"ItemId":40000234,"Layer":6,"Name":"虚无獠牙","AttrId":2010,"AttrValue":8,"RiseAttr":8,"MaxLevel":4,"Des":"增伤倍率"},
+{"_t":"HalidomConfig","_id":40000235,"ItemId":40000235,"Layer":6,"Name":"虚无树心","AttrId":2007,"AttrValue":8,"RiseAttr":8,"MaxLevel":4,"Des":"物伤倍率"},
+{"_t":"HalidomConfig","_id":40000236,"ItemId":40000236,"Layer":6,"Name":"虚无魔心","AttrId":2008,"AttrValue":8,"RiseAttr":8,"MaxLevel":4,"Des":"法伤倍率"},
+{"_t":"HalidomConfig","_id":40000237,"ItemId":40000237,"Layer":6,"Name":"虚无尸心","AttrId":2009,"AttrValue":8,"RiseAttr":8,"MaxLevel":4,"Des":"道伤倍率"},
+{"_t":"HalidomConfig","_id":40000238,"ItemId":40000238,"Layer":6,"Name":"虚无法杖","AttrId":2013,"AttrValue":16,"RiseAttr":16,"MaxLevel":4,"Des":"破韧倍率"},
+{"_t":"HalidomConfig","_id":40000239,"ItemId":40000239,"Layer":6,"Name":"虚无权杖","AttrId":2003,"AttrValue":50,"RiseAttr":50,"MaxLevel":4,"Des":"生命倍率"},
 ]}

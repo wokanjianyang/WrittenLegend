@@ -147,6 +147,7 @@
 {"_t":"CompositeConfig","_id":510,"Type":"其他","ItemTypeList":[5,5],"ItemIdList":[4032,4111],"ItemCountList":[40,30000],"ItemQualityList":[0,0],"TargetName":"麒麟神器","TargetId":40,"TargetType":4,"AutoHide":0},
 {"_t":"CompositeConfig","_id":511,"Type":"其他","ItemTypeList":[5,5],"ItemIdList":[4055,4111],"ItemCountList":[40,100000],"ItemQualityList":[0,0],"TargetName":"极龙神器","TargetId":47,"TargetType":4,"AutoHide":0},
 {"_t":"CompositeConfig","_id":512,"Type":"其他","ItemTypeList":[5,5],"ItemIdList":[4056,4111],"ItemCountList":[40,100000],"ItemQualityList":[0,0],"TargetName":"极虎神器","TargetId":48,"TargetType":4,"AutoHide":0},
+{"_t":"CompositeConfig","_id":513,"Type":"其他","ItemTypeList":[5,5],"ItemIdList":[4057,4111],"ItemCountList":[40,100000],"ItemQualityList":[0,0],"TargetName":"极雀神器","TargetId":49,"TargetType":4,"AutoHide":0},
 {"_t":"CompositeConfig","_id":521,"Type":"其他","ItemTypeList":[5,5],"ItemIdList":[4005,4111],"ItemCountList":[20000,1000],"ItemQualityList":[0,0],"TargetName":"传奇精华","TargetId":4035,"TargetType":5,"AutoHide":0},
 {"_t":"CompositeConfig","_id":522,"Type":"其他","ItemTypeList":[5,5],"ItemIdList":[4005,4111],"ItemCountList":[30000,1500],"ItemQualityList":[0,0],"TargetName":"不朽精华","TargetId":4039,"TargetType":5,"AutoHide":0},
 {"_t":"CompositeConfig","_id":523,"Type":"其他","ItemTypeList":[5,5],"ItemIdList":[4005,4111],"ItemCountList":[40000,2000],"ItemQualityList":[0,0],"TargetName":"永恒精华","TargetId":4037,"TargetType":5,"AutoHide":0},
