@@ -1824,12 +1824,12 @@ namespace Game
 
         public IDictionary<int, int> GetCurrentFestive()
         {
-            return this.FestiveData_0802;
+            return this.FestiveData_0901;
         }
 
         public FestiveMapData GetCurrentMapFestive()
         {
-            return this.FestiveMapData08;
+            return this.FestiveMapData09;
         }
 
         public int GetFestiveCount(int id)
@@ -2166,7 +2166,7 @@ namespace Game
                     return 0;
                 }
 
-                return (int)Math.Min(this.Cycle.Data - 30, 10);
+                return (int)this.Cycle.Data - 30;
             }
             else if (cycle == 2)
             {
@@ -2175,7 +2175,7 @@ namespace Game
                     return 0;
                 }
 
-                return (int)Math.Min(this.Cycle.Data - 40, 10);
+                return (int)this.Cycle.Data - 40;
             }
 
             return 0;

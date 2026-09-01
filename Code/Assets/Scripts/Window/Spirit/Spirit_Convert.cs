@@ -35,7 +35,7 @@ public class Spirit_Convert : MonoBehaviour
     }
 
     private double[] Rates = { 0.1, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.5, 2 };
-    private int[] CRates = { 1, 2, 3 };
+    private int[] CRates = { 1, 2, 3, 4 };
 
     public void Show()
     {

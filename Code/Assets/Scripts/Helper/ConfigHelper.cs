@@ -28,7 +28,7 @@ namespace Game
 
         public const long Cycle_Level = 10000; //每次轮回增加等级
 
-        public const long Cycle_Max = 40;
+        public const long Cycle_Max = 42;
 
         public const long Max_Legacy_Level = 20; //最大传世副本等级 
 
@@ -62,7 +62,7 @@ namespace Game
 
         //public static int[] PercentAttrIdList = { 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 23, 24, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 41, 43, 45, 50, 51, 52, 53, 54, 55, 60, 91, 92, 93, 94, 101, 102, 103, 108, 109, 110, 201, 202, 203, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013 };
 
-        public static int[] BaseAttrIdList = { 0, 1, 2, 3, 4, 5, 7, 21, 22, 25, 39, 40, 42, 122, 306 };
+        public static int[] BaseAttrIdList = { 0, 1, 2, 3, 4, 5, 7, 21, 22, 25, 39, 40, 42, 122, 123, 306 };
 
 
         public static int[] RateAttrIdList = { 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009 };
@@ -76,6 +76,8 @@ namespace Game
             "练气", "筑基", "金丹", "元婴", "化神", "练虚", "合体", "大乘","渡劫", "散仙初期",
          "散仙中期", "‌散仙后期", "人仙初期", "人仙中期", "人仙后期", "地仙初期", "地仙中期", "地仙后期","真仙初期", "‌真仙中期",
           "真仙后期",  "天仙初期", "天仙中期", "天仙后期", "玄仙初期", "玄仙中期", "玄仙后期","金仙初期", "金仙中期",  "金仙后期",
+
+               "大罗初期",  "大罗中期", "大罗后期", "仙君初期", "仙君中期", "仙君后期", "仙尊初期","仙尊中期", "仙尊后期",  "仙帝初期",
         };
 
         public static string[] UnitList = { "万", "亿", "兆", "京", "垓", "秭", "穰", "沟", "涧", "正", "载", "极", "恒", "河", "沙", "阿", "僧", "祇"
@@ -110,7 +112,7 @@ namespace Game
 
         public const int PillDefaultTime = 60;
         public const int BabelCount = 300;
-        public const int BabelMax = 70000;
+        public const int BabelMax = 75000;
         public const int BabelMythMax = 3000;
         public const int BabelMythCount = 100;
 

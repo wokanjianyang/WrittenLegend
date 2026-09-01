@@ -94,8 +94,8 @@ namespace Game
         Relic3 = 3119, //神器2
         Relic4 = 3120, //神器2
         Relic5 = 3121, //神器2
-        RelicRise = 122, //所有神器等级+1
-
+        RelicRise = 122, //所有普通神器等级+1
+        RelicRise1 = 123, //所有普通神器，极神器等级+1
 
         AurasDamageResist = 201, //光环减伤
         AurasDamageIncrea = 202, //光环增伤

@@ -12,10 +12,8 @@ public class Dialog_Cycle : MonoBehaviour
     public Text Txt_Name;
     public Text Txt_Desc;
 
-    public Toggle toggle_Type1;
-    public Toggle toggle_Type2;
-    public Toggle toggle_Type3;
-    public Toggle toggle_Type4;
+    public Transform Tf_Nav;
+    public List<Toggle> toggles;
 
     private StrenthAttrItem[] AttrList;
 
@@ -25,7 +23,7 @@ public class Dialog_Cycle : MonoBehaviour
     public Button Btn_Close;
     public Text Txt_Ok;
 
-    private string[] BtnName = { "轮回", "练气", "修仙", "成圣" };
+    private string[] BtnName = { "轮回", "练气", "修仙", "成圣", "圣境" };
 
     public int Order => (int)ComponentOrder.Dialog;
 
@@ -33,26 +31,17 @@ public class Dialog_Cycle : MonoBehaviour
 
     private void Awake()
     {
+        toggles = Tf_Nav.GetComponentsInChildren<Toggle>().ToList();
         Btn_Close.onClick.AddListener(OnClick_Close);
 
-        toggle_Type1.onValueChanged.AddListener((isOn) =>
+        for (int i = 0; i < toggles.Count; i++)
         {
-            this.Show(0);
-        });
-
-        toggle_Type2.onValueChanged.AddListener((isOn) =>
-        {
-            this.Show(1);
-        });
-
-        toggle_Type3.onValueChanged.AddListener((isOn) =>
-        {
-            this.Show(2);
-        });
-        toggle_Type4.onValueChanged.AddListener((isOn) =>
-        {
-            this.Show(3);
-        });
+            int index = i;
+            toggles[i].onValueChanged.AddListener((isOn) =>
+            {
+                this.Show(index);
+            });
+        }
 
         AttrList = this.GetComponentsInChildren<StrenthAttrItem>();
     }
@@ -72,16 +61,20 @@ public class Dialog_Cycle : MonoBehaviour
 
         if (GameProcessor.Inst.User.Cycle.Data < 10)
         {
-            toggle_Type2.gameObject.SetActive(false);
+            toggles[1].gameObject.SetActive(false);
         }
 
         if (GameProcessor.Inst.User.Cycle.Data < 20)
         {
-            toggle_Type3.gameObject.SetActive(false);
+            toggles[2].gameObject.SetActive(false);
         }
         if (GameProcessor.Inst.User.Cycle.Data < 30)
         {
-            toggle_Type4.gameObject.SetActive(false);
+            toggles[3].gameObject.SetActive(false);
+        }
+        if (GameProcessor.Inst.User.Cycle.Data < 40)
+        {
+            toggles[4].gameObject.SetActive(false);
         }
     }
 
