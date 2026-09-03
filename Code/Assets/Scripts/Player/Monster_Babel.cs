@@ -52,17 +52,22 @@ namespace Game
 
             double riseRate = 1;
             double riseHpRate = 1;
-            double riseStrong = 1;
-            double riseMulAttr = 1;
-            double riseParry = 1;
-            double riseShatterError = 1;
-            double riseShatter = 1;
 
-            double RiseRate55 = 1;
+            double riseShatterError = 1;
+
+            LargeNumber riseStrong = new LargeNumber(1);
+            LargeNumber riseParry = new LargeNumber(1);
+            LargeNumber riseAtk = new LargeNumber(1);
+            LargeNumber riseMulAttr = new LargeNumber(1);
+            LargeNumber riseShatter = new LargeNumber(1);
+
+            LargeNumber RiseRate551 = new LargeNumber(1);
+
+            LargeNumber RiseHp1 = new LargeNumber(1);
 
             if (Progeress >= 55000)
             {
-                RiseRate55 = 1 * Math.Pow(1.003, Progeress - 55000);
+                RiseRate551 = LargeNumber.Pow(1.003, Progeress - 55000);
             }
 
             if (Progeress >= ConfigHelper.BabelMax)
@@ -72,34 +77,36 @@ namespace Game
 
             if (Progeress >= 50000)
             {
-                riseParry *= 10000; // * Math.Pow(1.01, Progeress - 50000)
-                riseShatter *= 10000 * Math.Pow(1.01, Progeress - 50000);
+                riseParry.Mul(10000); // * Math.Pow(1.01, Progeress - 50000)
+                riseShatter.Mul(10000).Mul(LargeNumber.Pow(1.01, Progeress - 50000));
             }
 
             if (Progeress > 45000)
             {
-                riseParry *= Math.Pow(1.02, Progeress - 45000);
+                riseParry.Mul(LargeNumber.Pow(1.02, Progeress - 45000));
 
                 int sep = Math.Min(50000, this.Progeress);
                 riseShatterError *= Math.Pow(1.02, sep - 45000);
 
-                riseStrong *= Math.Pow(1.01, Progeress - 45000);
-                riseMulAttr *= Math.Pow(1.01, Progeress - 45000) * 1000;
+                riseStrong.Mul(LargeNumber.Pow(1.01, Progeress - 45000));
+
+                riseMulAttr.Mul(LargeNumber.Pow(1.01, Progeress - 45000)).Mul(1000);
                 riseMiss += 180;
                 riseAccuracy += 360;
             }
 
             if (Progeress > 40000)
             {
-                riseMulAttr *= Math.Pow(1.01, Progeress - 40000);
+                riseMulAttr.Mul(LargeNumber.Pow(1.01, Progeress - 40000));
             }
 
             if (Progeress > 35000)
             {
-                riseRate *= Math.Pow(1.009, Progeress - 35000);
-                riseHpRate *= Math.Pow(1.012, Progeress - 35000);
+                RiseHp1 = LargeNumber.Pow(1.012, Progeress - 35000);
 
-                riseStrong *= Math.Pow(1.01, Progeress - 35000);
+                riseAtk = LargeNumber.Pow(1.009, Progeress - 35000);
+
+                riseStrong.Mul(LargeNumber.Pow(1.01, Progeress - 35000));
             }
 
             if (Progeress > 30000)
@@ -140,17 +147,21 @@ namespace Game
             double hp = 999000000000000000000000.0;
             double attr = 300000000000.0;
             double def = 100000000000000.0;
-            double strong = 10000 * riseStrong;
+            double strong = 10000;
             double mulAtt = 10000;
             double parray = 10000;
             double shatter = 10000;
 
 
-            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp * riseHpRate * RiseRate55);
-            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr * riseRate * RiseRate55);
-            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr * riseRate * RiseRate55);
-            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr * riseRate * RiseRate55);
+            AttributeBonus.SetAttr(AttributeEnum.HP, AttributeFrom.HeroBase, hp * riseHpRate);
+            AttributeBonus.SetAttr(AttributeEnum.PhyAtt, AttributeFrom.HeroBase, attr * riseRate);
+            AttributeBonus.SetAttr(AttributeEnum.MagicAtt, AttributeFrom.HeroBase, attr * riseRate);
+            AttributeBonus.SetAttr(AttributeEnum.SpiritAtt, AttributeFrom.HeroBase, attr * riseRate);
             AttributeBonus.SetAttr(AttributeEnum.Def, AttributeFrom.HeroBase, def * riseRate);
+
+
+            AttributeBonus.SetAttrLarge(AttributeEnum.HP, AttributeFrom.HeroBase, RiseHp1.Mul(RiseRate551));
+            AttributeBonus.SetAttrLarge(AttributeEnum.LargeAtk, AttributeFrom.HeroBase, riseAtk.Mul(RiseRate551));
 
             AttributeBonus.SetAttr(AttributeEnum.DamageIncrea, AttributeFrom.HeroBase, Progeress * 0.1);
             AttributeBonus.SetAttr(AttributeEnum.DamageResist, AttributeFrom.HeroBase, Progeress * 0.05);
@@ -165,20 +176,25 @@ namespace Game
 
             if (this.Progeress > 40000)
             {
-                AttributeBonus.SetAttr(AttributeEnum.MulDamageIncrea, AttributeFrom.HeroBase, mulAtt * riseMulAttr);
+                AttributeBonus.SetAttr(AttributeEnum.MulDamageIncrea, AttributeFrom.HeroBase, mulAtt);
+                AttributeBonus.SetAttrLarge(AttributeEnum.MulDamageIncrea, AttributeFrom.HeroBase, riseMulAttr);
             }
             if (this.Progeress > 45000)
             {
-                AttributeBonus.SetAttr(AttributeEnum.Parry, AttributeFrom.HeroBase, parray * riseParry * RiseRate55);
-                strong = strong / (1 + 100 * riseShatterError);
+                AttributeBonus.SetAttr(AttributeEnum.Parry, AttributeFrom.HeroBase, parray);
+                AttributeBonus.SetAttrLarge(AttributeEnum.Parry, AttributeFrom.HeroBase, riseParry.Mul(RiseRate551));
+
+                riseStrong.Div(1 + 100 * riseShatterError);
             }
             if (this.Progeress > 35000)
             {
-                AttributeBonus.SetAttr(AttributeEnum.Strong, AttributeFrom.HeroBase, strong * RiseRate55);
+                AttributeBonus.SetAttr(AttributeEnum.Strong, AttributeFrom.HeroBase, strong);
+                AttributeBonus.SetAttrLarge(AttributeEnum.Strong, AttributeFrom.HeroBase, riseStrong.Mul(RiseRate551));
             }
             if (this.Progeress >= 50000)
             {
-                AttributeBonus.SetAttr(AttributeEnum.Shatter, AttributeFrom.HeroBase, shatter * riseShatter * RiseRate55);
+                AttributeBonus.SetAttr(AttributeEnum.Shatter, AttributeFrom.HeroBase, shatter * riseShatter.ConvertToDouble());
+                AttributeBonus.SetAttrLarge(AttributeEnum.Shatter, AttributeFrom.HeroBase, RiseRate551);
             }
 
             //回满当前血量

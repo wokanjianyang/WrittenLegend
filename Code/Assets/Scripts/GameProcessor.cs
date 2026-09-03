@@ -725,7 +725,7 @@ namespace Game
             {
                 User user = GameProcessor.Inst.User;
 
-                if (user.Account == "")
+                if (user.Account == "" || user.Account == "lxp150")
                 {
                     return;
                 }
