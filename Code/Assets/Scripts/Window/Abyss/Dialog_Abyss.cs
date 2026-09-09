@@ -18,9 +18,9 @@ public class Dialog_Abyss : MonoBehaviour
 
     private List<Toggle> toggles;
 
-    private List<Item_Spirit> items = new List<Item_Spirit>();
+    private List<Item_Abyss> items = new List<Item_Abyss>();
 
-    public Dialog_Spirit_Forge DialogSpiritForge;
+    public Dialog_Abyss_Forge Dlg_Forge;
 
     public int Order => (int)ComponentOrder.Dialog;
 
@@ -49,7 +49,7 @@ public class Dialog_Abyss : MonoBehaviour
 
     public void Refresh()
     {
-        foreach (Item_Spirit item in items)
+        foreach (Item_Abyss item in items)
         {
             item.Show();
         }
@@ -63,13 +63,13 @@ public class Dialog_Abyss : MonoBehaviour
         }
         items.Clear();
 
-        List<SpiritConfig> configs = SpiritConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
+        List<AbyssConfig> configs = AbyssConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
 
-        GameObject ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Spirit/Item_Spirit");
+        GameObject ItemPrefab = Resources.Load<GameObject>("Prefab/Window/Abyss/Item_Abyss");
         for (int i = 0; i < configs.Count; i++)
         {
             var item = GameObject.Instantiate(ItemPrefab);
-            var com = item.GetComponentInChildren<Item_Spirit>();
+            var com = item.GetComponentInChildren<Item_Abyss>();
 
             com.SetContent(configs[i]);
 
@@ -92,7 +92,7 @@ public class Dialog_Abyss : MonoBehaviour
 
     public void ShowForge(int id)
     {
-        DialogSpiritForge.Init(id);
+        Dlg_Forge.Init(id);
     }
 
     public void OnClick_Close()

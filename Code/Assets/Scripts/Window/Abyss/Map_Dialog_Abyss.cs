@@ -36,7 +36,7 @@ public class Map_Dialog_Abyss : MonoBehaviour
         toggles = tf_tgs.GetComponentsInChildren<Toggle>().ToList();
 
         Btn_Close.onClick.AddListener(OnClick_Close);
-        //Btn_Attr.onClick.AddListener(OnClick_Attr);
+        Btn_Attr.onClick.AddListener(OnClick_Attr);
         //Btn_Offline.onClick.AddListener(OnClick_Offline);
 
         this.Init();
@@ -45,6 +45,8 @@ public class Map_Dialog_Abyss : MonoBehaviour
         {
             AppHelper.Abyss_Auto = isOn;
         });
+
+        toggle_Auto.isOn = AppHelper.Abyss_Auto;
 
         for (int i = 0; i < toggles.Count; i++)
         {

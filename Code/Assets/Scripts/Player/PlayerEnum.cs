@@ -185,6 +185,7 @@ namespace Game
         Pet1 = 36,
         Pill4 = 37,
         Steed = 38,
+        Abyss = 39,
 
         Dingzhi = 98,
         /// <summary>

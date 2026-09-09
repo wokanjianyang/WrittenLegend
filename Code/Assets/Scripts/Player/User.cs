@@ -384,6 +384,10 @@ namespace Game
 
         public Dictionary<int, SpiritData> SpiritRecord { get; } = new Dictionary<int, SpiritData>();
 
+        public Dictionary<int, AbyssData> AbyssRecord { get; } = new Dictionary<int, AbyssData>();
+
+        public int AbyssMapId { get; set; } = 1;
+
         public List<DropData> DropDataList { get; } = new List<DropData>();
 
         public FestiveWeekData WeekData = new FestiveWeekData();
@@ -591,6 +595,19 @@ namespace Game
                 }
             }
 
+
+            foreach (var sp in AbyssRecord)
+            {
+                AbyssConfig abyssConfig = AbyssConfigCategory.Instance.Get(sp.Key);
+                long splevel = sp.Value.GetLevel();
+                if (splevel > 0)
+                {
+                    for (int i = 0; i < abyssConfig.AtrIdList.Length; i++)
+                    {
+                        AttributeBonus.SetAttr((AttributeEnum)abyssConfig.AtrIdList[i], AttributeFrom.Abyss, abyssConfig.Id, abyssConfig.AtrVueList[i] * splevel);
+                    }
+                }
+            }
 
             //套装属性
             List<EquipGroupConfig> suitList = GetEquipGroups();
@@ -2674,6 +2691,26 @@ namespace Game
             }
 
             return (int)SpiritRecord[cardId].Level.Data;
+        }
+
+
+        public void SaveAbyssNumber(int id, long number)
+        {
+            if (!AbyssRecord.ContainsKey(id))
+            {
+                AbyssRecord[id] = new AbyssData();
+            }
+
+            AbyssRecord[id].Total.Data += number;
+        }
+        public AbyssData GetAbyss(int id)
+        {
+            if (!AbyssRecord.ContainsKey(id))
+            {
+                AbyssRecord[id] = new AbyssData();
+            }
+
+            return AbyssRecord[id];
         }
 
         public long GetTalentPoint()

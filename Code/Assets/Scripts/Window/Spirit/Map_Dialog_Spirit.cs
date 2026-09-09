@@ -49,6 +49,8 @@ public class Map_Dialog_Spirit : MonoBehaviour
             AppHelper.Spirit_Auto = isOn;
         });
 
+        toggle_Auto.isOn = AppHelper.Spirit_Auto;
+
         for (int i = 0; i < toggles.Count; i++)
         {
             int index = i + 1;

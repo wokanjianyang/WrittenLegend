@@ -47,5 +47,15 @@ public class Map_Abyss_Item : MonoBehaviour
         {
             this.gameObject.SetActive(false);
         }
+
+        User user = GameProcessor.Inst.User;
+        if (Config.Id > user.AbyssMapId)
+        {
+            this.gameObject.SetActive(false);
+        }
+        else
+        {
+            this.gameObject.SetActive(true);
+        }
     }
 }

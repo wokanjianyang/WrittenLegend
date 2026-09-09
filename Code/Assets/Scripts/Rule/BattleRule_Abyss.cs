@@ -106,7 +106,7 @@ public class BattleRule_Abyss : ABattleRule
         {
             int role = RandomHelper.RandomNumber(0, 3);  //道具职业
             int part = MathHelper.RandomArrayIndex(rates, 1); //道具部位
-            int dropId = 70000000 + cycle * 10 + part;
+            int dropId = role * 8 + part;
 
             if (!dropDict.ContainsKey(dropId))
             {
@@ -118,22 +118,33 @@ public class BattleRule_Abyss : ABattleRule
 
         var dd = dropDict.OrderByDescending(m => m.Key);
 
+        User user = GameProcessor.Inst.User;
+        string msg = mapConfig.MapName + (int)this.MapTime + "S通关奖励";
+
         foreach (var sp in dd)
         {
-            items.Add(ItemHelper.BuildItem(ItemType.Abyss, sp.Key, 0, sp.Value));
-        }
+            user.SaveAbyssNumber(sp.Key, sp.Value);
 
-        User user = GameProcessor.Inst.User;
+            AbyssConfig config = AbyssConfigCategory.Instance.Get(sp.Key);
+
+            string qt = "";
+            if (sp.Value > 1)
+            {
+                qt = "*" + sp.Value + " ";
+            }
+
+            msg += $"，<color=#{QualityConfigHelper.GetQualityColor(config.Quality)}>[{config.Name}]</color>" + qt;
+        }
 
         GameProcessor.Inst.EventCenter.Raise(new BattleMsgEvent()
         {
             Type = RuleType.Abyss,
-            Message = BattleMsgHelper.BuildRewardMessage(mapConfig.MapName + "通关奖励", 0, 0, items),
+            Message = msg,
         });
 
-        if (items.Count > 0)
+        if (user.AbyssMapId <= mapConfig.Id)
         {
-            user.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+            user.AbyssMapId = mapConfig.Id + 1;
         }
 
         //if (!user.SpiritOfflineFlag)
