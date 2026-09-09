@@ -114,6 +114,7 @@ namespace Game
 
         Spirit = 30,
         Steed = 31,
+        Abyss = 32,
 
         Metal = 98,
         Ad = 99,

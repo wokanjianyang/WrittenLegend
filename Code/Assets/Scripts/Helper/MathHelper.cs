@@ -95,5 +95,20 @@ namespace Game
 
             return r;
         }
+
+        public static int RandomArrayIndex(int[] array, double rise)
+        {
+            int t = RandomHelper.RandomNumber(array[0], array[array.Length - 1] + 1);
+            t = (int)Math.Round(t / rise);
+
+            int index = Array.BinarySearch(array, t);
+
+            if (index < 0)
+            {
+                index = ~index;
+            }
+
+            return array.Length - index;
+        }
     }
 }

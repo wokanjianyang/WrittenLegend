@@ -53,6 +53,9 @@ namespace Game
         public Button Btn_Babel_Myth;
         public Map_Dialog_Babel_Myth Dlg_Babel_Myth;
 
+        public Button Btn_Abyss;
+        public Map_Dialog_Abyss Dlg_Abyss;
+
         public Text Txt_Limit;
 
         void Start()
@@ -63,6 +66,7 @@ namespace Game
             Btn_Shengxiao.onClick.AddListener(OnClick_Shengxiao);
             Btn_Spirit.onClick.AddListener(OnClick_Spirit);
             Btn_Babel_Myth.onClick.AddListener(OnClick_BabelMyth);
+            Btn_Abyss.onClick.AddListener(OnClick_Abyss);
         }
 
         void OnEnable()
@@ -161,6 +165,16 @@ namespace Game
             {
                 Btn_Spirit.gameObject.SetActive(false);
             }
+
+
+            if (user.Cycle.Data >= 20)
+            {
+                Btn_Abyss.gameObject.SetActive(true);
+            }
+            else
+            {
+                Btn_Abyss.gameObject.SetActive(false);
+            }
         }
 
         public override void OnBattleStart()
@@ -202,7 +216,12 @@ namespace Game
             this.Dlg_Babel_Myth.gameObject.SetActive(true);
         }
 
+        private void OnClick_Abyss()
+        {
+            this.Dlg_Abyss.gameObject.SetActive(true);
+        }
 
+        
         public void OnClose(CloseViewMoreEvent e)
         {
             scrollRect.gameObject.SetActive(false);
@@ -354,6 +373,13 @@ namespace Game
             scrollRect.gameObject.SetActive(false);
 
             GameProcessor.Inst.EventCenter.Raise(new SpiritStartEvent() { Id = id });
+        }
+
+        public void StartAbyss(int id)
+        {
+            scrollRect.gameObject.SetActive(false);
+
+            GameProcessor.Inst.EventCenter.Raise(new AbyssStartEvent() { Id = id });
         }
 
         public void StartWorld(int id)

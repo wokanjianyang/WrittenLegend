@@ -7,32 +7,32 @@ namespace Game
 {
     [ProtoContract]
     [Config]
-    public partial class AbyssRelicCategory : ProtoObject, IMerge
+    public partial class AbyssConfigCategory : ProtoObject, IMerge
     {
-        public static AbyssRelicCategory Instance;
+        public static AbyssConfigCategory Instance;
 		
         [ProtoIgnore]
         [BsonIgnore]
-        private Dictionary<int, AbyssRelic> dict = new Dictionary<int, AbyssRelic>();
+        private Dictionary<int, AbyssConfig> dict = new Dictionary<int, AbyssConfig>();
 		
         [BsonElement]
         [ProtoMember(1)]
-        private List<AbyssRelic> list = new List<AbyssRelic>();
+        private List<AbyssConfig> list = new List<AbyssConfig>();
 		
-        public AbyssRelicCategory()
+        public AbyssConfigCategory()
         {
             Instance = this;
         }
         
         public void Merge(object o)
         {
-            AbyssRelicCategory s = o as AbyssRelicCategory;
+            AbyssConfigCategory s = o as AbyssConfigCategory;
             this.list.AddRange(s.list);
         }
 		
         public override void EndInit()
         {
-            foreach (AbyssRelic config in list)
+            foreach (AbyssConfig config in list)
             {
                 config.EndInit();
                 this.dict.Add(config.Id, config);
@@ -40,13 +40,13 @@ namespace Game
             this.AfterEndInit();
         }
 		
-        public AbyssRelic Get(int id)
+        public AbyssConfig Get(int id)
         {
-            this.dict.TryGetValue(id, out AbyssRelic item);
+            this.dict.TryGetValue(id, out AbyssConfig item);
 
             if (item == null)
             {
-                throw new Exception($"配置找不到，配置表名: {nameof (AbyssRelic)}，配置id: {id}");
+                throw new Exception($"配置找不到，配置表名: {nameof (AbyssConfig)}，配置id: {id}");
             }
 
             return item;
@@ -57,12 +57,12 @@ namespace Game
             return this.dict.ContainsKey(id);
         }
 
-        public Dictionary<int, AbyssRelic> GetAll()
+        public Dictionary<int, AbyssConfig> GetAll()
         {
             return this.dict;
         }
 
-        public AbyssRelic GetOne()
+        public AbyssConfig GetOne()
         {
             if (this.dict == null || this.dict.Count <= 0)
             {
@@ -73,7 +73,7 @@ namespace Game
     }
 
     [ProtoContract]
-	public partial class AbyssRelic: ProtoObject, IConfig
+	public partial class AbyssConfig: ProtoObject, IConfig
 	{
 		/// <summary>Id</summary>
 		[ProtoMember(1)]
@@ -92,7 +92,7 @@ namespace Game
 		public int[] AtrIdList { get; set; }
 		/// <summary>AtrVueList</summary>
 		[ProtoMember(6)]
-		public int[] AtrVueList { get; set; }
+		public double[] AtrVueList { get; set; }
 
 	}
 }

@@ -78,15 +78,15 @@ namespace Game
 		/// <summary>Id</summary>
 		[ProtoMember(1)]
 		public int Id { get; set; }
-		/// <summary>Cycle</summary>
+		/// <summary>Stage</summary>
 		[ProtoMember(2)]
+		public int Stage { get; set; }
+		/// <summary>Cycle</summary>
+		[ProtoMember(3)]
 		public int Cycle { get; set; }
 		/// <summary>MapName</summary>
-		[ProtoMember(3)]
-		public string MapName { get; set; }
-		/// <summary>MonsterName</summary>
 		[ProtoMember(4)]
-		public string MonsterName { get; set; }
+		public string MapName { get; set; }
 		/// <summary>Attr</summary>
 		[ProtoMember(5)]
 		public string Attr { get; set; }

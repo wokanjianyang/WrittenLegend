@@ -506,6 +506,10 @@ namespace Game
                     autoHero = false;
                     this.BattleRule = new BattleRule_Spirit(param);
                     break;
+                case RuleType.Abyss:
+                    autoHero = false;
+                    this.BattleRule = new BattleRule_Abyss(param);
+                    break;
             }
 
             if (autoHero)
@@ -789,6 +793,7 @@ namespace Game
                 case RuleType.Festive:
                 case RuleType.Spirit:
                 case RuleType.BabelMyth:
+                case RuleType.Abyss:
                     ie_autoExitKey = StartCoroutine(this.AutoExitMap(ruleType, time, ConfigHelper.AutoExitMapTime));
                     break;
                 case RuleType.Myth:
@@ -973,6 +978,10 @@ namespace Game
             {
                 this.AutoStartMap(ruleType);
             }
+            else if (ruleType == RuleType.Abyss && AppHelper.Abyss_Auto)
+            {
+                this.AutoStartMap(ruleType);
+            }
             else if (ruleType == RuleType.Myth && AppHelper.Myth_Auto)
             {
                 this.AutoStartMap(ruleType);
@@ -1050,6 +1059,9 @@ namespace Game
                     break;
                 case RuleType.Spirit:
                     this.EventCenter.Raise(new SpiritStartEvent() { Id = AppHelper.Spirit_Id });
+                    break;
+                case RuleType.Abyss:
+                    this.EventCenter.Raise(new AbyssStartEvent() { Id = AppHelper.Abyss_Id });
                     break;
                 case RuleType.Myth:
                     int mapId = this.User.MythData.GetMax() + 1;

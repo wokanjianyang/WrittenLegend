@@ -1,0 +1,12 @@
+{"list":[
+{"_t":"AbyssDropConfig","_id":1,"Type":1,"MapId":1,"Stage":1,"DropId":2031,"DropRate":100},
+{"_t":"AbyssDropConfig","_id":2,"Type":1,"MapId":1,"Stage":2,"DropId":2031,"DropRate":100},
+{"_t":"AbyssDropConfig","_id":3,"Type":1,"MapId":1,"Stage":2,"DropId":2032,"DropRate":20},
+{"_t":"AbyssDropConfig","_id":4,"Type":1,"MapId":1,"Stage":3,"DropId":2031,"DropRate":100},
+{"_t":"AbyssDropConfig","_id":5,"Type":1,"MapId":1,"Stage":3,"DropId":2032,"DropRate":50},
+{"_t":"AbyssDropConfig","_id":6,"Type":1,"MapId":1,"Stage":3,"DropId":2033,"DropRate":20},
+{"_t":"AbyssDropConfig","_id":7,"Type":1,"MapId":1,"Stage":4,"DropId":2031,"DropRate":100},
+{"_t":"AbyssDropConfig","_id":8,"Type":1,"MapId":1,"Stage":4,"DropId":2032,"DropRate":50},
+{"_t":"AbyssDropConfig","_id":9,"Type":1,"MapId":1,"Stage":4,"DropId":2033,"DropRate":50},
+{"_t":"AbyssDropConfig","_id":10,"Type":1,"MapId":1,"Stage":4,"DropId":2034,"DropRate":20},
+]}

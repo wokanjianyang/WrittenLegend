@@ -38,8 +38,11 @@ namespace Game
         public static bool Shengxiao_Auto = false;
         public static int Shengxiao_Id = 1;
 
-        public static bool Spirit_Auto = false;
+        public static bool Spirit_Auto = true;
         public static int Spirit_Id = 1;
+
+        public static bool Abyss_Auto = true;
+        public static int Abyss_Id = 1;
 
         public static bool LegacyAuto = true;
 

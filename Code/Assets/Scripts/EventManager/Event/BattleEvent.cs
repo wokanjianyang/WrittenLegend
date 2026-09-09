@@ -617,6 +617,19 @@ namespace Game
         public int Time { get; set; }
     }
 
+    //--abyss
+
+    public class AbyssStartEvent : SDD.Events.Event
+    {
+        public int Id { get; set; }
+    }
+    public class ShowAbyssInfoEvent : SDD.Events.Event
+    {
+        public int Stage { get; set; }
+        public int Count { get; set; }
+        public int Time { get; set; }
+    }
+
     //--------Fashion
     public class OpenFashionDialogEvent : SDD.Events.Event
     {

@@ -47,6 +47,7 @@ namespace Game
         Festive,
         Shengxiao,
         Spirit,
+        Abyss,
     }
 
     public enum ComponentOrder
