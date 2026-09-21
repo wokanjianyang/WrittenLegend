@@ -117,6 +117,7 @@ namespace Game
 
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 212, 1, 1)); //粉宠物
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 89, 1, 1)); //粉专属
+            //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 88, 1, 1)); //青色专属
 
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 43, 1, 1)); //生肖自选
             //items.Add(ItemHelper.BuildItem(ItemType.GiftPack, 46, 1, 1)); //星座自选

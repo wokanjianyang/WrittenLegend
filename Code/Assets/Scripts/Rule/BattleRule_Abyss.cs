@@ -91,8 +91,6 @@ public class BattleRule_Abyss : ABattleRule
         }
     }
 
-    private static int[] rates = { 10, 20, 40, 60, 80, 100, 120, 140 };
-
     private void BuildReward(AbyssCopyConfig mapConfig)
     {
         int cycle = mapConfig.Cycle;
@@ -105,7 +103,7 @@ public class BattleRule_Abyss : ABattleRule
         for (int i = 0; i < rate; i++)
         {
             int role = RandomHelper.RandomNumber(0, 3);  //道具职业
-            int part = MathHelper.RandomArrayIndex(rates, 1); //道具部位
+            int part = RandomHelper.RandomNumber(1, 9); //道具部位
             int dropId = role * 8 + part;
 
             if (!dropDict.ContainsKey(dropId))

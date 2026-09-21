@@ -46,6 +46,12 @@ namespace Game
                 //Debug.Log("TestExclusive4:" + AppHelper.TestExclusive3);
                 return BuildCycle4(configId, qualityRate, seed);
             }
+            else if (config.Cycle == 5)
+            {
+                //AppHelper.TestExclusive3++;
+                //Debug.Log("TestExclusive4:" + AppHelper.TestExclusive3);
+                return BuildCycle5(configId, qualityRate, seed);
+            }
 
             return null;
         }
@@ -221,6 +227,41 @@ namespace Game
             return item;
         }
 
+        public static ExclusiveItem BuildCycle5(int configId, int qualityRate, int seed)
+        {
+            //if (seed < 0)
+            int quality = RandomNewQualityCycle5(qualityRate);
+
+            int runeId = 0;
+            int suitId = 0;
+
+            SkillRuneConfig runeConfig = SkillRuneConfigCategory.Instance.GetExclusiveRune(quality, seed);
+
+            if (runeConfig != null)
+            {
+                runeId = runeConfig.Id;
+
+                if (runeConfig.SkillId == 0)
+                {
+                    suitId = SkillSuitConfigCategory.Instance.GetSuitIdBySkillLayer(runeConfig.SkillLayer);
+                }
+                else
+                {
+                    suitId = SkillSuitHelper.RandomSuit(seed, runeConfig.SkillId, runeConfig.Type).Id;
+                }
+            }
+
+            ExclusiveItem item = new ExclusiveItem(configId, runeId, suitId, quality, 0);
+            if (seed < 0)
+            {
+                seed = AppHelper.InitSeed();
+            }
+            item.Init(seed);
+
+            item.Count = 1;
+            return item;
+
+        }
         public static ExclusiveItem BuildByPack(int configId)
         {
             GiftPackExclusiveConfig config = GiftPackExclusiveConfigCategory.Instance.Get(configId);
@@ -329,6 +370,36 @@ namespace Game
                     }
 
                     return 9 - i - start;
+                }
+            }
+
+            return 1;
+        }
+
+        private static int RandomNewQualityCycle5(double qualityRate)
+        {
+            int[] rates = { 1, 4, 16, 100, 1000, 10000, 100000, 600000, 900000, 2000000 };
+
+            //int[] rates = { 1, 10, 200, 300, 400, 500, 600, 700, 800 };
+            int start = 0;
+
+            int r = RandomHelper.RandomNumber(0, rates[9]);
+
+            r = (int)(r / qualityRate);
+
+            //Debug.Log("qualityRate :" + qualityRate + " Rate:" + r);
+
+            for (int i = 0; i < rates.Length; i++)
+            {
+                if (r < rates[i])
+                {
+                    if (i == 0)
+                    {
+                        //防止SL，给最高品质-1
+                        start = AppHelper.GetLossQuality();
+                    }
+
+                    return 10 - i - start;
                 }
             }
 

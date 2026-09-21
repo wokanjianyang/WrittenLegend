@@ -73,6 +73,10 @@ namespace Game
         public Dropdown dp_Exclusive_Hundun_Keep;
         public Dropdown dp_Exclusive_Hundun_Recovery;
 
+        [Title("永恒专属")]
+        public Dropdown dp_Exclusive_Xuwu_Keep;
+        public Dropdown dp_Exclusive_Xuwu_Recovery;
+
         [Title("其他")]
         public InputField ifSpeicalLevel;
         public InputField if_Halidom;
@@ -184,6 +188,13 @@ namespace Game
             dp_Exclusive_Hundun_Recovery.ClearOptions();
             dp_Exclusive_Hundun_Recovery.AddOptions(new List<string>() { "无", "白色", "绿色", "蓝色", "紫色", "橙色", "红色", "金色", "暗金", "粉色" });
 
+            //创世专属
+            dp_Exclusive_Xuwu_Keep.ClearOptions();
+            dp_Exclusive_Xuwu_Keep.AddOptions(new List<string>() { "无", "金色", "暗金", "粉色", "青色" });
+
+            dp_Exclusive_Xuwu_Recovery.ClearOptions();
+            dp_Exclusive_Xuwu_Recovery.AddOptions(new List<string>() { "无", "白色", "绿色", "蓝色", "紫色", "橙色", "红色", "金色", "暗金", "粉色", "青色" });
+
             User user = GameProcessor.Inst.User;
             RecoverySettingNew setting = user.RecoveryNew;
 
@@ -271,6 +282,10 @@ namespace Game
             //永恒专属
             dp_Exclusive_Hundun_Recovery.value = setting.Exclusive_Recovery_Hundun;
             dp_Exclusive_Hundun_Keep.value = setting.Exclusive_Keep_Hundun;
+
+            //虚无专属
+            dp_Exclusive_Xuwu_Recovery.value = setting.Exclusive_Recovery_Xuwu;
+            dp_Exclusive_Xuwu_Keep.value = setting.Exclusive_Keep_Xuwu;
         }
 
 
@@ -382,6 +397,9 @@ namespace Game
             setting.Exclusive_Recovery_Hundun = dp_Exclusive_Hundun_Recovery.value;
             setting.Exclusive_Keep_Hundun = dp_Exclusive_Hundun_Keep.value;
 
+            //虚无专属
+            setting.Exclusive_Recovery_Xuwu = dp_Exclusive_Xuwu_Recovery.value;
+            setting.Exclusive_Keep_Xuwu = dp_Exclusive_Xuwu_Keep.value;
 
             //立即执行一次回收
             GameProcessor.Inst.EventCenter.Raise(new AutoRecoveryEvent() { RuleType = RuleType.Normal });

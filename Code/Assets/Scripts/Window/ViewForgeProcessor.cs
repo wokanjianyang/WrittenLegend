@@ -74,6 +74,13 @@ public class ViewForgeProcessor : AViewPage
     public Panel_Devour_Hundun PanelDevourHundun;
 
     public Toggle toggle_ExclusiveHundunUp;
+    public Panel_Exclusive_Up_Hundun PanelExclusiveHunduUp;
+
+    public Toggle toggle_ExclusiveXuwu;
+    public Panel_Devour_Xuwu PanelDevourXuwu;
+
+    public Toggle toggle_ExclusiveXuwuUp;
+    public Panel_Exclusive_Up_Xuwu PanelExclusiveXuwuUp;
 
     public Toggle toggle_GradeSpecail;
     public Panel_Grade_Specail PanelGradeSpecail;
@@ -216,6 +223,20 @@ public class ViewForgeProcessor : AViewPage
             PanelDevourHundun.gameObject.SetActive(isOn);
         });
 
+        this.toggle_ExclusiveHundunUp.onValueChanged.AddListener((isOn) =>
+        {
+            PanelExclusiveHunduUp.gameObject.SetActive(isOn);
+        });
+
+        this.toggle_ExclusiveXuwu.onValueChanged.AddListener((isOn) =>
+        {
+            PanelDevourXuwu.gameObject.SetActive(isOn);
+        });
+
+        this.toggle_ExclusiveXuwuUp.onValueChanged.AddListener((isOn) =>
+        {
+            PanelExclusiveXuwuUp.gameObject.SetActive(isOn);
+        });
 
         this.toggle_GradeSpecail.onValueChanged.AddListener((isOn) =>
         {
@@ -343,10 +364,23 @@ public class ViewForgeProcessor : AViewPage
         if (user.MapId >= 1200)
         {
             toggle_ExclusiveHundun.gameObject.SetActive(true);
+            toggle_ExclusiveHundunUp.gameObject.SetActive(true);
         }
         else
         {
             toggle_ExclusiveHundun.gameObject.SetActive(false);
+            toggle_ExclusiveHundunUp.gameObject.SetActive(false);
+        }
+
+        if (user.MapId >= 1240)
+        {
+            toggle_ExclusiveXuwu.gameObject.SetActive(true);
+            toggle_ExclusiveXuwuUp.gameObject.SetActive(true);
+        }
+        else
+        {
+            toggle_ExclusiveXuwu.gameObject.SetActive(false);
+            toggle_ExclusiveXuwuUp.gameObject.SetActive(false);
         }
 
         if (user.MapId >= 1201)
