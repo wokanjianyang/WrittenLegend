@@ -2476,6 +2476,10 @@ namespace Game
                 {
                     dict[ItemHelper.SpecialId_Exclusive_Hundun] = 1;
                 }
+                else if (exclusive.ExclusiveConfig.Cycle >= 5 && exclusive.GetQuality() == 10)
+                {
+                    dict[ItemHelper.SpecialId_Exclusive_Xuwu] = 1;
+                }
                 else
                 {
                     dict[ItemHelper.SpecialId_Exclusive_Stone] = item.GetQuality() * 1;

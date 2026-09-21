@@ -45,7 +45,7 @@ public class Panel_Exclusive_Up_Xuwu : MonoBehaviour
     void Start()
     {
         //GameProcessor.Inst.EventCenter.AddListener<BoxSelectEvent>(this.OnBoxSelect);
-        ExclusiveDevourConfig config = ExclusiveDevourConfigCategory.Instance.GetByCycleAndLevel(3, 1);
+        ExclusiveDevourConfig config = ExclusiveDevourConfigCategory.Instance.GetByCycleAndLevel(5, 1);
 
         ItemIdList = config.UpItemIdList;
         ItemCountList = config.UpItemCountList;

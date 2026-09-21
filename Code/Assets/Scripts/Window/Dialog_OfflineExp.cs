@@ -67,6 +67,7 @@ namespace Game
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Golden, 150)); //传奇精华
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Dark, 150)); //不朽精华
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Hundun, 150)); //永恒精华
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Xuwu, 3600)); //创世精华
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Stone_Set, 999)); //开孔石
 
             //items.Add(ItemHelper.BuildMaterial(50000106, 10000)); //十六阶装备升阶石
