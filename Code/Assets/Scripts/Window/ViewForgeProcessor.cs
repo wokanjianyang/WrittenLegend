@@ -346,10 +346,12 @@ public class ViewForgeProcessor : AViewPage
         if (user.MapId >= 1169)
         {
             toggle_ExclusiveDark.gameObject.SetActive(true);
+            toggle_ExclusiveDarkUp.gameObject.SetActive(true);
         }
         else
         {
             toggle_ExclusiveDark.gameObject.SetActive(false);
+            toggle_ExclusiveDarkUp.gameObject.SetActive(false);
         }
 
         if (user.MapId >= 1175)
