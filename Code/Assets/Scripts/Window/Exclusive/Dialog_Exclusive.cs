@@ -70,7 +70,7 @@ namespace Game
                 Toggle_Cycle_List[3].gameObject.SetActive(false);
             }
 
-            if (user.MapId >= 1244 && !ac)
+            if (user.MapId >= 1240 && !ac)
             {
                 Toggle_Cycle_List[4].gameObject.SetActive(true);
             }
