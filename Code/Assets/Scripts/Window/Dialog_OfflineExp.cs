@@ -47,15 +47,15 @@ namespace Game
             List<Item> items = new List<Item>();
 
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Legacy_Ticket, 300)); //传世卷
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Copy_Ticket, 40000)); //装备卷
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, 4000)); //BOSS卷
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Level_Stone, 40000));  //羽毛
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Copy_Ticket, 80000)); //装备卷
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Boss_Ticket, 8000)); //BOSS卷
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Level_Stone, 80000));  //羽毛
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Wing_Stone, 100));  //幻境劵
 
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Reform_Stone, 2000)); //专属碎片
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Pill2, 10000)); //练气
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Pill3, 10000)); //炼神
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Pill4, 10000)); //炼魂
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Reform_Stone, 10000)); //专属碎片
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Pill2, 20000)); //练气
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Pill3, 20000)); //炼神
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Pill4, 20000)); //炼魂
 
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Talent_Book, 80)); //精炼石
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Red_Stone, 999)); //红装精华
@@ -64,10 +64,10 @@ namespace Game
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Equip_Hundun, 999)); //混沌精华
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Equip_Xuwu, 999)); //虚无精华
 
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Golden, 150)); //传奇精华
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Dark, 150)); //不朽精华
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Hundun, 150)); //永恒精华
-            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Xuwu, 3600)); //创世精华
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Golden, 1200)); //传奇精华
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Dark, 1200)); //不朽精华
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Hundun, 1200)); //永恒精华
+            //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Exclusive_Xuwu, 1200)); //创世精华
             //items.Add(ItemHelper.BuildMaterial(ItemHelper.SpecialId_Stone_Set, 999)); //开孔石
 
             //items.Add(ItemHelper.BuildMaterial(50000106, 10000)); //十六阶装备升阶石
