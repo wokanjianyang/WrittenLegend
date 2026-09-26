@@ -92,6 +92,7 @@ namespace Game
             //user.SaveArtifactLevel(180011, 1); //锤子
             //user.SaveArtifactLevel(180013, 1); //金蛟剪
             //user.SaveArtifactLevel(180015, 1); //财富契约
+            //user.SaveArtifactLevel(180018, 1); //摄魂瓶
             //user.SaveArtifactLevel(180020, 1); //传世之源
             //user.SaveArtifactLevel(180021, 1); //神戒之源
             //user.SaveArtifactLevel(180030, 1); //极。卖身契
