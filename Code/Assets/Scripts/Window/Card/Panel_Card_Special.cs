@@ -21,6 +21,7 @@ public class Panel_Card_Special : MonoBehaviour
 
     private int Rid = 0;
     private int SelectId = 0;
+    private int Type = 1;
 
     // Start is called before the first frame update
     void Awake()
@@ -37,15 +38,16 @@ public class Panel_Card_Special : MonoBehaviour
         }
     }
 
-    public void Show()
+    public void Show(int type)
     {
+        this.Type = type;
         this.gameObject.SetActive(true);
 
         this.Init();
 
         User user = GameProcessor.Inst.User;
 
-        int groupLevel = user.GetCardSpecialGroupLevel(); //user.GetRelicGroupLevel(Rid);
+        int groupLevel = user.GetCardSpecialGroupLevel(this.Type); //user.GetRelicGroupLevel(Rid);
 
         double groupValue = groupLevel * 1;
 
@@ -53,16 +55,25 @@ public class Panel_Card_Special : MonoBehaviour
 
         string color = groupValue >= 0 ? "#D8CAB0" : "#4D4D4d";
 
-        string des = string.Format("仙鉴玄心【{0}级】： 低于暗金的图鉴，额外增加的{0}%属性", groupLevel, groupValue);
+        if (this.Type == 1)
+        {
+            string des = string.Format("仙鉴玄心【{0}级】： 低于暗金的图鉴，额外增加的{0}%属性", groupLevel, groupValue);
 
-        this.Txt_Group.text = string.Format("<color={0}>{1}</color>", color, des);
+            this.Txt_Group.text = string.Format("<color={0}>{1}</color>", color, des);
+        }
+        else
+        {
+            string des = string.Format("神鉴妙心【{0}级】： 低于暗金的图鉴，额外增加的{0}%属性", groupLevel, groupValue);
+
+            this.Txt_Group.text = string.Format("<color={0}>{1}</color>", color, des);
+        }
     }
 
     private void Init()
     {
         Btn_Active.gameObject.SetActive(false);
 
-        List<CardSpecialConfig> list = CardSpecialConfigCategory.Instance.GetAll().Select(m => m.Value).ToList();
+        List<CardSpecialConfig> list = CardSpecialConfigCategory.Instance.GetAll().Select(m => m.Value).Where(m => m.Type == this.Type).ToList();
 
         for (int i = 0; i < list.Count; i++)
         {
@@ -143,6 +154,6 @@ public class Panel_Card_Special : MonoBehaviour
 
         GameProcessor.Inst.UpdateInfo();
 
-        Show();
+        Show(this.Type);
     }
 }

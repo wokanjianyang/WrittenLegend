@@ -14,7 +14,8 @@ public class Dialog_Card : MonoBehaviour
     public Toggle toggle_Skip;
 
     private int SelectStage = 0;
-    public List<Toggle> toggleStageList = new List<Toggle>();
+    public Transform Tf_Tgs;
+    private List<Toggle> toggleStageList = new List<Toggle>();
 
     public Panel_Card panel1;
     public Panel_Card_Special panel2;
@@ -24,6 +25,8 @@ public class Dialog_Card : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        toggleStageList = Tf_Tgs.GetComponentsInChildren<Toggle>().ToList();
+
         this.btn_Close.onClick.AddListener(OnClick_Close);
         this.Btn_Batch.onClick.AddListener(OnClick_Batch);
 
@@ -50,10 +53,10 @@ public class Dialog_Card : MonoBehaviour
     {
         this.SelectStage = index;
 
-        if (index == 4)
+        if (index >= 4)
         {
             this.panel1.gameObject.SetActive(false);
-            this.panel2.Show();
+            this.panel2.Show(index - 3);
         }
         else
         {

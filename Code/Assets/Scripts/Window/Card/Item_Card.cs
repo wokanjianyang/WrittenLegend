@@ -71,7 +71,7 @@ namespace Game
         {
             User user = GameProcessor.Inst.User;
 
-            int groupLevel = user.GetCardSpecialGroupLevel();
+            int groupLevel = user.GetCardSpecialGroupLevel(1) + user.GetCardSpecialGroupLevel(2);
 
             long cardLevel = user.GetCardLevel(Config.Id);
 

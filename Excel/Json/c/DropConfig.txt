@@ -560,6 +560,7 @@
 {"_t":"DropConfig","_id":2020,"Level":0,"Name":"第三批蓝图鉴","Quantity":1,"ItemType":11,"ItemIdList":[2000321,2000322,2000323,2000324,2000325,2000326]},
 {"_t":"DropConfig","_id":2021,"Level":0,"Name":"第三批紫图鉴","Quantity":1,"ItemType":11,"ItemIdList":[2000327,2000328,2000329]},
 {"_t":"DropConfig","_id":2022,"Level":0,"Name":"暗金图鉴","Quantity":1,"ItemType":11,"ItemIdList":[1998001,1998002,1998003,1998004,1998005]},
+{"_t":"DropConfig","_id":2023,"Level":0,"Name":"粉色图鉴","Quantity":1,"ItemType":11,"ItemIdList":[1998006,1998007,1998008,1998009,1998010]},
 {"_t":"DropConfig","_id":2031,"Level":0,"Name":"绿色英灵","Quantity":1,"ItemType":30,"ItemIdList":[2100022,2100023,2100024,2100025,2100026,2100027]},
 {"_t":"DropConfig","_id":2032,"Level":0,"Name":"蓝色英灵","Quantity":1,"ItemType":30,"ItemIdList":[2100019,2100020,2100021]},
 {"_t":"DropConfig","_id":2033,"Level":0,"Name":"紫色英灵","Quantity":1,"ItemType":30,"ItemIdList":[2100016,2100017,2100018]},

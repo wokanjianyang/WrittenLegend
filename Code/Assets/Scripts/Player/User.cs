@@ -691,7 +691,7 @@ namespace Game
             }
 
             //图鉴属性
-            int cardGroupLevel = GetCardSpecialGroupLevel();
+            int cardGroupLevel = GetCardSpecialGroupLevel(1) + GetCardSpecialGroupLevel(2);
             foreach (var sp in this.CardData)
             {
                 if (sp.Value.Data > 0)
@@ -1841,12 +1841,12 @@ namespace Game
 
         public IDictionary<int, int> GetCurrentFestive()
         {
-            return this.FestiveData_0902;
+            return this.FestiveData_1001;
         }
 
         public FestiveMapData GetCurrentMapFestive()
         {
-            return this.FestiveMapData091;
+            return this.FestiveMapData10;
         }
 
         public int GetFestiveCount(int id)
@@ -2016,10 +2016,10 @@ namespace Game
             CardSpecialData[cardId].Data += level;
         }
 
-        public int GetCardSpecialGroupLevel()
+        public int GetCardSpecialGroupLevel(int type)
         {
-            int startId = 1;
-            int endId = 5;
+            int startId = 1 + (type - 1) * 5;
+            int endId = 5 + (type - 1) * 5;
 
             long groupLevel = 999999;
 

@@ -64,7 +64,7 @@ namespace Game
             });
 
             dp_InfoColor.ClearOptions();
-            dp_InfoColor.AddOptions(new List<string>() { "白色", "绿色", "蓝色", "紫色", "橙色", "红色", "金色" });
+            dp_InfoColor.AddOptions(new List<string>() { "白色", "绿色", "蓝色", "紫色", "橙色", "红色", "金色", "暗金", "粉色" });
 
             dp_InfoColor.onValueChanged.AddListener(this.onValueChange);
 

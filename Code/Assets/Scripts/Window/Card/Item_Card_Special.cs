@@ -56,7 +56,10 @@ namespace Game
                 return;
             }
 
-            this.Txt_Name.text = Config.Name.Insert(2, "\n"); ;
+            string name = Config.Name.Insert(2, "\n"); QualityConfigHelper.GetQualityColor(1);
+            string color = QualityConfigHelper.GetQualityColor(this.Config.Type + 7);
+
+            this.Txt_Name.text = string.Format("<color=#{0}>{1}</color> ", color, name);
 
             User user = GameProcessor.Inst.User;
             int level = user.GetCardSpecialLevel(Config.Id);
