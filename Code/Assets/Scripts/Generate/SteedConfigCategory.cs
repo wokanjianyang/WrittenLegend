@@ -62,7 +62,19 @@ namespace Game
 
             int quality = itemConfig.Quality;
 
-            int total = quality >= 8 ? quality * 45 : quality * 30;
+            int total = quality * 30;
+            int maxVue = 70;
+
+            if (quality == 8)
+            {
+                total = quality * 48;
+            }
+            else if (quality == 9)
+            {
+                total = quality * 70;
+                maxVue = 100;
+            }
+
             int tempTotal = 0;
 
             for (int i = 1; i <= quality; i++)
@@ -73,9 +85,9 @@ namespace Game
 
                 //Debug.Log("avg:" + avg);
 
-                int attrValue = quality >= 8 ? RandomHelper.RandomNumber(Math.Max(20, avg - 22), Math.Min(70, avg + 23)) : RandomHelper.RandomNumber(Math.Max(10, avg - 15), Math.Min(50, avg + 15)); ;
+                int attrValue = quality >= 8 ? RandomHelper.RandomNumber(Math.Max(20, avg - 22), Math.Min(maxVue, avg + 23)) : RandomHelper.RandomNumber(Math.Max(10, avg - 15), Math.Min(50, avg + 15)); ;
 
-                flairs.Add(new KeyValuePair<int, int>(config.AttrId, Math.Min(70, attrValue)));
+                flairs.Add(new KeyValuePair<int, int>(config.AttrId, Math.Min(maxVue, attrValue)));
 
                 tempTotal += attrValue;
             }

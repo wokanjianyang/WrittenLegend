@@ -12,4 +12,5 @@
 {"_t":"EquipReformFeeConfig","_id":11,"StartLevel":751,"EndLevel":1000,"BaseFee":658300,"RiseFee":6000,"StoneFee":25},
 {"_t":"EquipReformFeeConfig","_id":12,"StartLevel":1001,"EndLevel":1200,"BaseFee":2152300,"RiseFee":9000,"StoneFee":35},
 {"_t":"EquipReformFeeConfig","_id":13,"StartLevel":1201,"EndLevel":1500,"BaseFee":3943300,"RiseFee":15000,"StoneFee":50},
+{"_t":"EquipReformFeeConfig","_id":14,"StartLevel":1501,"EndLevel":2000,"BaseFee":8428300,"RiseFee":25000,"StoneFee":80},
 ]}

@@ -63,4 +63,12 @@
 {"_t":"RelicConfig","_id":62,"Type":8,"Cycle":2,"ItemId":61000062,"Name":"极雀护戒","AttrIdList":[2001,2012,2003,2013],"AttrValueList":[15,20,25,15],"AttrRiseList":[15,20,25,15]},
 {"_t":"RelicConfig","_id":63,"Type":8,"Cycle":2,"ItemId":61000063,"Name":"极雀腰带","AttrIdList":[2001,2012,2003,2013],"AttrValueList":[15,20,25,15],"AttrRiseList":[15,20,25,15]},
 {"_t":"RelicConfig","_id":64,"Type":8,"Cycle":2,"ItemId":61000064,"Name":"极雀战靴","AttrIdList":[2001,2012,2003,2013],"AttrValueList":[15,20,25,15],"AttrRiseList":[15,20,25,15]},
+{"_t":"RelicConfig","_id":65,"Type":8,"Cycle":2,"ItemId":61000065,"Name":"极玄神剑","AttrIdList":[2001,2012,2003,2013],"AttrValueList":[15,20,25,15],"AttrRiseList":[15,20,25,15]},
+{"_t":"RelicConfig","_id":66,"Type":8,"Cycle":2,"ItemId":61000066,"Name":"极玄神甲","AttrIdList":[2001,2012,2003,2013],"AttrValueList":[15,20,25,15],"AttrRiseList":[15,20,25,15]},
+{"_t":"RelicConfig","_id":67,"Type":8,"Cycle":2,"ItemId":61000067,"Name":"极玄面罩","AttrIdList":[2001,2012,2003,2013],"AttrValueList":[15,20,25,15],"AttrRiseList":[15,20,25,15]},
+{"_t":"RelicConfig","_id":68,"Type":8,"Cycle":2,"ItemId":61000068,"Name":"极玄项链","AttrIdList":[2001,2012,2003,2013],"AttrValueList":[15,20,25,15],"AttrRiseList":[15,20,25,15]},
+{"_t":"RelicConfig","_id":69,"Type":8,"Cycle":2,"ItemId":61000069,"Name":"极玄护腕","AttrIdList":[2001,2012,2003,2013],"AttrValueList":[15,20,25,15],"AttrRiseList":[15,20,25,15]},
+{"_t":"RelicConfig","_id":70,"Type":8,"Cycle":2,"ItemId":61000070,"Name":"极玄护戒","AttrIdList":[2001,2012,2003,2013],"AttrValueList":[15,20,25,15],"AttrRiseList":[15,20,25,15]},
+{"_t":"RelicConfig","_id":71,"Type":8,"Cycle":2,"ItemId":61000071,"Name":"极玄腰带","AttrIdList":[2001,2012,2003,2013],"AttrValueList":[15,20,25,15],"AttrRiseList":[15,20,25,15]},
+{"_t":"RelicConfig","_id":72,"Type":8,"Cycle":2,"ItemId":61000072,"Name":"极玄战靴","AttrIdList":[2001,2012,2003,2013],"AttrValueList":[15,20,25,15],"AttrRiseList":[15,20,25,15]},
 ]}

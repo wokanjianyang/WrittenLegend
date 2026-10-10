@@ -37,7 +37,14 @@ namespace Game
             this.Type = ItemType.Steed;
             this.Role = role;
             this.ConfigId = configId;
-            this.Name = ConfigHelper.SteedName[Role - 1];
+            if (configId <= 8308)
+            {
+                this.Name = ConfigHelper.SteedName[Role - 1];
+            }
+            else
+            {
+                this.Name = ConfigHelper.SteedName1[Role - 1];
+            }
 
         }
 
@@ -87,7 +94,7 @@ namespace Game
         {
             this.LevelExp.Data += exp;
 
-            long fee =  SteedConfigCategory.Instance.GetFee(SteedLevel.Data);
+            long fee = SteedConfigCategory.Instance.GetFee(SteedLevel.Data);
 
             if (this.LevelExp.Data >= fee)
             {

@@ -7,4 +7,5 @@
 {"_t":"RelicGroupConfig","_id":6,"Name":"极龙之力","Cyle":2,"AttrId":3117,"AttrValue":300,"RiseAttr":3,"RiseType":2,"Des":"青龙之力的伤害提高{0}%（下一级+{1}）的伤害"},
 {"_t":"RelicGroupConfig","_id":7,"Name":"极虎之命","Cyle":2,"AttrId":3118,"AttrValue":300,"RiseAttr":3,"RiseType":2,"Des":"白虎之命的血量提高{0}%（下一级+{1}）"},
 {"_t":"RelicGroupConfig","_id":8,"Name":"极雀之神","Cyle":2,"AttrId":3119,"AttrValue":300,"RiseAttr":3,"RiseType":2,"Des":"朱雀之神的伤害提高{0}%（下一级+{1}）"},
+{"_t":"RelicGroupConfig","_id":9,"Name":"极玄之神","Cyle":2,"AttrId":3120,"AttrValue":300,"RiseAttr":3,"RiseType":2,"Des":"玄武之破的伤害提高{0}%（下一级+{1}）"},
 ]}
