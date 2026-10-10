@@ -14,7 +14,7 @@ namespace Game
 
             GiftPackPet config = GiftPackPetCategory.Instance.Get(configId);
 
-            Steed steed = new Steed(configId, config.Role);
+            Steed steed = new Steed(config.ItemId, config.Role);
 
             steed.SteedLevel.Data = 1;
             steed.SteedLayer.Data = 1;

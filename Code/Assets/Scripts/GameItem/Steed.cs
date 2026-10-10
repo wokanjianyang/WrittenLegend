@@ -37,15 +37,31 @@ namespace Game
             this.Type = ItemType.Steed;
             this.Role = role;
             this.ConfigId = configId;
-            if (configId <= 8308)
+            if (this.GetCycle() <= 1)
             {
                 this.Name = ConfigHelper.SteedName[Role - 1];
             }
-            else
+            else if (this.GetCycle() == 2)
             {
                 this.Name = ConfigHelper.SteedName1[Role - 1];
             }
+        }
 
+        private int GetCycle()
+        {
+            int cycle = 1;
+            if (this.ConfigId == 8309)
+            {
+                cycle = 2;
+            }
+            return cycle;
+        }
+        public int GetKey()
+        {
+            int cycle = this.GetCycle();
+            int key = (cycle - 1) * 3 + this.Role;
+
+            return key;
         }
 
         public Dictionary<int, long> GetTotalFlairs()

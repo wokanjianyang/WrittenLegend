@@ -907,7 +907,7 @@ namespace Game
 
             Steed steed = e.BoxItem.Item as Steed;
 
-            int key = steed.Role;
+            int key = steed.GetKey();
             if (user.SteedDict.ContainsKey(key))
             {
                 GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "已经上阵了此坐骑", ToastType = ToastTypeEnum.Failure });
@@ -1089,7 +1089,7 @@ namespace Game
                     expCount += PetConfigCategory.Instance.GetFeeTotal(level);
                     layerCount = PetConfigCategory.Instance.GetPetLayerFeeTotal(layer);
                 }
-      
+
 
                 pet.PetLayer.Data = 1;
                 pet.PetLevel.Data = 1;
@@ -1176,7 +1176,8 @@ namespace Game
                     id2 = ItemHelper.Specail_Xingzuo1;
                     id3 = ItemHelper.Specail_Xingzuo2;
                 }
-                else if (pet.ShengxiaoConfig.Cycle == 3) {
+                else if (pet.ShengxiaoConfig.Cycle == 3)
+                {
                     id1 = ItemHelper.Specail_Minggong;
                     id2 = ItemHelper.Specail_Minggong1;
                     id3 = ItemHelper.Specail_Minggong2;
