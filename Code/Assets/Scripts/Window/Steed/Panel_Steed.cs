@@ -55,13 +55,18 @@ public class Panel_Steed : MonoBehaviour, IBattleLife
         SteedItems.Remove(item);
         GameObject.Destroy(item.gameObject);
 
-        user.SteedDict.Remove(steed.Role);
+        int key = steed.GetKey();
 
-        List<Item> items = new List<Item>();
-        items.Add(steed);
-        if (items.Count > 0)
+        if (user.SteedDict.ContainsKey(key))
         {
-            GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+            user.SteedDict.Remove(key);
+
+            List<Item> items = new List<Item>();
+            items.Add(steed);
+            if (items.Count > 0)
+            {
+                GameProcessor.Inst.User.EventCenter.Raise(new HeroBagUpdateEvent() { ItemList = items });
+            }
         }
 
         user.EventCenter.Raise(new HeroUnUseEquipEvent() { });
