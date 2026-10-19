@@ -37,4 +37,9 @@
 {"_t":"ArtifactConfig","_id":43,"ItemId":180043,"Name":"极·炼魂证明","Type":43,"AttrValue":5,"MaxCount":40,"Quality":7,"Des":"炼魂秘境的产出提高5%"},
 {"_t":"ArtifactConfig","_id":44,"ItemId":180044,"Name":"极戒之源","Type":44,"AttrValue":1,"MaxCount":20,"Quality":7,"Des":"极戒等级上限+1"},
 {"_t":"ArtifactConfig","_id":45,"ItemId":180045,"Name":"道戒之源","Type":45,"AttrValue":1,"MaxCount":20,"Quality":7,"Des":"道戒等级上限+1"},
+{"_t":"ArtifactConfig","_id":46,"ItemId":180046,"Name":"神宠契约","Type":46,"AttrValue":5,"MaxCount":10,"Quality":8,"Des":"神宠等级上线+5"},
+{"_t":"ArtifactConfig","_id":47,"ItemId":180047,"Name":"仙宠契约","Type":47,"AttrValue":5,"MaxCount":10,"Quality":8,"Des":"仙宠等级上线+1"},
+{"_t":"ArtifactConfig","_id":48,"ItemId":180048,"Name":"坐骑契约","Type":48,"AttrValue":5,"MaxCount":10,"Quality":8,"Des":"坐骑等级上限+5"},
+{"_t":"ArtifactConfig","_id":49,"ItemId":180049,"Name":"英灵契约","Type":49,"AttrValue":1,"MaxCount":10,"Quality":8,"Des":"英灵等级上限+1"},
+{"_t":"ArtifactConfig","_id":50,"ItemId":180050,"Name":"深渊契约","Type":50,"AttrValue":1,"MaxCount":10,"Quality":8,"Des":"深渊等级上限+1"},
 ]}
