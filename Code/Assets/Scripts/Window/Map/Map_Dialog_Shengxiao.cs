@@ -74,24 +74,40 @@ public class Map_Dialog_Shengxiao : MonoBehaviour
             tgTypeList[1].gameObject.SetActive(false);
         }
 
-
         if (user.Cycle.Data < 25)
         {
             tgTypeList[2].gameObject.SetActive(false);
         }
 
-        bool ac = ConfigHelper.AC == ConfigHelper.Channel_Tap || user.Account == "";
-
-        ShengxiaoGroup gp = user.GetShengxiaoGroup(SelectLayer);
-
-        ShengxiaoGroupItem item = gp.List.Where(m => m.Config.Count >= 9 && m.Count >= 11).FirstOrDefault();
-
-        int max = item != null && !ac ? item.Config.Quality - 5 : 0;
+        int max = GetMaxLayer(SelectLayer);
 
         for (int i = 0; i < items.Count; i++)
         {
             items[i].SetMax(SelectLayer, max + 1);
         }
+    }
+
+    private int GetMaxLayer(int cycle)
+    {
+        User user = GameProcessor.Inst.User;
+
+        int startKey = (cycle - 1) * 12 + 1;
+        int endKey = (cycle - 1) * 12 + 12;
+
+        List<Shengxiao> equips = user.ShengxiaoList.Where(m => m.Key >= startKey && m.Key <= endKey).Select(m => m.Value).ToList();
+
+        for (int i = 0; i < 3; i++)
+        {
+            int quality = 8 - i;
+            int count = equips.Where(m => m.GetQuality() >= quality).Count();
+
+            if (count >= 11)
+            {
+                return 3 - i;
+            }
+        }
+
+        return 0;
     }
 
 
