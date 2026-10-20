@@ -70,7 +70,7 @@ namespace Game
 
             AttributeBonus.SetAttr(AttributeEnum.Speed, AttributeFrom.HeroPanel, user.AttributeBonus.GetTotalAttrDouble(AttributeEnum.Speed) / 2);
 
-            //Debug.Log("myth Def:" + AttributeBonus.GetTotalAttrDouble(AttributeEnum.Def));
+            //Debug.Log("myth hp:" + AttributeBonus.GetTotalAttrDouble(AttributeEnum.HP));
             //Debug.Log("myth PhyAtt:" + AttributeBonus.GetTotalAttrDouble(AttributeEnum.PhyAtt));
 
             //回满当前血量
@@ -89,7 +89,7 @@ namespace Game
 
                 if (ringLevel >= ringConfig.RequireLevel && !user.RingSelect.ContainsKey(sp.Key))
                 {
-                    if (ringConfig.SkillId > 0)
+                    if (ringConfig.SkillId > 0 && ringConfig.Type <= 2 )  //只有普通戒指和极戒指会上阵对应技能
                     {
                         SkillData sd = list.Where(m => m.SkillId == ringConfig.SkillId).FirstOrDefault();
                         if (sd == null)
