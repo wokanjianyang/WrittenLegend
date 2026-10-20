@@ -126,6 +126,9 @@ namespace Game
 		/// <summary>Miss</summary>
 		[ProtoMember(17)]
 		public int Miss { get; set; }
+		/// <summary>Strong</summary>
+		[ProtoMember(18)]
+		public double Strong { get; set; }
 
 	}
 }

@@ -25,6 +25,15 @@ public class BattleRule_Myth : ABattleRule
 
         this.MapId = (int)mapId;
         this.LoadHero();
+
+        if (MapId <= 48)
+        {
+            LayerCount = new int[] { 10, 8, 6, 4, 2 };
+        }
+        else if (MapId <= 72)
+        {
+            LayerCount = new int[] { 16, 12, 10, 8, 4 };
+        }
     }
 
     private void LoadHero()
@@ -48,6 +57,7 @@ public class BattleRule_Myth : ABattleRule
         {
             MapTime += currentRoundTime;
         }
+
         GameProcessor.Inst.EventCenter.Raise(new ShowMythInfoEvent() { Layer = CurrentLayer, Time = (int)(MaxTime - MapTime) });
 
         //Debug.Log("create pill MapTime:" + MapTime);

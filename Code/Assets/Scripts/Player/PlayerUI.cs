@@ -45,7 +45,7 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
 
     private float effectTime = 0;
 
-    private float damageTime = 0;
+    private float damageTime = 0.2f;
 
     private float restoreTime = 0;
 
@@ -250,44 +250,49 @@ public class PlayerUI : MonoBehaviour, IPlayer, IPointerClickHandler
     private List<ShowMsgEvent> msgTaskList = new List<ShowMsgEvent>();
     private void ShowNextToast()
     {
-        if (msgTaskList.Count > 10)
+        if (msgTaskList.Count > 5)
         {
-            this.damageTime = 1 / msgTaskList.Count;
+            this.damageTime = 0.1f;
         }
 
         if (msgTaskList.Count > 0)
         {
-            var e = msgTaskList[0];
-            msgTaskList.RemoveAt(0);
+            int showcount = msgTaskList.Count / 10 + 1;
 
-            var msg = GameObject.Instantiate(PrefabHelper.Instance().MessagePrefab());
-            msg.transform.SetParent(this.tran_Barrage);
-
-            var msgSize = msg.GetComponent<RectTransform>().sizeDelta;
-            var msgMaxY = 60;
-            var msgMinY = -120;
-
-            var msgX = 0;
-
-            msg.transform.localPosition = new Vector3(msgX, msgMinY);
-            var com = msg.GetComponent<Dialog_Msg>();
-
-            var msgColor = QualityConfigHelper.GetMsgColor(e.Type);
-            com.tmp_Msg_Content.text = string.Format("<color=#{0}>{1}</color>", msgColor, e.Content);
-
-            Vector3 scale = new Vector3(1.3f, 1.3f, 0);
-
-            //首先要创建一个DOTween队列
-            Sequence seq = DOTween.Sequence();
-
-            //seq.Append  里面是让主相机振动的临时试验代码
-            seq.Append(msg.transform.DOLocalMoveY(msgMaxY, 1.5f));
-            seq.Join(msg.transform.DOScale(scale, 1.5f));
-
-            seq.AppendCallback(() =>
+            for (int i = 0; i < showcount; i++)
             {
-                GameObject.Destroy(msg);
-            });
+                var e = msgTaskList[0];
+                msgTaskList.RemoveAt(0);
+
+                var msg = GameObject.Instantiate(PrefabHelper.Instance().MessagePrefab());
+                msg.transform.SetParent(this.tran_Barrage);
+
+                var msgSize = msg.GetComponent<RectTransform>().sizeDelta;
+                var msgMaxY = 60 + i * 10;
+                var msgMinY = -120;
+
+                var msgX = 0;
+
+                msg.transform.localPosition = new Vector3(msgX, msgMinY);
+                var com = msg.GetComponent<Dialog_Msg>();
+
+                var msgColor = QualityConfigHelper.GetMsgColor(e.Type);
+                com.tmp_Msg_Content.text = string.Format("<color=#{0}>{1}</color>", msgColor, e.Content);
+
+                Vector3 scale = new Vector3(1.3f, 1.3f, 0);
+
+                //首先要创建一个DOTween队列
+                Sequence seq = DOTween.Sequence();
+
+                //seq.Append  里面是让主相机振动的临时试验代码
+                seq.Append(msg.transform.DOLocalMoveY(msgMaxY, 1.5f));
+                seq.Join(msg.transform.DOScale(scale, 1.5f));
+
+                seq.AppendCallback(() =>
+                {
+                    GameObject.Destroy(msg);
+                });
+            }
         }
     }
 
