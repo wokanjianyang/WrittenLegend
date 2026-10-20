@@ -123,6 +123,9 @@ namespace Game
 		/// <summary>SkillLevelList</summary>
 		[ProtoMember(16)]
 		public int[] SkillLevelList { get; set; }
+		/// <summary>Miss</summary>
+		[ProtoMember(17)]
+		public int Miss { get; set; }
 
 	}
 }
