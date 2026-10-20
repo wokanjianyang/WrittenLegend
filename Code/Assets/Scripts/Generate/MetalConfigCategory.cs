@@ -26,20 +26,20 @@ namespace Game
             return 0;
         }
 
-        public long GetRate(long level)
+        public double GetRate(long level)
         {
             if (this.RisePower > 0)
             {
                 long p = (long)Math.Log(level, this.RiseLog);
-                return (long)Math.Pow(this.RisePower, p);
+                return Math.Pow(this.RisePower, p);
             }
 
             return 1;
         }
 
-        public long GetAttr(long level)
+        public double GetAttr(long level)
         {
-            long attr = this.AttrValue * level * GetRate(level);
+            double attr = this.AttrValue * level * GetRate(level);
             return attr;
         }
     }

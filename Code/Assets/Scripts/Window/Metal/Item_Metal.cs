@@ -52,8 +52,8 @@ namespace Game
             this.Txt_Level.text = $"{level}+{riseLevel}个";
 
 
-            long rate = this.Config.GetRate(level + riseLevel);
-            long val = config.GetAttr(level + riseLevel);
+            double rate = this.Config.GetRate(level + riseLevel);
+            double val = config.GetAttr(level + riseLevel);
             long nr = config.GetNextRate(level + riseLevel);
 
             if (config.AttrId > 0)
