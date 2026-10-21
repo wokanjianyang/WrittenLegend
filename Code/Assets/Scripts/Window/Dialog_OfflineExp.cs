@@ -98,7 +98,10 @@ namespace Game
             //user.SaveArtifactLevel(180030, 1); //极。卖身契
             //user.SaveArtifactLevel(180033, 1); //极。BOSS
             //user.SaveArtifactLevel(180035, 1); //极。魔法
-
+            //user.SaveArtifactLevel(180046, 1); //神宠契约
+            //user.SaveArtifactLevel(180047, 1); //仙宠契约
+            //user.SaveArtifactLevel(180048, 1); //坐骑契约
+            //user.SaveArtifactLevel(180050, 1); //深渊契约
             //user.Record.AddRecord(RecordType.AdReal, -800);
             //user.MagicGold.Data = 100000000000000000L;//10京金币
 
