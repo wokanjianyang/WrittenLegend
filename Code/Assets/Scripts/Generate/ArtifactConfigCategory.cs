@@ -51,6 +51,12 @@ namespace Game
         Pill4 = 43,
         RingLimit1 = 44,
         RingLimit2 = 45,
+
+        PetLimit1 = 46,
+        PetLimit2 = 47,
+        SteedLimit = 48,
+        SpiritLimit = 49,
+        AbyssLimit = 50,
     }
 
 }

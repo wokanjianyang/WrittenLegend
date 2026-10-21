@@ -53,7 +53,7 @@ public class Dialog_Pet_Forge1 : MonoBehaviour
     {
         User user = GameProcessor.Inst.User;
 
-        int maxLevel = this.MaxLevel;
+        int maxLevel = GetMaxLevel();
         long currentLevel = SelectPet.PetLevel.Data;
 
         Txt_Level.text = "当前等级：" + currentLevel + "级（最高等级" + maxLevel + "级）";
@@ -101,6 +101,12 @@ public class Dialog_Pet_Forge1 : MonoBehaviour
         }
     }
 
+    private int GetMaxLevel()
+    {
+        User user = GameProcessor.Inst.User;
+        return this.MaxLevel + user.GetArtifactValue(ArtifactType.PetLimit2);
+    }
+
     public void OnClick_Ok()
     {
         this.Btn_OK.gameObject.SetActive(false);
@@ -112,7 +118,7 @@ public class Dialog_Pet_Forge1 : MonoBehaviour
         long current = SelectPet.LevelExp.Data;
 
         long currentLevel = SelectPet.PetLevel.Data;
-        int maxLevel = MaxLevel;
+        int maxLevel = GetMaxLevel();
         if (currentLevel >= maxLevel)
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "不能超过最大等级", ToastType = ToastTypeEnum.Failure });
@@ -165,7 +171,7 @@ public class Dialog_Pet_Forge1 : MonoBehaviour
             long max = PetConfigCategory.Instance.GetPetFee1(SelectPet.PetLevel.Data);
             long current = SelectPet.LevelExp.Data;
             long currentLevel = SelectPet.PetLevel.Data;
-            int maxLevel = MaxLevel;
+            int maxLevel = GetMaxLevel();
 
             if (currentLevel >= maxLevel)
             {

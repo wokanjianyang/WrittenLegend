@@ -57,7 +57,7 @@ public class Dialog_Steed_Forge : MonoBehaviour
         long currentLevel = SelectSteed.SteedLevel.Data;
         long currentLayer = SelectSteed.SteedLayer.Data;
 
-        long maxLevel = MaxLevel + (currentLayer - 1) * LevelRate;
+        long maxLevel = GetMaxLevel(currentLayer);
 
         Txt_Level.text = "当前等级：" + currentLevel + "级（最高等级" + maxLevel + "级）";
 
@@ -103,6 +103,12 @@ public class Dialog_Steed_Forge : MonoBehaviour
         }
     }
 
+    private long GetMaxLevel(long currentLayer)
+    {
+        User user = GameProcessor.Inst.User;
+        return MaxLevel + (currentLayer - 1) * LevelRate + user.GetArtifactValue(ArtifactType.SteedLimit);
+    }
+
     public void OnClick_Ok()
     {
         this.Btn_OK.gameObject.SetActive(false);
@@ -116,7 +122,7 @@ public class Dialog_Steed_Forge : MonoBehaviour
         long currentLevel = SelectSteed.SteedLevel.Data;
         long currentLayer = SelectSteed.SteedLayer.Data;
 
-        long maxLevel = MaxLevel + (currentLayer - 1) * LevelRate;
+        long maxLevel = GetMaxLevel(currentLayer);
         if (currentLevel >= maxLevel)
         {
             GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "不能超过最大等级", ToastType = ToastTypeEnum.Failure });
@@ -171,7 +177,7 @@ public class Dialog_Steed_Forge : MonoBehaviour
             long currentLevel = SelectSteed.SteedLevel.Data;
             long currentLayer = SelectSteed.SteedLayer.Data;
 
-            long maxLevel = MaxLevel + (currentLayer - 1) * LevelRate;
+            long maxLevel = GetMaxLevel(currentLayer);
 
             if (currentLevel >= maxLevel)
             {
