@@ -75,7 +75,7 @@ public class Panel_Pet_Speical : MonoBehaviour
 
         string des = "(每阶增加宠物20级等级上限，第3阶增加一个宠物位置)"; // ，额外增加的宠物位不能上阵同种宠物
 
-        long maxLevel = ConfigHelper.PetSpeicalMaxLayer;
+        long maxLevel = GetMaxLayer();
 
         string levelDes = string.Format("神宠之力【{0}阶】-【最高" + maxLevel + "阶】：", groupLevel);
 
@@ -101,6 +101,28 @@ public class Panel_Pet_Speical : MonoBehaviour
         SelectItem(this.SelectId);
     }
 
+    private int GetMaxLayer()
+    {
+        User user = GameProcessor.Inst.User;
+
+        int pl = user.GetArtifactValue(ArtifactType.PetLimit1);
+        if (pl > 0)
+        {
+            int rise = (pl - 1) / LayerRate + 1;
+            return ConfigHelper.PetSpeicalMaxLayer + rise;
+        }
+        else
+        {
+            return ConfigHelper.PetSpeicalMaxLayer;
+        }
+    }
+
+    private int GetMaxLevel()
+    {
+        User user = GameProcessor.Inst.User;
+        return ConfigHelper.PetSpeicalMaxLayer * LayerRate + user.GetArtifactValue(ArtifactType.PetLimit1);
+    }
+
     private void SelectItem(int id)
     {
         Debug.Log("select item id:" + id);
@@ -113,10 +135,12 @@ public class Panel_Pet_Speical : MonoBehaviour
         User user = GameProcessor.Inst.User;
 
         int layer = user.GetPetSpeicalLayer(id);
-        int maxLayer = ConfigHelper.PetSpeicalMaxLayer;
+        int maxLayer = GetMaxLayer();
 
         int currentLevel = user.GetPetSpeicalLevel(id);
-        int maxLevel = layer * LayerRate;
+        int gradeLevel = layer * LayerRate;
+
+        int maxLevel = GetMaxLevel();
 
         List<PetSpeicalAttrConfig> configs = PetSpeicalAttrConfigCategory.Instance.GetList(id, Math.Max(layer, 1));
 
@@ -153,7 +177,12 @@ public class Panel_Pet_Speical : MonoBehaviour
             }
 
         }
-        else if (currentLevel < maxLevel)
+        else if (currentLevel >= maxLevel)
+        {
+            //满级，全隐藏
+            txt_Fee.text = "已满级";
+        }
+        else if (currentLevel < gradeLevel)
         {
             //显示升级按钮
             long stoneTotal = user.Bags.Where(m => m.Item.Type == ItemType.Material && m.Item.ConfigId == ItemHelper.SpecialId_Pet_Exp).Select(m => m.MagicNubmer.Data).Sum();
@@ -168,7 +197,7 @@ public class Panel_Pet_Speical : MonoBehaviour
                 Btn_Level_OK.gameObject.SetActive(true);
             }
         }
-        else if (currentLevel >= maxLevel && layer < maxLayer)
+        else if (currentLevel >= gradeLevel && layer < maxLayer)
         {
             //显示进阶按钮
             int materilId = ItemHelper.Specail_Pet_Speical;
@@ -261,7 +290,7 @@ public class Panel_Pet_Speical : MonoBehaviour
 
         int current = user.GetPetSpeicalLayer(this.SelectId);
 
-        long max = ConfigHelper.PetSpeicalMaxLayer;
+        long max = GetMaxLayer();
 
         if (current >= max)
         {
