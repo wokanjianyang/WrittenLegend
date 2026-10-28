@@ -23,7 +23,7 @@ public class Panel_Grade_Hundun : MonoBehaviour
     private const int Quality = 9;
 
     private const int StartPosition = 41;
-    private const int MaxLevel = 6;
+    private const int MaxLevel = 20;
 
     Equip SelectEquip;
 
