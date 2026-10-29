@@ -110,6 +110,50 @@ namespace Game
                 }
                 return BuildEquipCycle6(config, staticQuality, qualityRate, seed);
             }
+            else if (config.Cycle == 7)
+            {
+                User user = GameProcessor.Inst.User;
+                if (user != null)
+                {
+                    int dropLimitId = AppHelper.EquipHm_MaxDropId;
+                    DropData dropData = user.DropDataList.Where(m => m.DropLimitId == dropLimitId).FirstOrDefault();
+
+                    if (dropData == null)
+                    {
+                        dropData = new DropData(dropLimitId);
+                        dropData.Init(user.DeviceId.GetHashCode() + dropLimitId);
+                        user.DropDataList.Add(dropData);
+                    }
+                    //Debug.Log("xuwu equip max number:" + dropData.Number);
+                    if (dropData.Number > AppHelper.EquipHm_MaxCount)
+                    {
+                        //触发保底
+                        if (RandomHelper.RandomResult(AppHelper.EquipHm_MinRate))
+                        {
+                            staticQuality = 10;
+                            seed = TimeHelper.TodaySeed() + dropData.Seed;
+                            //Debug.Log("xuwu 保底" + dropData.Seed);
+
+                            dropData.Number = 0;
+                            dropData.Seed++;
+                        }
+                    }
+                    else
+                    {
+                        if (ruleType == RuleType.BossFamily)
+                        {
+                            dropData.Number += 0;
+                        }
+                        else
+                        {
+                            dropData.Number += 3;
+                        }
+                    }
+
+
+                }
+                return BuildEquipCycle7(config, staticQuality, qualityRate, seed);
+            }
 
             int runeId = config.RuneId;
             int suitId = config.SuitId;
@@ -218,6 +262,39 @@ namespace Game
             return equip;
         }
 
+
+        public static Equip BuildEquipCycle7(EquipConfig config, int staticQuality, int qualityRate, int seed)
+        {
+
+            int quality = staticQuality;
+            if (quality <= 0)
+            {
+                quality = RandomQuanlityCycle7(qualityRate);
+            }
+
+            int runeId = 0;
+            int suitId = 0;
+
+            if (quality > 2)
+            {
+                SkillRuneConfig runeConfig = SkillRuneConfigCategory.Instance.GeEquipRuneCycle7(quality, config.Role, seed);
+
+                runeId = runeConfig.Id;
+
+                suitId = SkillSuitHelper.RandomSuit(seed, runeConfig.SkillId, runeConfig.Type).Id;
+            }
+
+            Equip equip = new Equip(config.Id, runeId, suitId, quality);
+            if (seed < 0)
+            {
+                seed = AppHelper.InitSeed();
+            }
+            equip.Init(seed);
+
+            equip.Count = 1;
+            return equip;
+        }
+
         private static int RandomQuanlityCycle5(double realRate)
         {
             int start = 0;
@@ -277,6 +354,39 @@ namespace Game
                     }
 
                     return 10 - i - start;
+                }
+            }
+
+            return 1;
+        }
+
+        private static int RandomQuanlityCycle7(double realRate)
+        {
+            int start = 0;
+
+            //             青, 粉,暗, 金  ,红, 橙,    紫  ,   蓝   ,  绿  , 白
+            int[] rates = { 1, 4, 15, 30, 100, 1000, 10000, 100000, 500000, 1000000, 2000000 };
+
+            //int[] rates = { 1, 10, 200, 300, 400, 500, 600, 7000, 8000, 10000 };
+
+            int r = RandomHelper.RandomNumber(0, rates[10]);
+
+            AppHelper.HmCount++;
+            //Debug.Log("quality start :" + AppHelper.CopyCount + "xuwu count :" + AppHelper.XuwuCount + " realRate:" + realRate);
+
+            r = (int)(r / realRate);
+
+            for (int i = 0; i < rates.Length; i++)
+            {
+                if (r < rates[i])
+                {
+                    if (i == 0)
+                    {
+                        //防止SL，给最高品质-1
+                        start = AppHelper.GetLossQuality();
+                    }
+
+                    return 11 - i - start;
                 }
             }
 

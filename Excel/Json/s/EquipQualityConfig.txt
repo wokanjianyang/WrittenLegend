@@ -9,4 +9,5 @@
 {"_t":"EquipQualityConfig","_id":8,"AttrIdList":[2001,2002,2003],"AttrValueList":[10,20,20]},
 {"_t":"EquipQualityConfig","_id":9,"AttrIdList":[2001,2002,2003],"AttrValueList":[15,30,30]},
 {"_t":"EquipQualityConfig","_id":10,"AttrIdList":[2001,2002,2003,2013],"AttrValueList":[20,40,40,20]},
+{"_t":"EquipQualityConfig","_id":11,"AttrIdList":[2001,2002,2003,2013],"AttrValueList":[40,80,80,40]},
 ]}

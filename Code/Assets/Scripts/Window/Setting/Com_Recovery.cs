@@ -57,6 +57,11 @@ namespace Game
         public Toggle tg_Equip_Keep_Xuwu;
         public InputField if_Equip_Total_Xuwu;
 
+        [Title("寂灭装备")]
+        public Dropdown dp_Equip_Recovery_Jimie;
+        public Toggle tg_Equip_Keep_Jimie;
+        public InputField if_Equip_Total_Jimie;
+
         [Title("普通专属")]
         public Dropdown dp_Exclusive_Keep;
         public Dropdown dp_Exclusive_Recovery;
@@ -159,6 +164,10 @@ namespace Game
             //虚无装备
             dp_Equip_Recovery_Xuwu.ClearOptions();
             dp_Equip_Recovery_Xuwu.AddOptions(new List<string>() { "无", "白色", "绿色", "蓝色", "紫色", "橙色", "红色", "金色", "暗金", "粉色", "青色" }); //, "混沌"
+
+            //寂灭装备
+            dp_Equip_Recovery_Jimie.ClearOptions();
+            dp_Equip_Recovery_Jimie.AddOptions(new List<string>() { "无", "白色", "绿色", "蓝色", "紫色", "橙色", "红色", "金色", "暗金", "粉色", "青色", "青绿" }); //, "寂灭"
 
             //专属
             dp_Exclusive_Keep.ClearOptions();
@@ -267,6 +276,11 @@ namespace Game
             tg_Equip_Keep_Xuwu.isOn = setting.Equip_Xuwu_Keep;
             if_Equip_Total_Xuwu.text = setting.Equip_Xuwu_Total.ToString();
 
+            //寂灭装备
+            dp_Equip_Recovery_Jimie.value = setting.Equip_Jimie_Recovery;
+            tg_Equip_Keep_Jimie.isOn = setting.Equip_Jimie_Keep;
+            if_Equip_Total_Jimie.text = setting.Equip_Jimie_Total.ToString();
+
             //普通专属
             dp_Exclusive_Recovery.value = setting.Exclusive_Recovery;
             dp_Exclusive_Keep.value = setting.Exclusive_Keep;
@@ -361,11 +375,17 @@ namespace Game
             int.TryParse(if_Equip_Total_Hundun.text, out int equipHundunTotal);
             setting.Equip_Hundun_Total = equipHundunTotal;
 
-            //混沌装备
+            //虚无装备
             setting.Equip_Xuwu_Recovery = dp_Equip_Recovery_Xuwu.value;
             setting.Equip_Xuwu_Keep = tg_Equip_Keep_Xuwu.isOn;
             int.TryParse(if_Equip_Total_Xuwu.text, out int equipXuwuTotal);
             setting.Equip_Xuwu_Total = equipXuwuTotal;
+
+            //寂灭装备
+            setting.Equip_Jimie_Recovery = dp_Equip_Recovery_Jimie.value;
+            setting.Equip_Jimie_Keep = tg_Equip_Keep_Jimie.isOn;
+            int.TryParse(if_Equip_Total_Jimie.text, out int equipJimieTotal);
+            setting.Equip_Jimie_Total = equipJimieTotal;
 
             //其他回收
             setting.PetQuality = dp_Pet.value;

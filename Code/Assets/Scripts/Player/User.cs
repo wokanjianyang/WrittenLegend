@@ -68,6 +68,7 @@ namespace Game
 
         public IDictionary<int, IDictionary<int, Equip>> EquipPanelHundunList { get; set; } = new Dictionary<int, IDictionary<int, Equip>>();
         public IDictionary<int, IDictionary<int, Equip>> EquipPanelXuwuList { get; set; } = new Dictionary<int, IDictionary<int, Equip>>();
+        public IDictionary<int, IDictionary<int, Equip>> EquipPanelHmList { get; set; } = new Dictionary<int, IDictionary<int, Equip>>();
 
         public IDictionary<int, Equip> EquipPanelSpecial { get; set; } = new Dictionary<int, Equip>();
 
@@ -96,6 +97,7 @@ namespace Game
 
         public bool EquipXuwuSetting { get; set; } = false;
 
+        public bool EquipHmSetting { get; set; } = false;
         public int EquipGoldenIndex { get; set; } = 0;
 
         public int EquipDarkGoldIndex { get; set; } = 0;
@@ -104,6 +106,7 @@ namespace Game
 
         public int EquipXuwuIndex { get; set; } = 0;
 
+        public int EquipHmIndex { get; set; } = 0;
         public int SkillPanelIndex { get; set; } = 0;
 
         public IDictionary<int, MagicData> MagicEquipStrength { get; set; } = new Dictionary<int, MagicData>();
@@ -551,6 +554,15 @@ namespace Game
 
             //装备属性-虚无装备
             foreach (KeyValuePair<int, Equip> kvp in EquipPanelXuwuList[EquipXuwuIndex])
+            {
+                foreach (KeyValuePair<int, double> a in kvp.Value.GetTotalAttrList(0))
+                {
+                    AttributeBonus.SetAttr((AttributeEnum)a.Key, AttributeFrom.EquipBase, kvp.Key, a.Value);
+                }
+            }
+
+            //装备属性-鸿蒙装备
+            foreach (KeyValuePair<int, Equip> kvp in EquipPanelHmList[EquipHmIndex])
             {
                 foreach (KeyValuePair<int, double> a in kvp.Value.GetTotalAttrList(0))
                 {
@@ -1274,6 +1286,9 @@ namespace Game
             //虚无词条
             skillList.AddRange(this.EquipPanelXuwuList[EquipXuwuIndex].Where(m => m.Value.SkillRuneConfig != null && m.Value.SkillRuneConfig.SkillId == skillId).Select(m => m.Value.SkillRuneConfig.Id).ToList());
 
+            //鸿蒙词条
+            skillList.AddRange(this.EquipPanelHmList[EquipHmIndex].Where(m => m.Value.SkillRuneConfig != null && m.Value.SkillRuneConfig.SkillId == skillId).Select(m => m.Value.SkillRuneConfig.Id).ToList());
+
             //暗金词条
             if (skillLayer > 0)
             {
@@ -1328,6 +1343,9 @@ namespace Game
             //虚无套装
             skillList.AddRange(this.EquipPanelXuwuList[EquipXuwuIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SkillSuitConfig.SkillId == skillId).Select(m => m.Value.SkillSuitConfig).ToList());
 
+            //鸿蒙套装
+            skillList.AddRange(this.EquipPanelHmList[EquipHmIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SkillSuitConfig.SkillId == skillId).Select(m => m.Value.SkillSuitConfig).ToList());
+
             //暗金词条
             if (skillLayer > 0)
             {
@@ -1366,7 +1384,7 @@ namespace Game
             count += this.EquipPanelDarkGoldList[EquipDarkGoldIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SuitConfigId == suitId).Count();
             count += this.EquipPanelHundunList[EquipHundunIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SuitConfigId == suitId).Count();
             count += this.EquipPanelXuwuList[EquipXuwuIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SuitConfigId == suitId).Count();
-
+            count += this.EquipPanelHmList[EquipHmIndex].Where(m => m.Value.SkillSuitConfig != null && m.Value.SuitConfigId == suitId).Count();
             return count;
         }
 
@@ -1450,6 +1468,10 @@ namespace Game
             else if (quality == 10)
             {
                 equips = this.EquipPanelXuwuList[EquipXuwuIndex].Select(m => m.Value).Where(m => m.GetQuality() == quality && m.EquipConfig.Role == role).ToList();
+            }
+            else if (quality == 11)
+            {
+                equips = this.EquipPanelHmList[EquipHmIndex].Select(m => m.Value).Where(m => m.GetQuality() == quality && m.EquipConfig.Role == role).ToList();
             }
 
             List<int> layers = equips.Select(m => m.Layer).OrderByDescending(m => m).ToList();

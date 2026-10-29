@@ -55,6 +55,7 @@ namespace Game
         public Button btn_Equip_Dark_Gold;
         public Button btn_Equip_Hundun;
         public Button btn_Equip_Xuwu;
+        public Button btn_Equip_Hm;
         public Button btn_Relic;
 
 
@@ -71,6 +72,7 @@ namespace Game
         public Dialog_Equip_Dark_Gold DialogEquipDarkGold;
         public Dialog_Equip_Hundun DialogEquipHundun;
         public Dialog_Equip_Xuwu DialogEquipXuwu;
+        public Dialog_Equip_Hm DlgEquipHm;
         public Dialog_Shengxiao_Panel DialogShengxiaoPanel;
 
         private List<Com_Box> items = new List<Com_Box>();
@@ -106,6 +108,7 @@ namespace Game
             this.btn_Equip_Dark_Gold.onClick.AddListener(OnOpenEquipDarkGold);
             this.btn_Equip_Hundun.onClick.AddListener(OnOpenEquipHundun);
             this.btn_Equip_Xuwu.onClick.AddListener(OnOpenEquipXuwu);
+            this.btn_Equip_Hm.onClick.AddListener(OnOpenEquipHm);
             this.btn_Talent.onClick.AddListener(OnOpenTalent);
             this.btn_Relic.onClick.AddListener(OnOpenRelic);
             this.btn_Shengxiao.onClick.AddListener(OnOpenShengxiao);
@@ -202,6 +205,15 @@ namespace Game
             else
             {
                 this.btn_Equip_Xuwu.gameObject.SetActive(false);
+            }
+
+            if (user.MapId >= 1245 && !ac)
+            {
+                this.btn_Equip_Hm.gameObject.SetActive(true);
+            }
+            else
+            {
+                this.btn_Equip_Hm.gameObject.SetActive(false);
             }
 
             if (user.Cycle.Data > 0 || user.MagicLevel.Data >= 50000 || user.PetList.Count > 0)
@@ -327,6 +339,13 @@ namespace Game
                 yield return null;
             }
 
+            List<SlotBox> hms = DlgEquipHm.GetComponentsInChildren<SlotBox>().ToList();
+            for (int i = 0; i < hms.Count; i++)
+            {
+                hms[i].Init(prefab, 61 + i);
+                yield return null;
+            }
+
             foreach (var kvEp in user.EquipPanelList)
             {
                 foreach (var kvp in kvEp.Value)
@@ -366,6 +385,13 @@ namespace Game
 
             //穿戴虚无装
             foreach (var kvp in user.EquipPanelXuwuList[user.EquipXuwuIndex])
+            {
+                this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
+                //yield return null;
+            }
+
+            //穿戴鸿蒙装
+            foreach (var kvp in user.EquipPanelHmList[user.EquipHmIndex])
             {
                 this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
                 //yield return null;
@@ -729,6 +755,20 @@ namespace Game
                     this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
                 }
             }
+            else if (e.Type == 7)
+            {
+                user.EquipHmIndex = e.Index;
+
+                for (int i = 61; i <= 70; i++)
+                {
+                    this.ClearEquipPanelItem(i);
+                }
+
+                foreach (var kvp in user.EquipPanelHmList[e.Index])
+                {
+                    this.CreateEquipPanelItem(-1, kvp.Key, kvp.Value);
+                }
+            }
         }
 
 
@@ -761,10 +801,16 @@ namespace Game
                 GameProcessor.Inst.EventCenter.Raise(new ChangeEquipPlanEvent() { Type = 5, Index = index });
             }
 
-            if (user.EquipHundunSetting)
+            if (user.EquipXuwuSetting)
             {
                 user.EquipXuwuIndex = index;
                 GameProcessor.Inst.EventCenter.Raise(new ChangeEquipPlanEvent() { Type = 6, Index = index });
+            }
+
+            if (user.EquipHmSetting)
+            {
+                user.EquipHmIndex = index;
+                GameProcessor.Inst.EventCenter.Raise(new ChangeEquipPlanEvent() { Type = 7, Index = index });
             }
 
             user.SkillPanelIndex = index;
@@ -1635,6 +1681,10 @@ namespace Game
             {
                 ep = user.EquipPanelXuwuList[user.EquipXuwuIndex];
             }
+            else if (Part >= 61 && Part <= 70)
+            {
+                ep = user.EquipPanelHmList[user.EquipHmIndex];
+            }
 
             //增加一次穿戴记录，用做轮流穿戴左右
             if (!user.EquipRecord.ContainsKey(Part))
@@ -1870,9 +1920,13 @@ namespace Game
             {
                 slot = DialogEquipHundun.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
-            else if (position >= 41 && position <= 60)
+            else if (position >= 51 && position <= 60)
             {
                 slot = DialogEquipXuwu.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
+            }
+            else if (position >= 61 && position <= 70)
+            {
+                slot = DlgEquipHm.GetComponentsInChildren<SlotBox>().Where(s => (int)s.SlotType == position).First();
             }
 
             if (slot.GetEquip() != null) //防止叠加，无限刷道具
@@ -1968,6 +2022,10 @@ namespace Game
             else if (position >= 51 && position <= 60)
             {
                 user.EquipPanelXuwuList[user.EquipXuwuIndex].Remove(position);
+            }
+            else if (position >= 61 && position <= 70)
+            {
+                user.EquipPanelHmList[user.EquipHmIndex].Remove(position);
             }
 
             //通知英雄更新属性
@@ -2141,6 +2199,11 @@ namespace Game
         public void OnOpenEquipXuwu()
         {
             DialogEquipXuwu.Show();
+        }
+
+        public void OnOpenEquipHm()
+        {
+            DlgEquipHm.Show();
         }
 
         public void OnOpenTalent()

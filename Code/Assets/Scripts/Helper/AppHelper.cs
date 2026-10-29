@@ -23,14 +23,19 @@ namespace Game
         public static int CopyCount = 0;
         public static int HundunCount = 0;
         public static int XuwuCount = 0;
+        public static int HmCount = 0;
 
         public const int EquipHundun_MaxDropId = 1000001; //混沌装备，保底id
         public const int EquipHundun_MaxCount = 8000; //混沌装备，保底数量
         public const int EquipHundun_MinRate = 100; //保底概率
 
-        public const int EquipXuwu_MaxDropId = 1000002; //混沌装备，保底id
+        public const int EquipXuwu_MaxDropId = 1000002; //虚无装备，保底id
         public const int EquipXuwu_MaxCount = 12000; //混沌装备，保底数量
         public const int EquipXuwu_MinRate = 200; //保底概率
+
+        public const int EquipHm_MaxDropId = 1000003; //鸿蒙装备，保底id
+        public const int EquipHm_MaxCount = 20000; //混沌装备，保底数量
+        public const int EquipHm_MinRate = 300; //保底概率
 
         public static int TestExclusive2 = 0;
         public static int TestExclusive3 = 0;
