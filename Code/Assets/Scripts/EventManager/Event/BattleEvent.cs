@@ -586,7 +586,6 @@ namespace Game
     //--festive
     public class FestiveStartEvent : SDD.Events.Event
     {
-        public int Id { get; set; }
     }
     public class ShowFestiveInfoEvent : SDD.Events.Event
     {

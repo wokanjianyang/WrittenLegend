@@ -982,6 +982,10 @@ namespace Game
             {
                 this.AutoStartMap(ruleType);
             }
+            else if (ruleType == RuleType.Festive)
+            {
+                this.AutoStartMap(ruleType);
+            }
             else if (ruleType == RuleType.Myth && AppHelper.Myth_Auto)
             {
                 this.AutoStartMap(ruleType);
@@ -1053,6 +1057,9 @@ namespace Game
                     break;
                 case RuleType.EquipCopy:
                     this.EventCenter.Raise(new AutoStartCopyEvent());
+                    break;
+                case RuleType.Festive:
+                    this.EventCenter.Raise(new FestiveStartEvent());
                     break;
                 case RuleType.Shengxiao:
                     this.EventCenter.Raise(new ShengxiaoStartEvent() { Id = AppHelper.Shengxiao_Id });

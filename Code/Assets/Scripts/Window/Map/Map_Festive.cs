@@ -48,7 +48,9 @@ public class Map_Festive : MonoBehaviour, IBattleLife
     {
         this.gameObject.SetActive(true);
 
-        long count = GameProcessor.Inst.User.GetCurrentMapFestive().Number.Data;
+        User user = GameProcessor.Inst.User;
+
+        long count = user.GetCurrentMapFestive().Number.Data;
 
         if (count <= 0)
         {
@@ -56,10 +58,18 @@ public class Map_Festive : MonoBehaviour, IBattleLife
             return;
         }
 
-        Dictionary<string, object> param = new Dictionary<string, object>();
-        param.Add("MapId", e.Id);
+        int id = user.GetCurrentMapFestive().Record + 1;
 
-        FestiveCopyConfig config = FestiveCopyConfigCategory.Instance.Get(e.Id);
+        if (id > FestiveCopyConfigCategory.Instance.GetAll().Count)
+        {
+            GameProcessor.Inst.EventCenter.Raise(new ShowGameMsgEvent() { Content = "ÒÑÍ¨¹Ø", ToastType = ToastTypeEnum.Failure });
+            return;
+        }
+
+        Dictionary<string, object> param = new Dictionary<string, object>();
+        param.Add("MapId", id);
+
+        FestiveCopyConfig config = FestiveCopyConfigCategory.Instance.Get(id);
 
         Txt_Name.text = config.MapName;
 

@@ -354,11 +354,11 @@ namespace Game
             GameProcessor.Inst.EventCenter.Raise(new MythStartEvent() { Id = id });
         }
 
-        public void StartFestive(int id)
+        public void StartFestive()
         {
             scrollRect.gameObject.SetActive(false);
 
-            GameProcessor.Inst.EventCenter.Raise(new FestiveStartEvent() { Id = id });
+            GameProcessor.Inst.EventCenter.Raise(new FestiveStartEvent() {  });
         }
 
         public void StartShengxiao(int id)
